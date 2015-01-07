@@ -19,6 +19,7 @@ coverage.data
 # keys
 src/project/sitekey.txt
 src/project/siteurl.txt
+environment-vars.txt
 
 # IDE project settings
 .idea
