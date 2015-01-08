@@ -1,4 +1,5 @@
 import os
+import re
 
 TIME_ZONE = 'America/New_York'
 DEBUG = True
@@ -16,6 +17,32 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
 # folder in the root of the src tree that contains all the configuration
 # information for the flavor.
+
+
+def read_env():
+    """Pulled from Honcho code with minor updates, reads local default
+    environment variables from a .env file located in the project root
+    directory.
+
+    """
+    try:
+        with open('.env') as f:
+            content = f.read()
+    except IOError:
+        content = ''
+
+    for line in content.splitlines():
+        m1 = re.match(r'\A([A-Za-z_0-9]+)=(.*)\Z', line)
+        if m1:
+            key, val = m1.group(1), m1.group(2)
+            m2 = re.match(r"\A'(.*)'\Z", val)
+            if m2:
+                val = m2.group(1)
+            m3 = re.match(r'\A"(.*)"\Z', val)
+            if m3:
+                val = re.sub(r'\\(.)', r'\1', m3.group(1))
+            os.environ.setdefault(key, val)
+read_env()
 
 dataset_root_val = os.environ['DUWAMISH_SITE_URL']
 dataset_key_val = os.environ['DUWAMISH_SITE_KEY']
