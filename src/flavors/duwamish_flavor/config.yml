@@ -54,6 +54,19 @@ map:
       id: 0
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
+      # WMS Original Flow
+    - url: http://130.211.177.95:8080/geoserver/wria9/wms
+#    - url: /static/data/WRIA9:WRIA9roi.geojson
+      layers: 'wria9:Historical_Flow'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.4
+      title: _(Historical Flow)
+      visible: false
+#      id: 1
+
       # WMS landuse
     - url: http://130.211.177.95:8080/geoserver/wria9/wms
       layers: 'wria9:Landuse2010'
@@ -64,7 +77,7 @@ map:
       opacity: 0.5
       title: _(Landuse data (zoning info))
       visible: false
-      id: 1
+#      id: 1
 
       # WMS NLCD
     - url: http://130.211.177.95:8080/geoserver/wria9/wms
@@ -76,7 +89,7 @@ map:
       opacity: 0.4
       title: _(Land covereage data (vegetation))
       visible: false
-      id: 2
+#      id: 2
 
       # WMS Buildings connection:
     - url: http://130.211.177.95:8080/geoserver/wria9/wms # GCE Geoserver
@@ -87,7 +100,7 @@ map:
       legend: true
       title: _(Duwamish area buildings data)
       visible: false
-      id: 3
+#      id: 3
 
       # Polygon ROI
 #    - url: //130.211.177.95:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:regionofinterest&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
@@ -103,7 +116,7 @@ map:
       legend: true
       title: _(Duwamish region of interest)
       visible: false
-      id: 4
+#      id: 4
 
      # Mapbox project freehand drawing imports
     - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
@@ -114,7 +127,7 @@ map:
       legend: true
       visible: false
       title: _(Project management drawings)
-      id: 5
+#      id: 5
       rules:
       # Polygons
         - condition: '"{{marker-symbol}}" == "undefined"'
