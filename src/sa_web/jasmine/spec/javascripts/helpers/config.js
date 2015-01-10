@@ -2,9 +2,9 @@ var Shareabouts = Shareabouts || {};
 
 Shareabouts.SpecConfig = {
   placeTypesConfig: {
-    "Landmark": {"default": "blue", "focused": "red"},
-    "School": {"default": "blue", "focused": "red"},
-    "Park": {"default": "blue", "focused": "red"}
+    "Observation": {"default": "blue", "focused": "red"},
+    "Question": {"default": "blue", "focused": "red"},
+    "Idea": {"default": "blue", "focused": "red"}
   },
   placeTypeIconsConfig: {
     "blue": {"iconSize": {"width": 17, "height": 18}, "iconUrl": "/static/css/images/feature-point.png", "iconAnchor": {"y": 9, "x": 9}, "popupAnchor": {"y": 9, "x": 9}},
