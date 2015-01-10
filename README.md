@@ -2,36 +2,38 @@ Hey Duwamish!
 ===========
 For a brief summary, please view: [http://smartercleanup.org/](http://smartercleanup.org/)
 
-Our goal is to build a geography based community monitoring platform. An excellent example was put together by the GarageLab collective for the [Riachuelo river cleanup in Buenos Aires, Argentina](http://quepasariachuelo.org.ar/)
+We are building a geography based community monitoring platform. Our goal is to empower residents to monitor environmental health issues and engage with local leaders to address their concerns. Our first release is focused on the Lower Duwamish River superfund site in Seattle, WA.
 
-More details getting involved with **Hey Duwamish!** can be found [here](http://wiki.smartercleanup.org/doku.php?id=contribute)
+We were inspired by the GarageLab collective in Buenos Aires, Argentina who built [Que Pasa Riachuelo](http://quepasariachuelo.org.ar/) to monitor the pollution along the Riachuelo river basin.
+
+More details on getting involved with **Hey Duwamish!** can be found [here](http://wiki.smartercleanup.org/doku.php?id=contribute)
 
 Features
 -------------
 <dl>
-  <dt>Add New Places</dt>
-  <dd>Adding places is easy. The simple interface lets users quickly drop pins on the map with descriptions and other useful information.</dd>
+  <dt>Submit a Report</dt>
+  <dd>Adding reports is easy. The simple interface lets users quickly drop pins on the map with descriptions and other useful information.</dd>
 
-  <dt>Comment on Places</dt>
-  <dd>Engage your audience in meaningful conversation. Users can leave [rich media] comments on places.</dd>
+  <dt>Comment on Reports</dt>
+  <dd>Engage your audience in meaningful conversation. Users can leave [rich media] comments on reports.</dd>
 
   <dt>Explore Rich Environmental Data</dt>
   <dd>Overlay pertinent geographic data. Applying custom vector data to our Geoserver, the Hey Duwamish! map can pull in GeoJson and WMS URLs as additional map layers.</dd>
 
-  <dt>Mapbox Project Integration</dt>
+  <dt>Mapbox Projeplct Integration</dt>
   <dd>Import a Mapbox project to enhance project management into the map</dd>
 
-  <dt>Explore Places and Comments</dt>
-  <dd>The map allows users to find places and comments in their areas of interest.</dd>
+  <dt>Explore Reports and Comments</dt>
+  <dd>The map allows users to find reports and comments in their areas of interest.</dd>
 
   <dt>Show Support</dt>
-  <dd>Need to know which places are most popular? Users can vote for their favorite places to show their support.</dd>
+  <dd>Need to know which reports are most popular? Users can vote for their favorite reports to show their support.</dd>
 
   <dt>Social Sharing</dt>
-  <dd>Harness the power of viral marketing. Users engage their social network when they share places on Twitter and Facebook.</dd>
+  <dd>Harness the power of viral marketing. Users engage their social network when they share reports on Twitter and Facebook.</dd>
 
   <dt>Activity Feed</dt>
-  <dd>See a list of recently submitted places, comments, and support.</dd>
+  <dd>See a list of recently submitted reports, comments, and support.</dd>
 
   <dt>Responsive Design</dt>
   <dd>We've designed Hey Duwamish to work great and look beautiful on all screen sizes—desktop, mobile, and touch screens!</dd>
