@@ -94,7 +94,7 @@ describe('template-helpers.js', function() {
 
 
   describe('overridePlaceTypeConfig', function() {
-    var placeConfig, defaultPlaceTypeName = 'Park';
+    var placeConfig, defaultPlaceTypeName = 'Observation';
 
     var getValueAttr = function(attrs) {
       return _.find(attrs, function(kvp) {
@@ -105,7 +105,7 @@ describe('template-helpers.js', function() {
     beforeEach(function(){
       placeConfig = {"items": [
         // This is the important one
-        {"prompt": "Location Type", "type": "select", "options": ["Landmark", "Park", "School"], "name": "location_type"},
+        {"prompt": "Location Type", "type": "select", "options": ["Observation", "Question", "Idea"], "name": "location_type"},
         {"prompt": "Location Name", "type": "text", "name": "name", "attrs": [{"key": "placeholder", "value": "Location Name"}, {"key": "size", "value": 30}]},
         {"prompt": "Your Name", "type": "text", "name": "submitter_name", "optional": true, "attrs": [{"key": "placeholder", "value": "Name"}, {"key": "size", "value": 30}]},
         {"prompt": "Description", "type": "textarea", "name": "description", "optional": true, "attrs": [{"key": "placeholder", "value": "Description..."}]}
@@ -129,7 +129,7 @@ describe('template-helpers.js', function() {
     });
 
     it('should override value attr when the attrs array is defined', function() {
-      var items = [{"prompt": "Location Type", "type": "select", "options": ["Landmark", "Park", "School"], "name": "location_type",
+      var items = [{"prompt": "Location Type", "type": "select", "options": ["Observation", "Question", "Idea"], "name": "location_type",
       attrs: [{key: 'value', value: 'OpenPlans'}]}];
 
       var valAttr = getValueAttr(items[0].attrs);

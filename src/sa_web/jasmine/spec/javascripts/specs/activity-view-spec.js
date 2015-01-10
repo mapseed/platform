@@ -32,7 +32,7 @@ describe('activity-view.js', function() {
 
     it('should should not detach unsaved models from the place collection when rendering an action', function(){
       var placeId = 222,
-          newPlaceModel = new Backbone.Model({ name: 'TestPlace', location_type: 'Landmark' }),
+          newPlaceModel = new Backbone.Model({ name: 'TestPlace', location_type: 'Observation' }),
           newActionModel = new Backbone.Model({ place_id: placeId });
 
       spyOn($, 'ajax').andCallFake(function(options){

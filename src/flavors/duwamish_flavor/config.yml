@@ -149,10 +149,10 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  landmark:
+  observation:
     label: _(Observation)
     rules:
-      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -162,7 +162,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 1
 
-      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -170,7 +170,7 @@ place_types:
           iconSize: [50, 60]
           iconAnchor: [9, 9]
 
-      - condition: '"{{location_type}}" === "landmark" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "observation" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -180,10 +180,10 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
-  park:
+  question:
     label: _(Question)
     rules:
-      - condition: '"{{location_type}}" === "park" && {{layer.focused}}'
+      - condition: '"{{location_type}}" === "question" && {{layer.focused}}'
         # Show parks that are points as icons...
 
         icon:
@@ -201,7 +201,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "park"'
+      - condition: '"{{location_type}}" === "question"'
         # Show parks that are points as icons...
 
         icon:
@@ -217,10 +217,10 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.4
 
-  school:
+  idea:
     label: _(Idea)
     rules:
-      - condition: '"{{location_type}}" === "school" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -230,7 +230,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 1
 
-      - condition: '"{{location_type}}" === "school" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -238,7 +238,7 @@ place_types:
           iconSize: [50, 60]
           iconAnchor: [9, 9]
 
-      - condition: '"{{location_type}}" === "school" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -305,11 +305,11 @@ place:
         - label: _(Choose One)
           value: ''
         - label: _(Observation)
-          value: landmark
+          value: observation
         - label: _(Question)
-          value: park
+          value: question
         - label: _(Idea)
-          value: school
+          value: idea
       name: location_type
       attrs:
         - key: required
@@ -378,3 +378,19 @@ pages:
   - title: _(Contribute)
     slug: contribute
     name: contribute
+
+
+  - title: _(Filter Places ⌄)
+    pages:
+      - title: _(Show All)
+        url: /
+        external: true
+      - title: _(Observation)
+        url: /filter/observation
+        external: true
+      - title: _(Idea)
+        url: /filter/idea
+        external: true
+      - title: _(Question)
+        url: /filter/question
+        external: true

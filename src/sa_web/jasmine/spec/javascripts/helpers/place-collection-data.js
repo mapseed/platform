@@ -25,7 +25,7 @@ Shareabouts.SpecData.placeCollectionData = [
     "location":{"lat":39.9579119326,"lng":-75.1707229614}
   },
   {
-    "location_type":"Park",
+    "location_type":"Idea",
     "description":"Very lovely square.",
     "updated_datetime":"2012-08-27T14:10:47.479Z",
     "created_datetime":"2012-08-27T14:10:47.479Z",
@@ -47,7 +47,7 @@ Shareabouts.SpecData.placeCollectionData = [
     "location": { "lat":39.9492928168,"lng":-75.1718559265}
   },
   {
-    "location_type":"Park",
+    "location_type":"Idea",
     "description":"Merry go round!!",
     "updated_datetime":"2012-08-27T14:35:53.113Z",
     "created_datetime":"2012-08-27T14:35:53.113Z",
@@ -64,7 +64,7 @@ Shareabouts.SpecData.placeCollectionData = [
     "location": { "lat":39.9558723926,"lng":-75.1504840851}
   },
   {
-    "location_type":"School",
+    "location_type":"Question",
     "description":"",
     "updated_datetime":"2012-08-27T14:42:49.295Z",
     "created_datetime":"2012-08-27T14:42:49.295Z",
@@ -126,11 +126,11 @@ Shareabouts.SpecData.placeCollectionData = [
     "location": { "lat":39.9523852962,"lng":-75.1635990143}
   },
   {
-    "name":"Maybe a park",
+    "name":"Maybe an Idea",
     "updated_datetime":"2012-08-27T15:16:28.355Z",
     "created_datetime":"2012-08-27T13:56:18.895Z",
     "description":"I'm not sure. It's green anyway. hi",
-    "location_type":"Landmark",
+    "location_type":"Observation",
     "visible":false,
     "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/6/",
     "submitter_name":"Paul",
@@ -175,7 +175,7 @@ Shareabouts.SpecData.placeCollectionData = [
     "location": { "lat":39.9729763275,"lng":-75.1593761444}
   },
   {
-    "location_type":"Park",
+    "location_type":"Idea",
     "description":"",
     "updated_datetime":"2012-08-28T17:17:20.025Z",
     "created_datetime":"2012-08-28T17:17:20.025Z",
