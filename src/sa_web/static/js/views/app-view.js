@@ -554,6 +554,12 @@ var Shareabouts = Shareabouts || {};
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
     },
+    showAddButton: function() {
+      this.$addButton.show();
+    },
+    hideAddButton: function() {
+      this.$addButton.hide();
+    },
     showCenterPoint: function() {
       this.$centerpoint.show().removeClass('newpin');
     },
