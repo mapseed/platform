@@ -380,17 +380,17 @@ pages:
     name: contribute
 
 
-  - title: _(Filter Places ⌄)
-    pages:
-      - title: _(Show All)
-        url: /
-        external: true
-      - title: _(Observation)
-        url: /filter/observation
-        external: true
-      - title: _(Idea)
-        url: /filter/idea
-        external: true
-      - title: _(Question)
-        url: /filter/question
-        external: true
+#  - title: _(Filter Places ⌄)
+#    pages:
+#      - title: _(Show All)
+#        url: /
+#        external: true
+#      - title: _(Observation)
+#        url: /filter/observation
+#        external: true
+#      - title: _(Idea)
+#        url: /filter/idea
+#        external: true
+#      - title: _(Question)
+#        url: /filter/question
+#        external: true
