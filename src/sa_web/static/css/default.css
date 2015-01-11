@@ -919,57 +919,339 @@ a.auth-inline {
 /* =The Ticker
 -------------------------------------------------------------- */
 
-#ticker {
+/*#ticker {*/
+  /*background: #777;*/
+  /*position: relative;*/
+  /*z-index: 30;*/
+  /*display: none;*/
+/*}*/
+/*.activity-enabled #ticker {*/
+  /*display: block;*/
+/*}*/
+/*.content-visible #ticker {*/
+  /*display: none;*/
+/*}*/
+
+/*ul.recent-points {*/
+  /*list-style: none;*/
+  /*margin: 0;*/
+  /*color: #ddd;*/
+/*}*/
+/*.recent-points li {*/
+  /*position: relative;*/
+/*}*/
+/*.recent-points li:hover {*/
+/*}*/
+/*.recent-points a {*/
+  /*color: #eee;*/
+  /*text-decoration: none;*/
+  /*float: left;*/
+  /*border-top: 1px solid #888;*/
+  /*border-bottom: 1px solid #666;*/
+  /*padding: 0.5em 0.5em 0.5em 3em;*/
+  /*width: 100%;*/
+  /*-webkit-box-sizing: border-box;*/
+     /*-moz-box-sizing: border-box;*/
+          /*box-sizing: border-box;*/
+/*}*/
+/*.recent-points li:first-child a {*/
+  /*border-top: 0;*/
+  /*padding-top: 0.75em;*/
+/*}*/
+/*.recent-points a:hover {*/
+  /*color: #fff;*/
+  /*background: #666;*/
+  /*border-color: #666;*/
+/*}*/
+/*.recent-points .avatar {*/
+  /*width: 2em;*/
+  /*height: 2em;*/
+  /*float: left;*/
+  /*margin-left: -2.5em;*/
+/*}*/
+
+
+
+/* =MasterLegend
+-------------------------------------------------------------- */
+
+/*#master-legend {*/
+  /*background: #777;*/
+  /*position: relative;*/
+  /*z-index: 30;*/
+  /*display: none;*/
+/*}*/
+/*.activity-enabled #master-legend {*/
+  /*display: block;*/
+/*}*/
+/*.content-visible #master-legend {*/
+  /*display: none;*/
+/*}*/
+
+/*ul.recent-points {*/
+  /*list-style: none;*/
+  /*margin: 0;*/
+  /*color: #ddd;*/
+/*}*/
+/*.recent-points li {*/
+  /*position: relative;*/
+/*}*/
+/*.recent-points li:hover {*/
+/*}*/
+/*.recent-points a {*/
+  /*color: #eee;*/
+  /*text-decoration: none;*/
+  /*float: left;*/
+  /*border-top: 1px solid #888;*/
+  /*border-bottom: 1px solid #666;*/
+  /*padding: 0.5em 0.5em 0.5em 3em;*/
+  /*width: 100%;*/
+  /*-webkit-box-sizing: border-box;*/
+  /*-moz-box-sizing: border-box;*/
+  /*box-sizing: border-box;*/
+/*}*/
+/*.recent-points li:first-child a {*/
+  /*border-top: 0;*/
+  /*padding-top: 0.75em;*/
+/*}*/
+/*.recent-points a:hover {*/
+  /*color: #fff;*/
+  /*background: #666;*/
+  /*border-color: #666;*/
+/*}*/
+/*.recent-points .avatar {*/
+  /*width: 2em;*/
+  /*height: 2em;*/
+  /*float: left;*/
+  /*margin-left: -2.5em;*/
+/*}*/
+
+#master-legend {
+  display: none;
+
   background: #777;
-  position: relative;
-  z-index: 30;
-  display: none;
-}
-.activity-enabled #ticker {
-  display: block;
-}
-.content-visible #ticker {
-  display: none;
-}
 
-ul.recent-points {
-  list-style: none;
-  margin: 0;
-  color: #ddd;
-}
-.recent-points li {
-  position: relative;
-}
-.recent-points li:hover {
-}
-.recent-points a {
   color: #eee;
-  text-decoration: none;
-  float: left;
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #666;
-  padding: 0.5em 0.5em 0.5em 3em;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+
+  /*width: 18em;*/
+  /*padding-top: 0.75em;*/
+  /*padding-right: 1em;*/
+  /*padding-bottom: 1em;*/
+  /*padding-left: 1em;*/
+
+
+  overflow: auto;
+  /*background-color: #ffffff;*/
+  /*background: #777;*/
+  /*position: relative;*/
+  /*z-index: 30;*/
+    /*display: none;*/
 }
-.recent-points li:first-child a {
-  border-top: 0;
-  padding-top: 0.75em;
+#master-legend header {
+  /*color: #fff;*/
+  font-size: 2.3em;
+  font-family: 'Dancing Script', cursive;
+  /*font-weight: 700;*/
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
 }
-.recent-points a:hover {
-  color: #fff;
-  background: #666;
-  border-color: #666;
-}
-.recent-points .avatar {
-  width: 2em;
-  height: 2em;
-  float: left;
-  margin-left: -2.5em;
+#master-legend p {
+  margin: 0.3em 0 .4em; /* top, right, bottom */
+  color: #eee;
+  font-size: 1.2em;
+  /*margin-top: 0px;*/
+  /*margin-right: 0px;*/
+  /*margin-bottom: 1.5em; */
 }
 
+/*.activity-enabled #master-legend {*/
+  /*display: block;*/
+/*}*/
+/*.content-visible #master-legend {*/
+  /*display: none;*/
+/*}*/
+/* All layers in the Master Legend list */
+#master-legend .unstyled-list {
+  font-size: 0.875em;
+  font-weight: normal;
+}
+
+.layer-type-list {
+}
+/* allows hover to be positioned on the 'layer-type-description' */
+.layer-type-list li {
+  position: relative;
+}
+.layer-type-list img {
+  height: 1.75em;
+  width: auto;
+  vertical-align: middle;
+}
+
+/*.layer-type-title label {*/
+  /*text-transform: none;*/
+/*}*/
+
+/*.layer-type-title:before {*/
+  /*content:"\0020";*/
+  /*position: absolute;*/
+  /*height:14px;*/
+  /*width:14px;*/
+  /*display: block;*/
+  /*border-right: 1px solid #0A9F67;*/
+  /*border-top: 1px solid #0A9F67;*/
+  /*background-color: #fff;*/
+  /*right:-8px;*/
+  /*top: 10px;*/
+
+  /*transform: rotate(45deg);*/
+  /*-ms-transform: rotate(45deg); *//* IE 9 */
+  /*-webkit-transform: rotate(45deg); *//* Safari and Chrome */
+  /*-o-transform: rotate(45deg); *//* Opera */
+  /*-moz-transform: rotate(45deg); *//* Firefox */
+/*}*/
+
+/* format items on the form */
+/*.layer-type-title {*/
+  /*font-weight: bold;*/
+  /*font-size:1.1em;*/
+  /*border-bottom:1px solid #999;*/
+  /*margin-right: 20px;*/
+  /*padding: 0.2em 0;*/
+
+/*}*/
+
+.layer-type-description {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  right: 1em;
+  bottom: auto;
+  left: 0.875em;
+  margin: 0.25em 0 0 0;
+  border-radius: 0 0.5em 0.5em 0.5em;
+  background: #000;
+  color: #fff;
+  font-size: 0.875em;
+  line-height: 1.25;
+  box-shadow: -0.25em 0 1em rgba(255,255,255,0.8);
+  -webkit-transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  transition: opacity .25s ease-in-out;
+  pointer-events: none;
+}
+.layer-type-li:hover .layer-type-description {
+  height: auto;
+  padding: 0.375em 0.625em;
+  opacity: 1;
+  overflow: visible;
+}
+.layer-type-li:hover .layer-type-description:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 0.5em solid transparent;
+  border-bottom-color: #000;
+  border-left-color: #000;
+}
+
+#master-legend .layer-type-list {
+  font-size: 0.875em;
+}
+/*#master-legend .layer-type-list .layer-type-li {*/
+  /*cursor: pointer;*/
+/*}*/
+
+#master-legend .layer-type-title label, .layer-type-title input {
+  cursor: pointer;
+}
+#master-legend .layer-type-title label {
+  /*background-color: #f26522;*/
+  color: #ddd;
+  font-weight: normal;
+  /*box-shadow: inset 0 -3px 0 #fff, -3px -3px #f26522, 3px -3px #f26522;*/
+/*}*/
+ /*#master-legend .layer-type-list .active img {*/
+  /*position: relative;*/
+  position: absolute;
+  z-index: 20;
+
+  text-transform: none;
+}
+
+/*.layer-type-title label, .layer-type-title input {*/
+  /*cursor: pointer;*/
+  /*text-transform: none;*/
+  /*color: #eee;*/
+  /*font-size: 1em;*/
+/*}*/
+
+/* highlight link when click is held down */
+#master-legend .layer-type-title:active label {
+  color: #00aaff;
+}
+
+/*#master-legend .layer-type-list .active:after {*/
+  /*content: '';*/
+  /*position: absolute;*/
+  /*z-index: 10;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*height: 1.75em;*/
+  /*width: 1.75em;*/
+  /*border-radius: 100%;*/
+  /*background: #fff;*/
+  /*box-shadow: 0 0 0 2px #fff;*/
+/*}*/
+#master-legend .map-layer-list {
+  margin-bottom: 0.5em;
+  font-size: 0.75em;
+}
+#master-legend {
+  display: block;
+  padding: 1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@media screen and (min-width: 40.063em) {
+  .active #master-legend {
+    height: 100%;
+    width: 18em;
+    /*width: 18em;*/
+    /*position: absolute;*/
+    position: relative;
+    top: 0;
+    right: 0;
+    overflow: auto;
+  }
+}
+
+/* Shareabouts layers */
+/*#master-legend .shareabouts-layer-title label, .shareabouts-layer-title input {*/
+#master-legend .shareabouts-layer-li {
+  cursor: pointer;
+  position: relative;
+}
+/*#master-legend .shareabouts-layer-title label {*/
+#master-legend .shareabouts-layer-li {
+  /*background-color: #f26522;*/
+  color: #ddd;
+  /*box-shadow: inset 0 -3px 0 #fff, -3px -3px #f26522, 3px -3px #f26522;*/
+  /*}*/
+  /*#master-legend .layer-type-list .active img {*/
+  /*position: relative;*/
+  position: relative;
+  z-index: 20;
+
+  text-transform: none;
+}
 
 /* =List View
 -------------------------------------------------------------- */
@@ -1538,7 +1820,9 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
   .activity-enabled #geocode-address-bar {
+    /*right: 16em;*/
     right: 18em;
+    /*right: 20em;*/
   }
   #geocode-address-bar .error {
     padding: 0.25em 0.5em;
@@ -1563,7 +1847,31 @@ a.close-unsupported-overlay {
   }
 
   /* The Ticker */
-  #ticker {
+  /*#ticker {*/
+    /*position: absolute;*/
+    /*top: 5em; *//* height of #site-header */
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*left: auto;*/
+    /*width: 18em;*/
+    /*overflow: auto;*/
+    /*-webkit-overflow-scrolling: touch;*/
+    /*z-index: 15;*/
+    /*box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);*/
+  /*}*/
+  /*.activity-enabled.content-visible #ticker {*/
+    /*display: block;*/
+  /*}*/
+  /*ul.recent-points {*/
+    /*font-size: 0.875em;*/
+    /*-webkit-transform: translateZ(0px); *//* needed on #ticker > * for touch scrolling */
+  /*}*/
+  /*.activity-enabled #map-container {*/
+    /*right: 18em; *//* width of #ticker */
+  /*}*/
+
+  /* master-legend */
+  #master-legend {
     position: absolute;
     top: 5em; /* height of #site-header */
     right: 0;
@@ -1575,15 +1883,15 @@ a.close-unsupported-overlay {
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
-  .activity-enabled.content-visible #ticker {
+  .activity-enabled.content-visible #master-legend {
     display: block;
   }
-  ul.recent-points {
-    font-size: 0.875em;
-    -webkit-transform: translateZ(0px); /* needed on #ticker > * for touch scrolling */
-  }
+  /*ul.recent-points {*/
+    /*font-size: 0.875em;*/
+    /*-webkit-transform: translateZ(0px);  needed on #ticker > * for touch scrolling*/
+  /*}*/
   .activity-enabled #map-container {
-    right: 18em; /* width of #ticker */
+    right: 18em;  /* width of #master-legend */
   }
 
   /* List View */
@@ -1628,7 +1936,7 @@ a.close-unsupported-overlay {
             box-sizing: border-box;
   }
   .activity-enabled #colophon {
-    right: 18em; /* width of #ticker */
+    right: 18em;   /* width of #master-legend */
   }
   #powered-by {
     margin-bottom: 0;

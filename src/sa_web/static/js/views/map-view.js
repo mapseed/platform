@@ -25,6 +25,8 @@ var Shareabouts = Shareabouts || {};
       self.placeLayers = L.layerGroup();
 
       var controlLayers = {};
+      self.layers = {};
+      var legendLayerId = 0;
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
@@ -34,6 +36,8 @@ var Shareabouts = Shareabouts || {};
         if (config.type) {
           layer = L.argo(config.url, config);
           controlLayers[config.title] = layer;
+          self.layers[legendLayerId] = layer;
+          legendLayerId++;
 
         // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
         // WMS indicator. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
@@ -52,6 +56,8 @@ var Shareabouts = Shareabouts || {};
             fillOpacity: config.fillOpacity
           });
           controlLayers[config.title] = layer;
+          self.layers[legendLayerId] = layer;
+          legendLayerId++;
 
         } else {
           // Assume a tile layer
@@ -67,6 +73,12 @@ var Shareabouts = Shareabouts || {};
       // Leaflet control:
       L.control.layers.position = 'topright';
       L.control.layers({}, controlLayers).addTo(self.map);
+
+//      for (var key in controlLayers) {
+//        if (controlLayers.hasOwnProperty(key)) {
+//
+//        }
+//      }
 
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
@@ -105,8 +117,32 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
 
+       // Start Master Legend
+      new S.LegendView({
+        el: '#master-legend',
+        layers: self.options.mapConfig.layers
+      });
+
+      // Bind visiblity event
+      $(S).on('visibility', function (evt, id, visible) {
+        self.setLayerVisibility(self.layers[id], visible);
+      });
+
     }, // end initialize
 
+    // Adds or removes the layer  on Master Layer based on visibility
+    setLayerVisibility: function(layer, visible) {
+      this.map.closePopup();
+      if (visible && !this.map.hasLayer(layer)) {
+        console.log("adding layer:");
+        console.log(layer);
+        this.map.addLayer(layer);
+      }
+      if (!visible && this.map.hasLayer(layer)) {
+        console.log("removing layer...");
+        this.map.removeLayer(layer);
+      }
+    },
     reverseGeocodeMapCenter: _.debounce(function() {
       var center = this.map.getCenter();
       S.Util.MapQuest.reverseGeocode(center, {
@@ -154,7 +190,6 @@ var Shareabouts = Shareabouts || {};
         }
         alert(message);
       };
-
       var onLocationFound = function(evt) {
         var msg;
         if(!self.map.options.maxBounds ||self.map.options.maxBounds.contains(evt.latlng)) {
@@ -165,7 +200,6 @@ var Shareabouts = Shareabouts || {};
           alert(msg);
         }
       };
-
       // Add the geolocation control link
       this.$('.leaflet-control-layers').parent().append(
         '<div class="leaflet-control leaflet-bar locate-me-container">' +

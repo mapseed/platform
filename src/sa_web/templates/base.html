@@ -108,16 +108,64 @@
 
     </div>
 
+
+
     <div id="content"><!-- .place or .page -->
       <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
       <article></article>
     </div><!-- end #content -->
-  </div><!-- end #main -->
 
-  <div id="ticker">
+  </div><!-- end #main -->
+  <!--&lt;!&ndash;<div class="shareabouts-legend">&ndash;&gt;-->
+  <!--<div id="master-legend" class="shareabouts-location-map-container active">-->
+  <!--&lt;!&ndash;<div id="master-legend">&ndash;&gt;-->
+  <!--block sidebar and endblock was here-->
+      <!--<p>To share an issue, please zoom in and select an intersection. <span class="nobreak">We're gathering</span> feedback on these safety conditions:</p>-->
+      <!--<p>Master Legend:</p>-->
+      <!--<ul class="layer-type-list unstyled-list">-->
+      <!--<ul class="layer-type-list unstyled-list">-->
+          <!--<li class="layer-type-li" data-locationtype="notime"><strong>Not enough time to cross</strong> <span class="layer-type-description">Pedestrians don’t have enough time to cross the street during the "Walk" signal.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="doublepark"><strong>Double parking</strong> <span class="layer-type-description">Many vehicles are parked in moving lanes.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="longwait"><img src="styles/images/icon-longwait.png">&nbsp;<strong>Long wait to cross</strong> <span class="layer-type-description">Pedestrians need to wait too long to receive the "Walk" signal.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="redlight"><img src="styles/images/icon-redlight.png">&nbsp;<strong>Red light running</strong> <span class="layer-type-description">Many drivers don’t stop at a red light or a stop sign.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="jaywalking"><img src="styles/images/icon-jaywalking.png">&nbsp;<strong>Jaywalking</strong> <span class="layer-type-description">Many pedestrians cross the street against the signal or in the middle of the block.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="visibility"><img src="styles/images/icon-visibility.png">&nbsp;<strong>Poor visibility</strong> <span class="layer-type-description">Drivers and pedestrians have difficulty seeing each other.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="speeding"><img src="styles/images/icon-speeding.png">&nbsp;<strong>Speeding</strong> <span class="layer-type-description">Many drivers travel above the speed limit.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="longcross"><img src="styles/images/icon-longcross.png">&nbsp;<strong>Long distance to cross</strong> <span class="layer-type-description">The road is too wide to cross comfortably and/or there aren’t safe areas where pedestrians can wait if the signal changes to "Don’t Walk".</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="yield"><img src="styles/images/icon-yield.png">&nbsp;<strong>Failure to yield to pedestrians</strong> <span class="layer-type-description">Drivers turning into the crosswalk don’t yield to crossing pedestrians.</span></li>-->
+          <!--<li class="layer-type-li" data-locationtype="bike"><img src="styles/images/icon-bike.png">&nbsp;<strong>Cyclist behavior</strong> <span class="layer-type-description">Many cyclists do not yield to pedestrians, bike against the flow of traffic, ignore traffic signals or other issues.</span></li>-->
+      <!--</ul>-->
+      <!--<hr>-->
+      <!--<ul class="map-layer-list unstyled-list">-->
+          <!--<li><span class="road-color" style="background-color:#fc7165;"></span>Pedestrian crash corridors (top 10% of streets in each borough)</li>-->
+          <!--<li><img class="fatality" src="styles/images/red-square-stroked-14.png">&nbsp;Pedestrian fatality (2008-12)</li>-->
+          <!--<li><span class="road-color" style="background-color:#ffff99;"></span>Major arterial roads</li>-->
+      <!--</ul>-->
+  <!--</div>-->
+  <!--<div id="map-legend" class="shareabouts-location-map-container active">-->
+  <div id="master-legend">
     {% block sidebar %}{% endblock %}
-    <ul class="recent-points unstyled-list"></ul>
+    <!--<p>To share an issue, please zoom in and select an intersection. <span class="nobreak">We're gathering</span> feedback on these safety conditions:</p>-->
+    <header>Master Legend</header>
+    <!--<hr>-->
+    <p>Toggle these information layers:</p>
+
+    <!--<ul class="layer-type-list unstyled-list">-->
+    <!--<li class="layer-type-li" data-locationtype="notime"><strong>Not enough time to cross</strong> <span class="layer-type-description">Pedestrians don’t have enough time to cross the street during the "Walk" signal.</span></li>-->
+    <!--<li class="layer-type-li" data-locationtype="doublepark"><strong>Double parking</strong> <span class="layer-type-description">Many vehicles are parked in moving lanes.</span></li>-->
+    <!--</ul>-->
+
+    <!--<ul class="map-layer-list unstyled-list">-->
+    <!--<li><span class="road-color" style="background-color:#fc7165;"></span>Pedestrian crash corridors (top 10% of streets in each borough)</li>-->
+    <!--<li><img class="fatality" src="styles/images/red-square-stroked-14.png">&nbsp;Pedestrian fatality (2008-12)</li>-->
+    <!--<li><span class="road-color" style="background-color:#ffff99;"></span>Major arterial roads</li>-->
+    <!--</ul>-->
   </div>
+
+  <!--<div id="ticker">-->
+  <!--block sidebar and endblock was here-->
+    <!--<ul class="recent-points unstyled-list"></ul>-->
+  <!--</div>-->
 
   <div id="list-container"></div>
 
@@ -214,6 +262,7 @@
   <script src="{{settings.COMPRESS_URL}}js/views/place-form-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/place-list-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/geocode-address-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/legend-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/routes.js"></script>
   {% endcompress %}
 
@@ -224,6 +273,7 @@
   {% handlebarsjs 'pages/*' precompile %}
 
   <script type="text/javascript">
+//  <!--<script>-->
   (function(S, $){
     // Boostrapping the place types and their icons
     S.Config = {
@@ -261,7 +311,7 @@
         pagesConfig: S.Config.pages
       });
     });
-  })(Shareabouts, jQuery);
+  }(Shareabouts, jQuery));
   </script>
 
   {% if settings.GOOGLE_ANALYTICS_ID %}
