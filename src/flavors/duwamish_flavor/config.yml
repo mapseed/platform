@@ -127,7 +127,7 @@ map:
 #"></p>'
       popupContent: '{{title}}'
       legend: true
-      visible: false
+      visible: true
       title: _(Project management drawings)
 #      id: 5
       rules:
