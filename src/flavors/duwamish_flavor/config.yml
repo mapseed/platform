@@ -153,6 +153,35 @@ map:
             weight: 3
             opacity: 0.7
 
+    # Shareabouts layers
+    - title: _(Show All)
+      shareabouts: true
+      url: /
+      external: true
+      visible: true
+#      legend: true
+    - title: _(Observation)
+      shareabouts: true
+      image: /static/css/images/markers/marker-observation.png
+      url: /filter/observation
+      external: true
+      visible: true
+#      legend: true
+    - title: _(Idea)
+      shareabouts: true
+      image: /static/css/images/markers/marker-idea.png
+      url: /filter/idea
+      external: true
+      visible: true
+#      legend: true
+    - title: _(Question)
+      shareabouts: true
+      image: /static/css/images/markers/marker-question.png
+      url: /filter/question
+      external: true
+      visible: true
+#      legend: true
+
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
