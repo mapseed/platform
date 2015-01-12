@@ -157,6 +157,7 @@ map:
     - title: _(Show All)
       shareabouts: true
       url: /
+      image: /static/css/images/ticker-point.png
       external: true
       visible: true
 #      legend: true
