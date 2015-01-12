@@ -189,8 +189,8 @@ var Shareabouts = Shareabouts || {};
         }
       };
       // Add the geolocation control link
-      this.$('.leaflet-control-layers').parent().append(
-        '<div class="leaflet-control leaflet-bar locate-me-container">' +
+      this.$('.leaflet-top.leaflet-right').append(
+        '<div class="leaflet-control leaflet-bar">' +
           '<a href="#" class="locate-me"></a>' +
         '</div>'
       );
