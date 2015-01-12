@@ -311,7 +311,11 @@ var Shareabouts = Shareabouts || {};
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'panel', 'close-btn-click');
-      this.options.router.navigate('/', {trigger: true});
+      if (this.mapView.locationTypeFilter) {
+        this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
+      } else {
+        this.options.router.navigate('/', {trigger: true});
+      }
     },
     // This gets called for every model that gets added to the place
     // collection, not just new ones.
@@ -620,6 +624,7 @@ var Shareabouts = Shareabouts || {};
         this.showListView();
         this.options.router.navigate('list');
       }
+      this.mapView.clearFilter();
     }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));

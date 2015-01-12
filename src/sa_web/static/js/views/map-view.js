@@ -24,7 +24,6 @@ var Shareabouts = Shareabouts || {};
       console.log(L);
       self.placeLayers = L.layerGroup();
 
-//      var controlLayers = {};
       self.layers = {};
       var legendLayerId = 0;
 
@@ -35,7 +34,6 @@ var Shareabouts = Shareabouts || {};
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type) {
           layer = L.argo(config.url, config);
-//          controlLayers[config.title] = layer;
           self.layers[legendLayerId] = layer;
           legendLayerId++;
 
@@ -55,7 +53,6 @@ var Shareabouts = Shareabouts || {};
             weight: config.weight,
             fillOpacity: config.fillOpacity
           });
-//          controlLayers[config.title] = layer;
           self.layers[legendLayerId] = layer;
           legendLayerId++;
 
@@ -72,16 +69,6 @@ var Shareabouts = Shareabouts || {};
           layer.addTo(self.map);
         }
       });
-      // Leaflet control:
-//      L.control.layers.position = 'topright';
-//      L.control.layers({}, controlLayers).addTo(self.map);
-
-//      for (var key in controlLayers) {
-//        if (controlLayers.hasOwnProperty(key)) {
-//
-//        }
-//      }
-
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
 
@@ -129,11 +116,6 @@ var Shareabouts = Shareabouts || {};
       $(S).on('visibility', function (evt, id, visible) {
         self.setLayerVisibility(self.layers[id], visible);
       });
-//      Bind visiblity event
-//      $(S).on('shareaboutsVisibility', function (evt, id, visible) {
-//        self.setLayerVisibility(self.layers[id], visible);
-//      });
-
     }, // end initialize
 
     // Adds or removes the layer  on Master Layer based on visibility
@@ -236,7 +218,9 @@ var Shareabouts = Shareabouts || {};
         router: this.options.router,
         map: this.map,
         placeLayers: this.placeLayers,
-        placeTypes: this.options.placeTypes
+        placeTypes: this.options.placeTypes,
+        // to access the filter
+        mapView: this
       });
     },
     removeLayerView: function(model) {
@@ -245,6 +229,28 @@ var Shareabouts = Shareabouts || {};
     },
     zoomInOn: function(latLng) {
       this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
+    },
+    filter: function(locationType) {
+    var self = this;
+    console.log('filter the map', arguments);
+    this.locationTypeFilter = locationType;
+    this.collection.each(function(model) {
+      var modelLocationType = model.get('location_type');
+
+      if (modelLocationType &&
+        modelLocationType.toUpperCase() === locationType.toUpperCase()) {
+        self.layerViews[model.cid].show();
+      } else {
+        self.layerViews[model.cid].hide();
+      }
+    });
+    },
+    clearFilter: function() {
+      var self = this;
+      this.locationTypeFilter = null;
+      this.collection.each(function(model) {
+        self.layerViews[model.cid].render();
+      });
     }
   });
 
