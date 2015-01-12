@@ -12,7 +12,8 @@ var Shareabouts = Shareabouts || {};
       'place/:id/edit': 'editPlace',
       'list': 'showList',
       'page/:slug': 'viewPage',
-      ':zoom/:lat/:lng': 'viewMap'
+      ':zoom/:lat/:lng': 'viewMap',
+      'filter/:locationtype': 'filterMap'
     },
 
     initialize: function(options) {
@@ -38,6 +39,33 @@ var Shareabouts = Shareabouts || {};
       // Global route changes
       this.bind('route', function(route, router) {
         S.Util.log('ROUTE', self.getCurrentPath());
+      });
+
+      this.bind('route', function(route) {
+        if (route === 'filterMap' || route === 'viewPlace') {
+// Don't clear the filter
+        } else {
+          this.appView.mapView.clearFilter();
+        }
+      }, this);
+
+      $(document).on('click', 'a[href^="/"]', function(evt) {
+        var $link = $(evt.currentTarget),
+          href = $link.attr('href'),
+          url;
+
+// Handle /filter links
+        if (href.indexOf('/filter') === 0) {
+          evt.preventDefault();
+
+// Remove leading slashes and hash bangs (backward compatablility)
+          url = href.replace(/^\//, '').replace('#!/', '');
+
+// # Instruct Backbone to trigger routing events
+          self.navigate(url, { trigger: true });
+
+          return false;
+        }
       });
 
       this.loading = true;
@@ -90,6 +118,7 @@ var Shareabouts = Shareabouts || {};
 
     viewMap: function(zoom, lat, lng) {
       this.appView.viewMap(zoom, lat, lng);
+      this.appView.mapView.clearFilter();
     },
 
     newPlace: function() {
@@ -118,6 +147,14 @@ var Shareabouts = Shareabouts || {};
       return (fragment === '' || (fragment.indexOf('place') === -1 &&
         fragment.indexOf('page') === -1 &&
         fragment.indexOf('list') === -1));
+    },
+    filterMap: function(locationType) {
+      this.appView.hidePanel();
+      this.appView.hideNewPin();
+      this.appView.destroyNewModels();
+      this.appView.showAddButton();
+
+      this.appView.mapView.filter(locationType);
     }
   });
 

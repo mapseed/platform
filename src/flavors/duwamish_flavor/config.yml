@@ -64,20 +64,11 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.4
+      description: _(The orginal Duwamish flow)
       title: _(Historical Flow)
       visible: false
 #      id: 1
 
-      # WMS landuse
-    - url: http://130.211.177.95:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.5
-      title: _(Landuse data (zoning info))
-      visible: false
 #      id: 1
 
       # WMS NLCD
@@ -88,9 +79,22 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.4
-      title: _(Land covereage data (vegetation))
+      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
+      title: _(Land covereage data)
       visible: false
 #      id: 2
+
+      # WMS landuse
+    - url: http://130.211.177.95:8080/geoserver/wria9/wms
+      layers: 'wria9:Landuse2010'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.5
+      description: _(Zoning information by area)
+      title: _(Landuse data )
+      visible: false
 
       # WMS Buildings connection:
     - url: http://130.211.177.95:8080/geoserver/wria9/wms # GCE Geoserver
@@ -99,7 +103,8 @@ map:
       transparent: 'true'
       format: 'image/png'
       legend: true
-      title: _(Duwamish area buildings data)
+      description: _(Building use, by category)
+      title: _(Duwamish area buildings)
       visible: false
 #      id: 3
 
@@ -115,6 +120,7 @@ map:
             fillOpacity: 0.2
             weight: 2
       legend: true
+      description: _(The Duwamish river basin)
       title: _(Duwamish region of interest)
       visible: false
 #      id: 4
@@ -123,8 +129,7 @@ map:
 #    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
     - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
-      description: '<p>Mapbox polygon test.</p><p>Some things I drew, view the source here: <br><img src="https://www.mapbox.com/editor/?id=lukemswart.k8fnolpm#project
-#"></p>'
+      description: '<p>Mapbox polygon test.</p><p>Some things I drew, view the geojson here:<br><a href="http://api.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ">link here!</a> and an image here: <br> <a href="http://www.natural-environment.com/places/milford_sound.php" target="_blank"> <img src="http://www.quackit.com/pix/milford_sound/milford_sound_t.jpg" border="2" style="border:2px solid black;max-width:100%;" alt="Photo of Milford Sound in New Zealand!" /></a></p>'
       popupContent: '{{title}}'
       legend: true
       visible: true
@@ -147,6 +152,36 @@ map:
             fillOpacity: 0.3
             weight: 3
             opacity: 0.7
+
+    # Shareabouts layers
+    - title: _(Show All)
+      shareabouts: true
+      url: /
+      image: /static/css/images/ticker-point.png
+      external: true
+      visible: true
+#      legend: true
+    - title: _(Observation)
+      shareabouts: true
+      image: /static/css/images/markers/marker-observation.png
+      url: /filter/observation
+      external: true
+      visible: true
+#      legend: true
+    - title: _(Idea)
+      shareabouts: true
+      image: /static/css/images/markers/marker-idea.png
+      url: /filter/idea
+      external: true
+      visible: true
+#      legend: true
+    - title: _(Question)
+      shareabouts: true
+      image: /static/css/images/markers/marker-question.png
+      url: /filter/question
+      external: true
+      visible: true
+#      legend: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).

@@ -916,14 +916,45 @@ a.auth-inline {
 }
 
 
+/* =The Side Bar
+-------------------------------------------------------------- */
+#side-bar {
+  display: none;
+  overflow: auto;
+
+  background: #777;
+  color: #eee;
+}
+#side-bar header {
+  font-size: 2.3em;
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+}
+#side-bar p {
+  margin: 0.3em 0 .4em; /* top, right, bottom */
+  color: #eee;
+  font-size: 1.1em;
+}
+#side-bar hr {
+  margin: 0.5em 0;
+}
+
+#side-bar {
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /* =The Ticker
 -------------------------------------------------------------- */
 
 #ticker {
   background: #777;
-  position: relative;
   z-index: 30;
   display: none;
+}
+#ticker p {
+  padding-left: 1em;
 }
 .activity-enabled #ticker {
   display: block;
@@ -931,11 +962,11 @@ a.auth-inline {
 .content-visible #ticker {
   display: none;
 }
-
 ul.recent-points {
   list-style: none;
   margin: 0;
   color: #ddd;
+  padding: 0;
 }
 .recent-points li {
   position: relative;
@@ -970,6 +1001,145 @@ ul.recent-points {
   margin-left: -2.5em;
 }
 
+/* =MasterLegend
+-------------------------------------------------------------- */
+#master-legend {
+  overflow: visible;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 1em;
+  /*display: none;*/
+}
+/* All layers in the Master Legend list */
+#master-legend .unstyled-list {
+  font-size: 0.875em;
+  font-weight: normal;
+}
+
+.layer-type-list {
+}
+/* allows hover to be positioned on the 'layer-type-description' */
+.layer-type-list li {
+  position: relative;
+}
+.layer-type-list img {
+  height: 1.75em;
+  width: auto;
+  vertical-align: middle;
+}
+.layer-type-description {
+  height: 0;
+  overflow: visible;
+  opacity: 0;
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  right: 1em;
+  bottom: auto;
+  left: 0.875em;
+  margin: 0.25em 0 0 0;
+  border-radius: 0 0.5em 0.5em 0.5em;
+  background: #000;
+  color: #fff;
+  font-size: 0.875em;
+  line-height: 1.25;
+  box-shadow: -0.25em 0 1em rgba(255,255,255,0.8);
+  -webkit-transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  transition: opacity .25s ease-in-out;
+  pointer-events: none;
+}
+.layer-type-li:hover .layer-type-description {
+  height: auto;
+  padding: 0.375em 0.625em;
+  opacity: 1;
+  overflow: visible;
+}
+.layer-type-li:hover .layer-type-description:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 0.5em solid transparent;
+  border-bottom-color: #000;
+  border-left-color: #000;
+}
+
+#master-legend .layer-type-list {
+  font-size: 0.875em;
+}
+
+#master-legend .layer-type-title label, .layer-type-title input {
+  cursor: pointer;
+}
+#master-legend .layer-type-title label {
+  color: #ddd;
+  font-weight: normal;
+  position: absolute;
+  z-index: 20;
+
+  text-transform: none;
+}
+#master-legend .layer-type-title:active label,
+#master-legend .shareabouts-layer-li:active a {
+  color: #00aaff;
+}
+
+/*#master-legend .layer-type-list:after {*/
+  /*content: '';*/
+  /*position: absolute;*/
+  /*z-index: 10;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*height: 1.75em;*/
+  /*width: 1.75em;*/
+  /*border-radius: 100%;*/
+  /*background: #fff;*/
+  /*box-shadow: 0 0 0 2px #fff;*/
+/*}*/
+#master-legend .map-layer-list {
+  margin-bottom: 0.5em;
+  font-size: 0.75em;
+}
+/*#master-legend {*/
+  /*display: block;*/
+  /*padding: 1em;*/
+  /*-webkit-box-sizing: border-box;*/
+  /*-moz-box-sizing: border-box;*/
+  /*box-sizing: border-box;*/
+/*}*/
+@media screen and (min-width: 40.063em) {
+  .active #master-legend {
+  /*#master-legend {*/
+    height: 100%;
+    width: 16em;
+    /*position: relative;*/
+    top: 0;
+    right: 0;
+    overflow: auto;
+  }
+}
+
+/* Shareabouts layers */
+#master-legend .shareabouts-layer-li a {
+  cursor: pointer;
+  position: relative;
+  color: #ddd;
+  z-index: 20;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+}
+#master-legend .shareabouts-layer-title {
+  cursor: pointer;
+  width: 1em;
+  height: auto;
+  z-index: 20;
+  text-transform: none;
+}
 
 /* =List View
 -------------------------------------------------------------- */
@@ -1538,7 +1708,9 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
   .activity-enabled #geocode-address-bar {
+    /*right: 16em;*/
     right: 18em;
+    /*right: 20em;*/
   }
   #geocode-address-bar .error {
     padding: 0.25em 0.5em;
@@ -1562,8 +1734,8 @@ a.close-unsupported-overlay {
     margin-right: 0;
   }
 
-  /* The Ticker */
-  #ticker {
+  /* The Side Bar */
+  #side-bar {
     position: absolute;
     top: 5em; /* height of #site-header */
     right: 0;
@@ -1575,15 +1747,42 @@ a.close-unsupported-overlay {
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
+  .activity-enabled.content-visible #side-bar {
+    display: block;
+  }
+  .activity-enabled #map-container {
+    right: 18em;  /* width of #master-legend */
+  }
+  /* The Ticker */
+  #ticker {
+    right: 0;
+    bottom: 0;
+    left: auto;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 15;
+  }
   .activity-enabled.content-visible #ticker {
     display: block;
   }
   ul.recent-points {
     font-size: 0.875em;
-    -webkit-transform: translateZ(0px); /* needed on #ticker > * for touch scrolling */
+    -webkit-transform: translateZ(0px);  /* needed on #ticker > * for touch scrolling */
   }
   .activity-enabled #map-container {
-    right: 18em; /* width of #ticker */
+    right: 18em;  /* width of #ticker */
+  }
+
+  /* master-legend */
+  #master-legend {
+    -webkit-overflow-scrolling: touch;
+    z-index: 15;
+  }
+  .activity-enabled.content-visible #master-legend {
+    display: block;
+  }
+  .activity-enabled #map-container {
+    right: 18em;  /* width of #master-legend */
   }
 
   /* List View */
@@ -1628,7 +1827,7 @@ a.close-unsupported-overlay {
             box-sizing: border-box;
   }
   .activity-enabled #colophon {
-    right: 18em; /* width of #ticker */
+    right: 18em;   /* width of #master-legend */
   }
   #powered-by {
     margin-bottom: 0;
@@ -1667,9 +1866,4 @@ a.close-unsupported-overlay {
     background-size: contain;
   }
 
-}
-
-/* leaflet overrides */
-#map .leaflet-control-container .locate-me-container {
-  float: left;
 }
