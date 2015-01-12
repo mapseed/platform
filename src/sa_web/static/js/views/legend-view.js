@@ -14,6 +14,7 @@ var Shareabouts = Shareabouts || {};
       this_.$el.append(self.renderShareaboutsLayers());
       this_.$el.append('<hr>');
       this_.$el.append(self.renderInfoLayers());
+      this_.$el.append('<hr>');
 
       // Bind the checkbox change event
       this_.$el.find('.map-legend-checkbox').on('change', self.toggleVisibility);

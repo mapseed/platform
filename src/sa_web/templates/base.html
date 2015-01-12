@@ -108,23 +108,23 @@
 
     </div>
 
-
-
     <div id="content"><!-- .place or .page -->
       <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
       <article></article>
     </div><!-- end #content -->
-
   </div><!-- end #main -->
-  <div id="master-legend">
-    {% block sidebar %}{% endblock %}
-    <header>Master Legend</header>
+
+  <div id="side-bar">
+    <div id="master-legend">
+      {% block sidebar %}{% endblock %}
+      <!--<header>Master Legend</header>-->
+    </div>
+    <div id="ticker">
+      <p>Recent report activity</p>
+      <ul class="recent-points unstyled-list"></ul>
+    </div>
   </div>
 
-  <!--<div id="ticker">-->
-  <!--block sidebar and endblock was here-->
-    <!--<ul class="recent-points unstyled-list"></ul>-->
-  <!--</div>-->
 
   <div id="list-container"></div>
 

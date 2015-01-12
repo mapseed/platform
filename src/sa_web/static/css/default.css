@@ -916,84 +916,113 @@ a.auth-inline {
 }
 
 
-/* =The Ticker
+/* =The Side Bar
 -------------------------------------------------------------- */
-
-/*#ticker {*/
-  /*background: #777;*/
-  /*position: relative;*/
-  /*z-index: 30;*/
-  /*display: none;*/
-/*}*/
-/*.activity-enabled #ticker {*/
-  /*display: block;*/
-/*}*/
-/*.content-visible #ticker {*/
-  /*display: none;*/
-/*}*/
-
-/*ul.recent-points {*/
-  /*list-style: none;*/
-  /*margin: 0;*/
-  /*color: #ddd;*/
-/*}*/
-/*.recent-points li {*/
-  /*position: relative;*/
-/*}*/
-/*.recent-points li:hover {*/
-/*}*/
-/*.recent-points a {*/
-  /*color: #eee;*/
-  /*text-decoration: none;*/
-  /*float: left;*/
-  /*border-top: 1px solid #888;*/
-  /*border-bottom: 1px solid #666;*/
-  /*padding: 0.5em 0.5em 0.5em 3em;*/
-  /*width: 100%;*/
-  /*-webkit-box-sizing: border-box;*/
-     /*-moz-box-sizing: border-box;*/
-          /*box-sizing: border-box;*/
-/*}*/
-/*.recent-points li:first-child a {*/
-  /*border-top: 0;*/
-  /*padding-top: 0.75em;*/
-/*}*/
-/*.recent-points a:hover {*/
-  /*color: #fff;*/
-  /*background: #666;*/
-  /*border-color: #666;*/
-/*}*/
-/*.recent-points .avatar {*/
-  /*width: 2em;*/
-  /*height: 2em;*/
-  /*float: left;*/
-  /*margin-left: -2.5em;*/
-/*}*/
-
-
-
-/* =MasterLegend
--------------------------------------------------------------- */
-#master-legend {
+#side-bar {
   display: none;
   overflow: auto;
 
   background: #777;
   color: #eee;
 }
-#master-legend header {
+#side-bar header {
   font-size: 2.3em;
   font-family: 'Dancing Script', cursive;
   text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
 }
-#master-legend p {
+#side-bar p {
   margin: 0.3em 0 .4em; /* top, right, bottom */
   color: #eee;
   font-size: 1.1em;
 }
-#master-legend hr {
+#side-bar hr {
   margin: 0.5em 0;
 }
+
+#side-bar {
+  display: block;
+  padding: 1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* =The Ticker
+-------------------------------------------------------------- */
+
+#ticker {
+  background: #777;
+  position: relative;
+  z-index: 30;
+  display: none;
+}
+.activity-enabled #ticker {
+  display: block;
+}
+.content-visible #ticker {
+  display: none;
+}
+
+ul.recent-points {
+  list-style: none;
+  margin: 0;
+  color: #ddd;
+}
+.recent-points li {
+  position: relative;
+}
+.recent-points li:hover {
+}
+.recent-points a {
+  color: #eee;
+  text-decoration: none;
+  float: left;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #666;
+  padding: 0.5em 0.5em 0.5em 3em;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.recent-points li:first-child a {
+  border-top: 0;
+  padding-top: 0.75em;
+}
+.recent-points a:hover {
+  color: #fff;
+  background: #666;
+  border-color: #666;
+}
+.recent-points .avatar {
+  width: 2em;
+  height: 2em;
+  float: left;
+  margin-left: -2.5em;
+}
+
+/* =MasterLegend
+-------------------------------------------------------------- */
+/*#master-legend {*/
+/*#side-bar {*/
+  /*display: none;*/
+  /*overflow: auto;*/
+
+  /*background: #777;*/
+  /*color: #eee;*/
+/*}*/
+/*#side-bar header {*/
+  /*font-size: 2.3em;*/
+  /*font-family: 'Dancing Script', cursive;*/
+  /*text-shadow: 1px -1px 1px rgba(0,0,0,0.5);*/
+/*}*/
+/*#side-bar p {*/
+  /*margin: 0.3em 0 .4em; *//* top, right, bottom */
+  /*color: #eee;*/
+  /*font-size: 1.1em;*/
+/*}*/
+/*#side-bar hr {*/
+  /*margin: 0.5em 0;*/
+/*}*/
 /* All layers in the Master Legend list */
 #master-legend .unstyled-list {
   font-size: 0.875em;
@@ -1090,19 +1119,19 @@ a.auth-inline {
   margin-bottom: 0.5em;
   font-size: 0.75em;
 }
-#master-legend {
-  display: block;
-  padding: 1em;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+/*#master-legend {*/
+  /*display: block;*/
+  /*padding: 1em;*/
+  /*-webkit-box-sizing: border-box;*/
+  /*-moz-box-sizing: border-box;*/
+  /*box-sizing: border-box;*/
+/*}*/
 @media screen and (min-width: 40.063em) {
   .active #master-legend {
   /*#master-legend {*/
     height: 100%;
     width: 16em;
-    position: relative;
+    /*position: relative;*/
     top: 0;
     right: 0;
     overflow: auto;
@@ -1723,32 +1752,8 @@ a.close-unsupported-overlay {
     margin-right: 0;
   }
 
-  /* The Ticker */
-  /*#ticker {*/
-    /*position: absolute;*/
-    /*top: 5em; *//* height of #site-header */
-    /*right: 0;*/
-    /*bottom: 0;*/
-    /*left: auto;*/
-    /*width: 18em;*/
-    /*overflow: auto;*/
-    /*-webkit-overflow-scrolling: touch;*/
-    /*z-index: 15;*/
-    /*box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);*/
-  /*}*/
-  /*.activity-enabled.content-visible #ticker {*/
-    /*display: block;*/
-  /*}*/
-  /*ul.recent-points {*/
-    /*font-size: 0.875em;*/
-    /*-webkit-transform: translateZ(0px); *//* needed on #ticker > * for touch scrolling */
-  /*}*/
-  /*.activity-enabled #map-container {*/
-    /*right: 18em; *//* width of #ticker */
-  /*}*/
-
-  /* master-legend */
-  #master-legend {
+  /* The Side Bar */
+  #side-bar {
     position: absolute;
     top: 5em; /* height of #site-header */
     right: 0;
@@ -1760,13 +1765,54 @@ a.close-unsupported-overlay {
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
+  .activity-enabled.content-visible #side-bar {
+    display: block;
+  }
+  .activity-enabled #map-container {
+    right: 18em;  /* width of #master-legend */
+  }
+  /* The Ticker */
+  #ticker {
+    /*position: absolute;*/
+    position: relative;
+    /*top: 5em;  *//* height of #site-header */
+    right: 0;
+    bottom: 0;
+    left: auto;
+    /*width: 18em;*/
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 15;
+    /*box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);*/
+  }
+  .activity-enabled.content-visible #ticker {
+    display: block;
+  }
+  ul.recent-points {
+    font-size: 0.875em;
+    -webkit-transform: translateZ(0px);  /* needed on #ticker > * for touch scrolling */
+  }
+  .activity-enabled #map-container {
+    right: 18em;  /* width of #ticker */
+  }
+
+  /* master-legend */
+  #master-legend {
+    /*position: absolute;*/
+    /*position: relative;*/
+    /*top: 5em; *//* height of #site-header */
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*left: auto;*/
+    /*width: 18em;*/
+    /*overflow: auto;*/
+    -webkit-overflow-scrolling: touch;
+    z-index: 15;
+    /*box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);*/
+  }
   .activity-enabled.content-visible #master-legend {
     display: block;
   }
-  /*ul.recent-points {*/
-    /*font-size: 0.875em;*/
-    /*-webkit-transform: translateZ(0px);  needed on #ticker > * for touch scrolling*/
-  /*}*/
   .activity-enabled #map-container {
     right: 18em;  /* width of #master-legend */
   }
