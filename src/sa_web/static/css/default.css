@@ -951,7 +951,6 @@ a.auth-inline {
 
 #ticker {
   background: #777;
-  position: relative;
   z-index: 30;
   display: none;
 }
@@ -1002,14 +1001,15 @@ ul.recent-points {
 
 /* =MasterLegend
 -------------------------------------------------------------- */
-/*#master-legend {*/
+#master-legend {
+  overflow: visible;
 /*#side-bar {*/
   /*display: none;*/
   /*overflow: auto;*/
 
   /*background: #777;*/
   /*color: #eee;*/
-/*}*/
+}
 /*#side-bar header {*/
   /*font-size: 2.3em;*/
   /*font-family: 'Dancing Script', cursive;*/
@@ -1042,7 +1042,7 @@ ul.recent-points {
 }
 .layer-type-description {
   height: 0;
-  overflow: hidden;
+  overflow: visible;
   opacity: 0;
   position: absolute;
   z-index: 30;
@@ -1774,7 +1774,6 @@ a.close-unsupported-overlay {
   /* The Ticker */
   #ticker {
     /*position: absolute;*/
-    position: relative;
     /*top: 5em;  *//* height of #site-header */
     right: 0;
     bottom: 0;
