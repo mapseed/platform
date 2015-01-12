@@ -24,7 +24,7 @@ var Shareabouts = Shareabouts || {};
       console.log(L);
       self.placeLayers = L.layerGroup();
 
-      var controlLayers = {};
+//      var controlLayers = {};
       self.layers = {};
       var legendLayerId = 0;
 
@@ -35,7 +35,7 @@ var Shareabouts = Shareabouts || {};
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type) {
           layer = L.argo(config.url, config);
-          controlLayers[config.title] = layer;
+//          controlLayers[config.title] = layer;
           self.layers[legendLayerId] = layer;
           legendLayerId++;
 
@@ -55,10 +55,12 @@ var Shareabouts = Shareabouts || {};
             weight: config.weight,
             fillOpacity: config.fillOpacity
           });
-          controlLayers[config.title] = layer;
+//          controlLayers[config.title] = layer;
           self.layers[legendLayerId] = layer;
           legendLayerId++;
 
+        } else if (config.shareabouts) {
+          // do not upload our shareabouts filter layers
         } else {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
@@ -66,13 +68,13 @@ var Shareabouts = Shareabouts || {};
           layer.addTo(self.map);
         }
         // Add the default visible layers to the map
-        if (config.visible != false) {
+        if (config.visible != false && !config.shareabouts) {
           layer.addTo(self.map);
         }
       });
       // Leaflet control:
-      L.control.layers.position = 'topright';
-      L.control.layers({}, controlLayers).addTo(self.map);
+//      L.control.layers.position = 'topright';
+//      L.control.layers({}, controlLayers).addTo(self.map);
 
 //      for (var key in controlLayers) {
 //        if (controlLayers.hasOwnProperty(key)) {
@@ -127,6 +129,10 @@ var Shareabouts = Shareabouts || {};
       $(S).on('visibility', function (evt, id, visible) {
         self.setLayerVisibility(self.layers[id], visible);
       });
+//      Bind visiblity event
+//      $(S).on('shareaboutsVisibility', function (evt, id, visible) {
+//        self.setLayerVisibility(self.layers[id], visible);
+//      });
 
     }, // end initialize
 
