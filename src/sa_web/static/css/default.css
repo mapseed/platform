@@ -924,6 +924,7 @@ a.auth-inline {
 
   background: #777;
   color: #eee;
+  /*padding: 1em, 1em, 0, 1em;*/
 }
 #side-bar header {
   font-size: 2.3em;
@@ -941,7 +942,7 @@ a.auth-inline {
 
 #side-bar {
   display: block;
-  padding: 1em;
+  /*padding: 1em;*/
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -953,6 +954,12 @@ a.auth-inline {
   background: #777;
   z-index: 30;
   display: none;
+  /*padding-left: 0;*/
+}
+#ticker p {
+  padding-left: 1em;
+
+  /*margin: 0.3em 0 .4em;*/
 }
 .activity-enabled #ticker {
   display: block;
@@ -960,11 +967,15 @@ a.auth-inline {
 .content-visible #ticker {
   display: none;
 }
+/*#ticker .recent-points .activity-item a {*/
+  /*padding-left: 0;*/
+/*}*/
 
 ul.recent-points {
   list-style: none;
   margin: 0;
   color: #ddd;
+  padding: 0;
 }
 .recent-points li {
   position: relative;
@@ -1003,6 +1014,11 @@ ul.recent-points {
 -------------------------------------------------------------- */
 #master-legend {
   overflow: visible;
+
+  /*padding: 1em;*/
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 1em;
 /*#side-bar {*/
   /*display: none;*/
   /*overflow: auto;*/
@@ -1022,7 +1038,7 @@ ul.recent-points {
 /*}*/
 /*#side-bar hr {*/
   /*margin: 0.5em 0;*/
-/*}*/
+}
 /* All layers in the Master Legend list */
 #master-legend .unstyled-list {
   font-size: 0.875em;
@@ -1764,6 +1780,10 @@ a.close-unsupported-overlay {
     -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+
+    /*padding-left: 1em;*/
+    /*padding-top: 1em;*/
+    /*padding-right: 1em;*/
   }
   .activity-enabled.content-visible #side-bar {
     display: block;
@@ -1807,6 +1827,10 @@ a.close-unsupported-overlay {
     /*overflow: auto;*/
     -webkit-overflow-scrolling: touch;
     z-index: 15;
+    /*padding: 1em, 0, 1em, 1em;*/
+    /*padding-left: 1em;*/
+    /*padding-top: 1em;*/
+    /*padding-right: 1em;*/
     /*box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);*/
   }
   .activity-enabled.content-visible #master-legend {
