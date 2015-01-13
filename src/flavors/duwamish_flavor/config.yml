@@ -138,17 +138,22 @@ map:
 #            fillOpacity: '{{fill-opacity}}'
 #            weight: "{{stroke-width}}"
       # Polygons
-        - condition: '"{{marker-symbol}}" == "undefined"'
+#        - condition: '"{{marker-symbol}}" == "undefined" || "{{marker-symbol}}" == ""'
+        - condition: '"{{marker-symbol}}" == "undefined" || !"{{marker-symbol}}"'
           style:
+            shapeType: polygon
             fillColor: "{{fill}}"
             fill: 'true'
+#            fill: true
             color: "{{stroke}}"
             opacity: 0.7
             fillOpacity: '{{fill-opacity}}'
             weight: "{{stroke-width}}"
       # Points (defaulted for now)
-        - condition: '"{{marker-symbol}}" != "undefined"'
+#        - condition: '"{{marker-symbol}}" != "undefined"'
+        - condition: '"{{marker-symbol}}"'
           style:
+            shapeType: point
             color: "#0000FF" # red
             fillOpacity: 0.3
             weight: 3

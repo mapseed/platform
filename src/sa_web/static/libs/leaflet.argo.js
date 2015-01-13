@@ -8,6 +8,9 @@ L.Argo = L.GeoJSON.extend({
 
   initialize: function (geojson, options) {
     // Set options
+    console.log("in L.Argo.init, this:");
+    console.log(this);
+    // Add options and function to L.Util
     L.Util.setOptions(this, options);
     L.Util.setOptions(this, {
       pointToLayer: this._pointToLayer,
@@ -27,6 +30,7 @@ L.Argo = L.GeoJSON.extend({
 
     // Just add data if this is an object
     if (geojson === Object(geojson)) {
+      console.log("Adding geojson object to the layer");
       this.addData(geojson);
     } else if (typeof geojson === 'string') {
       // This is a url, go fetch the geojson
@@ -49,6 +53,8 @@ L.Argo = L.GeoJSON.extend({
       popupContent;
 
     if (this.popupContent) {
+      console.log("this.popupContent:");
+      console.log(this.popupContent);
       popupContent = L.Argo.t(this.popupContent, feature.properties);
     }
 
@@ -96,6 +102,11 @@ L.Argo = L.GeoJSON.extend({
     });
   },
   _getGeoJson: function(url, success, error) {
+    console.log("L.Argo._getGeoJson: fetching via AJAX");
+    console.log("url:");
+    console.log(url);
+//    console.log("success:");
+//    console.log("url:");
     // Fetch the GeoJson using the given type
     $.ajax({
       url: url,
@@ -145,13 +156,16 @@ L.extend(L.Argo, {
     var self = this,
       i, condition, len;
 
+    // Cycle through rules until we hit a matching condition
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
       // this is so we don't have to worry about strings vs nums.
       condition = L.Argo.t(rules[i].condition, properties);
 
       if (eval(condition)) {
-        // Replace the property key-values with the feature specific values
+        console.log("shapeType:");
+        console.log(properties['shapeType']);
+        // The new property values (outlined in the config) are added for Leaflet compatibility
         for (var key in rules[i].style) {
           if (rules[i].style.hasOwnProperty(key)) {
             if (typeof rules[i].style[key] == 'string' || rules[i].style[key] instanceof String) {
@@ -165,6 +179,19 @@ L.extend(L.Argo, {
           }
         }
 
+        // Format 'title' and 'description' for Mapbox -> Leaflet compatability
+        if (properties['title']) {
+          properties['title'] = '<b>' + properties['title'] + '</b>';
+        }
+        if (properties['title'] && properties['description']) {
+          var testBubbleContent = properties['title'] + '<br>' + properties['description'];
+          console.log("setting new properties['title']:");
+          console.log(testBubbleContent);
+          properties['title'] = testBubbleContent;
+        } else if (properties['description']) {
+          properties['title'] = properties['description'];
+        }
+
         properties = {'style' : properties};
 
         if (rules[i].icon) {
@@ -174,6 +201,8 @@ L.extend(L.Argo, {
             properties.icon = rules[i].icon;
           }
         }
+        console.log("returning 'properties' for new geojson feature:");
+        console.log(properties);
         return properties;
       }
     }
