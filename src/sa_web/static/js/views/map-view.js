@@ -106,13 +106,13 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
 
-       // Start Master Legend
+       // Start Master Legend (custom layers)
       new S.LegendView({
         el: '#master-legend',
         layers: self.options.mapConfig.layers
       });
 
-      // Bind visiblity event
+      // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
         self.setLayerVisibility(self.layers[id], visible);
       });
