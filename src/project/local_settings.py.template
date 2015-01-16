@@ -16,10 +16,30 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # information for the flavor.
 
 SHAREABOUTS = {
-  'FLAVOR': 'default',
+  'FLAVOR': 'defaultflavor',
   'DATASET_ROOT': 'http://data.shareabouts.org/api/v2/demo-user/datasets/demo-data/',
   'DATASET_KEY': 'NTNhODE3Y2IzODlmZGZjMWU4NmU3NDhj',
 }
 
 # For geocoding...
 MAPQUEST_KEY = 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u'
+
+# API settings
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'shareabouts-old',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+REST_FRAMEWORK = {
+    'PAGINATE_BY': 500,
+    'PAGINATE_BY_PARAM': 'page_size'
+}
+
+BROKER_URL = 'django://'
+

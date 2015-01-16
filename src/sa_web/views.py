@@ -16,8 +16,8 @@ from django.template import TemplateDoesNotExist, RequestContext
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
-from proxy.views import proxy_view
-
+from django.core.urlresolvers import resolve
+from proxy.views import proxy_view as remote_proxy_view
 
 log = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ def index(request, place_id=None):
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
 
     # Get initial data for bootstrapping into the page.
-    api = ShareaboutsApi(dataset_root=settings.SHAREABOUTS.get('DATASET_ROOT'))
+    api = ShareaboutsApi(dataset_root=request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT')))
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -99,7 +99,7 @@ def index(request, place_id=None):
         })
 
     place = None
-    if place_id:
+    if place_id and place_id != 'new':
         place = api.get('places/' + place_id)
         if place:
             place = json.loads(place)
@@ -151,6 +151,8 @@ def send_place_created_notifications(request, response):
 
     try:
         # The response has things like ID and cretated datetime
+        try: response.render()
+        except: pass
         place = json.loads(response.content)
     except ValueError:
         errors.append('Received invalid place JSON from response: %r' % (response.content,))
@@ -216,6 +218,23 @@ def send_place_created_notifications(request, response):
 
     msg.send()
     return
+
+
+def proxy_view(request, url, requests_args={}):
+    # For full URLs, use a real proxy.
+    if url.startswith('http:') or url.startswith('https:'):
+        return remote_proxy_view(request, url, requests_args=requests_args)
+
+    # For local paths, use a simpler proxy. If there are headers specified
+    # in the requests_args, keep those.
+    else:
+        match = resolve(url)
+        for name, value in requests_args.get('headers', {}).items():
+            name = name.upper().replace('-', '_')
+            if name not in ('ACCEPT', 'CONTENT_TYPE'):
+                name = 'HTTP_' + name
+            request.META[name] = value
+        return match.func(request, *match.args, **match.kwargs)
 
 
 def api(request, path):

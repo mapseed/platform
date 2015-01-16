@@ -38,8 +38,7 @@ Features
   <dt>Responsive Design</dt>
   <dd>We've designed Hey Duwamish to work great and look beautiful on all screen sizes—desktop, mobile, and touch screens!</dd>
 
-  <dt>Configurable Surveys</dt>
-  <dd>Want to collect specific information? Our flexible data storage allows you to create your own surveys. Crowdsource more than just comments.</dd>
+Alternatively, you may want to use a [different hosting service](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md) and set up the components of Shareabouts manually.
 
   <dt>Internationalization</dt>
   <dd>We currently offer a Spanish version of our website, but we are looking to include a Vietnamese version soon</dd>

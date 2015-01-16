@@ -5,6 +5,7 @@ log/*.log
 # tmp
 tmp/
 .sass-cache/
+npm-debug.log
 
 # cover_me generated
 coverage
@@ -27,11 +28,15 @@ environment-vars.txt
 # compiled files
 *.py[co]
 *.mo
+staticfiles/
+src/sa_web/static/build/
+src/sa_web/static/dist/
 
 # environment
 env/
 .env/
 .env
+node_modules/
 
 # Local project settings
 # src/project/local_settings.py

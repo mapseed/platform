@@ -21,6 +21,16 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['*']
 
+# How long to keep api cache values. Since the api will invalidate the cache
+# automatically when appropriate, this can (and should) be set to something
+# large.
+API_CACHE_TIMEOUT = 3600  # an hour
+
+REST_FRAMEWORK = {
+    'PAGINATE_BY': 100,
+    'PAGINATE_BY_PARAM': 'page_size'
+}
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -60,7 +70,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = './'
+from os.path import dirname, abspath, join as pathjoin
+STATIC_ROOT=abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
 COMPRESS_ROOT = STATIC_ROOT
 
 # URL prefix for static files.
@@ -74,6 +85,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+ATTACHMENT_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -101,18 +114,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
-
-    "project.context_processors.settings_context",
-)
-
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
+    "django.contrib.auth.context_processors.auth",
 
     "project.context_processors.settings_context",
 )
@@ -151,13 +153,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
     # 3rd-party reusaple apps
     'jstemplate',
     'compressor',
+    'django_extensions',
 
     # Project apps
     'sa_web',
@@ -166,30 +169,6 @@ INSTALLED_APPS = (
 
 # Use a test runner that does not use a database.
 TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
-
-# Shareabouts flavor config
-SHAREABOUTS = {
-    'FLAVOR': 'default',
-    # The name of the flavor. Optional, but useful for using the default settings.
-
-    'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',
-    # The root URL of the dataset API
-
-    'DATASET_KEY': 'abc123',
-    # The API key for writing to the dataset.  You must set this in order to be
-    # able to write to the dataset
-
-  # 'CONFIG': '...',
-    # The path to the config file for the flavor. By default, this is a file
-    # called 'config.yml' in a project folder called 'flavors/<name>/'
-
-  # 'PACKAGE': '...',
-    # The django app package for the flavor.  By default, this is
-    # 'flavors.<name>'
-
-  # 'CONTEXT': {},
-    # Additional values to make available in the template context
-}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -239,12 +218,69 @@ env = os.environ
 if 'DEBUG' in env:
     DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in ('true', 'on', 't', 'yes'))
 
+if 'DATABASE_URL' in env:
+    import dj_database_url
+    # NOTE: Be sure that your DATABASE_URL has the 'postgis://' scheme.
+    DATABASES = {'default': dj_database_url.config()}
+    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
+if 'REDIS_URL' in env or 'REDISCLOUD_URL' in env:
+    redis_url = env.get('REDIS_URL') or env.get('REDISCLOUD_URL')
+    scheme, connstring = redis_url.split('://')
+    if '@' in connstring:
+        userpass, netloc = connstring.split('@')
+        userename, password = userpass.split(':')
+    else:
+        userpass = None
+        netloc = connstring
+    CACHES = {
+        "default": {
+            "BACKEND": "redis_cache.cache.RedisCache",
+            "LOCATION": "%s:0" % (netloc,),
+            "OPTIONS": {
+                "CLIENT_CLASS": "redis_cache.client.DefaultClient",
+                "PASSWORD": password,
+            } if userpass else {}
+        }
+    }
+
+    # Django sessions
+    SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+    # Celery broker
+    BROKER_URL = redis_url.strip('/') + '/1'
+
+SHAREABOUTS = {}
 if 'SHAREABOUTS_FLAVOR' in env:
     SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
 if 'SHAREABOUTS_DATASET_ROOT' in env:
     SHAREABOUTS['DATASET_ROOT'] = env.get('SHAREABOUTS_DATASET_ROOT')
 if 'SHAREABOUTS_DATASET_KEY' in env:
     SHAREABOUTS['DATASET_KEY'] = env.get('SHAREABOUTS_DATASET_KEY')
+
+if all([key in env for key in ('SHAREABOUTS_AWS_KEY',
+                                   'SHAREABOUTS_AWS_SECRET',
+                                   'SHAREABOUTS_AWS_BUCKET')]):
+    AWS_ACCESS_KEY_ID = env['SHAREABOUTS_AWS_KEY']
+    AWS_SECRET_ACCESS_KEY = env['SHAREABOUTS_AWS_SECRET']
+    AWS_STORAGE_BUCKET_NAME = env['SHAREABOUTS_AWS_BUCKET']
+    AWS_QUERYSTRING_AUTH = False
+    AWS_PRELOAD_METADATA = True
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    ATTACHMENT_STORAGE = DEFAULT_FILE_STORAGE
+    STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+    STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+
+if 'SHAREABOUTS_TWITTER_KEY' in env \
+    and 'SHAREABOUTS_TWITTER_SECRET' in env:
+    SOCIAL_AUTH_TWITTER_KEY = env['SHAREABOUTS_TWITTER_KEY']
+    SOCIAL_AUTH_TWITTER_SECRET = env['SHAREABOUTS_TWITTER_SECRET']
+
+if 'SHAREABOUTS_FACEBOOK_KEY' in env \
+    and 'SHAREABOUTS_FACEBOOK_SECRET' in env:
+    SOCIAL_AUTH_FACEBOOK_KEY = env['SHAREABOUTS_FACEBOOK_KEY']
+    SOCIAL_AUTH_FACEBOOK_SECRET = env['SHAREABOUTS_FACEBOOK_SECRET']
 
 if 'EMAIL_ADDRESS' in env:
     EMAIL_ADDRESS = env['EMAIL_ADDRESS']
@@ -263,12 +299,12 @@ if 'EMAIL_NOTIFICATIONS_BCC' in env:
     EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
 
 if all(['S3_MEDIA_BUCKET' in env, 'AWS_ACCESS_KEY' in env, 'AWS_SECRET_KEY' in env]):
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_MEDIA_BUCKET')
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY')
+    AWS_STORAGE_BUCKET_NAME = env.get('S3_MEDIA_BUCKET')
+    AWS_ACCESS_KEY_ID = env.get('AWS_ACCESS_KEY')
+    AWS_SECRET_ACCESS_KEY = env.get('AWS_SECRET_KEY')
 
     # Set the compress storage, but not the static files storage, to S3.
-    COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', str(not DEBUG)).lower() in ('true', 't')
+    COMPRESS_ENABLED = env.get('COMPRESS_ENABLED', str(not DEBUG)).lower() in ('true', 't')
     COMPRESS_STORAGE = 'project.backends.S3BotoStorage'
     COMPRESS_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
@@ -302,6 +338,13 @@ if os.path.exists(LOCAL_SETTINGS_FILE):
 # By default, the flavor is assumed to be a local python package.  If no
 # CONFIG_FILE or PACKAGE is specified, they are constructed as below.
 
+try:
+    SHAREABOUTS
+except NameError:
+    from django.core.exceptions import ImproperlyConfigured
+    raise ImproperlyConfigured('No SHAREABOUTS configuration defined. '
+        'Did you forget to copy the local settings template?')
+
 here = os.path.abspath(os.path.dirname(__file__))
 flavor = SHAREABOUTS.get('FLAVOR')
 if 'CONFIG' not in SHAREABOUTS:
@@ -320,3 +363,67 @@ LOCALE_PATHS = (
     os.path.join(HERE, '..', 'sa_web', 'locale'),
     os.path.join(HERE, '..', 'flavors', flavor, 'locale'),
 )
+
+if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
+    INSTALLED_APPS += (
+        # =================================
+        # 3rd-party reusaple apps
+        # =================================
+        'rest_framework',
+        'django_nose',
+        'storages',
+        'social.apps.django_app.default',
+        'raven.contrib.django.raven_compat',
+        'django_ace',
+        'django_object_actions',
+        'djcelery',
+
+        # OAuth
+        'provider',
+        'provider.oauth2',
+        'corsheaders',
+
+        # =================================
+        # Project apps
+        # =================================
+        'sa_api_v2',
+        'sa_api_v2.apikey',
+        'sa_api_v2.cors',
+        'remote_client_user',
+    )
+
+
+    ###############################################################################
+    #
+    # Authentication
+    #
+
+    AUTHENTICATION_BACKENDS = (
+        # See http://django-social-auth.readthedocs.org/en/latest/configuration.html
+        # for list of available backends.
+        'social.backends.twitter.TwitterOAuth',
+        'social.backends.facebook.FacebookOAuth2',
+        'sa_api_v2.auth_backends.CachedModelBackend',
+    )
+
+    AUTH_USER_MODEL = 'sa_api_v2.User'
+    SOCIAL_AUTH_USER_MODEL = 'sa_api_v2.User'
+    SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+
+    SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'picture', 'bio']
+    SOCIAL_AUTH_TWITTER_EXTRA_DATA = ['name', 'description', 'profile_image_url']
+
+    # Explicitly request the following extra things from facebook
+    SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.width(96).height(96),first_name,last_name,bio'}
+
+    SOCIAL_AUTH_LOGIN_ERROR_URL = 'remote-social-login-error'
+
+
+    ###############################################################################
+    #
+    # Background task processing
+    #
+
+    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+
+
