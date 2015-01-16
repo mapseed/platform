@@ -30,7 +30,8 @@ L.Argo = L.GeoJSON.extend({
 
     // Just add data if this is an object
     if (geojson === Object(geojson)) {
-      console.log("Adding geojson object to the layer");
+//      console.log("Adding geojson object to the layer");
+      console.log("leaflet.argo calling this.addData...");
       this.addData(geojson);
     } else if (typeof geojson === 'string') {
       // This is a url, go fetch the geojson
@@ -39,6 +40,7 @@ L.Argo = L.GeoJSON.extend({
         this._getGeoJsonFromGeoServer(geojson, successHandler, errorHandler);
       } else {
         // Handle regular ajax
+        console.log("leaflet.argo calling this._getGeoJson...");
         this._getGeoJson(geojson, successHandler, errorHandler);
       }
     }
@@ -51,10 +53,12 @@ L.Argo = L.GeoJSON.extend({
   _onEachFeature: function(feature, layer) {
     var style = L.Argo.getStyleRule(feature, this.rules),
       popupContent;
+    console.log("leaflet.argo layer:");
+    console.log(layer);
 
     if (this.popupContent) {
-      console.log("this.popupContent:");
-      console.log(this.popupContent);
+//      console.log("this.popupContent:");
+//      console.log(this.popupContent);
       popupContent = L.Argo.t(this.popupContent, feature.properties);
     }
 

@@ -129,29 +129,23 @@ map:
       title: _(Project management drawings)
       rules:
       # LineString
-#        - condition: '"{{marker-symbol}}" == "undefined"'
-#          style:
-#            fillColor: "{{fill}}"
-#            fill: 'true'
-#            color: "{{stroke}}"
-#            opacity: 0.7
-#            fillOpacity: '{{fill-opacity}}'
-#            weight: "{{stroke-width}}"
+        - condition: '"{{geometry.type}}" == "LineString"'
+          style:
+            color: "{{properties.stroke}}"
+            opacity: '{{properties.stroke-opacity}}'
+            weight: "{{properties.stroke-width}}"
       # Polygons
-#        - condition: '"{{marker-symbol}}" == "undefined" || "{{marker-symbol}}" == ""'
-        - condition: '"{{properties.marker-symbol}}" == "undefined" || !"{{properties.marker-symbol}}"'
+        - condition: '"{{geometry.type}}" == "Polygon"'
           style:
             shapeType: polygon
             fillColor: "{{properties.fill}}"
             fill: 'true'
-#            fill: true
             color: "{{properties.stroke}}"
             opacity: 0.7
             fillOpacity: '{{properties.fill-opacity}}'
             weight: "{{properties.stroke-width}}"
       # Points (defaulted for now)
-#        - condition: '"{{marker-symbol}}" != "undefined"'
-        - condition: '"{{properties.marker-symbol}}"'
+        - condition: '"{{geometry.type}}" == "Point"'
           style:
             shapeType: point
             color: "#0000FF" # red
