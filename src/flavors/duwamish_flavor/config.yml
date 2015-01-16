@@ -205,7 +205,7 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [50, 60]
-          iconAnchor: [9, 9]
+          iconAnchor: [24, 59]
 
       - condition: '"{{location_type}}" === "observation" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
@@ -215,7 +215,7 @@ place_types:
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [80, 96]
           shadowSize: [41, 41]
-          iconAnchor: [12, 41]
+          iconAnchor: [39, 94]
 
   question:
     label: _(Question)
@@ -226,9 +226,9 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [80, 96]
           shadowSize: [41, 41]
-          iconAnchor: [12, 41]
+          iconSize: [50, 60]
+          iconAnchor: [24, 59]
 
         # ...and parks that are polygons as shapes.
 
@@ -243,8 +243,8 @@ place_types:
 
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [17, 18]
-          iconAnchor: [9, 9]
+          iconSize: [50, 60]
+          iconAnchor: [24, 59]
 
         # ...and parks that are polygons as shapes.
 
@@ -273,7 +273,7 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [50, 60]
-          iconAnchor: [9, 9]
+          iconAnchor: [24, 59]
 
       - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
@@ -283,7 +283,7 @@ place_types:
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [80, 96]
           shadowSize: [41, 41]
-          iconAnchor: [12, 41]
+          iconAnchor: [39, 94]
 
 
 activity:
