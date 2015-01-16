@@ -49,7 +49,7 @@ L.Argo = L.GeoJSON.extend({
   },
 
   _onEachFeature: function(feature, layer) {
-    var style = L.Argo.getStyleRule(feature.properties, this.rules).style,
+    var style = L.Argo.getStyleRule(feature, this.rules),
       popupContent;
 
     if (this.popupContent) {
@@ -102,11 +102,6 @@ L.Argo = L.GeoJSON.extend({
     });
   },
   _getGeoJson: function(url, success, error) {
-    console.log("L.Argo._getGeoJson: fetching via AJAX");
-    console.log("url:");
-    console.log(url);
-//    console.log("success:");
-//    console.log("url:");
     // Fetch the GeoJson using the given type
     $.ajax({
       url: url,
@@ -152,7 +147,7 @@ L.extend(L.Argo, {
   },
 
   // Get the style rule for this feature by evaluating the condition option
-  getStyleRule: function(properties, rules) {
+  getStyleRule: function(feature, rules) {
     var self = this,
       i, condition, len;
 
@@ -160,50 +155,48 @@ L.extend(L.Argo, {
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
       // this is so we don't have to worry about strings vs nums.
-      condition = L.Argo.t(rules[i].condition, properties);
+      condition = L.Argo.t(rules[i].condition, feature);
 
       if (eval(condition)) {
-        console.log("shapeType:");
-        console.log(properties['shapeType']);
         // The new property values (outlined in the config) are added for Leaflet compatibility
         for (var key in rules[i].style) {
           if (rules[i].style.hasOwnProperty(key)) {
             if (typeof rules[i].style[key] == 'string' || rules[i].style[key] instanceof String) {
-              value = L.Argo.t(rules[i].style[key], properties);
-              properties[key] = value;
+              value = L.Argo.t(rules[i].style[key], feature);
+              feature[key] = value;
             } else {
-              properties[key] = rules[i].style[key];
+              feature[key] = rules[i].style[key];
             }
           } else {
             console.log("Non-property key is discovered at: " + key);
+            console.log("The config rule is incompatible with this feature.");
           }
         }
 
+        // Format Mapbox features
+        if (feature['properties']) {
         // Format 'title' and 'description' for Mapbox -> Leaflet compatability
-        if (properties['title']) {
-          properties['title'] = '<b>' + properties['title'] + '</b>';
-        }
-        if (properties['title'] && properties['description']) {
-          var testBubbleContent = properties['title'] + '<br>' + properties['description'];
-          console.log("setting new properties['title']:");
-          console.log(testBubbleContent);
-          properties['title'] = testBubbleContent;
-        } else if (properties['description']) {
-          properties['title'] = properties['description'];
+          if (feature.properties['title']) {
+            feature.properties['title'] = '<b>' + feature.properties['title'] + '</b>';
+          }
+          if (feature.properties['description']) {
+            if (feature.properties['title']) {
+              feature.properties['title'] = feature.properties['title'] + '<br>' + feature.properties['description'];
+            } else {
+              feature.properties['title'] = feature.properties['description'];
+            }
+          }
         }
 
-        properties = {'style' : properties};
-
+        // Format Shareabouts features
         if (rules[i].icon) {
           if (rules[i].isFocused && rules[i].focus_icon) {
-            properties.focus_icon = rules[i].focus_icon;
+            feature.focus_icon = rules[i].focus_icon;
           } else {
-            properties.icon = rules[i].icon;
+            feature.icon = rules[i].icon;
           }
         }
-        console.log("returning 'properties' for new geojson feature:");
-        console.log(properties);
-        return properties;
+        return feature;
       }
     }
     return null;
