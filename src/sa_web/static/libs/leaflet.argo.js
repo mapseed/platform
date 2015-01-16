@@ -7,13 +7,12 @@
 L.Argo = L.GeoJSON.extend({
 
   initialize: function (geojson, options) {
-    // Set options
-    console.log("in L.Argo.init, this:");
-    console.log(this);
     // Add options and function to L.Util
     L.Util.setOptions(this, options);
+
     L.Util.setOptions(this, {
-      pointToLayer: this._pointToLayer,
+      pointToLayer: this._pointToLayer.bind(this),
+//      pointToLayer: this._pointToLayer,
       onEachFeature: this._onEachFeature
     });
 
@@ -30,8 +29,6 @@ L.Argo = L.GeoJSON.extend({
 
     // Just add data if this is an object
     if (geojson === Object(geojson)) {
-//      console.log("Adding geojson object to the layer");
-      console.log("leaflet.argo calling this.addData...");
       this.addData(geojson);
     } else if (typeof geojson === 'string') {
       // This is a url, go fetch the geojson
@@ -40,25 +37,27 @@ L.Argo = L.GeoJSON.extend({
         this._getGeoJsonFromGeoServer(geojson, successHandler, errorHandler);
       } else {
         // Handle regular ajax
-        console.log("leaflet.argo calling this._getGeoJson...");
         this._getGeoJson(geojson, successHandler, errorHandler);
       }
     }
   },
 
   _pointToLayer: function (feature, latlng) {
-    return new L.CircleMarker(latlng);
+    var style = L.Argo.getStyleRule(feature, this.options.rules);
+    style['icon'] = L.icon(style.icon);
+    return L.marker(latlng, style);
+//    return new L.CircleMarker(latlng);
   },
 
   _onEachFeature: function(feature, layer) {
-    var style = L.Argo.getStyleRule(feature, this.rules),
-      popupContent;
-    console.log("leaflet.argo layer:");
-    console.log(layer);
+    var style, popupContent;
+    if (layer.feature.geometry['type'] == 'Point') {
+      style = feature; // feature has already been transformed for marker points
+    } else {
+      style = L.Argo.getStyleRule(feature, this.rules);
+    }
 
     if (this.popupContent) {
-//      console.log("this.popupContent:");
-//      console.log(this.popupContent);
       popupContent = L.Argo.t(this.popupContent, feature.properties);
     }
 
@@ -67,7 +66,9 @@ L.Argo = L.GeoJSON.extend({
       style.clickable = !!popupContent;
 
       // Set the style manually since so I can use popupContent to set clickable
-      layer.setStyle(style);
+      if (layer.feature.geometry['type'] != 'Point') {
+        layer.setStyle(style);
+      }
 
       // Handle radius for circle marker
       if (layer.setRadius && style.radius) {
@@ -87,10 +88,8 @@ L.Argo = L.GeoJSON.extend({
   },
 
   _getGeoServerCallbackName: function() {
-    var id = Math.floor(Math.random() * 0x10000).toString(16),
-        callbackName = 'ArgoJsonpCallback_' + id + '_' + $.expando + '_' + $.now();
-
-    return callbackName;
+    var id = Math.floor(Math.random() * 0x10000).toString(16);
+    return "ArgoJsonpCallback_" + id + '_' + $.expando + '_' + $.now();
   },
 
   _getGeoJsonFromGeoServer: function(url, success, error) {
@@ -177,7 +176,7 @@ L.extend(L.Argo, {
           }
         }
 
-        // Format Mapbox features
+        // Format Mapbox features, which use the 'properties' attribute
         if (feature['properties']) {
         // Format 'title' and 'description' for Mapbox -> Leaflet compatability
           if (feature.properties['title']) {
@@ -192,7 +191,7 @@ L.extend(L.Argo, {
           }
         }
 
-        // Format Shareabouts features
+        // Format marker icon features
         if (rules[i].icon) {
           if (rules[i].isFocused && rules[i].focus_icon) {
             feature.focus_icon = rules[i].focus_icon;

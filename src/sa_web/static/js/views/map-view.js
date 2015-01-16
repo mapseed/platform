@@ -18,10 +18,6 @@ var Shareabouts = Shareabouts || {};
           };
 
       self.map = L.map(self.el, self.options.mapConfig.options);
-      console.log("self in MapView:");
-      console.log(self);
-      console.log("L in MapView:");
-      console.log(L);
       self.placeLayers = L.layerGroup();
 
       self.layers = {};

@@ -144,14 +144,39 @@ map:
             opacity: 0.7
             fillOpacity: '{{properties.fill-opacity}}'
             weight: "{{properties.stroke-width}}"
-      # Points (defaulted for now)
+
+      # Mapbox Points
+#        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-danger.png
+            iconSize: [40, 40]
+            iconAnchor: [20, 20]
+
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-park.png
+            iconSize: [26, 26]
+            iconAnchor: [13, 13]
+
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-industrial.png
+            iconSize: [40, 40]
+            iconAnchor: [20, 20]
+
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-bicycle.png
+            iconSize: [30, 30]
+            iconAnchor: [15, 15]
+
+        # default point marker case
         - condition: '"{{geometry.type}}" == "Point"'
-          style:
-            shapeType: point
-            color: "#0000FF" # red
-            fillOpacity: 0.3
-            weight: 3
-            opacity: 0.7
+          icon:
+            iconUrl: /static/css/images/markers/dot-fa307d.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
 
     # Shareabouts layers for filtering
     - title: _(Show All)
