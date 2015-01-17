@@ -52,7 +52,6 @@ map:
 #    - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
     - url: //{s}.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       visible: true
-      id: 0
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
       # WMS Original Flow
@@ -67,9 +66,6 @@ map:
       description: _(The orginal Duwamish flow)
       title: _(Historical Flow)
       visible: false
-#      id: 1
-
-#      id: 1
 
       # WMS NLCD
     - url: http://130.211.177.95:8080/geoserver/wria9/wms
@@ -82,7 +78,6 @@ map:
       description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
       title: _(Land covereage data)
       visible: false
-#      id: 2
 
       # WMS landuse
     - url: http://130.211.177.95:8080/geoserver/wria9/wms
@@ -106,7 +101,6 @@ map:
       description: _(Building use, by category)
       title: _(Duwamish area buildings)
       visible: false
-#      id: 3
 
       # Polygon ROI
 #    - url: //130.211.177.95:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:regionofinterest&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
@@ -123,7 +117,6 @@ map:
       description: _(The Duwamish river basin)
       title: _(Duwamish region of interest)
       visible: false
-#      id: 4
 
      # Mapbox project freehand drawing imports
 #    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
@@ -134,54 +127,82 @@ map:
       legend: true
       visible: true
       title: _(Project management drawings)
-#      id: 5
       rules:
+      # LineString
+        - condition: '"{{geometry.type}}" == "LineString"'
+          style:
+            color: "{{properties.stroke}}"
+            opacity: '{{properties.stroke-opacity}}'
+            weight: "{{properties.stroke-width}}"
       # Polygons
-        - condition: '"{{marker-symbol}}" == "undefined"'
+        - condition: '"{{geometry.type}}" == "Polygon"'
           style:
-            fillColor: "{{fill}}"
+            shapeType: polygon
+            fillColor: "{{properties.fill}}"
             fill: 'true'
-            color: "{{stroke}}"
+            color: "{{properties.stroke}}"
             opacity: 0.7
-            fillOpacity: '{{fill-opacity}}'
-            weight: "{{stroke-width}}"
-      # Points (defaulted for now)
-        - condition: '"{{marker-symbol}}" != "undefined"'
-          style:
-            color: "#0000FF" # red
-            fillOpacity: 0.3
-            weight: 3
-            opacity: 0.7
+            fillOpacity: '{{properties.fill-opacity}}'
+            weight: "{{properties.stroke-width}}"
 
-    # Shareabouts layers
+      # Mapbox Points
+#        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-danger.png
+            iconSize: [40, 40]
+            iconAnchor: [20, 20]
+
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-park.png
+            iconSize: [26, 26]
+            iconAnchor: [13, 13]
+
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-industrial.png
+            iconSize: [40, 40]
+            iconAnchor: [20, 20]
+
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-bicycle.png
+            iconSize: [30, 30]
+            iconAnchor: [15, 15]
+
+        # default point marker case
+        - condition: '"{{geometry.type}}" == "Point"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-fa307d.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+
+    # Shareabouts layers for filtering
     - title: _(Show All)
       shareabouts: true
       url: /
       image: /static/css/images/ticker-point.png
       external: true
       visible: true
-#      legend: true
     - title: _(Observation)
       shareabouts: true
       image: /static/css/images/markers/marker-observation.png
       url: /filter/observation
       external: true
       visible: true
-#      legend: true
     - title: _(Idea)
       shareabouts: true
       image: /static/css/images/markers/marker-idea.png
       url: /filter/idea
       external: true
       visible: true
-#      legend: true
     - title: _(Question)
       shareabouts: true
       image: /static/css/images/markers/marker-question.png
       url: /filter/question
       external: true
       visible: true
-#      legend: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -416,18 +437,3 @@ pages:
     slug: contribute
     name: contribute
 
-
-#  - title: _(Filter Places ⌄)
-#    pages:
-#      - title: _(Show All)
-#        url: /
-#        external: true
-#      - title: _(Observation)
-#        url: /filter/observation
-#        external: true
-#      - title: _(Idea)
-#        url: /filter/idea
-#        external: true
-#      - title: _(Question)
-#        url: /filter/question
-#        external: true

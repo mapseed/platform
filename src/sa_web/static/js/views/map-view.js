@@ -18,10 +18,6 @@ var Shareabouts = Shareabouts || {};
           };
 
       self.map = L.map(self.el, self.options.mapConfig.options);
-      console.log("self in MapView:");
-      console.log(self);
-      console.log("L in MapView:");
-      console.log(L);
       self.placeLayers = L.layerGroup();
 
       self.layers = {};
@@ -106,13 +102,13 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
 
-       // Start Master Legend
+       // Start Master Legend (custom layers)
       new S.LegendView({
         el: '#master-legend',
         layers: self.options.mapConfig.layers
       });
 
-      // Bind visiblity event
+      // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
         self.setLayerVisibility(self.layers[id], visible);
       });

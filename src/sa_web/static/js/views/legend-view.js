@@ -63,7 +63,6 @@ var Shareabouts = Shareabouts || {};
       }
 
       $shareMarkup += "</ul>";
-      console.log($shareMarkup);
       return $shareMarkup;
     },
 
