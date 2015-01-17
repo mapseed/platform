@@ -33,8 +33,8 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
 
-  geocoding_enabled: true
-  geocode_field_label: _(Enter an address...)
+#  geocoding_enabled: true
+#  geocode_field_label: _(Enter an address...)
 #  geocode_bounding_box: [47.000, -123.26, 47.92, -120.67] # south, west, north, east
   geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
 
