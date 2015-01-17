@@ -1440,28 +1440,93 @@ a.close-unsupported-overlay {
   box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
 }
 
-
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
+/*
+Without any system display to show the status/nav bar, the map height can comfortably be ~118px less than the
+browser height, but in portrait mode, we usually have ~30px of nav/status-bar, so we limit the map height to
+~148px less than the browser height
+*/
 
+/* iphone 4 (320 x 480)*/
 @media only screen and (min-height: 440px) and (max-width: 60em) {
   #map {
-    height: 250px;
+    height: 292px;
+  }
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 1.8em;
+    line-height: 1.325;
   }
 }
 
+/*@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {*/
+  /*#map {*/
+    /*height: 292px;*/
+  /*}*/
+/*}*/
+@media only screen and (min-height: 480px) and (max-width: 60em) {
+  #map {
+    height: 332px;
+  }
+  #site-title a:link,
+  #site-title a:visited {
+  font-size: 1.8em;
+  line-height: 1.325;
+  }
+}
+
+/*@media only screen and (min-width: 440px) and (max-height: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {
+  #map {
+    height: 202px;
+  }
+}
+
+/* iphone 5 (320 x 568) */
 @media only screen and (min-height: 568px) and (max-width: 60em) {
   #map {
-    height: 325px;
+    height: 420px;
   }
 }
-
-@media only screen and (min-width: 768px) and (max-width: 60em) {
+/*@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 568px) and (min-height: 320px) and (orientation : landscape) {
   #map {
-    height: 400px;
+    height: 202px;
   }
 }
 
+/* iphone 6 (375 x 667) */
+@media only screen and (min-height: 667px) and (max-width: 60em) {
+  #map {
+    height: 519px;
+  }
+}
+/*@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 667px) and (min-height: 375px) and (orientation : landscape) {
+  #map {
+    height: 247px;
+  }
+}
+/* iphone 6 plus (414 x 736) */
+@media only screen and (min-height: 736px) and (max-width: 60em) {
+  #map {
+    height: 588px;
+  }
+}
+/*@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 736px) and (min-height: 414px) and (orientation : landscape) {
+  #map {
+    height: 296px;
+  }
+}
+@media only screen and (min-height: 768px) and (max-width: 60em) {
+  #map {
+    height: 620px;
+  }
+}
+
+/* default for other media */
 @media only screen and (min-width: 60em) {
   html,
   body {
