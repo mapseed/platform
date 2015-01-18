@@ -25,8 +25,8 @@ languages:
   - code: es
     label: Hablo Español
 
-  - code: hi
-    label: मैं हिंदी बोलते हैं
+  - code: vi
+    label: tôi nói tiếng việt
 
 # Settings for map and layer configs
 map:
@@ -128,7 +128,7 @@ map:
 #    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
     - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
-      description: '<p>Early action cleanup sites</p>'
+      description: _(Early action cleanup sites)
       popupContent: '{{title}}'
       legend: true
       visible: true

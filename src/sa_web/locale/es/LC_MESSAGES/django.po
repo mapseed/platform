@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shareabouts Philly Bike Share\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-02 07:44-0500\n"
+"POT-Creation-Date: 2015-01-18 18:12-0500\n"
 "PO-Revision-Date: 2014-09-09 22:58+0000\n"
 "Last-Translator: Frank Hebbert <frank@openplans.org>\n"
 "Language-Team: Spanish (Mexico) (http://www.transifex.com/projects/p/"
@@ -69,13 +69,13 @@ msgstr ""
 "        </strong>\n"
 "\n"
 "        {{#if is_place }}\n"
-"          {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span "
-"class=\"place-type\">{{ place.place_type_label }}</span>\n"
+"          {{ action }} una <span class=\"place-type\">{{ place."
+"place_type_label }}</span>\n"
 "          {{#if place.name }}\n"
-"            named <span class=\"place-name\">{{ place.name }}</span>\n"
+"            llamada <span class=\"place-name\">{{ place.name }}</span>\n"
 "          {{^}}\n"
 "            {{#if place.location }}\n"
-"              at <span class=\"place-name\">{{>location-string place."
+"              en <span class=\"place-name\">{{>location-string place."
 "location }}</span>\n"
 "            {{/if }}\n"
 "          {{/if }}\n"
@@ -85,8 +85,7 @@ msgstr ""
 "          {{#if place.name }}\n"
 "            <span class=\"place-name\">{{ place.name }}</span>\n"
 "          {{else}}\n"
-"            a{{# place.type_starts_with_vowel }}n{{/ place."
-"type_starts_with_vowel }} {{ place.place_type_label }}\n"
+"            una {{ place.place_type_label }}\n"
 "          {{/if }}\n"
 "\n"
 "        {{/if }}"
@@ -223,7 +222,7 @@ msgstr ""
 "<a href=\"http://browsehappy.com/\">actualiza tu navegador</a> para mejorar\n"
 "tu experiencia."
 
-#: sa_web/templates/base.html:84
+#: sa_web/templates/base.html:85
 #, python-format
 msgid ""
 "\n"
@@ -233,7 +232,7 @@ msgstr ""
 "\n"
 "Ups, %(config.app.name)s necesita JavaScript para funcionar correctamente."
 
-#: sa_web/templates/base.html:89
+#: sa_web/templates/base.html:90
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -258,7 +257,7 @@ msgstr ""
 "href=\"http://enable-javascript.com/\" target=\"_blank\">aquí</a> para ver "
 "unas instrucciones sencillas!"
 
-#: sa_web/templates/base.html:103
+#: sa_web/templates/base.html:104
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
@@ -266,7 +265,7 @@ msgstr ""
 "No podemos conectarnos al servidor en este momento. Espera con calma "
 "mientras restablecemos la comunicación."
 
-#: sa_web/templates/base.html:112
+#: sa_web/templates/base.html:113
 msgid "Close"
 msgstr "Cerrar"
 
