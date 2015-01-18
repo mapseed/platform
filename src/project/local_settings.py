@@ -26,7 +26,7 @@ def read_env():
 
     """
     try:
-        with open('.env') as f:
+        with open('src/.env') as f:
             content = f.read()
     except IOError:
         content = ''
