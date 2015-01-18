@@ -44,7 +44,7 @@ map:
       lng: -122.345837
     zoom: 13
     minZoom: 9
-    maxZoom: 17
+    maxZoom: 18
 #    maxBounds: [[47.000, -123.26], [47.92, -120.67]] # south, west, north, east
     maxBounds: [[46.500, -124], [48.5, -119]] # south, west, north, east
   layers:
@@ -229,6 +229,12 @@ map:
     - title: _(Show All)
       shareabouts: true
       url: /
+      image: /static/css/images/ticker-point.png
+      external: true
+      visible: true
+    - title: _(Show None)
+      shareabouts: true
+      url: /filter/none
       image: /static/css/images/ticker-point.png
       external: true
       visible: true
