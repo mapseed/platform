@@ -65,7 +65,7 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.4
-      description: _(The orginal Duwamish flow)
+      description: _(The orginal Duwamish River path)
       title: _(Historical Flow)
       visible: false
 
@@ -76,8 +76,9 @@ map:
       transparent: 'true'
       format: 'image/png'
       legend: true
-      opacity: 0.4
-      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
+      opacity: 0.6
+#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
+      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
       title: _(Land covereage data)
       visible: false
 
@@ -89,8 +90,11 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.5
-      description: _(Zoning information by area)
-      title: _(Landuse data )
+      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
+#      description: _(<a href="/static/css/images/landuse2010.png"><img src="/static/css/images/landuse2010.png" alt="legend:" height="1000" width="1000"></a>)
+#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend" width=1000 height=1000>)
+#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend:" >)
+      title: _(Landuse data)
       visible: false
 
       # WMS Buildings connection:
@@ -100,7 +104,7 @@ map:
       transparent: 'true'
       format: 'image/png'
       legend: true
-      description: _(Building use, by category)
+      description: _(legend coming soon!)
       title: _(Duwamish area buildings)
       visible: false
 
@@ -116,19 +120,19 @@ map:
             fillOpacity: 0.2
             weight: 2
       legend: true
-      description: _(The Duwamish river basin)
-      title: _(Duwamish region of interest)
+      description: _(The impacted areas of the Duwamish River cleanup)
+      title: _(Region of interest)
       visible: false
 
      # Mapbox project freehand drawing imports
 #    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
     - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
-      description: '<p>Mapbox polygon test.</p><p>Some things I drew, view the geojson here:<br><a href="http://api.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ">link here!</a> and an image here: <br> <a href="http://www.natural-environment.com/places/milford_sound.php" target="_blank"> <img src="http://www.quackit.com/pix/milford_sound/milford_sound_t.jpg" border="2" style="border:2px solid black;max-width:100%;" alt="Photo of Milford Sound in New Zealand!" /></a></p>'
+      description: '<p>Early action cleanup sites</p>'
       popupContent: '{{title}}'
       legend: true
       visible: true
-      title: _(Project management drawings)
+      title: _(Project management info)
       rules:
       # show nothing when zoomed out
         - condition: '"{{map.zoom}}" < 11'

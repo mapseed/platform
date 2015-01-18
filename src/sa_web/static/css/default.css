@@ -1027,6 +1027,10 @@ ul.recent-points {
   width: auto;
   vertical-align: middle;
 }
+.layer-type-description img {
+  height: auto;
+  width: auto;
+}
 .layer-type-description {
   height: 0;
   overflow: visible;
