@@ -26,7 +26,9 @@ def read_env():
 
     """
     try:
-        with open('src/.env') as f:
+        file_path = os.path.join(os.path.dirname(__file__), '..',  '.env')
+        # print "filepath:" + str(file_path)
+        with open(file_path) as f:
             content = f.read()
     except IOError:
         content = ''
