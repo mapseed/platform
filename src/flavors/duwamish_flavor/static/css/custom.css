@@ -10,7 +10,59 @@
 
 
 /* =Media Queries
--------------------------------------------------------------- */
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>-------------------------------------------------------------- 
+*/
+body, select, input, textarea {
+font-family: 'Roboto', sans-serif;
+}
+
+#site-header {
+background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+}
+#side-bar {
+	background: url(http://subtlepatterns.com/patterns/scribble_light.png);
+	}
+#ticker { 
+	background:none;
+}
+
+#master-legend .shareabouts-layer-title {
+vertical-align: top;
+margin-right: 8px;
+}
+#master-legend {
+padding-left: 0em;
+padding-right: 0em;
+padding-top:0em;
+}
+#master-legend .unstyled-list {
+font-size: 1.4em;
+}
+#master-legend .shareabouts-layer-li a {
+font-family: 'Roboto', sans-serif;
+}
+nav li, .unstyled-list li {
+padding-bottom: 0;
+padding: 5px 10px 5px;
+}
+#master-legend .layer-type-title label, .layer-type-title input {
+vertical-align: middle;
+margin-right: 8px;
+}
+label {
+font-size: 1.3em;
+}
+#side-bar p {
+color: #007FBF;
+background: rgba(255, 255, 255, 0.58);
+padding: 5px 0 5px 10px;
+margin: 0;
+}
+#side-bar hr {
+margin: 0;
+height: 12px;
+border:none;
+}
 
 @media only screen and (min-width: 768px) {
 }
