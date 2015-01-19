@@ -7,16 +7,16 @@
 L.Argo = L.GeoJSON.extend({
 
   initialize: function (geojson, options) {
-    // Set options
+    // Add options and function to L.Util
     L.Util.setOptions(this, options);
     L.Util.setOptions(this, {
-      pointToLayer: this._pointToLayer,
+      pointToLayer: this._pointToLayer.bind(this),
       onEachFeature: this._onEachFeature
     });
 
     var successHandler = L.Util.bind(function(geojson) {
           this.addData(geojson);
-          this.fire('loaded', {layer: this});
+//          this.fire('loaded', {layer: this});
         }, this),
         errorHandler = L.Util.bind(function() {
           this.fire('error', {layer: this});
@@ -41,12 +41,19 @@ L.Argo = L.GeoJSON.extend({
   },
 
   _pointToLayer: function (feature, latlng) {
-    return new L.CircleMarker(latlng);
+    var style = L.Argo.getStyleRule(feature, this.options.rules);
+    style['icon'] = L.icon(style.icon);
+    return L.marker(latlng, style);
+//    return new L.CircleMarker(latlng);
   },
 
   _onEachFeature: function(feature, layer) {
-    var style = L.Argo.getStyleRule(feature.properties, this.rules).style,
-      popupContent;
+    var style, popupContent;
+    if (layer.feature.geometry['type'] == 'Point') {
+      style = feature; // feature has already been transformed for marker points
+    } else {
+      style = L.Argo.getStyleRule(feature, this.rules);
+    }
 
     if (this.popupContent) {
       popupContent = L.Argo.t(this.popupContent, feature.properties);
@@ -57,7 +64,9 @@ L.Argo = L.GeoJSON.extend({
       style.clickable = !!popupContent;
 
       // Set the style manually since so I can use popupContent to set clickable
-      layer.setStyle(style);
+      if (layer.feature.geometry['type'] != 'Point') {
+        layer.setStyle(style);
+      }
 
       // Handle radius for circle marker
       if (layer.setRadius && style.radius) {
@@ -77,10 +86,8 @@ L.Argo = L.GeoJSON.extend({
   },
 
   _getGeoServerCallbackName: function() {
-    var id = Math.floor(Math.random() * 0x10000).toString(16),
-        callbackName = 'ArgoJsonpCallback_' + id + '_' + $.expando + '_' + $.now();
-
-    return callbackName;
+    var id = Math.floor(Math.random() * 0x10000).toString(16);
+    return "ArgoJsonpCallback_" + id + '_' + $.expando + '_' + $.now();
   },
 
   _getGeoJsonFromGeoServer: function(url, success, error) {
@@ -141,40 +148,56 @@ L.extend(L.Argo, {
   },
 
   // Get the style rule for this feature by evaluating the condition option
-  getStyleRule: function(properties, rules) {
+  getStyleRule: function(feature, rules) {
     var self = this,
       i, condition, len;
 
+    // Cycle through rules until we hit a matching condition
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
       // this is so we don't have to worry about strings vs nums.
-      condition = L.Argo.t(rules[i].condition, properties);
+      condition = L.Argo.t(rules[i].condition, feature);
 
       if (eval(condition)) {
-        // Replace the property key-values with the feature specific values
+        // The new property values (outlined in the config) are added for Leaflet compatibility
         for (var key in rules[i].style) {
           if (rules[i].style.hasOwnProperty(key)) {
             if (typeof rules[i].style[key] == 'string' || rules[i].style[key] instanceof String) {
-              value = L.Argo.t(rules[i].style[key], properties);
-              properties[key] = value;
+              value = L.Argo.t(rules[i].style[key], feature);
+              feature[key] = value;
             } else {
-              properties[key] = rules[i].style[key];
+              feature[key] = rules[i].style[key];
             }
           } else {
             console.log("Non-property key is discovered at: " + key);
+            console.log("The config rule is incompatible with this feature.");
           }
         }
 
-        properties = {'style' : properties};
+        // Format Mapbox features, which use the 'properties' attribute
+        if (feature['properties']) {
+        // Format 'title' and 'description' for Mapbox -> Leaflet compatability
+          if (feature.properties['title']) {
+            feature.properties['title'] = '<b>' + feature.properties['title'] + '</b>';
+          }
+          if (feature.properties['description']) {
+            if (feature.properties['title']) {
+              feature.properties['title'] = feature.properties['title'] + '<br>' + feature.properties['description'];
+            } else {
+              feature.properties['title'] = feature.properties['description'];
+            }
+          }
+        }
 
+        // Format marker icon features
         if (rules[i].icon) {
           if (rules[i].isFocused && rules[i].focus_icon) {
-            properties.focus_icon = rules[i].focus_icon;
+            feature.focus_icon = rules[i].focus_icon;
           } else {
-            properties.icon = rules[i].icon;
+            feature.icon = rules[i].icon;
           }
         }
-        return properties;
+        return feature;
       }
     }
     return null;

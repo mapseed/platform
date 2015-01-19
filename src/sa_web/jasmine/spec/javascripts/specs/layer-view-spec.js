@@ -13,7 +13,7 @@ describe('layer-view.js', function() {
       function getLayerView(o) {
         var options = _.extend({
           model: new Backbone.Model({
-            location_type: 'Landmark'
+            location_type: 'Observation'
           }),
           router: router,
           map: mapView.map,
@@ -74,7 +74,7 @@ describe('layer-view.js', function() {
       var layerView = getLayerView({
         model: new Backbone.Model({
           id: 1,
-          location_type: 'Landmark',
+          location_type: 'Observation',
           location: {lat: 39.95238529624027,lng: -75.16356468200684}
         })
       });
@@ -89,7 +89,7 @@ describe('layer-view.js', function() {
       var layerView = getLayerView({
         model: new Backbone.Model({
           id: 1,
-          location_type: 'Landmark',
+          location_type: 'Observation',
           location:{"lat":0,"lng":0}
         })
       });

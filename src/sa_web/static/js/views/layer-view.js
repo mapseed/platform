@@ -135,13 +135,18 @@ var Shareabouts = Shareabouts || {};
         this.layer.setIcon(icon);
       }
     },
-    show: function() {
-      if (this.layer) {
-        this.options.placeLayers.addLayer(this.layer);
-      }
-    },
     hide: function() {
       this.removeLayer();
+    },
+    show: function() {
+      if (!this.options.mapView.locationTypeFilter ||
+        this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
+        if (this.layer) {
+          this.options.placeLayers.addLayer(this.layer);
+        }
+      } else {
+        this.hide();
+      }
     }
   });
 
