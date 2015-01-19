@@ -55,18 +55,57 @@ font-size: 1.3em;
 #side-bar p {
 color: #007FBF;
 background: rgba(255, 255, 255, 0.58);
-padding: 5px 0 5px 10px;
+font-size: 1.0em;
+padding: 7px 0 7px 10px;
 margin: 0;
+letter-spacing: 1px;
+text-transform: uppercase;
 }
 #side-bar hr {
 margin: 0;
 height: 12px;
 border:none;
 }
-
-@media only screen and (min-width: 768px) {
+nav li, .unstyled-list li:hover {
+	background:rgba(0, 127, 191, 0.57);
+	}
+.btn-primary, .btn-primary:visited, .btn-primary:link {
+background-color:rgba(242, 82, 24, 0.89);
 }
+.btn-secondary, .btn-secondary:visited, .btn-secondary:link {
+background: none;
+border: none;
+box-shadow: none;
+}
+.current-language {
+	background: none;
+border: none;
+box-shadow: none;
+	}
 
+@media only screen and (min-width: 60em) {
+	#add-place-btn-container {
+left: 45%;
+bottom: 1em;
+letter-spacing: 4px;
+}
+#add-place-btn-container .btn, #add-place-btn-container .btn:visited, #add-place-btn-container .btn:link {
+padding-right: 2em;
+padding-left: 2em;
+}
+.list-toggle-nav {
+	margin: -1.325em 0 0 1em;
+float: left;
+font-size: 1.1em;
+letter-spacing: 1px;
+}
+#language-picker {
+float: right;
+}
+#pages-nav-container {
+float: left;
+}
+}
 @media only screen and (min-width: 1024px) {
 }
 
