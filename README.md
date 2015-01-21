@@ -84,13 +84,15 @@ virtualenv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
+NOTE: As of January 2015, some Postgres dependencies are required. These can be resolved using `sudo apt-get install  postgresql libpq-dev` on Debian/Ubuntu or `brew install postgresql` on a Mac.
+
 NOTE: If you run into trouble with gevent, you can safely comment it out of the requirements.txt file. It is not needed for local development. To comment it out, just add a hash "`#`" to the beginning of the line for `gevent`.
 
 NOTE: If you have trouble with `pip install -r requirements.txt`, you may need to install the Python development libraries (for Python.h). The Windows installation has them by default, but some UNIX-based systems with a pre-installed Python may not. On such systems, you may need to run `sudo apt-get install python-dev` or download a fresh installer from python.org.
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
-Next, create a file under `src/.env` that will be used for loading your Shareabouts environment variables:
+Next, add the `.env` file under `src/.env` that was provided to you by your project contact. The file should contain the following format:
 
 ```
 DUWAMISH_SITE_KEY='abcd'
@@ -102,7 +104,7 @@ To run the development server:
 ```
 src/manage.py runserver
 ```
-The server will, by default, be started at http://localhost:8000/. It is already configured for Hey Duwamish! but [here is the documentation](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) if you want to configure it.
+The server will, by default, be started at http://localhost:8000/. It is already configured for Hey Duwamish! but [here is the documentation](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) if you want to reconfigure it.
 
 NOTE: If you're new to programming with virtualenv, be sure to remember to activate your virtual environment every time you start a new terminal session:
 
