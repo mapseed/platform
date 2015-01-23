@@ -6,7 +6,6 @@ html {
 }
 body {
   min-height: 100%;
-  background-color: #666;
   text-align: left;
 }
 
@@ -17,10 +16,12 @@ body:after {
 }
 
 /* Links */
-a, a:active, a:visited {
+a, a:active, a:visited,
+label, label:active, label:visited {
   color: #007fbf;
 }
-a:hover {
+a:hover,
+label:hover {
   color: #00aaff;
 }
 a:hover, a:active {
@@ -32,8 +33,11 @@ body {
   line-height: 1.25;
 }
 body, select, input, textarea {
-  color: #555;
-  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+  /*color: #555;*/
+  /*font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+  font-family: 'Roboto', sans-serif;
+
+  color: #007FBF;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
@@ -79,6 +83,10 @@ nav li,
 .unstyled-list li {
   padding-bottom: 0;
 }
+/*nav li,*/
+/*.unstyled-list li:hover {*/
+  /*background:rgba(0, 127, 191, 0.57);*/
+/*}*/
 strong {
   font-weight: 800;
 }
@@ -120,6 +128,7 @@ hr {
 .btn-primary:link {
   background-color: #00aaff;
   color: #fff;
+  background-color:rgba(242, 82, 24, 0.89);
 }
 .btn-primary:hover {
   background-color: #007fbf;
@@ -129,7 +138,11 @@ hr {
 .btn-secondary:link {
   background-color: #ccc;
   color: #007fbf;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
+
 .btn-secondary:hover {
   background-color: #007fbf;
   color: #fff;
@@ -171,9 +184,11 @@ fieldset {
 }
 label {
   font-size: 0.75em;
-  text-transform: uppercase;
-  color: #999;
+  /*text-transform: uppercase;*/
+  /*color: #999;*/
   margin-right: 0.5em;
+
+  padding-bottom: 0;
 }
 label small {
   text-transform: none;
@@ -287,18 +302,18 @@ img {
 -------------------------------------------------------------- */
 
 #site-header {
-  color: #eee;
-  background-color: #777;
+  /*color: #eee;*/
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.5em;
   box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
 }
+
 #site-title {
-  color: #eee;
-  font-size: 1em;
-  font-family: 'Dancing Script', cursive;
-  font-weight: 700;
+  /*color: #F25218;*/ /*too much like 'simpsons'*/
+  font-size: .75em;
+  font-family: 'Rock Salt', cursive;
   text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
   float: left;
   margin: 0 0.5em 0 0;
@@ -313,15 +328,17 @@ img {
   font-size: 2em;
   line-height: 1.25;
   text-decoration: none;
-  color: #eee;
+  /*color: #F25218;*/
+  color: #228b22;
 }
 #site-title a:hover {
-  color: #fff;
+  /*color: #FF8B61;*/
+  color: #abde76;
 }
 
 /* Navigation Button */
 #nav-btn {
-  background: #6f6f6f;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   color: #bbb;
   font-size: 2em;
   line-height: 1;
@@ -362,7 +379,8 @@ img {
 .user-menu {
 }
 #sign-in-btn {
-  color: #a3c7d9;
+  background-color: #007fbf;
+  color: #fff;
   font-size: 0.75em;
   text-transform: uppercase;
   text-align: center;
@@ -371,10 +389,11 @@ img {
   float: right;
   display: block;
   padding: 0 0.5em;
-  margin: 0 0 0 0.5em;
+  margin: 0.25em, 0.75em, 0, 0.5em;
+  height: 100%;
 }
 #sign-in-btn:hover {
-  color: #fff;
+  color: #a3c7d9;
 }
 .sign-in-menu {
   font-weight: bold;
@@ -468,7 +487,7 @@ a.logout-btn {
 
 /* Add Place Button */
 #add-place-btn-container {
-  background: #777;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
@@ -611,7 +630,7 @@ a.logout-btn {
 -------------------------------------------------------------- */
 
 .progress-bar {
-  background: #777;
+  /*background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);*/
   background: rgba(85,85,85,0.5);
   height: 1.5em;
   padding: 0 0.25em;
@@ -922,21 +941,31 @@ a.auth-inline {
   display: none;
   overflow: auto;
 
-  background: #777;
-  color: #eee;
+  letter-spacing: 1px;
 }
-#side-bar header {
-  font-size: 2.3em;
-  font-family: 'Dancing Script', cursive;
-  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
-}
+/*#side-bar header {*/
+  /*font-size: 2.3em;*/
+  /*font-family: 'Dancing Script', cursive;*/
+  /*text-shadow: 1px -1px 1px rgba(0,0,0,0.5);*/
+/*}*/
 #side-bar p {
-  margin: 0.3em 0 .4em; /* top, right, bottom */
-  color: #eee;
-  font-size: 1.1em;
+  color: #F25218;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+
+  font-size: 1.5em;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 #side-bar hr {
   margin: 0.5em 0;
+  /*padding: 7px 0 7px 10px;*/
+  /*margin: 0;*/
+  /*letter-spacing: 1px;*/
+  /*text-transform: uppercase;*/
+  /*height: 12px;*/
+  border:none;
 }
 
 #side-bar {
@@ -949,7 +978,7 @@ a.auth-inline {
 -------------------------------------------------------------- */
 
 #ticker {
-  background: #777;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   z-index: 30;
   display: none;
 }
@@ -959,13 +988,12 @@ a.auth-inline {
 .activity-enabled #ticker {
   display: block;
 }
-.content-visible #ticker {
-  display: none;
-}
+/*.content-visible #ticker {*/
+  /*display: none;*/ /* hide ticker when content is visible on mobile */
+/*}*/
 ul.recent-points {
   list-style: none;
   margin: 0;
-  color: #ddd;
   padding: 0;
 }
 .recent-points li {
@@ -974,7 +1002,6 @@ ul.recent-points {
 .recent-points li:hover {
 }
 .recent-points a {
-  color: #eee;
   text-decoration: none;
   float: left;
   border-top: 1px solid #888;
@@ -990,9 +1017,9 @@ ul.recent-points {
   padding-top: 0.75em;
 }
 .recent-points a:hover {
-  color: #fff;
-  background: #666;
-  border-color: #666;
+  /*color: #fff;*/
+  /*background: #666;*/
+  /*border-color: #666;*/
 }
 .recent-points .avatar {
   width: 2em;
@@ -1012,11 +1039,12 @@ ul.recent-points {
 }
 /* All layers in the Master Legend list */
 #master-legend .unstyled-list {
-  font-size: 0.875em;
-  font-weight: normal;
 }
 
 .layer-type-list {
+  font-size: 1.4em;
+  font-weight: normal;
+  letter-spacing: 1px;
 }
 /* allows hover to be positioned on the 'layer-type-description' */
 .layer-type-list li {
@@ -1077,17 +1105,25 @@ ul.recent-points {
 }
 
 #master-legend .layer-type-title label, .layer-type-title input {
-  cursor: pointer;
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 1.5em;
+  letter-spacing: 1px;
 }
-#master-legend .layer-type-title label {
-  color: #ddd;
-  font-weight: normal;
-  position: absolute;
-  z-index: 20;
 
-  text-transform: none;
+#master-legend .shareabouts-layer-li a {
+  font-size: 1.4em;
+  letter-spacing: 2px;
 }
-#master-legend .layer-type-title:active label,
+/*#master-legend .layer-type-title label {*/
+  /*color: #ddd;*/
+  /*font-weight: normal;*/
+  /*position: absolute;*/
+  /*z-index: 20;*/
+/**/
+  /*text-transform: none;*/
+/*}*/
+#master-legend .layer-type-title:active label:hover,
 #master-legend .shareabouts-layer-li:active a {
   color: #00aaff;
 }
@@ -1117,10 +1153,8 @@ ul.recent-points {
 /*}*/
 @media screen and (min-width: 40.063em) {
   .active #master-legend {
-  /*#master-legend {*/
     height: 100%;
     width: 16em;
-    /*position: relative;*/
     top: 0;
     right: 0;
     overflow: auto;
@@ -1128,21 +1162,25 @@ ul.recent-points {
 }
 
 /* Shareabouts layers */
+#master-legend .layer-type-li label,
 #master-legend .shareabouts-layer-li a {
   cursor: pointer;
   position: relative;
-  color: #ddd;
   z-index: 20;
   font-weight: normal;
   text-decoration: none;
   text-transform: none;
+  font-family: 'Roboto', sans-serif;
 }
 #master-legend .shareabouts-layer-title {
+  font-size: 1.4em;
   cursor: pointer;
   width: 1em;
   height: auto;
   z-index: 20;
   text-transform: none;
+  vertical-align: top;
+  margin-right: 8px;
 }
 
 /* =List View
@@ -1157,7 +1195,7 @@ ul.recent-points {
   background: #fff;
   position: absolute;
   padding: 1.75em 1em;
-  top: 5em; /* height of #site-header (on large screens) */
+  top: 4em; /* height of #site-header (on large screens) */
   right: 0;
   bottom: 0;
   left: 0;
@@ -1262,7 +1300,7 @@ ul.recent-points {
 
 #geocode-address-bar {
   display: none;
-  background-color: #777;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.75em 0.5em 0.5em;
@@ -1362,18 +1400,15 @@ input.geocode-address-field:focus {
 -------------------------------------------------------------- */
 
 #colophon {
-  background-color: #666;
-  color: #ddd;
   padding: 1em 0.5em;
-  box-shadow: inset 0 0.325em rgba(0,0,0,0.1);
   text-align: center;
 }
 #colophon a {
   text-decoration: none;
-  color: #ddd;
+  /*color: #ddd;*/
 }
 #colophon a:hover {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ffb885;
 }
 
 /* Powered By */
@@ -1385,18 +1420,13 @@ a.shareabouts-logo {
   font-family: 'Dancing Script', cursive;
   font-weight: bold;
   font-size: 1.325em;
-  color: #a3c7d9;
-  font-weight: bold;
-}
-a.shareabouts-logo:hover {
-  color: #fff;
+  color: #FF8B61;
+  /*color: #a3c7d9;*/
 }
 #powered-by a.openplans-logo {
-  color: #ffb885;
+  /*color: #ffb885;*/
+  color: #FF8B61;
   font-weight: bold;
-}
-#powered-by a.openplans-logo:hover {
-  color: #fff;
 }
 
 /* Mapquest Attribution */
@@ -1408,7 +1438,6 @@ a.shareabouts-logo:hover {
   max-height: 0.75em;
   width: auto;
 }
-
 
 /* =Unsupported Browsers
 -------------------------------------------------------------- */
@@ -1547,10 +1576,11 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #site-header {
     padding-left: 1em;
     overflow: visible;
-    height: 5em;
+    height: 4em;  /* height of site-header */
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   }
   .has-pages #site-title {
     padding-left: 0;
@@ -1563,11 +1593,23 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #nav-btn {
     display: none;
   }
-  #pages-nav-container,
-  #language-picker {
+  /*#pages-nav-container,*/
+  /*#language-picontainer,*/
+  #pages-nav-container {
     height: 100%;
     float: left;
   }
+  #language-picker {
+    float: right;
+    height: 100%;
+    /*position: none;*/
+  }
+  .current-language {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
   .access {
     font-size: 0.875em;
     width: auto;
@@ -1620,12 +1662,12 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     text-decoration: none;
     line-height: 1.5;
     padding: 0.5em;
-    margin: 0.75em 0.75em 0 0.75em;
+    margin: 0.25em 0.75em 0 0.75em;
     position: relative;
     z-index: 3;
   }
   .sign-in-menu {
-    background: #666;
+    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
     border-radius: 3px;
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
     width: 18em;
@@ -1658,7 +1700,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* Map*/
   #map-container {
     position: absolute;
-    top: 5em; /* height of #site-header */
+    top: 4em; /* height of #site-header */
     right: 0;
     bottom: 1.75em;
     left: 0;
@@ -1700,6 +1742,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     padding-right: 1em;
     padding-left: 1em;
   }
+  #add-place-btn-container .btn-primary:hover {
+    background-color: #FF8B61;
+  }
   .content-visible #add-place-btn-container {
     display: block; /* override of the mobile style */
   }
@@ -1709,9 +1754,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 
   /* Content */
   #content {
+    color: #36454f;
     padding: 0;
     position: absolute;
-    top: 5em;
+    top: 4em; /* height of site-header */
     right: 0;
     bottom: 1.75em;
     left: 40%;
@@ -1768,7 +1814,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* Geocoding */
   #geocode-address-bar {
     position: absolute;
-    top: 5em; /* height of #site-header */
+    top: 4em; /* height of #site-header */
     right: 0;
     bottom: auto;
     left: 0;
@@ -1806,7 +1852,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* The Side Bar */
   #side-bar {
     position: absolute;
-    top: 5em; /* height of #site-header */
+    top: 4em; /* height of #site-header */
     right: 0;
     bottom: 0;
     left: auto;
@@ -1815,6 +1861,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+    background: url(http://subtlepatterns.com/patterns/scribble_light.png);
+
   }
   .activity-enabled.content-visible #side-bar {
     display: block;
@@ -1830,6 +1878,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 15;
+    background: none;
   }
   .activity-enabled.content-visible #ticker {
     display: block;
@@ -1857,12 +1906,15 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* List View */
   .list-toggle-nav {
     display: block;
-    float: right;
+    /*float: right;*/
     width: auto;
-    margin: -1.125em 0 0 0.5em;
+    /*margin: -1.125em 0 0 0.5em;*/
     position: relative;
     top: 50%;
     font-size: 0.875em;
+
+    margin: -1.325em 0 0 1em;
+    float: left;
   }
   #list-container.is-exposed {
     display: block;
@@ -1870,17 +1922,18 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   .list-toggle-btn,
   .list-toggle-btn:visited,
   .list-toggle-btn:link {
-    background-color: #007fbf;
-    color: #eee;
+    /*background-color: #007fbf;*/
+    /*color: #eee;*/
   }
   .list-toggle-btn:hover {
-    background-color: #00aaff;
-    color: #fff;
+    /*background-color: #00aaff;*/
+    /*color: #fff;*/
   }
 
   /* Footer */
   #colophon {
-    background-color: #666;
+    color: #007fbf;
+    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
     font-size: 1em;
     position: absolute;
     top: auto;
@@ -1889,7 +1942,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 0;
     z-index: 14;
     padding: 0.25em;
-    box-shadow: 0 -0.325em rgba(0,0,0,0.1);
+    box-shadow: 0 -0.125em rgba(0,0,0,0.1);
     height: 1.75em;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
