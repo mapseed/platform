@@ -31,7 +31,7 @@ languages:
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
-  geolocation_onload: false
+  geolocation_onload: true
 
 #  geocoding_enabled: true
 #  geocode_field_label: _(Enter an address...)
@@ -56,73 +56,7 @@ map:
       visible: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-      # WMS Original Flow
-    - url: http://130.211.177.95:8080/geoserver/wria9/wms
-#    - url: /static/data/WRIA9:WRIA9roi.geojson
-      layers: 'wria9:Historical_Flow'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.4
-      description: _(The orginal Duwamish River path)
-      title: _(Historical Flow)
-      visible: false
-
-      # WMS NLCD
-    - url: http://130.211.177.95:8080/geoserver/wria9/wms
-      layers: 'wria9:nlcd2011'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.6
-#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
-      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
-      title: _(Land covereage data)
-      visible: false
-
-      # WMS landuse
-    - url: http://130.211.177.95:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.5
-      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-#      description: _(<a href="/static/css/images/landuse2010.png"><img src="/static/css/images/landuse2010.png" alt="legend:" height="1000" width="1000"></a>)
-#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend" width=1000 height=1000>)
-#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend:" >)
-      title: _(Landuse data)
-      visible: false
-
-      # WMS Buildings connection:
-    - url: http://130.211.177.95:8080/geoserver/wria9/wms # GCE Geoserver
-      layers: 'wria9:2009BuildingsCOS'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Duwamish area buildings)
-      visible: false
-
-      # Polygon ROI
-#    - url: //130.211.177.95:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:regionofinterest&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
-    - url: /static/data/WRIA9:WRIA9roi.geojson
-      type: json
-      rules:
-        - condition: 'true'
-          style:
-            color: "#FF99CC" # pink
-            opacity: 0.2
-            fillOpacity: 0.2
-            weight: 2
-      legend: true
-      description: _(The impacted areas of the Duwamish River cleanup)
-      title: _(Region of interest)
-      visible: false
+  # Map Layers
 
      # Mapbox project freehand drawing imports
 #    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
@@ -132,7 +66,7 @@ map:
       popupContent: '{{title}}'
       legend: true
       visible: true
-      title: _(Project management info)
+      title: _(Cleanup sites)
       rules:
       # show nothing when zoomed out
         - condition: '"{{map.zoom}}" < 11'
@@ -225,41 +159,95 @@ map:
             iconSize: [16, 16]
             iconAnchor: [8, 8]
 
-    # Shareabouts layers for filtering
-    - title: _(Show All)
-      shareabouts: true
-      url: /
-      image: /static/css/images/ticker-point.png
-      external: true
-      visible: true
-    - title: _(Show None)
-      shareabouts: true
-      url: /filter/none
-      image: /static/css/images/ticker-point.png
-      external: true
-      visible: true
-    - title: _(Observation)
+      # WMS landuse
+    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+      layers: 'wria9:Landuse2010'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.5
+      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
+#      description: _(<a href="/static/css/images/landuse2010.png"><img src="/static/css/images/landuse2010.png" alt="legend:" height="1000" width="1000"></a>)
+#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend" width=1000 height=1000>)
+#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend:" >)
+      title: _(Zoning info)
+      visible: false
+
+      # WMS Buildings connection:
+    - url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
+      layers: 'wria9:2009BuildingsCOS'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      description: _(legend coming soon!)
+      title: _(Buildings)
+      visible: false
+
+      # WMS NLCD
+    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+      layers: 'wria9:nlcd2011'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.6
+#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
+      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
+      title: _(Land covereage data)
+      visible: false
+      
+      # WMS Original Flow
+    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+#    - url: /static/data/WRIA9:WRIA9roi.geojson
+      layers: 'wria9:Historical_Flow'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.4
+      description: _(The orginal Duwamish River path)
+      title: _(Original river path)
+      visible: false
+      
+
+  # Report filters
+
+    - title: _(Observations)
       shareabouts: true
       image: /static/css/images/markers/marker-observation.png
       url: /filter/observation
       external: true
       visible: true
-    - title: _(Idea)
+    - title: _(Ideas)
       shareabouts: true
       image: /static/css/images/markers/marker-idea.png
       url: /filter/idea
       external: true
       visible: true
-    - title: _(Question)
+    - title: _(Questions)
       shareabouts: true
       image: /static/css/images/markers/marker-question.png
       url: /filter/question
       external: true
       visible: true
-    - title: _(Complaint)
+    - title: _(Complaints)
       shareabouts: true
       image: /static/css/images/markers/marker-complaint.png
       url: /filter/complaint
+      external: true
+      visible: true
+    - title: _(Hide All)
+      shareabouts: true
+      url: /filter/none
+      image: /static/css/images/hide-all.png
+      external: true
+      visible: true
+    - title: _(Show All)
+      shareabouts: true
+      url: /
+      image: /static/css/images/show-all.png
       external: true
       visible: true
 
@@ -445,7 +433,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Submit a report)
+  add_button_label: _(Add a report to the map!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
