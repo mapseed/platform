@@ -7,7 +7,7 @@
 FROM ubuntu
 
 # File Author / Maintainer
-MAINTAINER Luke Swart 
+MAINTAINER Luke Swart <luke.swart@gmail.com>
 
 # Add the application resources URL
 RUN echo "deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -sc) main universe" >> /etc/apt/sources.list
@@ -41,8 +41,11 @@ RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && g
 RUN pip install -r /duwamish/requirements.txt
 
 # Expose ports
-EXPOSE 80
-# EXPOSE 8000
+# EXPOSE 80
+EXPOSE 8002
+
+# Create volume for nginx accessibility
+# VOLUME staticfiles:/duwamish/staticfiles
 
 # RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # RUN cd duwamish/src/project && /bin/bash -c "source load_site.sh" && cd -
@@ -52,9 +55,9 @@ EXPOSE 80
 # Set the default directory where CMD will execute
 WORKDIR /duwamish/src
 
-# Set the default command to execute    
+# Set the default command to execute
 # when creating a new container
 # i.e. using CherryPy to serve the application
-# CMD python server.py
-CMD python manage.py runserver 0.0.0.0:80
+# CMD python manage.py runserver 0.0.0.0:80
+CMD gunicorn wsgi:application -w 3 -b 0.0.0.0:8002 --log-level=debug
 
