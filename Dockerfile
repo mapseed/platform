@@ -34,7 +34,7 @@ RUN pip install -r /duwamish/requirements.txt
 EXPOSE 8002
 
 # Set the default directory where CMD will execute
-WORKDIR /duwamish/src
+WORKDIR /duwamish
 
 # Set the default command to execute
 # when creating a new container
