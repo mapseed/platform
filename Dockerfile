@@ -36,6 +36,9 @@ EXPOSE 8002
 # Set the default directory where CMD will execute
 WORKDIR /duwamish
 
+RUN ln -s staticfiles static
+VOLUME /duwamish/static
+
 # Set the default command to execute
 # when creating a new container
 CMD gunicorn wsgi:application -w 3 -b 0.0.0.0:8002 --log-level=debug
