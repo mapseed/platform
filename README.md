@@ -95,8 +95,8 @@ NOTE: Mac OS X users need a command line C/C++ compiler in place for the above s
 Next, add the `.env` file under `src/.env` that was provided to you by your project contact. The file should contain the following format:
 
 ```
-DUWAMISH_SITE_KEY='abcd'
-DUWAMISH_SITE_URL='http://example.com'
+SITE_KEY='abcd'
+SITE_URL='http://example.com'
 ```
 
 To run the development server:
