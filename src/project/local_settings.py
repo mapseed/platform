@@ -5,7 +5,7 @@ TIME_ZONE = 'America/New_York'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-EMAIL_ADDRESS = 'shareabouts@example.com'
+EMAIL_ADDRESS = 'luke@smartercleanup.org'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Uncomment the following line if you would like to also receive emails that
@@ -47,9 +47,9 @@ def read_env():
 read_env()
 
 SHAREABOUTS = {
-  'FLAVOR': 'duwamish_flavor',
-  'DATASET_ROOT': os.environ['DUWAMISH_SITE_URL'],
-  'DATASET_KEY': os.environ['DUWAMISH_SITE_KEY']
+  'FLAVOR': os.environ['FLAVOR'],
+  'DATASET_ROOT': os.environ['SITE_URL'],
+  'DATASET_KEY': os.environ['SITE_KEY']
 }
 
 # For geocoding...
