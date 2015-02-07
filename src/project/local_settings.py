@@ -46,6 +46,9 @@ def read_env():
             os.environ.setdefault(key, val)
 read_env()
 
+if 'FLAVOR' not in os.environ:
+    os.environ['FLAVOR'] = 'duwamish_flavor'
+
 SHAREABOUTS = {
   'FLAVOR': os.environ['FLAVOR'],
   'DATASET_ROOT': os.environ['SITE_URL'],
