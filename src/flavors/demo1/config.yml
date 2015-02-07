@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Hey Duwamish!
+  title: Demo 1
   # Header name
-  name: Hey Duwamish!
+  name: Demo 1
   # Meta description that will show up in Google search results
-  meta_description: _(Duwamish Waterway River Cleanup superfund SmarterCleanup Community)
+  meta_description: _(demo1 parks)
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
@@ -48,10 +48,6 @@ map:
 #    maxBounds: [[47.000, -123.26], [47.92, -120.67]] # south, west, north, east
     maxBounds: [[46.500, -124], [48.5, -119]] # south, west, north, east
   layers:
-#      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-      # SmarterCleanup Mapbox base layer:
-#    - url: //{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
-#    - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
     - url: //{s}.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       visible: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -59,7 +55,6 @@ map:
   # Map Layers
 
      # Mapbox project freehand drawing imports
-#    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
     - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
       description: _(Early action cleanup sites)
@@ -70,12 +65,6 @@ map:
       rules:
       # show nothing when zoomed out
         - condition: '"{{map.zoom}}" < 11'
-
-#          opacity: 0
-#          icon:
-#            opacity: 0
-#          style:
-#            opacity: 0
 
       # LineString
         - condition: '"{{geometry.type}}" == "LineString"'
@@ -95,32 +84,6 @@ map:
             weight: "{{properties.stroke-width}}"
 
       # Mapbox Points
-
-        # Shrink the markers when zoomed out
-#        - condition: '"{{map._zoom}}" < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-danger.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map._zoom}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-park.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-industrial.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-bicycle.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-
         # Regular marker display
 #        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
@@ -147,12 +110,6 @@ map:
             iconSize: [30, 30]
             iconAnchor: [15, 15]
 
-        # default point marker case
-#        - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point"'
-#          icon:
-#            iconUrl: /static/css/images/markers/dot-fa307d.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
         - condition: '"{{geometry.type}}" == "Point"'
           icon:
             iconUrl: /static/css/images/markers/dot-fa307d.png
@@ -168,9 +125,6 @@ map:
       legend: true
       opacity: 0.5
       description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-#      description: _(<a href="/static/css/images/landuse2010.png"><img src="/static/css/images/landuse2010.png" alt="legend:" height="1000" width="1000"></a>)
-#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend" width=1000 height=1000>)
-#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend:" >)
       title: _(Zoning info)
       visible: false
 
@@ -185,22 +139,21 @@ map:
       title: _(Buildings)
       visible: false
 
-      # WMS NLCD
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-      layers: 'wria9:nlcd2011'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.6
-#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
-      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
-      title: _(Land covereage data)
-      visible: false
+#      # WMS NLCD (commented out for parks)
+#    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+#      layers: 'wria9:nlcd2011'
+#      version: '1.1.0'
+#      transparent: 'true'
+#      format: 'image/png'
+#      legend: true
+#      opacity: 0.6
+##      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
+#      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
+#      title: _(Land covereage data)
+#      visible: false
       
       # WMS Original Flow
     - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-#    - url: /static/data/WRIA9:WRIA9roi.geojson
       layers: 'wria9:Historical_Flow'
       version: '1.1.0'
       transparent: 'true'
@@ -313,30 +266,6 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "question" && {{layer.focused}}'
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [50, 60]
-#          shadowSize: [50, 60]
-#          shadowAnchor: [25, 60]
-#          iconAnchor: [25, 60]
-#
-#      - condition: '"{{location_type}}" === "question"'
-#        # Show questions that are points as icons...
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          iconSize: [24, 29]
-#          iconAnchor: [12, 29]
-#
-#        # ...and questions that are polygons as shapes.
-#
-#        style:
-#          color: '#4bbd45'
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 0.4
 
   idea:
     label: _(Idea)
@@ -367,33 +296,6 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-#        # Display landmarks as circles (vectors) when zoomed out
-#
-#        style:
-#          color: '#0d85e9'
-#          radius: 3
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 1
-#
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          iconSize: [50, 60]
-#          iconAnchor: [24, 59]
-#
-#      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [80, 96]
-#          shadowSize: [41, 41]
-#          iconAnchor: [39, 94]
 
   complaint:
     label: _(Complaint)
