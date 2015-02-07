@@ -46,20 +46,11 @@ def read_env():
             os.environ.setdefault(key, val)
 read_env()
 
-dataset_root_val = os.environ['DUWAMISH_SITE_URL']
-dataset_key_val = os.environ['DUWAMISH_SITE_KEY']
 SHAREABOUTS = {
   'FLAVOR': 'duwamish_flavor',
-  'DATASET_ROOT': dataset_root_val,
-  'DATASET_KEY': dataset_key_val,
-  # Default settings:
-  # 'FLAVOR': 'default',
-#  'DATASET_ROOT': 'http://data.shareabouts.org/api/v2/demo-user/datasets/demo-data/',
-#  'DATASET_KEY': 'NTNhODE3Y2IzODlmZGZjMWU4NmU3NDhj',
+  'DATASET_ROOT': os.environ['DUWAMISH_SITE_URL'],
+  'DATASET_KEY': os.environ['DUWAMISH_SITE_KEY']
 }
-# print "root: " + dataset_root_val
-# print "key: " + dataset_key_val
-# print "SHAREABOUTS: " + str(SHAREABOUTS)
 
 # For geocoding...
 MAPQUEST_KEY = 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u'
