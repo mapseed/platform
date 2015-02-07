@@ -49,37 +49,67 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
   # Map Layers
-      # Mapbox Points
-        # Regular marker display
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-danger.png
-            iconSize: [40, 40]
-            iconAnchor: [20, 20]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-park.png
-            iconSize: [26, 26]
-            iconAnchor: [13, 13]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-industrial.png
-            iconSize: [40, 40]
-            iconAnchor: [20, 20]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-bicycle.png
-            iconSize: [30, 30]
-            iconAnchor: [15, 15]
-
-        - condition: '"{{geometry.type}}" == "Point"'
-          icon:
-            iconUrl: /static/css/images/markers/dot-fa307d.png
-            iconSize: [16, 16]
-            iconAnchor: [8, 8]
+#     # Mapbox project freehand drawing imports
+#    - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+#      type: json
+#      description: _(Early action cleanup sites)
+#      popupContent: '{{title}}'
+#      legend: true
+#      visible: true
+#      title: _(Cleanup sites)
+#      rules:
+#      # show nothing when zoomed out
+#        - condition: '"{{map.zoom}}" < 11'
+#
+#      # LineString
+#        - condition: '"{{geometry.type}}" == "LineString"'
+#          style:
+#            color: "{{properties.stroke}}"
+#            opacity: '{{properties.stroke-opacity}}'
+#            weight: "{{properties.stroke-width}}"
+#      # Polygons
+#        - condition: '"{{geometry.type}}" == "Polygon"'
+#          style:
+#            shapeType: polygon
+#            fillColor: "{{properties.fill}}"
+#            fill: 'true'
+#            color: "{{properties.stroke}}"
+#            opacity: 0.7
+#            fillOpacity: '{{properties.fill-opacity}}'
+#            weight: "{{properties.stroke-width}}"
+#
+#      # Mapbox Points
+#        # Regular marker display
+##        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+#        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
+#          icon:
+#            iconUrl: /static/css/images/markers/marker-danger.png
+#            iconSize: [40, 40]
+#            iconAnchor: [20, 20]
+#
+#        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
+#          icon:
+#            iconUrl: /static/css/images/markers/marker-park.png
+#            iconSize: [26, 26]
+#            iconAnchor: [13, 13]
+#
+#        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
+#          icon:
+#            iconUrl: /static/css/images/markers/marker-industrial.png
+#            iconSize: [40, 40]
+#            iconAnchor: [20, 20]
+#
+#        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
+#          icon:
+#            iconUrl: /static/css/images/markers/marker-bicycle.png
+#            iconSize: [30, 30]
+#            iconAnchor: [15, 15]
+#
+#        - condition: '"{{geometry.type}}" == "Point"'
+#          icon:
+#            iconUrl: /static/css/images/markers/dot-fa307d.png
+#            iconSize: [16, 16]
+#            iconAnchor: [8, 8]
 
       # WMS landuse
     - url: http://heyduwamish.org:8080/geoserver/wria9/wms
