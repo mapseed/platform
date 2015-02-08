@@ -36,6 +36,7 @@ EXPOSE 8002
 # Set the default directory where CMD will execute
 WORKDIR /duwamish
 
+RUN ./src/manage.py compilemessages
 RUN ln -s staticfiles static
 VOLUME /duwamish/static
 
