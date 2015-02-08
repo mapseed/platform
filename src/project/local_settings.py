@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import re
 
@@ -46,8 +47,16 @@ def read_env():
             os.environ.setdefault(key, val)
 read_env()
 
+# Using print function for logging because handlers are not set in settings.py
 if 'FLAVOR' not in os.environ:
     os.environ['FLAVOR'] = 'duwamish_flavor'
+    print("INFO: Using default flavor")
+if 'SITE_URL' not in os.environ:
+    os.environ['SITE_URL'] = 'nosite'
+    print("ERROR: No SITE_URL found!")
+if 'SITE_KEY' not in os.environ:
+    os.environ['SITE_KEY'] = '1234'
+    print("ERROR: No SITE_KEY found!")
 
 SHAREABOUTS = {
   'FLAVOR': os.environ['FLAVOR'],
