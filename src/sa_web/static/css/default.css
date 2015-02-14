@@ -18,7 +18,7 @@ body:after {
 /* Links */
 a, a:active, a:visited,
 label, label:active, label:visited {
-  color: #007fbf;
+  color: #36454f;
 }
 a:hover,
 label:hover {
@@ -37,7 +37,7 @@ body, select, input, textarea {
   /*font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
   font-family: 'Roboto', sans-serif;
 
-  color: #007FBF;
+  color: #36454f;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
