@@ -7,7 +7,7 @@
 FROM ubuntu
 
 # File Author / Maintainer
-MAINTAINER Luke Swart <luke.swart@gmail.com>
+MAINTAINER Luke Swart <luke@smartercleanup.org>
 
 # Update the sources list
 RUN apt-get update
