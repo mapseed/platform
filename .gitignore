@@ -35,6 +35,8 @@ src/sa_web/static/dist/
 env/
 .env/
 .env
+.env-local
+.env-production
 node_modules/
 
 # Local project settings
