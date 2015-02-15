@@ -195,7 +195,7 @@ map:
       opacity: 0.6
 #      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
       description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
-      title: _(Land covereage data)
+      title: _(Land covereage)
       visible: false
       
       # WMS Original Flow
