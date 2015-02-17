@@ -125,9 +125,9 @@ map:
 #        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
           icon:
-            iconUrl: /static/css/images/markers/marker-danger.png
-            iconSize: [40, 40]
-            iconAnchor: [20, 20]
+            iconUrl: /static/css/images/markers/marker-construction.png
+            iconSize: [30, 30]
+            iconAnchor: [15, 15]
 
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
           icon:
