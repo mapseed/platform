@@ -124,7 +124,7 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.5
-      description: 'DRCC's Vision Map project'
+      description: DRCC's Vision Map project
       title: _(vision map)
       visible: false
 
