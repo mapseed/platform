@@ -116,28 +116,40 @@ map:
             iconSize: [16, 16]
             iconAnchor: [8, 8]
 
-      # WMS landuse
+      # WMS Vision Map
     - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
+      layers: 'visionMap'
       version: '1.1.0'
-      transparent: 'true'
+      transparent: 'false'
       format: 'image/png'
       legend: true
       opacity: 0.5
-      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-      title: _(Zoning info)
+      description: 'DRCC's Vision Map project'
+      title: _(vision map)
       visible: false
 
-      # WMS Buildings connection:
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
-      layers: 'wria9:2009BuildingsCOS'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Buildings)
-      visible: false
+#      # WMS landuse
+#    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+#      layers: 'wria9:Landuse2010'
+#      version: '1.1.0'
+#      transparent: 'true'
+#      format: 'image/png'
+#      legend: true
+#      opacity: 0.5
+#      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
+#      title: _(Zoning info)
+#      visible: false
+#
+#      # WMS Buildings connection:
+#    - url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
+#      layers: 'wria9:2009BuildingsCOS'
+#      version: '1.1.0'
+#      transparent: 'true'
+#      format: 'image/png'
+#      legend: true
+#      description: _(legend coming soon!)
+#      title: _(Buildings)
+#      visible: false
 
 #      # WMS NLCD (commented out for parks)
 #    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
