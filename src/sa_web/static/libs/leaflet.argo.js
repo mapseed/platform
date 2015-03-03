@@ -191,12 +191,10 @@ L.extend(L.Argo, {
 
         // Format marker icon features
         if (rules[i].icon) {
-          if (rules[i].isFocused && rules[i].focus_icon) {
-            feature.focus_icon = rules[i].focus_icon;
-          } else {
-            feature.icon = rules[i].icon;
-          }
+          feature.focus_icon = rules[i].focus_icon;
+          feature.icon = rules[i].icon;
         }
+
         return feature;
       }
     }
