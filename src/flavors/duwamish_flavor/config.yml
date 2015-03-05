@@ -159,6 +159,18 @@ map:
             iconSize: [16, 16]
             iconAnchor: [8, 8]
 
+      # WMS ROD
+    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+      layers: 'wria9:EPARODMergedFinal'
+      version: '1.1.0'
+      transparent: true
+      format: 'image/png'
+      legend: true
+      opacity: 0.8
+      description: the latest EPA ROD layer
+      title: EPA ROD
+      visible: false
+
       # WMS landuse
     - url: http://heyduwamish.org:8080/geoserver/wria9/wms
       layers: 'wria9:Landuse2010'
@@ -168,9 +180,6 @@ map:
       legend: true
       opacity: 0.5
       description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-#      description: _(<a href="/static/css/images/landuse2010.png"><img src="/static/css/images/landuse2010.png" alt="legend:" height="1000" width="1000"></a>)
-#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend" width=1000 height=1000>)
-#      description: _(<img src="/static/css/images/landuse2010.png" alt="legend:" >)
       title: _(Zoning info)
       visible: false
 
