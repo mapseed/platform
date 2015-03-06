@@ -1,6 +1,10 @@
 ###Mission of Hey Duwamish! (a project by SmarterCleanup.org)
 Our mission is to optimize community knowledge and resources to address environmental health issues over the next century. We do this by pairing the latest free and open source technology with good old fashioned community building. We call it collective cartography. Right now we are forming a partnership with the Duwamish River Cleanup Coalition to help the federally mandated cleanup of the Duwamish River in Seattle, Washington, one of the most polluted waterways in the United States.
 
+Our current demo is here:
+
+http://heyduwamish.org
+
 ###Goals for the sprint
 We are building towards a Version 1.0 release that will enable communities to manage their own map. This sprint is designed to make progress towards a 1.0 release:
 
