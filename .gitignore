@@ -35,6 +35,7 @@ src/sa_web/static/dist/
 env/
 .env/
 .env
+env.backup
 .env-local
 .env-production
 node_modules/
