@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Demo 3
+  title: 12,000 Raingardens
   # Header name
-  name: Demo 3
+  name: 12,000 Raingardens
   # Meta description that will show up in Google search results
-  meta_description: _(demo3 parks)
+  meta_description: _(raingardens)
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
@@ -22,11 +22,11 @@ languages:
   - code: en
     label: I Speak English
 
-  - code: es
-    label: Hablo Español
-
-  - code: vi
-    label: tôi nói tiếng việt
+#  - code: es
+#    label: Hablo Español
+#
+#  - code: vi
+#    label: tôi nói tiếng việt
 
 # Settings for map and layer configs
 map:
@@ -50,68 +50,6 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
   # Map Layers
-
-     # Mapbox project freehand drawing imports
-    - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      type: json
-      description: _(Early action cleanup sites)
-      popupContent: '{{title}}'
-      legend: true
-      visible: true
-      title: _(Cleanup sites)
-      rules:
-      # show nothing when zoomed out
-        - condition: '"{{map.zoom}}" < 11'
-
-      # LineString
-        - condition: '"{{geometry.type}}" == "LineString"'
-          style:
-            color: "{{properties.stroke}}"
-            opacity: '{{properties.stroke-opacity}}'
-            weight: "{{properties.stroke-width}}"
-      # Polygons
-        - condition: '"{{geometry.type}}" == "Polygon"'
-          style:
-            shapeType: polygon
-            fillColor: "{{properties.fill}}"
-            fill: 'true'
-            color: "{{properties.stroke}}"
-            opacity: 0.7
-            fillOpacity: '{{properties.fill-opacity}}'
-            weight: "{{properties.stroke-width}}"
-
-      # Mapbox Points
-        # Regular marker display
-#        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-danger.png
-            iconSize: [40, 40]
-            iconAnchor: [20, 20]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-park.png
-            iconSize: [26, 26]
-            iconAnchor: [13, 13]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-industrial.png
-            iconSize: [40, 40]
-            iconAnchor: [20, 20]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-bicycle.png
-            iconSize: [30, 30]
-            iconAnchor: [15, 15]
-
-        - condition: '"{{geometry.type}}" == "Point"'
-          icon:
-            iconUrl: /static/css/images/markers/dot-fa307d.png
-            iconSize: [16, 16]
-            iconAnchor: [8, 8]
 
       # WMS landuse
     - url: http://heyduwamish.org:8080/geoserver/wria9/wms
@@ -149,45 +87,39 @@ map:
 #      title: _(Land covereage data)
 #      visible: false
       
-      # WMS Original Flow
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-      layers: 'wria9:Historical_Flow'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.4
-      description: _(The orginal Duwamish River path)
-      title: _(Original river path)
-      visible: false
-      
 
   # Report filters
 
-    - title: _(Observations)
+    - title: _(Raingardens)
       shareabouts: true
       image: /static/css/images/markers/marker-observation.png
       url: /filter/observation
       external: true
       visible: true
-    - title: _(Ideas)
-      shareabouts: true
-      image: /static/css/images/markers/marker-idea.png
-      url: /filter/idea
-      external: true
-      visible: true
-    - title: _(Questions)
-      shareabouts: true
-      image: /static/css/images/markers/marker-question.png
-      url: /filter/question
-      external: true
-      visible: true
-    - title: _(Complaints)
-      shareabouts: true
-      image: /static/css/images/markers/marker-complaint.png
-      url: /filter/complaint
-      external: true
-      visible: true
+#    - title: _(Observations)
+#      shareabouts: true
+#      image: /static/css/images/markers/marker-observation.png
+#      url: /filter/observation
+#      external: true
+#      visible: true
+#    - title: _(Ideas)
+#      shareabouts: true
+#      image: /static/css/images/markers/marker-idea.png
+#      url: /filter/idea
+#      external: true
+#      visible: true
+#    - title: _(Questions)
+#      shareabouts: true
+#      image: /static/css/images/markers/marker-question.png
+#      url: /filter/question
+#      external: true
+#      visible: true
+#    - title: _(Complaints)
+#      shareabouts: true
+#      image: /static/css/images/markers/marker-complaint.png
+#      url: /filter/complaint
+#      external: true
+#      visible: true
     - title: _(Hide All)
       shareabouts: true
       url: /filter/none
