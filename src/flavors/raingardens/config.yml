@@ -19,19 +19,11 @@ app:
   # list_enabled: false
 
 languages:
-  - code: en
-    label: I Speak English
-
-#  - code: es
-#    label: Hablo Español
-#
-#  - code: vi
-#    label: tôi nói tiếng việt
 
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
-  geolocation_onload: true
+  geolocation_onload: false
 
   geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
 
@@ -120,46 +112,46 @@ map:
 #      url: /filter/complaint
 #      external: true
 #      visible: true
-    - title: _(Hide All)
-      shareabouts: true
-      url: /filter/none
-      image: /static/css/images/hide-all.png
-      external: true
-      visible: true
-    - title: _(Show All)
-      shareabouts: true
-      url: /
-      image: /static/css/images/show-all.png
-      external: true
-      visible: true
+#    - title: _(Hide All)
+#      shareabouts: true
+#      url: /filter/none
+#      image: /static/css/images/hide-all.png
+#      external: true
+#      visible: true
+#    - title: _(Show All)
+#      shareabouts: true
+#      url: /
+#      image: /static/css/images/show-all.png
+#      external: true
+#      visible: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
   observation:
-    label: _(Observation)
+    label: _(Garden)
     rules:
       - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
       - condition: '"{{location_type}}" === "observation" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
       - condition: '"{{location_type}}" === "observation" && {{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-drop.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -264,9 +256,9 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Add a raingarden to the map!)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
+  show_list_button_label: _(Show as a list)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
@@ -306,22 +298,6 @@ place:
           value: _(Location Name)
         - key: size
           value: 30
-    - prompt: _(Type of report)
-      type: select
-      options:
-        - label: _(Choose One)
-          value: ''
-        - label: _(Observation)
-          value: observation
-        - label: _(Question)
-          value: question
-        - label: _(Idea)
-          value: idea
-        - label: _(Complaint)
-          value: complaint
-      name: location_type
-      attrs:
-        - key: required
     - prompt: _(Description)
       type: textarea
       name: description
@@ -384,7 +360,7 @@ pages:
     slug: background
     name: background
 
-  - title: _(Contribute)
-    slug: contribute
-    name: contribute
+  - title: _(Build a raingarden)
+    slug: build
+    name: build
 

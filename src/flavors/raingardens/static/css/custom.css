@@ -8,6 +8,46 @@
 /* =Header
 -------------------------------------------------------------- */
 
+#site-header {
+  /*color: #eee;*/
+  background: url(http://subtlepatterns.com/patterns/flowers.png);
+  position: relative;
+  z-index: 40;
+  padding: 0.5em;
+  box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
+}
+
+#site-title {
+  /*color: #F25218;*/ /*too much like 'simpsons'*/
+  font-size: 1em;
+  font-family: 'Open Sans', sans-serif;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+  float: left;
+  margin: 0 0.5em 0 0;
+  padding: 0;
+}
+.has-pages #site-title {
+  padding-left: 3.25em;
+}
+#site-title a:link,
+#site-title a:visited {
+  display: block;
+  font-size: 2em;
+  line-height: 1.25;
+  text-decoration: none;
+  /*color: #F25218;*/
+  color: #228b22;
+}
+#site-title a:hover {
+  /*color: #FF8B61;*/
+  color: #abde76;
+}
+
+/* =Map
+------------------------------------------------------------- */
+
+
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
