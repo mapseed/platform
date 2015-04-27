@@ -434,6 +434,12 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
+# Sidebar and activity stream should be enabled and disabled together!
+# note: sidebar is aka 'MasterLegend'
+# TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
+sidebar:
+  enabled: true
+
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true

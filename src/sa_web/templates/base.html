@@ -118,7 +118,9 @@
     </div><!-- end #content -->
   </div><!-- end #main -->
 
-  <div id="side-bar">
+ {% if config.sidebar.enabled %}
+{# add 18 em variable to CSS?#}
+   <div id="side-bar">
     <div id="master-legend">
       {% block sidebar %}{% endblock %}
       <!--<header>Master Legend</header>-->
@@ -128,6 +130,7 @@
       <ul class="recent-points unstyled-list"></ul>
     </div>
   </div>
+ {% endif %}
 
   <div id="list-container"></div>
 
