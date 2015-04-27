@@ -6,7 +6,6 @@ html {
 }
 body {
   min-height: 100%;
-  background-color: #666;
   text-align: left;
 }
 
@@ -17,10 +16,12 @@ body:after {
 }
 
 /* Links */
-a, a:active, a:visited {
-  color: #007fbf;
+a, a:active, a:visited,
+label, label:active, label:visited {
+  color: #36454f;
 }
-a:hover {
+a:hover,
+label:hover {
   color: #00aaff;
 }
 a:hover, a:active {
@@ -32,8 +33,11 @@ body {
   line-height: 1.25;
 }
 body, select, input, textarea {
-  color: #555;
-  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+  /*color: #555;*/
+  /*font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+  font-family: 'Roboto', sans-serif;
+
+  color: #36454f;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
@@ -79,6 +83,10 @@ nav li,
 .unstyled-list li {
   padding-bottom: 0;
 }
+/*nav li,*/
+/*.unstyled-list li:hover {*/
+  /*background:rgba(0, 127, 191, 0.57);*/
+/*}*/
 strong {
   font-weight: 800;
 }
@@ -120,6 +128,7 @@ hr {
 .btn-primary:link {
   background-color: #00aaff;
   color: #fff;
+  background-color:rgba(242, 82, 24, 0.89);
 }
 .btn-primary:hover {
   background-color: #007fbf;
@@ -129,7 +138,11 @@ hr {
 .btn-secondary:link {
   background-color: #ccc;
   color: #007fbf;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
+
 .btn-secondary:hover {
   background-color: #007fbf;
   color: #fff;
@@ -171,9 +184,11 @@ fieldset {
 }
 label {
   font-size: 0.75em;
-  text-transform: uppercase;
-  color: #999;
+  /*text-transform: uppercase;*/
+  /*color: #999;*/
   margin-right: 0.5em;
+
+  padding-bottom: 0;
 }
 label small {
   text-transform: none;
@@ -287,18 +302,18 @@ img {
 -------------------------------------------------------------- */
 
 #site-header {
-  color: #eee;
-  background-color: #777;
+  /*color: #eee;*/
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.5em;
-  box-shadow: 0 0.325em 0 rgba(0,0,0,0.1);
+  box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
 }
+
 #site-title {
-  color: #eee;
-  font-size: 1em;
-  font-family: 'Dancing Script', cursive;
-  font-weight: 700;
+  /*color: #F25218;*/ /*too much like 'simpsons'*/
+  font-size: .75em;
+  font-family: 'Rock Salt', cursive;
   text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
   float: left;
   margin: 0 0.5em 0 0;
@@ -313,15 +328,17 @@ img {
   font-size: 2em;
   line-height: 1.25;
   text-decoration: none;
-  color: #eee;
+  /*color: #F25218;*/
+  color: #228b22;
 }
 #site-title a:hover {
-  color: #fff;
+  /*color: #FF8B61;*/
+  color: #abde76;
 }
 
 /* Navigation Button */
 #nav-btn {
-  background: #6f6f6f;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   color: #bbb;
   font-size: 2em;
   line-height: 1;
@@ -362,7 +379,8 @@ img {
 .user-menu {
 }
 #sign-in-btn {
-  color: #a3c7d9;
+  background-color: #007fbf;
+  color: #fff;
   font-size: 0.75em;
   text-transform: uppercase;
   text-align: center;
@@ -371,10 +389,11 @@ img {
   float: right;
   display: block;
   padding: 0 0.5em;
-  margin: 0 0 0 0.5em;
+  margin: 0.25em, 0.75em, 0, 0.5em;
+  height: 100%;
 }
 #sign-in-btn:hover {
-  color: #fff;
+  color: #a3c7d9;
 }
 .sign-in-menu {
   font-weight: bold;
@@ -468,7 +487,7 @@ a.logout-btn {
 
 /* Add Place Button */
 #add-place-btn-container {
-  background: #777;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
@@ -611,7 +630,7 @@ a.logout-btn {
 -------------------------------------------------------------- */
 
 .progress-bar {
-  background: #777;
+  /*background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);*/
   background: rgba(85,85,85,0.5);
   height: 1.5em;
   padding: 0 0.25em;
@@ -916,26 +935,66 @@ a.auth-inline {
 }
 
 
+/* =The Side Bar
+-------------------------------------------------------------- */
+#side-bar {
+  display: none;
+  overflow: auto;
+
+  letter-spacing: 1px;
+}
+/*#side-bar header {*/
+  /*font-size: 2.3em;*/
+  /*font-family: 'Dancing Script', cursive;*/
+  /*text-shadow: 1px -1px 1px rgba(0,0,0,0.5);*/
+/*}*/
+#side-bar p {
+  color: #F25218;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+
+  font-size: 1.5em;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#side-bar hr {
+  margin: 0.5em 0;
+  /*padding: 7px 0 7px 10px;*/
+  /*margin: 0;*/
+  /*letter-spacing: 1px;*/
+  /*text-transform: uppercase;*/
+  /*height: 12px;*/
+  border:none;
+}
+
+#side-bar {
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /* =The Ticker
 -------------------------------------------------------------- */
 
 #ticker {
-  background: #777;
-  position: relative;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   z-index: 30;
   display: none;
+}
+#ticker p {
+  padding-left: 1em;
 }
 .activity-enabled #ticker {
   display: block;
 }
-.content-visible #ticker {
-  display: none;
-}
-
+/*.content-visible #ticker {*/
+  /*display: none;*/ /* hide ticker when content is visible on mobile */
+/*}*/
 ul.recent-points {
   list-style: none;
   margin: 0;
-  color: #ddd;
+  padding: 0;
 }
 .recent-points li {
   position: relative;
@@ -943,7 +1002,6 @@ ul.recent-points {
 .recent-points li:hover {
 }
 .recent-points a {
-  color: #eee;
   text-decoration: none;
   float: left;
   border-top: 1px solid #888;
@@ -959,9 +1017,9 @@ ul.recent-points {
   padding-top: 0.75em;
 }
 .recent-points a:hover {
-  color: #fff;
-  background: #666;
-  border-color: #666;
+  /*color: #fff;*/
+  /*background: #666;*/
+  /*border-color: #666;*/
 }
 .recent-points .avatar {
   width: 2em;
@@ -970,6 +1028,160 @@ ul.recent-points {
   margin-left: -2.5em;
 }
 
+/* =MasterLegend
+-------------------------------------------------------------- */
+#master-legend {
+  overflow: visible;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 1em;
+  /*display: none;*/
+}
+/* All layers in the Master Legend list */
+#master-legend .unstyled-list {
+}
+
+.layer-type-list {
+  font-size: 1.4em;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+/* allows hover to be positioned on the 'layer-type-description' */
+.layer-type-list li {
+  position: relative;
+}
+.layer-type-list img {
+  height: 1.75em;
+  width: auto;
+  vertical-align: middle;
+}
+.layer-type-description img {
+  height: auto;
+  width: auto;
+}
+.layer-type-description {
+  height: 0;
+  overflow: visible;
+  opacity: 0;
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  right: 1em;
+  bottom: auto;
+  left: 0.875em;
+  margin: 0.25em 0 0 0;
+  border-radius: 0 0.5em 0.5em 0.5em;
+  background: #000;
+  color: #fff;
+  font-size: 0.875em;
+  line-height: 1.25;
+  box-shadow: -0.25em 0 1em rgba(255,255,255,0.8);
+  -webkit-transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  transition: opacity .25s ease-in-out;
+  pointer-events: none;
+}
+.layer-type-li:hover .layer-type-description {
+  height: auto;
+  padding: 0.375em 0.625em;
+  opacity: 1;
+  overflow: visible;
+}
+.layer-type-li:hover .layer-type-description:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 0.5em solid transparent;
+  border-bottom-color: #000;
+  border-left-color: #000;
+}
+
+#master-legend .layer-type-list {
+  font-size: 0.875em;
+}
+
+#master-legend .layer-type-title label, .layer-type-title input {
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+
+#master-legend .shareabouts-layer-li a {
+  font-size: 1.4em;
+  letter-spacing: 2px;
+}
+/*#master-legend .layer-type-title label {*/
+  /*color: #ddd;*/
+  /*font-weight: normal;*/
+  /*position: absolute;*/
+  /*z-index: 20;*/
+/**/
+  /*text-transform: none;*/
+/*}*/
+#master-legend .layer-type-title:active label:hover,
+#master-legend .shareabouts-layer-li:active a {
+  color: #00aaff;
+}
+
+/*#master-legend .layer-type-list:after {*/
+  /*content: '';*/
+  /*position: absolute;*/
+  /*z-index: 10;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*height: 1.75em;*/
+  /*width: 1.75em;*/
+  /*border-radius: 100%;*/
+  /*background: #fff;*/
+  /*box-shadow: 0 0 0 2px #fff;*/
+/*}*/
+#master-legend .map-layer-list {
+  margin-bottom: 0.5em;
+  font-size: 0.75em;
+}
+/*#master-legend {*/
+  /*display: block;*/
+  /*padding: 1em;*/
+  /*-webkit-box-sizing: border-box;*/
+  /*-moz-box-sizing: border-box;*/
+  /*box-sizing: border-box;*/
+/*}*/
+@media screen and (min-width: 40.063em) {
+  .active #master-legend {
+    height: 100%;
+    width: 16em;
+    top: 0;
+    right: 0;
+    overflow: auto;
+  }
+}
+
+/* Shareabouts layers */
+#master-legend .layer-type-li label,
+#master-legend .shareabouts-layer-li a {
+  cursor: pointer;
+  position: relative;
+  z-index: 20;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  font-family: 'Roboto', sans-serif;
+}
+#master-legend .shareabouts-layer-title {
+  font-size: 1.4em;
+  cursor: pointer;
+  width: 1em;
+  height: auto;
+  z-index: 20;
+  text-transform: none;
+  vertical-align: top;
+  margin-right: 8px;
+}
 
 /* =List View
 -------------------------------------------------------------- */
@@ -983,7 +1195,7 @@ ul.recent-points {
   background: #fff;
   position: absolute;
   padding: 1.75em 1em;
-  top: 5em; /* height of #site-header (on large screens) */
+  top: 4em; /* height of #site-header (on large screens) */
   right: 0;
   bottom: 0;
   left: 0;
@@ -1088,7 +1300,7 @@ ul.recent-points {
 
 #geocode-address-bar {
   display: none;
-  background-color: #777;
+  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.75em 0.5em 0.5em;
@@ -1188,18 +1400,15 @@ input.geocode-address-field:focus {
 -------------------------------------------------------------- */
 
 #colophon {
-  background-color: #666;
-  color: #ddd;
   padding: 1em 0.5em;
-  box-shadow: inset 0 0.325em rgba(0,0,0,0.1);
   text-align: center;
 }
 #colophon a {
   text-decoration: none;
-  color: #ddd;
+  /*color: #ddd;*/
 }
 #colophon a:hover {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ffb885;
 }
 
 /* Powered By */
@@ -1211,18 +1420,13 @@ a.shareabouts-logo {
   font-family: 'Dancing Script', cursive;
   font-weight: bold;
   font-size: 1.325em;
-  color: #a3c7d9;
-  font-weight: bold;
-}
-a.shareabouts-logo:hover {
-  color: #fff;
+  color: #FF8B61;
+  /*color: #a3c7d9;*/
 }
 #powered-by a.openplans-logo {
-  color: #ffb885;
+  /*color: #ffb885;*/
+  color: #FF8B61;
   font-weight: bold;
-}
-#powered-by a.openplans-logo:hover {
-  color: #fff;
 }
 
 /* Mapquest Attribution */
@@ -1234,7 +1438,6 @@ a.shareabouts-logo:hover {
   max-height: 0.75em;
   width: auto;
 }
-
 
 /* =Unsupported Browsers
 -------------------------------------------------------------- */
@@ -1270,28 +1473,93 @@ a.close-unsupported-overlay {
   box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
 }
 
-
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
+/*
+Without any system display to show the status/nav bar, the map height can comfortably be ~118px less than the
+browser height, but in portrait mode, we usually have ~30px of nav/status-bar, so we limit the map height to
+~148px less than the browser height
+*/
 
+/* iphone 4 (320 x 480)*/
 @media only screen and (min-height: 440px) and (max-width: 60em) {
   #map {
-    height: 250px;
+    height: 292px;
+  }
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 1.8em;
+    line-height: 1.325;
   }
 }
 
+/*@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {*/
+  /*#map {*/
+    /*height: 292px;*/
+  /*}*/
+/*}*/
+@media only screen and (min-height: 480px) and (max-width: 60em) {
+  #map {
+    height: 332px;
+  }
+  #site-title a:link,
+  #site-title a:visited {
+  font-size: 1.8em;
+  line-height: 1.325;
+  }
+}
+
+/*@media only screen and (min-width: 440px) and (max-height: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {
+  #map {
+    height: 202px;
+  }
+}
+
+/* iphone 5 (320 x 568) */
 @media only screen and (min-height: 568px) and (max-width: 60em) {
   #map {
-    height: 325px;
+    height: 420px;
   }
 }
-
-@media only screen and (min-width: 768px) and (max-width: 60em) {
+/*@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 568px) and (min-height: 320px) and (orientation : landscape) {
   #map {
-    height: 400px;
+    height: 202px;
   }
 }
 
+/* iphone 6 (375 x 667) */
+@media only screen and (min-height: 667px) and (max-width: 60em) {
+  #map {
+    height: 519px;
+  }
+}
+/*@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 667px) and (min-height: 375px) and (orientation : landscape) {
+  #map {
+    height: 247px;
+  }
+}
+/* iphone 6 plus (414 x 736) */
+@media only screen and (min-height: 736px) and (max-width: 60em) {
+  #map {
+    height: 588px;
+  }
+}
+/*@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {*/
+@media only screen and (min-width: 736px) and (min-height: 414px) and (orientation : landscape) {
+  #map {
+    height: 296px;
+  }
+}
+@media only screen and (min-height: 768px) and (max-width: 60em) {
+  #map {
+    height: 620px;
+  }
+}
+
+/* default for other media */
 @media only screen and (min-width: 60em) {
   html,
   body {
@@ -1308,10 +1576,11 @@ a.close-unsupported-overlay {
   #site-header {
     padding-left: 1em;
     overflow: visible;
-    height: 5em;
+    height: 4em;  /* height of site-header */
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   }
   .has-pages #site-title {
     padding-left: 0;
@@ -1324,11 +1593,23 @@ a.close-unsupported-overlay {
   #nav-btn {
     display: none;
   }
-  #pages-nav-container,
-  #language-picker {
+  /*#pages-nav-container,*/
+  /*#language-picontainer,*/
+  #pages-nav-container {
     height: 100%;
     float: left;
   }
+  #language-picker {
+    float: right;
+    height: 100%;
+    /*position: none;*/
+  }
+  .current-language {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
   .access {
     font-size: 0.875em;
     width: auto;
@@ -1381,12 +1662,12 @@ a.close-unsupported-overlay {
     text-decoration: none;
     line-height: 1.5;
     padding: 0.5em;
-    margin: 0.75em 0.75em 0 0.75em;
+    margin: 0.25em 0.75em 0 0.75em;
     position: relative;
     z-index: 3;
   }
   .sign-in-menu {
-    background: #666;
+    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
     border-radius: 3px;
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
     width: 18em;
@@ -1419,7 +1700,7 @@ a.close-unsupported-overlay {
   /* Map*/
   #map-container {
     position: absolute;
-    top: 5em; /* height of #site-header */
+    top: 4em; /* height of #site-header */
     right: 0;
     bottom: 1.75em;
     left: 0;
@@ -1461,6 +1742,9 @@ a.close-unsupported-overlay {
     padding-right: 1em;
     padding-left: 1em;
   }
+  #add-place-btn-container .btn-primary:hover {
+    background-color: #FF8B61;
+  }
   .content-visible #add-place-btn-container {
     display: block; /* override of the mobile style */
   }
@@ -1470,9 +1754,10 @@ a.close-unsupported-overlay {
 
   /* Content */
   #content {
+    color: #36454f;
     padding: 0;
     position: absolute;
-    top: 5em;
+    top: 4em; /* height of site-header */
     right: 0;
     bottom: 1.75em;
     left: 40%;
@@ -1529,7 +1814,7 @@ a.close-unsupported-overlay {
   /* Geocoding */
   #geocode-address-bar {
     position: absolute;
-    top: 5em; /* height of #site-header */
+    top: 4em; /* height of #site-header */
     right: 0;
     bottom: auto;
     left: 0;
@@ -1538,7 +1823,9 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
   .activity-enabled #geocode-address-bar {
+    /*right: 16em;*/
     right: 18em;
+    /*right: 20em;*/
   }
   #geocode-address-bar .error {
     padding: 0.25em 0.5em;
@@ -1562,10 +1849,10 @@ a.close-unsupported-overlay {
     margin-right: 0;
   }
 
-  /* The Ticker */
-  #ticker {
+  /* The Side Bar */
+  #side-bar {
     position: absolute;
-    top: 5em; /* height of #site-header */
+    top: 4em; /* height of #site-header */
     right: 0;
     bottom: 0;
     left: auto;
@@ -1574,27 +1861,60 @@ a.close-unsupported-overlay {
     -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+    background: url(http://subtlepatterns.com/patterns/scribble_light.png);
+
+  }
+  .activity-enabled.content-visible #side-bar {
+    display: block;
+  }
+  .activity-enabled #map-container {
+    right: 18em;  /* width of #master-legend */
+  }
+  /* The Ticker */
+  #ticker {
+    right: 0;
+    bottom: 0;
+    left: auto;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 15;
+    background: none;
   }
   .activity-enabled.content-visible #ticker {
     display: block;
   }
   ul.recent-points {
     font-size: 0.875em;
-    -webkit-transform: translateZ(0px); /* needed on #ticker > * for touch scrolling */
+    -webkit-transform: translateZ(0px);  /* needed on #ticker > * for touch scrolling */
   }
   .activity-enabled #map-container {
-    right: 18em; /* width of #ticker */
+    right: 18em;  /* width of #ticker */
+  }
+
+  /* master-legend */
+  #master-legend {
+    -webkit-overflow-scrolling: touch;
+    z-index: 15;
+  }
+  .activity-enabled.content-visible #master-legend {
+    display: block;
+  }
+  .activity-enabled #map-container {
+    right: 18em;  /* width of #master-legend */
   }
 
   /* List View */
   .list-toggle-nav {
     display: block;
-    float: right;
+    /*float: right;*/
     width: auto;
-    margin: -1.125em 0 0 0.5em;
+    /*margin: -1.125em 0 0 0.5em;*/
     position: relative;
     top: 50%;
     font-size: 0.875em;
+
+    margin: -1.325em 0 0 1em;
+    float: left;
   }
   #list-container.is-exposed {
     display: block;
@@ -1602,17 +1922,18 @@ a.close-unsupported-overlay {
   .list-toggle-btn,
   .list-toggle-btn:visited,
   .list-toggle-btn:link {
-    background-color: #007fbf;
-    color: #eee;
+    /*background-color: #007fbf;*/
+    /*color: #eee;*/
   }
   .list-toggle-btn:hover {
-    background-color: #00aaff;
-    color: #fff;
+    /*background-color: #00aaff;*/
+    /*color: #fff;*/
   }
 
   /* Footer */
   #colophon {
-    background-color: #666;
+    color: #007fbf;
+    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
     font-size: 1em;
     position: absolute;
     top: auto;
@@ -1621,14 +1942,14 @@ a.close-unsupported-overlay {
     left: 0;
     z-index: 14;
     padding: 0.25em;
-    box-shadow: 0 -0.325em rgba(0,0,0,0.1);
+    box-shadow: 0 -0.125em rgba(0,0,0,0.1);
     height: 1.75em;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
   }
   .activity-enabled #colophon {
-    right: 18em; /* width of #ticker */
+    right: 18em;   /* width of #master-legend */
   }
   #powered-by {
     margin-bottom: 0;

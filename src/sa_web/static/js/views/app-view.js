@@ -88,7 +88,7 @@ var Shareabouts = Shareabouts || {};
 
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
-        if (route !== 'showList' && this.listView && this.listView.isVisible()) {
+        if (!_.contains(this.getListRoutes(), route) && this.listView && this.listView.isVisible()) {
           this.hideListView();
         }
       }, this);
@@ -224,6 +224,12 @@ var Shareabouts = Shareabouts || {};
       this.activities.fetch({reset: true});
     },
 
+    getListRoutes: function() {
+      // Return a list of the routes that are allowed to show the list view.
+      // Navigating to any other route will automatically hide the list view.
+      return ['showList'];
+    },
+
     isAddingPlace: function(model) {
       return this.$panel.is(":visible") && this.$panel.hasClass('place-form');
     },
@@ -311,7 +317,11 @@ var Shareabouts = Shareabouts || {};
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'panel', 'close-btn-click');
-      this.options.router.navigate('/', {trigger: true});
+      if (this.mapView.locationTypeFilter) {
+        this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
+      } else {
+        this.options.router.navigate('/', {trigger: true});
+      }
     },
     // This gets called for every model that gets added to the place
     // collection, not just new ones.
@@ -554,6 +564,12 @@ var Shareabouts = Shareabouts || {};
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
     },
+    showAddButton: function() {
+      this.$addButton.show();
+    },
+    hideAddButton: function() {
+      this.$addButton.hide();
+    },
     showCenterPoint: function() {
       this.$centerpoint.show().removeClass('newpin');
     },
@@ -614,6 +630,7 @@ var Shareabouts = Shareabouts || {};
         this.showListView();
         this.options.router.navigate('list');
       }
+      this.mapView.clearFilter();
     }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));
