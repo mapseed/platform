@@ -2,6 +2,8 @@
 app:
   # HTML Title
   title: 12,000 Raingardens
+  # Site Link
+  link: http://12000raingardens.org
   # Header name
   name: 12,000 Raingardens
   # Meta description that will show up in Google search results
@@ -37,7 +39,7 @@ map:
 #    maxBounds: [[47.000, -123.26], [47.92, -120.67]] # south, west, north, east
     maxBounds: [[46.500, -124], [48.5, -119]] # south, west, north, east
   layers:
-    - url: //{s}.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    - url: //{s}.tiles.mapbox.com/v4/smartercleanup.m1b2emco/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       visible: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
@@ -85,7 +87,7 @@ map:
     - title: _(Raingardens)
       shareabouts: true
       image: /static/css/images/markers/marker-observation.png
-      url: /filter/observation
+      url: /filter/raingarden
       external: true
       visible: true
 #    - title: _(Observations)
@@ -281,7 +283,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
+    start_page: false
 
   - title: _(Background)
     slug: background
