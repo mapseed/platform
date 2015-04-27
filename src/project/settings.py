@@ -79,13 +79,6 @@ COMPRESS_ROOT = STATIC_ROOT
 STATIC_URL = '/static/'
 COMPRESS_URL = STATIC_URL
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
-
 ATTACHMENT_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # List of finder classes that know how to find static files in
@@ -353,6 +346,13 @@ if 'PACKAGE' not in SHAREABOUTS:
     SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
     INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS
 
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    str(os.path.abspath(os.path.join(here, '..', 'flavors', flavor + "/static"))),
+)
 
 ##############################################################################
 # Locale paths
