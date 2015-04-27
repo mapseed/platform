@@ -29,9 +29,9 @@ map:
 
   options:
     center:
-      lat: 47.564901
-      lng: -122.345837
-    zoom: 13
+      lat: 47.61345
+      lng: -122.29843
+    zoom: 11
     minZoom: 9
     maxZoom: 18
 #    maxBounds: [[47.000, -123.26], [47.92, -120.67]] # south, west, north, east
@@ -128,120 +128,30 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  observation:
-    label: _(Garden)
+  raingarden:
+    label: _(Raingarden)
     rules:
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "observation" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "raingarden" && {{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-  question:
-    label: _(Question)
-    rules:
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "question" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-  idea:
-    label: _(Idea)
-    rules:
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-  complaint:
-    label: _(Complaint)
-    rules:
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "complaint" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -305,6 +215,16 @@ place:
           value: _(Location Name)
         - key: size
           value: 30
+    - prompt: _(Type of report)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(Raingarden)
+          value: raingarden
+      name: location_type
+      attrs:
+        - key: required
     - prompt: _(Description)
       type: textarea
       name: description
