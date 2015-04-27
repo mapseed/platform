@@ -5,12 +5,91 @@
  */
 
 
+/* =Base Styles
+-------------------------------------------------------------- */
+
+/* Buttons */
+.btn,
+.btn:visited,
+.btn:link {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 0.325em 0.625em;
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #1a8504;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: #a3c7d9;
+  box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
+  font-weight: 600;
+  border: 3px solid rgba(0,0,0,0.05);
+  border-radius: 3px;
+}
+.btn:hover {
+  background-color: #93b7c9;
+}
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
+  background-color: #00aaff;
+  color: #fff;
+  background-color:rgba(242, 82, 24, 0.89);
+}
+.btn-primary:hover {
+  background-color: #007fbf;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+  background-color: #ccc;
+  color: #ffffff;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background-color: #007fbf;
+  color: #fff;
+}
+.btn-disabled,
+.btn-disabled:visited,
+.btn-disabled:link,
+.btn-disabled:hover {
+  background-color: #eee;
+  color: #ccc;
+  box-shadow: none;
+}
+.btn-block,
+.btn-block:visited,
+.btn-block:link {
+  clear: both;
+  display: block;
+  padding: 0.5em 0.75em;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.btn-large {
+  font-size: 1.25em;
+  padding: 0.75em 1em 0.5em;
+}
+.btn-small {
+  font-size: 0.75em;
+}
+
+
 /* =Header
 -------------------------------------------------------------- */
 
 #site-header {
   /*color: #eee;*/
-  background: url(http://subtlepatterns.com/patterns/flowers.png);
+  background: url(http://www.12000raingardens.org/wp-content/themes/rt_gantry_wp/images/header/nav-bg.jpg);
   position: relative;
   z-index: 40;
   padding: 0.5em;
@@ -43,8 +122,12 @@
   color: #abde76;
 }
 
+
+
+
 /* =Map
 ------------------------------------------------------------- */
+
 
 
 
