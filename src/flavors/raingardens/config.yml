@@ -136,7 +136,7 @@ place_types:
       - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [10, 12]
+          iconSize: [7, 12]
           iconAnchor: [5, 12]
 
       - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 13 && {{layer.focused}} === false'
