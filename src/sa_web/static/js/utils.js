@@ -37,11 +37,22 @@ var Shareabouts = Shareabouts || {};
     },
 
     getAttrs: function($form) {
-      var attrs = {};
+      var attrs = {},
+          multivalues = [];
 
-      // Get values from the form
+      // Get values from the form. Make the item into an array if there are
+      // multiple values in the form, as in the case of a set of check boxes or
+      // a multiselect list.
       _.each($form.serializeArray(), function(item) {
-        attrs[item.name] = item.value;
+        if (!_.isUndefined(attrs[item.name])) {
+          if (!_.contains(multivalues, item.name)) {
+            multivalues.push(item.name);
+            attrs[item.name] = [attrs[item.name]];
+          }
+          attrs[item.name].push(item.value);
+        } else {
+          attrs[item.name] = item.value;
+        }
       });
 
       return attrs;
