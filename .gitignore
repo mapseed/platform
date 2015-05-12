@@ -35,7 +35,7 @@ staticfiles
 # environment
 env/
 .env/
-.env
+.env*
 env.backup
 .env-local
 .env-production
