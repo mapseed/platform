@@ -59,7 +59,7 @@ map:
   # Map Layers
 
      # Mapbox project freehand drawing imports
-#    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
+#    - url: //a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
     - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
       description: _(Early action cleanup sites)
@@ -160,7 +160,7 @@ map:
             iconAnchor: [8, 8]
 
       # WMS ROD
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+    - url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/gwc/service/wms
       layers: 'wria9:EPARODMergedFinal'
       version: '1.1.0'
       transparent: true
@@ -172,7 +172,7 @@ map:
       visible: false
 
       # WMS landuse
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+    - url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/gwc/service/wms
       layers: 'wria9:Landuse2010'
       version: '1.1.0'
       transparent: 'true'
@@ -184,7 +184,7 @@ map:
       visible: false
 
       # WMS Buildings connection:
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
+    - url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
       layers: 'wria9:2009BuildingsCOS'
       version: '1.1.0'
       transparent: 'true'
@@ -195,7 +195,7 @@ map:
       visible: false
 
       # WMS NLCD
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
+    - url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
       layers: 'wria9:nlcd2011'
       version: '1.1.0'
       transparent: 'true'
@@ -208,8 +208,7 @@ map:
       visible: false
       
       # WMS Original Flow
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-#    - url: /static/data/WRIA9:WRIA9roi.geojson
+    - url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
       layers: 'wria9:Historical_Flow'
       version: '1.1.0'
       transparent: 'true'
