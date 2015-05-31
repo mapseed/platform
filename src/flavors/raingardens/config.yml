@@ -27,17 +27,16 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
 
-  geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
+  geocode_bounding_box: [45.2, -125, 49.3, -116.4] # Including cushionj
 
   options:
     center:
       lat: 47.61345
       lng: -122.29843
     zoom: 11
-    minZoom: 9
+    minZoom: 7
     maxZoom: 18
-#    maxBounds: [[47.000, -123.26], [47.92, -120.67]] # south, west, north, east
-    maxBounds: [[46.500, -124], [48.5, -119]] # south, west, north, east
+    maxBounds: [[45.2, -125], [49.3, -116.4]] # Including cushion
   layers:
     - url: //{s}.tiles.mapbox.com/v4/smartercleanup.m1b2emco/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       visible: true
