@@ -56,11 +56,11 @@ map:
      # Mapbox project freehand drawing imports
     - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
-      description: _(Early action cleanup sites)
+      description: _(Places where positive restoration and community organizing are happening)
       popupContent: '{{title}}'
       legend: true
       visible: true
-      title: _(Early action sites)
+      title: _(Community action)
       rules:
       # show nothing when zoomed out
         - condition: '"{{map.zoom}}" < 11'
@@ -119,8 +119,8 @@ map:
 
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
           icon:
-            iconUrl: /static/css/images/markers/marker-park.png
-            iconSize: [26, 26]
+            iconUrl: /static/css/images/markers/marker-treeheart.png
+            iconSize: [40, 40]
             iconAnchor: [13, 13]
 
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
@@ -141,6 +141,35 @@ map:
             iconUrl: /static/css/images/markers/dot-fa307d.png
             iconSize: [16, 16]
             iconAnchor: [8, 8]
+
+     # Mapbox project freehand drawing imports
+    - url: //a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      type: json
+      description: _(Places where pollution has been problematic)
+      popupContent: '{{title}}'
+      legend: true
+      visible: true
+      title: _(Areas of concern)
+      rules:
+      # show nothing when zoomed out
+        - condition: '"{{map.zoom}}" < 11'
+
+      # LineString
+        - condition: '"{{geometry.type}}" == "LineString"'
+          style:
+            color: "{{properties.stroke}}"
+            opacity: '{{properties.stroke-opacity}}'
+            weight: "{{properties.stroke-width}}"
+      # Polygons
+        - condition: '"{{geometry.type}}" == "Polygon"'
+          style:
+            shapeType: polygon
+            fillColor: "{{properties.fill}}"
+            fill: 'true'
+            color: "{{properties.stroke}}"
+            opacity: 0.7
+            fillOpacity: '{{properties.fill-opacity}}'
+            weight: "{{properties.stroke-width}}"
 
       # WMS ROD
     - url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/gwc/service/wms
@@ -229,13 +258,13 @@ map:
       url: /filter/complaint
       external: true
       visible: true
-    - title: _(Hide All)
+    - title: _(Hide Reports)
       shareabouts: true
       url: /filter/none
       image: /static/css/images/hide-all.png
       external: true
       visible: true
-    - title: _(Show All)
+    - title: _(Show Reports)
       shareabouts: true
       url: /
       image: /static/css/images/show-all.png

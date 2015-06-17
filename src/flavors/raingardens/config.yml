@@ -26,7 +26,7 @@ languages:
 map:
   geolocation_enabled: true
   geolocation_onload: false
-
+  geocoding_enabled: false
   geocode_bounding_box: [45.2, -125, 49.3, -116.4] # Including cushionj
 
   options:
@@ -41,6 +41,7 @@ map:
     - url: //{s}.tiles.mapbox.com/v4/smartercleanup.m1b2emco/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       visible: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
 
   # Map Layers
 
@@ -130,7 +131,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   raingarden:
-    label: _(Raingarden)
+    label: _(raingarden)
     rules:
       - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
@@ -180,17 +181,35 @@ place:
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
-  action_text: _(created)
-  anonymous_name: _(Someone)
+  action_text: _(added)
+  anonymous_name: _(Anonymous)
   submit_button_label: _(Put it on the map!)
 
-  location_item_name: location
+  location_item_name: Address
 
   items:
+    - prompt: _(Raingarden Location)
+      type: text
+      name: private-garden_address
+      optional: 
+      attrs:
+        - key: placeholder
+          value: _(Address)
+        - key: size
+          value: 30
+    - prompt: _(Garden Name)
+      type: text
+      name: name
+      optional:
+      attrs:
+        - key: placeholder
+          value: _(Garden Name)
+        - key: size
+          value: 30
     - prompt: _(Your Name)
       type: text
-      name: submitter_name
-      optional: true
+      name: submitter
+      optional: 
       sticky: true
       attrs:
         - key: placeholder
@@ -200,23 +219,14 @@ place:
     - prompt: _(Your Email)
       type: text
       name: private-submitter_email
-      optional: true
+      optional: 
       sticky: true
       attrs:
         - key: placeholder
-          value: _(Email address)
+          value: _(Your email address is kept private and won't be published)
         - key: size
           value: 30
-    - prompt: _(Location Name)
-      type: text
-      name: name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Location Name)
-        - key: size
-          value: 30
-    - prompt: _(Type of report)
+    - prompt: _(test)
       type: select
       options:
         - label: _(Choose One)
@@ -232,7 +242,7 @@ place:
       optional: true
       attrs:
         - key: placeholder
-          value: _(Description...)
+          value: _(Include the size, designer, and installer)
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
       type: file
