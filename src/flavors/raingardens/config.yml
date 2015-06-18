@@ -159,6 +159,36 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
+  idea:
+    label: _(idea)
+    rules:
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [7, 12]
+          iconAnchor: [5, 12]
+
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [24, 29]
+          iconAnchor: [12, 29]
+
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
+      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
@@ -194,7 +224,7 @@ place:
       optional: 
       attrs:
         - key: placeholder
-          value: _(Address)
+          value: _(Please type full address, (will not be published))
         - key: size
           value: 30
     - prompt: _(Garden Name)
@@ -206,14 +236,14 @@ place:
           value: _(Garden Name)
         - key: size
           value: 30
-    - prompt: _(Your Name)
+    - prompt: _(Contributor's name)
       type: text
       name: submitter
       optional: 
       sticky: true
       attrs:
         - key: placeholder
-          value: _(Name)
+          value: _(Who should we give credit to?)
         - key: size
           value: 30
     - prompt: _(Your Email)
@@ -223,16 +253,16 @@ place:
       sticky: true
       attrs:
         - key: placeholder
-          value: _(Your email address is kept private and won't be published)
+          value: _(Your email address is kept private and will not be published)
         - key: size
           value: 30
-    - prompt: _(test)
+    - prompt: _(I am submitting a...)
       type: select
       options:
-        - label: _(Choose One)
-          value: ''
         - label: _(Raingarden)
           value: raingarden
+        - label: _(Idea for a raingarden)
+          value: idea
       name: location_type
       attrs:
         - key: required
@@ -242,7 +272,7 @@ place:
       optional: true
       attrs:
         - key: placeholder
-          value: _(Include the size, designer, and installer)
+          value: _(Please include the size, designer, and installer)
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
       type: file
@@ -301,4 +331,3 @@ pages:
   - title: _(Build a raingarden)
     slug: build
     name: build
-
