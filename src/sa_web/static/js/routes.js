@@ -80,6 +80,7 @@ var Shareabouts = Shareabouts || {};
 
         defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
+        cluster: options.cluster,
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
         pagesConfig: options.pagesConfig,

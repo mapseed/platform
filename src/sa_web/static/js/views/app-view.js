@@ -133,7 +133,8 @@ var Shareabouts = Shareabouts || {};
         mapConfig: this.options.mapConfig,
         collection: this.collection,
         router: this.options.router,
-        placeTypes: this.options.placeTypes
+        placeTypes: this.options.placeTypes,
+        cluster: this.options.cluster
       });
 
       // Init the address search bar

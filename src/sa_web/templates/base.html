@@ -49,7 +49,10 @@
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+
   <!--[if lte IE 8]>
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.ie.css" />
   <![endif]-->
@@ -141,7 +144,8 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
 
   {% if settings.DEBUG %}
   <script src="{{STATIC_URL}}libs/underscore.js"></script>
@@ -256,6 +260,7 @@
       flavor:     {{ config.data|as_json }},
       place:      {{ config.place|as_json }},
       placeTypes: {{ config.place_types|as_json }},
+      cluster: {{ config.cluster|as_json }},
       survey:     {{ config.survey|as_json }},
       support:    {{ config.support|as_json }},
       map:        {{ config.map|as_json }},
@@ -274,6 +279,7 @@
         config: S.Config.flavor,
         placeConfig: S.Config.place,
         placeTypes: S.Config.placeTypes,
+        cluster: S.Config.cluster,
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,
         mapConfig: S.Config.map,

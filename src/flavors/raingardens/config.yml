@@ -157,6 +157,14 @@ place_types:
           shadowAnchor: [14, 60]
 
 
+# TODO: Create data visualization where a cluster represents it location type makeup
+cluster:
+  threshold: 100
+  class_small: raingardens-cluster-small
+  class_large: raingardens-cluster-large
+  size_small: 40
+  size_large: 60
+
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
