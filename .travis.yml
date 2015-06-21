@@ -5,10 +5,10 @@ python:
   - "2.7"
 
 # This is redundant, but explicit,, since 'sudo' is disabled by default to
-# make use of Travis CI's container technology
+# make use of Travis CI's container technology.
 sudo: false
 
-# This gets us around the 'sudo pip install...' issue
+# Exporting our $HOME gets us around the 'sudo pip install...' issue
 # Inpiration for this fix found here:
 # https://github.com/travis-ci/travis-ci/issues/3563
 before_script:
@@ -18,8 +18,8 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 
 install: "ci/install.sh"
-script: "ci/script.sh"
 
+script: "ci/script.sh"
 notifications:
   irc:
     channels:
