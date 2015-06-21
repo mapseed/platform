@@ -130,6 +130,25 @@
   bottom: 0;
 }
 
+.raingardens-cluster-large {
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: greenyellow;
+  text-align: center;
+  font-size: 24px;
+}
+.raingardens-cluster-small {
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #ffdb58;
+  text-align: center;
+  font-size: 24px;
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+
 /* =Content
 ------------------------------------------------------------- */
 

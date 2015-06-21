@@ -18,7 +18,7 @@ var Shareabouts = Shareabouts || {};
           };
 
       self.map = L.map(self.el, self.options.mapConfig.options);
-      self.placeLayers = L.layerGroup();
+      self.placeLayers = self.getLayerGroups();
 
       self.layers = {};
       var legendLayerId = 0;
@@ -227,19 +227,19 @@ var Shareabouts = Shareabouts || {};
       this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
     },
     filter: function(locationType) {
-    var self = this;
-    console.log('filter the map', arguments);
-    this.locationTypeFilter = locationType;
-    this.collection.each(function(model) {
-      var modelLocationType = model.get('location_type');
+      var self = this;
+      console.log('filter the map', arguments);
+      this.locationTypeFilter = locationType;
+      this.collection.each(function(model) {
+        var modelLocationType = model.get('location_type');
 
-      if (modelLocationType &&
-        modelLocationType.toUpperCase() === locationType.toUpperCase()) {
-        self.layerViews[model.cid].show();
-      } else {
-        self.layerViews[model.cid].hide();
-      }
-    });
+        if (modelLocationType &&
+          modelLocationType.toUpperCase() === locationType.toUpperCase()) {
+          self.layerViews[model.cid].show();
+        } else {
+          self.layerViews[model.cid].hide();
+        }
+      });
     },
     clearFilter: function() {
       var self = this;
@@ -247,6 +247,24 @@ var Shareabouts = Shareabouts || {};
       this.collection.each(function(model) {
         self.layerViews[model.cid].render();
       });
+    },
+    getLayerGroups: function() {
+      var self = this;
+      var clusterOptions = self.options.cluster;
+      if (!clusterOptions) {
+        return L.layerGroup();
+      } else {
+        return L.markerClusterGroup({
+          iconCreateFunction: function(cluster) {
+            var markers = cluster.getAllChildMarkers();
+            var n = markers.length;
+            var small = n < clusterOptions.threshold;
+            var className = small ? clusterOptions.class_small: clusterOptions.class_large;
+            var size = small ? clusterOptions.size_small : clusterOptions.size_large;
+            return L.divIcon({ html: n, className: className, iconSize: [size, size] });
+          }
+        });
+      }
     }
   });
 
