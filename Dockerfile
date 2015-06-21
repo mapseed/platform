@@ -34,6 +34,7 @@ EXPOSE 8002
 WORKDIR /duwamish
 
 RUN src/manage.py compilemessages
+RUN src/manage.py collectstatic --noinput
 RUN ln -s staticfiles static
 VOLUME /duwamish/static
 
