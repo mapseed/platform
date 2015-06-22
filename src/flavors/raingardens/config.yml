@@ -231,7 +231,7 @@ place:
           value: _(Any notes you want to add for others would be wonderful :))
     - prompt: _(Size)
       type: text
-      name: size
+      name: gardensize
       optional: 
       sticky: true
       attrs:
@@ -241,7 +241,7 @@ place:
           value: 30
     - prompt: _(Designer)
       type: text
-      name: submitter
+      name: designer
       optional: 
       sticky: true
       attrs:
@@ -261,7 +261,7 @@ place:
           value: 30
     - prompt: _(Contributor's name)
       type: text
-      name: submitter
+      name: submitter_name
       optional: 
       sticky: true
       attrs:
