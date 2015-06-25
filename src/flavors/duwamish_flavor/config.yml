@@ -192,7 +192,7 @@ map:
       legend: true
       opacity: 0.5
       description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-      title: _(Zoning info)
+      title: _(Land use data)
       visible: false
 
       # WMS Buildings connection:
@@ -216,7 +216,7 @@ map:
       opacity: 0.6
 #      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
       description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
-      title: _(Land covereage)
+      title: _(Land coverage data)
       visible: false
       
       # WMS Original Flow
