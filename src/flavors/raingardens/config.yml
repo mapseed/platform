@@ -1,13 +1,13 @@
 # Settings for the app
 app:
   # HTML Title
-  title: 12,000 Raingardens
+  title: 12,000 Rain Gardens
   # Site Link
   link: http://12000raingardens.org
   # Header name
-  name: 12,000 Raingardens
+  name: 12,000 Rain Gardens
   # Meta description that will show up in Google search results
-  meta_description: _(raingardens)
+  meta_description: _(raingardens, rain gardens, stormwater, storm water)
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
@@ -84,7 +84,7 @@ map:
 
   # Report filters
 
-    - title: _(Raingardens)
+    - title: _(Rain gardens)
       shareabouts: true
       image: /static/css/images/markers/marker-observation.png
       url: /filter/raingarden
@@ -181,12 +181,15 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a raingarden to the map!)
+  add_button_label: _(Add a rain garden to the map!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)
-  show_map_button_label: _(Show the Map)
+  show_map_button_label: _(Back to the Map)
   action_text: _(added)
-  title: _(Tell us more...)
+  title: _(Register your rain garden)
+  help_text: Are you registering more than 3 raingardens?
+  help_url: http://www.stewardshippartners.org/contact-us/
+  help_urlanchor: click here
   action_text: _(added)
   anonymous_name: _(Anonymous)
   submit_button_label: _(Put it on the map!)
@@ -194,17 +197,7 @@ place:
   location_item_name: Address
 
   items:
-    - prompt: _(I am submitting a...)
-      type: select
-      options:
-        - label: _(Raingarden)
-          value: raingarden
-        - label: _(Idea for a raingarden)
-          value: idea
-      name: location_type
-      attrs:
-        - key: required
-    - prompt: _(Raingarden Location)
+    - prompt: _(Rain garden location)
       type: text
       name: private-garden_address
       optional: 
@@ -216,20 +209,13 @@ place:
     - prompt: _(Garden Name)
       type: text
       name: name
-      optional:
+      optional: true
       attrs:
         - key: placeholder
           value: _(Garden Name)
         - key: size
           value: 30
-    - prompt: _(Description)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Any notes you want to add for others would be wonderful :))
-    - prompt: _(Size)
+    - prompt: _(Rain garden size (square feet))
       type: text
       name: gardensize
       optional: 
@@ -239,6 +225,60 @@ place:
           value: _(Approximate square footage?)
         - key: size
           value: 30
+    - prompt: _(Size of contributing area)
+      type: text
+      name: contributingsize
+      optional: 
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(How large is the catchment area that drains to this rain garden?)
+        - key: size
+          value: 30
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Any notes you want to add for others would be wonderful :))
+    - prompt: _(Type of surface)
+      type: select
+      options:
+        - label: _(Raingarden)
+          value: raingarden
+        - label: _(Raingarden)
+          value: raingarden
+      name: location_type
+      attrs:
+        - key: hidden
+    - prompt: _(Roof)
+      type: checkbox
+      name: roof
+      optional: 
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Approximate square footage?)
+        - key: size
+    - prompt: _(Pavement)
+      type: checkbox
+      name: pavement
+      optional: 
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Approximate square footage?)
+        - key: size
+    - prompt: _(Other)
+      type: checkbox
+      name: other
+      optional: 
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Approximate square footage?)
+        - key: size
     - prompt: _(Designer)
       type: text
       name: designer
@@ -275,7 +315,7 @@ place:
       optional: 
       sticky: true
       attrs:
-        - key: placeholder
+        - key: required
           value: _(Your email address is kept private and will not be published)
         - key: size
           value: 30
@@ -323,17 +363,3 @@ support:
   response_plural_name: _(supports)
   action_text: supported
   anonymous_name: _(Someone)
-
-pages:
-  - title: _(About)
-    slug: about
-    name: overview
-    start_page: false
-
-  - title: _(Background)
-    slug: background
-    name: background
-
-  - title: _(Build a raingarden)
-    slug: build
-    name: build
