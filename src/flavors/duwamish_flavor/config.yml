@@ -281,7 +281,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   mayorswalk:
-    label: _(Mayor's Walk)
+    label: _(Mayor's Walk item)
     rules:
       - condition: '"{{location_type}}" === "mayorswalk" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
