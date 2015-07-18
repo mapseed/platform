@@ -131,7 +131,7 @@ map:
 
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
           icon:
-            iconUrl: /static/css/images/markers/marker-bicycle.png
+            iconUrl: /static/css/images/markers/marker-bike.png
             iconSize: [30, 30]
             iconAnchor: [15, 15]
 
