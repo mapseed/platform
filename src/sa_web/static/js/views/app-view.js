@@ -152,7 +152,8 @@ var Shareabouts = Shareabouts || {};
 
         if (self.isAddingPlace()) {
           self.placeFormView.setLatLng(locationData.latLng);
-          self.placeFormView.setLocation(locationData);
+          // Don't pass location data into our geolocation's form field
+          // self.placeFormView.setLocation(locationData);
         }
       });
 
@@ -169,8 +170,6 @@ var Shareabouts = Shareabouts || {};
           self.conditionallyReverseGeocode();
         } else if (self.geocodeAddressView) {
           self.geocodeAddressView.setAddress('');
-        } else if (self.geodeAddressPlaceView) {
-          self.geocodeAddressPlaceView.setAddress('');
         }
       });
 
@@ -182,7 +181,8 @@ var Shareabouts = Shareabouts || {};
         self.geocodeAddressView.setAddress($.trim(locationString));
         self.geocodeAddressPlaceView.setAddress($.trim(locationString));
         self.placeFormView.setLatLng(locationData.latLng);
-        self.placeFormView.setLocation(locationData);
+        // Don't pass location data into our geolocation's form field
+        // self.placeFormView.setLocation(locationData);
       });
 
 
