@@ -9,8 +9,6 @@ var Shareabouts = Shareabouts || {};
       'blur .geocode-address-place-field': 'onGeocodeAddress'
     },
     render: function() {
-      var data = this.options.mapConfig;
-      this.$el.html(Handlebars.templates['geocode-address-place'](data));
       return this;
     },
     onAddressChange: function(evt) {
