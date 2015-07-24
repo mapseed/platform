@@ -63,7 +63,7 @@
   <![endif]-->
 
 </head>
-<body class="{% if config.map.geocoding_enabled %} geocoding-enabled{% endif %}">
+  <body class="{% if config.map.geocoding_bar_enabled %} geocoding-bar-enabled{% endif %}">
 
   <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
     <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
@@ -102,7 +102,7 @@
       </div>
     </noscript>
 
-    {% if config.map.geocoding_enabled %}
+    {% if config.map.geocoding_bar_enabled %}
     <div id="geocode-address-bar" class="clearfix"></div>
     {% endif %}
 

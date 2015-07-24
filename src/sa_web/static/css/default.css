@@ -1714,7 +1714,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   .activity-enabled.content-visible #map-container {
     width: 30%;
   }
-  .geocoding-enabled #map-container {
+  .geocoding-bar-enabled #map-container {
     top: 8.5em;
   }
   .leaflet-top.leaflet-right {
@@ -1768,7 +1768,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 30%;
     right: 18em;
   }
-  .geocoding-enabled #content {
+  .geocoding-bar-enabled #content {
     top: 8.5em;
   }
   a.close-btn {
