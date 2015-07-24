@@ -21,7 +21,7 @@
 
     {{# place_config.items }}
 
-    <p class="{{ type }}">
+    <div class="{{ type }}">
       {{#is_authenticated}}
       {{^is_submitter_name}}
       <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
@@ -91,7 +91,8 @@
       {{#if help_text }}
     <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
     {{/if}}
-    </p>
+    </div>
+    <br>
     {{/ place_config.items }}
   </fieldset>
 
