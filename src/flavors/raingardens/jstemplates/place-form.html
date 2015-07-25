@@ -18,9 +18,10 @@
               is already logged in.
       -->
 
+
     {{# place_config.items }}
 
-    <p class="{{ type }}">
+    <div class="{{ type }}">
       {{#is_authenticated}}
       {{^is_submitter_name}}
       <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
@@ -30,11 +31,24 @@
       {{/is_authenticated}}
 
 
+      {{#if is_geocoding}}
+      <div class="geocoding-enabled">
+        <div id="geocode-address-place-bar" class="clearfix">
+          <p class="error is-hidden"></p>
+            <label class="geocode-address-label" for="geocode-address-field"></label>
+            <div class="geocode-spinner is-hidden"></div>
+            <input name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} type="text" id="geocode-address-field" class="geocode-address-field">
+        </div>
+      </div>
+      {{/if}}
+
       {{#if is_input}}
       {{#is_submitter_name}}
       {{^is_authenticated}}
       <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}">
-      <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
+      <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a>
+        <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}
+      </span>
       {{/is_authenticated}}
       {{^}}
       <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
@@ -77,7 +91,8 @@
       {{#if help_text }}
     <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
     {{/if}}
-    </p>
+    </div>
+    <br>
     {{/ place_config.items }}
   </fieldset>
 

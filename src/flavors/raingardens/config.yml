@@ -26,8 +26,9 @@ languages:
 map:
   geolocation_enabled: true
   geolocation_onload: false
-  geocoding_enabled: false
-  geocode_bounding_box: [45.2, -125, 49.3, -116.4] # Including cushionj
+  geocoding_enabled: true # enable general geocoding features (ie geocoded place fields)
+  geocoding_bar_enabled: false # add a geocode bar across the map
+  geocode_bounding_box: [45.2, -125, 49.3, -116.4] # Including cushion
 
   options:
     center:
@@ -198,9 +199,9 @@ place:
 
   items:
     - prompt: _(Rain garden location)
-      type: text
+      type: geocoding
       name: private-garden_address
-      optional: 
+      optional:
       attrs:
         - key: placeholder
           value: _(Please type full address, (will not be published))

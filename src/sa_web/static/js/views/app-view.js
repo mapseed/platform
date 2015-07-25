@@ -152,7 +152,8 @@ var Shareabouts = Shareabouts || {};
 
         if (self.isAddingPlace()) {
           self.placeFormView.setLatLng(locationData.latLng);
-          self.placeFormView.setLocation(locationData);
+          // Don't pass location data into our geolocation's form field
+          // self.placeFormView.setLocation(locationData);
         }
       });
 
@@ -178,8 +179,10 @@ var Shareabouts = Shareabouts || {};
       $(S).on('reversegeocode', function(evt, locationData) {
         var locationString = Handlebars.templates['location-string'](locationData);
         self.geocodeAddressView.setAddress($.trim(locationString));
+        self.geocodeAddressPlaceView.setAddress($.trim(locationString));
         self.placeFormView.setLatLng(locationData.latLng);
-        self.placeFormView.setLocation(locationData);
+        // Don't pass location data into our geolocation's form field
+        // self.placeFormView.setLocation(locationData);
       });
 
 
@@ -343,6 +346,13 @@ var Shareabouts = Shareabouts || {};
 
         this.$panel.removeClass().addClass('place-form');
         this.showPanel(this.placeFormView.render().$el);
+
+//      Init the place form's address search bar
+        this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
+          el: '#geocode-address-place-bar',
+          router: this.options.router,
+          mapConfig: this.options.mapConfig
+        })).render();
         this.showNewPin();
         this.setBodyClass('content-visible', 'place-form-visible');
       }

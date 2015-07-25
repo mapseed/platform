@@ -1311,15 +1311,67 @@ ul.recent-points {
 .geocoding-enabled #geocode-address-bar {
   display: block;
 }
+#geocode-address-bar .error {
+  background-color: #BF6083;
+  color: #fff;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0.25em 0.5em;
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  position: absolute;
+  top: 3em;
+  right: 0.5em;
+  bottom: auto;
+  left: 0.5em;
+}
+#geocode-address-bar .error + form {
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  margin-bottom: 2.5em;
+}
+#geocode-address-bar .error.is-hidden + form {
+  box-shadow: none;
+  margin-bottom: 0;
+}
+
+/* geocoding-address-place-bar - for place form fields */
+
+#geocode-address-place-bar {
+  display: none;
+  position: relative;
+}
+.geocoding-enabled #geocode-address-place-bar {
+  display: block;
+}
+#geocode-address-place-bar .error {
+  background-color: #BF6083;
+  color: #fff;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0.25em 0.5em;
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  position: absolute;
+  top: 3em;
+  right: 0.5em;
+  bottom: auto;
+  left: 0.5em;
+}
+#geocode-address-place-bar .error + form {
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  margin-bottom: 2.5em;
+}
+#geocode-address-place-bar .error.is-hidden + form {
+  box-shadow: none;
+  margin-bottom: 0;
+}
+
+/* All other geocoding stylews */
+
 .geocode-address-form {
   position: relative;
 }
 input.geocode-address-field {
   width: 100%;
-  border-width: 0;
   line-height: 1.25;
-  background-color: #6f6f6f;
-  color: #eee;
   padding-left: 2.125em;
 }
 input.geocode-address-field:focus {
@@ -1359,31 +1411,10 @@ input.geocode-address-field:focus {
   margin: 0.125em 0 0 0.375em;
   background-color: #a3c7d9;
   -webkit-transform: rotate(-45deg);
-     -moz-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-       -o-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-}
-#geocode-address-bar .error {
-  background-color: #BF6083;
-  color: #fff;
-  line-height: 1.75;
-  margin: 0;
-  padding: 0.25em 0.5em;
-  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
-  position: absolute;
-  top: 3em;
-  right: 0.5em;
-  bottom: auto;
-  left: 0.5em;
-}
-#geocode-address-bar .error + form {
-  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
-  margin-bottom: 2.5em;
-}
-#geocode-address-bar .error.is-hidden + form {
-  box-shadow: none;
-  margin-bottom: 0;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 .geocode-spinner {
@@ -1392,9 +1423,8 @@ input.geocode-address-field:focus {
   left: 0;
   height: 100%;
   width: 2em;
-  background-color: #6f6f6f;
+  background-color: #a3c7d9;
 }
-
 
 /* =Footer
 -------------------------------------------------------------- */
@@ -1714,7 +1744,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   .activity-enabled.content-visible #map-container {
     width: 30%;
   }
-  .geocoding-enabled #map-container {
+  .geocoding-bar-enabled #map-container {
     top: 8.5em;
   }
   .leaflet-top.leaflet-right {
@@ -1768,7 +1798,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 30%;
     right: 18em;
   }
-  .geocoding-enabled #content {
+  .geocoding-bar-enabled #content {
     top: 8.5em;
   }
   a.close-btn {
