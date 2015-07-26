@@ -1,0 +1,50 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+
+/* =Header
+-------------------------------------------------------------- */
+
+#site-header {
+  /*color: #eee;*/
+  background: url(/static/css/images/bike-header.png);
+  position: relative;
+  z-index: 40;
+  padding: 0.5em;
+  box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
+}
+
+#site-title {
+  /*color: #F25218;*/ /*too much like 'simpsons'*/
+  color: #eee;
+  font-size: .75em;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+  float: left;
+  margin: 0 0.5em 0 0;
+  padding: 0;
+}
+
+#site-title a:visited {
+  display: block;
+  font-size: 2em;
+  line-height: 1.25;
+  text-decoration: none;
+  /*color: #F25218;*/
+  color: #ffffff;
+}
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}
