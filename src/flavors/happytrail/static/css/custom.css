@@ -1,0 +1,80 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+
+/* =Header
+-------------------------------------------------------------- */
+
+#site-header {
+  /*color: #eee;*/
+  background: url(/static/css/images/bike-header.png);
+  position: relative;
+  z-index: 40;
+  padding: 0.5em;
+  box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
+}
+
+#site-title {
+  /*color: #F25218;*/ /*too much like 'simpsons'*/
+  color: #eee;
+  font-size: .75em;
+  font-family: 'Bree Serif', serif;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+  float: left;
+  margin: 0 0.5em 0 0;
+  padding: 0;
+}
+
+.has-pages #site-title {
+  padding-left: 3.25em;
+}
+
+#site-title a:link,
+#site-title a:visited {
+  display: block;
+  font-size: 3em;
+  line-height: 1.25;
+  text-decoration: none;
+  /*color: #F25218;*/
+  color: #228b22;
+}
+#site-title a:hover {
+  /*color: #FF8B61;*/
+  color: #abde76;
+}
+
+/* =Map
+------------------------------------------------------------- */
+
+#map-container {
+  bottom: 0;
+}
+
+/* =Content
+------------------------------------------------------------- */
+
+#content {
+  bottom: 0;
+}
+
+/* =Footer
+------------------------------------------------------------- */
+
+#colophon {
+  visibility: hidden;
+}
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}
