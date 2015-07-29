@@ -39,7 +39,7 @@ map:
       lng: -122.32100
     zoom: 17
     minZoom: 9
-    maxZoom: 25
+    maxZoom: 18
 #    maxBounds: [[47.000, -123.26], [47.92, -120.67]] # south, west, north, east
     maxBounds: [[46.500, -124], [48.5, -119]] # south, west, north, east
   layers:
@@ -494,8 +494,8 @@ activity:
   # Place Types
 
 place:
-  adding_supported: true
-  add_button_label: _(Submit a comment)
+#  adding_supported: true
+#  add_button_label: _(Submit a comment)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
