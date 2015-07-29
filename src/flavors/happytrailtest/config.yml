@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: 8th Ave. S. Trail Revitalization
+  title: 8th Ave. S. Bike Trail
   # Header name
-  name: 8th Ave. S. Trail Revitalization
+  name: 8th Ave. S. Bike Trail
   # Meta description that will show up in Google search results
   meta_description: _(Duwamish Waterway River Cleanup superfund SmarterCleanup Community)
   # Meta author that will show up in Google search results
@@ -610,3 +610,6 @@ pages:
     name: scarytrail
     slug: about
     start_page: true
+  - title: _(The work we did)
+    name: achievements
+    slug: achievements
