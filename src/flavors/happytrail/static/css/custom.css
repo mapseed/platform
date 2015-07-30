@@ -175,7 +175,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   }
   .has-pages #site-title {
     padding-left: 0;
