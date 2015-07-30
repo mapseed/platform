@@ -198,6 +198,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     font-size: 1.8em;
     line-height: 1.325;
   }
+  #site-header img {
+    max-width: 240px;
+    height: auto;
+  }
 }
 
 /*@media only screen and (min-width: 440px) and (max-height: 60em) and (orientation : landscape) {*/
@@ -212,6 +216,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #map {
     height: 420px;
   }
+  #site-header img {
+    max-width: 240px;
+    height: auto;
+  }
 }
 /*@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {*/
 @media only screen and (min-width: 568px) and (min-height: 320px) and (orientation : landscape) {
@@ -225,6 +233,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #map {
     height: 519px;
   }
+  #site-header img {
+    max-width: 240px;
+    height: auto;
+  }
 }
 /*@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {*/
 @media only screen and (min-width: 667px) and (min-height: 375px) and (orientation : landscape) {
@@ -237,6 +249,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #map {
     height: 588px;
   }
+  #site-header img {
+    max-width: 240px;
+    height: auto;
+  }
 }
 /*@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {*/
 @media only screen and (min-width: 736px) and (min-height: 414px) and (orientation : landscape) {
@@ -247,6 +263,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 @media only screen and (min-height: 768px) and (max-width: 60em) {
   #map {
     height: 620px;
+  }
+  #site-header img {
+    max-width: 240px;
+    height: auto;
   }
 }
 
@@ -267,12 +287,11 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #site-header {
     padding-left: 1em;
     overflow: visible;
-    height: 4em;  /* height of site-header */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
   }
+
   .has-pages #site-title {
     padding-left: 0;
   }
