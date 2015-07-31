@@ -21,7 +21,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     renderInfoLayers: function () {
-      var $markup = '<p>Toggle layers:</p><ul class="layer-type-list unstyled-list">',
+      var $markup = '<p>Map layers:</p><ul class="layer-type-list unstyled-list">',
         i, checked, layer;
       var legendLayerId = 0;
 
@@ -46,7 +46,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     renderShareaboutsLayers: function () {
-      var $shareMarkup = '<p>Filter reports:</p><ul class="master-layer-list unstyled-list">',
+      var $shareMarkup = '<p>Report Types:</p><ul class="master-layer-list unstyled-list">',
         i, layer;
 
       for (i = 0; i < this.options.layers.length; i++) {
