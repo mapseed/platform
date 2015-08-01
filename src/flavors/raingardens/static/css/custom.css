@@ -97,7 +97,6 @@
 }
 
 #site-title {
-  /*color: #F25218;*/ /*too much like 'simpsons'*/
   font-size: 1em;
   font-family: 'Open Sans', sans-serif;
   text-shadow: 1px -1px 1px rgba(0,0,0,0.5);

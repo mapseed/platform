@@ -76,6 +76,10 @@
     </nav>
     {% endif %}
 
+    {% if config.map.counter %}
+      <div id="place-counter" class="list-toggle-nav"></div>
+    {% endif %}
+
     {% if config.languages %}
       {% include 'language_picker.html' %}
     {% endif %}
@@ -236,6 +240,7 @@
   <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/place-counter-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-place-view.js"></script>
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>

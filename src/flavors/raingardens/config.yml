@@ -30,6 +30,10 @@ map:
   geocoding_bar_enabled: false # add a geocode bar across the map
   geocode_bounding_box: [45.2, -125, 49.3, -116.4] # Including cushion
 
+  counter: true
+  counter_min: 0
+  counter_max: 12000
+
   options:
     center:
       lat: 47.61345
