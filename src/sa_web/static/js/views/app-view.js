@@ -144,6 +144,14 @@ var Shareabouts = Shareabouts || {};
         mapConfig: this.options.mapConfig
       })).render();
 
+      // Init the place-counter
+      this.placeCounterView = (new S.PlaceCounterView({
+        el: '#place-counter',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig,
+        collection: this.collection
+      })).render();
+
       // When the user chooses a geocoded address, the address view will fire
       // a geocode event on the namespace. At that point we center the map on
       // the geocoded location.
