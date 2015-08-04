@@ -212,6 +212,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Garden Name)
+      label: _(Garden Name)
       type: text
       name: name
       optional: true
@@ -221,6 +222,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Rain garden size (square feet))
+      label: _(Rain garden size (square feet):)
       type: text
       name: gardensize
       optional: 
@@ -231,6 +233,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Size of contributing area)
+      label: _(Size of contributing area:)
       type: text
       name: contributingsize
       optional: 
@@ -241,6 +244,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Description)
+      label: _(Description:)
       type: textarea
       name: description
       optional: true
@@ -285,6 +289,7 @@ place:
           value: _(Approximate square footage?)
         - key: size
     - prompt: _(Designer)
+      label: _(Designer:)
       type: text
       name: designer
       optional: 
@@ -295,6 +300,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Installer)
+      label: _(Installer:)
       type: text
       name: installer
       optional: 
@@ -305,6 +311,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Contributor's name)
+      label: _(Contributor's name:)
       type: text
       name: submitter_name
       optional: 
