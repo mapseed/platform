@@ -83,7 +83,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   }
   #site-title a:link,
   #site-title a:visited {
-    font-size: 1.8em;
+    font-size: 1.7em;
     line-height: 1.325;
   }
 }
@@ -99,7 +99,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   }
   #site-title a:link,
   #site-title a:visited {
-    font-size: 1.8em;
+    font-size: 1.7em;
     line-height: 1.325;
   }
 }

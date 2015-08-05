@@ -411,7 +411,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     position: absolute;
     top: 4em; /* height of #site-header */
     right: 0;
-    bottom: 1.75em;
+    bottom: 0;
     left: 0;
   }
   .content-visible #map-container {
@@ -663,6 +663,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #powered-by {
     margin-bottom: 0;
   }
+
+
 }
 
 @media only screen and (min-width: 80em) {
