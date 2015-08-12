@@ -226,6 +226,7 @@ var Shareabouts = Shareabouts || {};
     zoomInOn: function(latLng) {
       this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
     },
+
     filter: function(locationType) {
       var self = this;
       console.log('filter the map', arguments);
@@ -241,6 +242,7 @@ var Shareabouts = Shareabouts || {};
         }
       });
     },
+
     clearFilter: function() {
       var self = this;
       this.locationTypeFilter = null;
