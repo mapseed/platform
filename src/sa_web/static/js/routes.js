@@ -137,15 +137,6 @@ var Shareabouts = Shareabouts || {};
         fragment.indexOf('page') === -1 &&
         fragment.indexOf('list') === -1));
     },
-//<<<<<<< HEAD
-//    filterMap: function(locationType) {
-//      this.appView.hidePanel();
-//      this.appView.hideNewPin();
-//      this.appView.destroyNewModels();
-//      this.appView.showAddButton();
-//
-//      this.appView.mapView.filter(locationType);
-//=======
 
     getFilteredRoutes: function() {
       return ['filterMap', 'viewPlace', 'showList', 'viewMap'];
@@ -164,8 +155,8 @@ var Shareabouts = Shareabouts || {};
       }
 
       // Get the menu information for the current location type
-      var filterMenu = _.findWhere(S.Config.pages, {'slug': 'filter-type'});
-      var menuItem = _.findWhere(filterMenu.pages, {'url': '/filter/' + locationType});
+      var filterMenu = S.Config.sidebar
+      var menuItem = _.findWhere(filterMenu.reports, {'url': '/filter/' + locationType});
 
       if (locationType !== 'all') {
         this.appView.mapView.filter(locationType);
