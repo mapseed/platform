@@ -142,6 +142,13 @@ var Shareabouts = Shareabouts || {};
         cluster: this.options.cluster
       });
 
+       // Start Master Legend
+      new S.LegendView({
+        el: '#master-legend',
+        layers: this.options.mapConfig.layers,
+        sidebarConfig: this.options.sidebarConfig
+      });
+
       // Init the address search bar
       this.geocodeAddressView = (new S.GeocodeAddressView({
         el: '#geocode-address-bar',

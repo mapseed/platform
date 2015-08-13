@@ -49,17 +49,15 @@ var Shareabouts = Shareabouts || {};
       var $shareMarkup = '<p>Report Types:</p><ul class="master-layer-list unstyled-list">',
         i, layer;
 
-      for (i = 0; i < this.options.layers.length; i++) {
-        layer = this.options.layers[i];
+      for (i = 0; i < this.options.sidebarConfig.reports.length; i++) {
+        layer = this.options.sidebarConfig.reports[i];
 
-        if (layer.shareabouts == true) {
-          $shareMarkup += '<li class="shareabouts-layer-li legend-layer-li">' +
-            '<a href="' + layer.url + '">' +
-            '<img class="' + 'shareabouts-layer-title' + '" location="' + layer.title + '" layer-title="' + layer.title +
-            '" src="' + layer.image + '">' + layer.title +
-            '</a>' +
-            '</li>';
-        }
+        $shareMarkup += '<li class="shareabouts-layer-li legend-layer-li">' +
+          '<a href="' + layer.url + '">' +
+          '<img class="' + 'shareabouts-layer-title' + '" location="' + layer.title + '" layer-title="' + layer.title +
+          '" src="' + layer.image + '">' + layer.title +
+          '</a>' +
+          '</li>';
       }
 
       $shareMarkup += "</ul>";
