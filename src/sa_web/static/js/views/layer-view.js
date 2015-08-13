@@ -135,9 +135,6 @@ var Shareabouts = Shareabouts || {};
         this.layer.setIcon(icon);
       }
     },
-    hide: function() {
-      this.removeLayer();
-    },
     show: function() {
       if (!this.options.mapView.locationTypeFilter ||
         this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
@@ -147,6 +144,10 @@ var Shareabouts = Shareabouts || {};
       } else {
         this.hide();
       }
+
+    },
+    hide: function() {
+      this.removeLayer();
     }
   });
 

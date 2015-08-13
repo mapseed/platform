@@ -52,8 +52,6 @@ var Shareabouts = Shareabouts || {};
           self.layers[legendLayerId] = layer;
           legendLayerId++;
 
-        } else if (config.shareabouts) {
-          // do not upload our shareabouts filter layers
         } else {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
@@ -101,12 +99,6 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
-
-       // Start Master Legend (custom layers)
-      new S.LegendView({
-        el: '#master-legend',
-        layers: self.options.mapConfig.layers
-      });
 
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
@@ -226,6 +218,7 @@ var Shareabouts = Shareabouts || {};
     zoomInOn: function(latLng) {
       this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
     },
+
     filter: function(locationType) {
       var self = this;
       console.log('filter the map', arguments);
@@ -241,6 +234,7 @@ var Shareabouts = Shareabouts || {};
         }
       });
     },
+
     clearFilter: function() {
       var self = this;
       this.locationTypeFilter = null;
