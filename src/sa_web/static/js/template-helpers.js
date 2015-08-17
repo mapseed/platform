@@ -5,11 +5,14 @@ var Shareabouts = Shareabouts || {};
     // Attached helper properties for how to display this form element
     insertInputTypeFlags: function(configItems) {
       _.each(configItems, function(item, index) {
-        item.is_input = (!item.type || (['textarea', 'select', 'file', 'geocoding'].indexOf(item.type) < 0))
+        item.is_input = (!item.type || (['textarea', 'select', 'file', 'geocoding', 'checkbox-list', 'hidden']
+          .indexOf(item.type) < 0))
         item.is_textarea = (item.type === 'textarea');
         item.is_select = (item.type === 'select');
+        item.is_checkbox_list= (item.type === 'checkbox-list');
         item.is_file = (item.type === 'file');
         item.is_geocoding = (item.type === 'geocoding');
+        item.is_hidden = (item.type === 'hidden');
         item.is_fileinput_supported = S.Util.fileInputSupported();
       });
     },

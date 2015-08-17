@@ -251,43 +251,19 @@ place:
       attrs:
         - key: placeholder
           value: _(Any notes you want to add for others would be wonderful :))
-    - prompt: _(Type of surface)
-      type: select
-      options:
-        - label: _(Raingarden)
-          value: raingarden
-        - label: _(Raingarden)
-          value: raingarden
-      name: location_type
+    - name: location_type
+      type: hidden
+      value: raingarden
+    - prompt: _(Primary sources)
+      type: checkbox-list
+      name: sources
       attrs:
-        - key: hidden
-    - prompt: _(Roof)
-      type: checkbox
-      name: roof
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Approximate square footage?)
-        - key: size
-    - prompt: _(Pavement)
-      type: checkbox
-      name: pavement
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Approximate square footage?)
-        - key: size
-    - prompt: _(Other)
-      type: checkbox
-      name: other
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Approximate square footage?)
-        - key: size
+        - label: _(Roof)
+          value: roof
+        - label: _(Pavement)
+          value: pavement
+        - label: _(Other)
+          value: other
     - prompt: _(Designer)
       label: _(Designer:)
       type: text

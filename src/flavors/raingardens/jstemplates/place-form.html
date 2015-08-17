@@ -18,8 +18,13 @@
               is already logged in.
       -->
 
-
     {{# place_config.items }}
+
+    {{#if is_hidden}}
+    <label for="place-{{ name }}"></label>
+    <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" key="hidden"
+    {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{value}}">
+    {{^}}
 
     <div class="{{ type }}">
       {{#is_authenticated}}
@@ -42,6 +47,14 @@
       </div>
       {{/if}}
 
+      {{#if is_checkbox_list}}
+      {{# attrs }}
+      <br>
+      <input id="place-{{ value }}" type="checkbox" name="{{ ../name }}" value="{{ value }}" />
+      <label for="place-{{ value }}">{{ label}} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+      {{/ attrs }}
+      {{/if}}
+
       {{#if is_input}}
       {{#is_submitter_name}}
       {{^is_authenticated}}
@@ -51,7 +64,7 @@
       </span>
       {{/is_authenticated}}
       {{^}}
-      <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
+      <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="">
       {{/is_submitter_name}}
       {{/if}}
 
@@ -89,10 +102,11 @@
       {{/is_file}}
 
       {{#if help_text }}
-    <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
-    {{/if}}
+      <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
+      {{/if}}
     </div>
     <br>
+    {{/if}}
     {{/ place_config.items }}
   </fieldset>
 
