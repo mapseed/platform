@@ -942,6 +942,7 @@ a.auth-inline {
   overflow: auto;
 
   letter-spacing: 1px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 /*#side-bar header {*/
   /*font-size: 2.3em;*/
@@ -1936,14 +1937,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
-    background: url(http://subtlepatterns.com/patterns/scribble_light.png);
+    background-color: rgba(255, 255, 255, 0.5);
 
   }
   .activity-enabled.content-visible #side-bar {
     display: block;
   }
   .activity-enabled #map-container {
-    right: 18em;  /* width of #master-legend */
+    right: 0;  /* width of #master-legend */
   }
   /* The Ticker */
   #ticker {
@@ -1963,7 +1964,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     -webkit-transform: translateZ(0px);  /* needed on #ticker > * for touch scrolling */
   }
   .activity-enabled #map-container {
-    right: 18em;  /* width of #ticker */
+    right: 0;  /* width of #ticker */
   }
 
   /* master-legend */
@@ -1975,7 +1976,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     display: block;
   }
   .activity-enabled #map-container {
-    right: 18em;  /* width of #master-legend */
+    right: 0;  /* width of #master-legend */
   }
 
   /* List View */
