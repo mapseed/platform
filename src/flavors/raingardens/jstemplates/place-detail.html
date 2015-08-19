@@ -1,7 +1,7 @@
 {{> place-detail-promotion-bar }}
 
 <header class="place-header clearfix">
-  <h1>{{#if name }}{{ name }}{{^}}{{>location-string location }}{{/if}}</h1>
+  <h1>{{#if rain_garden_name }}{{ rain_garden_name }}{{^}}{{ rain_garden_number }} {{/if}}</h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
             {{#if submitter.avatar_url }}
@@ -41,7 +41,7 @@
     <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
   </div>
   {{/ attachments }}
-  {{#each_place_item "submitter_name" "name" "location_type" }}
+  {{#each_place_item "rain_garden_name" "location_type" }}
   {{#if value}}
   <div class="place-item place-item-{{ name }}">
     <span class="place-label place-label-{{ name }}">{{ label }}</span>

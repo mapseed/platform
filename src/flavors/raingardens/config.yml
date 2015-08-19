@@ -204,7 +204,7 @@ place:
   items:
     - prompt: _(Rain garden location)
       type: geocoding
-      name: private-garden_address
+      name: private-rain_garden_address
       optional:
       attrs:
         - key: placeholder
@@ -212,9 +212,9 @@ place:
         - key: size
           value: 30
     - prompt: _(Garden Name)
-      label: _(Garden Name)
+      label: _(Garden Name:)
       type: text
-      name: name
+      name: rain_garden_name
       optional: true
       attrs:
         - key: placeholder
@@ -224,8 +224,7 @@ place:
     - prompt: _(Rain garden size (square feet))
       label: _(Rain garden size (square feet):)
       type: text
-      name: gardensize
-      optional: 
+      name: rain_garden_size
       sticky: true
       attrs:
         - key: placeholder
@@ -235,7 +234,7 @@ place:
     - prompt: _(Size of contributing area)
       label: _(Size of contributing area:)
       type: text
-      name: contributingsize
+      name: contributing_area
       optional: 
       sticky: true
       attrs:
@@ -255,6 +254,7 @@ place:
       type: hidden
       value: raingarden
     - prompt: _(Primary sources)
+      label: _(Sources:)
       type: checkbox-list
       name: sources
       attrs:
@@ -289,7 +289,7 @@ place:
     - prompt: _(Contributor's name)
       label: _(Contributor's name:)
       type: text
-      name: submitter_name
+      name: contributor_name
       optional: 
       sticky: true
       attrs:
@@ -299,7 +299,7 @@ place:
           value: 30
     - prompt: _(Your Email)
       type: text
-      name: private-submitter_email
+      name: private-contributor_email
       optional: 
       sticky: true
       attrs:
