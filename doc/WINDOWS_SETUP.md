@@ -24,7 +24,7 @@ Download and install the PostgreSQL dependencies at [this link](http://www.stick
 
 Scroll down to the the **Release Files** section of the page. Choose the download for your machine architecture and Python version. Download to the `env` folder (the project's virtual environment).
 
-**Do not double-click the package to run--**instead, use easy_install. The command should look something like:
+**Do not double-click the package to run;** instead, use easy_install. The command should look something like:
 ```
 (env) C:\duwamish> easy_install env\psycopg2-2.6.1.win32-py2.7-pg9.4.4-release.exe 
 ```
