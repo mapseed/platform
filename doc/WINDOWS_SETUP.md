@@ -20,7 +20,7 @@ env\scripts\activate
 ```
 
 
-Download and install the PostgreSQL dependencies at [this link](http://www.stickpeople.com/projects/python/win-psycopg/).
+[**Download and install the PostgreSQL dependencies at this link**](http://www.stickpeople.com/projects/python/win-psycopg/).
 
 Scroll down to the the **Release Files** section of the page. Choose the download for your machine architecture and Python version. Download to the `env` folder (the project's virtual environment).
 
