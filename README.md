@@ -63,7 +63,7 @@ Catch us on Freenode at #Smartercleanup
 
 Local Setup
 -------------
-Hey Duwamish! requires python2.6 or greater.
+Hey Duwamish! requires Python 2.6 or greater ([Instructions for Windows found **here**](/doc/WINDOWS_SETUP.md)).
 
 Install `pip` and `virtualenv`, if not already installed. These will keep your python code isolated from the rest of your machine and ensure you have the correct versions.
 
