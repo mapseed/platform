@@ -103,27 +103,27 @@ map:
 
 place_types:
   raingarden:
-    label: _(raingarden)
+    label: _(rain garden)
     rules:
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "rain garden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [7, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "rain garden" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "rain garden" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "raingarden" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "rain garden" && {{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -192,7 +192,7 @@ place:
   show_map_button_label: _(Back to the Map)
   action_text: _(added)
   title: _(Register your rain garden)
-  help_text: Are you registering more than 3 raingardens?
+  help_text: Are you registering more than 3 rain gardens?
   help_url: http://www.stewardshippartners.org/contact-us/
   help_urlanchor: click here
   action_text: _(added)
@@ -252,7 +252,7 @@ place:
           value: _(Any notes you want to add for others would be wonderful :))
     - name: location_type
       type: hidden
-      value: raingarden
+      value: rain garden
     - prompt: _(Primary sources)
       label: _(Sources:)
       type: checkbox-list
