@@ -19,6 +19,9 @@ var Shareabouts = Shareabouts || {};
       // Augment the template data with the attachments list
       data.attachments = this.model.attachmentCollection.toJSON();
 
+      if (data.rain_garden_number)
+        data.rain_garden_number = S.TemplateHelpers.formatNumber (data.rain_garden_number)
+
       this.$el.html(Handlebars.templates['place-detail'](data));
 
       // Render the view as-is (collection may have content already)

@@ -24,9 +24,10 @@ var Shareabouts = Shareabouts || {};
     },
     render: function() {
       var data = {
-        length: this.collection.models.length,
+        length: S.TemplateHelpers.formatNumber(this.collection.models.length),
         meter_config: this.options.mapConfig,
-        value: this.numberOfPlaces
+        value: S.TemplateHelpers.formatNumber(this.numberOfPlaces),
+        counter_max_pretty: S.TemplateHelpers.formatNumber(this.options.mapConfig.counter_max)
       };
       this.$el.html(Handlebars.templates['count-meter'](data));
       return this;
