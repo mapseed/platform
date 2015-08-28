@@ -1,7 +1,16 @@
 {{> place-detail-promotion-bar }}
 
 <header class="place-header clearfix">
-  <h1>{{#if rain_garden_name }}{{ rain_garden_name }}{{^}}{{ rain_garden_number }} {{/if}}</h1>
+  <h1>
+    {{#if rain_garden_name}}
+    {{ rain_garden_name}}
+    {{^}}
+    {{#if rain_garden_number}}
+    Rain Garden {{#thousands_comma rain_garden_number}}{{ garden_number }}{{/thousands_comma}}
+    {{^}}
+    {{/if}}
+    {{/if}}
+  </h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
             {{#if submitter.avatar_url }}
