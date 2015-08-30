@@ -1,7 +1,10 @@
 {{> place-detail-promotion-bar }}
 
 <header class="place-header clearfix">
-  <h1>{{#if rain_garden_name }}{{ rain_garden_name }}{{^}}{{ rain_garden_number }} {{/if}}</h1>
+  <h1>
+    {{#rain_garden_title rain_garden_number rain_garden_name }}
+    {{/rain_garden_title}}
+  </h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
             {{#if submitter.avatar_url }}

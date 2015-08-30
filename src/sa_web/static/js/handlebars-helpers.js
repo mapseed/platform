@@ -170,10 +170,10 @@ var Shareabouts = Shareabouts || {};
 
     _.each(NS.Config.place.items, function(item, i) {
       var newItem = {
-            name: item.name,
-            label: item.label,
-            value: this[item.name]
-          };
+        name: item.name,
+        label: item.label,
+        value: this[item.name]
+      };
 
       // if not an exclusion and not private data
       if (_.contains(exclusions, item.name) === false &&
