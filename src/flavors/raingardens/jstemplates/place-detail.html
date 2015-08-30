@@ -2,14 +2,8 @@
 
 <header class="place-header clearfix">
   <h1>
-    {{#if rain_garden_name}}
-    {{ rain_garden_name}}
-    {{^}}
-    {{#if rain_garden_number}}
-    Rain Garden {{ rain_garden_number }}
-    {{^}}
-    {{/if}}
-    {{/if}}
+    {{#rain_garden_title rain_garden_number rain_garden_name }}
+    {{/rain_garden_title}}
   </h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
