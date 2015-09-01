@@ -26,7 +26,8 @@ var Shareabouts = Shareabouts || {};
       var data = {
         length: S.TemplateHelpers.formatNumber(this.collection.models.length),
         meter_config: this.options.mapConfig,
-        value: S.TemplateHelpers.formatNumber(this.numberOfPlaces),
+        value: this.numberOfPlaces,
+        value_pretty: S.TemplateHelpers.formatNumber(this.numberOfPlaces),
         counter_max_pretty: S.TemplateHelpers.formatNumber(this.options.mapConfig.counter_max)
       };
       this.$el.html(Handlebars.templates['count-meter'](data));
