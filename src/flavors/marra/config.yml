@@ -3,7 +3,7 @@ app:
   # HTML Title
   title: Marra-Desimone park improvements
   # Header name
-  name: Marra-Desimone
+  name: Marra-Desimone Park
   # Meta description that will show up in Google search results
   meta_description: _(Come share your ideas on improving Marra-Desimone Park!)  
   # Meta author that will show up in Google search results
@@ -436,7 +436,7 @@ place:
   adding_supported: true
   add_button_label: _(Add a comment to the map)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
+  show_list_button_label: _(See list of comments)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
@@ -537,7 +537,3 @@ pages:
     slug: about
     name: overview
     start_page: true
-
-  - title: _(Background)
-    slug: background
-    name: background
