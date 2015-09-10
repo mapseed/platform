@@ -103,7 +103,7 @@ map:
 
 place_types:
   raingarden:
-    label: _(raingarden)
+    label: _(rain garden)
     rules:
       - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
@@ -192,9 +192,6 @@ place:
   show_map_button_label: _(Back to the Map)
   action_text: _(added)
   title: _(Register your rain garden)
-  help_text: Are you registering more than 3 raingardens?
-  help_url: http://www.stewardshippartners.org/contact-us/
-  help_urlanchor: click here
   action_text: _(added)
   anonymous_name: _(Anonymous)
   submit_button_label: _(Put it on the map!)
@@ -346,8 +343,8 @@ survey:
 
 support:
   submission_type: support
-  submit_btn_text: _(Support)
-  response_name: _(support)
-  response_plural_name: _(supports)
-  action_text: supported
+  submit_btn_text: _(Like)
+  response_name: _(like)
+  response_plural_name: _(likes)
+  action_text: liked
   anonymous_name: _(Someone)

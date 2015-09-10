@@ -1,0 +1,30 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+
+/* =Header
+-------------------------------------------------------------- */
+#site-title {
+  /*color: #F25218;*/ /*too much like 'simpsons'*/
+  font-size: .75em;
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+  float: left;
+  margin: 0 0.5em 0 0;
+  padding: 0;
+}
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}

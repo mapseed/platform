@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Hey Duwamish!
+  title: Noise pollution - Hey Duwmish!
   # Header name
-  name: Hey Duwamish!
+  name: Noise pollution
   # Meta description that will show up in Google search results
   meta_description: _(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)
   # Meta author that will show up in Google search results
@@ -411,7 +411,6 @@ place_types:
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
 sidebar:
   enabled: true
-  legend_enabled: true
   slug: filter-type
   reports:
   - title: _(Observations)

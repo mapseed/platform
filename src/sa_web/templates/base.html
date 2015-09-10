@@ -126,12 +126,13 @@
   </div><!-- end #main -->
 
  {% if config.sidebar.enabled %}
-{# add 18 em variable to CSS?#}
    <div id="side-bar">
+   {% if config.sidebar.legend_enabled %}
     <div id="master-legend">
       {% block sidebar %}{% endblock %}
       <!--<header>Master Legend</header>-->
     </div>
+   {% endif %}
     <div id="ticker">
       <p>Activity Stream</p>
       <ul class="recent-points unstyled-list"></ul>
