@@ -303,7 +303,7 @@ img {
 
 #site-header {
   /*color: #eee;*/
-  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+  background: url(/images/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.5em;
@@ -338,7 +338,7 @@ img {
 
 /* Navigation Button */
 #nav-btn {
-  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+  background: url(/images/lightpaperfibers.png);
   color: #bbb;
   font-size: 2em;
   line-height: 1;
@@ -1656,7 +1656,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
-    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+    background: url(/images/lightpaperfibers.png);
   }
   .has-pages #site-title {
     padding-left: 0;
@@ -1937,7 +1937,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.9);
 
   }
   .activity-enabled.content-visible #side-bar {
@@ -2009,7 +2009,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* Footer */
   #colophon {
     color: #007fbf;
-    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+    background: url(https://subtlepatterns.com/patterns/lightpaperfibers.png);
     font-size: 1em;
     position: absolute;
     top: auto;
