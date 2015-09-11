@@ -84,7 +84,6 @@ virtualenv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
-NOTE: As of January 2015, some Postgres dependencies are required. These can be resolved using `sudo apt-get install  postgresql libpq-dev` on Debian/Ubuntu or `brew install postgresql` on a Mac.
 
 NOTE: If you run into trouble with gevent, you can safely comment it out of the requirements.txt file. It is not needed for local development. To comment it out, just add a hash "`#`" to the beginning of the line for `gevent`.
 
