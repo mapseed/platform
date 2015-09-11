@@ -94,14 +94,17 @@ NOTE: For Linux users on RHEL/CentOS distros, you will need to have the followin
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
-Next, add the `.env` file under `src/.env` that was provided to you by your project contact. The file should contain the following format:
+### Setting up the Dev API
+
+We have a Dev API with dummy data that you can load locally. To enable it, go to the `src` folder and create a new hidden text file called `.env` and paste in the following information:
 
 ```
-SITE_KEY='abcd'
-SITE_URL='http://example.com'
+FLAVOR=duwamish_flavor
+SITE_URL=http://dev-api.heyduwamish.org:8010/api/v2/smartercleanup/datasets/duwamish/
+SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
 ```
 
-To run the development server:
+Now you're ready to run your server locally. Just enter this command:
 
 ```
 src/manage.py runserver
