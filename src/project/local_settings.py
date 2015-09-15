@@ -2,16 +2,12 @@ from __future__ import print_function
 import os
 import re
 
-TIME_ZONE = 'America/New_York'
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 EMAIL_ADDRESS = 'luke@smartercleanup.org'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Uncomment the following line if you would like to also receive emails that
 # are sent to your users.
-#EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
+# EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
 
 # The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
 # Shareabouts configuration. configuration is expected to live in a package
@@ -46,6 +42,10 @@ def read_env():
                 val = re.sub(r'\\(.)', r'\1', m3.group(1))
             os.environ.setdefault(key, val)
 read_env()
+
+TIME_ZONE = 'America/New_York'
+DEBUG = (os.environ.get('DEBUG', True) in ["True", "true", True])
+TEMPLATE_DEBUG = DEBUG
 
 # Using print function for logging because handlers are not set in settings.py
 if 'FLAVOR' not in os.environ:
