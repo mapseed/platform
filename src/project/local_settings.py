@@ -2,16 +2,12 @@ from __future__ import print_function
 import os
 import re
 
-TIME_ZONE = 'America/New_York'
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 EMAIL_ADDRESS = 'luke@smartercleanup.org'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Uncomment the following line if you would like to also receive emails that
 # are sent to your users.
-#EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
+# EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
 
 # The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
 # Shareabouts configuration. configuration is expected to live in a package
@@ -47,21 +43,22 @@ def read_env():
             os.environ.setdefault(key, val)
 read_env()
 
+TIME_ZONE = 'America/New_York'
+DEBUG = (os.environ.get('DEBUG', True) in ["True", "true", True])
+TEMPLATE_DEBUG = DEBUG
+
 # Using print function for logging because handlers are not set in settings.py
 if 'FLAVOR' not in os.environ:
-    os.environ['FLAVOR'] = 'duwamish_flavor'
     print("INFO: Using default flavor")
 if 'SITE_URL' not in os.environ:
-    os.environ['SITE_URL'] = 'nosite'
     print("ERROR: No SITE_URL found!")
 if 'SITE_KEY' not in os.environ:
-    os.environ['SITE_KEY'] = '1234'
     print("ERROR: No SITE_KEY found!")
 
 SHAREABOUTS = {
-  'FLAVOR': os.environ['FLAVOR'],
-  'DATASET_ROOT': os.environ['SITE_URL'],
-  'DATASET_KEY': os.environ['SITE_KEY']
+    'FLAVOR': os.environ.get('FLAVOR', 'duwamish_flavor'),
+    'DATASET_ROOT': os.environ.get('SITE_URL', 'NO_SITE_URL'),
+    'DATASET_KEY': os.environ.get('SITE_KEY', 'NO_SITE_KEY')
 }
 
 # For geocoding...
