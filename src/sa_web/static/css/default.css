@@ -302,8 +302,7 @@ img {
 -------------------------------------------------------------- */
 
 #site-header {
-  /*color: #eee;*/
-  background: url(/images/lightpaperfibers.png);
+  background-color: white;
   position: relative;
   z-index: 40;
   padding: 0.5em;
@@ -1654,9 +1653,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     overflow: visible;
     height: 4em;  /* height of site-header */
     -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-    background: url(/images/lightpaperfibers.png);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white;
+
   }
   .has-pages #site-title {
     padding-left: 0;
