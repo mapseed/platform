@@ -302,7 +302,7 @@ img {
 -------------------------------------------------------------- */
 
 #site-header {
-  background-color: white;
+    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.5em;
@@ -337,7 +337,7 @@ img {
 
 /* Navigation Button */
 #nav-btn {
-  background: url(/images/lightpaperfibers.png);
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   color: #bbb;
   font-size: 2em;
   line-height: 1;
@@ -486,7 +486,7 @@ a.logout-btn {
 
 /* Add Place Button */
 #add-place-btn-container {
-  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
@@ -629,7 +629,6 @@ a.logout-btn {
 -------------------------------------------------------------- */
 
 .progress-bar {
-  /*background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);*/
   background: rgba(85,85,85,0.5);
   height: 1.5em;
   padding: 0 0.25em;
@@ -978,7 +977,7 @@ a.auth-inline {
 -------------------------------------------------------------- */
 
 #ticker {
-  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   z-index: 30;
   display: none;
 }
@@ -1345,7 +1344,7 @@ ul.recent-points {
 
 #geocode-address-bar {
   display: none;
-  background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.75em 0.5em 0.5em;
@@ -1649,14 +1648,13 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 
   /* Header */
   #site-header {
+    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
     padding-left: 1em;
     overflow: visible;
     height: 4em;  /* height of site-header */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background-color: white;
-
   }
   .has-pages #site-title {
     padding-left: 0;
@@ -1743,7 +1741,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     z-index: 3;
   }
   .sign-in-menu {
-    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
+    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
     border-radius: 3px;
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
     width: 18em;
@@ -2009,7 +2007,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* Footer */
   #colophon {
     color: #007fbf;
-    background: url(https://subtlepatterns.com/patterns/lightpaperfibers.png);
+    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
     font-size: 1em;
     position: absolute;
     top: auto;
