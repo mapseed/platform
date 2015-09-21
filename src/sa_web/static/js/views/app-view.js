@@ -144,11 +144,12 @@ var Shareabouts = Shareabouts || {};
 
       if (self.options.sidebarConfig.enabled) {
         // Start Master Legend
-        new S.LegendView({
+        (new S.LegendView({
           el: '#master-legend',
-          layers: this.options.mapConfig.layers,
-          sidebarConfig: this.options.sidebarConfig
-        });
+          layers: { items: this.options.mapConfig.layers,
+                    title: this.options.sidebarConfig.layersTitle },
+          reports: this.options.sidebarConfig.reports
+        })).render();
       }
 
       // Init the address search bar

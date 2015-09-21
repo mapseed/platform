@@ -21,7 +21,6 @@ var Shareabouts = Shareabouts || {};
       self.placeLayers = self.getLayerGroups();
 
       self.layers = {};
-      var legendLayerId = 0;
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
@@ -30,11 +29,10 @@ var Shareabouts = Shareabouts || {};
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type) {
           layer = L.argo(config.url, config);
-          self.layers[legendLayerId] = layer;
-          legendLayerId++;
+          self.layers[config.id] = layer;
 
         // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
-        // WMS indicator. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
+        // that the layer is WMS. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
         } else if (config.layers) {
           layer = L.tileLayer.wms(config.url, {
             layers: config.layers,
@@ -49,8 +47,7 @@ var Shareabouts = Shareabouts || {};
             weight: config.weight,
             fillOpacity: config.fillOpacity
           });
-          self.layers[legendLayerId] = layer;
-          legendLayerId++;
+          self.layers[config.id] = layer;
 
         } else {
           // Assume a tile layer
