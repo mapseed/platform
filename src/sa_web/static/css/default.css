@@ -302,7 +302,7 @@ img {
 -------------------------------------------------------------- */
 
 #site-header {
-    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.5em;
@@ -310,26 +310,29 @@ img {
 }
 
 #site-title {
-  /*color: #F25218;*/ /*too much like 'simpsons'*/
-  font-size: .75em;
-  font-family: 'Rock Salt', cursive;
-  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
-  float: left;
-  margin: 0 0.5em 0 0;
-  padding: 0;
 }
+
 .has-pages #site-title {
   padding-left: 3.25em;
 }
+
 #site-title a:link,
 #site-title a:visited {
   display: block;
-  font-size: 2em;
+  /* font-size: 2em;
   line-height: 1.25;
   text-decoration: none;
-  /*color: #F25218;*/
-  color: #228b22;
+  color: #228b22; */
+  float: left;
+  width: 350px;
+  height: 50px;
+  overflow: hidden;
+  background-image: url(images/site-title_hey-duwamish.png);
+  background-size: 350px auto;
+  background-repeat: no-repeat;
 }
+
+
 #site-title a:hover {
   /*color: #FF8B61;*/
   color: #abde76;
