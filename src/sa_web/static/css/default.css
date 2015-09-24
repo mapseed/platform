@@ -319,17 +319,10 @@ img {
 #site-title a:link,
 #site-title a:visited {
   display: block;
-  /* font-size: 2em;
+  font-size: 2em;
   line-height: 1.25;
   text-decoration: none;
-  color: #228b22;*/
-  float: left;
-  width: 350px;
-  height: 50px;
-  overflow: hidden;
-  background-image: url(images/site-title_hey-duwamish.png);
-  background-size: 350px auto;
-  background-repeat: no-repeat;
+  color: #228b22;
 }
 
 
@@ -1563,9 +1556,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   }
   #site-title a:link,
   #site-title a:visited {
-    width: 180px;
-    height: 25px;
-    background-size: 180px auto;
+    font-size: 1.8em;
+    line-height: 1.325;
   }
 }
 
@@ -1580,10 +1572,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   }
   #site-title a:link,
   #site-title a:visited {
-    width: 180px;
-    height: 25px;
-    background-size: 180px auto;
-    margin: 10px 0 0 0;
+  font-size: 1.8em;
+  line-height: 1.325;
   }
 }
 
