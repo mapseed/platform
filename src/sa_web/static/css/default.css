@@ -313,7 +313,7 @@ img {
 }
 
 .has-pages #site-title {
-  padding-left: 3.25em;
+  padding-left: 1.75em;
 }
 
 #site-title a:link,
@@ -322,7 +322,7 @@ img {
   /* font-size: 2em;
   line-height: 1.25;
   text-decoration: none;
-  color: #228b22; */
+  color: #228b22;*/
   float: left;
   width: 350px;
   height: 50px;
@@ -334,8 +334,6 @@ img {
 
 
 #site-title a:hover {
-  /*color: #FF8B61;*/
-  color: #abde76;
 }
 
 /* Navigation Button */
@@ -1565,8 +1563,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   }
   #site-title a:link,
   #site-title a:visited {
-    font-size: 1.8em;
-    line-height: 1.325;
+    width: 180px;
+    height: 25px;
+    background-size: 180px auto;
   }
 }
 
@@ -1581,8 +1580,10 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   }
   #site-title a:link,
   #site-title a:visited {
-  font-size: 1.8em;
-  line-height: 1.325;
+    width: 180px;
+    height: 25px;
+    background-size: 180px auto;
+    margin: 10px 0 0 0;
   }
 }
 
@@ -1660,7 +1661,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     box-sizing: border-box;
   }
   .has-pages #site-title {
-    padding-left: 0;
+    padding-left: 1.25em;
   }
   #site-title a:link,
   #site-title a:visited {
