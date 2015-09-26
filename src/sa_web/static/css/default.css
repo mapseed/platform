@@ -1,4 +1,3 @@
-
 /* =Base Styles
 -------------------------------------------------------------- */
 
@@ -370,8 +369,8 @@ img {
   padding-bottom: 0.5em;
 }
 .access li li {
-	padding-top: 0.5em;
-	padding-bottom: 0;
+  padding-top: 0.5em;
+  padding-bottom: 0;
 }
 
 /* User Menu */
@@ -1693,9 +1692,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     top: 50%;
   }
   .access li {
-  	float: left;
-  	padding: 0;
-  	margin: 0 0 0 0.5em;
+    float: left;
+    padding: 0;
+    margin: 0 0 0 0.5em;
   }
   .access li ul {
     display: none;
@@ -1721,9 +1720,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 100%;
   }
   .access li li {
-  	float: none;
-  	padding: 0;
-  	margin: 0;
+    float: none;
+    padding: 0;
+    margin: 0;
   }
   .access li li .btn {
     border: 0;
