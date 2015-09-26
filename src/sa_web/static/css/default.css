@@ -310,10 +310,16 @@ img {
 }
 
 #site-title {
+  font-size: .75em;
+  font-family: 'Rock Salt', cursive;
+  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+  float: left;
+  margin: 0 0.5em 0 0;
+  padding: 0;
 }
 
 .has-pages #site-title {
-  padding-left: 1.75em;
+  padding-left: 3.25em;
 }
 
 #site-title a:link,
@@ -325,8 +331,8 @@ img {
   color: #228b22;
 }
 
-
 #site-title a:hover {
+  color: #abde76;
 }
 
 /* Navigation Button */
@@ -1651,7 +1657,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     box-sizing: border-box;
   }
   .has-pages #site-title {
-    padding-left: 1.25em;
+    padding-left: 0;
   }
   #site-title a:link,
   #site-title a:visited {
