@@ -1,4 +1,3 @@
-
 /* =Base Styles
 -------------------------------------------------------------- */
 
@@ -302,7 +301,7 @@ img {
 -------------------------------------------------------------- */
 
 #site-header {
-    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.5em;
@@ -310,7 +309,6 @@ img {
 }
 
 #site-title {
-  /*color: #F25218;*/ /*too much like 'simpsons'*/
   font-size: .75em;
   font-family: 'Rock Salt', cursive;
   text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
@@ -318,20 +316,21 @@ img {
   margin: 0 0.5em 0 0;
   padding: 0;
 }
+
 .has-pages #site-title {
   padding-left: 3.25em;
 }
+
 #site-title a:link,
 #site-title a:visited {
   display: block;
   font-size: 2em;
   line-height: 1.25;
   text-decoration: none;
-  /*color: #F25218;*/
   color: #228b22;
 }
+
 #site-title a:hover {
-  /*color: #FF8B61;*/
   color: #abde76;
 }
 
@@ -370,8 +369,8 @@ img {
   padding-bottom: 0.5em;
 }
 .access li li {
-	padding-top: 0.5em;
-	padding-bottom: 0;
+  padding-top: 0.5em;
+  padding-bottom: 0;
 }
 
 /* User Menu */
@@ -1693,9 +1692,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     top: 50%;
   }
   .access li {
-  	float: left;
-  	padding: 0;
-  	margin: 0 0 0 0.5em;
+    float: left;
+    padding: 0;
+    margin: 0 0 0 0.5em;
   }
   .access li ul {
     display: none;
@@ -1721,9 +1720,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 100%;
   }
   .access li li {
-  	float: none;
-  	padding: 0;
-  	margin: 0;
+    float: none;
+    padding: 0;
+    margin: 0;
   }
   .access li li .btn {
     border: 0;

@@ -3,7 +3,7 @@ app:
   # HTML Title
   title: Hey Duwamish!
   # Header name
-  name: Hey Duwamish!
+  name: "Hey Duwamish!"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -224,7 +224,7 @@ map:
       description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
       title: _(Land coverage data)
       visible: false
-      
+
       # WMS Original Flow
     - id: duwamish-original
       url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
@@ -241,7 +241,7 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
- 
+
   observation:
     label: _(Observation)
     rules:
