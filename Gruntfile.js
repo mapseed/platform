@@ -13,21 +13,26 @@ module.exports = function(grunt) {
         files: {
           '<%= dirs.dest %>/preload.js': ['<%= dirs.src %>/js/utils.js',
                                           '<%= dirs.src %>/js/template-helpers.js'],
-          '<%= dirs.dest %>/app.js':     ['<%= dirs.src %>/js/handlebars-helpers.js',
+          '<%= dirs.dest %>/app.js':     [
+                                          '<%= dirs.src %>/js/views/geocode-address-view.js',
+                                          '<%= dirs.src %>/js/handlebars-helpers.js',
                                           '<%= dirs.src %>/js/models.js',
                                           '<%= dirs.src %>/js/views/pages-nav-view.js',
                                           '<%= dirs.src %>/js/views/auth-nav-view.js',
                                           '<%= dirs.src %>/js/views/activity-view.js',
                                           '<%= dirs.src %>/js/views/app-view.js',
                                           '<%= dirs.src %>/js/views/layer-view.js',
-                                          '<%= dirs.src %>/js/views/map-view.js',
+                                          '<%= dirs.src %>/js/views/legend-view.js',
+                                          '<%= dirs.src %>/js/views/place-counter-view.js',
+                                          '<%= dirs.src %>/js/views/geocode-address-place-view.js',
                                           '<%= dirs.src %>/js/views/support-view.js',
                                           '<%= dirs.src %>/js/views/survey-view.js',
                                           '<%= dirs.src %>/js/views/place-detail-view.js',
                                           '<%= dirs.src %>/js/views/place-form-view.js',
                                           '<%= dirs.src %>/js/views/place-list-view.js',
-                                          '<%= dirs.src %>/js/views/geocode-address-view.js',
-                                          '<%= dirs.src %>/js/routes.js']
+                                          '<%= dirs.src %>/js/views/map-view.js',
+                                          '<%= dirs.src %>/js/routes.js'
+                                          ]
         }
       },
       distcss: {
@@ -68,8 +73,8 @@ module.exports = function(grunt) {
         expand: true,
         cwd: '<%= dirs.src %>/css/',
         src: '{,*/}*.{gif,jpeg,jpg,png,svg,webp}',
-        dest: '<%= dirs.dest %>/',
-      },
+        dest: '<%= dirs.dest %>/'
+      }
     },
 
     watch: {
