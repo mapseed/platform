@@ -44,8 +44,8 @@ def read_env():
 read_env()
 
 TIME_ZONE = 'America/New_York'
-DEBUG = (os.environ.get('DEBUG', True) in ["True", "true", True])
-TEMPLATE_DEBUG = DEBUG
+DEBUG = TEMPLATE_DEBUG = (os.environ.get('DEBUG', 'true').lower()
+                          in ('true', 'on', 't', 'yes'))
 
 # Using print function for logging because handlers are not set in settings.py
 if 'FLAVOR' not in os.environ:
