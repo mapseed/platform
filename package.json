@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/openplans/shareabouts",
   "scripts": {
-    "postinstall": "./node_modules/grunt-cli/bin/grunt"
+    "postinstall": "./node_modules/grunt-cli/bin/grunt",
+    "build-preload-js": "cat src/sa_web/static/dist/preload2.js | uglifyjs -cm | tee src/sa_web/static/dist/preload-bundle.js | gzip > src/sa_web/static/dist/preload-bundle.js.gz",
+    "build-js": "cat src/sa_web/static/dist/app2.js | uglifyjs -cm | tee src/sa_web/static/dist/bundle.js | gzip > src/sa_web/static/dist/bundle.js.gz",
+    "build-css":  "cat src/sa_web/static/dist/app2.css | tee src/sa_web/static/dist/bundle.css | gzip > src/sa_web/static/dist/bundle.css.gz",
+    "build": "node concat.js && npm run build-preload-js && npm run build-js && npm run build-css "
   },
   "dependencies": {
     "grunt": "^0.4.5",
@@ -27,6 +31,14 @@
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-uglify": "^0.6.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "node-env-file": "^0.1.7",
+    "sheetify": "^2.0.3",
+    "shelljs": "^0.5.3",
+    "uglifyjs": "^2.4.10"
+  },
+  "devDependencies": {
+    "catw": "^1.0.1",
+    "watchify": "^3.4.0"
   }
 }
