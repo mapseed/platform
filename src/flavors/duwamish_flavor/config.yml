@@ -424,7 +424,7 @@ sidebar:
   # TODO: Refactor the Layers section into its own sidebar
   layersTitle: _(Map Layers)
   reports:
-    title: _(Reports Types)
+    title: _(Report Types)
     items:
       - title: _(Observations)
         image: /static/css/images/markers/marker-observation.png
