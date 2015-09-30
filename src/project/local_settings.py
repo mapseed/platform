@@ -17,11 +17,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 def read_env():
-    """Pulled from Honcho code with minor updates, reads local default
-    environment variables from a .env file located in the project root
-    directory.
-
-    """
     try:
         file_path = os.path.join(os.path.dirname(__file__), '..',  '.env')
         # print "filepath:" + str(file_path)
@@ -40,7 +35,8 @@ def read_env():
             m3 = re.match(r'\A"(.*)"\Z', val)
             if m3:
                 val = re.sub(r'\\(.)', r'\1', m3.group(1))
-            os.environ.setdefault(key, val)
+            # overrides existing env variables, only in the Python env
+            os.environ[key] = val
 read_env()
 
 TIME_ZONE = 'America/New_York'
