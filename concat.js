@@ -1,7 +1,14 @@
 var env = require('node-env-file')
 
-env('src/.env')
-var flavor = process.env.FLAVOR ? process.env.FLAVOR : "duwamish_flavor"
+var flavor
+try {
+  env('src/.env', { overwrite: true })
+} catch (err) {
+  if (err.name !== 'TypeError' || err.message.lastIndexOf('Environment', 0) === -1) {
+    throw err
+  }
+}
+flavor = process.env.FLAVOR ? process.env.FLAVOR : "duwamish_flavor"
 
 var shell = require('shelljs')
 shell.cat([
