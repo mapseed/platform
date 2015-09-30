@@ -87,14 +87,14 @@
 /* =Header
 -------------------------------------------------------------- */
 
-#site-header {
-  /*color: #eee;*/
-  background: url(http://www.12000raingardens.org/wp-content/themes/rt_gantry_wp/images/header/nav-bg.jpg);
-  position: relative;
-  z-index: 40;
-  padding: 0.5em;
-  box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
-}
+/* #site-header {
+   /*color: #eee;
+   background: url(http://www.12000raingardens.org/wp-content/themes/rt_gantry_wp/images/header/nav-bg.jpg);
+   position: relative;
+   z-index: 40;
+   padding: 0.5em;
+   box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
+   } */
 
 #site-title {
   font-size: 1em;
