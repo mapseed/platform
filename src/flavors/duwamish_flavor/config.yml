@@ -182,7 +182,8 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.8
-      description: <img src="/static/css/images/legend-EPA-ROD.png" alt="legend">
+      description-image: /static/css/images/legend-EPA-ROD.png
+      description-image-alt: 'legend'
       title: Future cleanup plan
       visible: false
 
@@ -195,7 +196,8 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.5
-      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
+      description-image: /static/css/images/legend-landuse2010.png
+      description-image-alt: 'legend'
       title: _(Land use data)
       visible: false
 
@@ -221,7 +223,8 @@ map:
       legend: true
       opacity: 0.6
 #      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
-      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
+      description-image: /static/css/images/legend-nlcd2011.png
+      description-image-alt: 'legend'
       title: _(Land coverage data)
       visible: false
 
