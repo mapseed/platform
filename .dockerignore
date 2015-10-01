@@ -1,0 +1,4 @@
+staticfiles
+.env
+src/.env
+src/sa_web/static/dist/*
