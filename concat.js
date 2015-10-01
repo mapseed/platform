@@ -11,6 +11,8 @@ try {
 flavor = process.env.FLAVOR ? process.env.FLAVOR : "duwamish_flavor"
 
 var shell = require('shelljs')
+shell.rm('-rf', 'src/sa_web/static/dist')
+shell.mkdir('-p', 'src/sa_web/static/dist/images')
 
 shell.cat([
   'src/sa_web/static/libs/underscore.js',
@@ -64,3 +66,8 @@ shell.cat([
   'src/sa_web/static/css/default.css',
   'src/flavors/' + flavor + '/static/css/custom.css'
 ]).to('src/sa_web/static/dist/cat-bundle.css')
+
+shell.cp('-R', [
+  'src/sa_web/static/css/images/*',
+  'src/flavors/' + flavor + '/static/css/images/*'
+], 'src/sa_web/static/dist/images')
