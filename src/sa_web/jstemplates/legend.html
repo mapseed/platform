@@ -1,14 +1,14 @@
 <!-- SHAREABOUTS LAYERS -->
 <p>{{ reports.title }}:</p>
 <ul class="master-layer-list unstyled-list">
-    {{# reports.items }}
+  {{# reports.items }}
     <li class="shareabouts-layer-li legend-layer-li">
-        <a href="{{ url }}">
-            <img class="shareabouts-layer-title" location="{{ title }}" layer-title="{{ title }}" src="{{ image }}">{{ title }}
-        </a>
+      <a href="{{ url }}">
+        <img class="shareabouts-layer-title" location="{{ title }}" layer-title="{{ title }}" src="{{ image }}">{{ title }}
+      </a>
     </li>
 
-    {{/reports.items }}
+  {{/reports.items }}
 
 </ul>
 <hr>
@@ -17,20 +17,20 @@
 <!-- MAP LAYERS -->
 <p>{{ layers.title }}:</p>
 <ul class="layer-type-list unstyled-list">
-    {{# layers.items }}
+  {{# layers.items }}
     {{#if legend}}
-    <li class="layer-type-li">
+      <li class="layer-type-li">
         <div class="layer-type-title">
-            <input id="map-{{ id }}" data-layerid="{{ id }}"
-                   {{#if visible}}
-                   checked="checked"
-                   {{/if}}
-                   class="map-legend-checkbox" type="checkbox"></input>
-            <label for="map-{{ id }}">{{ title }}</label>
+          <input id="map-{{ id }}" data-layerid="{{ id }}"
+                 {{#if visible}}
+                 checked="checked"
+                 {{/if}}
+                 class="map-legend-checkbox" type="checkbox"></input>
+          <label for="map-{{ id }}">{{ title }}</label>
         </div>
         <span class="layer-type-description">{{ description }}</span>
-    </li>
+      </li>
     {{/if}}
-    {{/ layers.items }}
+  {{/ layers.items }}
 </ul>
 <hr>
