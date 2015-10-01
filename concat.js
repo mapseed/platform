@@ -11,6 +11,26 @@ try {
 flavor = process.env.FLAVOR ? process.env.FLAVOR : "duwamish_flavor"
 
 var shell = require('shelljs')
+
+shell.cat([
+  'src/sa_web/static/libs/underscore.js',
+  'src/sa_web/static/libs/backbone.js',
+  'src/sa_web/static/libs/backbone.marionette.js',
+  'src/sa_web/static/libs/handlebars-v3.0.3.js',
+  'src/sa_web/static/libs/moment-with-locales.min.js',
+  'src/sa_web/static/libs/json2.js',
+  'src/sa_web/static/libs/leaflet.argo.js',
+  'src/sa_web/static/libs/binaryajax.js',
+  'src/sa_web/static/libs/exif.js',
+  'src/sa_web/static/libs/load-image.js',
+  'src/sa_web/static/libs/canvas-to-blob.js',
+  'src/sa_web/static/libs/spin.min.js',
+  'src/sa_web/static/libs/gatekeeper.js',
+  'src/sa_web/static/libs/swag.min.js',
+  'src/sa_web/static/libs/jquery.scrollTo.js',
+  'src/sa_web/static/libs/handlebars-helpers.js'
+]).to('src/sa_web/static/dist/cat-lib-bundle.js')
+
 shell.cat([
   'src/sa_web/static/js/handlebars-helpers.js',
   'src/sa_web/static/js/models.js',
@@ -30,16 +50,17 @@ shell.cat([
   'src/sa_web/static/js/views/place-list-view.js',
   'src/sa_web/static/js/views/map-view.js',
   'src/sa_web/static/js/routes.js',
-  'src/flavors/' + flavor + '/static/js/**.js'
-]).to('src/sa_web/static/dist/app2.js')
+  'src/flavors/' + flavor + '/static/js/*.js',
+  'src/flavors/' + flavor + '/static/js/views/*.js'
+]).to('src/sa_web/static/dist/cat-bundle.js')
 
 shell.cat([
   'src/sa_web/static/js/utils.js',
   'src/sa_web/static/js/template-helpers.js'
-]).to('src/sa_web/static/dist/preload2.js')
+]).to('src/sa_web/static/dist/cat-preload-bundle.js')
 
 shell.cat([
   'src/sa_web/static/css/normalize.css',
   'src/sa_web/static/css/default.css',
   'src/flavors/' + flavor + '/static/css/custom.css'
-]).to('src/sa_web/static/dist/app2.css')
+]).to('src/sa_web/static/dist/cat-bundle.css')

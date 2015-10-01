@@ -174,9 +174,8 @@
   <!-- https://github.com/openplans/handlebars-helpers -->
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   {% else %}
-  <script src="{{STATIC_URL}}dist/libs.min.js"></script>
   <!--   TODO: build libraries with npm instead of bower -->
-  <!-- <script src="{{STATIC_URL}}dist/lib-bundle.js"></script> -->
+  <script src="{{STATIC_URL}}dist/lib-bundle.js"></script>
   <script src="{{STATIC_URL}}dist/preload-bundle.js"></script>
   {% endif %}
 
