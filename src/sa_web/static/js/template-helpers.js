@@ -5,9 +5,10 @@ var Shareabouts = Shareabouts || {};
     // Attached helper properties for how to display this form element
     insertInputTypeFlags: function(configItems) {
       _.each(configItems, function(item, index) {
-        item.is_input = (!item.type || (['textarea', 'select', 'file', 'geocoding', 'checkbox-list', 'hidden']
+        item.is_input = (!item.type || (['textarea', 'imageTab', 'select', 'file', 'geocoding', 'checkbox-list', 'hidden']
           .indexOf(item.type) < 0))
         item.is_textarea = (item.type === 'textarea');
+        item.is_imageTab = (item.type === 'imageTab');
         item.is_select = (item.type === 'select');
         item.is_checkbox_list= (item.type === 'checkbox-list');
         item.is_file = (item.type === 'file');

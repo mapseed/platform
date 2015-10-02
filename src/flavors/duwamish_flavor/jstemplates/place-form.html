@@ -43,6 +43,12 @@
               <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
               {{/is_textarea}}
 
+              {{#is_imageTab}}
+              <p>Hi!!!</p>
+              my type is {{type}}
+              my name is {{name}}
+              {{/is_imageTab}}
+
               {{#is_select}}
               <select id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
                 {{#select_item_value ../.. name}}

@@ -501,7 +501,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Type of report)
-      type: select
+      type: imageTab
       options:
         - label: _(Observation)
           value: observation
