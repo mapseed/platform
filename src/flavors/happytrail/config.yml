@@ -233,12 +233,6 @@ map:
 
   # Report filters
 
-    - title: _(Mayor's Walk)
-      shareabouts: true
-      image: /static/css/images/markers/marker-walk.png
-      url: /filter/mayorswalk
-      external: true
-      visible: true
     - title: _(Observations)
       shareabouts: true
       image: /static/css/images/markers/marker-observation.png
@@ -279,35 +273,6 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  mayorswalk:
-    label: _(Mayor's Walk item)
-    rules:
-      - condition: '"{{location_type}}" === "mayorswalk" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-walk.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "mayorswalk" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-walk.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "mayorswalk" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-walk.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "mayorswalk" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-walk.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
   observation:
     label: _(Observation)
     rules:
@@ -540,8 +505,6 @@ place:
     - prompt: _(Type of report)
       type: select
       options:
-        - label: _(Mayor's Walk)
-          value: mayorswalk
         - label: _(Observation)
           value: observation
         - label: _(Question)

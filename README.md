@@ -93,7 +93,7 @@ NOTE: For Linux users on RHEL/CentOS distros, you will need to have the followin
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
-### Setting up the Dev API
+### Configuring the Dev API
 
 We have a Dev API with dummy data that you can load locally. To enable it, go to the `src` folder and create a new hidden text file called `.env` and paste in the following information:
 
