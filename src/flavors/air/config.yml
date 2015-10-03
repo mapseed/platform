@@ -1,13 +1,13 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Trees!
+  title: Air!
   # Site Link
-  link: Trees!
+  link: Air!
   # Header name
-  name: Trees!
+  name: Air!
   # Meta description that will show up in Google search results
-  meta_description: _(Trees!)
+  meta_description: _(Air!)
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
