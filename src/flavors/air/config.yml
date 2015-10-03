@@ -50,6 +50,24 @@ map:
 
   # Map Layers
 
+    - id: esri-air
+      url: //services.arcgis.com/qboYD3ru0louQq4F/arcgis/rest/services/Duwamish_061415/FeatureServer/0/query?f=geojson&geometry={%22xmin%22:-126,%22ymin%22:43.2,%22xmax%22:-114.4,%22ymax%22:51.3,%22spatialReference%22:{%22wkid%22:4326}}&geometryType=esriGeometryEnvelope&inSR=2926&outFields=*&outSR=4326
+      type: json
+      # type: esri
+      description: _(Air Concerns from esri map)
+      popupContent: '{{Comments}}'
+      legend: true
+      visible: true
+      title: _(Air Concerns)
+      rules:
+
+        # default point marker case
+        - condition: 'true'
+          icon:
+            iconUrl: /static/css/images/markers/triangle-2654d2.png
+            iconSize: [16, 16]
+            iconAnchor: [8, 8]
+
     - id: mapbox-pscaa
       # url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       url: //a.tiles.mapbox.com/v4/smartercleanup.njpe7ha8/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
@@ -85,7 +103,7 @@ map:
         #     iconAnchor: [15, 15]
 
         # default point marker case
-        - condition: '"{{geometry.type}}" == "Point"'
+        - condition: 'true'
           icon:
             iconUrl: /static/css/images/markers/dot-fa307d.png
             iconSize: [16, 16]
@@ -116,6 +134,19 @@ map:
       title: _(Buildings)
       visible: false
 
+      # WMS Original Flow
+    - id: duwamish-original
+      url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
+      layers: 'wria9:Historical_Flow'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.4
+      description: _(The orginal Duwamish River path)
+      title: _(Original river path)
+      visible: false
+
 #      # WMS NLCD (commented out for parks)
 #    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
 #      layers: 'wria9:nlcd2011'
@@ -128,7 +159,7 @@ map:
 #      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
 #      title: _(Land covereage data)
 #      visible: false
-      
+
 
   # Report filters
 
@@ -364,12 +395,12 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a rain garden to the map!)
+  add_button_label: _(Add your air concern to the map)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)
   show_map_button_label: _(Back to the Map)
   action_text: _(added)
-  title: _(Register your rain garden)
+  title: _(Add your air concern to the map)
   action_text: _(added)
   anonymous_name: _(Anonymous)
   submit_button_label: _(Put it on the map!)
@@ -410,7 +441,7 @@ place:
       label: _(Size of contributing area:)
       type: text
       name: contributing_area
-      optional: 
+      optional:
       sticky: true
       attrs:
         - key: placeholder
@@ -443,7 +474,7 @@ place:
       label: _(Designer:)
       type: text
       name: designer
-      optional: 
+      optional:
       sticky: true
       attrs:
         - key: placeholder
@@ -454,7 +485,7 @@ place:
       label: _(Installer:)
       type: text
       name: installer
-      optional: 
+      optional:
       sticky: true
       attrs:
         - key: placeholder
@@ -465,7 +496,7 @@ place:
       label: _(Contributor's name:)
       type: text
       name: contributor_name
-      optional: 
+      optional:
       sticky: true
       attrs:
         - key: placeholder
@@ -475,7 +506,7 @@ place:
     - prompt: _(Your Email)
       type: text
       name: private-contributor_email
-      optional: 
+      optional:
       sticky: true
       attrs:
         - key: required
