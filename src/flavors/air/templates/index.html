@@ -2,7 +2,11 @@
 {% load i18n %}
 
 {% block site-title %}
-<a href="{{ config.app.link }}">{{ config.app.title }}</a>
+<!-- <a href="{{ config.app.link }}">{{ config.app.title }}</a> -->
+<a href="/">
+  <!--   http://fontmeme.com/hey-arnold-font/ -->
+  <img id="site-title-image" src="{{STATIC_URL}}css/images/site-title_air-hey-duwamish.png" alt="{{ config.app.name }}"></img>
+</a>
 {% endblock %}
 
 {% block meta %}
