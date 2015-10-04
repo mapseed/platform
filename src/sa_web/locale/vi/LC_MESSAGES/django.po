@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-04 04:55-0400\n"
+"POT-Creation-Date: 2015-10-04 18:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,7 +58,6 @@ msgid ""
 msgstr ""
 
 #: src/sa_web/jstemplates/auth-nav.html:1
-#: src/sa_web/jstemplates/place-form.html:3
 msgid "Log Out"
 msgstr "đảng xuãt"
 
@@ -127,32 +126,6 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-form.html:1
-msgid "Drag the map to your location."
-msgstr ""
-
-#: src/sa_web/jstemplates/place-form.html:2
-msgid ""
-"It looks like you didn't set your location yet. Please drag the map to your "
-"location."
-msgstr ""
-
-#: src/sa_web/jstemplates/place-form.html:4
-msgid ""
-"Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
-"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
-"login/facebook/\">Facebook</a>"
-msgstr ""
-
-#: src/sa_web/jstemplates/place-form.html:5
-msgid "Sorry, your browser doesn't support file uploads."
-msgstr ""
-
-#: src/sa_web/jstemplates/place-form.html:6
-#: src/sa_web/jstemplates/place-survey-form.html:1
-msgid "optional"
-msgstr ""
-
 #: src/sa_web/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr ""
@@ -163,6 +136,10 @@ msgstr ""
 
 #: src/sa_web/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
+msgstr ""
+
+#: src/sa_web/jstemplates/place-survey-form.html:1
+msgid "optional"
 msgstr ""
 
 #: src/sa_web/jstemplates/place-survey-response.html:1
