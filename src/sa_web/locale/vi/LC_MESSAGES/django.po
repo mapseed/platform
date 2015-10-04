@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-04 18:00-0400\n"
+"POT-Creation-Date: 2015-10-04 18:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/sa_web/jstemplates/activity-list-item.html:1
+#: sa_web/jstemplates/activity-list-item.html:1
 msgid ""
 "<strong>\n"
 "\n"
@@ -57,32 +57,32 @@ msgid ""
 "        "
 msgstr ""
 
-#: src/sa_web/jstemplates/auth-nav.html:1
+#: sa_web/jstemplates/auth-nav.html:1
 msgid "Log Out"
 msgstr "đảng xuãt"
 
-#: src/sa_web/jstemplates/auth-nav.html:2
+#: sa_web/jstemplates/auth-nav.html:2
 msgid "Sign In"
 msgstr ""
 
-#: src/sa_web/jstemplates/auth-nav.html:3
+#: sa_web/jstemplates/auth-nav.html:3
 msgid ""
 "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
-#: src/sa_web/jstemplates/geocode-address.html:1
+#: sa_web/jstemplates/geocode-address.html:1
 msgid "Search"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-detail-promotion-bar.html:1
+#: sa_web/jstemplates/place-detail-promotion-bar.html:1
 msgid "Recommend on Facebook"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-detail-promotion-bar.html:2
+#: sa_web/jstemplates/place-detail-promotion-bar.html:2
 msgid "Tweet This"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-detail-survey.html:1
+#: sa_web/jstemplates/place-detail-survey.html:1
 msgid ""
 "<strong class=\"response-submitter\">\n"
 "                    {{#if submitter}}\n"
@@ -100,7 +100,7 @@ msgid ""
 "                  "
 msgstr ""
 
-#: src/sa_web/jstemplates/place-detail.html:1
+#: sa_web/jstemplates/place-detail.html:1
 msgid ""
 "<strong class=\"point-submitter\">\n"
 "              {{#if submitter.avatar_url }}\n"
@@ -126,38 +126,38 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-list.html:1
+#: sa_web/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-list.html:2
+#: sa_web/jstemplates/place-list.html:2
 msgid "Most {{ support_label_plural }}"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-list.html:3
+#: sa_web/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-survey-form.html:1
+#: sa_web/jstemplates/place-survey-form.html:1
 msgid "optional"
 msgstr ""
 
-#: src/sa_web/jstemplates/place-survey-response.html:1
+#: sa_web/jstemplates/place-survey-response.html:1
 msgid "Thanks for participating!"
 msgstr ""
 
-#: src/sa_web/jstemplates/unsupported-overlay.html:1
+#: sa_web/jstemplates/unsupported-overlay.html:1
 msgid "Proceed Anyway"
 msgstr ""
 
-#: src/sa_web/jstemplates/unsupported-overlay.html:2
+#: sa_web/jstemplates/unsupported-overlay.html:2
 msgid ""
 "You are using an unsupported browser. Please\n"
 "    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
 "    your experience."
 msgstr ""
 
-#: src/sa_web/templates/base.html:95
+#: sa_web/templates/base.html:95
 #, python-format
 msgid ""
 "\n"
@@ -165,7 +165,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: src/sa_web/templates/base.html:100
+#: sa_web/templates/base.html:100
 #, python-format
 msgid ""
 "\n"
@@ -177,12 +177,12 @@ msgid ""
 "        "
 msgstr ""
 
-#: src/sa_web/templates/base.html:114
+#: sa_web/templates/base.html:114
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
 msgstr ""
 
-#: src/sa_web/templates/base.html:123
+#: sa_web/templates/base.html:123
 msgid "Close"
 msgstr ""
