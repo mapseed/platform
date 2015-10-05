@@ -237,7 +237,7 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.4
-      description: _(The orginal Duwamish River path)
+      description: _(The original Duwamish River path)
       title: _(Original river path)
       visible: false
 
