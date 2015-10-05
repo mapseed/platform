@@ -7,7 +7,12 @@ Si eres un@ traductor@, y no estás segur@ cómo contribuir a Hey Duwamish, ¡es
 
 1. **Colectar los archivos de traducción**
 
-  Encuentra nuestros archivos de traducción en las archivos: `src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po` y `src/sa_web/locale/es/LC_MESSAGES/django.po`.
+  Se encuentra nuestros archivos de traducción en los archivos aquí:
+
+   - [src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po)
+   - [src/sa_web/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/sa_web/locale/es/LC_MESSAGES/django.po)
+
+  Estos archivos se desarollan con arreglo al formato de un "PO file". Un editor de texto que facilita el desarollamiento de los archivos de PO está aquí: http://poedit.net/
 
 2. **Completar las traducciones**
 
@@ -32,3 +37,5 @@ Si eres un@ traductor@, y no estás segur@ cómo contribuir a Hey Duwamish, ¡es
   ```
 
   ¡Es todo!
+
+  Para obtener más información sobre los archivos de PO, [consulte la documentación oficial](https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html)

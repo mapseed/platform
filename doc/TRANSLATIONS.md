@@ -7,9 +7,15 @@ If you are a translator and wondering about how to start contributing to Hey Duw
 
 1. **Get the translation files**
 
-  **For Spanish translators:** Find our translation files under `src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po` and `src/sa_web/locale/es/LC_MESSAGES/django.po`.
+  Our **Spanish** translation files are here:
+   - [src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po)
+   - [src/sa_web/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/sa_web/locale/es/LC_MESSAGES/django.po)
 
-  **For Vietnamese translators:** Find our translation files under `src/flavors/duwamish_flavor/locale/vi/LC_MESSAGES/django.po` and `src/sa_web/locale/vi/LC_MESSAGES/django.po`.
+  Our **Vietnamese** translation files are here:
+   - [src/flavors/duwamish_flavor/locale/vi/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/flavors/duwamish_flavor/locale/vi/LC_MESSAGES/django.po)
+   - [src/sa_web/locale/vi/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/sa_web/locale/vi/LC_MESSAGES/django.po)
+
+  These translation files are using a common translation format called a "PO file". A useful tool for editing a PO File can be found here: http://poedit.net/
 
 2. **Complete the translations**
 
@@ -33,3 +39,5 @@ If you are a translator and wondering about how to start contributing to Hey Duw
   msgstr "đảng xuãt"
   ```
   That's it!
+
+  For more information about PO files, refer to the [official PO file documentation](https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html)
