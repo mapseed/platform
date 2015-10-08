@@ -36,9 +36,9 @@ map:
 
   options:
     center:
-      lat: 47.61345
-      lng: -122.29843
-    zoom: 11
+      lat: 47.53273
+      lng: -122.32156
+    zoom: 13
     minZoom: 7
     maxZoom: 18
     maxBounds: [[45.2, -125], [49.3, -116.4]] # Including cushion
