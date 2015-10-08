@@ -70,25 +70,26 @@ place_types:
     rules:
       - condition: '"{{location_type}}" === "tree" && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/dot-70d52c.png
-          iconSize: [17, 18]
-          iconAnchor: [9, 9]
+          iconUrl: /static/css/images/markers/tree.png
+          iconSize: [18, 25]
+          iconAnchor: [9, 25]
 
       - condition: '"{{location_type}}" === "tree" && {{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-70d52c.png
+          iconUrl: /static/css/images/markers/tree.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [25, 41]
-          shadowSize: [41, 41]
-          iconAnchor: [12, 41]
+          iconSize: [40, 50]
+          iconAnchor: [20, 50]
+          shadowSize: [40, 50]
+          shadowAnchor: [10, 50]
 
 # TODO: Create data visualization where a cluster represents it location type makeup
-cluster:
-  threshold: 100
-  class_small: cluster-small
-  class_large: cluster-large
-  size_small: 40
-  size_large: 60
+# cluster:
+#   threshold: 100
+#   class_small: cluster-small
+#   class_large: cluster-large
+#   size_small: 40
+#   size_large: 60
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
