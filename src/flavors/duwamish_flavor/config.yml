@@ -579,3 +579,6 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
+
+  - slug: sponsors
+    name: sponsors
