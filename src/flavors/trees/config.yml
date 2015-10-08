@@ -50,49 +50,12 @@ map:
 
   # Map Layers
 
-      # WMS landuse
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.5
-      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-      title: _(Zoning info)
-      visible: false
-
-      # WMS Buildings connection:
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
-      layers: 'wria9:2009BuildingsCOS'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Buildings)
-      visible: false
-
-#      # WMS NLCD (commented out for parks)
-#    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-#      layers: 'wria9:nlcd2011'
-#      version: '1.1.0'
-#      transparent: 'true'
-#      format: 'image/png'
-#      legend: true
-#      opacity: 0.6
-#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
-#      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
-#      title: _(Land covereage data)
-#      visible: false
-      
-
   # Report filters
 
     - title: _(Rain gardens)
       shareabouts: true
       image: /static/css/images/markers/marker-observation.png
-      url: /filter/raingarden
+      url: /filter/tree
       external: true
       visible: true
 
@@ -102,71 +65,28 @@ map:
   # Icon Controls
 
 place_types:
-  raingarden:
-    label: _(rain garden)
+  tree:
+    label: _(tree)
     rules:
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "tree" && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [7, 12]
-          iconAnchor: [5, 12]
+          iconUrl: /static/css/images/markers/dot-70d52c.png
+          iconSize: [17, 18]
+          iconAnchor: [9, 9]
 
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "tree" && {{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "raingarden" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
+          iconUrl: /static/css/images/markers/marker-70d52c.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-  idea:
-    label: _(idea)
-    rules:
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          iconSize: [7, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
 
 # TODO: Create data visualization where a cluster represents it location type makeup
 cluster:
   threshold: 100
-  class_small: raingardens-cluster-small
-  class_large: raingardens-cluster-large
+  class_small: cluster-small
+  class_large: cluster-large
   size_small: 40
   size_large: 60
 
