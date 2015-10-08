@@ -576,6 +576,6 @@ pages:
     slug: background
     name: background
 
-  - title: _(Contribute)
-    slug: contribute
+  - title: _(Get involved)
+    slug: getinvolved
     name: contribute
