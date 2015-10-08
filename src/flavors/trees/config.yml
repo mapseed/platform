@@ -50,51 +50,7 @@ map:
 
   # Map Layers
 
-      # WMS landuse
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.5
-      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-      title: _(Zoning info)
-      visible: false
-
-      # WMS Buildings connection:
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
-      layers: 'wria9:2009BuildingsCOS'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Buildings)
-      visible: false
-
-#      # WMS NLCD (commented out for parks)
-#    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-#      layers: 'wria9:nlcd2011'
-#      version: '1.1.0'
-#      transparent: 'true'
-#      format: 'image/png'
-#      legend: true
-#      opacity: 0.6
-#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
-#      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
-#      title: _(Land covereage data)
-#      visible: false
-      
-
   # Report filters
-
-    - title: _(Rain gardens)
-      shareabouts: true
-      image: /static/css/images/markers/marker-observation.png
-      url: /filter/raingarden
-      external: true
-      visible: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -102,73 +58,31 @@ map:
   # Icon Controls
 
 place_types:
-  raingarden:
-    label: _(rain garden)
+  tree:
+    label: _(tree)
     rules:
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "tree" && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [7, 12]
-          iconAnchor: [5, 12]
+          iconUrl: /static/css/images/markers/tree.png
+          iconSize: [18, 25]
+          iconAnchor: [9, 25]
 
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "tree" && {{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "raingarden" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
+          iconUrl: /static/css/images/markers/tree.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-  idea:
-    label: _(idea)
-    rules:
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          iconSize: [7, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea-trans.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
+          iconSize: [40, 50]
+          iconAnchor: [20, 50]
+          shadowSize: [40, 50]
+          shadowAnchor: [10, 50]
 
 # TODO: Create data visualization where a cluster represents it location type makeup
-cluster:
-  threshold: 100
-  class_small: raingardens-cluster-small
-  class_large: raingardens-cluster-large
-  size_small: 40
-  size_large: 60
+# cluster:
+#   threshold: 100
+#   class_small: cluster-small
+#   class_large: cluster-large
+#   size_small: 40
+#   size_large: 60
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
@@ -186,12 +100,12 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a rain garden to the map!)
+  add_button_label: _(Add a tree to the map!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)
   show_map_button_label: _(Back to the Map)
   action_text: _(added)
-  title: _(Register your rain garden)
+  title: _(Register your tree)
   action_text: _(added)
   anonymous_name: _(Anonymous)
   submit_button_label: _(Put it on the map!)
@@ -199,36 +113,35 @@ place:
   location_item_name: Address
 
   items:
-    - prompt: _(Rain garden location)
+    - prompt: _(Tree location)
       type: geocoding
-      name: private-rain_garden_address
-      optional:
+      name: private-address
       attrs:
         - key: placeholder
           value: _(Please type full address, (will not be published))
         - key: size
           value: 30
-    - prompt: _(Garden Name)
-      label: _(Garden Name:)
+    - prompt: _(Tree Name)
+      label: _(Tree Name:)
       type: text
-      name: rain_garden_name
-      optional: true
+      name: common_name
       attrs:
         - key: placeholder
-          value: _(Garden Name)
+          value: _(ie "California Wax Myrtle")
         - key: size
           value: 30
-    - prompt: _(Rain garden size (square feet))
-      label: _(Rain garden size (square feet):)
+    - prompt: _(Latin Name)
+      label: _(Latin Name:)
       type: text
-      name: rain_garden_size
+      name: latin_name
+      optional: true
       sticky: true
       attrs:
         - key: placeholder
-          value: _(Approximate square footage?)
+          value: _(ie "Myrica Californica")
         - key: size
           value: 30
-    - prompt: _(Size of contributing area)
+    - prompt: _(Condition?)
       label: _(Size of contributing area:)
       type: text
       name: contributing_area
@@ -236,74 +149,42 @@ place:
       sticky: true
       attrs:
         - key: placeholder
-          value: _(How large is the catchment area that drains to this rain garden?)
+          value: _(ie "struggling", "okay", "healthy")
         - key: size
           value: 30
-    - prompt: _(Description)
-      label: _(Description:)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Any notes you want to add for others would be wonderful :))
-    - name: location_type
-      type: hidden
-      value: raingarden
-    - prompt: _(Primary sources)
-      label: _(Sources:)
-      type: checkbox-list
-      name: sources
-      attrs:
-        - label: _(Roof)
-          value: roof
-        - label: _(Pavement)
-          value: pavement
-        - label: _(Other)
-          value: other
-    - prompt: _(Designer)
-      label: _(Designer:)
+    - prompt: _(First Name (will not be published))
+      # label: _(First Name:)
       type: text
-      name: designer
-      optional: 
-      sticky: true
+      name: private-first_name
       attrs:
         - key: placeholder
-          value: _(Designed by?)
-        - key: size
-          value: 30
-    - prompt: _(Installer)
-      label: _(Installer:)
+          value: _(will not be published)
+    - prompt: _(Last Name (will not be published))
       type: text
-      name: installer
-      optional: 
-      sticky: true
+      name: private-last_name
       attrs:
         - key: placeholder
-          value: _(Installed by?)
-        - key: size
-          value: 30
-    - prompt: _(Contributor's name)
-      label: _(Contributor's name:)
-      type: text
-      name: contributor_name
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Who should we give credit to?)
-        - key: size
-          value: 30
+          value: _(will not be published)
     - prompt: _(Your Email)
       type: text
-      name: private-contributor_email
+      name: private-submitter_email
       optional: 
       sticky: true
       attrs:
         - key: required
+        - key: placeholder
           value: _(Your email address is kept private and will not be published)
         - key: size
           value: 30
+    - prompt: _(ID Tag)
+      type: text
+      name: private-id_tag
+      attrs:
+        - key: placeholder
+          value: _(Leave blank if unknown)
+    - name: location_type
+      type: hidden
+      value: tree
     - prompt:
       inputfile_label: _(Please add an image)
       type: file
