@@ -1,7 +1,6 @@
-        <p class="drag-marker-instructions">{{#_}}Drag the map to your location.{{/_}}</p>
-        <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
-
         <h4 class="">{{ place_config.title }}</h4>
+        <p class="drag-marker-instructions">{{#_}}First drag the map to set your pin's location.{{/_}}</p>
+        <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
 
         <p>{{ place_config.help_text }}</p>
 
@@ -93,7 +92,8 @@
                 <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
               {{/if}}
             </div>
-            <br>
+            <!-- TODO Use custom whitespace via CSS instead of p tags -->
+            <p></p>
             {{/ place_config.items }}
           </fieldset>
 
