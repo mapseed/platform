@@ -202,7 +202,6 @@ place:
     - prompt: _(Rain garden location)
       type: geocoding
       name: private-rain_garden_address
-      optional:
       attrs:
         - key: placeholder
           value: _(Please type full address, (will not be published))
