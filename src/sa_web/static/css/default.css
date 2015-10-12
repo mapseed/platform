@@ -259,6 +259,10 @@ textarea {
   padding: 1em;
 }
 
+.form-field {
+  margin: 0 0 1em;
+}
+
 /* Images */
 img {
   max-width: 100%;
