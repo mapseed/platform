@@ -152,6 +152,8 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
 
+  {% block cdn_load %}{% endblock %}
+
   {% if settings.DEBUG %}
   <script src="{{STATIC_URL}}libs/underscore.js"></script>
   <script src="{{STATIC_URL}}libs/backbone.js"></script>
