@@ -36,11 +36,8 @@ RUN pip install -r /duwamish/requirements.txt
 # Set the default directory where CMD will execute
 WORKDIR /duwamish
 
-ADD start.sh /start.sh
-RUN sudo chmod 0755 /start.sh
-
 RUN sudo chown -R smartercleanup:smartercleanup /duwamish
 RUN sudo chmod -R 0755 /duwamish
 USER smartercleanup
 
-CMD /start.sh
+CMD /duwamish/start.sh
