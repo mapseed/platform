@@ -21,18 +21,11 @@ RUN apt-get install -y python-distribute python-pip python-dev
 # Install Postgres dependencies
 RUN apt-get install -y postgresql libpq-dev
 
-# # For our build scripts:
-# install from nodesource using apt-get
-# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
-RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
-RUN apt-get install -yq nodejs build-essential
-RUN npm install npm -g
+RUN groupadd -r smartercleanup \
+  && useradd -r -g smartercleanup smartercleanup
 
 # Deploy from our git repository
 RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout docker-deploy && cd -
-
-# Install our npm dependencies
-RUN cd duwamish && npm install && cd -
 
 # local testing:
 # ADD . duwamish
@@ -43,12 +36,11 @@ RUN pip install -r /duwamish/requirements.txt
 # Set the default directory where CMD will execute
 WORKDIR /duwamish
 
-RUN mkdir /duwamish/staticfiles
-RUN ln -s /duwamish/staticfiles /duwamish/static
-VOLUME /duwamish/static
-
-# We will run any commands in this when the container starts
 ADD start.sh /start.sh
 RUN sudo chmod 0755 /start.sh
+
+RUN sudo chown -R smartercleanup:smartercleanup /duwamish
+RUN sudo chmod -R 0755 /duwamish
+USER smartercleanup
 
 CMD /start.sh
