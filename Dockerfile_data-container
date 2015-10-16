@@ -46,16 +46,16 @@ WORKDIR /duwamish
 
 # Create the static file folders,
 # which need to be present on our image:
-ADD createStaticDirs.sh createStaticDirs.sh
-RUN bash createStaticDirs.sh
+# ADD createStaticDirs.sh createStaticDirs.sh
+RUN bash /duwamish/createStaticDirs.sh
 
 RUN chown -R smartercleanup:smartercleanup /duwamish
 RUN chmod -R 0755 /duwamish
-ADD start-data-container.sh /start-data-container.sh
-RUN chmod 0755 /start-data-container.sh
+# ADD start-data-container.sh /start-data-container.sh
+# RUN chmod 0755 /start-data-container.sh
 
 USER smartercleanup
 
 RUN mkdir /duwamish/staticfiles
 
-CMD /start-data-container.sh
+CMD /duwamish/start-data-container.sh
