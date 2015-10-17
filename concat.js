@@ -1,6 +1,5 @@
 var env = require('node-env-file')
 
-var flavor
 try {
   env('src/.env', { overwrite: true })
 } catch (err) {
@@ -8,7 +7,7 @@ try {
     throw err
   }
 }
-flavor = process.env.FLAVOR ? process.env.FLAVOR : "duwamish_flavor"
+var flavor = process.env.FLAVOR ? process.env.FLAVOR : "duwamish_flavor"
 
 var shell = require('shelljs')
 shell.rm('-rf', 'src/sa_web/static/dist')
