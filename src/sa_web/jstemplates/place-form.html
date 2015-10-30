@@ -16,7 +16,7 @@
 
             {{# place_config.items }}
 
-            <div class="{{ type }}">
+            <div class="{{ type }} form-field">
               {{#is_authenticated}}
                 {{^is_submitter_name}}
                 <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
@@ -24,6 +24,13 @@
               {{^}}
               <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
               {{/is_authenticated}}
+
+              {{#if is_hidden}}
+                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" key="hidden"
+                       {{#attrs}}
+                       {{ key }}="{{ value }}"
+                       {{/attrs}} value="{{value}}">
+              {{/if}}
 
               {{#if is_geocoding}}
                 <div class="geocoding-enabled">
@@ -92,8 +99,6 @@
                 <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
               {{/if}}
             </div>
-            <!-- TODO Use custom whitespace via CSS instead of p tags -->
-            <div class="form-field"></div>
             {{/ place_config.items }}
           </fieldset>
 
