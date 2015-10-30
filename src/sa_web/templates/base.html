@@ -317,6 +317,24 @@
     ga('set', 'dimension2', '{{ LANGUAGE_CODE }}');
   </script>
   {% endif %}
+  {% if settings.CLICKY_ANALYTICS_ID %}
+  <a title="Google Analytics Alternative" href="http://clicky.com/{{ settings.CLICKY_ANALYTICS_ID }}"><img alt="Google Analytics Alternative" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+  <script type="text/javascript">
+   var clicky_site_ids = clicky_site_ids || [];
+   clicky_site_ids.push({{ settings.CLICKY_ANALYTICS_ID }});
+   (function() {
+     var s = document.createElement('script');
+     s.type = 'text/javascript';
+     s.async = true;
+     s.src = '//static.getclicky.com/js';
+     ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+   })();
+  </script>
+  <noscript>
+    <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/{{ settings.CLICKY_ANALYTICS_ID }}ns.gif" />
+    </p>
+  </noscript>
+  {% endif %}
 
   {% block includes %}{% endblock %}
 
