@@ -24,6 +24,12 @@ Create a new virtual environment inside of the repository folder:
 virtualenv env
 env\scripts\activate
 ```
+
+Or, if you're using Anaconda:
+```
+conda create --name duwamish27 python=2.7
+activate duwamish27
+```
 ===========
 
 
