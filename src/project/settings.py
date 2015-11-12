@@ -314,6 +314,7 @@ if 'CLICKY_ANALYTICS_ID' in env:
     CLICKY_ANALYTICS_ID = env.get('CLICKY_ANALYTICS_ID')
 
 MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
+MAPBOX_TOKEN = env.get('MAPBOX_TOKEN', '')
 
 ##############################################################################
 # Local settings overrides
