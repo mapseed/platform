@@ -44,8 +44,6 @@ node_modules/
 # Local project settings
 # src/project/local_settings.py
 # src/project/config.yml
-src/flavors/default
-src/flavors/defaultflavor
 
 # sqlite database
 *.db
