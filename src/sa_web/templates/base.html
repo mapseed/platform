@@ -36,7 +36,7 @@
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
 
-  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
@@ -88,6 +88,15 @@
 
   </header>
 
+  <div class="sidebar-pane" id="sidebar">
+     {% if config.sidebar.legend_enabled %}
+      <div id="sidebar">
+      {% block sidebar %}{% endblock %}
+      <!--<header>Master Legend</header>-->
+      </div>
+     {% endif %}
+  </div>
+
   <div class="unsupported-overlay"></div>
 
   <div role="main" id="main">
@@ -127,63 +136,6 @@
     </div><!-- end #content -->
   </div><!-- end #main -->
 
-  {% if config.sidebar.enabled %}
-    <div id="sidebar" class="sidebar collapsed">
-      <!-- Nav tabs -->
-      <div class="sidebar-tabs">
-          <ul role="tablist">
-              <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-              <li><a href="#master-legend" role="tab"><i class="fa fa-user"></i></a></li>
-              <li><a href="#activity" role="tab"><i class="fa fa-envelope"></i></a></li>
-          </ul>
-
-          <ul role="tablist">
-              <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
-          </ul>
-      </div>
-        <!-- Tab panes -->
-        <div class="sidebar-content">
-            <div class="sidebar-pane" id="home">
-                <h1 class="sidebar-header">
-                    sidebar-v2
-                    <div class="sidebar-close"><i class="fa fa-caret-left"></i></div>
-                </h1>
-
-                <p>A responsive sidebar for mapping libraries like <a href="http://leafletjs.com/">Leaflet</a> or <a href="http://openlayers.org/">OpenLayers</a>.</p>
-
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-            </div>
-
-            <div class="sidebar-pane" id="master-legend">
-               {% if config.sidebar.legend_enabled %}
-                <div id="master-legend">
-                {% block sidebar %}{% endblock %}
-                <!--<header>Master Legend</header>-->
-                </div>
-               {% endif %}
-            </div>
-
-            <div class="sidebar-pane" id="activity">
-                <h1 class="sidebar-header">Activity<div class="sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
-                <div id="ticker">
-                  <p>Activity Stream</p>
-                  <ul class="recent-points unstyled-list"></ul>
-                </div>
-            </div>
-
-            <div class="sidebar-pane" id="settings">
-                <h1 class="sidebar-header">Settings<div class="sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
-            </div>
-        </div>
-      </div>
-  {% endif %}
-
   <div id="list-container"></div>
 
   <footer id="colophon">
@@ -195,6 +147,8 @@
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+  <!-- Load leaflet-sidebar library -->
+  <script src="{{STATIC_URL}}libs/leaflet-sidebar.js"></script>
 
   {% block cdn_load %}{% endblock %}
 
@@ -293,6 +247,7 @@
   <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-place-view.js"></script>
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/sidebar-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% else %}
   <script src="{{STATIC_URL}}dist/bundle.js"></script>
@@ -303,9 +258,6 @@
 
   {% handlebarsjs '(.*)' precompile register_partials %}
   {% handlebarsjs 'pages/*' precompile %}
-
-  <!-- Load leaflet-sidebar library -->
-  <script src="{{STATIC_URL}}libs/leaflet-sidebar.js"></script>
 
   <script type="text/javascript">
 //  <!--<script>-->
@@ -349,8 +301,6 @@
         activityConfig: S.Config.activity,
         pagesConfig: S.Config.pages
       });
-
-      var sidebar = L.control.sidebar('sidebar').addTo(map);
     });
   }(Shareabouts, jQuery));
 
