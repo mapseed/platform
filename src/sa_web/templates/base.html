@@ -36,6 +36,8 @@
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
 
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
@@ -125,20 +127,62 @@
     </div><!-- end #content -->
   </div><!-- end #main -->
 
- {% if config.sidebar.enabled %}
-   <div id="side-bar">
-   {% if config.sidebar.legend_enabled %}
-    <div id="master-legend">
-      {% block sidebar %}{% endblock %}
-      <!--<header>Master Legend</header>-->
-    </div>
-   {% endif %}
-    <div id="ticker">
-      <p>Activity Stream</p>
-      <ul class="recent-points unstyled-list"></ul>
-    </div>
-  </div>
- {% endif %}
+  {% if config.sidebar.enabled %}
+    <div id="sidebar" class="sidebar collapsed">
+      <!-- Nav tabs -->
+      <div class="sidebar-tabs">
+          <ul role="tablist">
+              <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+              <li><a href="#master-legend" role="tab"><i class="fa fa-user"></i></a></li>
+              <li><a href="#activity" role="tab"><i class="fa fa-envelope"></i></a></li>
+          </ul>
+
+          <ul role="tablist">
+              <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+          </ul>
+      </div>
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    sidebar-v2
+                    <div class="sidebar-close"><i class="fa fa-caret-left"></i></div>
+                </h1>
+
+                <p>A responsive sidebar for mapping libraries like <a href="http://leafletjs.com/">Leaflet</a> or <a href="http://openlayers.org/">OpenLayers</a>.</p>
+
+                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+            </div>
+
+            <div class="sidebar-pane" id="master-legend">
+               {% if config.sidebar.legend_enabled %}
+                <div id="master-legend">
+                {% block sidebar %}{% endblock %}
+                <!--<header>Master Legend</header>-->
+                </div>
+               {% endif %}
+            </div>
+
+            <div class="sidebar-pane" id="activity">
+                <h1 class="sidebar-header">Activity<div class="sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
+                <div id="ticker">
+                  <p>Activity Stream</p>
+                  <ul class="recent-points unstyled-list"></ul>
+                </div>
+            </div>
+
+            <div class="sidebar-pane" id="settings">
+                <h1 class="sidebar-header">Settings<div class="sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
+            </div>
+        </div>
+      </div>
+  {% endif %}
 
   <div id="list-container"></div>
 
@@ -243,6 +287,7 @@
   <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/super-place-form-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-counter-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
@@ -258,6 +303,9 @@
 
   {% handlebarsjs '(.*)' precompile register_partials %}
   {% handlebarsjs 'pages/*' precompile %}
+
+  <!-- Load leaflet-sidebar library -->
+  <script src="{{STATIC_URL}}libs/leaflet-sidebar.js"></script>
 
   <script type="text/javascript">
 //  <!--<script>-->
@@ -301,8 +349,11 @@
         activityConfig: S.Config.activity,
         pagesConfig: S.Config.pages
       });
+
+      var sidebar = L.control.sidebar('sidebar').addTo(map);
     });
   }(Shareabouts, jQuery));
+
   </script>
 
   {% if settings.GOOGLE_ANALYTICS_ID %}
@@ -330,6 +381,7 @@
      ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
    })();
   </script>
+
   <noscript>
     <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/{{ settings.CLICKY_ANALYTICS_ID }}ns.gif" />
     </p>
