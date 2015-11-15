@@ -29,8 +29,10 @@ var Shareabouts = Shareabouts || {};
 
       if ($cbox.is(':checked')) {
         $(S).trigger('visibility', [id, true]);
+        console.log("Adding "+id);
       } else {
         $(S).trigger('visibility', [id, false]);
+        console.log("Removing "+id);
       }
     }
   });
