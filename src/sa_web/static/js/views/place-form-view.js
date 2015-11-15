@@ -39,6 +39,7 @@ var Shareabouts = Shareabouts || {};
     setLatLng: function(latLng) {
       this.center = latLng;
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      console.log("Set LatLng");
     },
     setLocation: function(location) {
       this.location = location;
@@ -64,7 +65,7 @@ var Shareabouts = Shareabouts || {};
 
       return attrs;
     },
-    onInputFileChange: function(evt) {
+    onInputFileChange: function(1) {
       var self = this,
           file,
           attachment;
