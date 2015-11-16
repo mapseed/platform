@@ -154,7 +154,7 @@ var Shareabouts = Shareabouts || {};
         */
 
         (new S.SidebarView({
-          el: '#sidebar'
+          el: '#left-sidebar'
           //layers: { items: this.options.mapConfig.layers,
           //          title: this.options.sidebarConfig.layersTitle },
           //reports: this.options.sidebarConfig.reports

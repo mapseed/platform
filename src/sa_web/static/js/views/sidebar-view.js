@@ -12,7 +12,7 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this
 
-      this.$el.html(Handlebars.templates['legend']);
+      this.$el.html(Handlebars.templates['leftside-sidebar']);
 
       return this;
     }
