@@ -88,15 +88,6 @@
 
   </header>
 
-  <div class="sidebar-pane" id="sidebar">
-     {% if config.sidebar.legend_enabled %}
-      <div id="sidebar">
-      {% block sidebar %}{% endblock %}
-      <!--<header>Master Legend</header>-->
-      </div>
-     {% endif %}
-  </div>
-
   <div class="unsupported-overlay"></div>
 
   <div role="main" id="main">
@@ -116,6 +107,18 @@
       </p>
       </div>
     </noscript>
+
+    <!-- Leaflet Left Tabbed Sidebar -->
+    <div id="left-sidebar">
+       {% if config.sidebar.legend_enabled %}
+        <div id="left-sidebar">
+          <div id="sidebar" class="sidebar collapsed">
+            {% block sidebar %}{% endblock %}
+            <!--<header>Master Legend</header>-->
+          </div>
+        </div>
+       {% endif %}
+    </div>
 
     {% if config.map.geocoding_bar_enabled %}
     <div id="geocode-address-bar" class="clearfix"></div>
@@ -303,6 +306,8 @@
       });
     });
   }(Shareabouts, jQuery));
+
+  var sidebar = L.control.sidebar('sidebar').addTo(self.map);
 
   </script>
 
