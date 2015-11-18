@@ -21,9 +21,6 @@ RUN apt-get install -y python-distribute python-pip python-dev
 # Install Postgres dependencies
 RUN apt-get install -y postgresql libpq-dev
 
-RUN groupadd -r smartercleanup \
-  && useradd -r -g smartercleanup smartercleanup
-
 # Deploy from our git repository
 RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout docker-deploy && cd -
 
@@ -35,9 +32,5 @@ RUN pip install -r /duwamish/requirements.txt
 
 # Set the default directory where CMD will execute
 WORKDIR /duwamish
-
-RUN sudo chown -R smartercleanup:smartercleanup /duwamish
-RUN sudo chmod -R 0755 /duwamish
-USER smartercleanup
 
 CMD /duwamish/start.sh

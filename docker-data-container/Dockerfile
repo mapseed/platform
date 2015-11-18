@@ -26,17 +26,14 @@ RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
 RUN apt-get install -yq nodejs build-essential
 RUN npm install npm -g
 
-RUN groupadd -r smartercleanup \
-  && useradd -r -g smartercleanup smartercleanup
-
 # Deploy from our git repository
 RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout docker-deploy && cd -
 
-# Install our npm dependencies
-RUN cd duwamish && npm install && cd -
-
 # local testing:
 # ADD . duwamish
+
+# Install our npm dependencies
+RUN cd duwamish && npm install && cd -
 
 # # Install pip requirements
 RUN pip install -r /duwamish/requirements.txt
@@ -48,13 +45,6 @@ WORKDIR /duwamish
 # which need to be present on our image:
 # ADD createStaticDirs.sh createStaticDirs.sh
 RUN bash /duwamish/createStaticDirs.sh
-
-RUN chown -R smartercleanup:smartercleanup /duwamish
-RUN chmod -R 0755 /duwamish
-# ADD start-data-container.sh /start-data-container.sh
-# RUN chmod 0755 /start-data-container.sh
-
-USER smartercleanup
 
 RUN mkdir /duwamish/staticfiles
 

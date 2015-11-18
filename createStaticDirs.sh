@@ -6,6 +6,4 @@ DIRS=`ls -l src/flavors/ | egrep '^d' | awk '{print $9}'`
 for DIR in $DIRS
 do
 mkdir /${DIR}
-chown -R smartercleanup:smartercleanup /${DIR}
-chmod -R 0755 /${DIR}
 done
