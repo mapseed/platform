@@ -495,7 +495,7 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           if (zoom) {
             if (layer.getLatLng) {
-              map.setView(center, map.getMaxZoom()-1, {animate: true});
+              map.setView(center, map.getMaxZoom()-1, { reset: true });
             } else {
               map.fitBounds(layer.getBounds());
             }
