@@ -7,6 +7,11 @@ var Shareabouts = Shareabouts || {};
     routes: {
       '': 'viewMap',
       'place/new': 'newPlace',
+      'place/new/observation': 'newPlaceObservation',
+      'place/new/question': 'newPlaceQuestion',
+      'place/new/idea': 'newPlaceIdea',
+      'place/new/complaint': 'newPlaceComplaint',
+      'place/new/greenwall': 'newPlaceGreenwall',
       'place/:id': 'viewPlace',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
@@ -111,9 +116,32 @@ var Shareabouts = Shareabouts || {};
       this.appView.mapView.clearFilter();
     },
 
+    // Open view for first step in multi-step form
     newPlace: function() {
       this.appView.newPlace();
     },
+
+    // After the user selects an option in the first step open form view for the corresponding first form step option
+    newPlaceObservation: function() {
+      this.appView.newPlaceObservation();
+    },
+
+    newPlaceQuestion: function() {
+      this.appView.newPlaceQuestion();
+    },
+
+    newPlaceIdea: function() {
+      this.appView.newPlaceIdea();
+    },
+
+    newPlaceComplaint: function() {
+      this.appView.newPlaceComplaint();
+    },
+
+    newPlaceGreenwall: function() {
+      this.appView.newPlaceGreenwall();
+    },
+
 
     viewPlace: function(id, responseId) {
       this.appView.viewPlace(id, responseId, this.loading);
