@@ -93,6 +93,9 @@
   <div class="unsupported-overlay"></div>
 
   <div role="main" id="main">
+
+    <div id="side-bar-show-button">Show Sidebar <i class="fa fa-caret-right"></i></div>
+
     <noscript>
       <div class="noscript">
       <h3>
@@ -109,12 +112,6 @@
       </p>
       </div>
     </noscript>
-
-    <div id="dev-sidebar">
-      {% if config.sidebar.legend_enabled %}
-        {% block sidebar %}{% endblock %}
-      {% endif %}
-    </div>
 
     {% if config.map.geocoding_bar_enabled %}
     <div id="geocode-address-bar" class="clearfix"></div>
@@ -134,6 +131,21 @@
       <article></article>
     </div><!-- end #content -->
   </div><!-- end #main -->
+
+ {% if config.sidebar.enabled %}
+   <div id="side-bar">
+   {% if config.sidebar.legend_enabled %}
+    <div id="master-legend">
+      {% block sidebar %}{% endblock %}
+      <!--<header>Master Legend</header>-->
+    </div>
+   {% endif %}
+    <div id="ticker">
+      <p>Activity Stream</p>
+      <ul class="recent-points unstyled-list"></ul>
+    </div>
+  </div>
+ {% endif %}
 
   <div id="list-container"></div>
 
@@ -243,7 +255,6 @@
   <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/super-place-form-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-counter-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
