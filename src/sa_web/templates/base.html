@@ -152,8 +152,9 @@
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
-  <!-- Load leaflet-sidebar library -->
+  <!-- Load leaflet-sidebar library
   <script src="{{STATIC_URL}}libs/leaflet-sidebar.js"></script>
+   -->
 
   {% block cdn_load %}{% endblock %}
 
@@ -308,9 +309,8 @@
         pagesConfig: S.Config.pages
       });
     });
-  }(Shareabouts, jQuery));
 
-  var sidebar = L.control.sidebar('sidebar').addTo(self.map);
+  }(Shareabouts, jQuery));
 
   </script>
 
