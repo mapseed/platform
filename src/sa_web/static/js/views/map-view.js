@@ -19,8 +19,6 @@ var Shareabouts = Shareabouts || {};
 
       self.map = L.map(self.el, self.options.mapConfig.options);
 
-      var sidebar = L.control.sidebar('sidebar').addTo(self.map);
-
       self.placeLayers = self.getLayerGroups();
 
       self.layers = {};
