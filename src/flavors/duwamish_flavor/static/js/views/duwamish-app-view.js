@@ -25,7 +25,6 @@ var Shareabouts = Shareabouts || {};
       $("#place-location_type").val("observation");
       $("#place-form-type-choice #observation-form-type").addClass("active");
       $("#place-form .select").hide();
-      console.log("newPlaceObservation");
     },
     newPlaceQuestion: function() {
       // Called by the router
@@ -33,7 +32,6 @@ var Shareabouts = Shareabouts || {};
       $("#place-location_type").val("question");
       $("#place-form-type-choice #question-form-type").addClass("active");
       $("#place-form .select").hide();
-      console.log("newPlaceQuestion");
     },
     newPlaceIdea: function() {
       // Called by the router
@@ -41,7 +39,6 @@ var Shareabouts = Shareabouts || {};
       $("#place-location_type").val("idea");
       $("#place-form-type-choice #idea-form-type").addClass("active");
       $("#place-form .select").hide();
-      console.log("newPlaceIdea");
     },
     newPlaceComplaint: function() {
       // Called by the router
@@ -49,13 +46,11 @@ var Shareabouts = Shareabouts || {};
       $("#place-location_type").val("complaint");
       $("#place-form-type-choice #complaint-form-type").addClass("active");
       $("#place-form .select").hide();
-      console.log("newPlaceComplaint");
     },
     newPlaceGreenwall: function() {
       // Called by the router
       this.collection.add({});
       $("#place-location_type").val("greenwall");
-      console.log("newPlaceGreenwall");
-    },
+    }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));
