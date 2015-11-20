@@ -85,33 +85,6 @@ map:
 
       # Mapbox Points
 
-        # Shrink the markers when zoomed out
-#        - condition: '"{{map._zoom}}" < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-danger.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map._zoom}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-park.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-industrial.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-bicycle.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-
-        # Regular marker display
-#        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
           icon:
             iconUrl: /static/css/images/markers/marker-construction.png
@@ -304,30 +277,6 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "question" && {{layer.focused}}'
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [50, 60]
-#          shadowSize: [50, 60]
-#          shadowAnchor: [25, 60]
-#          iconAnchor: [25, 60]
-#
-#      - condition: '"{{location_type}}" === "question"'
-#        # Show questions that are points as icons...
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          iconSize: [24, 29]
-#          iconAnchor: [12, 29]
-#
-#        # ...and questions that are polygons as shapes.
-#
-#        style:
-#          color: '#4bbd45'
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 0.4
 
   idea:
     label: _(Idea)
@@ -358,33 +307,6 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-#        # Display landmarks as circles (vectors) when zoomed out
-#
-#        style:
-#          color: '#0d85e9'
-#          radius: 3
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 1
-#
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          iconSize: [50, 60]
-#          iconAnchor: [24, 59]
-#
-#      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [80, 96]
-#          shadowSize: [41, 41]
-#          iconAnchor: [39, 94]
 
   complaint:
     label: _(Complaint)
