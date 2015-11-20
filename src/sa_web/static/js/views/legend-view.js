@@ -1,3 +1,4 @@
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -26,6 +27,12 @@ var Shareabouts = Shareabouts || {};
     toggleVisibility: function(evt) {
       var $cbox = $(evt.target),
         id = $cbox.attr('data-layerid');
+
+      if ($cbox.is(':checked')) {
+        $(S).trigger('visibility', [id, true]);
+      } else {
+        $(S).trigger('visibility', [id, false]);
+      }
     }
   });
 })(Shareabouts, jQuery, Shareabouts.Util.console);
