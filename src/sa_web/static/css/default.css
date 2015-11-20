@@ -2358,6 +2358,7 @@ form.dev-place-form-choice input:checked+.complaint-label.button {
 form.dev-place-choice-child-form {
   display: none;
 }
+<<<<<<< HEAD
 
 /* v2 Multi-step place form */
 
@@ -2420,3 +2421,5 @@ form.dev-place-choice-child-form {
 #place-form-type-choice #complaint-form-type a.button.active {
   background-color: #ff0000;
 }
+=======
+>>>>>>> origin/maxburto/frontend-form

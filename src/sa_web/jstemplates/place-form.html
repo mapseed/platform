@@ -1,11 +1,37 @@
-<h4 class="">{{ place_config.title }}</h4>
 <p class="drag-marker-instructions">{{#_}}First drag the map to set your pin's location.{{/_}}</p>
 <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
 
 <p class="form-field">{{ place_config.help_text }}</p>
 
-<form id="place-form" class="place-form clearfix">
+<h3 class="">{{ place_config.title }}</h3>
 
+<form novalidate id="dev-place-form-choice" class="dev-place-form-choice clearfix">
+  <fieldset class="report-type">
+    <input id="observation-choice" type="radio" name="category" value="observation-choice" class="toggle-sibling-input toggle-sibling-input-1" required>
+    <label style="min-width:40%;" for="observation-choice" class="observation-label toggle-sibling-label less-padding no-margin-left some-margin-right some-margin-bottom button radius">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-observation.png">
+      <strong>Observation</strong>
+    </label>
+
+    <input id="question-choice" type="radio" name="category" value="question-choice" class="toggle-sibling-input toggle-sibling-input-2" required>
+    <label style="min-width:40%;" for="question-choice" class="question-label toggle-sibling-label less-padding no-margin-left some-margin-right some-margin-bottom button radius">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-question.png">
+      <strong>Question</strong>
+    </label>
+
+    <input id="idea-choice" type="radio" name="category" value="idea-choice" class="toggle-sibling-input toggle-sibling-input-3" required>
+    <label style="min-width:40%;" for="idea-choice" class="idea-label toggle-sibling-label less-padding no-margin-left some-margin-right some-margin-bottom button radius">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-idea.png">
+      <strong>Idea</strong>
+    </label>
+
+    <input id="complaint-choice" type="radio" name="category" value="complaint-choice" class="toggle-sibling-input toggle-sibling-input-4" required>
+    <label style="min-width:40%;" for="complaint-choice" class="complaint-label toggle-sibling-label less-padding no-margin-left some-margin-right some-margin-bottom button radius">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-complaint.png">
+      <strong>Complaint</strong>
+    </label>
+
+<<<<<<< HEAD
   <div id="place-form-type-choice" class="place-form-type-choice clearfix">
     <a id="observation-form-type" href="/place/new/observation" class="button">
       <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-observation.png">
@@ -119,15 +145,86 @@
         {{/if}}
       </div>
     {{/ place_config.items }}
+=======
+>>>>>>> origin/maxburto/frontend-form
+  </fieldset>
+</form>
+
+<form id="dev-place-choice-child-form" class="dev-place-choice-child-form clearfix">
+
+  <fieldset>
+    <div class="text form-field">
+      <label for="place-name">Title of report <small>(optional)</small></label>
+      <input id="place-name" name="name" type="text" placeholder="Enter title" size="30" value="">
+    </div>
+
+    <div class="text form-field">
+      <label for="place-submitter_name">Your Name <small>(optional)</small></label>
+      <input id="place-submitter_name" name="submitter_name" type="text" placeholder="Name" size="30" value="">
+      <span class="or-sign-in">Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a></span>
+    </div>
+
+    <div class="text form-field">
+      <label for="place-private-submitter_email">Your Email <small>(optional)</small></label>
+      <input id="place-private-submitter_email" name="private-submitter_email" type="text" placeholder="Email address" size="30" value="">
+    </div>
+
+    <div class="textarea form-field">
+      <label for="place-description">Description <small>(optional)</small></label>
+      <textarea id="place-description" name="description" placeholder="Description..." data-gramm="" data-txt_gramm_id="2bec75f0-5935-f338-ea9a-2d155d91e6b5"></textarea>
+    </div>
+
+    <div class="file form-field">
+      <label for="place-my_image">Image <small>(optional)</small></label>
+      <!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
+      <!--[if (gt IE 9)|!(IE)]><!-->
+      <span class="fileinput-container btn btn-small">
+        <span>Add an Image</span>
+        <input id="place-my_image" name="my_image" type="file" accept="image/*">
+      </span>
+      <span class="fileinput-name">
+
+      </span>
+      <!--<![endif]-->
+    </div>
   </fieldset>
 
-  <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ place_config.submit_button_label }}" class="btn btn-primary submit-btn">
-
-  {{#is_authenticated}}
-    <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}. <a class="" href="/users/logout/">{{#_}}Log Out{{/_}}</a></p>
-    {{^}}
-  {{/is_authenticated}}
-
+  <input name="save-place-btn" id="save-place-btn" type="submit" value="Put it on the map!" class="btn btn-primary submit-btn">
   <div class="form-spinner"></div>
 
 </form>
+
+<script type="text/javascript">
+  $( "#observation-choice" ).change(function() {
+    $( "#dev-place-choice-child-form" ).hide( "fast", function() {
+      console.log( "Animation complete." );
+    });
+    $( "#dev-place-choice-child-form" ).show( "fast", function() {
+      console.log( "Animation complete." );
+    });
+  });
+  $( "#question-choice" ).change(function() {
+    $( "#dev-place-choice-child-form" ).hide( "fast", function() {
+      console.log( "Animation complete." );
+    });
+    $( "#dev-place-choice-child-form" ).show( "fast", function() {
+      console.log( "Animation complete." );
+    });
+  });
+  $( "#idea-choice" ).change(function() {
+    $( "#dev-place-choice-child-form" ).hide( "fast", function() {
+      console.log( "Animation complete." );
+    });
+    $( "#dev-place-choice-child-form" ).show( "fast", function() {
+      console.log( "Animation complete." );
+    });
+  });
+  $( "#complaint-choice" ).change(function() {
+    $( "#dev-place-choice-child-form" ).hide( "fast", function() {
+      console.log( "Animation complete." );
+    });
+    $( "#dev-place-choice-child-form" ).show( "fast", function() {
+      console.log( "Animation complete." );
+    });
+  });
+</script>
