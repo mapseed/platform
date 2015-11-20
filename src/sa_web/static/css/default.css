@@ -2358,7 +2358,6 @@ form.dev-place-form-choice input:checked+.complaint-label.button {
 form.dev-place-choice-child-form {
   display: none;
 }
-<<<<<<< HEAD
 
 /* v2 Multi-step place form */
 
@@ -2388,16 +2387,16 @@ form.dev-place-choice-child-form {
 #place-form-type-choice a.button:hover {
   color: white;
 }
-#place-form-type-choice a.button:hover {
+#place-form-type-choice a.button#observation-form-type:hover {
   background-color: #63c2c0;
 }
-#place-form-type-choice a.button:hover {
+#place-form-type-choice a.button#question-form-type:hover {
   background-color: #d5d72e;
 }
-#place-form-type-choice a.button:hover {
+#place-form-type-choice a.button#idea-form-type:hover {
   background-color: #fc9229;
 }
-#place-form-type-choice a.button:hover {
+#place-form-type-choice a.button#complaint-form-type:hover {
   background-color: #ff0000;
 }
 
@@ -2421,5 +2420,11 @@ form.dev-place-choice-child-form {
 #place-form-type-choice #complaint-form-type a.button.active {
   background-color: #ff0000;
 }
-=======
->>>>>>> origin/maxburto/frontend-form
+
+/* Form tooltip */
+.drag-marker-instructions .instructions-overlay-tooltip .animated-tooltip {
+}
+
+.drag-marker-instructions .instructions-overlay-tooltip .animated-tooltip .pointer-tooltip {
+  content: "\F25A";
+}
