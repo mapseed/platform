@@ -18,6 +18,25 @@
 
 <form id="place-form" class="place-form clearfix">
 
+  <div id="place-form-type-choice" class="place-form-type-choice clearfix">
+    <a id="observation-form-type" href="/place/new/observation" class="button">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-observation.png">
+      <strong>Observation</strong>
+    </a>
+    <a id="question-form-type" href="/place/new/question" class="button">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-question.png">
+      <strong>Question</strong>
+    </a>
+    <a id="idea-form-type" href="/place/new/idea" class="button">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-idea.png">
+      <strong>Idea</strong>
+    </a>
+    <a id="complaint-form-type" href="/place/new/complaint" class="button">
+      <img class="inline-icon large" src="{{ STATIC_URL }}css/images/markers/marker-complaint.png">
+      <strong>Complaint</strong>
+    </a>
+  </div>
+
   <fieldset>
     <input type="hidden" name="visible" value="on">
     <input type="hidden" name="user_token" value="{{{ user_token }}}">
