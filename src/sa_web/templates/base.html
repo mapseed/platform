@@ -108,16 +108,10 @@
       </div>
     </noscript>
 
-    <!-- Leaflet Left Tabbed Sidebar -->
-    <div id="left-sidebar">
-       {% if config.sidebar.legend_enabled %}
-        <div id="left-sidebar">
-          <div id="sidebar" class="sidebar collapsed">
-            {% block sidebar %}{% endblock %}
-            <!--<header>Master Legend</header>-->
-          </div>
-        </div>
-       {% endif %}
+    <div id="dev-sidebar">
+      {% if config.sidebar.legend_enabled %}
+        {% block sidebar %}{% endblock %}
+      {% endif %}
     </div>
 
     {% if config.map.geocoding_bar_enabled %}
