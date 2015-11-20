@@ -1,5 +1,17 @@
 <h4 class="">{{ place_config.title }}</h4>
-<p class="drag-marker-instructions">{{#_}}First drag the map to set your pin's location.{{/_}}</p>
+<p class="drag-marker-instructions">
+  {{#_}}First drag the map to set your pin's location.{{/_}}
+  <!--
+  <div class="instructions-overlay-tooltip">
+    <div class="tooltip-arrow">
+    </div>
+    <div class="animated-tooltip">
+      <i class="pointer-tooltip fa fa-hand-pointer-o"></i>
+      <i class="grabber-tooltip fa fa-hand-rock-o"></i>
+    </div>
+  </div>
+  -->
+</p>
 <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
 
 <p class="form-field">{{ place_config.help_text }}</p>
