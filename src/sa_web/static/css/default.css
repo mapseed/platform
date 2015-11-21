@@ -1834,8 +1834,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     font-size: 1.25em;
     padding: 0;
     position: absolute;
-    right: 2em;
-    top: 2em;
+    left: 1.5em;
+    bottom: 2em;
     box-shadow: none;
     border-bottom: 0;
   }
