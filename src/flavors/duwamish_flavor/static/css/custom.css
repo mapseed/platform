@@ -25,6 +25,9 @@
   #side-bar-show-button {
     display: none;
   }
+  #side-bar {
+    display: block;
+  }
   #side-bar #sidebar-close {
     display: none;
   }

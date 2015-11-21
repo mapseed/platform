@@ -529,6 +529,13 @@ place:
            value: _(Enter title)
          - key: size
            value: 30
+     - prompt: _(Description)
+       type: textarea
+       name: description
+       optional: true
+       attrs:
+         - key: placeholder
+           value: _(Description...)
      - prompt: _(Your Name)
        type: text
        name: submitter_name
@@ -563,13 +570,6 @@ place:
        name: location_type
        attrs:
          - key: required
-     - prompt: _(Description)
-       type: textarea
-       name: description
-       optional: true
-       attrs:
-         - key: placeholder
-           value: _(Description...)
      - prompt: _(Image)
        inputfile_label: _(Add an Image)
        type: file
