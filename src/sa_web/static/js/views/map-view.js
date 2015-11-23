@@ -51,6 +51,12 @@ var Shareabouts = Shareabouts || {};
           var collection = self.options.landmarkCollections[collectionId];
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
+        } else if (config.type && config.type === 'mapbox') {
+          L.mapboxGL(config).addTo(self.map);
+
+          if (config.visibleDefault) {
+            layer.addTo(self.map);
+          }
         } else if (config.layers) {
           // If "layers" is present, then we assume that the config
           // references a Leaflet WMS layer.
