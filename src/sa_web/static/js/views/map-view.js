@@ -52,6 +52,9 @@ var Shareabouts = Shareabouts || {};
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.type && config.type === 'mapbox') {
+          if (!config.accessToken) {
+            config.accessToken = S.bootstrapped.mapboxToken;
+          }
           L.mapboxGL(config).addTo(self.map);
 
           if (config.visibleDefault) {
