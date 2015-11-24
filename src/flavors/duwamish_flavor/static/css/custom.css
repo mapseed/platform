@@ -51,6 +51,17 @@
     height: 25px;
     background-size: 180px auto;
   }
+  #place-form-type-choice {
+    padding-bottom: 1em;
+  }
+  #place-form-type-choice a.button {
+      display: block;
+      float: left;
+      width: 40%;
+      padding: .5em .5em;
+      margin: 0;
+      border: 2px solid white;
+  }
 }
 
 @media only screen and (min-height: 480px) and (max-width: 60em) {
@@ -68,6 +79,12 @@
 
 
 @media only screen and (min-width: 768px) {
+  #place-form-type-choice a.button {
+    width: 40%;
+    font-size: 100%;
+    padding: 1em 1em;
+    margin: 0 2% 2% 0;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -155,10 +172,6 @@ form.dev-place-choice-child-form {
 #place-form-type-choice a.button {
   display: block;
   float: left;
-  width: 40%;
-  font-size: 100%;
-  padding: 1em 1em;
-  margin: 0 2% 2% 0;
   cursor:pointer;
   background-color: #dff7ff;
   color: #6c7180;
@@ -291,17 +304,6 @@ form.dev-place-choice-child-form {
 
 #place-form-type-choice {
 
-}
-#place-form-type-choice a.button {
-  display: block;
-  float: left;
-  width: 40%;
-  font-size: 100%;
-  padding: 1em 1em;
-  margin: 0 2% 2% 0;
-  cursor:pointer;
-  background-color: #dff7ff;
-  color: #6c7180;
 }
 
 #place-form-type-choice a.button img {
