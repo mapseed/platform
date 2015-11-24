@@ -1589,6 +1589,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #map {
     height: 292px;
   }
+  .content-visible #map {
+    height: 175px;  
+  }
   #site-title a:link,
   #site-title a:visited {
     font-size: 1.8em;
