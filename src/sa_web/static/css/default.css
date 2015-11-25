@@ -1590,12 +1590,16 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     height: 292px;
   }
   .content-visible #map {
-    height: 175px;  
+    height: 175px;
   }
   #site-title a:link,
   #site-title a:visited {
     font-size: 1.8em;
     line-height: 1.325;
+  }
+  #ticker ul.recent-points {
+    height: 30em;
+    overflow: scroll;
   }
 }
 
@@ -1981,7 +1985,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     height: 100%;
     padding-top: 4em;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
     background-color: rgba(255, 255, 255, 0.9);
@@ -2011,7 +2014,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     bottom: 0;
     left: auto;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
     z-index: 15;
     background: none;
   }
@@ -2028,7 +2030,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 
   /* master-legend */
   #master-legend {
-    -webkit-overflow-scrolling: touch;
     z-index: 15;
   }
   .activity-enabled.content-visible #master-legend {
