@@ -12,6 +12,7 @@ var Shareabouts = Shareabouts || {};
       'place/new/idea': 'newPlaceIdea',
       'place/new/complaint': 'newPlaceComplaint',
       'place/new/greenwall': 'newPlaceGreenwall',
+      'landmark/:title': 'viewLandmark',
       'place/:id': 'viewPlace',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',

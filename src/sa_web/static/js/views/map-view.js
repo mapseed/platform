@@ -22,6 +22,7 @@ var Shareabouts = Shareabouts || {};
       self.placeLayers = self.getLayerGroups();
 
       self.layers = {};
+      this.landmarkLayers = L.layerGroup();
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
@@ -50,6 +51,7 @@ var Shareabouts = Shareabouts || {};
           });
           self.layers[config.id] = layer;
 
+        } else if (config.shareabouts) {
         } else {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
@@ -70,9 +72,11 @@ var Shareabouts = Shareabouts || {};
       }
 
       self.map.addLayer(self.placeLayers);
+      self.map.addLayer(self.landmarkLayers);
 
       // Init the layer view cache
       this.layerViews = {};
+      this.landmarkLayerViews = {};
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -98,6 +102,9 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
 
+      self.options.landmarkCollection.on('add', self.addLandmarkLayerView, self);
+      self.options.landmarkCollection.on('remove', self.removeLandmarkLayerView, self);
+
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
         self.setLayerVisibility(self.layers[id], visible);
@@ -108,12 +115,9 @@ var Shareabouts = Shareabouts || {};
     setLayerVisibility: function(layer, visible) {
       this.map.closePopup();
       if (visible && !this.map.hasLayer(layer)) {
-        console.log("adding layer:");
-        console.log(layer);
         this.map.addLayer(layer);
       }
       if (!visible && this.map.hasLayer(layer)) {
-        console.log("removing layer...");
         this.map.removeLayer(layer);
       }
     },
@@ -134,6 +138,8 @@ var Shareabouts = Shareabouts || {};
       // the list of layer views.
       this.placeLayers.clearLayers();
       this.layerViews = {};
+      this.landmarkLayers.clearLayers();
+      this.landmarkLayerViews = {};
 
       this.collection.each(function(model, i) {
         self.addLayerView(model);
@@ -198,6 +204,21 @@ var Shareabouts = Shareabouts || {};
     geolocate: function() {
       this.map.locate();
     },
+    addLandmarkLayerView: function(model) {
+      this.landmarkLayerViews[model.id] = new S.BasicLayerView({
+        model: model,
+        router: this.options.router,
+        map: this.map,
+        placeTypes: this.options.placeTypes,
+        landmarkLayers: this.landmarkLayers,
+        // to access the filter
+        mapView: this
+      });
+    },
+    removeLandmarkLayerView: function(model) {
+      this.landmarkLayerViews[model.id].remove();
+      delete this.landmarkLayerViews[model.id];
+    },
     addLayerView: function(model) {
       this.layerViews[model.cid] = new S.LayerView({
         model: model,
@@ -231,6 +252,16 @@ var Shareabouts = Shareabouts || {};
           self.layerViews[model.cid].hide();
         }
       });
+      this.options.landmarkCollection.each(function(model) {
+        var modelLocationType = model.get('location_type');
+
+        if (modelLocationType &&
+          modelLocationType.toUpperCase() === locationType.toUpperCase()) {
+          self.landmarkLayerViews[model.id].show();
+        } else {
+          self.landmarkLayerViews[model.id].hide();
+        }
+      });
     },
 
     clearFilter: function() {
@@ -238,6 +269,9 @@ var Shareabouts = Shareabouts || {};
       this.locationTypeFilter = null;
       this.collection.each(function(model) {
         self.layerViews[model.cid].render();
+      });
+      this.options.landmarkCollection.each(function(model) {
+        self.landmarkLayerViews[model.id].render();
       });
     },
     getLayerGroups: function() {

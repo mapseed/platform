@@ -8,6 +8,7 @@ var Shareabouts = Shareabouts || {};
       '': 'viewMap',
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
+      'landmark/:id': 'viewLandmark',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
       'list': 'showList',
@@ -22,6 +23,9 @@ var Shareabouts = Shareabouts || {};
           filteredRoutes;
 
       S.PlaceModel.prototype.getLoggingDetails = function() {
+        return this.id;
+      };
+      S.LandmarkModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
 
@@ -54,10 +58,15 @@ var Shareabouts = Shareabouts || {};
       this.loading = true;
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
+
+      this.landmarkCollection = new S.LandmarkCollection([]);
+
       this.appView = new S.AppView({
         el: 'body',
         collection: this.collection,
         activities: this.activities,
+
+        landmarkCollection: this.landmarkCollection,
 
         config: options.config,
 
@@ -116,6 +125,10 @@ var Shareabouts = Shareabouts || {};
       this.appView.newPlace();
     },
 
+    viewLandmark: function(id) {
+      this.appView.viewLandmark(id, this.loading);
+    },
+
     viewPlace: function(id, responseId) {
       this.appView.viewPlace(id, responseId, this.loading);
     },
@@ -136,6 +149,7 @@ var Shareabouts = Shareabouts || {};
       // transformed into a regex, back to the route name. This may change
       // in the future.
       return (fragment === '' || (fragment.indexOf('place') === -1 &&
+                                  fragment.indexOf('landmark') === -1 &&
         fragment.indexOf('page') === -1 &&
         fragment.indexOf('list') === -1));
     },

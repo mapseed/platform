@@ -55,12 +55,13 @@ map:
 
     - id: mapbox-early-action
       url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      type: json
+      shareabouts: true
+      placeType: communityAction
       description: _(Places where positive restoration and community organizing are happening)
-      popupContent: '{{title}}'
       legend: true
       visible: true
       title: _(Community action)
+      # These rules help when styling non-point geojson features:
       rules:
       # show nothing when zoomed out
         - condition: '"{{map.zoom}}" < 11'
@@ -223,6 +224,86 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
 
+  communityAction:
+    # Mapbox Points
+    rules:
+    # show nothing when zoomed out
+      - condition: '"{{map.zoom}}" < 11'
+
+    # LineString
+      - condition: '"{{geometry.type}}" == "LineString"'
+        style:
+          color: "{{properties.stroke}}"
+          opacity: '{{properties.stroke-opacity}}'
+          weight: "{{properties.stroke-width}}"
+    # Polygons
+      - condition: '"{{geometry.type}}" == "Polygon"'
+        style:
+          shapeType: polygon
+          fillColor: "{{properties.fill}}"
+          fill: 'true'
+          color: "{{properties.stroke}}"
+          opacity: 0.7
+          fillOpacity: '{{properties.fill-opacity}}'
+          weight: "{{properties.stroke-width}}"
+
+    # Shrink the markers when zoomed out
+      - condition: '"{{map._zoom}}" < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-danger.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
+
+      - condition: '{{map._zoom}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-park.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
+
+      - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
+
+      - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bicycle.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
+
+      # Regular marker display
+      - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-treeheart.png
+          iconSize: [40, 40]
+          iconAnchor: [13, 13]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial.png
+          iconSize: [40, 40]
+          iconAnchor: [20, 20]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bike.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+      # default point marker case
+      - condition: '"{{geometry.type}}" == "Point"'
+        icon:
+          iconUrl: /static/css/images/markers/dot-fa307d.png
+          iconSize: [16, 16]
+          iconAnchor: [8, 8]
   observation:
     label: _(Observation)
     rules:
