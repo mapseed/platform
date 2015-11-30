@@ -247,33 +247,7 @@ place_types:
           fillOpacity: '{{properties.fill-opacity}}'
           weight: "{{properties.stroke-width}}"
 
-    # Shrink the markers when zoomed out
-      - condition: '"{{map._zoom}}" < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-danger.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map._zoom}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-park.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-industrial.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-bicycle.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      # Regular marker display
-      - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      # Marker display
       - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
         icon:
           iconUrl: /static/css/images/markers/marker-construction.png
