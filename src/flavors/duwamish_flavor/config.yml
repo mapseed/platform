@@ -127,7 +127,7 @@ map:
       url: //a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
       description: _(Places where pollution has been problematic)
-      popupContent: '{{title}}'
+      popupContent: '{{title}}</br>{{description}}'
       legend: true
       visible: true
       title: _(Areas of concern)

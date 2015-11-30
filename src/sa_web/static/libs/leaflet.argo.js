@@ -55,6 +55,8 @@ L.Argo = L.GeoJSON.extend({
       style = L.Argo.getStyleRule(feature, this.rules);
     }
 
+    // Get our popup contents using the template outlined in our option's config
+    // which replaces our {{key}} with feature.properties.key
     if (this.popupContent) {
       popupContent = L.Argo.t(this.popupContent, feature.properties);
     }
@@ -65,7 +67,7 @@ L.Argo = L.GeoJSON.extend({
 
       // Set the style manually since so I can use popupContent to set clickable
       if (layer.feature.geometry['type'] != 'Point') {
-        layer.setStyle(style);
+        layer.setStyle(style.style);
       }
 
       // Handle radius for circle marker
@@ -174,20 +176,6 @@ L.extend(L.Argo, {
           }
         }
 
-        // // Format Mapbox features, which use the 'properties' attribute
-        // if (feature['properties']) {
-        // // Format 'title' and 'description' for Mapbox -> Leaflet compatability
-        //   if (feature.properties['title']) {
-        //     feature.properties['title'] = '<b>' + feature.properties['title'] + '</b>';
-        //   }
-        //   if (feature.properties['description']) {
-        //     if (feature.properties['title']) {
-        //       feature.properties['title'] = feature.properties['title'] + '<br>' + feature.properties['description'];
-        //     } else {
-        //       feature.properties['title'] = feature.properties['description'];
-        //     }
-        //   }
-        // }
         properties = {'style' : properties};
 
         // Format marker icon features
