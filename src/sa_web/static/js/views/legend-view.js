@@ -1,4 +1,3 @@
-
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){

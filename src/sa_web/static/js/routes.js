@@ -111,7 +111,6 @@ var Shareabouts = Shareabouts || {};
       this.appView.mapView.clearFilter();
     },
 
-    // Open view for first step in multi-step form
     newPlace: function() {
       this.appView.newPlace();
     },

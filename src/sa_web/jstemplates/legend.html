@@ -1,8 +1,3 @@
-<div class="side-bar-title clearfix">
-  <h1 class="sidebar-header">Legend</h1>
-  <div id="sidebar-close"><i class="fa fa-caret-left"></i></div>
-</div>
-
 <!-- SHAREABOUTS LAYERS -->
 <p>{{ reports.title }}:</p>
 <ul class="master-layer-list unstyled-list">
@@ -43,14 +38,3 @@
   {{/ layers.items }}
 </ul>
 <hr>
-
-<script>
-  $( "#side-bar #sidebar-close" ).click(function() {
-    $("#side-bar").hide();
-    $("#side-bar-show-button").show();
-  });
-  $("#side-bar-show-button").click(function() {
-    $("#side-bar").show();
-    $(this).hide();
-  });
-</script>

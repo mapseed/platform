@@ -5,7 +5,7 @@ app:
   # Header name
   name: Georgetown Green Spaces
   # Meta description that will show up in Google search results
-  meta_description: _(Come share your ideas on green spaces for Seattle's Georgetown neighborhood!)
+  meta_description: _(Come share your ideas on green spaces for Seattle's Georgetown neighborhood!)  
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
@@ -197,7 +197,7 @@ map:
       description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
       title: _(Land coverage data)
       visible: false
-
+      
       # WMS Original Flow
     - url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
       layers: 'wria9:Historical_Flow'
@@ -213,7 +213,7 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-
+ 
   observation:
     label: _(Observation)
     rules:
@@ -418,7 +418,7 @@ activity:
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
 
-  # Place Type All
+  # Place Types
 
 place:
   adding_supported: true
