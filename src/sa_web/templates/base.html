@@ -38,8 +38,6 @@
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
@@ -93,9 +91,6 @@
   <div class="unsupported-overlay"></div>
 
   <div role="main" id="main">
-
-    <div id="side-bar-show-button">Show Sidebar <i class="fa fa-caret-right"></i></div>
-
     <noscript>
       <div class="noscript">
       <h3>
@@ -246,7 +241,6 @@
   <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
   <script src="{{STATIC_URL}}js/views/app-view.js"></script>
   <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/sidebar-view.js"></script>
   <script src="{{STATIC_URL}}js/views/map-view.js"></script>
   <script src="{{STATIC_URL}}js/views/support-view.js"></script>
   <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
@@ -311,9 +305,7 @@
         pagesConfig: S.Config.pages
       });
     });
-
   }(Shareabouts, jQuery));
-
   </script>
 
   {% if settings.GOOGLE_ANALYTICS_ID %}
@@ -341,7 +333,6 @@
      ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
    })();
   </script>
-
   <noscript>
     <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/{{ settings.CLICKY_ANALYTICS_ID }}ns.gif" />
     </p>

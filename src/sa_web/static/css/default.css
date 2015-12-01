@@ -312,7 +312,7 @@ img {
 #site-header {
   background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   position: relative;
-  z-index: 99;
+  z-index: 40;
   padding: 0.5em;
   box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
 }
@@ -1000,8 +1000,6 @@ a.auth-inline {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
-
 /* =The Ticker
 -------------------------------------------------------------- */
 
@@ -1590,16 +1588,12 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     height: 292px;
   }
   .content-visible #map {
-    height: 175px;
+    height: 175px;  
   }
   #site-title a:link,
   #site-title a:visited {
     font-size: 1.8em;
     line-height: 1.325;
-  }
-  #ticker ul.recent-points {
-    height: 30em;
-    overflow: scroll;
   }
 }
 
@@ -1822,7 +1816,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     width: 40%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 50%;
+    width: 30%;
   }
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
@@ -1875,8 +1869,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
   .activity-enabled #content {
-    left: 50%;
-    /*right: 18em;*/
+    left: 30%;
+    right: 18em;
   }
   .geocoding-bar-enabled #content {
     top: 8.5em;
@@ -1959,32 +1953,16 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     margin-right: 0;
   }
 
-  /* The Side Bar Show Button */
-  #side-bar-show-button {
-    display: none;
-    position: absolute;
-    top: 11em;
-    color: white;
-    font-size: 1.25em;
-    font-weight: bold;
-    text-decoration: none;
-    background-color: #007fbf;
-    margin: 0 -0.325em 0 0;
-    padding: 0.125em 0.625em 0.125em 0.625em;
-    border-radius: 0 0.325em 0.325em 0;
-    box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
-    cursor: pointer;
-    z-index: 99;
-  }
-
   /* The Side Bar */
   #side-bar {
     position: absolute;
-    top: 0;
+    top: 4em; /* height of #site-header */
+    right: 0;
+    bottom: 0;
+    left: auto;
     width: 18em;
-    height: 100%;
-    padding-top: 4em;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
     background-color: rgba(255, 255, 255, 0.9);
@@ -1996,24 +1974,13 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   .activity-enabled #map-container {
     right: 0;  /* width of #master-legend */
   }
-  .side-bar-title {
-    margin: 0 0 0.25em 0;
-  }
-  .side-bar-title h1.sidebar-header {
-    float: left;
-  }
-  .side-bar-title #sidebar-close {
-    float: right;
-    font-size: 2em;
-    cursor: pointer;
-  }
-
   /* The Ticker */
   #ticker {
     right: 0;
     bottom: 0;
     left: auto;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     z-index: 15;
     background: none;
   }
@@ -2030,6 +1997,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 
   /* master-legend */
   #master-legend {
+    -webkit-overflow-scrolling: touch;
     z-index: 15;
   }
   .activity-enabled.content-visible #master-legend {
@@ -2098,13 +2066,13 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 60%;
   }
   .activity-enabled #content {
-    left: 60%;
+    left: 45%;
   }
   .content-visible #map-container {
     width: 60%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 60%;
+    width: 45%;
   }
 }
 
