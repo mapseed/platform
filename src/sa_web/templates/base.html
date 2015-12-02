@@ -284,6 +284,7 @@
 
       flavor:     {{ config.data|as_json }},
       place:      {{ config.place|as_json }},
+      landmarks: {{ config.landmarks|as_json }},
       placeTypes: {{ config.place_types|as_json }},
       cluster: {{ config.cluster|as_json }},
       survey:     {{ config.survey|as_json }},
@@ -306,6 +307,7 @@
         placeConfig: S.Config.place,
         placeTypes: S.Config.placeTypes,
         cluster: S.Config.cluster,
+        landmarkConfig: S.Config.landmarks,
         sidebarConfig: S.Config.sidebar,
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,

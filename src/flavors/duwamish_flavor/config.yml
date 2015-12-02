@@ -51,106 +51,7 @@ map:
       visible: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-  # Map Layers
-
-    - id: mapbox-early-action
-      url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      shareabouts: true
-      placeType: communityAction
-      description: _(Places where positive restoration and community organizing are happening)
-      legend: true
-      visible: true
-      title: _(Community action)
-      # These rules help when styling non-point geojson features:
-      rules:
-      # show nothing when zoomed out
-        - condition: '"{{map.zoom}}" < 11'
-
-      # LineString
-        - condition: '"{{geometry.type}}" == "LineString"'
-          style:
-            color: "{{properties.stroke}}"
-            opacity: '{{properties.stroke-opacity}}'
-            weight: "{{properties.stroke-width}}"
-      # Polygons
-        - condition: '"{{geometry.type}}" == "Polygon"'
-          style:
-            shapeType: polygon
-            fillColor: "{{properties.fill}}"
-            fill: 'true'
-            color: "{{properties.stroke}}"
-            opacity: 0.7
-            fillOpacity: '{{properties.fill-opacity}}'
-            weight: "{{properties.stroke-width}}"
-
-      # Mapbox Points
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-construction.png
-            iconSize: [30, 30]
-            iconAnchor: [15, 15]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-treeheart.png
-            iconSize: [40, 40]
-            iconAnchor: [13, 13]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-industrial.png
-            iconSize: [40, 40]
-            iconAnchor: [20, 20]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-bike.png
-            iconSize: [30, 30]
-            iconAnchor: [15, 15]
-
-        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "swimming"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-swimming.png
-            iconSize: [30, 30]
-            iconAnchor: [15, 15]
-
-        # default point marker case
-        - condition: '"{{geometry.type}}" == "Point"'
-          icon:
-            iconUrl: /static/css/images/markers/dot-fa307d.png
-            iconSize: [16, 16]
-            iconAnchor: [8, 8]
-
-     # Mapbox project freehand drawing imports
-    - id: mapbox-pollution
-      url: //a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      type: json
-      description: _(Places where pollution has been problematic)
-      popupContent: '{{title}}</br>{{description}}'
-      legend: true
-      visible: true
-      title: _(Areas of concern)
-      rules:
-      # show nothing when zoomed out
-        - condition: '"{{map.zoom}}" < 11'
-
-      # LineString
-        - condition: '"{{geometry.type}}" == "LineString"'
-          style:
-            color: "{{properties.stroke}}"
-            opacity: '{{properties.stroke-opacity}}'
-            weight: "{{properties.stroke-width}}"
-      # Polygons
-        - condition: '"{{geometry.type}}" == "Polygon"'
-          style:
-            shapeType: polygon
-            fillColor: "{{properties.fill}}"
-            fill: 'true'
-            color: "{{properties.stroke}}"
-            opacity: 0.7
-            fillOpacity: '{{properties.fill-opacity}}'
-            weight: "{{properties.stroke-width}}"
+  # Legend Layers
 
       # WMS ROD
     - id: epa-rod
@@ -220,6 +121,20 @@ map:
       title: _(Original river path)
       visible: false
 
+
+landmarks:
+  - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    id: communityAction
+    # shareabouts: true
+    placeType: communityAction
+    description: _(Places where positive restoration and community organizing are happening)
+
+   # Mapbox project freehand drawing imports
+  - url: //a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    id: areasOfConcern
+    placeType: areasOfConcern
+
+
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
@@ -271,6 +186,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-bike.png
           iconSize: [30, 30]
           iconAnchor: [15, 15]
+          
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "swimming"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-swimming.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
       # default point marker case
       - condition: '"{{geometry.type}}" == "Point"'
@@ -278,6 +199,28 @@ place_types:
           iconUrl: /static/css/images/markers/dot-fa307d.png
           iconSize: [16, 16]
           iconAnchor: [8, 8]
+  # Perhaps this can be combined with CommunityAction layers as a "mapbox" placetype?
+  areasOfConcern:
+    rules:
+    # show nothing when zoomed out
+      - condition: '"{{map.zoom}}" < 11'
+    # LineString
+      - condition: '"{{geometry.type}}" == "LineString"'
+        style:
+          color: "{{properties.stroke}}"
+          opacity: '{{properties.stroke-opacity}}'
+          weight: "{{properties.stroke-width}}"
+    # Polygons
+      - condition: '"{{geometry.type}}" == "Polygon"'
+        style:
+          shapeType: polygon
+          fillColor: "{{properties.fill}}"
+          fill: 'true'
+          color: "{{properties.stroke}}"
+          opacity: 0.7
+          fillOpacity: '{{properties.fill-opacity}}'
+          weight: "{{properties.stroke-width}}"
+
   observation:
     label: _(Observation)
     rules:

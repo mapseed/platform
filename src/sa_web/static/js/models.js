@@ -280,18 +280,8 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
+  // This model is based off the Mapbox Classic API
   S.LandmarkModel = Backbone.Model.extend({
-    initialize : function() {
-      var properties = this.get('properties');
-      if (properties) {
-        var title = properties['title'];
-        var navTitle = title.replace(/<[^>]*>/g,'').replace(/[\/&]/g, '').replace(/ /g, '-').replace(/--+/g, '-');
-        // It would be nice to have the id as the navTitle, but that makes it hard to fetch by id
-        // this.set("id", navTitle)
-      }
-
-      this.set("location_type", "communityAction");
-    },
     // Since mapbox api doesn't allow us to fetch a single item,
     // we just fetch to entire collection and parse the item from there
     url: function() {
@@ -308,6 +298,9 @@ var Shareabouts = Shareabouts || {};
         })
         // var properties = _.clone(response.properties);
 
+        // TODO: If no mathingFeature is assigned, the fetch should fail
+        // Or the model should reflect an incorrect self.id
+
         return matchingFeature;
       } else {
         return response;
@@ -316,7 +309,6 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.LandmarkCollection = Backbone.Collection.extend({
-    url: 'http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw',
     model: S.LandmarkModel,
 
     // The MapBox GeoJson API returns places under "features".
@@ -344,6 +336,7 @@ var Shareabouts = Shareabouts || {};
       landmark.fetch(options);
     }
   });
+
   // This does not support editing at this time, which is why it is not a
   // ShareaboutsModel
   S.AttachmentModel = Backbone.Model.extend({

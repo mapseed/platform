@@ -8,7 +8,7 @@ var Shareabouts = Shareabouts || {};
       '': 'viewMap',
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
-      'landmark/:id': 'viewLandmark',
+      'landmark/:collectionId/:id': 'viewLandmark',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
       'list': 'showList',
@@ -59,14 +59,25 @@ var Shareabouts = Shareabouts || {};
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
 
-      this.landmarkCollection = new S.LandmarkCollection([]);
+
+      this.landmarkCollections = {};
+      _.each(options.landmarkConfig, function(landmark) {
+        var collectionId = landmark['id'];
+        var collection = new S.LandmarkCollection([]);
+        collection.url = landmark.url;
+        self.landmarkCollections[collectionId] = collection;
+
+        // TODO: Simplify the landmark urls to not use the '/landmarks' prefix
+        // ie:
+        // this.routes['/communityAction/:id'] = 'viewLandmark'
+      });
 
       this.appView = new S.AppView({
         el: 'body',
         collection: this.collection,
         activities: this.activities,
 
-        landmarkCollection: this.landmarkCollection,
+        landmarkCollections: this.landmarkCollections,
 
         config: options.config,
 
@@ -125,8 +136,8 @@ var Shareabouts = Shareabouts || {};
       this.appView.newPlace();
     },
 
-    viewLandmark: function(id) {
-      this.appView.viewLandmark(id, this.loading);
+    viewLandmark: function(collectionId, id) {
+      this.appView.viewLandmark(collectionId, id, this.loading);
     },
 
     viewPlace: function(id, responseId) {

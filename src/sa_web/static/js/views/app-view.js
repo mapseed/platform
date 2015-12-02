@@ -31,7 +31,12 @@ var Shareabouts = Shareabouts || {};
             // NOTE: this is to simply support the list view. It won't
             // scale well, so let's think about a better solution.
             include_submissions: includeSubmissions
-          };
+          },
+          landmarkParams = {};
+      _.each(S.Config.landmarks, function(landmark) {
+        landmarkParams[landmark.id] = landmark.placeType;
+      });
+
 
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
@@ -42,7 +47,7 @@ var Shareabouts = Shareabouts || {};
       // Boodstrapped data from the page
       this.activities = this.options.activities;
       this.places = this.collection;
-      this.landmarks = this.options.landmarkCollection;
+      this.landmarkCollections = this.options.landmarkCollections;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -69,6 +74,7 @@ var Shareabouts = Shareabouts || {};
             url;
 
         // Allow shift+click for new tabs, etc.
+        // TODO: enable this when we remove the 'landmarks' prefix
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
              href.indexOf('/place') === 0 ||
@@ -139,7 +145,7 @@ var Shareabouts = Shareabouts || {};
         el: '#map',
         mapConfig: this.options.mapConfig,
         collection: this.collection,
-        landmarkCollection: this.options.landmarkCollection,
+        landmarkCollections: this.options.landmarkCollections,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         cluster: this.options.cluster
@@ -244,6 +250,9 @@ var Shareabouts = Shareabouts || {};
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
+      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
+        self.landmarkDetailViews[collectionId] = {};
+      });
 
       // Show tools for adding data
       this.setBodyClass();
@@ -253,7 +262,7 @@ var Shareabouts = Shareabouts || {};
       this.loadPlaces(placeParams);
 
       // Load landmarks from the API
-      this.loadLandmarks();
+      this.loadLandmarks(landmarkParams);
 
       // Fetch the first page of activity
       this.activities.fetch({reset: true});
@@ -270,7 +279,15 @@ var Shareabouts = Shareabouts || {};
     },
     loadLandmarks: function(landmarkParams) {
       var self = this;
-      this.landmarks.fetch();
+      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
+        self.landmarkCollections[collectionId].fetch({
+          success: function(collection, response, options) {
+            collection.each(function(model) {
+              model.set("location_type", landmarkParams[collectionId]);
+            });
+          }
+        })
+      });
     },
     loadPlaces: function(placeParams) {
       var self = this,
@@ -423,18 +440,17 @@ var Shareabouts = Shareabouts || {};
         delete this.placeDetailViews[model.cid];
       }
     },
-    getLandmarkDetailView: function(model, layer) {
+    getLandmarkDetailView: function(collectionId, model, layer) {
       var landmarkDetailView;
-      if (this.landmarkDetailViews[model.id]) {
-        landmarkDetailView = this.landmarkDetailViews[model.id];
+      if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
+        landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
       } else {
         landmarkDetailView = new S.MapboxEarlyActionView({
           title: model.get('properties')['title'],
           description: model.get('properties')['description']
         });
-        this.landmarkDetailViews[model.id] = landmarkDetailView;
+        this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
       }
-
       return landmarkDetailView;
     },
     getPlaceDetailView: function(model) {
@@ -486,18 +502,20 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
-    viewLandmark: function(model, zoom) {
+    viewLandmark: function(collectionId, model, zoom) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           layout = S.Util.getPageLayout(),
-          onLandmarkFound, onLandmarkNotFound;
+          onLandmarkFound, onLandmarkNotFound, modelId;
 
+      // TODO: If the model id is not in our collection, navigate to '/'
+      // (can we just trigger `onLandmarkNotFound' instead?
       onLandmarkFound = function(model) {
         var map = self.mapView.map,
             layer, center, landmarkDetailView, $responseToScrollTo;
 
-        layer = self.mapView.landmarkLayerViews[model.id].layer
-        landmarkDetailView = self.getLandmarkDetailView(model, layer);
+        layer = self.mapView.landmarkLayerViews[collectionId][model.id].layer
+        landmarkDetailView = self.getLandmarkDetailView(collectionId, model, layer);
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
@@ -540,7 +558,12 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-      model = this.landmarks.get(modelId);
+      var landmarkCollection = this.landmarkCollections[collectionId];
+      if (!landmarkCollection) {
+        onLandmarkNotFound();
+        return;
+      }
+      model = landmarkCollection.get(modelId);
 
       // If the model was found in the landmarks, go ahead and use it.
       if (model) {
@@ -548,8 +571,8 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch and use the result.
       } else {
-        this.landmarks.fetchById(modelId, {
-          // Check for a valid location type before adding it to the collection
+        landmarkCollection.fetchById(modelId, {
+          // TODO: Check for a valid location type before adding it to the collection
           // validate: true,
           success: onLandmarkFound,
           error: onLandmarkNotFound
