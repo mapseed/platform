@@ -18,6 +18,7 @@ var Shareabouts = Shareabouts || {};
           };
 
       self.map = L.map(self.el, self.options.mapConfig.options);
+
       self.placeLayers = self.getLayerGroups();
 
       self.layers = {};
