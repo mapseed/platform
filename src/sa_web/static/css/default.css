@@ -312,7 +312,7 @@ img {
 #site-header {
   background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
   position: relative;
-  z-index: 40;
+  z-index: 99;
   padding: 0.5em;
   box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
 }
