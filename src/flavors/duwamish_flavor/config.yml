@@ -396,12 +396,6 @@ sidebar:
       - title: _(Green Wall)
         image: /static/css/images/markers/marker-greenwall.png
         url: /filter/greenwall
-      - title: _(Hide Reports)
-        url: /filter/none
-        image: /static/css/images/hide-all.png
-      - title: _(Show Reports)
-        url: /
-        image: /static/css/images/show-all.png
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
