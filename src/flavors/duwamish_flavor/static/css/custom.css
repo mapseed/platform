@@ -38,6 +38,7 @@
   }
   #side-bar {
     display: block;
+    overflow: visible;
   }
   #side-bar #sidebar-close {
     display: none;
