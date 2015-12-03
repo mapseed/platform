@@ -393,7 +393,7 @@ sidebar:
       - title: _(Complaints)
         image: /static/css/images/markers/marker-complaint.png
         url: /filter/complaint
-      - title: _(Green Wall)
+      - title: _(Green Wall Vote)
         image: /static/css/images/markers/marker-greenwall.png
         url: /filter/greenwall        
 
