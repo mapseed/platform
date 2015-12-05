@@ -393,7 +393,7 @@ sidebar:
       - title: _(Complaints)
         image: /static/css/images/markers/marker-complaint.png
         url: /filter/complaint
-      - title: _(Green Wall Vote)
+      - title: _(Green Screen Vote)
         image: /static/css/images/markers/marker-greenwall.png
         url: /filter/greenwall        
 
@@ -431,7 +431,7 @@ place:
           value: idea
         - label: _(Complaint)
           value: complaint
-        - label: _(Green Wall nomination)
+        - label: _(Green Screen Vote)
           value: greenwall
       name: location_type
       attrs:
