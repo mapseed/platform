@@ -533,3 +533,9 @@ pages:
 
   - slug: sponsors
     name: sponsors
+
+  - slug: youthcorps2015
+    name: youthcorps2015
+
+  - slug: test
+  - name: test
