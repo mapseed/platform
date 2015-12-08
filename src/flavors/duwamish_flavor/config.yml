@@ -85,33 +85,6 @@ map:
 
       # Mapbox Points
 
-        # Shrink the markers when zoomed out
-#        - condition: '"{{map._zoom}}" < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-danger.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map._zoom}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-park.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-industrial.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-#
-#        - condition: '{{map.view}} < 11 && "{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-#          icon:
-#            iconUrl: /static/css/images/markers/marker-bicycle.png
-#            iconSize: [10, 10]
-#            iconAnchor: [5, 5]
-
-        # Regular marker display
-#        - condition: '"{{properties.marker-symbol}}" === "danger" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
           icon:
             iconUrl: /static/css/images/markers/marker-construction.png
@@ -304,30 +277,6 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "question" && {{layer.focused}}'
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [50, 60]
-#          shadowSize: [50, 60]
-#          shadowAnchor: [25, 60]
-#          iconAnchor: [25, 60]
-#
-#      - condition: '"{{location_type}}" === "question"'
-#        # Show questions that are points as icons...
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          iconSize: [24, 29]
-#          iconAnchor: [12, 29]
-#
-#        # ...and questions that are polygons as shapes.
-#
-#        style:
-#          color: '#4bbd45'
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 0.4
 
   idea:
     label: _(Idea)
@@ -358,33 +307,6 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-#        # Display landmarks as circles (vectors) when zoomed out
-#
-#        style:
-#          color: '#0d85e9'
-#          radius: 3
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 1
-#
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          iconSize: [50, 60]
-#          iconAnchor: [24, 59]
-#
-#      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [80, 96]
-#          shadowSize: [41, 41]
-#          iconAnchor: [39, 94]
 
   complaint:
     label: _(Complaint)
@@ -416,6 +338,36 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
+  greenwall:
+    label: _(Green Wall nomination)
+    rules:
+      - condition: '"{{location_type}}" === "greenwall" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: '"{{location_type}}" === "greenwall" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconSize: [24, 29]
+          iconAnchor: [12, 29]
+
+      - condition: '"{{location_type}}" === "greenwall" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
+      - condition: '"{{location_type}}" === "greenwall" && {{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
@@ -441,12 +393,9 @@ sidebar:
       - title: _(Complaints)
         image: /static/css/images/markers/marker-complaint.png
         url: /filter/complaint
-      - title: _(Hide Reports)
-        url: /filter/none
-        image: /static/css/images/hide-all.png
-      - title: _(Show Reports)
-        url: /
-        image: /static/css/images/show-all.png
+      - title: _(Green Screen Vote)
+        image: /static/css/images/markers/marker-greenwall.png
+        url: /filter/greenwall        
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -518,67 +467,74 @@ place:
       - prompt: _(another thing)
         type: text
         name: name
+  greenwall:
+    icon: "/static/image.png"
+    items:
+      - prompt: _(another thing)
+        type: text
+        name: name
 
   items:
-     - prompt: _(Title of report)
-       type: text
-       name: name
-       optional: true
-       attrs:
-         - key: placeholder
-           value: _(Enter title)
-         - key: size
-           value: 30
-     - prompt: _(Description)
-       type: textarea
-       name: description
-       optional: true
-       attrs:
-         - key: placeholder
-           value: _(Description...)
-     - prompt: _(Your Name)
-       type: text
-       name: submitter_name
-       optional: true
-       sticky: true
-       attrs:
-         - key: placeholder
-           value: _(Name)
-         - key: size
-           value: 30
-     - prompt: _(Your Email)
-       type: text
-       name: private-submitter_email
-       optional: true
-       sticky: true
-       attrs:
-         - key: placeholder
-           value: _(Email address)
-         - key: size
-           value: 30
-     - prompt: _(Type of report)
-       type: select
-       options:
-         - label: _(Observation)
-           value: observation
-         - label: _(Question)
-           value: question
-         - label: _(Idea)
-           value: idea
-         - label: _(Complaint)
-           value: complaint
-       name: location_type
-       attrs:
-         - key: required
-     - prompt: _(Image)
-       inputfile_label: _(Add an Image)
-       type: file
-       name: my_image
-       optional: true
-       attrs:
-         - key: accept
-           value: image/*
-
+    - prompt: _(Type of report)
+      type: select
+      options:
+        - label: _(Observation)
+          value: observation
+        - label: _(Question)
+          value: question
+        - label: _(Idea)
+          value: idea
+        - label: _(Complaint)
+          value: complaint
+        - label: _(Green Screen Vote)
+          value: greenwall
+      name: location_type
+      attrs:
+        - key: required
+    - prompt: _(Title of report)
+      type: text
+      name: name
+      optional:
+      attrs:
+        - key: placeholder
+          value: _(Enter title)
+        - key: size
+          value: 30
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Name)
+        - key: size
+          value: 30
+    - prompt: _(Your Email)
+      type: text
+      name: private-submitter_email
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Receive email updates on your report)
+        - key: size
+          value: 30
+    - prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
   # items:
   #   - prompt: _(Title of report)
   #     type: text
@@ -691,3 +647,6 @@ pages:
 
   - slug: sponsors
     name: sponsors
+
+  - slug: youthcorps2015
+    name: youthcorps2015

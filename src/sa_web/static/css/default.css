@@ -1139,9 +1139,9 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
-#master-legend .shareabouts-layer-li a {
-  font-size: 1.4em;
-  letter-spacing: 2px;
+#master-legend .shareabouts-layer-li {
+  font-size: 1.3em;
+  letter-spacing: 1.4px;
 }
 /*#master-legend .layer-type-title label {*/
   /*color: #ddd;*/
