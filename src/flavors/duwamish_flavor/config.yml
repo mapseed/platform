@@ -339,7 +339,7 @@ place_types:
           shadowAnchor: [14, 60]
 
   greenwall:
-    label: _(Green Wall nomination)
+    label: _(Green Screen Vote)
     rules:
       - condition: '"{{location_type}}" === "greenwall" && {{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
