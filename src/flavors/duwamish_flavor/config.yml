@@ -530,8 +530,7 @@ pages:
     slug: getinvolved
     name: contribute
     
-  - title: _(Green Screen)
-    slug: greenscreen
+  - slug: greenscreen
     name: greenscreen
 
   - slug: sponsors
