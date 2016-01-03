@@ -42,8 +42,7 @@ map:
     zoom: 15
     minZoom: 9
     maxZoom: 18
-#    maxBounds: [[47.000, -123.26], [47.92, -120.67]] # south, west, north, east
-    maxBounds: [[46.500, -124], [48.5, -119]] # south, west, north, east
+    maxBounds:
   layers:
 #      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       # SmarterCleanup Mapbox base layer:
@@ -531,8 +530,7 @@ pages:
     slug: getinvolved
     name: contribute
     
-  - title: _(Green Screen)
-    slug: greenscreen
+  - slug: greenscreen
     name: greenscreen
 
   - slug: sponsors
