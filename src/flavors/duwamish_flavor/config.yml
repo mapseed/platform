@@ -108,6 +108,12 @@ map:
             iconSize: [30, 30]
             iconAnchor: [15, 15]
 
+        - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "swimming"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-swimming.png
+            iconSize: [30, 30]
+            iconAnchor: [15, 15]
+
         # default point marker case
         - condition: '"{{geometry.type}}" == "Point"'
           icon:
