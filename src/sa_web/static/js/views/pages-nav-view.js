@@ -11,9 +11,13 @@ var Shareabouts = Shareabouts || {};
     },
 
     render: function() {
+      var navPageConfig = this.options.pagesConfig || [];
+      navPageConfig = navPageConfig.filter( function(obj) {
+        return obj['hide_from_top_bar'] !== true;
+      })
       var data = {
-            pages: this.options.pagesConfig,
-            has_pages: (this.options.pagesConfig.length > 0)
+            pages: navPageConfig,
+            has_pages: (navPageConfig.length > 0)
           },
           template = Handlebars.templates['pages-nav'](data);
       this.$el.html(template);
