@@ -536,7 +536,8 @@ pages:
     slug: getinvolved
     name: contribute
     
-  - slug: greenscreen
+  - title: _(Green Screen)
+    slug: greenscreen
     name: greenscreen
 
   - slug: sponsors
