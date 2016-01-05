@@ -542,6 +542,8 @@ pages:
 
   - slug: sponsors
     name: sponsors
+    hide_from_top_bar: true
 
   - slug: youthcorps2015
     name: youthcorps2015
+    hide_from_top_bar: true
