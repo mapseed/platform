@@ -84,6 +84,12 @@ map:
 
       # Mapbox Points
 
+        - condition: '"{{geometry.type}}" == "Point" && {{map.zoom}} < 13'
+          icon:
+            iconUrl: /static/css/images/markers/dot-fa307d.png
+            iconSize: [16, 16]
+            iconAnchor: [8, 8]
+
         - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
           icon:
             iconUrl: /static/css/images/markers/marker-construction.png
@@ -530,7 +536,6 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
 
   - title: _(Background)
     slug: background
