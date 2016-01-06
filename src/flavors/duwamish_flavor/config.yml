@@ -60,7 +60,7 @@ map:
       popupContent: '{{title}}'
       legend: true
       visible: true
-      title: _(Community action)
+      title: _(Restoration sites)
       rules:
       # show nothing when zoomed out
         - condition: '"{{map.zoom}}" < 11'
@@ -129,10 +129,14 @@ map:
       popupContent: '{{title}}'
       legend: true
       visible: true
-      title: _(Areas of concern)
+      title: _(Community vision)
       rules:
-      # show nothing when zoomed out
-        - condition: '"{{map.zoom}}" < 11'
+        # default point marker case
+        - condition: '"{{geometry.type}}" == "Point"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-fa307d.png
+            iconSize: [16, 16]
+            iconAnchor: [8, 8]
 
       # LineString
         - condition: '"{{geometry.type}}" == "LineString"'
@@ -162,7 +166,7 @@ map:
       opacity: 0.8
       description-image: /static/css/images/legend-EPA-ROD.png
       description-image-alt: 'legend'
-      title: Future cleanup plan
+      title: River cleanup plan
       visible: false
 
       # WMS landuse
