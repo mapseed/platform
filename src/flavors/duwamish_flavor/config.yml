@@ -134,7 +134,7 @@ map:
       description: _(Places where pollution has been problematic)
       popupContent: '{{title}}'
       legend: true
-      visible: true
+      visible: false
       title: _(Community vision)
       rules:
         # default point marker case
