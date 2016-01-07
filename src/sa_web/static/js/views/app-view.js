@@ -78,7 +78,6 @@ var Shareabouts = Shareabouts || {};
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
              href.indexOf('/place') === 0 ||
-             href.indexOf('/landmark') === 0 ||
              href.indexOf('/page') === 0 ||
              href.indexOf('/filter') === 0) &&
              !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {

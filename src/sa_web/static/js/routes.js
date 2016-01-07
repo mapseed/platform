@@ -8,7 +8,6 @@ var Shareabouts = Shareabouts || {};
       '': 'viewMap',
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
-      'landmark/:collectionId/:id': 'viewLandmark',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
       'list': 'showList',
@@ -66,10 +65,6 @@ var Shareabouts = Shareabouts || {};
         var collection = new S.LandmarkCollection([]);
         collection.url = landmark.url;
         self.landmarkCollections[collectionId] = collection;
-
-        // TODO: Simplify the landmark urls to not use the '/landmarks' prefix
-        // ie:
-        // this.routes['/communityAction/:id'] = 'viewLandmark'
       });
 
       this.appView = new S.AppView({
@@ -163,9 +158,8 @@ var Shareabouts = Shareabouts || {};
       // transformed into a regex, back to the route name. This may change
       // in the future.
       return (fragment === '' || (fragment.indexOf('place') === -1 &&
-                                  fragment.indexOf('landmark') === -1 &&
-        fragment.indexOf('page') === -1 &&
-        fragment.indexOf('list') === -1));
+                                  fragment.indexOf('page') === -1 &&
+                                  fragment.indexOf('list') === -1));
     },
 
     getFilteredRoutes: function() {
