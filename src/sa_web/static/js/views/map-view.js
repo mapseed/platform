@@ -71,6 +71,7 @@ var Shareabouts = Shareabouts || {};
 
       self.map.addLayer(self.placeLayers);
 
+      // Add our landmark layer collections to the map
       this.landmarkLayers = {}
       this.landmarkLayerViews = {};
       _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
@@ -107,6 +108,7 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
 
+      // Bind data events for our landmark collections
       _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
         var collection = self.options.landmarkCollections[collectionId]
         collection.on('add', self.addLandmarkLayerView(collectionId), self);

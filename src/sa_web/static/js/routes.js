@@ -103,14 +103,17 @@ var Shareabouts = Shareabouts || {};
 
       Backbone.history.start(historyOptions);
 
+      // Disable this because 'isMapRoute' has no way to determine if the route
+      // `:collection/:id` is a valid route.
+      // We will address this within the app-view
       // Load the default page only if there is no page already in the url
-      if (this.isMapRoute(Backbone.history.getFragment())) {
-        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
+      // if (this.isMapRoute(Backbone.history.getFragment())) {
+      //   startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
 
-        if (startPageConfig && startPageConfig.slug) {
-          this.navigate('page/' + startPageConfig.slug, {trigger: true});
-        }
-      }
+      //   if (startPageConfig && startPageConfig.slug) {
+      //     this.navigate('page/' + startPageConfig.slug, {trigger: true});
+      //   }
+      // }
 
       this.loading = false;
     },

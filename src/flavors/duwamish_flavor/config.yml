@@ -123,14 +123,12 @@ map:
 
 
 landmarks:
-  - url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+  - url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
     id: communityAction
-    # shareabouts: true
     placeType: communityAction
     description: _(Places where positive restoration and community organizing are happening)
 
-   # Mapbox project freehand drawing imports
-  - url: //a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+  - url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/restoration-sites
     id: areasOfConcern
     placeType: areasOfConcern
 

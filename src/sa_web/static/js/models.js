@@ -282,6 +282,9 @@ var Shareabouts = Shareabouts || {};
 
   // This model is based off the Mapbox Classic API
   S.LandmarkModel = Backbone.Model.extend({
+    initialize: function() {
+      this.set("id", this.get('title'));
+    },
     // Since mapbox api doesn't allow us to fetch a single item,
     // we just fetch to entire collection and parse the item from there
     url: function() {
@@ -292,7 +295,7 @@ var Shareabouts = Shareabouts || {};
         var self = this;
         var matchingFeature;
         _.each(response.features, function(feature) {
-          if (feature.id === self.id) {
+          if (feature.title === self.id) {
             matchingFeature = feature;
           }
         })
