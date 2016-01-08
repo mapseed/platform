@@ -3,13 +3,13 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.MapboxEarlyActionView = S.PlaceDetailView.extend({
+  S.LandmarkDetailView = S.PlaceDetailView.extend({
     initialize: function() {
       var self = this;
       this.title = this.options.title
       this.description = this.options.description
 
-      this.mapboxSurveyView = new S.MapboxSurveyView({});
+      this.landmarkSurveyView = new S.LandmarkSurveyView({});
     },
 
     render: function() {
@@ -21,7 +21,7 @@ var Shareabouts = Shareabouts || {};
 
       this.$el.html(this.title + '</br>' + this.description);
       // Render the view as-is (collection may have content already)
-      this.$('.survey').html(this.mapboxSurveyView.render().$el);
+      this.$('.survey').html(this.landmarkSurveyView.render().$el);
 
       return this;
     }

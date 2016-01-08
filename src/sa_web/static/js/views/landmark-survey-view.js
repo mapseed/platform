@@ -3,7 +3,7 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.MapboxSurveyView = S.SurveyView.extend({
+  S.LandmarkSurveyView = S.SurveyView.extend({
     initialize: function() {
     },
 

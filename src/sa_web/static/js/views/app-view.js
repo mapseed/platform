@@ -444,7 +444,7 @@ var Shareabouts = Shareabouts || {};
       if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
         landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
       } else {
-        landmarkDetailView = new S.MapboxEarlyActionView({
+        landmarkDetailView = new S.LandmarkDetailView({
           title: model.get('properties')['title'],
           description: model.get('properties')['description']
         });
