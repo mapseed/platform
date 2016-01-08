@@ -55,6 +55,8 @@ L.Argo = L.GeoJSON.extend({
       style = L.Argo.getStyleRule(feature, this.rules);
     }
 
+    // Get our popup contents using the template outlined in our option's config
+    // which replaces our {{key}} with feature.properties.key
     if (this.popupContent) {
       popupContent = L.Argo.t(this.popupContent, feature.properties);
     }
@@ -65,7 +67,7 @@ L.Argo = L.GeoJSON.extend({
 
       // Set the style manually since so I can use popupContent to set clickable
       if (layer.feature.geometry['type'] != 'Point') {
-        layer.setStyle(style);
+        layer.setStyle(style.style);
       }
 
       // Handle radius for circle marker
@@ -148,7 +150,7 @@ L.extend(L.Argo, {
   },
 
   // Get the style rule for this feature by evaluating the condition option
-  getStyleRule: function(feature, rules) {
+  getStyleRule: function(properties, rules) {
     var self = this,
       i, condition, len;
 
@@ -156,17 +158,17 @@ L.extend(L.Argo, {
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
       // this is so we don't have to worry about strings vs nums.
-      condition = L.Argo.t(rules[i].condition, feature);
+      condition = L.Argo.t(rules[i].condition, properties);
 
       if (eval(condition)) {
         // The new property values (outlined in the config) are added for Leaflet compatibility
         for (var key in rules[i].style) {
           if (rules[i].style.hasOwnProperty(key)) {
             if (typeof rules[i].style[key] == 'string' || rules[i].style[key] instanceof String) {
-              value = L.Argo.t(rules[i].style[key], feature);
-              feature[key] = value;
+              value = L.Argo.t(rules[i].style[key], properties);
+              properties[key] = value;
             } else {
-              feature[key] = rules[i].style[key];
+              properties[key] = rules[i].style[key];
             }
           } else {
             console.log("Non-property key is discovered at: " + key);
@@ -174,28 +176,15 @@ L.extend(L.Argo, {
           }
         }
 
-        // Format Mapbox features, which use the 'properties' attribute
-        if (feature['properties']) {
-        // Format 'title' and 'description' for Mapbox -> Leaflet compatability
-          if (feature.properties['title']) {
-            feature.properties['title'] = '<b>' + feature.properties['title'] + '</b>';
-          }
-          if (feature.properties['description']) {
-            if (feature.properties['title']) {
-              feature.properties['title'] = feature.properties['title'] + '<br>' + feature.properties['description'];
-            } else {
-              feature.properties['title'] = feature.properties['description'];
-            }
-          }
-        }
+        properties = {'style' : properties};
 
         // Format marker icon features
         if (rules[i].icon) {
-          feature.focus_icon = rules[i].focus_icon;
-          feature.icon = rules[i].icon;
+          properties.focus_icon = rules[i].focus_icon;
+          properties.icon = rules[i].icon;
         }
 
-        return feature;
+        return properties;
       }
     }
     return null;

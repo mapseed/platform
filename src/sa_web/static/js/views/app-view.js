@@ -31,7 +31,12 @@ var Shareabouts = Shareabouts || {};
             // NOTE: this is to simply support the list view. It won't
             // scale well, so let's think about a better solution.
             include_submissions: includeSubmissions
-          };
+          },
+          landmarkParams = {};
+      _.each(S.Config.landmarks, function(landmark) {
+        landmarkParams[landmark.id] = landmark.placeType;
+      });
+
 
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
@@ -42,6 +47,7 @@ var Shareabouts = Shareabouts || {};
       // Boodstrapped data from the page
       this.activities = this.options.activities;
       this.places = this.collection;
+      this.landmarkCollections = this.options.landmarkCollections;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -68,6 +74,7 @@ var Shareabouts = Shareabouts || {};
             url;
 
         // Allow shift+click for new tabs, etc.
+        // TODO: enable this when we remove the 'landmarks' prefix
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
              href.indexOf('/place') === 0 ||
@@ -137,6 +144,7 @@ var Shareabouts = Shareabouts || {};
         el: '#map',
         mapConfig: this.options.mapConfig,
         collection: this.collection,
+        landmarkCollections: this.options.landmarkCollections,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         cluster: this.options.cluster
@@ -240,6 +248,10 @@ var Shareabouts = Shareabouts || {};
       // Caches of the views (one per place)
       this.placeFormView = null;
       this.placeDetailViews = {};
+      this.landmarkDetailViews = {};
+      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
+        self.landmarkDetailViews[collectionId] = {};
+      });
 
       // Show tools for adding data
       this.setBodyClass();
@@ -247,6 +259,9 @@ var Shareabouts = Shareabouts || {};
 
       // Load places from the API
       this.loadPlaces(placeParams);
+
+      // Load landmarks from the API
+      this.loadLandmarks(landmarkParams);
 
       // Fetch the first page of activity
       this.activities.fetch({reset: true});
@@ -260,6 +275,18 @@ var Shareabouts = Shareabouts || {};
 
     isAddingPlace: function(model) {
       return this.$panel.is(":visible") && this.$panel.hasClass('place-form');
+    },
+    loadLandmarks: function(landmarkParams) {
+      var self = this;
+      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
+        self.landmarkCollections[collectionId].fetch({
+          success: function(collection, response, options) {
+            collection.each(function(model) {
+              model.set("location_type", landmarkParams[collectionId]);
+            });
+          }
+        })
+      });
     },
     loadPlaces: function(placeParams) {
       var self = this,
@@ -412,6 +439,19 @@ var Shareabouts = Shareabouts || {};
         delete this.placeDetailViews[model.cid];
       }
     },
+    getLandmarkDetailView: function(collectionId, model, layer) {
+      var landmarkDetailView;
+      if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
+        landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
+      } else {
+        landmarkDetailView = new S.LandmarkDetailView({
+          title: model.get('properties')['title'],
+          description: model.get('properties')['description']
+        });
+        this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
+      }
+      return landmarkDetailView;
+    },
     getPlaceDetailView: function(model) {
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
@@ -460,6 +500,83 @@ var Shareabouts = Shareabouts || {};
     newPlace: function() {
       // Called by the router
       this.collection.add({});
+    },
+    viewLandmark: function(collectionId, model, zoom) {
+      var self = this,
+          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
+          layout = S.Util.getPageLayout(),
+          onLandmarkFound, onLandmarkNotFound, modelId;
+
+      // TODO: If the model id is not in our collection, navigate to '/'
+      // (can we just trigger `onLandmarkNotFound' instead?
+      onLandmarkFound = function(model) {
+        var map = self.mapView.map,
+            layer, center, landmarkDetailView, $responseToScrollTo;
+
+        layer = self.mapView.landmarkLayerViews[collectionId][model.id].layer
+        landmarkDetailView = self.getLandmarkDetailView(collectionId, model, layer);
+
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+        }
+
+        self.$panel.removeClass().addClass('place-detail place-detail-' + model);
+        self.showPanel(landmarkDetailView.render().$el, false);
+        self.hideNewPin();
+        self.destroyNewModels();
+        self.hideCenterPoint();
+        self.setBodyClass('content-visible');
+
+        if (layer) {
+          if (zoom) {
+            if (layer.getLatLng) {
+              map.setView(center, map.getMaxZoom()-1, {reset: true});
+            } else {
+              map.fitBounds(layer.getBounds());
+            }
+
+          } else {
+            map.panTo(center, {animate: true});
+          }
+        }
+
+        // TODO: Implement a "focus" style for the layer
+        // Focus the one we're looking
+        // model.trigger('focus');
+      };
+
+      onLandmarkNotFound = function() {
+        self.options.router.navigate('/');
+      };
+
+      // If we are passed a LandmarkModel then show it immediately.
+      if (model instanceof S.LandmarkModel) {
+        onLandmarkFound(model)
+        return;
+      }
+
+      // Otherwise, assume we have a model ID.
+      modelId = model;
+      var landmarkCollection = this.landmarkCollections[collectionId];
+      if (!landmarkCollection) {
+        onLandmarkNotFound();
+        return;
+      }
+      model = landmarkCollection.get(modelId);
+
+      // If the model was found in the landmarks, go ahead and use it.
+      if (model) {
+        onLandmarkFound(model);
+
+      // Otherwise, fetch and use the result.
+      } else {
+        landmarkCollection.fetchById(modelId, {
+          // TODO: Check for a valid location type before adding it to the collection
+          // validate: true,
+          success: onLandmarkFound,
+          error: onLandmarkNotFound
+        });
+      }
     },
     viewPlace: function(model, responseId, zoom) {
       var self = this,

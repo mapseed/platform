@@ -24,6 +24,9 @@ var Shareabouts = Shareabouts || {};
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
+      S.LandmarkModel.prototype.getLoggingDetails = function() {
+        return this.id;
+      };
 
       // Reject a place that does not have a supported location type. This will
       // prevent invalid places from being added or saved to the collection.
@@ -54,10 +57,22 @@ var Shareabouts = Shareabouts || {};
       this.loading = true;
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
+
+
+      this.landmarkCollections = {};
+      _.each(options.landmarkConfig, function(landmark) {
+        var collectionId = landmark['id'];
+        var collection = new S.LandmarkCollection([]);
+        collection.url = landmark.url;
+        self.landmarkCollections[collectionId] = collection;
+      });
+
       this.appView = new S.AppView({
         el: 'body',
         collection: this.collection,
         activities: this.activities,
+
+        landmarkCollections: this.landmarkCollections,
 
         config: options.config,
 
@@ -83,14 +98,17 @@ var Shareabouts = Shareabouts || {};
 
       Backbone.history.start(historyOptions);
 
+      // Disable this because 'isMapRoute' has no way to determine if the route
+      // `:collection/:id` is a valid route.
+      // We will address this within the app-view
       // Load the default page only if there is no page already in the url
-      if (this.isMapRoute(Backbone.history.getFragment())) {
-        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
+      // if (this.isMapRoute(Backbone.history.getFragment())) {
+      //   startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
 
-        if (startPageConfig && startPageConfig.slug) {
-          this.navigate('page/' + startPageConfig.slug, {trigger: true});
-        }
-      }
+      //   if (startPageConfig && startPageConfig.slug) {
+      //     this.navigate('page/' + startPageConfig.slug, {trigger: true});
+      //   }
+      // }
 
       this.loading = false;
     },
@@ -116,6 +134,10 @@ var Shareabouts = Shareabouts || {};
       this.appView.newPlace();
     },
 
+    viewLandmark: function(collectionId, id) {
+      this.appView.viewLandmark(collectionId, id, this.loading);
+    },
+
     viewPlace: function(id, responseId) {
       this.appView.viewPlace(id, responseId, this.loading);
     },
@@ -136,8 +158,8 @@ var Shareabouts = Shareabouts || {};
       // transformed into a regex, back to the route name. This may change
       // in the future.
       return (fragment === '' || (fragment.indexOf('place') === -1 &&
-        fragment.indexOf('page') === -1 &&
-        fragment.indexOf('list') === -1));
+                                  fragment.indexOf('page') === -1 &&
+                                  fragment.indexOf('list') === -1));
     },
 
     getFilteredRoutes: function() {

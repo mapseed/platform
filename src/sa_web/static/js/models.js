@@ -280,6 +280,66 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
+  // This model is based off the Mapbox Classic API
+  S.LandmarkModel = Backbone.Model.extend({
+    initialize: function() {
+      this.set("id", this.get('title'));
+    },
+    // Since mapbox api doesn't allow us to fetch a single item,
+    // we just fetch to entire collection and parse the item from there
+    url: function() {
+      return this.collection.url;
+    },
+    parse: function(response) {
+      if (response.features) {
+        var self = this;
+        var matchingFeature;
+        _.each(response.features, function(feature) {
+          if (feature.title === self.id) {
+            matchingFeature = feature;
+          }
+        })
+        // var properties = _.clone(response.properties);
+
+        // TODO: If no mathingFeature is assigned, the fetch should fail
+        // Or the model should reflect an incorrect self.id
+
+        return matchingFeature;
+      } else {
+        return response;
+      }
+    }
+  });
+
+  S.LandmarkCollection = Backbone.Collection.extend({
+    model: S.LandmarkModel,
+
+    // The MapBox GeoJson API returns places under "features".
+    parse: function(response) {
+      return response.features;
+    },
+
+    fetchById: function(id, options) {
+      console.log("S.LandmarkCollection.fetchById this:", this)
+      options = options ? _.clone(options) : {};
+      var self = this,
+          landmark = new S.LandmarkModel(),
+          success = options.success;
+
+      landmark.id = id;
+      landmark.collection = self;
+
+      options.success = function() {
+        var args = Array.prototype.slice.call(arguments);
+        self.add(landmark);
+        if (success) {
+          success.apply(this, args);
+        }
+      };
+      landmark.fetch(options);
+    }
+  });
+
   // This does not support editing at this time, which is why it is not a
   // ShareaboutsModel
   S.AttachmentModel = Backbone.Model.extend({
