@@ -3,14 +3,13 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.MapboxEarlyActionView = Backbone.View.extend({
+  S.MapboxEarlyActionView = S.PlaceDetailView.extend({
     initialize: function() {
       var self = this;
       this.title = this.options.title
       this.description = this.options.description
 
-      this.mapboxSurveyView = new S.MapboxSurveyView({
-      });
+      this.mapboxSurveyView = new S.MapboxSurveyView({});
     },
 
     render: function() {
