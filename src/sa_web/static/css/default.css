@@ -1959,24 +1959,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     margin-right: 0;
   }
 
-  /* The Side Bar Show Button */
-  #side-bar-show-button {
-    display: none;
-    position: absolute;
-    top: 11em;
-    color: white;
-    font-size: 1.25em;
-    font-weight: bold;
-    text-decoration: none;
-    background-color: #007fbf;
-    margin: 0 -0.325em 0 0;
-    padding: 0.125em 0.625em 0.125em 0.625em;
-    border-radius: 0 0.325em 0.325em 0;
-    box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
-    cursor: pointer;
-    z-index: 99;
-  }
-
   /* The Side Bar */
   #side-bar {
     position: absolute;
@@ -1996,17 +1978,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   }
   .activity-enabled #map-container {
     right: 0;  /* width of #master-legend */
-  }
-  .side-bar-title {
-    margin: 0 0 0.25em 0;
-  }
-  .side-bar-title h1.sidebar-header {
-    float: left;
-  }
-  .side-bar-title #sidebar-close {
-    float: right;
-    font-size: 2em;
-    cursor: pointer;
   }
 
   /* The Ticker */
