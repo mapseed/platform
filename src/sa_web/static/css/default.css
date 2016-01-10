@@ -1980,15 +1980,16 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* The Side Bar */
   #side-bar {
     position: absolute;
-    top: 0;
+    top: 4em; /* height of #site-header */
+    right: 0;
+    bottom: 0;
+    left: auto;
     width: 18em;
-    height: 100%;
-    padding-top: 4em;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
     background-color: rgba(255, 255, 255, 0.9);
-
   }
   .activity-enabled.content-visible #side-bar {
     display: block;
