@@ -13,17 +13,6 @@
   overflow: hidden;
 }
 
-/* default for other media */
-@media only screen and (min-width: 60em) {
-  #add-place-btn-container {
-    right: 2em;
-    top: 2em;
-    /* override the defaults: */
-    left: unset;
-    bottom: unset;
-  }
-}
-
 /* =Header
 -------------------------------------------------------------- */
 
