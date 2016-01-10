@@ -1822,7 +1822,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     width: 40%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 50%;
+    width: 30%;
   }
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
@@ -1875,8 +1875,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
   .activity-enabled #content {
-    left: 50%;
-    /*right: 18em;*/
+    left: 30%;
+    right: 18em;
   }
   .geocoding-bar-enabled #content {
     top: 8.5em;
@@ -2070,13 +2070,13 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 60%;
   }
   .activity-enabled #content {
-    left: 60%;
+    left: 45%;
   }
   .content-visible #map-container {
     width: 60%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 60%;
+    width: 45%;
   }
 }
 
