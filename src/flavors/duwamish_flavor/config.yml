@@ -64,7 +64,7 @@ map:
       opacity: 0.8
       description-image: /static/css/images/legend-EPA-ROD.png
       description-image-alt: 'legend'
-      title: Future cleanup plan
+      title: River cleanup plan
       visible: false
 
       # WMS landuse
@@ -522,7 +522,6 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
 
   - title: _(Background)
     slug: background
@@ -532,11 +531,14 @@ pages:
     slug: getinvolved
     name: contribute
     
-  - slug: greenscreen
+  - title: _(Green Screen)
+    slug: greenscreen
     name: greenscreen
 
   - slug: sponsors
     name: sponsors
+    hide_from_top_bar: true
 
   - slug: youthcorps2015
     name: youthcorps2015
+    hide_from_top_bar: true
