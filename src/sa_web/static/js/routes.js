@@ -10,6 +10,7 @@ var Shareabouts = Shareabouts || {};
       'place/:id': 'viewPlace',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
+      ':collectionId/:id': 'viewLandmark',
       'list': 'showList',
       'page/:slug': 'viewPage',
       'filter/:locationtype': 'filterMap',
