@@ -72,11 +72,10 @@ var Shareabouts = Shareabouts || {};
       self.map.addLayer(self.placeLayers);
 
       // Add our landmark layer collections to the map
-      this.landmarkLayers = {}
       this.landmarkLayerViews = {};
       _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
-        self.landmarkLayers[collectionId] = L.layerGroup();
-        self.map.addLayer(self.landmarkLayers[collectionId]);
+        self.layers[collectionId] = L.layerGroup();
+        self.map.addLayer(self.layers[collectionId]);
 
         self.landmarkLayerViews[collectionId] = {};
       })
@@ -149,7 +148,7 @@ var Shareabouts = Shareabouts || {};
       this.placeLayers.clearLayers();
       this.layerViews = {};
       _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
-        self.landmarkLayers[collectionId].clearLayers();
+        self.layers[collectionId].clearLayers();
         self.landmarkLayerViews[collectionId] = {};
       });
 
@@ -224,7 +223,7 @@ var Shareabouts = Shareabouts || {};
           map: this.map,
           placeTypes: this.options.placeTypes,
           collectionId: landmarkCollectionId,
-          landmarkLayers: this.landmarkLayers[landmarkCollectionId],
+          landmarkLayers: this.layers[landmarkCollectionId],
           // to access the filter
           mapView: this
         });
