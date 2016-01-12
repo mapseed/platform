@@ -222,25 +222,25 @@ place_types:
   observation:
     label: _(Observation)
     rules:
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "observation" && {{layer.focused}} === true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -252,25 +252,25 @@ place_types:
   question:
     label: _(Question)
     rules:
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "question" && {{layer.focused}} === true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -282,25 +282,25 @@ place_types:
   idea:
     label: _(Idea)
     rules:
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -312,25 +312,25 @@ place_types:
   complaint:
     label: _(Complaint)
     rules:
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "complaint" && {{layer.focused}} === true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -342,25 +342,25 @@ place_types:
   greenwall:
     label: _(Green Screen Vote)
     rules:
-      - condition: '"{{location_type}}" === "greenwall" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "greenwall" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "greenwall" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "greenwall" && {{layer.focused}} === true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           shadowUrl: /static/css/images/marker-shadow.png
