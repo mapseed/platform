@@ -33,7 +33,7 @@ var Shareabouts = Shareabouts || {};
             include_submissions: includeSubmissions
           },
           landmarkParams = {};
-      _.each(S.Config.landmarks, function(landmark) {
+      _.each(this.options.landmarkLayers, function(landmark) {
         landmarkParams[landmark.id] = landmark.placeType;
       });
 

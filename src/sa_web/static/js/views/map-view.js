@@ -23,18 +23,36 @@ var Shareabouts = Shareabouts || {};
 
       self.layers = {};
 
+      // Init the layer view caches
+      // TODO: merge these two objects and manage them as one
+      this.layerViews = {}; // Maps our model id's to our place collection's model instances
+      this.landmarkLayerViews = {}; // Maps our landmark collection id to an objects that maps the id's to the model instances
+
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
         var layer;
-        // "type" is required by Argo for fetching data, so it's a pretty good
-        // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
-        if (config.type) {
+        if (config.type && config.type === 'json') {
           layer = L.argo(config.url, config);
           self.layers[config.id] = layer;
 
-        // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
-        // that the layer is WMS. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
+          if (config.visible) {
+            layer.addTo(self.map);
+          }
+
+        } else if (config.type && config.type === 'landmark') {
+          var collectionId = config.id;
+          self.layers[collectionId] = L.layerGroup();
+          self.map.addLayer(self.layers[collectionId]);
+          self.landmarkLayerViews[collectionId] = {};
+
+          // Bind our landmark data events:
+          var collection = self.options.landmarkCollections[collectionId];
+          collection.on('add', self.addLandmarkLayerView(collectionId), self);
+          collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.layers) {
+          // If "layers" is present, then we assume that the config
+          // references a Leaflet WMS layer.
+          // http://leafletjs.com/reference.html#tilelayer-wms
           layer = L.tileLayer.wms(config.url, {
             layers: config.layers,
             format: config.format,
@@ -50,14 +68,14 @@ var Shareabouts = Shareabouts || {};
           });
           self.layers[config.id] = layer;
 
+          if (config.visible) {
+            layer.addTo(self.map);
+          }
+
         } else {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
 
-          layer.addTo(self.map);
-        }
-        // Add the default visible layers to the map
-        if (config.visible != false && !config.shareabouts) {
           layer.addTo(self.map);
         }
       });
@@ -70,18 +88,6 @@ var Shareabouts = Shareabouts || {};
       }
 
       self.map.addLayer(self.placeLayers);
-
-      // Add our landmark layer collections to the map
-      this.landmarkLayerViews = {};
-      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
-        self.layers[collectionId] = L.layerGroup();
-        self.map.addLayer(self.layers[collectionId]);
-
-        self.landmarkLayerViews[collectionId] = {};
-      })
-
-      // Init the layer view cache
-      this.layerViews = {};
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -106,13 +112,6 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
-
-      // Bind data events for our landmark collections
-      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
-        var collection = self.options.landmarkCollections[collectionId]
-        collection.on('add', self.addLandmarkLayerView(collectionId), self);
-        collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
-      });
 
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {

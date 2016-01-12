@@ -61,7 +61,10 @@ var Shareabouts = Shareabouts || {};
 
 
       this.landmarkCollections = {};
-      _.each(options.landmarkConfig, function(landmark) {
+      var landmarkLayers = options.mapConfig.layers.filter(function(layer) {
+        return layer.type && layer.type === 'landmark';
+      });
+      _.each(landmarkLayers, function(landmark) {
         var collectionId = landmark['id'];
         var collection = new S.LandmarkCollection([]);
         collection.url = landmark.url;
@@ -74,6 +77,7 @@ var Shareabouts = Shareabouts || {};
         activities: this.activities,
 
         landmarkCollections: this.landmarkCollections,
+        landmarkLayers: landmarkLayers,
 
         config: options.config,
 

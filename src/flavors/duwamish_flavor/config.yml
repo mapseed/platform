@@ -53,6 +53,24 @@ map:
 
   # Legend Layers
 
+    - id: communityAction
+      url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
+      type: landmark
+      legend: true
+      visible: true
+      title: _(Community vision)
+      placeType: communityAction
+      description: _(Places where positive restoration and community organizing are happening)
+
+    - id: areasOfConcern
+      url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/restoration-sites
+      type: landmark
+      legend: true
+      visible: true
+      title: _(Restoration sites)
+      placeType: areasOfConcern
+      description: _(Places where pollution has been problematic)
+
       # WMS ROD
     - id: epa-rod
       url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/gwc/service/wms
@@ -121,23 +139,11 @@ map:
       title: _(Original river path)
       visible: false
 
-
-landmarks:
-  - url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
-    id: communityAction
-    placeType: communityAction
-    description: _(Places where positive restoration and community organizing are happening)
-
-  - url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/restoration-sites
-    id: areasOfConcern
-    placeType: areasOfConcern
-
-
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
 
-  communityAction:
+  areasOfConcern:
     # Mapbox Points
     rules:
     # show nothing when zoomed out
@@ -198,7 +204,7 @@ place_types:
           iconSize: [16, 16]
           iconAnchor: [8, 8]
   # Perhaps this can be combined with CommunityAction layers as a "mapbox" placetype?
-  areasOfConcern:
+  communityAction:
     rules:
     # show nothing when zoomed out
       - condition: '"{{map.zoom}}" < 11'
