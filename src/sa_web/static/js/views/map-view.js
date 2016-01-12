@@ -35,7 +35,7 @@ var Shareabouts = Shareabouts || {};
           layer = L.argo(config.url, config);
           self.layers[config.id] = layer;
 
-          if (config.visible) {
+          if (config.visibleDefault) {
             layer.addTo(self.map);
           }
 
@@ -68,7 +68,7 @@ var Shareabouts = Shareabouts || {};
           });
           self.layers[config.id] = layer;
 
-          if (config.visible) {
+          if (config.visibleDefault) {
             layer.addTo(self.map);
           }
 
