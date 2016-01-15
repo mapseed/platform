@@ -8,6 +8,7 @@ var Shareabouts = Shareabouts || {};
       '': 'viewMap',
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
+      'report/:id': 'viewPlace',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
       ':id': 'viewLandmark',
