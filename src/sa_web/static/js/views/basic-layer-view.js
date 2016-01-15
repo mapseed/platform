@@ -14,7 +14,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMarkerClick: function() {
       S.Util.log('USER', 'map', 'landmark-layer-click', this.model.getLoggingDetails());
-      this.options.router.navigate('/' + this.options.collectionId + '/' + this.model.id, {trigger: true});
+      this.options.router.navigate('/' + this.model.id, {trigger: true});
     },
     show: function() {
       if (!this.options.mapView.locationTypeFilter ||

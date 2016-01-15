@@ -10,7 +10,7 @@ var Shareabouts = Shareabouts || {};
       'place/:id': 'viewPlace',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
-      ':collectionId/:id': 'viewLandmark',
+      ':id': 'viewLandmark',
       'list': 'showList',
       'page/:slug': 'viewPage',
       'filter/:locationtype': 'filterMap',
@@ -61,14 +61,16 @@ var Shareabouts = Shareabouts || {};
 
 
       this.landmarkCollections = {};
-      var landmarkLayers = options.mapConfig.layers.filter(function(layer) {
+      var landmarkConfigsArray = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'landmark';
       });
-      _.each(landmarkLayers, function(landmark) {
-        var collectionId = landmark['id'];
+      var landmarkConfigs = {};
+      _.each(landmarkConfigsArray, function(landmarkConfig) {
+        var collectionId = landmarkConfig['id'];
         var collection = new S.LandmarkCollection([]);
-        collection.url = landmark.url;
+        collection.url = landmarkConfig.url;
         self.landmarkCollections[collectionId] = collection;
+        landmarkConfigs[collectionId] = landmarkConfig;
       });
 
       this.appView = new S.AppView({
@@ -77,7 +79,7 @@ var Shareabouts = Shareabouts || {};
         activities: this.activities,
 
         landmarkCollections: this.landmarkCollections,
-        landmarkLayers: landmarkLayers,
+        landmarkConfigs: landmarkConfigs,
 
         config: options.config,
 
@@ -139,8 +141,8 @@ var Shareabouts = Shareabouts || {};
       this.appView.newPlace();
     },
 
-    viewLandmark: function(collectionId, id) {
-      this.appView.viewLandmark(collectionId, id, this.loading);
+    viewLandmark: function(id) {
+      this.appView.viewLandmark(id, { zoom: this.loading });
     },
 
     viewPlace: function(id, responseId) {
