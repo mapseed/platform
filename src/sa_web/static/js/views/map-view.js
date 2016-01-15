@@ -42,7 +42,9 @@ var Shareabouts = Shareabouts || {};
         } else if (config.type && config.type === 'landmark') {
           var collectionId = config.id;
           self.layers[collectionId] = L.layerGroup();
-          self.map.addLayer(self.layers[collectionId]);
+          if (config.visibleDefault) {
+            self.map.addLayer(self.layers[collectionId]);
+          }
           self.landmarkLayerViews[collectionId] = {};
 
           // Bind our landmark data events:
