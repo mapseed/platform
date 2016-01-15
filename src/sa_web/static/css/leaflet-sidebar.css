@@ -15,13 +15,13 @@
       transition: width 500ms; } }
   @media (min-width: 768px) and (max-width: 991px) {
     .sidebar {
-      width: 300px; } }
+      width: 305px; } }
   @media (min-width: 992px) and (max-width: 1199px) {
     .sidebar {
-      width: 300px; } }
+      width: 390px; } }
   @media (min-width: 1200px) {
     .sidebar {
-      width: 300px; } }
+      width: 460px; } }
 
 .sidebar-left {
   left: 0; }
@@ -46,17 +46,16 @@
     right: 0; }
   .sidebar-tabs, .sidebar-tabs > ul {
     position: absolute;
-    width: 33px;
+    width: 40px;
     margin: 0;
     padding: 0; }
     .sidebar-tabs > li, .sidebar-tabs > ul > li {
       width: 100%;
-      height: 33px;
+      height: 40px;
       color: #333;
       font-size: 12pt;
       overflow: hidden;
-      transition: all 80ms;
-      padding-bottom: unset; }
+      transition: all 80ms; }
       .sidebar-tabs > li:hover, .sidebar-tabs > ul > li:hover {
         color: #000;
         background-color: #eee; }
@@ -73,7 +72,7 @@
         display: block;
         width: 100%;
         height: 100%;
-        line-height: 33px;
+        line-height: 40px;
         color: inherit;
         text-decoration: none;
         text-align: center; }
@@ -88,11 +87,11 @@
   overflow-x: hidden;
   overflow-y: auto; }
   .sidebar-left .sidebar-content {
-    left: 33px;
+    left: 40px;
     right: 0; }
   .sidebar-right .sidebar-content {
     left: 0;
-    right: 33px; }
+    right: 40px; }
   .sidebar.collapsed > .sidebar-content {
     overflow-y: hidden; }
 
@@ -101,35 +100,35 @@
   left: 0;
   right: 0;
   box-sizing: border-box;
-  padding: 10px 10px; }
+  padding: 10px 20px; }
   .sidebar-pane.active {
     display: block; }
   @media (min-width: 768px) and (max-width: 991px) {
     .sidebar-pane {
-      min-width: 260px; } }
+      min-width: 265px; } }
   @media (min-width: 992px) and (max-width: 1199px) {
     .sidebar-pane {
-      min-width: 260px; } }
+      min-width: 350px; } }
   @media (min-width: 1200px) {
     .sidebar-pane {
-      min-width: 260px; } }
+      min-width: 420px; } }
 
 .sidebar-header {
   margin: -10px -20px 0;
-  height: 33px;
+  height: 40px;
   padding: 0 20px;
-  line-height: 33px;
+  line-height: 40px;
   font-size: 14.4pt;
   color: #fff;
   background-color: #0074d9; }
   .sidebar-right .sidebar-header {
-    padding-left: 33px; }
+    padding-left: 40px; }
 
 .sidebar-close {
   position: absolute;
   top: 0;
-  width: 33px;
-  height: 33px;
+  width: 40px;
+  height: 40px;
   text-align: center;
   cursor: pointer; }
   .sidebar-left .sidebar-close {
