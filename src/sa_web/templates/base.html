@@ -40,6 +40,7 @@
 
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
@@ -126,6 +127,14 @@
 
     </div>
 
+
+    {% if config.leaflet_sidebar.enabled %}
+      <div id="leaflet-sidebar" class="sidebar collapsed">
+      {% block leaflet_sidebar %}{% endblock %}
+      </div>
+    {% endif %}
+
+
     <div id="content"><!-- .place or .page -->
       <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
       <article></article>
@@ -187,6 +196,8 @@
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
   <!-- https://github.com/openplans/handlebars-helpers -->
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
+  <script src="//cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet-sidebar.js"></script>
   {% else %}
   <!--   TODO: build libraries with npm instead of bower -->
   <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.6"></script>
