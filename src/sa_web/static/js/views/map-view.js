@@ -18,22 +18,43 @@ var Shareabouts = Shareabouts || {};
           };
 
       self.map = L.map(self.el, self.options.mapConfig.options);
+
       self.placeLayers = self.getLayerGroups();
 
       self.layers = {};
 
+      // Init the layer view caches
+      // TODO: merge these two objects and manage them as one
+      this.layerViews = {}; // Maps our model id's to our place collection's model instances
+      this.landmarkLayerViews = {}; // Maps our landmark collection id to an objects that maps the id's to the model instances
+
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
         var layer;
-        // "type" is required by Argo for fetching data, so it's a pretty good
-        // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
-        if (config.type) {
+        if (config.type && config.type === 'json') {
           layer = L.argo(config.url, config);
           self.layers[config.id] = layer;
 
-        // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
-        // that the layer is WMS. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
+          if (config.visibleDefault) {
+            layer.addTo(self.map);
+          }
+
+        } else if (config.type && config.type === 'landmark') {
+          var collectionId = config.id;
+          self.layers[collectionId] = L.layerGroup();
+          if (config.visibleDefault) {
+            self.map.addLayer(self.layers[collectionId]);
+          }
+          self.landmarkLayerViews[collectionId] = {};
+
+          // Bind our landmark data events:
+          var collection = self.options.landmarkCollections[collectionId];
+          collection.on('add', self.addLandmarkLayerView(collectionId), self);
+          collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.layers) {
+          // If "layers" is present, then we assume that the config
+          // references a Leaflet WMS layer.
+          // http://leafletjs.com/reference.html#tilelayer-wms
           layer = L.tileLayer.wms(config.url, {
             layers: config.layers,
             format: config.format,
@@ -49,14 +70,14 @@ var Shareabouts = Shareabouts || {};
           });
           self.layers[config.id] = layer;
 
+          if (config.visibleDefault) {
+            layer.addTo(self.map);
+          }
+
         } else {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
 
-          layer.addTo(self.map);
-        }
-        // Add the default visible layers to the map
-        if (config.visible != false && !config.shareabouts) {
           layer.addTo(self.map);
         }
       });
@@ -69,9 +90,6 @@ var Shareabouts = Shareabouts || {};
       }
 
       self.map.addLayer(self.placeLayers);
-
-      // Init the layer view cache
-      this.layerViews = {};
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -107,12 +125,9 @@ var Shareabouts = Shareabouts || {};
     setLayerVisibility: function(layer, visible) {
       this.map.closePopup();
       if (visible && !this.map.hasLayer(layer)) {
-        console.log("adding layer:");
-        console.log(layer);
         this.map.addLayer(layer);
       }
       if (!visible && this.map.hasLayer(layer)) {
-        console.log("removing layer...");
         this.map.removeLayer(layer);
       }
     },
@@ -133,6 +148,10 @@ var Shareabouts = Shareabouts || {};
       // the list of layer views.
       this.placeLayers.clearLayers();
       this.layerViews = {};
+      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
+        self.layers[collectionId].clearLayers();
+        self.landmarkLayerViews[collectionId] = {};
+      });
 
       this.collection.each(function(model, i) {
         self.addLayerView(model);
@@ -197,6 +216,26 @@ var Shareabouts = Shareabouts || {};
     geolocate: function() {
       this.map.locate();
     },
+    addLandmarkLayerView: function(landmarkCollectionId) {
+      return function(model) {
+        this.landmarkLayerViews[landmarkCollectionId][model.id] = new S.BasicLayerView({
+          model: model,
+          router: this.options.router,
+          map: this.map,
+          placeTypes: this.options.placeTypes,
+          collectionId: landmarkCollectionId,
+          landmarkLayers: this.layers[landmarkCollectionId],
+          // to access the filter
+          mapView: this
+        });
+      }
+    },
+    removeLandmarkLayerView: function(landmarkCollectionId) {
+      return function(model) {
+        this.landmarkLayerViews[landmarkCollectionId][model.id].remove();
+        delete this.landmarkLayerViews[landmarkCollectionId][model.id];
+      }
+    },
     addLayerView: function(model) {
       this.layerViews[model.cid] = new S.LayerView({
         model: model,
@@ -230,6 +269,20 @@ var Shareabouts = Shareabouts || {};
           self.layerViews[model.cid].hide();
         }
       });
+      // TODO: clean this up by using a single Collection or View that contains
+      // landmarks and places
+      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
+        self.options.landmarkCollections[collectionId].each(function(model) {
+          var modelLocationType = model.get('location_type');
+
+          if (modelLocationType &&
+              modelLocationType.toUpperCase() === locationType.toUpperCase()) {
+            self.landmarkLayerViews[collectionId][model.id].show();
+          } else {
+            self.landmarkLayerViews[collectionId][model.id].hide();
+          }
+        });
+      });
     },
 
     clearFilter: function() {
@@ -237,6 +290,13 @@ var Shareabouts = Shareabouts || {};
       this.locationTypeFilter = null;
       this.collection.each(function(model) {
         self.layerViews[model.cid].render();
+      });
+      // TODO: clean this up by using a single Collection or View that contains
+      // landmarks and places
+      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
+        self.options.landmarkCollections[collectionId].each(function(model) {
+          self.landmarkLayerViews[collectionId][model.id].render();
+        });
       });
     },
     getLayerGroups: function() {

@@ -241,10 +241,13 @@
   <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
   <script src="{{STATIC_URL}}js/views/app-view.js"></script>
   <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/basic-layer-view.js"></script>
   <script src="{{STATIC_URL}}js/views/map-view.js"></script>
   <script src="{{STATIC_URL}}js/views/support-view.js"></script>
   <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/landmark-detail-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/landmark-survey-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-counter-view.js"></script>
@@ -305,7 +308,9 @@
         pagesConfig: S.Config.pages
       });
     });
+
   }(Shareabouts, jQuery));
+
   </script>
 
   {% if settings.GOOGLE_ANALYTICS_ID %}
@@ -333,6 +338,7 @@
      ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
    })();
   </script>
+
   <noscript>
     <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/{{ settings.CLICKY_ANALYTICS_ID }}ns.gif" />
     </p>

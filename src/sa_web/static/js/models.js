@@ -280,6 +280,26 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
+  // This model is based off the Mapbox Classic API
+  S.LandmarkModel = Backbone.Model.extend({
+    initialize: function() {
+      this.set("id", this.get('title'));
+    }
+  });
+
+  S.LandmarkCollection = Backbone.Collection.extend({
+    model: S.LandmarkModel,
+
+    // The MapBox GeoJson API returns places under "features".
+    parse:function(resp,options) {
+      if (options.attributesToAdd) {
+        for (var i=0;i<resp.features.length;i++)
+          _.extend(resp.features[i],options.attributesToAdd);
+      }
+      return resp.features;
+    }
+  });
+
   // This does not support editing at this time, which is why it is not a
   // ShareaboutsModel
   S.AttachmentModel = Backbone.Model.extend({
