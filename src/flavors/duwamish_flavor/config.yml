@@ -53,15 +53,6 @@ map:
 
   # Legend Layers
 
-    - id: communityAction
-      url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
-      type: landmark
-      legend: true
-      visibleDefault: true
-      title: _(Community vision)
-      placeType: mapbox
-      description: _(Places where positive restoration and community organizing are happening)
-
     - id: areasOfConcern
       url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/restoration-sites
       type: landmark
@@ -70,6 +61,15 @@ map:
       title: _(Restoration sites)
       placeType: mapbox
       description: _(Places where pollution has been problematic)
+
+    - id: communityAction
+      url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
+      type: landmark
+      legend: true
+      visibleDefault: false
+      title: _(Community vision)
+      placeType: mapbox
+      description: _(Places where positive restoration and community organizing are happening)
 
       # WMS ROD
     - id: epa-rod
