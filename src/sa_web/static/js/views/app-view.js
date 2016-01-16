@@ -152,13 +152,13 @@ var Shareabouts = Shareabouts || {};
           layers: {},
           reports: {},
         })).render();
-        
+
         // Start Master Legend
         (new S.LegendView({
           el: '#master-legend',
-          layers: { items: this.options.mapConfig.layers,
-                    title: this.options.sidebarConfig.layersTitle },
-          reports: this.options.sidebarConfig.reports
+          // layers: { items: this.options.mapConfig.layers,
+          //           title: this.options.sidebarConfig.layersTitle },
+          // reports: this.options.sidebarConfig.reports
         })).render();
       }
 
