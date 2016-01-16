@@ -1,42 +1,20 @@
-// leaflet-sidebar-view: GIS: needs layers, not reports
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.LeafletSidebarView = Backbone.View.extend({
-    events: {
-      'change .map-legend-checkbox': 'toggleVisibility'
-    },
-    
+    events{};
+
     initialize: function () {
-      var self = this;
-      this.render();
-      self.sidebar = L.control.sidebar('sidebar', {
-        position: 'left'
-      });
-      self.sidebar.addTo(this.options.mapView.map);
+        var self = this;
     },
 
-    render: function() {
-      var self = this,
-          data = _.extend({
-            layers: this.options.layers
-          }, S.stickyFieldValues);
+    render: function () {
+        var self = this;
 
-      this.$el.html(Handlebars.templates['leaflet-sidebar-content'](data));
+        this.$el.html(Handlebars.templates['leaflet-sidebar']());
 
-      return this;
+        return this;
     },
-
-    // Checkbox change handler, triggers event to the MapView
-    toggleVisibility: function(evt) {
-      var $cbox = $(evt.target),
-        id = $cbox.attr('data-layerid');
-
-      if ($cbox.is(':checked')) {
-        $(S).trigger('visibility', [id, true]);
-      } else {
-        $(S).trigger('visibility', [id, false]);
-      }
-    }
   });
 })(Shareabouts, jQuery, Shareabouts.Util.console);

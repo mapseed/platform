@@ -144,10 +144,16 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes,
         cluster: this.options.cluster
       });
-
-      if (self.options.leafletSidebarConfig.enabled){
-        // Legend (legend-view.js, legend.html)
-          (new S.LegendView({
+      if (self.options.sidebarConfig.enabled) {
+        // Start Leaflet Sidebar
+        (new S.LeafletSidebarView({
+          el: '#leaflet-sidebar',
+          layers: {},
+          reports: {},
+        })).render();
+        
+        // Start Master Legend
+        (new S.LegendView({
           el: '#master-legend',
           mapView: this.mapView,
           reports: this.options.sidebarConfig.reports
