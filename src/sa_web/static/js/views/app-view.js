@@ -146,6 +146,13 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (self.options.sidebarConfig.enabled) {
+        // Start Leaflet Sidebar
+        (new S.LeafletSidebarView({
+          el: '#leaflet-sidebar',
+          layers: {},
+          reports: {},
+        })).render();
+        
         // Start Master Legend
         (new S.LegendView({
           el: '#master-legend',
