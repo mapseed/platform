@@ -151,12 +151,13 @@ var Shareabouts = Shareabouts || {};
           layers: {},
           reports: {},
         })).render();
-        
+
         // Start Master Legend
         (new S.LegendView({
           el: '#master-legend',
-          mapView: this.mapView,
-          reports: this.options.sidebarConfig.reports
+          // layers: { items: this.options.mapConfig.layers,
+          //           title: this.options.sidebarConfig.layersTitle },
+          // reports: this.options.sidebarConfig.reports
         })).render();
 
         // GIS Layers (leaflet-sidebar-view.js, leaflet-sidebar-content.html)

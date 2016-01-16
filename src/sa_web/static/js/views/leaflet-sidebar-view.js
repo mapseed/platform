@@ -3,7 +3,7 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.LeafletSidebarView = Backbone.View.extend({
-    events{};
+    events: {},
 
     initialize: function () {
         var self = this;
