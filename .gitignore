@@ -24,6 +24,7 @@ environment-vars.txt
 
 # IDE project settings
 .idea
+.tern-port
 
 # compiled files
 *.py[co]
