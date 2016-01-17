@@ -19,7 +19,8 @@ L.MapboxGL = L.Class.extend({
 
         map._panes.tilePane.appendChild(this._glContainer);
         map.on('zoomanim', this._animateZoom, this);
-        map.on('move', this._update, this);
+        map.on('moveend', this._update, this);
+        //map.on('move', Utils.debounce(this._update.bind(this), 250), this);
 
         this._initGL();
     },
@@ -94,6 +95,20 @@ L.MapboxGL = L.Class.extend({
         });
     }
 });
+
+Utils = {};
+Utils.debounce = function (func, wait, immediate) {
+    var timeout;
+    return function () {
+        var context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        }, wait);
+        if (immediate && !timeout) func.apply(context, args);
+    };
+};
 
 L.mapboxGL = function (options) {
     return new L.MapboxGL(options);
