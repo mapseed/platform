@@ -19,8 +19,9 @@ L.MapboxGL = L.Class.extend({
 
         map._panes.tilePane.appendChild(this._glContainer);
         map.on('zoomanim', this._animateZoom, this);
-        map.on('moveend', this._update, this);
+        // map.on('move', this._update, this);
         //map.on('move', Utils.debounce(this._update.bind(this), 250), this);
+        map.on('moveend', this._update, this);
 
         this._initGL();
     },
@@ -67,7 +68,7 @@ L.MapboxGL = L.Class.extend({
             topLeft = this._map.containerPointToLayerPoint([0, 0]);
 
         L.DomUtil.setPosition(container, topLeft);
-        
+
         var center = this._map.getCenter();
 
         // gl.setView([center.lat, center.lng], this._map.getZoom() - 1, 0);
