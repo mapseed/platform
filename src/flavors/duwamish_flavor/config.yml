@@ -203,7 +203,14 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
-      # default point marker case
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "theatre"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+      # default marker icon
+
       - condition: '"{{geometry.type}}" == "Point"'
         icon:
           iconUrl: /static/css/images/markers/dot-fa307d.png
@@ -335,15 +342,15 @@ place_types:
     rules:
       - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
+          iconUrl: /static/css/images/markers/dot-fa307d.png
+          iconSize: [16, 16]
+          iconAnchor: [8, 8]
+
+      - condition: '{{map.zoom}} < 15 && {{layer.focused}} === false'
+        icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
 
       - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
         icon:
