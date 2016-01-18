@@ -21,6 +21,7 @@ shell.cat([
   'src/sa_web/static/libs/moment-with-locales.min.js',
   'src/sa_web/static/libs/json2.js',
   'src/sa_web/static/libs/leaflet.argo.js',
+  'src/sa_web/static/libs/leaflet-mapbox-gl.js',
   'src/sa_web/static/libs/binaryajax.js',
   'src/sa_web/static/libs/exif.js',
   'src/sa_web/static/libs/load-image.js',
