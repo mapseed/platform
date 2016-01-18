@@ -179,8 +179,8 @@
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   {% else %}
   <!--   TODO: build libraries with npm instead of bower -->
-  <script src="{{STATIC_URL}}dist/lib-bundle.js"></script>
-  <script src="{{STATIC_URL}}dist/preload-bundle.js"></script>
+  <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.6"></script>
+  <script src="{{STATIC_URL}}dist/preload-bundle.js?ver=0.6"></script>
   {% endif %}
 
   <script>
@@ -256,7 +256,7 @@
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% else %}
-  <script src="{{STATIC_URL}}dist/bundle.js"></script>
+  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.6"></script>
   {% endif %}
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
