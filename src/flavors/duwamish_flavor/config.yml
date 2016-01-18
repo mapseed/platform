@@ -140,11 +140,14 @@ map:
 
       # WMS Original Flow
     - id: duwamish-original
-      url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
-      layers: 'wria9:Historical_Flow'
-      version: '1.1.0'
+      style: mapbox://styles/heyduwamishcore/ciicic0x00014amkmol7pdiwq
+      accessToken: pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      type: mapbox
+      # url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
+      # layers: 'wria9:Historical_Flow'
+      # version: '1.1.0'
+      # format: 'image/png'
       transparent: 'true'
-      format: 'image/png'
       legend: true
       opacity: 0.4
       description: _(The original Duwamish River path)
