@@ -55,7 +55,8 @@ var Shareabouts = Shareabouts || {};
           if (!config.accessToken) {
             config.accessToken = S.bootstrapped.mapboxToken;
           }
-          L.mapboxGL(config).addTo(self.map);
+          layer = L.mapboxGL(config);
+          self.layers[config.id] = layer;
 
           if (config.visibleDefault) {
             layer.addTo(self.map);
