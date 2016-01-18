@@ -9,7 +9,6 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
-
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -28,11 +27,12 @@ languages:
   - code: vi
     label: tôi nói tiếng việt
 
-# Settings for map and layer configs
+
 map:
+# Settings for map and layer configs
   geolocation_enabled: true
   geolocation_onload: false
-#  geocode_field_label: _(Enter an address...)
+  #  geocode_field_label: _(Enter an address...)
   geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
 
   options:
@@ -40,7 +40,7 @@ map:
       lat: 47.53036
       lng: -122.32122
     zoom: 15
-    minZoom: 9
+    minZoom: 1
     maxZoom: 18
     maxBounds:
   layers:
@@ -120,7 +120,6 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.6
-#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
       description-image: /static/css/images/legend-nlcd2011.png
       description-image-alt: 'legend'
       title: _(Land coverage data)
@@ -140,15 +139,13 @@ map:
       visibleDefault: false
 
 # The keys show up in the dropdown list when you are adding a new place
+
 # The values map the place type to map icons (defined below).
 place_types:
 
   mapbox:
     # Mapbox Points
     rules:
-    # show nothing when zoomed out
-      - condition: '"{{map.zoom}}" < 11'
-
     # LineString
       - condition: '"{{geometry.type}}" == "LineString"'
         style:
@@ -167,6 +164,13 @@ place_types:
           weight: "{{properties.stroke-width}}"
 
       # Marker display
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger" && "{{map.zoom}}" < 14'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [20, 20]
+          iconAnchor: [8, 8]
+
       - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
         icon:
           iconUrl: /static/css/images/markers/marker-construction.png
@@ -185,11 +189,23 @@ place_types:
           iconSize: [40, 40]
           iconAnchor: [13, 13]
 
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial" && "{{map.zoom}}" < 14'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial.png
+          iconSize: [20, 20]
+          iconAnchor: [8, 8]
+
       - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
         icon:
           iconUrl: /static/css/images/markers/marker-industrial.png
           iconSize: [40, 40]
           iconAnchor: [20, 20]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle" && "{{map.zoom}}" < 14'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bike.png
+          iconSize: [20, 20]
+          iconAnchor: [8, 8]
 
       - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
         icon:
@@ -197,13 +213,44 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
           
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "swimming" && "{{map.zoom}}" < 14'
+        icon:
+          iconUrl: /static/css/images/markers/marker-swimming.png
+          iconSize: [20, 20]
+          iconAnchor: [8, 8]
+
       - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "swimming"'
         icon:
           iconUrl: /static/css/images/markers/marker-swimming.png
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
-      # default point marker case
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "theatre" && "{{map.zoom}}" < 14'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art.png
+          iconSize: [20, 20]
+          iconAnchor: [8, 8]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "theatre"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "zoo" && "{{map.zoom}}" < 14'
+        icon:
+          iconUrl: /static/css/images/markers/marker-whale.png
+          iconSize: [20, 20]
+          iconAnchor: [8, 8]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "zoo"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-whale.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+      # default marker icon
+      
       - condition: '"{{geometry.type}}" == "Point"'
         icon:
           iconUrl: /static/css/images/markers/dot-fa307d.png
@@ -215,17 +262,17 @@ place_types:
     rules:
       - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
+          iconSize: [12, 14.5]
+          iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -245,17 +292,17 @@ place_types:
     rules:
       - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
+          iconSize: [12, 14.5]
+          iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -275,17 +322,17 @@ place_types:
     rules:
       - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
+          iconSize: [12, 14.5]
+          iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -309,13 +356,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
+          iconSize: [12, 14.5]
+          iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
@@ -339,13 +386,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 17 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
+          iconSize: [18, 21.75]
+          iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 17 && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
@@ -363,6 +410,7 @@ place_types:
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
+
 sidebar:
   enabled: true
   legend_enabled: true
