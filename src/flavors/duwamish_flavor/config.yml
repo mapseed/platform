@@ -32,6 +32,7 @@ map:
 # Settings for map and layer configs
   geolocation_enabled: true
   geolocation_onload: false
+  cartodb_enabled: true
   #  geocode_field_label: _(Enter an address...)
   geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
 
@@ -71,18 +72,16 @@ map:
       placeType: mapbox
       description: _(Places where positive restoration and community organizing are happening)
 
-      # WMS ROD
-    - id: epa-rod
-      url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/gwc/service/wms
-      layers: 'wria9:EPARODMergedFinal'
-      version: '1.1.0'
-      transparent: true
-      format: 'image/png'
+    - id: epaROD
+      type: cartodb
+      username: smartercleanup
+      cssId: eparodcss
+      table: eparodmergedfinal
+      css: "#eparodmergedfinal{polygon-opacity:0.7;}#eparodmergedfinal[alt5btecha=1]{polygon-fill:#ff9900;}#eparodmergedfinal[alt5btecha=2]{polygon-fill:#ff9900;line-color:#000;line-width:1;}#eparodmergedfinal[alt5btecha=3]{polygon-fill:#EDE4AE;}#eparodmergedfinal[alt5btecha=4]{polygon-fill:#006600;}#eparodmergedfinal[alt5btecha=5]{polygon-fill:#4567F1;}#eparodmergedfinal[alt5btecha=6]{polygon-fill:#000;}#eparodmergedfinal[alt5btecha=7]{polygon-fill:#000;}#eparodmergedfinal[alt5btecha=8]{polygon-fill:#66ffff;}"
       legend: true
-      opacity: 0.8
       description-image: /static/css/images/legend-EPA-ROD.png
       description-image-alt: 'legend'
-      title: River cleanup plan
+      title: _(River cleanup plan)
       visibleDefault: false
 
       # WMS landuse

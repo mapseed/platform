@@ -31,6 +31,8 @@ var Shareabouts = Shareabouts || {};
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
         var layer;
+        var collectionId;
+        var collection;
         if (config.type && config.type === 'json') {
           layer = L.argo(config.url, config);
           self.layers[config.id] = layer;
@@ -40,7 +42,7 @@ var Shareabouts = Shareabouts || {};
           }
 
         } else if (config.type && config.type === 'landmark') {
-          var collectionId = config.id;
+          collectionId = config.id;
           self.layers[collectionId] = L.layerGroup();
           if (config.visibleDefault) {
             self.map.addLayer(self.layers[collectionId]);
@@ -48,9 +50,26 @@ var Shareabouts = Shareabouts || {};
           self.landmarkLayerViews[collectionId] = {};
 
           // Bind our landmark data events:
-          var collection = self.options.landmarkCollections[collectionId];
+          collection = self.options.landmarkCollections[collectionId];
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
+        } else if (config.type && config.type === 'cartodb') {
+          cartodb.createLayer(self.map,{
+            user_name: config.username,
+            type: 'cartodb',
+            sublayers: [{
+              sql: "SELECT * FROM " + config.table,
+              cartocss: config.css
+            }]})
+            .on('done', function(cartoLayer) {
+              self.layers[config.id] = cartoLayer;
+              if (config.visibleDefault) {
+                cartoLayer.addTo(self.map);
+              }
+            })
+            .on('error', function(err) {
+              S.Util.log('Cartodb layer creation error:', err);
+            });
         } else if (config.layers) {
           // If "layers" is present, then we assume that the config
           // references a Leaflet WMS layer.
