@@ -19,15 +19,37 @@
     <!-- place buttons for dynamic form categories -->
     <div id="category-btns">
       {{#each place_config.categories}}
-        <input type="radio" name={{ name }} id="category-btn-{{ @key }}" value={{ @key }} class="big-btn category-btn">
-        <label for="category-btn-{{ @key }}" class="category-btn-label">{{ label }}</label>
+        <input name="category-btn-{{ @key }}" id="category-btn-{{ @key }}" type="submit" value="{{ label }}" class="btn btn-primary category-change-btn">
       {{/each}}
     </div>
-    <div style="clear:both"></div>
-    <br>
 
-    <!-- generate content for selected category -->
-    {{#each selected_category.fields}}
+    <!-- sections for individual fields -->
+    {{#selected_category}}
+      {{#each fields}}
+        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+        
+        {{#is type "text"}}
+          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
+        {{/is}}
+
+        {{#is type "textarea"}}
+          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
+        {{/is}}
+
+
+      {{/each}}
+    {{/selected_category}}
+
+
+    <!--NOTE: instead of dropdown, have large buttons -->
+
+
+    <br><br><br><br><br><br>
+
+
+
+    {{# place_config.items }}
+
       <div class="{{ type }} form-field">
         <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
         
@@ -57,9 +79,63 @@
               <label for={{ value }}>{{ label }}</label>
             {{/each}}
           </div>
-        {{/is}}
-        <div style="clear:both"></div>
-        <!-- end field type definitions -->
+        {{/if}}
+
+        {{#if is_checkbox_list}}
+          {{# attrs }}
+            <br>
+            <input id="place-{{ value }}" type="checkbox" name="{{ ../name }}" value="{{ value }}" />
+            <label for="place-{{ value }}">{{ label}} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+          {{/ attrs }}
+        {{/if}}
+
+        {{#if is_input}}
+          {{#is_submitter_name}}
+            {{^is_authenticated}}
+              <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}">
+              <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
+            {{/is_authenticated}}
+            {{^}}
+            <input style="background-color: red"  id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
+          {{/is_submitter_name}}
+        {{/if}}
+
+        {{#is_textarea}}
+          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
+        {{/is_textarea}}
+
+        {{#is_select}}
+          <select id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+            {{#select_item_value ../.. name}}
+              {{# options }}
+                {{#if label}}
+                  <option value="{{value}}">{{label}}</option>
+                {{else}}
+                  <option value="{{.}}">{{.}}</option>
+                {{/if}}
+              {{/ options }}
+            {{/select_item_value}}
+          </select>
+        {{/is_select}}
+
+        {{#is_file}}
+          <!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
+          <!--[if (gt IE 9)|!(IE)]><!-->
+          <span class="fileinput-container btn btn-small{{^is_fileinput_supported}} btn-disabled{{/is_fileinput_supported}}">
+            <span>{{ inputfile_label }}</span>
+            <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}"
+                   {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
+                   {{^is_fileinput_supported}} disabled{{/is_fileinput_supported}}>
+          </span>
+          <span class="fileinput-name">
+            {{^is_fileinput_supported}}{{#_}}Sorry, your browser doesn't support file uploads.{{/_}}{{/is_fileinput_supported}}
+          </span>
+          <!--<![endif]-->
+        {{/is_file}}
+
+        {{#if help_text }}
+          <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
+        {{/if}}
       </div>
     {{/each}}
 
