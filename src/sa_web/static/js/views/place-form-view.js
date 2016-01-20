@@ -4,7 +4,8 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.PlaceFormView = Backbone.View.extend({
-    selected_category_id: "",
+    // we have a dummy selected category id so the jQuery :not expression below won't throw an error
+    selected_category_id: "temp",
     // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
