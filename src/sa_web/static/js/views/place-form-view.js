@@ -18,16 +18,14 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
     },
-    render: function(){
+    render: function(category){
       // Augment the model data with place types for the drop down
       var data = _.extend({
         place_config: this.options.placeConfig,
-        selected_category: this.options.placeConfig.categories["pollution"], // <-- temp hard-coded category name
+        selected_category: this.options.placeConfig.categories[category] || null,
         user_token: this.options.userToken,
         current_user: S.currentUser
       }, S.stickyFieldValues, this.model.toJSON());
-
-      console.log("form data:", data);
 
       this.$el.html(Handlebars.templates['place-form'](data));
       return this;
@@ -70,7 +68,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     onCategoryChange: function(evt) {
-      console.log(evt.target.value);
+      this.render(evt.target.name.split("-")[2]);
     },
 
     onInputFileChange: function(evt) {
