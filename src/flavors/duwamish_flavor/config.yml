@@ -603,30 +603,30 @@ place:
     land_use:
       label: _(Land use)
       fields:
-        title:
+        - name: title
           type: text
           prompt: _(Land use title)
           optional: false
-        description:
+        - name: description
           type: textarea
           prompt: _(Land use description)
           optional: false
-        name:
+        - name: name
           type: text
           prompt: _(Your name)
           optional: true
     air_quality:
       label: _(Air quality)
       fields:
-        title:
+        - name: title
           type: text
           prompt: _(Air quality title)
           optional: false
-        description:
+        - name: description
           type: textarea
           prompt: _(Air quality description)
           optional: false
-        name:
+        - name: name
           type: text
           prompt: _(Your name)
           optional: true
