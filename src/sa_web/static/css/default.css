@@ -173,6 +173,10 @@ hr {
 .btn-small {
   font-size: 0.75em;
 }
+.report-type-btn {
+  text-transform: none;
+  background-color: rgba(242, 82, 24, 0.29)
+}
 
 /* Forms */
 form {

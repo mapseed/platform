@@ -23,6 +23,8 @@
       {{/each}}
     </div>
 
+    <br>
+
     <!-- generate content for selected category -->
     {{#each selected_category.fields}}
       <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
@@ -39,7 +41,7 @@
       {{#is type "radio_big_buttons"}}
         <div>
           {{#each ../../place_config.dynamic_form_content.radio_big_buttons}}
-            <input name="" id="" value="{{ value }}" class="btn btn-primary report-type-btn">
+            <span name="" id="" class="btn btn-primary report-type-btn">{{label}}</span>
           {{/each}}
         </div>
       {{/is}}
