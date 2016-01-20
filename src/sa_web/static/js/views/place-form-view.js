@@ -7,7 +7,8 @@ var Shareabouts = Shareabouts || {};
     // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
-      'change input[type="file"]': 'onInputFileChange'
+      'change input[type="file"]': 'onInputFileChange',
+      'click .category-change-btn': 'onCategoryChange'
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -21,9 +22,12 @@ var Shareabouts = Shareabouts || {};
       // Augment the model data with place types for the drop down
       var data = _.extend({
         place_config: this.options.placeConfig,
+        selected_category: this.options.placeConfig.categories["pollution"], // <-- temp hard-coded category name
         user_token: this.options.userToken,
         current_user: S.currentUser
       }, S.stickyFieldValues, this.model.toJSON());
+
+      console.log("form data:", data);
 
       this.$el.html(Handlebars.templates['place-form'](data));
       return this;
@@ -64,6 +68,11 @@ var Shareabouts = Shareabouts || {};
 
       return attrs;
     },
+
+    onCategoryChange: function(evt) {
+      console.log(evt.target.value);
+    },
+
     onInputFileChange: function(evt) {
       var self = this,
           file,
