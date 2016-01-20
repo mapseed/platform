@@ -18,7 +18,7 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
     },
-    render: function(category, category_selected){      
+    render: function(category){
       // Augment the model data with place types for the drop down
       //
       //  This is a little hacky--I need to find a better way to extend the template helpers
@@ -30,14 +30,11 @@ var Shareabouts = Shareabouts || {};
       
       var data = _.extend({
         place_config: this.options.placeConfig,
-        // when category is defined, the selected_category property will contain config file details for fields in the given category
-        selected_category: this.options.placeConfig.categories[category],
+        selected_category: this.options.placeConfig.categories[category] || null,
         user_token: this.options.userToken,
         current_user: S.currentUser,
         category_selected: category_selected || false
       }, S.stickyFieldValues, this.model.toJSON());
-
-      console.log("form data:", data);
 
       this.$el.html(Handlebars.templates['place-form'](data));
       $("#common-form-elements").css("display", "block");
@@ -80,10 +77,7 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
     onCategoryChange: function(evt) {
-      // re-render the form with the selected category
-      this.render(evt.target.id.split("-")[2], true);
-      // manually set the category button again since the re-render resets it
-      $("#" + evt.target.id).prop("checked", true);
+      this.render(evt.target.name.split("-")[2]);
     },
     onInputFileChange: function(evt) {
       var self = this,
