@@ -460,7 +460,7 @@ place:
   location_item_name: location
 
 
-  #### begin dynamic form content ####
+  #### begin dynamic form config ####
   categories:
     pollution:
       label: _(Pollution)
@@ -468,6 +468,7 @@ place:
         - name: type
           type: radio_big_buttons
           prompt: _(Type of report)
+          content: report_types
           optional: false
         - name: title
           type: text
@@ -490,6 +491,7 @@ place:
         - name: type
           type: radio_big_buttons
           prompt: _(Type of report)
+          content: report_types
           optional: false
         - name: title
           type: text
@@ -512,6 +514,7 @@ place:
         - name: type
           type: radio_big_buttons
           prompt: _(Type of report)
+          content: report_types
           optional: false
         - name: title
           type: text
@@ -528,9 +531,27 @@ place:
           prompt: _(Your name)
           placeholder: _(Name)
           optional: true
+    dog_watch:
+      label: _(Dog watch)
+      fields:
+        - name: type
+          type: radio_big_buttons
+          prompt: _(Type of report)
+          content: report_types
+          optional: false
+        - name: description
+          type: textarea
+          prompt: _(Dog watch description)
+          placeholder: _(Description...)
+          optional: false
+        - name: name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
 
   dynamic_form_content:
-    radio_big_buttons:
+    report_types:
       - label: _(Observation)
         value: observation
       - label: _(Question)
@@ -542,7 +563,7 @@ place:
       - label: _(Green Screen Vote)
         value: green_screen_vote
 
-  #### end dynamic form content ####
+  #### end dynamic form config ####
 
 
 
