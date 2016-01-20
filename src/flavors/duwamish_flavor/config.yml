@@ -629,9 +629,14 @@ place:
       value: question
       label: _(Question)
       fields:
+        - name: type
+          type: radio_big_buttons
+          prompt: _(Type of report)
+          optional: false
         - name: title
           type: text
           prompt: _(Land use title)
+          placeholder: _(Enter title)
           optional: false
         - name: description
           type: textarea
@@ -668,6 +673,10 @@ place:
       value: air_watch
       label: _(Air watch)
       fields:
+        - name: type
+          type: radio_big_buttons
+          prompt: _(Type of report)
+          optional: false
         - name: title
           type: text
           prompt: _(Title)

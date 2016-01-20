@@ -23,26 +23,30 @@
       {{/each}}
     </div>
 
-    <!-- sections for individual fields -->
-    {{#selected_category}}
-      {{#each fields}}
-        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-        
-        {{#is type "text"}}
-          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
-        {{/is}}
+    <!-- generate content for selected category -->
+    {{#each selected_category.fields}}
+      <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+      
+      <!-- begin field type definitions -->
+      {{#is type "text"}}
+        <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
+      {{/is}}
 
-        {{#is type "textarea"}}
-          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
-        {{/is}}
+      {{#is type "textarea"}}
+        <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}"></textarea>
+      {{/is}}
+
+      {{#is type "radio_big_buttons"}}
+        <div>
+          {{#each ../../place_config.dynamic_form_content.radio_big_buttons}}
+            <input name="" id="" value="{{ value }}" class="btn btn-primary report-type-btn">
+          {{/each}}
+        </div>
+      {{/is}}
+      <!-- end field type definitions -->
 
 
-      {{/each}}
-    {{/selected_category}}
-
-
-    <!--NOTE: instead of dropdown, have large buttons -->
-
+    {{/each}}
 
     <br><br><br><br><br><br>
 
