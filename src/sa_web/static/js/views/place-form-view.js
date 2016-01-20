@@ -10,7 +10,8 @@ var Shareabouts = Shareabouts || {};
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-change-btn': 'onCategoryChange'
+      'click .category-change-btn': 'onCategoryChange',
+      'click .report-type-btn': 'onReportTypeChange'
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -78,6 +79,14 @@ var Shareabouts = Shareabouts || {};
     onCategoryChange: function(evt) {
       this.selected_category_id = evt.target.id;
       this.render(evt.target.name.split("-")[2]);
+    },
+
+    onReportTypeChange: function(evt) {
+      console.log("!!!!");
+      // highlight selected report type button
+      $("#" + evt.target.id).addClass("btn-secondary-selected");
+      // un-highlight the others
+      $(".report-type-btn:not(#" + evt.target.id + ")").removeClass("btn-secondary-selected");
     },
 
     onInputFileChange: function(evt) {
