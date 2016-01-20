@@ -8,7 +8,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-btn': 'onCategoryChange',
+      'click .category-change-btn': 'onCategoryChange'
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -36,6 +36,8 @@ var Shareabouts = Shareabouts || {};
         current_user: S.currentUser,
         category_selected: category_selected || false
       }, S.stickyFieldValues, this.model.toJSON());
+
+      console.log("form data:", data);
 
       this.$el.html(Handlebars.templates['place-form'](data));
       $("#common-form-elements").css("display", "block");
