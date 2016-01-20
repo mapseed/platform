@@ -634,11 +634,6 @@ place:
           prompt: _(Type of report)
           content: report_types
           optional: false
-        - name: title
-          type: text
-          prompt: _(Land use title)
-          placeholder: _(Enter title)
-          optional: false
         - name: description
           type: textarea
           prompt: _(Land use description)

@@ -4,6 +4,7 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.PlaceFormView = Backbone.View.extend({
+    selected_category_id: "",
     // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
@@ -78,6 +79,7 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
     onCategoryChange: function(evt) {
+      this.selected_category_id = evt.target.id;
       this.render(evt.target.name.split("-")[2]);
     },
     onInputFileChange: function(evt) {
