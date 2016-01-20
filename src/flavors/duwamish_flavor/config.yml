@@ -493,11 +493,6 @@ place:
           prompt: _(Type of report)
           content: report_types
           optional: false
-        - name: title
-          type: text
-          prompt: _(Land use title)
-          placeholder: _(Enter title)
-          optional: false
         - name: description
           type: textarea
           prompt: _(Land use description)
@@ -520,11 +515,6 @@ place:
           type: text
           prompt: _(Air quality title)
           placeholder: _(Enter title)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Air quality description)
-          placeholder: _(Description...)
           optional: false
         - name: name
           type: text
