@@ -593,11 +593,11 @@ place:
       value: observation
       label: _(Observation)
       fields:
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution)
-          content: pollution_types
-          optional: true
+        - name: type
+          type: radio_big_buttons
+          prompt: _(Type of report)
+          content: report_types
+          optional: false
         - name: title
           type: text
           prompt: _(Pollution title)
@@ -616,6 +616,7 @@ place:
         - name: type
           type: radio_big_buttons
           prompt: _(Type of report)
+          content: report_types
           optional: false
         - name: title
           type: text
@@ -660,6 +661,7 @@ place:
         - name: type
           type: radio_big_buttons
           prompt: _(Type of report)
+          content: report_types
           optional: false
         - name: title
           type: text
@@ -678,14 +680,27 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title)
-          placeholder: _(Enter title)
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+    dog_watch:
+      label: _(Dog watch)
+      fields:
+        - name: type
+          type: radio_big_buttons
+          prompt: _(Type of report)
+          content: report_types
           optional: false
         - name: description
           type: textarea
-          prompt: _(Description)
+          prompt: _(Dog watch description)
           placeholder: _(Description...)
           optional: false
+        - name: name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
 
   # define shared form element content here
   dynamic_form_content:

@@ -40,8 +40,8 @@
 
       {{#is type "radio_big_buttons"}}
         <div>
-          {{#each ../../place_config.dynamic_form_content.radio_big_buttons}}
-            <span name="" id="" class="btn btn-primary report-type-btn">{{label}}</span>
+          {{#each (property ../../place_config.dynamic_form_content content)}}
+              <span name="" id="" class="btn btn-primary report-type-btn">{{this.label}}</span>
           {{/each}}
         </div>
       {{/is}}
@@ -50,7 +50,7 @@
 
     {{/each}}
 
-    <br><br><br><br><br><br>
+    <br><br><br><br><br><br><hr>
 
 
 
