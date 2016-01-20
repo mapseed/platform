@@ -22,6 +22,7 @@ var Shareabouts = Shareabouts || {};
       // Augment the model data with place types for the drop down
       var data = _.extend({
         place_config: this.options.placeConfig,
+        // when category is defined, the selected_category property will contain config file details for fields in the given category
         selected_category: this.options.placeConfig.categories[category] || null,
         user_token: this.options.userToken,
         current_user: S.currentUser
