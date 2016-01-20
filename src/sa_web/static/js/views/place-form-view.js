@@ -4,6 +4,7 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.PlaceFormView = Backbone.View.extend({
+    selected_category_id: "",
     // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
@@ -29,6 +30,11 @@ var Shareabouts = Shareabouts || {};
       }, S.stickyFieldValues, this.model.toJSON());
 
       this.$el.html(Handlebars.templates['place-form'](data));
+
+      // highlight selected category button
+      $("#" + this.selected_category_id).addClass("btn-selected");
+      // un-highlight the others
+      $(".category-change-btn:not(#" + this.selected_category_id + ")").removeClass("btn-selected");
       return this;
     },
     remove: function() {
@@ -69,6 +75,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     onCategoryChange: function(evt) {
+      this.selected_category_id = evt.target.id;
       this.render(evt.target.name.split("-")[2]);
     },
 
