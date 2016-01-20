@@ -629,6 +629,10 @@ place:
       value: question
       label: _(Question)
       fields:
+        - name: title
+          type: text
+          prompt: _(Land use title)
+          optional: false
         - name: description
           type: textarea
           prompt: _(Land use description)
