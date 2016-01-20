@@ -180,6 +180,11 @@ hr {
   text-transform: none;
   background-color: rgba(242, 82, 24, 0.29)
 }
+.category-change-btn {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 40%;
+}
 
 /* Forms */
 form {
