@@ -16,6 +16,38 @@
          is already logged in.
        -->
 
+    <!-- place buttons for dynamic form categories -->
+    <div id="category-btns">
+      {{#each place_config.categories}}
+        <input name="category-btn-{{ @key }}" id="category-btn-{{ @key }}" type="submit" value="{{ label }}" class="btn btn-primary category-change-btn">
+      {{/each}}
+    </div>
+
+    <!-- sections for individual fields -->
+    {{#selected_category}}
+      {{#each fields}}
+        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+        
+        {{#is type "text"}}
+          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
+        {{/is}}
+
+        {{#is type "textarea"}}
+          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
+        {{/is}}
+
+
+      {{/each}}
+    {{/selected_category}}
+
+
+    <!--NOTE: instead of dropdown, have large buttons -->
+
+
+    <br><br><br><br><br><br>
+
+
+
     {{# place_config.items }}
 
       <div class="{{ type }} form-field">
@@ -60,7 +92,7 @@
               <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
             {{/is_authenticated}}
             {{^}}
-            <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
+            <input style="background-color: red"  id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
           {{/is_submitter_name}}
         {{/if}}
 
