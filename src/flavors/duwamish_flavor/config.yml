@@ -536,6 +536,59 @@ place:
 
   location_item_name: location
 
+
+  #### begin dynamic form content ####
+  categories:
+    pollution:
+      label: _(Pollution)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Pollution title)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: _(Pollution description)
+          optional: false
+        - name: name
+          type: text
+          prompt: _(Your name)
+          optional: true
+    land_use:
+      label: _(Land use)
+      fields:
+        title:
+          type: text
+          prompt: _(Land use title)
+          optional: false
+        description:
+          type: textarea
+          prompt: _(Land use description)
+          optional: false
+        name:
+          type: text
+          prompt: _(Your name)
+          optional: true
+    air_quality:
+      label: _(Air quality)
+      fields:
+        title:
+          type: text
+          prompt: _(Air quality title)
+          optional: false
+        description:
+          type: textarea
+          prompt: _(Air quality description)
+          optional: false
+        name:
+          type: text
+          prompt: _(Your name)
+          optional: true
+
+  #### end dynamic form content ####
+
+
+
   items:
     - prompt: _(Type of report)
       type: select
