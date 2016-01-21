@@ -121,11 +121,8 @@ map:
 
       # WMS Original Flow
     - id: duwamish-original
-      url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
-      layers: 'wria9:Historical_Flow'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
+      url: https://smartercleanup.cartodb.com/api/v2/viz/965480e8-c031-11e5-a22c-0ecd1babdde5/viz.json
+      type: cartodb
       legend: true
       opacity: 0.4
       description: _(The original Duwamish River path)
