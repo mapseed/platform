@@ -43,7 +43,6 @@ map:
     zoom: 15
     minZoom: 1
     maxZoom: 18
-    maxBounds:
   layers:
 #      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       # SmarterCleanup Mapbox base layer:
@@ -77,6 +76,7 @@ map:
       username: smartercleanup
       cssId: eparodcss
       table: eparodmergedfinal
+      url: "https://smartercleanup.cartodb.com/api/v2/viz/7a253d2e-bb20-11e5-91b9-0ecfd53eb7d3/viz.json"
       css: "#eparodmergedfinal{polygon-opacity:0.7;}#eparodmergedfinal[alt5btecha=1]{polygon-fill:#ff9900;}#eparodmergedfinal[alt5btecha=2]{polygon-fill:#ff9900;line-color:#000;line-width:1;}#eparodmergedfinal[alt5btecha=3]{polygon-fill:#EDE4AE;}#eparodmergedfinal[alt5btecha=4]{polygon-fill:#006600;}#eparodmergedfinal[alt5btecha=5]{polygon-fill:#4567F1;}#eparodmergedfinal[alt5btecha=6]{polygon-fill:#000;}#eparodmergedfinal[alt5btecha=7]{polygon-fill:#000;}#eparodmergedfinal[alt5btecha=8]{polygon-fill:#66ffff;}"
       legend: true
       description-image: /static/css/images/legend-EPA-ROD.png

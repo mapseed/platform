@@ -54,13 +54,7 @@ var Shareabouts = Shareabouts || {};
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.type && config.type === 'cartodb') {
-          cartodb.createLayer(self.map,{
-            user_name: config.username,
-            type: 'cartodb',
-            sublayers: [{
-              sql: "SELECT * FROM " + config.table,
-              cartocss: config.css
-            }]})
+          cartodb.createLayer(self.map, config.url)
             .on('done', function(cartoLayer) {
               self.layers[config.id] = cartoLayer;
               if (config.visibleDefault) {
