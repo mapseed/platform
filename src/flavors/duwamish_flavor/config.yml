@@ -584,6 +584,9 @@ place:
 
 
   #### begin dynamic form config ####
+  #
+  #TODO: add checkbox functionality
+  #TODO: maybe add an autocomplete
   categories:
     pollution:
       label: _(Pollution)
@@ -662,6 +665,27 @@ place:
           prompt: _(Your name)
           placeholder: _(Name)
           optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
+        - type: submit
+          label: _(Put it on the map!)
+
 
   dynamic_form_content:
     report_types:
