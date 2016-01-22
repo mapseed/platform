@@ -59,8 +59,10 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
   {% endif %}
 
+  {% if config.cluster %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+  {% endif %}
 
   <!--[if lte IE 8]>
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.ie.css" />
@@ -196,7 +198,9 @@
   {% else %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   {% endif %}
+  {% if config.cluster %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+  {% endif %}
 
   {% block cdn_load %}{% endblock %}
 
