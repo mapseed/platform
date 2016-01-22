@@ -33,12 +33,12 @@
         <!-- begin field type definitions -->
         {{#is type "text"}}
           <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
-          {{#is_submitter_name}}
+          {{#is name "submitter_name"}}
             {{^is_authenticated}}
               <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
             {{/is_authenticated}}
             {{^}}
-          {{/is_submitter_name}}
+          {{/is}}
         {{/is}}
 
         {{#is type "textarea"}}
@@ -48,7 +48,10 @@
         {{#is type "radio_big_buttons"}}
           <div>
             {{#each (property ../../place_config.dynamic_form_content content)}}
+                <input type="radio" name={{ ../name }} id={{ value }}><label for={{ value }}>{{ label }}</label>
+                <!--
                 <span name="" id="report-type-{{this.value}}" class="btn btn-primary report-type-btn">{{this.label}}</span>
+                -->
             {{/each}}
           </div>
         {{/is}}
@@ -76,152 +79,6 @@
 
       </div>
     {{/each}}
-
-</form>
-
-
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><hr><hr>
-
-
-
-    {{# place_config.items }}
-
-      <div class="{{ type }} form-field">
-        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-        
-        <!-- begin field type definitions -->
-        {{#is type "text"}}
-          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
-        {{/is}}
-
-        {{#is type "textarea"}}
-          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}"></textarea>
-        {{/is}}
-
-        {{#is type "radio_big_buttons"}}
-          <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
-                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
-                <label for={{ value }}>{{ label }}</label>
-            {{/each}}
-          </div>
-          <div style="clear:both"></div>
-        {{/is}}
-
-        {{#is type "checkbox_big_buttons"}}
-          <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
-              <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
-              <label for={{ value }}>{{ label }}</label>
-            {{/each}}
-          </div>
-        {{/if}}
-
-        {{#if is_checkbox_list}}
-          {{# attrs }}
-            <br>
-            <input id="place-{{ value }}" type="checkbox" name="{{ ../name }}" value="{{ value }}" />
-            <label for="place-{{ value }}">{{ label}} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-          {{/ attrs }}
-        {{/if}}
-
-        {{#if is_input}}
-          {{#is_submitter_name}}
-            {{^is_authenticated}}
-              <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}">
-              <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
-            {{/is_authenticated}}
-            {{^}}
-            <input style="background-color: red"  id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
-          {{/is_submitter_name}}
-        {{/if}}
-
-        {{#is_textarea}}
-          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
-        {{/is_textarea}}
-
-        {{#is_select}}
-          <select id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-            {{#select_item_value ../.. name}}
-              {{# options }}
-                {{#if label}}
-                  <option value="{{value}}">{{label}}</option>
-                {{else}}
-                  <option value="{{.}}">{{.}}</option>
-                {{/if}}
-              {{/ options }}
-            {{/select_item_value}}
-          </select>
-        {{/is_select}}
-
-        {{#is_file}}
-          <!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
-          <!--[if (gt IE 9)|!(IE)]><!-->
-          <span class="fileinput-container btn btn-small{{^is_fileinput_supported}} btn-disabled{{/is_fileinput_supported}}">
-            <span>{{ inputfile_label }}</span>
-            <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}"
-                   {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
-                   {{^is_fileinput_supported}} disabled{{/is_fileinput_supported}}>
-          </span>
-          <span class="fileinput-name">
-            {{^is_fileinput_supported}}{{#_}}Sorry, your browser doesn't support file uploads.{{/_}}{{/is_fileinput_supported}}
-          </span>
-          <!--<![endif]-->
-        {{/is_file}}
-
-        {{#if help_text }}
-          <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
-        {{/if}}
-      </div>
-    {{/each}}
-
-    <!-- begin fields that are included in every form type by default -->
-    {{#if category_selected}}
-      <div id="common-form-elements">
-        {{#each place_config.common_form_elements }}
-          <div class="{{ this.type }} form-field">
-            {{#is name "submitter_name"}}
-              {{#if_not_authenticated}}
-                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}" placeholder="{{placeholder}}">
-                <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
-              {{/if_not_authenticated}}
-            {{/is}}
-
-            {{#is name "private-submitter_email"}}
-              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-              <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
-            {{/is}}
-
-            {{#is type "file"}}
-              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-              <span class="fileinput-container btn btn-small{{#if_fileinput_not_supported}} btn-disabled{{/if_fileinput_not_supported}}">
-                <span>{{ inputfile_label }}</span>
-                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}"
-                       {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
-                       {{#if_fileinput_not_supported}} disabled{{/if_fileinput_not_supported}}>
-              </span>
-              <span class="fileinput-name">
-                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-                {{#if_fileinput_not_supported}}Sorry, your browser doesn't support file uploads.{{/if_fileinput_not_supported}}
-              </span>
-            {{/is}}
-
-            {{#is type "submit"}}
-              <div>
-                <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ label }}" class="btn btn-primary submit-btn">
-              </div>
-            {{/is}}
-          </div>
-        {{/each}}
-      </div>
-    {{/if}}
-    <!-- end common field types -->
-
-
-
     <div class="form-spinner"></div>
 </form>
-
-
   
