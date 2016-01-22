@@ -624,10 +624,13 @@ place:
           prompt: _(Pollution description)
           placeholder: _(Description...)
           optional: false
-    question:
-      name: location_type
-      value: question
-      label: _(Question)
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+    land_use:
+      label: _(Land use)
       fields:
         - name: type
           type: radio_big_buttons
@@ -639,12 +642,7 @@ place:
           prompt: _(Land use description)
           placeholder: _(Description...)
           optional: false
-    idea:
-      name: location_type
-      value: idea
-      label: _(Idea)
-      fields:
-        - name: title
+        - name: submitter_name
           type: text
           prompt: _(What's your idea?)
           placeholder: _(Enter a title for your idea...)
@@ -679,17 +677,7 @@ place:
           prompt: _(Title)
           placeholder: _(Enter title)
           optional: false
-        - name: description
-          type: textarea
-          prompt: _(Description)
-          placeholder: _(Description...)
-          optional: false
-    tree:
-      name: location_type
-      value: tree
-      label: _(Tree)
-      fields:
-        - name: title
+        - name: submitter_name
           type: text
           prompt: _(Your name)
           placeholder: _(Name)
@@ -707,7 +695,7 @@ place:
           prompt: _(Dog watch description)
           placeholder: _(Description...)
           optional: false
-        - name: name
+        - name: submitter_name
           type: text
           prompt: _(Your name)
           placeholder: _(Name)
