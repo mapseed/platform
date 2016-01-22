@@ -480,7 +480,7 @@ place:
           prompt: _(Pollution description)
           placeholder: _(Description...)
           optional: false
-        - name: name
+        - name: submitter_name
           type: text
           prompt: _(Your name)
           placeholder: _(Name)
@@ -498,7 +498,7 @@ place:
           prompt: _(Land use description)
           placeholder: _(Description...)
           optional: false
-        - name: name
+        - name: submitter_name
           type: text
           prompt: _(Your name)
           placeholder: _(Name)
@@ -516,7 +516,7 @@ place:
           prompt: _(Air quality title)
           placeholder: _(Enter title)
           optional: false
-        - name: name
+        - name: submitter_name
           type: text
           prompt: _(Your name)
           placeholder: _(Name)
@@ -534,7 +534,7 @@ place:
           prompt: _(Dog watch description)
           placeholder: _(Description...)
           optional: false
-        - name: name
+        - name: submitter_name
           type: text
           prompt: _(Your name)
           placeholder: _(Name)
