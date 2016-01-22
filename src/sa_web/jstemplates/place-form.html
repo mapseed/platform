@@ -31,7 +31,13 @@
       
       <!-- begin field type definitions -->
       {{#is type "text"}}
-        <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
+        {{#is_submitter_name}}
+          {{^is_authenticated}}
+            <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
+            <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
+          {{/is_authenticated}}
+          {{^}}
+        {{/is_submitter_name}}
       {{/is}}
 
       {{#is type "textarea"}}
@@ -45,10 +51,14 @@
           {{/each}}
         </div>
       {{/is}}
+
+      
       <!-- end field type definitions -->
 
 
     {{/each}}
+
+
 
     <br><br><br><br><br><br><hr>
 
