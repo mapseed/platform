@@ -21,12 +21,19 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
     },
-    render: function(category){
+    render: function(category){      
       // Augment the model data with place types for the drop down
+      //
+      //  This is a little hacky--I need to find a better way to extend the template helpers
+      if (category != undefined) {
+        S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.categories[category].fields);
+      }
+      ///////////
+      
       var data = _.extend({
         place_config: this.options.placeConfig,
         // when category is defined, the selected_category property will contain config file details for fields in the given category
-        selected_category: this.options.placeConfig.categories[category] || null,
+        selected_category: this.options.placeConfig.categories[category],
         user_token: this.options.userToken,
         current_user: S.currentUser
       }, S.stickyFieldValues, this.model.toJSON());
@@ -125,6 +132,8 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
+      console.log("this.model", this.model);
+
       // Make sure that the center point has been set after the form was
       // rendered. If not, this is a good indication that the user neglected
       // to move the map to set it in the correct location.
