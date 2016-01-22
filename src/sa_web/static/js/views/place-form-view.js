@@ -85,7 +85,6 @@ var Shareabouts = Shareabouts || {};
       this.render(evt.target.name.split("-")[2]);
     },
     onReportTypeChange: function(evt) {
-      console.log("!!!!");
       // highlight selected report type button
       $("#" + evt.target.id).addClass("btn-secondary-selected");
       // un-highlight the others
