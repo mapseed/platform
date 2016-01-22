@@ -21,7 +21,7 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
     },
-    render: function(category){
+    render: function(category){      
       // Augment the model data with place types for the drop down
       //
       //  This is a little hacky--I need to find a better way to extend the template helpers
@@ -34,7 +34,7 @@ var Shareabouts = Shareabouts || {};
       var data = _.extend({
         place_config: this.options.placeConfig,
         // when category is defined, the selected_category property will contain config file details for fields in the given category
-        selected_category: this.options.placeConfig.categories[category] || null,
+        selected_category: this.options.placeConfig.categories[category],
         user_token: this.options.userToken,
         current_user: S.currentUser,
         category_selected: category_selected || false
