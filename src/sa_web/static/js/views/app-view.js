@@ -144,14 +144,19 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes,
         cluster: this.options.cluster
       });
-      if (self.options.sidebarConfig.enabled) {
+
+      if (self.options.leafletSidebarConfig.enabled){
         // Start Leaflet Sidebar
         (new S.LeafletSidebarView({
           el: '#leaflet-sidebar',
-          layers: {},
-          reports: {},
+          mapView: this.mapView,
+          layers: { items: this.options.mapConfig.layers,
+                    title: this.options.sidebarConfig.layersTitle },
+          reports: this.options.sidebarConfig.reports
         })).render();
+      }
 
+      if (self.options.sidebarConfig.enabled) {
         // Start Master Legend
         (new S.LegendView({
           el: '#master-legend',
