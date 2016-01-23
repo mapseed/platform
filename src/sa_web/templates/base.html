@@ -129,9 +129,7 @@
 
 
     {% if config.leaflet_sidebar.enabled %}
-      <div id="leaflet-sidebar" class="sidebar collapsed">
-      {% block leaflet_sidebar %}{% endblock %}
-      </div>
+      <div id="leaflet-sidebar" class="sidebar collapsed sidebar-left leaflet-touch"></div>
     {% endif %}
 
 
@@ -307,6 +305,7 @@
       map:        {{ config.map|as_json }},
       activity:   {{ config.activity|as_json }},
       sidebar:    {{ config.sidebar|as_json}},
+      leaflet_sidebar: {{ config.leaflet_sidebar|as_json }},
       pages:      {{ pages_config_json|safe }}
     };
 
@@ -323,6 +322,7 @@
         placeTypes: S.Config.placeTypes,
         cluster: S.Config.cluster,
         sidebarConfig: S.Config.sidebar,
+        leafletSidebarConfig: S.Config.leaflet_sidebar,
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,
         mapConfig: S.Config.map,
