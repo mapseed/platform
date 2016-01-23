@@ -170,13 +170,13 @@ place_types:
 
       - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2" && "{{map.zoom}}" < 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-treeheart.png
+          iconUrl: /static/css/images/markers/marker-heart.png
           iconSize: [20, 20]
           iconAnchor: [8, 8]
 
       - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
         icon:
-          iconUrl: /static/css/images/markers/marker-treeheart.png
+          iconUrl: /static/css/images/markers/marker-heart.png
           iconSize: [40, 40]
           iconAnchor: [13, 13]
 
