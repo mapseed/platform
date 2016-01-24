@@ -31,6 +31,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ config.static_url }}css/images/apple-touch-icon-114x114-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ config.static_url }}css/images/apple-touch-icon-72x72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   {% endblock app_icons %}
 
   <!-- Google WebFonts -->
@@ -129,7 +130,38 @@
 
 
     {% if config.leaflet_sidebar.enabled %}
-      <div id="leaflet-sidebar" class="sidebar collapsed sidebar-left leaflet-touch"></div>
+      <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#legend" role="tab"><i class="fa fa-info-circle"></i></a></li>
+                <li><a href="#layers" role="tab"><i class="fa fa-map-o"></i></a></li>
+                <li><a href="#activity-stream" role="tab"><i class="fa fa-comments-o"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="legend">
+                <h1 class="sidebar-header">Legend<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            </div>
+
+            <div class="sidebar-pane" id="layers">
+                <h1 class="sidebar-header">Layers<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            </div>
+
+            <div class="sidebar-pane" id="activity-stream">
+                <h1 class="sidebar-header">Activity Stream
+                  <span class="sidebar-close"><i class="fa fa-chevron-left"></i></span>
+                </h1>
+
+                <div id="ticker">
+                <p>Activity Stream</p>
+                <ul class="recent-points unstyled-list"></ul>
+              </div>
+            </div>
+        </div>
+      </div>
     {% endif %}
 
 
@@ -147,10 +179,6 @@
       <!--<header>Master Legend</header>-->
     </div>
    {% endif %}
-    <div id="ticker">
-      <p>Activity Stream</p>
-      <ul class="recent-points unstyled-list"></ul>
-    </div>
   </div>
  {% endif %}
 
