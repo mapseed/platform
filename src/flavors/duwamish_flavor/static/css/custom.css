@@ -17,6 +17,17 @@
 -------------------------------------------------------------- */
 
 
+/* =MasterLegend
+-------------------------------------------------------------- */
+
+#master-legend .layer-type-title label, .layer-type-title input {
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 1.33em;
+  letter-spacing: 1px;
+}
+
+
 /* =Media Queries
 -------------------------------------------------------------- */
 /* iphone 4 (320 x 480)*/
