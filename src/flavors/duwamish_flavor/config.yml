@@ -459,8 +459,6 @@ place:
           value: idea
         - label: _(Complaint)
           value: complaint
-        - label: _(Green Screen Vote)
-          value: greenwall
       name: location_type
       attrs:
         - key: required
