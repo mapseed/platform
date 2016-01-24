@@ -66,7 +66,7 @@ map:
       url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
       type: landmark
       legend: true
-      visibleDefault: false
+      visibleDefault: true
       title: _(Community vision)
       placeType: mapbox
       description: _(Places where positive restoration and community organizing are happening)
