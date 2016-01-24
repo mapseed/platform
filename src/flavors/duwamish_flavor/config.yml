@@ -60,7 +60,7 @@ map:
       visibleDefault: true
       title: _(Restoration sites)
       placeType: mapbox
-      description: _(Places where positive restoration and community organizing are happening)
+      description: _(Habitat restoration and community organizing)
 
     - id: communityAction
       url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
