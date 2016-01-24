@@ -60,7 +60,7 @@ map:
       visibleDefault: true
       title: _(Restoration sites)
       placeType: mapbox
-      description: _(Places where pollution has been problematic)
+      description: _(Places where positive restoration and community organizing are happening)
 
     - id: communityAction
       url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
@@ -69,7 +69,7 @@ map:
       visibleDefault: true
       title: _(Community vision)
       placeType: mapbox
-      description: _(Places where positive restoration and community organizing are happening)
+      description: _(Priority areas identified through community visioning projects)
 
     - id: epaROD
       type: cartodb
