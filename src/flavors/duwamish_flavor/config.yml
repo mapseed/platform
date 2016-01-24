@@ -38,9 +38,9 @@ map:
 
   options:
     center:
-      lat: 47.53036
-      lng: -122.32122
-    zoom: 15
+      lat: 47.53722
+      lng: -122.32573
+    zoom: 16
     minZoom: 1
     maxZoom: 18
   layers:
@@ -60,16 +60,16 @@ map:
       visibleDefault: true
       title: _(Restoration sites)
       placeType: mapbox
-      description: _(Places where pollution has been problematic)
+      description: _(Habitat restoration and community organizing)
 
     - id: communityAction
       url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
       type: landmark
       legend: true
-      visibleDefault: false
+      visibleDefault: true
       title: _(Community vision)
       placeType: mapbox
-      description: _(Places where positive restoration and community organizing are happening)
+      description: _(Priority areas identified through community visioning projects)
 
     - id: epaROD
       type: cartodb
@@ -77,7 +77,7 @@ map:
       legend: true
       description: _(The EPA-approved cleanup plan for the river)
       title: _(River cleanup plan)
-      visibleDefault: false
+      visibleDefault: true
 
       # WMS landuse
     - id: landuse
@@ -90,7 +90,7 @@ map:
       opacity: 0.5
       description-image: /static/css/images/legend-landuse2010.png
       description-image-alt: 'legend'
-      title: _(Land use data)
+      title: _(Land use)
       visibleDefault: false
 
       # WMS Buildings connection:
@@ -116,7 +116,7 @@ map:
       opacity: 0.6
       description-image: /static/css/images/legend-nlcd2011.png
       description-image-alt: 'legend'
-      title: _(Land coverage data)
+      title: _(Land coverage)
       visibleDefault: false
 
       # WMS Original Flow
@@ -423,10 +423,7 @@ sidebar:
         url: /filter/question
       - title: _(Complaints)
         image: /static/css/images/markers/marker-complaint.png
-        url: /filter/complaint
-      - title: _(Green Screen Vote)
-        image: /static/css/images/markers/marker-greenwall.png
-        url: /filter/greenwall        
+        url: /filter/complaint      
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -462,8 +459,6 @@ place:
           value: idea
         - label: _(Complaint)
           value: complaint
-        - label: _(Green Screen Vote)
-          value: greenwall
       name: location_type
       attrs:
         - key: required
@@ -564,6 +559,7 @@ pages:
   - title: _(Green Screen)
     slug: greenscreen
     name: greenscreen
+    hide_from_top_bar: true
 
   - slug: sponsors
     name: sponsors
