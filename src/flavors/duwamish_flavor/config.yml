@@ -90,7 +90,7 @@ map:
       opacity: 0.5
       description-image: /static/css/images/legend-landuse2010.png
       description-image-alt: 'legend'
-      title: _(Land use data)
+      title: _(Land use)
       visibleDefault: false
 
       # WMS Buildings connection:
@@ -116,7 +116,7 @@ map:
       opacity: 0.6
       description-image: /static/css/images/legend-nlcd2011.png
       description-image-alt: 'legend'
-      title: _(Land coverage data)
+      title: _(Land coverage)
       visibleDefault: false
 
       # WMS Original Flow
