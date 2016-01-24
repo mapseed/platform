@@ -6,15 +6,14 @@ var Shareabouts = Shareabouts || {};
   S.App = Backbone.Router.extend({
     routes: {
       '': 'viewMap',
-      'place/new': 'newPlace',
-      'place/:id': 'viewPlace',
-      'report/:id': 'viewPlace',
-      'place/:id/response/:response_id': 'viewPlace',
-      'place/:id/edit': 'editPlace',
-      ':id': 'viewLandmark',
-      'list': 'showList',
-      'page/:slug': 'viewPage',
       'filter/:locationtype': 'filterMap',
+      ':dataset/new': 'newPlace',
+      ':dataset/:id': 'viewPlace',
+      ':dataset/:id/response/:response_id': 'viewPlace',
+      ':dataset/:id/edit': 'editPlace',
+      'list': 'showList',
+      ':id': 'viewLandmark',
+      'page/:slug': 'viewPage',
       ':zoom/:lat/:lng': 'viewMap'
     },
 
@@ -23,6 +22,11 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           filteredRoutes;
 
+      console.log("S.App.init: this.routes:", this.routes)
+      console.log("S.App.init: options.placeConfig:", options.placeConfig)
+      if (!options.placeConfig.dataset_id) {
+        options.placeConfig.dataset_id = 'place';
+      }
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
@@ -147,7 +151,10 @@ var Shareabouts = Shareabouts || {};
       this.appView.viewLandmark(id, { zoom: this.loading });
     },
 
-    viewPlace: function(id, responseId) {
+    viewPlace: function(datasetId, id, responseId) {
+      console.log("routes.viewPlace: datasetId:", datasetId);
+      console.log("routes.viewPlace: id:", id);
+      console.log("routes.viewPlace: responseId:", responseId);
       this.appView.viewPlace(id, responseId, this.loading);
     },
 
