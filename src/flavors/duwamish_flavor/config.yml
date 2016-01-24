@@ -564,6 +564,7 @@ pages:
   - title: _(Green Screen)
     slug: greenscreen
     name: greenscreen
+    hide_from_top_bar: true
 
   - slug: sponsors
     name: sponsors
