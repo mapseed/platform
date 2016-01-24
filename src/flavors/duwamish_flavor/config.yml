@@ -77,7 +77,7 @@ map:
       legend: true
       description: _(The EPA-approved cleanup plan for the river)
       title: _(River cleanup plan)
-      visibleDefault: false
+      visibleDefault: true
 
       # WMS landuse
     - id: landuse
