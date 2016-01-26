@@ -467,6 +467,7 @@ place:
       name: name
       optional:
       attrs:
+        - key: required
         - key: placeholder
           value: _(Enter title)
         - key: size
