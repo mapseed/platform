@@ -240,6 +240,33 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
+      # Georgetown vision
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{map.zoom}}" < 14'
+        icon:
+          iconUrl: /static/css/images/markers/marker-landuse_noprog.png
+          iconSize: [20, 20]
+          iconAnchor: [8, 8]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" === "#f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-landuse_noprog.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" === "#f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-landuse_comp.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" === "#a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-landuse_prog.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+
       # default marker icon
       
       - condition: '"{{geometry.type}}" == "Point"'
