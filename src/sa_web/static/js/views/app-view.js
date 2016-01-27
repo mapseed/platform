@@ -146,24 +146,24 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (self.options.leafletSidebarConfig.enabled){
-        // Start Leaflet Sidebar
+        // Legend (legend-view.js, legend.html)
+          (new S.LegendView({
+          el: '#master-legend',
+          mapView: this.mapView,
+          reports: this.options.sidebarConfig.reports
+        })).render();
+
+        // GIS Layers (leaflet-sidebar-view.js, leaflet-sidebar-content.html)
         (new S.LeafletSidebarView({
-          el: '#leaflet-sidebar',
+          el: '#layers-container',
           mapView: this.mapView,
           layers: { items: this.options.mapConfig.layers,
-                    title: this.options.sidebarConfig.layersTitle },
-          reports: this.options.sidebarConfig.reports
+                    title: this.options.sidebarConfig.layersTitle }
         })).render();
       }
 
       if (self.options.sidebarConfig.enabled) {
         // Start Master Legend
-        (new S.LegendView({
-          el: '#master-legend',
-          // layers: { items: this.options.mapConfig.layers,
-          //           title: this.options.sidebarConfig.layersTitle },
-          // reports: this.options.sidebarConfig.reports
-        })).render();
       }
 
       // Init the address search bar
