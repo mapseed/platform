@@ -545,7 +545,7 @@ place:
     pollution:
       label: _(Pollution)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
@@ -568,7 +568,7 @@ place:
     land_use:
       label: _(Land use)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
@@ -586,7 +586,7 @@ place:
     air_quality:
       label: _(Air quality)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
@@ -604,7 +604,7 @@ place:
     dog_watch:
       label: _(Dog watch)
       fields:
-        - name: type
+        - name: location_type
           type: radio_big_buttons
           prompt: _(Type of report)
           content: report_types
