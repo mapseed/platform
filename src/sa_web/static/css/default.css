@@ -337,6 +337,14 @@ select {
 .radio-big {
   display:none;
 }
+#category-btns {
+  margin-bottom: 20px;
+}
+.category-btn-label {
+  text-transform: uppercase;
+  font-size: 1em;
+  width: 250px;
+}
 
 
 /* Imag
