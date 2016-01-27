@@ -19,9 +19,15 @@
     <!-- place buttons for dynamic form categories -->
     <div id="category-btns">
       {{#each place_config.categories}}
+        <!--
         <input name="category-btn-{{ @key }}" id="category-btn-{{ @key }}" value="{{ label }}" class="btn btn-primary category-change-btn">
+        -->
+
+        <input type="radio" name="category-btn" id="category-btn-{{ @key }}" value={{ label }} class="radio-big">
+        <label for="category-btn-{{ @key }}" class="category-btn-label">{{ label }}</label>
       {{/each}}
     </div>
+    <div style="clear:both"></div>
 
     <br>
 
