@@ -23,7 +23,7 @@
         <input name="category-btn-{{ @key }}" id="category-btn-{{ @key }}" value="{{ label }}" class="btn btn-primary category-change-btn">
         -->
 
-        <input type="radio" name="category-btn" id="category-btn-{{ @key }}" value={{ label }} class="radio-big">
+        <input type="radio" name="category-btn" id="category-btn-{{ @key }}" value={{ label }} class="big-btn">
         <label for="category-btn-{{ @key }}" class="category-btn-label">{{ label }}</label>
       {{/each}}
     </div>
@@ -54,7 +54,7 @@
         {{#is type "radio_big_buttons"}}
           <div>
             {{#each (property ../../place_config.dynamic_form_content content)}}
-                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="radio-big">
+                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
                 <label for={{ value }}>{{ label }}</label>
                 <!--
                 <span name="" id="report-type-{{this.value}}" class="btn btn-primary report-type-btn">{{this.label}}</span>
@@ -63,6 +63,18 @@
           </div>
           <div style="clear:both"></div>
         {{/is}}
+
+        {{#is type "checkbox_big_buttons"}}
+          <div>
+            {{#each (property ../../place_config.dynamic_form_content content)}}
+              <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
+              <label for={{ value }}>{{ label }}</label>
+
+            {{/each}}
+          </div>
+          <div style="clear:both"></div>
+        {{/is}}
+
 
         {{#is type "file"}}
           <span class="fileinput-container btn btn-small{{^is_fileinput_supported}} btn-disabled{{/is_fileinput_supported}}">
