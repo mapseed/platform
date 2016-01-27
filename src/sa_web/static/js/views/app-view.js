@@ -529,9 +529,8 @@ var Shareabouts = Shareabouts || {};
           }
         }
 
-        // TODO: Implement a "focus" style for the layer
         // Focus the one we're looking
-        // model.trigger('focus');
+        model.trigger('focus');
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
@@ -784,6 +783,11 @@ var Shareabouts = Shareabouts || {};
         if (!m.isNew()) {
           m.trigger('unfocus');
         }
+      });
+      _.each(this.options.landmarkCollections, function(landmarkCollection) {
+        landmarkCollection.each(function(m) {
+          m.trigger('unfocus');
+        });
       });
     },
     destroyNewModels: function() {
