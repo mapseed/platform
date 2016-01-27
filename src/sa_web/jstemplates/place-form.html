@@ -48,12 +48,14 @@
         {{#is type "radio_big_buttons"}}
           <div>
             {{#each (property ../../place_config.dynamic_form_content content)}}
-                <input type="radio" name={{ ../name }} id={{ value }}><label for={{ value }}>{{ label }}</label>
+                <input type="radio" name={{ ../name }} id={{ value }} class="radio-big">
+                <label for={{ value }}>{{ label }}</label>
                 <!--
                 <span name="" id="report-type-{{this.value}}" class="btn btn-primary report-type-btn">{{this.label}}</span>
                 -->
             {{/each}}
           </div>
+          <div style="clear:both"></div>
         {{/is}}
 
         {{#is_file}}
@@ -73,8 +75,6 @@
           <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ label }}" class="btn btn-primary submit-btn">
         </div>
         {{/is}}
-
-        
         <!-- end field type definitions -->
 
       </div>

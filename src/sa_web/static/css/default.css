@@ -283,10 +283,9 @@ select {
   margin: 0 0 1em;
 }
 
-/* Images */
 /* large checkbox graphic radio buttons */
 /* http://cssdeck.com/labs/ldmtsmfk */
-.big-btn:empty + label {
+.radio-big:empty + label {
   position: relative;
   float: left;
   line-height: 2.5em;
@@ -299,7 +298,7 @@ select {
   user-select: none;
   color: #999999;
 }
-.big-btn:empty + label:before {
+.radio-big:empty + label:before {
   position: absolute;
   display: block;
   top: 0;
@@ -310,44 +309,38 @@ select {
   background: #D1D3D4;
   border-radius: 1px 0 0 1px;
 }
-.big-btn + label {
+.radio-big + label {
   border-radius: 4px;
   padding-right: 10px;
   border: 2px solid #D1D3D4
 }
-.big-btn:hover:not(:checked) + label:before {
+.radio-big:hover:not(:checked) + label:before {
   content:'\2714';
   text-indent: .9em;
   color: #EEEEEE;
 }
-.big-btn:hover:not(:checked) + label {
+.radio-big:hover:not(:checked) + label {
   color: #444444;
 }
-.big-btn:checked + label:before {
+.radio-big:checked + label:before {
   content:'\2714';
   text-indent: .9em;
   color: #FFFFFF;
   background-color: rgba(242, 82, 24, 0.89)
 }
-.big-btn:checked + label {
+.radio-big:checked + label {
   color: #222222;
   font-weight: bold;
   border: 2px solid rgba(242, 82, 24, 0.89)
 }
-.big-btn {
+.radio-big {
   display:none;
 }
-#category-btns {
-  margin-bottom: 20px;
-}
-.category-btn-label {
-  text-transform: uppercase;
-  font-size: 1em;
-  width: 250px;
-}
 
 
-/* Imag es */
+/* Imag
+
+es */
 img {
   max-width: 100%;
   height: auto;
