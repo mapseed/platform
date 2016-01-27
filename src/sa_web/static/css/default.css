@@ -284,7 +284,64 @@ select {
   margin: 0 0 1em;
 }
 
-/* Images */
+/* large checkbox graphic radio buttons */
+/* http://cssdeck.com/labs/ldmtsmfk */
+.radio-big:empty + label {
+  position: relative;
+  float: left;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 5px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #999999;
+}
+.radio-big:empty + label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 1px 0 0 1px;
+}
+.radio-big + label {
+  border-radius: 4px;
+  padding-right: 10px;
+  border: 2px solid #D1D3D4
+}
+.radio-big:hover:not(:checked) + label:before {
+  content:'\2714';
+  text-indent: .9em;
+  color: #EEEEEE;
+}
+.radio-big:hover:not(:checked) + label {
+  color: #444444;
+}
+.radio-big:checked + label:before {
+  content:'\2714';
+  text-indent: .9em;
+  color: #FFFFFF;
+  background-color: rgba(242, 82, 24, 0.89)
+}
+.radio-big:checked + label {
+  color: #222222;
+  font-weight: bold;
+  border: 2px solid rgba(242, 82, 24, 0.89)
+}
+.radio-big {
+  display:none;
+}
+
+
+/* Imag
+
+es */
 img {
   max-width: 100%;
   height: auto;
