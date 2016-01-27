@@ -132,8 +132,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-      console.log("this.model", this.model);
-
+      console.log(S.Config.placeTypes);
       // Make sure that the center point has been set after the form was
       // rendered. If not, this is a good indication that the user neglected
       // to move the map to set it in the correct location.
@@ -154,6 +153,9 @@ var Shareabouts = Shareabouts || {};
           attrs = this.getAttrs(),
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
+
+      console.log("attrs:", attrs);
+      console.log("model.id", model.id);
 
       evt.preventDefault();
 
