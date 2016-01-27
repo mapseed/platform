@@ -1,4 +1,4 @@
-
+// leaflet-sidebar-view: GIS: needs layers, not reports
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -6,6 +6,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'change .map-legend-checkbox': 'toggleVisibility'
     },
+    
     initialize: function () {
       var self = this;
       this.render();
@@ -18,7 +19,6 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
-            reports: this.options.reports,
             layers: this.options.layers
           }, S.stickyFieldValues);
 

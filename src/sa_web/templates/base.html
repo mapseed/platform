@@ -133,33 +133,35 @@
       <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
-            <ul role="tablist">
-                <li><a href="#legend" role="tab"><i class="fa fa-info-circle"></i></a></li>
-                <li><a href="#layers" role="tab"><i class="fa fa-map-o"></i></a></li>
-                <li><a href="#activity-stream" role="tab"><i class="fa fa-comments-o"></i></a></li>
-            </ul>
+          <ul role="tablist">
+            <li><a href="#legend-pane" role="tab"><i class="fa fa-info-circle"></i></a></li>
+            <li><a href="#layers-pane" role="tab"><i class="fa fa-map-o"></i></a></li>
+            <li><a href="#activity-stream-pane" role="tab"><i class="fa fa-comments-o"></i></a></li>
+          </ul>
         </div>
 
         <!-- Tab panes -->
         <div class="sidebar-content">
-            <div class="sidebar-pane" id="legend">
-                <h1 class="sidebar-header">Legend<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-            </div>
+          <!-- Legend Panel (Shareabouts Layers_) -->
+          <div class="sidebar-pane" id="legend-pane">
+            <h1 class="sidebar-header">Legend:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            <div id="master-legend"></div>
+          </div>
 
-            <div class="sidebar-pane" id="layers">
-                <h1 class="sidebar-header">Layers<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-            </div>
+          <!-- Layers Panel (GIS Layers) -->
+          <div class="sidebar-pane" id="layers-pane">
+            <h1 class="sidebar-header">Map Layers:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            <div id="layers-container"></div>
+          </div>
 
-            <div class="sidebar-pane" id="activity-stream">
-                <h1 class="sidebar-header">Activity Stream
-                  <span class="sidebar-close"><i class="fa fa-chevron-left"></i></span>
-                </h1>
-
-                <div id="ticker">
-                <p>Activity Stream</p>
-                <ul class="recent-points unstyled-list"></ul>
-              </div>
+          <!-- Activity Stream Panel -->
+          <div class="sidebar-pane" id="activity-stream-pane">
+            <h1 class="sidebar-header">Activity Stream<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            <div id="ticker">
+              <ul class="recent-points unstyled-list"></ul>
             </div>
+          </div>
+
         </div>
       </div>
     {% endif %}
@@ -172,14 +174,14 @@
   </div><!-- end #main -->
 
  {% if config.sidebar.enabled %}
-   <div id="side-bar">
+   <!-- <div id="side-bar"> -->
    {% if config.sidebar.legend_enabled %}
-    <div id="master-legend">
+    <!-- <div id="master-legend"> -->
       {% block sidebar %}{% endblock %}
       <!--<header>Master Legend</header>-->
-    </div>
+    <!-- </div> -->
    {% endif %}
-  </div>
+  <!-- </div> -->
  {% endif %}
 
   <div id="list-container"></div>
@@ -208,7 +210,6 @@
   <script src="{{STATIC_URL}}libs/handlebars-v3.0.3.js"></script>
   <script src="{{STATIC_URL}}libs/moment-with-locales.min.js"></script>
   <script src="{{STATIC_URL}}libs/json2.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
   <script src="{{STATIC_URL}}libs/exif.js"></script>
   <script src="{{STATIC_URL}}libs/load-image.js"></script>
@@ -223,7 +224,8 @@
   <!-- https://github.com/openplans/handlebars-helpers -->
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   <script src="//cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet-sidebar.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   {% else %}
   <!--   TODO: build libraries with npm instead of bower -->
   <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.6"></script>

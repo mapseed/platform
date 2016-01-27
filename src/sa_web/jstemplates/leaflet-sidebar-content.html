@@ -1,58 +1,25 @@
-<!-- Nav tabs -->
-<div class="sidebar-tabs">
-    <ul role="tablist">
-        <li><a href="#legend" role="tab"><i class="fa fa-info-circle"></i></a></li>
-        <li><a href="#layers" role="tab"><i class="fa fa-map-o"></i></a></li>
-        <li><a href="#activity-stream" role="tab"><i class="fa fa-comments-o"></i></a></li>
-    </ul>
-</div>
+<!-- leaflet-sidebar-view: GIS: needs layers and mapview, not reports -->
 
-<!-- Tab panes -->
-<div class="sidebar-content">
-    <div class="sidebar-pane" id="legend">
-        <h1 class="sidebar-header">Legend<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-        <!-- SHAREABOUTS LAYERS -->
-        <p>{{ reports.title }}:</p>
-        <ul class="master-layer-list unstyled-list">
-          {{# reports.items }}
-            <li class="shareabouts-layer-li legend-layer-li">
-                <img class="shareabouts-layer-title" location="{{ title }}" layer-title="{{ title }}" src="{{ image }}">{{ title }}
-            </li>
-          {{/reports.items }}
-        </ul>
+<!-- MAP LAYERS -->
 
-        <hr>
-    </div>
-
-    <div class="sidebar-pane" id="layers">
-        <h1 class="sidebar-header">Layers<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-        <!-- MAP LAYERS -->
-        <p>{{ layers.title }}:</p>
-        <ul class="layer-type-list unstyled-list">
-          {{# layers.items }}
-            {{#if legend}}
-              <li class="layer-type-li">
-                <div class="layer-type-title">
-                  <input id="map-{{ id }}" data-layerid="{{ id }}"
-                         {{#if visibleDefault}}
-                         checked="checked"
-                         {{/if}}
-                         class="map-legend-checkbox" type="checkbox"></input>
-                  <label for="map-{{ id }}">{{ title }}</label>
-                </div>
-                <span class="layer-type-description">{{ description }}
-                  {{#if description-image}}
-                    <img src="{{ description-image }}" alt="{{ description-image-alt }}">
-                  {{/if}}
-                </span>
-              </li>
-            {{/if}}
-          {{/ layers.items }}
-        </ul>
-        <hr>
-    </div>
-
-    <div class="sidebar-pane" id="activity-stream">
-        <h1 class="sidebar-header">Activity Stream<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-    </div>
-</div>
+<ul class="layer-type-list unstyled-list">
+  {{# layers.items }}
+    {{#if legend}}
+      <li class="layer-type-li">
+        <div class="layer-type-title">
+          <input id="map-{{ id }}" data-layerid="{{ id }}"
+                 {{#if visibleDefault}}
+                 checked="checked"
+                 {{/if}}
+                 class="map-legend-checkbox" type="checkbox"></input>
+          <label for="map-{{ id }}">{{ title }}</label>
+        </div>
+        <span class="layer-type-description">{{ description }}
+          {{#if description-image}}
+            <img src="{{ description-image }}" alt="{{ description-image-alt }}">
+          {{/if}}
+        </span>
+      </li>
+    {{/if}}
+  {{/ layers.items }}
+</ul>
