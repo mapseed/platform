@@ -550,6 +550,11 @@ place:
           prompt: _(Type of report)
           content: report_types
           optional: false
+        - name: pollution_type
+          type: checkbox_big_buttons
+          prompt: _(Types of pollution)
+          content: pollution_types
+          optional: true
         - name: title
           type: text
           prompt: _(Pollution title)
@@ -713,6 +718,17 @@ place:
         value: complaint
       - label: _(Green Screen Vote)
         value: green_screen_vote
+    pollution_types:
+      - label: _(Sewage)
+        value: sewage
+      - label: _(Tires)
+        value: tires
+      - label: _(Illegal dumpsite)
+        value: dumpsite
+      - label: _(Litter)
+        value: litter
+      - label: _(Other)
+        value: other
 
   #### end dynamic form config ####
 
