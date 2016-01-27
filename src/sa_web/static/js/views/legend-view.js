@@ -16,8 +16,7 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
-            reports: this.options.reports,
-            layers: this.options.layers
+            reports: this.options.reports
           }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['legend'](data));
