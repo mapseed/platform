@@ -4,13 +4,11 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.PlaceFormView = Backbone.View.extend({
-    // we have a dummy selected category id so the jQuery :not expression below won't throw an error
-    selected_category_id: "temp",
     // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-change-btn': 'onCategoryChange',
+      'click input[name="category-btn"]': 'onCategoryChange',
       'click .report-type-btn': 'onReportTypeChange'
     },
     initialize: function(){
@@ -40,10 +38,6 @@ var Shareabouts = Shareabouts || {};
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
-      // highlight selected category button
-      $("#" + this.selected_category_id).addClass("btn-selected");
-      // un-highlight the others
-      $(".category-change-btn:not(#" + this.selected_category_id + ")").removeClass("btn-selected");
       return this;
     },
     remove: function() {
@@ -84,8 +78,10 @@ var Shareabouts = Shareabouts || {};
     },
 
     onCategoryChange: function(evt) {
-      this.selected_category_id = evt.target.id;
-      this.render(evt.target.name.split("-")[2]);
+      // re-render the form with the selected category
+      this.render(evt.target.id.split("-")[2]);
+      // manually set the category button again since the re-render resets it
+      $("#" + evt.target.id).prop("checked", true)
     },
 
     onReportTypeChange: function(evt) {
