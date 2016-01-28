@@ -22,6 +22,7 @@ var Shareabouts = Shareabouts || {};
       // Augment the model data with place types for the drop down
       //
       //  This is a little hacky--I need to find a better way to extend the template helpers
+      //  One option is to stop relying on them entirely and just use registered Handlebar helper functions
       if (category != undefined) {
         S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.categories[category].fields);
       }
@@ -81,7 +82,9 @@ var Shareabouts = Shareabouts || {};
       // re-render the form with the selected category
       this.render(evt.target.id.split("-")[2], true);
       // manually set the category button again since the re-render resets it
-      $("#" + evt.target.id).prop("checked", true)
+      $("#" + evt.target.id).prop("checked", true);
+      // set observation report type to be checked by default; otherwise, a form with no report type selected won't place on the map
+      $("#observation").prop("checked", true);
     },
 
     onInputFileChange: function(evt) {
