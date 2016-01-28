@@ -32,7 +32,7 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('if_not_authenticated', function(options) {
-    return ;
+    return !(NS.bootstrapped && NS.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
   });
 
   Handlebars.registerHelper('property', function(a, b) {
