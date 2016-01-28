@@ -9,7 +9,6 @@ var Shareabouts = Shareabouts || {};
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
       'click input[name="category-btn"]': 'onCategoryChange',
-      'click .report-type-btn': 'onReportTypeChange'
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -35,6 +34,8 @@ var Shareabouts = Shareabouts || {};
         user_token: this.options.userToken,
         current_user: S.currentUser
       }, S.stickyFieldValues, this.model.toJSON());
+
+      console.log(data);
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
@@ -82,13 +83,6 @@ var Shareabouts = Shareabouts || {};
       this.render(evt.target.id.split("-")[2]);
       // manually set the category button again since the re-render resets it
       $("#" + evt.target.id).prop("checked", true)
-    },
-
-    onReportTypeChange: function(evt) {
-      // highlight selected report type button
-      $("#" + evt.target.id).addClass("btn-secondary-selected");
-      // un-highlight the others
-      $(".report-type-btn:not(#" + evt.target.id + ")").removeClass("btn-secondary-selected");
     },
 
     onInputFileChange: function(evt) {
