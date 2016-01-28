@@ -78,8 +78,8 @@
         {{#each place_config.common_form_elements }}
           <div class="{{ this.type }} form-field">
             {{#is name "submitter_name"}}
-              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
               {{#if_not_authenticated}}
+                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
                 <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}" placeholder="{{placeholder}}">
                 <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
               {{/if_not_authenticated}}
