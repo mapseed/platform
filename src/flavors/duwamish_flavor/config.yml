@@ -604,6 +604,11 @@ place:
           prompt: _(Dog watch description)
           placeholder: _(Description...)
           optional: false
+        - name: dog_thoughts
+          type: textarea
+          prompt: _(What are your thoughts about dogs?)
+          placeholder: _(Type your thoughts here...)
+          optional: false
 
   # define shared form element content here
   dynamic_form_content:
