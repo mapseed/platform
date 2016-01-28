@@ -18,7 +18,7 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
     },
-    render: function(category){      
+    render: function(category, category_selected){      
       // Augment the model data with place types for the drop down
       //
       //  This is a little hacky--I need to find a better way to extend the template helpers
@@ -36,8 +36,6 @@ var Shareabouts = Shareabouts || {};
         current_user: S.currentUser,
         category_selected: category_selected || false
       }, S.stickyFieldValues, this.model.toJSON());
-
-      console.log(data);
 
       this.$el.html(Handlebars.templates['place-form'](data));
       $("#common-form-elements").css("display", "block");
@@ -81,7 +79,7 @@ var Shareabouts = Shareabouts || {};
     },
     onCategoryChange: function(evt) {
       // re-render the form with the selected category
-      this.render(evt.target.id.split("-")[2]);
+      this.render(evt.target.id.split("-")[2], true);
       // manually set the category button again since the re-render resets it
       $("#" + evt.target.id).prop("checked", true)
     },
