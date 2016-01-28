@@ -488,11 +488,6 @@ place:
           prompt: _(Pollution description)
           placeholder: _(Description...)
           optional: false
-        - name: submitter_name
-          type: text
-          prompt: _(Your name)
-          placeholder: _(Name)
-          optional: true
     land_use:
       label: _(Land use)
       fields:
@@ -506,11 +501,6 @@ place:
           prompt: _(Land use description)
           placeholder: _(Description...)
           optional: false
-        - name: submitter_name
-          type: text
-          prompt: _(Your name)
-          placeholder: _(Name)
-          optional: true
     air_quality:
       label: _(Air quality)
       fields:
@@ -524,11 +514,6 @@ place:
           prompt: _(Air quality title)
           placeholder: _(Enter title)
           optional: false
-        - name: submitter_name
-          type: text
-          prompt: _(Your name)
-          placeholder: _(Name)
-          optional: true
     dog_watch:
       label: _(Dog watch)
       fields:
@@ -542,11 +527,6 @@ place:
           prompt: _(Dog watch description)
           placeholder: _(Description...)
           optional: false
-        - name: submitter_name
-          type: text
-          prompt: _(Your name)
-          placeholder: _(Name)
-          optional: true
 
   # define shared form element content here
   dynamic_form_content:
@@ -575,6 +555,11 @@ place:
 
   # define form elements that appear on every form here
   common_form_elements:
+    - name: submitter_name
+      type: text
+      prompt: _(Your name)
+      placeholder: _(Name)
+      optional: true
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
