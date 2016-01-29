@@ -588,10 +588,8 @@ place:
   #TODO: maybe add an autocomplete
   #TODO: DRY up this section
   categories:
-    observation:
-      name: location_type
-      value: observation
-      label: _(Observation)
+    - name: pollution
+      label: _(Pollution)
       fields:
         - name: location_type
           type: radio_big_buttons
@@ -613,7 +611,7 @@ place:
           prompt: _(Pollution description)
           placeholder: _(Description...)
           optional: false
-    land_use:
+    - name: land_use
       label: _(Land use)
       fields:
         - name: location_type
@@ -626,7 +624,7 @@ place:
           prompt: _(Land use description)
           placeholder: _(Description...)
           optional: false
-    air_quality:
+    - name: air_quality
       label: _(Air quality)
       fields:
         - name: location_type
@@ -639,7 +637,7 @@ place:
           prompt: _(Title)
           placeholder: _(Enter title)
           optional: false
-    dog_watch:
+    - name: dog_watch
       label: _(Dog watch)
       fields:
         - name: location_type
@@ -657,9 +655,28 @@ place:
           prompt: _(What are your thoughts about dogs?)
           placeholder: _(Type your thoughts here...)
           optional: false
+    - name: other
+      label: _(Other)
+      fields:
+        - name: location_type
+          type: radio_big_buttons
+          prompt: _(Type of report)
+          content: report_types
+          optional: false
+        - name: title
+          type: text
+          prompt: _(Title)
+          placeholder: _(Enter title)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: _(Description)
+          placeholder: _(Description...)
+          optional: false
 
   # define shared form element content here
   dynamic_form_content:
+    category_btn_prompt: _(Select a category below:)
     report_types:
       - label: _(Observation)
         value: observation
