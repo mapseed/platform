@@ -168,7 +168,7 @@ place_types:
 
       # red
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" === "f86767" && "{{layer.focused}}" === true'
+      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "f86767" && {{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
           shadowUrl: /static/css/images/marker-shadow.png
