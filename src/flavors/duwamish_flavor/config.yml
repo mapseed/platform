@@ -660,152 +660,152 @@ place_types:
   observation:
     label: _(Observation)
     rules:
-      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: '{{map.zoom}} < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [12, 14.5]
           iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
+  question:
+    label: _(Question)
+    rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-  question:
-    label: _(Question)
-    rules:
-      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [12, 14.5]
           iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
+  idea:
+    label: _(Idea)
+    rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/marker-idea.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-  idea:
-    label: _(Idea)
-    rules:
-      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [12, 14.5]
           iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
+  complaint:
+    label: _(Complaint)
+    rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/marker-complaint.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-  complaint:
-    label: _(Complaint)
-    rules:
-      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [12, 14.5]
           iconAnchor: [6, 14.5]
 
-      - condition: '{{map.zoom}} >= 14 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
+  greenwall:
+    label: _(Green Screen Vote)
+    rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-greenwall.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-  greenwall:
-    label: _(Green Screen Vote)
-    rules:
-      - condition: '{{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17 && {{layer.focused}} === false'
+      - condition: '{{map.zoom}} >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
-
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
