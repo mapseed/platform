@@ -156,6 +156,10 @@ module.exports = Backbone.View.extend({
   createLayer: function() {
     this.removeLayer();
 
+    // Handle if an existing place type does not match the list of available
+    // place types.
+    this.placeType = this.options.placeTypes[this.model.get('location_type')];
+
     if (!this.placeType) {
       console.warn(
         "Place type",
