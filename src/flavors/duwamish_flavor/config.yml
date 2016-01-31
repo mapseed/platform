@@ -121,7 +121,7 @@ map:
 
       # WMS Original Flow
     - id: duwamish-original
-      url: https://smartercleanup.cartodb.com/api/v2/viz/965480e8-c031-11e5-a22c-0ecd1babdde5/viz.json
+      url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
       type: cartodb
       legend: true
       opacity: 0.4
