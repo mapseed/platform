@@ -119,14 +119,18 @@
 .sidebar-close {
   position: absolute;
   top: 0;
-  width: 33px;
+  width: 100%;
   height: 33px;
-  text-align: center;
+  text-align: right;
   cursor: pointer; }
   .sidebar-left .sidebar-close {
     right: 0; }
   .sidebar-right .sidebar-close {
     left: 0; }
+
+.sidebar-close i {
+  margin-right: 10px;
+}
 
 .sidebar-left ~ .sidebar-map {
   margin-left: 40px; }

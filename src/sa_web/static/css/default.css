@@ -1140,7 +1140,7 @@ ul.recent-points {
   overflow: visible;
   padding-left: unset;
   padding-right: unset;
-  padding-top: unset;
+  padding-top: 10px;
   /*display: none;*/
 }
 /* All layers in the Master Legend list */
