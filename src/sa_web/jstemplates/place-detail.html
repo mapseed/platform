@@ -36,6 +36,8 @@
         </header>
 
         <section class="place-items">
+          <div>{{ ../this }}</div>
+
           {{# attachments }}
           <div class="place-item place-item-attachment place-attachment-{{ name }}">
             <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
@@ -44,7 +46,7 @@
           {{#each_place_item "submitter_name" "name" "location_type"}}
           <div class="place-item place-item-{{ name }}">
             <span class="place-label place-label-{{ name }}">{{ label }}</span>
-            <p class="place-value place-value-{{ name }}">{{nlToBr value }}</p>
+            <p style="background-color:red" class="place-value place-value-{{ name }}">{{nlToBr value }}</p>
           </div>
           {{/each_place_item }}
         </section>
