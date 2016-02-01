@@ -179,8 +179,8 @@ var Shareabouts = Shareabouts || {};
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
 
-
-    _.each(NS.Config.place.items, function(item, i) {
+    _.each(NS.Config.place.categories, function(item, i) {
+    //_.each(NS.Config.place.items, function(item, i) {
       var newItem = {
         name: item.name,
         label: item.label,

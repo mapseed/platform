@@ -542,14 +542,10 @@ place:
   #TODO: maybe add an autocomplete
   #TODO: DRY up this section
   categories:
-    - name: pollution
-      label: _(Pollution)
+    - name: location_type
+      value: observation
+      label: _(Observation)
       fields:
-        - name: location_type
-          type: radio_big_buttons
-          prompt: _(Type of report)
-          content: report_types
-          optional: false
         - name: pollution_type
           type: checkbox_big_buttons
           prompt: _(Types of pollution)
@@ -565,40 +561,28 @@ place:
           prompt: _(Pollution description)
           placeholder: _(Description...)
           optional: false
-    - name: land_use
-      label: _(Land use)
+    - name: location_type
+      value: question
+      label: _(Question)
       fields:
-        - name: location_type
-          type: radio_big_buttons
-          prompt: _(Type of report)
-          content: report_types
-          optional: false
         - name: description
           type: textarea
           prompt: _(Land use description)
           placeholder: _(Description...)
           optional: false
-    - name: air_quality
-      label: _(Air quality)
+    - name: location_type
+      value: idea
+      label: _(Idea)
       fields:
-        - name: location_type
-          type: radio_big_buttons
-          prompt: _(Type of report)
-          content: report_types
-          optional: false
         - name: title
           type: text
           prompt: _(Air quality title)
           placeholder: _(Enter title)
           optional: false
-    - name: dog_watch
-      label: _(Dog watch)
+    - name: location_type
+      value: complaint
+      label: _(Complaint)
       fields:
-        - name: location_type
-          type: radio_big_buttons
-          prompt: _(Type of report)
-          content: report_types
-          optional: false
         - name: description
           type: textarea
           prompt: _(Dog watch description)
@@ -609,14 +593,24 @@ place:
           prompt: _(What are your thoughts about dogs?)
           placeholder: _(Type your thoughts here...)
           optional: false
-    - name: other
-      label: _(Other)
+    - name: location_type
+      value: air_watch
+      label: _(Air watch)
       fields:
-        - name: location_type
-          type: radio_big_buttons
-          prompt: _(Type of report)
-          content: report_types
+        - name: title
+          type: text
+          prompt: _(Title)
+          placeholder: _(Enter title)
           optional: false
+        - name: description
+          type: textarea
+          prompt: _(Description)
+          placeholder: _(Description...)
+          optional: false
+    - name: location_type
+      value: tree
+      label: _(Tree)
+      fields:
         - name: title
           type: text
           prompt: _(Title)
