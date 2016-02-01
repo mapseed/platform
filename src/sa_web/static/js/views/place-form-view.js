@@ -8,7 +8,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click input[name="category-btn"]': 'onCategoryChange',
+      'click .category-btn': 'onCategoryChange',
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,

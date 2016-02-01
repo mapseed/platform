@@ -20,8 +20,8 @@
     <div id="category-btns">
       <div class="category-btn-prompt">{{place_config.dynamic_form_content.category_btn_prompt}}</div>
       {{#each place_config.categories}}
-        <input type="radio" name="category-btn" id="category-btn-{{ name }}" index={{ @index }} value={{ label }} class="big-btn">
-        <label for="category-btn-{{ name }}" class="category-btn-label">{{ label }}</label>
+        <input type="radio" name={{ name }} id="category-btn-{{ @index }}" index={{ @index }} value={{ value }} class="big-btn category-btn">
+        <label for="category-btn-{{ @index }}" class="category-btn-label">{{ label }}</label>
       {{/each}}
     </div>
     <div style="clear:both"></div>
@@ -29,6 +29,37 @@
 
     <!-- generate content for selected category -->
     {{#each selected_category.fields}}
+      <div class="{{ type }} form-field">
+        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+        
+        <!-- begin field type definitions -->
+        {{#is type "text"}}
+          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">      
+        {{/is}}
+
+        {{#is type "textarea"}}
+          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}"></textarea>
+        {{/is}}
+
+        {{#is type "radio_big_buttons"}}
+          <div>
+            {{#each (property ../../place_config.dynamic_form_content content)}}
+                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
+                <label for={{ value }}>{{ label }}</label>
+                <!--
+                <span name="" id="report-type-{{this.value}}" class="btn btn-primary report-type-btn">{{this.label}}</span>
+                -->
+            {{/each}}
+          </div>
+          <div style="clear:both"></div>
+        {{/is}}
+
+        {{#is type "checkbox_big_buttons"}}
+          <div>
+            {{#each (property ../../place_config.dynamic_form_content content)}}
+              <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
+              <label for={{ value }}>{{ label }}</label>
+
       <div class="{{ type }} form-field">
         <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
         
