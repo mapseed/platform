@@ -638,8 +638,13 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Air quality title)
-          placeholder: _(Enter title)
+          prompt: _(What's your idea?)
+          placeholder: _(Enter a title for your idea...)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: _(Describe your idea below:)
+          placeholder: _(Description...)
           optional: false
     - name: location_type
       value: complaint
@@ -647,13 +652,8 @@ place:
       fields:
         - name: description
           type: textarea
-          prompt: _(Dog watch description)
+          prompt: _(What's your complaint?)
           placeholder: _(Description...)
-          optional: false
-        - name: dog_thoughts
-          type: textarea
-          prompt: _(What are your thoughts about dogs?)
-          placeholder: _(Type your thoughts here...)
           optional: false
     - name: location_type
       value: air_watch
