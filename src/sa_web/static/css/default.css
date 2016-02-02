@@ -283,6 +283,7 @@ select {
   margin: 0 0 1em;
 }
 
+/* Images */
 /* large checkbox graphic radio buttons */
 /* http://cssdeck.com/labs/ldmtsmfk */
 .big-btn:empty + label {
@@ -345,9 +346,8 @@ select {
   width: 250px;
 }
 
-/* Imag
 
-es */
+/* Imag es */
 img {
   max-width: 100%;
   height: auto;
