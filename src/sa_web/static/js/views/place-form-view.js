@@ -18,20 +18,20 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
     },
-    render: function(index, category_selected){      
+    render: function(category, category_selected){      
       // Augment the model data with place types for the drop down
       //
       //  This is a little hacky--I need to find a better way to extend the template helpers
       //  One option is to stop relying on them entirely and just use registered Handlebar helper functions
-      if (index != undefined) {
-        S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.categories[index].fields);
+      if (category != undefined) {
+        S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.categories[category].fields);
       }
       ///////////
       
       var data = _.extend({
         place_config: this.options.placeConfig,
         // when category is defined, the selected_category property will contain config file details for fields in the given category
-        selected_category: this.options.placeConfig.categories[index],
+        selected_category: this.options.placeConfig.categories[category],
         user_token: this.options.userToken,
         current_user: S.currentUser,
         category_selected: category_selected || false
@@ -79,12 +79,11 @@ var Shareabouts = Shareabouts || {};
     },
     onCategoryChange: function(evt) {
       // re-render the form with the selected category
-      var index = $("#" + evt.target.id).attr("index");
-      this.render(index, true);
+      this.render(evt.target.id.split("-")[2], true);
       // manually set the category button again since the re-render resets it
       $("#" + evt.target.id).prop("checked", true);
       // set observation report type to be checked by default; otherwise, a form with no report type selected won't place on the map
-      $("#observation").prop("checked", true);
+      //$("#observation").prop("checked", true);
     },
     onInputFileChange: function(evt) {
       var self = this,
