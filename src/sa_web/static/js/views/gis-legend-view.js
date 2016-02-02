@@ -2,7 +2,7 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.LeafletSidebarView = Backbone.View.extend({
+  S.GISLegendView = Backbone.View.extend({
     events: {
       'change .map-legend-checkbox': 'toggleVisibility'
     },
@@ -22,7 +22,7 @@ var Shareabouts = Shareabouts || {};
             layers: this.options.layers
           }, S.stickyFieldValues);
 
-      this.$el.html(Handlebars.templates['leaflet-sidebar-content'](data));
+      this.$el.html(Handlebars.templates['gis-legend-content'](data));
 
       return this;
     },

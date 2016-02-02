@@ -143,11 +143,11 @@
               <div id="master-legend"></div>
             </div>
 
-            <!-- Layers Panel (GIS Layers) -->
-            <div class="sidebar-pane" id="layers-pane">
-              <h1 class="sidebar-header">Map Layers:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-              <div id="layers-container"></div>
-            </div>
+          <!-- Layers Panel (GIS Layers) -->
+          <div class="sidebar-pane" id="layers-pane">
+            <h1 class="sidebar-header">Map Layers:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            <div id="gis-legend"></div>
+          </div>
 
             <!-- Activity Stream Panel -->
             <div class="sidebar-pane" id="activity-stream-pane">
@@ -299,7 +299,7 @@
   <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-place-view.js"></script>
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/leaflet-sidebar-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/gis-legend-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% else %}
   <script src="{{STATIC_URL}}dist/bundle.js?ver=0.6"></script>

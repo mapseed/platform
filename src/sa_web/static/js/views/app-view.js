@@ -146,7 +146,6 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (self.options.leafletSidebarConfig.enabled){
-        // Legend (legend-view.js, legend.html)
           (new S.LegendView({
           el: '#master-legend',
           mapView: this.mapView,
@@ -154,8 +153,8 @@ var Shareabouts = Shareabouts || {};
         })).render();
 
         // GIS Layers (leaflet-sidebar-view.js, leaflet-sidebar-content.html)
-        (new S.LeafletSidebarView({
-          el: '#layers-container',
+        (new S.GISLegendView({
+          el: '#gis-legend',
           mapView: this.mapView,
           layers: { items: this.options.mapConfig.layers,
                     title: this.options.sidebarConfig.layersTitle }
