@@ -154,8 +154,8 @@ var Shareabouts = Shareabouts || {};
         })).render();
 
         // GIS Layers (leaflet-sidebar-view.js, leaflet-sidebar-content.html)
-        (new S.LeafletSidebarView({
-          el: '#layers-container',
+        (new S.GISLegendView({
+          el: '#gis-legend',
           mapView: this.mapView,
           layers: { items: this.options.mapConfig.layers,
                     title: this.options.sidebarConfig.layersTitle }
