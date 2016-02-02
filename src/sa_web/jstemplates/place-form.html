@@ -20,8 +20,8 @@
     <div id="category-btns">
       <div class="category-btn-prompt">{{place_config.dynamic_form_content.category_btn_prompt}}</div>
       {{#each place_config.categories}}
-        <input type="radio" name={{ name }} id="category-btn-{{ @index }}" index={{ @index }} value={{ value }} class="big-btn category-btn">
-        <label for="category-btn-{{ @index }}" class="category-btn-label">{{ label }}</label>
+        <input type="radio" name={{ name }} id="category-btn-{{ @key }}" value={{ @key }} class="big-btn category-btn">
+        <label for="category-btn-{{ @key }}" class="category-btn-label">{{ label }}</label>
       {{/each}}
     </div>
     <div style="clear:both"></div>
