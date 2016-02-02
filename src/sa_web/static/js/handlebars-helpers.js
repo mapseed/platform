@@ -179,8 +179,11 @@ var Shareabouts = Shareabouts || {};
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
 
-    _.each(NS.Config.place.categories[0].fields, function(item, i) {
-    //_.each(NS.Config.place.items, function(item, i) {
+
+    // need to check if a report has been made with the dynamic form, or with the regular form!!
+
+    //_.each(NS.Config.place.categories[0].fields, function(item, i) {
+    _.each(NS.Config.place.items, function(item, i) {
       console.log(this);
       var newItem = {
         name: item.name,
@@ -194,7 +197,7 @@ var Shareabouts = Shareabouts || {};
         result += options.fn(newItem);
       }
     }, this);
-    
+
     return result;
   });
 
