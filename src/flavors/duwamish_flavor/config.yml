@@ -604,15 +604,10 @@ place:
   #TODO: maybe add an autocomplete
   #TODO: DRY up this section
   categories:
-<<<<<<< HEAD
     observation:
       name: location_type
       value: observation
       label: _(Observation)
-=======
-    pollution:
-      label: _(Pollution)
->>>>>>> parent of 07ecc56... preserve category button ordering
       fields:
         - name: pollution_type
           type: checkbox_big_buttons
@@ -629,48 +624,25 @@ place:
           prompt: _(Pollution description)
           placeholder: _(Description...)
           optional: false
-<<<<<<< HEAD
     question:
       name: location_type
       value: question
       label: _(Question)
-=======
-    land_use:
-      label: _(Land use)
->>>>>>> parent of 07ecc56... preserve category button ordering
       fields:
         - name: description
           type: textarea
           prompt: _(Land use description)
           placeholder: _(Description...)
           optional: false
-<<<<<<< HEAD
     idea:
       name: location_type
       value: idea
       label: _(Idea)
-=======
-    air_quality:
-      label: _(Air quality)
->>>>>>> parent of 07ecc56... preserve category button ordering
       fields:
         - name: title
           type: text
-<<<<<<< HEAD
           prompt: _(What's your idea?)
           placeholder: _(Enter a title for your idea...)
-=======
-          prompt: _(Air quality title)
-          placeholder: _(Enter title)
-          optional: false
-    dog_watch:
-      label: _(Dog watch)
-      fields:
-        - name: location_type
-          type: radio_big_buttons
-          prompt: _(Type of report)
-          content: report_types
->>>>>>> parent of 07ecc56... preserve category button ordering
           optional: false
         - name: description
           type: textarea
@@ -687,7 +659,6 @@ place:
           prompt: _(What's your complaint?)
           placeholder: _(Description...)
           optional: false
-<<<<<<< HEAD
     air_watch:
       name: location_type
       value: air_watch
@@ -718,8 +689,6 @@ place:
           prompt: _(Description)
           placeholder: _(Description...)
           optional: false
-=======
->>>>>>> parent of 07ecc56... preserve category button ordering
 
   # define shared form element content here
   dynamic_form_content:

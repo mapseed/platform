@@ -20,11 +20,6 @@
     <div id="category-btns">
       {{#each place_config.categories}}
         <input type="radio" name={{ name }} id="category-btn-{{ @key }}" value={{ @key }} class="big-btn category-btn">
-        <!--
-        <input name="category-btn-{{ @key }}" id="category-btn-{{ @key }}" value="{{ label }}" class="btn btn-primary category-change-btn">
-        -->
-
-        <input type="radio" name="category-btn" id="category-btn-{{ @key }}" value={{ label }} class="big-btn">
         <label for="category-btn-{{ @key }}" class="category-btn-label">{{ label }}</label>
       {{/each}}
     </div>
@@ -39,7 +34,6 @@
         <!-- begin field type definitions -->
         {{#is type "text"}}
           <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
-          
         {{/is}}
 
         {{#is type "textarea"}}
@@ -51,9 +45,6 @@
             {{#each (property ../../place_config.dynamic_form_content content)}}
                 <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
                 <label for={{ value }}>{{ label }}</label>
-                <!--
-                <span name="" id="report-type-{{this.value}}" class="btn btn-primary report-type-btn">{{this.label}}</span>
-                -->
             {{/each}}
           </div>
           <div style="clear:both"></div>
@@ -64,42 +55,10 @@
             {{#each (property ../../place_config.dynamic_form_content content)}}
               <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
               <label for={{ value }}>{{ label }}</label>
-
-      <div class="{{ type }} form-field">
-        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-        
-        <!-- begin field type definitions -->
-        {{#is type "text"}}
-          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">      
-        {{/is}}
-
-        {{#is type "textarea"}}
-          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}"></textarea>
-        {{/is}}
-
-        {{#is type "radio_big_buttons"}}
-          <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
-                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
-                <label for={{ value }}>{{ label }}</label>
-                <!--
-                <span name="" id="report-type-{{this.value}}" class="btn btn-primary report-type-btn">{{this.label}}</span>
-                -->
             {{/each}}
           </div>
-          <div style="clear:both"></div>
         {{/is}}
-
-        {{#is type "checkbox_big_buttons"}}
-          <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
-              <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
-              <label for={{ value }}>{{ label }}</label>
-
-            {{/each}}
-          </div>
-          <div style="clear:both"></div>
-        {{/is}}
+        <div style="clear:both"></div>
         <!-- end field type definitions -->
       </div>
     {{/each}}
