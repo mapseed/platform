@@ -18,9 +18,13 @@
 
     <!-- place buttons for dynamic form categories -->
     <div id="category-btns">
-      <div class="category-btn-prompt">{{place_config.dynamic_form_content.category_btn_prompt}}</div>
       {{#each place_config.categories}}
         <input type="radio" name={{ name }} id="category-btn-{{ @key }}" value={{ @key }} class="big-btn category-btn">
+        <!--
+        <input name="category-btn-{{ @key }}" id="category-btn-{{ @key }}" value="{{ label }}" class="btn btn-primary category-change-btn">
+        -->
+
+        <input type="radio" name="category-btn" id="category-btn-{{ @key }}" value={{ label }} class="big-btn">
         <label for="category-btn-{{ @key }}" class="category-btn-label">{{ label }}</label>
       {{/each}}
     </div>
@@ -34,7 +38,8 @@
         
         <!-- begin field type definitions -->
         {{#is type "text"}}
-          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">      
+          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
+          
         {{/is}}
 
         {{#is type "textarea"}}
