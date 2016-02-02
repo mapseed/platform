@@ -1,18 +1,20 @@
 .sidebar {
   position: absolute;
-  top: 142px;
-  bottom: 265px;
+  top: 85px;
+  bottom: 110px;
   width: 90%;
   overflow: hidden;
   border-radius: 4px;
+  border: 2px solid rgba(0,0,0,0.2);
+  background-clip: padding-box;
   z-index: 2000; }
   .sidebar.collapsed {
     width: 33px; }
   @media (min-width: 960px) {
     .sidebar {
       width: 300px;
-      top: 194px;
-      bottom: 75px; } }
+      top: 130px;
+      bottom: 40px; } }
 
 .sidebar-left {
   left: 11px; }
@@ -145,16 +147,16 @@
       margin-right: 0; } }
 
 .sidebar {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  /*box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);*/
   background-color: #fff; }
-  .sidebar.leaflet-touch {
+/*  .sidebar.leaflet-touch {
     box-shadow: none;
-    border-right: 2px solid rgba(0, 0, 0, 0.2); }
+    border-right: 2px solid rgba(0, 0, 0, 0.2); }*/
   @media (min-width: 768px) {
     .sidebar {
       border-radius: 4px; }
-      .sidebar.leaflet-touch {
-        border: 2px solid rgba(0, 0, 0, 0.2); } }
+/*      .sidebar.leaflet-touch {
+        border: 2px solid rgba(0, 0, 0, 0.2); } }*/
 
 @media (min-width: 768px) {
   .sidebar-left ~ .sidebar-map .leaflet-left {
