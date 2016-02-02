@@ -146,7 +146,6 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (self.options.leafletSidebarConfig.enabled){
-        // Legend (legend-view.js, legend.html)
           (new S.LegendView({
           el: '#master-legend',
           mapView: this.mapView,

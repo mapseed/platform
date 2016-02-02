@@ -424,9 +424,6 @@ sidebar:
       - title: _(Complaints)
         image: /static/css/images/markers/marker-complaint.png
         url: /filter/complaint
-      - title: _(Green Screen Vote)
-        image: /static/css/images/markers/marker-greenwall.png
-        url: /filter/greenwall
 
 leaflet_sidebar:
   enabled: true
