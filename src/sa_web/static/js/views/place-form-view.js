@@ -7,8 +7,7 @@ var Shareabouts = Shareabouts || {};
     // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
-      'change input[type="file"]': 'onInputFileChange',
-      'click input[name="category-btn"]': 'onCategoryChange',
+      'change input[type="file"]': 'onInputFileChange'
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -18,27 +17,15 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
     },
-    render: function(index, category_selected){      
+    render: function(){
       // Augment the model data with place types for the drop down
-      //
-      //  This is a little hacky--I need to find a better way to extend the template helpers
-      //  One option is to stop relying on them entirely and just use registered Handlebar helper functions
-      if (index != undefined) {
-        S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.categories[index].fields);
-      }
-      ///////////
-      
       var data = _.extend({
         place_config: this.options.placeConfig,
-        // when category is defined, the selected_category property will contain config file details for fields in the given category
-        selected_category: this.options.placeConfig.categories[index],
         user_token: this.options.userToken,
-        current_user: S.currentUser,
-        category_selected: category_selected || false
+        current_user: S.currentUser
       }, S.stickyFieldValues, this.model.toJSON());
 
       this.$el.html(Handlebars.templates['place-form'](data));
-      $("#common-form-elements").css("display", "block");
       return this;
     },
     remove: function() {
@@ -77,17 +64,6 @@ var Shareabouts = Shareabouts || {};
 
       return attrs;
     },
-
-    onCategoryChange: function(evt) {
-      // re-render the form with the selected category
-      var index = $("#" + evt.target.id).attr("index");
-      this.render(index, true);
-      // manually set the category button again since the re-render resets it
-      $("#" + evt.target.id).prop("checked", true);
-      // set observation report type to be checked by default; otherwise, a form with no report type selected won't place on the map
-      $("#observation").prop("checked", true);
-    },
-
     onInputFileChange: function(evt) {
       var self = this,
           file,
@@ -125,7 +101,6 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-      console.log(S.Config.placeTypes);
       // Make sure that the center point has been set after the form was
       // rendered. If not, this is a good indication that the user neglected
       // to move the map to set it in the correct location.
@@ -146,9 +121,6 @@ var Shareabouts = Shareabouts || {};
           attrs = this.getAttrs(),
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
-
-      console.log("attrs:", attrs);
-      console.log("model.id", model.id);
 
       evt.preventDefault();
 
