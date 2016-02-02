@@ -82,8 +82,6 @@ var Shareabouts = Shareabouts || {};
       this.render(evt.target.id.split("-")[2], true);
       // manually set the category button again since the re-render resets it
       $("#" + evt.target.id).prop("checked", true);
-      // set observation report type to be checked by default; otherwise, a form with no report type selected won't place on the map
-      //$("#observation").prop("checked", true);
     },
     onInputFileChange: function(evt) {
       var self = this,
