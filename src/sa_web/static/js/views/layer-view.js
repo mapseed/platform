@@ -45,7 +45,14 @@ var Shareabouts = Shareabouts || {};
           this.model.toJSON(),
           {map: {zoom: this.map.getZoom()}},
           {layer: {focused: this.isFocused}});
+        // Set the icon here:
         this.styleRule = L.Argo.getStyleRule(context, this.placeType.rules);
+
+        // Zoom checks here, for overriding the icon size, anchor, and focus icon:
+        var zoomRules = this.options.placeTypes[this.placeType.zoomType];
+        if (zoomRules) {
+          this.styleRule = L.Argo.getZoomRule(this.styleRule, zoomRules);
+        }
 
         // Construct an appropriate layer based on the model geometry and the
         // style rule. If the place is focused, use the 'focus_' portion of
