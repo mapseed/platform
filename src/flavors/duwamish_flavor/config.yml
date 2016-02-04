@@ -60,21 +60,19 @@ map:
   # Legend Layers
 
     - id: restoration
-      url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/restoration-sites
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
       legend: true
       visibleDefault: true
       title: _(Restoration sites)
-      placeType: mapbox
       description: _(Habitat restoration and community organizing)
 
     - id: vision
-      url: https://t9t3m4dora.execute-api.us-west-2.amazonaws.com/development/mapbox/community-action
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
       legend: true
       visibleDefault: true
       title: _(Community vision)
-      placeType: mapbox
       description: _(Priority areas identified through community visioning projects)
 
     - id: cleanup
@@ -140,6 +138,124 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
 
+  georgetownZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [60, 60]
+        iconAnchor: [30, 30]
+    - condition: '{{map.zoom}} < 16'
+      icon:
+        iconSize: [15, 15]
+        iconAnchor: [8, 8]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [30, 30]
+        iconAnchor: [15, 15]
+
+  mapboxZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 50]
+        iconAnchor: [25, 25]
+    - condition: '{{map.zoom}} < 14'
+      icon:
+        iconSize: [20, 20]
+        iconAnchor: [10, 10]
+    - condition: '{{map.zoom}} >= 14'
+      icon:
+        iconSize: [30, 30]
+        iconAnchor: [15, 15]
+
+  wetland:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
+  park:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
+
+  school:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
+
+  police:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
+
+  rail:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+
+  town-hall:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+
+
   mapbox:
     # Mapbox Points
     rules:
@@ -160,502 +276,62 @@ place_types:
           fillOpacity: '{{properties.fill-opacity}}'
           weight: "{{properties.stroke-width}}"
 
-      # Marker display
-
-      # Begin Georgetown imports
-
-      # layer focus
-
-      # red
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "f86767" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [15, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "f86767" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "f86767" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "f86767" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "f86767" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "f86767" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      # orange
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "f1f075" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_prog.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [15, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "f1f075" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_prog.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "f1f075" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_prog.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "f1f075" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_prog.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "f1f075" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_prog.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "f1f075" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_prog.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      # green
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "a3e46b" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_comp.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [15, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "a3e46b" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_comp.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "a3e46b" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_comp.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "a3e46b" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_comp.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "a3e46b" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_comp.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "a3e46b" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_comp.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 60]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 60]
-
-      # zoom < 17
-
-      # red
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "f86767" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
-          iconSize: [15, 15]
-          iconAnchor: [5, 2.5]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "f86767" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
-          iconSize: [15, 15]
-          iconAnchor: [5, 2.5]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "f86767" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "f86767" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "f86767" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "f86767" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      # zoom < 17
-      # orange
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "f1f075" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_prog.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "f1f075" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_prog.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "f1f075" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_prog.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "f1f075" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_prog.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "f1f075" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_prog.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "f1f075" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_prog.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      # zoom < 17
-      # green
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "a3e46b" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_comp.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "a3e46b" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_comp.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "a3e46b" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_comp.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "a3e46b" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_comp.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "a3e46b" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_comp.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "a3e46b" && "{{map.zoom}}" < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_comp.png
-          iconSize: [15, 15]
-          iconAnchor: [8, 8]
-
-      # map zoom > 16
-      # red
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      # map zoom > 16
-      # orange
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_prog.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_prog.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_prog.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_prog.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_prog.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_prog.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      # map zoom > 16
-      # green
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "wetland" && "{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_comp.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park" && "{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_comp.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "school" && "{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_comp.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "police" && "{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_comp.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "rail" && "{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_comp.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "town-hall" && "{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_comp.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      # End Georgetown imports
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger" && "{{map.zoom}}" < 14'
+  danger:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-construction.png
-          iconSize: [20, 20]
-          iconAnchor: [8, 8]
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2" && "{{map.zoom}}" < 14'
+  park2:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-heart.png
-          iconSize: [20, 20]
-          iconAnchor: [8, 8]
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-heart.png
-          iconSize: [40, 40]
-          iconAnchor: [13, 13]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial" && "{{map.zoom}}" < 14'
+  industrial:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-industrial.png
-          iconSize: [20, 20]
-          iconAnchor: [8, 8]
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-industrial.png
-          iconSize: [40, 40]
-          iconAnchor: [20, 20]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle" && "{{map.zoom}}" < 14'
+  bicycle:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-bike.png
-          iconSize: [20, 20]
-          iconAnchor: [8, 8]
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-bike.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-          
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "swimming" && "{{map.zoom}}" < 14'
+  swimming:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-swimming.png
-          iconSize: [20, 20]
-          iconAnchor: [8, 8]
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "swimming"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-swimming.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "theatre" && "{{map.zoom}}" < 14'
+  theatre:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-art.png
-          iconSize: [20, 20]
-          iconAnchor: [8, 8]
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "theatre"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-art.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "zoo" && "{{map.zoom}}" < 14'
+  zoo:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-whale.png
-          iconSize: [20, 20]
-          iconAnchor: [8, 8]
 
-      - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "zoo"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-whale.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-      # default marker icon
-      
-      - condition: '"{{geometry.type}}" == "Point"'
-        icon:
-          iconUrl: /static/css/images/markers/dot-fa307d.png
-          iconSize: [16, 16]
-          iconAnchor: [8, 8]
+  # # needs a marker
+  # farm:
+  #   zoomType: mapboxZoomStyle
+  #   rules:
+  #     - condition: 'true'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/dot-0d85e9.png
 
   observation:
     label: _(Observation)

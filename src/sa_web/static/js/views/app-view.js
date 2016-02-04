@@ -274,9 +274,13 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
       _.each(_.values(this.options.landmarkConfigs), function(landmarkConfig) {
-        self.landmarkCollections[landmarkConfig.id].fetch({
-          attributesToAdd: { location_type: landmarkConfig.placeType }
-        })
+        if (landmarkConfig.placeType) {
+          self.landmarkCollections[landmarkConfig.id].fetch({
+            attributesToAdd: { location_type: landmarkConfig.placeType }
+          });
+        } else {
+          self.landmarkCollections[landmarkConfig.id].fetch();
+        }
       });
     },
     loadPlaces: function(placeParams) {
