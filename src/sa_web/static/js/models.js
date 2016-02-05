@@ -284,6 +284,10 @@ var Shareabouts = Shareabouts || {};
   S.LandmarkModel = Backbone.Model.extend({
     initialize: function() {
       this.set("id", this.get('title'));
+      // Use this for our new landmark configs:
+      if (!this.get("location_type")) {
+        this.set("location_type", this.get('location_type'));
+      }
     }
   });
 

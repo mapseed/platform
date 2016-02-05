@@ -149,6 +149,29 @@ L.extend(L.Argo, {
     return str;
   },
 
+  getZoomRule: function(properties, rules) {
+    var self = this,
+      i, condition, len;
+
+    // Cycle through rules until we hit a matching condition
+    for (i=0, len=rules.length; i<len; i++) {
+      // Replace the template with the property variable, not the value.
+      // this is so we don't have to worry about strings vs nums.
+      condition = L.Argo.t(rules[i].condition, properties.style);
+
+      if (eval(condition)) {
+        // The new property values (outlined in the config) are added for Leaflet compatibility
+        // Format marker icon features
+        if (rules[i].icon) {
+          // Icon must be set when evaling zoom rules
+          _.extend(properties.icon, rules[i].icon);
+        }
+
+        return properties;
+      }
+    }
+    return properties;
+  },
   // Get the style rule for this feature by evaluating the condition option
   getStyleRule: function(properties, rules) {
     var self = this,
