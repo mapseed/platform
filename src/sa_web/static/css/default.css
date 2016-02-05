@@ -1827,7 +1827,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     width: 40%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 30%;
+    width: 70%;
   }
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
@@ -1875,13 +1875,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     top: 4em; /* height of site-header */
     right: 0;
     bottom: 1.75em;
-    left: 40%;
+    /*left: 40%;*/
     overflow: visible;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
   .activity-enabled #content {
-    left: 30%;
-    right: 18em;
+    /*left: 30%;*/
+    /*right: 18em;*/
+    width: 30%;
   }
   .geocoding-bar-enabled #content {
     top: 8.5em;
@@ -2061,9 +2062,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
        -moz-box-sizing: border-box;
             box-sizing: border-box;
   }
-  .activity-enabled #colophon {
-    right: 18em;   /* width of #master-legend */
-  }
+/*  .activity-enabled #colophon {
+    right: 18em;
+  }*/
   #powered-by {
     margin-bottom: 0;
   }
@@ -2075,13 +2076,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     left: 60%;
   }
   .activity-enabled #content {
-    left: 45%;
+    left: 70%;
+    width: 30%;
   }
   .content-visible #map-container {
     width: 60%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 45%;
+    width: 70%;
   }
 }
 
