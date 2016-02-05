@@ -20,7 +20,6 @@ shell.cat([
   'src/sa_web/static/libs/handlebars-v3.0.3.js',
   'src/sa_web/static/libs/moment-with-locales.min.js',
   'src/sa_web/static/libs/json2.js',
-  'src/sa_web/static/libs/leaflet.argo.js',
   'src/sa_web/static/libs/binaryajax.js',
   'src/sa_web/static/libs/exif.js',
   'src/sa_web/static/libs/load-image.js',
@@ -29,7 +28,9 @@ shell.cat([
   'src/sa_web/static/libs/gatekeeper.js',
   'src/sa_web/static/libs/swag.min.js',
   'src/sa_web/static/libs/jquery.scrollTo.js',
-  'src/sa_web/static/libs/handlebars-helpers.js'
+  'src/sa_web/static/libs/handlebars-helpers.js',
+  'src/sa_web/static/libs/leaflet.argo.js',
+  'src/sa_web/static/libs/leaflet.sidebar.js'
 ]).to('src/sa_web/static/dist/cat-lib-bundle.js')
 
 shell.cat([
@@ -53,6 +54,7 @@ shell.cat([
   'src/sa_web/static/js/views/place-form-view.js',
   'src/sa_web/static/js/views/place-list-view.js',
   'src/sa_web/static/js/views/map-view.js',
+  'src/sa_web/static/js/views/gis-legend-view.js',
   'src/sa_web/static/js/routes.js',
   'src/flavors/' + flavor + '/static/js/*.js',
   'src/flavors/' + flavor + '/static/js/views/*.js'
@@ -66,6 +68,7 @@ shell.cat([
 shell.cat([
   'src/sa_web/static/css/normalize.css',
   'src/sa_web/static/css/default.css',
+  'src/sa_web/static/css/leaflet-sidebar.css',
   'src/flavors/' + flavor + '/static/css/custom.css'
 ]).to('src/sa_web/static/dist/cat-bundle.css')
 

@@ -2,9 +2,10 @@
 -------------------------------------------------------------- */
 
 html {
+  min-height: 100%;
 }
 body {
-  min-height: 100%;
+  height: 100%;
   text-align: left;
 }
 
@@ -1060,9 +1061,9 @@ ul.recent-points {
 -------------------------------------------------------------- */
 #master-legend {
   overflow: visible;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 1em;
+  padding-left: unset;
+  padding-right: unset;
+  padding-top: 10px;
   /*display: none;*/
 }
 /* All layers in the Master Legend list */
@@ -1210,6 +1211,10 @@ ul.recent-points {
   vertical-align: top;
   margin-right: 8px;
 }
+/*#legend-container .legend-layer-li img {
+  width: 2em;
+  height: auto;
+}*/
 
 /* =List View
 -------------------------------------------------------------- */
@@ -1841,8 +1846,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     font-size: 1.25em;
     padding: 0;
     position: absolute;
-    left: 1.5em;
-    bottom: 2em;
+    top: 2em;
+    right: 2em;
     box-shadow: none;
     border-bottom: 0;
   }
