@@ -31,6 +31,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ config.static_url }}css/images/apple-touch-icon-114x114-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ config.static_url }}css/images/apple-touch-icon-72x72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   {% endblock app_icons %}
 
   <!-- Google WebFonts -->
@@ -40,6 +41,7 @@
 
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
@@ -122,9 +124,45 @@
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
 
-      <div id="map-legend"></div>
+      {% if config.leaflet_sidebar.enabled %}
+        <div id="sidebar" class="sidebar collapsed">
+          <!-- Nav tabs -->
+          <div class="sidebar-tabs">
+            <ul role="tablist">
+              <li><a href="#legend-pane" role="tab"><i class="fa fa-info-circle"></i></a></li>
+              <li><a href="#layers-pane" role="tab"><i class="fa fa-map-o"></i></a></li>
+              <li><a href="#activity-stream-pane" role="tab"><i class="fa fa-comments-o"></i></a></li>
+            </ul>
+          </div>
+
+          <!-- Tab panes -->
+          <div class="sidebar-content">
+            <!-- Legend Panel (Shareabouts Layers_) -->
+            <div class="sidebar-pane" id="legend-pane">
+              <h1 class="sidebar-header">Legend:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+              <div id="master-legend"></div>
+            </div>
+
+          <!-- Layers Panel (GIS Layers) -->
+          <div class="sidebar-pane" id="layers-pane">
+            <h1 class="sidebar-header">Map Layers:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            <div id="gis-legend"></div>
+          </div>
+
+            <!-- Activity Stream Panel -->
+            <div class="sidebar-pane" id="activity-stream-pane">
+              <h1 class="sidebar-header">Activity Stream<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+              <div id="ticker">
+                <ul class="recent-points unstyled-list"></ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {% endif %}
 
     </div>
+
 
     <div id="content"><!-- .place or .page -->
       <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
@@ -133,18 +171,14 @@
   </div><!-- end #main -->
 
  {% if config.sidebar.enabled %}
-   <div id="side-bar">
+   <!-- <div id="side-bar"> -->
    {% if config.sidebar.legend_enabled %}
-    <div id="master-legend">
+    <!-- <div id="master-legend"> -->
       {% block sidebar %}{% endblock %}
       <!--<header>Master Legend</header>-->
-    </div>
+    <!-- </div> -->
    {% endif %}
-    <div id="ticker">
-      <p>Activity Stream</p>
-      <ul class="recent-points unstyled-list"></ul>
-    </div>
-  </div>
+  <!-- </div> -->
  {% endif %}
 
   <div id="list-container"></div>
@@ -173,7 +207,6 @@
   <script src="{{STATIC_URL}}libs/handlebars-v3.0.3.js"></script>
   <script src="{{STATIC_URL}}libs/moment-with-locales.min.js"></script>
   <script src="{{STATIC_URL}}libs/json2.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
   <script src="{{STATIC_URL}}libs/exif.js"></script>
   <script src="{{STATIC_URL}}libs/load-image.js"></script>
@@ -187,6 +220,8 @@
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
   <!-- https://github.com/openplans/handlebars-helpers -->
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   {% else %}
   <!--   TODO: build libraries with npm instead of bower -->
   <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.6.2"></script>
@@ -264,6 +299,7 @@
   <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-place-view.js"></script>
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/gis-legend-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% else %}
   <script src="{{STATIC_URL}}dist/bundle.js?ver=0.6"></script>
@@ -295,6 +331,7 @@
       map:        {{ config.map|as_json }},
       activity:   {{ config.activity|as_json }},
       sidebar:    {{ config.sidebar|as_json}},
+      leaflet_sidebar: {{ config.leaflet_sidebar|as_json }},
       pages:      {{ pages_config_json|safe }}
     };
 
@@ -311,6 +348,7 @@
         placeTypes: S.Config.placeTypes,
         cluster: S.Config.cluster,
         sidebarConfig: S.Config.sidebar,
+        leafletSidebarConfig: S.Config.leaflet_sidebar,
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,
         mapConfig: S.Config.map,

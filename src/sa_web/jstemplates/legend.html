@@ -1,38 +1,14 @@
+<!-- Legend: needs reports, not layers -->
+
+
 <!-- SHAREABOUTS LAYERS -->
-<p>{{ reports.title }}:</p>
 <ul class="master-layer-list unstyled-list">
   {{# reports.items }}
     <li class="shareabouts-layer-li legend-layer-li">
-        <img class="shareabouts-layer-title" location="{{ title }}" layer-title="{{ title }}" src="{{ image }}">{{ title }}
+        <img class="shareabouts-layer-title" location="{{ title }}" layer-title="{{ title }}" src="{{ image }}">
+        {{ title }}
     </li>
 
   {{/reports.items }}
 
 </ul>
-<hr>
-
-
-<!-- MAP LAYERS -->
-<p>{{ layers.title }}:</p>
-<ul class="layer-type-list unstyled-list">
-  {{# layers.items }}
-    {{#if legend}}
-      <li class="layer-type-li">
-        <div class="layer-type-title">
-          <input id="map-{{ id }}" data-layerid="{{ id }}"
-                 {{#if visibleDefault}}
-                 checked="checked"
-                 {{/if}}
-                 class="map-legend-checkbox" type="checkbox"></input>
-          <label for="map-{{ id }}">{{ title }}</label>
-        </div>
-        <span class="layer-type-description">{{ description }}
-          {{#if description-image}}
-            <img src="{{ description-image }}" alt="{{ description-image-alt }}">
-          {{/if}}
-        </span>
-      </li>
-    {{/if}}
-  {{/ layers.items }}
-</ul>
-<hr>
