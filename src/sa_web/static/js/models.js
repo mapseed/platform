@@ -24,7 +24,12 @@ var Shareabouts = Shareabouts || {};
   S.PaginatedCollection = Backbone.Collection.extend({
     resultsAttr: 'results',
 
-    parse: function(response) {
+    parse: function(response, options) {
+      if (options.attributesToAdd) {
+        var self = this;
+        for (var i=0; i<response[this.resultsAttr].length; i++)
+          _.extend(response[this.resultsAttr][i][options.attribute], options.attributesToAdd);
+      }
       this.metadata = response.metadata;
       return response[this.resultsAttr];
     },

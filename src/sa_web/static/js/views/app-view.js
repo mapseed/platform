@@ -72,8 +72,7 @@ var Shareabouts = Shareabouts || {};
         // TODO: enable this when we remove the 'landmarks' prefix
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
-             href.indexOf('/place') === 0 ||
-             href.indexOf('/page') === 0 ||
+             href.indexOf(self.options.placeConfig.dataset_id) === 0 ||
              href.indexOf('/filter') === 0) &&
              !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
           evt.preventDefault();
@@ -269,7 +268,11 @@ var Shareabouts = Shareabouts || {};
       this.loadLandmarks();
 
       // Fetch the first page of activity
-      this.activities.fetch({reset: true});
+      this.activities.fetch({
+        reset: true,
+        attribute: 'target',
+        attributesToAdd: { datasetId: this.options.placeConfig.dataset_id }
+      });
     },
 
     getListRoutes: function() {
@@ -306,6 +309,8 @@ var Shareabouts = Shareabouts || {};
         // Check for a valid location type before adding it to the collection
         validate: true,
         data: placeParams,
+        attributesToAdd: { datasetId: this.options.placeConfig.dataset_id },
+        attribute: 'properties',
 
         success: function() {
           // Sort the list view after all of the pages have been fetched
@@ -372,7 +377,7 @@ var Shareabouts = Shareabouts || {};
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'map', 'new-place-btn-click');
-      this.options.router.navigate('/place/new', {trigger: true});
+      this.options.router.navigate('/' + this.options.placeConfig.dataset_id + '/new', {trigger: true});
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
