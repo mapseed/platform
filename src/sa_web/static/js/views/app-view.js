@@ -69,7 +69,6 @@ var Shareabouts = Shareabouts || {};
             url;
 
         // Allow shift+click for new tabs, etc.
-        // TODO: enable this when we remove the 'landmarks' prefix
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
              href.indexOf(self.options.placeConfig.dataset_id) === 0 ||

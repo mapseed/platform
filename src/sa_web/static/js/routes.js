@@ -22,8 +22,6 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           filteredRoutes;
 
-      console.log("S.App.init: this.routes:", this.routes)
-      console.log("S.App.init: options.placeConfig:", options.placeConfig)
       if (!options.placeConfig.dataset_id) {
         options.placeConfig.dataset_id = 'place';
       }
@@ -152,9 +150,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewPlace: function(datasetId, id, responseId) {
-      console.log("routes.viewPlace: datasetId:", datasetId);
-      console.log("routes.viewPlace: id:", id);
-      console.log("routes.viewPlace: responseId:", responseId);
+      // TODO: When we handle multiple datasets, we will need to
+      // implement appView.viewPlace(..) to accept a datasetId parameter
       this.appView.viewPlace(id, responseId, this.loading);
     },
 
