@@ -289,10 +289,6 @@ var Shareabouts = Shareabouts || {};
   S.LandmarkModel = Backbone.Model.extend({
     initialize: function() {
       this.set("id", this.get('title'));
-      // Use this for our new landmark configs:
-      if (!this.get("location_type")) {
-        this.set("location_type", this.get('location_type'));
-      }
     }
   });
 
@@ -300,10 +296,12 @@ var Shareabouts = Shareabouts || {};
     model: S.LandmarkModel,
 
     // The MapBox GeoJson API returns places under "features".
-    parse:function(resp,options) {
+    // TODO: refactor this by making landmark collection inherit
+    // from PaginatedCollection
+    parse: function(resp, options) {
       if (options.attributesToAdd) {
-        for (var i=0;i<resp.features.length;i++)
-          _.extend(resp.features[i],options.attributesToAdd);
+        for (var i = 0; i < resp.features.length; i++)
+          _.extend(resp.features[i], options.attributesToAdd);
       }
       return resp.features;
     }
