@@ -48,7 +48,7 @@ var Shareabouts = Shareabouts || {};
     checkForNewActivity: function() {
       var options = {
         remove: false,
-        attributesToAdd: { datasetId: this.options.placeConfig.dataset_id },
+        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
         attribute: 'target'
       },
           meta = this.collection.metadata;

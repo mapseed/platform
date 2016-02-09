@@ -71,7 +71,7 @@ var Shareabouts = Shareabouts || {};
         // Allow shift+click for new tabs, etc.
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
-             href.indexOf(self.options.placeConfig.dataset_id) === 0 ||
+             href.indexOf(self.options.placeConfig.dataset_slug) === 0 ||
              href.indexOf('/filter') === 0) &&
              !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
           evt.preventDefault();
@@ -270,7 +270,7 @@ var Shareabouts = Shareabouts || {};
       this.activities.fetch({
         reset: true,
         attribute: 'target',
-        attributesToAdd: { datasetId: this.options.placeConfig.dataset_id }
+        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug }
       });
     },
 
@@ -308,7 +308,7 @@ var Shareabouts = Shareabouts || {};
         // Check for a valid location type before adding it to the collection
         validate: true,
         data: placeParams,
-        attributesToAdd: { datasetId: this.options.placeConfig.dataset_id },
+        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
         attribute: 'properties',
 
         success: function() {
@@ -376,7 +376,7 @@ var Shareabouts = Shareabouts || {};
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'map', 'new-place-btn-click');
-      this.options.router.navigate('/' + this.options.placeConfig.dataset_id + '/new', {trigger: true});
+      this.options.router.navigate('/' + this.options.placeConfig.dataset_slug + '/new', {trigger: true});
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();

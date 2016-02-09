@@ -22,8 +22,8 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           filteredRoutes;
 
-      if (!options.placeConfig.dataset_id) {
-        options.placeConfig.dataset_id = 'place';
+      if (!options.placeConfig.dataset_slug) {
+        options.placeConfig.dataset_slug = 'place';
       }
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
@@ -149,9 +149,9 @@ var Shareabouts = Shareabouts || {};
       this.appView.viewLandmark(id, { zoom: this.loading });
     },
 
-    viewPlace: function(datasetId, id, responseId) {
+    viewPlace: function(datasetSlug, id, responseId) {
       // TODO: When we handle multiple datasets, we will need to
-      // implement appView.viewPlace(..) to accept a datasetId parameter
+      // implement appView.viewPlace(..) to accept a datasetSlug parameter
       this.appView.viewPlace(id, responseId, this.loading);
     },
 
