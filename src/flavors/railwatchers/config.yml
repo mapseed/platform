@@ -213,6 +213,9 @@ place:
           value: _(Location Name)
         - key: size
           value: 30
+    - name: location_type
+      type: hidden
+      value: railwatch
     - prompt: _(Location Type)
       type: select
       options:
