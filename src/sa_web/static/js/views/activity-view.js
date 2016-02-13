@@ -47,8 +47,10 @@ var Shareabouts = Shareabouts || {};
 
     checkForNewActivity: function() {
       var options = {
-            remove: false
-          },
+        remove: false,
+        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
+        attribute: 'target'
+      },
           meta = this.collection.metadata;
 
       // The metadata will be reset to page 1 if a new action has been added.
