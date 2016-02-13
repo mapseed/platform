@@ -334,10 +334,11 @@ img {
 #site-title a:link,
 #site-title a:visited {
   display: block;
+  font-family: 'Alegreya Sans', sans-serif;
   font-size: 2em;
   line-height: 1.25;
   text-decoration: none;
-  color: #228b22;
+  color: #13b309;
 }
 
 #site-title a:hover {
