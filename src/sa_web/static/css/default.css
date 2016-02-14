@@ -320,7 +320,7 @@ img {
 
 #site-title {
   font-size: .75em;
-  font-family: 'Rock Salt', cursive;
+  font-family: 'Alegreya Sans', sans-serif;
   text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
   float: left;
   margin: 0 0.5em 0 0;
@@ -342,7 +342,7 @@ img {
 }
 
 #site-title a:hover {
-  color: #abde76;
+  color: orange;
 }
 
 /* Navigation Button */
