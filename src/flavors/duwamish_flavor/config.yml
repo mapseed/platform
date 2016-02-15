@@ -256,7 +256,7 @@ place_types:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
 
 
-  mapbox:
+  json:
     # Mapbox Points
     rules:
     # LineString
