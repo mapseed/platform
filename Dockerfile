@@ -22,15 +22,15 @@ RUN apt-get install -y python-distribute python-pip python-dev
 RUN apt-get install -y postgresql libpq-dev
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout docker-deploy && cd -
+RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout tags/django-1.9 && cd -
 
 # local testing:
-# ADD . duwamish
+# ADD . platform
 
 # Install pip requirements
-RUN pip install -r /duwamish/requirements.txt
+RUN pip install -r /platform/app-requirements.txt
 
 # Set the default directory where CMD will execute
-WORKDIR /duwamish
+WORKDIR /platform
 
-CMD /duwamish/start.sh
+CMD /platform/start.sh

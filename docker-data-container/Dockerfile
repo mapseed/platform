@@ -27,25 +27,25 @@ RUN apt-get install -yq nodejs build-essential
 RUN npm install npm -g
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout docker-deploy && cd -
+RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout tags/django-1.9 && cd -
 
 # local testing:
-# ADD . duwamish
+# ADD . platform
 
 # Install our npm dependencies
-RUN cd duwamish && npm install && cd -
+RUN cd platform && npm install && cd -
 
 # # Install pip requirements
-RUN pip install -r /duwamish/requirements.txt
+RUN pip install -r /platform/app-requirements.txt
 
 # Set the default directory where CMD will execute
-WORKDIR /duwamish
+WORKDIR /platform
 
 # Create the static file folders,
 # which need to be present on our image:
 # ADD createStaticDirs.sh createStaticDirs.sh
-RUN bash /duwamish/createStaticDirs.sh
+RUN bash /platform/createStaticDirs.sh
 
-RUN mkdir /duwamish/staticfiles
+RUN mkdir /platform/staticfiles
 
-CMD /duwamish/start-data-container.sh
+CMD /platform/start-data-container.sh
