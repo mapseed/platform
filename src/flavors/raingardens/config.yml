@@ -50,29 +50,6 @@ map:
 
   # Map Layers
 
-      # WMS landuse
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      opacity: 0.5
-      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-      title: _(Zoning info)
-      visible: false
-
-      # WMS Buildings connection:
-    - url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
-      layers: 'wria9:2009BuildingsCOS'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Buildings)
-      visible: false
-
 #      # WMS NLCD (commented out for parks)
 #    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
 #      layers: 'wria9:nlcd2011'
@@ -89,12 +66,12 @@ map:
 
   # Report filters
 
-    - title: _(Rain gardens)
-      shareabouts: true
-      image: /static/css/images/markers/marker-observation.png
-      url: /filter/raingarden
-      external: true
-      visible: true
+    # - title: _(Rain gardens)
+    #   shareabouts: true
+    #   image: /static/css/images/markers/marker-observation.png
+    #   url: /filter/raingarden
+    #   external: true
+    #   visible: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -175,6 +152,9 @@ cluster:
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
 sidebar:
   enabled: false
+
+# leaflet_sidebar:
+#   enabled: true
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
