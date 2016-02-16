@@ -35,10 +35,14 @@ map:
     minZoom: 10
     maxZoom: 17
   layers:
-    - url: https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ
+    - url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">.'
-    - url: /static/data/philadelphia.geojson
+
+    - id: vision
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
+      visibleDefault: true
+      popupContent: '{{title}}'
       rules:
         - condition: 'true'
           style:
@@ -46,6 +50,11 @@ map:
             opacity: 0.6
             fillOpacity: 0.1
             weight: 1
+          icon:
+            iconUrl: /static/css/images/markers/marker-0d85e9.png
+            shadowUrl: /static/css/images/marker-shadow.png
+            iconSize: [25, 41]
+            iconAnchor: [12, 41]
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
