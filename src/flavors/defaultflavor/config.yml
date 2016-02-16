@@ -361,6 +361,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Get involved)
     slug: getinvolved
