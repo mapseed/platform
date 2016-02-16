@@ -59,8 +59,10 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
   {% endif %}
 
+  {% if config.cluster %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+  {% endif %}
 
   <!--[if lte IE 8]>
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.ie.css" />
@@ -76,8 +78,14 @@
 
   <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
     <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
+
+    {% block pre_auth_nav %}{% endblock %}
     <div id="auth-nav-container"></div>
+    {% block post_auth_nav %}{% endblock %}
+
+    {% block pre_pages_nav %}{% endblock %}
     <div id="pages-nav-container"></div>
+    {% block post_pages_nav %}{% endblock %}
 
     {% if config.data.app.list_enabled != False %}
     <nav class="list-toggle-nav">
@@ -196,7 +204,15 @@
   {% else %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   {% endif %}
+  {% if config.cluster %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+  {% endif %}
+
+  {% if settings.MAPBOX_TOKEN %}
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.css" rel='stylesheet' />
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet-mapbox-gl.js"></script>
+  {% endif %}
 
   {% block cdn_load %}{% endblock %}
 
