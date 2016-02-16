@@ -13,9 +13,9 @@ django_compressor==2.0
 # Web interface helpers
 django-proxy>=1.0.2
 requests>=2.9.1
-httpagentparser=1.7.8
+httpagentparser==1.7.8
 ujson==1.35
 
 # Config
-pyyaml=3.11
-django-extensions=1.6.1
+pyyaml==3.11
+django-extensions==1.6.1
