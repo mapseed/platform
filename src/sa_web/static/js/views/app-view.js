@@ -359,6 +359,8 @@ var Shareabouts = Shareabouts || {};
       // Never set the placeFormView's latLng until the user does it with a
       // drag event (below)
       if (this.placeFormView && this.placeFormView.center) {
+        // remove map mask once the user has dragged and set a location
+        $("#new-place-mask").remove();
         this.setPlaceFormViewLatLng(ll);
       }
 
@@ -377,6 +379,8 @@ var Shareabouts = Shareabouts || {};
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'panel', 'close-btn-click');
+      // remove map mask if the user closes the side panel
+      $("#new-place-mask").remove();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
@@ -765,6 +769,8 @@ var Shareabouts = Shareabouts || {};
     },
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
+      // add html for masking the map
+      $("#map").append("<div id='new-place-mask'><div>");
     },
     showAddButton: function() {
       this.$addButton.show();
