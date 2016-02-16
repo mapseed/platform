@@ -552,6 +552,8 @@ a.logout-btn {
 #map {
   background: #a3c7d9;
   height: 150px;
+
+  /*opacity: 0.5;*/
 }
 
 /* Geolocation Button */
@@ -597,10 +599,42 @@ a.logout-btn {
   left: 50%;
   pointer-events: none;
   z-index: 11;
-  width: 47px;
-  height: 47px;
+  width: 100px;
+  height: 100px;
   margin: -44px 0 0 -12px;
 }
+
+#new-place-mask {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  opacity: .8;
+}
+
+#new-place-mask:after{
+  content: '';
+  position: absolute;
+  left: 38%; 
+  top: 32%;
+  border-radius: 50%;
+  width: 200px; 
+  height: 200px;
+  box-shadow: 0px 0px 0px 2000px #222222;
+}
+
+.mask {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+.mask-left {
+  left: 0%;
+  width: 200px;
+  height: 200px;
+}
+
 #centerpoint.newpin .x {
   display: block;
   position: absolute;
