@@ -22,7 +22,7 @@ RUN apt-get install -y python-distribute python-pip python-dev
 RUN apt-get install -y postgresql libpq-dev
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout docker-deploy && cd -
+RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout tags/django-1.9 && cd -
 
 # local testing:
 # ADD . duwamish

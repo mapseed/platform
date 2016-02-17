@@ -27,7 +27,7 @@ RUN apt-get install -yq nodejs build-essential
 RUN npm install npm -g
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout docker-deploy && cd -
+RUN git clone https://github.com/smartercleanup/duwamish.git && cd duwamish && git checkout tags/django-1.9 && cd -
 
 # local testing:
 # ADD . duwamish
