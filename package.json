@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/smartercleanup/duwamish.git"
+    "url": "https://github.com/smartercleanup/platform.git"
   },
   "keywords": [
     "maps",
@@ -15,9 +15,9 @@
   "author": "SmarterCleanup",
   "license": "GPL",
   "bugs": {
-    "url": "https://github.com/smartercleanup/duwamish/issues"
+    "url": "https://github.com/smartercleanup/platform/issues"
   },
-  "homepage": "https://github.com/smartercleanup/duwamish",
+  "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
     "postinstall": "./node_modules/grunt-cli/bin/grunt",
     "build-lib-js": "cat src/sa_web/static/dist/cat-lib-bundle.js | uglifyjs -cm | tee src/sa_web/static/dist/lib-bundle.js | gzip > src/sa_web/static/dist/lib-bundle.js.gz",
