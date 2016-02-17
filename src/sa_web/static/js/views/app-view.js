@@ -773,11 +773,11 @@ var Shareabouts = Shareabouts || {};
     },
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
+
+      // add map mask and spotlight effect
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
           yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
-
-      // add html for masking the map
       $("#map").append("<div id='new-place-mask'><div id='new-place-mask-fill'></div></div>");
       $("#new-place-mask-fill").css("left", xOffset + "px")
                                .css("top", yOffset + "px")
