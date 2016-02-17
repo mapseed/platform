@@ -784,7 +784,7 @@ var Shareabouts = Shareabouts || {};
                                .css("width", spotlightDiameter + "px")
                                .css("height", spotlightDiameter + "px")
                                // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
-                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px, inset 0px 0px 20px 30px");
+                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
     },
     showAddButton: function() {
       this.$addButton.show();

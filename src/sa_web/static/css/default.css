@@ -531,10 +531,12 @@ a.logout-btn {
   width: 100%;
   margin: 0 auto;
   /* for IE */
+  /*
   filter: alpha(opacity=40);
   -moz-opacity:0.4;
   -khtml-opacity: 0.4;
   opacity: 0.4;
+  */
 }
 
 #new-place-mask-fill {
