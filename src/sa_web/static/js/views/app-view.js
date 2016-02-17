@@ -782,7 +782,9 @@ var Shareabouts = Shareabouts || {};
       $("#new-place-mask-fill").css("left", xOffset + "px")
                                .css("top", yOffset + "px")
                                .css("width", spotlightDiameter + "px")
-                               .css("height", spotlightDiameter + "px");
+                               .css("height", spotlightDiameter + "px")
+                               // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
+                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px #222222, inset 0px 0px 20px 30px #222222");
     },
     showAddButton: function() {
       this.$addButton.show();
