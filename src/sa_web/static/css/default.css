@@ -541,9 +541,9 @@ a.logout-btn {
   /*width: 200px; 
   height: 200px;*/
   -webkit-appearance: none;
-  -webkit-box-shadow: 0px 0px 0px 2000px #222222;
-  -moz-box-shadow: 0px 0px 0px 2000px #222222;
-  box-shadow: 0px 0px 0px 2000px #222222;
+  -webkit-box-shadow: 0px 0px 0px 2000px #222222, inset 0px 0px 20px 30px #222222;
+  -moz-box-shadow: 0px 0px 0px 2000px #222222, inset 0px 0px 20px 30px #222222;
+  box-shadow: 0px 0px 0px 2000px #222222, inset 0px 0px 20px 30px #222222;
 }
 
 .mask {
