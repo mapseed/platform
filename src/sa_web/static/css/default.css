@@ -474,6 +474,8 @@ a.logout-btn {
 #map {
   background: #a3c7d9;
   height: 150px;
+
+  /*opacity: 0.5;*/
 }
 
 /* Geolocation Button */
@@ -519,10 +521,42 @@ a.logout-btn {
   left: 50%;
   pointer-events: none;
   z-index: 11;
-  width: 47px;
-  height: 47px;
+  width: 100px;
+  height: 100px;
   margin: -44px 0 0 -12px;
 }
+
+#new-place-mask {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  /* for IE */
+  /*
+  filter: alpha(opacity=40);
+  -moz-opacity:0.4;
+  -khtml-opacity: 0.4;
+  opacity: 0.4;
+  */
+}
+
+#new-place-mask-fill {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.mask {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+.mask-left {
+  left: 0%;
+  width: 200px;
+  height: 200px;
+}
+
 #centerpoint.newpin .x {
   display: block;
   position: absolute;
@@ -1817,7 +1851,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     position: absolute;
     top: 4em; /* height of #site-header */
     right: 0;
-    bottom: 1.75em;
+    bottom: 0;
     left: 0;
   }
   .content-visible #map-container {

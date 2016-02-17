@@ -363,6 +363,8 @@ var Shareabouts = Shareabouts || {};
       // Never set the placeFormView's latLng until the user does it with a
       // drag event (below)
       if (this.placeFormView && this.placeFormView.center) {
+        // remove map mask once the user has dragged and set a location
+        $("#new-place-mask").remove();
         this.setPlaceFormViewLatLng(ll);
       }
 
@@ -381,6 +383,8 @@ var Shareabouts = Shareabouts || {};
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'panel', 'close-btn-click');
+      // remove map mask if the user closes the side panel
+      $("#new-place-mask").remove();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
@@ -769,6 +773,18 @@ var Shareabouts = Shareabouts || {};
     },
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
+
+      // add map mask and spotlight effect
+      var spotlightDiameter = 200,
+          xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
+          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
+      $("#map").append("<div id='new-place-mask'><div id='new-place-mask-fill'></div></div>");
+      $("#new-place-mask-fill").css("left", xOffset + "px")
+                               .css("top", yOffset + "px")
+                               .css("width", spotlightDiameter + "px")
+                               .css("height", spotlightDiameter + "px")
+                               // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
+                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
     },
     showAddButton: function() {
       this.$addButton.show();
