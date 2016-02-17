@@ -530,17 +530,20 @@ a.logout-btn {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  opacity: .8;
+  opacity: .4;
 }
 
-#new-place-mask:after{
+#new-place-mask-fill {
   content: '';
   position: absolute;
-  left: 38%; 
-  top: 32%;
+  /*left: 38%; 
+  top: 32%;*/
   border-radius: 50%;
-  width: 200px; 
-  height: 200px;
+  /*width: 200px; 
+  height: 200px;*/
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0px 0px 0px 2000px #222222;
+  -moz-box-shadow: 0px 0px 0px 2000px #222222;
   box-shadow: 0px 0px 0px 2000px #222222;
 }
 
