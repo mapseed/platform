@@ -522,6 +522,7 @@ activity:
   # Place Types
 
 place:
+  dataset_slug: report # default is 'place'
   adding_supported: true
   add_button_label: _(Add a report to the map!)
   # Labels for the buttons that toggle the map and list views
