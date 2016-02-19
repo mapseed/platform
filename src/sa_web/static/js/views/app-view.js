@@ -147,15 +147,14 @@ var Shareabouts = Shareabouts || {};
           (new S.LegendView({
           el: '#master-legend',
           mapView: this.mapView,
-          reports: this.options.sidebarConfig.reports
+          items: this.options.sidebarConfig.panels.legend.items
         })).render();
 
         // GIS Layers (leaflet-sidebar-view.js, leaflet-sidebar-content.html)
         (new S.GISLegendView({
           el: '#gis-legend',
           mapView: this.mapView,
-          layers: { items: this.options.mapConfig.layers,
-                    title: this.options.sidebarConfig.layersTitle }
+          groupings: this.options.sidebarConfig.panels.gis_layers.groupings
         })).render();
       }
 

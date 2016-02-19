@@ -6,7 +6,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'change .map-legend-checkbox': 'toggleVisibility'
     },
-    
+
     initialize: function () {
       var self = this;
       this.render();
@@ -19,7 +19,7 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
-            layers: this.options.layers
+            groupings: this.options.groupings,
           }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['gis-legend-content'](data));

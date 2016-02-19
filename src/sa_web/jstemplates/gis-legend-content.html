@@ -1,25 +1,32 @@
-<!-- leaflet-sidebar-view: GIS: needs layers and mapview, not reports -->
-
 <!-- MAP LAYERS -->
 
 <ul class="layer-type-list unstyled-list">
-  {{# layers.items }}
+  {{# groupings}}
     {{#if legend}}
-      <li class="layer-type-li">
-        <div class="layer-type-title">
-          <input id="map-{{ id }}" data-layerid="{{ id }}"
-                 {{#if visibleDefault}}
-                 checked="checked"
-                 {{/if}}
-                 class="map-legend-checkbox" type="checkbox"></input>
-          <label for="map-{{ id }}">{{ title }}</label>
-        </div>
-        <span class="layer-type-description">{{ description }}
-          {{#if description-image}}
-            <img src="{{ description-image }}" alt="{{ description-image-alt }}">
-          {{/if}}
-        </span>
+      <li class="layer-type-grouping">
+        <label>{{ title }}
+        <ul class="layer-type-grouping-list unstyled-list">
+          {{# layers}}
+            {{# if legend}}
+              <li class="layer-type-li">
+                <div class="layer-type-title">
+                  <input id="map-{{ id }}" data-layerid="{{ id }}"
+                         {{#if visibleDefault}}
+                         checked="checked"
+                         {{/if}}
+                         class="map-legend-checkbox" type="checkbox"></input>
+                  <label for="map-{{ id }}">{{ title }}</label>
+                </div>
+                <span class="layer-type-description">{{ description }}
+                  {{#if description-image}}
+                    <img src="{{ description-image }}" alt="{{ description-image-alt }}">
+                  {{/if}}
+                </span>
+              </li>
+            {{/if}}
+          {{/layers}}
+        </ul>
       </li>
     {{/if}}
-  {{/ layers.items }}
+  {{/ groupings }}
 </ul>
