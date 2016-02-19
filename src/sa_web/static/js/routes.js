@@ -7,13 +7,13 @@ var Shareabouts = Shareabouts || {};
     routes: {
       '': 'viewMap',
       'filter/:locationtype': 'filterMap',
+      'page/:slug': 'viewPage',
       ':dataset/new': 'newPlace',
       ':dataset/:id': 'viewPlace',
       ':dataset/:id/response/:response_id': 'viewPlace',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
       ':id': 'viewLandmark',
-      'page/:slug': 'viewPage',
       ':zoom/:lat/:lng': 'viewMap'
     },
 
