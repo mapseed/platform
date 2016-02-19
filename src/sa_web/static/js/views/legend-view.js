@@ -1,9 +1,8 @@
-// Legend: needs reports, not layers
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.LegendView = Backbone.View.extend({
-    
+
     initialize: function () {
       var self = this;
       this.render();
@@ -16,7 +15,7 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
-            reports: this.options.reports
+            items: this.options.items
           }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['legend'](data));
