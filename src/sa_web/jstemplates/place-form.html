@@ -69,9 +69,9 @@
         {{#is type "dropdown"}}
           <div>
             <select name={{ ../name }}>
-              <option value="null">{{#_}}Select...{{/_}}</option>
+              <option value="null" name="null">{{#_}}Select...{{/_}}</option>
               {{#each (property ../../place_config.dynamic_form_content content)}}
-                  <option value="value">{{label}}</option>
+                  <option value={{value}}>{{label}}</option>
               {{/each}}
             </select>
           </div>
