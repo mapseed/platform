@@ -664,16 +664,60 @@ place:
       value: air_watch
       label: _(Air watch)
       fields:
-        - name: title
+        - name: reside_work_georgetown
+          type: yes_only
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+          content: yes_only
+          optional: false
+        - name: odd_smell
+          type: yes_only
+          prompt: _(I observe an odd smell)
+          content: yes_only
+          annotation: _(Please be sure to seek medical attention if needed.)
+          optional: false
+        - name: burning
+          type: yes_only
+          prompt: _(I have burning or itching eyes/nose/skin)
+          content: yes_only
+          annotation: _(Please be sure to seek medical attention if needed.)
+          optional: false
+        - name: difficulty_breathing
+          type: yes_only
+          prompt: _(I am having difficulty breathing)
+          content: yes_only
+          annotation: _(Please be sure to seek medical attention if needed.)
+          optional: false
+        - name: headache
+          type: yes_only
+          prompt: _(I am experiencing a headache)
+          content: yes_only
+          annotation: _(Please be sure to seek medical attention if needed.)
+          optional: false
+        - name: other_physical_effects
           type: text
-          prompt: _(Title)
-          placeholder: _(Enter title)
+          prompt: _(Please note other physical effects you are experiencing)
+          annotation: _(Please be sure to seek medical attention if needed.)
+          optional: true
+        - name: source
+          type: dropdown
+          prompt: _(Select one of the following to identify the source of the bad air quality.)
+          content: air_quality_source
           optional: false
-        - name: description
-          type: textarea
-          prompt: _(Description)
-          placeholder: _(Description...)
+        - name: normal_activities
+          type: radio_big_buttons
+          prompt: "Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood."
+          content: likert_agree_5
           optional: false
+        - name: activities_impacted
+          type: dropdown
+          prompt: _(Select one of the following to indicate how your normal activities are impacted.)
+          content: activities_impacted
+          optional: false
+        - name: additional_comments
+          type: text
+          prompt: _(Provide any additional comments)
+          optional: true
+        
     tree:
       name: location_type
       value: tree
@@ -714,6 +758,56 @@ place:
         value: litter
       - label: _(Other)
         value: other
+    air_quality_source:
+      - label: _(Asbestos)
+        value: absestos
+      - label: _(Burning during burn ban)
+        value: burning
+      - label: _(Chimney smoke)
+        value: chimney_smoke
+      - label: _(Gas station)
+        value: gas_station
+      - label: _(Mobile coater)
+        value: mobile_coater
+      - label: _(Odor)
+        value: odor
+      - label: _(Outdoor fire)
+        value: outdoor_fire
+      - label: _(Vehicle pollution)
+        value: vehicle_pollution
+      - label: _(Visible emission)
+        value: visible_emission
+      - label: _(Specific business or industry)
+        value: business_or_industry
+      - label: _(Don't know/unsure)
+        value: unsure
+      - label: _(Other (please describe in comments))
+        value: other
+    likert_agree_5:
+      - label: _(Strongly agree)
+        value: strongly_agree
+      - label: _(Agree)
+        value: agree
+      - label: _(Neutral)
+        value: neutral
+      - label: _(Disagree)
+        value: disagree
+      - label: _(Strongly disagree)
+        value: strongly_disagree
+    activities_impacted:
+      - label: _(I choose to stay indoors to avoid the source of pollution)
+        value: stay_indoors
+      - label: _(I close the windows, limiting circulation)
+        value: close_windows
+      - label: _(I open all windows to circulate air)
+        value: open_windows
+      - label: _(I avoid outdoor physical activities)
+        value: avoid_outdoor_activities
+      - label: _(I need to constantly clean surfaces, as they are often greasy or dusty)
+        value: clean_surfaces
+      - label: _(Other (please specify in comments))
+        value: other
+
 
   # define form elements that appear on every form here
   common_form_elements:

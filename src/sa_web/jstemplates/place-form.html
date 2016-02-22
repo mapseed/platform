@@ -58,7 +58,32 @@
             {{/each}}
           </div>
         {{/is}}
+
+        {{#is type "yes_only"}}
+          <div>
+            <input type="checkbox" id={{ name }} value="yes" class="big-btn">
+            <label for={{ name }}>{{#_}}Yes{{/_}}</label>
+          </div>
+        {{/is}}
+
+        {{#is type "dropdown"}}
+          <div>
+            <select name={{ ../name }}>
+              <option value="null">{{#_}}Select...{{/_}}</option>
+              {{#each (property ../../place_config.dynamic_form_content content)}}
+                  <option value="value">{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div style="clear:both"></div>
+        {{/is}}
         <div style="clear:both"></div>
+
+        <!-- optional post-form field message -->
+        {{#if annotation}}
+          <div class="form-annotation">{{annotation}}</div>
+        {{/if}}
+        
         <!-- end field type definitions -->
       </div>
     {{/each}}
@@ -90,7 +115,6 @@
                        {{#if_fileinput_not_supported}} disabled{{/if_fileinput_not_supported}}>
               </span>
               <span class="fileinput-name">
-                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
                 {{#if_fileinput_not_supported}}Sorry, your browser doesn't support file uploads.{{/if_fileinput_not_supported}}
               </span>
             {{/is}}
