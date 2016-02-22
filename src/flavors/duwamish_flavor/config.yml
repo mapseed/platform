@@ -620,6 +620,7 @@ place:
   categories:
     observation:
       name: location_type
+      icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
       fields:
@@ -640,6 +641,7 @@ place:
           optional: false
     question:
       name: location_type
+      icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
       fields:
@@ -650,6 +652,7 @@ place:
           optional: false
     idea:
       name: location_type
+      icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
       fields:
@@ -665,6 +668,7 @@ place:
           optional: false
     complaint:
       name: location_type
+      icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
       fields:
@@ -675,6 +679,7 @@ place:
           optional: false
     air_watch:  #defines a top-level form category
       name: location_type  #needs to be "location_type"
+      icon_url: /static/css/images/markers/marker-complaint.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
       fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
@@ -682,31 +687,31 @@ place:
           type: yes_only_big_button  
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
           display_prompt: _(I reside or work in Georgetown or South Park:)
-          optional: false
+          optional: true
         - name: odd_smell
           type: yes_only_big_button
           prompt: _(I observe an odd smell)
           display_prompt: _(I observed an odd smell:)
           annotation: _(Please be sure to seek medical attention if needed.)
-          optional: false
+          optional: true
         - name: burning
           type: yes_only_big_button
           prompt: _(I have burning or itching eyes/nose/skin)
           display_prompt: _(I have burning or itching eyes/nose/skin:)
           annotation: _(Please be sure to seek medical attention if needed.)
-          optional: false
+          optional: true
         - name: difficulty_breathing
           type: yes_only_big_button
           prompt: _(I am having difficulty breathing)
           display_prompt: _(I am having difficulty breathing:)
           annotation: _(Please be sure to seek medical attention if needed.)
-          optional: false
+          optional: true
         - name: headache
           type: yes_only_big_button
           prompt: _(I am experiencing a headache)
           display_prompt: _(I am experiencing a headache:)
           annotation: _(Please be sure to seek medical attention if needed.)
-          optional: false
+          optional: true
         - name: other_physical_effects
           type: text
           prompt: _(Please note other physical effects you are experiencing)
@@ -739,6 +744,7 @@ place:
         
     tree:
       name: location_type
+      icon_url: /static/css/images/markers/marker-complaint.png  #TEMPORARY
       value: tree
       label: _(Tree)
       fields:
