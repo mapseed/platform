@@ -85,16 +85,12 @@ map:
 
       # WMS landuse
     - id: landuse
-      url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/gwc/service/wms
-      layers: 'wria9:Landuse2010'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
+      type: cartodb
+      url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
       legend: true
       opacity: 0.5
-      description-image: /static/css/images/legend-landuse2010.png
-      description-image-alt: 'legend'
       title: _(Land use)
+      description: Land Use information collected in 2010
       visibleDefault: false
 
       # WMS Buildings connection:
@@ -131,6 +127,16 @@ map:
       opacity: 0.4
       description: _(The original Duwamish River path)
       title: _(Original river path)
+      visibleDefault: false
+
+      # Noxious Weeds
+    - id: noxious-weeds
+      type: cartodb
+      url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
+      legend: true
+      opacity: 0.5
+      title: _(Noxious weeds)
+      description: Noxious weeds surveyed by King County in 2014
       visibleDefault: false
 
 # The keys show up in the dropdown list when you are adding a new place

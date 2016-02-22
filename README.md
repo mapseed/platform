@@ -1,4 +1,4 @@
-Hey Duwamish! [![Build Status](https://secure.travis-ci.org/smartercleanup/duwamish.png)](http://travis-ci.org/smartercleanup/duwamish)
+Hey Duwamish! [![Build Status](https://secure.travis-ci.org/smartercleanup/platform.png)](http://travis-ci.org/smartercleanup/platform)
 ===========
 For a brief summary, please view: [http://smartercleanup.org/](http://smartercleanup.org/)
 

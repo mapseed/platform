@@ -35,9 +35,8 @@
   {% endblock app_icons %}
 
   <!-- Google WebFonts -->
-  <link href='//fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  <link href='//fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
@@ -128,18 +127,20 @@
     {% endif %}
 
     <div id="map-container">
+      
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
+      
 
       {% if config.leaflet_sidebar.enabled %}
         <div id="sidebar" class="sidebar collapsed">
           <!-- Nav tabs -->
           <div class="sidebar-tabs">
             <ul role="tablist">
-              <li><a href="#legend-pane" role="tab"><i class="fa fa-info-circle"></i></a></li>
-              <li><a href="#layers-pane" role="tab"><i class="fa fa-map-o"></i></a></li>
+              <li><a href="#layers-pane" role="tab"><i class="fa fa-list"></i></a></li>
               <li><a href="#activity-stream-pane" role="tab"><i class="fa fa-comments-o"></i></a></li>
+              <li><a href="#legend-pane" role="tab"><i class="fa fa-info-circle"></i></a></li>
             </ul>
           </div>
 
@@ -191,9 +192,11 @@
 
   <div id="list-container"></div>
 
+  <!--
   <footer id="colophon">
     {% block colophon %}{% endblock %}
   </footer>
+  -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

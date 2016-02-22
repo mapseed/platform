@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Our Community Map
+  title: Hey Willamette!
   # Header name
-  name: Our Community Map
+  name: Hey Willamette!
   # Meta description that will show up in Google search results
   meta_description: _(We are gathering public input on important issues in the community)
   # Meta author that will show up in Google search results
@@ -23,15 +23,15 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
 
-  geocoding_enabled: true
+  geocoding_enabled: false
   geocode_field_label: _(Enter an address...)
   geocode_bounding_box: [39.830159, -75.478821, 40.167331, -74.781189]  # top, left, bottom, right
 
   options:
     center:
-      lat: 45.51369
-      lng: -122.67111
-    zoom: 14
+      lat: 45.58665
+      lng: -122.75660
+    zoom: 13
     minZoom: 1
     maxZoom: 18
   layers:
@@ -41,20 +41,13 @@ map:
     - id: pins
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.p58e6k92/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
+      placeType: mapbox
       visibleDefault: true
-      popupContent: '{{title}}{{description}}'
-      rules:
-        - condition: 'true'
-          style:
-            color: "#444"
-            opacity: 0.6
-            fillOpacity: 0.1
-            weight: 1
-          icon:
-            iconUrl: /static/css/images/markers/marker-0d85e9.png
-            shadowUrl: /static/css/images/marker-shadow.png
-            iconSize: [25, 41]
-            iconAnchor: [12, 41]
+      legend: true
+      opacity: 0.9
+      title: _(Points of interest)
+      description: _(Areas where improvements can and are being made along the river)
+      visibleDefault: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -71,19 +64,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
-
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -101,19 +88,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
-
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -131,19 +112,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
-
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -161,19 +136,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
-
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
@@ -199,20 +168,19 @@ place_types:
           fillOpacity: '{{properties.fill-opacity}}'
           weight: "{{properties.stroke-width}}"
 
+      - condition: '"{{geometry.type}}" == "Point" && {{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+          shadowSize: [60, 60]
+          shadowAnchor: [30, 30]
+
       - condition: '"{{geometry.type}}" == "Point"'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
           iconSize: [30, 30]
           iconAnchor: [15, 15]
-
-      - condition: '"{{geometry.type}}" == "Point" && "{{layer.focused}}" === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
 
 sidebar:
   enabled: true
@@ -361,7 +329,6 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
 
   - title: _(Get involved)
     slug: getinvolved

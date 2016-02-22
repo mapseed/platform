@@ -7,13 +7,13 @@ var Shareabouts = Shareabouts || {};
     routes: {
       '': 'viewMap',
       'filter/:locationtype': 'filterMap',
+      'page/:slug': 'viewPage',
       ':dataset/new': 'newPlace',
       ':dataset/:id': 'viewPlace',
       ':dataset/:id/response/:response_id': 'viewPlace',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
       ':id': 'viewLandmark',
-      'page/:slug': 'viewPage',
       ':zoom/:lat/:lng': 'viewMap'
     },
 
@@ -109,17 +109,14 @@ var Shareabouts = Shareabouts || {};
 
       Backbone.history.start(historyOptions);
 
-      // Disable this because 'isMapRoute' has no way to determine if the route
-      // `:collection/:id` is a valid route.
-      // We will address this within the app-view
-      // Load the default page only if there is no page already in the url
-      // if (this.isMapRoute(Backbone.history.getFragment())) {
-      //   startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
+      // Load the default page when there is no page already in the url
+      if (Backbone.history.getFragment() === '') {
+        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
 
-      //   if (startPageConfig && startPageConfig.slug) {
-      //     this.navigate('page/' + startPageConfig.slug, {trigger: true});
-      //   }
-      // }
+        if (startPageConfig && startPageConfig.slug) {
+          this.navigate('page/' + startPageConfig.slug, {trigger: true});
+        }
+      }
 
       this.loading = false;
     },

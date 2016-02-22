@@ -49,8 +49,8 @@ var Shareabouts = Shareabouts || {};
         this.styleRule = L.Argo.getStyleRule(context, this.placeType.rules);
 
         // Zoom checks here, for overriding the icon size, anchor, and focus icon:
-        var zoomRules = this.options.placeTypes[this.placeType.zoomType];
-        if (zoomRules) {
+        if (this.placeType.hasOwnProperty('zoomType')) {
+          var zoomRules = this.options.placeTypes[this.placeType.zoomType];
           this.styleRule = L.Argo.getZoomRule(this.styleRule, zoomRules);
         }
 
