@@ -59,7 +59,7 @@
           </div>
         {{/is}}
 
-        {{#is type "yes_only"}}
+        {{#is type "yes_only_big_button"}}
           <div>
             <input type="checkbox" id={{ name }} value="yes" class="big-btn">
             <label for={{ name }}>{{#_}}Yes{{/_}}</label>
@@ -83,7 +83,7 @@
         {{#if annotation}}
           <div class="form-annotation">{{annotation}}</div>
         {{/if}}
-        
+
         <!-- end field type definitions -->
       </div>
     {{/each}}
