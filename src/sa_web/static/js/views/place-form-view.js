@@ -8,7 +8,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-btn': 'onCategoryChange',
+      'click .category-btn-label': 'onCategoryChange',
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -102,9 +102,9 @@ var Shareabouts = Shareabouts || {};
     },
     onCategoryChange: function(evt) {
       // re-render the form with the selected category
-      this.render(evt.target.id.split("-")[2], true);
+      this.render($(evt.target).parent().prev().attr("id"), true);
       // manually set the category button again since the re-render resets it
-      $("#" + evt.target.id).prop("checked", true);
+      $(evt.target).parent().prev().prop("checked", true);
     },
     onInputFileChange: function(evt) {
       var self = this,
