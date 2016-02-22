@@ -129,6 +129,16 @@ map:
       title: _(Original river path)
       visibleDefault: false
 
+      # Noxious Weeds
+    - id: noxious-weeds
+      type: cartodb
+      url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
+      legend: true
+      opacity: 0.5
+      title: _(Noxious weeds)
+      description: Noxious weeds surveyed by King County in 2014
+      visibleDefault: false
+
 # The keys show up in the dropdown list when you are adding a new place
 
 # The values map the place type to map icons (defined below).
