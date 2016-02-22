@@ -714,7 +714,7 @@ place:
           optional: false
         - name: normal_activities
           type: radio_big_buttons
-          prompt: "Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood."
+          prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
           content: likert_agree_5
           optional: false
         - name: activities_impacted
