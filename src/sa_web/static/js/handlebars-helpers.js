@@ -188,7 +188,8 @@ var Shareabouts = Shareabouts || {};
         name: item.name,
         label: item.display_prompt,
         value: this[item.name],
-        display_value: this.display_labels[item.name]
+        display_value: this.display_labels[item.name],
+        type: item.type
       };
 
       // if not an exclusion and not private data

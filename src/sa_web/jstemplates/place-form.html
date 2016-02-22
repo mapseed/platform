@@ -61,7 +61,7 @@
 
         {{#is type "yes_only_big_button"}}
           <div>
-            <input type="checkbox" name={{ name }} id={{ name }} value="Yes" class="big-btn">
+            <input type="checkbox" name={{ name }} id={{ name }} value="Yes" data-alt-value={{#_}}No{{/_}} data-type="yes_only_big_button" class="big-btn">
             <label for={{ name }}>{{#_}}Yes{{/_}}</label>
           </div>
         {{/is}}
