@@ -776,6 +776,16 @@ a.close-btn span {
   top: -0.2em;
 }
 
+/* Contains embeded video player size */
+#content iframe,
+#content object,
+#content embed{
+  overflow: hidden;
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
+
 /* Promotion: Voting & Sharing */
 .promotion {
   float: right;
