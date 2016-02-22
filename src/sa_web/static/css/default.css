@@ -345,6 +345,10 @@ select {
   font-size: 1em;
   width: 250px;
 }
+.form-annotation {
+  font-size: 0.8em;
+  font-style: italic;
+}
 
 
 /* Imag es */
