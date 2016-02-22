@@ -64,13 +64,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -88,13 +88,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -112,13 +112,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -136,13 +136,13 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 10'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 10'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
@@ -329,7 +329,6 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
 
   - title: _(Get involved)
     slug: getinvolved
