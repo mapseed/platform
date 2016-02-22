@@ -696,51 +696,61 @@ place:
       fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
         - name: reside_work_georgetown  
           type: yes_only_big_button  
-          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)  
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+          display_prompt: _(I reside or work in Georgeown or South Park:)
           optional: false
         - name: odd_smell
           type: yes_only_big_button
           prompt: _(I observe an odd smell)
+          display_prompt: _(I observed an odd smell:)
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: burning
           type: yes_only_big_button
           prompt: _(I have burning or itching eyes/nose/skin)
+          display_prompt: _(I have burning or itching eyes/nose/skin:)
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: difficulty_breathing
           type: yes_only_big_button
           prompt: _(I am having difficulty breathing)
+          display_prompt: _(I am having difficulty breathing:)
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: headache
           type: yes_only_big_button
           prompt: _(I am experiencing a headache)
+          display_prompt: _(I am experiencing a headache:)
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: other_physical_effects
           type: text
           prompt: _(Please note other physical effects you are experiencing)
+          display_prompt: _(Other physical effects I experienced:)
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: source  #internally used name for this form element
           type: dropdown  #form type
           prompt: _(Select one of the following to identify the source of the bad air quality.)  #display prompt
+          display_prompt: _(Pollution source observed:)  #text used when a submitted report is viewed later
           content: air_quality_source  #points to dynamic_form_content section below, to avoid possibly duplicating complex form content
           optional: false
         - name: normal_activities
           type: radio_big_buttons
           prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
+          display_prompt: _(My normal activities are affected by the air quality in my neighborhood:)
           content: likert_agree_5
           optional: false
         - name: activities_impacted
           type: dropdown
           prompt: _(Select one of the following to indicate how your normal activities are impacted.)
+          display_prompt: _(My normal activities were impacted in the following way:)
           content: activities_impacted
           optional: false
         - name: additional_comments
           type: text
           prompt: _(Provide any additional comments)
+          display_prompt: _(Additional comments:)
           optional: true
         
     tree:

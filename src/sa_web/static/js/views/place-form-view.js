@@ -120,7 +120,6 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-      console.log(S.Config.placeTypes);
       // Make sure that the center point has been set after the form was
       // rendered. If not, this is a good indication that the user neglected
       // to move the map to set it in the correct location.
@@ -143,7 +142,7 @@ var Shareabouts = Shareabouts || {};
           spinner, $fileInputs;
 
       model.attributes["from_dynamic_form"] = true;
-      console.log(model);
+      console.log("model", model);
       evt.preventDefault();
 
       $button.attr('disabled', 'disabled');
