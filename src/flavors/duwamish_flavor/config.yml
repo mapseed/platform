@@ -673,38 +673,33 @@ place:
           prompt: _(What's your complaint?)
           placeholder: _(Description...)
           optional: false
-    air_watch:
-      name: location_type
-      value: air_watch
-      label: _(Air watch)
-      fields:
-        - name: reside_work_georgetown
-          type: yes_only
-          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
-          content: yes_only
+    air_watch:  #defines a top-level form category
+      name: location_type  #needs to be "location_type"
+      value: air_watch  #internal value used for this category
+      label: _(Air watch)  #label for this category
+      fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
+        - name: reside_work_georgetown  
+          type: yes_only_big_button  
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)  
           optional: false
         - name: odd_smell
-          type: yes_only
+          type: yes_only_big_button
           prompt: _(I observe an odd smell)
-          content: yes_only
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: burning
-          type: yes_only
+          type: yes_only_big_button
           prompt: _(I have burning or itching eyes/nose/skin)
-          content: yes_only
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: difficulty_breathing
-          type: yes_only
+          type: yes_only_big_button
           prompt: _(I am having difficulty breathing)
-          content: yes_only
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: headache
-          type: yes_only
+          type: yes_only_big_button
           prompt: _(I am experiencing a headache)
-          content: yes_only
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: false
         - name: other_physical_effects
@@ -712,10 +707,10 @@ place:
           prompt: _(Please note other physical effects you are experiencing)
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
-        - name: source
-          type: dropdown
-          prompt: _(Select one of the following to identify the source of the bad air quality.)
-          content: air_quality_source
+        - name: source  #internally used name for this form element
+          type: dropdown  #form type
+          prompt: _(Select one of the following to identify the source of the bad air quality.)  #display prompt
+          content: air_quality_source  #points to dynamic_form_content section below, to avoid possibly duplicating complex form content
           optional: false
         - name: normal_activities
           type: radio_big_buttons
@@ -772,7 +767,7 @@ place:
         value: litter
       - label: _(Other)
         value: other
-    air_quality_source:
+    air_quality_source:  #defines labels and values for form content. Can be referenced in the "content" parameter of a form type.
       - label: _(Asbestos)
         value: absestos
       - label: _(Burning during burn ban)
