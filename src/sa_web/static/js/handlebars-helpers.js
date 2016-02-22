@@ -179,17 +179,17 @@ var Shareabouts = Shareabouts || {};
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
 
-    console.log(this.from_dynamic_form);
-
     // check if a report has been made with the dynamic form, or with the regular form, and iterate appropriately
     _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {
     //_.each(NS.Config.place.items, function(item, i) {
+    //
+      
       var newItem = {
         name: item.name,
-        label: item.prompt,
+        label: item.display_prompt,
         value: this[item.name]
       };
-
+      
       // if not an exclusion and not private data
       if (_.contains(exclusions, item.name) === false &&
           item.name.indexOf('private-') !== 0) {

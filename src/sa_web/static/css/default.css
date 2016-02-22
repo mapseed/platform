@@ -1428,7 +1428,6 @@ ul.recent-points {
   max-width: 9em;
   margin: 0 1em 0.75em 0;
 }
-
 .place-list .place-label,
 .place-list .place-value {
 }
@@ -1439,7 +1438,13 @@ ul.recent-points {
 .place-item-attachment .place-value:empty {
   display: block;
 }
-
+.place-value {
+  font-weight: bold;
+}
+.place-label {
+  font-weight: normal;
+  font-style: italic;
+}
 .view-on-map-btn {
   margin: 1em 0;
   float: left;
