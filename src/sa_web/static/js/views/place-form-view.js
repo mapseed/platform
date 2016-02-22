@@ -83,6 +83,11 @@ var Shareabouts = Shareabouts || {};
         attrs.display_labels[$(this).attr("name")] = $(this).attr("data-alt-value");
       });
 
+      // handle text boxes
+      $form.find("textarea, input[type='text']").each(function() {
+        attrs.display_labels[$(this).attr("name")] = $(this).val();
+      });
+
       // Get the location attributes from the map
       attrs.geometry = {
         type: 'Point',
