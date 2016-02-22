@@ -70,7 +70,7 @@ var Shareabouts = Shareabouts || {};
 
       // get display value associated with <select> elements
       $form.find(":selected").each(function() {
-        attrs.display_labels[$(this).parent().attr("name")] = $(this).html();
+        attrs.display_labels[$(this).parent().attr("name")] = ($(this).attr("value") == "no_response") ? "" : $(this).html();
       });
       
       // get display value associated with checkbox and radio elements
