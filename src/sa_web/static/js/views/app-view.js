@@ -372,7 +372,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMapDragEnd: function(evt) {
       if (this.hasBodyClass('content-visible') === true) {
-        $("#new-place-mask").remove();
+        $("#spotlight-place-mask").remove();
       }
       this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
     },
@@ -385,7 +385,7 @@ var Shareabouts = Shareabouts || {};
       evt.preventDefault();
       S.Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
-      $("#new-place-mask").remove();
+      $("#spotlight-place-mask").remove();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
@@ -805,13 +805,12 @@ var Shareabouts = Shareabouts || {};
       this.showCenterPoint();
     },
     addSpotlightMask: function() {
-      console.log("appView.addSpotlightMask: adding");
       // add map mask and spotlight effect
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
           yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
-      $("#map").append("<div id='new-place-mask'><div id='new-place-mask-fill'></div></div>");
-      $("#new-place-mask-fill").css("left", xOffset + "px")
+      $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
+      $("#spotlight-place-mask-fill").css("left", xOffset + "px")
                                .css("top", yOffset + "px")
                                .css("width", spotlightDiameter + "px")
                                .css("height", spotlightDiameter + "px")

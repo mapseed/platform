@@ -527,7 +527,7 @@ a.logout-btn {
   margin: -44px 0 0 -12px;
 }
 
-#new-place-mask {
+#spotlight-place-mask {
   height: 100%;
   width: 100%;
   margin: 0 auto;
@@ -540,7 +540,7 @@ a.logout-btn {
   */
 }
 
-#new-place-mask-fill {
+#spotlight-place-mask-fill {
   position: absolute;
   border-radius: 50%;
 }
