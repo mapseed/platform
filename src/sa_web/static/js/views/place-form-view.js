@@ -65,6 +65,19 @@ var Shareabouts = Shareabouts || {};
       // Get values from the form
       attrs = S.Util.getAttrs($form);
 
+      // get associated display values (for use on the place detail view)
+      attrs.display_labels = {};
+
+      // get display value associated with <select> elements
+      this.$("form").find(":selected").each(function() {
+        attrs.display_labels[$(this).parent().attr("name")] = $(this).html();
+      });
+      
+      // get display value associated with checkbox and radio elements
+      this.$("form").find(":checked").each(function() {
+        attrs.display_labels[$(this).attr("name")] = $(this).siblings("label").html();
+      });
+
       // Get the location attributes from the map
       attrs.geometry = {
         type: 'Point',
