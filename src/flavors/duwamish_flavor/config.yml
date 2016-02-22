@@ -681,7 +681,7 @@ place:
         - name: reside_work_georgetown  
           type: yes_only_big_button  
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
-          display_prompt: _(I reside or work in Georgeown or South Park:)
+          display_prompt: _(I reside or work in Georgetown or South Park:)
           optional: false
         - name: odd_smell
           type: yes_only_big_button

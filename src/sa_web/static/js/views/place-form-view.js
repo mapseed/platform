@@ -69,13 +69,18 @@ var Shareabouts = Shareabouts || {};
       attrs.display_labels = {};
 
       // get display value associated with <select> elements
-      this.$("form").find(":selected").each(function() {
+      $form.find(":selected").each(function() {
         attrs.display_labels[$(this).parent().attr("name")] = $(this).html();
       });
       
       // get display value associated with checkbox and radio elements
-      this.$("form").find(":checked").each(function() {
+      $form.find(":checked").each(function() {
         attrs.display_labels[$(this).attr("name")] = $(this).siblings("label").html();
+      });
+
+      // handle special case of yes-only checkboxes
+      $form.find("[data-type='yes_only_big_button']:not(:checked)").each(function() {
+        attrs.display_labels[$(this).attr("name")] = $(this).attr("data-alt-value");
       });
 
       // Get the location attributes from the map
