@@ -20,11 +20,11 @@ app:
 
 # Settings for map and layer configs
 map:
-  geolocation_enabled: false
+  geolocation_enabled: true
   geolocation_onload: false
   cartodb_enabled: true
 
-  geocoding_enabled: true
+  geocoding_enabled: false
   geocode_field_label: _(Enter an address...)
   geocode_bounding_box: [39.830159, -75.478821, 40.167331, -74.781189]  # top, left, bottom, right
 
