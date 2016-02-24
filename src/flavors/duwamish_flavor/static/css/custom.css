@@ -24,8 +24,14 @@
 /* iphone 4 (320 x 480)*/
 
 @media only screen and (min-height: 440px) and (max-width: 60em) {
-  #map {
-    height: 292px;
+  html, body {
+    height: 100%;
+  }
+  #main, #map {
+    height: 100%;
+  }
+  #map-container {
+    height: calc(100% - 136px);
   }
   #site-title a:link,
   #site-title a:visited {
@@ -47,8 +53,14 @@
 }
 
 @media only screen and (min-height: 480px) and (max-width: 60em) {
-  #map {
-    height: 332px;
+  html, body {
+    height: 100%;
+  }
+  #main, #map {
+    height: 100%;
+  }
+  #map-container {
+    height: calc(100% - 136px);
   }
   #site-title a:link,
   #site-title a:visited {
