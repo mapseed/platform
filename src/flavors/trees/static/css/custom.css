@@ -87,15 +87,6 @@
 /* =Header
 -------------------------------------------------------------- */
 
-/* #site-header {
-   /*color: #eee;
-   background: url(http://www.12000raingardens.org/wp-content/themes/rt_gantry_wp/images/header/nav-bg.jpg);
-   position: relative;
-   z-index: 40;
-   padding: 0.5em;
-   box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
-   } */
-
 #site-title {
   font-size: 1em;
   font-family: 'Open Sans', sans-serif;
@@ -442,6 +433,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     position: absolute;
     left: 1.5em;
     bottom: 2em;
+    right: unset;
+    top: unset;
     box-shadow: none;
     border-bottom: 0;
   }
@@ -520,98 +513,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     box-sizing: border-box;
   }
 
-  /* Geocoding */
-  #geocode-address-bar {
-    position: absolute;
-    top: 4em; /* height of #site-header */
-    right: 0;
-    bottom: auto;
-    left: 0;
-    z-index: 39;
-    border-right: 1px solid #666;
-    margin-top: 0;
-  }
-  .activity-enabled #geocode-address-bar {
-    /*right: 16em;*/
-    right: 18em;
-    /*right: 20em;*/
-  }
-  #geocode-address-bar .error {
-    padding: 0.25em 0.5em;
-    position: relative;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    float: right;
-    width: 15em;
-    text-align: center;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  #geocode-address-bar .error + form {
-    margin-bottom: 0;
-    margin-right: 15em;
-  }
-  #geocode-address-bar .error.is-hidden + form {
-    margin-right: 0;
-  }
-
-  /* The Side Bar */
-  #side-bar {
-    position: absolute;
-    top: 4em; /* height of #site-header */
-    right: 0;
-    bottom: 0;
-    left: auto;
-    width: 18em;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    z-index: 15;
-    box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
-    background: url(http://subtlepatterns.com/patterns/scribble_light.png);
-
-  }
-  .activity-enabled.content-visible #side-bar {
-    display: block;
-  }
-  .activity-enabled #map-container {
-    right: 18em;  /* width of #master-legend */
-  }
-  /* The Ticker */
-  #ticker {
-    right: 0;
-    bottom: 0;
-    left: auto;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    z-index: 15;
-    background: none;
-  }
-  .activity-enabled.content-visible #ticker {
-    display: block;
-  }
-  ul.recent-points {
-    font-size: 0.875em;
-    -webkit-transform: translateZ(0px);  /* needed on #ticker > * for touch scrolling */
-  }
-  .activity-enabled #map-container {
-    right: 18em;  /* width of #ticker */
-  }
-
-  /* master-legend */
-  #master-legend {
-    -webkit-overflow-scrolling: touch;
-    z-index: 15;
-  }
-  .activity-enabled.content-visible #master-legend {
-    display: block;
-  }
-  .activity-enabled #map-container {
-    right: 18em;  /* width of #master-legend */
-  }
-
   /* List View */
   .list-toggle-nav {
     display: block;
@@ -638,33 +539,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     /*background-color: #00aaff;*/
     /*color: #fff;*/
   }
-
-  /* Footer */
-  #colophon {
-    color: #007fbf;
-    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
-    font-size: 1em;
-    position: absolute;
-    top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 14;
-    padding: 0.25em;
-    box-shadow: 0 -0.125em rgba(0,0,0,0.1);
-    height: 1.75em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .activity-enabled #colophon {
-    right: 18em;   /* width of #master-legend */
-  }
-  #powered-by {
-    margin-bottom: 0;
-  }
-
-
 }
 
 @media only screen and (min-width: 80em) {
