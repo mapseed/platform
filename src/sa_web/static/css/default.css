@@ -1802,9 +1802,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     height: 100%;
     position: relative;
   }
-  #map-container {
-    height: 100%;
-  }
+
 
   /* A helper to let the JS know what kind of layout we're using */
   body:after {
