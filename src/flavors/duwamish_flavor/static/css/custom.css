@@ -27,11 +27,14 @@
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
   #site-title a:link,
   #site-title a:visited {
@@ -56,11 +59,14 @@
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
   #site-title a:link,
   #site-title a:visited {
