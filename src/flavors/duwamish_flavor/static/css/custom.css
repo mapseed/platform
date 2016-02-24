@@ -36,6 +36,9 @@
   #map-container {
     height: calc(100% - 72px);
   }
+  .activity-enabled.content-visible #map-container {
+    height: 70%;
+  }
   #site-title a:link,
   #site-title a:visited {
     width: 180px;
@@ -67,6 +70,9 @@
   }
   #map-container {
     height: calc(100% - 72px);
+  }
+  .activity-enabled.content-visible #map-container {
+    height: 70%;
   }
   #site-title a:link,
   #site-title a:visited {

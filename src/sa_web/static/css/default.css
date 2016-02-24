@@ -1790,6 +1790,9 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #map-container {
     height: calc(100% - 72px);
   }
+  .activity-enabled.content-visible #map-container {
+    height: 70%;
+  }
 }
 
 /* default for other media */
@@ -1799,7 +1802,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     height: 100%;
     position: relative;
   }
-
 
   /* A helper to let the JS know what kind of layout we're using */
   body:after {
@@ -1945,9 +1947,11 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     margin-left: -18em;
     width: 40%;
   }
+  /*
   .activity-enabled.content-visible #map-container {
     width: 70%;
   }
+  */
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
   }
