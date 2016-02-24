@@ -1654,11 +1654,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
   #site-title a:link,
   #site-title a:visited {
@@ -1672,11 +1675,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 
@@ -1685,11 +1691,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 /*@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {*/
@@ -1697,11 +1706,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 
@@ -1710,11 +1722,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 /*@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {*/
@@ -1722,11 +1737,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 /* iphone 6 plus (414 x 736) */
@@ -1734,11 +1752,14 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 /*@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {*/
@@ -1746,22 +1767,28 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 @media only screen and (min-height: 768px) and (max-width: 60em) {
   html, body {
     height: 100%;
   }
-  #main, #map {
+  #main {
+    height: calc(100% - 64px);
+  }
+  #map {
     height: 100%;
   }
   #map-container {
-    height: calc(100% - 136px);
+    height: calc(100% - 72px);
   }
 }
 
@@ -1772,9 +1799,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     height: 100%;
     position: relative;
   }
-  #map-container {
-    height: 100%;
-  }
+
 
   /* A helper to let the JS know what kind of layout we're using */
   body:after {
