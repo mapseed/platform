@@ -527,35 +527,16 @@ a.logout-btn {
   margin: -44px 0 0 -12px;
 }
 
-#new-place-mask {
+#spotlight-place-mask {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  /* for IE */
-  /*
-  filter: alpha(opacity=40);
-  -moz-opacity:0.4;
-  -khtml-opacity: 0.4;
-  opacity: 0.4;
-  */
 }
 
-#new-place-mask-fill {
+#spotlight-place-mask-fill {
   position: absolute;
   border-radius: 50%;
-}
-
-.mask {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  background-color: red;
-}
-
-.mask-left {
-  left: 0%;
-  width: 200px;
-  height: 200px;
+  pointer-events: none;
 }
 
 #centerpoint.newpin .x {
