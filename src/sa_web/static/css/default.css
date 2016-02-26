@@ -536,6 +536,7 @@ a.logout-btn {
 #spotlight-place-mask-fill {
   position: absolute;
   border-radius: 50%;
+  pointer-events: none;
 }
 
 #centerpoint.newpin .x {
