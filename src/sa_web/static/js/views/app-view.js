@@ -363,8 +363,6 @@ var Shareabouts = Shareabouts || {};
       // Never set the placeFormView's latLng until the user does it with a
       // drag event (below)
       if (this.placeFormView && this.placeFormView.center) {
-        // remove map mask once the user has dragged and set a location
-        $("#new-place-mask").remove();
         this.setPlaceFormViewLatLng(ll);
       }
 
@@ -373,6 +371,9 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMapDragEnd: function(evt) {
+      if (this.hasBodyClass('content-visible') === true) {
+        $("#spotlight-place-mask").remove();
+      }
       this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
     },
     onClickAddPlaceBtn: function(evt) {
@@ -384,7 +385,7 @@ var Shareabouts = Shareabouts || {};
       evt.preventDefault();
       S.Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
-      $("#new-place-mask").remove();
+      $("#spotlight-place-mask").remove();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
@@ -533,6 +534,7 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model);
         self.showPanel(landmarkDetailView.render().$el, false);
+        self.addSpotlightMask();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -662,6 +664,7 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         self.showPanel(placeDetailView.render().$el, !!responseId);
+        self.addSpotlightMask();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -774,17 +777,7 @@ var Shareabouts = Shareabouts || {};
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
 
-      // add map mask and spotlight effect
-      var spotlightDiameter = 200,
-          xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
-          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
-      $("#map").append("<div id='new-place-mask'><div id='new-place-mask-fill'></div></div>");
-      $("#new-place-mask-fill").css("left", xOffset + "px")
-                               .css("top", yOffset + "px")
-                               .css("width", spotlightDiameter + "px")
-                               .css("height", spotlightDiameter + "px")
-                               // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
-                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+      this.addSpotlightMask();
     },
     showAddButton: function() {
       this.$addButton.show();
@@ -810,6 +803,19 @@ var Shareabouts = Shareabouts || {};
     },
     hideNewPin: function() {
       this.showCenterPoint();
+    },
+    addSpotlightMask: function() {
+      // add map mask and spotlight effect
+      var spotlightDiameter = 200,
+          xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
+          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
+      $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
+      $("#spotlight-place-mask-fill").css("left", xOffset + "px")
+                               .css("top", yOffset + "px")
+                               .css("width", spotlightDiameter + "px")
+                               .css("height", spotlightDiameter + "px")
+                               // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
+                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the markers
