@@ -513,6 +513,7 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
+    // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
