@@ -515,15 +515,16 @@ sidebar:
     gis_layers:
       title: _(Map Layers:)
       groupings:
-        - id: grouping1
+        - id: grp-community
           legend: true
-          title: _(Grouping 1:)
+          title: _(Community Data)
+          visibleDefault: true
           layers:
-            - id: restoration
+            - id: cleanup
               legend: true
+              description: _(The EPA-approved cleanup plan for the river)
+              title: _(River cleanup plan)
               visibleDefault: true
-              title: _(Restoration sites)
-              description: _(Habitat restoration and community organizing)
 
             - id: vision
               legend: true
@@ -531,15 +532,16 @@ sidebar:
               title: _(Community vision)
               description: _(Priority areas identified through community visioning projects)
 
-            - id: cleanup
+            - id: restoration
               legend: true
-              description: _(The EPA-approved cleanup plan for the river)
-              title: _(River cleanup plan)
               visibleDefault: true
+              title: _(Restoration sites)
+              description: _(Habitat restoration and community organizing)
 
-        - id: grouping2
+        - id: grp-land
           legend: true
-          title: _(Grouping 2:)
+          title: _(Land Data)
+          visibleDefault: false
           layers:
               # WMS landuse
             - id: landuse
@@ -547,13 +549,6 @@ sidebar:
               description-image: /static/css/images/legend-landuse2010.png
               description-image-alt: 'legend'
               title: _(Land use)
-              visibleDefault: false
-
-              # WMS Buildings connection:
-            - id: buildings
-              legend: true
-              description: _(legend coming soon!)
-              title: _(Buildings)
               visibleDefault: false
 
               # WMS NLCD
@@ -564,12 +559,26 @@ sidebar:
               title: _(Land coverage)
               visibleDefault: false
 
+              # WMS Buildings connection:
+            - id: buildings
+              legend: true
+              description: _(legend coming soon!)
+              title: _(Buildings)
+              visibleDefault: false
+
+        - id: grp-history
+          legend: true
+          title: _(Historical Data)
+          visibleDefault: false
+          layers:
+
               # WMS Original Flow
             - id: duwamish-original
               legend: true
               description: _(The original Duwamish River path)
               title: _(Original river path)
               visibleDefault: false
+
     ticker:
       title: _(Activity Stream:)
 
