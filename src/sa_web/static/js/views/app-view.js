@@ -805,6 +805,9 @@ var Shareabouts = Shareabouts || {};
       this.showCenterPoint();
     },
     addSpotlightMask: function() {
+      // remove an existing mask
+      $("#spotlight-place-mask").remove();
+      
       // add map mask and spotlight effect
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
