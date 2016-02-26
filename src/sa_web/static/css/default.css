@@ -531,31 +531,11 @@ a.logout-btn {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  /* for IE */
-  /*
-  filter: alpha(opacity=40);
-  -moz-opacity:0.4;
-  -khtml-opacity: 0.4;
-  opacity: 0.4;
-  */
 }
 
 #spotlight-place-mask-fill {
   position: absolute;
   border-radius: 50%;
-}
-
-.mask {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  background-color: red;
-}
-
-.mask-left {
-  left: 0%;
-  width: 200px;
-  height: 200px;
 }
 
 #centerpoint.newpin .x {
