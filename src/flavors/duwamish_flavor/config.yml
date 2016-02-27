@@ -533,6 +533,12 @@ sidebar:
               title: _(Buildings)
               visibleDefault: false
 
+              # Noxious Weeds
+            - id: noxious-weeds
+              title: _(Noxious Weeds)
+              description: _(Invasive species of weeds)
+              visibleDefault: false
+
         - id: grp-history
           title: _(Historical Data)
           visibleDefault: false
@@ -682,7 +688,7 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
-    
+
   - title: _(Green Screen)
     slug: greenscreen
     name: greenscreen
