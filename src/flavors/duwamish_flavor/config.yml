@@ -491,36 +491,30 @@ sidebar:
       title: _(Map Layers:)
       groupings:
         - id: grp-community
-          legend: true
           title: _(Community Data)
           visibleDefault: true
           layers:
             - id: cleanup
-              legend: true
               description: _(The EPA-approved cleanup plan for the river)
               title: _(River cleanup plan)
               visibleDefault: true
 
             - id: vision
-              legend: true
               visibleDefault: true
               title: _(Community vision)
               description: _(Priority areas identified through community visioning projects)
 
             - id: restoration
-              legend: true
               visibleDefault: true
               title: _(Restoration sites)
               description: _(Habitat restoration and community organizing)
 
         - id: grp-land
-          legend: true
           title: _(Land Data)
           visibleDefault: false
           layers:
               # WMS landuse
             - id: landuse
-              legend: true
               description-image: /static/css/images/legend-landuse2010.png
               description-image-alt: 'legend'
               title: _(Land use)
@@ -528,7 +522,6 @@ sidebar:
 
               # WMS NLCD
             - id: landcoverage
-              legend: true
               description-image: /static/css/images/legend-nlcd2011.png
               description-image-alt: 'legend'
               title: _(Land coverage)
@@ -536,20 +529,17 @@ sidebar:
 
               # WMS Buildings connection:
             - id: buildings
-              legend: true
               description: _(legend coming soon!)
               title: _(Buildings)
               visibleDefault: false
 
         - id: grp-history
-          legend: true
           title: _(Historical Data)
           visibleDefault: false
           layers:
 
               # WMS Original Flow
             - id: duwamish-original
-              legend: true
               description: _(The original Duwamish River path)
               title: _(Original river path)
               visibleDefault: false
