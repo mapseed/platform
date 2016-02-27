@@ -4,9 +4,10 @@ var Shareabouts = Shareabouts || {};
 (function(S, $, console){
   S.GISLegendView = Backbone.View.extend({
     events: {
-      'change .map-legend-checkbox': 'toggleVisibility'
+      'change .map-legend-checkbox': 'toggleVisibility',
+      'change .map-legend-grouping-checkbox': 'toggleHeaderVisibility'
     },
-    
+
     initialize: function () {
       var self = this;
       this.render();
@@ -19,7 +20,7 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
-            layers: this.options.layers
+            groupings: this.options.groupings,
           }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['gis-legend-content'](data));
@@ -37,6 +38,24 @@ var Shareabouts = Shareabouts || {};
       } else {
         $(S).trigger('visibility', [id, false]);
       }
-    }
+    },
+
+    // Toggles visibility of layers based on header checkbox
+    toggleHeaderVisibility: function(evt) {
+      var $groupbox = $(evt.target),
+           groupid = $groupbox.attr("id"),
+           chk = $groupbox.is(":checked"),
+           group = _.find(this.options.groupings, function(group) {
+                     return group.id === groupid;
+                   });
+
+      for (i = 0; i < group.layers.length; i++) {
+        var layer = group.layers[i];
+        $(S).trigger("visibility", [layer.id, chk]);
+        console.log(chk);
+        $("#map-" + layer.id).prop("checked", chk);
+      }
+    },
+
   });
 })(Shareabouts, jQuery, Shareabouts.Util.console);
