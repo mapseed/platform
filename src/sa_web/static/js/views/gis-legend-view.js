@@ -20,7 +20,7 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
-            groupings: this.options.groupings,
+            groupings: this.options.groupings
           }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['gis-legend-content'](data));
@@ -31,31 +31,27 @@ var Shareabouts = Shareabouts || {};
     // Checkbox change handler, triggers event to the MapView
     toggleVisibility: function(evt) {
       var $cbox = $(evt.target),
-        id = $cbox.attr('data-layerid');
+          id = $cbox.attr('data-layerid'),
+          isChecked = !!$cbox.is(':checked');
 
-      if ($cbox.is(':checked')) {
-        $(S).trigger('visibility', [id, true]);
-      } else {
-        $(S).trigger('visibility', [id, false]);
-      }
+      $(S).trigger('visibility', [id, isChecked]);
     },
 
     // Toggles visibility of layers based on header checkbox
     toggleHeaderVisibility: function(evt) {
       var $groupbox = $(evt.target),
            groupid = $groupbox.attr("id"),
-           chk = $groupbox.is(":checked"),
+           isChecked = $groupbox.is(":checked"),
            group = _.find(this.options.groupings, function(group) {
                      return group.id === groupid;
                    });
 
       for (i = 0; i < group.layers.length; i++) {
         var layer = group.layers[i];
-        $(S).trigger("visibility", [layer.id, chk]);
-        console.log(chk);
-        $("#map-" + layer.id).prop("checked", chk);
+        $(S).trigger("visibility", [layer.id, isChecked]);
+        $("#map-" + layer.id).prop("checked", isChecked);
       }
-    },
+    }
 
   });
 })(Shareabouts, jQuery, Shareabouts.Util.console);
