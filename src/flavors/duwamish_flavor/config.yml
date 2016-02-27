@@ -60,35 +60,23 @@ map:
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
-      legend: true
       visibleDefault: true
-      title: _(Restoration sites)
-      description: _(Habitat restoration and community organizing)
 
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
-      legend: true
       visibleDefault: true
-      title: _(Community vision)
-      description: _(Priority areas identified through community visioning projects)
 
     - id: cleanup
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
-      legend: true
-      description: _(The EPA-approved cleanup plan for the river)
-      title: _(River cleanup plan)
       visibleDefault: true
 
       # WMS landuse
     - id: landuse
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
-      legend: true
       opacity: 0.5
-      title: _(Land use)
-      description: Land Use information collected in 2010
       visibleDefault: false
 
       # WMS Buildings connection:
@@ -98,9 +86,6 @@ map:
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Buildings)
       visibleDefault: false
 
       # WMS NLCD
@@ -110,31 +95,21 @@ map:
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
-      legend: true
       opacity: 0.6
-      description-image: /static/css/images/legend-nlcd2011.png
-      description-image-alt: 'legend'
-      title: _(Land coverage)
       visibleDefault: false
 
       # WMS Original Flow
     - id: duwamish-original
       url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
       type: cartodb
-      legend: true
       opacity: 0.4
-      description: _(The original Duwamish River path)
-      title: _(Original river path)
       visibleDefault: false
 
       # Noxious Weeds
     - id: noxious-weeds
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
-      legend: true
       opacity: 0.5
-      title: _(Noxious weeds)
-      description: Noxious weeds surveyed by King County in 2014
       visibleDefault: false
 
 # The keys show up in the dropdown list when you are adding a new place
