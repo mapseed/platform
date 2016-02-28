@@ -40,23 +40,10 @@ map:
     - url: //api.tiles.mapbox.com/v4/smartercleanup.ndhd2lem/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: pins
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.p58e6k92/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    - id: areas-of-interest
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=https://a.tiles.mapbox.com/v4/lakewashington.p9ccgp63/features.json?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
       type: landmark
       visibleDefault: true
-      popupContent: '{{title}}{{description}}'
-      rules:
-        - condition: 'true'
-          style:
-            color: "#444"
-            opacity: 0.6
-            fillOpacity: 0.1
-            weight: 1
-          icon:
-            iconUrl: /static/css/images/markers/marker-0d85e9.png
-            shadowUrl: /static/css/images/marker-shadow.png
-            iconSize: [25, 41]
-            iconAnchor: [12, 41]
 
       # Kenmore Land use
     - id: kenmore-land-use
@@ -259,6 +246,12 @@ sidebar:
           title: _(Land Data)
           visibleDefault: false
           layers:
+              # Ares of interst
+            - id: areas-of-interest
+              title: _(Areas of interest)
+              description: _(Areas of interest)
+              visibleDefault: true
+
               # Noxious Weeds
             - id: noxious-weeds
               title: _(Noxious Weeds)
