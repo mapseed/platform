@@ -10,7 +10,6 @@ var Shareabouts = Shareabouts || {};
 
     initialize: function () {
       var self = this;
-      this.render();
       self.sidebar = L.control.sidebar('sidebar', {
         position: 'left'
       });
