@@ -7,12 +7,12 @@ var Shareabouts = Shareabouts || {};
     initialize: function() {
       var self = this;
 
-      self.numberOfPlaces = this.collection.models.length;
+      self.numberOfPlaces = this.collection.places.models.length;
 
       // Bind data events
-      self.collection.on('reset', self.render, self);
-      self.collection.on('add', self.incrementPlaces, self);
-      self.collection.on('remove', self.decrementPlaces, self);
+      self.collection.places.on('reset', self.render, self);
+      self.collection.places.on('add', self.incrementPlaces, self);
+      self.collection.places.on('remove', self.decrementPlaces, self);
     },
     incrementPlaces: function() {
       this.numberOfPlaces++;
@@ -24,7 +24,7 @@ var Shareabouts = Shareabouts || {};
     },
     render: function() {
       var data = {
-        length: S.TemplateHelpers.formatNumber(this.collection.models.length),
+        length: S.TemplateHelpers.formatNumber(this.collection.places.models.length),
         meter_config: this.options.mapConfig,
         value: this.numberOfPlaces,
         value_pretty: S.TemplateHelpers.formatNumber(this.numberOfPlaces),

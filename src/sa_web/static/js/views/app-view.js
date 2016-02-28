@@ -41,8 +41,10 @@ var Shareabouts = Shareabouts || {};
 
       // Boodstrapped data from the page
       this.activities = this.options.activities;
-      this.places = this.collection;
+      this.places = this.collection.places;
       this.landmarkCollections = this.options.landmarkCollections;
+
+      self.collection = this.options.collection;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -89,9 +91,11 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Handle collection events
-      this.collection.on('add', this.onAddPlace, this);
-      this.collection.on('remove', this.onRemovePlace, this);
-
+      _.each(this.collection, function(collection) {
+        collection.on('add', this.onAddPlace, this);
+        collection.on('remove', this.onRemovePlace, this);
+      });
+      
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
         if (!_.contains(this.getListRoutes(), route) && this.listView && this.listView.isVisible()) {
@@ -220,7 +224,7 @@ var Shareabouts = Shareabouts || {};
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            collection: this.collection
+            collection: this.collection.places
           }).render();
       }
 
@@ -246,9 +250,9 @@ var Shareabouts = Shareabouts || {};
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
-      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
-        self.landmarkDetailViews[collectionId] = {};
-      });
+      //_.each(Object.keys(this.landmarkCollections), function(collectionId) {
+      //  self.landmarkDetailViews[collectionId] = {};
+      //});
 
       // Show tools for adding data
       this.setBodyClass();
@@ -279,13 +283,23 @@ var Shareabouts = Shareabouts || {};
     },
     loadLandmarks: function() {
       var self = this;
-      _.each(_.values(this.options.landmarkConfigs), function(landmarkConfig) {
-        if (landmarkConfig.placeType) {
-          self.landmarkCollections[landmarkConfig.id].fetch({
-            attributesToAdd: { location_type: landmarkConfig.placeType }
+
+      console.log("this.options.landmarkConfigs", this.options.landmarkConfigs);
+
+      _.each(this.options.landmarkConfigs, function(value, key) {
+        if (value.placeType) {
+          self.collection[landmarkConfig.id].fetch({
+            attributesToAdd: { 
+              location_type: value.placeType,
+              datasetSlug: key
+            }
           });
         } else {
-          self.landmarkCollections[landmarkConfig.id].fetch();
+          self.collection[value.id].fetch({
+            attributesToAdd: { 
+              datasetSlug: key
+            }
+          });
         }
       });
     },
@@ -297,7 +311,7 @@ var Shareabouts = Shareabouts || {};
           totalPages,
           pagesComplete = 0;
 
-      this.collection.fetchAllPages({
+      this.collection.places.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
         validate: true,
@@ -515,6 +529,8 @@ var Shareabouts = Shareabouts || {};
           layout = S.Util.getPageLayout(),
           onLandmarkFound, onLandmarkNotFound, modelId;
 
+      console.log(this);
+
       onLandmarkFound = function(model, response, newOptions) {
         var map = self.mapView.map,
             layer, center, landmarkDetailView, $responseToScrollTo;
@@ -712,6 +728,9 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
+
+      console.log("!!", this);
+
       model = this.places.get(modelId);
 
       // If the model was found in the places, go ahead and use it.
@@ -819,7 +838,7 @@ var Shareabouts = Shareabouts || {};
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the markers
-      this.collection.each(function(m){
+      this.collection.places.each(function(m){
         if (!m.isNew()) {
           m.trigger('unfocus');
         }
@@ -831,7 +850,7 @@ var Shareabouts = Shareabouts || {};
       });
     },
     destroyNewModels: function() {
-      this.collection.each(function(m){
+      this.collection.places.each(function(m){
         if (m && m.isNew()) {
           m.destroy();
         }

@@ -22,6 +22,11 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           filteredRoutes;
 
+      // object for storing all collections, including shareabouts places and landmarks
+      this.collection = {
+        "places": new S.PlaceCollection([])
+      };
+
       if (!options.placeConfig.dataset_slug) {
         options.placeConfig.dataset_slug = 'place';
       }
@@ -39,7 +44,7 @@ var Shareabouts = Shareabouts || {};
             locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
 
         if (!_.contains(locationTypes, locationType)) {
-          console.warn(locationType + ' is not supported.');
+          //console.warn(locationType + ' is not supported.');
           return locationType + ' is not supported.';
         }
       };
@@ -59,11 +64,9 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       this.loading = true;
-      this.collection = new S.PlaceCollection([]);
+      //this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
 
-
-      this.landmarkCollections = {};
       var landmarkConfigsArray = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'landmark';
       });
@@ -72,7 +75,7 @@ var Shareabouts = Shareabouts || {};
         var collectionId = landmarkConfig['id'];
         var collection = new S.LandmarkCollection([]);
         collection.url = landmarkConfig.url;
-        self.landmarkCollections[collectionId] = collection;
+        self.collection[collectionId] = collection;
         landmarkConfigs[collectionId] = landmarkConfig;
       });
 
@@ -81,7 +84,7 @@ var Shareabouts = Shareabouts || {};
         collection: this.collection,
         activities: this.activities,
 
-        landmarkCollections: this.landmarkCollections,
+        //landmarkCollections: this.landmarkCollections,
         landmarkConfigs: landmarkConfigs,
 
         config: options.config,
@@ -123,6 +126,9 @@ var Shareabouts = Shareabouts || {};
     getCurrentPath: function() {
       var root = Backbone.history.root,
           fragment = Backbone.history.fragment;
+
+      console.log("root:", root);
+      console.log("fragment:", fragment);
       return root + fragment;
     },
 
@@ -142,10 +148,15 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewLandmark: function(id) {
+      console.log("view landmark");
+
       this.appView.viewLandmark(id, { zoom: this.loading });
     },
 
     viewPlace: function(datasetSlug, id, responseId) {
+      console.log("view place");
+      console.log(datasetSlug);
+
       // TODO: When we handle multiple datasets, we will need to
       // implement appView.viewPlace(..) to accept a datasetSlug parameter
       this.appView.viewPlace(id, responseId, this.loading);
