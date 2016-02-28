@@ -9,8 +9,8 @@ var Shareabouts = Shareabouts || {};
       'filter/:locationtype': 'filterMap',
       'page/:slug': 'viewPage',
       ':dataset/new': 'newPlace',
-      ':dataset/:id': 'viewPlace',
-      ':dataset/:id/response/:response_id': 'viewPlace',
+      ':dataset/:id': 'viewPlaceOrLandmark',
+      ':dataset/:id/response/:response_id': 'viewPlaceOrLandmark',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
       ':id': 'viewLandmark',
@@ -126,9 +126,6 @@ var Shareabouts = Shareabouts || {};
     getCurrentPath: function() {
       var root = Backbone.history.root,
           fragment = Backbone.history.fragment;
-
-      console.log("root:", root);
-      console.log("fragment:", fragment);
       return root + fragment;
     },
 
@@ -153,13 +150,22 @@ var Shareabouts = Shareabouts || {};
       this.appView.viewLandmark(id, { zoom: this.loading });
     },
 
+    // decide whether to route to the place view or the landmark view
+    viewPlaceOrLandmark: function(datasetSlug, id, responseId) {
+      if (datasetSlug == "report" || datasetSlug == "place") {
+        this.appView.viewPlace(id, responseId, this.loading);
+      } else {
+        this.appView.viewLandmark(datasetSlug, id, { zoom: this.loading });
+      }
+    },
+
     viewPlace: function(datasetSlug, id, responseId) {
       console.log("view place");
       console.log(datasetSlug);
 
       // TODO: When we handle multiple datasets, we will need to
       // implement appView.viewPlace(..) to accept a datasetSlug parameter
-      this.appView.viewPlace(id, responseId, this.loading);
+      this.appView.viewPlace(datasetSlug, id, responseId, this.loading);
     },
 
     editPlace: function(){},

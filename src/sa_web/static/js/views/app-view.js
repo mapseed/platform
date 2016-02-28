@@ -250,9 +250,9 @@ var Shareabouts = Shareabouts || {};
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
-      //_.each(Object.keys(this.landmarkCollections), function(collectionId) {
-      //  self.landmarkDetailViews[collectionId] = {};
-      //});
+      _.each(Object.keys(this.collection), function(collectionId) {
+        self.landmarkDetailViews[collectionId] = {};
+      });
 
       // Show tools for adding data
       this.setBodyClass();
@@ -522,21 +522,23 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
-    // TODO: Refactor this into 'viewPlace'
-    viewLandmark: function(model, options) {
+
+    viewLandmark: function(datasetSlug, model, options) {
+      console.log("appView viewLandmark");
+
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           layout = S.Util.getPageLayout(),
           onLandmarkFound, onLandmarkNotFound, modelId;
-
-      console.log(this);
 
       onLandmarkFound = function(model, response, newOptions) {
         var map = self.mapView.map,
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
-        layer = self.mapView.landmarkLayerViews[options.collectionId][model.id].layer
+        console.log("self.mapView", self.mapView);
+
+        layer = self.mapView.layerViews[options.collectionId][model.id].layer
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
@@ -590,7 +592,7 @@ var Shareabouts = Shareabouts || {};
         var collectionId;
         _.find(Object.keys(self.options.landmarkConfigs), function(landmarkConfigId) {
           collectionId = landmarkConfigId;
-          cachedModel = self.landmarkCollections[landmarkConfigId].get(model);
+          cachedModel = self.collection[datasetSlug].get(model);
           return cachedModel;
         });
         if (cachedModel) {
@@ -621,12 +623,14 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-      var landmarkCollection = this.landmarkCollections[options.collectionId];
+      var landmarkCollection = this.collection[datasetSlug];
       if (!landmarkCollection) {
         onLandmarkNotFound();
         return;
       }
       model = landmarkCollection.get(modelId);
+
+      console.log("!!!", model);
 
       // If the model was found in the landmarks, go ahead and use it.
       if (model) {
@@ -728,8 +732,6 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-
-      console.log("!!", this);
 
       model = this.places.get(modelId);
 
