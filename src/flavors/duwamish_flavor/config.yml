@@ -44,54 +44,35 @@ map:
     minZoom: 1
     maxZoom: 18
   layers:
-#      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-      # SmarterCleanup Mapbox base layer:
+    # SmarterCleanup Mapbox base layer:
     - id: mapbox-base # unique identifier for the layer
       url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       visibleDefault: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-      # Carto basemap additions
+    # Carto basemap additions layer
     - id: additions
       url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
       type: cartodb
-      visibleDefault: true
 
   # Legend Layers
-
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
-      legend: true
-      visibleDefault: true
-      title: _(Restoration sites)
-      description: _(Habitat restoration and community organizing)
 
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
-      legend: true
-      visibleDefault: true
-      title: _(Community vision)
-      description: _(Priority areas identified through community visioning projects)
 
     - id: cleanup
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
-      legend: true
-      description: _(The EPA-approved cleanup plan for the river)
-      title: _(River cleanup plan)
-      visibleDefault: true
 
       # WMS landuse
     - id: landuse
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
-      legend: true
       opacity: 0.5
-      title: _(Land use)
-      description: Land Use information collected in 2010
-      visibleDefault: false
 
       # WMS Buildings connection:
     - id: buildings
@@ -100,10 +81,6 @@ map:
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Buildings)
-      visibleDefault: false
 
       # WMS NLCD
     - id: landcoverage
@@ -112,32 +89,19 @@ map:
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
-      legend: true
       opacity: 0.6
-      description-image: /static/css/images/legend-nlcd2011.png
-      description-image-alt: 'legend'
-      title: _(Land coverage)
-      visibleDefault: false
 
       # WMS Original Flow
     - id: duwamish-original
       url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
       type: cartodb
-      legend: true
       opacity: 0.4
-      description: _(The original Duwamish River path)
-      title: _(Original river path)
-      visibleDefault: false
 
       # Noxious Weeds
     - id: noxious-weeds
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
-      legend: true
       opacity: 0.5
-      title: _(Noxious weeds)
-      description: Noxious weeds surveyed by King County in 2014
-      visibleDefault: false
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -260,7 +224,6 @@ place_types:
       - condition: '"{{properties.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
-
 
   mapbox:
     # Mapbox Points
@@ -499,22 +462,87 @@ sidebar:
   slug: filter-type
   # Layers are defined in the "map config" section
   # TODO: Refactor the Layers section into its own sidebar
-  layersTitle: _(Map Layers)
-  reports:
-    title: _(Report Types)
-    items:
-      - title: _(Observations)
-        image: /static/css/images/markers/marker-observation.png
-        url: /filter/observation
-      - title: _(Ideas)
-        image: /static/css/images/markers/marker-idea.png
-        url: /filter/idea
-      - title: _(Questions)
-        image: /static/css/images/markers/marker-question.png
-        url: /filter/question
-      - title: _(Complaints)
-        image: /static/css/images/markers/marker-complaint.png
-        url: /filter/complaint
+  panels:
+    legend:
+      title: _(Legend:)
+      items:
+        - title: _(Observations)
+          image: /static/css/images/markers/marker-observation.png
+          url: /filter/observation
+        - title: _(Ideas)
+          image: /static/css/images/markers/marker-idea.png
+          url: /filter/idea
+        - title: _(Questions)
+          image: /static/css/images/markers/marker-question.png
+          url: /filter/question
+        - title: _(Complaints)
+          image: /static/css/images/markers/marker-complaint.png
+          url: /filter/complaint
+    gis_layers:
+      title: _(Map Layers:)
+      groupings:
+        - id: grp-community
+          title: _(Community Data)
+          visibleDefault: true
+          layers:
+            - id: cleanup
+              description: _(The EPA-approved cleanup plan for the river)
+              title: _(River cleanup plan)
+              visibleDefault: true
+
+            - id: vision
+              visibleDefault: true
+              title: _(Community vision)
+              description: _(Priority areas identified through community visioning projects)
+
+            - id: restoration
+              visibleDefault: true
+              title: _(Restoration sites)
+              description: _(Habitat restoration and community organizing)
+
+        - id: grp-land
+          title: _(Land Data)
+          visibleDefault: false
+          layers:
+              # WMS landuse
+            - id: landuse
+              description-image: /static/css/images/legend-landuse2010.png
+              description-image-alt: 'legend'
+              title: _(Land use)
+              visibleDefault: false
+
+              # WMS NLCD
+            - id: landcoverage
+              description-image: /static/css/images/legend-nlcd2011.png
+              description-image-alt: 'legend'
+              title: _(Land coverage)
+              visibleDefault: false
+
+              # WMS Buildings connection:
+            - id: buildings
+              description: _(legend coming soon!)
+              title: _(Buildings)
+              visibleDefault: false
+
+              # Noxious Weeds
+            - id: noxious-weeds
+              title: _(Noxious Weeds)
+              description: _(Invasive species of weeds)
+              visibleDefault: false
+
+        - id: grp-history
+          title: _(Historical Data)
+          visibleDefault: false
+          layers:
+
+              # WMS Original Flow
+            - id: duwamish-original
+              description: _(The original Duwamish River path)
+              title: _(Original river path)
+              visibleDefault: false
+
+    ticker:
+      title: _(Activity Stream:)
 
 leaflet_sidebar:
   enabled: true
@@ -651,7 +679,7 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
-    
+
   - title: _(Green Screen)
     slug: greenscreen
     name: greenscreen

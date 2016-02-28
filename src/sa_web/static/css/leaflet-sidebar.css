@@ -9,7 +9,8 @@
   background-clip: padding-box;
   z-index: 2000; }
   .sidebar.collapsed {
-    width: 33px; }
+    width: 33px;
+    bottom: auto; }
   @media (min-width: 960px) {
     .sidebar {
       width: 300px;
@@ -29,16 +30,18 @@
       right: 10px; } }
 
 .sidebar-tabs {
-  top: 0;
-  bottom: 0;
+  /*top: 0;*/
+  /*bottom: 0;*/
   height: 100%;
   background-color: #fff; }
   .sidebar-left .sidebar-tabs {
-    left: 0; }
+    /*left: 0;*/
+  }
   .sidebar-right .sidebar-tabs {
-    right: 0; }
+    /*right: 0;*/
+  }
   .sidebar-tabs, .sidebar-tabs > ul {
-    position: absolute;
+    /*position: absolute;*/
     width: 33px;
     margin: 0;
     padding: 0; }
@@ -71,7 +74,8 @@
         text-decoration: none;
         text-align: center; }
   .sidebar-tabs > ul + ul {
-    bottom: 0; }
+    /*bottom: 0;*/
+  }
 
 .sidebar-content {
   position: absolute;

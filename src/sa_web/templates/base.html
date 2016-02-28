@@ -127,14 +127,15 @@
     {% endif %}
 
     <div id="map-container">
-      
+
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
-      
 
-      {% if config.leaflet_sidebar.enabled %}
+
+      {% if config.sidebar.enabled %}
         <div id="sidebar" class="sidebar collapsed">
+          <!-- TODO: Refactor these tabs/panes into a single view -->
           <!-- Nav tabs -->
           <div class="sidebar-tabs">
             <ul role="tablist">
@@ -148,19 +149,19 @@
           <div class="sidebar-content">
             <!-- Legend Panel (Shareabouts Layers_) -->
             <div class="sidebar-pane" id="legend-pane">
-              <h1 class="sidebar-header">Legend:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+              <h1 class="sidebar-header">{{ config.sidebar.panels.legend.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
               <div id="master-legend"></div>
             </div>
 
           <!-- Layers Panel (GIS Layers) -->
           <div class="sidebar-pane" id="layers-pane">
-            <h1 class="sidebar-header">Map Layers:<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+            <h1 class="sidebar-header">{{ config.sidebar.panels.gis_layers.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
             <div id="gis-legend"></div>
           </div>
 
             <!-- Activity Stream Panel -->
             <div class="sidebar-pane" id="activity-stream-pane">
-              <h1 class="sidebar-header">Activity Stream<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+              <h1 class="sidebar-header">{{ config.sidebar.panels.ticker.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
               <div id="ticker">
                 <ul class="recent-points unstyled-list"></ul>
               </div>
@@ -270,7 +271,7 @@
           evt.preventDefault();
           $unsupportedEl.slideUp();
           return false;
-        })
+        });
       }
     });
   </script>
@@ -344,7 +345,7 @@
       flavor:     {{ config.data|as_json }},
       place:      {{ config.place|as_json }},
       placeTypes: {{ config.place_types|as_json }},
-      cluster: {{ config.cluster|as_json }},
+      cluster:    {{ config.cluster|as_json }},
       survey:     {{ config.survey|as_json }},
       support:    {{ config.support|as_json }},
       map:        {{ config.map|as_json }},
