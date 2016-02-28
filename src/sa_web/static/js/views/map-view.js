@@ -37,16 +37,9 @@ var Shareabouts = Shareabouts || {};
           layer = L.argo(config.url, config);
           self.layers[config.id] = layer;
 
-          if (config.visibleDefault) {
-            layer.addTo(self.map);
-          }
-
         } else if (config.type && config.type === 'landmark') {
           collectionId = config.id;
           self.layers[collectionId] = L.layerGroup();
-          if (config.visibleDefault) {
-            self.map.addLayer(self.layers[collectionId]);
-          }
           self.landmarkLayerViews[collectionId] = {};
 
           // Bind our landmark data events:
@@ -57,6 +50,7 @@ var Shareabouts = Shareabouts || {};
           cartodb.createLayer(self.map, config.url)
             .on('done', function(cartoLayer) {
               self.layers[config.id] = cartoLayer;
+              // This is set when the 'visibibility' event is fired:
               if (config.visibleDefault) {
                 cartoLayer.addTo(self.map);
               }
@@ -82,10 +76,6 @@ var Shareabouts = Shareabouts || {};
             fillOpacity: config.fillOpacity
           });
           self.layers[config.id] = layer;
-
-          if (config.visibleDefault) {
-            layer.addTo(self.map);
-          }
 
         } else {
           // Assume a tile layer
@@ -130,7 +120,16 @@ var Shareabouts = Shareabouts || {};
 
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
-        self.setLayerVisibility(self.layers[id], visible);
+        var layer = self.layers[id];
+        if (layer) {
+          self.setLayerVisibility(layer, visible);
+        } else { // Cases when the layer is loaded asynchronously:
+          var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
+            return layer.id === id;
+          });
+          // TODO: This may fail due to a race condition with the asych call
+          mapLayerConfig.visibleDefault = visible;
+        }
       });
     }, // end initialize
 

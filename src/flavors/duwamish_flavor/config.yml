@@ -54,30 +54,25 @@ map:
     - id: additions
       url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
       type: cartodb
-      visibleDefault: true
 
   # Legend Layers
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
-      visibleDefault: true
 
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
-      visibleDefault: true
 
     - id: cleanup
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
-      visibleDefault: true
 
       # WMS landuse
     - id: landuse
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
       opacity: 0.5
-      visibleDefault: false
 
       # WMS Buildings connection:
     - id: buildings
@@ -86,7 +81,6 @@ map:
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
-      visibleDefault: false
 
       # WMS NLCD
     - id: landcoverage
@@ -96,21 +90,18 @@ map:
       transparent: 'true'
       format: 'image/png'
       opacity: 0.6
-      visibleDefault: false
 
       # WMS Original Flow
     - id: duwamish-original
       url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
       type: cartodb
       opacity: 0.4
-      visibleDefault: false
 
       # Noxious Weeds
     - id: noxious-weeds
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
-      visibleDefault: false
 
 # The keys show up in the dropdown list when you are adding a new place
 

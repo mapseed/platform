@@ -25,6 +25,12 @@ var Shareabouts = Shareabouts || {};
 
       this.$el.html(Handlebars.templates['gis-legend-content'](data));
 
+      _.each(this.options.groupings, function(group) {
+        _.each(group.layers, function(layer) {
+          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault]);
+        });
+      });
+
       return this;
     },
 
