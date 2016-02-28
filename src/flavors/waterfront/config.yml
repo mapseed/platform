@@ -42,7 +42,6 @@ map:
     - id: options
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.p5ni43lo/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: json
-      visibleDefault: true
       popupContent: '{{description}}'
       rules:
     # LineString
@@ -67,10 +66,6 @@ map:
     - id: cleanup
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
-      legend: true
-      description: _(The EPA-approved cleanup plan for the river)
-      title: _(River cleanup plan)
-      visibleDefault: false
 
       # WMS landuse
     - id: landuse
@@ -79,12 +74,7 @@ map:
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
-      legend: true
       opacity: 0.5
-      description-image: /static/css/images/legend-landuse2010.png
-      description-image-alt: 'legend'
-      title: _(Land use)
-      visibleDefault: false
 
       # WMS Original Flow
     - id: duwamish-original
@@ -253,30 +243,57 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-
 sidebar:
   enabled: true
   legend_enabled: true
   slug: filter-type
-  # Layers are defined in the "map config" section
-  # TODO: Refactor the Layers section into its own sidebar
-  layersTitle: _(Map Layers)
-  reports:
-    title: _(Report Types)
-    items:
-      - title: _(Observations)
-        image: /static/css/images/markers/marker-observation.png
-        url: /filter/observation
-      - title: _(Ideas)
-        image: /static/css/images/markers/marker-idea.png
-        url: /filter/idea
-      - title: _(Questions)
-        image: /static/css/images/markers/marker-question.png
-        url: /filter/question
-      - title: _(Complaints)
-        image: /static/css/images/markers/marker-complaint.png
-        url: /filter/complaint
+  panels:
+    legend:
+      title: _(Citizen Reports:)
+      items:
+        - title: _(Observations)
+          image: /static/css/images/markers/marker-observation.png
+          url: /filter/observation
+        - title: _(Ideas)
+          image: /static/css/images/markers/marker-idea.png
+          url: /filter/idea
+        - title: _(Questions)
+          image: /static/css/images/markers/marker-question.png
+          url: /filter/question
+        - title: _(Complaints)
+          image: /static/css/images/markers/marker-complaint.png
+          url: /filter/complaint
+    gis_layers:
+      title: _(Map Layers:)
+      groupings:
+        - id: grp-community
+          title: _(Map data)
+          visibleDefault: false
+          layers:
+            - id: options
+              description: _(The three options for Georgeotown\'s waterfront grant)
+              title: _(Waterfront options)
+              visibleDefault: true
 
+            - id: cleanup
+              description: _(The EPA-approved cleanup plan for the river)
+              title: _(River cleanup plan)
+              visibleDefault: false
+
+              # Land Use
+            - id: landuse
+              description-image: /static/css/images/legend-landuse2010.png
+              description-image-alt: 'legend'
+              title: _(Land use)
+              visibleDefault: false
+
+              # WMS Original Flow
+            - id: duwamish-original
+              description: _(The original Duwamish River path)
+              title: _(Original river path)
+              visibleDefault: false
+    ticker:
+      title: _(Activity Stream:)
 
 leaflet_sidebar:
   enabled: true

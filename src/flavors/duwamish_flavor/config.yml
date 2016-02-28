@@ -455,16 +455,14 @@ place_types:
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
-
 sidebar:
   enabled: true
   legend_enabled: true
   slug: filter-type
   # Layers are defined in the "map config" section
-  # TODO: Refactor the Layers section into its own sidebar
   panels:
     legend:
-      title: _(Legend:)
+      title: _(Citizen Reports:)
       items:
         - title: _(Observations)
           image: /static/css/images/markers/marker-observation.png

@@ -42,12 +42,7 @@ map:
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.p58e6k92/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
       placeType: mapbox
-      visibleDefault: true
-      legend: true
       opacity: 0.9
-      title: _(Points of interest)
-      description: _(Areas where improvements can and are being made along the river)
-      visibleDefault: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -187,26 +182,36 @@ sidebar:
   legend_enabled: true
   slug: filter-type
   # Layers are defined in the "map config" section
-  # TODO: Refactor the Layers section into its own sidebar
-  layersTitle: _(Map Layers)
-  reports:
-    title: _(Report Types)
-    items:
-      - title: _(Observations)
-        image: /static/css/images/markers/marker-observation.png
-        url: /filter/observation
-      - title: _(Ideas)
-        image: /static/css/images/markers/marker-idea.png
-        url: /filter/idea
-      - title: _(Questions)
-        image: /static/css/images/markers/marker-question.png
-        url: /filter/question
-      - title: _(Complaints)
-        image: /static/css/images/markers/marker-complaint.png
-        url: /filter/complaint
+  panels:
+    legend:
+      title: _(Citizen Reports:)
+      items:
+        - title: _(Observations)
+          image: /static/css/images/markers/marker-observation.png
+          url: /filter/observation
+        - title: _(Ideas)
+          image: /static/css/images/markers/marker-idea.png
+          url: /filter/idea
+        - title: _(Questions)
+          image: /static/css/images/markers/marker-question.png
+          url: /filter/question
+        - title: _(Complaints)
+          image: /static/css/images/markers/marker-complaint.png
+          url: /filter/complaint
+    gis_layers:
+      title: _(Map Layers:)
+      groupings:
+        - id: grp-community
+          title: _(Community Data)
+          visibleDefault: true
+          layers:
+            - id: pins
+              description: _(Interesting river topics)
+              title: _(River cleanup issues)
+              visibleDefault: true
 
-leaflet_sidebar:
-  enabled: true
+    ticker:
+      title: _(Activity Stream:)
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
