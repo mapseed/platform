@@ -143,23 +143,18 @@ var Shareabouts = Shareabouts || {};
         cluster: this.options.cluster
       });
 
-      if (self.options.leafletSidebarConfig.enabled){
+      if (self.options.sidebarConfig.enabled){
           (new S.LegendView({
           el: '#master-legend',
           mapView: this.mapView,
           items: this.options.sidebarConfig.panels.legend.items
         })).render();
 
-        // GIS Layers (leaflet-sidebar-view.js, leaflet-sidebar-content.html)
         (new S.GISLegendView({
           el: '#gis-legend',
           mapView: this.mapView,
           groupings: this.options.sidebarConfig.panels.gis_layers.groupings
         })).render();
-      }
-
-      if (self.options.sidebarConfig.enabled) {
-        // Start Master Legend
       }
 
       // Init the address search bar
@@ -513,6 +508,7 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
+    // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
@@ -654,6 +650,8 @@ var Shareabouts = Shareabouts || {};
           model = self.places.get(model.id);
         }
 
+        // TODO: We need to handle the non-deterministic case when
+        // 'self.mapView.layerViews[model.cid]` is undefined
         layer = self.mapView.layerViews[model.cid].layer;
         placeDetailView = self.getPlaceDetailView(model);
 
@@ -806,7 +804,7 @@ var Shareabouts = Shareabouts || {};
     addSpotlightMask: function() {
       // remove an existing mask
       $("#spotlight-place-mask").remove();
-      
+
       // add map mask and spotlight effect
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),

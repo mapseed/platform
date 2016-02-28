@@ -285,7 +285,7 @@
     };
 
     function bootstrapCurrentUser(data) {
-      <!-- Handle the case when we are logged into the admin panel -->
+      // Handle the case when we are logged into the admin panel
       if (data && !data.avatar_url) data.avatar_url = "{{ STATIC_URL }}css/images/user-50.png"
       if (data && !data.name) data.name = data.username
       Shareabouts.bootstrapped.currentUser = data;
@@ -368,7 +368,6 @@
         placeTypes: S.Config.placeTypes,
         cluster: S.Config.cluster,
         sidebarConfig: S.Config.sidebar,
-        leafletSidebarConfig: S.Config.leaflet_sidebar,
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,
         mapConfig: S.Config.map,

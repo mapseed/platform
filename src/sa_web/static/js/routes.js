@@ -95,7 +95,6 @@ var Shareabouts = Shareabouts || {};
         mapConfig: options.mapConfig,
         placeConfig: options.placeConfig,
         sidebarConfig: options.sidebarConfig,
-        leafletSidebarConfig: options.leafletSidebarConfig,
         activityConfig: options.activityConfig,
         userToken: options.userToken,
         router: this

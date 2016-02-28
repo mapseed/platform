@@ -1724,7 +1724,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 
   /* Header */
   #site-header {
-    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+    background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
     padding-left: 1em;
     overflow: visible;
     height: 4em;  /* height of site-header */
@@ -1817,7 +1817,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
     z-index: 3;
   }
   .sign-in-menu {
-    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+    background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
     border-radius: 3px;
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
     width: 18em;
@@ -2082,7 +2082,7 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /* Footer */
   #colophon {
     color: #007fbf;
-    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+    background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
     font-size: 1em;
     position: absolute;
     top: auto;
