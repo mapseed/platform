@@ -1,4 +1,4 @@
-/*globals L Backbone _ */
+/* globals L Backbone _ */
 
 var Shareabouts = Shareabouts || {};
 
