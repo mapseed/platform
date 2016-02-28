@@ -23,22 +23,7 @@
 -------------------------------------------------------------- */
 /* iphone 4 (320 x 480)*/
 
-@media only screen and (min-height: 440px) and (max-width: 60em) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
-  .activity-enabled.content-visible #map-container {
-    height: 70%;
-  }
+@media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
     width: 180px;
@@ -58,22 +43,7 @@
   }
 }
 
-@media only screen and (min-height: 480px) and (max-width: 60em) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
-  .activity-enabled.content-visible #map-container {
-    height: 70%;
-  }
+@media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
     width: 180px;
@@ -82,7 +52,6 @@
     margin: 10px 0 0 0;
   }
 }
-
 
 @media only screen and (min-width: 768px) {
   #place-form-type-choice a.button {
