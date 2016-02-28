@@ -650,6 +650,8 @@ var Shareabouts = Shareabouts || {};
           model = self.places.get(model.id);
         }
 
+        // TODO: We need to handle the non-deterministic case when
+        // 'self.mapView.layerViews[model.cid]` is undefined
         layer = self.mapView.layerViews[model.cid].layer;
         placeDetailView = self.getPlaceDetailView(model);
 
@@ -802,7 +804,7 @@ var Shareabouts = Shareabouts || {};
     addSpotlightMask: function() {
       // remove an existing mask
       $("#spotlight-place-mask").remove();
-      
+
       // add map mask and spotlight effect
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
