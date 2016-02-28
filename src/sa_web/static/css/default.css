@@ -1629,11 +1629,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   #map {
     height: 100%;
   }
-  /*
-  .content-visible #map {
-    height: 175px;
-  }
-  */
   #site-title a:link,
   #site-title a:visited {
     font-size: 1.8em;
@@ -1651,143 +1646,55 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
   /*}*/
 /*}*/
 @media only screen and (min-height: 480px) and (max-width: 60em) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
-  #site-title a:link,
-  #site-title a:visited {
-  font-size: 1.8em;
-  line-height: 1.325;
-  }
 }
 
 /*@media only screen and (min-width: 440px) and (max-height: 60em) and (orientation : landscape) {*/
 @media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
 }
 
 /* iphone 5 (320 x 568) */
 @media only screen and (min-height: 568px) and (max-width: 60em) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
 }
+
 /*@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {*/
 @media only screen and (min-width: 568px) and (min-height: 320px) and (orientation : landscape) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
 }
 
 /* iphone 6 (375 x 667) */
 @media only screen and (min-height: 667px) and (max-width: 60em) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
 }
+
 /*@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {*/
 @media only screen and (min-width: 667px) and (min-height: 375px) and (orientation : landscape) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
 }
+
 /* iphone 6 plus (414 x 736) */
 @media only screen and (min-height: 736px) and (max-width: 60em) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
 }
+
 /*@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {*/
 @media only screen and (min-width: 736px) and (min-height: 414px) and (orientation : landscape) {
-  html, body {
-    height: 100%;
-  }
-  #main {
-    height: calc(100% - 64px);
-  }
-  #map {
-    height: 100%;
-  }
-  #map-container {
-    height: calc(100% - 72px);
-  }
 }
+
 @media only screen and (min-height: 768px) and (max-width: 60em) {
-  html, body {
+}
+
+
+/* 
+Catchall media query for screen widths below 60em. Calculated screen heights mean we don't need several media queries as above, 
+and in general don't need to worry about querying heights, but keeping the skeleton of those around in case future design features 
+require specific media queries.
+*/
+@media only screen and (max-width: 60em) {
+  html, body, #map {
     height: 100%;
   }
   #main {
+    /* calculated as 100% of viewport height minus the fixed pixel height of the header */
     height: calc(100% - 64px);
   }
-  #map {
-    height: 100%;
-  }
   #map-container {
+    /* calculated as 100% of #main height minus the fixed pixel height of the footer */
     height: calc(100% - 72px);
   }
   .activity-enabled.content-visible #map-container {
@@ -1797,12 +1704,6 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 
 /* default for other media */
 @media only screen and (min-width: 60em) {
-  html,
-  body {
-    height: 100%;
-    position: relative;
-  }
-
   /* A helper to let the JS know what kind of layout we're using */
   body:after {
     content: "desktop";
