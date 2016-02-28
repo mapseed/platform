@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Our Community Map
+  title: Our Lake Washington
   # Header name
-  name: Our Community Map
+  name: Our Lake Washington
   # Meta description that will show up in Google search results
-  meta_description: _(We are gathering public input on important issues in the community)
+  meta_description: _(We are looking out to keep Lake Washington healthy for all)
   # Meta author that will show up in Google search results
   meta_author: smartercleanup.org
 
@@ -29,9 +29,9 @@ map:
 
   options:
     center:
-      lat: 45.51369
-      lng: -122.67111
-    zoom: 14
+      lat: 47.75121
+      lng: -122.25882
+    zoom: 15
     minZoom: 1
     maxZoom: 18
   layers:
