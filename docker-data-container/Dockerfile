@@ -27,7 +27,7 @@ RUN apt-get install -yq nodejs build-essential
 RUN npm install npm -g
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout docker-deploy && cd -
+RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout master && cd -
 
 # local testing:
 # ADD . platform
