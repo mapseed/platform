@@ -91,10 +91,10 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Handle collection events
-      _.each(this.collection, function(collection) {
-        collection.on('add', this.onAddPlace, this);
-        collection.on('remove', this.onRemovePlace, this);
-      });
+      // REFACTOR
+      // bind add and remove events explicity to the places property of the collections object:
+      this.collection.places.on('add', this.onAddPlace, this);
+      this.collection.places.on('remove', this.onRemovePlace, this);
       
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
@@ -403,8 +403,12 @@ var Shareabouts = Shareabouts || {};
     // This gets called for every model that gets added to the place
     // collection, not just new ones.
     onAddPlace: function(model) {
+      console.log("onAddPlace");
+
       // If it's new, then show the form in order to edit and save it.
       if (model.isNew()) {
+
+        console.log("model", model);
 
         this.placeFormView = new S.PlaceFormView({
           model: model,
@@ -519,10 +523,13 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass();
     },
     newPlace: function() {
+      console.log("appView.newPlace");
       // Called by the router
-      this.collection.add({});
+      this.collection.places.add({});
     },
 
+    // REFACTOR
+    // add a datasetSlug parameter here, which corresponds to the id property from config.yml
     viewLandmark: function(datasetSlug, model, options) {
       console.log("appView viewLandmark");
 
@@ -535,8 +542,6 @@ var Shareabouts = Shareabouts || {};
         var map = self.mapView.map,
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
-
-        console.log("self.mapView", self.mapView);
 
         layer = self.mapView.layerViews[options.collectionId][model.id].layer
 
@@ -623,14 +628,14 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
+      // REFACTOR
+      // fetch the collection using datasetSlug
       var landmarkCollection = this.collection[datasetSlug];
       if (!landmarkCollection) {
         onLandmarkNotFound();
         return;
       }
       model = landmarkCollection.get(modelId);
-
-      console.log("!!!", model);
 
       // If the model was found in the landmarks, go ahead and use it.
       if (model) {

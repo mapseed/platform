@@ -7,6 +7,8 @@ var Shareabouts = Shareabouts || {};
     initialize: function() {
       var self = this;
 
+      // REFACTOR
+      // here and other places below I've hard-coded the places property of the collection object
       self.numberOfPlaces = this.collection.places.models.length;
 
       // Bind data events

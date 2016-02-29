@@ -115,6 +115,8 @@ var Shareabouts = Shareabouts || {};
         return;
       }
 
+      console.log("this.model", this.model.get('datasetSlug'));
+
       var router = this.options.router,
           model = this.model,
           // Should not include any files

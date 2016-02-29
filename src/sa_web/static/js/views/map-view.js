@@ -25,6 +25,9 @@ var Shareabouts = Shareabouts || {};
 
       // Init the layer view caches
       // TODO: merge these two objects and manage them as one
+      // 
+      // REFACTOR
+      // all layer views are now stored in this object:
       this.layerViews = {}; // Maps our model id's to our place collection's model instances
       //this.landmarkLayerViews = {}; // Maps our landmark collection id to an objects that maps the id's to the model instances
 
@@ -44,6 +47,8 @@ var Shareabouts = Shareabouts || {};
           if (config.visibleDefault) {
             self.map.addLayer(self.layers[collectionId]);
           }
+          // REFACTOR
+          // add landmark layer views to the layerViews object:
           self.layerViews[collectionId] = {};
 
           // Bind our landmark data events:
@@ -311,11 +316,17 @@ var Shareabouts = Shareabouts || {};
     },
 
     clearFilter: function() {
+      console.log("clearFilter");
+
       var self = this;
       this.locationTypeFilter = null;
 
+      // REFACTOR
+      // Not too sure about this part of the code... I replaced the commented-out section below
+      // with to loops that iterate through all collections in the collection object, and all models
+      // within those collections
       _.each(this.collection, function(collection) {
-        _.each(collection, function(model) {
+        _.each(collection.models, function(model) {
           self.layerViews[model.cid].render();
         });
       });
