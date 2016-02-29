@@ -764,7 +764,7 @@ a.close-btn span {
   overflow: hidden;
   display: block;
   width: 100% !important;
-  height: auto !important;
+  /*   height: auto !important; */
 }
 
 /* Promotion: Voting & Sharing */
