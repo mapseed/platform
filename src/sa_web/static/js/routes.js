@@ -172,6 +172,7 @@ var Shareabouts = Shareabouts || {};
       if (datasetSlug == "report" || datasetSlug == "place") {
         this.appView.viewPlace(id, responseId, this.loading);
       } else {
+        console.log("routes datasetSlug", datasetSlug);
         this.appView.viewLandmark(datasetSlug, id, { zoom: this.loading });
       }
     },

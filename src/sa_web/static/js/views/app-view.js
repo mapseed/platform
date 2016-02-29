@@ -284,8 +284,8 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
 
-      console.log("this.options.landmarkConfigs", this.options.landmarkConfigs);
-
+      // REFACTOR
+      // Here's where I'm adding the datasetSlug value for landmark places
       _.each(this.options.landmarkConfigs, function(value, key) {
         if (value.placeType) {
           self.collection[landmarkConfig.id].fetch({
@@ -589,6 +589,9 @@ var Shareabouts = Shareabouts || {};
         }
       };
 
+      console.log("self.options.landmarkConfigs", self.options.landmarkConfigs);
+      console.log("datasetSlug", datasetSlug);
+
       // If a collectionId is not specified, then we need to search all collections
       if (options['collectionId'] === undefined) {
         // First, let's check the caches of all of our collections for the
@@ -597,6 +600,7 @@ var Shareabouts = Shareabouts || {};
         var collectionId;
         _.find(Object.keys(self.options.landmarkConfigs), function(landmarkConfigId) {
           collectionId = landmarkConfigId;
+
           cachedModel = self.collection[datasetSlug].get(model);
           return cachedModel;
         });
