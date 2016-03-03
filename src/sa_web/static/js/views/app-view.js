@@ -280,13 +280,7 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
       _.each(_.values(this.options.landmarkConfigs), function(landmarkConfig) {
-        if (landmarkConfig.placeType) {
-          self.landmarkCollections[landmarkConfig.id].fetch({
-            attributesToAdd: { location_type: landmarkConfig.placeType }
-          });
-        } else {
-          self.landmarkCollections[landmarkConfig.id].fetch();
-        }
+        self.landmarkCollections[landmarkConfig.id].fetch();
       });
     },
     loadPlaces: function(placeParams) {
@@ -618,7 +612,6 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch and use the result.
       } else {
-        var placeId = self.options.landmarkConfigs[options.collectionId].placeType;
         landmarkCollection.fetch({
           success: function(collection, response, options) {
             var foundModel = collection.findWhere({ id: modelId });
@@ -628,8 +621,7 @@ var Shareabouts = Shareabouts || {};
               onLandmarkNotFound();
             }
           },
-          error: onLandmarkNotFound,
-          attributesToAdd: { location_type: placeId }
+          error: onLandmarkNotFound
         })
       }
     },
