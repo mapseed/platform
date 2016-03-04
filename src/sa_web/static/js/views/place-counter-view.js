@@ -6,13 +6,16 @@ var Shareabouts = Shareabouts || {};
   S.PlaceCounterView = Backbone.View.extend({
     initialize: function() {
       var self = this;
+      self.numberOfPlaces = 0;
 
-      self.numberOfPlaces = this.collection.models.length;
+      _.each(this.collection.place, function(collection) {
+        self.numberOfPlaces += collection.models.length;
 
-      // Bind data events
-      self.collection.on('reset', self.render, self);
-      self.collection.on('add', self.incrementPlaces, self);
-      self.collection.on('remove', self.decrementPlaces, self);
+        // Bind data events
+        collection.on('reset', self.render, self);
+        collection.on('add', self.incrementPlaces, self);
+        collection.on('remove', self.decrementPlaces, self);
+      });
     },
     incrementPlaces: function() {
       this.numberOfPlaces++;
@@ -24,7 +27,7 @@ var Shareabouts = Shareabouts || {};
     },
     render: function() {
       var data = {
-        length: S.TemplateHelpers.formatNumber(this.collection.models.length),
+        //length: S.TemplateHelpers.formatNumber(this.collection.models.length),
         meter_config: this.options.mapConfig,
         value: this.numberOfPlaces,
         value_pretty: S.TemplateHelpers.formatNumber(this.numberOfPlaces),

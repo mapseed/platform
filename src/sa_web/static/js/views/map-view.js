@@ -26,9 +26,10 @@ var Shareabouts = Shareabouts || {};
       // Init the layer view caches
       // TODO: merge these two objects and manage them as one
       this.layerViews = {}; // Maps our model id's to our place collection's model instances
-      this.landmarkLayerViews = {}; // Maps our landmark collection id to an objects that maps the id's to the model instances
+      //this.landmarkLayerViews = {}; // Maps our landmark collection id to an objects that maps the id's to the model instances
 
       // Add layers defined in the config file
+      // 
       _.each(self.options.mapConfig.layers, function(config){
         var layer;
         var collectionId;
@@ -40,10 +41,10 @@ var Shareabouts = Shareabouts || {};
         } else if (config.type && config.type === 'landmark') {
           collectionId = config.id;
           self.layers[collectionId] = L.layerGroup();
-          self.landmarkLayerViews[collectionId] = {};
+          self.layerViews[collectionId] = {};
 
           // Bind our landmark data events:
-          collection = self.options.landmarkCollections[collectionId];
+          collection = self.options.collection.landmark[collectionId];
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.type && config.type === 'cartodb') {
@@ -125,10 +126,13 @@ var Shareabouts = Shareabouts || {};
         $(S).trigger('mapdragend', [evt]);
       });
 
-      // Bind data events
-      self.collection.on('reset', self.render, self);
-      self.collection.on('add', self.addLayerView, self);
-      self.collection.on('remove', self.removeLayerView, self);
+      // Bind data events to shareabouts collections
+      _.each(self.collection.place, function(collection) {
+        collection.on('reset', self.render, self);
+        collection.on('add', self.addLayerView, self);
+        collection.on('remove', self.removeLayerView, self);
+      });
+      
 
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
@@ -187,9 +191,9 @@ var Shareabouts = Shareabouts || {};
       // the list of layer views.
       this.placeLayers.clearLayers();
       this.layerViews = {};
-      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
+      _.each(Object.keys(self.options.collection), function(collectionId) {
         self.layers[collectionId].clearLayers();
-        self.landmarkLayerViews[collectionId] = {};
+        self.layerViews[collectionId] = {};
       });
 
       this.collection.each(function(model, i) {
@@ -255,24 +259,24 @@ var Shareabouts = Shareabouts || {};
     geolocate: function() {
       this.map.locate();
     },
-    addLandmarkLayerView: function(landmarkCollectionId) {
+    addLandmarkLayerView: function(collectionId) {
       return function(model) {
-        this.landmarkLayerViews[landmarkCollectionId][model.id] = new S.BasicLayerView({
+        this.layerViews[collectionId][model.id] = new S.BasicLayerView({
           model: model,
           router: this.options.router,
           map: this.map,
           placeTypes: this.options.placeTypes,
-          collectionId: landmarkCollectionId,
-          landmarkLayers: this.layers[landmarkCollectionId],
+          collectionId: collectionId,
+          landmarkLayers: this.layers[collectionId],
           // to access the filter
           mapView: this
         });
       }
     },
-    removeLandmarkLayerView: function(landmarkCollectionId) {
+    removeLandmarkLayerView: function(collectionId) {
       return function(model) {
-        this.landmarkLayerViews[landmarkCollectionId][model.id].remove();
-        delete this.landmarkLayerViews[landmarkCollectionId][model.id];
+        this.layerViews[collectionId][model.id].remove();
+        delete this.layerViews[collectionId][model.id];
       }
     },
     addLayerView: function(model) {
@@ -316,9 +320,9 @@ var Shareabouts = Shareabouts || {};
 
           if (modelLocationType &&
               modelLocationType.toUpperCase() === locationType.toUpperCase()) {
-            self.landmarkLayerViews[collectionId][model.id].show();
+            self.layerViews[collectionId][model.id].show();
           } else {
-            self.landmarkLayerViews[collectionId][model.id].hide();
+            self.layerViews[collectionId][model.id].hide();
           }
         });
       });
@@ -327,6 +331,17 @@ var Shareabouts = Shareabouts || {};
     clearFilter: function() {
       var self = this;
       this.locationTypeFilter = null;
+
+      _.each(this.collection, function(collections) {
+        _.each(collections, function(collection) {
+          collection.each(function(model) {
+            self.layerViews[collectionId][model.cid].render();
+          })
+        });
+      });
+
+
+      /*
       this.collection.each(function(model) {
         self.layerViews[model.cid].render();
       });
@@ -337,6 +352,7 @@ var Shareabouts = Shareabouts || {};
           self.landmarkLayerViews[collectionId][model.id].render();
         });
       });
+      */
     },
     getLayerGroups: function() {
       var self = this;

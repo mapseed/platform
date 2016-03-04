@@ -70,6 +70,16 @@ map:
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
 
+    - id: duwamish
+      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
+      type: place
+      slug: duwamish
+
+    - id: air
+      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air/
+      type: place
+      slug: air
+
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark

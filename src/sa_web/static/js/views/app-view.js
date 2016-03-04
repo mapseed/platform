@@ -89,8 +89,10 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Handle collection events
-      this.collection.on('add', this.onAddPlace, this);
-      this.collection.on('remove', this.onRemovePlace, this);
+      _.each(this.collection.place, function(collection) {
+        collection.on('add', self.onAddPlace, this);
+        collection.on('remove', self.onRemovePlace, this);
+      });
 
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
@@ -216,7 +218,8 @@ var Shareabouts = Shareabouts || {};
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            collection: this.collection
+            // NEEDS TO BE A LOOP
+            collection: this.collection.place.duwamish
           }).render();
       }
 
@@ -243,9 +246,16 @@ var Shareabouts = Shareabouts || {};
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
+
+      _.each(this.collection.landmark, function(value, key) {
+        self.landmarkDetailViews[key] = {};
+      });
+
+      /*
       _.each(Object.keys(this.landmarkCollections), function(collectionId) {
         self.landmarkDetailViews[collectionId] = {};
       });
+*/
 
       // Show tools for adding data
       this.setBodyClass();
@@ -276,8 +286,18 @@ var Shareabouts = Shareabouts || {};
     },
     loadLandmarks: function() {
       var self = this;
-      _.each(_.values(this.options.landmarkConfigs), function(landmarkConfig) {
-        self.landmarkCollections[landmarkConfig.id].fetch();
+
+      console.log("SELF.COLLECTION", self.collection);
+
+      // loop through landmark configs 
+      _.each(_.values(this.options.datasetConfigs.landmark), function(landmarkConfig) {
+        if (landmarkConfig.placeType) {
+          self.collection.landmark[landmarkConfig.id].fetch({
+            attributesToAdd: { location_type: landmarkConfig.placeType }
+          });
+        } else {
+          self.collection.landmark[landmarkConfig.id].fetch();
+        }
       });
     },
     loadPlaces: function(placeParams) {
@@ -288,46 +308,49 @@ var Shareabouts = Shareabouts || {};
           totalPages,
           pagesComplete = 0;
 
-      this.collection.fetchAllPages({
-        remove: false,
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        data: placeParams,
-        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
-        attribute: 'properties',
+      // loop over all place collections
+      _.each(this.collection.place, function(collection) {
+        collection.fetchAllPages({
+          remove: false,
+          // Check for a valid location type before adding it to the collection
+          validate: true,
+          data: placeParams,
+          attributesToAdd: { datasetSlug: self.options.placeConfig.dataset_slug },
+          attribute: 'properties',
 
-        success: function() {
-          // Sort the list view after all of the pages have been fetched
-          if (self.listView) {
-            self.listView.sort();
-            self.listView.updateSortLinks();
+          success: function() {
+            // Sort the list view after all of the pages have been fetched
+            if (self.listView) {
+              self.listView.sort();
+              self.listView.updateSortLinks();
+            }
+          },
+
+          // Only do this for the first page...
+          pageSuccess: _.once(function(collection, data) {
+            pageSize = data.features.length;
+            totalPages = Math.ceil(data.metadata.length / pageSize);
+
+            if (data.metadata.next) {
+              $progressContainer.show();
+            }
+          }),
+
+          // Do this for every page...
+          pageComplete: function() {
+            var percent;
+
+            pagesComplete++;
+            percent = (pagesComplete/totalPages*100);
+            $currentProgress.width(percent + '%');
+
+            if (pagesComplete === totalPages) {
+              _.delay(function() {
+                $progressContainer.hide();
+              }, 2000);
+            }
           }
-        },
-
-        // Only do this for the first page...
-        pageSuccess: _.once(function(collection, data) {
-          pageSize = data.features.length;
-          totalPages = Math.ceil(data.metadata.length / pageSize);
-
-          if (data.metadata.next) {
-            $progressContainer.show();
-          }
-        }),
-
-        // Do this for every page...
-        pageComplete: function() {
-          var percent;
-
-          pagesComplete++;
-          percent = (pagesComplete/totalPages*100);
-          $currentProgress.width(percent + '%');
-
-          if (pagesComplete === totalPages) {
-            _.delay(function() {
-              $progressContainer.hide();
-            }, 2000);
-          }
-        }
+        });
       });
     },
 
@@ -826,6 +849,20 @@ var Shareabouts = Shareabouts || {};
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the markers
+      // 
+      //
+      
+      _.each(this.collection, function(collections) {
+        _.each(collections, function(collection) {
+          collection.each(function(m){
+            if (!m.isNew()) {
+              m.trigger('unfocus');
+            }
+          });
+        });
+      });
+
+      /*
       this.collection.each(function(m){
         if (!m.isNew()) {
           m.trigger('unfocus');
@@ -836,13 +873,25 @@ var Shareabouts = Shareabouts || {};
           m.trigger('unfocus');
         });
       });
+      */
     },
     destroyNewModels: function() {
+      _.each(this.collection, function(collections) {
+        _.each(collections, function(collection) {
+          collection.each(function(m){
+            if (m && m.isNew()) {
+              m.destroy();
+            }
+          });
+        });
+      });
+      /*
       this.collection.each(function(m){
         if (m && m.isNew()) {
           m.destroy();
         }
       });
+      */
     },
 
     render: function() {
