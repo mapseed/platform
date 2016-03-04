@@ -514,6 +514,12 @@ var Shareabouts = Shareabouts || {};
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
+        // If this model is not yet loaded as a layer view in our map view,
+        // then let's create the layer view directly from the model
+        if (_.isUndefined(self.mapView.landmarkLayerViews[options.collectionId][model.id])) {
+          self.mapView.addLandmarkLayerView(options.collectionId).bind(self.mapView)(model);
+        }
+
         layer = self.mapView.landmarkLayerViews[options.collectionId][model.id].layer
 
         if (layer) {
