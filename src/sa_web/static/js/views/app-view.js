@@ -553,7 +553,6 @@ var Shareabouts = Shareabouts || {};
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
-        console.log("appView.onLandmarkNotFound: model:", model);
         options.stillSearching[options.collectionId] = false;
         var allCollectionsSearched = true;
         _.each(_.values(options.stillSearching), function(stillSearching) {
