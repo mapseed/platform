@@ -22,6 +22,24 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           filteredRoutes;
 
+      this.collection = {
+        "landmark": {},
+        "place": {}
+      };
+
+      /*
+      this.collection = {
+        landmark: {
+          vision: new S.LandmarkCollection([]),
+          restoration: new S.LandmarkCollection([])
+        },
+        shareabouts: {
+          duwamish: new S.PlaceCollection([]),
+          air: new S.PlaceCollection([])
+        }
+      }
+       */
+
       if (!options.placeConfig.dataset_slug) {
         options.placeConfig.dataset_slug = 'place';
       }
@@ -59,31 +77,71 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       this.loading = true;
-      this.collection = new S.PlaceCollection([]);
+      //this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
 
 
-      this.landmarkCollections = {};
-      var landmarkConfigsArray = options.mapConfig.layers.filter(function(layer) {
+      //this.landmarkCollections = {};
+      var configArrays = {};
+
+      configArrays.landmark = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'landmark';
       });
-      var landmarkConfigs = {};
-      _.each(landmarkConfigsArray, function(landmarkConfig) {
-        var collectionId = landmarkConfig['id'];
-        var collection = new S.LandmarkCollection([]);
-        collection.url = landmarkConfig.url;
-        self.landmarkCollections[collectionId] = collection;
-        landmarkConfigs[collectionId] = landmarkConfig;
+      configArrays.place = options.mapConfig.layers.filter(function(layer) {
+        return layer.type && layer.type === 'place';
       });
+      //var landmarkConfigs = {};
+      /*
+        configArrays = {
+          landmark: [...],
+          place: [...]
+        }
+
+       */
+
+      _.each(configArrays, function(configArray) {
+        _.each(configArray, function(config) {
+          var collection;
+          if (config.type == "place") {
+            collection = new S.PlaceCollection([]);
+
+            collection.url += "?url=" + config.url;
+            console.log("collection.url", collection.url);
+          } else if (config.type == "landmark") {
+            collection = new S.LandmarkCollection([]);
+            collection.url = config.url;
+          }
+          
+          self.collection[config.type][config.id] = collection;
+
+        });
+      });
+
+      /*
+      _.each(configsArray, function(config) {
+        var collection;
+
+        if (config.type == "place") {
+          collection = new S.PlaceCollection([]);
+        } else if (config.type == "landmark") {
+          collection = new S.LandmarkCollection([]);
+        }
+
+        collection.url = config.url;
+        self.collection[config.type][config.id] = collection;
+        //landmarkConfigs[collectionId] = landmarkConfig;
+      });
+*/
 
       this.appView = new S.AppView({
         el: 'body',
         collection: this.collection,
         activities: this.activities,
 
-        landmarkCollections: this.landmarkCollections,
-        landmarkConfigs: landmarkConfigs,
+        //landmarkCollections: this.landmarkCollections,
+        //landmarkConfigs: landmarkConfigs,
 
+        datasetConfigs: configArrays,
         config: options.config,
 
         defaultPlaceTypeName: options.defaultPlaceTypeName,
