@@ -128,6 +128,7 @@ var Shareabouts = Shareabouts || {};
 
       // Bind data events to shareabouts collections
       _.each(self.collection.place, function(collection) {
+        console.log("map-view.init", collection);
         collection.on('reset', self.render, self);
         collection.on('add', self.addLayerView, self);
         collection.on('remove', self.removeLayerView, self);

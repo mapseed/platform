@@ -71,12 +71,12 @@ map:
       type: landmark
 
     - id: duwamish
-      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
+      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
       type: place
       slug: duwamish
 
     - id: trees
-      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air/
+      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees
       type: place
       slug: trees
 

@@ -111,8 +111,6 @@ var Shareabouts = Shareabouts || {};
         });
       });
 
-      console.log("THIS.ACTIVITIES", this.activities);
-
 
       //this.landmarkCollections = {};
       
