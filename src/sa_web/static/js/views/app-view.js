@@ -41,8 +41,8 @@ var Shareabouts = Shareabouts || {};
 
       // Boodstrapped data from the page
       this.activities = this.options.activities;
-      this.places = this.collection;
-      this.landmarkCollections = this.options.landmarkCollections;
+      //this.places = this.collection;
+      //this.landmarkCollections = this.options.landmarkCollections;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -272,10 +272,14 @@ var Shareabouts = Shareabouts || {};
       this.loadLandmarks();
 
       // Fetch the first page of activity
-      this.activities.fetch({
-        reset: true,
-        attribute: 'target',
-        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug }
+      _.each(this.activities, function(activities) {
+        _.each(activities, function(activity) {
+          activity.fetch({
+            reset: true,
+            attribute: 'target',
+            //attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug }
+          });
+        });
       });
     },
 

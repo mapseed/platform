@@ -54,7 +54,9 @@ if 'SITE_KEY' not in os.environ:
 SHAREABOUTS = {
     'FLAVOR': os.environ.get('FLAVOR', 'duwamish_flavor'),
     'DATASET_ROOT': os.environ.get('SITE_URL', 'NO_SITE_URL'),
-    'DATASET_KEY': os.environ.get('SITE_KEY', 'NO_SITE_KEY')
+    'DATASET_KEY': os.environ.get('SITE_KEY', 'NO_SITE_KEY'),
+    'DUWAMISH_DATASET_KEY': os.environ.get('DUWAMISH_DATASET_KEY', 'Error'),
+    'TREES_DATASET_KEY': os.environ.get('TREES_DATASET_KEY', 'Error')
 }
 
 # For geocoding...
