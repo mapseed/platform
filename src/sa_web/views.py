@@ -227,6 +227,7 @@ def send_place_created_notifications(request, response):
 def proxy_view(request, url, requests_args={}):
     # For full URLs, use a real proxy.
     if url.startswith('http:') or url.startswith('https:'):
+        print("using url:", url)
         return remote_proxy_view(request, url, requests_args=requests_args)
 
     # For local paths, use a simpler proxy. If there are headers specified
@@ -365,8 +366,9 @@ def api(request, path):
     root = request.GET.get("url")
     dataset_id = request.GET.get("id")
 
-    print("root", root)
-    print("dataset_id", dataset_id)
+    #print("root", root)
+    #print("dataset_id", dataset_id)
+    #print("KEY:", dataset_id.upper() + '_DATASET_KEY')
 
     if root.startswith('file://'):
         return readonly_file_api(request, path, datafilename=root[7:])
@@ -396,6 +398,7 @@ def api(request, path):
     if place_was_created(request, path, response):
         send_place_created_notifications(request, response)
 
+    print("response", response)
     return response
 
 

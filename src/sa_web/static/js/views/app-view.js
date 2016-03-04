@@ -317,7 +317,8 @@ var Shareabouts = Shareabouts || {};
           pagesComplete = 0;
 
       // loop over all place collections
-      _.each(this.collection.place, function(collection) {
+      _.each(self.collection.place, function(collection) {
+        console.log("fetch");
         collection.fetchAllPages({
           remove: false,
           // Check for a valid location type before adding it to the collection
@@ -332,6 +333,11 @@ var Shareabouts = Shareabouts || {};
               self.listView.sort();
               self.listView.updateSortLinks();
             }
+            console.log("app-view.loadPlaces", self.collection.place);
+          },
+
+          error: function(x) {
+            console.log("error", x);
           },
 
           // Only do this for the first page...
