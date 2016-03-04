@@ -100,6 +100,7 @@ var Shareabouts = Shareabouts || {};
 
       self.map.on('zoomend', function(evt) {
         S.Util.log('APP', 'zoom', self.map.getZoom());
+        $(S).trigger('zoomend', [evt]);
       });
 
       self.map.on('moveend', function(evt) {
