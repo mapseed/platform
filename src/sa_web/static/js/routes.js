@@ -26,6 +26,9 @@ var Shareabouts = Shareabouts || {};
         "landmark": {},
         "place": {}
       };
+      this.activities = {
+        "place": {}
+      };
 
       /*
       this.collection = {
@@ -78,10 +81,9 @@ var Shareabouts = Shareabouts || {};
 
       this.loading = true;
       //this.collection = new S.PlaceCollection([]);
-      this.activities = new S.ActionCollection(options.activity);
+      //this.activities = new S.ActionCollection(options.activity);
+      
 
-
-      //this.landmarkCollections = {};
       var configArrays = {};
 
       configArrays.landmark = options.mapConfig.layers.filter(function(layer) {
@@ -90,6 +92,30 @@ var Shareabouts = Shareabouts || {};
       configArrays.place = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'place';
       });
+
+      /*
+      this.activities = {
+        "duwamish": S.ActionCollection(options.activity),
+        "trees": S.ActionCollection(options.activity)
+      };
+      */
+     
+      _.each(configArrays, function(configArray) {
+        _.each(configArray, function(config) {
+          var collection;
+          if (config.type == "place") {
+            collection = new S.ActionCollection([]);
+            collection.url += "?url=" + config.url + "&id=" + config.id;
+            self.activities[config.type][config.id] = collection;
+          }
+        });
+      });
+
+      console.log("THIS.ACTIVITIES", this.activities);
+
+
+      //this.landmarkCollections = {};
+      
       //var landmarkConfigs = {};
       /*
         configArrays = {
@@ -105,7 +131,7 @@ var Shareabouts = Shareabouts || {};
           if (config.type == "place") {
             collection = new S.PlaceCollection([]);
 
-            collection.url += "?url=" + config.url;
+            collection.url += "?url=" + config.url + "&id=" + config.id;
             console.log("collection.url", collection.url);
           } else if (config.type == "landmark") {
             collection = new S.LandmarkCollection([]);
