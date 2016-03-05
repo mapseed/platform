@@ -53,7 +53,7 @@
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
   {% if config.map.cartodb_enabled %}
-  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   {% else %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
   {% endif %}
@@ -204,7 +204,7 @@
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
 
   {% if config.map.cartodb_enabled %}
-  <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+  <script src="https://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
   {% else %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
   {% endif %}
@@ -393,7 +393,7 @@
   </script>
   {% endif %}
   {% if settings.CLICKY_ANALYTICS_ID %}
-  <a title="Google Analytics Alternative" href="http://clicky.com/{{ settings.CLICKY_ANALYTICS_ID }}"><img alt="Google Analytics Alternative" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+  <a title="Google Analytics Alternative" href="https://clicky.com/{{ settings.CLICKY_ANALYTICS_ID }}"><img alt="Google Analytics Alternative" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
   <script type="text/javascript">
    var clicky_site_ids = clicky_site_ids || [];
    clicky_site_ids.push({{ settings.CLICKY_ANALYTICS_ID }});
