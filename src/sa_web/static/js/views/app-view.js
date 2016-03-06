@@ -41,8 +41,10 @@ var Shareabouts = Shareabouts || {};
 
       // Boodstrapped data from the page
       this.activities = this.options.activities;
-      this.places = this.collection;
+      this.places = this.collection.places;
       this.landmarkCollections = this.options.landmarkCollections;
+
+      self.collection = this.options.collection;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -89,9 +91,11 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Handle collection events
-      this.collection.on('add', this.onAddPlace, this);
-      this.collection.on('remove', this.onRemovePlace, this);
-
+      // REFACTOR
+      // bind add and remove events explicity to the places property of the collections object:
+      this.collection.places.on('add', this.onAddPlace, this);
+      this.collection.places.on('remove', this.onRemovePlace, this);
+      
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
         if (!_.contains(this.getListRoutes(), route) && this.listView && this.listView.isVisible()) {
@@ -220,7 +224,7 @@ var Shareabouts = Shareabouts || {};
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            collection: this.collection
+            collection: this.collection.places
           }).render();
       }
 
@@ -246,7 +250,7 @@ var Shareabouts = Shareabouts || {};
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
-      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
+      _.each(Object.keys(this.collection), function(collectionId) {
         self.landmarkDetailViews[collectionId] = {};
       });
 
@@ -279,13 +283,23 @@ var Shareabouts = Shareabouts || {};
     },
     loadLandmarks: function() {
       var self = this;
-      _.each(_.values(this.options.landmarkConfigs), function(landmarkConfig) {
-        if (landmarkConfig.placeType) {
-          self.landmarkCollections[landmarkConfig.id].fetch({
-            attributesToAdd: { location_type: landmarkConfig.placeType }
+
+      // REFACTOR
+      // Here's where I'm adding the datasetSlug value for landmark places
+      _.each(this.options.landmarkConfigs, function(value, key) {
+        if (value.placeType) {
+          self.collection[landmarkConfig.id].fetch({
+            attributesToAdd: { 
+              location_type: value.placeType,
+              datasetSlug: key
+            }
           });
         } else {
-          self.landmarkCollections[landmarkConfig.id].fetch();
+          self.collection[value.id].fetch({
+            attributesToAdd: { 
+              datasetSlug: key
+            }
+          });
         }
       });
     },
@@ -297,7 +311,7 @@ var Shareabouts = Shareabouts || {};
           totalPages,
           pagesComplete = 0;
 
-      this.collection.fetchAllPages({
+      this.collection.places.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
         validate: true,
@@ -389,8 +403,12 @@ var Shareabouts = Shareabouts || {};
     // This gets called for every model that gets added to the place
     // collection, not just new ones.
     onAddPlace: function(model) {
+      console.log("onAddPlace");
+
       // If it's new, then show the form in order to edit and save it.
       if (model.isNew()) {
+
+        console.log("model", model);
 
         this.placeFormView = new S.PlaceFormView({
           model: model,
@@ -505,11 +523,16 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass();
     },
     newPlace: function() {
+      console.log("appView.newPlace");
       // Called by the router
-      this.collection.add({});
+      this.collection.places.add({});
     },
-    // TODO: Refactor this into 'viewPlace'
-    viewLandmark: function(model, options) {
+
+    // REFACTOR
+    // add a datasetSlug parameter here, which corresponds to the id property from config.yml
+    viewLandmark: function(datasetSlug, model, options) {
+      console.log("appView viewLandmark");
+
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           layout = S.Util.getPageLayout(),
@@ -520,7 +543,7 @@ var Shareabouts = Shareabouts || {};
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
-        layer = self.mapView.landmarkLayerViews[options.collectionId][model.id].layer
+        layer = self.mapView.layerViews[options.collectionId][model.id].layer
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
@@ -566,6 +589,9 @@ var Shareabouts = Shareabouts || {};
         }
       };
 
+      console.log("self.options.landmarkConfigs", self.options.landmarkConfigs);
+      console.log("datasetSlug", datasetSlug);
+
       // If a collectionId is not specified, then we need to search all collections
       if (options['collectionId'] === undefined) {
         // First, let's check the caches of all of our collections for the
@@ -574,7 +600,8 @@ var Shareabouts = Shareabouts || {};
         var collectionId;
         _.find(Object.keys(self.options.landmarkConfigs), function(landmarkConfigId) {
           collectionId = landmarkConfigId;
-          cachedModel = self.landmarkCollections[landmarkConfigId].get(model);
+
+          cachedModel = self.collection[datasetSlug].get(model);
           return cachedModel;
         });
         if (cachedModel) {
@@ -605,7 +632,9 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-      var landmarkCollection = this.landmarkCollections[options.collectionId];
+      // REFACTOR
+      // fetch the collection using datasetSlug
+      var landmarkCollection = this.collection[datasetSlug];
       if (!landmarkCollection) {
         onLandmarkNotFound();
         return;
@@ -712,6 +741,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
+
       model = this.places.get(modelId);
 
       // If the model was found in the places, go ahead and use it.
@@ -819,7 +849,7 @@ var Shareabouts = Shareabouts || {};
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the markers
-      this.collection.each(function(m){
+      this.collection.places.each(function(m){
         if (!m.isNew()) {
           m.trigger('unfocus');
         }
@@ -831,7 +861,7 @@ var Shareabouts = Shareabouts || {};
       });
     },
     destroyNewModels: function() {
-      this.collection.each(function(m){
+      this.collection.places.each(function(m){
         if (m && m.isNew()) {
           m.destroy();
         }

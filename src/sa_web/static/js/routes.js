@@ -9,11 +9,14 @@ var Shareabouts = Shareabouts || {};
       'filter/:locationtype': 'filterMap',
       'page/:slug': 'viewPage',
       ':dataset/new': 'newPlace',
-      ':dataset/:id': 'viewPlace',
-      ':dataset/:id/response/:response_id': 'viewPlace',
+      // REFACTOR
+      // I replaced some url paths below with a generic function, "viewPlaceOrLandmark," which
+      // decides whether to route to viewPlace or viewLandmark
+      ':dataset/:id': 'viewPlaceOrLandmark',
+      ':dataset/:id/response/:response_id': 'viewPlaceOrLandmark',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
-      ':id': 'viewLandmark',
+      ':id': 'viewPlaceOrLandmark',
       ':zoom/:lat/:lng': 'viewMap'
     },
 
@@ -21,6 +24,14 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           startPageConfig,
           filteredRoutes;
+
+      // REFACTOR
+      // This object stores all collections, including shareabouts places and landmarks.
+      // Here, it's initialized with a key-value pair for shareabouts data. Landmark collections
+      // are added below (~line 85)
+      this.collection = {
+        "places": new S.PlaceCollection([])
+      };
 
       if (!options.placeConfig.dataset_slug) {
         options.placeConfig.dataset_slug = 'place';
@@ -39,7 +50,7 @@ var Shareabouts = Shareabouts || {};
             locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
 
         if (!_.contains(locationTypes, locationType)) {
-          console.warn(locationType + ' is not supported.');
+          //console.warn(locationType + ' is not supported.');
           return locationType + ' is not supported.';
         }
       };
@@ -59,20 +70,21 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       this.loading = true;
-      this.collection = new S.PlaceCollection([]);
+      //this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
 
-
-      this.landmarkCollections = {};
       var landmarkConfigsArray = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'landmark';
       });
       var landmarkConfigs = {};
       _.each(landmarkConfigsArray, function(landmarkConfig) {
         var collectionId = landmarkConfig['id'];
+        // REFACTOR
+        // Each config layer with type landmark gets added as a property (with key equal to id) 
+        // to the collection object here:
         var collection = new S.LandmarkCollection([]);
         collection.url = landmarkConfig.url;
-        self.landmarkCollections[collectionId] = collection;
+        self.collection[collectionId] = collection;
         landmarkConfigs[collectionId] = landmarkConfig;
       });
 
@@ -81,7 +93,7 @@ var Shareabouts = Shareabouts || {};
         collection: this.collection,
         activities: this.activities,
 
-        landmarkCollections: this.landmarkCollections,
+        //landmarkCollections: this.landmarkCollections,
         landmarkConfigs: landmarkConfigs,
 
         config: options.config,
@@ -138,17 +150,40 @@ var Shareabouts = Shareabouts || {};
 
     // Open view for first step in multi-step form
     newPlace: function() {
+      console.log("newPlace");
+
       this.appView.newPlace();
     },
 
     viewLandmark: function(id) {
+      console.log("view landmark");
+
       this.appView.viewLandmark(id, { zoom: this.loading });
     },
 
+    // decide whether to route to the place view or the landmark view
+    // REFACTOR
+    // This method replaces viewLandmark and viewPlace
+    viewPlaceOrLandmark: function(datasetSlug, id, responseId) {
+      console.log("viewPlaceOrLandmark");
+
+      // REFACTOR
+      // Using hard-coded values here to decide whether to route to viewPlace
+      if (datasetSlug == "report" || datasetSlug == "place") {
+        this.appView.viewPlace(id, responseId, this.loading);
+      } else {
+        console.log("routes datasetSlug", datasetSlug);
+        this.appView.viewLandmark(datasetSlug, id, { zoom: this.loading });
+      }
+    },
+
     viewPlace: function(datasetSlug, id, responseId) {
+      console.log("view place");
+      console.log(datasetSlug);
+
       // TODO: When we handle multiple datasets, we will need to
       // implement appView.viewPlace(..) to accept a datasetSlug parameter
-      this.appView.viewPlace(id, responseId, this.loading);
+      this.appView.viewPlace(datasetSlug, id, responseId, this.loading);
     },
 
     editPlace: function(){},
