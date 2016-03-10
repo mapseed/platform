@@ -295,8 +295,6 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
 
-      console.log("SELF.COLLECTION", self.collection);
-
       // loop through landmark configs 
       _.each(_.values(this.options.datasetConfigs.landmark), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
@@ -316,9 +314,9 @@ var Shareabouts = Shareabouts || {};
           totalPages,
           pagesComplete = 0;
 
+
       // loop over all place collections
       _.each(self.collection.place, function(collection) {
-        console.log("fetch");
         collection.fetchAllPages({
           remove: false,
           // Check for a valid location type before adding it to the collection
@@ -333,11 +331,6 @@ var Shareabouts = Shareabouts || {};
               self.listView.sort();
               self.listView.updateSortLinks();
             }
-            console.log("app-view.loadPlaces", self.collection.place);
-          },
-
-          error: function(x) {
-            console.log("error", x);
           },
 
           // Only do this for the first page...

@@ -41,7 +41,6 @@ var Shareabouts = Shareabouts || {};
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
-      console.log(this.collection);
       _.each(this.collection, function(collections) {
         _.each(collections, function(collection) {
           collection.on('add', this.onAddAction, this);
