@@ -19,6 +19,7 @@ var Shareabouts = Shareabouts || {};
 
       self.map = L.map(self.el, self.options.mapConfig.options);
 
+
       self.placeLayers = self.getLayerGroups();
 
       self.layers = {};
@@ -128,7 +129,6 @@ var Shareabouts = Shareabouts || {};
 
       // Bind data events to shareabouts collections
       _.each(self.collection.place, function(collection) {
-        console.log("map-view.init", collection);
         collection.on('reset', self.render, self);
         collection.on('add', self.addLayerView, self);
         collection.on('remove', self.removeLayerView, self);
@@ -329,7 +329,7 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
-    clearFilter: function() {
+    clearFilter: function() {   
       var self = this;
       this.locationTypeFilter = null;
 

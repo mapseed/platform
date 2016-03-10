@@ -128,9 +128,7 @@ var Shareabouts = Shareabouts || {};
           var collection;
           if (config.type == "place") {
             collection = new S.PlaceCollection([]);
-
             collection.url += "?url=" + config.url + "&id=" + config.id;
-            console.log("collection.url", collection.url);
           } else if (config.type == "landmark") {
             collection = new S.LandmarkCollection([]);
             collection.url = config.url;
@@ -140,6 +138,8 @@ var Shareabouts = Shareabouts || {};
 
         });
       });
+
+      console.log(self.collection);
 
       /*
       _.each(configsArray, function(config) {

@@ -362,6 +362,8 @@ def api(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
+    
+    #print("path:", path)
     #root = settings.SHAREABOUTS.get('DATASET_ROOT')
     root = request.GET.get("url")
     dataset_id = request.GET.get("id")
@@ -398,7 +400,12 @@ def api(request, path):
     if place_was_created(request, path, response):
         send_place_created_notifications(request, response)
 
-    print("response", response)
+    #print("request.GET.get('url')", request.GET.get("url"))
+    #print("response", response.content)
+    #print("id", dataset_id)
+    print("refactor request", request)
+    print("refactor path", path)
+    print("refactor url", url)
     return response
 
 
