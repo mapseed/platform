@@ -233,6 +233,7 @@ var Shareabouts = Shareabouts || {};
 
       // Bind to map move events so we can style our center points
       // with utmost awesomeness.
+      this.mapView.map.on('zoomend', this.onMapZoomEnd, this);
       this.mapView.map.on('movestart', this.onMapMoveStart, this);
       this.mapView.map.on('moveend', this.onMapMoveEnd, this);
       // For knowing if the user has moved the map after opening the form.
@@ -280,13 +281,7 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
       _.each(_.values(this.options.landmarkConfigs), function(landmarkConfig) {
-        if (landmarkConfig.placeType) {
-          self.landmarkCollections[landmarkConfig.id].fetch({
-            attributesToAdd: { location_type: landmarkConfig.placeType }
-          });
-        } else {
-          self.landmarkCollections[landmarkConfig.id].fetch();
-        }
+        self.landmarkCollections[landmarkConfig.id].fetch();
       });
     },
     loadPlaces: function(placeParams) {
@@ -343,6 +338,11 @@ var Shareabouts = Shareabouts || {};
     setPlaceFormViewLatLng: function(centerLatLng) {
       if (this.placeFormView) {
         this.placeFormView.setLatLng(centerLatLng);
+      }
+    },
+    onMapZoomEnd: function(evt) {
+      if (this.hasBodyClass('content-visible') === true) {
+        $("#spotlight-place-mask").remove();
       }
     },
     onMapMoveStart: function(evt) {
@@ -520,6 +520,12 @@ var Shareabouts = Shareabouts || {};
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
+        // If this model is not yet loaded as a layer view in our map view,
+        // then let's create the layer view directly from the model
+        if (_.isUndefined(self.mapView.landmarkLayerViews[options.collectionId][model.id])) {
+          self.mapView.addLandmarkLayerView(options.collectionId).bind(self.mapView)(model);
+        }
+
         layer = self.mapView.landmarkLayerViews[options.collectionId][model.id].layer
 
         if (layer) {
@@ -529,7 +535,6 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model);
         self.showPanel(landmarkDetailView.render().$el, false);
-        self.addSpotlightMask();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -547,6 +552,8 @@ var Shareabouts = Shareabouts || {};
             map.panTo(center, {animate: true});
           }
         }
+        self.addSpotlightMask();
+
 
         // Focus the one we're looking
         model.trigger('focus');
@@ -618,7 +625,6 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch and use the result.
       } else {
-        var placeId = self.options.landmarkConfigs[options.collectionId].placeType;
         landmarkCollection.fetch({
           success: function(collection, response, options) {
             var foundModel = collection.findWhere({ id: modelId });
@@ -628,8 +634,7 @@ var Shareabouts = Shareabouts || {};
               onLandmarkNotFound();
             }
           },
-          error: onLandmarkNotFound,
-          attributesToAdd: { location_type: placeId }
+          error: onLandmarkNotFound
         })
       }
     },
@@ -661,7 +666,6 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         self.showPanel(placeDetailView.render().$el, !!responseId);
-        self.addSpotlightMask();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -679,6 +683,7 @@ var Shareabouts = Shareabouts || {};
             map.panTo(center, {animate: true});
           }
         }
+        self.addSpotlightMask();
 
         if (responseId) {
           // get the element based on the id
