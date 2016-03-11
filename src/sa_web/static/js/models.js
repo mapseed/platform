@@ -122,7 +122,8 @@ var Shareabouts = Shareabouts || {};
 
     url: function() {
       var submissionType = this.options.submissionType,
-          placeId = this.options.placeModel && this.options.placeModel.id;
+          placeId = this.options.placeModel && this.options.placeModel.id,
+          queryString = this.options.queryString;
 
       if (!submissionType) { throw new Error('submissionType option' +
                                                      ' is required.'); }
@@ -131,7 +132,7 @@ var Shareabouts = Shareabouts || {};
                                       'must save the place before saving ' +
                                       'its ' + submissionType + '.'); }
 
-      return '/api/places/' + placeId + '/' + submissionType;
+      return '/api/places/' + placeId + '/' + submissionType + queryString;
     },
 
     comparator: 'created_datetime'
@@ -245,6 +246,7 @@ var Shareabouts = Shareabouts || {};
 
   S.PlaceCollection = S.PaginatedCollection.extend({
     url: '/api/places',
+    //url: '/api/places?url=http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish&id=duwamish',
     model: S.PlaceModel,
     resultsAttr: 'features',
 
