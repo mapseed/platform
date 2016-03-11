@@ -63,7 +63,7 @@ map:
     - id: duwamish
       url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
       type: place
-      slug: duwamish
+      slug: report
 
     - id: trees
       url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees
@@ -303,6 +303,13 @@ place_types:
       - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-whale.png
+
+  tree:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-tree.png      
 
   # # needs a marker
   # farm:

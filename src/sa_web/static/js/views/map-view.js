@@ -303,14 +303,15 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
-    clearFilter: function() {   
+    clearFilter: function(collectionId) {   
       var self = this;
+      console.log("self", self);
       this.locationTypeFilter = null;
 
       _.each(this.collection, function(collections) {
         _.each(collections, function(collection) {
           collection.each(function(model) {
-            self.layerViews[collectionId][model.cid].render();
+            self.layerViews[model.cid].render();
           })
         });
       });

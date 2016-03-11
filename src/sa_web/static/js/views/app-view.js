@@ -251,6 +251,10 @@ var Shareabouts = Shareabouts || {};
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
 
+      _.each(this.collection.place, function(value, key) {
+        self.placeDetailViews[key] = {};
+      });
+
       _.each(this.collection.landmark, function(value, key) {
         self.landmarkDetailViews[key] = {};
       });
@@ -316,13 +320,14 @@ var Shareabouts = Shareabouts || {};
 
 
       // loop over all place collections
-      _.each(self.collection.place, function(collection) {
+      _.each(self.collection.place, function(collection, key) {
         collection.fetchAllPages({
           remove: false,
           // Check for a valid location type before adding it to the collection
           validate: true,
           data: placeParams,
-          attributesToAdd: { datasetSlug: self.options.placeConfig.dataset_slug },
+          // get the dataset slug from the array of map layers
+          attributesToAdd: { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug },
           attribute: 'properties',
 
           success: function() {
@@ -486,6 +491,7 @@ var Shareabouts = Shareabouts || {};
       return landmarkDetailView;
     },
     getPlaceDetailView: function(model) {
+      console.log("getPlaceDetailView model", model);
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
@@ -496,7 +502,9 @@ var Shareabouts = Shareabouts || {};
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
           placeTypes: this.options.placeTypes,
-          userToken: this.options.userToken
+          userToken: this.options.userToken,
+          url: _.filter(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug })[0].url,
+          datasetId: _.filter(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug })[0].id
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -546,13 +554,8 @@ var Shareabouts = Shareabouts || {};
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
-        // If this model is not yet loaded as a layer view in our map view,
-        // then let's create the layer view directly from the model
-        if (_.isUndefined(self.mapView.landmarkLayerViews[options.collectionId][model.id])) {
-          self.mapView.addLandmarkLayerView(options.collectionId).bind(self.mapView)(model);
-        }
-
-        layer = self.mapView.landmarkLayerViews[options.collectionId][model.id].layer
+        console.log("self.mapView", self.mapView);
+        layer = self.mapView.layerViews[options.collectionId][model.id].layer
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
@@ -605,9 +608,11 @@ var Shareabouts = Shareabouts || {};
         // model to avoid making unnecessary api calls for each collection:
         var cachedModel;
         var collectionId;
-        _.find(Object.keys(self.options.landmarkConfigs), function(landmarkConfigId) {
+
+        console.log("self.options", self.options);
+        _.find(Object.keys(self.options.collection.landmark), function(landmarkConfigId) {
           collectionId = landmarkConfigId;
-          cachedModel = self.landmarkCollections[landmarkConfigId].get(model);
+          cachedModel = self.collection.landmark[collectionId].get(model);
           return cachedModel;
         });
         if (cachedModel) {
@@ -664,11 +669,15 @@ var Shareabouts = Shareabouts || {};
         })
       }
     },
-    viewPlace: function(model, responseId, zoom) {
+    viewPlace: function(datasetSlug, model, responseId, zoom) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           layout = S.Util.getPageLayout(),
+          // get the dataset id from the map layers array for the given datasetSlug
+          datasetId = _.filter(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug })[0].id,
           onPlaceFound, onPlaceNotFound, modelId;
+
+      console.log("datasetId", datasetId);
 
       onPlaceFound = function(model) {
         var map = self.mapView.map,
@@ -742,8 +751,9 @@ var Shareabouts = Shareabouts || {};
       }
 
       // Otherwise, assume we have a model ID.
+      console.log("this.collection:", this.collection);
       modelId = model;
-      model = this.places.get(modelId);
+      model = this.collection.place[datasetId].get(modelId);
 
       // If the model was found in the places, go ahead and use it.
       if (model) {

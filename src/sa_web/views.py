@@ -227,7 +227,6 @@ def send_place_created_notifications(request, response):
 def proxy_view(request, url, requests_args={}):
     # For full URLs, use a real proxy.
     if url.startswith('http:') or url.startswith('https:'):
-        print("using url:", url)
         return remote_proxy_view(request, url, requests_args=requests_args)
 
     # For local paths, use a simpler proxy. If there are headers specified
@@ -363,18 +362,24 @@ def api(request, path):
     one configured dataset.
     """
     
-    #print("path:", path)
     #root = settings.SHAREABOUTS.get('DATASET_ROOT')
-    root = request.GET.get("url")
-    dataset_id = request.GET.get("id")
+    root = request.GET.get('url')
+    dataset_id = request.GET.get('id')
+    print("root", root)
+    print("dataset_id", dataset_id)
 
-    #print("root", root)
-    #print("dataset_id", dataset_id)
-    #print("KEY:", dataset_id.upper() + '_DATASET_KEY')
+    # Clear out request object query string dictionary. For some reason, /api/places 
+    # will return an empty dataset if a query string is included in the request
+    request.GET = request.GET.copy()
+    if 'url' in request.GET:
+        request.GET.pop('url')
+    if 'id' in request.GET:
+        request.GET.pop('id')
 
     if root.startswith('file://'):
         return readonly_file_api(request, path, datafilename=root[7:])
 
+    #api_key = settings.SHAREABOUTS.get('SITE_KEY')
     api_key = settings.SHAREABOUTS.get(dataset_id.upper() + '_DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-sessionid')
 
@@ -400,12 +405,6 @@ def api(request, path):
     if place_was_created(request, path, response):
         send_place_created_notifications(request, response)
 
-    #print("request.GET.get('url')", request.GET.get("url"))
-    #print("response", response.content)
-    #print("id", dataset_id)
-    print("refactor request", request)
-    print("refactor path", path)
-    print("refactor url", url)
     return response
 
 
