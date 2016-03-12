@@ -20,6 +20,7 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = null;
       this.selectedDatasetSlug = null;
       this.priorModelCid = null;
+
       // TODO: configure this
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
