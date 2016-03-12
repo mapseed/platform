@@ -406,6 +406,9 @@ select {
   font-size: 0.8em;
   font-style: italic;
 }
+#selected-category {
+  display: none;
+}
 
 /* Imag es */
 img {
