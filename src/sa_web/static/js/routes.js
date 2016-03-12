@@ -10,6 +10,7 @@ var Shareabouts = Shareabouts || {};
       'page/:slug': 'viewPage',
       ':dataset/new': 'newPlace',
       ':dataset/:id': 'viewPlace',
+      'new': 'newDataset',
       ':dataset/:id/response/:response_id': 'viewPlace',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
@@ -218,9 +219,14 @@ var Shareabouts = Shareabouts || {};
       this.appView.mapView.clearFilter();
     },
 
-    // Open view for first step in multi-step form
+    
     newPlace: function() {
       this.appView.newPlace();
+    },
+
+    // Open view for first step in multi-step form
+    newDataset: function() {
+      this.appView.newDataset();
     },
 
     viewLandmark: function(id) {

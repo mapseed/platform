@@ -183,7 +183,6 @@ var Shareabouts = Shareabouts || {};
     _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {
     //_.each(NS.Config.place.items, function(item, i) {
       
-      console.log(this);
       var newItem = {
         name: item.name,
         label: item.display_prompt,

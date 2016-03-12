@@ -756,11 +756,10 @@ place:
           type: text
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
-          optional: true
-        
+          optional: true   
     tree:
       name: location_type
-      icon_url: /static/css/images/markers/marker-complaint.png  #TEMPORARY
+      icon_url: /static/css/images/markers/marker-tree.png
       value: tree
       label: _(Tree)
       fields:
