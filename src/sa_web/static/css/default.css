@@ -406,8 +406,8 @@ select {
   font-size: 0.8em;
   font-style: italic;
 }
-#selected-category {
-  display: none;
+#selected-category label {
+  cursor: default !important;
 }
 
 /* Imag es */
