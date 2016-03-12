@@ -343,7 +343,7 @@ select {
 .category-btn {
   position: relative;
   display: block;
-  width: 280px;
+  width: 240px;
 }
 .category-btn:hover {
   cursor: pointer;
@@ -370,7 +370,7 @@ select {
   border-radius: 4px 0 0 4px;
 }
 .category-btn-label > span {
-  width: 250px;
+  width: 210px;
   position: absolute;
   top: 0px;
   left: 48px;
@@ -408,6 +408,28 @@ select {
 }
 #selected-category label {
   cursor: default !important;
+}
+#selected-category {
+  position: relative;
+  width: 280px;
+  margin-right: 0;
+}
+.category-menu-hamburger {
+  width: 30px;
+  height: 36px;
+  margin-right: 10px;
+  position: absolute;
+  top: 5px;
+  left: 290px;
+}
+.category-menu-hamburger:before {
+  font-family: FontAwesome;
+  font-size: 2.2em;
+  content: "\f03a";
+}
+.category-menu-hamburger:hover {
+  color: rgb(242, 82, 24);
+  cursor: pointer;
 }
 
 /* Imag es */
