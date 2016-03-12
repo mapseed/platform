@@ -182,13 +182,13 @@ var Shareabouts = Shareabouts || {};
     // check if a report has been made with the dynamic form, or with the regular form, and iterate appropriately
     _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {
     //_.each(NS.Config.place.items, function(item, i) {
-    //
       
+      console.log(this);
       var newItem = {
         name: item.name,
         label: item.display_prompt,
         value: this[item.name],
-        display_value: this.display_labels[item.name],
+        //display_value: this.display_labels[item.name],
         type: item.type
       };
 
