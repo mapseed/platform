@@ -545,6 +545,7 @@ var Shareabouts = Shareabouts || {};
       this.collection.add({});
     },
     newDataset: function() {
+      console.log("this.options.placeConfig", this.options.placeConfig);
       this.datasetFormView = new S.DatasetFormView({
         appView: this,
         router: this.options.router,

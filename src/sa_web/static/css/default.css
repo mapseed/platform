@@ -364,6 +364,7 @@ select {
 }
 .category-btn-label > img {
   width: 30px;
+  height: 36px;
   border: 2px solid #D1D3D4;
   padding: 3px;
   border-radius: 4px 0 0 4px;
