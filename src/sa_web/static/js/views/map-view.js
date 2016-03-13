@@ -332,7 +332,6 @@ var Shareabouts = Shareabouts || {};
 
     clearFilter: function(collectionId) {   
       var self = this;
-      console.log("self", self);
       this.locationTypeFilter = null;
 
       _.each(this.collection, function(collections) {
