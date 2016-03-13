@@ -57,6 +57,7 @@ var Shareabouts = Shareabouts || {};
       // Reject a place that does not have a supported location type. This will
       // prevent invalid places from being added or saved to the collection.
       S.PlaceModel.prototype.validate = function(attrs, options) {
+        console.log("attrs", attrs);
         var locationType = attrs.location_type,
             locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
 
