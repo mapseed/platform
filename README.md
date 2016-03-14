@@ -1,5 +1,5 @@
-# [Hey Duwamish!](http://heyduwamish.org)
-# [Hey Willamette!](http://heyduwamish.org)
+## Hey Duwamish! - [HeyDuwamish.org](http://heyduwamish.org)
+## Hey Willamette! - [HeyWillamette.org](http://heyduwamish.org)
 
 Community powered mapping for environmental health, starting with our most polluted rivers.
 
@@ -100,6 +100,13 @@ NOTE: Mac OS X users need a command line C/C++ compiler in place for the above s
 
 ### Configuring the Dev API
 
+Now that you have the client installed, all you need to do is load the API. The API powers the database that manages the community generated reports.
+
+The platform is capable of manging multiple "flavors" - a flavor is a custom front end map deployment that can have it's own configuration and style rules, but still connect with other flavors on a shared back end, powered by the same data API.
+
+Hey Duwamish has its own flavor configuration in the ``duwamish_flavor`` folder for Seattle residents, and
+Hey Willamette has its own flavor configuration in the ``willamette`` folder for Portland residents.
+
 We have a Dev API with dummy data that you can load locally. To enable it, go to the `src` folder and create a new hidden text file called `.env` and paste in the following information:
 
 ```
@@ -107,6 +114,8 @@ FLAVOR=duwamish_flavor
 SITE_URL=http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
 SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
 ```
+
+If you want to load a different flavor, like Hey Willamette, just replace the first line with ``FLAVOR=willamette``
 
 Now you're ready to run your server locally. Just enter this command:
 
