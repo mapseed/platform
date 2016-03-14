@@ -1,5 +1,5 @@
-## Hey Duwamish! - [HeyDuwamish.org](http://heyduwamish.org)
-## Hey Willamette! - [HeyWillamette.org](http://heyduwamish.org)
+### Hey Duwamish! - [HeyDuwamish.org](http://heyduwamish.org)
+### Hey Willamette! - [HeyWillamette.org](http://heyduwamish.org)
 
 Community powered mapping for environmental health, starting with our most polluted rivers.
 
@@ -17,36 +17,19 @@ Features
 -------------
 <dl>
   <dt>Submit a Report</dt>
-  <dd>Adding reports is easy. The simple interface lets users quickly drop pins on the map with descriptions and other useful information.</dd>
+  <dd>Adding reports is easy. The simple interface lets users quickly drop pins on the map with an image, description, and other useful information that can be customized by the form administrator.</dd>
 
   <dt>Comment on Reports</dt>
-  <dd>Engage your audience in meaningful conversation. Users can leave [rich media] comments on reports.</dd>
+  <dd>Engage your audience in meaningful conversation. Users can leave comments on reports, and vote to support them.</dd>
 
   <dt>Explore Rich Environmental Data</dt>
-  <dd>Overlay pertinent geographic data. Applying custom vector data to our Geoserver, the Hey Duwamish! map can pull in GeoJson and WMS URLs as additional map layers.</dd>
+  <dd>Overlay pertinent geographic data. Applying custom vector data as map layers using CartoDB, Mapbox, GeoServer, or your own WMS server.</dd>
 
-  <dt>Mapbox Projeplct Integration</dt>
-  <dd>Import a Mapbox project to enhance project management into the map</dd>
+  <dt>Custom landing pages for your map data</dt>
+  <dd>Make sure all the important information about your neighborhood has a place to live on the open web with friendly URLs</dd>
 
-  <dt>Explore Reports and Comments</dt>
-  <dd>The map allows users to find reports and comments in their areas of interest.</dd>
-
-  <dt>Show Support</dt>
-  <dd>Need to know which reports are most popular? Users can vote for their favorite reports to show their support.</dd>
-
-  <dt>Social Sharing</dt>
-  <dd>Harness the power of viral marketing. Users engage their social network when they share reports on Twitter and Facebook.</dd>
-
-  <dt>Activity Feed</dt>
-  <dd>See a list of recently submitted reports, comments, and support.</dd>
-
-  <dt>Responsive Design</dt>
-  <dd>We've designed Hey Duwamish to work great and look beautiful on all screen sizes—desktop, mobile, and touch screens!</dd>
-
-Alternatively, you may want to use a [different hosting service](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md) and set up the components of Shareabouts manually.
-
-  <dt>Internationalization</dt>
-  <dd>We currently offer a Spanish version of our website, but we are looking to include a Vietnamese version soon</dd>
+  <dt>Multiple Languages</dt>
+  <dd>Just edit the translation files and you are ready to go.</dd>
 </dl>
 
 Contributing
@@ -122,7 +105,7 @@ Now you're ready to run your server locally. Just enter this command:
 ```
 src/manage.py runserver
 ```
-The server will, by default, be started at http://localhost:8000/. It is already configured for Hey Duwamish! but [here is the documentation](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) if you want to reconfigure it.
+The server will, by default, be started at http://localhost:8000/. [Here is the documentation](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) if you want to reconfigure it.
 
 NOTE: If you're new to programming with virtualenv, be sure to remember to activate your virtual environment every time you start a new terminal session:
 
