@@ -1,12 +1,14 @@
-Hey Duwamish! [![Build Status](https://secure.travis-ci.org/smartercleanup/platform.png)](http://travis-ci.org/smartercleanup/platform)
+Hey Duwamish! & Hey Willamette!
+
+[![Build Status](https://secure.travis-ci.org/smartercleanup/platform.png)](http://travis-ci.org/smartercleanup/platform)
 ===========
 For a brief summary, please view: [http://smartercleanup.org/](http://smartercleanup.org/)
 
-We are building a geography based community monitoring platform. Our goal is to empower residents to monitor environmental health issues and engage with local leaders to address their concerns. Our first release is focused on the Lower Duwamish River superfund site in Seattle, WA.
+We are building a geography based community monitoring platform. Our goal is to empower residents to monitor environmental health issues and engage with local leaders to address their concerns. Our first release focuses on the Lower Duwamish River superfund site in Seattle, WA and now we are active along the Willamette River cleanup in Portland, Oregon.
 
 We were inspired by the GarageLab collective in Buenos Aires, Argentina who built [Que Pasa Riachuelo](http://quepasariachuelo.org.ar/) to monitor the pollution along the Riachuelo river basin.
 
-More details on getting involved with **Hey Duwamish!** can be found [here](http://wiki.smartercleanup.org/doku.php?id=contribute)
+More details on getting involved with the Smarter Cleanup movement can be found [here](http://wiki.smartercleanup.org/doku.php?id=contribute)
 
 Features
 -------------
