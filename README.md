@@ -1,7 +1,7 @@
-# Hey Duwamish! 
-[HeyDuwamish.org](http://heyduwamish.org)
-# Hey Willamette!
-[HeyWillamette.org](http://heyduwamish.org)
+# [Hey Duwamish!](http://heyduwamish.org)
+# [Hey Willamette!](http://heyduwamish.org)
+
+Community powered mapping for environmental health, starting with our most polluted rivers.
 
 [![Build Status](https://secure.travis-ci.org/smartercleanup/platform.png)](http://travis-ci.org/smartercleanup/platform)
 ===========
