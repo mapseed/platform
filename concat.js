@@ -52,6 +52,7 @@ shell.cat([
   'src/sa_web/static/js/views/place-detail-view.js',
   'src/sa_web/static/js/views/landmark-detail-view.js',
   'src/sa_web/static/js/views/place-form-view.js',
+  'src/sa_web/static/js/views/dataset-form-view.js',
   'src/sa_web/static/js/views/place-list-view.js',
   'src/sa_web/static/js/views/map-view.js',
   'src/sa_web/static/js/views/gis-legend-view.js',
