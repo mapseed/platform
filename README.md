@@ -1,6 +1,6 @@
 # Hey Duwamish! 
 [HeyDuwamish.org](http://heyduwamish.org)
-& Hey Willamette!
+# Hey Willamette!
 [HeyWillamette.org](http://heyduwamish.org)
 
 [![Build Status](https://secure.travis-ci.org/smartercleanup/platform.png)](http://travis-ci.org/smartercleanup/platform)
