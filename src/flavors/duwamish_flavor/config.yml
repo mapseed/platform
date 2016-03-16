@@ -485,19 +485,19 @@ sidebar:
               visibleDefault: true
 
             - id: cleanup
-              description: _(The EPA-approved cleanup plan for the river)
               title: _(River cleanup plan)
+              description: _(The EPA-approved cleanup plan for the river)
               visibleDefault: true
 
             - id: vision
-              visibleDefault: true
               title: _(Community vision)
               description: _(Priority areas identified through community visioning projects)
+              visibleDefault: true
 
             - id: restoration
-              visibleDefault: true
               title: _(Restoration sites)
               description: _(Habitat restoration and community organizing)
+              visibleDefault: true
 
         - id: grp-land
           title: _(Land Data)
@@ -528,8 +528,8 @@ sidebar:
 
               # WMS Original Flow
             - id: duwamish-original
-              description: _(The original Duwamish River path)
               title: _(Original river path)
+              description: _(The original Duwamish River path)
               visibleDefault: false
 
     ticker:
