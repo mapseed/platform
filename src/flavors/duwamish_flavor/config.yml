@@ -70,6 +70,11 @@ map:
       type: place
       slug: trees
 
+    - id: air
+      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
+      type: place
+      slug: air
+
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       type: landmark
@@ -706,7 +711,7 @@ place:
       name: location_type  #needs to be "location_type"
       dataset: air
       datasetSlug: air
-      icon_url: /static/css/images/markers/marker-complaint.png  #TEMPORARY
+      icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
       fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
