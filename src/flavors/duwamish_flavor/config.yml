@@ -486,22 +486,22 @@ sidebar:
           visibleDefault: true
           layers:
             - id: reports
-              title: _(community reports)
-              description: _(reports added to the map by citizens)
+              title: _(Community Reports)
+              description: _(Reports added to the map by citizens)
               visibleDefault: true
 
             - id: cleanup
-              title: _(River cleanup plan)
+              title: _(River Cleanup Plan)
               description: _(The EPA-approved cleanup plan for the river)
               visibleDefault: true
 
             - id: vision
-              title: _(Community vision)
+              title: _(Community Vision)
               description: _(Priority areas identified through community visioning projects)
               visibleDefault: true
 
             - id: restoration
-              title: _(Restoration sites)
+              title: _(Restoration Sites)
               description: _(Habitat restoration and community organizing)
               visibleDefault: true
 
@@ -510,9 +510,9 @@ sidebar:
           visibleDefault: false
           layers:
             - id: toggle-satellite
-              title: _(satellite view)
-              description: _(toggle the satellite map view)
-              visibleDefault: true
+              title: _(Satellite View)
+              description: _(Toggle the satellite map view)
+              visibleDefault: false
 
               # Land Use
             - id: landuse
@@ -539,7 +539,7 @@ sidebar:
 
               # WMS Original Flow
             - id: duwamish-original
-              title: _(Original river path)
+              title: _(Original River Path)
               description: _(The original Duwamish River path)
               visibleDefault: false
 
