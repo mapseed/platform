@@ -58,6 +58,8 @@ var Shareabouts = Shareabouts || {};
             .on('error', function(err) {
               S.Util.log('Cartodb layer creation error:', err);
             });
+        } else if (config.type && config.type === 'shareabouts') {
+          self.layers[config.id] = self.placeLayers;
         } else if (config.layers) {
           // If "layers" is present, then we assume that the config
           // references a Leaflet WMS layer.

@@ -50,6 +50,10 @@ map:
       visibleDefault: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
+    # For our Shareabouts reports
+    - id: reports
+      type: shareabouts
+
     # Carto basemap additions layer
     - id: additions
       url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
@@ -475,6 +479,11 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
+            - id: reports
+              title: _(community reports)
+              description: _(reports added to the map by citizens)
+              visibleDefault: true
+
             - id: cleanup
               description: _(The EPA-approved cleanup plan for the river)
               title: _(River cleanup plan)
