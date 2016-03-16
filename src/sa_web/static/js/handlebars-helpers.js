@@ -187,7 +187,8 @@ var Shareabouts = Shareabouts || {};
         name: item.name,
         label: item.display_prompt,
         value: this[item.name],
-        //display_value: this.display_labels[item.name],
+        display_value: (this.display_labels ? this.display_labels[item.name] : ""),
+        //field_names: 
         type: item.type
       };
 

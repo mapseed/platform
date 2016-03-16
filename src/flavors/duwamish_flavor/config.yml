@@ -631,7 +631,6 @@ place:
 
 
   #### begin dynamic form config ####
-  #
   #TODO: maybe add an autocomplete
   categories:
     observation:
@@ -642,20 +641,23 @@ place:
       value: observation
       label: _(Observation)
       fields:
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution)
-          content: pollution_types
-          optional: true
         - name: title
           type: text
-          prompt: _(Pollution title)
-          placeholder: _(Enter title)
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
           optional: false
+        - name: pollution_type
+          type: checkbox_big_buttons
+          prompt: _(Types of pollution seen:)
+          display_prompt: _(I saw the following types of pollution here:)
+          content: pollution_types
+          optional: true
         - name: description
           type: textarea
-          prompt: _(Pollution description)
-          placeholder: _(Description...)
+          prompt: _(Description of this pollution:)
+          display_prompt: _(Further description:)
+          placeholder: _(Enter description...)
           optional: false
     question:
       name: location_type
@@ -665,11 +667,17 @@ place:
       value: question
       label: _(Question)
       fields:
+        - name: title
+          type: text
+          prompt: _(Title of your question:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
         - name: description
           type: textarea
-          prompt: _(Land use description)
-          placeholder: _(Description...)
-          optional: false
+          prompt: _(What's your question?)
+          display_prompt: _(My question:)
+          placeholder: _(Enter question...)
     idea:
       name: location_type
       dataset: duwamish
@@ -680,12 +688,14 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(What's your idea?)
-          placeholder: _(Enter a title for your idea...)
+          prompt: _(Title of your idea:)
+          placeholder: _(Enter title...)
+          display_prompt: _(Title:)
           optional: false
         - name: description
           type: textarea
           prompt: _(Describe your idea below:)
+          display_prompt: _(Here's my idea:)
           placeholder: _(Description...)
           optional: false
     complaint:
@@ -696,9 +706,16 @@ place:
       value: complaint
       label: _(Complaint)
       fields:
+        - name: title
+          type: text
+          prompt: _(Title of your complaint:)
+          placeholder: _(Enter title...)
+          display_prompt: _(Title:)
+          optional: false
         - name: description
           type: textarea
           prompt: _(What's your complaint?)
+          display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
     air_watch:  #defines a top-level form category

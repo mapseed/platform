@@ -183,8 +183,6 @@ var Shareabouts = Shareabouts || {};
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
 
-      console.log("onSubmit categoryId", categoryId);
-
       model.attributes["from_dynamic_form"] = true;
       model.attributes["datasetSlug"] = this.selectedDatasetSlug;
       evt.preventDefault();
@@ -197,7 +195,6 @@ var Shareabouts = Shareabouts || {};
       S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
 
       // Save and redirect
-      console.log("this.model", this.model);
       this.model.save(attrs, {
         success: function() {
           S.Util.log('USER', 'new-place', 'successfully-add-place');
