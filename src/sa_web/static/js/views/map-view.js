@@ -60,6 +60,14 @@ var Shareabouts = Shareabouts || {};
             });
         } else if (config.type && config.type === 'shareabouts') {
           self.layers[config.id] = self.placeLayers;
+        } else if (config.type && config.type === 'base') {
+          // Assume a tile layer
+          layer = L.tileLayer(config.url, config);
+          self.layers[config.id] = layer;
+
+          if (config.defaultBase) {
+            layer.addTo(self.map);
+          }
         } else if (config.layers) {
           // If "layers" is present, then we assume that the config
           // references a Leaflet WMS layer.
@@ -126,6 +134,18 @@ var Shareabouts = Shareabouts || {};
         var layer = self.layers[id];
         if (layer) {
           self.setLayerVisibility(layer, visible);
+        } else if (id === 'toggle-satellite') {
+          // TODO: This is a hack! We should integrate this with the config
+          // probably with a radio button in the legend!
+          if (visible) {
+            self.map.addLayer(self.layers['satellite-base']);
+            self.layers['satellite-base'].bringToBack();
+            self.map.removeLayer(self.layers['mapbox-base']);
+          } else {
+            self.map.addLayer(self.layers['mapbox-base']);
+            self.layers['mapbox-base'].bringToBack();
+            self.map.removeLayer(self.layers['satellite-base']);
+          }
         } else { // Cases when the layer is loaded asynchronously:
           var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
             return layer.id === id;
