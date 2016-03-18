@@ -197,9 +197,15 @@ var Shareabouts = Shareabouts || {};
       var newItem = {
         name: item.name,
         label: item.display_prompt,
+        // get the (possibly) translated label from a dropdown, radio, or select input, or get free text entry
         value: display_value.label || this[item.name],
         type: item.type
       };
+
+      // handle case where user makes no selection on dropdowns
+      if (newItem.value == "no_response") {
+        newItem.value = "";
+      }
 
       // if not an exclusion and not private data
       if (_.contains(exclusions, item.name) === false &&
