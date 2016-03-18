@@ -142,6 +142,17 @@ var Shareabouts = Shareabouts || {};
       $(evt.target).val(altData.value);
       $(evt.target).next("label").html(altData.label);
     },
+    onYesNoToggle: function(evt) {
+      var oldValue = $(evt.target).val(),
+          // find the alternate label/value pair from the config
+          altData = _.filter(this.options.placeConfig.dynamic_form_content.yes_no, function(item) {
+            return item.value != oldValue;
+          })[0];
+
+      // set new value and label
+      $(evt.target).val(altData.value);
+      $(evt.target).next("label").html(altData.label);
+    },
     setModel: function(model) {
       var self = this;
       this.model = model;
