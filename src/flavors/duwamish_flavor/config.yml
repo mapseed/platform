@@ -101,6 +101,10 @@ place_types:
       icon:
         iconSize: [60, 60]
         iconAnchor: [30, 30]
+    - condition: '{{map.zoom}} < 14'
+      icon:
+        iconSize: [7.5, 7.5]
+        iconAnchor: [4, 4]
     - condition: '{{map.zoom}} < 16'
       icon:
         iconSize: [15, 15]
@@ -115,11 +119,11 @@ place_types:
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 14'
+    - condition: '{{map.zoom}} < 16'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 14'
+    - condition: '{{map.zoom}} >= 16'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
@@ -308,13 +312,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -338,13 +342,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -368,13 +372,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -398,13 +402,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: '{{map.zoom}} < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [12, 14.5]
-          iconAnchor: [6, 14.5]
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: '{{map.zoom}} >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
