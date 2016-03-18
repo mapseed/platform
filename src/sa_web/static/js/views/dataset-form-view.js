@@ -115,7 +115,6 @@ var Shareabouts = Shareabouts || {};
       this.selectedCategory = $(evt.target).parent().prev().attr('id'),
       this.selectedDatasetId = this.options.placeConfig.categories[this.selectedCategory].dataset,
       this.selectedDatasetSlug = this.options.placeConfig.categories[this.selectedCategory].datasetSlug;
-      //console.log("this.selectedDatasetId", this.selectedDatasetId);
 
       // re-render the form with the selected category
       this.render(this.selectedCategory, true);
