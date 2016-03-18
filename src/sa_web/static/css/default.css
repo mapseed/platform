@@ -1849,7 +1849,7 @@ require specific media queries.
     width: 40%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 70%;
+    width: 60%;
   }
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
@@ -1868,11 +1868,20 @@ require specific media queries.
     font-size: 1.25em;
     padding: 0;
     position: absolute;
-    top: 2em;
-    right: 2em;
+/*    top: 2em;
+    right: 2em;*/
     box-shadow: none;
     border-bottom: 0;
   }
+  #add-place-btn-container.pos-top-right {
+    top: 1.5em;
+    right: 1.5em;
+  }
+  #add-place-btn-container.pos-top-left {
+    top: 1.5em;
+    left: 3.5em;
+  }
+
   #add-place-btn-container .btn,
   #add-place-btn-container .btn:visited,
   #add-place-btn-container .btn:link {

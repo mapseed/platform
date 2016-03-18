@@ -774,6 +774,9 @@ var Shareabouts = Shareabouts || {};
       map.invalidateSize({ animate:true, pan:true });
 
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
+
+      $("#add-place-btn-container").attr("class", "pos-top-left");
+
       S.Util.log('APP', 'panel-state', 'open');
     },
     showNewPin: function() {
@@ -800,6 +803,8 @@ var Shareabouts = Shareabouts || {};
       this.$panel.hide();
       this.setBodyClass();
       map.invalidateSize({ animate:true, pan:true });
+
+      $("#add-place-btn-container").attr("class", "pos-top-right");
 
       S.Util.log('APP', 'panel-state', 'closed');
     },
