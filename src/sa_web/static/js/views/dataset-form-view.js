@@ -20,7 +20,6 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = null;
       this.selectedDatasetSlug = null;
       this.priorModelCid = null;
-
       // TODO: configure this
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
@@ -116,6 +115,7 @@ var Shareabouts = Shareabouts || {};
       this.selectedCategory = $(evt.target).parent().prev().attr('id'),
       this.selectedDatasetId = this.options.placeConfig.categories[this.selectedCategory].dataset,
       this.selectedDatasetSlug = this.options.placeConfig.categories[this.selectedCategory].datasetSlug;
+      //console.log("this.selectedDatasetId", this.selectedDatasetId);
 
       // re-render the form with the selected category
       this.render(this.selectedCategory, true);
@@ -145,6 +145,7 @@ var Shareabouts = Shareabouts || {};
     onBinaryToggle: function(evt) {
       var oldValue = $(evt.target).val(),
           // find the alternate label/value pair from the config
+          // TOOD: refactor to accommodate variable content sets
           altData = _.filter(this.options.placeConfig.dynamic_form_content.yes_no, function(item) {
             return item.value != oldValue;
           })[0];

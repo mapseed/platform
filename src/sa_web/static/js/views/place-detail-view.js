@@ -73,8 +73,6 @@ var Shareabouts = Shareabouts || {};
 
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
-      console.log("place detail view this.model:", this.model);
-      console.log("this.supportType", this.supportType);
       this.model.submissionSets[this.supportType].fetchAllPages();
 
       return this;
