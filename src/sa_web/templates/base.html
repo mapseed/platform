@@ -42,6 +42,9 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+
+  <!-- jQuery date-time picker plugin -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
   {% endif %}
@@ -202,6 +205,9 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
+
+  <!-- jQuery date-time picker plugin -->
+  <script src="{{ STATIC_URL }}libs/jquery.datetimepicker.full.min.js"></script>
 
   {% if config.map.cartodb_enabled %}
   <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
