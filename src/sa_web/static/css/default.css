@@ -1913,7 +1913,7 @@ require specific media queries.
   .activity-enabled #content {
     /*left: 30%;*/
     /*right: 18em;*/
-    width: 30%;
+    width: 40%;
   }
   .geocoding-bar-enabled #content {
     top: 8.5em;
@@ -2107,14 +2107,14 @@ require specific media queries.
     left: 60%;
   }
   .activity-enabled #content {
-    left: 70%;
-    width: 30%;
+    left: 60%;
+    width: 40%;
   }
   .content-visible #map-container {
     width: 60%;
   }
   .activity-enabled.content-visible #map-container {
-    width: 70%;
+    width: 60%;
   }
 }
 
