@@ -886,6 +886,11 @@ place:
         value: clean_surfaces
       - label: _(Other (please specify in comments))
         value: other
+    yes_no:
+      - label: _(Yes)
+        value: "yes"
+      - label: _(No)
+        value: "no"
 
 
   # define form elements that appear on every form here

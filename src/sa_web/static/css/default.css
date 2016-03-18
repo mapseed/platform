@@ -431,6 +431,9 @@ select {
   color: rgb(242, 82, 24);
   cursor: pointer;
 }
+.alt-label {
+  display: none;
+}
 
 /* Imag es */
 img {
