@@ -340,42 +340,39 @@ select {
 #category-btns {
   margin-bottom: 20px;
 }
-.category-btn {
-  position: relative;
-  display: block;
-  width: 240px;
-}
-.category-btn:hover {
-  cursor: pointer;
-}
 .category-btn-input {
   display: none;
 }
 .category-btn-label {
-  padding-right: 10px;
   top: 0px;
-  padding-left: 10px;
   text-transform: uppercase;
-  font-size: 1em;
-  width: 250px;
+  font-size: 12pt;
+  width: 200px;
   display: block;
   position: relative;
   opacity: 0.5;
+  height: 46px;
+  margin-bottom: 1px;
 }
 .category-btn-label > img {
-  width: 30px;
   height: 36px;
-  border: 2px solid #D1D3D4;
-  padding: 3px;
+  width: 30px;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 2px solid transparent;
   border-radius: 4px 0 0 4px;
+  padding: 3px;
+  display: inline;
 }
 .category-btn-label > span {
   width: 210px;
   position: absolute;
   top: 0px;
-  left: 48px;
+  left: 38px;
   padding-left: 15px;
-  border: 2px solid #D1D3D4;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-right: 2px solid transparent;
   border-radius: 0 4px 4px 0;
   padding-top: 11px;
   padding-bottom: 11px;
@@ -385,10 +382,14 @@ select {
   cursor: pointer;
 }
 .category-btn-label:hover > span {
-  border-color: rgb(242, 82, 24);
+  border-top-color: rgb(242, 82, 24);
+  border-right-color: rgb(242, 82, 24);
+  border-bottom-color: rgb(242, 82, 24);
 }
 .category-btn-label:hover > img {
-  border-color: rgb(242, 82, 24);
+  border-left-color: rgb(242, 82, 24);
+  border-top-color: rgb(242, 82, 24);
+  border-bottom-color: rgb(242, 82, 24);
 }
 .category-btn-input:checked + label {
   opacity: 1.0;

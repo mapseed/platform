@@ -179,18 +179,14 @@ var Shareabouts = Shareabouts || {};
 
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
-
+    
     // check if a report has been made with the dynamic form, or with the regular form, and iterate appropriately
-    // Retrieve the dynamic form content object in order to retrieve rendered values
-    var dynamic_form_content = NS.Config.place.dynamic_form_content;
-
-    _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {
-    //_.each(NS.Config.place.items, function(item, i) {
-      
+    _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {      
       // get the form element content type, if applicable
       var content_type = item.content || null;
+      
       // filter for the correct label/value pair
-      var display_value = _.filter(dynamic_form_content[content_type], function(option) {
+      var display_value = _.filter(NS.Config.place.dynamic_form_content[content_type], function(option) {
         return option.value == self[item.name];
       })[0] || {};
 
