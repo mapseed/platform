@@ -187,13 +187,12 @@ var Shareabouts = Shareabouts || {};
     _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {
     //_.each(NS.Config.place.items, function(item, i) {
       
-      // get the content type, if applicable
+      // get the form element content type, if applicable
       var content_type = item.content || null;
       // filter for the correct label/value pair
       var display_value = _.filter(dynamic_form_content[content_type], function(option) {
         return option.value == self[item.name];
       })[0] || {};
-      //display_label = (display_value[0] ? display_value[0].label : null);
 
       var newItem = {
         name: item.name,
