@@ -108,7 +108,6 @@ var Shareabouts = Shareabouts || {};
     },
     onMarkerClick: function() {
       S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
-      console.log("this.model.get('datasetSlug')", this.model.get('datasetSlug'));
       this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
     },
 
