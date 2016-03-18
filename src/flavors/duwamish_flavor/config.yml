@@ -715,6 +715,11 @@ place:
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
       fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
+        - name: date_observed 
+          type: date  
+          prompt: _(When did you observe these conditions?)
+          display_prompt: _(I observed these conditions on:)
+          optional: true
         - name: reside_work_georgetown  
           type: yes_only_big_button  
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)

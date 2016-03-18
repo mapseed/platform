@@ -172,7 +172,8 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('each_place_item', function() {
-    var result = '',
+    var self = this,
+        result = '',
         args = Array.prototype.slice.call(arguments),
         exclusions, options;
 
@@ -180,15 +181,24 @@ var Shareabouts = Shareabouts || {};
     exclusions = args.slice(0, args.length-1);
 
     // check if a report has been made with the dynamic form, or with the regular form, and iterate appropriately
+    // Retrieve the dynamic form content object in order to retrieve rendered values
+    var dynamic_form_content = NS.Config.place.dynamic_form_content;
+
     _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {
     //_.each(NS.Config.place.items, function(item, i) {
       
+      // get the content type, if applicable
+      var content_type = item.content || null;
+      // filter for the correct label/value pair
+      var display_value = _.filter(dynamic_form_content[content_type], function(option) {
+        return option.value == self[item.name];
+      })[0] || {};
+      //display_label = (display_value[0] ? display_value[0].label : null);
+
       var newItem = {
         name: item.name,
         label: item.display_prompt,
-        value: this[item.name],
-        display_value: (this.display_labels ? this.display_labels[item.name] : ""),
-        //field_names: 
+        value: display_value.label || this[item.name],
         type: item.type
       };
 
