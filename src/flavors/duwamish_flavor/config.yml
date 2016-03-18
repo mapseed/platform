@@ -721,32 +721,37 @@ place:
           display_prompt: _(I observed these conditions on:)
           optional: true
         - name: reside_work_georgetown  
-          type: yes_only_big_button  
+          type: binary_toggle 
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
           display_prompt: _(I reside or work in Georgetown or South Park:)
+          content: yes_no
           optional: true
         - name: odd_smell
-          type: yes_only_big_button
+          type: binary_toggle 
           prompt: _(I observe an odd smell)
           display_prompt: _(I observed an odd smell:)
+          content: yes_no
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: burning
-          type: yes_only_big_button
+          type: binary_toggle
           prompt: _(I have burning or itching eyes/nose/skin)
           display_prompt: _(I have burning or itching eyes/nose/skin:)
+          content: yes_no
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: difficulty_breathing
-          type: yes_only_big_button
+          type: binary_toggle
           prompt: _(I am having difficulty breathing)
           display_prompt: _(I am having difficulty breathing:)
+          content: yes_no
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: headache
-          type: yes_only_big_button
+          type: binary_toggle
           prompt: _(I am experiencing a headache)
           display_prompt: _(I am experiencing a headache:)
+          content: yes_no
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: other_physical_effects
