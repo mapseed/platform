@@ -105,7 +105,7 @@ var Shareabouts = Shareabouts || {};
           var collection;
           if (config.type == "place") {
             collection = new S.ActionCollection([]);
-            collection.url += "?url=" + config.url + "&id=" + config.id;
+            collection.url = "/dataset/" + config.id + "/actions";
             self.activities[config.type][config.id] = collection;
           }
         });
@@ -128,7 +128,7 @@ var Shareabouts = Shareabouts || {};
           var collection;
           if (config.type == "place") {
             collection = new S.PlaceCollection([]);
-            collection.url += "?url=" + config.url + "&id=" + config.id;
+            collection.url = "/dataset/" + config.id + "/places";
           } else if (config.type == "landmark") {
             collection = new S.LandmarkCollection([]);
             collection.url = config.url;

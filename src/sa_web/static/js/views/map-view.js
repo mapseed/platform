@@ -92,7 +92,8 @@ var Shareabouts = Shareabouts || {};
 
         } else {
           // Assume a tile layer
-          layer = L.tileLayer(config.url, config);
+          //layer = L.tileLayer(config.url, config);
+          layer = L.tileLayer( (config.url ? config.url : ""), config);
 
           layer.addTo(self.map);
         }
