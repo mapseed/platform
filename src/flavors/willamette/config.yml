@@ -208,17 +208,17 @@ sidebar:
       title: _(Map Layers:)
       groupings:
         - id: grp-community
-          title: _(Community Data)
+          title: _(Data layers)
           visibleDefault: true
           layers:
             - id: pins
-              description: _(Interesting river topics)
-              title: _(River cleanup issues)
+              description: _(Important cleanup sites and areas of interest along the river)
+              title: _(Important sites)
               visibleDefault: true
-          layers:
+
             - id: source-control
-              description: _(test)
-              title: _(test)
+              description: _(Source control plan from Oregon Dept. of Environmental Quality (DEQ))
+              title: _(Source control status)
               visibleDefault: true
 
     ticker:
