@@ -1,0 +1,157 @@
+<h4 class="">{{ place_config.title }}</h4>
+<p class="drag-marker-instructions">
+  {{#_}}First drag the map to set your pin's location.{{/_}}
+</p>
+<p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
+
+<p class="form-field">{{ place_config.help_text }}</p>
+
+<form id="dataset-form" class="place-form clearfix">
+
+  <fieldset>
+    <input type="hidden" name="visible" value="on">
+    <input type="hidden" name="user_token" value="{{{ user_token }}}">
+
+    <!-- TODO We need user data in the template to know whether a user
+         is already logged in.
+       -->
+
+    <!-- container for selected category -->
+    <!-- note that the input here is purely aesthetic. The form driving the category changes is below -->
+    {{#if category_selected}}
+    <div id="selected-category">
+      <input type="radio" id="selected-category-placeholder" class="category-btn-input" disabled checked>
+      <label class="category-btn-label" for="selected-category-palceholder">
+        <img src={{ selected_category.icon_url }} />
+        <span>{{ selected_category.label }}</span>
+      </label>
+      <span class="category-menu-hamburger"></span>
+    </div>
+    {{/if}}
+
+    <!-- place buttons for dynamic form categories -->
+    <div id="category-btns">
+      {{#each place_config.categories}}
+        <input type="radio" name={{ name }} value={{ @key }} id={{ @key }} class="category-btn-input">
+        <label for={{ @key }} class="category-btn-label category-btn-label-clickable">
+          <img src={{icon_url}} />
+          <span>{{ label }}</span>
+        </label>
+      {{/each}}
+    </div>
+    <div style="clear:both"></div>
+    <br>
+
+    <!-- generate content for selected category -->
+    {{#each selected_category.fields}}
+      <div class="{{ type }} form-field">
+        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+        
+        <!-- begin field type definitions -->
+        {{#is type "datetime"}}
+          <input id="datetimepicker" name="{{ name }}" type="text" >
+        {{/is}}
+
+        {{#is type "text"}}
+          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
+        {{/is}}
+
+        {{#is type "textarea"}}
+          <textarea id="place-{{ name }}" name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}"></textarea>
+        {{/is}}
+
+        {{#is type "radio_big_buttons"}}
+          <div>
+            {{#each (property ../../place_config.dynamic_form_content content)}}
+                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
+                <label for={{ value }}>{{ label }}</label>
+            {{/each}}
+          </div>
+          <div style="clear:both"></div>
+        {{/is}}
+
+        {{#is type "checkbox_big_buttons"}}
+          <div>
+            {{#each (property ../../place_config.dynamic_form_content content)}}
+              <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
+              <label for={{ value }}>{{ label }}</label>
+            {{/each}}
+          </div>
+        {{/is}}
+
+        {{#is type "binary_toggle"}}
+          <div>
+            <input type="checkbox" name={{ name }} id={{ name }} value={{#with (property ../../place_config.dynamic_form_content content)}} {{ this.[1].value }} {{/with}} data-input-type="binary_toggle" class="big-btn">
+            <label for={{ name }}>{{#with (property ../../place_config.dynamic_form_content content)}} {{ this.[1].label }} {{/with}}</label>
+          </div>
+        {{/is}}
+
+        {{#is type "dropdown"}}
+          <div>
+            <select name={{ ../name }}>
+              <option value="no_response" name="no_response">{{#_}}Select...{{/_}}</option>
+              {{#each (property ../../place_config.dynamic_form_content content)}}
+                  <option value={{value}}>{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div style="clear:both"></div>
+        {{/is}}
+        <div style="clear:both"></div>
+
+        <!-- optional post-form field message -->
+        {{#if annotation}}
+          <div class="form-annotation">{{annotation}}</div>
+        {{/if}}
+
+        <!-- end field type definitions -->
+      </div>
+    {{/each}}
+
+    <!-- begin fields that are included in every form type by default -->
+    {{#if category_selected}}
+      <div id="common-form-elements">
+        {{#each place_config.common_form_elements }}
+          <div class="{{ this.type }} form-field">
+            {{#is name "submitter_name"}}
+              {{#if_not_authenticated}}
+                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}" placeholder="{{placeholder}}">
+                <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
+              {{/if_not_authenticated}}
+            {{/is}}
+
+            {{#is name "private-submitter_email"}}
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+              <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
+            {{/is}}
+
+            {{#is type "file"}}
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+              <span class="fileinput-container btn btn-small{{#if_fileinput_not_supported}} btn-disabled{{/if_fileinput_not_supported}}">
+                <span>{{ inputfile_label }}</span>
+                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}"
+                       {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
+                       {{#if_fileinput_not_supported}} disabled{{/if_fileinput_not_supported}}>
+              </span>
+              <span class="fileinput-name">
+                {{#if_fileinput_not_supported}}Sorry, your browser doesn't support file uploads.{{/if_fileinput_not_supported}}
+              </span>
+            {{/is}}
+
+            {{#is type "submit"}}
+              <div>
+                <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ label }}" class="btn btn-primary submit-btn">
+              </div>
+            {{/is}}
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+    <!-- end common field types -->
+
+
+
+    <div class="form-spinner"></div>
+</form>
+  
