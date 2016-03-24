@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^api/(.*)$', views.api, name='api_proxy'),
     url(r'^users/(.*)$', views.users, name='auth_proxy'),
     url(r'^download/(.*).csv$', views.csv_download, name='csv_proxy'),
+    url(r'^dataset/(?P<dataset_id>[^/]+)/(?P<path>.*)$', views.api, name='dataset_api_proxy'),
     url(r'^place/(?P<place_id>[^/]+)$', views.index, name='place'),
     url(r'^', views.index, name='index'),
 )

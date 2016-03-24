@@ -356,25 +356,31 @@ def readonly_file_api(request, path, datafilename='data.json'):
             raise Http404
 
 
-def api(request, path):
+def api(request, path, **kwargs):
     """
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    
+    print ("settings.SHAREABOUTS", settings.SHAREABOUTS)
+
     #root = settings.SHAREABOUTS.get('DATASET_ROOT')
-    root = request.GET.get('url')
-    dataset_id = request.GET.get('id')
-    print("root", root)
-    print("dataset_id", dataset_id)
+    #root = request.GET.get('url')
+    if 'path' in kwargs:
+        path = kwargs['path']
+    if 'dataset_id' in kwargs:
+        dataset_id = kwargs['dataset_id']
+        
+    root = settings.SHAREABOUTS.get(dataset_id.upper() + '_SITE_URL')
 
     # Clear out request object query string dictionary. For some reason, /api/places 
     # will return an empty dataset if a query string is included in the request
+    '''
     request.GET = request.GET.copy()
     if 'url' in request.GET:
         request.GET.pop('url')
     if 'id' in request.GET:
         request.GET.pop('id')
+    '''
 
     if root.startswith('file://'):
         return readonly_file_api(request, path, datafilename=root[7:])
@@ -388,6 +394,8 @@ def api(request, path):
     api_csrf_token = '1234csrf567token'
 
     url = make_resource_uri(path, root)
+    print("url", url)
+
     headers = {'X-SHAREABOUTS-KEY': api_key,
                'X-CSRFTOKEN': api_csrf_token}
     cookies = {'sessionid': api_session_cookie,

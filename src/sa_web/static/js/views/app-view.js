@@ -89,10 +89,12 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Handle collection events
+      /* Collection events no longer trigger place form view
       _.each(this.collection.place, function(collection) {
         collection.on('add', self.onAddPlace, this);
         collection.on('remove', self.onRemovePlace, this);
       });
+      */
 
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
@@ -367,8 +369,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     setPlaceFormViewLatLng: function(centerLatLng) {
-      if (this.placeFormView) {
-        this.placeFormView.setLatLng(centerLatLng);
+      if (this.datasetFormView) {
+        this.datasetFormView.setLatLng(centerLatLng);
       }
     },
     onMapZoomEnd: function(evt) {
@@ -404,7 +406,8 @@ var Shareabouts = Shareabouts || {};
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'map', 'new-place-btn-click');
-      this.options.router.navigate('/' + this.options.placeConfig.dataset_slug + '/new', {trigger: true});
+      //this.options.router.navigate('/' + this.options.placeConfig.dataset_slug + '/new', {trigger: true});
+      this.options.router.navigate('/new', {trigger: true});
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
@@ -491,7 +494,6 @@ var Shareabouts = Shareabouts || {};
       return landmarkDetailView;
     },
     getPlaceDetailView: function(model) {
-      console.log("getPlaceDetailView model", model);
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
@@ -542,6 +544,22 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
+    newDataset: function() {
+      this.datasetFormView = new S.DatasetFormView({
+        appView: this,
+        router: this.options.router,
+        placeConfig: this.options.placeConfig,
+        userToken: this.options.userToken,
+        // only need to send place collection, since all data added will be a place of some kind
+        collection: this.collection.place
+      });
+      
+      this.$panel.removeClass().addClass('place-form');
+      this.showPanel(this.datasetFormView.render().$el);
+      this.showNewPin();
+      this.setBodyClass('content-visible', 'place-form-visible');
+    },
+
     // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
@@ -554,7 +572,6 @@ var Shareabouts = Shareabouts || {};
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
-        console.log("self.mapView", self.mapView);
         layer = self.mapView.layerViews[options.collectionId][model.id].layer
 
         if (layer) {
@@ -609,7 +626,6 @@ var Shareabouts = Shareabouts || {};
         var cachedModel;
         var collectionId;
 
-        console.log("self.options", self.options);
         _.find(Object.keys(self.options.collection.landmark), function(landmarkConfigId) {
           collectionId = landmarkConfigId;
           cachedModel = self.collection.landmark[collectionId].get(model);
@@ -676,8 +692,6 @@ var Shareabouts = Shareabouts || {};
           // get the dataset id from the map layers array for the given datasetSlug
           datasetId = _.filter(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug })[0].id,
           onPlaceFound, onPlaceNotFound, modelId;
-
-      console.log("datasetId", datasetId);
 
       onPlaceFound = function(model) {
         var map = self.mapView.map,
@@ -751,7 +765,6 @@ var Shareabouts = Shareabouts || {};
       }
 
       // Otherwise, assume we have a model ID.
-      console.log("this.collection:", this.collection);
       modelId = model;
       model = this.collection.place[datasetId].get(modelId);
 
@@ -761,7 +774,11 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch and use the result.
       } else {
-        this.places.fetchById(modelId, {
+        console.log("datasetId", datasetId);
+        console.log("datasetSlug", datasetSlug);
+        console.log("this.collection.place[datasetId]", this.collection.place[datasetId]);
+
+        this.collection.place[datasetId].fetchById(modelId, {
           // Check for a valid location type before adding it to the collection
           validate: true,
           success: onPlaceFound,

@@ -19,14 +19,16 @@ var Shareabouts = Shareabouts || {};
         new S.SubmissionCollection(null, {
           submissionType: this.surveyType,
           placeModel: this.model,
-          queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
+          datasetId: this.options.datasetId
+          //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
       this.model.submissionSets[this.supportType] = this.model.submissionSets[this.supportType] ||
         new S.SubmissionCollection(null, {
           submissionType: this.supportType,
           placeModel: this.model,
-          queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
+          datasetId: this.options.datasetId
+          //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
 
