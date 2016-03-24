@@ -22,6 +22,7 @@ app:
 map:
   geolocation_enabled: true
   geolocation_onload: false
+  cartodb_enabled: true
 
   geocoding_enabled: false
   geocode_field_label: _(Enter an address...)
@@ -43,6 +44,11 @@ map:
       type: landmark
       placeType: mapbox
       opacity: 0.9
+
+      # DEQ Source Control
+    - id: source-control
+      type: cartodb
+      url: "https://smartercleanup.cartodb.com/api/v2/viz/4a5b14c0-f1fc-11e5-9698-0e5db1731f59/viz.json"
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -208,6 +214,11 @@ sidebar:
             - id: pins
               description: _(Interesting river topics)
               title: _(River cleanup issues)
+              visibleDefault: true
+          layers:
+            - id: source-control
+              description: _(test)
+              title: _(test)
               visibleDefault: true
 
     ticker:
