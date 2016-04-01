@@ -33,13 +33,15 @@ var Shareabouts = Shareabouts || {};
       this.surveyView = new S.SurveyView({
         collection: this.model.submissionSets[this.surveyType],
         surveyConfig: this.options.surveyConfig,
-        userToken: this.options.userToken
+        userToken: this.options.userToken,
+        datasetId: this.options.datasetId
       });
 
       this.supportView = new S.SupportView({
         collection: this.model.submissionSets[this.supportType],
         supportConfig: this.options.supportConfig,
-        userToken: this.options.userToken
+        userToken: this.options.userToken,
+        datasetId: this.options.datasetId
       });
 
       this.$el.on('click', '.share-link a', function(evt){

@@ -361,12 +361,13 @@ def api(request, path, **kwargs):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    print ("settings.SHAREABOUTS", settings.SHAREABOUTS)
+
+    print("kwargs", kwargs)
+
+    dataset_id = ""
 
     #root = settings.SHAREABOUTS.get('DATASET_ROOT')
     #root = request.GET.get('url')
-    if 'path' in kwargs:
-        path = kwargs['path']
     if 'dataset_id' in kwargs:
         dataset_id = kwargs['dataset_id']
         
