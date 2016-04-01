@@ -125,8 +125,6 @@ var Shareabouts = Shareabouts || {};
           placeId = this.options.placeModel && this.options.placeModel.id,
           datasetId = this.options.datasetId;
           //queryString = this.options.queryString;
-          //
-      console.log("!!this.options", this.options);
 
       if (!submissionType) { throw new Error('submissionType option' +
                                                      ' is required.'); }
