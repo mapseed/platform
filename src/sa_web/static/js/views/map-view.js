@@ -334,13 +334,15 @@ var Shareabouts = Shareabouts || {};
       var self = this;
       this.locationTypeFilter = null;
 
+      /*
       _.each(this.collection, function(collections) {
         _.each(collections, function(collection) {
           collection.each(function(model) {
-            self.layerViews[model.cid].render();
+            self.layerViews.place[model.cid].render();
           })
         });
       });
+*/
 
 
       /*

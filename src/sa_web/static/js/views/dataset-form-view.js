@@ -77,17 +77,6 @@ var Shareabouts = Shareabouts || {};
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
 
-      if (this.location && locationAttr) {
-        attrs[locationAttr] = this.location;
-      }
-
-      return attrs;
-    },
-    getAttrs: function() {
-      var attrs = {},
-          locationAttr = this.options.placeConfig.location_item_name,
-          $form = this.$('form');
-
       // Get values from the form
       attrs = S.Util.getAttrs($form);
 
@@ -105,6 +94,8 @@ var Shareabouts = Shareabouts || {};
       if (this.location && locationAttr) {
         attrs[locationAttr] = this.location;
       }
+
+      console.log("attrs", attrs);
 
       return attrs;
     },
@@ -128,18 +119,6 @@ var Shareabouts = Shareabouts || {};
 
       // instantiate appropriate backbone model
       this.collection[self.selectedDatasetId].add({});
-    },
-    onBinaryToggle: function(evt) {
-      var oldValue = $(evt.target).val(),
-          // find the alternate label/value pair from the config
-          // TOOD: refactor to accommodate variable content sets
-          altData = _.filter(this.options.placeConfig.dynamic_form_content.yes_no, function(item) {
-            return item.value != oldValue;
-          })[0];
-
-      // set new value and label
-      $(evt.target).val(altData.value);
-      $(evt.target).next("label").html(altData.label);
     },
     onBinaryToggle: function(evt) {
       var oldValue = $(evt.target).val(),

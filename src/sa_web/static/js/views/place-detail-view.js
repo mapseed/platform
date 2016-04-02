@@ -11,13 +11,15 @@ var Shareabouts = Shareabouts || {};
       this.supportType = this.options.supportConfig.submission_type;
 
       this.model.on('change', this.onChange, this);
+      console.log("this.supportType", this.supportType);
+      console.log("this.model.submissionSets", this.model.submissionSets);
 
       // Make sure the submission collections are set
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
         new S.SubmissionCollection(null, {
           submissionType: this.surveyType,
           placeModel: this.model,
-          datasetId: this.options.datasetId
+          datasetId: self.options.datasetId
           //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
@@ -25,24 +27,24 @@ var Shareabouts = Shareabouts || {};
         new S.SubmissionCollection(null, {
           submissionType: this.supportType,
           placeModel: this.model,
-          datasetId: this.options.datasetId
+          datasetId: self.options.datasetId
           //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
-
 
       this.surveyView = new S.SurveyView({
         collection: this.model.submissionSets[this.surveyType],
         surveyConfig: this.options.surveyConfig,
         userToken: this.options.userToken,
-        datasetId: this.options.datasetId
+        datasetId: self.options.datasetId
       });
 
       this.supportView = new S.SupportView({
         collection: this.model.submissionSets[this.supportType],
         supportConfig: this.options.supportConfig,
         userToken: this.options.userToken,
-        datasetId: this.options.datasetId
+        datasetId: self.options.datasetId
       });
+      console.log("self.options.datasetId", self.options.datasetId);
 
       this.$el.on('click', '.share-link a', function(evt){
 
@@ -75,6 +77,8 @@ var Shareabouts = Shareabouts || {};
 
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
+      // 
+      console.log("this.model.submissionSets", this.model.submissionSets);  
       this.model.submissionSets[this.supportType].fetchAllPages();
 
       return this;

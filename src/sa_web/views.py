@@ -362,8 +362,6 @@ def api(request, path, **kwargs):
     one configured dataset.
     """
 
-    print("kwargs", kwargs)
-
     dataset_id = ""
 
     #root = settings.SHAREABOUTS.get('DATASET_ROOT')
@@ -395,7 +393,6 @@ def api(request, path, **kwargs):
     api_csrf_token = '1234csrf567token'
 
     url = make_resource_uri(path, root)
-    print("url", url)
 
     headers = {'X-SHAREABOUTS-KEY': api_key,
                'X-CSRFTOKEN': api_csrf_token}

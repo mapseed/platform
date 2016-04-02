@@ -81,7 +81,7 @@ map:
       slug: trees
 
     - id: air
-      url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
+      #url: http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
       type: place
       slug: air
 

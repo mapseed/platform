@@ -58,7 +58,10 @@ SHAREABOUTS = {
     'DUWAMISH_DATASET_KEY': os.environ.get('DUWAMISH_DATASET_KEY', 'Error'),
     'DUWAMISH_SITE_URL': os.environ.get('DUWAMISH_SITE_URL', 'Error'),
     'TREES_DATASET_KEY': os.environ.get('TREES_DATASET_KEY', 'Error'),
-    'TREES_SITE_URL': os.environ.get('TREES_SITE_URL', 'Error')
+    'TREES_SITE_URL': os.environ.get('TREES_SITE_URL', 'Error'),
+    'AIR_DATASET_KEY': os.environ.get('AIR_DATASET_KEY', 'Error'),
+    'AIR_SITE_URL': os.environ.get('AIR_SITE_URL', 'Error')
+
 }
 
 # For geocoding...
