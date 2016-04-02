@@ -329,7 +329,8 @@ var Shareabouts = Shareabouts || {};
           validate: true,
           data: placeParams,
           // get the dataset slug from the array of map layers
-          attributesToAdd: { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug },
+          attributesToAdd: { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug,
+                             datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
           attribute: 'properties',
 
           success: function() {
@@ -701,7 +702,7 @@ var Shareabouts = Shareabouts || {};
         // places collection, it may not correspond to a layerView. For this
         // case, get the model that's actually in the places collection.
         if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places.get(model.id);
+          model = self.place[datasetId].get(model.id);
         }
 
         // TODO: We need to handle the non-deterministic case when
