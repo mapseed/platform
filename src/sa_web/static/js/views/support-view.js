@@ -55,8 +55,6 @@ var Shareabouts = Shareabouts || {};
           attrs,
           userSupport;
 
-      console.log("this.options.datasetId", this.options.datasetId);
-
       evt.target.disabled = true;
       S.Util.log('USER', 'place', 'support-btn-click', self.collection.options.placeModel.getLoggingDetails(), self.collection.size());
 
