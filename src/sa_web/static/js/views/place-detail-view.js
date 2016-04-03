@@ -11,15 +11,14 @@ var Shareabouts = Shareabouts || {};
       this.supportType = this.options.supportConfig.submission_type;
 
       this.model.on('change', this.onChange, this);
-      console.log("this.supportType", this.supportType);
-      console.log("this.model.submissionSets", this.model.submissionSets);
 
       // Make sure the submission collections are set
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
         new S.SubmissionCollection(null, {
           submissionType: this.surveyType,
           placeModel: this.model,
-          datasetId: self.options.datasetId
+          datasetId: self.options.datasetId,
+          whatever: "whatever"
           //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
@@ -27,7 +26,8 @@ var Shareabouts = Shareabouts || {};
         new S.SubmissionCollection(null, {
           submissionType: this.supportType,
           placeModel: this.model,
-          datasetId: self.options.datasetId
+          datasetId: self.options.datasetId,
+          whatever: "whatever"
           //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
@@ -44,7 +44,6 @@ var Shareabouts = Shareabouts || {};
         userToken: this.options.userToken,
         datasetId: self.options.datasetId
       });
-      console.log("self.options.datasetId", self.options.datasetId);
 
       this.$el.on('click', '.share-link a', function(evt){
 

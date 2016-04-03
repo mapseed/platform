@@ -14,7 +14,7 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this;
-      // keep track of relevant catgory & dataset info as user switches among catgories
+      // keep track of relevant catgory & dataset info as user switches among categories
       this.selectedCategory = null;
       this.selectedDatasetId = null;
       this.priorDatasetId = null;
@@ -56,9 +56,11 @@ var Shareabouts = Shareabouts || {};
 
       return this;
     },
+    /*
     remove: function() {
       this.unbind();
     },
+    */
     onError: function(model, res) {
       // TODO handle model errors!
       console.log('oh no errors!!', model, res);
@@ -135,12 +137,18 @@ var Shareabouts = Shareabouts || {};
     setModel: function(model) {
       var self = this;
       this.model = model;
+
       if (this.priorModelCid && this.priorDatasetId) {
         this.collection[self.priorDatasetId].get({ cid: self.priorModelCid }).destroy();
-        console.log("Destroyed " + this.priorModelCid);
+        console.log("Destroyed " + this.priorModelCid + " in '" + this.priorDatasetId + "'");
       }
       this.priorModelCid = model.cid;
       this.priorDatasetId = this.selectedDatasetId;
+    },
+    closePanel: function() {
+      // make sure we reset priorModelCid and priorDatasetId if the user closes the side panel
+      this.priorModelCid = null;
+      this.priorDatasetId = null;
     },
     onExpandCategories: function(evt) {
       var animationDelay = 400;

@@ -412,6 +412,10 @@ var Shareabouts = Shareabouts || {};
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
+      if (this.datasetFormView) {
+        this.datasetFormView.closePanel();
+      }
+
       S.Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
       $("#spotlight-place-mask").remove();
@@ -546,17 +550,21 @@ var Shareabouts = Shareabouts || {};
       this.collection.add({});
     },
     newDataset: function() {
-      this.datasetFormView = new S.DatasetFormView({
-        appView: this,
-        router: this.options.router,
-        placeConfig: this.options.placeConfig,
-        userToken: this.options.userToken,
-        // only need to send place collection, since all data added will be a place of some kind
-        collection: this.collection.place
-      });
+
+      if (!this.datasetFormView) {
+        this.datasetFormView = new S.DatasetFormView({
+          appView: this,
+          router: this.options.router,
+          placeConfig: this.options.placeConfig,
+          userToken: this.options.userToken,
+          // only need to send place collection, since all data added will be a place of some kind
+          collection: this.collection.place
+        });
+      }
       
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.datasetFormView.render().$el);
+      this.datasetFormView.delegateEvents();
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
     },
@@ -702,7 +710,7 @@ var Shareabouts = Shareabouts || {};
         // places collection, it may not correspond to a layerView. For this
         // case, get the model that's actually in the places collection.
         if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.place[datasetId].get(model.id);
+          model = self.collection.place[datasetId].get(model.id);
         }
 
         // TODO: We need to handle the non-deterministic case when
