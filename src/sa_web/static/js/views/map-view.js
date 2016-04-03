@@ -60,7 +60,7 @@ var Shareabouts = Shareabouts || {};
             });
         } else if (config.type && config.type === 'shareabouts') {
           self.layers[config.id] = self.placeLayers;
-        } else if (config.type && config.type === 'base') {
+        } else if (config.type && config.type === 'basemap') {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
           self.layers[config.id] = layer;
