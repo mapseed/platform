@@ -183,6 +183,7 @@ var Shareabouts = Shareabouts || {};
 
       model.attributes["from_dynamic_form"] = true;
       model.attributes["datasetSlug"] = this.selectedDatasetSlug;
+      model.attributes["datasetId"] = this.selectedDatasetId;
       evt.preventDefault();
 
       $button.attr('disabled', 'disabled');

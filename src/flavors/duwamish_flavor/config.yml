@@ -778,7 +778,7 @@ place:
           optional: true
         - name: source  #internally used name for this form element
           type: dropdown  #form type
-          prompt: _(Select one of the following to identify the source of the bad air quality.)  #display prompt
+          prompt: _(Select one of the following to identify the source of the bad air quality.)  #question prompt
           display_prompt: _(Pollution source observed:)  #text used when a submitted report is viewed later
           content: air_quality_source  #points to dynamic_form_content section below, to avoid possibly duplicating complex form content
           optional: false
@@ -810,11 +810,13 @@ place:
         - name: title
           type: text
           prompt: _(Title)
+          display_prompt: _(Title of this tree:)
           placeholder: _(Enter title)
           optional: false
         - name: description
           type: textarea
           prompt: _(Description)
+          display_prompt: _(Description of this tree:)
           placeholder: _(Description...)
           optional: false
 
