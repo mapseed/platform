@@ -3,8 +3,7 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.DatasetFormView = Backbone.View.extend({
-    // View responsible for the form for adding and editing places.
+  S.DatasetFormView = S.PlaceFormView.extend({
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
@@ -56,24 +55,6 @@ var Shareabouts = Shareabouts || {};
 
       return this;
     },
-    /*
-    remove: function() {
-      this.unbind();
-    },
-    */
-    onError: function(model, res) {
-      // TODO handle model errors!
-      console.log('oh no errors!!', model, res);
-    },
-    // This is called from the app view
-    setLatLng: function(latLng) {
-      this.center = latLng;
-      this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
-    },
-    setLocation: function(location) {
-      this.location = location;
-    },
-    // Get the attributes from the form
     getAttrs: function() {
       var attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
@@ -154,9 +135,6 @@ var Shareabouts = Shareabouts || {};
       var animationDelay = 400;
       $("#selected-category").hide(animationDelay);
       $("#category-btns").animate( { height: "show" }, animationDelay ); 
-    },
-    onInputFileChange: function(evt) {
-
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       // Make sure that the center point has been set after the form was
