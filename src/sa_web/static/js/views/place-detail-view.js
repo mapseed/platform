@@ -16,18 +16,16 @@ var Shareabouts = Shareabouts || {};
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
         new S.SubmissionCollection(null, {
           submissionType: this.surveyType,
-          placeModel: this.model,
-          datasetId: self.options.datasetId,
-          whatever: "whatever"
+          placeModel: this.model
+          //datasetId: self.options.datasetId
           //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
       this.model.submissionSets[this.supportType] = this.model.submissionSets[this.supportType] ||
         new S.SubmissionCollection(null, {
           submissionType: this.supportType,
-          placeModel: this.model,
-          datasetId: self.options.datasetId,
-          whatever: "whatever"
+          placeModel: this.model
+          //datasetId: self.options.datasetId,
           //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
