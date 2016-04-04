@@ -123,10 +123,7 @@ var Shareabouts = Shareabouts || {};
     url: function() {
       var submissionType = this.options.submissionType,
           placeId = this.options.placeModel && this.options.placeModel.id,
-          datasetId = this.options.datasetId;
-          //queryString = this.options.queryString;
-          //
-      console.log("this.options.datasetId", this.options.datasetId);
+          datasetId = this.options.placeModel.get("datasetId");
 
       if (!submissionType) { throw new Error('submissionType option' +
                                                      ' is required.'); }
@@ -158,8 +155,7 @@ var Shareabouts = Shareabouts || {};
 
         this.submissionSets[name] = new S.SubmissionCollection(models, {
           submissionType: name,
-          placeModel: this,
-          datasetId: this.get("datasetId")
+          placeModel: this
         });
       }, this);
 
