@@ -139,13 +139,13 @@ var Shareabouts = Shareabouts || {};
           // TODO: This is a hack! We should integrate this with the config
           // probably with a radio button in the legend!
           if (visible) {
-            self.map.addLayer(self.layers['satellite-base']);
-            self.layers['satellite-base'].bringToBack();
-            self.map.removeLayer(self.layers['mapbox-base']);
+            self.map.addLayer(self.layers['satellite']);
+            self.layers['satellite'].bringToBack();
+            self.map.removeLayer(self.layers['osm']);
           } else {
-            self.map.addLayer(self.layers['mapbox-base']);
-            self.layers['mapbox-base'].bringToBack();
-            self.map.removeLayer(self.layers['satellite-base']);
+            self.map.addLayer(self.layers['osm']);
+            self.layers['osm'].bringToBack();
+            self.map.removeLayer(self.layers['satellite']);
           }
         } else {
           // Handles cases when we fire events for layers that are not yet
