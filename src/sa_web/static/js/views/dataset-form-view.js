@@ -101,16 +101,20 @@ var Shareabouts = Shareabouts || {};
       this.collection[self.selectedDatasetId].add({});
     },
     onBinaryToggle: function(evt) {
-      var oldValue = $(evt.target).val(),
-          // find the alternate label/value pair from the config
-          // TOOD: refactor to accommodate variable content sets
-          altData = _.filter(this.options.placeConfig.dynamic_form_content.yes_no, function(item) {
+      var targetButton = $(evt.target).attr("id"),
+          oldValue = $(evt.target).val(),
+          // find the match config data for this element
+          altData = _.filter(this.options.placeConfig.categories[this.selectedCategory].fields, function(item) {
+            return item.name == targetButton;
+          })[0];
+          // fetch alternate label and value
+          altContent = _.filter(altData.content, function(item) {
             return item.value != oldValue;
           })[0];
 
       // set new value and label
-      $(evt.target).val(altData.value);
-      $(evt.target).next("label").html(altData.label);
+      $(evt.target).val(altContent.value);
+      $(evt.target).next("label").html(altContent.label);
     },
     setModel: function(model) {
       var self = this;
