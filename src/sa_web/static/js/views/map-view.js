@@ -50,8 +50,9 @@ var Shareabouts = Shareabouts || {};
           cartodb.createLayer(self.map, config.url)
             .on('done', function(cartoLayer) {
               self.layers[config.id] = cartoLayer;
-              // This is set when the 'visibibility' event is fired:
-              if (config.visibleDefault) {
+              // This is only set when the 'visibibility' event is fired before
+              // our carto layer is loaded:
+              if (config.asyncLayerVisibleDefault) {
                 cartoLayer.addTo(self.map);
               }
             })
@@ -146,12 +147,15 @@ var Shareabouts = Shareabouts || {};
             self.layers['mapbox-base'].bringToBack();
             self.map.removeLayer(self.layers['satellite-base']);
           }
-        } else { // Cases when the layer is loaded asynchronously:
+        } else {
+          // Handles cases when we fire events for layers that are not yet
+          // loaded (ie cartodb layers, which are loaded asynchronously)
           var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
             return layer.id === id;
           });
-          // TODO: This may fail due to a race condition with the asych call
-          mapLayerConfig.visibleDefault = visible;
+          // We are setting the asynch layer config's default visibility here to
+          // ensure they are added to the map when they are eventually loaded:
+          mapLayerConfig.asyncLayerVisibleDefault = visible;
         }
       });
     }, // end initialize
