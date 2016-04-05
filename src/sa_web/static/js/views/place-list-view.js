@@ -82,12 +82,14 @@ var Shareabouts = Shareabouts || {};
       // Cache the views as they are added
       this.views[view.model.cid] = view;
     },
-    renderList: function() {
+    renderList: function() {      
+      var self = this;
       // A faster alternative to this._renderChildren. _renderChildren always
       // discards and recreates a new ItemView. This simply rerenders the
       // cached views.
       var $itemViewContainer = this.getItemViewContainer(this);
       $itemViewContainer.empty();
+
       this.collection.each(function(model) {
         $itemViewContainer.append(this.views[model.cid].$el);
         // Delegate the events so that the subviews still work
@@ -244,7 +246,7 @@ var Shareabouts = Shareabouts || {};
 
         // If we've fallen through here, hide the item.
         return hide();
-      });
+      }, this);
     },
     isVisible: function() {
       return this.$el.is(':visible');

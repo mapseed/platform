@@ -33,6 +33,10 @@ var Shareabouts = Shareabouts || {};
             include_submissions: includeSubmissions
           };
 
+      // collection used to combine all place collections into one,
+      // for use in the place list view
+      this.mergedCollection = new S.PlaceCollection([]);
+
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
       if (S.Config.flavor.app.places_page_size) {
@@ -214,8 +218,8 @@ var Shareabouts = Shareabouts || {};
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            // NEEDS TO BE A LOOP
-            collection: this.collection.place.duwamish
+            collection: self.mergedCollection
+            //collection: this.collection.place.air
           }).render();
       }
 
@@ -318,6 +322,7 @@ var Shareabouts = Shareabouts || {};
           attribute: 'properties',
 
           success: function() {
+            self.mergedCollection.add(collection.models);
             // Sort the list view after all of the pages have been fetched
             if (self.listView) {
               self.listView.sort();
@@ -534,6 +539,7 @@ var Shareabouts = Shareabouts || {};
       this.collection.add({});
     },
     newDataset: function() {
+      var self = this;
 
       if (!this.datasetFormView) {
         this.datasetFormView = new S.DatasetFormView({
