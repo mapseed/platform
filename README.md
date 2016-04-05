@@ -94,7 +94,7 @@ We have a Dev API with dummy data that you can load locally. To enable it, go to
 
 ```
 FLAVOR=duwamish_flavor
-SITE_URL=http://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
+SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
 SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
 ```
 
