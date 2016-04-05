@@ -62,7 +62,7 @@
 
         {{#is type "radio_big_buttons"}}
           <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
+            {{#each content}}
                 <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
                 <label for={{ value }}>{{ label }}</label>
             {{/each}}
@@ -72,7 +72,7 @@
 
         {{#is type "checkbox_big_buttons"}}
           <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
+            {{#each content}}
               <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
               <label for={{ value }}>{{ label }}</label>
             {{/each}}
@@ -81,8 +81,8 @@
 
         {{#is type "binary_toggle"}}
           <div>
-            <input type="checkbox" name={{ name }} id={{ name }} value={{#with (property ../../place_config.dynamic_form_content content)}} {{ this.[1].value }} {{/with}} data-input-type="binary_toggle" class="big-btn">
-            <label for={{ name }}>{{#with (property ../../place_config.dynamic_form_content content)}} {{ this.[1].label }} {{/with}}</label>
+            <input type="checkbox" name={{ name }} id={{ name }} value={{ content.[1].value }} data-input-type="binary_toggle" class="big-btn">
+            <label for={{ name }}>{{ content.[1].label }}</label>
           </div>
         {{/is}}
 
@@ -90,7 +90,7 @@
           <div>
             <select name={{ ../name }}>
               <option value="no_response" name="no_response">{{#_}}Select...{{/_}}</option>
-              {{#each (property ../../place_config.dynamic_form_content content)}}
+              {{#each content}}
                   <option value={{value}}>{{label}}</option>
               {{/each}}
             </select>
