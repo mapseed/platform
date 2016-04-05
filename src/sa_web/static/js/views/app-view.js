@@ -41,8 +41,6 @@ var Shareabouts = Shareabouts || {};
 
       // Boodstrapped data from the page
       this.activities = this.options.activities;
-      //this.places = this.collection;
-      //this.landmarkCollections = this.options.landmarkCollections;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -87,14 +85,6 @@ var Shareabouts = Shareabouts || {};
           return false;
         }
       });
-
-      // Handle collection events
-      /* Collection events no longer trigger place form view
-      _.each(this.collection.place, function(collection) {
-        collection.on('add', self.onAddPlace, this);
-        collection.on('remove', self.onRemovePlace, this);
-      });
-      */
 
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
@@ -260,12 +250,6 @@ var Shareabouts = Shareabouts || {};
       _.each(this.collection.landmark, function(value, key) {
         self.landmarkDetailViews[key] = {};
       });
-
-      /*
-      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
-        self.landmarkDetailViews[collectionId] = {};
-      });
-*/
 
       // Show tools for adding data
       this.setBodyClass();
@@ -886,9 +870,7 @@ var Shareabouts = Shareabouts || {};
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the markers
-      // 
-      //
-      
+
       _.each(this.collection, function(collections) {
         _.each(collections, function(collection) {
           collection.each(function(m){
@@ -898,19 +880,6 @@ var Shareabouts = Shareabouts || {};
           });
         });
       });
-
-      /*
-      this.collection.each(function(m){
-        if (!m.isNew()) {
-          m.trigger('unfocus');
-        }
-      });
-      _.each(this.options.landmarkCollections, function(landmarkCollection) {
-        landmarkCollection.each(function(m) {
-          m.trigger('unfocus');
-        });
-      });
-      */
     },
     destroyNewModels: function() {
       _.each(this.collection, function(collections) {
@@ -922,13 +891,6 @@ var Shareabouts = Shareabouts || {};
           });
         });
       });
-      /*
-      this.collection.each(function(m){
-        if (m && m.isNew()) {
-          m.destroy();
-        }
-      });
-      */
     },
 
     render: function() {

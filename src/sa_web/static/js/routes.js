@@ -31,19 +31,6 @@ var Shareabouts = Shareabouts || {};
         "place": {}
       };
 
-      /*
-      this.collection = {
-        landmark: {
-          vision: new S.LandmarkCollection([]),
-          restoration: new S.LandmarkCollection([])
-        },
-        shareabouts: {
-          duwamish: new S.PlaceCollection([]),
-          air: new S.PlaceCollection([])
-        }
-      }
-       */
-
       if (!options.placeConfig.dataset_slug) {
         options.placeConfig.dataset_slug = 'place';
       }
@@ -80,10 +67,7 @@ var Shareabouts = Shareabouts || {};
         }
       }, this);
 
-      this.loading = true;
-      //this.collection = new S.PlaceCollection([]);
-      //this.activities = new S.ActionCollection(options.activity);
-      
+      this.loading = true;      
 
       var configArrays = {};
 
@@ -93,13 +77,6 @@ var Shareabouts = Shareabouts || {};
       configArrays.place = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'place';
       });
-
-      /*
-      this.activities = {
-        "duwamish": S.ActionCollection(options.activity),
-        "trees": S.ActionCollection(options.activity)
-      };
-      */
      
       _.each(configArrays, function(configArray) {
         _.each(configArray, function(config) {
@@ -111,18 +88,6 @@ var Shareabouts = Shareabouts || {};
           }
         });
       });
-
-
-      //this.landmarkCollections = {};
-      
-      //var landmarkConfigs = {};
-      /*
-        configArrays = {
-          landmark: [...],
-          place: [...]
-        }
-
-       */
 
       _.each(configArrays, function(configArray) {
         _.each(configArray, function(config) {
@@ -139,22 +104,6 @@ var Shareabouts = Shareabouts || {};
 
         });
       });
-
-      /*
-      _.each(configsArray, function(config) {
-        var collection;
-
-        if (config.type == "place") {
-          collection = new S.PlaceCollection([]);
-        } else if (config.type == "landmark") {
-          collection = new S.LandmarkCollection([]);
-        }
-
-        collection.url = config.url;
-        self.collection[config.type][config.id] = collection;
-        //landmarkConfigs[collectionId] = landmarkConfig;
-      });
-*/
 
       this.appView = new S.AppView({
         el: 'body',

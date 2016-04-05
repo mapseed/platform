@@ -25,12 +25,9 @@ var Shareabouts = Shareabouts || {};
       self.layers = {};
 
       // Init the layer view caches
-      // TODO: merge these two objects and manage them as one
       this.layerViews = {}; // Maps our model id's to our place collection's model instances
-      //this.landmarkLayerViews = {}; // Maps our landmark collection id to an objects that maps the id's to the model instances
 
       // Add layers defined in the config file
-      // 
       _.each(self.options.mapConfig.layers, function(config){
         var layer;
         var collectionId;

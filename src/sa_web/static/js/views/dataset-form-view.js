@@ -19,7 +19,6 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = null;
       this.selectedDatasetSlug = null;
       this.priorModelCid = null;
-      // TODO: configure this
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
@@ -31,14 +30,12 @@ var Shareabouts = Shareabouts || {};
     },
     render: function(category, category_selected){
       // Augment the model data with place types for the drop down
-      //
-      //  This is a little hacky--I need to find a better way to extend the template helpers
-      //  One option is to stop relying on them entirely and just use registered Handlebar helper functions
+      
+      // This is a little hacky--I need to find a better way to extend the template helpers
+      // One option is to stop relying on them entirely and just use registered Handlebar helper functions
       if (category != undefined) {
         S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.categories[category].fields);
       }
-      ///////////
-      
 
       var data = _.extend({
         place_config: this.options.placeConfig,

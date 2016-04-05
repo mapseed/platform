@@ -74,8 +74,6 @@ var Shareabouts = Shareabouts || {};
 
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
-      // 
-      console.log("this.model.submissionSets", this.model.submissionSets);  
       this.model.submissionSets[this.supportType].fetchAllPages();
 
       return this;
