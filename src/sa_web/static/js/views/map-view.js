@@ -50,14 +50,25 @@ var Shareabouts = Shareabouts || {};
           cartodb.createLayer(self.map, config.url)
             .on('done', function(cartoLayer) {
               self.layers[config.id] = cartoLayer;
-              // This is set when the 'visibibility' event is fired:
-              if (config.visibleDefault) {
+              // This is only set when the 'visibibility' event is fired before
+              // our carto layer is loaded:
+              if (config.asyncLayerVisibleDefault) {
                 cartoLayer.addTo(self.map);
               }
             })
             .on('error', function(err) {
               S.Util.log('Cartodb layer creation error:', err);
             });
+        } else if (config.type && config.type === 'shareabouts') {
+          self.layers[config.id] = self.placeLayers;
+        } else if (config.type && config.type === 'basemap') {
+          // Assume a tile layer
+          layer = L.tileLayer(config.url, config);
+          self.layers[config.id] = layer;
+
+          if (config.defaultBase) {
+            layer.addTo(self.map);
+          }
         } else if (config.layers) {
           // If "layers" is present, then we assume that the config
           // references a Leaflet WMS layer.
@@ -124,12 +135,27 @@ var Shareabouts = Shareabouts || {};
         var layer = self.layers[id];
         if (layer) {
           self.setLayerVisibility(layer, visible);
-        } else { // Cases when the layer is loaded asynchronously:
+        } else if (id === 'toggle-satellite') {
+          // TODO: This is a hack! We should integrate this with the config
+          // probably with a radio button in the legend!
+          if (visible) {
+            self.map.addLayer(self.layers['satellite']);
+            self.layers['satellite'].bringToBack();
+            self.map.removeLayer(self.layers['osm']);
+          } else {
+            self.map.addLayer(self.layers['osm']);
+            self.layers['osm'].bringToBack();
+            self.map.removeLayer(self.layers['satellite']);
+          }
+        } else {
+          // Handles cases when we fire events for layers that are not yet
+          // loaded (ie cartodb layers, which are loaded asynchronously)
           var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
             return layer.id === id;
           });
-          // TODO: This may fail due to a race condition with the asych call
-          mapLayerConfig.visibleDefault = visible;
+          // We are setting the asynch layer config's default visibility here to
+          // ensure they are added to the map when they are eventually loaded:
+          mapLayerConfig.asyncLayerVisibleDefault = visible;
         }
       });
     }, // end initialize
