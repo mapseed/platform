@@ -4,573 +4,66 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-
-/* =Base Styles
--------------------------------------------------------------- */
-
-/* Buttons */
-.btn,
-.btn:visited,
-.btn:link {
-  display: inline-block;
-  *display: inline;
-  *zoom: 1;
-  padding: 0.325em 0.625em;
-  margin-bottom: 0;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  color: #1a8504;
-  text-decoration: none;
-  text-transform: uppercase;
-  background-color: #a3c7d9;
-  box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
-  font-weight: 600;
-  border: 3px solid rgba(0,0,0,0.05);
-  border-radius: 3px;
-}
-.btn:hover {
-  background-color: #93b7c9;
-}
-.btn-primary,
-.btn-primary:visited,
-.btn-primary:link {
-  background-color: #00aaff;
-  color: #fff;
-  background-color:rgba(242, 82, 24, 0.89);
-}
-.btn-primary:hover {
-  background-color: #007fbf;
-}
-.btn-secondary,
-.btn-secondary:visited,
-.btn-secondary:link {
-  background-color: #ccc;
-  color: #ffffff;
-  background: none;
-  border: none;
-  box-shadow: none;
-}
-
-.btn-secondary:hover {
-  background-color: #007fbf;
-  color: #fff;
-}
-.btn-disabled,
-.btn-disabled:visited,
-.btn-disabled:link,
-.btn-disabled:hover {
-  background-color: #eee;
-  color: #ccc;
-  box-shadow: none;
-}
-.btn-block,
-.btn-block:visited,
-.btn-block:link {
-  clear: both;
+#site-title a:link,
+#site-title a:visited {
   display: block;
-  padding: 0.5em 0.75em;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  float: left;
+  width: 350px;
+  height: 50px;
+  overflow: hidden;
 }
-.btn-large {
-  font-size: 1.25em;
-  padding: 0.75em 1em 0.5em;
-}
-.btn-small {
-  font-size: 0.75em;
-}
-
 
 /* =Header
 -------------------------------------------------------------- */
 
-#site-title {
-  font-size: 1em;
-  font-family: 'Open Sans', sans-serif;
-  text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
-  float: left;
-  margin: 0 0.5em 0 0;
-  padding: 0;
-}
-.has-pages #site-title {
-  padding-left: 3.25em;
-}
-#site-title a:link,
-#site-title a:visited {
-  display: block;
-  font-size: 2em;
-  line-height: 1.25;
-  text-decoration: none;
-  /*color: #F25218;*/
-  color: #228b22;
-}
-#site-title a:hover {
-  /*color: #FF8B61;*/
-  color: #abde76;
-}
 
 
-/* =Map
-------------------------------------------------------------- */
 
-#map-container {
-  bottom: 0;
-}
-
-.raingardens-cluster-large {
-  border-radius: 20px;
-  width: 40px;
-  height: 40px;
-  background-color: greenyellow;
-  text-align: center;
-  font-size: 24px;
-}
-.raingardens-cluster-small {
-  border-radius: 30px;
-  width: 60px;
-  height: 60px;
-  background-color: #ffdb58;
-  text-align: center;
-  font-size: 24px;
-  padding-top: 10px;
-  box-sizing: border-box;
-}
-
-/* =Content
-------------------------------------------------------------- */
-
-#content {
-  bottom: 0;
-}
-
-/* =Footer
-------------------------------------------------------------- */
-
-#colophon {
-  visibility: hidden;
-}
-
-
-/* =Media Queries for Responsive Layout
+/* =Media Queries
 -------------------------------------------------------------- */
-/*
-Without any system display to show the status/nav bar, the map height can comfortably be ~118px less than the
-browser height, but in portrait mode, we usually have ~30px of nav/status-bar, so we limit the map height to
-~148px less than the browser height
-*/
-
 /* iphone 4 (320 x 480)*/
-@media only screen and (min-height: 440px) and (max-width: 60em) {
-  #map {
-    height: 292px;
-  }
+
+@media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
-    font-size: 1.8em;
-    line-height: 1.325;
+    width: 180px;
+    height: 25px;
+    background-size: 180px auto;
+  }
+  #place-form-type-choice {
+    padding-bottom: 1em;
+  }
+  #place-form-type-choice a.button {
+      display: block;
+      float: left;
+      width: 40%;
+      padding: .5em .5em;
+      margin: 0;
+      border: 2px solid white;
   }
 }
 
-/*@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {*/
-/*#map {*/
-/*height: 292px;*/
-/*}*/
-/*}*/
-@media only screen and (min-height: 480px) and (max-width: 60em) {
-  #map {
-    height: 332px;
-  }
+@media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
-    font-size: 1.8em;
-    line-height: 1.325;
-  }
-  #site-header img {
-    max-width: 240px;
-    height: auto;
+    width: 180px;
+    height: 25px;
+    background-size: 180px auto;
+    margin: 10px 0 0 0;
   }
 }
 
-/*@media only screen and (min-width: 440px) and (max-height: 60em) and (orientation : landscape) {*/
-@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {
-  #map {
-    height: 202px;
-  }
-}
-
-/* iphone 5 (320 x 568) */
-@media only screen and (min-height: 568px) and (max-width: 60em) {
-  #map {
-    height: 420px;
-  }
-  #site-header img {
-    max-width: 240px;
-    height: auto;
-  }
-}
-/*@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {*/
-@media only screen and (min-width: 568px) and (min-height: 320px) and (orientation : landscape) {
-  #map {
-    height: 202px;
-  }
-}
-
-/* iphone 6 (375 x 667) */
-@media only screen and (min-height: 667px) and (max-width: 60em) {
-  #map {
-    height: 519px;
-  }
-  #site-header img {
-    max-width: 240px;
-    height: auto;
-  }
-}
-/*@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {*/
-@media only screen and (min-width: 667px) and (min-height: 375px) and (orientation : landscape) {
-  #map {
-    height: 247px;
-  }
-}
-/* iphone 6 plus (414 x 736) */
-@media only screen and (min-height: 736px) and (max-width: 60em) {
-  #map {
-    height: 588px;
-  }
-  #site-header img {
-    max-width: 240px;
-    height: auto;
-  }
-}
-/*@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {*/
-@media only screen and (min-width: 736px) and (min-height: 414px) and (orientation : landscape) {
-  #map {
-    height: 296px;
-  }
-}
-@media only screen and (min-height: 768px) and (max-width: 60em) {
-  #map {
-    height: 620px;
-  }
-  #site-header img {
-    max-width: 240px;
-    height: auto;
-  }
-}
-
-/* default for other media */
-@media only screen and (min-width: 60em) {
-  html,
-  body {
-    height: 100%;
-    position: relative;
-  }
-
-  /* A helper to let the JS know what kind of layout we're using */
-  body:after {
-    content: "desktop";
-  }
-
-  /* Header */
-  #site-header {
-    padding-left: 1em;
-    overflow: visible;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  .has-pages #site-title {
-    padding-left: 0;
-  }
-  #site-title a:link,
-  #site-title a:visited {
-    font-size: 3em;
-    line-height: 1.325;
-  }
-  #nav-btn {
-    display: none;
-  }
-  /*#pages-nav-container,*/
-  /*#language-picontainer,*/
-  #pages-nav-container {
-    height: 100%;
-    float: left;
-  }
-  #language-picker {
-    float: right;
-    height: 100%;
-    /*position: none;*/
-  }
-  .current-language {
-    background: none;
-    border: none;
-    box-shadow: none;
-  }
-
-  .access {
-    font-size: 0.875em;
-    width: auto;
-    display: block;
-    margin: -1.125em 0 0 0.5em;
-    position: relative;
-    top: 50%;
-  }
-  .access li {
-    float: left;
-    padding: 0;
-    margin: 0 0 0 0.5em;
-  }
-  .access li ul {
-    display: none;
-  }
-  .access li:hover > ul,
-  .access li:hover > form > ul {
-    display: block;
-    background: #ccc;
-    box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
-    border: 3px solid rgba(0,0,0,0.05);
-    border-radius: 0;
-    margin: -3px 0 0 0;
-    padding: 3px 0 0 0;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 2;
-    overflow: hidden;
-  }
-  .access li ul li:hover ul {
-    display: block;
-    top: 0;
-    left: 100%;
-  }
-  .access li li {
-    float: none;
-    padding: 0;
-    margin: 0;
-  }
-  .access li li .btn {
-    border: 0;
-    border-radius: 0;
-    margin-top: -3px;
-    box-shadow: none;
-  }
-  #sign-in-btn {
-    font-size: 1em;
-    text-decoration: none;
-    line-height: 1.5;
-    padding: 0.5em;
-    margin: 0.25em 0.75em 0 0.75em;
-    position: relative;
-    z-index: 3;
-  }
-  .sign-in-menu {
-    background: url(http://subtlepatterns.com/patterns/lightpaperfibers.png);
-    border-radius: 3px;
-    box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
-    width: 18em;
-    margin: 0;
-    padding: 1em 0.875em 1.125em 0.875em;
-    position: absolute;
-    top: 4.125em;
-    right: 1em;
-    z-index: 2;
-  }
-  .sign-in-menu:before {
-    content: '';
-    height: 0;
-    width: 0;
-    border: 1em solid transparent;
-    border-bottom-color: #666;
-    border-top: 0;
-    position: absolute;
-    bottom: 100%;
-    right: 1.5em;
-  }
-  .authed #sign-in-btn {
-    margin: 0.5em 0.5em 0 0.5em;
-    z-index: 1;
-  }
-  .authed .sign-in-menu:before {
-    right: 0.5em;
-  }
-
-  /* Map*/
-  #map-container {
-    position: absolute;
-    top: 4em; /* height of #site-header */
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-  .content-visible #map-container {
-    right: auto;
-    left: 18em;
-    margin-left: -18em;
+@media only screen and (min-width: 768px) {
+  #place-form-type-choice a.button {
     width: 40%;
-  }
-  .activity-enabled.content-visible #map-container {
-    width: 30%;
-  }
-  .geocoding-bar-enabled #map-container {
-    top: 8.5em;
-  }
-  .leaflet-top.leaflet-right {
-    right: auto;
-    left: 10px;
-    top: 77px;
-  }
-
-  #map {
-    height: 100%;
-  }
-  #add-place-btn-container {
-    background: transparent;
-    font-size: 1.25em;
-    padding: 0;
-    position: absolute;
-    left: 1.5em;
-    bottom: 2em;
-    right: unset;
-    top: unset;
-    box-shadow: none;
-    border-bottom: 0;
-  }
-  #add-place-btn-container .btn,
-  #add-place-btn-container .btn:visited,
-  #add-place-btn-container .btn:link {
-    padding-right: 1em;
-    padding-left: 1em;
-  }
-  #add-place-btn-container .btn-primary:hover {
-    background-color: #FF8B61;
-  }
-  .content-visible #add-place-btn-container {
-    display: block; /* override of the mobile style */
-  }
-  .place-form-visible #add-place-btn-container {
-    display: none;
-  }
-
-  /* Content */
-  #content {
-    color: #36454f;
-    padding: 0;
-    position: absolute;
-    top: 4em; /* height of site-header */
-    right: 0;
-    bottom: 1.75em;
-    left: 40%;
-    overflow: visible;
-    box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
-  }
-  .activity-enabled #content {
-    left: 30%;
-    right: 18em;
-  }
-  .geocoding-bar-enabled #content {
-    top: 8.5em;
-  }
-  a.close-btn {
-    line-height: 2;
-    top: 10px;
-    left: auto;
-    right: 100%;
-    margin: 0 -0.325em 0 0;
-    padding: 0.125em 0.625em 0.125em 0.625em;
-    border-radius: 0.325em 0 0 0.325em;
-    box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
-  }
-  a.close-btn:hover {
-  }
-  a.close-btn span {
-    display: none;
-  }
-
-  .unsupported-overlay {
-    position: absolute;
-    top: 5em;
-    right: 1em;
-    left: 1em;
-  }
-  .unsupported-message {
-    border-radius: 0 0 0.625em 0.625em;
-  }
-  a.close-unsupported-overlay {
-    right: auto;
-    border-radius: 0.325em;
-  }
-
-  #content > article {
-    overflow: auto;
-    padding: 1em 1em 2em;
-    width: 100%;
-    height: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  /* List View */
-  .list-toggle-nav {
-    display: block;
-    /*float: right;*/
-    width: auto;
-    /*margin: -1.125em 0 0 0.5em;*/
-    position: relative;
-    top: 50%;
-    font-size: 0.875em;
-
-    margin: -1.325em 0 0 1em;
-    float: left;
-  }
-  #list-container.is-exposed {
-    display: block;
-  }
-  .list-toggle-btn,
-  .list-toggle-btn:visited,
-  .list-toggle-btn:link {
-    /*background-color: #007fbf;*/
-    /*color: #eee;*/
-  }
-  .list-toggle-btn:hover {
-    /*background-color: #00aaff;*/
-    /*color: #fff;*/
+    font-size: 100%;
+    padding: 1em 1em;
+    margin: 0 2% 2% 0;
   }
 }
 
-@media only screen and (min-width: 80em) {
-  #content {
-    right: 0;
-    left: 60%;
-  }
-  .activity-enabled #content {
-    left: 45%;
-  }
-  .content-visible #map-container {
-    width: 60%;
-  }
-  .activity-enabled.content-visible #map-container {
-    width: 45%;
-  }
+@media only screen and (min-width: 1024px) {
 }
 
-/* High Resolution Displays */
-@media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-
-  .share-twitter a {
-    background-image: url(images/twitter-64.png);
-    background-size: contain;
-  }
-  .share-facebook a {
-    background-image: url(images/facebook-64.png);
-    background-size: contain;
-  }
-  .locate-me {
-    background-image: url(images/locate-me@2x.png);
-    background-size: contain;
-  }
-
+@media only screen and (min-width: 1300px) {
 }

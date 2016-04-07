@@ -17,26 +17,33 @@
 -------------------------------------------------------------- */
 
 
+
+
 /* =Media Queries
 -------------------------------------------------------------- */
 /* iphone 4 (320 x 480)*/
 
-@media only screen and (min-height: 440px) and (max-width: 60em) {
-  #map {
-    height: 292px;
-  }
+@media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
     width: 180px;
     height: 25px;
     background-size: 180px auto;
   }
+  #place-form-type-choice {
+    padding-bottom: 1em;
+  }
+  #place-form-type-choice a.button {
+      display: block;
+      float: left;
+      width: 40%;
+      padding: .5em .5em;
+      margin: 0;
+      border: 2px solid white;
+  }
 }
 
-@media only screen and (min-height: 480px) and (max-width: 60em) {
-  #map {
-    height: 332px;
-  }
+@media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
     width: 180px;
@@ -46,8 +53,13 @@
   }
 }
 
-
 @media only screen and (min-width: 768px) {
+  #place-form-type-choice a.button {
+    width: 40%;
+    font-size: 100%;
+    padding: 1em 1em;
+    margin: 0 2% 2% 0;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
