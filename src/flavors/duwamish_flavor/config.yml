@@ -45,10 +45,20 @@ map:
     maxZoom: 18
   layers:
     # SmarterCleanup Mapbox base layer:
-    - id: mapbox-base # unique identifier for the layer
+    - id: osm
+      type: basemap
+      defaultBase: true
       url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      visibleDefault: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: satellite
+      type: basemap
+      url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    # For our Shareabouts reports
+    - id: reports
+      type: shareabouts
 
     # Carto basemap additions layer
     - id: additions
@@ -475,25 +485,36 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
+            - id: reports
+              title: _(Community Reports)
+              description: _(Reports added to the map by citizens)
+              visibleDefault: true
+
             - id: cleanup
+              title: _(River Cleanup Plan)
               description: _(The EPA-approved cleanup plan for the river)
-              title: _(River cleanup plan)
               visibleDefault: true
 
             - id: vision
-              visibleDefault: true
-              title: _(Community vision)
+              title: _(Community Vision)
               description: _(Priority areas identified through community visioning projects)
+              visibleDefault: true
 
             - id: restoration
-              visibleDefault: true
-              title: _(Restoration sites)
+              title: _(Restoration Sites)
               description: _(Habitat restoration and community organizing)
+              visibleDefault: true
 
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
           layers:
+              # Toggle our basemaps
+            - id: toggle-satellite
+              title: _(Satellite View)
+              description: _(Toggle the satellite map view)
+              visibleDefault: false
+
               # Land Use
             - id: landuse
               title: _(Land use)
@@ -519,8 +540,8 @@ sidebar:
 
               # WMS Original Flow
             - id: duwamish-original
+              title: _(Original River Path)
               description: _(The original Duwamish River path)
-              title: _(Original river path)
               visibleDefault: false
 
     ticker:

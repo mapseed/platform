@@ -29,6 +29,7 @@ map:
   geocoding_enabled: true # enable general geocoding features (ie geocoded place fields)
   geocoding_bar_enabled: false # add a geocode bar across the map
   geocode_bounding_box: [45.2, -125, 49.3, -116.4] # Including cushion
+  cartodb_enabled: true
 
   counter: false
   counter_min: 0
@@ -50,300 +51,318 @@ map:
 
   # Map Layers
 
+    # TODO: json types only work when we add them to our sidebar
     - id: esri-air
       url: //services.arcgis.com/qboYD3ru0louQq4F/arcgis/rest/services/Duwamish_061415/FeatureServer/0/query?f=geojson&geometry={%22xmin%22:-126,%22ymin%22:43.2,%22xmax%22:-114.4,%22ymax%22:51.3,%22spatialReference%22:{%22wkid%22:4326}}&geometryType=esriGeometryEnvelope&inSR=2926&outFields=*&outSR=4326
       type: json
-      # type: esri
-      description: _(Air Concerns from esri map)
       popupContent: '{{Comments}}'
-      legend: true
-      visible: true
-      title: _(Air Concerns)
       rules:
-
         # default point marker case
         - condition: 'true'
           icon:
-            iconUrl: /static/css/images/markers/triangle-2654d2.png
+            # iconUrl: /static/css/images/markers/triangle-2654d2.png
+            iconUrl: /static/css/images/markers/marker-observation.png
             iconSize: [16, 16]
             iconAnchor: [8, 8]
 
-    - id: mapbox-pscaa
-      # url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      url: //a.tiles.mapbox.com/v4/smartercleanup.njpe7ha8/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      type: json
-      description: _(Air Monitoring Stations by PSCAA)
-      popupContent: '{{title}}'
-      legend: true
-      visible: true
-      title: _(Air Monitoring)
-      rules:
-        # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
-        #   icon:
-        #     iconUrl: /static/css/images/markers/marker-construction.png
-        #     iconSize: [30, 30]
-        #     iconAnchor: [15, 15]
+    # TODO: This is not set up for real-time readings
+    # - id: mapbox-pscaa
+    #   # url: //a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    #   url: //a.tiles.mapbox.com/v4/smartercleanup.njpe7ha8/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    #   type: json
+    #   description: _(Air Monitoring Stations by PSCAA)
+    #   popupContent: '{{title}}'
+    #   legend: true
+    #   visible: true
+    #   title: _(Air Monitoring)
+    #   rules:
 
-        # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
-        #   icon:
-        #     iconUrl: /static/css/images/markers/marker-treeheart.png
-        #     iconSize: [40, 40]
-        #     iconAnchor: [13, 13]
+    #     # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "danger"'
+    #     #   icon:
+    #     #     iconUrl: /static/css/images/markers/marker-construction.png
+    #     #     iconSize: [30, 30]
+    #     #     iconAnchor: [15, 15]
 
-        # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
-        #   icon:
-        #     iconUrl: /static/css/images/markers/marker-industrial.png
-        #     iconSize: [40, 40]
-        #     iconAnchor: [20, 20]
+    #     # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "park2"'
+    #     #   icon:
+    #     #     iconUrl: /static/css/images/markers/marker-treeheart.png
+    #     #     iconSize: [40, 40]
+    #     #     iconAnchor: [13, 13]
 
-        # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
-        #   icon:
-        #     iconUrl: /static/css/images/markers/marker-bike.png
-        #     iconSize: [30, 30]
-        #     iconAnchor: [15, 15]
+    #     # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "industrial"'
+    #     #   icon:
+    #     #     iconUrl: /static/css/images/markers/marker-industrial.png
+    #     #     iconSize: [40, 40]
+    #     #     iconAnchor: [20, 20]
 
-        # default point marker case
-        - condition: 'true'
-          icon:
-            iconUrl: /static/css/images/markers/dot-fa307d.png
-            iconSize: [16, 16]
-            iconAnchor: [8, 8]
+    #     # - condition: '"{{geometry.type}}" == "Point" && "{{properties.marker-symbol}}" === "bicycle"'
+    #     #   icon:
+    #     #     iconUrl: /static/css/images/markers/marker-bike.png
+    #     #     iconSize: [30, 30]
+    #     #     iconAnchor: [15, 15]
 
-      # WMS landuse
-    - id: geoserver-landuse
-      url: http://heyduwamish.org:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
+    #     # default point marker case
+    #     - condition: 'true'
+    #       icon:
+    #         iconUrl: /static/css/images/markers/dot-fa307d.png
+    #         iconSize: [16, 16]
+    #         iconAnchor: [8, 8]
+
+    - id: restoration
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      type: landmark
+
+    - id: vision
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      type: landmark
+
+    - id: cleanup
+      type: cartodb
+      url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
+
+      # Land Use
+    - id: landuse
+      type: cartodb
+      url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
       opacity: 0.5
-      description: <img src="/static/css/images/legend-landuse2010.png" alt="legend">
-      title: _(Zoning info)
-      visible: false
 
-      # WMS Buildings connection:
-    - id: geoserver-buildings
-      url: http://heyduwamish.org:8080/geoserver/wria9/wms # GCE Geoserver
-      layers: 'wria9:2009BuildingsCOS'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
-      description: _(legend coming soon!)
-      title: _(Buildings)
-      visible: false
+      # Green Seattle Partnership restoration phases
+    - id: phases
+      type: cartodb
+      url: "https://gis206.cartodb.com/api/v2/viz/217a2e02-e729-11e5-9bd4-0e5db1731f59/viz.json"
 
       # WMS Original Flow
     - id: duwamish-original
-      url: //d171ntg776wsmz.cloudfront.net/geoserver/wria9/wms
-      layers: 'wria9:Historical_Flow'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      legend: true
+      url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
+      type: cartodb
       opacity: 0.4
-      description: _(The orginal Duwamish River path)
-      title: _(Original river path)
-      visible: false
 
-#      # WMS NLCD (commented out for parks)
-#    - url: http://heyduwamish.org:8080/geoserver/wria9/wms
-#      layers: 'wria9:nlcd2011'
-#      version: '1.1.0'
-#      transparent: 'true'
-#      format: 'image/png'
-#      legend: true
-#      opacity: 0.6
-#      description: "_(key: <br>-The red area means more concrete coverage<br>-blue means water<br>-dark green means forested<br>-light green means grass or soil)"
-#      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
-#      title: _(Land covereage data)
-#      visible: false
+      # Noxious Weeds
+    - id: noxious-weeds
+      type: cartodb
+      url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
+      opacity: 0.5
 
+  # # Report filters
 
-  # Report filters
-
-    - title: _(Rain gardens)
-      shareabouts: true
-      image: /static/css/images/markers/marker-observation.png
-      url: /filter/raingarden
-      external: true
-      visible: true
+  #   - title: _(Rain gardens)
+  #     shareabouts: true
+  #     image: /static/css/images/markers/marker-observation.png
+  #     url: /filter/raingarden
+  #     external: true
+  #     visible: true
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
 
-  observation:
-    label: _(Observation)
+  georgetownZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [60, 60]
+        iconAnchor: [30, 30]
+    - condition: '{{map.zoom}} < 14'
+      icon:
+        iconSize: [7.5, 7.5]
+        iconAnchor: [4, 4]
+    - condition: '{{map.zoom}} < 16'
+      icon:
+        iconSize: [15, 15]
+        iconAnchor: [8, 8]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [30, 30]
+        iconAnchor: [15, 15]
+
+  mapboxZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 50]
+        iconAnchor: [25, 25]
+    - condition: '{{map.zoom}} < 16'
+      icon:
+        iconSize: [20, 20]
+        iconAnchor: [10, 10]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [30, 30]
+        iconAnchor: [15, 15]
+
+  wetland:
+    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
+  park:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
+
+  school:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
+
+  police:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
+
+  rail:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+
+  town-hall:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_comp.png
+
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_prog.png
+
+      - condition: '"{{properties.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+
+  mapbox:
+    # Mapbox Points
+    rules:
+    # LineString
+      - condition: '"{{geometry.type}}" == "LineString"'
+        style:
+          color: "{{properties.stroke}}"
+          opacity: '{{properties.stroke-opacity}}'
+          weight: "{{properties.stroke-width}}"
+    # Polygons
+      - condition: '"{{geometry.type}}" == "Polygon"'
+        style:
+          shapeType: polygon
+          fillColor: "{{properties.fill}}"
+          fill: 'true'
+          color: "{{properties.stroke}}"
+          opacity: 0.7
+          fillOpacity: '{{properties.fill-opacity}}'
+          weight: "{{properties.stroke-width}}"
+
+  danger:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction.png
+
+  park2:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-heart.png
+
+  industrial:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial.png
+
+  bicycle:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bike.png
+
+  swimming:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-swimming.png
+
+  theatre:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art.png
+
+  zoo:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-whale.png
+
+  air_watch:
+    label: _(air watch observation)
+    rules:
+      - condition: '"{{location_type}}" === "air_watch" && {{layer.focused}} === false'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconSize: [18, 25]
+          iconAnchor: [9, 25]
 
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "observation" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "observation" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "air_watch" && {{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-  question:
-    label: _(Question)
-    rules:
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "question" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "question" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "question" && {{layer.focused}}'
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [50, 60]
-#          shadowSize: [50, 60]
-#          shadowAnchor: [25, 60]
-#          iconAnchor: [25, 60]
-#
-#      - condition: '"{{location_type}}" === "question"'
-#        # Show questions that are points as icons...
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-question.png
-#          iconSize: [24, 29]
-#          iconAnchor: [12, 29]
-#
-#        # ...and questions that are polygons as shapes.
-#
-#        style:
-#          color: '#4bbd45'
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 0.4
-
-  idea:
-    label: _(Idea)
-    rules:
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-#        # Display landmarks as circles (vectors) when zoomed out
-#
-#        style:
-#          color: '#0d85e9'
-#          radius: 3
-#          weight: 1
-#          opacity: 0.9
-#          fillOpacity: 1
-#
-#      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          iconSize: [50, 60]
-#          iconAnchor: [24, 59]
-#
-#      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
-#        # Display landmarks as icons when zoomed in
-#
-#        icon:
-#          iconUrl: /static/css/images/markers/marker-idea.png
-#          shadowUrl: /static/css/images/marker-shadow.png
-#          iconSize: [80, 96]
-#          shadowSize: [41, 41]
-#          iconAnchor: [39, 94]
-
-  complaint:
-    label: _(Complaint)
-    rules:
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} < 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [24, 29]
-          iconAnchor: [12, 29]
-
-      - condition: '"{{location_type}}" === "complaint" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "complaint" && {{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconSize: [40, 50]
+          iconAnchor: [20, 50]
+          shadowSize: [40, 50]
+          shadowAnchor: [10, 50]
 
 # TODO: Create data visualization where a cluster represents it location type makeup
 cluster:
@@ -361,29 +380,75 @@ sidebar:
   legend_enabled: true
   slug: filter-type
   # Layers are defined in the "map config" section
-  # TODO: Refactor the Layers section into its own sidebar
-  layersTitle: _(Map Layers)
-  reports:
-    title: _(Report Types)
-    items:
-      - title: _(Observations)
-        image: /static/css/images/markers/marker-observation.png
-        url: /filter/observation
-      - title: _(Ideas)
-        image: /static/css/images/markers/marker-idea.png
-        url: /filter/idea
-      - title: _(Questions)
-        image: /static/css/images/markers/marker-question.png
-        url: /filter/question
-      - title: _(Complaints)
-        image: /static/css/images/markers/marker-complaint.png
-        url: /filter/complaint
-      - title: _(Hide Reports)
-        url: /filter/none
-        image: /static/css/images/hide-all.png
-      - title: _(Show Reports)
-        url: /
-        image: /static/css/images/show-all.png
+  panels:
+    legend:
+      title: _(Community Air Observations)
+      items:
+        - title: _(Air Watch observation)
+          image: /static/css/images/markers/marker-observation.png
+    gis_layers:
+      title: _(Map Layers:)
+      groupings:
+        - id: grp-community
+          title: _(Community Data)
+          visibleDefault: false
+          layers:
+            - id: cleanup
+              description: _(The EPA-approved cleanup plan for the river)
+              title: _(River cleanup plan)
+              visibleDefault: false
+
+            - id: vision
+              visibleDefault: false
+              title: _(Community vision)
+              description: _(Priority areas identified through community visioning projects)
+
+            - id: restoration
+              visibleDefault: false
+              title: _(Restoration sites)
+              description: _(Habitat restoration and community organizing)
+
+
+            - id: esri-air
+              visibleDefault: true
+              title: _(air watches)
+              description: _(air watch observations)
+
+        - id: grp-land
+          title: _(Land Data)
+          visibleDefault: false
+          layers:
+              # Land Use
+            - id: landuse
+              title: _(Land use)
+              description: _(Land use data from 2010)
+              visibleDefault: false
+
+              # Green Seattle Partnership restoration phases
+            - id: phases
+              title: _(Green Seattle partnership)
+              description: _(Restoration phases from the Green Seattle Partnership)
+              visibleDefault: false
+
+              # Noxious Weeds
+            - id: noxious-weeds
+              title: _(Noxious Weeds)
+              description: _(Invasive species of weeds)
+              visibleDefault: false
+
+        - id: grp-history
+          title: _(Historical Data)
+          visibleDefault: false
+          layers:
+
+              # WMS Original Flow
+            - id: duwamish-original
+              description: _(The original Duwamish River path)
+              title: _(Original river path)
+              visibleDefault: false
+
+    ticker:
+      title: _(Activity Stream:)
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -394,6 +459,7 @@ activity:
   # Place Types
 
 place:
+  dataset_slug: report # default is 'place'
   adding_supported: true
   add_button_label: _(Add your air concern to the map)
   # Labels for the buttons that toggle the map and list views
