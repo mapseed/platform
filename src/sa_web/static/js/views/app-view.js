@@ -215,7 +215,6 @@ var Shareabouts = Shareabouts || {};
           this.listView = new S.PlaceListView({
             el: '#list-container',
             collection: self.mergedCollection
-            //collection: this.collection.place.air
           }).render();
       }
 
@@ -267,7 +266,6 @@ var Shareabouts = Shareabouts || {};
           activity.fetch({
             reset: true,
             attribute: 'target',
-            //attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug }
           });
         });
       });
@@ -392,7 +390,6 @@ var Shareabouts = Shareabouts || {};
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'map', 'new-place-btn-click');
-      //this.options.router.navigate('/' + this.options.placeConfig.dataset_slug + '/new', {trigger: true});
       this.options.router.navigate('/new', {trigger: true});
     },
     onClickClosePanelBtn: function(evt) {
@@ -594,7 +591,6 @@ var Shareabouts = Shareabouts || {};
           }
         }
         self.addSpotlightMask();
-
 
         // Focus the one we're looking
         model.trigger('focus');

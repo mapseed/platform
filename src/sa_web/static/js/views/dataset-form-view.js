@@ -30,9 +30,7 @@ var Shareabouts = Shareabouts || {};
     },
     render: function(category, category_selected){
       // Augment the model data with place types for the drop down
-      
-      // This is a little hacky--I need to find a better way to extend the template helpers
-      // One option is to stop relying on them entirely and just use registered Handlebar helper functions
+
       if (category != undefined) {
         S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.categories[category].fields);
       }

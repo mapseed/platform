@@ -19,13 +19,9 @@ var Shareabouts = Shareabouts || {};
 
       self.map = L.map(self.el, self.options.mapConfig.options);
 
-
       self.placeLayers = self.getLayerGroups();
-
       self.layers = {};
-
-      // Init the layer view caches
-      this.layerViews = {}; // Maps our model id's to our place collection's model instances
+      this.layerViews = {};
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
@@ -89,7 +85,6 @@ var Shareabouts = Shareabouts || {};
 
         } else {
           // Assume a tile layer
-          //layer = L.tileLayer(config.url, config);
           layer = L.tileLayer( (config.url ? config.url : ""), config);
 
           layer.addTo(self.map);
@@ -132,7 +127,6 @@ var Shareabouts = Shareabouts || {};
         collection.on('remove', self.removeLayerView, self);
       });
       
-
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
         var layer = self.layers[id];
@@ -325,34 +319,16 @@ var Shareabouts = Shareabouts || {};
         });
       });
     },
-
-    clearFilter: function(collectionId) {   
+    clearFilter: function(collectionId) {
       var self = this;
       this.locationTypeFilter = null;
-
-      /*
       _.each(this.collection, function(collections) {
         _.each(collections, function(collection) {
           collection.each(function(model) {
-            self.layerViews.place[model.cid].render();
-          })
+            if (self.layerViews[model.cid]) { self.layerViews[model.cid].render(); }
+          });
         });
       });
-*/
-
-
-      /*
-      this.collection.each(function(model) {
-        self.layerViews[model.cid].render();
-      });
-      // TODO: clean this up by using a single Collection or View that contains
-      // landmarks and places
-      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
-        self.options.landmarkCollections[collectionId].each(function(model) {
-          self.landmarkLayerViews[collectionId][model.id].render();
-        });
-      });
-      */
     },
     getLayerGroups: function() {
       var self = this;
