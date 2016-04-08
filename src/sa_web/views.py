@@ -367,20 +367,9 @@ def api(request, path, **kwargs):
         
     root = settings.SHAREABOUTS.get(dataset_id.upper() + '_SITE_URL')
 
-    # Clear out request object query string dictionary. For some reason, /api/places 
-    # will return an empty dataset if a query string is included in the request
-    '''
-    request.GET = request.GET.copy()
-    if 'url' in request.GET:
-        request.GET.pop('url')
-    if 'id' in request.GET:
-        request.GET.pop('id')
-    '''
-
     if root.startswith('file://'):
         return readonly_file_api(request, path, datafilename=root[7:])
 
-    #api_key = settings.SHAREABOUTS.get('SITE_KEY')
     api_key = settings.SHAREABOUTS.get(dataset_id.upper() + '_DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-sessionid')
 

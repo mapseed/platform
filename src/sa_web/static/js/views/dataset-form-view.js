@@ -75,8 +75,6 @@ var Shareabouts = Shareabouts || {};
         attrs[locationAttr] = this.location;
       }
 
-      console.log("attrs", attrs);
-
       return attrs;
     },
     onCategoryChange: function(evt) {
@@ -122,7 +120,6 @@ var Shareabouts = Shareabouts || {};
 
       if (this.priorModelCid && this.priorDatasetId) {
         this.collection[self.priorDatasetId].get({ cid: self.priorModelCid }).destroy();
-        console.log("Destroyed " + this.priorModelCid + " in '" + this.priorDatasetId + "'");
       }
       this.priorModelCid = model.cid;
       this.priorDatasetId = this.selectedDatasetId;

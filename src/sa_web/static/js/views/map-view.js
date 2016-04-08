@@ -299,7 +299,6 @@ var Shareabouts = Shareabouts || {};
 
     filter: function(locationType) {
       var self = this;
-      console.log('filter the map', arguments);
       this.locationTypeFilter = locationType;
       this.collection.each(function(model) {
         var modelLocationType = model.get('location_type');
