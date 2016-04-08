@@ -170,9 +170,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
 
-  <!-- jQuery date-time picker plugin -->
-  <script src="{{ STATIC_URL }}libs/jquery.datetimepicker.full.min.js"></script>
-
   {% if config.map.cartodb_enabled %}
   <script src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
   {% else %}
@@ -209,6 +206,8 @@
   <script src="{{STATIC_URL}}js/utils.js"></script>
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
   <!-- https://github.com/openplans/handlebars-helpers -->
+  <!-- jQuery date-time picker plugin -->
+  <script src="{{ STATIC_URL }}libs/jquery.datetimepicker.full.min.js"></script>
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
