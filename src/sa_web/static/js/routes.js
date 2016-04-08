@@ -109,13 +109,8 @@ var Shareabouts = Shareabouts || {};
         el: 'body',
         collection: this.collection,
         activities: this.activities,
-
-        //landmarkCollections: this.landmarkCollections,
-        //landmarkConfigs: landmarkConfigs,
-
         datasetConfigs: configArrays,
         config: options.config,
-
         defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
         cluster: options.cluster,
@@ -166,7 +161,6 @@ var Shareabouts = Shareabouts || {};
       this.appView.mapView.clearFilter();
     },
 
-    
     newPlace: function() {
       this.appView.newPlace();
     },
@@ -244,7 +238,7 @@ var Shareabouts = Shareabouts || {};
             .addClass(locationType)
             .html(menuItem.title);
         }
-
+        
       } else {
         // If the filter is 'all', we're unsetting the filter.
         this.appView.mapView.clearFilter();
