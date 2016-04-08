@@ -605,7 +605,6 @@ var Shareabouts = Shareabouts || {};
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
-        console.log("appView.onLandmarkNotFound: model:", model);
         options.stillSearching[options.collectionId] = false;
         var allCollectionsSearched = true;
         _.each(_.values(options.stillSearching), function(stillSearching) {
@@ -773,10 +772,6 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch and use the result.
       } else {
-        console.log("datasetId", datasetId);
-        console.log("datasetSlug", datasetSlug);
-        console.log("this.collection.place[datasetId]", this.collection.place[datasetId]);
-
         this.collection.place[datasetId].fetchById(modelId, {
           // Check for a valid location type before adding it to the collection
           validate: true,

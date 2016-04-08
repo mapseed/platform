@@ -165,7 +165,6 @@ var Shareabouts = Shareabouts || {};
           spinner, $fileInputs;
 
       model.attributes["from_dynamic_form"] = true;
-      console.log("model", model);
       evt.preventDefault();
 
       $button.attr('disabled', 'disabled');
