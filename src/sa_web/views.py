@@ -362,10 +362,6 @@ def api(request, path, **kwargs):
     one configured dataset.
     """
 
-    dataset_id = ""
-
-    #root = settings.SHAREABOUTS.get('DATASET_ROOT')
-    #root = request.GET.get('url')
     if 'dataset_id' in kwargs:
         dataset_id = kwargs['dataset_id']
         
