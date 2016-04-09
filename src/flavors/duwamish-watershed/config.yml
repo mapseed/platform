@@ -104,7 +104,7 @@ map:
       # Riparian Sun Angles
     - id: sun-angles
       type: cartodb
-      url: "https://smartercleanup.cartodb.com/api/v2/viz/c5a3fa12-f769-11e5-b95a-0ea31932ec1d/viz.json"
+      url: "https://smartercleanup.cartodb.com/api/v2/viz/8bcf5444-fe12-11e5-8b83-0e3ff518bd15/viz.json"
       opacity: 0.5
 
 # The keys show up in the dropdown list when you are adding a new place
@@ -491,6 +491,7 @@ sidebar:
           title: _(Land Data)
           visibleDefault: false
           layers:
+
               # Riparian Sun Angles
             - id: sun-angles
               title: _(Riparian sun angles)
@@ -519,11 +520,11 @@ sidebar:
             - id: phases
               title: _(Green Seattle partnership)
               description: _(Restoration phases from the Green Seattle Partnership)
-              visibleDefault: true
+              visibleDefault: false
 
         - id: grp-community
           title: _(Community Data)
-          visibleDefault: true
+          visibleDefault: false
           layers:
             - id: reports
               title: _(Community Reports)
@@ -533,7 +534,7 @@ sidebar:
             - id: cleanup
               title: _(River Cleanup Plan)
               description: _(The EPA-approved cleanup plan for the river)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: vision
               title: _(Community Vision)
@@ -569,7 +570,7 @@ activity:
 
 place:
   dataset_slug: report # default is 'place'
-  adding_supported: true
+  adding_supported: false
   add_button_label: _(Add a report to the map!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
