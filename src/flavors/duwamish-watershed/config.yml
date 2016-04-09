@@ -38,9 +38,9 @@ map:
 
   options:
     center:
-      lat: 47.53722
-      lng: -122.32573
-    zoom: 16
+      lat: 47.38580
+      lng: -121.90739
+    zoom: 11
     minZoom: 1
     maxZoom: 18
   layers:
@@ -668,3 +668,6 @@ support:
   anonymous_name: _(Someone)
 
 pages:
+  - title: _(About)
+    slug: about
+    name: about
