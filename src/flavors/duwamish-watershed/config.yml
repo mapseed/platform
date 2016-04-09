@@ -481,34 +481,16 @@ sidebar:
     gis_layers:
       title: _(Map Layers:)
       groupings:
-        - id: grp-community
-          title: _(Community Data)
-          visibleDefault: true
-          layers:
-            - id: reports
-              title: _(Community Reports)
-              description: _(Reports added to the map by citizens)
-              visibleDefault: true
-
-            - id: cleanup
-              title: _(River Cleanup Plan)
-              description: _(The EPA-approved cleanup plan for the river)
-              visibleDefault: true
-
-            - id: vision
-              title: _(Community Vision)
-              description: _(Priority areas identified through community visioning projects)
-              visibleDefault: true
-
-            - id: restoration
-              title: _(Restoration Sites)
-              description: _(Habitat restoration and community organizing)
-              visibleDefault: true
-
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
           layers:
+              # Noxious Weeds
+            - id: noxious-weeds
+              title: _(Noxious Weeds)
+              description: _(Invasive species of weeds)
+              visibleDefault: false
+
               # Toggle our basemaps
             - id: toggle-satellite
               title: _(Satellite View)
@@ -525,13 +507,31 @@ sidebar:
             - id: phases
               title: _(Green Seattle partnership)
               description: _(Restoration phases from the Green Seattle Partnership)
+              visibleDefault: true
+
+        - id: grp-community
+          title: _(Community Data)
+          visibleDefault: true
+          layers:
+            - id: reports
+              title: _(Community Reports)
+              description: _(Reports added to the map by citizens)
               visibleDefault: false
 
-              # Noxious Weeds
-            - id: noxious-weeds
-              title: _(Noxious Weeds)
-              description: _(Invasive species of weeds)
+            - id: cleanup
+              title: _(River Cleanup Plan)
+              description: _(The EPA-approved cleanup plan for the river)
+              visibleDefault: true
+
+            - id: vision
+              title: _(Community Vision)
+              description: _(Priority areas identified through community visioning projects)
               visibleDefault: false
+
+            - id: restoration
+              title: _(Restoration Sites)
+              description: _(Habitat restoration and other improvements)
+              visibleDefault: true
 
         - id: grp-history
           title: _(Historical Data)
