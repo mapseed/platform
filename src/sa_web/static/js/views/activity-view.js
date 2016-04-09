@@ -109,7 +109,7 @@ var Shareabouts = Shareabouts || {};
 
     onAddAll: function() {
       var self = this;
-      this.collection.sortBy = "created_datetime";
+      //this.collection.sortBy = "created_datetime";
       this.collection.sort();
 
       this.collection.each(function(model) {
