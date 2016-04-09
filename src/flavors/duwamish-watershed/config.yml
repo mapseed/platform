@@ -520,7 +520,7 @@ sidebar:
             - id: phases
               title: _(Green Seattle partnership)
               description: _(Restoration phases from the Green Seattle Partnership)
-              visibleDefault: false
+              visibleDefault: true
 
         - id: grp-community
           title: _(Community Data)
