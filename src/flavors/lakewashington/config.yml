@@ -60,6 +60,12 @@ map:
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/9d4d8cfa-ddc3-11e5-9bed-0ea31932ec1d/viz.json"
 
+      # WMS Original Flow
+    - id: duwamish-original
+      url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
+      type: cartodb
+      opacity: 0.4
+
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
@@ -268,6 +274,11 @@ sidebar:
             - id: kenmore-land-use
               title: _(Kenmore land use)
               description: _(Land use data for Kenmore)
+              visibleDefault: false
+
+            - id: duwamish-original
+              title: _(Original Black river)
+              description: _(Original drainage of the Black river into the old Duwamish before it was removed)
               visibleDefault: false
 
     ticker:
