@@ -99,13 +99,22 @@ map:
     - id: noxious-weeds
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
-      opacity: 0.5
 
       # Riparian Sun Angles
     - id: sun-angles
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/8bcf5444-fe12-11e5-8b83-0e3ff518bd15/viz.json"
-      opacity: 0.5
+
+      # Green river gorge
+    - id: green-gorge
+      type: cartodb
+      url: "https://emayorga.cartodb.com/api/v2/viz/b1edd320-2981-11e3-856d-4d839a7df546/viz.json"
+
+      # Emilio's map
+    - id: emilio
+      type: cartodb
+      url: "https://emayorga.cartodb.com/api/v2/viz/fb184750-5e4d-11e3-8523-3d3c64e1fada/viz.json"
+
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -491,7 +500,6 @@ sidebar:
           title: _(Land Data)
           visibleDefault: false
           layers:
-
               # Riparian Sun Angles
             - id: sun-angles
               title: _(Riparian sun angles)
@@ -521,6 +529,14 @@ sidebar:
               title: _(Green Seattle partnership)
               description: _(Restoration phases from the Green Seattle Partnership)
               visibleDefault: true
+
+              # Green river gorge
+            - id: green-gorge
+              title: _(Green river gorge)
+
+              # Emilio's map
+            - id: emilio
+              title: _(Emilio's map)
 
         - id: grp-community
           title: _(Community Data)
