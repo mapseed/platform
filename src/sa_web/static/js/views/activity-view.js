@@ -40,13 +40,20 @@ var Shareabouts = Shareabouts || {};
       // Check to see if we're at the bottom of the list and then fetch more results.
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
-      // Bind collection events
+      // Bind collection events 
+      /*
       _.each(this.collection, function(collections) {
-        _.each(collections, function(collection) {
-          collection.on('add', this.onAddAction, this);
-          collection.on('reset', this.onResetActivity, this);
+        _.each(collections, function(collection, datasetId) {
+          collection.on('add', self.onAddAction, self);
+          //collection.on('reset', self.onResetActivity, self);
+          collection.on('reset', self.onResetActivityWrapper(datasetId));
         });
       });
+      */
+
+      //this.collection.on('add', self.onAddAction, this);
+      this.collection.on('renderAll', self.onAddAll, this);
+      this.collection.on('reset', self.onResetActivity, this);
     },
 
     checkForNewActivity: function() {
@@ -100,15 +107,35 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
+    onAddAll: function() {
+      var self = this;
+      this.collection.sortBy = "created_datetime";
+      this.collection.sort();
+
+      this.collection.each(function(model) {
+        self.renderAction(model, self.collection.indexOf(model));
+      })
+    },
+
     onAddAction: function(model, collection) {
       this.renderAction(model, collection.indexOf(model));
     },
+  
+    // closure for onResetActivity
+    onResetActivityWrapper: function(datasetId) {
+      var self = this;
+      return function(collection) {
+        self.onResetActivity(datasetId, collection);
+      }
+    },
 
     onResetActivity: function(collection) {
+      console.log("onResetActivity");
+
       var self = this,
           placeIdsToFetch = [];
 
-      // We have acttions to show. Let's make sure we have the places we need
+      // We have actions to show. Let's make sure we have the places we need
       // to render them. If not, we'll fetch them in bulk and render after.
       collection.each(function(actionModel) {
         var actionType = actionModel.get('target_type'),
@@ -216,7 +243,7 @@ var Shareabouts = Shareabouts || {};
         placeId = actionModel.get('target').id;
       }
 
-      // If a place with the given ID exists, call sucess immediately.
+      // If a place with the given ID exists, call success immediately.
       placeModel = this.placeCollection.get(placeId);
       if (placeModel && options.success) {
         options.success(placeModel, null, options);
@@ -271,6 +298,16 @@ var Shareabouts = Shareabouts || {};
 
       $template = Handlebars.templates['activity-list']({activities: collectionData});
       self.$el.html($template);
+
+      /*
+      _.each(self.collection, function(collections) {
+        _.each(collections, function(collection, datasetId) {
+          collection.each(function(model) {
+            self.renderAction(model, index++, datasetId);
+          });
+        });
+      });
+*/
 
       self.collection.each(function(model) {
         self.renderAction(model, index++);

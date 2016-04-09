@@ -37,6 +37,8 @@ var Shareabouts = Shareabouts || {};
       // for use in the place list view
       this.mergedCollection = new S.PlaceCollection([]);
 
+      this.mergedActivities = new S.ActionCollection([]);
+
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
       if (S.Config.flavor.app.places_page_size) {
@@ -118,8 +120,9 @@ var Shareabouts = Shareabouts || {};
         // Init the view for displaying user activity
         this.activityView = new S.ActivityView({
           el: 'ul.recent-points',
-          collection: this.activities,
-          places: this.places,
+          collection: self.mergedActivities,
+          places: self.mergedCollection,
+          //places: this.collection.place,
           router: this.options.router,
           placeTypes: this.options.placeTypes,
           surveyConfig: this.options.surveyConfig,
@@ -265,14 +268,21 @@ var Shareabouts = Shareabouts || {};
       this.loadLandmarks();
 
       // Fetch the first page of activity
+      // TODO: this loop needs to happen after the collection of merged places has been populated
+      /*
       _.each(this.activities, function(activities) {
         _.each(activities, function(activity) {
           activity.fetch({
             reset: true,
             attribute: 'target',
+            // add this collection's models to the mergedActivities collection, for use in the activity view
+            success: function(collection) {
+              self.mergedActivities.add(collection.models);
+            }
           });
         });
       });
+*/
     },
 
     getListRoutes: function() {
@@ -308,7 +318,9 @@ var Shareabouts = Shareabouts || {};
 
 
       // loop over all place collections
-      _.each(self.collection.place, function(collection, key) {
+      var loopIndex = 0;
+      _.each(self.collection.place, function(collection, key, context) {
+
         collection.fetchAllPages({
           remove: false,
           // Check for a valid location type before adding it to the collection
@@ -320,11 +332,33 @@ var Shareabouts = Shareabouts || {};
           attribute: 'properties',
 
           success: function() {
+            loopIndex++;
             self.mergedCollection.add(collection.models);
             // Sort the list view after all of the pages have been fetched
             if (self.listView) {
               self.listView.sort();
               self.listView.updateSortLinks();
+            }
+
+            if (loopIndex == Object.keys(context).length) {
+              var activityLoopIndex = 0;
+              _.each(self.activities, function(activities) {
+                _.each(activities, function(activity, key, context) {
+                  activity.fetch({
+                    reset: true,
+                    attribute: 'target',
+                    // add this collection's models to the mergedActivities collection, for use in the activity view
+                    success: function(collection) {
+                      activityLoopIndex++;
+                      self.mergedActivities.add(collection.models);
+
+                      if (activityLoopIndex == Object.keys(context).length) {
+                        self.mergedActivities.trigger("renderAll");
+                      }
+                    }
+                  });
+                });
+              });
             }
           },
 
