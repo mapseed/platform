@@ -28,6 +28,7 @@ shell.cat([
   'src/sa_web/static/libs/gatekeeper.js',
   'src/sa_web/static/libs/swag.min.js',
   'src/sa_web/static/libs/jquery.scrollTo.js',
+  'src/sa_web/static/libs/jquery.datetimepicker.full.min.js',
   'src/sa_web/static/libs/handlebars-helpers.js',
   'src/sa_web/static/libs/leaflet.argo.js',
   'src/sa_web/static/libs/leaflet.sidebar.js'
@@ -70,6 +71,7 @@ shell.cat([
   'src/sa_web/static/css/normalize.css',
   'src/sa_web/static/css/default.css',
   'src/sa_web/static/css/leaflet-sidebar.css',
+  'src/sa_web/static/css/jquery.datetimepicker.css',
   'src/flavors/' + flavor + '/static/css/custom.css'
 ]).to('src/sa_web/static/dist/cat-bundle.css')
 
