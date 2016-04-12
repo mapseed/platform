@@ -690,7 +690,7 @@ place:
           optional: false
         - name: description
           type: textarea
-          prompt: _(What's your question?)
+          prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
     idea:
@@ -710,7 +710,7 @@ place:
         - name: description
           type: textarea
           prompt: _(Describe your idea below:)
-          display_prompt: _(Here's my idea:)
+          display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
           optional: false
     complaint:
@@ -729,7 +729,7 @@ place:
           optional: false
         - name: description
           type: textarea
-          prompt: _(What's your complaint?)
+          prompt: "_(What's your complaint?)"
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
@@ -831,7 +831,7 @@ place:
               value: visible_emission
             - label: _(Specific business or industry)
               value: business_or_industry
-            - label: _(Don't know/unsure)
+            - label: "_(Don't know/unsure)"
               value: unsure
             - label: _(Other (please describe in comments))
               value: other
