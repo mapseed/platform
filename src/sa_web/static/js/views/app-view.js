@@ -39,6 +39,9 @@ var Shareabouts = Shareabouts || {};
 
       this.mergedActivities = new S.ActionCollection([]);
 
+      console.log(this.mergedCollection);
+      console.log(this.mergedActivities);
+
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
       if (S.Config.flavor.app.places_page_size) {
@@ -334,6 +337,8 @@ var Shareabouts = Shareabouts || {};
               self.listView.updateSortLinks();
             }
 
+            console.log("self.activities", self.activities);
+
             if (loopIndex == Object.keys(context).length) {
               var activityLoopIndex = 0;
               _.each(self.activities, function(activities) {
@@ -341,6 +346,7 @@ var Shareabouts = Shareabouts || {};
                   activity.fetch({
                     reset: true,
                     attribute: 'target',
+                    attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
                     // add this collection's models to the mergedActivities collection, for use in the activity view
                     success: function(collection) {
                       activityLoopIndex++;
