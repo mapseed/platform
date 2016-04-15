@@ -314,6 +314,7 @@ var Shareabouts = Shareabouts || {};
               self.listView.updateSortLinks();
             }
 
+            // if we're loading the last place collection, trigger loading of activities
             if (loopIndex == Object.keys(context).length) {
               var activityLoopIndex = 0;
               _.each(self.activities, function(collection, key, context) {
@@ -321,11 +322,14 @@ var Shareabouts = Shareabouts || {};
                   reset: true,
                   attribute: 'target',
                   attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
-                  // add this collection's models to the mergedActivities collection, for use in the activity view
                   success: function(collection) {
                     activityLoopIndex++;
+                    // add this collection's models to the mergedActivities collection, 
+                    // for use in the activity view
                     self.mergedActivities.add(collection.models);
 
+                    // if we've successfully loaded the final activity collection, 
+                    // trigger rendering of the merged collection in the activity view
                     if (activityLoopIndex == Object.keys(context).length) {
                       self.mergedActivities.trigger("renderAll");
                     }
