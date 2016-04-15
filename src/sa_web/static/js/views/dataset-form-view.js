@@ -175,7 +175,7 @@ var Shareabouts = Shareabouts || {};
 
           // add the newly-created model to the mergedCollection,
           // for use on the place list view
-          self.options.appView.mergedCollection.add(model);
+          self.options.appView.mergedPlaces.add(model);
 
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
