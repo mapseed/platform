@@ -39,7 +39,7 @@ def read_env():
             os.environ[key] = val
 read_env()
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = os.environ.get('TIME_ZONE', 'America/New_York')
 DEBUG = TEMPLATE_DEBUG = (os.environ.get('DEBUG', 'true').lower()
                           in ('true', 'on', 't', 'yes'))
 
