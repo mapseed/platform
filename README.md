@@ -1,5 +1,5 @@
 ### Hey Duwamish! - [HeyDuwamish.org](http://heyduwamish.org)
-### Hey Willamette! - [HeyWillamette.org](http://heyduwamish.org)
+### Hey Willamette! - [HeyWillamette.org](http://heywillamette.org)
 
 Community powered mapping for environmental health, starting with our most polluted rivers.
 
