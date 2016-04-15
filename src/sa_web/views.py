@@ -361,12 +361,26 @@ def api(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    
+    #root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    root = request.GET.get('url')
+    dataset_id = request.GET.get('id')
+    print("root", root)
+    print("dataset_id", dataset_id)
+
+    # Clear out request object query string dictionary. For some reason, /api/places 
+    # will return an empty dataset if a query string is included in the request
+    request.GET = request.GET.copy()
+    if 'url' in request.GET:
+        request.GET.pop('url')
+    if 'id' in request.GET:
+        request.GET.pop('id')
 
     if root.startswith('file://'):
         return readonly_file_api(request, path, datafilename=root[7:])
 
-    api_key = settings.SHAREABOUTS.get('DATASET_KEY')
+    #api_key = settings.SHAREABOUTS.get('SITE_KEY')
+    api_key = settings.SHAREABOUTS.get(dataset_id.upper() + '_DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-sessionid')
 
     # It doesn't matter what the CSRF token value is, as long as the cookie and

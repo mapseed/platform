@@ -41,8 +41,12 @@ var Shareabouts = Shareabouts || {};
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
-      this.collection.on('add', this.onAddAction, this);
-      this.collection.on('reset', this.onResetActivity, this);
+      _.each(this.collection, function(collections) {
+        _.each(collections, function(collection) {
+          collection.on('add', this.onAddAction, this);
+          collection.on('reset', this.onResetActivity, this);
+        });
+      });
     },
 
     checkForNewActivity: function() {
