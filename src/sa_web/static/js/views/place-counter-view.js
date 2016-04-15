@@ -8,7 +8,7 @@ var Shareabouts = Shareabouts || {};
       var self = this;
       self.numberOfPlaces = 0;
 
-      _.each(this.collection.place.duwamish, function(collection) {
+      _.each(this.options.places.duwamish, function(collection) {
         self.numberOfPlaces += collection.models.length;
 
         // Bind data events

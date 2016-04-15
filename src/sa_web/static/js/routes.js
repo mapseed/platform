@@ -21,8 +21,11 @@ var Shareabouts = Shareabouts || {};
     initialize: function(options) {
       var self = this,
           startPageConfig,
-          filteredRoutes;
+          filteredRoutes,
+          // store config details for places and landmarks
+          configArrays = {};
 
+          /*
       this.collection = {
         "landmark": {},
         "place": {}
@@ -30,6 +33,19 @@ var Shareabouts = Shareabouts || {};
       this.activities = {
         "place": {}
       };
+      */
+
+      // store individual place collections for each place type
+      this.places = {};
+      // store individual activity collections for each place type
+      this.activities = {};
+      // store individual landmark collections for each landmark type
+      this.landmarks = {};
+      // store separate collection of all places merged together
+      this.mergedPlaces = new S.PlaceCollection([]);
+      // store separte collection of all activities merged together
+      this.mergedActivities = new S.ActionCollection([]);
+
 
       if (!options.placeConfig.dataset_slug) {
         options.placeConfig.dataset_slug = 'place';
@@ -69,46 +85,37 @@ var Shareabouts = Shareabouts || {};
 
       this.loading = true;      
 
-      var configArrays = {};
-
-      configArrays.landmark = options.mapConfig.layers.filter(function(layer) {
+      // set up landmark configs and instantiate landmark collections
+      configArrays.landmarks = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'landmark';
       });
-      configArrays.place = options.mapConfig.layers.filter(function(layer) {
+      _.each(configArrays.landmarks, function(config) {
+        var collection = new S.LandmarkCollection([], { url: config.url });
+        self.landmarks[config.id] = collection;
+      });
+
+      // set up place configs and instantiate place collections
+      configArrays.places = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'place';
       });
-     
-      _.each(configArrays, function(configArray) {
-        _.each(configArray, function(config) {
-          var collection;
-          if (config.type == "place") {
-            collection = new S.ActionCollection([]);
-            collection.url = "/dataset/" + config.id + "/actions";
-            self.activities[config.type][config.id] = collection;
-          }
-        });
+      _.each(configArrays.places, function(config) {
+        var collection = new S.PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
+        self.places[config.id] = collection;
       });
 
-      _.each(configArrays, function(configArray) {
-        _.each(configArray, function(config) {
-          var collection;
-          if (config.type == "place") {
-            collection = new S.PlaceCollection([]);
-            collection.url = "/dataset/" + config.id + "/places";
-          } else if (config.type == "landmark") {
-            collection = new S.LandmarkCollection([]);
-            collection.url = config.url;
-          }
-          
-          self.collection[config.type][config.id] = collection;
-
-        });
+      // instantiate action collections for shareabouts places
+      _.each(configArrays.places, function(config) {
+        var collection = new S.ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
+        self.activities[config.id] = collection;
       });
 
       this.appView = new S.AppView({
         el: 'body',
-        collection: this.collection,
         activities: this.activities,
+        places: this.places,
+        landmarks: this.landmarks,
+        mergedPlaces: this.mergedPlaces,
+        mergedActivities: this.mergedActivities,
         datasetConfigs: configArrays,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,

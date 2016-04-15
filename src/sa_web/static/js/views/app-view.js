@@ -33,15 +33,6 @@ var Shareabouts = Shareabouts || {};
             include_submissions: includeSubmissions
           };
 
-      // collection used to combine all place collections into one,
-      // for use in the place list view
-      this.mergedCollection = new S.PlaceCollection([]);
-
-      this.mergedActivities = new S.ActionCollection([]);
-
-      console.log(this.mergedCollection);
-      console.log(this.mergedActivities);
-
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
       if (S.Config.flavor.app.places_page_size) {
@@ -50,6 +41,10 @@ var Shareabouts = Shareabouts || {};
 
       // Boodstrapped data from the page
       this.activities = this.options.activities;
+      this.places = this.options.places;
+      this.landmarks = this.options.landmarks;
+      this.mergedPlaces = this.options.mergedPlaces;
+      this.mergedActivities = this.options.mergedActivities;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -120,8 +115,8 @@ var Shareabouts = Shareabouts || {};
       this.mapView = new S.MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
-        collection: this.collection,
-        landmarkCollections: this.options.landmarkCollections,
+        places: this.places,
+        landmarks: this.landmarks,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         cluster: this.options.cluster
@@ -142,9 +137,8 @@ var Shareabouts = Shareabouts || {};
         // Init the view for displaying user activity
         this.activityView = new S.ActivityView({
           el: 'ul.recent-points',
-          collection: self.mergedActivities,
-          places: self.mergedCollection,
-          //places: this.collection.place,
+          mergedActivities: this.mergedActivities,
+          mergedPlaces: this.mergedPlaces,
           router: this.options.router,
           placeTypes: this.options.placeTypes,
           surveyConfig: this.options.surveyConfig,
@@ -167,7 +161,7 @@ var Shareabouts = Shareabouts || {};
         el: '#place-counter',
         router: this.options.router,
         mapConfig: this.options.mapConfig,
-        collection: this.collection
+        places: this.places
       })).render();
 
       // When the user chooses a geocoded address, the address view will fire
@@ -218,7 +212,7 @@ var Shareabouts = Shareabouts || {};
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            collection: self.mergedCollection
+            collection: self.mergedPlaces
           }).render();
       }
 
@@ -246,11 +240,11 @@ var Shareabouts = Shareabouts || {};
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
 
-      _.each(this.collection.place, function(value, key) {
+      _.each(this.places, function(value, key) {
         self.placeDetailViews[key] = {};
       });
 
-      _.each(this.collection.landmark, function(value, key) {
+      _.each(this.landmarks, function(value, key) {
         self.landmarkDetailViews[key] = {};
       });
 
@@ -263,23 +257,6 @@ var Shareabouts = Shareabouts || {};
 
       // Load landmarks from the API
       this.loadLandmarks();
-
-      // Fetch the first page of activity
-      // TODO: this loop needs to happen after the collection of merged places has been populated
-      /*
-      _.each(this.activities, function(activities) {
-        _.each(activities, function(activity) {
-          activity.fetch({
-            reset: true,
-            attribute: 'target',
-            // add this collection's models to the mergedActivities collection, for use in the activity view
-            success: function(collection) {
-              self.mergedActivities.add(collection.models);
-            }
-          });
-        });
-      });
-*/
     },
 
     getListRoutes: function() {
@@ -295,13 +272,13 @@ var Shareabouts = Shareabouts || {};
       var self = this;
 
       // loop through landmark configs 
-      _.each(_.values(this.options.datasetConfigs.landmark), function(landmarkConfig) {
+      _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
-          self.collection.landmark[landmarkConfig.id].fetch({
+          self.landmarks[landmarkConfig.id].fetch({
             attributesToAdd: { location_type: landmarkConfig.placeType }
           });
         } else {
-          self.collection.landmark[landmarkConfig.id].fetch();
+          self.landmarks[landmarkConfig.id].fetch();
         }
       });
     },
@@ -316,7 +293,7 @@ var Shareabouts = Shareabouts || {};
 
       // loop over all place collections
       var loopIndex = 0;
-      _.each(self.collection.place, function(collection, key, context) {
+      _.each(self.places, function(collection, key, context) {
 
         collection.fetchAllPages({
           remove: false,
@@ -330,33 +307,29 @@ var Shareabouts = Shareabouts || {};
 
           success: function() {
             loopIndex++;
-            self.mergedCollection.add(collection.models);
+            self.mergedPlaces.add(collection.models);
             // Sort the list view after all of the pages have been fetched
             if (self.listView) {
               self.listView.sort();
               self.listView.updateSortLinks();
             }
 
-            console.log("self.activities", self.activities);
-
             if (loopIndex == Object.keys(context).length) {
               var activityLoopIndex = 0;
-              _.each(self.activities, function(activities) {
-                _.each(activities, function(activity, key, context) {
-                  activity.fetch({
-                    reset: true,
-                    attribute: 'target',
-                    attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
-                    // add this collection's models to the mergedActivities collection, for use in the activity view
-                    success: function(collection) {
-                      activityLoopIndex++;
-                      self.mergedActivities.add(collection.models);
+              _.each(self.activities, function(collection, key, context) {
+                collection.fetch({
+                  reset: true,
+                  attribute: 'target',
+                  attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
+                  // add this collection's models to the mergedActivities collection, for use in the activity view
+                  success: function(collection) {
+                    activityLoopIndex++;
+                    self.mergedActivities.add(collection.models);
 
-                      if (activityLoopIndex == Object.keys(context).length) {
-                        self.mergedActivities.trigger("renderAll");
-                      }
+                    if (activityLoopIndex == Object.keys(context).length) {
+                      self.mergedActivities.trigger("renderAll");
                     }
-                  });
+                  }
                 });
               });
             }
@@ -579,7 +552,7 @@ var Shareabouts = Shareabouts || {};
           placeConfig: this.options.placeConfig,
           userToken: this.options.userToken,
           // only need to send place collection, since all data added will be a place of some kind
-          collection: this.collection.place
+          collection: this.places
         });
       }
       
@@ -654,9 +627,9 @@ var Shareabouts = Shareabouts || {};
         var cachedModel;
         var collectionId;
 
-        _.find(Object.keys(self.options.collection.landmark), function(landmarkConfigId) {
+        _.find(Object.keys(self.options.landmarks), function(landmarkConfigId) {
           collectionId = landmarkConfigId;
-          cachedModel = self.collection.landmark[collectionId].get(model);
+          cachedModel = self.landmarks[collectionId].get(model);
           return cachedModel;
         });
         if (cachedModel) {
@@ -794,7 +767,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-      model = this.collection.place[datasetId].get(modelId);
+      model = this.places[datasetId].get(modelId);
 
       // If the model was found in the places, go ahead and use it.
       if (model) {
@@ -802,7 +775,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch and use the result.
       } else {
-        this.collection.place[datasetId].fetchById(modelId, {
+        this.places[datasetId].fetchById(modelId, {
           // Check for a valid location type before adding it to the collection
           validate: true,
           success: onPlaceFound,
@@ -906,26 +879,38 @@ var Shareabouts = Shareabouts || {};
                                .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
     },
     unfocusAllPlaces: function() {
-      // Unfocus all of the markers
+      // Unfocus all of the place markers
+      _.each(this.places, function(collection) {
+        collection.each(function(model) {
+          if (!model.isNew()) {
+            model.trigger('unfocus');
+          }
+        });
+      });
 
-      _.each(this.collection, function(collections) {
-        _.each(collections, function(collection) {
-          collection.each(function(m){
-            if (!m.isNew()) {
-              m.trigger('unfocus');
-            }
-          });
+      // Unfocus all of the landmark markers
+      _.each(this.landmarks, function(collection) {
+        collection.each(function(model) {
+          if (!model.isNew()) {
+            model.trigger('unfocus');
+          }
         });
       });
     },
     destroyNewModels: function() {
-      _.each(this.collection, function(collections) {
-        _.each(collections, function(collection) {
-          collection.each(function(m){
-            if (m && m.isNew()) {
-              m.destroy();
-            }
-          });
+      _.each(this.places, function(collection) {
+        collection.each(function(model) {
+          if (model && model.isNew()) {
+            model.destroy()
+          }
+        });
+      });
+
+      _.each(this.landmarks, function(collection) {
+        collection.each(function(model) {
+          if (model && model.isNew()) {
+            model.destroy()
+          }
         });
       });
     },
