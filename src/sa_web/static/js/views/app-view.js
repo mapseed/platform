@@ -706,7 +706,7 @@ var Shareabouts = Shareabouts || {};
         // places collection, it may not correspond to a layerView. For this
         // case, get the model that's actually in the places collection.
         if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.collection.place[datasetId].get(model.id);
+          model = self.places[datasetId].get(model.id);
         }
 
         // TODO: We need to handle the non-deterministic case when
