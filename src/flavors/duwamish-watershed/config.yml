@@ -115,6 +115,10 @@ map:
       type: cartodb
       url: "https://emayorga.cartodb.com/api/v2/viz/fb184750-5e4d-11e3-8523-3d3c64e1fada/viz.json"
 
+      # WRIA9 watershed
+    - id: watershed
+      type: cartodb
+      url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -537,6 +541,12 @@ sidebar:
               # Emilio's map
             - id: emilio
               title: _(Emilio's map)
+
+              # WRIA9 watershed
+            - id: watershed
+              title: _(Watershed)
+              visibleDefault: true
+
 
         - id: grp-community
           title: _(Community Data)
