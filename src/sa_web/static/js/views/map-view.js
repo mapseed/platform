@@ -47,7 +47,7 @@ var Shareabouts = Shareabouts || {};
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.type && config.type === 'cartodb') {
-          cartodb.createLayer(self.map, config.url)
+          cartodb.createLayer(self.map, config.url, { legends: false })
             .on('done', function(cartoLayer) {
               self.layers[config.id] = cartoLayer;
               // This is only set when the 'visibibility' event is fired before
