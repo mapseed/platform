@@ -67,7 +67,7 @@ map:
 
   # Legend Layers
     - id: restoration
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/test.geojson
       type: landmark
 
     - id: vision
@@ -315,13 +315,13 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-whale.png
 
-  # # needs a marker
-  # farm:
-  #   zoomType: mapboxZoomStyle
-  #   rules:
-  #     - condition: 'true'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/dot-0d85e9.png
+  # needs a marker
+  farm:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
 
   observation:
     label: _(Observation)
@@ -483,7 +483,7 @@ sidebar:
   # Layers are defined in the "map config" section
   panels:
     legend:
-      title: _(Citizen Reports:)
+      title: _(Community reports:)
       items:
         - title: _(Observations)
           image: /static/css/images/markers/marker-observation.png
@@ -570,7 +570,7 @@ sidebar:
             - id: restoration
               title: _(Restoration Sites)
               description: _(Habitat restoration and other improvements)
-              visibleDefault: false
+              visibleDefault: true
 
         - id: grp-history
           title: _(Historical Data)
