@@ -101,6 +101,11 @@ map:
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
 
+      # Riparian Sun Angles
+    - id: sun-angles
+      type: cartodb
+      url: "https://smartercleanup.cartodb.com/api/v2/viz/8bcf5444-fe12-11e5-8b83-0e3ff518bd15/viz.json"
+
 # The keys show up in the dropdown list when you are adding a new place
 
 # The values map the place type to map icons (defined below).
@@ -531,6 +536,12 @@ sidebar:
             - id: noxious-weeds
               title: _(Noxious Weeds)
               description: _(Invasive species of weeds)
+              visibleDefault: false
+
+              # Riparian Sun Angles
+            - id: sun-angles
+              title: _(Riparian sun angles)
+              description: _(Riparian sun angles)
               visibleDefault: false
 
         - id: grp-history
