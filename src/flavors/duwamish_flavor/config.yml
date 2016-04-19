@@ -101,10 +101,10 @@ map:
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
 
-      # Riparian Sun Angles
-    - id: sun-angles
+       # WRIA9 watershed
+    - id: watershed
       type: cartodb
-      url: "https://smartercleanup.cartodb.com/api/v2/viz/8bcf5444-fe12-11e5-8b83-0e3ff518bd15/viz.json"
+      url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -538,11 +538,10 @@ sidebar:
               description: _(Invasive species of weeds)
               visibleDefault: false
 
-              # Riparian Sun Angles
-            - id: sun-angles
-              title: _(Riparian sun angles)
-              description: _(Riparian sun angles)
-              visibleDefault: false
+              # WRIA9 watershed
+            - id: watershed
+              title: _(Watershed)
+              visibleDefault: true
 
         - id: grp-history
           title: _(Historical Data)
