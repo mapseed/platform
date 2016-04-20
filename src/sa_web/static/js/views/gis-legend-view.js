@@ -11,12 +11,12 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
-            groupings: this.options.groupings
+            groupings: this.options.config.groupings
           }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['gis-legend-content'](data));
 
-      _.each(this.options.groupings, function(group) {
+      _.each(this.options.config.groupings, function(group) {
         _.each(group.layers, function(layer) {
           $(S).trigger('visibility', [layer.id, !!layer.visibleDefault]);
         });
@@ -39,7 +39,7 @@ var Shareabouts = Shareabouts || {};
       var $groupbox = $(evt.target),
            groupid = $groupbox.attr("id"),
            isChecked = $groupbox.is(":checked"),
-           group = _.find(this.options.groupings, function(group) {
+           group = _.find(this.options.config.groupings, function(group) {
                      return group.id === groupid;
                    });
 
