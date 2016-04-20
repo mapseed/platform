@@ -15,9 +15,6 @@ var Shareabouts = Shareabouts || {};
       this.mergedPlaces = this.options.mergedPlaces;
       this.mergedActivities = this.options.mergedActivities;
 
-      console.log(this.mergedPlaces);
-      console.log(this.mergedActivities);
-
       // Infinite scroll elements and functions
       // Window where the activity lives
       this.$container = this.$el.parent();
@@ -254,6 +251,7 @@ var Shareabouts = Shareabouts || {};
             modelData;
 
         modelData = self.processActionData(model, placeModel);
+        console.log("modelData", modelData);
 
         if (modelData) {
           $template = $(Handlebars.templates['activity-list-item'](modelData));

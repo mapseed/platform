@@ -321,7 +321,8 @@ var Shareabouts = Shareabouts || {};
                 collection.fetch({
                   reset: true,
                   attribute: 'target',
-                  attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
+                  attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id,
+                                     datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug },
                   success: function(collection) {
                     activityLoopIndex++;
                     // add this collection's models to the mergedActivities collection, 
