@@ -1,0 +1,49 @@
+<div id="sidebar" class="sidebar collapsed">
+  <!-- TODO: Refactor these tabs/panes into a single view -->
+  <!-- Nav tabs -->
+  <div class="sidebar-tabs">
+    <ul role="tablist">
+    {{#if config.panels.gis_layers }}
+      <li><a href="#layers-pane" role="tab"><i class="fa fa-list"></i></a></li>
+    {{/if}}
+    {{#if config.panels.ticker }}
+      <li><a href="#activity-stream-pane" role="tab"><i class="fa fa-comments-o"></i></a></li>
+    {{/if}}
+    {{#if config.panels.legend }}
+      <li><a href="#legend-pane" role="tab"><i class="fa fa-info-circle"></i></a></li>
+    {{/if}}
+    </ul>
+  </div>
+
+  <!-- Tab panes -->
+  <div class="sidebar-content">
+    
+    {{#if config.panels.legend.title }}
+    <!-- Legend Panel (Shareabouts Layers_) -->
+    <div class="sidebar-pane" id="legend-pane">
+      <h1 class="sidebar-header">{{ config.panels.legend.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+      <div id="master-legend"></div>
+    </div>
+    {{/if}}
+
+    {{#if config.panels.gis_layers }}
+    <!-- Layers Panel (GIS Layers) -->
+    <div class="sidebar-pane" id="layers-pane">
+      <h1 class="sidebar-header">{{ config.panels.gis_layers.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+      <div id="gis-legend"></div>
+    </div>
+    {{/if}}
+
+    {{#if config.panels.ticker }}
+    <!-- Activity Stream Panel -->
+    <div class="sidebar-pane" id="activity-stream-pane">
+      <h1 class="sidebar-header">{{ config.panels.ticker.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+      <div id="ticker">
+        <ul class="recent-points unstyled-list"></ul>
+      </div>
+    </div>
+    {{/if}}
+
+  </div>
+
+</div

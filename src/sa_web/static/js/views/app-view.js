@@ -144,16 +144,10 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (self.options.sidebarConfig.enabled){
-          (new S.LegendView({
-          el: '#master-legend',
+        (new S.SidebarView({
+          el: '#sidebar-container',
           mapView: this.mapView,
-          items: this.options.sidebarConfig.panels.legend.items
-        })).render();
-
-        (new S.GISLegendView({
-          el: '#gis-legend',
-          mapView: this.mapView,
-          groupings: this.options.sidebarConfig.panels.gis_layers.groupings
+          sidebarConfig: this.options.sidebarConfig
         })).render();
       }
 
