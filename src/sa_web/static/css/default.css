@@ -1139,6 +1139,7 @@ ul.recent-points {
 /**/
   /*text-transform: none;*/
 /*}*/
+
 #master-legend .layer-type-title:active label:hover,
 #master-legend .shareabouts-layer-li:active a {
   color: #00aaff;
@@ -1620,9 +1621,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 }
 
 
-/* 
-Catchall media query for screen widths below 60em. Calculated screen heights mean we don't need several media queries as above, 
-and in general don't need to worry about querying heights, but keeping the skeleton of those around in case future design features 
+/*
+Catchall media query for screen widths below 60em. Calculated screen heights mean we don't need several media queries as above, and in general don't need to worry about querying heights, but keeping the skeleton of those around in case future design features
 require specific media queries.
 */
 @media only screen and (max-width: 60em) {

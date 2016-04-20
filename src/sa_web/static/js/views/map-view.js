@@ -50,7 +50,7 @@ var Shareabouts = Shareabouts || {};
           cartodb.createLayer(self.map, config.url, { legends: false })
             .on('done', function(cartoLayer) {
               self.layers[config.id] = cartoLayer;
-              // This is only set when the 'visibibility' event is fired before
+              // This is only set when the 'visibility' event is fired before
               // our carto layer is loaded:
               if (config.asyncLayerVisibleDefault) {
                 cartoLayer.addTo(self.map);

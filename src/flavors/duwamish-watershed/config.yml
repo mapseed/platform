@@ -540,7 +540,7 @@ sidebar:
 
               # Emilio's map
             - id: emilio
-              title: _(Emilio's map)
+              title: "_(Emilio's map)"
 
               # WRIA9 watershed
             - id: watershed
