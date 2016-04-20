@@ -8,14 +8,6 @@ var Shareabouts = Shareabouts || {};
       'change .map-legend-grouping-checkbox': 'toggleHeaderVisibility'
     },
 
-    initialize: function () {
-      var self = this;
-      self.sidebar = L.control.sidebar('sidebar', {
-        position: 'left'
-      });
-      self.sidebar.addTo(this.options.mapView.map);
-    },
-
     render: function() {
       var self = this,
           data = _.extend({

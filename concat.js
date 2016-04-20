@@ -42,7 +42,6 @@ shell.cat([
   'src/sa_web/static/js/views/app-view.js',
   'src/sa_web/static/js/views/layer-view.js',
   'src/sa_web/static/js/views/basic-layer-view.js',
-  'src/sa_web/static/js/views/legend-view.js',
   'src/sa_web/static/js/views/place-counter-view.js',
   'src/sa_web/static/js/views/geocode-address-view.js',
   'src/sa_web/static/js/views/geocode-address-place-view.js',
@@ -54,7 +53,9 @@ shell.cat([
   'src/sa_web/static/js/views/place-form-view.js',
   'src/sa_web/static/js/views/place-list-view.js',
   'src/sa_web/static/js/views/map-view.js',
+  'src/sa_web/static/js/views/legend-view.js',
   'src/sa_web/static/js/views/gis-legend-view.js',
+  'src/sa_web/static/js/views/sidebar-view.js',
   'src/sa_web/static/js/routes.js',
   'src/flavors/' + flavor + '/static/js/*.js',
   'src/flavors/' + flavor + '/static/js/views/*.js'

@@ -1110,58 +1110,10 @@ ul.recent-points {
   font-size: 0.5em;
 }
 
-/* allows hover to be positioned on the 'layer-type-description' */
-.layer-type-list li {
-  position: relative;
-}
 .layer-type-list img {
   height: 1.75em;
   width: auto;
   vertical-align: middle;
-}
-.layer-type-description img {
-  height: auto;
-  width: auto;
-}
-.layer-type-description {
-  height: 0;
-  overflow: visible;
-  opacity: 0;
-  position: absolute;
-  z-index: 30;
-  top: 100%;
-  right: 1em;
-  bottom: auto;
-  left: 0.875em;
-  margin: 0.25em 0 0 0;
-  border-radius: 0 0.5em 0.5em 0.5em;
-  background: #000;
-  color: #fff;
-  font-size: 0.875em;
-  line-height: 1.25;
-  box-shadow: -0.25em 0 1em rgba(255,255,255,0.8);
-  -webkit-transition: opacity .25s ease-in-out;
-  -moz-transition: opacity .25s ease-in-out;
-  transition: opacity .25s ease-in-out;
-  pointer-events: none;
-}
-.layer-type-li:hover .layer-type-description {
-  height: auto;
-  padding: 0.375em 0.625em;
-  opacity: 1;
-  overflow: visible;
-}
-.layer-type-li:hover .layer-type-description:after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  width: 0;
-  height: 0;
-  border: 0.5em solid transparent;
-  border-bottom-color: #000;
-  border-left-color: #000;
 }
 
 #master-legend .layer-type-list {
@@ -1187,23 +1139,12 @@ ul.recent-points {
 /**/
   /*text-transform: none;*/
 /*}*/
+
 #master-legend .layer-type-title:active label:hover,
 #master-legend .shareabouts-layer-li:active a {
   color: #00aaff;
 }
 
-/*#master-legend .layer-type-list:after {*/
-  /*content: '';*/
-  /*position: absolute;*/
-  /*z-index: 10;*/
-  /*top: 0;*/
-  /*left: 0;*/
-  /*height: 1.75em;*/
-  /*width: 1.75em;*/
-  /*border-radius: 100%;*/
-  /*background: #fff;*/
-  /*box-shadow: 0 0 0 2px #fff;*/
-/*}*/
 #master-legend .map-layer-list {
   margin-bottom: 0.5em;
   font-size: 0.75em;
@@ -1680,9 +1621,8 @@ browser height, but in portrait mode, we usually have ~30px of nav/status-bar, s
 }
 
 
-/* 
-Catchall media query for screen widths below 60em. Calculated screen heights mean we don't need several media queries as above, 
-and in general don't need to worry about querying heights, but keeping the skeleton of those around in case future design features 
+/*
+Catchall media query for screen widths below 60em. Calculated screen heights mean we don't need several media queries as above, and in general don't need to worry about querying heights, but keeping the skeleton of those around in case future design features
 require specific media queries.
 */
 @media only screen and (max-width: 60em) {
