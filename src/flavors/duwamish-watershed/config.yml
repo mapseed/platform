@@ -321,7 +321,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconUrl: /static/css/images/markers/marker-rec.png
 
   observation:
     label: _(Observation)
