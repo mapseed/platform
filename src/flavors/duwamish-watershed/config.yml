@@ -1,7 +1,7 @@
 # Settings for the app
 app:
   # HTML Title
-  title: The Green-Duwamish Watershed
+  title: The Green-Duwamish
   # Header name
   name: "The Green-Duwamish Watershed"
   # Meta description that will show up in Google search results
@@ -125,126 +125,20 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
 
-  georgetownZoomStyle:
-    - condition: '{{layer.focused}} === true'
-      icon:
-        iconSize: [60, 60]
-        iconAnchor: [30, 30]
-    - condition: '{{map.zoom}} < 14'
-      icon:
-        iconSize: [7.5, 7.5]
-        iconAnchor: [4, 4]
-    - condition: '{{map.zoom}} < 16'
-      icon:
-        iconSize: [15, 15]
-        iconAnchor: [8, 8]
-    - condition: '{{map.zoom}} >= 16'
-      icon:
-        iconSize: [30, 30]
-        iconAnchor: [15, 15]
-
   mapboxZoomStyle:
     - condition: '{{layer.focused}} === true'
       icon:
-        iconSize: [50, 50]
-        iconAnchor: [25, 25]
+        iconSize: [35, 90]
+        iconAnchor: [17, 90]
     - condition: '{{map.zoom}} < 16'
       icon:
-        iconSize: [20, 20]
-        iconAnchor: [10, 10]
+        iconSize: [35, 90]
+        iconAnchor: [17, 90]
+
     - condition: '{{map.zoom}} >= 16'
       icon:
-        iconSize: [30, 30]
-        iconAnchor: [15, 15]
-
-  wetland:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
-  park:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
-
-  school:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
-
-  police:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
-
-  rail:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-
-  town-hall:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+        iconSize: [35, 90]
+        iconAnchor: [17, 90]
 
   mapbox:
     # Mapbox Points
@@ -271,28 +165,28 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
+          iconUrl: /static/css/images/markers/marker-forest.png
 
   park2:
     zoomType: mapboxZoomStyle
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-heart.png
+          iconUrl: /static/css/images/markers/marker-gsi.png
 
   industrial:
     zoomType: mapboxZoomStyle
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-industrial.png
+          iconUrl: /static/css/images/markers/marker-research.png
 
   bicycle:
     zoomType: mapboxZoomStyle
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-bike.png
+          iconUrl: /static/css/images/markers/marker-research.png
 
   swimming:
     zoomType: mapboxZoomStyle
@@ -306,14 +200,14 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-art.png
+          iconUrl: /static/css/images/markers/marker-tree.png
 
   zoo:
     zoomType: mapboxZoomStyle
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-whale.png
+          iconUrl: /static/css/images/markers/marker-water.png
 
   # needs a marker
   farm:
@@ -483,19 +377,22 @@ sidebar:
   # Layers are defined in the "map config" section
   panels:
     legend:
-      title: _(Community reports:)
+      title: _(Legend:)
       items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
+        - title: _(Wetland protection)
+          image: /static/css/images/markers/marker-swimming.png
           url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
+        - title: _(Research & Monitoring)
+          image: /static/css/images/markers/marker-research.png
           url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
+        - title: _(Recreation / Open space)
+          image: /static/css/images/markers/marker-rec.png
           url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
+        - title: _(Tree planting)
+          image: /static/css/images/markers/marker-tree.png
+          url: /filter/complaint
+        - title: _(Water quality)
+          image: /static/css/images/markers/marker-water.png
           url: /filter/complaint
     gis_layers:
       title: _(Map Layers:)
