@@ -156,7 +156,7 @@ var Shareabouts = Shareabouts || {};
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
 
-      model.attributes["from_dynamic_form"] = true;
+      //model.attributes["from_dynamic_form"] = true;
       model.attributes["datasetSlug"] = this.selectedDatasetSlug;
       model.attributes["datasetId"] = this.selectedDatasetId;
       evt.preventDefault();
@@ -173,7 +173,7 @@ var Shareabouts = Shareabouts || {};
         success: function() {
           S.Util.log('USER', 'new-place', 'successfully-add-place');
 
-          // add the newly-created model to the mergedCollection,
+          // add the newly-created model to mergedPlaces,
           // for use on the place list view
           self.options.appView.mergedPlaces.add(model);
 

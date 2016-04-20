@@ -181,8 +181,9 @@ var Shareabouts = Shareabouts || {};
     exclusions = args.slice(0, args.length-1);
     
     // check if a report has been made with the dynamic form, or with the regular form, and iterate appropriately
-    _.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {      
-      
+    //_.each(this.from_dynamic_form ? NS.Config.place.categories[this.location_type].fields : NS.Config.place.items, function(item, i) {      
+    _.each(NS.Config.place.categories[this.location_type].fields, function(item, i) {
+
       // filter for the correct label/value pair
       var display_value = _.filter(item.content, function(option) {
         return option.value == self[item.name];
