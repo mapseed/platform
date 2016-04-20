@@ -311,6 +311,24 @@ sidebar:
               description: _(The original Duwamish River path)
               visibleDefault: false
 
+    - id: stakeholders-list
+      view: LegendView
+      title: _(Stakeholders:)
+      icon: users
+      items:
+        - title: Port of Seattle
+          image: /static/css/images/pos-logo.jpg
+          url: /filter/observation
+        - title: Seattle Public Utilities
+          image: /static/css/images/spu-logo.jpg
+          url: /filter/idea
+        - title: Forterra
+          image: /static/css/images/forterra-logo.jpg
+          url: /filter/complaint
+        - title: Army Corps of Engineers
+          image: /static/css/images/acoe-logo.png
+          url: /filter/question
+
     - id: reports_legend
       view: LegendView
       title: _(Community reports:)
