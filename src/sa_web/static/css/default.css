@@ -1085,15 +1085,16 @@ ul.recent-points {
 
 /* =MasterLegend
 -------------------------------------------------------------- */
-#master-legend {
-  overflow: visible;
+.master-layer-list {
   padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-  /*display: none;*/
+  list-style-type: none;
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0.5em;
+  margin-botom: 0;
 }
 /* All layers in the Master Legend list */
-#master-legend .unstyled-list {
+.master-layer-list .unstyled-list {
 }
 
 .layer-type-list {
@@ -1116,19 +1117,18 @@ ul.recent-points {
   vertical-align: middle;
 }
 
-#master-legend .layer-type-list {
+.master-layer-list .layer-type-list {
   font-size: 0.875em;
 }
 
-#master-legend .layer-type-title label, .layer-type-title input {
+.master-layer-list .layer-type-title label, .layer-type-title input {
   vertical-align: middle;
   margin-right: 8px;
   font-size: 1.33em;
   letter-spacing: 1px;
 }
 
-#master-legend .shareabouts-layer-li {
-  font-size: 1.3em;
+.master-layer-list .shareabouts-layer-li {
   letter-spacing: 1.4px;
 }
 /*#master-legend .layer-type-title label {*/
@@ -1140,12 +1140,12 @@ ul.recent-points {
   /*text-transform: none;*/
 /*}*/
 
-#master-legend .layer-type-title:active label:hover,
-#master-legend .shareabouts-layer-li:active a {
+.master-layer-list .layer-type-title:active label:hover,
+.master-layer-list .shareabouts-layer-li:active a {
   color: #00aaff;
 }
 
-#master-legend .map-layer-list {
+.master-layer-list .map-layer-list {
   margin-bottom: 0.5em;
   font-size: 0.75em;
 }
@@ -1157,7 +1157,7 @@ ul.recent-points {
   /*box-sizing: border-box;*/
 /*}*/
 @media screen and (min-width: 40.063em) {
-  .active #master-legend {
+  .active .master-layer-list {
     height: 100%;
     width: 16em;
     top: 0;
@@ -1167,8 +1167,8 @@ ul.recent-points {
 }
 
 /* Shareabouts layers */
-#master-legend .layer-type-li label,
-#master-legend .shareabouts-layer-li a {
+.master-layer-list .layer-type-li label,
+.master-layer-list .shareabouts-layer-li a {
   cursor: pointer;
   position: relative;
   z-index: 20;
@@ -1177,7 +1177,7 @@ ul.recent-points {
   text-transform: none;
   font-family: 'Roboto', sans-serif;
 }
-#master-legend .shareabouts-layer-title {
+.master-layer-list .shareabouts-layer-title {
   font-size: 1.4em;
   cursor: pointer;
   width: 1em;
@@ -1186,6 +1186,23 @@ ul.recent-points {
   text-transform: none;
   vertical-align: top;
   margin-right: 8px;
+}
+
+/* Legend View */
+
+.master-layer-list li,
+.master-layer-list img {
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  float: left; /* to reduce space between legend list items */
+}
+.nested-legend-list li {
+  font-size: 0.75em;
+  padding-bottom: 1em;
+  list-style-type: circle;
+  float: none; /* to prevent reducing space between nested list items */
 }
 /*#legend-container .legend-layer-li img {
   width: 2em;
@@ -1978,10 +1995,10 @@ require specific media queries.
   }
 
   /* master-legend */
-  #master-legend {
+  .master-layer-list {
     z-index: 15;
   }
-  .activity-enabled.content-visible #master-legend {
+  .activity-enabled.content-visible .master-layer-list {
     display: block;
   }
   .activity-enabled #map-container {

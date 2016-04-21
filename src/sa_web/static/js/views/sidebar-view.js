@@ -19,20 +19,13 @@ var Shareabouts = Shareabouts || {};
 
       this.$el.html(Handlebars.templates['sidebar'](data));
 
-      this.legendView = new S.LegendView({
-        el: '#master-legend',
-        mapView: this.mapView,
-        items: this.sidebarConfig.panels.legend.items
+      _.each(this.sidebarConfig.panels, function(panelConfig) {
+        (new S[panelConfig.view]({
+          el: '#' + panelConfig.id,
+          mapView: this.mapView,
+          config: panelConfig
+        })).render();
       });
-
-      this.gisLegendView = new S.GISLegendView({
-        el: '#gis-legend',
-        mapView: this.mapView,
-        groupings: this.sidebarConfig.panels.gis_layers.groupings
-      });
-
-      this.legendView.render();
-      this.gisLegendView.render();
 
       self.sidebar = L.control.sidebar('sidebar', {
         position: 'left'
