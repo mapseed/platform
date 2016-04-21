@@ -664,7 +664,7 @@ place:
               value: litter
             - label: _(Other)
               value: other
-          optional: true
+          optional: true # NOTE: checkbox_big_button inputs have no validation
         - name: description
           type: textarea
           prompt: _(Description of this pollution:)
@@ -752,7 +752,7 @@ place:
               value: "yes"
             - label: _(No)
               value: "no"
-          optional: true
+          optional: true # NOTE: binary_toggle inputs have no validation
         - name: odd_smell
           type: binary_toggle 
           prompt: _(I observe an odd smell)
@@ -802,7 +802,7 @@ place:
           prompt: _(Please note other physical effects you are experiencing)
           display_prompt: _(Other physical effects I experienced:)
           annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
+          optional: false
         - name: source  #internally used name for this form element
           type: dropdown  #form type
           prompt: _(Select one of the following to identify the source of the bad air quality.)  #question prompt

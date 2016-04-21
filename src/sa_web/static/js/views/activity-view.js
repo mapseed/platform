@@ -251,7 +251,6 @@ var Shareabouts = Shareabouts || {};
             modelData;
 
         modelData = self.processActionData(model, placeModel);
-        console.log("modelData", modelData);
 
         if (modelData) {
           $template = $(Handlebars.templates['activity-list-item'](modelData));

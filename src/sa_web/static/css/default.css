@@ -335,7 +335,15 @@ select {
   border: 2px solid rgba(242, 82, 24, 0.89)
 }
 .big-btn {
-  display:none;
+  /*display: none;*/
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+.radio_big_buttons,
+.checkbox_big_buttons {
+  position: relative;
 }
 #category-btns {
   margin-bottom: 20px;

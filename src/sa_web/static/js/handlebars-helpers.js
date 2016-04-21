@@ -194,11 +194,6 @@ var Shareabouts = Shareabouts || {};
         type: item.type
       };
 
-      // handle case where user makes no selection on dropdowns
-      if (newItem.value == "no_response") {
-        newItem.value = "";
-      }
-
       // if not an exclusion and not private data and not an empty response
       if (_.contains(exclusions, item.name) === false &&
           item.name.indexOf('private-') !== 0 &&
