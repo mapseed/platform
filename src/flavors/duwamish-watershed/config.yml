@@ -319,15 +319,43 @@ sidebar:
         - title: Port of Seattle
           image: /static/css/images/pos-logo.jpg
           url: /filter/observation
+          items:
+            - title: _(Terminal 105)
+              url: /terminal-105
+            - title: _(Puget Creek Estuary)
+              url: /puget-creek-estuary
+            - title: _(Seattle Seawall Project)
+              url: /seattle-seawall-project
         - title: Seattle Public Utilities
           image: /static/css/images/spu-logo.jpg
           url: /filter/idea
+          items:
+            - title: _(Lower Fauntleroy Creek)
+              url: /lower-fauntleroy-creek
+            - title: _(Longfellow Creek at Thistle Street)
+              url: /longfellow-creek-at-thistle-street
+            - title: _(Longfellow Creek 2)
+              url: /longfellow-creek-2
         - title: Forterra
           image: /static/css/images/forterra-logo.jpg
           url: /filter/complaint
+          items:
+            - title: _(Duwamish Hill Preserve)
+              url: /duwamish-hill-preserve
+            - title: _(Feeder Bluff Protection Acquisition (Beaconsfield))
+              url: /feeder-bluff-protection-acquisition-beaconsfield-ns-11
+            - title: _(Beaconsfield on the Sound)
+              url: /beaconsfield-on-the-sound-clc
         - title: Army Corps of Engineers
           image: /static/css/images/acoe-logo.png
           url: /filter/question
+          items:
+            - title: "_(Marysville to Brown's Point)"
+              url: /marysville-to-browns-point
+            - title: _(Olson Creek Restoration)
+              url: /olson-creek-restoration-project-details-lg-2
+            - title: _(Hawley Revetment)
+              url: /hawley-revetment-lg-7
 
     - id: reports_legend
       view: LegendView

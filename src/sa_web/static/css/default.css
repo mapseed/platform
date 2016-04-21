@@ -1086,11 +1086,12 @@ ul.recent-points {
 /* =MasterLegend
 -------------------------------------------------------------- */
 .master-layer-list {
-  overflow: visible;
   padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-  /*display: none;*/
+  list-style-type: none;
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0.5em;
+  margin-botom: 0;
 }
 /* All layers in the Master Legend list */
 .master-layer-list .unstyled-list {
@@ -1185,6 +1186,23 @@ ul.recent-points {
   text-transform: none;
   vertical-align: top;
   margin-right: 8px;
+}
+
+/* Legend View */
+
+.master-layer-list li,
+.master-layer-list img {
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  float: left; /* to reduce space between legend list items */
+}
+.nested-legend-list li {
+  font-size: 0.75em;
+  padding-bottom: 1em;
+  list-style-type: circle;
+  float: none; /* to prevent reducing space between nested list items */
 }
 /*#legend-container .legend-layer-li img {
   width: 2em;
