@@ -70,10 +70,6 @@ map:
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/test.geojson
       type: landmark
 
-    - id: vision
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      type: landmark
-
     - id: cleanup
       type: cartodb
       url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
@@ -290,11 +286,6 @@ sidebar:
               description: _(The EPA-approved cleanup plan for the river)
               visibleDefault: false
 
-            - id: vision
-              title: _(Community Vision)
-              description: _(Priority areas identified through community visioning projects)
-              visibleDefault: false
-
             - id: restoration
               title: _(Restoration Sites)
               description: _(Habitat restoration and other improvements)
@@ -311,9 +302,9 @@ sidebar:
               description: _(The original Duwamish River path)
               visibleDefault: false
 
-    - id: stakeholders-list
+    - id: organizations
       view: LegendView
-      title: _(Stakeholders:)
+      title: _(Sites by organization:)
       icon: users
       items:
         - title: Port of Seattle
@@ -359,8 +350,8 @@ sidebar:
 
     - id: reports_legend
       view: LegendView
-      title: _(Community reports:)
-      icon: commenting
+      title: _(Legend:)
+      icon: info-circle
       items:
         - title: _(Wetland protection)
           image: /static/css/images/markers/marker-swimming.png
