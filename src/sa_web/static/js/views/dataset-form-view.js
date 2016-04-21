@@ -156,7 +156,6 @@ var Shareabouts = Shareabouts || {};
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
 
-      //model.attributes["from_dynamic_form"] = true;
       model.attributes["datasetSlug"] = this.selectedDatasetSlug;
       model.attributes["datasetId"] = this.selectedDatasetId;
       evt.preventDefault();

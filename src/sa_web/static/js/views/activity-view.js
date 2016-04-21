@@ -286,16 +286,6 @@ var Shareabouts = Shareabouts || {};
       $template = Handlebars.templates['activity-list']({activities: collectionData});
       self.$el.html($template);
 
-      /*
-      _.each(self.collection, function(collections) {
-        _.each(collections, function(collection, datasetId) {
-          collection.each(function(model) {
-            self.renderAction(model, index++, datasetId);
-          });
-        });
-      });
-*/
-
       self.mergedActivities.each(function(model) {
         self.renderAction(model, index++);
       });

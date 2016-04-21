@@ -308,8 +308,7 @@ var Shareabouts = Shareabouts || {};
           self.layerViews[model.cid].hide();
         }
       });
-      // TODO: clean this up by using a single Collection or View that contains
-      // landmarks and places
+
       _.each(Object.keys(self.landmarks), function(collectionId) {
         self.landmarks[collectionId].each(function(model) {
           var modelLocationType = model.get('location_type');

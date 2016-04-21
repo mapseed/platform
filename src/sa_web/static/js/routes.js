@@ -25,16 +25,6 @@ var Shareabouts = Shareabouts || {};
           // store config details for places and landmarks
           configArrays = {};
 
-          /*
-      this.collection = {
-        "landmark": {},
-        "place": {}
-      };
-      this.activities = {
-        "place": {}
-      };
-      */
-
       // store individual place collections for each place type
       this.places = {};
       // store individual activity collections for each place type
@@ -45,7 +35,6 @@ var Shareabouts = Shareabouts || {};
       this.mergedPlaces = new S.PlaceCollection([]);
       // store separte collection of all activities merged together
       this.mergedActivities = new S.ActionCollection([]);
-
 
       if (!options.placeConfig.dataset_slug) {
         options.placeConfig.dataset_slug = 'place';
@@ -182,8 +171,6 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewPlace: function(datasetSlug, id, responseId) {
-      // TODO: When we handle multiple datasets, we will need to
-      // implement appView.viewPlace(..) to accept a datasetSlug parameter
       this.appView.viewPlace(datasetSlug, id, responseId, this.loading);
     },
 

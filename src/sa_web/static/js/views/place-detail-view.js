@@ -17,16 +17,12 @@ var Shareabouts = Shareabouts || {};
         new S.SubmissionCollection(null, {
           submissionType: this.surveyType,
           placeModel: this.model
-          //datasetId: self.options.datasetId
-          //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
       this.model.submissionSets[this.supportType] = this.model.submissionSets[this.supportType] ||
         new S.SubmissionCollection(null, {
           submissionType: this.supportType,
           placeModel: this.model
-          //datasetId: self.options.datasetId,
-          //queryString: "?url=" + this.options.url + "&id=" + this.options.datasetId
         });
 
       this.surveyView = new S.SurveyView({

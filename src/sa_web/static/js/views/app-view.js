@@ -300,7 +300,7 @@ var Shareabouts = Shareabouts || {};
           // Check for a valid location type before adding it to the collection
           validate: true,
           data: placeParams,
-          // get the dataset slug from the array of map layers
+          // get the dataset slug and id from the array of map layers
           attributesToAdd: { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug,
                              datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
           attribute: 'properties',
