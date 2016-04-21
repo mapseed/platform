@@ -128,17 +128,12 @@ place_types:
   mapboxZoomStyle:
     - condition: '{{layer.focused}} === true'
       icon:
-        iconSize: [35, 90]
-        iconAnchor: [17, 90]
-    - condition: '{{map.zoom}} < 16'
+        iconSize: [45, 64]
+        iconAnchor: [23, 64]
+    - condition: 'true'
       icon:
-        iconSize: [35, 90]
-        iconAnchor: [17, 90]
-
-    - condition: '{{map.zoom}} >= 16'
-      icon:
-        iconSize: [35, 90]
-        iconAnchor: [17, 90]
+        iconSize: [35, 50]
+        iconAnchor: [17, 50]
 
   mapbox:
     # Mapbox Points
@@ -217,156 +212,6 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-rec.png
 
-  observation:
-    label: _(Observation)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  question:
-    label: _(Question)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  idea:
-    label: _(Idea)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  complaint:
-    label: _(Complaint)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  greenwall:
-    label: _(Green Screen Vote)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
-
-      - condition: '{{map.zoom}} >= 17'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
@@ -394,6 +239,12 @@ sidebar:
         - title: _(Water quality)
           image: /static/css/images/markers/marker-water.png
           url: /filter/complaint
+        - title: _(Forest management)
+          image: /static/css/images/markers/marker-forest.png
+          url: /filter/complaint
+        - title: _(Green infastructure)
+          image: /static/css/images/markers/marker-gsi.png
+          url: /filter/complaint                    
     gis_layers:
       title: _(Map Layers:)
       groupings:
