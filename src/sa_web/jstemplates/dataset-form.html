@@ -20,7 +20,7 @@
     <!-- note that the input here is purely aesthetic. The form driving the category changes is below -->
     {{#if category_selected}}
     <div id="selected-category">
-      <input type="radio" id="selected-category-placeholder" class="category-btn-input" disabled checked>
+      <input type="radio" id="selected-category-placeholder" class="category-btn-input" name={{ selected_category.name }} value={{ selected_category.value }} checked>
       <label class="category-btn-label" for="selected-category-palceholder">
         <img src={{ selected_category.icon_url }} />
         <span>{{ selected_category.label }}</span>

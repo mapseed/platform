@@ -399,18 +399,6 @@ select {
   border-top-color: rgb(242, 82, 24);
   border-bottom-color: rgb(242, 82, 24);
 }
-.category-btn-input:checked + label {
-  opacity: 1.0;
-}
-.category-btn-input:checked + label > span {
-  color: #FFF;
-  background-color: rgb(242, 82, 24);
-  border-color: rgb(242, 82, 24);
-}
-.category-btn-input:checked + label > img {
-  opacity: 1.0;
-  border-color: rgba(242, 82, 24, 0.89);
-}
 .form-annotation {
   font-size: 0.8em;
   font-style: italic;
@@ -422,6 +410,18 @@ select {
   position: relative;
   width: 280px;
   margin-right: 0;
+}
+#selected-category-placeholder + label {
+  opacity: 1.0;
+}
+#selected-category-placeholder + label > span {
+  color: #FFF;
+  background-color: rgb(242, 82, 24);
+  border-color: rgb(242, 82, 24);
+}
+#selected-category-placeholder + label > img {
+  opacity: 1.0;
+  border-color: rgba(242, 82, 24, 0.89);
 }
 .category-menu-hamburger {
   width: 30px;
