@@ -244,22 +244,9 @@ sidebar:
   legend_enabled: true
   slug: filter-type
   panels:
-    legend:
-      title: _(Citizen Reports:)
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
-    gis_layers:
+    - id: gis-layers
+      icon: list
+      view: GISLegendView
       title: _(Map Layers:)
       groupings:
         - id: grp-community
@@ -267,7 +254,7 @@ sidebar:
           visibleDefault: false
           layers:
             - id: options
-              description: _(The three options for Georgeotown's waterfront grant)
+              description: "_(The three options for Georgeotown's waterfront grant)"
               title: _(Waterfront options)
               visibleDefault: true
 
@@ -287,9 +274,30 @@ sidebar:
               description: _(The original Duwamish River path)
               title: _(Original river path)
               visibleDefault: false
-    ticker:
+
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
       title: _(Activity Stream:)
 
+    - id: reports_legend
+      view: LegendView
+      icon: info-circle
+      title: _(Citizen Reports:)
+      items:
+        - title: _(Observations)
+          image: /static/css/images/markers/marker-observation.png
+          url: /filter/observation
+        - title: _(Ideas)
+          image: /static/css/images/markers/marker-idea.png
+          url: /filter/idea
+        - title: _(Questions)
+          image: /static/css/images/markers/marker-question.png
+          url: /filter/question
+        - title: _(Complaints)
+          image: /static/css/images/markers/marker-complaint.png
+          url: /filter/complaint
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true

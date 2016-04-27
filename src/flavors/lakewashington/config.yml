@@ -230,22 +230,9 @@ sidebar:
   # Layers are defined in the "map config" section
   # TODO: Refactor the Layers section into its own sidebar
   panels:
-    legend:
-      title: _(Legend:)
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
-    gis_layers:
+    - id: gis-layers
+      icon: list
+      view: GISLegendView
       title: _(Map Layers:)
       groupings:
         - id: grp-land
@@ -281,8 +268,29 @@ sidebar:
               description: _(Original drainage of the Black river into the old Duwamish before it was removed)
               visibleDefault: false
 
-    ticker:
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
       title: _(Activity Stream:)
+
+    - id: reports_legend
+      view: LegendView
+      icon: info-circle
+      title: _(Legend:)
+      items:
+        - title: _(Observations)
+          image: /static/css/images/markers/marker-observation.png
+          url: /filter/observation
+        - title: _(Ideas)
+          image: /static/css/images/markers/marker-idea.png
+          url: /filter/idea
+        - title: _(Questions)
+          image: /static/css/images/markers/marker-question.png
+          url: /filter/question
+        - title: _(Complaints)
+          image: /static/css/images/markers/marker-complaint.png
+          url: /filter/complaint
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.

@@ -317,12 +317,9 @@ sidebar:
   slug: filter-type
   # Layers are defined in the "map config" section
   panels:
-    legend:
-      title: _(Trees Planted by DIRT Corps:)
-      items:
-        - title: _(DIRT Corps Tree)
-          image: /static/css/images/markers/tree.png
-    gis_layers:
+    - id: gis-layers
+      icon: list
+      view: GISLegendView
       title: _(Map Layers:)
       groupings:
         - id: grp-community
@@ -377,9 +374,19 @@ sidebar:
               title: _(Original river path)
               visibleDefault: false
 
-    ticker:
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
       title: _(Activity Stream:)
-  
+
+    - id: reports_legend
+      title: _(Legend:)
+      view: LegendView
+      icon: info-circle
+      items:
+        - title: _(Tree planted by DIRT Corps)
+          image: /static/css/images/markers/tree.png
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
