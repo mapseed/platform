@@ -113,25 +113,6 @@ var Shareabouts = Shareabouts || {};
               router: this.options.router
             })).render();
 
-      // Activity is enabled by default (undefined) or by enabling it
-      // explicitly. Set it to a falsey value to disable activity.
-      if (_.isUndefined(this.options.activityConfig.enabled) ||
-        this.options.activityConfig.enabled) {
-        // Init the view for displaying user activity
-        this.activityView = new S.ActivityView({
-          el: 'ul.recent-points',
-          collection: this.activities,
-          places: this.places,
-          router: this.options.router,
-          placeTypes: this.options.placeTypes,
-          surveyConfig: this.options.surveyConfig,
-          supportConfig: this.options.supportConfig,
-          placeConfig: this.options.placeConfig,
-          // How often to check for new content
-          interval: this.options.activityConfig.interval || 30000
-        });
-      }
-
       // Init the map view to display the places
       this.mapView = new S.MapView({
         el: '#map',
@@ -149,6 +130,27 @@ var Shareabouts = Shareabouts || {};
           mapView: this.mapView,
           sidebarConfig: this.options.sidebarConfig
         })).render();
+      }
+
+      // Activity is enabled by default (undefined) or by enabling it
+      // explicitly. Set it to a falsey value to disable activity.
+      if (_.isUndefined(this.options.activityConfig.enabled) ||
+        this.options.activityConfig.enabled) {
+        // Init the view for displaying user activity
+        this.activityView = new S.ActivityView({
+          el: 'ul.recent-points',
+          // TODO: clean this up by using #ticker instead:
+          // el: '#ticker',
+          collection: this.activities,
+          places: this.places,
+          router: this.options.router,
+          placeTypes: this.options.placeTypes,
+          surveyConfig: this.options.surveyConfig,
+          supportConfig: this.options.supportConfig,
+          placeConfig: this.options.placeConfig,
+          // How often to check for new content
+          interval: this.options.activityConfig.interval || 30000
+        });
       }
 
       // Init the address search bar

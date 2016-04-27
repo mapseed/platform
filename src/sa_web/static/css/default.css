@@ -1130,6 +1130,7 @@ ul.recent-points {
 
 .master-layer-list .shareabouts-layer-li {
   letter-spacing: 1.4px;
+  width: 100%;
 }
 /*#master-legend .layer-type-title label {*/
   /*color: #ddd;*/
@@ -1994,11 +1995,10 @@ require specific media queries.
     right: 0;  /* width of #ticker */
   }
 
-  /* master-legend */
   .master-layer-list {
     z-index: 15;
   }
-  .activity-enabled.content-visible .master-layer-list {
+  .activity-enabled .master-layer {
     display: block;
   }
   .activity-enabled #map-container {
