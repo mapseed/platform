@@ -132,47 +132,11 @@
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
 
-
       {% if config.sidebar.enabled %}
-        <div id="sidebar" class="sidebar collapsed">
-          <!-- TODO: Refactor these tabs/panes into a single view -->
-          <!-- Nav tabs -->
-          <div class="sidebar-tabs">
-            <ul role="tablist">
-              <li><a href="#layers-pane" role="tab"><i class="fa fa-list"></i></a></li>
-              <li><a href="#activity-stream-pane" role="tab"><i class="fa fa-comments-o"></i></a></li>
-              <li><a href="#legend-pane" role="tab"><i class="fa fa-info-circle"></i></a></li>
-            </ul>
-          </div>
-
-          <!-- Tab panes -->
-          <div class="sidebar-content">
-            <!-- Legend Panel (Shareabouts Layers_) -->
-            <div class="sidebar-pane" id="legend-pane">
-              <h1 class="sidebar-header">{{ config.sidebar.panels.legend.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-              <div id="master-legend"></div>
-            </div>
-
-          <!-- Layers Panel (GIS Layers) -->
-          <div class="sidebar-pane" id="layers-pane">
-            <h1 class="sidebar-header">{{ config.sidebar.panels.gis_layers.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-            <div id="gis-legend"></div>
-          </div>
-
-            <!-- Activity Stream Panel -->
-            <div class="sidebar-pane" id="activity-stream-pane">
-              <h1 class="sidebar-header">{{ config.sidebar.panels.ticker.title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
-              <div id="ticker">
-                <ul class="recent-points unstyled-list"></ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
+        <div id="sidebar-container"></div>
       {% endif %}
 
     </div>
-
 
     <div id="content"><!-- .place or .page -->
       <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
@@ -244,8 +208,8 @@
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   {% else %}
   <!--   TODO: build libraries with npm instead of bower -->
-  <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.6.3"></script>
-  <script src="{{STATIC_URL}}dist/preload-bundle.js?ver=0.6.3"></script>
+  <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.6.4"></script>
+  <script src="{{STATIC_URL}}dist/preload-bundle.js?ver=0.6.4"></script>
   {% endif %}
 
   <script>
@@ -318,11 +282,12 @@
   <script src="{{STATIC_URL}}js/views/place-counter-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geocode-address-place-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/sidebar-view.js"></script>
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
   <script src="{{STATIC_URL}}js/views/gis-legend-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% else %}
-  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.6.1"></script>
+  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.6.2"></script>
   {% endif %}
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
