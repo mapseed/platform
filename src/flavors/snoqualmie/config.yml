@@ -272,6 +272,11 @@ sidebar:
               description: _(Information on current trails, upcoming trails, and proposed trails)
               visibleDefault: true
 
+            - id: reports
+              title: _(Community Reports)
+              description: _(Reports added to the map by citizens)
+              visibleDefault: true
+
             - id: uga
               title: _(Urban growth area)
               visibleDefault: false
