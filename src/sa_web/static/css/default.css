@@ -351,6 +351,18 @@ select {
 .category-btn-input {
   display: none;
 }
+.category-btn-input:checked + label {
+  opacity: 1.0;
+}
+.category-btn-input:checked + label > span {
+  background-color: rgba(242, 82, 24, 0.89);
+  color: white;
+}
+.category-btn-input:checked + label > img {
+  border-left-color: rgb(242, 82, 24);
+  border-top-color: rgb(242, 82, 24);
+  border-bottom-color: rgb(242, 82, 24);
+}
 .category-btn-label {
   top: 0px;
   text-transform: uppercase;

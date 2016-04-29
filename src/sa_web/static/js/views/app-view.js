@@ -369,8 +369,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     setPlaceFormViewLatLng: function(centerLatLng) {
-      if (this.datasetFormView) {
-        this.datasetFormView.setLatLng(centerLatLng);
+      if (this.placeFormView) {
+        this.placeFormView.setLatLng(centerLatLng);
       }
     },
     onMapZoomEnd: function(evt) {
@@ -410,8 +410,8 @@ var Shareabouts = Shareabouts || {};
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
-      if (this.datasetFormView) {
-        this.datasetFormView.closePanel();
+      if (this.placeFormView) {
+        this.placeFormView.closePanel();
       }
 
       S.Util.log('USER', 'panel', 'close-btn-click');
@@ -544,14 +544,10 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass();
     },
     newPlace: function() {
-      // Called by the router
-      this.collection.add({});
-    },
-    newDataset: function() {
       var self = this;
 
-      if (!this.datasetFormView) {
-        this.datasetFormView = new S.DatasetFormView({
+      if (!this.placeFormView) {
+        this.placeFormView = new S.PlaceFormView({
           appView: this,
           router: this.options.router,
           placeConfig: this.options.placeConfig,
@@ -562,8 +558,8 @@ var Shareabouts = Shareabouts || {};
       }
       
       this.$panel.removeClass().addClass('place-form');
-      this.showPanel(this.datasetFormView.render().$el);
-      this.datasetFormView.delegateEvents();
+      this.showPanel(this.placeFormView.render().$el);
+      this.placeFormView.delegateEvents();
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
     },

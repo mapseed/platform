@@ -3,7 +3,7 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.DatasetFormView = Backbone.View.extend({
+  S.PlaceFormView = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',

@@ -9,7 +9,7 @@ var Shareabouts = Shareabouts || {};
       'filter/:locationtype': 'filterMap',
       'page/:slug': 'viewPage',
       ':dataset/:id': 'viewPlace',
-      'new': 'newDataset',
+      'new': 'newPlace',
       ':dataset/:id/response/:response_id': 'viewPlace',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
@@ -158,11 +158,6 @@ var Shareabouts = Shareabouts || {};
 
     newPlace: function() {
       this.appView.newPlace();
-    },
-
-    // Open view for first step in multi-step form
-    newDataset: function() {
-      this.appView.newDataset();
     },
 
     viewLandmark: function(id) {
