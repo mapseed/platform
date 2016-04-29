@@ -6,7 +6,7 @@
 
 <p class="form-field">{{ place_config.help_text }}</p>
 
-<form id="place-form" class="place-form clearfix">
+<form id="dataset-form" class="place-form clearfix">
 
   <fieldset>
     <input type="hidden" name="visible" value="on">
@@ -16,11 +16,24 @@
          is already logged in.
        -->
 
+    <!-- container for selected category -->
+    <!-- note that the input here is purely aesthetic. The form driving the category changes is below -->
+    {{#if is_category_selected}}
+    <div id="selected-category">
+      <input type="radio" id="selected-category-placeholder" class="category-btn-input" name={{ selected_category.name }} value={{ selected_category.value }} checked>
+      <label class="category-btn-label" for="selected-category-palceholder">
+        <img src={{ selected_category.icon_url }} />
+        <span>{{ selected_category.label }}</span>
+      </label>
+      <span class="category-menu-hamburger"></span>
+    </div>
+    {{/if}}
+
     <!-- place buttons for dynamic form categories -->
     <div id="category-btns">
       {{#each place_config.categories}}
         <input type="radio" name={{ name }} value={{ @key }} id={{ @key }} class="category-btn-input">
-        <label for={{ @key }} class="category-btn-label">
+        <label for={{ @key }} class="category-btn-label category-btn-label-clickable">
           <img src={{icon_url}} />
           <span>{{ label }}</span>
         </label>
@@ -35,18 +48,22 @@
         <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
         
         <!-- begin field type definitions -->
+        {{#is type "datetime"}}
+          <input id="datetimepicker" name="{{ name }}" type="text" {{^optional}}required{{/optional}}>
+        {{/is}}
+
         {{#is type "text"}}
-          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}">
+          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}" {{^optional}}required{{/optional}}>
         {{/is}}
 
         {{#is type "textarea"}}
-          <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}"></textarea>
+          <textarea id="place-{{ name }}" name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}" {{^optional}}required{{/optional}}></textarea>
         {{/is}}
 
         {{#is type "radio_big_buttons"}}
           <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
-                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
+            {{#each content}}
+                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn" {{^optional}}required{{/optional}}>
                 <label for={{ value }}>{{ label }}</label>
             {{/each}}
           </div>
@@ -55,25 +72,25 @@
 
         {{#is type "checkbox_big_buttons"}}
           <div>
-            {{#each (property ../../place_config.dynamic_form_content content)}}
+            {{#each content}}
               <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
               <label for={{ value }}>{{ label }}</label>
             {{/each}}
           </div>
         {{/is}}
 
-        {{#is type "yes_only_big_button"}}
+        {{#is type "binary_toggle"}}
           <div>
-            <input type="checkbox" name={{ name }} id={{ name }} value="Yes" data-alt-value={{#_}}No{{/_}} data-type="yes_only_big_button" class="big-btn">
-            <label for={{ name }}>{{#_}}Yes{{/_}}</label>
+            <input type="checkbox" name={{ name }} id={{ name }} value={{ content.[1].value }} data-input-type="binary_toggle" class="big-btn">
+            <label for={{ name }}>{{ content.[1].label }}</label>
           </div>
         {{/is}}
 
         {{#is type "dropdown"}}
           <div>
-            <select name={{ ../name }}>
-              <option value="no_response" name="no_response">{{#_}}Select...{{/_}}</option>
-              {{#each (property ../../place_config.dynamic_form_content content)}}
+            <select name={{ ../name }} {{^optional}}required{{/optional}}>
+              <option value="" name="no_response">{{#_}}Select...{{/_}}</option>
+              {{#each content}}
                   <option value={{value}}>{{label}}</option>
               {{/each}}
             </select>
@@ -92,7 +109,7 @@
     {{/each}}
 
     <!-- begin fields that are included in every form type by default -->
-    {{#if category_selected}}
+    {{#if is_category_selected}}
       <div id="common-form-elements">
         {{#each place_config.common_form_elements }}
           <div class="{{ this.type }} form-field">
@@ -132,8 +149,6 @@
       </div>
     {{/if}}
     <!-- end common field types -->
-
-
 
     <div class="form-spinner"></div>
 </form>

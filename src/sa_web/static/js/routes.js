@@ -8,7 +8,6 @@ var Shareabouts = Shareabouts || {};
       '': 'viewMap',
       'filter/:locationtype': 'filterMap',
       'page/:slug': 'viewPage',
-      ':dataset/new': 'newPlace',
       ':dataset/:id': 'viewPlace',
       'new': 'newDataset',
       ':dataset/:id/response/:response_id': 'viewPlace',
