@@ -17,11 +17,10 @@
        -->
 
     <!-- container for selected category -->
-    <!-- note that the input here is purely aesthetic. The form driving the category changes is below -->
     {{#if is_category_selected}}
     <div id="selected-category">
-      <input type="radio" id="selected-category-placeholder" class="category-btn-input" name={{ selected_category.name }} value={{ selected_category.value }} checked>
-      <label class="category-btn-label" for="selected-category-palceholder">
+      <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selected_category.name }} value={{ selected_category.value }} checked>
+      <label for="selected-category-palceholder">
         <img src={{ selected_category.icon_url }} />
         <span>{{ selected_category.label }}</span>
       </label>
@@ -32,8 +31,8 @@
     <!-- place buttons for dynamic form categories -->
     <div id="category-btns">
       {{#each place_config.categories}}
-        <input type="radio" name={{ name }} value={{ @key }} id={{ @key }} class="category-btn-input">
-        <label for={{ @key }} class="category-btn-label category-btn-label-clickable">
+        <input type="radio" id={{ @key }} class="category-btn clickable">
+        <label for={{ @key }}>
           <img src={{icon_url}} />
           <span>{{ label }}</span>
         </label>

@@ -7,7 +7,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-btn-label-clickable': 'onCategoryChange',
+      'click .category-btn.clickable + label': 'onCategoryChange',
       'click .category-menu-hamburger': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle'
     },
