@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shareabouts Philly Bike Share\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-04 18:51-0400\n"
+"POT-Creation-Date: 2016-01-07 06:22-0500\n"
 "PO-Revision-Date: 2014-09-09 22:58+0000\n"
 "Last-Translator: Frank Hebbert <frank@openplans.org>\n"
 "Language-Team: Spanish (Mexico) (http://www.transifex.com/projects/p/"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: flavors/georgetowngreen/templates/index.html:54
+#: flavors/happytrail/templates/index.html:55
+#: flavors/marra/templates/index.html:54 flavors/noise/templates/index.html:54
+msgid "Powered by"
+msgstr ""
 
 #: sa_web/jstemplates/activity-list-item.html:1
 #, fuzzy
@@ -127,7 +133,7 @@ msgstr ""
 "\n"
 "        {{/if }}"
 
-#: sa_web/jstemplates/auth-nav.html:1
+#: sa_web/jstemplates/auth-nav.html:1 sa_web/jstemplates/place-form.html:3
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
@@ -198,6 +204,39 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
+#: sa_web/jstemplates/place-form.html:1
+#, fuzzy
+#| msgid "Drag the map to your location."
+msgid "First drag the map to set your pin's location."
+msgstr "Arrastra el mapa hasta tu ubicación"
+
+#: sa_web/jstemplates/place-form.html:2
+msgid ""
+"It looks like you didn't set your location yet. Please drag the map to your "
+"location."
+msgstr ""
+"Parece que no has fijado tu ubicación todavía. Por favor arrastra el mapa "
+"hasta tu ubicación."
+
+#: sa_web/jstemplates/place-form.html:4
+msgid ""
+"Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
+"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
+"login/facebook/\">Facebook</a>"
+msgstr ""
+"O inicia sesión con <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
+"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
+"login/facebook/\">Facebook</a>"
+
+#: sa_web/jstemplates/place-form.html:5
+msgid "Sorry, your browser doesn't support file uploads."
+msgstr "Lo lamentamos, tu navegador no permite cargas de archivos."
+
+#: sa_web/jstemplates/place-form.html:6
+#: sa_web/jstemplates/place-survey-form.html:1
+msgid "optional"
+msgstr "opcional"
+
 #: sa_web/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr "Lo más reciente"
@@ -209,10 +248,6 @@ msgstr "Lo más {{ support_label_plural }}"
 #: sa_web/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
 msgstr "Lo más {{ survey_label_plural }}"
-
-#: sa_web/jstemplates/place-survey-form.html:1
-msgid "optional"
-msgstr "opcional"
 
 #: sa_web/jstemplates/place-survey-response.html:1
 msgid "Thanks for participating!"
@@ -232,7 +267,7 @@ msgstr ""
 "<a href=\"http://browsehappy.com/\">actualiza tu navegador</a> para mejorar\n"
 "tu experiencia."
 
-#: sa_web/templates/base.html:95
+#: sa_web/templates/base.html:97
 #, python-format
 msgid ""
 "\n"
@@ -242,7 +277,7 @@ msgstr ""
 "\n"
 "Ups, %(config.app.name)s necesita JavaScript para funcionar correctamente."
 
-#: sa_web/templates/base.html:100
+#: sa_web/templates/base.html:102
 #, fuzzy, python-format
 #| msgid ""
 #| "\n"
@@ -267,7 +302,7 @@ msgstr ""
 "href=\"http://enable-javascript.com/\" target=\"_blank\">aquí</a> para ver "
 "unas instrucciones sencillas!"
 
-#: sa_web/templates/base.html:114
+#: sa_web/templates/base.html:116
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
@@ -275,31 +310,9 @@ msgstr ""
 "No podemos conectarnos al servidor en este momento. Espera con calma "
 "mientras restablecemos la comunicación."
 
-#: sa_web/templates/base.html:123
+#: sa_web/templates/base.html:125
 msgid "Close"
 msgstr "Cerrar"
-
-#~ msgid "Drag the map to your location."
-#~ msgstr "Arrastra el mapa hasta tu ubicación"
-
-#~ msgid ""
-#~ "It looks like you didn't set your location yet. Please drag the map to "
-#~ "your location."
-#~ msgstr ""
-#~ "Parece que no has fijado tu ubicación todavía. Por favor arrastra el mapa "
-#~ "hasta tu ubicación."
-
-#~ msgid ""
-#~ "Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
-#~ "twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/"
-#~ "users/login/facebook/\">Facebook</a>"
-#~ msgstr ""
-#~ "O inicia sesión con <a class=\"auth-inline twitter-btn\" href=\"/users/"
-#~ "login/twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href="
-#~ "\"/users/login/facebook/\">Facebook</a>"
-
-#~ msgid "Sorry, your browser doesn't support file uploads."
-#~ msgstr "Lo lamentamos, tu navegador no permite cargas de archivos."
 
 #~ msgid ""
 #~ "\n"

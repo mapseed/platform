@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-29 16:46-0400\n"
+"POT-Creation-Date: 2016-01-07 06:44-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: jstemplates/activity-list-item.html:1
+#: flavors/georgetowngreen/templates/index.html:54
+#: flavors/happytrail/templates/index.html:55
+#: flavors/marra/templates/index.html:54 flavors/noise/templates/index.html:54
+msgid "Powered by"
+msgstr ""
+
+#: sa_web/jstemplates/activity-list-item.html:1
 msgid ""
 "<strong>\n"
 "\n"
@@ -26,8 +32,8 @@ msgid ""
 "{{ target.submitter.name }}\n"
 "        {{^}}\n"
 "          <!-- TODO: FIXME: don't hardcode image URL -->\n"
-"          <img src=\"/static/css/images/user-50.png\" class=\"avatar\" /> "
-"{{ target.submitter_name }}\n"
+"          <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class=\"avatar"
+"\" /> {{ target.submitter_name }}\n"
 "        {{/if}}\n"
 "        </strong>\n"
 "\n"
@@ -56,32 +62,32 @@ msgid ""
 "        "
 msgstr ""
 
-#: jstemplates/auth-nav.html:1 jstemplates/place-form.html:3
+#: sa_web/jstemplates/auth-nav.html:1 sa_web/jstemplates/place-form.html:3
 msgid "Log Out"
 msgstr ""
 
-#: jstemplates/auth-nav.html:2
+#: sa_web/jstemplates/auth-nav.html:2
 msgid "Sign In"
 msgstr ""
 
-#: jstemplates/auth-nav.html:3
+#: sa_web/jstemplates/auth-nav.html:3
 msgid ""
 "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
-#: jstemplates/geocode-address.html:1
+#: sa_web/jstemplates/geocode-address.html:1
 msgid "Search"
 msgstr ""
 
-#: jstemplates/place-detail-promotion-bar.html:1
+#: sa_web/jstemplates/place-detail-promotion-bar.html:1
 msgid "Recommend on Facebook"
 msgstr ""
 
-#: jstemplates/place-detail-promotion-bar.html:2
+#: sa_web/jstemplates/place-detail-promotion-bar.html:2
 msgid "Tweet This"
 msgstr ""
 
-#: jstemplates/place-detail-survey.html:1
+#: sa_web/jstemplates/place-detail-survey.html:1
 msgid ""
 "<strong class=\"response-submitter\">\n"
 "                    {{#if submitter}}\n"
@@ -89,8 +95,8 @@ msgid ""
 "\" /> {{ submitter.name }}\n"
 "                    {{^}}\n"
 "                      <!-- TODO: FIXME: don't hardcode image URL -->\n"
-"                      <img src=\"/static/css/images/user-50.png\" class="
-"\"avatar\" /> {{ submitter_name }}\n"
+"                      <img src=\"{{ STATIC_URL }}css/images/user-50.png\" "
+"class=\"avatar\" /> {{ submitter_name }}\n"
 "                    {{/if}}\n"
 "                  </strong>\n"
 "                  <span class=\"response-date\">\n"
@@ -99,17 +105,13 @@ msgid ""
 "                  "
 msgstr ""
 
-#: jstemplates/place-detail-survey.html:13 jstemplates/place-form.html:6
-msgid "optional"
-msgstr ""
-
-#: jstemplates/place-detail.html:1
+#: sa_web/jstemplates/place-detail.html:1
 msgid ""
 "<strong class=\"point-submitter\">\n"
 "              {{#if submitter.avatar_url }}\n"
 "                <img src=\"{{ submitter.avatar_url }}\" class=\"avatar\" />\n"
 "              {{^}}\n"
-"                <img src=\"{{ STATIC_URL }}/css/images/user-50.png\" class="
+"                <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class="
 "\"avatar\" />\n"
 "              {{/if}}\n"
 "              {{#if submitter.name }}\n"
@@ -129,51 +131,60 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
-#: jstemplates/place-form.html:1
-msgid "Drag the map to your location."
+#: sa_web/jstemplates/place-form.html:1
+msgid "First drag the map to set your pin's location."
 msgstr ""
 
-#: jstemplates/place-form.html:2
+#: sa_web/jstemplates/place-form.html:2
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
 msgstr ""
 
-#: jstemplates/place-form.html:4
+#: sa_web/jstemplates/place-form.html:4
 msgid ""
 "Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
 "twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
 "login/facebook/\">Facebook</a>"
 msgstr ""
 
-#: jstemplates/place-form.html:5
+#: sa_web/jstemplates/place-form.html:5
 msgid "Sorry, your browser doesn't support file uploads."
 msgstr ""
 
-#: jstemplates/place-list.html:1
+#: sa_web/jstemplates/place-form.html:6
+#: sa_web/jstemplates/place-survey-form.html:1
+msgid "optional"
+msgstr ""
+
+#: sa_web/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr ""
 
-#: jstemplates/place-list.html:2
+#: sa_web/jstemplates/place-list.html:2
 msgid "Most {{ support_label_plural }}"
 msgstr ""
 
-#: jstemplates/place-list.html:3
+#: sa_web/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
 msgstr ""
 
-#: jstemplates/unsupported-overlay.html:1
+#: sa_web/jstemplates/place-survey-response.html:1
+msgid "Thanks for participating!"
+msgstr ""
+
+#: sa_web/jstemplates/unsupported-overlay.html:1
 msgid "Proceed Anyway"
 msgstr ""
 
-#: jstemplates/unsupported-overlay.html:2
+#: sa_web/jstemplates/unsupported-overlay.html:2
 msgid ""
 "You are using an unsupported browser. Please\n"
 "    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
 "    your experience."
 msgstr ""
 
-#: templates/base.html:104
+#: sa_web/templates/base.html:97
 #, python-format
 msgid ""
 "\n"
@@ -181,25 +192,25 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/base.html:109
+#: sa_web/templates/base.html:102
 #, python-format
 msgid ""
 "\n"
 "        %(config.app.name)s is great but it needs something called "
 "JavaScript to work\n"
 "        properly. But fear not, it's really easy to turn on. Click\n"
-"        <a href=\"http://enable-javascript.com/\" target=\"_blank\">here</a> "
-"for simple instructions!\n"
+"        <a href=\"//enable-javascript.com/\" target=\"_blank\">here</a> for "
+"simple instructions!\n"
 "        "
 msgstr ""
 
-#: templates/base.html:123
+#: sa_web/templates/base.html:116
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
 msgstr ""
 
-#: templates/base.html:129
+#: sa_web/templates/base.html:125
 msgid "Close"
 msgstr ""
 
