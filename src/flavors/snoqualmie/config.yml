@@ -235,26 +235,13 @@ sidebar:
   slug: filter-type
   # Layers are defined in the "map config" section
   panels:
-    legend:
-      title: _(Community Reports:)
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
-    gis_layers:
+    - id: gis-layers
+      icon: list
+      view: GISLegendView
       title: _(Map Layers:)
       groupings:
-        - id: grp-land
-          title: _(Land Data)
+        - id: grp-community
+          title: _(Community Data)
           visibleDefault: true
           layers:
             - id: trails
@@ -283,8 +270,29 @@ sidebar:
               description: _(Toggle the satellite map view)
               visibleDefault: false
 
-    ticker:
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
       title: _(Activity Stream:)
+
+    - id: reports_legend
+      title: _(Community Reports:)
+      view: LegendView
+      icon: info-circle
+      items:
+        - title: _(Observations)
+          image: /static/css/images/markers/marker-observation.png
+          url: /filter/observation
+        - title: _(Ideas)
+          image: /static/css/images/markers/marker-idea.png
+          url: /filter/idea
+        - title: _(Questions)
+          image: /static/css/images/markers/marker-question.png
+          url: /filter/question
+        - title: _(Complaints)
+          image: /static/css/images/markers/marker-complaint.png
+          url: /filter/complaint
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
