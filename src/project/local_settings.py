@@ -72,17 +72,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Flavor settings:
 # Using print function for logging because handlers are not set in settings.py
-if 'FLAVOR' not in os.environ:
+if 'FLAVOR' not in env:
     print("INFO: Using default flavor")
-if 'SITE_URL' not in os.environ:
+if 'SITE_URL' not in env:
     print("ERROR: No SITE_URL found!")
-if 'SITE_KEY' not in os.environ:
+if 'SITE_KEY' not in env:
     print("ERROR: No SITE_KEY found!")
 
 SHAREABOUTS = {
-    'FLAVOR': os.environ.get('FLAVOR', 'duwamish_flavor'),
-    'DATASET_ROOT': os.environ.get('SITE_URL', 'NO_SITE_URL'),
-    'DATASET_KEY': os.environ.get('SITE_KEY', 'NO_SITE_KEY')
+    'FLAVOR': env.get('FLAVOR', 'defaultflavor'),
+    'DATASET_ROOT': env.get('SITE_URL', 'NO_SITE_URL'),
+    'DATASET_KEY': env.get('SITE_KEY', 'NO_SITE_KEY')
 }
 
 # For geocoding...
