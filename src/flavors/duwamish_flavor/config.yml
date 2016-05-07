@@ -1187,3 +1187,7 @@ story:
       - url: rainwise-home-rose-st
       - url: carleton-grocery-gsi
       - url: dirt-corps-warehouse
+
+notifications:
+  on_new_place: true
+  submitter_email_field: private-submitter_email
