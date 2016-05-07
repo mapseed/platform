@@ -2,13 +2,6 @@ from __future__ import print_function
 import os
 import re
 
-EMAIL_ADDRESS = 'luke@smartercleanup.org'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# Uncomment the following line if you would like to also receive emails that
-# are sent to your users.
-# EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
-
 # The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
 # Shareabouts configuration. configuration is expected to live in a package
 # named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
@@ -39,10 +32,45 @@ def read_env():
             os.environ[key] = val
 read_env()
 
-TIME_ZONE = os.environ.get('TIME_ZONE', 'America/New_York')
-DEBUG = TEMPLATE_DEBUG = (os.environ.get('DEBUG', 'true').lower()
+env = os.environ
+
+TIME_ZONE = env.get('TIME_ZONE', 'America/Los_Angeles')
+DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG', 'true').lower()
                           in ('true', 'on', 't', 'yes'))
 
+# Admin Settings:
+if 'ADMIN_NAME' in env and 'ADMIN_EMAIL' in env:
+    ADMINS = (
+        (env['ADMIN_NAME'],
+         env['ADMIN_EMAIL']),
+    )
+
+MANAGERS = ADMINS
+
+
+# Email notification settings:
+if 'EMAIL_ADDRESS' in env:
+    EMAIL_ADDRESS = env['EMAIL_ADDRESS']
+if 'EMAIL_HOST' in env:
+    EMAIL_HOST = env['EMAIL_HOST']
+if 'EMAIL_PORT' in env:
+    EMAIL_PORT = env['EMAIL_PORT']
+if 'EMAIL_USERNAME' in env:
+    EMAIL_HOST_USER = env['EMAIL_USERNAME']
+if 'EMAIL_PASSWORD' in env:
+    EMAIL_HOST_PASSWORD = env['EMAIL_PASSWORD']
+if 'EMAIL_USE_TLS' in env:
+    EMAIL_USE_TLS = env['EMAIL_USE_TLS']
+
+if 'EMAIL_NOTIFICATIONS_BCC' in env:
+    EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
+# Send emails from our smtp server:
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Use this backend to only print our emails to the console:
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Flavor settings:
 # Using print function for logging because handlers are not set in settings.py
 if 'FLAVOR' not in os.environ:
     print("INFO: Using default flavor")
