@@ -481,22 +481,18 @@ sidebar:
           layers:
             - id: reports
               title: _(Community Reports)
-              description: _(Reports added to the map by citizens)
               visibleDefault: true
 
             - id: cleanup
               title: _(River Cleanup Plan)
-              description: _(The EPA-approved cleanup plan for the river)
               visibleDefault: true
 
             - id: vision
               title: _(Community Vision)
-              description: _(Priority areas identified through community visioning projects)
               visibleDefault: true
 
             - id: restoration
               title: _(Restoration Sites)
-              description: _(Habitat restoration and community organizing)
               visibleDefault: true
 
         - id: grp-land
@@ -506,25 +502,21 @@ sidebar:
               # Toggle our basemaps
             - id: toggle-satellite
               title: _(Satellite View)
-              description: _(Toggle the satellite map view)
               visibleDefault: false
 
               # Land Use
             - id: landuse
               title: _(Land use)
-              description: _(Land use data from 2010)
               visibleDefault: false
 
               # Green Seattle Partnership restoration phases
             - id: phases
               title: _(Green Seattle partnership)
-              description: _(Restoration phases from the Green Seattle Partnership)
               visibleDefault: false
 
               # Noxious Weeds
             - id: noxious-weeds
               title: _(Noxious Weeds)
-              description: _(Invasive species of weeds)
               visibleDefault: false
 
               # WRIA9 watershed
@@ -540,7 +532,6 @@ sidebar:
               # WMS Original Flow
             - id: duwamish-original
               title: _(Original River Path)
-              description: _(The original Duwamish River path)
               visibleDefault: false
 
     - id: ticker

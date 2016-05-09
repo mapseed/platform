@@ -311,7 +311,7 @@ img {
 -------------------------------------------------------------- */
 
 #site-header {
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url('images/lightpaperfibers.png');
   position: relative;
   z-index: 99;
   padding: 0.5em;
@@ -347,7 +347,7 @@ img {
 
 /* Navigation Button */
 #nav-btn {
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url('images/lightpaperfibers.png');
   color: #bbb;
   font-size: 2em;
   line-height: 1;
@@ -498,7 +498,7 @@ a.logout-btn {
 
 /* Add Place Button */
 #add-place-btn-container {
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url('images/lightpaperfibers.png');
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
@@ -1033,7 +1033,7 @@ a.auth-inline {
 -------------------------------------------------------------- */
 
 #ticker {
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url('images/lightpaperfibers.png');
   z-index: 30;
   display: none;
 }
@@ -1372,7 +1372,7 @@ ul.recent-points {
 
 #geocode-address-bar {
   display: none;
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url('images/lightpaperfibers.png');
   position: relative;
   z-index: 40;
   padding: 0.75em 0.5em 0.5em;
@@ -1669,7 +1669,7 @@ require specific media queries.
 
   /* Header */
   #site-header {
-    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
+    background: url('images/lightpaperfibers.png');
     padding-left: 1em;
     overflow: visible;
     height: 4em;  /* height of site-header */
@@ -1762,7 +1762,7 @@ require specific media queries.
     z-index: 3;
   }
   .sign-in-menu {
-    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
+    background: url('images/lightpaperfibers.png');
     border-radius: 3px;
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
     width: 18em;
@@ -2035,7 +2035,7 @@ require specific media queries.
   /* Footer */
   #colophon {
     color: #007fbf;
-    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
+    background: url('images/lightpaperfibers.png');
     font-size: 1em;
     position: absolute;
     top: auto;
