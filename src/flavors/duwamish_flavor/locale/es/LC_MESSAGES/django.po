@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-04 18:51-0400\n"
+"POT-Creation-Date: 2016-01-07 06:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,9 @@ msgid "Land coverage data"
 msgstr "Datos de cobertura de la tierra"
 
 #: flavors/duwamish_flavor/_config.translations.py:9
-msgid "The orginal Duwamish River path"
+#, fuzzy
+#| msgid "The orginal Duwamish River path"
+msgid "The original Duwamish River path"
 msgstr "El sendero original del Duwamish"
 
 #: flavors/duwamish_flavor/_config.translations.py:10
@@ -60,7 +62,6 @@ msgid "Original river path"
 msgstr "El sendero original del Duwamish"
 
 #: flavors/duwamish_flavor/_config.translations.py:11
-#: flavors/duwamish_flavor/jstemplates/pages/overview.html:5
 msgid ""
 "Welcome! We are a community of residents and stakeholders who are monitoring "
 "the cleanup of toxic waste in Seattle's Duwamish River."
@@ -71,7 +72,7 @@ msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:12
 #: flavors/duwamish_flavor/_config.translations.py:25
-#: flavors/duwamish_flavor/_config.translations.py:47
+#: flavors/duwamish_flavor/_config.translations.py:48
 msgid "Someone"
 msgstr "Alguien"
 
@@ -107,7 +108,7 @@ msgid "Comment"
 msgstr "Comentar"
 
 #: flavors/duwamish_flavor/_config.translations.py:21
-#: flavors/duwamish_flavor/_config.translations.py:32
+#: flavors/duwamish_flavor/_config.translations.py:40
 msgid "Your Name"
 msgstr "Su nombre"
 
@@ -128,123 +129,124 @@ msgid "Tell us more..."
 msgstr "Decirnos más"
 
 #: flavors/duwamish_flavor/_config.translations.py:29
-msgid "Title of report"
-msgstr "Tipo de informe"
-
-#: flavors/duwamish_flavor/_config.translations.py:30
-msgid "Enter title"
-msgstr ""
-
-#: flavors/duwamish_flavor/_config.translations.py:31
-msgid "Name"
-msgstr "Nombre"
-
-#: flavors/duwamish_flavor/_config.translations.py:33
-msgid "Email address"
-msgstr "Dirección de correo electrónico"
-
-#: flavors/duwamish_flavor/_config.translations.py:34
-msgid "Your Email"
-msgstr "Su correo electrónico"
-
-#: flavors/duwamish_flavor/_config.translations.py:35
 msgid "Type of report"
 msgstr "Tipo de informe"
 
-#: flavors/duwamish_flavor/_config.translations.py:36
-#: flavors/duwamish_flavor/_config.translations.py:50
+#: flavors/duwamish_flavor/_config.translations.py:30
+#: flavors/duwamish_flavor/_config.translations.py:52
 msgid "Observation"
 msgstr "Observación"
 
-#: flavors/duwamish_flavor/_config.translations.py:37
+#: flavors/duwamish_flavor/_config.translations.py:31
 #: flavors/duwamish_flavor/_config.translations.py:49
 msgid "Question"
 msgstr "Pregunta"
 
-#: flavors/duwamish_flavor/_config.translations.py:38
-#: flavors/duwamish_flavor/_config.translations.py:51
+#: flavors/duwamish_flavor/_config.translations.py:32
+#: flavors/duwamish_flavor/_config.translations.py:53
 msgid "Idea"
 msgstr "Idea"
 
-#: flavors/duwamish_flavor/_config.translations.py:39
-#: flavors/duwamish_flavor/_config.translations.py:48
+#: flavors/duwamish_flavor/_config.translations.py:33
+#: flavors/duwamish_flavor/_config.translations.py:50
 msgid "Complaint"
 msgstr "Queja"
 
-#: flavors/duwamish_flavor/_config.translations.py:40
+#: flavors/duwamish_flavor/_config.translations.py:34
+#: flavors/duwamish_flavor/_config.translations.py:51
+#: flavors/duwamish_flavor/_config.translations.py:58
+msgid "Green Screen Vote"
+msgstr ""
+
+#: flavors/duwamish_flavor/_config.translations.py:35
+msgid "Title of report"
+msgstr "Tipo de informe"
+
+#: flavors/duwamish_flavor/_config.translations.py:36
+msgid "Enter title"
+msgstr ""
+
+#: flavors/duwamish_flavor/_config.translations.py:37
 msgid "Description"
 msgstr "Descripción"
 
-#: flavors/duwamish_flavor/_config.translations.py:41
+#: flavors/duwamish_flavor/_config.translations.py:38
 msgid "Description..."
 msgstr "Descripción..."
 
+#: flavors/duwamish_flavor/_config.translations.py:39
+msgid "Name"
+msgstr "Nombre"
+
+#: flavors/duwamish_flavor/_config.translations.py:41
+msgid "Receive email updates on your report"
+msgstr ""
+
 #: flavors/duwamish_flavor/_config.translations.py:42
+msgid "Your Email"
+msgstr "Su correo electrónico"
+
+#: flavors/duwamish_flavor/_config.translations.py:43
 msgid "Image"
 msgstr "Imagen"
 
-#: flavors/duwamish_flavor/_config.translations.py:43
+#: flavors/duwamish_flavor/_config.translations.py:44
 msgid "Add an Image"
 msgstr "Añadir una Imagen"
 
-#: flavors/duwamish_flavor/_config.translations.py:44
+#: flavors/duwamish_flavor/_config.translations.py:45
 msgid "Add a report to the map!"
 msgstr "¡Añadir un informe al mapa!"
 
-#: flavors/duwamish_flavor/_config.translations.py:45
+#: flavors/duwamish_flavor/_config.translations.py:46
 msgid "created"
 msgstr "creó"
 
-#: flavors/duwamish_flavor/_config.translations.py:46
+#: flavors/duwamish_flavor/_config.translations.py:47
 msgid "See All Reports"
 msgstr "Ver todos los informes"
 
-#: flavors/duwamish_flavor/_config.translations.py:52
+#: flavors/duwamish_flavor/_config.translations.py:54
 msgid "Observations"
 msgstr "Observaciones"
 
-#: flavors/duwamish_flavor/_config.translations.py:53
+#: flavors/duwamish_flavor/_config.translations.py:55
 msgid "Ideas"
 msgstr "Ideas"
 
-#: flavors/duwamish_flavor/_config.translations.py:54
+#: flavors/duwamish_flavor/_config.translations.py:56
 msgid "Questions"
 msgstr "Preguntas"
 
-#: flavors/duwamish_flavor/_config.translations.py:55
+#: flavors/duwamish_flavor/_config.translations.py:57
 msgid "Complaints"
 msgstr "Quejas"
 
-#: flavors/duwamish_flavor/_config.translations.py:56
-msgid "Hide Reports"
-msgstr "Esconder los informes"
-
-#: flavors/duwamish_flavor/_config.translations.py:57
-msgid "Show Reports"
-msgstr "Mostrar los informes"
-
-#: flavors/duwamish_flavor/_config.translations.py:58
+#: flavors/duwamish_flavor/_config.translations.py:59
 msgid "Report Types"
 msgstr ""
 
-#: flavors/duwamish_flavor/_config.translations.py:59
+#: flavors/duwamish_flavor/_config.translations.py:60
 msgid "Map Layers"
 msgstr ""
 
-#: flavors/duwamish_flavor/_config.translations.py:60
-#: flavors/duwamish_flavor/jstemplates/pages/overview.html:1
+#: flavors/duwamish_flavor/_config.translations.py:61
 msgid "About"
 msgstr "Sobre"
 
-#: flavors/duwamish_flavor/_config.translations.py:61
+#: flavors/duwamish_flavor/_config.translations.py:62
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:1
 msgid "Background"
 msgstr "Trasfondo"
 
-#: flavors/duwamish_flavor/_config.translations.py:62
+#: flavors/duwamish_flavor/_config.translations.py:63
 #: flavors/duwamish_flavor/jstemplates/pages/contribute.html:2
-msgid "Contribute"
-msgstr "Contribuir"
+msgid "Get involved"
+msgstr ""
+
+#: flavors/duwamish_flavor/_config.translations.py:64
+msgid "Green Screen"
+msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:2
 msgid ""
@@ -418,55 +420,118 @@ msgstr ""
 msgid "Detailed instructions"
 msgstr ""
 
-#: flavors/duwamish_flavor/jstemplates/pages/overview.html:2
-msgid "Get started!"
-msgstr "¡Empecemos!"
-
-#: flavors/duwamish_flavor/jstemplates/pages/overview.html:3
+#: flavors/duwamish_flavor/jstemplates/pages/overview.html:1
 msgid "Help us out and <a href=\"/place/new\">submit a report</a> on the map!"
 msgstr ""
 "¡Ayudarnos y <a href=\"/place/new\">submitir un informe</a> en el mapa!"
 
-#: flavors/duwamish_flavor/jstemplates/pages/overview.html:4
+#: flavors/duwamish_flavor/jstemplates/pages/overview.html:2
+#, fuzzy
+#| msgid ""
+#| "Here's a little <a href=\"/page/background\">background</a> on the lower "
+#| "Duwamish superfund site"
 msgid ""
 "Here's a little <a href=\"/page/background\">background</a> on the lower "
-"Duwamish superfund site"
+"Duwamish superfund site and the cleanup of toxic waste in the river."
 msgstr ""
 "Aquí está un poco de <a href=\"/page/background\">trasfondo</a> sobre la "
 "parte inferior del Duwamish sitio de Superfund"
 
-#: flavors/duwamish_flavor/jstemplates/place-form.html:1
+#: flavors/duwamish_flavor/jstemplates/pages/overview.html:3
+msgid "Start Mapping!"
+msgstr ""
+
+#: flavors/duwamish_flavor/jstemplates/pages/overview.html:4
+#, fuzzy
+#| msgid ""
+#| "Welcome! We are a community of residents and stakeholders who are "
+#| "monitoring the cleanup of toxic waste in Seattle's Duwamish River."
+msgid ""
+"We are a community of residents and stakeholders who are monitoring "
+"environmental health issues in Seattle's Duwamish Valley."
+msgstr ""
+"¡Biénvenido! Somos una comunidad de los residentes y los interesados quienes "
+"están controlandola operación de limpieza de desechos tóxicos en el Duwamish "
+"River de Seattle"
+
+#: flavors/duwamish_flavor/jstemplates/pages/overview.html:5
+msgid "Welcome"
+msgstr ""
+
+#: flavors/duwamish_flavor/jstemplates/pages/sponsors.html:1
+#, fuzzy
+#| msgid "Take me to the map!"
+msgid "Back to the map"
+msgstr "¡Navigar hacia el mapa!"
+
+#: flavors/duwamish_flavor/jstemplates/pages/sponsors.html:2
+msgid ""
+"Seed funding provided by the Puget Sound Stewardship and Mitigation Fund, a "
+"community grantmaking fund created by Puget Soundkeeper Alliance and "
+"administered by the Rose Foundation for Communities and the Environment."
+msgstr ""
+
+#: flavors/duwamish_flavor/jstemplates/pages/sponsors.html:3
+msgid "Sponsors"
+msgstr ""
+
+#: flavors/duwamish_flavor/jstemplates/pages/youthcorps2015.html:1
+msgid "Duwamish Valley Youth Corps 2015"
+msgstr ""
+
+#: flavors/duwamish_flavor/jstemplates/pages/youthcorps2015.html:2
+msgid ""
+"We had a lot of fun and got a LOT of work done. Check out this highlight "
+"video!"
+msgstr ""
+
+#: flavors/duwamish_flavor/jstemplates/place-form2.html:1
 msgid "First drag the map to set your pin's location."
 msgstr ""
 
-#: flavors/duwamish_flavor/jstemplates/place-form.html:2
+#: flavors/duwamish_flavor/jstemplates/place-form2.html:2
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
 msgstr ""
 
-#: flavors/duwamish_flavor/jstemplates/place-form.html:3
+#: flavors/duwamish_flavor/jstemplates/place-form2.html:3
 msgid "Log Out"
 msgstr ""
 
-#: flavors/duwamish_flavor/jstemplates/place-form.html:4
+#: flavors/duwamish_flavor/jstemplates/place-form2.html:4
 msgid ""
 "Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
 "twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
 "login/facebook/\">Facebook</a>"
 msgstr ""
 
-#: flavors/duwamish_flavor/jstemplates/place-form.html:5
+#: flavors/duwamish_flavor/jstemplates/place-form2.html:5
 msgid "Sorry, your browser doesn't support file uploads."
 msgstr ""
 
-#: flavors/duwamish_flavor/jstemplates/place-form.html:6
+#: flavors/duwamish_flavor/jstemplates/place-form2.html:6
 msgid "optional"
 msgstr ""
 
 #: flavors/duwamish_flavor/templates/index.html:56
 msgid "Powered by"
 msgstr "Impulsado por"
+
+#~ msgid "Email address"
+#~ msgstr "Dirección de correo electrónico"
+
+#~ msgid "Hide Reports"
+#~ msgstr "Esconder los informes"
+
+#~ msgid "Show Reports"
+#~ msgstr "Mostrar los informes"
+
+#~ msgid "Contribute"
+#~ msgstr "Contribuir"
+
+#~ msgid "Get started!"
+#~ msgstr "¡Empecemos!"
 
 #~ msgid "Historical Flow"
 #~ msgstr "Sendero Histórico"

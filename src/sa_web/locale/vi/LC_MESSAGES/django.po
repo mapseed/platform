@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-04 18:10-0400\n"
+"POT-Creation-Date: 2016-01-07 06:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: flavors/georgetowngreen/templates/index.html:54
+#: flavors/happytrail/templates/index.html:55
+#: flavors/marra/templates/index.html:54 flavors/noise/templates/index.html:54
+msgid "Powered by"
+msgstr ""
 
 #: sa_web/jstemplates/activity-list-item.html:1
 msgid ""
@@ -57,7 +63,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/jstemplates/auth-nav.html:1
+#: sa_web/jstemplates/auth-nav.html:1 sa_web/jstemplates/place-form.html:3
 msgid "Log Out"
 msgstr "đảng xuãt"
 
@@ -126,6 +132,32 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
+#: sa_web/jstemplates/place-form.html:1
+msgid "First drag the map to set your pin's location."
+msgstr ""
+
+#: sa_web/jstemplates/place-form.html:2
+msgid ""
+"It looks like you didn't set your location yet. Please drag the map to your "
+"location."
+msgstr ""
+
+#: sa_web/jstemplates/place-form.html:4
+msgid ""
+"Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
+"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
+"login/facebook/\">Facebook</a>"
+msgstr ""
+
+#: sa_web/jstemplates/place-form.html:5
+msgid "Sorry, your browser doesn't support file uploads."
+msgstr ""
+
+#: sa_web/jstemplates/place-form.html:6
+#: sa_web/jstemplates/place-survey-form.html:1
+msgid "optional"
+msgstr ""
+
 #: sa_web/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr ""
@@ -136,10 +168,6 @@ msgstr ""
 
 #: sa_web/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
-msgstr ""
-
-#: sa_web/jstemplates/place-survey-form.html:1
-msgid "optional"
 msgstr ""
 
 #: sa_web/jstemplates/place-survey-response.html:1
@@ -157,7 +185,7 @@ msgid ""
 "    your experience."
 msgstr ""
 
-#: sa_web/templates/base.html:95
+#: sa_web/templates/base.html:97
 #, python-format
 msgid ""
 "\n"
@@ -165,7 +193,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:100
+#: sa_web/templates/base.html:102
 #, python-format
 msgid ""
 "\n"
@@ -177,12 +205,12 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:114
+#: sa_web/templates/base.html:116
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
 msgstr ""
 
-#: sa_web/templates/base.html:123
+#: sa_web/templates/base.html:125
 msgid "Close"
 msgstr ""
