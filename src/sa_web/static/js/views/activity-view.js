@@ -12,7 +12,8 @@ var Shareabouts = Shareabouts || {};
 
       this.activityViews = [];
 
-      this.placeCollection = this.options.places;
+      this.mergedPlaces = this.options.mergedPlaces;
+      this.mergedActivities = this.options.mergedActivities;
 
       // Infinite scroll elements and functions
       // Window where the activity lives
@@ -41,8 +42,8 @@ var Shareabouts = Shareabouts || {};
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
-      this.collection.on('add', this.onAddAction, this);
-      this.collection.on('reset', this.onResetActivity, this);
+      this.mergedActivities.on('renderAll', self.onAddAll, this);
+      this.mergedActivities.on('reset', self.onResetActivity, this);
     },
 
     checkForNewActivity: function() {
@@ -51,7 +52,7 @@ var Shareabouts = Shareabouts || {};
         attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
         attribute: 'target'
       },
-          meta = this.collection.metadata;
+          meta = this.mergedActivities.metadata;
 
       // The metadata will be reset to page 1 if a new action has been added.
       // We need to cache the current page information so that when we will
@@ -59,7 +60,7 @@ var Shareabouts = Shareabouts || {};
       options.complete = _.bind(function() {
         // The total length may have changed, so don't overwrite it!
         meta.length = this.collection.metadata.length;
-        this.collection.metadata = meta;
+        this.mergedActivities.metadata = meta;
         this.fetching = false;
 
         // After a check for activity has completed, no matter the result,
@@ -96,21 +97,38 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
+    onAddAll: function() {
+      var self = this;
+      this.mergedActivities.sort();
+
+      this.mergedActivities.each(function(model) {
+        self.renderAction(model, self.mergedActivities.indexOf(model));
+      })
+    },
+
     onAddAction: function(model, collection) {
       this.renderAction(model, collection.indexOf(model));
+    },
+  
+    // closure for onResetActivity
+    onResetActivityWrapper: function(datasetId) {
+      var self = this;
+      return function(collection) {
+        self.onResetActivity(datasetId, collection);
+      }
     },
 
     onResetActivity: function(collection) {
       var self = this,
           placeIdsToFetch = [];
 
-      // We have acttions to show. Let's make sure we have the places we need
+      // We have actions to show. Let's make sure we have the places we need
       // to render them. If not, we'll fetch them in bulk and render after.
       collection.each(function(actionModel) {
         var actionType = actionModel.get('target_type'),
             targetData = actionModel.get('target');
 
-        if (!self.placeCollection.get(targetData.id)) {
+        if (!self.mergedPlaces.get(targetData.id)) {
           if (actionType === 'place') {
             placeIdsToFetch.push(targetData.id);
           }
@@ -122,7 +140,7 @@ var Shareabouts = Shareabouts || {};
 
       if (placeIdsToFetch.length > 0) {
         // Get the missing places and then render activity
-        self.placeCollection.fetchByIds(placeIdsToFetch, {
+        self.mergedPlaces.fetchByIds(placeIdsToFetch, {
           // Check for a valid location type before adding it to the collection
           validate: true,
           success: function() {
@@ -212,14 +230,14 @@ var Shareabouts = Shareabouts || {};
         placeId = actionModel.get('target').id;
       }
 
-      // If a place with the given ID exists, call sucess immediately.
-      placeModel = this.placeCollection.get(placeId);
+      // If a place with the given ID exists, call success immediately.
+      placeModel = this.mergedPlaces.get(placeId);
       if (placeModel && options.success) {
         options.success(placeModel, null, options);
 
       // Otherwise, fetch the place and pass the callbacks along.
       } else if (!placeModel) {
-        this.placeCollection.fetchById(placeId, options);
+        this.mergedPlaces.fetchById(placeId, options);
       }
     },
 
@@ -268,7 +286,7 @@ var Shareabouts = Shareabouts || {};
       $template = Handlebars.templates['activity-list']({activities: collectionData});
       self.$el.html($template);
 
-      self.collection.each(function(model) {
+      self.mergedActivities.each(function(model) {
         self.renderAction(model, index++);
       });
 

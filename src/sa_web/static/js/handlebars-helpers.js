@@ -27,6 +27,18 @@ var Shareabouts = Shareabouts || {};
     return a === b ? options.fn(this) : options.inverse(this);
   });
 
+  Handlebars.registerHelper('if_fileinput_not_supported', function(options) {    
+    return !NS.Util.fileInputSupported() ? options.fn(this) : null;
+  });
+
+  Handlebars.registerHelper('if_not_authenticated', function(options) {
+    return !(NS.bootstrapped && NS.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
+  });
+
+  Handlebars.registerHelper('property', function(a, b) {
+    return a[b];
+  });
+
   // Current user -------------------------------------------------------------
 
   Handlebars.registerHelper('is_authenticated', function(options) {
@@ -160,24 +172,33 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('each_place_item', function() {
-    var result = '',
+    var self = this,
+        result = '',
         args = Array.prototype.slice.call(arguments),
         exclusions, options;
 
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
+    
+    _.each(NS.Config.place.categories[this.location_type].fields, function(item, i) {
+      // filter for the correct label/value pair
+      var display_value = _.filter(item.content, function(option) {
+        return option.value == self[item.name];
+      })[0] || {};
 
-
-    _.each(NS.Config.place.items, function(item, i) {
       var newItem = {
         name: item.name,
-        label: item.label,
-        value: this[item.name]
+        label: item.display_prompt,
+        // get the (possibly) translated label from a dropdown, radio, or select input, or get free text entry
+        value: display_value.label || this[item.name],
+        type: item.type
       };
 
-      // if not an exclusion and not private data
+      // if not an exclusion and not private data and not an empty response
       if (_.contains(exclusions, item.name) === false &&
-          item.name.indexOf('private-') !== 0) {
+          item.name.indexOf('private-') !== 0 &&
+            newItem.value != undefined && 
+              newItem.value !== "") {
         result += options.fn(newItem);
       }
     }, this);

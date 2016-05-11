@@ -173,6 +173,21 @@ hr {
 .btn-small {
   font-size: 0.75em;
 }
+.btn-selected {
+  background-color: #007fbf;
+}
+.report-type-btn {
+  text-transform: none;
+  background-color: rgba(242, 82, 24, 0.29)
+}
+.btn-secondary-selected {
+  background-color: rgba(242, 82, 24, 0.89)
+}
+.category-change-btn {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 40%;
+}
 
 /* Forms */
 form {
@@ -264,12 +279,186 @@ select {
   clear: both;
   padding: 1em;
 }
-
 .form-field {
   margin: 0 0 1em;
 }
 
-/* Images */
+/* ##### Begin dynamic form styles ##### */
+
+/* Large radio and checkbox buttons styles */
+/* http://cssdeck.com/labs/ldmtsmfk */
+.big-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+.big-btn + label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 1px 0 0 1px;
+}
+.big-btn + label {
+  position: relative;
+  float: left;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 5px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #999999;
+  border-radius: 4px;
+  padding-right: 10px;
+  border: 2px solid #D1D3D4
+}
+.big-btn:hover:not(:checked) + label:before {
+  content:'\2714';
+  text-indent: .9em;
+  color: #EEEEEE;
+}
+.big-btn:hover:not(:checked) + label {
+  color: #444444;
+}
+.big-btn:checked + label:before {
+  content:'\2714';
+  text-indent: .9em;
+  color: #FFFFFF;
+  background-color: rgba(242, 82, 24, 0.89)
+}
+.big-btn:checked + label {
+  color: #222222;
+  font-weight: bold;
+  border: 2px solid rgba(242, 82, 24, 0.89)
+}
+
+/* Place type category button styles */
+#category-btns {
+  margin-bottom: 20px;
+}
+.category-btn {
+  display: none;
+}
+.category-btn + label {
+  top: 0px;
+  text-transform: uppercase;
+  font-size: 12pt;
+  width: 200px;
+  display: block;
+  position: relative;
+  opacity: 0.5;
+  height: 46px;
+  margin-bottom: 1px;
+}
+.category-btn + label > img {
+  height: 36px;
+  width: 30px;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-radius: 4px 0 0 4px;
+  padding: 3px;
+  display: inline;
+}
+.category-btn + label > span {
+  width: 210px;
+  position: absolute;
+  top: 0px;
+  left: 38px;
+  padding-left: 15px;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+.category-btn:checked + label {
+  opacity: 1.0;
+}
+.category-btn:checked + label > img {
+  border-left-color: rgb(242, 82, 24);
+  border-top-color: rgb(242, 82, 24);
+  border-bottom-color: rgb(242, 82, 24);
+}
+.category-btn:checked + label > span {
+  background-color: rgba(242, 82, 24, 0.89);
+  color: white;
+}
+.category-btn + label:hover {
+  opacity: 1.0;
+  cursor: pointer;
+}
+.category-btn + label:hover > img {
+  border-left-color: rgb(242, 82, 24);
+  border-top-color: rgb(242, 82, 24);
+  border-bottom-color: rgb(242, 82, 24);
+}
+.category-btn + label:hover > span {
+  border-top-color: rgb(242, 82, 24);
+  border-right-color: rgb(242, 82, 24);
+  border-bottom-color: rgb(242, 82, 24);
+}
+
+/* Selected category placeholder styles */
+#selected-category label {
+  cursor: default !important;
+}
+#selected-category {
+  position: relative;
+  width: 280px;
+  margin-right: 0;
+}
+#selected-category-placeholder + label {
+  opacity: 1.0;
+}
+#selected-category-placeholder + label > img {
+  opacity: 1.0;
+  border-color: rgba(242, 82, 24, 0.89);
+}
+#selected-category-placeholder + label > span {
+  color: #FFF;
+  background-color: rgb(242, 82, 24);
+  border-color: rgb(242, 82, 24);
+}
+
+/* Other dynamic form styles */
+.category-menu-hamburger {
+  width: 30px;
+  height: 36px;
+  margin-right: 10px;
+  position: absolute;
+  top: 5px;
+  left: 290px;
+}
+.category-menu-hamburger:before {
+  font-family: FontAwesome;
+  font-size: 2.2em;
+  content: "\f03a";
+}
+.category-menu-hamburger:hover {
+  color: rgb(242, 82, 24);
+  cursor: pointer;
+}
+.form-annotation {
+  font-size: 0.8em;
+  font-style: italic;
+}
+.alt-label {
+  display: none;
+}
+/* ##### End dynamic form styles ##### */
+
+
+/* Imag es */
 img {
   max-width: 100%;
   height: auto;
@@ -1305,7 +1494,6 @@ ul.recent-points {
   max-width: 9em;
   margin: 0 1em 0.75em 0;
 }
-
 .place-list .place-label,
 .place-list .place-value {
 }
@@ -1316,7 +1504,13 @@ ul.recent-points {
 .place-item-attachment .place-value:empty {
   display: block;
 }
-
+.place-value {
+  font-weight: bold;
+}
+.place-label {
+  font-weight: normal;
+  font-style: italic;
+}
 .view-on-map-btn {
   margin: 1em 0;
   float: left;
