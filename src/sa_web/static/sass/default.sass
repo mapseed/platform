@@ -639,7 +639,7 @@ a.logout-btn
 // Add Place Button - Selectors
 
 #add-place-btn-container
-  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
   padding: 0.5em 0.5em 0.75em
   position: relative
   z-index: 30
@@ -877,7 +877,7 @@ a.close-btn
     overflow: hidden
     display: block
     width: 100% !important
-    height: auto !important
+    /* height: auto !important */
 
 // Promotion: Voting & Sharing - Selectors
 
@@ -1126,7 +1126,7 @@ a.auth-inline
 
 
 #ticker
-  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
   z-index: 30
   display: none
   p
@@ -1336,22 +1336,18 @@ ul.recent-points
  // *  height: auto;
  // *}
 
-.master-layer-list {
-  padding-left: unset;
-  list-style-type: none;
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-top: 0.5em;
-  margin-botom: 0;
-}
+.master-layer-list
+  padding-bottom: 0
+  padding-top: 0
+  margin-top: 0.5
+  margin-bottom: 0
+
 /* All layers in the Master Legend list */
-.master-layer-list .unstyled-list {
-/* line 1073, ../sass/default.sass */
-  overflow: visible;
-  padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-}
+.master-layer-list .unstyled-list 
+  overflow: visible
+  padding-left: unset
+  padding-right: unset
+  padding-top: 10px
 
 // ################################
 // LIST VIEW - SELECTORS
@@ -1505,7 +1501,7 @@ ul.recent-points
 
 #geocode-address-bar
   display: none
-  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
   position: relative
   z-index: 40
   padding: 0.75em 0.5em 0.5em
@@ -1693,181 +1689,179 @@ a.close-unsupported-overlay
   box-shadow: -0.325em 0.325em 0 $opacity-very-low-black
 
 // ################################
-// DYNAMIC Form
+// DYNAMIC FORM
 // ################################
 
 /* ##### Begin dynamic form styles ##### */
 
 /* Large radio and checkbox buttons styles */
 /* http://cssdeck.com/labs/ldmtsmfk */
-.big-btn {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-}
-.big-btn + label:before {
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  content: '';
-  width: 2.5em;
-  background: #D1D3D4;
-  border-radius: 1px 0 0 1px;
-}
-.big-btn + label {
-  position: relative;
-  float: left;
-  line-height: 2.5em;
-  text-indent: 3.25em;
-  margin-top: 5px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #999999;
-  border-radius: 4px;
-  padding-right: 10px;
+.big-btn
+  position: absolute
+  bottom: 0
+  left: 0
+  opacity: 0
+
+.big-btn + label:before
+  position: absolute
+  display: block
+  top: 0
+  bottom: 0
+  left: 0
+  content: ''
+  width: 2.5em
+  background: #D1D3D4
+  border-radius: 1px 0 0 1px
+
+.big-btn + label
+  position: relative
+  float: left
+  line-height: 2.5em
+  text-indent: 3.25em
+  margin-top: 5px
+  cursor: pointer
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  color: #999999
+  border-radius: 4px
+  padding-right: 10px
   border: 2px solid #D1D3D4
-}
-.big-btn:hover:not(:checked) + label:before {
-  content:'\2714';
-  text-indent: .9em;
-  color: #EEEEEE;
-}
-.big-btn:hover:not(:checked) + label {
-  color: #444444;
-}
-.big-btn:checked + label:before {
-  content:'\2714';
-  text-indent: .9em;
-  color: #FFFFFF;
+
+.big-btn:hover:not(:checked) + label:before
+  content: '\2714'
+  text-indent: .9em
+  color: #EEEEEE
+
+.big-btn:hover:not(:checked) + label
+  color: #444444
+
+.big-btn:checked + label:before
+  content: '\2714'
+  text-indent: .9em
+  color: #FFFFFF
   background-color: rgba(242, 82, 24, 0.89)
-}
-.big-btn:checked + label {
-  color: #222222;
-  font-weight: bold;
+
+.big-btn:checked + label
+  color: #222222
+  font-weight: bold
   border: 2px solid rgba(242, 82, 24, 0.89)
-}
+
 
 /* Place type category button styles */
-#category-btns {
-  margin-bottom: 20px;
-}
-.category-btn {
-  display: none;
-}
-.category-btn + label {
-  top: 0px;
-  text-transform: uppercase;
-  font-size: 12pt;
-  width: 200px;
-  display: block;
-  position: relative;
-  opacity: 0.5;
-  height: 46px;
-  margin-bottom: 1px;
-}
-.category-btn + label > img {
-  height: 36px;
-  width: 30px;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-  border-left: 2px solid transparent;
-  border-radius: 4px 0 0 4px;
-  padding: 3px;
-  display: inline;
-}
-.category-btn + label > span {
-  width: 210px;
-  position: absolute;
-  top: 0px;
-  left: 38px;
-  padding-left: 15px;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-  border-right: 2px solid transparent;
-  border-radius: 0 4px 4px 0;
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
-.category-btn:checked + label {
-  opacity: 1.0;
-}
-.category-btn:checked + label > img {
-  border-left-color: rgb(242, 82, 24);
-  border-top-color: rgb(242, 82, 24);
-  border-bottom-color: rgb(242, 82, 24);
-}
-.category-btn:checked + label > span {
-  background-color: rgba(242, 82, 24, 0.89);
-  color: white;
-}
-.category-btn + label:hover {
-  opacity: 1.0;
-  cursor: pointer;
-}
-.category-btn + label:hover > img {
-  border-left-color: rgb(242, 82, 24);
-  border-top-color: rgb(242, 82, 24);
-  border-bottom-color: rgb(242, 82, 24);
-}
-.category-btn + label:hover > span {
-  border-top-color: rgb(242, 82, 24);
-  border-right-color: rgb(242, 82, 24);
-  border-bottom-color: rgb(242, 82, 24);
-}
+#category-btns
+  margin-bottom: 20px
+
+.category-btn
+  display: none
+
+.category-btn + label
+  top: 0px
+  text-transform: uppercase
+  font-size: 12pt
+  width: 200px
+  display: block
+  position: relative
+  opacity: 0.5
+  height: 46px
+  margin-bottom: 1px
+
+.category-btn + label > img
+  height: 36px
+  width: 30px
+  border-top: 2px solid transparent
+  border-bottom: 2px solid transparent
+  border-left: 2px solid transparent
+  border-radius: 4px 0 0 4px
+  padding: 3px
+  display: inline
+
+.category-btn + label > span
+  width: 210px
+  position: absolute
+  top: 0px
+  left: 38px
+  padding-left: 15px
+  border-top: 2px solid transparent
+  border-bottom: 2px solid transparent
+  border-right: 2px solid transparent
+  border-radius: 0 4px 4px 0
+  padding-top: 11px
+  padding-bottom: 11px
+
+.category-btn:checked + label
+  opacity: 1.0
+
+.category-btn:checked + label > img
+  border-left-color: rgb(242, 82, 24)
+  border-top-color: rgb(242, 82, 24)
+  border-bottom-color: rgb(242, 82, 24)
+
+.category-btn:checked + label > span
+  background-color: rgba(242, 82, 24, 0.89)
+  color: white
+
+.category-btn + label:hover
+  opacity: 1.0
+  cursor: pointer
+
+.category-btn + label:hover > img
+  border-left-color: rgb(242, 82, 24)
+  border-top-color: rgb(242, 82, 24)
+  border-bottom-color: rgb(242, 82, 24)
+
+.category-btn + label:hover > span
+  border-top-color: rgb(242, 82, 24)
+  border-right-color: rgb(242, 82, 24)
+  border-bottom-color: rgb(242, 82, 24)
 
 /* Selected category placeholder styles */
-#selected-category label {
-  cursor: default !important;
-}
-#selected-category {
-  position: relative;
-  width: 280px;
-  margin-right: 0;
-}
-#selected-category-placeholder + label {
-  opacity: 1.0;
-}
-#selected-category-placeholder + label > img {
-  opacity: 1.0;
-  border-color: rgba(242, 82, 24, 0.89);
-}
-#selected-category-placeholder + label > span {
-  color: #FFF;
-  background-color: rgb(242, 82, 24);
-  border-color: rgb(242, 82, 24);
-}
+#selected-category label
+  cursor: default !important
+
+#selected-category
+  position: relative
+  width: 280px
+  margin-right: 0
+
+#selected-category-placeholder + label
+  opacity: 1.0
+
+#selected-category-placeholder + label > img
+  opacity: 1.0
+  border-color: rgba(242, 82, 24, 0.89)
+
+#selected-category-placeholder + label > span
+  color: #FFF
+  background-color: rgb(242, 82, 24)
+  border-color: rgb(242, 82, 24)
 
 /* Other dynamic form styles */
-.category-menu-hamburger {
-  width: 30px;
-  height: 36px;
-  margin-right: 10px;
-  position: absolute;
-  top: 5px;
-  left: 290px;
-}
-.category-menu-hamburger:before {
-  font-family: FontAwesome;
-  font-size: 2.2em;
-  content: "\f03a";
-}
-.category-menu-hamburger:hover {
-  color: rgb(242, 82, 24);
-  cursor: pointer;
-}
-.form-annotation {
-  font-size: 0.8em;
-  font-style: italic;
-}
-.alt-label {
-  display: none;
-}
+.category-menu-hamburger
+  width: 30px
+  height: 36px
+  margin-right: 10px
+  position: absolute
+  top: 5px
+  left: 290px
+
+.category-menu-hamburger:before
+  font-family: FontAwesome
+  font-size: 2.2em
+  content: "\f03a"
+
+.category-menu-hamburger:hover
+  color: rgb(242, 82, 24)
+  cursor: pointer
+
+.form-annotation
+  font-size: 0.8em
+  font-style: italic
+
+.alt-label
+  display: none
+
 /* ##### End dynamic form styles ##### */
 
 
@@ -1948,7 +1942,7 @@ a.close-unsupported-overlay
     content: "desktop"
   // Header
   #site-header
-    background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
+    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
     padding-left: 1em
     overflow: visible
     height: 4em
@@ -2026,7 +2020,7 @@ a.close-unsupported-overlay
     position: relative
     z-index: 3
   .sign-in-menu
-    background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
+    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
     border-radius: 3px
     box-shadow: -0.25em 0.25em 0 $opacity-low-black
     width: 18em
@@ -2259,7 +2253,7 @@ a.close-unsupported-overlay
   // Footer
   #colophon
     color: $button-background-blue
-    background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
+    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
     font-size: 1em
     position: absolute
     top: auto
