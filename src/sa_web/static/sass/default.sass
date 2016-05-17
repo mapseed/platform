@@ -1,0 +1,2298 @@
+// ################################
+// BASE STYLES - VARIABLES
+// ################################
+// Links - Variables
+$hover-highlight-blue: #00aaff
+
+// Typography - Variables
+$default-font-color: #36454f // #555
+$default-font-family: 'Roboto', sans-serif // "Helvetica Neue", Arial, Helvetica, serif
+$border-color-lightgrey: #eeeeee
+
+// Buttons - Variables
+$button-background-blue: #007fbf
+$button-background-hover-blue: #93b7c9
+$button-background-lightblue: #a3c7d9
+$button-color-white: #fff
+$button-primary-background-orange: rgba(242, 82, 24, 0.89)
+$opacity-lowest-black: rgba(0, 0, 0, 0.05)
+$opacity-very-low-black: rgba(0, 0, 0, 0.1)
+$opacity-low-black: rgba(0, 0, 0, 0.2)
+$opacity-med-black: rgba(0, 0, 0, 0.5)
+$opacity-med-high-white: rgba(255, 255, 255, 0.75)
+
+// Forms - Variables
+// Images - Variables
+
+// ################################
+// NONSEMANTIC BASE STYLES - VARIABLES
+// ################################
+
+// ################################
+// HEADER - VARIABLES
+// ################################
+// Navigation Button - Variables
+// Navigation Menu - Variables
+// User Menu - Variables
+
+// ################################
+// MAP - VARIABLES
+// ################################
+// Geolocation Button - Variables
+// Map Attribution - Variables
+// Add Place Button - Variables
+// Center Point (new point icon) - Variables
+// Drag Marker Instructions (for adding a new place) - Variables
+// Ajax Error Message - Variables
+
+// ################################
+// PROGRESS BARS - VARIABLES
+// ################################
+
+// ################################
+// CONTENT: PAGES AND PLACES - VARIABLES
+// ################################
+// Close Button - Variables
+// Promotion: Voting & Sharing - Variables
+// Places - Variables
+// Surveys - Variables
+
+// ################################
+// SIDEBAR - VARIABLES
+// ################################
+
+// ################################
+// TICKER - VARIABLES
+// ################################
+
+// ################################
+// MASTER LEGEND - VARIABLES
+// ################################
+
+// ################################
+// LIST VIEW - VARIABLES
+// ################################
+// Search - Variables
+// Search & Sort - Variables
+// Place List - Variables
+
+// ################################
+// PLACE COUNTER - VARIABLES
+// ################################
+
+// ################################
+// GEOCODING - VARIABLES
+// ################################
+
+// ################################
+// FOOTER - VARIABLES
+// ################################
+// Powered By - Variables
+// Mapquest Attribution - Variables
+
+// ################################
+// UNSUPPORTED BROWSERS - VARIABLES
+// ################################
+
+// ################################
+// MEDIA QUERIES - VARIABLES
+// ################################
+$map-width-when-content-visible: 60%
+$content-visible-left-offset: $map-width-when-content-visible
+$content-visible-width: 100% - $map-width-when-content-visible
+
+
+// ################################
+// ################################
+// ################################
+
+
+// ################################
+// BASE STYLES - SELECTORS
+// ################################
+
+html
+  min-height: 100%
+
+body
+  height: 100%
+  text-align: left
+  &:after
+    content: "mobile"
+    display: none
+
+// Links - Selectors
+
+a
+  color: $default-font-color
+  &:active, &:visited
+    color: $default-font-color
+
+label
+  color: $default-font-color
+  &:active, &:visited
+    color: $default-font-color
+
+a:hover, label:hover
+  color: $hover-highlight-blue
+
+a
+  &:hover, &:active
+    outline: none
+
+// Typography - Selectors
+
+body
+  line-height: 1.25
+  font-family: $default-font-family
+  color: $default-font-color
+
+select, input, textarea
+  font-family: $default-font-family
+  color: $default-font-color
+
+h1, h2, h3, h4, h5, h6
+  margin: 0 0 0.25em 0
+
+h1, h2
+  font-size: 2em
+
+h3
+  font-size: 1.75em
+
+h4
+  font-size: 1.5em
+
+h5
+  font-size: 1.25em
+
+h6
+  font-size: 1em
+  text-transform: uppercase
+
+p
+  margin: 0 0 1.5em
+
+ul, ol, dl
+  margin-bottom: 0.75em
+
+li
+  padding-bottom: 0.75em
+
+nav
+  ul, ol
+    list-style-type: none
+    margin: 0
+    padding: 0
+
+.unstyled-list
+  list-style-type: none
+  margin: 0
+  padding: 0
+
+nav li, .unstyled-list li
+  padding-bottom: 0
+
+strong
+  font-weight: 800
+
+hr
+  margin: 1.5em 0
+  border: 1px solid $border-color-lightgrey
+  border-top-color: $opacity-low-black
+  border-bottom-color: $opacity-med-high-white
+  border-right: 0
+  border-left: 0
+
+// Buttons - Selectors
+
+.btn
+  display: inline-block
+  *display: inline
+  *zoom: 1
+  padding: 0.325em 0.625em
+  margin-bottom: 0
+  text-align: center
+  vertical-align: middle
+  cursor: pointer
+  color: $button-background-blue
+  text-decoration: none
+  text-transform: uppercase
+  background-color: $button-background-lightblue
+  box-shadow: -0.25em 0.25em 0 $opacity-very-low-black
+  font-weight: 600
+  border: 3px solid $opacity-lowest-black
+  border-radius: 3px
+  &:visited, &:link
+    display: inline-block
+    *display: inline
+    *zoom: 1
+    padding: 0.325em 0.625em
+    margin-bottom: 0
+    text-align: center
+    vertical-align: middle
+    cursor: pointer
+    color: $button-background-blue
+    text-decoration: none
+    text-transform: uppercase
+    background-color: $button-background-lightblue
+    box-shadow: -0.25em 0.25em 0 $opacity-very-low-black
+    font-weight: 600
+    border: 3px solid $opacity-lowest-black
+    border-radius: 3px
+  &:hover
+    background-color: $button-background-hover-blue
+
+.btn-primary
+  background-color: $hover-highlight-blue
+  color: $button-color-white
+  background-color: $button-primary-background-orange
+  &:visited, &:link
+    background-color: $hover-highlight-blue
+    color: $button-color-white
+    background-color: $button-primary-background-orange
+  &:hover
+    background-color: $button-background-blue
+
+.btn-secondary
+  background-color: #ccc
+  color: $button-background-blue
+  background: none
+  border: none
+  box-shadow: none
+  &:visited, &:link
+    background-color: #ccc
+    color: $button-background-blue
+    background: none
+    border: none
+    box-shadow: none
+  &:hover
+    background-color: $button-background-blue
+    color: $button-color-white
+
+.btn-disabled
+  background-color: #eee
+  color: #ccc
+  box-shadow: none
+  &:visited, &:link, &:hover
+    background-color: #eee
+    color: #ccc
+    box-shadow: none
+
+.btn-block
+  clear: both
+  display: block
+  padding: 0.5em 0.75em
+  width: 100%
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  &:visited, &:link
+    clear: both
+    display: block
+    padding: 0.5em 0.75em
+    width: 100%
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+.btn-large
+  font-size: 1.25em
+  padding: 0.75em 1em 0.5em
+
+.btn-small
+  font-size: 0.75em
+
+// Forms - Selectors
+
+form
+
+fieldset
+  border: 0
+  margin: 0
+  padding: 0 0 1.2em
+
+label
+  font-size: 0.75em
+  //text-transform: uppercase;
+  //color: #999;
+  margin-right: 0.5em
+  padding-bottom: 0
+  small
+    text-transform: none
+
+input
+  &[type=date],
+  &[type=datetime],
+  &[type=datetime-local],
+  &[type=email],
+  &[type=month],
+  &[type=number],
+  &[type=password],
+  &[type=tel],
+  &[type=text],
+  &[type=time],
+  &[type=url],
+  &[type=week]
+    outline: 0
+    border: 0.25em solid $button-background-lightblue
+    border-radius: 0
+    padding: 0.5em
+    display: block
+    width: 100%
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+select, textarea
+  outline: 0
+  border: 0.25em solid $button-background-lightblue
+  border-radius: 0
+  padding: 0.5em
+  display: block
+  width: 100%
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+input:focus, select:focus
+  outline: 2px solid $button-background-blue
+
+textarea
+  &:focus
+    outline: 2px solid $button-background-blue
+  height: 6.5em
+  resize: none
+
+select
+  background-color: $button-color-white
+
+// Old IE does not like this to be combine with :invalid rules.
+// * It will ignore it!
+
+.form-submitted
+  .gatekeeper-invalid, input:invalid, textarea:invalid, select:invalid
+    outline: 2px solid #b2182b
+
+.fileinput-container
+  position: relative
+  overflow: hidden
+  white-space: nowrap
+  input
+    position: absolute
+    right: 0
+    bottom: 0
+    margin: 0
+    padding: 0
+    height: 100%
+    opacity: 0
+    cursor: pointer
+
+.fileinput-name
+  display: inline-block
+
+.form-spinner
+  clear: both
+  padding: 1em
+
+.form-field
+  margin: 0 0 1em
+
+// Images - Selectors
+
+img
+  max-width: 100%
+  height: auto
+
+.icon-inline
+  height: 1.5em
+  width: auto
+  margin: 0 0.25em -0.325em 0.5em
+
+.icon-muted
+  opacity: 0.75
+
+// ################################
+// NONSEMANTIC BASE STYLES - SELECTORS
+// ################################
+
+
+.clearfix
+  &:before
+    content: "\0020"
+    display: block
+    height: 0
+    visibility: hidden
+  &:after
+    content: "\0020"
+    display: block
+    height: 0
+    visibility: hidden
+    clear: both
+  zoom: 1
+
+// Hide for both screenreaders and browsers
+
+.is-hidden, .hidden
+  display: none
+  visibility: hidden
+
+// Hide only visually, but have it available for screenreaders
+
+.is-screen-reader-text, .is-visuallyhidden
+  position: absolute !important
+  clip: rect(1px 1px 1px 1px)
+  // IE6, IE7
+  clip: rect(1px, 1px, 1px, 1px)
+
+// Hide visually and from screenreaders, but maintain layout
+
+.is-invisible
+  visibility: hidden
+
+.nobreak
+  white-space: nowrap
+
+.capitalize
+  text-transform: capitalize
+
+// ################################
+// HEADER - SELECTORS
+// ################################
+
+
+#site-header
+  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  position: relative
+  z-index: 99
+  padding: 0.5em
+  box-shadow: 0 0.125em 0 $opacity-low-black
+
+#site-title
+  font-size: .75em
+  font-family: 'Alegreya Sans', sans-serif
+  text-shadow: 1px -1px 1px $opacity-med-black
+  float: left
+  margin: 0 0.5em 0 0
+  padding: 0
+
+.has-pages #site-title
+  padding-left: 3.25em
+
+#site-title a
+  &:link, &:visited
+    display: block
+    font-family: 'Alegreya Sans', sans-serif
+    font-size: 2em
+    line-height: 1.25
+    text-decoration: none
+    color: #13b309
+  &:hover
+    color: orange
+
+// Navigation Button - Selectors
+
+#nav-btn
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  color: #bbb
+  font-size: 2em
+  line-height: 1
+  text-decoration: none
+  text-align: center
+  text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.25)
+  float: left
+  width: 1.25em
+  padding: 0.125em 0
+  position: absolute
+  left: 0.25em
+  top: 0.25em
+
+// Navigation Menu - Selectors
+
+.access
+  font-weight: bold
+  text-align: center
+  float: left
+  width: 100%
+  margin: 0.5em 0 0
+  padding: 0
+  display: none
+  &.is-exposed
+    display: block
+  li
+    position: relative
+    padding-bottom: 0.5em
+    li
+      padding-top: 0.5em
+      padding-bottom: 0
+
+// User Menu - Selectors
+
+.user-menu
+
+#sign-in-btn
+  background-color: $button-background-blue
+  color: $button-color-white
+  font-size: 0.75em
+  text-transform: uppercase
+  text-align: center
+  text-decoration: none
+  line-height: 3.25
+  float: right
+  display: block
+  padding: 0 0.5em
+  margin: 0.25em, 0.75em, 0, 0.5em
+  height: 100%
+  &:hover
+    color: $button-background-lightblue
+
+.sign-in-menu
+  font-weight: bold
+  text-align: center
+  float: left
+  width: 100%
+  margin: 0.5em 0
+  padding: 0
+  display: none
+  &.is-exposed
+    display: block
+
+.sign-in-menu-item
+  float: left
+  width: 50%
+  font-weight: bold
+
+a
+  &.auth-btn
+    text-decoration: none
+    display: block
+    padding: 0.5em
+    box-shadow: -0.25em 0.25em 0 $opacity-very-low-black
+  &.twitter-btn
+    background-color: #4099FF
+    color: $button-color-white !important
+    margin-right: 0.25em
+  &.facebook-btn
+    background-color: #3b5998
+    color: $button-color-white !important
+    margin-left: 0.25em
+
+.authed #sign-in-btn
+  font-size: 1em
+  padding: 0
+  outline: 0
+
+.header-avatar
+  float: right
+  width: 3em
+  height: 3em
+  max-width: none
+
+.signed-in-as
+  font-weight: normal
+  font-size: 0.875em
+
+.current-user
+
+a.logout-btn
+  color: $button-background-lightblue
+  font-size: 0.875em
+  font-weight: normal
+  text-decoration: none
+  text-transform: uppercase
+
+// ################################
+// MAP - SELECTORS
+// ################################
+
+#map-container
+  position: relative
+  background: $button-background-lightblue
+  z-index: 10
+
+#map
+  background: $button-background-lightblue
+  height: 150px
+  //opacity: 0.5;
+
+// Geolocation Button - Selectors
+
+.locate-me
+  background-image: url(images/locate-me.png)
+
+#map
+  .leaflet-bar a
+    width: 33px
+    height: 33px
+    line-height: 33px
+    &:hover
+      width: 33px
+      height: 33px
+      line-height: 33px
+  .leaflet-control-attribution
+    font-size: 9px
+    -webkit-text-size-adjust: none
+    // keep iPhone from getting smart with the font sizes
+
+// Map Attribution - Selectors
+
+// Add Place Button - Selectors
+
+#add-place-btn-container
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  padding: 0.5em 0.5em 0.75em
+  position: relative
+  z-index: 30
+  box-shadow: 0 -0.325em 0 $opacity-very-low-black
+  border-bottom: 1px solid #666
+
+#add-place
+
+.content-visible #add-place-btn-container
+  display: none
+  // hide the add button on mobile when the panel is open
+
+// Center Point (new point icon) - Selectors
+
+#centerpoint
+  display: none
+  &.newpin
+    overflow: visible
+    position: absolute
+    top: 50%
+    left: 50%
+    pointer-events: none
+    z-index: 11
+    width: 100px
+    height: 100px
+    margin: -44px 0 0 -12px
+
+#spotlight-place-mask
+  height: 100%
+  width: 100%
+  margin: 0 auto
+
+#spotlight-place-mask-fill
+  position: absolute
+  border-radius: 50%
+  pointer-events: none
+
+#centerpoint.newpin
+  .x
+    display: block
+    position: absolute
+    width: 18px
+    height: 12px
+    background: transparent url(images/marker-x.png) 0 0 no-repeat scroll
+    left: 4px
+    top: 37px
+    opacity: 0
+    -webkit-transition: opacity 0.25s
+    -moz-transition: opacity 0.25s
+    -o-transition: opacity 0.25s
+    -ms-transition: opacity 0.25s
+    transition: opacity 0.25s
+  &:hover .x, &.dragging .x
+    opacity: 1
+  .shadow
+    display: block
+    height: 47px
+    width: 47px
+    position: absolute
+    top: 0
+    left: 0
+    background: transparent url(images/marker-shadow.png) 0 3px no-repeat scroll
+    -webkit-transition: opacity 0s, background-position 0.3s ease
+    -moz-transition: opacity 0s, background-position 0.3s ease
+    -o-transition: opacity 0s, background-position 0.3s ease
+    -ms-transition: opacity 0s, background-position 0.3s ease
+    transition: opacity 0s, background-position 0.3s ease
+  &:hover .shadow, &.dragging .shadow
+    opacity: 0.2
+    background-image: url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png)
+    background-position: 0px -3px, 3px -3px, 6px -3px, 0px -6px, 3px -6px, 6px -6px, 0px -9px, 3px -9px, 6px -9px
+  .marker
+    display: block
+    width: 25px
+    height: 41px
+    background: transparent url(images/marker-plus.png) 0 0 no-repeat scroll
+    position: relative
+    top: 3px
+    -webkit-transition: top 0.4s ease
+    -moz-transition: top 0.4s ease
+    -o-transition: top 0.4s ease
+    -ms-transition: top 0.4s ease
+    transition: top 0.4s ease
+  &:hover .marker, &.dragging .marker
+    top: -20px
+
+// Drag Marker Instructions (for adding a new place) - Selectors
+
+.drag-marker-instructions
+  background-color: LightYellow
+  background-color: rgba(240, 240, 0, 0.2)
+  color: #444
+  font-weight: bold
+  text-shadow: -1px 1px 0 rgba(255, 255, 255, 0.5)
+  text-align: center
+  margin-bottom: 1em
+  padding: 0.75em 1em 0.875em
+  border-radius: 0.325em
+
+.drag-marker-warning
+  background-color: LightYellow
+  background-color: rgba(240, 240, 0, 0.2)
+  color: #444
+  font-weight: bold
+  text-shadow: -1px 1px 0 rgba(255, 255, 255, 0.5)
+  text-align: center
+  margin-bottom: 1em
+  padding: 0.75em 1em 0.875em
+  border-radius: 0.325em
+  background-color: LightPink
+  background-color: rgba(242, 206, 206, 0.8)
+
+// Ajax Error Message - Selectors
+
+#ajax-error-msg
+  display: none
+  position: absolute
+  top: 10px
+  left: 50px
+  max-width: 300px
+  z-index: 9999
+  padding: 0.625em
+  color: #8D5251
+  border: 1px solid #CFABAB
+  background-color: rgba(242, 206, 206, 0.8)
+  border-radius: 4px
+
+.cluster-large
+  border-radius: 20px
+  width: 40px
+  height: 40px
+  background-color: greenyellow
+  text-align: center
+  font-size: 24px
+
+.cluster-small
+  border-radius: 30px
+  width: 60px
+  height: 60px
+  background-color: #ffdb58
+  text-align: center
+  font-size: 24px
+  padding-top: 10px
+  box-sizing: border-box
+
+// ################################
+// PROGRESS BARS - SELECTORS
+// ################################
+
+
+.progress-bar
+  background: rgba(85, 85, 85, 0.5)
+  height: 1.5em
+  padding: 0 0.25em
+  position: relative
+  border-radius: 0.75em
+  cursor: default
+  pointer-events: none
+  strong
+    position: absolute
+    top: 0
+    left: 1em
+    z-index: 2
+    color: $button-color-white
+    font-size: 0.75em
+    line-height: 1.875
+    text-transform: uppercase
+    text-shadow: 0 0 0.25em rgba(85, 85, 85, 1)
+  span
+    background: $hover-highlight-blue
+    display: block
+    width: 0%
+    height: 1em
+    position: relative
+    z-index: 1
+    top: 0.25em
+    overflow: visible
+    border-radius: 0.5em
+    white-space: nowrap
+
+#map-progress
+  position: absolute
+  top: 10px
+  right: 50px
+  bottom: auto
+  left: 50px
+  z-index: 3
+  display: none
+  font-size: 1.25em
+
+// ################################
+// CONTENT: PAGES AND PLACES - SELECTORS
+// ################################
+
+
+#content
+  background: $button-color-white
+  padding: 1em 1em 2em
+  position: relative
+  z-index: 10
+  box-shadow: 0 -0.325em 0 $opacity-very-low-black
+  display: none
+
+// Close Button - Selectors
+
+a.close-btn
+  background: $button-color-white
+  color: #ff5e99
+  font-size: 1.25em
+  font-weight: bold
+  text-decoration: none
+  line-height: 1.125em
+  float: left
+  display: block
+  position: absolute
+  top: -1.325em
+  left: 0.5em
+  padding: 0.325em 0.625em
+  z-index: 2
+  box-shadow: 0 -0.325em 0 $opacity-very-low-black
+  border-radius: 0.325em 0.325em 0 0
+  &:hover
+    color: #cd2c67
+  span
+    font-size: 0.625em
+    text-transform: uppercase
+    margin-left: 0.625em
+    position: relative
+    top: -0.2em
+
+// Contains embeded video player size
+
+#content
+  iframe, object, embed
+    overflow: hidden
+    display: block
+    width: 100% !important
+    /* height: auto !important */
+
+// Promotion: Voting & Sharing - Selectors
+
+.promotion
+  float: right
+  margin: 0 0 1em 0.5em
+
+.support
+  margin-bottom: 0.75em
+  position: relative
+
+.user-support
+  position: relative
+  input[type=checkbox]
+    cursor: pointer
+    display: block
+    padding: 0
+    margin: 0
+    border: 0
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    opacity: 0
+    -ms-filter: "alpha(opacity=0)"
+    zoom: 1
+  label
+    display: block
+    background: transparent url(images/heart-empty.png) left center no-repeat scroll
+    box-shadow: none
+    border-radius: 0
+    font-size: 1em
+    padding-left: 22px
+    color: $button-background-blue
+  input[type=checkbox]:checked ~ label
+    background-image: url(images/heart.png)
+  &:hover label
+    background-color: $button-background-hover-blue
+
+.support-count
+
+.social
+  min-width: 84px
+
+.sharing
+  margin: 0
+
+.share-link
+  float: right
+  padding: 0 !important
+  margin-left: 10px
+  a
+    display: block
+    width: 32px
+    height: 32px
+    overflow: hidden
+    text-indent: -9999px
+
+.share-twitter a
+  background: url(images/twitter-32.png) 0 0 no-repeat scroll
+
+.share-facebook a
+  background: url(images/facebook-32.png) 0 0 no-repeat scroll
+
+// Places - Selectors
+
+.place-header
+  margin-bottom: 1em
+  a
+    text-decoration: none
+
+.place-submission-details
+  display: block
+  padding-left: 3.75em
+
+.point-submitter .avatar
+  width: 3.25em
+  height: 3.25em
+  float: left
+  margin-left: -3.75em
+
+.response-date
+  display: block
+  text-transform: uppercase
+  color: #888
+  font-size: 0.75em
+  a
+    color: #888
+    &:hover
+      color: $hover-highlight-blue
+
+.survey-count
+  font-size: 0.75em
+  text-transform: uppercase
+  display: block
+
+// Surveys - Selectors
+
+.survey
+  position: relative
+
+.survey-header
+  border-bottom: 1px solid #a8a8a8
+  padding-bottom: 0.75em
+  margin-bottom: 1em
+  font-size: 1.25em
+
+a.reply-link
+  float: right
+  position: absolute
+  top: 0
+  right: 0
+
+ol.responses
+
+.response
+  position: relative
+  padding-bottom: 2.625em
+  margin-bottom: 1em
+
+.response-header
+  padding-left: 3.75em
+  margin: 0 0 0 1em
+  position: absolute
+  bottom: 0
+  left: 0
+
+.response-submitter .avatar
+  width: 3em
+  height: 3em
+  float: left
+  margin-left: -3.75em
+
+.response-meta
+
+.response-body
+  margin: 0 0 1em
+  padding: 1em
+  border-top: 1px solid #a8a8a8
+  border-right: 1px solid #c8c8c8
+  border-bottom: 0
+  border-left: 1px solid #c8c8c8
+  background: #eee
+  border-radius: 1em
+  position: relative
+  &:after
+    content: ''
+    height: 0
+    width: 0
+    border: 1em solid transparent
+    border-top-color: #eee
+    position: absolute
+    top: 100%
+    left: 1.5em
+
+.response-label-comment
+  display: none
+
+.response-value-comment
+  margin-bottom: 0.5em
+
+article.response footer
+  text-align: right
+
+.survey-reply-link
+  color: #999
+  background: #eee
+  padding: 0.5em 0.75em
+  text-decoration: none
+  font-weight: bold
+  &:hover
+    background: #607890
+    color: $button-color-white
+
+.submit-btn
+  float: left
+  margin: 0 0.75em 0 0
+
+form .signed-in-as
+  float: left
+  white-space: nowrap
+  padding-top: 0.125em
+  line-height: 1.5
+  .avatar
+    height: 1.5em
+    width: auto
+    position: relative
+    top: 0.5em
+  a
+    font-weight: bold
+    font-size: 0.875em
+    text-transform: uppercase
+
+.or-sign-in
+  display: block
+  margin-top: 0.5em
+
+a.auth-inline
+  display: inline
+  font-size: 0.875em
+  font-weight: bold
+  text-decoration: none
+  padding: 0.25em 0.5em
+
+// ################################
+// SIDEBAR - SELECTORS
+// ################################
+
+
+#side-bar
+  display: none
+  overflow: auto
+  letter-spacing: 1px
+  background-color: rgba(255, 255, 255, 0.5)
+  p
+    color: #F25218
+    font-family: $default-font-family
+    text-shadow: 1px -1px 1px $opacity-med-black
+    font-size: 1.4em
+    margin: 0
+    letter-spacing: 1px
+    text-transform: uppercase
+  hr
+    margin: 0.5em 0
+    //padding: 7px 0 7px 10px;
+    //margin: 0;
+    //letter-spacing: 1px;
+    //text-transform: uppercase;
+    //height: 12px;
+    border: none
+  display: block
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+//#side-bar header {
+//font-size: 2.3em;
+//font-family: 'Dancing Script', cursive;
+//text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
+//}
+
+// ################################
+// TICKER - SEELCTORS
+// ################################
+
+
+#ticker
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  z-index: 30
+  display: none
+  p
+    padding-left: 1em
+
+.activity-enabled #ticker
+  display: block
+
+//.content-visible #ticker {
+//display: none;
+
+// hide ticker when content is visible on mobile
+//}
+
+ul.recent-points
+  list-style: none
+  margin: 0
+  padding: 0
+
+.recent-points
+  li
+    position: relative
+    &:hover
+  a
+    text-decoration: none
+    float: left
+    border-top: 1px solid #888
+    border-bottom: 1px solid #666
+    padding: 0.5em 0.5em 0.5em 3em
+    width: 100%
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  li:first-child a
+    border-top: 0
+    padding-top: 0.75em
+  a:hover
+    //color: $button-color-white;
+    //background: #666;
+    //border-color: #666;
+  .avatar
+    width: 2em
+    height: 2em
+    float: left
+    margin-left: -2.5em
+
+// ################################
+// MASTER LEGEND - SELECTORS
+// ################################
+
+
+#master-legend
+  overflow: visible
+  padding-left: unset
+  padding-right: unset
+  padding-top: 10px
+  //display: none;
+  .unstyled-list
+
+// All layers in the Master Legend list
+
+.layer-type-list
+  font-size: 1.4em
+  font-weight: normal
+  letter-spacing: 1px
+
+.layer-type-grouping-list
+  margin-left: 10px
+  label
+    font-size: 0.5em
+
+// allows hover to be positioned on the 'layer-type-description'
+
+.layer-type-list
+  li
+    position: relative
+  img
+    height: 1.75em
+    width: auto
+    vertical-align: middle
+
+.layer-type-description
+  img
+    height: auto
+    width: auto
+  height: 0
+  overflow: visible
+  opacity: 0
+  position: absolute
+  z-index: 30
+  top: 100%
+  right: 1em
+  bottom: auto
+  left: 0.875em
+  margin: 0.25em 0 0 0
+  border-radius: 0 0.5em 0.5em 0.5em
+  background: #000
+  color: $button-color-white
+  font-size: 0.875em
+  line-height: 1.25
+  box-shadow: -0.25em 0 1em rgba(255, 255, 255, 0.8)
+  -webkit-transition: opacity .25s ease-in-out
+  -moz-transition: opacity .25s ease-in-out
+  transition: opacity .25s ease-in-out
+  pointer-events: none
+
+.layer-type-li:hover .layer-type-description
+  height: auto
+  padding: 0.375em 0.625em
+  opacity: 1
+  overflow: visible
+  &:after
+    content: ''
+    display: block
+    position: absolute
+    bottom: 100%
+    left: 0
+    width: 0
+    height: 0
+    border: 0.5em solid transparent
+    border-bottom-color: #000
+    border-left-color: #000
+
+#master-legend
+  .layer-type-list
+    font-size: 0.875em
+  .layer-type-title label
+    vertical-align: middle
+    margin-right: 8px
+    font-size: 1.33em
+    letter-spacing: 1px
+
+.layer-type-title input
+  vertical-align: middle
+  margin-right: 8px
+  font-size: 1.33em
+  letter-spacing: 1px
+
+#master-legend
+  .shareabouts-layer-li
+    font-size: 1.3em
+    letter-spacing: 1.4px
+  .layer-type-title:active label:hover, .shareabouts-layer-li:active a
+    color: $hover-highlight-blue
+  .map-layer-list
+    margin-bottom: 0.5em
+    font-size: 0.75em
+  .layer-type-li label, .shareabouts-layer-li a
+    cursor: pointer
+    position: relative
+    z-index: 20
+    font-weight: normal
+    text-decoration: none
+    text-transform: none
+    font-family: $default-font-family
+  .shareabouts-layer-title
+    font-size: 1.4em
+    cursor: pointer
+    width: 1em
+    height: auto
+    z-index: 20
+    text-transform: none
+    vertical-align: top
+    margin-right: 8px
+
+//#master-legend .layer-type-title label {
+//color: #ddd;
+//font-weight: normal;
+//position: absolute;
+//z-index: 20;
+//
+//text-transform: none;
+//}
+
+//#master-legend .layer-type-list:after {
+//content: '';
+//position: absolute;
+//z-index: 10;
+//top: 0;
+//left: 0;
+//height: 1.75em;
+//width: 1.75em;
+//border-radius: 100%;
+//background: $button-color-white;
+//box-shadow: 0 0 0 2px $button-color-white;
+//}
+
+//#master-legend {
+//display: block;
+//padding: 1em;
+//-webkit-box-sizing: border-box;
+//-moz-box-sizing: border-box;
+//box-sizing: border-box;
+//}
+@media screen and (min-width: 40.063em)
+  .active #master-legend
+    height: 100%
+    width: 16em
+    top: 0
+    right: 0
+    overflow: auto
+
+// Shareabouts layers
+
+// #legend-container .legend-layer-li img {
+ // *  width: 2em;
+ // *  height: auto;
+ // *}
+
+.master-layer-list
+  padding-bottom: 0
+  padding-top: 0
+  margin-top: 0.5
+  margin-bottom: 0
+
+/* All layers in the Master Legend list */
+.master-layer-list .unstyled-list 
+  overflow: visible
+  padding-left: unset
+  padding-right: unset
+  padding-top: 10px
+
+// ################################
+// LIST VIEW - SELECTORS
+// ################################
+
+
+.list-toggle-nav
+  display: none
+
+#list-container
+  display: none
+  background: $button-color-white
+  position: absolute
+  padding: 1.75em 1em
+  top: 4em
+  // height of #site-header (on large screens)
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 39
+  overflow: auto
+
+.place-list, .place-list-header
+  max-width: 70em
+  margin: 0 auto
+
+// Search - Selectors
+
+.list-search-form input
+  max-width: 25em
+  float: left
+  padding: 0.5em
+  margin-right: 0.5em
+
+// Search & Sort - Selectors
+
+.list-sort-menu
+  float: right
+  padding: 1em 0 0
+  color: #eee
+  text-transform: uppercase
+
+.list-sort-prompt
+  font-size: 0.75em
+  color: #999
+
+.list-sort-menu a
+  font-weight: bold
+  font-size: 0.75em
+  text-decoration: none
+  &.is-selected
+    color: #555
+
+// Place List - Selectors
+
+.place-list
+  clear: both
+  padding: 1.25em 0 0
+  > li
+    margin: 0
+    padding: 0.75em 0 1.25em 0
+    border-top: 1px solid $border-color-lightgrey
+  .place-header
+    font-size: 0.875em
+    &:before
+      display: none
+    &:after
+      display: none
+      clear: none
+    h1
+      font-size: 1.5em
+  .place-submission-details
+    float: left
+    width: 17.25em
+    margin-top: 0.5em
+    padding-left: 3em
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  .point-submitter .avatar
+    width: 2.5em
+    height: 2.5em
+    float: left
+    margin-left: -3em
+  .place-items
+    margin-right: 5em
+    margin-left: 16em
+  .place-item-attachment
+    float: left
+    max-width: 9em
+    margin: 0 1em 0.75em 0
+  .place-label, .place-value
+  .place-label:empty, .place-value:empty
+    display: none
+
+.place-item-attachment .place-value:empty
+  display: block
+
+.view-on-map-btn
+  margin: 1em 0
+  float: left
+
+// ################################
+// PLACE COUNTER
+// ################################
+
+
+#place-counter .counter-meter
+  width: auto
+  margin: 0 auto
+  display: inline-block
+  *display: inline
+  *zoom: 1
+  padding: 0.5em 0.75em
+  text-align: center
+  vertical-align: middle
+  color: #1a8504
+  text-decoration: none
+  text-transform: uppercase
+  background-color: $button-background-lightblue
+  box-shadow: -0.25em 0.25em 0 $opacity-very-low-black
+  font-weight: 600
+  border: 3px solid $opacity-lowest-black
+  border-radius: 3px
+
+.col
+  margin: 0 10px
+  float: left
+  display: inline
+  overflow: hidden
+
+.meter-label
+  width: auto
+
+.meter-bar meter
+  width: 260px
+  height: 10px
+  -webkit-appearance: none
+  // Reset appearance
+  border: 1px solid #ccc
+  border-radius: 3px
+  display: inline-block
+  *display: inline
+  *zoom: 1
+  padding: 0.1em 0.1em
+
+// ################################
+// GEOCODING - SELECTORS
+// ################################
+
+
+#geocode-address-bar
+  display: none
+  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png)
+  position: relative
+  z-index: 40
+  padding: 0.75em 0.5em 0.5em
+  margin-top: -0.5em
+  box-shadow: 0 0.325em 0 $opacity-very-low-black
+  font-size: 1em
+
+.geocoding-enabled #geocode-address-bar
+  display: block
+
+#geocode-address-bar .error
+  background-color: #BF6083
+  color: $button-color-white
+  line-height: 1.75
+  margin: 0
+  padding: 0.25em 0.5em
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083
+  position: absolute
+  top: 3em
+  right: 0.5em
+  bottom: auto
+  left: 0.5em
+  + form
+    box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083
+    margin-bottom: 2.5em
+  &.is-hidden + form
+    box-shadow: none
+    margin-bottom: 0
+
+// geocoding-address-place-bar - for place form fields
+
+#geocode-address-place-bar
+  display: none
+  position: relative
+
+.geocoding-enabled #geocode-address-place-bar
+  display: block
+
+#geocode-address-place-bar .error
+  background-color: #BF6083
+  color: $button-color-white
+  line-height: 1.75
+  margin: 0
+  padding: 0.25em 0.5em
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083
+  position: absolute
+  top: 3em
+  right: 0.5em
+  bottom: auto
+  left: 0.5em
+  + form
+    box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083
+    margin-bottom: 2.5em
+  &.is-hidden + form
+    box-shadow: none
+    margin-bottom: 0
+
+// All other geocoding styles
+
+.geocode-address-form
+  position: relative
+
+input.geocode-address-field
+  width: 100%
+  line-height: 1.25
+  padding-left: 2.125em
+  &:focus
+    outline: 0
+
+.geocode-address-label
+  position: absolute
+  top: 1.5em
+  left: 1em
+  height: 1.25em
+  width: 1.25em
+  margin-top: -0.625em
+  overflow: visible
+  text-indent: -9999px
+  cursor: pointer
+  &:before, &:after
+    content: ""
+    display: block
+    position: absolute
+  &:before
+    top: 0
+    left: 0
+    height: 1em
+    width: 1em
+    border: 0.2em solid $button-background-lightblue
+    border-radius: 2em
+    margin: -0.25em 0 0 -0.25em
+  &:after
+    top: 50%
+    left: 50%
+    height: 0.75em
+    width: 0.25em
+    margin: 0.125em 0 0 0.375em
+    background-color: $button-background-lightblue
+    -webkit-transform: rotate(-45deg)
+    -moz-transform: rotate(-45deg)
+    -ms-transform: rotate(-45deg)
+    -o-transform: rotate(-45deg)
+    transform: rotate(-45deg)
+
+.geocode-spinner
+  position: absolute
+  top: 0
+  left: 0
+  height: 100%
+  width: 2em
+  background-color: $button-background-lightblue
+
+// ################################
+// FOOTER - SELECTORS
+// ################################
+
+
+#colophon
+  padding: 1em 0.5em
+  text-align: center
+  a
+    text-decoration: none
+    //color: #ddd;
+    &:hover
+      border-bottom: 1px solid #ffb885
+
+// Powered By - Selectors
+
+#powered-by
+  font-size: 0.75em
+  display: inline
+
+a.shareabouts-logo
+  font-family: 'Dancing Script', cursive
+  font-weight: bold
+  font-size: 1.325em
+  color: #FF8B61
+  //color: $button-background-lightblue;
+
+#powered-by a.openplans-logo
+  //color: #ffb885;
+  color: #FF8B61
+  font-weight: bold
+
+// Mapquest Attribution - Selectors
+
+#mapquest-attribution
+  font-size: 0.75em
+  display: inline
+  img
+    max-height: 0.75em
+    width: auto
+
+// ################################
+// UNSUPPORTED BROWSERS - SELECTORS
+// ################################
+
+
+.unsupported-overlay
+  position: relative
+  z-index: 999999
+  color: #eee
+  font-weight: bold
+
+.unsupported-message
+  background-color: #cd2c67
+  padding: 1em 1em 2em
+  box-shadow: 0 0.325em 0 $opacity-very-low-black, inset 0 0.325em 0 $opacity-very-low-black
+  p
+    font-size: 1.25em
+    margin-bottom: 0.75em
+  a
+    color: $button-color-white
+
+a.close-unsupported-overlay
+  color: #ff5e99
+  font-size: 1em
+  float: none
+  position: relative
+  top: 0
+  left: 0
+  border-radius: 0.325em
+  text-align: center
+  text-transform: uppercase
+  box-shadow: -0.325em 0.325em 0 $opacity-very-low-black
+
+// ################################
+// DYNAMIC FORM
+// ################################
+
+/* ##### Begin dynamic form styles ##### */
+
+/* Large radio and checkbox buttons styles */
+/* http://cssdeck.com/labs/ldmtsmfk */
+.big-btn
+  position: absolute
+  bottom: 0
+  left: 0
+  opacity: 0
+
+.big-btn + label:before
+  position: absolute
+  display: block
+  top: 0
+  bottom: 0
+  left: 0
+  content: ''
+  width: 2.5em
+  background: #D1D3D4
+  border-radius: 1px 0 0 1px
+
+.big-btn + label
+  position: relative
+  float: left
+  line-height: 2.5em
+  text-indent: 3.25em
+  margin-top: 5px
+  cursor: pointer
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  color: #999999
+  border-radius: 4px
+  padding-right: 10px
+  border: 2px solid #D1D3D4
+
+.big-btn:hover:not(:checked) + label:before
+  content: '\2714'
+  text-indent: .9em
+  color: #EEEEEE
+
+.big-btn:hover:not(:checked) + label
+  color: #444444
+
+.big-btn:checked + label:before
+  content: '\2714'
+  text-indent: .9em
+  color: #FFFFFF
+  background-color: rgba(242, 82, 24, 0.89)
+
+.big-btn:checked + label
+  color: #222222
+  font-weight: bold
+  border: 2px solid rgba(242, 82, 24, 0.89)
+
+
+/* Place type category button styles */
+#category-btns
+  margin-bottom: 20px
+
+.category-btn
+  display: none
+
+.category-btn + label
+  top: 0px
+  text-transform: uppercase
+  font-size: 12pt
+  width: 200px
+  display: block
+  position: relative
+  opacity: 0.5
+  height: 46px
+  margin-bottom: 1px
+
+.category-btn + label > img
+  height: 36px
+  width: 30px
+  border-top: 2px solid transparent
+  border-bottom: 2px solid transparent
+  border-left: 2px solid transparent
+  border-radius: 4px 0 0 4px
+  padding: 3px
+  display: inline
+
+.category-btn + label > span
+  width: 210px
+  position: absolute
+  top: 0px
+  left: 38px
+  padding-left: 15px
+  border-top: 2px solid transparent
+  border-bottom: 2px solid transparent
+  border-right: 2px solid transparent
+  border-radius: 0 4px 4px 0
+  padding-top: 11px
+  padding-bottom: 11px
+
+.category-btn:checked + label
+  opacity: 1.0
+
+.category-btn:checked + label > img
+  border-left-color: rgb(242, 82, 24)
+  border-top-color: rgb(242, 82, 24)
+  border-bottom-color: rgb(242, 82, 24)
+
+.category-btn:checked + label > span
+  background-color: rgba(242, 82, 24, 0.89)
+  color: white
+
+.category-btn + label:hover
+  opacity: 1.0
+  cursor: pointer
+
+.category-btn + label:hover > img
+  border-left-color: rgb(242, 82, 24)
+  border-top-color: rgb(242, 82, 24)
+  border-bottom-color: rgb(242, 82, 24)
+
+.category-btn + label:hover > span
+  border-top-color: rgb(242, 82, 24)
+  border-right-color: rgb(242, 82, 24)
+  border-bottom-color: rgb(242, 82, 24)
+
+/* Selected category placeholder styles */
+#selected-category label
+  cursor: default !important
+
+#selected-category
+  position: relative
+  width: 280px
+  margin-right: 0
+
+#selected-category-placeholder + label
+  opacity: 1.0
+
+#selected-category-placeholder + label > img
+  opacity: 1.0
+  border-color: rgba(242, 82, 24, 0.89)
+
+#selected-category-placeholder + label > span
+  color: #FFF
+  background-color: rgb(242, 82, 24)
+  border-color: rgb(242, 82, 24)
+
+/* Other dynamic form styles */
+.category-menu-hamburger
+  width: 30px
+  height: 36px
+  margin-right: 10px
+  position: absolute
+  top: 5px
+  left: 290px
+
+.category-menu-hamburger:before
+  font-family: FontAwesome
+  font-size: 2.2em
+  content: "\f03a"
+
+.category-menu-hamburger:hover
+  color: rgb(242, 82, 24)
+  cursor: pointer
+
+.form-annotation
+  font-size: 0.8em
+  font-style: italic
+
+.alt-label
+  display: none
+
+/* ##### End dynamic form styles ##### */
+
+
+
+
+// ################################
+// MEDIA QUERIES
+// ################################
+
+// Without any system display to show the status/nav bar, the map height
+// can comfortably be ~118px less than the browser height, but in portrait
+// mode, we usually have ~30px of nav/status-bar, so we limit the map height
+// to ~148px less than the browser height
+
+// iphone 4 (320 x 480)
+@media only screen and (min-height: 440px) and (max-width: 60em)
+  #map
+    height: 100%
+  #site-title a
+    &:link, &:visited
+      font-size: 1.8em
+      line-height: 1.325
+  #ticker ul.recent-points
+    height: 30em
+    overflow: scroll
+
+//@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {
+//#map {
+//height: 292px;
+//}
+//}
+@media only screen and (min-height: 480px) and (max-width: 60em)
+
+//@media only screen and (min-width: 440px) and (max-height: 60em) and (orientation : landscape) {
+@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation: landscape)
+
+// iphone 5 (320 x 568)
+@media only screen and (min-height: 568px) and (max-width: 60em)
+
+//@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {
+@media only screen and (min-width: 568px) and (min-height: 320px) and (orientation: landscape)
+
+// iphone 6 (375 x 667)
+@media only screen and (min-height: 667px) and (max-width: 60em)
+
+//@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {
+@media only screen and (min-width: 667px) and (min-height: 375px) and (orientation: landscape)
+
+// iphone 6 plus (414 x 736)
+@media only screen and (min-height: 736px) and (max-width: 60em)
+
+//@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {
+@media only screen and (min-width: 736px) and (min-height: 414px) and (orientation: landscape)
+
+@media only screen and (min-height: 768px) and (max-width: 60em)
+
+// Catchall media query for screen widths below 60em. Calculated screen heights
+// mean we don't need several media queries as above, and in general don't need
+// to worry about querying heights, but keeping the skeleton of those around in
+// case future design features require specific media queries.
+
+@media only screen and (max-width: 60em)
+  html, body, #map
+    height: 100%
+  #main
+    // calculated as 100% of viewport height minus the fixed pixel height of the header
+    height: calc(100% - 64px)
+  #map-container
+    // calculated as 100% of #main height minus the fixed pixel height of the footer
+    height: calc(100% - 72px)
+  .activity-enabled.content-visible #map-container
+    height: 70%
+
+// default for other media
+@media only screen and (min-width: 60em)
+  // A helper to let the JS know what kind of layout we're using
+  body:after
+    content: "desktop"
+  // Header
+  #site-header
+    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
+    padding-left: 1em
+    overflow: visible
+    height: 4em
+    // height of site-header
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  .has-pages #site-title
+    padding-left: 0
+  #site-title a
+    &:link, &:visited
+      font-size: 3em
+      line-height: 1.325
+  #nav-btn
+    display: none
+  //#pages-nav-container,
+  //#language-picontainer,
+  #pages-nav-container
+    height: 100%
+    float: left
+  #language-picker
+    float: right
+    height: 100%
+    //position: none;
+  .current-language
+    background: none
+    border: none
+    box-shadow: none
+  .access
+    font-size: 0.875em
+    width: auto
+    display: block
+    margin: -1.125em 0 0 0.5em
+    position: relative
+    top: 50%
+    li
+      float: left
+      padding: 0
+      margin: 0 0 0 0.5em
+      ul
+        display: none
+      &:hover >
+        ul, form > ul
+          display: block
+          background: #ccc
+          box-shadow: -0.25em 0.25em 0 $opacity-very-low-black
+          border: 3px solid $opacity-lowest-black
+          border-radius: 0
+          margin: -3px 0 0 0
+          padding: 3px 0 0 0
+          position: absolute
+          top: 100%
+          left: 0
+          z-index: 2
+          overflow: hidden
+      ul li:hover ul
+        display: block
+        top: 0
+        left: 100%
+      li
+        float: none
+        padding: 0
+        margin: 0
+        .btn
+          border: 0
+          border-radius: 0
+          margin-top: -3px
+          box-shadow: none
+  #sign-in-btn
+    font-size: 1em
+    text-decoration: none
+    line-height: 1.5
+    padding: 0.5em
+    margin: 0.25em 0.75em 0 0.75em
+    position: relative
+    z-index: 3
+  .sign-in-menu
+    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
+    border-radius: 3px
+    box-shadow: -0.25em 0.25em 0 $opacity-low-black
+    width: 18em
+    margin: 0
+    padding: 1em 0.875em 1.125em 0.875em
+    position: absolute
+    top: 4.125em
+    right: 1em
+    z-index: 2
+    &:before
+      content: ''
+      height: 0
+      width: 0
+      border: 1em solid transparent
+      border-bottom-color: #666
+      border-top: 0
+      position: absolute
+      bottom: 100%
+      right: 1.5em
+  .authed
+    #sign-in-btn
+      margin: 0.5em 0.5em 0 0.5em
+      z-index: 1
+    .sign-in-menu:before
+      right: 0.5em
+  // Map
+  #map-container
+    position: absolute
+    top: 4em
+    // height of #site-header
+    right: 0
+    bottom: 0
+    left: 0
+  .content-visible #map-container
+    right: auto
+    left: 18em
+    margin-left: -18em
+    width: 40%
+  .activity-enabled.content-visible #map-container
+    width: $map-width-when-content-visible
+  .geocoding-bar-enabled #map-container
+    top: 8.5em
+  .leaflet-top.leaflet-right
+    right: auto
+    left: 10px
+    top: 77px
+  #map
+    height: 100%
+  #add-place-btn-container
+    position: absolute
+    &.pos-top-left
+      top: 1.5em
+      left: 3.5em
+    &.pos-top-right
+      top: 1.5em
+      right: 1.5em
+    &.pos-bot-left
+      bottom: 2em
+      left: 2em
+    background: transparent
+    font-size: 1.25em
+    padding: 0
+    box-shadow: none
+    border-bottom: 0
+    .btn
+      padding-right: 1em
+      padding-left: 1em
+      &:visited, &:link
+        padding-right: 1em
+        padding-left: 1em
+    .btn-primary:hover
+      background-color: #FF8B61
+  .content-visible #add-place-btn-container
+    display: block
+    // override of the mobile style
+  .place-form-visible #add-place-btn-container
+    display: none
+  // Content
+  #content
+    color: $default-font-color
+    padding: 0
+    position: absolute
+    top: 4em
+    // height of site-header
+    right: 0
+    bottom: 1.75em
+    //left: 40%;
+    overflow: visible
+    box-shadow: -0.325em 0 0 $opacity-very-low-black
+  .activity-enabled #content
+    left: $content-visible-left-offset
+    width: $content-visible-width
+  .content-visible #map-container
+    width: $map-width-when-content-visible
+  .activity-enabled.content-visible #map-container
+    width: $map-width-when-content-visible
+  .geocoding-bar-enabled #content
+    top: 8.5em
+  a.close-btn
+    line-height: 2
+    top: 10px
+    left: auto
+    right: 100%
+    margin: 0 -0.325em 0 0
+    padding: 0.125em 0.625em 0.125em 0.625em
+    border-radius: 0.325em 0 0 0.325em
+    box-shadow: -0.325em 0.325em 0 $opacity-very-low-black
+    &:hover
+    span
+      display: none
+  .unsupported-overlay
+    position: absolute
+    top: 5em
+    right: 1em
+    left: 1em
+  .unsupported-message
+    border-radius: 0 0 0.625em 0.625em
+  a.close-unsupported-overlay
+    right: auto
+    border-radius: 0.325em
+  #content > article
+    overflow: auto
+    padding: 1em 1em 2em
+    width: 100%
+    height: 100%
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  // Geocoding
+  #geocode-address-bar
+    position: absolute
+    top: 4em
+    // height of #site-header
+    right: 0
+    bottom: auto
+    left: 0
+    z-index: 39
+    border-right: 1px solid #666
+    margin-top: 0
+  .activity-enabled #geocode-address-bar
+    //right: 16em;
+    right: 18em
+    //right: 20em;
+  #geocode-address-bar .error
+    padding: 0.25em 0.5em
+    position: relative
+    top: auto
+    right: auto
+    bottom: auto
+    left: auto
+    float: right
+    width: 15em
+    text-align: center
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    + form
+      margin-bottom: 0
+      margin-right: 15em
+    &.is-hidden + form
+      margin-right: 0
+  // The Side Bar
+  #side-bar
+    position: absolute
+    top: 4em
+    // height of #site-header
+    right: 0
+    bottom: 0
+    left: auto
+    width: 18em
+    overflow: auto
+    -webkit-overflow-scrolling: touch
+    z-index: 15
+    box-shadow: -0.325em 0 0 $opacity-very-low-black
+    background-color: rgba(255, 255, 255, 0.9)
+  .activity-enabled
+    &.content-visible #side-bar
+      display: block
+    #map-container
+      right: 0
+      // width of #master-legend
+  // The Ticker
+  #ticker
+    right: 0
+    bottom: 0
+    left: auto
+    overflow: auto
+    z-index: 15
+    background: none
+  .activity-enabled.content-visible #ticker
+    display: block
+  ul.recent-points
+    font-size: 0.875em
+    -webkit-transform: translateZ(0px)
+    // needed on #ticker > * for touch scrolling
+  .activity-enabled #map-container
+    right: 0
+    // width of #ticker
+  // master-legend
+  #master-legend
+    z-index: 15
+  .activity-enabled
+    &.content-visible #master-legend
+      display: block
+    #map-container
+      right: 0
+      // width of #master-legend
+  // List View
+  .list-toggle-nav
+    display: block
+    //float: right;
+    width: auto
+    //margin: -1.125em 0 0 0.5em;
+    position: relative
+    top: 50%
+    font-size: 0.875em
+    margin: -1.325em 0 0 1em
+    float: left
+  #list-container.is-exposed
+    display: block
+  .list-toggle-btn
+    //background-color: $button-background-blue;
+    //color: #eee;
+    &:visited, &:link
+      //background-color: $button-background-blue;
+      //color: #eee;
+    &:hover
+      //background-color: $hover-highlight-blue;
+      //color: $button-color-white;
+  // Footer
+  #colophon
+    color: $button-background-blue
+    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png")
+    font-size: 1em
+    position: absolute
+    top: auto
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: 14
+    padding: 0.25em
+    box-shadow: 0 -0.125em $opacity-very-low-black
+    height: 1.75em
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  //  .activity-enabled #colophon {
+   *  right: 18em;
+   *}
+  #powered-by
+    margin-bottom: 0
+
+@media only screen and (min-width: 80em)
+  #content
+    right: 0
+    left: 60%
+  .activity-enabled #content
+    left: $content-visible-left-offset
+    width: $content-visible-width
+  .content-visible #map-container
+    width: $map-width-when-content-visible
+  .activity-enabled.content-visible #map-container
+    width: $map-width-when-content-visible
+
+// High Resolution Displays
+@media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)
+  .share-twitter a
+    background-image: url(images/twitter-64.png)
+    background-size: contain
+  .share-facebook a
+    background-image: url(images/facebook-64.png)
+    background-size: contain
+  .locate-me
+    background-image: url(images/locate-me@2x.png)
+    background-size: contain
