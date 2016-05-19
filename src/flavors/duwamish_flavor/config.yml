@@ -512,7 +512,7 @@ sidebar:
               # Green Seattle Partnership restoration phases
             - id: phases
               title: _(Green Seattle partnership)
-              visibleDefault: false
+              visibleDefault: true
 
               # Noxious Weeds
             - id: noxious-weeds
