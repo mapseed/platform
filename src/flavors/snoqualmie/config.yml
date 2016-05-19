@@ -45,7 +45,7 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: king-county-ownership
+    - id: land-ownership
       url: https://smartercleanup.cartodb.com/api/v2/viz/14f09de6-0bf1-11e6-867c-0e5db1731f59/viz.json
       type: cartodb    
 
@@ -259,8 +259,8 @@ sidebar:
               visibleDefault: false
               description: _(Urban growth areas in Washington State)
 
-            - id: king-county-ownership
-              title: _(King County ownership)
+            - id: land-ownership
+              title: _(Land ownership)
               visibleDefault: false
               description: _(Urban growth areas in Washington State)
 
