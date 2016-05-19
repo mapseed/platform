@@ -601,7 +601,7 @@ img {
 
 /* line 607, ../sass/default.sass */
 #site-header {
-  background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url(images/lightpaperfibers.png);
   position: relative;
   z-index: 99;
   padding: 0.5em;
@@ -639,7 +639,7 @@ img {
 
 /* line 638, ../sass/default.sass */
 #nav-btn {
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url(images/lightpaperfibers.png);
   color: #bbb;
   font-size: 2em;
   line-height: 1;
@@ -809,7 +809,7 @@ a.logout-btn {
 
 /* line 784, ../sass/default.sass */
 #add-place-btn-container {
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url(images/lightpaperfibers.png);
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
@@ -1376,7 +1376,7 @@ a.auth-inline {
 
 /* line 1271, ../sass/default.sass */
 #ticker {
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url(images/lightpaperfibers.png);
   z-index: 30;
   display: none;
 }
@@ -1773,7 +1773,7 @@ ul.recent-points {
 /* line 1645, ../sass/default.sass */
 #geocode-address-bar {
   display: none;
-  background: url(//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png);
+  background: url(images/lightpaperfibers.png);
   position: relative;
   z-index: 40;
   padding: 0.75em 0.5em 0.5em;
@@ -2047,7 +2047,7 @@ a.close-unsupported-overlay {
 
   /* line 1909, ../sass/default.sass */
   #site-header {
-    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
+    background: url(images/lightpaperfibers.png);
     padding-left: 1em;
     overflow: visible;
     height: 4em;
@@ -2158,7 +2158,7 @@ a.close-unsupported-overlay {
 
   /* line 1987, ../sass/default.sass */
   .sign-in-menu {
-    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
+    background: url(images/lightpaperfibers.png);
     border-radius: 3px;
     box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.2);
     width: 18em;
@@ -2484,7 +2484,7 @@ a.close-unsupported-overlay {
   /* line 2219, ../sass/default.sass */
   #colophon {
     color: #007fbf;
-    background: url("//subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/lightpaperfibers.png");
+    background: url(images/lightpaperfibers.png);
     font-size: 1em;
     position: absolute;
     top: auto;
