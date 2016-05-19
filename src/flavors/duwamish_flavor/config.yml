@@ -116,18 +116,18 @@ place_types:
       icon:
         iconSize: [60, 60]
         iconAnchor: [30, 30]
-    - condition: '{{map.zoom}} < 14'
+    - condition: '{{map.zoom}} < 15'
       icon:
         iconSize: [7.5, 7.5]
         iconAnchor: [4, 4]
-    - condition: '{{map.zoom}} < 16'
+    - condition: '{{map.zoom}} < 17'
       icon:
-        iconSize: [15, 15]
-        iconAnchor: [8, 8]
-    - condition: '{{map.zoom}} >= 16'
+        iconSize: [25, 25]
+        iconAnchor: [12.5, 12.5]
+    - condition: '{{map.zoom}} >= 17'
       icon:
-        iconSize: [30, 30]
-        iconAnchor: [15, 15]
+        iconSize: [40, 40]
+        iconAnchor: [20, 20]
 
   mapboxZoomStyle:
     - condition: '{{layer.focused}} === true'
@@ -441,19 +441,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: '{{map.zoom}} < 15'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17'
+      - condition: '{{map.zoom}} < 18'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17'
+      - condition: '{{map.zoom}} >= 18'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
