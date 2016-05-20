@@ -389,9 +389,9 @@ var Shareabouts = Shareabouts || {};
 
       // Never set the placeFormView's latLng until the user does it with a
       // drag event (below)
-      if (this.placeFormView && this.placeFormView.center) {
-        this.setPlaceFormViewLatLng(ll);
-      }
+      //if (this.placeFormView && this.placeFormView.center) {
+      //  this.setPlaceFormViewLatLng(ll);
+      //}
 
       if (this.hasBodyClass('content-visible') === false) {
         this.setLocationRoute(zoom, ll.lat, ll.lng);
@@ -559,6 +559,8 @@ var Shareabouts = Shareabouts || {};
       
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render().$el);
+      this.$('.drag-marker-instructions').removeClass('is-visuallyhidden');
+      this.$('#place-form').addClass('is-visuallyhidden');
       this.placeFormView.delegateEvents();
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
