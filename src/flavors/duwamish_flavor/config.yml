@@ -637,7 +637,6 @@ place:
 
 
   #### begin dynamic form config ####
-  #TODO: maybe add an autocomplete
   categories:
     observation:
       name: location_type
