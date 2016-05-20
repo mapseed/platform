@@ -106,6 +106,20 @@ var Shareabouts = Shareabouts || {};
       // instantiate appropriate backbone model
       this.collection[self.selectedDatasetId].add({});
     },
+    onClickGeolocate: function(evt) {
+      var self = this;
+      evt.preventDefault();
+      var ll = this.options.appView.mapView.map.getBounds().toBBoxString();
+      S.Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
+
+      this.options.appView.mapView.map.locate()
+      .on("locationfound", function() { 
+        self.center = self.options.appView.mapView.map.getCenter();
+        $("#spotlight-place-mask").remove();
+        self.render();
+      });
+      
+    },
     onInputFileChange: function(evt) {
       var self = this,
           file,
