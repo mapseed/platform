@@ -2290,30 +2290,31 @@ a.close-unsupported-overlay {
     bottom: 1.75em;
     overflow: visible;
     box-shadow: -0.325em 0 0 rgba(0, 0, 0, 0.1);
+    width: 40%;
   }
 
-  /* line 2078, ../sass/default.sass */
+  /* line 2079, ../sass/default.sass */
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-  /* line 2081, ../sass/default.sass */
+  /* line 2082, ../sass/default.sass */
   .content-visible #map-container {
     width: 60%;
   }
 
-  /* line 2083, ../sass/default.sass */
+  /* line 2084, ../sass/default.sass */
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 
-  /* line 2085, ../sass/default.sass */
+  /* line 2086, ../sass/default.sass */
   .geocoding-bar-enabled #content {
     top: 8.5em;
   }
 
-  /* line 2087, ../sass/default.sass */
+  /* line 2088, ../sass/default.sass */
   a.close-btn {
     line-height: 2;
     top: 10px;
@@ -2324,12 +2325,12 @@ a.close-unsupported-overlay {
     border-radius: 0.325em 0 0 0.325em;
     box-shadow: -0.325em 0.325em 0 rgba(0, 0, 0, 0.1);
   }
-  /* line 2097, ../sass/default.sass */
+  /* line 2098, ../sass/default.sass */
   a.close-btn span {
     display: none;
   }
 
-  /* line 2099, ../sass/default.sass */
+  /* line 2100, ../sass/default.sass */
   .unsupported-overlay {
     position: absolute;
     top: 5em;
@@ -2337,18 +2338,18 @@ a.close-unsupported-overlay {
     left: 1em;
   }
 
-  /* line 2104, ../sass/default.sass */
+  /* line 2105, ../sass/default.sass */
   .unsupported-message {
     border-radius: 0 0 0.625em 0.625em;
   }
 
-  /* line 2106, ../sass/default.sass */
+  /* line 2107, ../sass/default.sass */
   a.close-unsupported-overlay {
     right: auto;
     border-radius: 0.325em;
   }
 
-  /* line 2109, ../sass/default.sass */
+  /* line 2110, ../sass/default.sass */
   #content > article {
     overflow: auto;
     padding: 1em 1em 2em;
@@ -2359,7 +2360,7 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-  /* line 2118, ../sass/default.sass */
+  /* line 2119, ../sass/default.sass */
   #geocode-address-bar {
     position: absolute;
     top: 4em;
@@ -2371,12 +2372,12 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
 
-  /* line 2128, ../sass/default.sass */
+  /* line 2129, ../sass/default.sass */
   .activity-enabled #geocode-address-bar {
     right: 18em;
   }
 
-  /* line 2132, ../sass/default.sass */
+  /* line 2133, ../sass/default.sass */
   #geocode-address-bar .error {
     padding: 0.25em 0.5em;
     position: relative;
@@ -2391,17 +2392,17 @@ a.close-unsupported-overlay {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  /* line 2145, ../sass/default.sass */
+  /* line 2146, ../sass/default.sass */
   #geocode-address-bar .error + form {
     margin-bottom: 0;
     margin-right: 15em;
   }
-  /* line 2148, ../sass/default.sass */
+  /* line 2149, ../sass/default.sass */
   #geocode-address-bar .error.is-hidden + form {
     margin-right: 0;
   }
 
-  /* line 2151, ../sass/default.sass */
+  /* line 2152, ../sass/default.sass */
   #side-bar {
     position: absolute;
     top: 4em;
@@ -2416,16 +2417,16 @@ a.close-unsupported-overlay {
     background-color: rgba(255, 255, 255, 0.9);
   }
 
-  /* line 2165, ../sass/default.sass */
+  /* line 2166, ../sass/default.sass */
   .activity-enabled.content-visible #side-bar {
     display: block;
   }
-  /* line 2167, ../sass/default.sass */
+  /* line 2168, ../sass/default.sass */
   .activity-enabled #map-container {
     right: 0;
   }
 
-  /* line 2171, ../sass/default.sass */
+  /* line 2172, ../sass/default.sass */
   #ticker {
     right: 0;
     bottom: 0;
@@ -2435,37 +2436,37 @@ a.close-unsupported-overlay {
     background: none;
   }
 
-  /* line 2178, ../sass/default.sass */
+  /* line 2179, ../sass/default.sass */
   .activity-enabled.content-visible #ticker {
     display: block;
   }
 
-  /* line 2180, ../sass/default.sass */
+  /* line 2181, ../sass/default.sass */
   ul.recent-points {
     font-size: 0.875em;
     -webkit-transform: translateZ(0px);
   }
 
-  /* line 2184, ../sass/default.sass */
+  /* line 2185, ../sass/default.sass */
   .activity-enabled #map-container {
     right: 0;
   }
 
-  /* line 2188, ../sass/default.sass */
+  /* line 2189, ../sass/default.sass */
   #master-legend {
     z-index: 15;
   }
 
-  /* line 2191, ../sass/default.sass */
+  /* line 2192, ../sass/default.sass */
   .activity-enabled.content-visible #master-legend {
     display: block;
   }
-  /* line 2193, ../sass/default.sass */
+  /* line 2194, ../sass/default.sass */
   .activity-enabled #map-container {
     right: 0;
   }
 
-  /* line 2197, ../sass/default.sass */
+  /* line 2198, ../sass/default.sass */
   .list-toggle-nav {
     display: block;
     width: auto;
@@ -2476,12 +2477,12 @@ a.close-unsupported-overlay {
     float: left;
   }
 
-  /* line 2207, ../sass/default.sass */
+  /* line 2208, ../sass/default.sass */
   #list-container.is-exposed {
     display: block;
   }
 
-  /* line 2219, ../sass/default.sass */
+  /* line 2220, ../sass/default.sass */
   #colophon {
     color: #007fbf;
     background: url(images/lightpaperfibers.png);
@@ -2500,48 +2501,48 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-  /* line 2238, ../sass/default.sass */
+  /* line 2239, ../sass/default.sass */
   #powered-by {
     margin-bottom: 0;
   }
 }
 @media only screen and (min-width: 80em) {
-  /* line 2242, ../sass/default.sass */
+  /* line 2243, ../sass/default.sass */
   #content {
     right: 0;
     left: 60%;
   }
 
-  /* line 2245, ../sass/default.sass */
+  /* line 2246, ../sass/default.sass */
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-  /* line 2248, ../sass/default.sass */
+  /* line 2249, ../sass/default.sass */
   .content-visible #map-container {
     width: 60%;
   }
 
-  /* line 2250, ../sass/default.sass */
+  /* line 2251, ../sass/default.sass */
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 }
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-  /* line 2255, ../sass/default.sass */
+  /* line 2256, ../sass/default.sass */
   .share-twitter a {
     background-image: url(images/twitter-64.png);
     background-size: contain;
   }
 
-  /* line 2258, ../sass/default.sass */
+  /* line 2259, ../sass/default.sass */
   .share-facebook a {
     background-image: url(images/facebook-64.png);
     background-size: contain;
   }
 
-  /* line 2261, ../sass/default.sass */
+  /* line 2262, ../sass/default.sass */
   .locate-me {
     background-image: url(images/locate-me@2x.png);
     background-size: contain;
