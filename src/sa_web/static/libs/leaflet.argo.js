@@ -149,6 +149,11 @@ L.extend(L.Argo, {
     return str;
   },
 
+  // This is an evaluator to replace evail()
+  evalIt: function(condition){
+    var F = new Function( 'return ' + condition );
+    return F();
+  },
   getZoomRule: function(properties, rules) {
     var self = this,
       i, condition, len;
@@ -159,10 +164,7 @@ L.extend(L.Argo, {
       // this is so we don't have to worry about strings vs nums.
       condition = L.Argo.t(rules[i].condition, properties.style);
 
-      // This Function takes a string and evaluations, it's a better alternative of using eval()
-      var F = new Function( 'return ' + condition );
-
-      if (F()) {
+      if (L.Argo.evalIt(condition)) {
         // The new property values (outlined in the config) are added for Leaflet compatibility
         // Format marker icon features
         if (rules[i].icon) {
@@ -186,9 +188,7 @@ L.extend(L.Argo, {
       // this is so we don't have to worry about strings vs nums.
       condition = L.Argo.t(rules[i].condition, properties);
 
-      // This Function takes a string and evaluations, it's a better alternative of using eval()
-      var F = new Function( 'return ' + condition );
-      if (F()) {
+      if (L.Argo.evalIt(condition)) {
         // The new property values (outlined in the config) are added for Leaflet compatibility
         for (var key in rules[i].style) {
           if (rules[i].style.hasOwnProperty(key)) {
