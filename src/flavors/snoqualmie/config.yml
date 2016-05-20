@@ -248,8 +248,8 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       groupings:
-        - id: grp-community
-          title: _(Community Data)
+        - id: grp-trails
+          title: _(Trails)
           visibleDefault: true
           layers:
 
@@ -268,10 +268,10 @@ sidebar:
               description: _(Potential connections)
               visibleDefault: true
 
-            - id: reports
-              title: _(Community Reports)
-              description: _(Reports added to the map by residents)
-              visibleDefault: true
+        - id: grp-land
+          title: _(Land)
+          visibleDefault: true
+          layers:
 
             - id: uga
               title: _(Urban growth area)
@@ -288,6 +288,16 @@ sidebar:
               title: _(Satellite View)
               description: _(Toggle the satellite map view)
               visibleDefault: false
+
+        - id: grp-community
+          title: _(Community)
+          visibleDefault: true
+          layers:
+
+            - id: reports
+              title: _(Community Reports)
+              description: _(Reports added to the map by residents)
+              visibleDefault: true
 
     - id: ticker
       view: ActivityView
