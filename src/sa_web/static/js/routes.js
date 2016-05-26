@@ -62,7 +62,6 @@ var Shareabouts = Shareabouts || {};
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
 
-
       this.landmarkCollections = {};
       var landmarkConfigsArray = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'landmark';
@@ -70,8 +69,13 @@ var Shareabouts = Shareabouts || {};
       var landmarkConfigs = {};
       _.each(landmarkConfigsArray, function(landmarkConfig) {
         var collectionId = landmarkConfig['id'];
-        var collection = new S.LandmarkCollection([]);
-        collection.url = landmarkConfig.url;
+
+        var url = landmarkConfig.url + "?"
+        landmarkConfig.sources.forEach(function (source) {
+          url += encodeURIComponent(source) + '&'
+        });
+        var collection = new S.LandmarkCollection([], { url: url });
+
         self.landmarkCollections[collectionId] = collection;
         landmarkConfigs[collectionId] = landmarkConfig;
       });
