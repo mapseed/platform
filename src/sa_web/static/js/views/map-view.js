@@ -34,7 +34,13 @@ var Shareabouts = Shareabouts || {};
         var collectionId;
         var collection;
         if (config.type && config.type === 'json') {
-          layer = L.argo(config.url, config);
+          var url = config.url
+          if (config.sources)
+            url += '?'
+          config.sources.forEach(function (source) {
+            url += encodeURIComponent(source) + '&'
+          });
+          layer = L.argo(url, config);
           self.layers[config.id] = layer;
 
         } else if (config.type && config.type === 'landmark') {
