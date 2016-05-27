@@ -27,9 +27,9 @@ map:
 
   options:
     center:
-      lat: 47.51575
-      lng: -121.81615
-    zoom: 14
+      lat: 47.51639
+      lng: -121.81143
+    zoom: 13
     minZoom: 1
     maxZoom: 18
   layers:
@@ -45,7 +45,7 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: king-county-ownership
+    - id: land-ownership
       url: https://smartercleanup.cartodb.com/api/v2/viz/14f09de6-0bf1-11e6-867c-0e5db1731f59/viz.json
       type: cartodb    
 
@@ -59,9 +59,17 @@ map:
       type: cartodb
 
   # Legend Layers
-    - id: trails
-      url: https://smartercleanup.cartodb.com/api/v2/viz/497022e6-0654-11e6-91e1-0e5db1731f59/viz.json
+    - id: potential-connections
+      url: https://nebughey.cartodb.com/api/v2/viz/3901f1f4-1e01-11e6-a9f3-0ef7f98ade21/viz.json
       type: cartodb
+
+    - id: existing-trails
+      url: https://nebughey.cartodb.com/api/v2/viz/df1a5586-1e06-11e6-bb26-0e3a376473ab/viz.json
+      type: cartodb
+
+    - id: planned-trails
+      url: https://nebughey.cartodb.com/api/v2/viz/5285be1a-1e08-11e6-8061-0ef24382571b/viz.json
+      type: cartodb      
 
     - id: uga
       url: https://smartercleanup.cartodb.com/api/v2/viz/d33eff70-0bee-11e6-97dd-0e787de82d45/viz.json
@@ -240,27 +248,38 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       groupings:
-        - id: grp-community
-          title: _(Community Data)
+        - id: grp-trails
+          title: _(Trails)
           visibleDefault: true
           layers:
-            - id: trails
-              title: _(Trails)
-              description: _(Information on current trails, upcoming trails, and proposed trails)
+
+            - id: existing-trails
+              title: _(Existing trails)
+              description: _(Existing trails)
               visibleDefault: true
 
-            - id: reports
-              title: _(Community Reports)
-              description: _(Reports added to the map by citizens)
+            - id: planned-trails
+              title: _(Planned trails)
+              description: _(Existing trails)
               visibleDefault: true
+
+            - id: potential-connections
+              title: _(Potential connections)
+              description: _(Potential connections)
+              visibleDefault: true
+
+        - id: grp-land
+          title: _(Land)
+          visibleDefault: true
+          layers:
 
             - id: uga
               title: _(Urban growth area)
               visibleDefault: false
               description: _(Urban growth areas in Washington State)
 
-            - id: king-county-ownership
-              title: _(King County ownership)
+            - id: land-ownership
+              title: _(Land ownership)
               visibleDefault: false
               description: _(Urban growth areas in Washington State)
 
@@ -269,6 +288,16 @@ sidebar:
               title: _(Satellite View)
               description: _(Toggle the satellite map view)
               visibleDefault: false
+
+        - id: grp-community
+          title: _(Community)
+          visibleDefault: true
+          layers:
+
+            - id: reports
+              title: _(Community Reports)
+              description: _(Reports added to the map by residents)
+              visibleDefault: true
 
     - id: ticker
       view: ActivityView

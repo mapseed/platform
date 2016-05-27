@@ -78,7 +78,11 @@ var Shareabouts = Shareabouts || {};
         return layer.type && layer.type === 'landmark';
       });
       _.each(configArrays.landmarks, function(config) {
-        var collection = new S.LandmarkCollection([], { url: config.url });
+        var url = config.url + "?"
+        config.sources.forEach(function (source) {
+          url += encodeURIComponent(source) + '&'
+        });
+        var collection = new S.LandmarkCollection([], { url: url });
         self.landmarks[config.id] = collection;
       });
 
