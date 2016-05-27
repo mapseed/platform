@@ -67,7 +67,9 @@ map:
 
   # Legend Layers
     - id: restoration
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/mapbox/landmarks?url=https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/test.geojson
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      sources:
+        - "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/test.geojson"
       type: landmark
 
     - id: cleanup
