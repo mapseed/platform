@@ -558,6 +558,8 @@ var Shareabouts = Shareabouts || {};
       return landmarkDetailView;
     },
     getPlaceDetailView: function(model) {
+      console.log(model);
+
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
