@@ -1051,3 +1051,22 @@ pages:
   - slug: youthcorps2015
     name: youthcorps2015
     hide_from_top_bar: true
+
+story:
+  test_story1:
+      tagline: _(Check out other reports like this one!)
+      order: 
+        - report/413
+        - report/982
+        - report/305
+        - report/997
+  test_story2:
+      tagline: _(You found a map story!)
+      order: 
+        - trees/298
+        - trees/248
+        - trees/244
+        - trees/245
+
+
+

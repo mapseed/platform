@@ -322,7 +322,8 @@
       activity:   {{ config.activity|as_json }},
       sidebar:    {{ config.sidebar|as_json}},
       leaflet_sidebar: {{ config.leaflet_sidebar|as_json }},
-      pages:      {{ pages_config_json|safe }}
+      pages:      {{ pages_config_json|safe }},
+      story:      {{ config.story|as_json }}
     };
 
     $(function() {
@@ -341,6 +342,7 @@
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,
         mapConfig: S.Config.map,
+        storyConfig: S.Config.story,
         activityConfig: S.Config.activity,
         pagesConfig: S.Config.pages
       });
