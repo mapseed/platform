@@ -221,6 +221,7 @@
     cursor: pointer
 
 /* Story bar styles */
+<<<<<<< f6c48743c270bc2e626bc0b091029f32f8e521f7
 .btn-previous-story-nav
   width: 10%
   color: $button-background-hover-blue
@@ -240,6 +241,31 @@
     content: $button-right-arrow
   &:hover
     color: $button-background-blue
+=======
+
+.btn-previous-story-nav
+  color: white
+  cursor: pointer
+  float: left
+  width: 10%
+  &:before
+    font-size: 1.3em
+    content: $button-left-arrow
+  &:hover
+    color: $button-background-hover-blue
+  
+.btn-next-story-nav
+  color: white
+  cursor: pointer
+  float: right
+  width: 10%
+  text-align: right
+  &:before
+    font-size: 1.3em
+    content: $button-right-arrow
+  &:hover
+    color: $button-background-hover-blue
+>>>>>>> add basic story navigation feature to place detail views, controlled by a new object in the config
 
 .story-nav-disabled
   visibility: hidden
