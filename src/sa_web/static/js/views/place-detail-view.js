@@ -9,8 +9,6 @@ var Shareabouts = Shareabouts || {};
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
     },
     initialize: function() {
-      console.log(this.model);
-
       var self = this;
 
       this.surveyType = this.options.surveyConfig.submission_type;
@@ -55,12 +53,10 @@ var Shareabouts = Shareabouts || {};
     },
 
     onClickStoryPrevious: function() {
-      console.log("onClickStoryPrevious");
       this.options.router.navigate(this.model.attributes.story.previous, {trigger: true});
     },
 
     onClickStoryNext: function() {
-      console.log("onClickStoryNext");
       this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
     },
 
