@@ -117,6 +117,7 @@ var Shareabouts = Shareabouts || {};
         supportConfig: options.supportConfig,
         pagesConfig: options.pagesConfig,
         mapConfig: options.mapConfig,
+        storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
         sidebarConfig: options.sidebarConfig,
         activityConfig: options.activityConfig,

@@ -231,6 +231,18 @@ var Shareabouts = Shareabouts || {};
       // For knowing if the user has moved the map after opening the form.
       this.mapView.map.on('dragend', this.onMapDragEnd, this);
 
+      // If report stories are enabled, build the data structure
+      // we need to enable story navigation
+      _.each(this.options.storyConfig, function(story) {
+        var storyStructure = {};
+        _.each(story.order, function(url, i) {
+          storyStructure[url] = {
+            "previous": (i - 1 < 0) ? null : story.order[i - 1],
+            "next": (i + 1 > story.order.length) ? null : story.order[i + 1],
+          }
+        });
+        story.order = storyStructure;
+      });
 
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
@@ -306,6 +318,25 @@ var Shareabouts = Shareabouts || {};
           attribute: 'properties',
 
           success: function() {
+            // generate an attribute with relevant story information
+            // NOTE: right now a single model can only be part of a single story.
+            collection.forEach(function(model, index) {
+              model.set("story", function() {
+                var storyObj = null,
+                url = model.attributes.datasetSlug + "/" + model.attributes.id;
+                _.each(self.options.storyConfig, function(story) {
+                  if (story.order[url]) {
+                    storyObj = {
+                      tagline: story.tagline,
+                      next: story.order[url].next,
+                      previous: story.order[url].previous
+                    }
+                  }
+                });
+                return storyObj;
+              }());
+            });
+
             loopIndex++;
             self.mergedPlaces.add(collection.models);
             // Sort the list view after all of the pages have been fetched
@@ -468,6 +499,8 @@ var Shareabouts = Shareabouts || {};
       return landmarkDetailView;
     },
     getPlaceDetailView: function(model) {
+      console.log(model);
+
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
@@ -477,10 +510,12 @@ var Shareabouts = Shareabouts || {};
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
+          storyConfig: this.options.storyConfig,
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
           url: _.filter(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug })[0].url,
-          datasetId: _.filter(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug })[0].id
+          datasetId: _.filter(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug })[0].id,
+          router: this.options.router
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }

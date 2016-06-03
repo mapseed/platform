@@ -141,6 +141,17 @@ var Shareabouts = Shareabouts || {};
     return count;
   });
 
+  Handlebars.registerHelper('is_story_element', function(options) {
+    if (options.data.root.story) return options.fn(this);
+  });
+
+  Handlebars.registerHelper('check_previous_story_nav', function(options) {
+    if (options.data.root.story && !options.data.root.story.previous) return " story-nav-disabled";
+  });
+
+  Handlebars.registerHelper('check_next_story_nav', function(options) {
+    if (options.data.root.story && !options.data.root.story.next) return " story-nav-disabled";
+  });
 
   // Gets the value for the given object and key. Useful for using the value
   // of a token as a key.

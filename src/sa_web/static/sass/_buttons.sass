@@ -219,3 +219,31 @@
   &:hover
     color: $selected-highlight-orange
     cursor: pointer
+
+/* Story bar styles */
+
+.btn-previous-story-nav
+  color: white
+  cursor: pointer
+  float: left
+  width: 10%
+  &:before
+    font-size: 1.3em
+    content: $button-left-arrow
+  &:hover
+    color: $button-background-hover-blue
+  
+.btn-next-story-nav
+  color: white
+  cursor: pointer
+  float: right
+  width: 10%
+  text-align: right
+  &:before
+    font-size: 1.3em
+    content: $button-right-arrow
+  &:hover
+    color: $button-background-hover-blue
+
+.story-nav-disabled
+  visibility: hidden
