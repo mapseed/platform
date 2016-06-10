@@ -9,8 +9,7 @@ var Shareabouts = Shareabouts || {};
       'change input[type="file"]': 'onInputFileChange',
       'click .category-btn.clickable + label': 'onCategoryChange',
       'click .category-menu-hamburger': 'onExpandCategories',
-      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
-      'click #geolocate': 'onClickGeolocate'
+      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle'
     },
     initialize: function(){
       var self = this;
@@ -41,11 +40,6 @@ var Shareabouts = Shareabouts || {};
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
-      if (this.center) {
-        $('.drag-marker-instructions').addClass('is-visuallyhidden');
-        $('#place-form').removeClass('is-visuallyhidden');
-      }
-
       // initialize datetime picker, if relevant
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
 
@@ -61,8 +55,7 @@ var Shareabouts = Shareabouts || {};
     // This is called from the app view
     setLatLng: function(latLng) {
       this.center = latLng;
-      $('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
-      $('#place-form').removeClass('is-visuallyhidden');
+      this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
     setLocation: function(location) {
       this.location = location;
@@ -112,19 +105,6 @@ var Shareabouts = Shareabouts || {};
 
       // instantiate appropriate backbone model
       this.collection[self.selectedDatasetId].add({});
-    },
-    onClickGeolocate: function(evt) {
-      var self = this;
-      evt.preventDefault();
-      var ll = this.options.appView.mapView.map.getBounds().toBBoxString();
-      S.Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
-
-      this.options.appView.mapView.map.locate()
-      .on("locationfound", function() { 
-        self.center = self.options.appView.mapView.map.getCenter();
-        self.render();
-      });
-      
     },
     onInputFileChange: function(evt) {
       var self = this,
