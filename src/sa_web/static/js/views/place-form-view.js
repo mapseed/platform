@@ -122,7 +122,6 @@ var Shareabouts = Shareabouts || {};
       this.options.appView.mapView.map.locate()
       .on("locationfound", function() { 
         self.center = self.options.appView.mapView.map.getCenter();
-        $("#spotlight-place-mask").remove();
         self.render();
       });
       
