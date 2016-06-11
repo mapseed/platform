@@ -834,6 +834,7 @@ var Shareabouts = Shareabouts || {};
       this.$centerpoint.show().addClass('newpin');
 
       this.addSpotlightMask();
+      this.addMapDragOverlay();
     },
     showAddButton: function() {
       this.$addButton.show();
@@ -872,7 +873,7 @@ var Shareabouts = Shareabouts || {};
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
           yOffset = $("#map").height() / 2 - (spotlightDiameter / 2),
           handWidth = spotlightDiameter + 200;
-      $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'><h4>Drag the map to set your location</h4><img src='../static/css/images/map-instructions.svg' /></div></div>");
+      $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
       $("#spotlight-place-mask-fill").css("left", xOffset + "px")
                                .css("position", "relative")
                                .css("top", yOffset + "px")
@@ -880,6 +881,13 @@ var Shareabouts = Shareabouts || {};
                                .css("height", spotlightDiameter + "px")
                                // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
                                .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+    },
+    addMapDragOverlay: function() {
+      var spotlightDiameter = 200,
+          xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
+          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2),
+          handWidth = spotlightDiameter + 200;
+      $("#spotlight-place-mask-fill").append("<h4>Drag the map to set your location</h4><img src='../static/css/images/map-instructions.svg' />")
       $("#spotlight-place-mask-fill img").css("width", handWidth + "px")
                                          .css("position", "absolute")
                                          .css("left", -(handWidth / 2) + (spotlightDiameter / 2) + "px")
