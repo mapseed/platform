@@ -674,227 +674,227 @@ place:
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
           optional: false
-    question:
-      name: location_type
-      dataset: duwamish
-      datasetSlug: report
-      icon_url: /static/css/images/markers/marker-question.png
-      value: question
-      label: _(Question)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your question:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: "_(What's your question?)"
-          display_prompt: _(My question:)
-          placeholder: _(Enter question...)
-    idea:
-      name: location_type
-      dataset: duwamish
-      datasetSlug: report
-      icon_url: /static/css/images/markers/marker-idea.png
-      value: idea
-      label: _(Idea)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your idea:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Describe your idea below:)
-          display_prompt: "_(Here's my idea:)"
-          placeholder: _(Description...)
-          optional: false
-    complaint:
-      name: location_type
-      dataset: duwamish
-      datasetSlug: report
-      icon_url: /static/css/images/markers/marker-complaint.png
-      value: complaint
-      label: _(Complaint)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your complaint:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: "_(What's your complaint?)"
-          display_prompt: _(I have the following complaint:)
-          placeholder: _(Description...)
-          optional: false
-    air_watch:  #defines a top-level form category
-      name: location_type  #needs to be "location_type"
-      dataset: air
-      datasetSlug: air
-      icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
-      value: air_watch  #internal value used for this category
-      label: _(Air watch)  #label for this category
-      fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
-        - name: date_time_observed 
-          type: datetime  
-          prompt: _(When did you observe these conditions?)
-          display_prompt: _(I observed these conditions on:)
-          optional: true
-        - name: reside_work_georgetown  
-          type: binary_toggle 
-          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
-          display_prompt: _(I reside or work in Georgetown or South Park:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          optional: true # NOTE: binary_toggle inputs have no validation
-        - name: odd_smell
-          type: binary_toggle 
-          prompt: _(I observe an odd smell)
-          display_prompt: _(I observed an odd smell:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: burning
-          type: binary_toggle
-          prompt: _(I have burning or itching eyes/nose/skin)
-          display_prompt: _(I have burning or itching eyes/nose/skin:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: difficulty_breathing
-          type: binary_toggle
-          prompt: _(I am having difficulty breathing)
-          display_prompt: _(I am having difficulty breathing:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: headache
-          type: binary_toggle
-          prompt: _(I am experiencing a headache)
-          display_prompt: _(I am experiencing a headache:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: other_physical_effects
-          type: text
-          prompt: _(Please note other physical effects you are experiencing)
-          display_prompt: _(Other physical effects I experienced:)
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: false
-        - name: source  #internally used name for this form element
-          type: dropdown  #form type
-          prompt: _(Select one of the following to identify the source of the bad air quality.)  #question prompt
-          display_prompt: _(Pollution source observed:)  #text used when a submitted report is viewed later
-          content:
-            - label: _(Asbestos)
-              value: absestos
-            - label: _(Burning during burn ban)
-              value: burning
-            - label: _(Chimney smoke)
-              value: chimney_smoke
-            - label: _(Gas station)
-              value: gas_station
-            - label: _(Mobile coater)
-              value: mobile_coater
-            - label: _(Odor)
-              value: odor
-            - label: _(Outdoor fire)
-              value: outdoor_fire
-            - label: _(Vehicle pollution)
-              value: vehicle_pollution
-            - label: _(Visible emission)
-              value: visible_emission
-            - label: _(Specific business or industry)
-              value: business_or_industry
-            - label: "_(Don't know/unsure)"
-              value: unsure
-            - label: _(Other (please describe in comments))
-              value: other
-          optional: false
-        - name: normal_activities
-          type: radio_big_buttons
-          prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
-          display_prompt: _(My normal activities are affected by the air quality in my neighborhood:)
-          content:
-            - label: _(Strongly agree)
-              value: strongly_agree
-            - label: _(Agree)
-              value: agree
-            - label: _(Neutral)
-              value: neutral
-            - label: _(Disagree)
-              value: disagree
-            - label: _(Strongly disagree)
-              value: strongly_disagree
-          optional: false
-        - name: activities_impacted
-          type: dropdown
-          prompt: _(Select one of the following to indicate how your normal activities are impacted.)
-          display_prompt: _(My normal activities were impacted in the following way:)
-          content:
-            - label: _(I choose to stay indoors to avoid the source of pollution)
-              value: stay_indoors
-            - label: _(I close the windows, limiting circulation)
-              value: close_windows
-            - label: _(I open all windows to circulate air)
-              value: open_windows
-            - label: _(I avoid outdoor physical activities)
-              value: avoid_outdoor_activities
-            - label: _(I need to constantly clean surfaces, as they are often greasy or dusty)
-              value: clean_surfaces
-            - label: _(Other (please specify in comments))
-              value: other
-          optional: false
-        - name: additional_comments
-          type: text
-          prompt: _(Provide any additional comments)
-          display_prompt: _(Additional comments:)
-          optional: true   
-    tree:
-      name: location_type
-      dataset: trees
-      datasetSlug: trees
-      icon_url: /static/css/images/markers/marker-tree.png
-      value: tree
-      label: _(Tree)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Description)
-          display_prompt: _(Description of this tree:)
-          placeholder: _(Description...)
-          optional: false
+    # question:
+    #   name: location_type
+    #   dataset: duwamish
+    #   datasetSlug: report
+    #   icon_url: /static/css/images/markers/marker-question.png
+    #   value: question
+    #   label: _(Question)
+    #   fields:
+    #     - name: title
+    #       type: text
+    #       prompt: _(Title of your question:)
+    #       display_prompt: _(Title:)
+    #       placeholder: _(Enter title...)
+    #       optional: false
+    #     - name: description
+    #       type: textarea
+    #       prompt: "_(What's your question?)"
+    #       display_prompt: _(My question:)
+    #       placeholder: _(Enter question...)
+    # idea:
+    #   name: location_type
+    #   dataset: duwamish
+    #   datasetSlug: report
+    #   icon_url: /static/css/images/markers/marker-idea.png
+    #   value: idea
+    #   label: _(Idea)
+    #   fields:
+    #     - name: title
+    #       type: text
+    #       prompt: _(Title of your idea:)
+    #       placeholder: _(Enter title...)
+    #       display_prompt: _(Title:)
+    #       optional: false
+    #     - name: description
+    #       type: textarea
+    #       prompt: _(Describe your idea below:)
+    #       display_prompt: "_(Here's my idea:)"
+    #       placeholder: _(Description...)
+    #       optional: false
+    # complaint:
+    #   name: location_type
+    #   dataset: duwamish
+    #   datasetSlug: report
+    #   icon_url: /static/css/images/markers/marker-complaint.png
+    #   value: complaint
+    #   label: _(Complaint)
+    #   fields:
+    #     - name: title
+    #       type: text
+    #       prompt: _(Title of your complaint:)
+    #       placeholder: _(Enter title...)
+    #       display_prompt: _(Title:)
+    #       optional: false
+    #     - name: description
+    #       type: textarea
+    #       prompt: "_(What's your complaint?)"
+    #       display_prompt: _(I have the following complaint:)
+    #       placeholder: _(Description...)
+    #       optional: false
+    # air_watch:  #defines a top-level form category
+    #   name: location_type  #needs to be "location_type"
+    #   dataset: air
+    #   datasetSlug: air
+    #   icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
+    #   value: air_watch  #internal value used for this category
+    #   label: _(Air watch)  #label for this category
+    #   fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
+    #     - name: date_time_observed 
+    #       type: datetime  
+    #       prompt: _(When did you observe these conditions?)
+    #       display_prompt: _(I observed these conditions on:)
+    #       optional: true
+    #     - name: reside_work_georgetown  
+    #       type: binary_toggle 
+    #       prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+    #       display_prompt: _(I reside or work in Georgetown or South Park:)
+    #       content:
+    #         - label: _(Yes)
+    #           value: "yes"
+    #         - label: _(No)
+    #           value: "no"
+    #       optional: true # NOTE: binary_toggle inputs have no validation
+    #     - name: odd_smell
+    #       type: binary_toggle 
+    #       prompt: _(I observe an odd smell)
+    #       display_prompt: _(I observed an odd smell:)
+    #       content:
+    #         - label: _(Yes)
+    #           value: "yes"
+    #         - label: _(No)
+    #           value: "no"
+    #       annotation: _(Please be sure to seek medical attention if needed.)
+    #       optional: true
+    #     - name: burning
+    #       type: binary_toggle
+    #       prompt: _(I have burning or itching eyes/nose/skin)
+    #       display_prompt: _(I have burning or itching eyes/nose/skin:)
+    #       content:
+    #         - label: _(Yes)
+    #           value: "yes"
+    #         - label: _(No)
+    #           value: "no"
+    #       annotation: _(Please be sure to seek medical attention if needed.)
+    #       optional: true
+    #     - name: difficulty_breathing
+    #       type: binary_toggle
+    #       prompt: _(I am having difficulty breathing)
+    #       display_prompt: _(I am having difficulty breathing:)
+    #       content:
+    #         - label: _(Yes)
+    #           value: "yes"
+    #         - label: _(No)
+    #           value: "no"
+    #       annotation: _(Please be sure to seek medical attention if needed.)
+    #       optional: true
+    #     - name: headache
+    #       type: binary_toggle
+    #       prompt: _(I am experiencing a headache)
+    #       display_prompt: _(I am experiencing a headache:)
+    #       content:
+    #         - label: _(Yes)
+    #           value: "yes"
+    #         - label: _(No)
+    #           value: "no"
+    #       annotation: _(Please be sure to seek medical attention if needed.)
+    #       optional: true
+    #     - name: other_physical_effects
+    #       type: text
+    #       prompt: _(Please note other physical effects you are experiencing)
+    #       display_prompt: _(Other physical effects I experienced:)
+    #       annotation: _(Please be sure to seek medical attention if needed.)
+    #       optional: false
+    #     - name: source  #internally used name for this form element
+    #       type: dropdown  #form type
+    #       prompt: _(Select one of the following to identify the source of the bad air quality.)  #question prompt
+    #       display_prompt: _(Pollution source observed:)  #text used when a submitted report is viewed later
+    #       content:
+    #         - label: _(Asbestos)
+    #           value: absestos
+    #         - label: _(Burning during burn ban)
+    #           value: burning
+    #         - label: _(Chimney smoke)
+    #           value: chimney_smoke
+    #         - label: _(Gas station)
+    #           value: gas_station
+    #         - label: _(Mobile coater)
+    #           value: mobile_coater
+    #         - label: _(Odor)
+    #           value: odor
+    #         - label: _(Outdoor fire)
+    #           value: outdoor_fire
+    #         - label: _(Vehicle pollution)
+    #           value: vehicle_pollution
+    #         - label: _(Visible emission)
+    #           value: visible_emission
+    #         - label: _(Specific business or industry)
+    #           value: business_or_industry
+    #         - label: "_(Don't know/unsure)"
+    #           value: unsure
+    #         - label: _(Other (please describe in comments))
+    #           value: other
+    #       optional: false
+    #     - name: normal_activities
+    #       type: radio_big_buttons
+    #       prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
+    #       display_prompt: _(My normal activities are affected by the air quality in my neighborhood:)
+    #       content:
+    #         - label: _(Strongly agree)
+    #           value: strongly_agree
+    #         - label: _(Agree)
+    #           value: agree
+    #         - label: _(Neutral)
+    #           value: neutral
+    #         - label: _(Disagree)
+    #           value: disagree
+    #         - label: _(Strongly disagree)
+    #           value: strongly_disagree
+    #       optional: false
+    #     - name: activities_impacted
+    #       type: dropdown
+    #       prompt: _(Select one of the following to indicate how your normal activities are impacted.)
+    #       display_prompt: _(My normal activities were impacted in the following way:)
+    #       content:
+    #         - label: _(I choose to stay indoors to avoid the source of pollution)
+    #           value: stay_indoors
+    #         - label: _(I close the windows, limiting circulation)
+    #           value: close_windows
+    #         - label: _(I open all windows to circulate air)
+    #           value: open_windows
+    #         - label: _(I avoid outdoor physical activities)
+    #           value: avoid_outdoor_activities
+    #         - label: _(I need to constantly clean surfaces, as they are often greasy or dusty)
+    #           value: clean_surfaces
+    #         - label: _(Other (please specify in comments))
+    #           value: other
+    #       optional: false
+    #     - name: additional_comments
+    #       type: text
+    #       prompt: _(Provide any additional comments)
+    #       display_prompt: _(Additional comments:)
+    #       optional: true   
+    # tree:
+    #   name: location_type
+    #   dataset: trees
+    #   datasetSlug: trees
+    #   icon_url: /static/css/images/markers/marker-tree.png
+    #   value: tree
+    #   label: _(Tree)
+    #   fields:
+    #     - name: title
+    #       type: text
+    #       prompt: _(Title)
+    #       display_prompt: _(Title of this tree:)
+    #       placeholder: _(Enter title)
+    #       optional: false
+    #     - name: description
+    #       type: textarea
+    #       prompt: _(Description)
+    #       display_prompt: _(Description of this tree:)
+    #       placeholder: _(Description...)
+    #       optional: false
 
   # define form elements that appear on every form here
   common_form_elements:

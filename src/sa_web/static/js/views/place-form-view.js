@@ -30,6 +30,13 @@ var Shareabouts = Shareabouts || {};
     },
     render: function(category, is_category_selected) {
       var selectedCategoryConfig = category && this.options.placeConfig.categories[category] || {};
+      // if there is only one category, skip rendering of category selection buttons
+      if (Object.keys(this.options.placeConfig.categories.length == 1)) {
+        is_category_selected = true;
+        category = Object.keys(this.options.placeConfig.categories)[0];
+        selectedCategoryConfig = this.options.placeConfig.categories[category];
+      }
+
       var data = _.extend({
         place_config: this.options.placeConfig,
         selected_category: selectedCategoryConfig,
@@ -42,6 +49,10 @@ var Shareabouts = Shareabouts || {};
 
       // initialize datetime picker, if relevant
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+
+      if (Object.keys(this.options.placeConfig.categories.length == 1)) {
+        $(".category-btn.clickable + label, #selected-category").css("display", "none");
+      }
 
       return this;
     },
