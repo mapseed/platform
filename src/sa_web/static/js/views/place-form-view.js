@@ -29,12 +29,15 @@ var Shareabouts = Shareabouts || {};
       }
     },
     render: function(category, is_category_selected) {
-      var selectedCategoryConfig = category && this.options.placeConfig.categories[category] || {};
-      // if there is only one category, skip rendering of category selection buttons
-      if (Object.keys(this.options.placeConfig.categories.length == 1)) {
+      var self = this;
+      var selectedCategoryConfig = category && this.options.placeConfig.place_detail[category] || {};
+      var placesToIncludeOnForm = _.filter(_.keys(self.options.placeConfig.place_detail), function(key) { return self.options.placeConfig.place_detail[key].includeOnForm; });       
+
+      // if there is only one place to include on form, skip category selection page
+      if (placesToIncludeOnForm.length == 1) {
         is_category_selected = true;
-        category = Object.keys(this.options.placeConfig.categories)[0];
-        selectedCategoryConfig = this.options.placeConfig.categories[category];
+        category = placesToIncludeOnForm[0];
+        selectedCategoryConfig = this.options.placeConfig.place_detail[category];
       }
 
       var data = _.extend({
@@ -50,7 +53,8 @@ var Shareabouts = Shareabouts || {};
       // initialize datetime picker, if relevant
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
 
-      if (Object.keys(this.options.placeConfig.categories.length == 1)) {
+      // if there is only one place to include on form, hide category selection buttons
+      if (placesToIncludeOnForm.length == 1) {
         $(".category-btn.clickable + label, #selected-category").css("display", "none");
       }
 
@@ -101,8 +105,8 @@ var Shareabouts = Shareabouts || {};
           animationDelay = 400;
 
       this.selectedCategory = $(evt.target).parent().prev().attr('id'),
-      this.selectedDatasetId = this.options.placeConfig.categories[this.selectedCategory].dataset,
-      this.selectedDatasetSlug = this.options.placeConfig.categories[this.selectedCategory].datasetSlug;
+      this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset,
+      this.selectedDatasetSlug = this.options.placeConfig.place_detail[this.selectedCategory].datasetSlug;
 
       // re-render the form with the selected category
       this.render(this.selectedCategory, true);
@@ -157,7 +161,7 @@ var Shareabouts = Shareabouts || {};
       var targetButton = $(evt.target).attr("id"),
           oldValue = $(evt.target).val(),
           // find the match config data for this element
-          altData = _.filter(this.options.placeConfig.categories[this.selectedCategory].fields, function(item) {
+          altData = _.filter(this.options.placeConfig.place_detail[this.selectedCategory].fields, function(item) {
             return item.name == targetButton;
           })[0];
           // fetch alternate label and value

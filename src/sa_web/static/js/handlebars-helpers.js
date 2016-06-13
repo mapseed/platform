@@ -179,8 +179,8 @@ var Shareabouts = Shareabouts || {};
 
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
-    
-    _.each(NS.Config.place.categories[this.location_type].fields, function(item, i) {
+
+    _.each(NS.Config.place.place_detail[this.location_type].fields, function(item, i) {
       // filter for the correct label/value pair
       var display_value = _.filter(item.content, function(option) {
         return option.value == self[item.name];
