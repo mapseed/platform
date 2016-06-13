@@ -637,9 +637,9 @@ place:
 
 
   #### begin dynamic form config ####
-  #TODO: maybe add an autocomplete
-  categories:
+  place_detail:
     observation:
+      includeOnForm: false
       name: location_type
       dataset: duwamish
       datasetSlug: report
@@ -676,6 +676,7 @@ place:
           placeholder: _(Enter description...)
           optional: false
     question:
+      includeOnForm: false
       name: location_type
       dataset: duwamish
       datasetSlug: report
@@ -695,6 +696,7 @@ place:
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
     idea:
+      includeOnForm: false
       name: location_type
       dataset: duwamish
       datasetSlug: report
@@ -715,6 +717,7 @@ place:
           placeholder: _(Description...)
           optional: false
     complaint:
+      includeOnForm: false
       name: location_type
       dataset: duwamish
       datasetSlug: report
@@ -735,6 +738,7 @@ place:
           placeholder: _(Description...)
           optional: false
     air_watch:  #defines a top-level form category
+      includeOnForm: false
       name: location_type  #needs to be "location_type"
       dataset: air
       datasetSlug: air
@@ -877,6 +881,7 @@ place:
           display_prompt: _(Additional comments:)
           optional: true   
     tree:
+      includeOnForm: true
       name: location_type
       dataset: trees
       datasetSlug: trees
