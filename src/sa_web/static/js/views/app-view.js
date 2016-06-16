@@ -297,19 +297,47 @@ var Shareabouts = Shareabouts || {};
       return this.$panel.is(":visible") && this.$panel.hasClass('place-form');
     },
     loadLandmarks: function() {
-      var self = this;
+      var self = this,
+      addStoryObj = function(collection) {
+        // TODO: It's redundant to loop through the collection after we've fetched it.
+        // We should append story objects as we fetch. Also applies to similar code in loadPlaces() below.
+        collection.forEach(function(model, index) {
+          model.set("story", function() {
+            var storyObj = null,
+            url = model.attributes.title;
+            _.each(self.options.storyConfig, function(story) {
+              if (story.order[url]) {
+                storyObj = {
+                  tagline: story.tagline,
+                  next: story.order[url].next,
+                  previous: story.order[url].previous
+                }
+              }
+            });
+            return storyObj;
+          }());
+        });
+      };
 
       // loop through landmark configs 
       _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
           self.landmarks[landmarkConfig.id].fetch({
-            attributesToAdd: { location_type: landmarkConfig.placeType }
+            attributesToAdd: { location_type: landmarkConfig.placeType },
+            success: function() {
+              addStoryObj(self.landmarks[landmarkConfig.id]);
+            }
           });
         } else {
-          self.landmarks[landmarkConfig.id].fetch();
+          self.landmarks[landmarkConfig.id].fetch({
+            success: function() {
+              addStoryObj(self.landmarks[landmarkConfig.id]);
+            }
+          });
         }
       });
     },
+
     loadPlaces: function(placeParams) {
       var self = this,
           $progressContainer = $('#map-progress'),
@@ -456,7 +484,9 @@ var Shareabouts = Shareabouts || {};
         landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
       } else {
         landmarkDetailView = new S.LandmarkDetailView({
-          description: model.get('properties')['description']
+          model: model,
+          description: model.get('properties')['description'],
+          router: this.options.router
         });
         this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
       }
