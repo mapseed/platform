@@ -1062,9 +1062,9 @@ story:
       tagline: _(You found a map story!)
       order: 
         - trees/298
-        - trees/248
+        - lucile-bridge
         - trees/244
-        - trees/245
+        - lucile-and-holgate
 
 
 
