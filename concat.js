@@ -52,7 +52,6 @@ shell.cat([
   'src/sa_web/static/js/views/place-detail-view.js',
   'src/sa_web/static/js/views/landmark-detail-view.js',
   'src/sa_web/static/js/views/place-form-view.js',
-  'src/sa_web/static/js/views/dataset-form-view.js',
   'src/sa_web/static/js/views/place-list-view.js',
   'src/sa_web/static/js/views/map-view.js',
   'src/sa_web/static/js/views/legend-view.js',
@@ -65,7 +64,7 @@ shell.cat([
 
 shell.cat([
   'src/sa_web/static/js/utils.js',
-  'src/sa_web/static/js/template-helpers.js'
+  'src/sa_web/static/js/template-helpers.js',
 ]).to('src/sa_web/static/dist/cat-preload-bundle.js')
 
 shell.cat([
