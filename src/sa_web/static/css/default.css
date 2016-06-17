@@ -1,5 +1,9 @@
 @charset "UTF-8";
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 /* normalize-scss 3.0.3+normalize.3.0.3 | MIT/GPLv2 License | bit.ly/normalize-scss */
 /**
  * Establish a vertical rhythm unit using $base-font-size, $base-line-height,
@@ -551,7 +555,11 @@ html {
   min-height: 100%;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 8, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -559,7 +567,11 @@ body {
   height: 100%;
   text-align: left;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 11, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -568,7 +580,11 @@ body:after {
   display: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 a {
   color: #36454f;
 }
@@ -583,6 +599,7 @@ a:active, a:visited {
   color: #36454f;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 label {
   color: #36454f;
@@ -592,13 +609,28 @@ label {
 label {
   color: #36454f;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+label {
+  color: #36454f;
+}
+=======
+/* line 22, ../sass/_basic.sass */
+label {
+  color: #36454f;
+}
+>>>>>>> improve story arrows, update story content
 /* line 24, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
 label:active, label:visited {
   color: #36454f;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 27, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -606,7 +638,11 @@ a:hover, label:hover {
   color: #00aaff;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 31, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -614,7 +650,11 @@ a:hover, a:active {
   outline: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 36, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -624,7 +664,11 @@ body {
   color: #36454f;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 41, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -633,7 +677,11 @@ select, input, textarea {
   color: #36454f;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 45, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -641,7 +689,11 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 48, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -649,7 +701,11 @@ h1, h2 {
   font-size: 2em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 51, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -657,7 +713,11 @@ h3 {
   font-size: 1.75em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 54, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -665,7 +725,11 @@ h4 {
   font-size: 1.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 57, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -673,7 +737,11 @@ h5 {
   font-size: 1.25em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 60, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -682,7 +750,11 @@ h6 {
   text-transform: uppercase;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 64, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -690,7 +762,11 @@ p {
   margin: 0 0 1.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 69, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -698,7 +774,11 @@ ul, ol, dl {
   margin-bottom: 0.75em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 72, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -706,7 +786,11 @@ li {
   padding-bottom: 0.75em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 76, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -716,7 +800,11 @@ nav ul, nav ol {
   padding: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 81, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -726,7 +814,11 @@ nav ul, nav ol {
   padding: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 86, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -734,7 +826,11 @@ nav li, .unstyled-list li {
   padding-bottom: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 89, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -742,7 +838,11 @@ strong {
   font-weight: 800;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 92, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -755,6 +855,7 @@ hr {
   border-left: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .clearfix {
   zoom: 1;
@@ -764,6 +865,17 @@ hr {
 .clearfix {
   zoom: 1;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+.clearfix {
+  zoom: 1;
+}
+=======
+/* line 104, ../sass/_basic.sass */
+.clearfix {
+  zoom: 1;
+}
+>>>>>>> improve story arrows, update story content
 /* line 105, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
 .clearfix:before {
@@ -772,7 +884,11 @@ hr {
   height: 0;
   visibility: hidden;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 110, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -784,7 +900,11 @@ hr {
   clear: both;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 119, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -793,7 +913,11 @@ hr {
   visibility: hidden;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 125, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -803,7 +927,11 @@ hr {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 133, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -811,7 +939,11 @@ hr {
   visibility: hidden;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 136, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -819,7 +951,11 @@ hr {
   white-space: nowrap;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 139, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -827,7 +963,11 @@ hr {
   text-transform: capitalize;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 144, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -836,7 +976,11 @@ img {
   height: auto;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 148, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -846,7 +990,11 @@ img {
   margin: 0 0.25em -0.325em 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 153, ../sass/_basic.sass */
 >>>>>>> improve story arrows, update story content
@@ -854,7 +1002,11 @@ img {
   opacity: 0.75;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 3, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -876,7 +1028,11 @@ img {
   border: 3px solid rgba(0, 0, 0, 0.05);
   border-radius: 3px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 20, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -898,7 +1054,11 @@ img {
   border: 3px solid rgba(0, 0, 0, 0.05);
   border-radius: 3px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 37, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -906,7 +1066,11 @@ img {
   background-color: #93b7c9;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 40, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -915,7 +1079,11 @@ img {
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 44, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -924,7 +1092,11 @@ img {
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 48, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -932,7 +1104,11 @@ img {
   background-color: #007fbf;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 51, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -943,7 +1119,11 @@ img {
   border: none;
   box-shadow: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 57, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -954,7 +1134,11 @@ img {
   border: none;
   box-shadow: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 63, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -963,7 +1147,11 @@ img {
   color: #fff;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 67, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -972,7 +1160,11 @@ img {
   color: #ccc;
   box-shadow: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 71, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -982,7 +1174,11 @@ img {
   box-shadow: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 76, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -995,7 +1191,11 @@ img {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 84, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1009,7 +1209,11 @@ img {
   box-sizing: border-box;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 93, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1018,7 +1222,11 @@ img {
   padding: 0.75em 1em 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 97, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1026,7 +1234,11 @@ img {
   font-size: 0.75em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 104, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1036,7 +1248,11 @@ img {
   left: 0;
   opacity: 0;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 109, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1056,7 +1272,11 @@ img {
   padding-right: 10px;
   border: 2px solid #D1D3D4;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 124, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1071,6 +1291,7 @@ img {
   background: #D1D3D4;
   border-radius: 1px 0 0 1px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .big-btn:hover:not(:checked) + label {
   color: #444444;
@@ -1080,6 +1301,17 @@ img {
 .big-btn:hover:not(:checked) + label {
   color: #444444;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+.big-btn:hover:not(:checked) + label {
+  color: #444444;
+}
+=======
+/* line 135, ../sass/_buttons.sass */
+.big-btn:hover:not(:checked) + label {
+  color: #444444;
+}
+>>>>>>> improve story arrows, update story content
 /* line 137, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
 .big-btn:hover:not(:checked) + label:before {
@@ -1087,7 +1319,11 @@ img {
   text-indent: 0.9em;
   color: #EEEEEE;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 142, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1096,7 +1332,11 @@ img {
   font-weight: bold;
   border: 2px solid #f25218;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 146, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1108,7 +1348,11 @@ img {
 }
 
 /* Place type category button styles */
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 153, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1116,7 +1360,11 @@ img {
   margin-bottom: 20px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .category-btn {
   display: none;
 }
@@ -1138,7 +1386,11 @@ img {
   height: 46px;
   margin-bottom: 1px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 168, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1152,7 +1404,11 @@ img {
   padding: 3px;
   display: inline;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 177, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1169,7 +1425,11 @@ img {
   padding-top: 11px;
   padding-bottom: 11px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 190, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1177,6 +1437,7 @@ img {
   opacity: 1;
   cursor: pointer;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .category-btn:checked + label > img, .category-btn:hover + label > img {
   border-color: #f25218;
@@ -1186,6 +1447,17 @@ img {
 .category-btn:checked + label > img, .category-btn:hover + label > img {
   border-color: #f25218;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+.category-btn:checked + label > img, .category-btn:hover + label > img {
+  border-color: #f25218;
+}
+=======
+/* line 193, ../sass/_buttons.sass */
+.category-btn:checked + label > img, .category-btn:hover + label > img {
+  border-color: #f25218;
+}
+>>>>>>> improve story arrows, update story content
 /* line 195, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
 .category-btn:checked + label > span, .category-btn:hover + label > span {
@@ -1194,7 +1466,11 @@ img {
 }
 
 /* Selected category placeholder styles */
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 200, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1203,7 +1479,11 @@ img {
   width: 280px;
   margin-right: 0;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 204, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1212,7 +1492,11 @@ img {
 }
 
 /* Other dynamic form styles */
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 208, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1224,7 +1508,11 @@ img {
   top: 5px;
   left: 290px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 215, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1233,7 +1521,11 @@ img {
   font-size: 2.2em;
   content: "";
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 219, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
@@ -1242,6 +1534,7 @@ img {
   cursor: pointer;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 /* Story bar styles */
 <<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
@@ -1267,10 +1560,106 @@ img {
 =======
 /* line 228, ../sass/_buttons.sass */
 >>>>>>> temp commit
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0 0 1.2em;
+}
+
+label {
+  font-size: 0.75em;
+  margin-right: 0.5em;
+  padding-bottom: 0;
+}
+label small {
+  text-transform: none;
+}
+
+input[type=date], input[type=datetime], input[type=datetime-local], input[type=email], input[type=month], input[type=number], input[type=password], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week] {
+  outline: 0;
+  border: 0.25em solid #a3c7d9;
+  border-radius: 0;
+  padding: 0.5em;
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+select, textarea {
+  outline: 0;
+  border: 0.25em solid #a3c7d9;
+  border-radius: 0;
+  padding: 0.5em;
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  outline: 2px solid #007fbf;
+}
+
+textarea {
+  height: 6.5em;
+  resize: none;
+}
+textarea:focus {
+  outline: 2px solid #007fbf;
+}
+
+select {
+  background-color: #fff;
+}
+
+.form-submitted .gatekeeper-invalid, .form-submitted input:invalid, .form-submitted textarea:invalid, .form-submitted select:invalid {
+  outline: 2px solid #b2182b;
+}
+
+.fileinput-container {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.fileinput-container input {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.fileinput-name {
+  display: inline-block;
+}
+
+.form-spinner {
+  clear: both;
+  padding: 1em;
+=======
+/* Story bar styles */
+/* line 225, ../sass/_buttons.sass */
+.btn-previous-story-nav {
+  color: white;
+  cursor: pointer;
+  float: left;
+  width: 10%;
+}
+/* line 230, ../sass/_buttons.sass */
+>>>>>>> improve story arrows, update story content
 .btn-previous-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .btn-previous-story-nav:hover {
@@ -1288,10 +1677,14 @@ img {
 =======
 /* line 231, ../sass/_buttons.sass */
 >>>>>>> temp commit
+=======
+/* line 233, ../sass/_buttons.sass */
+>>>>>>> improve story arrows, update story content
 .btn-previous-story-nav:hover {
   color: #93b7c9;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 /* line 234, ../sass/_buttons.sass */
 .btn-next-story-nav {
   width: 10%;
@@ -1304,10 +1697,22 @@ img {
 =======
 /* line 238, ../sass/_buttons.sass */
 >>>>>>> temp commit
+=======
+/* line 236, ../sass/_buttons.sass */
+.btn-next-story-nav {
+  color: white;
+  cursor: pointer;
+  float: right;
+  width: 10%;
+  text-align: right;
+}
+/* line 242, ../sass/_buttons.sass */
+>>>>>>> improve story arrows, update story content
 .btn-next-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .btn-next-story-nav:hover {
@@ -1319,21 +1724,32 @@ img {
 =======
 /* line 241, ../sass/_buttons.sass */
 >>>>>>> temp commit
+=======
+/* line 245, ../sass/_buttons.sass */
+>>>>>>> improve story arrows, update story content
 .btn-next-story-nav:hover {
   color: #93b7c9;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 /* line 248, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
 =======
 /* line 244, ../sass/_buttons.sass */
 >>>>>>> temp commit
+=======
+/* line 248, ../sass/_buttons.sass */
+>>>>>>> improve story arrows, update story content
 .story-nav-disabled {
   visibility: hidden;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 5, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 5, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1343,7 +1759,11 @@ fieldset {
   padding: 0 0 1.2em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 10, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 10, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1352,7 +1772,11 @@ label {
   margin-right: 0.5em;
   padding-bottom: 0;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 16, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 16, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1360,7 +1784,11 @@ label small {
   text-transform: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 20, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 20, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1376,7 +1804,11 @@ input[type=date], input[type=datetime], input[type=datetime-local], input[type=e
   box-sizing: border-box;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 42, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 42, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1392,7 +1824,11 @@ select, textarea {
   box-sizing: border-box;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 53, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 53, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1400,7 +1836,11 @@ input:focus, select:focus {
   outline: 2px solid #007fbf;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 56, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 56, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1408,7 +1848,11 @@ textarea {
   height: 6.5em;
   resize: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 57, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 57, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1416,7 +1860,11 @@ textarea:focus {
   outline: 2px solid #007fbf;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 62, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 62, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1424,7 +1872,11 @@ select {
   background-color: #fff;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 69, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 69, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1432,7 +1884,11 @@ select {
   outline: 2px solid #b2182b;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 72, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 72, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1440,8 +1896,13 @@ select {
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+>>>>>>> improve story arrows, update story content
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 76, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 76, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1456,7 +1917,13 @@ select {
   cursor: pointer;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 86, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
 =======
 /* line 86, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1464,7 +1931,11 @@ select {
   display: inline-block;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+/* line 89, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
 =======
 /* line 89, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
@@ -1473,15 +1944,21 @@ select {
   padding: 1em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 =======
+=======
+>>>>>>> improve story arrows, update story content
 /* line 93, ../sass/_forms.sass */
 >>>>>>> improve story arrows, update story content
 .form-field {
   margin: 0 0 1em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
 .form-annotation {
   font-size: 0.8em;
   font-style: italic;
@@ -1491,6 +1968,20 @@ select {
   display: none;
 }
 
+=======
+/* line 96, ../sass/_forms.sass */
+>>>>>>> improve story arrows, update story content
+.form-annotation {
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+/* line 100, ../sass/_forms.sass */
+.alt-label {
+  display: none;
+}
+
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 =======
 /* line 96, ../sass/_forms.sass */
 .form-annotation {
@@ -1503,6 +1994,8 @@ select {
   display: none;
 }
 
+=======
+>>>>>>> improve story arrows, update story content
 /* line 6, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
 #site-header {
@@ -1512,7 +2005,11 @@ select {
   box-shadow: 0 0.125em 0 rgba(0, 0, 0, 0.2);
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 13, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1525,7 +2022,11 @@ select {
   padding: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 21, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1533,7 +2034,11 @@ select {
   padding-left: 3.25em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 25, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1545,7 +2050,11 @@ select {
   text-decoration: none;
   color: #13b309;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 32, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1553,7 +2062,11 @@ select {
   color: orange;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 37, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1572,7 +2085,11 @@ select {
   top: 0.25em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 54, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1585,7 +2102,11 @@ select {
   padding: 0;
   display: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .access.is-exposed {
   display: block;
 }
@@ -1600,7 +2121,11 @@ select {
   position: relative;
   padding-bottom: 0.5em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 67, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1609,7 +2134,11 @@ select {
   padding-bottom: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 75, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1627,7 +2156,11 @@ select {
   margin: 0.25em, 0.75em, 0, 0.5em;
   height: 100%;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 88, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1635,7 +2168,11 @@ select {
   color: #a3c7d9;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 91, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1648,7 +2185,11 @@ select {
   padding: 0;
   display: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 99, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1656,7 +2197,11 @@ select {
   display: block;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 102, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1666,7 +2211,11 @@ select {
   font-weight: bold;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 108, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1676,7 +2225,11 @@ a.auth-btn {
   padding: 0.5em;
   box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 113, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1685,7 +2238,11 @@ a.twitter-btn {
   color: #fff !important;
   margin-right: 0.25em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 117, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1695,7 +2252,11 @@ a.facebook-btn {
   margin-left: 0.25em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 122, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1705,7 +2266,11 @@ a.facebook-btn {
   outline: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 127, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1716,7 +2281,11 @@ a.facebook-btn {
   max-width: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 133, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1725,7 +2294,11 @@ a.facebook-btn {
   font-size: 0.875em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 139, ../sass/_header.sass */
 >>>>>>> improve story arrows, update story content
@@ -1737,7 +2310,11 @@ a.logout-btn {
   text-transform: uppercase;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 5, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1747,7 +2324,11 @@ a.logout-btn {
   z-index: 10;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 10, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1756,7 +2337,11 @@ a.logout-btn {
   height: 150px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 17, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1764,7 +2349,11 @@ a.logout-btn {
   background-image: url(images/locate-me.png);
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 21, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1773,7 +2362,11 @@ a.logout-btn {
   height: 33px;
   line-height: 33px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 25, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1782,7 +2375,11 @@ a.logout-btn {
   height: 33px;
   line-height: 33px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 29, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1791,7 +2388,11 @@ a.logout-btn {
   -webkit-text-size-adjust: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 38, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1804,7 +2405,11 @@ a.logout-btn {
   border-bottom: 1px solid #666;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 48, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1812,7 +2417,11 @@ a.logout-btn {
   display: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 #centerpoint {
   display: none;
 }
@@ -1835,7 +2444,11 @@ a.logout-btn {
   margin: -44px 0 0 -12px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 67, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1845,7 +2458,11 @@ a.logout-btn {
   margin: 0 auto;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 72, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1855,7 +2472,11 @@ a.logout-btn {
   pointer-events: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 78, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1874,7 +2495,11 @@ a.logout-btn {
   -ms-transition: opacity 0.25s;
   transition: opacity 0.25s;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 #centerpoint.newpin:hover .x, #centerpoint.newpin.dragging .x {
   opacity: 1;
 }
@@ -1899,7 +2524,11 @@ a.logout-btn {
   -ms-transition: opacity 0s, background-position 0.3s ease;
   transition: opacity 0s, background-position 0.3s ease;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 107, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1908,7 +2537,11 @@ a.logout-btn {
   background-image: url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png);
   background-position: 0px -3px, 3px -3px, 6px -3px, 0px -6px, 3px -6px, 6px -6px, 0px -9px, 3px -9px, 6px -9px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 111, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1925,7 +2558,11 @@ a.logout-btn {
   -ms-transition: top 0.4s ease;
   transition: top 0.4s ease;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 123, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1933,7 +2570,11 @@ a.logout-btn {
   top: -20px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 128, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1949,7 +2590,11 @@ a.logout-btn {
   border-radius: 0.325em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 139, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1967,7 +2612,11 @@ a.logout-btn {
   background-color: rgba(242, 206, 206, 0.8);
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 154, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1985,7 +2634,11 @@ a.logout-btn {
   border-radius: 4px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 167, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -1998,7 +2651,11 @@ a.logout-btn {
   font-size: 24px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 175, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -2013,7 +2670,11 @@ a.logout-btn {
   box-sizing: border-box;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 190, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -2026,7 +2687,11 @@ a.logout-btn {
   cursor: default;
   pointer-events: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 198, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -2041,7 +2706,11 @@ a.logout-btn {
   text-transform: uppercase;
   text-shadow: 0 0 0.25em #555555;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 208, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -2058,7 +2727,11 @@ a.logout-btn {
   white-space: nowrap;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 220, ../sass/_map.sass */
 >>>>>>> improve story arrows, update story content
@@ -2073,7 +2746,11 @@ a.logout-btn {
   font-size: 1.25em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 6, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2086,7 +2763,11 @@ a.logout-btn {
   display: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 16, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2107,6 +2788,7 @@ a.close-btn {
   box-shadow: 0 -0.325em 0 rgba(0, 0, 0, 0.1);
   border-radius: 0.325em 0.325em 0 0;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 a.close-btn:hover {
   color: #cd2c67;
@@ -2116,6 +2798,17 @@ a.close-btn:hover {
 a.close-btn:hover {
   color: #cd2c67;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+a.close-btn:hover {
+  color: #cd2c67;
+}
+=======
+/* line 32, ../sass/_content.sass */
+a.close-btn:hover {
+  color: #cd2c67;
+}
+>>>>>>> improve story arrows, update story content
 /* line 34, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
 a.close-btn span {
@@ -2126,7 +2819,11 @@ a.close-btn span {
   top: -0.2em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 44, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2137,7 +2834,11 @@ a.close-btn span {
   /* height: auto !important */
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 52, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2146,7 +2847,11 @@ a.close-btn span {
   margin: 0 0 1em 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 56, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2155,7 +2860,11 @@ a.close-btn span {
   position: relative;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .user-support {
   position: relative;
 }
@@ -2181,7 +2890,11 @@ a.close-btn span {
   -ms-filter: "alpha(opacity=0)";
   zoom: 1;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 76, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2194,7 +2907,11 @@ a.close-btn span {
   padding-left: 22px;
   color: #007fbf;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .user-support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
 }
@@ -2209,7 +2926,11 @@ a.close-btn span {
   background-color: #93b7c9;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 91, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2217,7 +2938,11 @@ a.close-btn span {
   min-width: 84px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 94, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2225,7 +2950,11 @@ a.close-btn span {
   margin: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 97, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2234,7 +2963,11 @@ a.close-btn span {
   padding: 0 !important;
   margin-left: 10px;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 101, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2246,7 +2979,11 @@ a.close-btn span {
   text-indent: -9999px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 108, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2254,7 +2991,11 @@ a.close-btn span {
   background: url(images/twitter-32.png) 0 0 no-repeat scroll;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 111, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2262,7 +3003,11 @@ a.close-btn span {
   background: url(images/facebook-32.png) 0 0 no-repeat scroll;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .place-header {
   margin-bottom: 1em;
 }
@@ -2277,6 +3022,7 @@ a.close-btn span {
   text-decoration: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .place-items .place-item {
   margin-top: 20px;
@@ -2296,6 +3042,9 @@ a.close-btn span {
 }
 
 =======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
+=======
 /* line 121, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
 .place-submission-details {
@@ -2303,7 +3052,11 @@ a.close-btn span {
   padding-left: 3.75em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 125, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2314,7 +3067,11 @@ a.close-btn span {
   margin-left: -3.75em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 131, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2324,6 +3081,7 @@ a.close-btn span {
   color: #888;
   font-size: 0.75em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .response-date a {
   color: #888;
@@ -2333,13 +3091,28 @@ a.close-btn span {
 .response-date a {
   color: #888;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+.response-date a {
+  color: #888;
+}
+=======
+/* line 136, ../sass/_content.sass */
+.response-date a {
+  color: #888;
+}
+>>>>>>> improve story arrows, update story content
 /* line 138, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
 .response-date a:hover {
   color: #00aaff;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 141, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2349,7 +3122,11 @@ a.close-btn span {
   display: block;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 148, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2357,7 +3134,11 @@ a.close-btn span {
   position: relative;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 151, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2368,7 +3149,11 @@ a.close-btn span {
   font-size: 1.25em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 157, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2379,7 +3164,11 @@ a.reply-link {
   right: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 165, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2389,7 +3178,11 @@ a.reply-link {
   margin-bottom: 1em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 170, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2401,7 +3194,11 @@ a.reply-link {
   left: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 177, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2412,7 +3209,11 @@ a.reply-link {
   margin-left: -3.75em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 185, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2427,7 +3228,11 @@ a.reply-link {
   border-radius: 1em;
   position: relative;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 195, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2442,7 +3247,11 @@ a.reply-link {
   left: 1.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 205, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2450,7 +3259,11 @@ a.reply-link {
   display: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 208, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2458,7 +3271,11 @@ a.reply-link {
   margin-bottom: 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 211, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2466,7 +3283,11 @@ article.response footer {
   text-align: right;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 214, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2477,7 +3298,11 @@ article.response footer {
   text-decoration: none;
   font-weight: bold;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 220, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2486,7 +3311,11 @@ article.response footer {
   color: #fff;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 224, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2495,7 +3324,11 @@ article.response footer {
   margin: 0 0.75em 0 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 228, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2505,7 +3338,11 @@ form .signed-in-as {
   padding-top: 0.125em;
   line-height: 1.5;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 233, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2515,7 +3352,11 @@ form .signed-in-as .avatar {
   position: relative;
   top: 0.5em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 238, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2525,7 +3366,11 @@ form .signed-in-as a {
   text-transform: uppercase;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 243, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2534,7 +3379,11 @@ form .signed-in-as a {
   margin-top: 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 247, ../sass/_content.sass */
 >>>>>>> improve story arrows, update story content
@@ -2546,11 +3395,20 @@ a.auth-inline {
   padding: 0.25em 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 /* place detail view story bar */
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .place-story-bar {
   background-color: #EEEEEE;
 =======
+/* line 255, ../sass/_content.sass */
+.place-story-bar {
+  background-color: #a3c7d9;
+>>>>>>> improve story arrows, update story content
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+=======
+/* place detail view story bar */
 /* line 255, ../sass/_content.sass */
 .place-story-bar {
   background-color: #a3c7d9;
@@ -2562,6 +3420,7 @@ a.auth-inline {
   font-family: FontAwesome;
   overflow: hidden;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .place-story-bar h1 {
   line-height: 1em;
@@ -2605,6 +3464,14 @@ a.auth-inline {
   padding-left: 10px;
   padding-right: 10px;
   font-family: "Roboto", sans-serif;
+=======
+/* line 263, ../sass/_content.sass */
+.place-story-bar h5 {
+  float: left;
+  width: 80%;
+  font-family: "Roboto", sans-serif;
+  display: inline;
+>>>>>>> improve story arrows, update story content
   margin-bottom: 0;
 }
 
@@ -2620,7 +3487,11 @@ a.auth-inline {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 11, ../sass/_sidebar.sass */
 >>>>>>> improve story arrows, update story content
@@ -2633,7 +3504,11 @@ a.auth-inline {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 19, ../sass/_sidebar.sass */
 >>>>>>> improve story arrows, update story content
@@ -2642,7 +3517,11 @@ a.auth-inline {
   border: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 /*---- leaflet side bar overrides ----*/
 .sidebar-header {
   margin: -10px -10px 0;
@@ -2665,7 +3544,11 @@ a.auth-inline {
   z-index: 30;
   display: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 10, ../sass/_ticker.sass */
 >>>>>>> improve story arrows, update story content
@@ -2673,7 +3556,11 @@ a.auth-inline {
   padding-left: 1em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 13, ../sass/_ticker.sass */
 >>>>>>> improve story arrows, update story content
@@ -2681,7 +3568,11 @@ a.auth-inline {
   display: block;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 22, ../sass/_ticker.sass */
 >>>>>>> improve story arrows, update story content
@@ -2691,7 +3582,11 @@ ul.recent-points {
   padding: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .recent-points li {
   position: relative;
 }
@@ -2713,7 +3608,11 @@ ul.recent-points {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 41, ../sass/_ticker.sass */
 >>>>>>> improve story arrows, update story content
@@ -2721,7 +3620,11 @@ ul.recent-points {
   border-top: 0;
   padding-top: 0.75em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 48, ../sass/_ticker.sass */
 >>>>>>> improve story arrows, update story content
@@ -2732,7 +3635,11 @@ ul.recent-points {
   margin-left: -2.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 /* #master-legend {
     overflow: visible;
     padding-left: unset;
@@ -2759,7 +3666,11 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .layer-type-grouping-list {
   margin-left: 10px;
 }
@@ -2774,6 +3685,7 @@ ul.recent-points {
   font-size: 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .layer-type-list li {
   position: relative;
@@ -2783,6 +3695,17 @@ ul.recent-points {
 .layer-type-list li {
   position: relative;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+.layer-type-list li {
+  position: relative;
+}
+=======
+/* line 29, ../sass/_legend.sass */
+.layer-type-list li {
+  position: relative;
+}
+>>>>>>> improve story arrows, update story content
 /* line 31, ../sass/_legend.sass */
 >>>>>>> improve story arrows, update story content
 .layer-type-list img {
@@ -2791,7 +3714,11 @@ ul.recent-points {
   vertical-align: middle;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 36, ../sass/_legend.sass */
 >>>>>>> improve story arrows, update story content
@@ -2817,7 +3744,11 @@ ul.recent-points {
   transition: opacity 0.25s ease-in-out;
   pointer-events: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 37, ../sass/_legend.sass */
 >>>>>>> improve story arrows, update story content
@@ -2826,7 +3757,11 @@ ul.recent-points {
   width: auto;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 61, ../sass/_legend.sass */
 >>>>>>> improve story arrows, update story content
@@ -2836,7 +3771,11 @@ ul.recent-points {
   opacity: 1;
   overflow: visible;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 66, ../sass/_legend.sass */
 >>>>>>> improve story arrows, update story content
@@ -2853,7 +3792,11 @@ ul.recent-points {
   border-left-color: #000;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .layer-type-list {
   font-size: 0.875em;
 }
@@ -2873,7 +3816,11 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 87, ../sass/_legend.sass */
 >>>>>>> improve story arrows, update story content
@@ -2884,7 +3831,11 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .layer-type-title:active label:hover, .shareabouts-layer-li:active a {
   color: #00aaff;
 }
@@ -2921,7 +3872,11 @@ ul.recent-points {
   text-transform: none;
   font-family: "Roboto", sans-serif;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 
 .master-layer-list {
   padding-left: unset;
@@ -2969,7 +3924,11 @@ ul.recent-points {
 }
 
 @media screen and (min-width: 40.063em) {
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
   .active {
 =======
   /* line 150, ../sass/_legend.sass */
@@ -2982,7 +3941,11 @@ ul.recent-points {
     overflow: auto;
   }
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 164, ../sass/_legend.sass */
 .master-layer-list {
@@ -3007,7 +3970,11 @@ ul.recent-points {
   display: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 9, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3024,7 +3991,11 @@ ul.recent-points {
   overflow: auto;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 22, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3033,7 +4004,11 @@ ul.recent-points {
   margin: 0 auto;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 28, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3044,7 +4019,11 @@ ul.recent-points {
   margin-right: 0.5em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 36, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3055,7 +4034,11 @@ ul.recent-points {
   text-transform: uppercase;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 42, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3064,7 +4047,11 @@ ul.recent-points {
   color: #999;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 46, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3073,7 +4060,11 @@ ul.recent-points {
   font-size: 0.75em;
   text-decoration: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 50, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3081,7 +4072,11 @@ ul.recent-points {
   color: #555;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 55, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3089,7 +4084,11 @@ ul.recent-points {
   clear: both;
   padding: 1.25em 0 0;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 58, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3098,13 +4097,27 @@ ul.recent-points {
   padding: 0.75em 0 1.25em 0;
   border-top: 1px solid #eeeeee;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
 .place-list .place-header {
   font-size: 0.875em;
 }
 .place-list .place-header:before {
   display: none;
 }
+=======
+/* line 62, ../sass/_listview.sass */
+>>>>>>> improve story arrows, update story content
+.place-list .place-header {
+  font-size: 0.875em;
+}
+/* line 64, ../sass/_listview.sass */
+.place-list .place-header:before {
+  display: none;
+}
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 =======
 /* line 62, ../sass/_listview.sass */
 .place-list .place-header {
@@ -3114,13 +4127,19 @@ ul.recent-points {
 .place-list .place-header:before {
   display: none;
 }
+=======
+>>>>>>> improve story arrows, update story content
 /* line 66, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
 .place-list .place-header:after {
   display: none;
   clear: none;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 .place-list .place-header h1 {
   font-size: 1.5em;
 }
@@ -3140,7 +4159,11 @@ ul.recent-points {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 79, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3150,7 +4173,11 @@ ul.recent-points {
   float: left;
   margin-left: -3em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 84, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3158,7 +4185,11 @@ ul.recent-points {
   margin-right: 5em;
   margin-left: 16em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 87, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3167,7 +4198,11 @@ ul.recent-points {
   max-width: 9em;
   margin: 0 1em 0.75em 0;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 92, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3175,7 +4210,11 @@ ul.recent-points {
   display: none;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 95, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3183,7 +4222,11 @@ ul.recent-points {
   display: block;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 98, ../sass/_listview.sass */
 >>>>>>> improve story arrows, update story content
@@ -3192,7 +4235,11 @@ ul.recent-points {
   float: left;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 6, ../sass/_counter.sass */
 >>>>>>> improve story arrows, update story content
@@ -3215,7 +4262,11 @@ ul.recent-points {
   border-radius: 3px;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 24, ../sass/_counter.sass */
 >>>>>>> improve story arrows, update story content
@@ -3226,7 +4277,11 @@ ul.recent-points {
   overflow: hidden;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 30, ../sass/_counter.sass */
 >>>>>>> improve story arrows, update story content
@@ -3234,7 +4289,11 @@ ul.recent-points {
   width: auto;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 33, ../sass/_counter.sass */
 >>>>>>> improve story arrows, update story content
@@ -3250,7 +4309,11 @@ ul.recent-points {
   padding: 0.1em 0.1em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 6, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3265,7 +4328,11 @@ ul.recent-points {
   font-size: 1em;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 16, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3273,7 +4340,11 @@ ul.recent-points {
   display: block;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 19, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3290,7 +4361,11 @@ ul.recent-points {
   bottom: auto;
   left: 0.5em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 31, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3298,7 +4373,11 @@ ul.recent-points {
   box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
   margin-bottom: 2.5em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 34, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3307,7 +4386,11 @@ ul.recent-points {
   margin-bottom: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 40, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3316,7 +4399,11 @@ ul.recent-points {
   position: relative;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 44, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3324,7 +4411,11 @@ ul.recent-points {
   display: block;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 47, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3341,7 +4432,11 @@ ul.recent-points {
   bottom: auto;
   left: 0.5em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 59, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3349,7 +4444,11 @@ ul.recent-points {
   box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
   margin-bottom: 2.5em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 62, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3358,7 +4457,11 @@ ul.recent-points {
   margin-bottom: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 68, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3366,7 +4469,11 @@ ul.recent-points {
   position: relative;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 71, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3375,7 +4482,11 @@ input.geocode-address-field {
   line-height: 1.25;
   padding-left: 2.125em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 75, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3383,7 +4494,11 @@ input.geocode-address-field:focus {
   outline: 0;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 78, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3398,7 +4513,11 @@ input.geocode-address-field:focus {
   text-indent: -9999px;
   cursor: pointer;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 88, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3407,7 +4526,11 @@ input.geocode-address-field:focus {
   display: block;
   position: absolute;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 92, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3420,7 +4543,11 @@ input.geocode-address-field:focus {
   border-radius: 2em;
   margin: -0.25em 0 0 -0.25em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 100, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3438,7 +4565,11 @@ input.geocode-address-field:focus {
   transform: rotate(-45deg);
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 113, ../sass/_geocode.sass */
 >>>>>>> improve story arrows, update story content
@@ -3451,7 +4582,11 @@ input.geocode-address-field:focus {
   background-color: #a3c7d9;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 6, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3459,6 +4594,7 @@ input.geocode-address-field:focus {
   padding: 1em 0.5em;
   text-align: center;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 #colophon a {
   text-decoration: none;
@@ -3468,13 +4604,28 @@ input.geocode-address-field:focus {
 #colophon a {
   text-decoration: none;
 }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+#colophon a {
+  text-decoration: none;
+}
+=======
+/* line 9, ../sass/_footer.sass */
+#colophon a {
+  text-decoration: none;
+}
+>>>>>>> improve story arrows, update story content
 /* line 12, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
 #colophon a:hover {
   border-bottom: 1px solid #ffb885;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 17, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3483,7 +4634,11 @@ input.geocode-address-field:focus {
   display: inline;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 21, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3494,7 +4649,11 @@ a.shareabouts-logo {
   color: #FF8B61;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 28, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3503,7 +4662,11 @@ a.shareabouts-logo {
   font-weight: bold;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 35, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3511,7 +4674,11 @@ a.shareabouts-logo {
   font-size: 0.75em;
   display: inline;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 38, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3520,7 +4687,11 @@ a.shareabouts-logo {
   width: auto;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 47, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3531,7 +4702,11 @@ a.shareabouts-logo {
   font-weight: bold;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 53, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3540,7 +4715,11 @@ a.shareabouts-logo {
   padding: 1em 1em 2em;
   box-shadow: 0 0.325em 0 rgba(0, 0, 0, 0.1), inset 0 0.325em 0 rgba(0, 0, 0, 0.1);
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 57, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3548,7 +4727,11 @@ a.shareabouts-logo {
   font-size: 1.25em;
   margin-bottom: 0.75em;
 }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 60, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3556,7 +4739,11 @@ a.shareabouts-logo {
   color: #fff;
 }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
 /* line 63, ../sass/_footer.sass */
 >>>>>>> improve story arrows, update story content
@@ -3574,7 +4761,11 @@ a.close-unsupported-overlay {
 }
 
 @media only screen and (min-height: 440px) and (max-width: 60em) {
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 12, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3582,7 +4773,11 @@ a.close-unsupported-overlay {
     height: 100%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 15, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3591,7 +4786,11 @@ a.close-unsupported-overlay {
     line-height: 1.325;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 18, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3601,7 +4800,11 @@ a.close-unsupported-overlay {
   }
 }
 @media only screen and (max-width: 60em) {
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 58, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3609,7 +4812,11 @@ a.close-unsupported-overlay {
     height: 100%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 60, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3617,7 +4824,11 @@ a.close-unsupported-overlay {
     height: calc(100% - 64px);
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 63, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3625,7 +4836,11 @@ a.close-unsupported-overlay {
     height: calc(100% - 72px);
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 66, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3634,7 +4849,11 @@ a.close-unsupported-overlay {
   }
 }
 @media only screen and (min-width: 60em) {
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 72, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3642,7 +4861,11 @@ a.close-unsupported-overlay {
     content: "desktop";
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 75, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3656,7 +4879,11 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 84, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3664,7 +4891,11 @@ a.close-unsupported-overlay {
     padding-left: 0;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 87, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3673,7 +4904,11 @@ a.close-unsupported-overlay {
     line-height: 1.325;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 90, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3681,7 +4916,11 @@ a.close-unsupported-overlay {
     display: none;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 94, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3690,7 +4929,11 @@ a.close-unsupported-overlay {
     float: left;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 97, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3699,7 +4942,11 @@ a.close-unsupported-overlay {
     height: 100%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 101, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3709,7 +4956,11 @@ a.close-unsupported-overlay {
     box-shadow: none;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 105, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3721,7 +4972,11 @@ a.close-unsupported-overlay {
     position: relative;
     top: 50%;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 112, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3730,6 +4985,7 @@ a.close-unsupported-overlay {
     padding: 0;
     margin: 0 0 0 0.5em;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
   .access li ul {
     display: none;
@@ -3739,6 +4995,17 @@ a.close-unsupported-overlay {
   .access li ul {
     display: none;
   }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+  .access li ul {
+    display: none;
+  }
+=======
+  /* line 116, ../sass/_media.sass */
+  .access li ul {
+    display: none;
+  }
+>>>>>>> improve story arrows, update story content
   /* line 119, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
   .access li:hover > ul, .access li:hover > form > ul {
@@ -3755,7 +5022,11 @@ a.close-unsupported-overlay {
     z-index: 2;
     overflow: hidden;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 132, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3764,7 +5035,11 @@ a.close-unsupported-overlay {
     top: 0;
     left: 100%;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 136, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3773,7 +5048,11 @@ a.close-unsupported-overlay {
     padding: 0;
     margin: 0;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 140, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3784,7 +5063,11 @@ a.close-unsupported-overlay {
     box-shadow: none;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 145, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3798,7 +5081,11 @@ a.close-unsupported-overlay {
     z-index: 3;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 153, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3814,7 +5101,11 @@ a.close-unsupported-overlay {
     right: 1em;
     z-index: 2;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 164, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3830,7 +5121,11 @@ a.close-unsupported-overlay {
     right: 1.5em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 175, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3838,7 +5133,11 @@ a.close-unsupported-overlay {
     margin: 0.5em 0.5em 0 0.5em;
     z-index: 1;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 178, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3846,7 +5145,11 @@ a.close-unsupported-overlay {
     right: 0.5em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 181, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3858,7 +5161,11 @@ a.close-unsupported-overlay {
     left: 0;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 188, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3869,7 +5176,11 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 193, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3877,7 +5188,11 @@ a.close-unsupported-overlay {
     width: 60%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 195, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3885,7 +5200,11 @@ a.close-unsupported-overlay {
     top: 8.5em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 197, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3895,7 +5214,11 @@ a.close-unsupported-overlay {
     top: 77px;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 201, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3903,7 +5226,11 @@ a.close-unsupported-overlay {
     height: 100%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 203, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3915,7 +5242,11 @@ a.close-unsupported-overlay {
     box-shadow: none;
     border-bottom: 0;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 205, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3923,7 +5254,11 @@ a.close-unsupported-overlay {
     top: 1.5em;
     left: 3.5em;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 208, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3931,7 +5266,11 @@ a.close-unsupported-overlay {
     top: 1.5em;
     right: 1.5em;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 211, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3939,7 +5278,11 @@ a.close-unsupported-overlay {
     bottom: 2em;
     left: 2em;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 219, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3947,7 +5290,11 @@ a.close-unsupported-overlay {
     padding-right: 1em;
     padding-left: 1em;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 222, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3955,7 +5302,11 @@ a.close-unsupported-overlay {
     padding-right: 1em;
     padding-left: 1em;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 225, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3963,7 +5314,11 @@ a.close-unsupported-overlay {
     background-color: #FF8B61;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 227, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3971,7 +5326,11 @@ a.close-unsupported-overlay {
     display: block;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 230, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3979,7 +5338,11 @@ a.close-unsupported-overlay {
     display: none;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 233, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -3995,7 +5358,11 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 245, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4004,7 +5371,11 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 248, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4012,7 +5383,11 @@ a.close-unsupported-overlay {
     width: 60%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 250, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4020,7 +5395,11 @@ a.close-unsupported-overlay {
     width: 60%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 252, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4028,7 +5407,11 @@ a.close-unsupported-overlay {
     top: 8.5em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 254, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4042,7 +5425,11 @@ a.close-unsupported-overlay {
     border-radius: 0.325em 0 0 0.325em;
     box-shadow: -0.325em 0.325em 0 rgba(0, 0, 0, 0.1);
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 264, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4050,7 +5437,11 @@ a.close-unsupported-overlay {
     display: none;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 266, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4061,7 +5452,11 @@ a.close-unsupported-overlay {
     left: 1em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 271, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4069,7 +5464,11 @@ a.close-unsupported-overlay {
     border-radius: 0 0 0.625em 0.625em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 273, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4078,7 +5477,11 @@ a.close-unsupported-overlay {
     border-radius: 0.325em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 276, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4092,7 +5495,11 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 285, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4107,7 +5514,11 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 295, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4115,7 +5526,11 @@ a.close-unsupported-overlay {
     right: 18em;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 299, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4133,7 +5548,11 @@ a.close-unsupported-overlay {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 312, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4141,7 +5560,11 @@ a.close-unsupported-overlay {
     margin-bottom: 0;
     margin-right: 15em;
   }
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 315, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4149,7 +5572,11 @@ a.close-unsupported-overlay {
     margin-right: 0;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 318, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4167,6 +5594,7 @@ a.close-unsupported-overlay {
     background-color: rgba(255, 255, 255, 0.9);
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
   .activity-enabled.content-visible #side-bar {
     display: block;
@@ -4176,13 +5604,28 @@ a.close-unsupported-overlay {
   .activity-enabled.content-visible #side-bar {
     display: block;
   }
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+  .activity-enabled.content-visible #side-bar {
+    display: block;
+  }
+=======
+  /* line 332, ../sass/_media.sass */
+  .activity-enabled.content-visible #side-bar {
+    display: block;
+  }
+>>>>>>> improve story arrows, update story content
   /* line 334, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
   .activity-enabled #map-container {
     right: 0;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 338, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4195,7 +5638,11 @@ a.close-unsupported-overlay {
     background: none;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 345, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4203,7 +5650,11 @@ a.close-unsupported-overlay {
     display: block;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 347, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4212,7 +5663,11 @@ a.close-unsupported-overlay {
     -webkit-transform: translateZ(0px);
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 351, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4220,7 +5675,11 @@ a.close-unsupported-overlay {
     right: 0;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 355, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4228,7 +5687,11 @@ a.close-unsupported-overlay {
     z-index: 15;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
   .activity-enabled.content-visible #master-legend {
     display: block;
   }
@@ -4243,7 +5706,11 @@ a.close-unsupported-overlay {
     right: 0;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 364, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4257,7 +5724,11 @@ a.close-unsupported-overlay {
     float: left;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 374, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4265,7 +5736,11 @@ a.close-unsupported-overlay {
     display: block;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 386, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4287,7 +5762,11 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 405, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4296,7 +5775,11 @@ a.close-unsupported-overlay {
   }
 }
 @media only screen and (min-width: 80em) {
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 409, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4305,7 +5788,11 @@ a.close-unsupported-overlay {
     left: 60%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 412, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4314,7 +5801,11 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 415, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4322,7 +5813,11 @@ a.close-unsupported-overlay {
     width: 60%;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 417, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4331,7 +5826,11 @@ a.close-unsupported-overlay {
   }
 }
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 422, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4340,7 +5839,11 @@ a.close-unsupported-overlay {
     background-size: contain;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 425, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
@@ -4349,7 +5852,11 @@ a.close-unsupported-overlay {
     background-size: contain;
   }
 
+<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
+=======
+<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
+>>>>>>> improve story arrows, update story content
 =======
   /* line 428, ../sass/_media.sass */
 >>>>>>> improve story arrows, update story content
