@@ -30,12 +30,14 @@
 
     <!-- place buttons for dynamic form categories -->
     <div id="category-btns">
-      {{#each place_config.categories}}
-        <input type="radio" id={{ @key }} class="category-btn clickable">
-        <label for={{ @key }}>
-          <img src={{icon_url}} />
-          <span>{{ label }}</span>
-        </label>
+      {{#each place_config.place_detail}}
+        {{#if this.includeOnForm}}
+          <input type="radio" id={{ @key }} class="category-btn clickable">
+          <label for={{ @key }}>
+            <img src={{icon_url}} />
+            <span>{{ label }}</span>
+          </label>
+        {{/if}}
       {{/each}}
     </div>
     <div style="clear:both"></div>
