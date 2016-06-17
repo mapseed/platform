@@ -37,7 +37,11 @@ var Shareabouts = Shareabouts || {};
       if (placesToIncludeOnForm.length == 1) {
         is_category_selected = true;
         category = placesToIncludeOnForm[0];
+        this.selectedCategory = category;
+        this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset;
+        this.selectedDatasetSlug = this.options.placeConfig.place_detail[this.selectedCategory].datasetSlug;
         selectedCategoryConfig = this.options.placeConfig.place_detail[category];
+        this.collection[this.selectedDatasetId].add({});
       }
 
       var data = _.extend({
