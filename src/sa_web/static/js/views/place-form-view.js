@@ -19,6 +19,7 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = null;
       this.selectedDatasetSlug = null;
       this.priorModelCid = null;
+      this.singleCategory = false;
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
@@ -36,6 +37,7 @@ var Shareabouts = Shareabouts || {};
       // if there is only one place to include on form, skip category selection page
       if (placesToIncludeOnForm.length == 1) {
         is_category_selected = true;
+        this.singleCategory = true;
         category = placesToIncludeOnForm[0];
         this.selectedCategory = category;
         this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset;
@@ -49,20 +51,20 @@ var Shareabouts = Shareabouts || {};
         selected_category: selectedCategoryConfig,
         is_category_selected: is_category_selected || false,
         user_token: this.options.userToken,
-        current_user: S.currentUser
+        current_user: S.currentUser,
+        is_single_category: (placesToIncludeOnForm.length == 1) ? true : false
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
-      // initialize datetime picker, if relevant
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-
-      // if there is only one place to include on form, hide category selection buttons
-      if (placesToIncludeOnForm.length == 1) {
-        $(".category-btn.clickable + label, #selected-category").css("display", "none");
-      }
-
       return this;
+    },
+    postRender: function() {
+      // if the form only has a single category, hide category selection buttons
+      if (this.singleCategory) $("#selected-category, #category-btns").addClass("is-visuallyhidden");
+
+      // initialize datetime picker, if relevant
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
     },
     remove: function() {
       this.unbind();
