@@ -452,35 +452,35 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  greenwall:
-    label: _(Green Screen Vote)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+  # greenwall:
+  #   label: _(Green Screen Vote)
+  #   rules:
+  #     - condition: '{{layer.focused}} === true'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         shadowUrl: /static/css/images/marker-shadow.png
+  #         iconSize: [50, 60]
+  #         iconAnchor: [25, 60]
+  #         shadowSize: [50, 60]
+  #         shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+  #     - condition: '{{map.zoom}} < 15'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         iconSize: [10, 12]
+  #         iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
+  #     - condition: '{{map.zoom}} < 18'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         iconSize: [18, 21.75]
+  #         iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+  #     - condition: '{{map.zoom}} >= 18'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         iconSize: [38, 46]
+  #         iconAnchor: [19, 46]
 
   # using temporary icons
   air_watch:
