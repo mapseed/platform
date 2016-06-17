@@ -132,17 +132,17 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [29, 35]
+          iconAnchor: [14.5, 17.5]
 
   question:
     label: _(Question)
@@ -162,17 +162,17 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [29, 35]
+          iconAnchor: [14.5, 17.5]
 
   idea:
     label: _(Idea)
@@ -192,17 +192,17 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [29, 35]
+          iconAnchor: [14.5, 17.5]
 
   complaint:
     label: _(Complaint)
@@ -222,17 +222,17 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [29, 35]
+          iconAnchor: [14.5, 17.5]
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
