@@ -1061,12 +1061,13 @@ story:
         - report/305
         - report/997
   test_story2:
-      tagline: _(You found a map story!)
+      tagline: _(Explore South Park priority sites like this one)
       order: 
-        - trees/298
-        - lucile-bridge
-        - trees/244
-        - lucile-and-holgate
-
-
-
+        - concord
+        - skatepark
+        - cesar-chavez
+        - south-park-community-center
+        - 14th-ave
+        - rose-end
+        - 12th-and-elmgrove
+        - marra
