@@ -423,35 +423,6 @@ var Shareabouts = Shareabouts || {};
         this.options.router.navigate('/', {trigger: true});
       }
     },
-    // This gets called for every model that gets added to the place
-    // collection, not just new ones.
-    onAddPlace: function(model) {
-      // If it's new, then show the form in order to edit and save it.
-      if (model.isNew()) {
-
-        this.placeFormView = new S.PlaceFormView({
-          model: model,
-          appView: this,
-          router: this.options.router,
-          defaultPlaceTypeName: this.options.defaultPlaceTypeName,
-          placeTypes: this.options.placeTypes,
-          placeConfig: this.options.placeConfig,
-          userToken: this.options.userToken
-        });
-
-        this.$panel.removeClass().addClass('place-form');
-        this.showPanel(this.placeFormView.render().$el);
-
-//      Init the place form's address search bar
-        this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
-          el: '#geocode-address-place-bar',
-          router: this.options.router,
-          mapConfig: this.options.mapConfig
-        })).render();
-        this.showNewPin();
-        this.setBodyClass('content-visible', 'place-form-visible');
-      }
-    },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible', 'place-form-visible'],
           newBodyClasses = Array.prototype.slice.call(arguments, 0),
@@ -559,7 +530,16 @@ var Shareabouts = Shareabouts || {};
       
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render().$el);
+      this.placeFormView.postRender();
+
       this.placeFormView.delegateEvents();
+      // Init the place form's address search bar
+      this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
+        el: '#geocode-address-place-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
+
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
     },
