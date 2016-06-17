@@ -814,7 +814,6 @@ var Shareabouts = Shareabouts || {};
       this.$centerpoint.show().addClass('newpin');
 
       this.addSpotlightMask();
-      this.addMapDragOverlay();
     },
     showAddButton: function() {
       this.$addButton.show();
