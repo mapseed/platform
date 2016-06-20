@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Hey Duwamish!
+  title: Georgetown open spaces
   # Header name
-  name: "Hey Duwamish!"
+  name: "Georgetown open spaces"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -456,35 +456,35 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  # greenwall:
-  #   label: _(Green Screen Vote)
-  #   rules:
-  #     - condition: '{{layer.focused}} === true'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-greenwall.png
-  #         shadowUrl: /static/css/images/marker-shadow.png
-  #         iconSize: [50, 60]
-  #         iconAnchor: [25, 60]
-  #         shadowSize: [50, 60]
-  #         shadowAnchor: [14, 60]
+  greenwall:
+    label: _(Green Screen Vote)
+    rules:
+      - condition: '{{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
 
-  #     - condition: '{{map.zoom}} < 15'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-greenwall.png
-  #         iconSize: [10, 12]
-  #         iconAnchor: [5, 12]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
 
-  #     - condition: '{{map.zoom}} < 18'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-greenwall.png
-  #         iconSize: [18, 21.75]
-  #         iconAnchor: [9, 21.75]
+      - condition: '{{map.zoom}} < 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconSize: [18, 21.75]
+          iconAnchor: [9, 21.75]
 
-  #     - condition: '{{map.zoom}} >= 18'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-greenwall.png
-  #         iconSize: [38, 46]
-  #         iconAnchor: [19, 46]
+      - condition: '{{map.zoom}} >= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
 
   # using temporary icons
   air_watch:
@@ -625,6 +625,7 @@ activity:
   # Place Types
 
 place:
+  dataset_slug: report # default is 'place'
   adding_supported: true
   add_button_label: _(Add a report to the map!)
   # Labels for the buttons that toggle the map and list views
@@ -640,11 +641,12 @@ place:
 
 
   #### begin dynamic form config ####
-  place_detail:
+  #TODO: maybe add an autocomplete
+  categories:
     observation:
-      includeOnForm: false
       name: location_type
       dataset: duwamish
+      datasetSlug: report
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -678,9 +680,9 @@ place:
           placeholder: _(Enter description...)
           optional: false
     question:
-      includeOnForm: false
       name: location_type
       dataset: duwamish
+      datasetSlug: report
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -697,9 +699,9 @@ place:
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
     idea:
-      includeOnForm: false
       name: location_type
       dataset: duwamish
+      datasetSlug: report
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -717,9 +719,9 @@ place:
           placeholder: _(Description...)
           optional: false
     complaint:
-      includeOnForm: false
       name: location_type
       dataset: duwamish
+      datasetSlug: report
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
@@ -737,9 +739,9 @@ place:
           placeholder: _(Description...)
           optional: false
     air_watch:  #defines a top-level form category
-      includeOnForm: false
       name: location_type  #needs to be "location_type"
       dataset: air
+      datasetSlug: air
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
@@ -879,9 +881,9 @@ place:
           display_prompt: _(Additional comments:)
           optional: true   
     tree:
-      includeOnForm: true
       name: location_type
       dataset: trees
+      datasetSlug: trees
       icon_url: /static/css/images/markers/marker-tree.png
       value: tree
       label: _(Tree)
@@ -1058,10 +1060,8 @@ story:
   test_story1:
       tagline: _(Check out other reports like this one!)
       order: 
-        - report/413
-        - report/982
-        - report/305
-        - report/997
+        - idea/317
+        - idea/319
   test_story2:
       tagline: _(Explore South Park priority sites like this one)
       order: 
