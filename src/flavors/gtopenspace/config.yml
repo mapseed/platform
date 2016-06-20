@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Hey Duwamish!
+  title: Georgetown open spaces
   # Header name
-  name: "Hey Duwamish!"
+  name: "Georgetown open spaces"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -1060,10 +1060,8 @@ story:
   test_story1:
       tagline: _(Check out other reports like this one!)
       order: 
-        - report/413
-        - report/982
-        - report/305
-        - report/997
+        - idea/317
+        - idea/319
   test_story2:
       tagline: _(Explore South Park priority sites like this one)
       order: 
