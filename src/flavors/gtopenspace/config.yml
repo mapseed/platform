@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Georgetown open spaces
+  title: Georgetown Open Space
   # Header name
-  name: "Georgetown open spaces"
+  name: "Georgetown Open Space"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -71,22 +71,11 @@ map:
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
-    - id: duwamish
-      type: place
-      slug: report
-
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+ 
     - id: georgetowngreen
       type: place
       slug: idea
-
-    - id: trees
-      type: place
-      slug: trees
-
-    - id: air
-      type: place
-      slug: air
 
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -543,11 +532,11 @@ sidebar:
 
             - id: cleanup
               title: _(River Cleanup Plan)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: vision
               title: _(Community Vision)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: restoration
               title: _(Restoration Sites)
@@ -570,7 +559,7 @@ sidebar:
               # Green Seattle Partnership restoration phases
             - id: phases
               title: _(Green Seattle partnership)
-              visibleDefault: true
+              visibleDefault: false
 
               # Noxious Weeds
             - id: noxious-weeds
@@ -580,7 +569,7 @@ sidebar:
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
-              visibleDefault: true
+              visibleDefault: false
 
         - id: grp-history
           title: _(Historical Data)
@@ -627,7 +616,7 @@ activity:
 place:
   dataset_slug: report # default is 'place'
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Share an idea on the map!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
@@ -649,7 +638,7 @@ place:
       datasetSlug: report
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
-      label: _(Observation)
+      label: _(Category 2)
       fields:
         - name: title
           type: text
@@ -700,8 +689,8 @@ place:
           placeholder: _(Enter question...)
     idea:
       name: location_type
-      dataset: duwamish
-      datasetSlug: report
+      dataset: georgetowngreen
+      datasetSlug: idea
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -724,7 +713,7 @@ place:
       datasetSlug: report
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
-      label: _(Complaint)
+      label: _(Category 1)
       fields:
         - name: title
           type: text
@@ -882,8 +871,8 @@ place:
           optional: true   
     tree:
       name: location_type
-      dataset: trees
-      datasetSlug: trees
+      dataset: georgetowngreen
+      datasetSlug: idea
       icon_url: /static/css/images/markers/marker-tree.png
       value: tree
       label: _(Tree)
@@ -1058,18 +1047,13 @@ pages:
 
 story:
   test_story1:
-      tagline: _(Check out other reports like this one!)
+      tagline: _(Explore community ideas)
       order: 
         - idea/317
         - idea/319
   test_story2:
-      tagline: _(Explore South Park priority sites like this one)
+      tagline: _(This is a priority site. Use arrows to explore others)
       order: 
-        - concord
-        - skatepark
-        - cesar-chavez
-        - south-park-community-center
-        - 14th-ave
-        - rose-end
-        - 12th-and-elmgrove
-        - marra
+        - friends-of-georgetown-history-museum
+        - ruby-chow-park
+        - georgetown-steam-plant
