@@ -314,6 +314,7 @@ var Shareabouts = Shareabouts || {};
           attributesToAdd: { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug,
                              datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
           attribute: 'properties',
+
           // Only do this for the first page...
           pageSuccess: _.once(function(collection, data) {
             pageSize = data.features.length;
@@ -498,6 +499,7 @@ var Shareabouts = Shareabouts || {};
           appView: this,
           router: this.options.router,
           placeConfig: this.options.placeConfig,
+          mapConfig: this.options.mapConfig,
           userToken: this.options.userToken,
           // only need to send place collection, since all data added will be a place of some kind
           collection: this.places
