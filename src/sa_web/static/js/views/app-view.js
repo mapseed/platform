@@ -516,6 +516,8 @@ var Shareabouts = Shareabouts || {};
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
+        console.log("model", model);
+
         placeDetailView = new S.PlaceDetailView({
           model: model,
           surveyConfig: this.options.surveyConfig,
