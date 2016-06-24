@@ -389,9 +389,9 @@ var Shareabouts = Shareabouts || {};
 
       // Never set the placeFormView's latLng until the user does it with a
       // drag event (below)
-      if (this.placeFormView && this.placeFormView.center) {
-        this.setPlaceFormViewLatLng(ll);
-      }
+      //if (this.placeFormView && this.placeFormView.center) {
+      //  this.setPlaceFormViewLatLng(ll);
+      //}
 
       if (this.hasBodyClass('content-visible') === false) {
         this.setLocationRoute(zoom, ll.lat, ll.lng);
@@ -559,6 +559,8 @@ var Shareabouts = Shareabouts || {};
       
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render().$el);
+      this.$('.drag-marker-instructions').removeClass('is-visuallyhidden');
+      this.$('#place-form').addClass('is-visuallyhidden');
       this.placeFormView.delegateEvents();
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
@@ -834,6 +836,7 @@ var Shareabouts = Shareabouts || {};
       this.$centerpoint.show().addClass('newpin');
 
       this.addSpotlightMask();
+      this.addMapDragOverlay();
     },
     showAddButton: function() {
       this.$addButton.show();
@@ -870,14 +873,31 @@ var Shareabouts = Shareabouts || {};
       // add map mask and spotlight effect
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
-          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
+          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2),
+          handWidth = spotlightDiameter + 200;
       $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
       $("#spotlight-place-mask-fill").css("left", xOffset + "px")
+                               .css("position", "relative")
                                .css("top", yOffset + "px")
                                .css("width", spotlightDiameter + "px")
                                .css("height", spotlightDiameter + "px")
                                // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
                                .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+    },
+    addMapDragOverlay: function() {
+      var spotlightDiameter = 200,
+          xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
+          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2),
+          handWidth = spotlightDiameter + 200;
+      $("#spotlight-place-mask-fill").append("<h4>Drag the map to set your location</h4><img src='../static/css/images/map-instructions.svg' />")
+      $("#spotlight-place-mask-fill img").css("width", handWidth + "px")
+                                         .css("position", "absolute")
+                                         .css("left", -(handWidth / 2) + (spotlightDiameter / 2) + "px")
+                                         .css("top", -(handWidth / 2) + (spotlightDiameter / 2) + "px");
+      $("#spotlight-place-mask-fill h4").css("position", "absolute")
+                                        .css("top", -(handWidth / 2) + "px")
+                                        .css("color", "white")
+                                        .css("text-align", "center");
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the place markers

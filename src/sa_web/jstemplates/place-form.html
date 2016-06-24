@@ -1,12 +1,15 @@
 <h4 class="">{{ place_config.title }}</h4>
-<p class="drag-marker-instructions">
-  {{#_}}First drag the map to set your pin's location.{{/_}}
-</p>
+<div class="drag-marker-instructions">
+  <p>{{#_}}Set your location by dragging the map!{{/_}}</p>
+  <img src="/static/css/images/map_instructions.svg" />
+  <p id="geolocate" class="btn btn-block btn-large">{{#_}}Or, set my location automatically{{/_}}</p>
+</div>
+
 <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
 
 <p class="form-field">{{ place_config.help_text }}</p>
 
-<form id="place-form" class="place-form clearfix">
+<form id="place-form" class="place-form clearfix is-visuallyhidden">
 
   <fieldset>
     <input type="hidden" name="visible" value="on">
