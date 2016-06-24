@@ -73,6 +73,7 @@ MEDIA_URL = ''
 from os.path import dirname, abspath, join as pathjoin
 STATIC_ROOT=abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
 COMPRESS_ROOT = STATIC_ROOT
+COMPRESS_OUTPUT_DIR = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
