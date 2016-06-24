@@ -622,10 +622,10 @@ var Shareabouts = Shareabouts || {};
         // If the model is not already in our collections, then we must fetch it
         // by making a call to each collection:
         var stillSearching = {};
-        _.each(self.options.landmarkConfigs, function(landmarkConfig) {
+        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
           stillSearching[landmarkConfig.id] = true;
         });
-        _.each(self.options.landmarkConfigs, function(landmarkConfig) {
+        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
           self.viewLandmark(model, { collectionId: landmarkConfig.id,
                                      zoom: options.zoom,
                                      stillSearching: stillSearching });
@@ -641,7 +641,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-      var landmarkCollection = this.landmarkCollections[options.collectionId];
+      var landmarkCollection = this.landmarks[options.collectionId];
       if (!landmarkCollection) {
         onLandmarkNotFound();
         return;
