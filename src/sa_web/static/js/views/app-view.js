@@ -348,6 +348,7 @@ var Shareabouts = Shareabouts || {};
           success: function() {
             // generate an attribute with relevant story information
             // NOTE: right now a single model can only be part of a single story.
+            /*
             collection.forEach(function(model, index) {
               model.set("story", function() {
                 var storyObj = null,
@@ -364,6 +365,7 @@ var Shareabouts = Shareabouts || {};
                 return storyObj;
               }());
             });
+            */
 
             loopIndex++;
             self.mergedPlaces.add(collection.models);
@@ -533,6 +535,8 @@ var Shareabouts = Shareabouts || {};
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
+        console.log("model", model);
+
         placeDetailView = new S.PlaceDetailView({
           model: model,
           surveyConfig: this.options.surveyConfig,

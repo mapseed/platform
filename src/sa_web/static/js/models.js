@@ -220,8 +220,26 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
+    addStoryObj: function(properties) {
+      var storyObj = null,
+      url = properties.datasetSlug + "/" + properties.id;
+      _.each(S.Config.story, function(story) {
+        if (story.order[url]) {
+          storyObj = {
+            tagline: story.tagline,
+            next: story.order[url].next,
+            previous: story.order[url].previous
+          }
+        }
+      });
+      return { story: storyObj }
+    },
+
     parse: function(response) {
       var properties = _.clone(response.properties);
+      // add story object, if relevant
+      _.extend(response.properties, this.addStoryObj(response.properties));
+
       properties.geometry = _.clone(response.geometry);
       return properties;
     },
