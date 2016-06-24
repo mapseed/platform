@@ -1243,6 +1243,7 @@ img {
 }
 
 /* Story bar styles */
+<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .btn-previous-story-nav {
   vertical-align: top;
@@ -1252,18 +1253,25 @@ img {
 }
 =======
 /* line 225, ../sass/_buttons.sass */
+=======
+/* line 224, ../sass/_buttons.sass */
+>>>>>>> temp commit
 .btn-previous-story-nav {
+  width: 10%;
   color: white;
   cursor: pointer;
-  float: left;
-  width: 10%;
 }
+<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 /* line 230, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
+=======
+/* line 228, ../sass/_buttons.sass */
+>>>>>>> temp commit
 .btn-previous-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
+<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .btn-previous-story-nav:hover {
   color: rgba(255, 0, 0, 0.65);
@@ -1277,24 +1285,30 @@ img {
 }
 =======
 /* line 233, ../sass/_buttons.sass */
+=======
+/* line 231, ../sass/_buttons.sass */
+>>>>>>> temp commit
 .btn-previous-story-nav:hover {
   color: #93b7c9;
 }
 
-/* line 236, ../sass/_buttons.sass */
+/* line 234, ../sass/_buttons.sass */
 .btn-next-story-nav {
+  width: 10%;
   color: white;
   cursor: pointer;
-  float: right;
-  width: 10%;
-  text-align: right;
 }
+<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 /* line 242, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
+=======
+/* line 238, ../sass/_buttons.sass */
+>>>>>>> temp commit
 .btn-next-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
+<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 <<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .btn-next-story-nav:hover {
   color: rgba(255, 0, 0, 0.65);
@@ -1302,12 +1316,19 @@ img {
 
 =======
 /* line 245, ../sass/_buttons.sass */
+=======
+/* line 241, ../sass/_buttons.sass */
+>>>>>>> temp commit
 .btn-next-story-nav:hover {
   color: #93b7c9;
 }
 
+<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
 /* line 248, ../sass/_buttons.sass */
 >>>>>>> improve story arrows, update story content
+=======
+/* line 244, ../sass/_buttons.sass */
+>>>>>>> temp commit
 .story-nav-disabled {
   visibility: hidden;
 }
@@ -2579,11 +2600,11 @@ a.auth-inline {
 
 =======
 /* line 263, ../sass/_content.sass */
-.place-story-bar h5 {
-  float: left;
+.place-story-bar .story-tagline {
   width: 80%;
+  padding-left: 10px;
+  padding-right: 10px;
   font-family: "Roboto", sans-serif;
-  display: inline;
   margin-bottom: 0;
 }
 
