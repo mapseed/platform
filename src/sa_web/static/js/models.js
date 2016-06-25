@@ -21,6 +21,23 @@ var Shareabouts = Shareabouts || {};
     };
   };
 
+  var addStoryObj = function(properties, type) {
+    var storyObj = null,
+    url;
+    if (type === "place") { url = properties.datasetSlug + "/" + properties.id; }
+    else if (type === "landmark") { url = properties.title; }
+    _.each(S.Config.story, function(story) {
+      if (story.order[url]) {
+        storyObj = {
+          tagline: story.tagline,
+          next: story.order[url].next,
+          previous: story.order[url].previous
+        }
+      }
+    });
+    return { story: storyObj }
+  };
+
   S.PaginatedCollection = Backbone.Collection.extend({
     resultsAttr: 'results',
 
@@ -222,7 +239,10 @@ var Shareabouts = Shareabouts || {};
 
     parse: function(response) {
       var properties = _.clone(response.properties);
+      // add story object, if relevant
+      _.extend(properties, addStoryObj(response.properties, "place"));
       properties.geometry = _.clone(response.geometry);
+
       return properties;
     },
 
@@ -290,6 +310,13 @@ var Shareabouts = Shareabouts || {};
   S.LandmarkModel = Backbone.Model.extend({
     initialize: function() {
       this.set("id", this.get('title'));
+    },
+    parse: function(response) {
+      var response = _.clone(response);
+      // add story object, if relevant
+      _.extend(response, addStoryObj(response.properties, "landmark"));
+
+      return response;
     }
   });
 
