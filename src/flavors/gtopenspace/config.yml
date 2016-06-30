@@ -385,7 +385,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
   high:
-    label: _(High)
+    label: _(Featured site)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -414,6 +414,35 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
+  feature:
+    label: _(Featured site)
+    rules:
+      - condition: '{{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: '{{map.zoom}} < 11'
+        icon:
+          iconUrl: /static/css/images/markers/dot-f95016.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: '{{map.zoom}} < 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-e1264d.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: '{{map.zoom}} >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-e1264d.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
 
 
 # Sidebar and activity stream should be enabled and disabled together!
@@ -589,6 +618,27 @@ place:
       icon_url: /static/css/images/markers/marker-a5cf32.png
       value: low
       label: _(Low priority)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: true
+        - name: comment
+          type: textarea
+          prompt: _(Comment:)
+          display_prompt: _(Comment:)
+          placeholder: _(Enter comment...)
+          optional: true
+
+    feature:
+      name: location_type
+      dataset: gtopenspace
+      datasetSlug: feature
+      icon_url: /static/css/images/markers/marker-star.png
+      value: feature
+      label: _(Featured site)
       fields:
         - name: title
           type: text
