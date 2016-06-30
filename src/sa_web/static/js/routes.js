@@ -32,8 +32,6 @@ var Shareabouts = Shareabouts || {};
       this.landmarks = {};
       // store separate collection of all places merged together
       this.mergedPlaces = new S.PlaceCollection([]);
-      // store separte collection of all activities merged together
-      this.mergedActivities = new S.ActionCollection([]);
 
       if (!options.placeConfig.dataset_slug) {
         options.placeConfig.dataset_slug = 'place';
@@ -107,7 +105,6 @@ var Shareabouts = Shareabouts || {};
         places: this.places,
         landmarks: this.landmarks,
         mergedPlaces: this.mergedPlaces,
-        mergedActivities: this.mergedActivities,
         datasetConfigs: configArrays,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,
