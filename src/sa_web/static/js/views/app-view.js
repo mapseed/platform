@@ -67,12 +67,17 @@ var Shareabouts = Shareabouts || {};
       $(document).on('click', 'a[href^="/"]', function(evt) {
         var $link = $(evt.currentTarget),
             href = $link.attr('href'),
-            url;
+            url,
+            isLinkToPlace = false;
+
+        _.each(this.options.datasetConfigs, function(dataset) {
+          if (href.indexOf('/' + dataset.slug) === 0) isLinkToPlace = true;
+        });
 
         // Allow shift+click for new tabs, etc.
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
-             href.indexOf(self.options.placeConfig.dataset_slug) === 0 ||
+             isLinkToPlace ||
              href.indexOf('/filter') === 0) &&
              !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
           evt.preventDefault();

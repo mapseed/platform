@@ -33,9 +33,6 @@ var Shareabouts = Shareabouts || {};
       // store separate collection of all places merged together
       this.mergedPlaces = new S.PlaceCollection([]);
 
-      if (!options.placeConfig.dataset_slug) {
-        options.placeConfig.dataset_slug = 'place';
-      }
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
