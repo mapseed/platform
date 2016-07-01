@@ -625,7 +625,7 @@ place:
           optional: true
 
     feature:
-      includeOnForm: true      
+      includeOnForm: false      
       name: location_type
       dataset: gtopenspace
       datasetSlug: idea
