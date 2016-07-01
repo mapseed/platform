@@ -322,6 +322,8 @@ var Shareabouts = Shareabouts || {};
             if (data.metadata.next) {
               $progressContainer.show();
             }
+
+            self.mergedPlaces.add(collection.models);
           }),
 
           // Do this for every page...
