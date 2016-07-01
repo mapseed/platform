@@ -348,7 +348,6 @@ var Shareabouts = Shareabouts || {};
           success: function() {
             // generate an attribute with relevant story information
             // NOTE: right now a single model can only be part of a single story.
-            /*
             collection.forEach(function(model, index) {
               model.set("story", function() {
                 var storyObj = null,
@@ -365,8 +364,7 @@ var Shareabouts = Shareabouts || {};
                 return storyObj;
               }());
             });
-            */
-
+            
             loopIndex++;
             self.mergedPlaces.add(collection.models);
             // Sort the list view after all of the pages have been fetched
