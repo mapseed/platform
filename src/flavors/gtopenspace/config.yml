@@ -17,17 +17,6 @@ app:
   # Optional. List view is supported by default. Set to false to disable.
   # list_enabled: false
 
-languages:
-  - code: en
-    label: I Speak English
-
-  - code: es
-    label: Hablo Español
-
-  - code: vi
-    label: tôi nói tiếng việt
-
-
 map:
 # Settings for map and layer configs
   geolocation_enabled: true
@@ -432,13 +421,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 15'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 15'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
           iconSize: [38, 46]
@@ -479,7 +468,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: true
+              visibleDefault: false
 
         - id: grp-land
           title: _(Land Data)
@@ -557,7 +546,7 @@ place:
   adding_supported: true
   add_button_label: _(Share an idea on the map!)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
+  show_list_button_label: _(Show list of ideas)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
@@ -786,36 +775,16 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-
-  - title: _(Background)
-    slug: background
-    name: background
-
-  - title: _(Get involved)
-    slug: getinvolved
-    name: contribute
-
-  - title: _(Green Screen)
-    slug: greenscreen
-    name: greenscreen
-    hide_from_top_bar: true
-
-  - slug: sponsors
-    name: sponsors
-    hide_from_top_bar: true
-
-  - slug: youthcorps2015
-    name: youthcorps2015
     hide_from_top_bar: true
 
 story:
   test_story1:
-      tagline: _(Explore community ideas)
+      tagline: _(Explore other priority sites)
       order: 
-        - idea/1159
-        - idea/1151
-        - idea/1144
-        - idea/1160
+        - idea/552
+        - idea/554
+        - idea/555
+
   test_story2:
       tagline: _(This is a priority site. Use arrows to explore others)
       order: 
