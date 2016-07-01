@@ -410,10 +410,10 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+          shadowSize: [60, 60]
+          shadowAnchor: [30, 30]
 
       - condition: '{{map.zoom}} < 11'
         icon:
@@ -430,8 +430,8 @@ place_types:
       - condition: '{{map.zoom}} >= 15'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
 
 # Sidebar and activity stream should be enabled and disabled together!
@@ -784,6 +784,15 @@ story:
         - idea/552
         - idea/554
         - idea/555
+        - idea/556
+        - idea/558
+        - idea/559
+        - idea/560
+        - idea/564
+        - idea/572
+        - idea/573
+        - idea/574
+        - idea/575
 
   test_story2:
       tagline: _(This is a priority site. Use arrows to explore others)
