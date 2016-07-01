@@ -588,7 +588,7 @@ place:
         - name: comment
           type: textarea
           prompt: _(Comment:)
-          display_prompt: _(Comment:)
+          display_prompt:
           placeholder: _(Enter comment...)
           optional: true
     medium:
@@ -608,7 +608,7 @@ place:
         - name: comment
           type: textarea
           prompt: _(Comment:)
-          display_prompt: _(Comment:)
+          display_prompt:
           placeholder: _(Enter comment...)
           optional: true
     low:
@@ -628,7 +628,7 @@ place:
         - name: comment
           type: textarea
           prompt: _(Comment:)
-          display_prompt: _(Comment:)
+          display_prompt:
           placeholder: _(Enter comment...)
           optional: true
 
@@ -649,7 +649,7 @@ place:
         - name: comment
           type: textarea
           prompt: _(Comment:)
-          display_prompt: _(Comment:)
+          display_prompt:
           placeholder: _(Enter comment...)
           optional: true
 
