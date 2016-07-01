@@ -797,7 +797,6 @@ story:
         - idea/580
         - idea/585
         - idea/586
-
   test_story2:
       tagline: _(This is a priority site. Use arrows to explore others)
       order: 
