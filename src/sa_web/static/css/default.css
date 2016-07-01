@@ -489,7 +489,7 @@ img {
 /* line 224, ../sass/_buttons.sass */
 .btn-previous-story-nav {
   width: 10%;
-  color: white;
+  color: #93b7c9;
   cursor: pointer;
 }
 /* line 228, ../sass/_buttons.sass */
@@ -499,13 +499,13 @@ img {
 }
 /* line 231, ../sass/_buttons.sass */
 .btn-previous-story-nav:hover {
-  color: #93b7c9;
+  color: #007fbf;
 }
 
 /* line 234, ../sass/_buttons.sass */
 .btn-next-story-nav {
   width: 10%;
-  color: white;
+  color: #93b7c9;
   cursor: pointer;
 }
 /* line 238, ../sass/_buttons.sass */
@@ -515,7 +515,7 @@ img {
 }
 /* line 241, ../sass/_buttons.sass */
 .btn-next-story-nav:hover {
-  color: #93b7c9;
+  color: #007fbf;
 }
 
 /* line 244, ../sass/_buttons.sass */
@@ -1388,7 +1388,7 @@ a.auth-inline {
 /* place detail view story bar */
 /* line 255, ../sass/_content.sass */
 .place-story-bar {
-  background-color: #a3c7d9;
+  background-color: LightYellow;
   padding: 8px;
   border-radius: 3px;
   margin-top: 10px;
@@ -1398,6 +1398,7 @@ a.auth-inline {
 }
 /* line 263, ../sass/_content.sass */
 .place-story-bar .story-tagline {
+  text-align: center;
   width: 80%;
   padding-left: 10px;
   padding-right: 10px;
