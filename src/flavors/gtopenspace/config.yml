@@ -418,14 +418,14 @@ place_types:
       - condition: '{{map.zoom}} < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconSize: [12, 12]
+          iconAnchor: [6, 6]
 
       - condition: '{{map.zoom}} < 15'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          iconSize: [18, 18]
+          iconAnchor: [9, 9]
 
       - condition: '{{map.zoom}} >= 15'
         icon:
