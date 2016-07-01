@@ -812,8 +812,10 @@ story:
   test_story1:
       tagline: _(Explore community ideas)
       order: 
-        - idea/317
-        - idea/319
+        - idea/1159
+        - idea/1151
+        - idea/1144
+        - idea/1160
   test_story2:
       tagline: _(This is a priority site. Use arrows to explore others)
       order: 
