@@ -4,6 +4,10 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.PlaceDetailView = Backbone.View.extend({
+    events: {
+      'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
+      'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
+    },
     initialize: function() {
       var self = this;
 
@@ -25,17 +29,18 @@ var Shareabouts = Shareabouts || {};
           placeModel: this.model
         });
 
-
       this.surveyView = new S.SurveyView({
         collection: this.model.submissionSets[this.surveyType],
         surveyConfig: this.options.surveyConfig,
-        userToken: this.options.userToken
+        userToken: this.options.userToken,
+        datasetId: self.options.datasetId
       });
 
       this.supportView = new S.SupportView({
         collection: this.model.submissionSets[this.supportType],
         supportConfig: this.options.supportConfig,
-        userToken: this.options.userToken
+        userToken: this.options.userToken,
+        datasetId: self.options.datasetId
       });
 
       this.$el.on('click', '.share-link a', function(evt){
@@ -47,11 +52,20 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
-    render: function() {
+    onClickStoryPrevious: function() {
+      this.options.router.navigate(this.model.attributes.story.previous, {trigger: true});
+    },
+
+    onClickStoryNext: function() {
+      this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
+    },
+
+    render: function() {      
       var self = this,
           data = _.extend({
             place_config: this.options.placeConfig,
-            survey_config: this.options.surveyConfig
+            survey_config: this.options.surveyConfig,
+            url: this.options.url
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -70,6 +84,8 @@ var Shareabouts = Shareabouts || {};
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
       this.model.submissionSets[this.supportType].fetchAllPages();
+
+      this.delegateEvents();
 
       return this;
     },

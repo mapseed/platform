@@ -42,6 +42,9 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+
+  <!-- jQuery date-time picker plugin -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
   {% endif %}
@@ -203,6 +206,8 @@
   <script src="{{STATIC_URL}}js/utils.js"></script>
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
   <!-- https://github.com/openplans/handlebars-helpers -->
+  <!-- jQuery date-time picker plugin -->
+  <script src="{{ STATIC_URL }}libs/jquery.datetimepicker.full.min.js"></script>
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
@@ -317,7 +322,8 @@
       activity:   {{ config.activity|as_json }},
       sidebar:    {{ config.sidebar|as_json}},
       leaflet_sidebar: {{ config.leaflet_sidebar|as_json }},
-      pages:      {{ pages_config_json|safe }}
+      pages:      {{ pages_config_json|safe }},
+      story:      {{ config.story|as_json }}
     };
 
     $(function() {
@@ -336,6 +342,7 @@
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,
         mapConfig: S.Config.map,
+        storyConfig: S.Config.story,
         activityConfig: S.Config.activity,
         pagesConfig: S.Config.pages
       });

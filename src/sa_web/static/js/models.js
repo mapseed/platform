@@ -122,7 +122,8 @@ var Shareabouts = Shareabouts || {};
 
     url: function() {
       var submissionType = this.options.submissionType,
-          placeId = this.options.placeModel && this.options.placeModel.id;
+          placeId = this.options.placeModel && this.options.placeModel.id,
+          datasetId = this.options.placeModel && this.options.placeModel.get("datasetId");
 
       if (!submissionType) { throw new Error('submissionType option' +
                                                      ' is required.'); }
@@ -131,7 +132,7 @@ var Shareabouts = Shareabouts || {};
                                       'must save the place before saving ' +
                                       'its ' + submissionType + '.'); }
 
-      return '/api/places/' + placeId + '/' + submissionType;
+      return '/dataset/' + datasetId + '/places/' + placeId + '/' + submissionType;
     },
 
     comparator: 'created_datetime'
@@ -219,8 +220,26 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
+    addStoryObj: function(properties) {
+      var storyObj = null,
+      url = properties.datasetSlug + "/" + properties.id;
+      _.each(S.Config.story, function(story) {
+        if (story.order[url]) {
+          storyObj = {
+            tagline: story.tagline,
+            next: story.order[url].next,
+            previous: story.order[url].previous
+          }
+        }
+      });
+      return { story: storyObj }
+    },
+
     parse: function(response) {
       var properties = _.clone(response.properties);
+      // add story object, if relevant
+      _.extend(response.properties, this.addStoryObj(response.properties));
+
       properties.geometry = _.clone(response.geometry);
       return properties;
     },

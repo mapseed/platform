@@ -1,3 +1,5 @@
+        {{> place-detail-story-bar }}
+
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
@@ -43,7 +45,7 @@
           {{/ attachments }}
           {{#each_place_item "submitter_name" "name" "location_type"}}
           <div class="place-item place-item-{{ name }}">
-            <span class="place-label place-label-{{ name }}">{{ label }}</span>
+            <span class="place-label place-label-{{ name }}">{{label}}</span>
             <p class="place-value place-value-{{ name }}">{{nlToBr value }}</p>
           </div>
           {{/each_place_item }}
@@ -52,3 +54,6 @@
         {{#if survey_config}}
         <section class="survey" id="survey"></section>
         {{/if}}
+
+        {{> place-detail-story-bar }}  
+        
