@@ -625,7 +625,7 @@ place:
           optional: true
 
     feature:
-      includeOnForm: false      
+      includeOnForm: true     
       name: location_type
       dataset: gtopenspace
       datasetSlug: idea
@@ -797,6 +797,9 @@ story:
         - idea/573
         - idea/574
         - idea/575
+        - idea/576
+        - idea/580
+        - idea/585
 
   test_story2:
       tagline: _(This is a priority site. Use arrows to explore others)
