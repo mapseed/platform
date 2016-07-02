@@ -70,7 +70,7 @@ var Shareabouts = Shareabouts || {};
             url,
             isLinkToPlace = false;
 
-        _.each(this.options.datasetConfigs, function(dataset) {
+        _.each(self.options.datasetConfigs.places, function(dataset) {
           if (href.indexOf('/' + dataset.slug) === 0) isLinkToPlace = true;
         });
 
