@@ -28,7 +28,7 @@ var Shareabouts = Shareabouts || {};
       // How many pixel from the bottom until we look for more/older actions
       this.infiniteScrollBuffer = this.options.infiniteScrollBuffer || 25;
       // Debounce the scroll handler for efficiency
-      this.debouncedOnScroll = _.debounce(this.onScroll, 600);
+      //this.debouncedOnScroll = _.debounce(this.onScroll, 600);
 
       // Bind click event to an action so that you can see it in a map
       this.$el.delegate('a', 'click', function(evt){
@@ -44,7 +44,9 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Check to see if we're at the bottom of the list and then fetch more results.
-      this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
+      // NOTE: we've removed the scroll listener for the time being, as it wasn't in
+      // use and has not been refactored for multiple datasets
+      //this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
       _.each(this.activities, function(collection) {
@@ -97,21 +99,25 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    onScroll: function(evt) {
-      var self = this,
-          notFetchingDelay = 500,
-          notFetching = function() { self.fetching = false; },
-          shouldFetch = (this.$el.height() - this.$container.height() <=
-                        this.$container.scrollTop() + this.infiniteScrollBuffer);
+    // NOTE: we've removed the scroll listener for the time being, as it wasn't in
+    // use and has not been refactored for multiple datasets
+    // onScroll: function(evt) {
+    //   console.log("onScroll");
 
-      if (shouldFetch && !self.fetching) {
-        self.fetching = true;
-        this.collection.fetchNextPage(
-          function() { _.delay(notFetching, notFetchingDelay); },
-          function() { _.delay(notFetching, notFetchingDelay); }
-        );
-      }
-    },
+    //   var self = this,
+    //       notFetchingDelay = 500,
+    //       notFetching = function() { self.fetching = false; },
+    //       shouldFetch = (this.$el.height() - this.$container.height() <=
+    //                     this.$container.scrollTop() + this.infiniteScrollBuffer);
+
+    //   if (shouldFetch && !self.fetching) {
+    //     self.fetching = true;
+    //     this.collection.fetchNextPage(
+    //       function() { _.delay(notFetching, notFetchingDelay); },
+    //       function() { _.delay(notFetching, notFetchingDelay); }
+    //     );
+    //   }
+    // },
 
     onAddAction: function(model, collection) {
       this.renderAction(model, collection.indexOf(model));
