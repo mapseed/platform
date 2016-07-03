@@ -59,8 +59,6 @@ var Shareabouts = Shareabouts || {};
       var self = this; 
       options = {
         remove: false,
-        // TODO: fix this usage of the old dataset_slug param...
-        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
         attribute: 'target'
       },
       meta = {};
@@ -74,7 +72,7 @@ var Shareabouts = Shareabouts || {};
       options.complete = _.bind(function() {
         // The total length may have changed, so don't overwrite it!
         _.each(self.activities, function(collection, key) {
-          meta[key].length = collection.metadata.length
+          meta[key].length = collection.metadata.length;
           collection.metadata = meta;
           self.fetching = false;
         })
@@ -90,7 +88,9 @@ var Shareabouts = Shareabouts || {};
       // Don't fetch new activity if we're in the middle of fetching a new page.
       if (!this.fetching) {
         this.fetching = true;
-        _.each(this.activities, function(collection) {
+        _.each(this.activities, function(collection, key) {
+          // add dataset slug paramter
+          options.attributesToAdd = { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug }
           collection.fetch(options);
         });
       } else {
