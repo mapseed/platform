@@ -149,6 +149,7 @@ var Shareabouts = Shareabouts || {};
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
+          mapConfig: this.options.mapConfig,
           // How often to check for new content
           interval: this.options.activityConfig.interval || 30000
         });
