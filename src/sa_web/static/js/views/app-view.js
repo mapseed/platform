@@ -269,8 +269,8 @@ var Shareabouts = Shareabouts || {};
         collection.fetch({
           reset: true,
           attribute: 'target',
-          attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id,
-                             datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug }
+          attributesToAdd: { datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id,
+                             datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug }
         });
       });
     },
@@ -317,8 +317,8 @@ var Shareabouts = Shareabouts || {};
           validate: true,
           data: placeParams,
           // get the dataset slug and id from the array of map layers
-          attributesToAdd: { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug,
-                             datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
+          attributesToAdd: { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug,
+                             datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id },
           attribute: 'properties',
 
           // Only do this for the first page...
@@ -462,8 +462,8 @@ var Shareabouts = Shareabouts || {};
           placeConfig: this.options.placeConfig,
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
-          url: _.filter(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug })[0].url,
-          datasetId: _.filter(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug })[0].id
+          url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
+          datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -656,7 +656,7 @@ var Shareabouts = Shareabouts || {};
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           layout = S.Util.getPageLayout(),
           // get the dataset id from the map layers array for the given datasetSlug
-          datasetId = _.filter(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug })[0].id,
+          datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
