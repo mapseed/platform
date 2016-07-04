@@ -13,7 +13,6 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this;
-      this.mapDragged = false;
       // keep track of relevant catgory & dataset info as user switches among categories
       this.selectedCategory = null;
       this.selectedDatasetId = null;
@@ -76,7 +75,6 @@ var Shareabouts = Shareabouts || {};
     },
     // This is called from the app view
     setLatLng: function(latLng) {
-      this.mapDragged = true;
       this.center = latLng;
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
@@ -126,7 +124,7 @@ var Shareabouts = Shareabouts || {};
       // slide up unused category buttons
       $("#category-btns").animate( { height: "hide" }, animationDelay );
       // if we've already dragged the map, make sure the map drag instructions don't reappear
-      if (this.mapDragged) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
 
       // instantiate appropriate backbone model
       this.collection[self.selectedDatasetId].add({});
@@ -194,6 +192,7 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = this.selectedDatasetId;
     },
     closePanel: function() {
+      this.center = null;
       // make sure we reset priorModelCid and priorDatasetId if the user closes the side panel
       this.priorModelCid = null;
       this.priorDatasetId = null;
