@@ -13,7 +13,6 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this;
-      this.mapDragged = false;
       // keep track of relevant catgory & dataset info as user switches among categories
       this.selectedCategory = null;
       this.selectedDatasetId = null;
@@ -76,7 +75,6 @@ var Shareabouts = Shareabouts || {};
     },
     // This is called from the app view
     setLatLng: function(latLng) {
-      this.mapDragged = true;
       this.center = latLng;
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
