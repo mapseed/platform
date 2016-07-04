@@ -625,7 +625,7 @@ place:
           optional: true
 
     feature:
-      includeOnForm: true     
+      includeOnForm: false     
       name: location_type
       dataset: gtopenspace
       datasetSlug: idea
@@ -665,7 +665,7 @@ place:
     #       value: 30
     # - name: my_image
     #   type: file
-    #   prompt: _(Image)
+    #   prompt: _(Image)Georgetown Mini Mart City Park
     #   inputfile_label: _(Add an Image)
     #   optional: true
     #   attrs:
@@ -800,6 +800,7 @@ story:
         - idea/576
         - idea/580
         - idea/585
+        - idea/595
 
   test_story2:
       tagline: _(This is a priority site. Use arrows to explore others)
