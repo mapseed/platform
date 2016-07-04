@@ -92,6 +92,24 @@ The data used in that example can also be found in the flavor under the
 [*/static/layers/*](https://github.com/openplans/shareabouts/tree/master/src/flavors/overlays/static/layers)
 folder.
 
+If you are creating a map that will use the dynamic input form and write data to multiple independent
+datasets, you'll need to add some configuration information in the `layers` section. For example, to
+configure a dataset called `water`, add the following information under `layers`:
+
+      - id: water
+        type: place
+        slug: waterreport
+
+The options are as follows:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+id                   | string  | The name of the dataset associated with this layer. Note that this name needs to match the `dataset` parameter on the dynamic form's configuration
+type                 | string  | The layer type. This needs to be set to `place`, as we currently only support place data on the dynamic form
+slug                 | string  | The name to use in urls associated with this dataset. For example, place number 43 created in the `water` dataset would be accssible at the url `/waterreport/43`
+
+Note that each dataset can have only one slug associated with it, and that all slugs must be unique.
+
 ### Geocoding
 
 You can enable address/point-of-interest search in your config file by specifying
@@ -300,6 +318,82 @@ is meant to be private with a `private-` prefix. This data will be available
 to you through the Shareabouts admin interface, but will not be shown through
 in your map. See the section on [survey form configuration](#survey-form-configuration)
 for an example.
+
+#### Dynamic Form Configuration
+
+The dynamic form is configured in the *place_detail* section, found within the
+*place* section. The dynamic form gives you the ability to create any number of 
+customized input forms, and link them to independent datasets. Create a new
+dynamic form category by creating a new entry under the `place_detail` section:
+
+    water:
+      includeOnForm: true
+      name: location_type
+      dataset: waterData
+      icon_url: /static/css/images/markers/marker-water.png
+      value: water
+      label: _(Water survey)
+
+This entry will create a dynamic form category called `water`, which will write to
+a dataset called `waterData`. The options for this section are as follows:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+includeOnForm        | boolean | Whether to display this category on the dynamic form menu
+name                 | string  | 
+dataset              | string  | The name of the dataset this category will write to
+icon_url             | string  | The file path to the icon you want to associate with this category
+value                | string  | The internal value to associate with this category
+label                | string  | The text to display for this category on the dynamic form menu
+
+Use the `fields` section to create individual input fields. To create a field of
+radio buttons, for example, add an entry to the `fields` section as follows:
+
+    water:
+      includeOnForm: true
+      name: location_type
+      dataset: waterData
+      icon_url: /static/css/images/markers/marker-water.png
+      value: water
+      label: _(Water survey)
+      fields:
+        - name: pollution_type
+          type: radio_big_buttons
+          prompt: _(Type of pollutions seen:)
+          display_prompt: _(I saw the following type of pollution here:)
+          annotation: _(Please do not handle any pollution yourself)
+          content:
+            - label: _(Sewage)
+              value: sewage
+            - label: _(Tires)
+              value: tires
+            - label: _(Litter)
+              value: litter
+            - label: _(Other)
+              value: other
+          optional: false
+
+This entry will configure a set of stylized radio buttons consisting of options listed under `content`.
+The options are as follows:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+name                 | string  | The name of this input field to store in the database
+type                 | string  | The input type. Available options are: `checkbox_big_buttons`, `dropdown`, `binary_toggle` (for simple yes-no responses), `text`, `textarea`, `radio_big_buttons`, and `datetime`
+prompt               | string  | The question prompt
+display_prompt       | string  | The text to display when this question's response is rendered
+annotation           | string  | An optional message to display below a question
+content              | array   | If applicable, an array of label/value pairs to associate with the given input type. Releveant for `dropdown`, `radio-big-buttons`, `checkbox-big-buttons`, and `binary-toggle`
+optional             | boolean | Whether or not to require a response for this question
+
+If you are configuring a dynamic form with multiple categories that share common input elements, use
+the `common_form_elements` section to configure these input types. At the very least you'll want a
+submit button:
+
+    common_form_elemets:
+      - type: submit
+        label: _(Put it on the map!)
+
 
 #### Support Form Configuration
 
