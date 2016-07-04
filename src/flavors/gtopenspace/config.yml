@@ -559,7 +559,7 @@ place:
 
   #### begin dynamic form config ####
   #TODO: maybe add an autocomplete
-  place_detail:
+  categories:
     high:
       includeOnForm: true
       name: location_type
