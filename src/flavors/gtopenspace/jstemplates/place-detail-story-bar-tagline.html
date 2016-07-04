@@ -1,11 +1,12 @@
-{{#is_story_element}}
+{{#if story}}
 	<section class="place-story-bar">
 		<table>
 			<tr>
-				<td class="btn-previous-story-nav{{#check_previous_story_nav}}{{/check_previous_story_nav}}"></td>
-				<td class="story-tagline"><h5>{{ story.tagline }}</h5></td>
-				<td class="btn-next-story-nav{{#check_next_story_nav}}{{/check_next_story_nav}}"></td>
+				<td class="btn-previous-story-nav {{#unless story.previous}}story-nav-disabled{{/unless}}"></td>
+				<td class="story-tagline"><h5>{{story.tagline}}</h5></td>
+				<td class="btn-next-story-nav {{#unless story.next}}story-nav-disabled{{/unless}}"></td>
 			</tr>
 		</table>
 	</section>
-{{/is_story_element}}
+{{/if}}
+
