@@ -24,5 +24,9 @@
         <section class="survey" id="survey"></section>
         {{/if}}
 
+        {{^if survey_config}}
+        <a href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
+        {{/if}}
+
         {{> place-detail-story-bar-tagline }}  
         
