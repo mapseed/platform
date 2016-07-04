@@ -1398,8 +1398,7 @@ a.auth-inline {
 }
 /* line 263, ../sass/_content.sass */
 .place-story-bar .story-tagline {
-  text-align: center;
-  width: 80%;
+  width: 100%;
   padding-left: 10px;
   padding-right: 10px;
   font-family: "Roboto", sans-serif;
