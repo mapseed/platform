@@ -56,12 +56,14 @@ var Shareabouts = Shareabouts || {};
     },
 
     checkForNewActivity: function() {
-      var self = this; 
+      var self = this,
       options = {
         remove: false,
         attribute: 'target'
       },
       meta = {};
+      this.fetching = false;
+
       _.each(this.activities, function(collection, key) {
         meta[key] = collection.metadata;
       });
@@ -74,7 +76,7 @@ var Shareabouts = Shareabouts || {};
         _.each(self.activities, function(collection, key) {
           meta[key].length = collection.metadata.length;
           collection.metadata = meta;
-          self.fetching = false;
+          self.fetching[key] = false;
         })
 
         // After a check for activity has completed, no matter the result,
@@ -86,17 +88,18 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       // Don't fetch new activity if we're in the middle of fetching a new page.
-      if (!this.fetching) {
-        this.fetching = true;
-        _.each(this.activities, function(collection, key) {
+      _.each(this.activities, function(collection, key) {
+        if (!self.fetching[key]) {
+          self.fetching[key] = true;
+
           // add dataset slug paramter
           options.attributesToAdd = { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug }
           collection.fetch(options);
-        });
-      } else {
-        // Let's wait 5 seconds and try again.
-        this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
-      }
+        } else {
+          // Let's wait 5 seconds and try again.
+          this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
+        }
+      });
     },
 
     // NOTE: we've removed the scroll listener for the time being, as it wasn't in
