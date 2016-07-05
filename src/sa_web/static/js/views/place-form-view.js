@@ -111,7 +111,7 @@ var Shareabouts = Shareabouts || {};
           animationDelay = 400;
 
       this.selectedCategory = $(evt.target).parent().prev().attr('id'),
-      this.selectedDatasetId = this.options.placeConfig.categories[this.selectedCategory].dataset,
+      this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset,
       this.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return self.selectedDatasetId == layer.id })[0].slug
 
       // re-render the form with the selected category
