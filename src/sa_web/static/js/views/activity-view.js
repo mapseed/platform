@@ -12,8 +12,13 @@ var Shareabouts = Shareabouts || {};
 
       this.activityViews = [];
 
-      this.mergedPlaces = this.options.mergedPlaces;
-      this.mergedActivities = this.options.mergedActivities;
+      this.activities = this.options.activities;
+      this.places = this.options.places;
+
+      // Store a separate collection of all activities 
+      // merged together, useful for collecting models from 
+      // different datasets to facilitate sorting
+      this.mergedActivities = new S.ActionCollection([]);
 
       // Infinite scroll elements and functions
       // Window where the activity lives
@@ -42,26 +47,35 @@ var Shareabouts = Shareabouts || {};
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
-      this.mergedActivities.on('renderAll', self.onAddAll, this);
-      this.mergedActivities.on('reset', self.onResetActivity, this);
+      _.each(this.activities, function(collection) {
+        collection.on('add', self.onAddAction, self);
+        collection.on('reset', self.onResetActivity, self);
+      });
     },
 
     checkForNewActivity: function() {
-      var options = {
+      var self = this; 
+      options = {
         remove: false,
+        // TODO: fix this usage of the old dataset_slug param...
         attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
         attribute: 'target'
       },
-          meta = this.mergedActivities.metadata;
+      meta = {};
+      _.each(this.activities, function(collection, key) {
+        meta[key] = collection.metadata;
+      });
 
       // The metadata will be reset to page 1 if a new action has been added.
       // We need to cache the current page information so that when we will
       // fetch to correct page when we scroll to the next break.
       options.complete = _.bind(function() {
         // The total length may have changed, so don't overwrite it!
-        meta.length = this.collection.metadata.length;
-        this.mergedActivities.metadata = meta;
-        this.fetching = false;
+        _.each(self.activities, function(collection, key) {
+          meta[key].length = collection.metadata.length
+          collection.metadata = meta;
+          self.fetching = false;
+        })
 
         // After a check for activity has completed, no matter the result,
         // schedule another.
@@ -74,7 +88,9 @@ var Shareabouts = Shareabouts || {};
       // Don't fetch new activity if we're in the middle of fetching a new page.
       if (!this.fetching) {
         this.fetching = true;
-        this.collection.fetch(options);
+        _.each(this.activities, function(collection) {
+          collection.fetch(options);
+        });
       } else {
         // Let's wait 5 seconds and try again.
         this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
@@ -95,15 +111,6 @@ var Shareabouts = Shareabouts || {};
           function() { _.delay(notFetching, notFetchingDelay); }
         );
       }
-    },
-
-    onAddAll: function() {
-      var self = this;
-      this.mergedActivities.sort();
-
-      this.mergedActivities.each(function(model) {
-        self.renderAction(model, self.mergedActivities.indexOf(model));
-      })
     },
 
     onAddAction: function(model, collection) {
@@ -128,27 +135,29 @@ var Shareabouts = Shareabouts || {};
         var actionType = actionModel.get('target_type'),
             targetData = actionModel.get('target');
 
-        if (!self.mergedPlaces.get(targetData.id)) {
-          if (actionType === 'place') {
-            placeIdsToFetch.push(targetData.id);
+        _.each(self.places, function(collection) {
+          if (!collection.get(targetData.id)) {
+            if (actionType === 'place') {
+              placeIdsToFetch.push(targetData.id);
+            } else {
+              placeIdsToFetch.push(_.last(targetData.place.split('/')));
+            }
           }
-          else {
-            placeIdsToFetch.push(_.last(targetData.place.split('/')));
-          }
-        }
+        });
       });
 
       if (placeIdsToFetch.length > 0) {
-        // Get the missing places and then render activity
-        self.mergedPlaces.fetchByIds(placeIdsToFetch, {
-          // Check for a valid location type before adding it to the collection
-          validate: true,
-          success: function() {
-            self.render();
-          }
+        _.each(self.places, function(collection) {
+          collection.fetchByIds(placeIdsToFetch, {
+            // Check for a valid location type before adding it to the collection
+            validate: true,
+            success: function() {
+              self.render();
+            }
+          });
         });
       } else {
-        this.render();
+        self.render();
       }
     },
 
@@ -231,14 +240,16 @@ var Shareabouts = Shareabouts || {};
       }
 
       // If a place with the given ID exists, call success immediately.
-      placeModel = this.mergedPlaces.get(placeId);
-      if (placeModel && options.success) {
-        options.success(placeModel, null, options);
-
-      // Otherwise, fetch the place and pass the callbacks along.
-      } else if (!placeModel) {
-        this.mergedPlaces.fetchById(placeId, options);
-      }
+      _.each(this.places, function(collection) {
+        placeModel = collection.get(placeId);
+        if (placeModel && options.success) {
+          options.success(placeModel, null, options);
+        // Otherwise, fetch the place and pass the callbacks along.
+        } else if (!placeModel) {
+          // TODO....? Is this else condition necessary any more?
+          //this.mergedPlaces.fetchById(placeId, options);
+        }
+      });
     },
 
     renderAction: function(model, index) {
@@ -285,6 +296,10 @@ var Shareabouts = Shareabouts || {};
 
       $template = Handlebars.templates['activity-list']({activities: collectionData});
       self.$el.html($template);
+
+      _.each(this.activities, function(collection) {
+        self.mergedActivities.add(collection.models);
+      });
 
       self.mergedActivities.each(function(model) {
         self.renderAction(model, index++);
