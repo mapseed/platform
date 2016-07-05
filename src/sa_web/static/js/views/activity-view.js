@@ -28,7 +28,7 @@ var Shareabouts = Shareabouts || {};
       // How many pixel from the bottom until we look for more/older actions
       this.infiniteScrollBuffer = this.options.infiniteScrollBuffer || 25;
       // Debounce the scroll handler for efficiency
-      this.debouncedOnScroll = _.debounce(this.onScroll, 600);
+      //this.debouncedOnScroll = _.debounce(this.onScroll, 600);
 
       // Bind click event to an action so that you can see it in a map
       this.$el.delegate('a', 'click', function(evt){
@@ -44,7 +44,9 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Check to see if we're at the bottom of the list and then fetch more results.
-      this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
+      // NOTE: we've removed the scroll listener for the time being, as it wasn't in
+      // use and has not been refactored for multiple datasets
+      //this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
       _.each(this.activities, function(collection) {
@@ -54,14 +56,14 @@ var Shareabouts = Shareabouts || {};
     },
 
     checkForNewActivity: function() {
-      var self = this; 
+      var self = this,
       options = {
         remove: false,
-        // TODO: fix this usage of the old dataset_slug param...
-        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
         attribute: 'target'
       },
       meta = {};
+      this.fetching = false;
+
       _.each(this.activities, function(collection, key) {
         meta[key] = collection.metadata;
       });
@@ -72,9 +74,9 @@ var Shareabouts = Shareabouts || {};
       options.complete = _.bind(function() {
         // The total length may have changed, so don't overwrite it!
         _.each(self.activities, function(collection, key) {
-          meta[key].length = collection.metadata.length
+          meta[key].length = collection.metadata.length;
           collection.metadata = meta;
-          self.fetching = false;
+          self.fetching[key] = false;
         })
 
         // After a check for activity has completed, no matter the result,
@@ -86,32 +88,39 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       // Don't fetch new activity if we're in the middle of fetching a new page.
-      if (!this.fetching) {
-        this.fetching = true;
-        _.each(this.activities, function(collection) {
+      _.each(this.activities, function(collection, key) {
+        if (!self.fetching[key]) {
+          self.fetching[key] = true;
+
+          // add dataset slug paramter
+          options.attributesToAdd = { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug }
           collection.fetch(options);
-        });
-      } else {
-        // Let's wait 5 seconds and try again.
-        this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
-      }
+        } else {
+          // Let's wait 5 seconds and try again.
+          this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
+        }
+      });
     },
 
-    onScroll: function(evt) {
-      var self = this,
-          notFetchingDelay = 500,
-          notFetching = function() { self.fetching = false; },
-          shouldFetch = (this.$el.height() - this.$container.height() <=
-                        this.$container.scrollTop() + this.infiniteScrollBuffer);
+    // NOTE: we've removed the scroll listener for the time being, as it wasn't in
+    // use and has not been refactored for multiple datasets
+    // onScroll: function(evt) {
+    //   console.log("onScroll");
 
-      if (shouldFetch && !self.fetching) {
-        self.fetching = true;
-        this.collection.fetchNextPage(
-          function() { _.delay(notFetching, notFetchingDelay); },
-          function() { _.delay(notFetching, notFetchingDelay); }
-        );
-      }
-    },
+    //   var self = this,
+    //       notFetchingDelay = 500,
+    //       notFetching = function() { self.fetching = false; },
+    //       shouldFetch = (this.$el.height() - this.$container.height() <=
+    //                     this.$container.scrollTop() + this.infiniteScrollBuffer);
+
+    //   if (shouldFetch && !self.fetching) {
+    //     self.fetching = true;
+    //     this.collection.fetchNextPage(
+    //       function() { _.delay(notFetching, notFetchingDelay); },
+    //       function() { _.delay(notFetching, notFetchingDelay); }
+    //     );
+    //   }
+    // },
 
     onAddAction: function(model, collection) {
       this.renderAction(model, collection.indexOf(model));
