@@ -123,6 +123,8 @@ var Shareabouts = Shareabouts || {};
       $("#selected-category").hide().show(animationDelay);
       // slide up unused category buttons
       $("#category-btns").animate( { height: "hide" }, animationDelay );
+      // if we've already dragged the map, make sure the map drag instructions don't reappear
+      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
 
       // instantiate appropriate backbone model
       this.collection[self.selectedDatasetId].add({});
@@ -190,6 +192,7 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = this.selectedDatasetId;
     },
     closePanel: function() {
+      this.center = null;
       // make sure we reset priorModelCid and priorDatasetId if the user closes the side panel
       this.priorModelCid = null;
       this.priorDatasetId = null;
