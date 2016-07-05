@@ -795,12 +795,14 @@ story:
         - idea/564
         - idea/572
         - idea/573
+        - idea 594
+        - idea/595
         - idea/574
         - idea/575
         - idea/576
         - idea/580
         - idea/585
-        - idea/595
+        - idea/586
 
   test_story2:
       tagline: _(This is a priority site. Use arrows to explore others)
