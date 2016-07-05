@@ -564,7 +564,6 @@ place:
       includeOnForm: true
       name: location_type
       dataset: gtopenspace
-      datasetSlug: idea
       icon_url: /static/css/images/markers/marker-e1264d.png
       value: high
       label: _(High priority)
@@ -585,7 +584,6 @@ place:
       includeOnForm: true
       name: location_type
       dataset: gtopenspace
-      datasetSlug: idea
       icon_url: /static/css/images/markers/marker-f39914.png
       value: medium
       label: _(Medium priority)
@@ -606,7 +604,6 @@ place:
       includeOnForm: true
       name: location_type
       dataset: gtopenspace
-      datasetSlug: idea
       icon_url: /static/css/images/markers/marker-a5cf32.png
       value: low
       label: _(Low priority)
@@ -628,7 +625,6 @@ place:
       includeOnForm: false     
       name: location_type
       dataset: gtopenspace
-      datasetSlug: idea
       icon_url: /static/css/images/markers/marker-star.png
       value: feature
       label: _(Featured site)
