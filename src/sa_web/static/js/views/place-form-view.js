@@ -112,7 +112,7 @@ var Shareabouts = Shareabouts || {};
 
       this.selectedCategory = $(evt.target).parent().prev().attr('id'),
       this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset,
-      this.selectedDatasetSlug = this.options.placeConfig.place_detail[this.selectedCategory].datasetSlug;
+      this.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return self.selectedDatasetId == layer.id })[0].slug
 
       // re-render the form with the selected category
       this.render(this.selectedCategory, true);
