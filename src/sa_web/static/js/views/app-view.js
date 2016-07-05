@@ -480,6 +480,7 @@ var Shareabouts = Shareabouts || {};
           storyConfig: this.options.storyConfig,
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
+          router: this.options.router,
           url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
         });
