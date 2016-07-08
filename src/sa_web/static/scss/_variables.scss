@@ -2,36 +2,36 @@
 // BASE STYLES - VARIABLES
 // ################################
 // Links - Variables
-$hover-highlight-blue: #00aaff
+$hover-highlight-blue: #00aaff;
 
 // Typography - Variables
-$default-font-color: #36454f // #555
-$default-font-family: 'Roboto', sans-serif // "Helvetica Neue", Arial, Helvetica, serif
-$border-color-lightgrey: #eeeeee
+$default-font-color: #36454f;
+$default-font-family: "Roboto", sans-serif;
+$border-color-lightgrey: #eeeeee;
 
 // Buttons - Variables
-$button-background-blue: #007fbf
-$button-background-hover-blue: #93b7c9
-$button-background-lightblue: #a3c7d9
-$button-color-white: #fff
-$button-primary-background-orange: rgba(242, 82, 24, 0.89)
-$opacity-lowest-black: rgba(0, 0, 0, 0.05)
-$opacity-very-low-black: rgba(0, 0, 0, 0.1)
-$opacity-low-black: rgba(0, 0, 0, 0.2)
-$opacity-med-black: rgba(0, 0, 0, 0.5)
-$opacity-med-high-white: rgba(255, 255, 255, 0.75)
+$button-background-blue: #007fbf;
+$button-background-hover-blue: #93b7c9;
+$button-background-lightblue: #a3c7d9;
+$button-color-white: #fff;
+$button-primary-background-orange: rgba(242, 82, 24, 0.89);
+$opacity-lowest-black: rgba(0, 0, 0, 0.05);
+$opacity-very-low-black: rgba(0, 0, 0, 0.1);
+$opacity-low-black: rgba(0, 0, 0, 0.2);
+$opacity-med-black: rgba(0, 0, 0, 0.5);
+$opacity-med-high-white: rgba(255, 255, 255, 0.75);
 
 // Forms - Variables
 
 // Dynamic Form - Variables
-$icon-check-mark: '\2714'
-$icon-expansion-hamburger: '\f03a'
-$unselected-highlight-light-gray: #D1D3D4
-$unselected-message-light-gray: #999999
-$unselected-highlight-medium-gray: #444444
-$unselected-message-medium-gray: #EEEEEE
-$selected-highlight-orange: rgb(242, 82, 24)
-$selected-message-dark-gray: #222222
+$icon-check-mark: "✔";
+$icon-expansion-hamburger: "";
+$unselected-highlight-light-gray: #D1D3D4;
+$unselected-message-light-gray: #999999;
+$unselected-highlight-medium-gray: #444444;
+$unselected-message-medium-gray: #EEEEEE;
+$selected-highlight-orange: rgb(242, 82, 24);
+$selected-message-dark-gray: #222222;
 
 // Images - Variables
 
@@ -108,6 +108,6 @@ $selected-message-dark-gray: #222222
 // ################################
 // MEDIA QUERIES - VARIABLES
 // ################################
-$map-width-when-content-visible: 60%
-$content-visible-left-offset: $map-width-when-content-visible
-$content-visible-width: 100% - $map-width-when-content-visible
+$map-width-when-content-visible: 60%;
+$content-visible-left-offset: $map-width-when-content-visible;
+$content-visible-width: 100% - $map-width-when-content-visible;
