@@ -12,7 +12,13 @@ var Shareabouts = Shareabouts || {};
 
       this.activityViews = [];
 
-      this.placeCollection = this.options.places;
+      this.activities = this.options.activities;
+      this.places = this.options.places;
+
+      // Store a separate collection of all activities 
+      // merged together, useful for collecting models from 
+      // different datasets to facilitate sorting
+      this.mergedActivities = new S.ActionCollection([]);
 
       // Infinite scroll elements and functions
       // Window where the activity lives
@@ -22,7 +28,7 @@ var Shareabouts = Shareabouts || {};
       // How many pixel from the bottom until we look for more/older actions
       this.infiniteScrollBuffer = this.options.infiniteScrollBuffer || 25;
       // Debounce the scroll handler for efficiency
-      this.debouncedOnScroll = _.debounce(this.onScroll, 600);
+      //this.debouncedOnScroll = _.debounce(this.onScroll, 600);
 
       // Bind click event to an action so that you can see it in a map
       this.$el.delegate('a', 'click', function(evt){
@@ -38,29 +44,40 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Check to see if we're at the bottom of the list and then fetch more results.
-      this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
+      // NOTE: we've removed the scroll listener for the time being, as it wasn't in
+      // use and has not been refactored for multiple datasets
+      //this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
-      this.collection.on('add', this.onAddAction, this);
-      this.collection.on('reset', this.onResetActivity, this);
+      _.each(this.activities, function(collection) {
+        collection.on('add', self.onAddAction, self);
+        collection.on('reset', self.onResetActivity, self);
+      });
     },
 
     checkForNewActivity: function() {
-      var options = {
+      var self = this,
+      options = {
         remove: false,
-        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
         attribute: 'target'
       },
-          meta = this.collection.metadata;
+      meta = {};
+      this.fetching = false;
+
+      _.each(this.activities, function(collection, key) {
+        meta[key] = collection.metadata;
+      });
 
       // The metadata will be reset to page 1 if a new action has been added.
       // We need to cache the current page information so that when we will
       // fetch to correct page when we scroll to the next break.
       options.complete = _.bind(function() {
         // The total length may have changed, so don't overwrite it!
-        meta.length = this.collection.metadata.length;
-        this.collection.metadata = meta;
-        this.fetching = false;
+        _.each(self.activities, function(collection, key) {
+          meta[key].length = collection.metadata.length;
+          collection.metadata = meta;
+          self.fetching[key] = false;
+        })
 
         // After a check for activity has completed, no matter the result,
         // schedule another.
@@ -71,66 +88,85 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       // Don't fetch new activity if we're in the middle of fetching a new page.
-      if (!this.fetching) {
-        this.fetching = true;
-        this.collection.fetch(options);
-      } else {
-        // Let's wait 5 seconds and try again.
-        this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
-      }
+      _.each(this.activities, function(collection, key) {
+        if (!self.fetching[key]) {
+          self.fetching[key] = true;
+
+          // add dataset slug paramter
+          options.attributesToAdd = { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug }
+          collection.fetch(options);
+        } else {
+          // Let's wait 5 seconds and try again.
+          this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
+        }
+      });
     },
 
-    onScroll: function(evt) {
-      var self = this,
-          notFetchingDelay = 500,
-          notFetching = function() { self.fetching = false; },
-          shouldFetch = (this.$el.height() - this.$container.height() <=
-                        this.$container.scrollTop() + this.infiniteScrollBuffer);
+    // NOTE: we've removed the scroll listener for the time being, as it wasn't in
+    // use and has not been refactored for multiple datasets
+    // onScroll: function(evt) {
+    //   console.log("onScroll");
 
-      if (shouldFetch && !self.fetching) {
-        self.fetching = true;
-        this.collection.fetchNextPage(
-          function() { _.delay(notFetching, notFetchingDelay); },
-          function() { _.delay(notFetching, notFetchingDelay); }
-        );
-      }
-    },
+    //   var self = this,
+    //       notFetchingDelay = 500,
+    //       notFetching = function() { self.fetching = false; },
+    //       shouldFetch = (this.$el.height() - this.$container.height() <=
+    //                     this.$container.scrollTop() + this.infiniteScrollBuffer);
+
+    //   if (shouldFetch && !self.fetching) {
+    //     self.fetching = true;
+    //     this.collection.fetchNextPage(
+    //       function() { _.delay(notFetching, notFetchingDelay); },
+    //       function() { _.delay(notFetching, notFetchingDelay); }
+    //     );
+    //   }
+    // },
 
     onAddAction: function(model, collection) {
       this.renderAction(model, collection.indexOf(model));
+    },
+  
+    // closure for onResetActivity
+    onResetActivityWrapper: function(datasetId) {
+      var self = this;
+      return function(collection) {
+        self.onResetActivity(datasetId, collection);
+      }
     },
 
     onResetActivity: function(collection) {
       var self = this,
           placeIdsToFetch = [];
 
-      // We have acttions to show. Let's make sure we have the places we need
+      // We have actions to show. Let's make sure we have the places we need
       // to render them. If not, we'll fetch them in bulk and render after.
       collection.each(function(actionModel) {
         var actionType = actionModel.get('target_type'),
             targetData = actionModel.get('target');
 
-        if (!self.placeCollection.get(targetData.id)) {
-          if (actionType === 'place') {
-            placeIdsToFetch.push(targetData.id);
+        _.each(self.places, function(collection) {
+          if (!collection.get(targetData.id)) {
+            if (actionType === 'place') {
+              placeIdsToFetch.push(targetData.id);
+            } else {
+              placeIdsToFetch.push(_.last(targetData.place.split('/')));
+            }
           }
-          else {
-            placeIdsToFetch.push(_.last(targetData.place.split('/')));
-          }
-        }
+        });
       });
 
       if (placeIdsToFetch.length > 0) {
-        // Get the missing places and then render activity
-        self.placeCollection.fetchByIds(placeIdsToFetch, {
-          // Check for a valid location type before adding it to the collection
-          validate: true,
-          success: function() {
-            self.render();
-          }
+        _.each(self.places, function(collection) {
+          collection.fetchByIds(placeIdsToFetch, {
+            // Check for a valid location type before adding it to the collection
+            validate: true,
+            success: function() {
+              self.render();
+            }
+          });
         });
       } else {
-        this.render();
+        self.render();
       }
     },
 
@@ -212,15 +248,17 @@ var Shareabouts = Shareabouts || {};
         placeId = actionModel.get('target').id;
       }
 
-      // If a place with the given ID exists, call sucess immediately.
-      placeModel = this.placeCollection.get(placeId);
-      if (placeModel && options.success) {
-        options.success(placeModel, null, options);
-
-      // Otherwise, fetch the place and pass the callbacks along.
-      } else if (!placeModel) {
-        this.placeCollection.fetchById(placeId, options);
-      }
+      // If a place with the given ID exists, call success immediately.
+      _.each(this.places, function(collection) {
+        placeModel = collection.get(placeId);
+        if (placeModel && options.success) {
+          options.success(placeModel, null, options);
+        // Otherwise, fetch the place and pass the callbacks along.
+        } else if (!placeModel) {
+          // TODO....? Is this else condition necessary any more?
+          //this.mergedPlaces.fetchById(placeId, options);
+        }
+      });
     },
 
     renderAction: function(model, index) {
@@ -268,7 +306,11 @@ var Shareabouts = Shareabouts || {};
       $template = Handlebars.templates['activity-list']({activities: collectionData});
       self.$el.html($template);
 
-      self.collection.each(function(model) {
+      _.each(this.activities, function(collection) {
+        self.mergedActivities.add(collection.models);
+      });
+
+      self.mergedActivities.each(function(model) {
         self.renderAction(model, index++);
       });
 

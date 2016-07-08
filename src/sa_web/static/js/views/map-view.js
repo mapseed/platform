@@ -17,22 +17,21 @@ var Shareabouts = Shareabouts || {};
             S.Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
           };
 
-      self.map = L.map(self.el, self.options.mapConfig.options);
+      this.map = L.map(self.el, self.options.mapConfig.options);
 
-      self.placeLayers = self.getLayerGroups();
+      this.placeLayers = self.getLayerGroups();
+      this.layers = {};
+      this.layerViews = {};
 
-      self.layers = {};
-
-      // Init the layer view caches
-      // TODO: merge these two objects and manage them as one
-      this.layerViews = {}; // Maps our model id's to our place collection's model instances
-      this.landmarkLayerViews = {}; // Maps our landmark collection id to an objects that maps the id's to the model instances
+      // bootstrapped data from page
+      this.places = this.options.places;
+      this.landmarks = this.options.landmarks;
 
       // Add layers defined in the config file
-      _.each(self.options.mapConfig.layers, function(config){
-        var layer;
-        var collectionId;
-        var collection;
+      _.each(self.options.mapConfig.layers, function(config) {
+        var layer,
+            collectionId,
+            collection;
         if (config.type && config.type === 'json') {
           var url = config.url
           if (config.sources)
@@ -46,10 +45,10 @@ var Shareabouts = Shareabouts || {};
         } else if (config.type && config.type === 'landmark') {
           collectionId = config.id;
           self.layers[collectionId] = L.layerGroup();
-          self.landmarkLayerViews[collectionId] = {};
+          self.layerViews[collectionId] = {};
 
           // Bind our landmark data events:
-          collection = self.options.landmarkCollections[collectionId];
+          collection = self.landmarks[collectionId];
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.type && config.type === 'cartodb') {
@@ -96,7 +95,7 @@ var Shareabouts = Shareabouts || {};
 
         } else {
           // Assume a tile layer
-          layer = L.tileLayer(config.url, config);
+          layer = L.tileLayer( (config.url ? config.url : ""), config);
 
           layer.addTo(self.map);
         }
@@ -131,11 +130,13 @@ var Shareabouts = Shareabouts || {};
         $(S).trigger('mapdragend', [evt]);
       });
 
-      // Bind data events
-      self.collection.on('reset', self.render, self);
-      self.collection.on('add', self.addLayerView, self);
-      self.collection.on('remove', self.removeLayerView, self);
-
+      // Bind data events to shareabouts collections
+      _.each(self.places, function(collection) {
+        collection.on('reset', self.render, self);
+        collection.on('add', self.addLayerView, self);
+        collection.on('remove', self.removeLayerView, self);
+      });
+      
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible) {
         var layer = self.layers[id];
@@ -193,12 +194,12 @@ var Shareabouts = Shareabouts || {};
       // the list of layer views.
       this.placeLayers.clearLayers();
       this.layerViews = {};
-      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
+      _.each(Object.keys(self.places), function(collectionId) {
         self.layers[collectionId].clearLayers();
-        self.landmarkLayerViews[collectionId] = {};
+        self.layerViews[collectionId] = {};
       });
 
-      this.collection.each(function(model, i) {
+      this.places.each(function(model, i) {
         self.addLayerView(model);
       });
     },
@@ -261,24 +262,24 @@ var Shareabouts = Shareabouts || {};
     geolocate: function() {
       this.map.locate();
     },
-    addLandmarkLayerView: function(landmarkCollectionId) {
+    addLandmarkLayerView: function(collectionId) {
       return function(model) {
-        this.landmarkLayerViews[landmarkCollectionId][model.id] = new S.BasicLayerView({
+        this.layerViews[collectionId][model.id] = new S.BasicLayerView({
           model: model,
           router: this.options.router,
           map: this.map,
           placeTypes: this.options.placeTypes,
-          collectionId: landmarkCollectionId,
-          landmarkLayers: this.layers[landmarkCollectionId],
+          collectionId: collectionId,
+          landmarkLayers: this.layers[collectionId],
           // to access the filter
           mapView: this
         });
       }
     },
-    removeLandmarkLayerView: function(landmarkCollectionId) {
+    removeLandmarkLayerView: function(collectionId) {
       return function(model) {
-        this.landmarkLayerViews[landmarkCollectionId][model.id].remove();
-        delete this.landmarkLayerViews[landmarkCollectionId][model.id];
+        this.layerViews[collectionId][model.id].remove();
+        delete this.layerViews[collectionId][model.id];
       }
     },
     addLayerView: function(model) {
@@ -302,7 +303,6 @@ var Shareabouts = Shareabouts || {};
 
     filter: function(locationType) {
       var self = this;
-      console.log('filter the map', arguments);
       this.locationTypeFilter = locationType;
       this.collection.each(function(model) {
         var modelLocationType = model.get('location_type');
@@ -314,33 +314,32 @@ var Shareabouts = Shareabouts || {};
           self.layerViews[model.cid].hide();
         }
       });
-      // TODO: clean this up by using a single Collection or View that contains
-      // landmarks and places
-      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
-        self.options.landmarkCollections[collectionId].each(function(model) {
+
+      _.each(Object.keys(self.landmarks), function(collectionId) {
+        self.landmarks[collectionId].each(function(model) {
           var modelLocationType = model.get('location_type');
 
           if (modelLocationType &&
               modelLocationType.toUpperCase() === locationType.toUpperCase()) {
-            self.landmarkLayerViews[collectionId][model.id].show();
+            self.layerViews[collectionId][model.id].show();
           } else {
-            self.landmarkLayerViews[collectionId][model.id].hide();
+            self.layerViews[collectionId][model.id].hide();
           }
         });
       });
     },
-
-    clearFilter: function() {
+    clearFilter: function(collectionId) {
       var self = this;
       this.locationTypeFilter = null;
-      this.collection.each(function(model) {
-        self.layerViews[model.cid].render();
+      _.each(this.places, function(collection) {
+        collection.each(function(model) {
+          if (self.layerViews[model.cid]) { self.layerViews[model.cid].render(); }
+        });
       });
-      // TODO: clean this up by using a single Collection or View that contains
-      // landmarks and places
-      _.each(Object.keys(self.options.landmarkCollections), function(collectionId) {
-        self.options.landmarkCollections[collectionId].each(function(model) {
-          self.landmarkLayerViews[collectionId][model.id].render();
+
+      _.each(this.landmarks, function(collection) {
+        collection.each(function(model) {
+          if (self.layerViews[model.cid]) { self.layerViews[model.cid].render(); }
         });
       });
     },

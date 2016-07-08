@@ -122,7 +122,8 @@ var Shareabouts = Shareabouts || {};
 
     url: function() {
       var submissionType = this.options.submissionType,
-          placeId = this.options.placeModel && this.options.placeModel.id;
+          placeId = this.options.placeModel && this.options.placeModel.id,
+          datasetId = this.options.placeModel && this.options.placeModel.get("datasetId");
 
       if (!submissionType) { throw new Error('submissionType option' +
                                                      ' is required.'); }
@@ -131,7 +132,7 @@ var Shareabouts = Shareabouts || {};
                                       'must save the place before saving ' +
                                       'its ' + submissionType + '.'); }
 
-      return '/api/places/' + placeId + '/' + submissionType;
+      return '/dataset/' + datasetId + '/places/' + placeId + '/' + submissionType;
     },
 
     comparator: 'created_datetime'

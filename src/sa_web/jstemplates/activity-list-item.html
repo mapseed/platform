@@ -2,12 +2,18 @@
         {{!-- data attributes are not ideal, see comment in activity view --}}
         <a href="/{{ place.datasetSlug }}/{{ place.id }}{{#is target_type 'comments'}}/response/{{ target.id }}{{/is}}" data-action-type="{{ target_type }}" data-place-id="{{ place.id }}">{{#_}}<strong>
 
-        {{#if target.submitter}}
-          <img src="{{ target.submitter.avatar_url }}" class="avatar" /> {{ target.submitter.name }}
+        {{#if target.submitter.avatar_url}}
+          <img src="{{ target.submitter.avatar_url }}" class="avatar" />
         {{^}}
-          <!-- TODO: FIXME: don't hardcode image URL -->
-          <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" /> {{ target.submitter_name }}
+          <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" />
         {{/if}}
+
+        {{#if target.submitter.name}}
+          {{ target.submitter.name }}
+        {{^}}
+          {{ target.submitter_name }}
+        {{/if}}
+
         </strong>
 
         {{#if is_place }}
