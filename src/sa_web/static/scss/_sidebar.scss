@@ -35,6 +35,16 @@
     box-sizing: border-box;
 }
 
+/*---- leaflet side bar overrides ----*/
+
+.sidebar-header {
+    margin: -10px -10px 0;
+
+    .sidebar-close i {
+        margin-right: 30px;
+    }
+}
+
 //#side-bar header {
 //font-size: 2.3em;
 //font-family: 'Dancing Script', cursive;
