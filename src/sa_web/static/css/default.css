@@ -1733,6 +1733,17 @@ a.auth-inline {
   border: none;
 }
 
+/*---- leaflet side bar overrides ----*/
+.sidebar-header {
+  margin: -10px -10px 0;
+}
+.sidebar-header .sidebar-close i {
+  margin-right: 30px;
+  background: #0074d9;
+  border-radius: 50%;
+  padding: 6px 10px 5px 6px;
+}
+
 #ticker {
   background: url(images/lightpaperfibers.png);
   z-index: 30;
@@ -1777,13 +1788,15 @@ ul.recent-points {
   margin-left: -2.5em;
 }
 
-#master-legend {
-  overflow: visible;
-  padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-}
+/* #master-legend {
+    overflow: visible;
+    padding-left: unset;
+    padding-right: unset;
+    padding-top: 10px;
 
+    //display: none;
+    .unstyled-list {}
+} */
 .layer-type-list {
   font-size: 1.4em;
   font-weight: normal;
@@ -1852,10 +1865,11 @@ ul.recent-points {
   border-left-color: #000;
 }
 
-#master-legend .layer-type-list {
+.layer-type-list {
   font-size: 0.875em;
 }
-#master-legend .layer-type-title label {
+
+.layer-type-title label {
   vertical-align: middle;
   margin-right: 8px;
   font-size: 1.33em;
@@ -1869,18 +1883,16 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
-#master-legend .shareabouts-layer-li {
-  font-size: 1.3em;
-  letter-spacing: 1.4px;
-}
-#master-legend .layer-type-title:active label:hover, #master-legend .shareabouts-layer-li:active a {
+.layer-type-title:active label:hover, .shareabouts-layer-li:active a {
   color: #00aaff;
 }
-#master-legend .map-layer-list {
+
+.map-layer-list {
   margin-bottom: 0.5em;
   font-size: 0.75em;
 }
-#master-legend .layer-type-li label, #master-legend .shareabouts-layer-li a {
+
+.layer-type-li label, .shareabouts-layer-li a {
   cursor: pointer;
   position: relative;
   z-index: 20;
@@ -1889,8 +1901,27 @@ ul.recent-points {
   text-transform: none;
   font-family: "Roboto", sans-serif;
 }
-#master-legend .shareabouts-layer-title {
-  font-size: 1.4em;
+
+.master-layer-list {
+  padding-left: unset;
+  list-style-type: none;
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+.master-layer-list .shareabouts-layer-li {
+  font-size: 16px;
+  letter-spacing: 1.4px;
+}
+.master-layer-list .unstyled-list {
+  overflow: visible;
+  padding-left: unset;
+  padding-right: unset;
+  padding-top: 10px;
+}
+.master-layer-list .shareabouts-layer-title {
+  font-size: 22px;
   cursor: pointer;
   width: 1em;
   height: auto;
@@ -1899,31 +1930,27 @@ ul.recent-points {
   vertical-align: top;
   margin-right: 8px;
 }
+.master-layer-list .shareabouts-layer-li,
+.master-layer-list .shareabouts-layer-title {
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: .3em;
+  float: none;
+}
+.master-layer-list .nested-legend-list {
+  margin: 0;
+}
 
 @media screen and (min-width: 40.063em) {
-  .active #master-legend {
+  .active {
     height: 100%;
-    width: 16em;
+    /*width: 16em;*/
     top: 0;
     right: 0;
     overflow: auto;
   }
 }
-.master-layer-list {
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-top: 0.5;
-  margin-bottom: 0;
-}
-
-/* All layers in the Master Legend list */
-.master-layer-list .unstyled-list {
-  overflow: visible;
-  padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-}
-
 .list-toggle-nav {
   display: none;
 }
