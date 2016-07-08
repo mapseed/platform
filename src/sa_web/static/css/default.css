@@ -1737,6 +1737,9 @@ a.auth-inline {
 .sidebar-header {
   margin: -10px -10px 0;
 }
+.sidebar-header .sidebar-close {
+  z-index: 1;
+}
 .sidebar-header .sidebar-close i {
   margin-right: 30px;
   background: #0074d9;
