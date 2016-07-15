@@ -486,42 +486,39 @@ img {
 }
 
 /* Story bar styles */
-/* line 225, ../sass/_buttons.sass */
+/* line 224, ../sass/_buttons.sass */
 .btn-previous-story-nav {
-  color: white;
-  cursor: pointer;
-  float: left;
   width: 10%;
+  color: #93b7c9;
+  cursor: pointer;
 }
-/* line 230, ../sass/_buttons.sass */
+/* line 228, ../sass/_buttons.sass */
 .btn-previous-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
-/* line 233, ../sass/_buttons.sass */
+/* line 231, ../sass/_buttons.sass */
 .btn-previous-story-nav:hover {
-  color: #93b7c9;
+  color: #007fbf;
 }
 
-/* line 236, ../sass/_buttons.sass */
+/* line 234, ../sass/_buttons.sass */
 .btn-next-story-nav {
-  color: white;
-  cursor: pointer;
-  float: right;
   width: 10%;
-  text-align: right;
+  color: #93b7c9;
+  cursor: pointer;
 }
-/* line 242, ../sass/_buttons.sass */
+/* line 238, ../sass/_buttons.sass */
 .btn-next-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
-/* line 245, ../sass/_buttons.sass */
+/* line 241, ../sass/_buttons.sass */
 .btn-next-story-nav:hover {
-  color: #93b7c9;
+  color: #007fbf;
 }
 
-/* line 248, ../sass/_buttons.sass */
+/* line 244, ../sass/_buttons.sass */
 .story-nav-disabled {
   visibility: hidden;
 }
@@ -1391,7 +1388,7 @@ a.auth-inline {
 /* place detail view story bar */
 /* line 255, ../sass/_content.sass */
 .place-story-bar {
-  background-color: #a3c7d9;
+  background-color: LightYellow;
   padding: 8px;
   border-radius: 3px;
   margin-top: 10px;
@@ -1400,11 +1397,11 @@ a.auth-inline {
   overflow: hidden;
 }
 /* line 263, ../sass/_content.sass */
-.place-story-bar h5 {
-  float: left;
-  width: 80%;
+.place-story-bar .story-tagline {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
   font-family: "Roboto", sans-serif;
-  display: inline;
   margin-bottom: 0;
 }
 

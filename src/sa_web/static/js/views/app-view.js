@@ -470,6 +470,8 @@ var Shareabouts = Shareabouts || {};
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
+        console.log("model", model);
+
         placeDetailView = new S.PlaceDetailView({
           model: model,
           surveyConfig: this.options.surveyConfig,
@@ -478,6 +480,7 @@ var Shareabouts = Shareabouts || {};
           storyConfig: this.options.storyConfig,
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
+          router: this.options.router,
           url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
         });
