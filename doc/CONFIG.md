@@ -177,77 +177,6 @@ the map. The result of that reverse-geocoding will be a string saved to the
 model in the `location_item_name` attribute. E.g., in the above example, the
 string will be saved in the `address` field of a place.
 
-Next you can have any number of input widgets to appear on the place
-adding form. These go in the *items* subsection, under *place*.
-Each one looks like:
-
-    items:
-      - prompt: Your Name
-        type: text
-        name: submitter_name
-        optional: true
-        attrs:
-          - key: placeholder
-            value: Type Your Name Here
-          - key: size
-            value: 30
-
-The *prompt* is used to label the form. The *type*, *name*, and any
-*attrs* are used directly as HTML attributes.  This example would
-generate the following HTML:
-
-    <label for="place-submitter_name">Your Name (optional)</label>
-    <input id="place-submitter_name type="text"
-     name="submitter_name"
-	 size="30" placeholder="Type Your Name Here">
-
-The *optional* setting can be used to indicate optional items.
-* with `optional: true`, the user sees _(optional)_ added to the form
-label. The setting has no other effect.
-* with `optional:` omitted, users can leave form items blank, and will not see the _(optional)_
-label. You may prefer this if all your items are optional.
-
-To make an item required, use the `attr` section to set `key: required` and  `value: true`. We're using HTML5 validation, so browsers handle this differently
-(or [not at all](http://caniuse.com/form-validation)).
-
-The *label* setting can also be used for a place item. It is used as the label
-for that input value when it is displayed in the place detail view after it
-has been saved.
-
-**NOTE** There are three special place input properties: `submitter_name`, `name`,
-and `location_type`. These are specially displayed on the place detail view and
-therefore ignore the *label* setting.
-
-##### Attaching images to places
-
-You can attach images to places by configuring an input of type `file`. The
-configuration should look like this:
-
-    items:
-      - inputfile_label: Add an Image
-        type: file
-        name: my_image
-        attrs:
-          - key: accept
-            value: image/*
-
-This will generate markup that looks similar to this:
-
-    <label for="place-my_image"></label>
-    <span class="fileinput-container ">
-      <span>Add an Image</span>
-      <input id="place-my_image" name="my_image" type="file" accept="image/*">
-    </span>
-
-You can restyle the image input by overriding the `.fileinput-container` class
-in `custom.css` in your flavor.
-
-**NOTE** This does not currently support multiple file inputs or inputs types
-other than images.
-
-**NOTE** All images are proportionally resized with a max size of 800 pixels and
-converted to JPEGs.
-
 ##### Choosing a place type
 
 If you have only one *place type* (see above), you'll want to specify
@@ -285,7 +214,7 @@ Option               | Type    | Description
 submission_type      | string  | What type of submissions these are, eg. "comments"
 show_responses       | boolean | Whether previous submissions should be shown with the form.
 response_name        | string  | Label to use when displaying previous submissions.
-response_plural_name | string | Plural label for displaying previous submissions.
+response_plural_name | string  | Plural label for displaying previous submissions.
  action_text         | string  | For example, "commented on"
 
 
@@ -386,6 +315,8 @@ annotation           | string  | An optional message to display below a question
 content              | array   | If applicable, an array of label/value pairs to associate with the given input type. Releveant for `dropdown`, `radio-big-buttons`, `checkbox-big-buttons`, and `binary-toggle`
 optional             | boolean | Whether or not to require a response for this question
 
+##### Common Form Elements
+
 If you are configuring a dynamic form with multiple categories that share common input elements, use
 the `common_form_elements` section to configure these input types. At the very least you'll want a
 submit button:
@@ -393,6 +324,55 @@ submit button:
     common_form_elemets:
       - type: submit
         label: _(Put it on the map!)
+
+###### Here are some other common form elements you might want to include:
+
+**Images:**
+
+      - inputfile_label: Add an Image
+        type: file
+        name: my_image
+        attrs:
+          - key: accept
+            value: image/*
+
+This will generate markup that looks similar to this:
+
+    <label for="place-my_image"></label>
+    <span class="fileinput-container ">
+      <span>Add an Image</span>
+      <input id="place-my_image" name="my_image" type="file" accept="image/*">
+    </span>
+
+You can restyle the image input by overriding the `.fileinput-container` class
+in `custom.css` in your flavor.
+
+**NOTE** This does not currently support multiple file inputs or inputs types
+other than images.
+
+**NOTE** All images are proportionally resized with a max size of 800 pixels and
+converted to JPEGs.
+
+**Submitter Name**
+
+    - name: submitter_name
+        type: text
+        prompt: _(Your name)
+        placeholder: _(Name)
+        optional: true
+
+**Submitter Email Address** 
+
+    - name: private-submitter_email
+      type: text
+      prompt: _(Your Email)
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Receive email updates on your report)
+        - key: size
+          value: 30
 
 
 #### Support Form Configuration
