@@ -623,3 +623,69 @@
         background-size: contain;
     }
 }
+
+
+/* Added temporarily for sidebar*/
+@media only screen and (max-width: 960px) {
+
+    .sidebar.collapsed {
+        width: 100%;
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        height: 33px;
+        top: initial;
+    }
+
+    .sidebar {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 0px;
+        border: none;
+        z-index: 2000;
+        box-sizing: border-box;
+        box-shadow: none;
+    }
+
+    .sidebar-left .sidebar-tabs {
+        bottom: 0px;
+        position: absolute;
+        height: 33px;
+        z-index: 99;
+        padding: 0 9px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 3px 1px rgba(0,0,0,.2);
+    }
+    .sidebar-tabs, .sidebar-tabs > ul {
+        width: 100%;
+        display: flex;
+    }
+    .sidebar-tabs li {
+        border-radius: 3px;
+    }
+    .sidebar-content {
+        padding-bottom: 33px;
+        left: 0 !important;
+        height: auto;
+    }
+    .sidebar-header .sidebar-close i {
+        padding: 5px 8px 6px 8px;
+    }
+    .sidebar-header .sidebar-close i::before {
+        content: "\f00d";
+    }
+    .sidebar-tabs .active {
+        border-radius: 3px;
+    }
+
+    /* Report button*/
+    #add-place-btn-container {
+        border-bottom: none;
+        box-shadow: none;
+    }
+}
+
+
