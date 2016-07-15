@@ -1059,9 +1059,9 @@ story:
       tagline: _(Check out other reports like this one!)
       order: 
         - report/413
-        - report/982
-        - report/305
-        - report/997
+        - report/411
+        - air/588
+
   test_story2:
       tagline: _(Explore South Park priority sites like this one)
       order: 
