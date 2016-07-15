@@ -44,7 +44,6 @@ var Shareabouts = Shareabouts || {};
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
       this.mergedPlaces = this.options.mergedPlaces;
-      this.mergedActivities = this.options.mergedActivities;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -137,8 +136,9 @@ var Shareabouts = Shareabouts || {};
         // Init the view for displaying user activity
         this.activityView = new S.ActivityView({
           el: 'ul.recent-points',
-          mergedActivities: this.mergedActivities,
           mergedPlaces: this.mergedPlaces,
+          activities: this.activities,
+          places: this.places,
           router: this.options.router,
           placeTypes: this.options.placeTypes,
           surveyConfig: this.options.surveyConfig,
@@ -269,6 +269,16 @@ var Shareabouts = Shareabouts || {};
 
       // Load landmarks from the API
       this.loadLandmarks();
+
+      // Load activities from the API
+      _.each(this.activities, function(collection, key) {
+        collection.fetch({
+          reset: true,
+          attribute: 'target',
+          attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id,
+                             datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug }
+        });
+      });
     },
 
     getListRoutes: function() {
@@ -305,8 +315,8 @@ var Shareabouts = Shareabouts || {};
 
 
       // loop over all place collections
-      var loopIndex = 0;
-      _.each(self.places, function(collection, key, context) {
+      //var loopIndex = 0;
+      _.each(self.places, function(collection, key) {
 
         collection.fetchAllPages({
           remove: false,
@@ -317,42 +327,6 @@ var Shareabouts = Shareabouts || {};
           attributesToAdd: { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug,
                              datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id },
           attribute: 'properties',
-
-          success: function() {
-            loopIndex++;
-            self.mergedPlaces.add(collection.models);
-            // Sort the list view after all of the pages have been fetched
-            if (self.listView) {
-              self.listView.sort();
-              self.listView.updateSortLinks();
-            }
-
-            // if we're loading the last place collection, trigger loading of activities
-            if (loopIndex == Object.keys(context).length) {
-              var activityLoopIndex = 0;
-              _.each(self.activities, function(collection, key, context) {
-                collection.fetch({
-                  reset: true,
-                  attribute: 'target',
-                  attributesToAdd: { datasetId: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].id,
-                                     datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug },
-                  success: function(collection) {
-                    activityLoopIndex++;
-                    // add this collection's models to the mergedActivities collection, 
-                    // for use in the activity view
-                    self.mergedActivities.add(collection.models);
-
-                    // if we've successfully loaded the final activity collection, 
-                    // trigger rendering of the merged collection in the activity view
-                    if (activityLoopIndex == Object.keys(context).length) {
-                      self.mergedActivities.trigger("renderAll");
-                    }
-                  }
-                });
-              });
-            }
-          },
-
           // Only do this for the first page...
           pageSuccess: _.once(function(collection, data) {
             pageSize = data.features.length;
@@ -361,6 +335,8 @@ var Shareabouts = Shareabouts || {};
             if (data.metadata.next) {
               $progressContainer.show();
             }
+
+            self.mergedPlaces.add(collection.models);
           }),
 
           // Do this for every page...
@@ -434,35 +410,6 @@ var Shareabouts = Shareabouts || {};
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
         this.options.router.navigate('/', {trigger: true});
-      }
-    },
-    // This gets called for every model that gets added to the place
-    // collection, not just new ones.
-    onAddPlace: function(model) {
-      // If it's new, then show the form in order to edit and save it.
-      if (model.isNew()) {
-
-        this.placeFormView = new S.PlaceFormView({
-          model: model,
-          appView: this,
-          router: this.options.router,
-          defaultPlaceTypeName: this.options.defaultPlaceTypeName,
-          placeTypes: this.options.placeTypes,
-          placeConfig: this.options.placeConfig,
-          userToken: this.options.userToken
-        });
-
-        this.$panel.removeClass().addClass('place-form');
-        this.showPanel(this.placeFormView.render().$el);
-
-//      Init the place form's address search bar
-        this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
-          el: '#geocode-address-place-bar',
-          router: this.options.router,
-          mapConfig: this.options.mapConfig
-        })).render();
-        this.showNewPin();
-        this.setBodyClass('content-visible', 'place-form-visible');
       }
     },
     setBodyClass: function(/* newBodyClasses */) {
@@ -576,7 +523,16 @@ var Shareabouts = Shareabouts || {};
       
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render().$el);
+      this.placeFormView.postRender();
+
       this.placeFormView.delegateEvents();
+      // Init the place form's address search bar
+      this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
+        el: '#geocode-address-place-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
+
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
     },

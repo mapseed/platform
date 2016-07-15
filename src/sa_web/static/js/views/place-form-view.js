@@ -19,6 +19,7 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = null;
       this.selectedDatasetSlug = null;
       this.priorModelCid = null;
+      this.singleCategory = false;
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
@@ -29,21 +30,41 @@ var Shareabouts = Shareabouts || {};
       }
     },
     render: function(category, is_category_selected) {
-      var selectedCategoryConfig = category && this.options.placeConfig.categories[category] || {};
+      var self = this;
+      var selectedCategoryConfig = category && this.options.placeConfig.place_detail[category] || {};
+      var placesToIncludeOnForm = _.filter(_.keys(self.options.placeConfig.place_detail), function(key) { return self.options.placeConfig.place_detail[key].includeOnForm; });       
+
+      // if there is only one place to include on form, skip category selection page
+      if (placesToIncludeOnForm.length == 1) {
+        is_category_selected = true;
+        this.singleCategory = true;
+        category = placesToIncludeOnForm[0];
+        this.selectedCategory = category;
+        this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset;
+        this.selectedDatasetSlug = this.options.placeConfig.place_detail[this.selectedCategory].datasetSlug;
+        selectedCategoryConfig = this.options.placeConfig.place_detail[category];
+        this.collection[this.selectedDatasetId].add({});
+      }
+
       var data = _.extend({
         place_config: this.options.placeConfig,
         selected_category: selectedCategoryConfig,
         is_category_selected: is_category_selected || false,
         user_token: this.options.userToken,
-        current_user: S.currentUser
+        current_user: S.currentUser,
+        is_single_category: (placesToIncludeOnForm.length == 1) ? true : false
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
-      // initialize datetime picker, if relevant
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-
       return this;
+    },
+    postRender: function() {
+      // if the form only has a single category, hide category selection buttons
+      if (this.singleCategory) $("#selected-category, #category-btns").addClass("is-visuallyhidden");
+
+      // initialize datetime picker, if relevant
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
     },
     remove: function() {
       this.unbind();
@@ -90,8 +111,8 @@ var Shareabouts = Shareabouts || {};
           animationDelay = 400;
 
       this.selectedCategory = $(evt.target).parent().prev().attr('id'),
-      this.selectedDatasetId = this.options.placeConfig.categories[this.selectedCategory].dataset,
-      this.selectedDatasetSlug = this.options.placeConfig.categories[this.selectedCategory].datasetSlug;
+      this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset,
+      this.selectedDatasetSlug = this.options.placeConfig.place_detail[this.selectedCategory].datasetSlug;
 
       // re-render the form with the selected category
       this.render(this.selectedCategory, true);
@@ -102,6 +123,8 @@ var Shareabouts = Shareabouts || {};
       $("#selected-category").hide().show(animationDelay);
       // slide up unused category buttons
       $("#category-btns").animate( { height: "hide" }, animationDelay );
+      // if we've already dragged the map, make sure the map drag instructions don't reappear
+      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
 
       // instantiate appropriate backbone model
       this.collection[self.selectedDatasetId].add({});
@@ -146,7 +169,7 @@ var Shareabouts = Shareabouts || {};
       var targetButton = $(evt.target).attr("id"),
           oldValue = $(evt.target).val(),
           // find the match config data for this element
-          altData = _.filter(this.options.placeConfig.categories[this.selectedCategory].fields, function(item) {
+          altData = _.filter(this.options.placeConfig.place_detail[this.selectedCategory].fields, function(item) {
             return item.name == targetButton;
           })[0];
           // fetch alternate label and value
@@ -169,6 +192,7 @@ var Shareabouts = Shareabouts || {};
       this.priorDatasetId = this.selectedDatasetId;
     },
     closePanel: function() {
+      this.center = null;
       // make sure we reset priorModelCid and priorDatasetId if the user closes the side panel
       this.priorModelCid = null;
       this.priorDatasetId = null;
