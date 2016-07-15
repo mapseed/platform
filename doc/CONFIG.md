@@ -19,14 +19,14 @@ You don't want to check the API key information in to your
 repository, as anyone would be able to write to your data using your
 API key.
 
-## Step 1: Get a dataset
+## Step 1: Get one or more datasets
 
 You'll need an account on a Shareabouts API server.
 
-To use the OpenPlans hosted server, request a dataset and key via support@openplans.org. Your dataset will be on the OpenPlans API server,
-[data.shareabouts.org](http://data.shareabouts.org).
-
-Edit your `local_setting.py` file, update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server.
+For each dataset that your flavor will use, you'll need to add the dataset's url and key to your .env file.
+There is a standard format for doing this: In all caps, create a line with the text ID_SITE_URL=xyz, where *ID* is the name
+of your dataset and *xyz* is the url to the dataset. Next, create a line with the text ID_DATASET_KEY=abc, where *ID* is the name
+of your dataset and *abc* is the key provided by the server.
 
 ### Troubleshooting dataset problems
 
