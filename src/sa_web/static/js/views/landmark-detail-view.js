@@ -16,7 +16,8 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           data = {
             description: this.description,
-            story: this.model.attributes.story
+            story: this.model.attributes.story,
+            title: this.model.attributes.title
           };
 
       // add the story navigation bar
