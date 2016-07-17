@@ -27,7 +27,7 @@ var Shareabouts = Shareabouts || {};
       this.$('.survey').html(this.landmarkSurveyView.render().$el);
 
       // add the story navigation bar again, at the bottom of the view
-      this.$el.append(Handlebars.templates['place-detail-story-bar'](data));
+      this.$el.append(Handlebars.templates['place-detail-story-bar-tagline'](data));
 
       this.delegateEvents();
 
