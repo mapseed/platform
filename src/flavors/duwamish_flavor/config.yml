@@ -76,10 +76,6 @@ map:
       type: place
       slug: report
 
-    - id: georgetowngreen
-      type: place
-      slug: idea
-
     - id: trees
       type: place
       slug: trees
@@ -678,7 +674,7 @@ place:
           placeholder: _(Enter description...)
           optional: false
     question:
-      includeOnForm: false
+      includeOnForm: true
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-question.png
@@ -697,7 +693,7 @@ place:
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
     idea:
-      includeOnForm: false
+      includeOnForm: true
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-idea.png
@@ -879,7 +875,7 @@ place:
           display_prompt: _(Additional comments:)
           optional: true   
     tree:
-      includeOnForm: true
+      includeOnForm: false
       name: location_type
       dataset: trees
       icon_url: /static/css/images/markers/marker-tree.png
@@ -1058,15 +1054,14 @@ story:
   test_story1:
       tagline: _(Check out other reports like this one!)
       order: 
-        - report/413
-        - report/411
         - air/588
+        - trees/593
+        - report/600
+        - concord
 
   test_story2:
       tagline: _(Explore South Park priority sites like this one)
       order: 
-        - concord
-        - trees/229
         - skatepark
         - cesar-chavez
         - south-park-community-center
