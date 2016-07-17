@@ -42,7 +42,6 @@ var Shareabouts = Shareabouts || {};
         this.selectedCategory = category;
         this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset;
         this.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.selectedDatasetId == layer.id }).slug;
-        //this.selectedDatasetSlug = this.options.placeConfig.place_detail[this.selectedCategory].datasetSlug;
         selectedCategoryConfig = this.options.placeConfig.place_detail[category];
         this.collection[this.selectedDatasetId].add({});
       }
