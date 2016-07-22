@@ -267,7 +267,7 @@
                         toggleTransition($curr);
                         calculateHeight($curr);
 
-                        $curr.css('max-height', '100%');
+                        $curr.css('max-height', $curr.data('oHeight'));
                     }
                 }
             });
