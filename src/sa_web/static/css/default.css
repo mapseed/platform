@@ -1205,6 +1205,10 @@ a.logout-btn {
   text-transform: uppercase;
 }
 
+.cartodb-logo {
+  display: none !important;
+}
+
 #map-container {
   position: relative;
   background: #a3c7d9;
