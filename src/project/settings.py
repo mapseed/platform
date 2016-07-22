@@ -79,6 +79,10 @@ COMPRESS_ROOT = STATIC_ROOT
 STATIC_URL = '/static/'
 COMPRESS_URL = STATIC_URL
 
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
 ATTACHMENT_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # List of finder classes that know how to find static files in
