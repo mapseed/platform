@@ -639,7 +639,7 @@ nav ul, nav ol {
 }
 
 nav li, .unstyled-list li {
-  padding-bottom: 0;
+  padding-bottom: 1px;
 }
 
 strong {
@@ -1738,17 +1738,28 @@ a.auth-inline {
 }
 
 /*---- leaflet side bar overrides ----*/
-.sidebar-header {
-  margin: -10px -10px 0;
+.sidebar-pane {
+  padding: 34px 0 0 10px;
 }
-.sidebar-header .sidebar-close {
+.sidebar-pane .sidebar-header {
+  margin: -34px 0 0 -10px;
+  padding: 0 0 0 10px;
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+  box-sizing: border-box;
+}
+.sidebar-pane .sidebar-header .sidebar-close {
   z-index: 1;
 }
-.sidebar-header .sidebar-close i {
+.sidebar-pane .sidebar-header .sidebar-close i {
   margin-right: 30px;
   background: #0074d9;
   border-radius: 50%;
   padding: 6px 10px 5px 6px;
+}
+.sidebar-pane #gis-layers {
+  margin-left: -10px;
 }
 
 #ticker {
@@ -1810,9 +1821,6 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
-.layer-type-grouping-list {
-  margin-left: 10px;
-}
 .layer-type-grouping-list label {
   font-size: 0.5em;
 }
