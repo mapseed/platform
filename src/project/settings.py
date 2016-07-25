@@ -72,7 +72,10 @@ MEDIA_URL = ''
 # Example: "/home/media/media.lawrence.com/static/"
 from os.path import dirname, abspath, join as pathjoin
 STATIC_ROOT=abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
-COMPRESS_ROOT = STATIC_ROOT
+if (DEBUG):
+    COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..', 'sa_web', 'static'))
+else:
+    COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_OUTPUT_DIR = ''
 
 # URL prefix for static files.
@@ -295,16 +298,6 @@ if 'EMAIL_USE_TLS' in env:
 
 if 'EMAIL_NOTIFICATIONS_BCC' in env:
     EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
-
-if all(['S3_MEDIA_BUCKET' in env, 'AWS_ACCESS_KEY' in env, 'AWS_SECRET_KEY' in env]):
-    AWS_STORAGE_BUCKET_NAME = env.get('S3_MEDIA_BUCKET')
-    AWS_ACCESS_KEY_ID = env.get('AWS_ACCESS_KEY')
-    AWS_SECRET_ACCESS_KEY = env.get('AWS_SECRET_KEY')
-
-    # Set the compress storage, but not the static files storage, to S3.
-    COMPRESS_ENABLED = env.get('COMPRESS_ENABLED', str(not DEBUG)).lower() in ('true', 't')
-    COMPRESS_STORAGE = 'project.backends.S3BotoStorage'
-    COMPRESS_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
 
 # For sitemaps and caching -- will be a new value every time the server starts

@@ -4,6 +4,7 @@
 {% load shareabouts_utils %}
 {% load url from future %}
 {% get_current_language as LANGUAGE_CODE %}
+{% get_flavor_static_url as FLAVOR_STATIC_URL %}
 {% load compress %}
 
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -27,11 +28,11 @@
 
   {% block app_icons %}
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
-  <link rel="shortcut icon" href="{{ config.static_url }}css/images/water.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ config.static_url }}css/images/apple-touch-icon-144x144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ config.static_url }}css/images/apple-touch-icon-114x114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ config.static_url }}css/images/apple-touch-icon-72x72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="{{ FLAVOR_STATIC_URL }}css/images/water.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-144x144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-precomposed.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   {% endblock app_icons %}
 
@@ -40,13 +41,10 @@
   <link href='//fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
   {% compress css %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
+  <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}scss/default.scss" />
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   <!-- jQuery date-time picker plugin -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
-  <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}scss/default.scss" />
-  {% endcompress %}
 
   <!-- Flavor's Custom Stylesheet -->
   <!--  -->
@@ -55,7 +53,8 @@
   because config is accessed through views.py, which requires an HTTP request.
   However, a request is simply not generated when using manage.py -->
   <!--  -->
-  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css">
+  <link rel="stylesheet" href="{{ FLAVOR_STATIC_URL }}css/custom.css">
+  {% endcompress %}
 
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
