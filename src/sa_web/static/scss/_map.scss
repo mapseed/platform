@@ -18,7 +18,7 @@
 // Geolocation Button - Selectors
 
 .locate-me {
-    background-image: url(images/locate-me.png);
+    background-image: url(../css/images/locate-me.png);
 }
 
 #map {
@@ -48,7 +48,7 @@
 // Add Place Button - Selectors
 
 #add-place-btn-container {
-    background: url(images/lightpaperfibers.png);
+    background: url(../css/images/lightpaperfibers.png);
     padding: 0.5em 0.5em 0.75em;
     position: relative;
     z-index: 30;
@@ -100,7 +100,7 @@
         position: absolute;
         width: 18px;
         height: 12px;
-        background: transparent url(images/marker-x.png) 0 0 no-repeat scroll;
+        background: transparent url(../css/images/marker-x.png) 0 0 no-repeat scroll;
         left: 4px;
         top: 37px;
         opacity: 0;
@@ -122,7 +122,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: transparent url(images/marker-shadow.png) 0 3px no-repeat scroll;
+        background: transparent url(../css/images/marker-shadow.png) 0 3px no-repeat scroll;
         -webkit-transition: opacity 0s, background-position 0.3s ease;
         -moz-transition: opacity 0s, background-position 0.3s ease;
         -o-transition: opacity 0s, background-position 0.3s ease;
@@ -132,7 +132,7 @@
 
     &:hover .shadow, &.dragging .shadow {
         opacity: 0.2;
-        background-image: url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png);
+        background-image: url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png), url(../css/images/marker-shadow.png);
         background-position: 0px -3px, 3px -3px, 6px -3px, 0px -6px, 3px -6px, 6px -6px, 0px -9px, 3px -9px, 6px -9px;
     }
 
@@ -140,7 +140,7 @@
         display: block;
         width: 25px;
         height: 41px;
-        background: transparent url(images/marker-plus.png) 0 0 no-repeat scroll;
+        background: transparent url(../css/images/marker-plus.png) 0 0 no-repeat scroll;
         position: relative;
         top: 3px;
         -webkit-transition: top 0.4s ease;
