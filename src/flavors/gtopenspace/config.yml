@@ -640,7 +640,7 @@ place:
           placeholder: _(Enter comment...)
           optional: true
     streetscape:
-      includeOnForm: true     
+      includeOnForm: false     
       name: location_type
       dataset: gtopenspace
       icon_url: /static/css/images/markers/marker-star.png
@@ -660,7 +660,7 @@ place:
           placeholder: _(Enter comment...)
           optional: true
     park-improvement:
-      includeOnForm: true     
+      includeOnForm: false     
       name: location_type
       dataset: gtopenspace
       icon_url: /static/css/images/markers/marker-star.png
