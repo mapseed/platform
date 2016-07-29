@@ -41,7 +41,7 @@ var Shareabouts = Shareabouts || {};
         category = placesToIncludeOnForm[0];
         this.selectedCategory = category;
         this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset;
-        this.selectedDatasetSlug = this.options.placeConfig.place_detail[this.selectedCategory].datasetSlug;
+        this.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.selectedDatasetId == layer.id }).slug;
         selectedCategoryConfig = this.options.placeConfig.place_detail[category];
         this.collection[this.selectedDatasetId].add({});
       }
