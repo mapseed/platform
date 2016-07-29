@@ -243,7 +243,7 @@ var Shareabouts = Shareabouts || {};
         var storyStructure = {};
         _.each(story.order, function(config, i) {
           storyStructure[config.url] = {
-            "zoom": config.zoom,
+            "zoom": config.zoom || story.default_zoom,
             "previous": (i - 1 < 0) ? null : story.order[i - 1].url,
             "next": (i + 1 == story.order.length) ? null : story.order[i + 1].url,
           }

@@ -31,6 +31,7 @@ var Shareabouts = Shareabouts || {};
 
       this.delegateEvents();
 
+      // if there is a story object for this model, set the zoom level
       if (this.model.attributes.story) this.options.mapView.map.setZoom(this.model.attributes.story.zoom);
 
       return this;

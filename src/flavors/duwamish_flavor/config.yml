@@ -1053,30 +1053,25 @@ pages:
 story:
   test_story1:
       tagline: _(Check out other reports like this one!)
+      default_zoom: 15
       order: 
         - url: air/588
-          zoom: 15
         - url: trees/593
-          zoom: 4
         - url: report/600
-          zoom: 17
         - url: concord
-          zoom: 10
+          zoom: 5
 
   test_story2:
       tagline: _(Explore South Park priority sites like this one)
+      default_zoom: 17
       order: 
         - url: skatepark
-          zoom: 15
         - url: cesar-chavez
-          zoom: 10
+          zoom: 15
         - url: south-park-community-center
-          zoom: 5
+          zoom: 15
         - url: 14th-ave
-          zoom: 11
         - url: rose-end
-          zoom: 17
         - url: 12th-and-elmgrove
-          zoom: 3
         - url: marra
-          zoom: 9
+          zoom: 10
