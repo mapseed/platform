@@ -260,11 +260,11 @@ place:
   location_item_name: location
 
   #### begin dynamic form config ####
-  categories:
+  place_detail:
     observation:
+      includeOnForm: true
       name: location_type
       dataset: willamette
-      datasetSlug: report
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -282,9 +282,9 @@ place:
           placeholder: _(Enter description...)
           optional: false
     question:
+      includeOnForm: true
       name: location_type
       dataset: willamette
-      datasetSlug: report
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -301,9 +301,9 @@ place:
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
     idea:
+      includeOnForm: true
       name: location_type
       dataset: willamette
-      datasetSlug: report
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -321,9 +321,9 @@ place:
           placeholder: _(Description...)
           optional: false
     complaint:
+      includeOnForm: true
       name: location_type
       dataset: willamette
-      datasetSlug: report
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
