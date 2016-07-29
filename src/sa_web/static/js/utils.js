@@ -74,11 +74,6 @@ var Shareabouts = Shareabouts || {};
 
     isSupported: function(userAgent) {
       switch (userAgent.browser.name) {
-        case 'Chrome':
-        case 'Firefox':
-        case 'Safari':
-        case 'ChromeiOS':
-          return true;
         case 'Microsoft Internet Explorer':
           var firstDot = userAgent.browser.version.indexOf('.'),
               major = parseInt(userAgent.browser.version.substr(0, firstDot), 10);
@@ -86,6 +81,8 @@ var Shareabouts = Shareabouts || {};
           if (major > 7) {
             return true;
           }
+		 default:
+			return true;
       }
 
       return false;
