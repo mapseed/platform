@@ -614,31 +614,31 @@ story:
         - reports
         - gtlayers
       order: 
-        - idea/628
-        - idea/629
-        - idea/634
-        - idea/631
-        - idea/635
-        - idea/633
-        - idea/636
-        - idea/637
-        - idea/552
-        - idea/638
-        - idea/639
-        - idea/643
-        - idea/641
-        - idea/642
-        - idea/644
-        - idea/645
-        - idea/646
-        - idea/647
-        - idea/648
-        - idea/649
-        - idea/650
-        - idea/651
-        - idea/558
-        - idea/653
-        - idea/654
-        - idea/655
-        - idea/656
-        - idea/676
+        - url: idea/628
+        - url: idea/629
+        - url: idea/634
+        - url: idea/631
+        - url: idea/635
+        - url: idea/633
+        - url: idea/636
+        - url: idea/637
+        - url: idea/552
+        - url: idea/638
+        - url: idea/639
+        - url: idea/643
+        - url: idea/641
+        - url: idea/642
+        - url: idea/644
+        - url: idea/645
+        - url: idea/646
+        - url: idea/647
+        - url: idea/648
+        - url: idea/649
+        - url: idea/650
+        - url: idea/651
+        - url: idea/558
+        - url: idea/653
+        - url: idea/654
+        - url: idea/655
+        - url: idea/656
+        - url: idea/676
