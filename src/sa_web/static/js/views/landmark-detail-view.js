@@ -31,6 +31,8 @@ var Shareabouts = Shareabouts || {};
 
       this.delegateEvents();
 
+      if (this.model.attributes.story) this.options.mapView.map.setZoom(this.model.attributes.story.zoom);
+
       return this;
     }
 

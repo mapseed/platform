@@ -60,7 +60,7 @@ var Shareabouts = Shareabouts || {};
       this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
     },
 
-    render: function() {      
+    render: function() {
       var self = this,
           data = _.extend({
             place_config: this.options.placeConfig,
@@ -86,6 +86,9 @@ var Shareabouts = Shareabouts || {};
       this.model.submissionSets[this.supportType].fetchAllPages();
 
       this.delegateEvents();
+
+      // if there is a story object for this model, set the zoom level
+      if (this.model.attributes.story) this.options.mapView.map.setZoom(this.model.attributes.story.zoom);
 
       return this;
     },

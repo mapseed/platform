@@ -241,10 +241,11 @@ var Shareabouts = Shareabouts || {};
       // we need to enable story navigation
       _.each(this.options.storyConfig, function(story) {
         var storyStructure = {};
-        _.each(story.order, function(url, i) {
-          storyStructure[url] = {
-            "previous": (i - 1 < 0) ? null : story.order[i - 1],
-            "next": (i + 1 > story.order.length) ? null : story.order[i + 1],
+        _.each(story.order, function(config, i) {
+          storyStructure[config.url] = {
+            "zoom": config.zoom,
+            "previous": (i - 1 < 0) ? null : story.order[i - 1].url,
+            "next": (i + 1 == story.order.length) ? null : story.order[i + 1].url,
           }
         });
         story.order = storyStructure;
@@ -459,6 +460,7 @@ var Shareabouts = Shareabouts || {};
         landmarkDetailView = new S.LandmarkDetailView({
           model: model,
           description: model.get('properties')['description'],
+          mapView: this.mapView,
           router: this.options.router
         });
         this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
@@ -478,6 +480,7 @@ var Shareabouts = Shareabouts || {};
           storyConfig: this.options.storyConfig,
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
+          mapView: this.mapView,
           router: this.options.router,
           url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id

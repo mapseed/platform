@@ -1054,18 +1054,29 @@ story:
   test_story1:
       tagline: _(Check out other reports like this one!)
       order: 
-        - air/588
-        - trees/593
-        - report/600
-        - concord
+        - url: air/588
+          zoom: 15
+        - url: trees/593
+          zoom: 4
+        - url: report/600
+          zoom: 17
+        - url: concord
+          zoom: 10
 
   test_story2:
       tagline: _(Explore South Park priority sites like this one)
       order: 
-        - skatepark
-        - cesar-chavez
-        - south-park-community-center
-        - 14th-ave
-        - rose-end
-        - 12th-and-elmgrove
-        - marra
+        - url: skatepark
+          zoom: 15
+        - url: cesar-chavez
+          zoom: 10
+        - url: south-park-community-center
+          zoom: 5
+        - url: 14th-ave
+          zoom: 11
+        - url: rose-end
+          zoom: 17
+        - url: 12th-and-elmgrove
+          zoom: 3
+        - url: marra
+          zoom: 9
