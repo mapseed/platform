@@ -366,7 +366,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
   high:
-    label: _(Featured site)
+    label: _(High)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -395,7 +395,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
   streetscape:
-    label: _(Featured site)
+    label: _(Streetscape)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -425,7 +425,7 @@ place_types:
           iconAnchor: [15, 15]
 
   park-improvement:
-    label: _(Featured site)
+    label: _(Park Improvement)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -478,7 +478,7 @@ sidebar:
           visibleDefault: false
       groupings:
         - id: grp-community
-          title: _(Community Data)
+          title: _(Select All)
           visibleDefault: true
           layers:
             - id: gtopenspace
@@ -700,20 +700,20 @@ place:
     #       value: _(Receive email updates on your report)
     #     - key: size
     #       value: 30
-    # - name: my_image
-    #   type: file
-    #   prompt: _(Image)Georgetown Mini Mart City Park
-    #   inputfile_label: _(Add an Image)
-    #   optional: true
-    #   attrs:
-    #     - key: accept
-    #       value: image/*
+    - prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
     - type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
 
-
+## Can we delete this?
 
   items:
     - prompt: _(Type of report)
@@ -819,13 +819,34 @@ pages:
     hide_from_top_bar: true
 
 story:
-  test_story1:
+  streetscapes:
       tagline: _(Explore other priority sites)
       order: 
+        - idea/628
+        - idea/629
+        - idea/634
+        - idea/631
+        - idea/635
+        - idea/633
+        - idea/636
+        - idea/637
         - idea/552
-        - idea/554
-        - idea/555
-        - idea/556
+        - idea/638
+        - idea/639
+        - idea/643
+        - idea/641
+        - idea/642
+        - idea/644
+        - idea/645
+        - idea/646
+        - idea/647
+        - idea/648
+        - idea/649
+        - idea/650
+        - idea/651
+        - idea/649
+        - idea/650
+        - idea/651
         - idea/558
         - idea/559
         - idea/560
