@@ -51,9 +51,6 @@ map:
       type: cartodb
 
   # Legend Layers
-    - id: gtlayers
-      url: https://smartercleanup.carto.com/api/v2/viz/eeac79a6-551b-11e6-a46e-0e3ff518bd15/viz.json
-      type: cartodb
 
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
