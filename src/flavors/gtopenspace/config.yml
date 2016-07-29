@@ -559,7 +559,7 @@ activity:
 
 place:
   dataset_slug: report # default is 'place'
-  adding_supported: true
+  adding_supported: false
   add_button_label: _(Share an idea on the map!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show list of ideas)
