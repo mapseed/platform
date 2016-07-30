@@ -244,8 +244,9 @@ var Shareabouts = Shareabouts || {};
         _.each(story.order, function(config, i) {
           storyStructure[config.url] = {
             "zoom": config.zoom || story.default_zoom,
+            "visibleLayers": config.visible_layers || story.default_visible_layers,
             "previous": (i - 1 < 0) ? null : story.order[i - 1].url,
-            "next": (i + 1 == story.order.length) ? null : story.order[i + 1].url,
+            "next": (i + 1 == story.order.length) ? null : story.order[i + 1].url
           }
         });
         story.order = storyStructure;
@@ -460,6 +461,7 @@ var Shareabouts = Shareabouts || {};
         landmarkDetailView = new S.LandmarkDetailView({
           model: model,
           description: model.get('properties')['description'],
+          mapConfig: this.options.mapConfig,
           mapView: this.mapView,
           router: this.options.router
         });
@@ -478,6 +480,7 @@ var Shareabouts = Shareabouts || {};
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
           storyConfig: this.options.storyConfig,
+          mapConfig: this.options.mapConfig,
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
           mapView: this.mapView,
