@@ -40,12 +40,12 @@
 
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
+  <!-- jQuery Accordion plugin style -->
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.accordion.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
 
   <!-- jQuery date-time picker plugin -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
-  <!-- jQuery Accordion plugin style -->
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.accordion.css">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
   {% endif %}

@@ -1752,8 +1752,8 @@ a.auth-inline {
 .sidebar-pane .sidebar-header .sidebar-close {
   z-index: 1;
 }
-.sidebar-pane .sidebar-header .sidebar-close i {
-  margin-right: 30px;
+.sidebar-pane .sidebar-header .sidebar-close i.fa {
+  margin-right: 10px;
   background: #0074d9;
   border-radius: 50%;
   padding: 6px 10px 5px 6px;
@@ -1762,6 +1762,121 @@ a.auth-inline {
   margin-left: -10px;
 }
 
+/*---- jquery-accordion overrides ----*/
+[data-control],
+[data-content] > * {
+  border-bottom: none;
+}
+
+[data-content] > * {
+  padding: initial;
+}
+
+[data-content] input[type=checkbox] {
+  display: none;
+}
+
+[data-content] .layer-type-li {
+  padding-left: 10px;
+}
+
+[data-content] label {
+  display: block;
+  padding: 6px 0;
+  margin: 0px auto;
+  background: #ddd;
+  padding-left: 30px;
+  font-size: 14px;
+}
+
+[data-content] label:hover {
+  color: #fff;
+}
+
+[data-content] li:last-child {
+  padding-bottom: 0;
+}
+
+[data-content] li:first-child {
+  padding-top: 1px;
+}
+
+[data-content] input:checked + label:before {
+  content: "\2713";
+  padding-right: 5px;
+  color: #fff;
+  position: absolute;
+  left: 8px;
+}
+
+[data-content] input:checked + label {
+  background: #007fbf;
+  color: #fff;
+}
+
+[data-accordion] [data-control] {
+  background: #f2642f;
+  color: #fff;
+  text-transform: uppercase;
+  padding-left: 34px;
+}
+
+[data-accordion] > [data-control]:after {
+  content: "\f196";
+  top: 8px;
+  color: #fff;
+  font-size: 22px;
+  font-family: "fontawesome";
+  background: none;
+}
+
+[data-accordion].open > [data-control]:after {
+  content: "\f147";
+}
+
+[data-accordion].open > [data-control]:after {
+  -webkit-transform: initial;
+  -ms-transform: initial;
+  transform: initial;
+}
+
+/* .squaredFour */
+.layer-type-select {
+  position: absolute;
+  z-index: 98;
+}
+.layer-type-select label {
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.layer-type-select label:after {
+  content: "";
+  font-family: "fontawesome";
+  top: 8px;
+  left: 8px;
+  position: absolute;
+  font-size: 12px;
+  padding: 3px 1px 1px 3px;
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+  background: #fcfff4;
+}
+.layer-type-select label:hover::after {
+  color: #007fbf;
+}
+.layer-type-select input[type=checkbox] {
+  visibility: hidden;
+}
+.layer-type-select input[type=checkbox]:checked + label:after {
+  content: "\f00c";
+}
+
+/* end .squaredFour */
 #ticker {
   background: url(images/lightpaperfibers.png);
   z-index: 30;
@@ -1886,7 +2001,7 @@ ul.recent-points {
 
 .layer-type-title label {
   vertical-align: middle;
-  margin-right: 8px;
+  margin-right: 0px;
   font-size: 1.33em;
   letter-spacing: 1px;
 }

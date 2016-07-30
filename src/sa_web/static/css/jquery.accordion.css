@@ -17,8 +17,9 @@
     line-height: 1;
 }
 
-[data-control]{
-    /* border-bottom: 1px solid #888; edited */
+[data-control],
+[data-content] > * {
+    border-bottom: 1px solid #888;
     padding: 10px;
 }
 
@@ -30,7 +31,6 @@
 [data-accordion] [data-control] {
     position: relative;
     padding-right: 40px;
-    background: #a3c7d9; /* edited */
 }
 
 [data-accordion] > [data-control]:after {
@@ -43,47 +43,12 @@
     color: #444;
     height: 15px;
     width: 24px;
-    background: url('images/down.png') center center no-repeat;
+    background: url('../images/down.png') center center no-repeat;
     background-size: 50%;
 }
 
 [data-accordion].open > [data-control]:after {
-    -webkit-transform: rotate(-180deg); 
-    -ms-transform: rotate(-180deg); 
-    transform: rotate(-180deg); 
-}
-
-
-/* newly added */
-
-[data-content] input[type=checkbox] {
-    display: none;
-}
-
-[data-content] label {
-    display: block;
-    padding: 6px 0;
-    margin: 0px auto;
-    background: #ddd;
-    padding-left: 30px;
-    font-size: 14px;
-}
-[data-content] label:hover {
-    color: #fff;
-}
-[data-content] li:last-child {
-    padding-bottom: 0;
-}
-[data-content] li:first-child {
-    padding-top: 1px;
-}
-[data-content] input:checked + label:before {
-    content: "\2713";
-    padding-right: 5px;
-    color: #fff;
-    position: absolute;
-    left: 8px;
-}
-[data-content] input:checked + label {
-    background: #68ba4b;
+    -webkit-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
 }

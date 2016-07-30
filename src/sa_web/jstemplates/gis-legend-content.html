@@ -3,21 +3,19 @@
 <ul id="accordion-layers" class="layer-type-list unstyled-list " data-accordion-group>
   {{# groupings}}
     <li class="layer-type-grouping open" style="height" data-accordion>
+      <div class="layer-type-select">
+        <input id="{{ id }}" class="map-legend-grouping-checkbox"
+               type="checkbox"
+               {{#if visibleDefault}}
+               checked="checked"
+               {{/if}}
+        ></input>
+        <label for="{{ id }}"></label>
+      </div>
       <div data-control>
         {{title}}
       </div>
       <ul class="layer-type-grouping-list unstyled-list" data-content>
-        <li class="layer-type-li">
-          <div class="layer-type-title">
-            <input id="{{ id }}" class="map-legend-grouping-checkbox"
-                   type="checkbox"
-                   {{#if visibleDefault}}
-                   checked="checked"
-                   {{/if}}
-            ></input>
-            <label for="{{ id }}">Select all</label>
-          </div>
-        </li>
         {{# layers}}
           <li class="layer-type-li">
             <div class="layer-type-title">
