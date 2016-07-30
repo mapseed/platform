@@ -52,6 +52,10 @@ map:
 
   # Legend Layers
 
+    - id: gtlayers
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/66a32abe-567e-11e6-9878-0e3ebc282e83/viz.json"
+
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
@@ -314,6 +318,10 @@ sidebar:
           layers:
             - id: gtopenspace
               title: _(Community Reports)
+              visibleDefault: true
+
+            - id: gtlayers
+              title: _(Map enhancement)
               visibleDefault: true
 
             - id: cleanup
