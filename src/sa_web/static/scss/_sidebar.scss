@@ -68,72 +68,73 @@
 //}
 
 /*---- jquery-accordion overrides ----*/
+[data-accordion] {
+    [data-control] {
+        border-bottom: none;
+        background: rgba(242, 100, 47, 1);
+        color: #fff;
+        text-transform: uppercase;
+        padding-left: 34px;
+        &:after {
+            content: "\f196";
+            top: 8px;
+            color: #fff;
+            font-size: 22px;
+            font-family: "fontawesome";
+            background: none;
+        }
+    }
+    &.open > [data-control]:after {
+        content: "\f147";
+        -webkit-transform: initial;
+        -ms-transform: initial;
+        transform: initial;
+    }
 
-[data-control],
-[data-content] > * {
-    border-bottom: none;
+    [data-content] {
+        .layer-type-li {
+            border-bottom: none;
+            padding: initial;
+            padding-bottom: 1px;
+            padding-left: 10px;
+            &:last-child {
+                padding-bottom: 0;
+            }
+            &:first-child {
+                padding-top: 1px;
+            }
 
-}
-[data-content] > * {
-    padding: initial;
-}
+            input {
+                &[type=checkbox] {
+                    display: none;
+                }
 
-[data-content] input[type=checkbox] {
-    display: none;
-}
-[data-content] .layer-type-li {
-    padding-left: 10px;
-}
-[data-content] label {
-    display: block;
-    padding: 6px 0;
-    margin: 0px auto;
-    background: #ddd;
-    padding-left: 30px;
-    font-size: 14px;
-}
-[data-content] label:hover {
-    color: #fff;
-}
-[data-content] li:last-child {
-    padding-bottom: 0;
-}
-[data-content] li:first-child {
-    padding-top: 1px;
-}
-[data-content] input:checked + label:before {
-    content: "\2713";
-    padding-right: 5px;
-    color: #fff;
-    position: absolute;
-    left: 8px;
-}
-[data-content] input:checked + label{
-    background: rgb(0, 127, 191);
-    color: #fff;
-}
-[data-accordion] [data-control] {
-    background: rgba(242, 100, 47, 1);
-    color: #fff;
-    text-transform: uppercase;
-    padding-left: 34px;
-}
+                &:checked + label {
+                    background: rgb(0, 127, 191);
+                    color: #fff;
+                    &:before {
+                        content: "\2713";
+                        padding-right: 5px;
+                        color: #fff;
+                        position: absolute;
+                        left: 8px;
+                    }
+                }
+            }
+            label {
+                display: block;
+                padding: 6px 0;
+                margin: 0px auto;
+                background: #ddd;
+                padding-left: 30px;
+                font-size: 14px;
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
 
-[data-accordion] > [data-control]:after {
-    content: "\f196";
-    top: 8px;
-    color: #fff;
-    font-size: 22px;
-    font-family: "fontawesome";
-    background: none;
-}
-[data-accordion].open > [data-control]:after {
-    content: "\f147";
-}
-[data-accordion].open > [data-control]:after {
-    -webkit-transform: initial;
-    -ms-transform: initial;
-    transform: initial;
+    }
 }
 /* .squaredFour */
 .layer-type-select {

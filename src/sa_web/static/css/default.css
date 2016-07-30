@@ -1763,65 +1763,14 @@ a.auth-inline {
 }
 
 /*---- jquery-accordion overrides ----*/
-[data-control],
-[data-content] > * {
-  border-bottom: none;
-}
-
-[data-content] > * {
-  padding: initial;
-}
-
-[data-content] input[type=checkbox] {
-  display: none;
-}
-
-[data-content] .layer-type-li {
-  padding-left: 10px;
-}
-
-[data-content] label {
-  display: block;
-  padding: 6px 0;
-  margin: 0px auto;
-  background: #ddd;
-  padding-left: 30px;
-  font-size: 14px;
-}
-
-[data-content] label:hover {
-  color: #fff;
-}
-
-[data-content] li:last-child {
-  padding-bottom: 0;
-}
-
-[data-content] li:first-child {
-  padding-top: 1px;
-}
-
-[data-content] input:checked + label:before {
-  content: "\2713";
-  padding-right: 5px;
-  color: #fff;
-  position: absolute;
-  left: 8px;
-}
-
-[data-content] input:checked + label {
-  background: #007fbf;
-  color: #fff;
-}
-
 [data-accordion] [data-control] {
+  border-bottom: none;
   background: #f2642f;
   color: #fff;
   text-transform: uppercase;
   padding-left: 34px;
 }
-
-[data-accordion] > [data-control]:after {
+[data-accordion] [data-control]:after {
   content: "\f196";
   top: 8px;
   color: #fff;
@@ -1829,15 +1778,48 @@ a.auth-inline {
   font-family: "fontawesome";
   background: none;
 }
-
 [data-accordion].open > [data-control]:after {
   content: "\f147";
-}
-
-[data-accordion].open > [data-control]:after {
   -webkit-transform: initial;
   -ms-transform: initial;
   transform: initial;
+}
+[data-accordion] [data-content] .layer-type-li {
+  border-bottom: none;
+  padding: initial;
+  padding-bottom: 1px;
+  padding-left: 10px;
+}
+[data-accordion] [data-content] .layer-type-li:last-child {
+  padding-bottom: 0;
+}
+[data-accordion] [data-content] .layer-type-li:first-child {
+  padding-top: 1px;
+}
+[data-accordion] [data-content] .layer-type-li input[type=checkbox] {
+  display: none;
+}
+[data-accordion] [data-content] .layer-type-li input:checked + label {
+  background: #007fbf;
+  color: #fff;
+}
+[data-accordion] [data-content] .layer-type-li input:checked + label:before {
+  content: "\2713";
+  padding-right: 5px;
+  color: #fff;
+  position: absolute;
+  left: 8px;
+}
+[data-accordion] [data-content] .layer-type-li label {
+  display: block;
+  padding: 6px 0;
+  margin: 0px auto;
+  background: #ddd;
+  padding-left: 30px;
+  font-size: 14px;
+}
+[data-accordion] [data-content] .layer-type-li label:hover {
+  color: #fff;
 }
 
 /* .squaredFour */
