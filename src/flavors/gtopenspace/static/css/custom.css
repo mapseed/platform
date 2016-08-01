@@ -46,7 +46,7 @@
 @media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
-    width: 180px;
+    width: 250px;
     height: 25px;
     background-size: 180px auto;
     margin: 10px 0 0 0;
