@@ -60,20 +60,9 @@ map:
       type: cartodb
       url: https://smartercleanup.carto.com/api/v2/viz/0a3e681c-5686-11e6-8214-0e233c30368f/viz.json
 
-    - id: restoration
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      type: landmark
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
     - id: gtopenspace
       type: place
       slug: idea
-
-       # WRIA9 watershed
-    - id: watershed
-      type: cartodb
-      url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
 
     - id: cleanup
       type: cartodb
@@ -84,11 +73,6 @@ map:
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
       opacity: 0.5
-
-      # Green Seattle Partnership restoration phases
-    - id: phases
-      type: cartodb
-      url: "https://gis206.cartodb.com/api/v2/viz/217a2e02-e729-11e5-9bd4-0e5db1731f59/viz.json"
 
       # WMS Original Flow
     - id: duwamish-original
@@ -317,12 +301,17 @@ sidebar:
           visibleDefault: false
       groupings:
         - id: grp-community
-          title: _(Select All)
+          title: _(Primary Layers)
           visibleDefault: true
           layers:
             - id: gtopenspace
               title: _(Community Reports)
               visibleDefault: true
+
+              # Toggle our basemaps
+            - id: toggle-satellite
+              title: _(Satellite View)
+              visibleDefault: false
 
             - id: gtsurvey
               title: _(Survey responses)
@@ -332,16 +321,8 @@ sidebar:
               title: _(Map enhancement)
               visibleDefault: true
 
-            - id: cleanup
-              title: _(River Cleanup Plan)
-              visibleDefault: false
-
-            - id: restoration
-              title: _(Restoration Sites)
-              visibleDefault: false
-
         - id: grp-land
-          title: _(Land Data)
+          title: _(Additional Layers)
           visibleDefault: false
           layers:
               # Land Use
@@ -349,25 +330,10 @@ sidebar:
               title: _(Land use)
               visibleDefault: false
 
-              # Green Seattle Partnership restoration phases
-            - id: phases
-              title: _(Green Seattle partnership)
-              visibleDefault: false
-
               # Noxious Weeds
             - id: noxious-weeds
               title: _(Noxious Weeds)
               visibleDefault: false
-
-              # WRIA9 watershed
-            - id: watershed
-              title: _(Watershed)
-              visibleDefault: false
-
-        - id: grp-history
-          title: _(Historical Data)
-          visibleDefault: false
-          layers:
 
               # WMS Original Flow
             - id: duwamish-original
