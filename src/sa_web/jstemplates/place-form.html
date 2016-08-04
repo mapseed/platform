@@ -49,6 +49,17 @@
         <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
         
         <!-- begin field type definitions -->
+        {{#is type "geocoding"}}
+          <div class="geocoding-enabled">
+            <div id="geocode-address-place-bar" class="clearfix">
+              <p class="error is-hidden"></p>
+              <label class="geocode-address-label" for="geocode-address-field"></label>
+              <div class="geocode-spinner is-hidden"></div>
+              <input name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} type="text" id="geocode-address-field" class="geocode-address-field">
+            </div>
+          </div>
+        {{/is}}
+        
         {{#is type "datetime"}}
           <input id="datetimepicker" name="{{ name }}" type="text" {{^optional}}required{{/optional}}>
         {{/is}}
