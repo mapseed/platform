@@ -94,7 +94,6 @@ var Shareabouts = Shareabouts || {};
         // set layer visibility based on story config
         _.each(this.model.attributes.story.visibleLayers, function(layer) {
           $(S).trigger('visibility', [layer, true]);
-          console.log("turning on", layer);
           // set legend checkbox
           $("#map-" + layer).prop("checked", true);
         });
@@ -104,7 +103,6 @@ var Shareabouts = Shareabouts || {};
             // don't turn off basemap layers!
             if (layer.type != "basemap") {
               $(S).trigger('visibility', [layer.id, false]);
-              console.log("turning off", layer.id);
               // set legend checkbox
               $("#map-" + layer.id).prop("checked", false);
             } 
