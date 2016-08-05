@@ -575,6 +575,7 @@ var Shareabouts = Shareabouts || {};
         $(S).trigger('visibility', [model.attributes.story.basemap, true, true]);
         $("#map-" + model.attributes.story.basemap).prop("checked", true);
       }
+
       // set layer visibility based on story config
       _.each(model.attributes.story.visibleLayers, function(targetLayer) {
         $(S).trigger('visibility', [targetLayer, true]);
@@ -842,7 +843,7 @@ var Shareabouts = Shareabouts || {};
             }
           }
         }
-
+        
         // Focus the one we're looking
         model.trigger('focus');
 
