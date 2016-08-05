@@ -110,6 +110,31 @@ map:
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
 
+    - id: cso
+      type: json
+      url: "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson"
+      rules:
+        - condition: '"{{properties.description}}" === "No recent overflow"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-4ab767.png
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.description}}" === "Overflowed in the last 48 hrs"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-dbcf2c.png
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.description}}" === "Overflowing now"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-f95016.png
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.description}}" === "Data not available"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-5359d7.png
+          style:
+            opacity: 0.9
+
 # The keys show up in the dropdown list when you are adding a new place
 
 # The values map the place type to map icons (defined below).
@@ -521,6 +546,10 @@ sidebar:
               # Noxious Weeds
             - id: noxious-weeds
               title: _(Noxious Weeds)
+              visibleDefault: false
+
+            - id: cso
+              title: _(Sewer Overflow)
               visibleDefault: false
 
               # WRIA9 watershed
