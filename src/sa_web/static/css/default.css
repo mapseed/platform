@@ -2554,43 +2554,23 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2079, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2082, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2084, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2086, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .geocoding-bar-enabled #content {
     top: 8.5em;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2088, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   a.close-btn {
     line-height: 2;
     top: 10px;
@@ -2601,18 +2581,10 @@ a.close-unsupported-overlay {
     border-radius: 0.325em 0 0 0.325em;
     box-shadow: -0.325em 0.325em 0 rgba(0, 0, 0, 0.1);
   }
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2098, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   a.close-btn span {
     display: none;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2100, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .unsupported-overlay {
     position: absolute;
     top: 5em;
@@ -2620,27 +2592,15 @@ a.close-unsupported-overlay {
     left: 1em;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2105, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .unsupported-message {
     border-radius: 0 0 0.625em 0.625em;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2107, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   a.close-unsupported-overlay {
     right: auto;
     border-radius: 0.325em;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2110, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #content > article {
     overflow: auto;
     padding: 1em 1em 2em;
@@ -2651,10 +2611,6 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2119, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #geocode-address-bar {
     position: absolute;
     top: 4em;
@@ -2666,18 +2622,10 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2129, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled #geocode-address-bar {
     right: 18em;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2133, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #geocode-address-bar .error {
     padding: 0.25em 0.5em;
     position: relative;
@@ -2692,26 +2640,14 @@ a.close-unsupported-overlay {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2146, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #geocode-address-bar .error + form {
     margin-bottom: 0;
     margin-right: 15em;
   }
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2149, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #geocode-address-bar .error.is-hidden + form {
     margin-right: 0;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2152, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #side-bar {
     position: absolute;
     top: 4em;
@@ -2726,25 +2662,13 @@ a.close-unsupported-overlay {
     background-color: rgba(255, 255, 255, 0.9);
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
   .activity-enabled.content-visible #side-bar {
     display: block;
   }
-=======
-  /* line 2166, ../sass/default.sass */
-  .activity-enabled.content-visible #side-bar {
-    display: block;
-  }
-  /* line 2168, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2172, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #ticker {
     right: 0;
     bottom: 0;
@@ -2754,58 +2678,30 @@ a.close-unsupported-overlay {
     background: none;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2179, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled.content-visible #ticker {
     display: block;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2181, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   ul.recent-points {
     font-size: 0.875em;
     -webkit-transform: translateZ(0px);
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2185, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2189, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #master-legend {
     z-index: 15;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
   .activity-enabled.content-visible #master-legend {
     display: block;
   }
-=======
-  /* line 2192, ../sass/default.sass */
-  .activity-enabled.content-visible #master-legend {
-    display: block;
-  }
-  /* line 2194, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2198, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .list-toggle-nav {
     display: block;
     width: auto;
@@ -2816,18 +2712,10 @@ a.close-unsupported-overlay {
     float: left;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2208, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #list-container.is-exposed {
     display: block;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2220, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #colophon {
     color: #007fbf;
     background: url(images/lightpaperfibers.png);
@@ -2846,72 +2734,40 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2239, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #powered-by {
     margin-bottom: 0;
   }
 }
 @media only screen and (min-width: 80em) {
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2243, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   #content {
     right: 0;
     left: 60%;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2246, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2249, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2251, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 }
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2256, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .share-twitter a {
     background-image: url(images/twitter-64.png);
     background-size: contain;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2259, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .share-facebook a {
     background-image: url(images/facebook-64.png);
     background-size: contain;
   }
 
-<<<<<<< 8b1f551b33dc793c0144e0a95febd8a683a7b549
-=======
-  /* line 2262, ../sass/default.sass */
->>>>>>> convert waterfront flavor to use dynamic form
   .locate-me {
     background-image: url(images/locate-me@2x.png);
     background-size: contain;
