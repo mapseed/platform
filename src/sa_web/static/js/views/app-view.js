@@ -551,6 +551,28 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass('content-visible', 'place-form-visible');
     },
 
+    // If a model has a story object, set the appropriate layer
+    // visilbilities and update legend checkboxes
+    setStoryLayerVisibility: function(model) {
+      // set layer visibility based on story config
+      _.each(model.attributes.story.visibleLayers, function(targetLayer) {
+        $(S).trigger('visibility', [targetLayer, true]);
+        // set legend checkbox
+        $("#map-" + targetLayer).prop("checked", true);
+      });
+      // switch off all other layers
+      _.each(this.options.mapConfig.layers, function(targetLayer) {
+        if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
+          // don't turn off basemap layers!
+          if (targetLayer.type != "basemap") {
+            $(S).trigger('visibility', [targetLayer.id, false]);
+            // set legend checkbox
+            $("#map-" + targetLayer.id).prop("checked", false);
+          } 
+        }
+      });
+    },
+
     // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
@@ -586,13 +608,20 @@ var Shareabouts = Shareabouts || {};
             }
 
           } else {
-            map.panTo(center, {animate: true});
+            if (model.attributes.story) {
+              // if this model is part of a story, set center and zoom level
+              map.setView(center, model.attributes.story.zoom, {animate: true});
+            } else {
+              map.panTo(center, {animate: true});
+            }
           }
         }
         self.addSpotlightMask();
 
         // Focus the one we're looking
         model.trigger('focus');
+
+        if (model.attributes.story) self.setStoryLayerVisibility(model);
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
@@ -718,7 +747,12 @@ var Shareabouts = Shareabouts || {};
             }
 
           } else {
-            map.panTo(center, {animate: true});
+            if (model.attributes.story) {
+              // if this model is part of a story, set center and zoom level
+              map.setView(center, model.attributes.story.zoom, {animate: true});
+            } else {
+              map.panTo(center, {animate: true});
+            }
           }
         }
         self.addSpotlightMask();
@@ -738,9 +772,11 @@ var Shareabouts = Shareabouts || {};
             }
           }
         }
-
+        
         // Focus the one we're looking
         model.trigger('focus');
+
+        if (model.attributes.story) self.setStoryLayerVisibility(model);
       };
 
       onPlaceNotFound = function() {

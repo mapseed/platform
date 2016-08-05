@@ -87,29 +87,6 @@ var Shareabouts = Shareabouts || {};
 
       this.delegateEvents();
 
-      if (this.model.attributes.story) {
-        // set the zoom level
-        // NOTE: setting the zoom level in this way seems to be buggy
-        this.options.mapView.map.setZoom(this.model.attributes.story.zoom);
-        // set layer visibility based on story config
-        _.each(this.model.attributes.story.visibleLayers, function(layer) {
-          $(S).trigger('visibility', [layer, true]);
-          // set legend checkbox
-          $("#map-" + layer).prop("checked", true);
-        });
-        // switch off all other layers
-        _.each(this.options.mapConfig.layers, function(layer) {
-          if (!_.contains(self.model.attributes.story.visibleLayers, layer.id)) {
-            // don't turn off basemap layers!
-            if (layer.type != "basemap") {
-              $(S).trigger('visibility', [layer.id, false]);
-              // set legend checkbox
-              $("#map-" + layer.id).prop("checked", false);
-            } 
-          }
-        });
-      }
-
       return this;
     },
 
