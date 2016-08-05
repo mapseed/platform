@@ -38,14 +38,20 @@ var Shareabouts = Shareabouts || {};
         // set layer visibility based on story config
         _.each(this.model.attributes.story.visibleLayers, function(layer) {
           $(S).trigger('visibility', [layer, true]);
-          // TODO: set legend checkboxes appropriately
+          console.log("turning on", layer);
+          // set legend checkbox
+          $("#map-" + layer).prop("checked", true);
         });
         // switch off all other layers
         _.each(this.options.mapConfig.layers, function(layer) {
           if (!_.contains(self.model.attributes.story.visibleLayers, layer.id)) {
             // don't turn off basemap layers!
-            if (layer.type != "basemap") $(S).trigger('visibility', [layer.id, false]);
-            // TODO: set legend checkboxes appropriately
+            if (layer.type != "basemap") {
+              $(S).trigger('visibility', [layer.id, false]);
+              console.log("turning off", layer.id);
+              // set legend checkbox
+              $("#map-" + layer.id).prop("checked", false);
+            } 
           }
         });
       }
