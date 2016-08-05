@@ -68,8 +68,8 @@ shell.cat([
 ]).to('src/sa_web/static/dist/cat-preload-bundle.js')
 
 shell.cat([
-  'src/sa_web/static/css/default.css',
   'src/sa_web/static/css/leaflet-sidebar.css',
+  'src/sa_web/static/css/default.css',
   'src/sa_web/static/css/jquery.datetimepicker.css',
   'src/flavors/' + flavor + '/static/css/custom.css'
 ]).to('src/sa_web/static/dist/cat-bundle.css')
