@@ -92,8 +92,9 @@ var Shareabouts = Shareabouts || {};
         if (!self.fetching[key]) {
           self.fetching[key] = true;
 
-          // add dataset slug paramter
-          options.attributesToAdd = { datasetSlug: _.filter(self.options.mapConfig.layers, function(layer) { return layer.id == key })[0].slug }
+          // add dataset slug and dataset id paramters
+          options.attributesToAdd = { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug,
+                                      datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id }
           collection.fetch(options);
         } else {
           // Let's wait 5 seconds and try again.
@@ -156,10 +157,13 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (placeIdsToFetch.length > 0) {
-        _.each(self.places, function(collection) {
+        _.each(self.places, function(collection, key) {
           collection.fetchByIds(placeIdsToFetch, {
             // Check for a valid location type before adding it to the collection
             validate: true,
+            attribute: "properties",
+            attributesToAdd: { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug,
+                               datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id },
             success: function() {
               self.render();
             }
