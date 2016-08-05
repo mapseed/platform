@@ -40,6 +40,24 @@ var Shareabouts = Shareabouts || {};
     return { story: storyObj }
   };
 
+  // Pull out the full title string from the block of HTML used
+  // to render the landmark
+  var addLandmarkDescription = function(properties) {
+    var fullTitle,
+    re = /^\s*<(h[0-9]|b)>(.+)<(\/h[0-9]|\/b)>/,
+    // Grab the full title from between header or bold tags at the beginning
+    // of the HTML block
+    match = properties.description.match(re);
+    if (match) {
+      // the second capture group represents the full title
+      fullTitle = match[2];
+      properties.description = properties.description.replace(re, "");
+    } else {
+      fullTitle = properties.title;
+    }
+    return { fullTitle: fullTitle }
+  };
+
   S.PaginatedCollection = Backbone.Collection.extend({
     resultsAttr: 'results',
 
@@ -332,6 +350,7 @@ var Shareabouts = Shareabouts || {};
       var response = _.clone(response);
       // add story object, if relevant
       _.extend(response, addStoryObj(response.properties, "landmark"));
+      _.extend(response, addLandmarkDescription(response.properties));
 
       return response;
     }

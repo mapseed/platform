@@ -17,7 +17,8 @@ var Shareabouts = Shareabouts || {};
           data = {
             description: this.description,
             story: this.model.attributes.story,
-            title: this.model.attributes.title
+            title: this.model.attributes.title,
+            fullTitle: this.model.attributes.fullTitle
           };
 
       // add the story navigation bar
