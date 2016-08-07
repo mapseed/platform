@@ -1760,7 +1760,11 @@ img {
 .btn-previous-story-nav {
   vertical-align: top;
   width: 10%;
+<<<<<<< e036a89eb7fcac0c03b84659ba7d7ed8545a4e2e
   color: rgba(255, 0, 0, 0.43);
+=======
+  color: #f25050;
+>>>>>>> change story buttons to red
   cursor: pointer;
 }
 <<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
@@ -1776,13 +1780,17 @@ img {
   content: "";
 }
 .btn-previous-story-nav:hover {
-  color: #007fbf;
+  color: #f07171;
 }
 
 .btn-next-story-nav {
 >>>>>>> gtopen space round 2 setup
   width: 10%;
+<<<<<<< e036a89eb7fcac0c03b84659ba7d7ed8545a4e2e
   color: white;
+=======
+  color: #f25050;
+>>>>>>> change story buttons to red
   cursor: pointer;
 }
 <<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
@@ -1800,7 +1808,7 @@ img {
   content: "";
 }
 .btn-next-story-nav:hover {
-  color: #007fbf;
+  color: #f07171;
 }
 
 .story-nav-disabled {
