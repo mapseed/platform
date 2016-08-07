@@ -58,6 +58,13 @@ var Shareabouts = Shareabouts || {};
                   .featureIds(ids.slice(i, i + 1000))
                   .run(function(error, geoJson) {
                     var currentLayer = L.argo(geoJson, config);
+
+                    if (config.popupContent) {
+                      curentLayer.bindPopup(function(feature) {
+                        return L.Argo.t(config.popupContent, feature.properties);
+                      });
+                    }
+
                     esriLayers.push(currentLayer);
 
                     if (esriLayers.length === (Math.floor(ids.length / 1000) + 1)) {
@@ -76,6 +83,13 @@ var Shareabouts = Shareabouts || {};
                 }
               }
             );
+
+            if (config.popupContent) {
+              layer.bindPopup(function(feature) {
+                return L.Argo.t(config.popupContent, feature.properties);
+              });
+            }
+
             self.layers[config.id] = layer;
           }
         } else if (config.type && config.type === 'landmark') {
