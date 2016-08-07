@@ -43,7 +43,41 @@ var Shareabouts = Shareabouts || {};
           }
           layer = L.argo(url, config);
           self.layers[config.id] = layer;
+        } else if (config.type && config.type === 'esri-feature') {
+          if (config.loadStrategy === 'all at once') {
+            // IDs can be returned all at once, while actual geometries are
+            // capped at 1000 per request. Gets an array of all IDs then
+            // requests their geometry 1000 at a time.
+            L.esri.Tasks.query({
+              url: config.url
+            }).ids(function(error, ids) {
+              var esriLayers = [];
 
+              for (var i = 0; i < ids.length; i += 1000) {
+                L.esri.Tasks.query({url: config.url})
+                  .featureIds(ids.slice(i, i + 1000))
+                  .run(function(error, geoJson) {
+                    var currentLayer = L.argo(geoJson, config);
+                    esriLayers.push(currentLayer);
+
+                    if (esriLayers.length === (Math.floor(ids.length / 1000) + 1)) {
+                      // All requests have completed
+                      self.layers[config.id] = L.layerGroup(esriLayers);
+                    }
+                  });
+              }
+            });
+          } else {
+            layer = L.esri.featureLayer(
+              {
+                url: config.url,
+                style: function(feature) {
+                  return L.Argo.getStyleRule(feature, config.rules)['style'];
+                }
+              }
+            );
+            self.layers[config.id] = layer;
+          }
         } else if (config.type && config.type === 'landmark') {
           collectionId = config.id;
           self.layers[collectionId] = L.layerGroup();

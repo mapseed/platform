@@ -55,6 +55,7 @@ module.exports = function(grunt) {
                                            '<%= dirs.src %>/libs/moment-with-locales.min.js',
                                            '<%= dirs.src %>/libs/json2.js',
                                            '<%= dirs.src %>/libs/leaflet.argo.js',
+                                           '<%= dirs.src %>/libs/esri-leaflet.js',
                                            '<%= dirs.src %>/libs/binaryajax.js',
                                            '<%= dirs.src %>/libs/exif.js',
                                            '<%= dirs.src %>/libs/load-image.js',
