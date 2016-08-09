@@ -56,35 +56,15 @@ map:
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/66a32abe-567e-11e6-9878-0e3ebc282e83/viz.json"
 
-    - id: gtsurvey
-      type: cartodb
-      url: https://smartercleanup.carto.com/api/v2/viz/0a3e681c-5686-11e6-8214-0e233c30368f/viz.json
-
     - id: gtopenspace
       type: place
       slug: idea
-
-    - id: cleanup
-      type: cartodb
-      url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
-
-      # Land Use
-    - id: landuse
-      type: cartodb
-      url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
-      opacity: 0.5
 
       # WMS Original Flow
     - id: duwamish-original
       url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
       type: cartodb
       opacity: 0.4
-
-      # Noxious Weeds
-    - id: noxious-weeds
-      type: cartodb
-      url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
-      opacity: 0.5
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -311,10 +291,6 @@ sidebar:
               # Toggle our basemaps
             - id: toggle-satellite
               title: _(Satellite View)
-              visibleDefault: false
-
-            - id: gtsurvey
-              title: _(Survey responses)
               visibleDefault: false
 
             - id: gtlayers
