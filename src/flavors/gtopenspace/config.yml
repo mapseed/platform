@@ -330,7 +330,7 @@ sidebar:
         - title: _(Streetscape improvement sites)
           image: /static/css/images/markers/marker-star.png
           url: /filter/observation
-        - title: _(Park improvement sites)
+        - title: _(Park-like improvement sites)
           image: /static/css/images/markers/marker-star-green.png
           url: /filter/idea
 
