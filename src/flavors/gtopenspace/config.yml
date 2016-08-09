@@ -327,10 +327,10 @@ sidebar:
       view: LegendView
       icon: info-circle
       items:
-        - title: _(Streetscape improvements)
+        - title: _(Streetscape improvement sites)
           image: /static/css/images/markers/marker-star.png
           url: /filter/observation
-        - title: _(Park improvements)
+        - title: _(Park improvement sites)
           image: /static/css/images/markers/marker-star-green.png
           url: /filter/idea
 

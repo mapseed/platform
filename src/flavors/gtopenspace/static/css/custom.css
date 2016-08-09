@@ -48,6 +48,7 @@
   #site-title a:visited {
     width: 250px;
     height: 25px;
+    font-size: 1.1em;
     background-size: 180px auto;
     margin: 10px 0 0 0;
   }
