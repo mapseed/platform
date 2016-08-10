@@ -9,6 +9,7 @@
     events: {
       'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
+      'click #update-place-model-btn': 'onUpdateModel'
     },
     initialize: function() {
       var self = this;
@@ -68,6 +69,7 @@
             place_config: this.options.placeConfig,
             survey_config: this.options.surveyConfig,
             url: this.options.url
+            editable: false
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -75,6 +77,19 @@
 
       // Augment the template data with the attachments list
       data.attachments = this.model.attachmentCollection.toJSON();
+
+      // Do we need to render this place detail view in editing mode?
+      if (S.bootstrapped.currentUser) {
+      var re = /(\/([a-zA-Z0-9_]*)$)/;
+        _.each(S.bootstrapped.currentUser.groups, function(group) {
+          // get the name of the datasetId from the end of the full url
+          // provided in S.bootstrapped.currentUser.groups
+          var match = group.dataset.match(re)[2];
+          if (match && match === self.options.datasetId && group.name === "administrators") {
+            data.editable = true;
+          }
+        });
+      }
 
       this.$el.html(Handlebars.templates['place-detail'](data));
 
@@ -99,5 +114,13 @@
 
     onChange: function() {
       this.render();
+    },
+
+    onUpdateModel: function() {
+      // pull data off form and save model, triggering a PUT request
+      var test = $("#update-place-model-form");
+      var attrs = S.Util.getAttrs(test);
+      this.model.set(attrs);
+      this.model.save();
     }
   });
