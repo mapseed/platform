@@ -100,6 +100,10 @@ map:
       type: place
       slug: air
 
+    - id: editortest
+      type: place
+      slug: editortest
+
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       sources:
@@ -482,6 +486,36 @@ place_types:
       - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
+
+  editortest:
+    label: _(Question)
+    rules:
+      - condition: '{{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/triangle-fa307d.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: '{{map.zoom}} < 11'
+        icon:
+          iconUrl: /static/css/images/markers/dot-dbcf2c.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: '{{map.zoom}} < 16'
+        icon:
+          iconUrl: /static/css/images/markers/triangle-fa307d.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: '{{map.zoom}} >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/triangle-fa307d.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
 
   # greenwall:
   #   label: _(Green Screen Vote)
@@ -944,27 +978,25 @@ place:
           type: text
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
-          optional: true
-    - category: tree
+          optional: true 
+    - category: editortest
       includeOnForm: false
-      name: location_type
-      dataset: trees
-      icon_url: /static/css/images/markers/marker-tree.png
-      value: tree
-      label: _(Tree)
+      dataset: editortest
+      icon_url: /static/css/images/markers/triangle-fa307d.png
+      value: editortest
+      label: _(Editortest)
       fields:
         - name: title
           type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
+          prompt: _(Title of your question:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
           optional: false
         - name: description
           type: textarea
-          prompt: _(Description)
-          display_prompt: _(Description of this tree:)
-          placeholder: _(Description...)
-          optional: false
+          prompt: "_(What's your question?)"
+          display_prompt: _(My question:)
+          placeholder: _(Enter question...)
 
   # define form elements that appear on every form here
   common_form_elements:
