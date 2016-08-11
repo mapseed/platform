@@ -30,7 +30,8 @@ shell.cat([
   'src/sa_web/static/libs/jquery.scrollTo.js',
   'src/sa_web/static/libs/handlebars-helpers.js',
   'src/sa_web/static/libs/leaflet.argo.js',
-  'src/sa_web/static/libs/leaflet.sidebar.js'
+  'src/sa_web/static/libs/leaflet.sidebar.js',
+  'src/sa_web/static/libs/esri-leaflet.js'
 ]).to('src/sa_web/static/dist/cat-lib-bundle.js')
 
 shell.cat([

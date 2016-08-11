@@ -144,6 +144,32 @@ map:
           style:
             opacity: 0.9
 
+    - id: zoning
+      type: esri-feature
+      url: "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17"
+      popupContent: '{{CLASS_DESC}}'
+      rules:
+        - condition: '"{{properties.CLASS_DESC}}" === "Single Family"'
+          style:
+            color: '#008000'
+            stroke: false
+        - condition: '"{{properties.CLASS_DESC}}" === "Multi-Family"'
+          style:
+            color: '#008080'
+            stroke: false
+        - condition: '"{{properties.CLASS_DESC}}" === "Neighborhood/Commercial"'
+          style:
+            color: '#800080'
+            stroke: false
+        - condition: '"{{properties.CLASS_DESC}}" === "Manufacturing/Industrial"'
+          style:
+            color: '#FFA500'
+            stroke: false
+        - condition: 'true'
+          style:
+            fill: false
+            stroke: false
+
 # The keys show up in the dropdown list when you are adding a new place
 
 # The values map the place type to map icons (defined below).
@@ -565,6 +591,10 @@ sidebar:
             - id: watershed
               title: _(Watershed)
               visibleDefault: true
+
+            - id: zoning
+              title: _(Zoning)
+              visibleDefault: false
 
         - id: grp-history
           title: _(Historical Data)
