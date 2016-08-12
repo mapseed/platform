@@ -141,7 +141,6 @@ var Shareabouts = Shareabouts || {};
     return count;
   });
 
-
   // Gets the value for the given object and key. Useful for using the value
   // of a token as a key.
   Handlebars.registerHelper('get_value', function(obj, key, options) {

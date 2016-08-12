@@ -1,7 +1,9 @@
+        {{> place-detail-story-bar }}
+
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1>{{#if name }}{{ name }}{{^}}{{>location-string location }}{{/if}}</h1>
+          {{#unless story}}<h1>{{#if title }}{{ title }}{{^}}{{>location-string location }}{{/if}}</h1>{{/unless}}
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{#if submitter.avatar_url }}
@@ -52,3 +54,6 @@
         {{#if survey_config}}
         <section class="survey" id="survey"></section>
         {{/if}}
+
+        {{> place-detail-story-bar-tagline }}  
+        

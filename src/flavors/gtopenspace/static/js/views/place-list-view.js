@@ -91,18 +91,16 @@ var Shareabouts = Shareabouts || {};
       $itemViewContainer.empty();
 
       this.collection.each(function(model) {
-        if (self.views[model.cid]) {
-          $itemViewContainer.append(self.views[model.cid].$el);
-          // Delegate the events so that the subviews still work
-          self.views[model.cid].supportView.delegateEvents();
-          // manually insert the title into places active story bars
-          // NOTE: this is pretty hacky, but works for now
-          if (model.get("name")) $(".place-header:last").html("<h1>" + model.get("name") + "</h1>");
-        }
+        $itemViewContainer.append(self.views[model.cid].$el);
+        // Delegate the events so that the subviews still work
+        self.views[model.cid].supportView.delegateEvents();
+        // manually insert the title into places active story bars
+        // NOTE: this is pretty hacky, but works for now
+        $(".place-header:last").html("<h1>" + model.get("title") + "</h1>");
       });
 
-      // remove story bars from the list view
       $(".place-story-bar").remove();
+
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();

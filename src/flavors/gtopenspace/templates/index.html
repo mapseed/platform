@@ -2,7 +2,9 @@
 {% load i18n %}
 
 {% block site-title %}
-<a href="/">{{ config.app.name }}</a>
+<a href="/">
+  {{ config.app.name }}
+</a>
 {% endblock %}
 
 {% block meta %}
@@ -37,6 +39,8 @@
     <meta property="og:site_name" content="{{ config.app.title }}" />
     <meta property="og:title" content="{{ config.app.title }}" />
     <meta property="og:description" content="{{ config.app.meta_description }}" />
+    <meta name="og:image" content="{{STATIC_URL}}css/images/fb-thumbnail.png">
+
   {% endif%}
 {% endblock %}
 

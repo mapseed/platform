@@ -4,6 +4,10 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.PlaceDetailView = Backbone.View.extend({
+    events: {
+      'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
+      'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
+    },
     initialize: function() {
       var self = this;
 
@@ -48,11 +52,20 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
+    onClickStoryPrevious: function() {
+      this.options.router.navigate(this.model.attributes.story.previous, {trigger: true});
+    },
+
+    onClickStoryNext: function() {
+      this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
+    },
+
     render: function() {
       var self = this,
           data = _.extend({
             place_config: this.options.placeConfig,
-            survey_config: this.options.surveyConfig
+            survey_config: this.options.surveyConfig,
+            url: this.options.url
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -71,6 +84,8 @@ var Shareabouts = Shareabouts || {};
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
       this.model.submissionSets[this.supportType].fetchAllPages();
+
+      this.delegateEvents();
 
       return this;
     },

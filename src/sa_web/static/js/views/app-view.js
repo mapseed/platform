@@ -237,6 +237,20 @@ var Shareabouts = Shareabouts || {};
       // For knowing if the user has moved the map after opening the form.
       this.mapView.map.on('dragend', this.onMapDragEnd, this);
 
+      // If report stories are enabled, build the data structure
+      // we need to enable story navigation
+      _.each(this.options.storyConfig, function(story) {
+        var storyStructure = {};
+        _.each(story.order, function(config, i) {
+          storyStructure[config.url] = {
+            "zoom": config.zoom || story.default_zoom,
+            "visibleLayers": config.visible_layers || story.default_visible_layers,
+            "previous": (i - 1 < 0) ? null : story.order[i - 1].url,
+            "next": (i + 1 == story.order.length) ? null : story.order[i + 1].url
+          }
+        });
+        story.order = storyStructure;
+      });
 
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
@@ -291,13 +305,14 @@ var Shareabouts = Shareabouts || {};
       _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
           self.landmarks[landmarkConfig.id].fetch({
-            attributesToAdd: { location_type: landmarkConfig.placeType }
+            attributesToAdd: { location_type: landmarkConfig.placeType },
           });
         } else {
           self.landmarks[landmarkConfig.id].fetch();
         }
       });
     },
+
     loadPlaces: function(placeParams) {
       var self = this,
           $progressContainer = $('#map-progress'),
@@ -444,7 +459,11 @@ var Shareabouts = Shareabouts || {};
         landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
       } else {
         landmarkDetailView = new S.LandmarkDetailView({
-          description: model.get('properties')['description']
+          model: model,
+          description: model.get('properties')['description'],
+          mapConfig: this.options.mapConfig,
+          mapView: this.mapView,
+          router: this.options.router
         });
         this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
       }
@@ -460,8 +479,12 @@ var Shareabouts = Shareabouts || {};
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
+          storyConfig: this.options.storyConfig,
+          mapConfig: this.options.mapConfig,
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
+          mapView: this.mapView,
+          router: this.options.router,
           url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
         });
@@ -528,6 +551,28 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass('content-visible', 'place-form-visible');
     },
 
+    // If a model has a story object, set the appropriate layer
+    // visilbilities and update legend checkboxes
+    setStoryLayerVisibility: function(model) {
+      // set layer visibility based on story config
+      _.each(model.attributes.story.visibleLayers, function(targetLayer) {
+        $(S).trigger('visibility', [targetLayer, true]);
+        // set legend checkbox
+        $("#map-" + targetLayer).prop("checked", true);
+      });
+      // switch off all other layers
+      _.each(this.options.mapConfig.layers, function(targetLayer) {
+        if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
+          // don't turn off basemap layers!
+          if (targetLayer.type != "basemap") {
+            $(S).trigger('visibility', [targetLayer.id, false]);
+            // set legend checkbox
+            $("#map-" + targetLayer.id).prop("checked", false);
+          } 
+        }
+      });
+    },
+
     // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
@@ -563,13 +608,20 @@ var Shareabouts = Shareabouts || {};
             }
 
           } else {
-            map.panTo(center, {animate: true});
+            if (model.attributes.story) {
+              // if this model is part of a story, set center and zoom level
+              map.setView(center, model.attributes.story.zoom, {animate: true});
+            } else {
+              map.panTo(center, {animate: true});
+            }
           }
         }
         self.addSpotlightMask();
 
         // Focus the one we're looking
         model.trigger('focus');
+
+        if (model.attributes.story) self.setStoryLayerVisibility(model);
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
@@ -695,7 +747,12 @@ var Shareabouts = Shareabouts || {};
             }
 
           } else {
-            map.panTo(center, {animate: true});
+            if (model.attributes.story) {
+              // if this model is part of a story, set center and zoom level
+              map.setView(center, model.attributes.story.zoom, {animate: true});
+            } else {
+              map.panTo(center, {animate: true});
+            }
           }
         }
         self.addSpotlightMask();
@@ -715,9 +772,11 @@ var Shareabouts = Shareabouts || {};
             }
           }
         }
-
+        
         // Focus the one we're looking
         model.trigger('focus');
+
+        if (model.attributes.story) self.setStoryLayerVisibility(model);
       };
 
       onPlaceNotFound = function() {
