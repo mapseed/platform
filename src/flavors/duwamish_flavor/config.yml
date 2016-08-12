@@ -553,7 +553,7 @@ sidebar:
 
             - id: vision
               title: _(Community Vision)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: restoration
               title: _(Restoration Sites)
@@ -576,7 +576,7 @@ sidebar:
               # Green Seattle Partnership restoration phases
             - id: phases
               title: _(Green Seattle partnership)
-              visibleDefault: true
+              visibleDefault: false
 
               # Noxious Weeds
             - id: noxious-weeds
