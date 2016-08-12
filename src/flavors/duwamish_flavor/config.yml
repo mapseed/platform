@@ -758,6 +758,7 @@ pages:
   - title: _(Background)
     slug: background
     name: background
+    hide_from_top_bar: true
 
   - title: _(Get involved)
     slug: getinvolved
