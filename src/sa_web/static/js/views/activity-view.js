@@ -74,10 +74,17 @@ var Shareabouts = Shareabouts || {};
       options.complete = _.bind(function() {
         // The total length may have changed, so don't overwrite it!
         _.each(self.activities, function(collection, key) {
-          meta[key].length = collection.metadata.length;
-          collection.metadata = meta;
-          self.fetching[key] = false;
-        })
+          // NOTE: I think there is an async issue here, in which a dataset's activities
+          // are not yet fetched but checkForNewActivity() is run. There's probably
+          // a better solution, but for now a check for whether meta[key] exists
+          // prevents errors when we try to access the .length property for a set of
+          // activities that haven't loaded yet.
+          if (meta[key]) {
+            meta[key].length = collection.metadata.length;
+            collection.metadata = meta;
+            self.fetching[key] = false;
+          }
+        });
 
         // After a check for activity has completed, no matter the result,
         // schedule another.
