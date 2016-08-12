@@ -4,6 +4,7 @@
 {% load shareabouts_utils %}
 {% load url from future %}
 {% get_current_language as LANGUAGE_CODE %}
+{% load compress %}
 
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
@@ -47,6 +48,9 @@
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
   {% endif %}
+  {% compress css %}
+  <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}scss/default.scss" />
+  {% endcompress %}
 
   <!-- Flavor's Custom Stylesheet -->
   <link rel="stylesheet" href="{{ config.static_url }}css/custom.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
