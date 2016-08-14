@@ -92,14 +92,6 @@ map:
       type: place
       slug: report
 
-    - id: trees
-      type: place
-      slug: trees
-
-    - id: air
-      type: place
-      slug: air
-
     - id: editortest
       type: place
       slug: editortest
