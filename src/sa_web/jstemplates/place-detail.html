@@ -49,7 +49,12 @@
         </header>
 
         <section class="place-items">
-          {{# attachments }}
+          {{#if isEditable}}
+            <div id="toggle-editor-btn" class="btn btn-small">{{#_}}Edit this post{{/_}}</div>
+          {{/if}}
+
+          <form id="update-place-model-form">
+            {{# attachments }}
             <div class="place-item place-item-attachment place-attachment-{{ name }}">
               <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
             </div>
@@ -57,67 +62,24 @@
 
           {{#each_place_item "submitter_name" "name" "location_type" "fullTitle" "title" "name"}}
             <div class="place-item place-item-{{ name }}">
-              <span class="place-label place-label-{{ name }}">{{ prompt }}</span>
+              <span class="place-label place-label-{{ name }}">{{label}}</span>
+              {{#if ../isEditingToggled}}
+                {{#is type "text"}}
+                  <input type="text" class="place-value place-value{{ name }}" name="{{ name }}" value="{{nlToBr value}}" />
+                {{/is}}
 
-              {{#is type "datetime"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
-              {{/is}}
-              
-              {{#is type "text"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>                
-              {{/is}}
-
-              {{#is type "textarea"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
-              {{/is}}
-
-              {{#is type "radio_big_buttons"}}
-                <ul>
-                  {{#each content}}
-                    {{#if selected}}
-                      <li class="multi-select-response place-value">{{ label }} </li>
-                    {{/if}}
-                  {{/each}}
-                </ul>
-              {{/is}}
-
-              {{#is type "checkbox_big_buttons"}}
-                <ul>
-                  {{#each content}}
-                    {{#if selected}}
-                      <li class="multi-select-response place-value">{{ label }} </li>
-                    {{/if}}
-                  {{/each}}
-                </ul>
-              {{/is}}
-
-              {{#is type "binary_toggle"}}
-                <ul>
-                  <li class="place-value">
-                    {{#if content.selected}}
-                      {{ content.selectedLabel }}
-                    {{else}}
-                      {{ content.unselectedLabel }}
-                    {{/if}}
-                  </li>
-                </ul>
-              {{/is}}
-
-              {{#is type "dropdown"}}
-                {{#each content}}
-                  {{#if selected}}
-                    <ul>
-                      <li class="place-value">
-                        {{nlToBr label}}
-                      </li>
-                    </ul>
-                  {{/if}}
-                {{/each}}
-              {{/is}}
-
-              <div style="clear:both"></div>
+                {{#is type "textarea"}}
+                  <textarea class="place-value place-value-{{ name }}" name="{{ name }}">{{nlToBr value}}</textarea>
+                {{/is}}
+              {{else}}
+                <p class="place-value place-value-{{ name }}">{{nlToBr value }}</p>
+              {{/if}}
             </div>
-          {{/each_place_item }}
+            {{/each_place_item }}
+          </form>
+          {{#if isEditingToggled}}
+            <a href="#" id="update-place-model-btn" class="btn btn-small">Update post</a>
+          {{/if}}
         </section>
 
         {{#if survey_config}}
