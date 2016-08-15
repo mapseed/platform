@@ -1,11 +1,48 @@
-# Django settings for project project.
+# Django settings for 'project' project.
 import datetime
 import os.path
+import re
+
+##############################################################################
+# Environment overrides
+# ---------------------
+# Pull in certain values from the environment.
+env = os.environ
+
+
+def read_env():
+    try:
+        file_path = os.path.join(os.path.dirname(__file__), '..',  '.env')
+        # print "filepath:" + str(file_path)
+        with open(file_path) as f:
+            content = f.read()
+    except IOError:
+        content = ''
+
+    for line in content.splitlines():
+        m1 = re.match(r'\A([A-Za-z_0-9]+)=(.*)\Z', line)
+        if m1:
+            key, val = m1.group(1), m1.group(2)
+            m2 = re.match(r"\A'(.*)'\Z", val)
+            if m2:
+                val = m2.group(1)
+            m3 = re.match(r'\A"(.*)"\Z', val)
+            if m3:
+                val = re.sub(r'\\(.)', r'\1', m3.group(1))
+            # overrides existing env variables, only in the Python env
+            os.environ[key] = val
+read_env()
+
 
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+# here = os.path.abspath(os.path.dirname(__file__))
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+if 'DEBUG' in env:
+    DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in
+                              ('true', 'on', 't', 'yes'))
+else:
+    DEBUG = True
+    TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -21,11 +58,6 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['*']
 
-# How long to keep api cache values. Since the api will invalidate the cache
-# automatically when appropriate, this can (and should) be set to something
-# large.
-API_CACHE_TIMEOUT = 3600  # an hour
-
 REST_FRAMEWORK = {
     'PAGINATE_BY': 100,
     'PAGINATE_BY_PARAM': 'page_size'
@@ -38,7 +70,7 @@ REST_FRAMEWORK = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = os.environ.get('TIME_ZONE', 'America/New_York')
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -66,38 +98,6 @@ MEDIA_ROOT = ''
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-from os.path import dirname, abspath, join as pathjoin
-STATIC_ROOT=abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
-if (DEBUG):
-    COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..', 'sa_web', 'static'))
-else:
-    COMPRESS_ROOT = STATIC_ROOT
-COMPRESS_OUTPUT_DIR = ''
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-COMPRESS_URL = STATIC_URL
-
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
-ATTACHMENT_STORAGE = 'django.core.files.storage.FileSystemStorage'
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    'compressor.finders.CompressorFinder',
-)
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'pbv(g=%7$$4rzvl88e24etn57-%n0uw-@y*=7ak422_3!zrc9+'
 
@@ -105,7 +105,7 @@ SECRET_KEY = 'pbv(g=%7$$4rzvl88e24etn57-%n0uw-@y*=7ak422_3!zrc9+'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #     'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -131,9 +131,6 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
-
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-SESSION_COOKIE_NAME = 'sa-web-session'
 
 ROOT_URLCONF = 'project.urls'
 
@@ -210,20 +207,22 @@ LOGGING = {
 }
 
 ##############################################################################
-# Environment overrides
-# ---------------------
-# Pull in certain values from the environment.
-
-env = os.environ
-
-if 'DEBUG' in env:
-    DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in ('true', 'on', 't', 'yes'))
+# Database and storages
 
 if 'DATABASE_URL' in env:
     import dj_database_url
     # NOTE: Be sure that your DATABASE_URL has the 'postgis://' scheme.
     DATABASES = {'default': dj_database_url.config()}
     DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_COOKIE_NAME = 'sa-web-session'
+
+ATTACHMENT_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# How long to keep api cache values. Since the api will invalidate the cache
+# automatically when appropriate, this can (and should) be set to something
+# large.
+API_CACHE_TIMEOUT = 3600  # an hour
 
 if 'REDIS_URL' in env or 'REDISCLOUD_URL' in env:
     redis_url = env.get('REDIS_URL') or env.get('REDISCLOUD_URL')
@@ -244,24 +243,14 @@ if 'REDIS_URL' in env or 'REDISCLOUD_URL' in env:
             } if userpass else {}
         }
     }
-
     # Django sessions
     SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
     # Celery broker
     BROKER_URL = redis_url.strip('/') + '/1'
 
-SHAREABOUTS = {}
-if 'SHAREABOUTS_FLAVOR' in env:
-    SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
-if 'SHAREABOUTS_DATASET_ROOT' in env:
-    SHAREABOUTS['DATASET_ROOT'] = env.get('SHAREABOUTS_DATASET_ROOT')
-if 'SHAREABOUTS_DATASET_KEY' in env:
-    SHAREABOUTS['DATASET_KEY'] = env.get('SHAREABOUTS_DATASET_KEY')
-
 if all([key in env for key in ('SHAREABOUTS_AWS_KEY',
-                                   'SHAREABOUTS_AWS_SECRET',
-                                   'SHAREABOUTS_AWS_BUCKET')]):
+                               'SHAREABOUTS_AWS_SECRET',
+                               'SHAREABOUTS_AWS_BUCKET')]):
     AWS_ACCESS_KEY_ID = env['SHAREABOUTS_AWS_KEY']
     AWS_SECRET_ACCESS_KEY = env['SHAREABOUTS_AWS_SECRET']
     AWS_STORAGE_BUCKET_NAME = env['SHAREABOUTS_AWS_BUCKET']
@@ -273,6 +262,64 @@ if all([key in env for key in ('SHAREABOUTS_AWS_KEY',
     STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
     STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
+
+##############################################################################
+# Flavor-specific settings
+
+# The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
+# Shareabouts configuration. configuration is expected to live in a package
+# named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
+# folder in the root of the src tree that contains all the configuration
+# information for the flavor.
+SHAREABOUTS = {
+    'FLAVOR': os.environ.get('FLAVOR', 'duwamish_flavor'),
+    'DATASET_ROOT': os.environ.get('SITE_URL', 'NO_SITE_URL'),
+    'DATASET_KEY': os.environ.get('SITE_KEY', 'NO_SITE_KEY')
+}
+
+# TODO: Remove this as it's not needed/used:
+if 'SHAREABOUTS_FLAVOR' in env:
+    SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
+if 'SHAREABOUTS_DATASET_ROOT' in env:
+    SHAREABOUTS['DATASET_ROOT'] = env.get('SHAREABOUTS_DATASET_ROOT')
+if 'SHAREABOUTS_DATASET_KEY' in env:
+    SHAREABOUTS['DATASET_KEY'] = env.get('SHAREABOUTS_DATASET_KEY')
+
+# Using print function for logging because handlers are not set in settings.py
+if 'FLAVOR' not in os.environ:
+    print("INFO: Using default flavor")
+if 'SITE_URL' not in os.environ:
+    print("ERROR: No SITE_URL found!")
+if 'SITE_KEY' not in os.environ:
+    print("ERROR: No SITE_KEY found!")
+
+# programatically add environment variables of type *_SITE_URL and
+# *_DATASET_KEY
+for k in os.environ:
+    if re.match('.+_DATASET_KEY$|.+_SITE_URL$', k):
+        SHAREABOUTS[k] = os.environ.get(k, 'Error')
+
+# ---------------
+# By default, the flavor is assumed to be a local python package.  If no
+# CONFIG_FILE or PACKAGE is specified, they are constructed as below.
+
+try:
+    # SHAREABOUTS
+    flavor = SHAREABOUTS['FLAVOR']
+except (NameError, TypeError, KeyError):
+    from django.core.exceptions import ImproperlyConfigured
+    raise ImproperlyConfigured('No SHAREABOUTS configuration defined. '
+        'Did you forget to copy the local settings template?')
+
+if 'CONFIG' not in SHAREABOUTS:
+    SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(HERE, '..', 'flavors', flavor))
+if 'PACKAGE' not in SHAREABOUTS:
+    SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
+    INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS
+
+##############################################################################
+# Auth settings
+
 if 'SHAREABOUTS_TWITTER_KEY' in env \
     and 'SHAREABOUTS_TWITTER_SECRET' in env:
     SOCIAL_AUTH_TWITTER_KEY = env['SHAREABOUTS_TWITTER_KEY']
@@ -282,6 +329,66 @@ if 'SHAREABOUTS_FACEBOOK_KEY' in env \
     and 'SHAREABOUTS_FACEBOOK_SECRET' in env:
     SOCIAL_AUTH_FACEBOOK_KEY = env['SHAREABOUTS_FACEBOOK_KEY']
     SOCIAL_AUTH_FACEBOOK_SECRET = env['SHAREABOUTS_FACEBOOK_SECRET']
+
+##############################################################################
+# sitemaps and client-side caching
+
+# For sitemaps and caching -- will be a new value every time the server starts
+LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0, microsecond=0).isoformat()
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+from os.path import dirname, abspath, join as pathjoin
+STATIC_ROOT=abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
+if (DEBUG):
+    COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..', 'sa_web', 'static'))
+else:
+    COMPRESS_ROOT = STATIC_ROOT
+COMPRESS_OUTPUT_DIR = ''
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = '/static/'
+COMPRESS_URL = STATIC_URL
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
+)
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    str(os.path.abspath(os.path.join(HERE, '..', 'flavors', flavor + "/static"))),
+)
+
+##############################################################################
+# analytics
+
+if 'GOOGLE_ANALYTICS_ID' in env:
+    GOOGLE_ANALYTICS_ID = env.get('GOOGLE_ANALYTICS_ID')
+if 'GOOGLE_ANALYTICS_DOMAIN' in env:
+    GOOGLE_ANALYTICS_DOMAIN = env.get('GOOGLE_ANALYTICS_DOMAIN')
+if 'CLICKY_ANALYTICS_ID' in env:
+    CLICKY_ANALYTICS_ID = env.get('CLICKY_ANALYTICS_ID')
+
+##############################################################################
+# Services
+
+# email services:
+EMAIL_ADDRESS = 'luke@smartercleanup.org'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 if 'EMAIL_ADDRESS' in env:
     EMAIL_ADDRESS = env['EMAIL_ADDRESS']
@@ -299,61 +406,26 @@ if 'EMAIL_USE_TLS' in env:
 if 'EMAIL_NOTIFICATIONS_BCC' in env:
     EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
 
+# Uncomment the following line if you would like to also receive emails that
+# are sent to your users.
+# EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
 
-# For sitemaps and caching -- will be a new value every time the server starts
-LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0, microsecond=0).isoformat()
-
-
-if 'GOOGLE_ANALYTICS_ID' in env:
-    GOOGLE_ANALYTICS_ID = env.get('GOOGLE_ANALYTICS_ID')
-if 'GOOGLE_ANALYTICS_DOMAIN' in env:
-    GOOGLE_ANALYTICS_DOMAIN = env.get('GOOGLE_ANALYTICS_DOMAIN')
-if 'CLICKY_ANALYTICS_ID' in env:
-    CLICKY_ANALYTICS_ID = env.get('CLICKY_ANALYTICS_ID')
-
+# geolocation services:
 MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
 MAPBOX_TOKEN = env.get('MAPBOX_TOKEN', '')
 
+# TODO: We're not using this anymore, so remove it:
 ##############################################################################
 # Local settings overrides
 # ------------------------
 # Override settings values by importing the local_settings.py module.
 
-LOCAL_SETTINGS_FILE = os.path.join(os.path.dirname(__file__), 'local_settings.py')
-if os.path.exists(LOCAL_SETTINGS_FILE):
-    # By doing this instead of import, local_settings.py can refer to
-    # local variables from settings.py without circular imports.
-    execfile(LOCAL_SETTINGS_FILE)
+# LOCAL_SETTINGS_FILE = os.path.join(os.path.dirname(__file__), 'local_settings.py')
+# if os.path.exists(LOCAL_SETTINGS_FILE):
+#     # By doing this instead of import, local_settings.py can refer to
+#     # local variables from settings.py without circular imports.
+#     execfile(LOCAL_SETTINGS_FILE)
 
-
-##############################################################################
-# Flavor defaults
-# ---------------
-# By default, the flavor is assumed to be a local python package.  If no
-# CONFIG_FILE or PACKAGE is specified, they are constructed as below.
-
-try:
-    SHAREABOUTS
-    flavor = SHAREABOUTS['FLAVOR']
-except (NameError, TypeError, KeyError):
-    from django.core.exceptions import ImproperlyConfigured
-    raise ImproperlyConfigured('No SHAREABOUTS configuration defined. '
-        'Did you forget to copy the local settings template?')
-
-here = os.path.abspath(os.path.dirname(__file__))
-if 'CONFIG' not in SHAREABOUTS:
-    SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(here, '..', 'flavors', flavor))
-if 'PACKAGE' not in SHAREABOUTS:
-    SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
-    INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    str(os.path.abspath(os.path.join(here, '..', 'flavors', flavor + "/static"))),
-)
 
 ##############################################################################
 # Locale paths
@@ -426,5 +498,3 @@ if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
     #
 
     CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
-
-
