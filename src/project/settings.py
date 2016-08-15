@@ -35,7 +35,6 @@ read_env()
 
 
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-# here = os.path.abspath(os.path.dirname(__file__))
 
 if 'DEBUG' in env:
     DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in
@@ -138,7 +137,8 @@ ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
@@ -308,11 +308,14 @@ try:
     flavor = SHAREABOUTS['FLAVOR']
 except (NameError, TypeError, KeyError):
     from django.core.exceptions import ImproperlyConfigured
-    raise ImproperlyConfigured('No SHAREABOUTS configuration defined. '
-        'Did you forget to copy the local settings template?')
+    raise ImproperlyConfigured(
+        """No SHAREABOUTS configuration defined.
+        Did you forget to copy the local settings template?"""
+    )
 
 if 'CONFIG' not in SHAREABOUTS:
-    SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(HERE, '..', 'flavors', flavor))
+    SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(HERE, '..',
+                                                         'flavors', flavor))
 if 'PACKAGE' not in SHAREABOUTS:
     SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
     INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS
@@ -321,12 +324,12 @@ if 'PACKAGE' not in SHAREABOUTS:
 # Auth settings
 
 if 'SHAREABOUTS_TWITTER_KEY' in env \
-    and 'SHAREABOUTS_TWITTER_SECRET' in env:
+   and 'SHAREABOUTS_TWITTER_SECRET' in env:
     SOCIAL_AUTH_TWITTER_KEY = env['SHAREABOUTS_TWITTER_KEY']
     SOCIAL_AUTH_TWITTER_SECRET = env['SHAREABOUTS_TWITTER_SECRET']
 
 if 'SHAREABOUTS_FACEBOOK_KEY' in env \
-    and 'SHAREABOUTS_FACEBOOK_SECRET' in env:
+   and 'SHAREABOUTS_FACEBOOK_SECRET' in env:
     SOCIAL_AUTH_FACEBOOK_KEY = env['SHAREABOUTS_FACEBOOK_KEY']
     SOCIAL_AUTH_FACEBOOK_SECRET = env['SHAREABOUTS_FACEBOOK_SECRET']
 
@@ -334,16 +337,18 @@ if 'SHAREABOUTS_FACEBOOK_KEY' in env \
 # sitemaps and client-side caching
 
 # For sitemaps and caching -- will be a new value every time the server starts
-LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0, microsecond=0).isoformat()
+LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0,
+                                                   microsecond=0).isoformat()
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 from os.path import dirname, abspath, join as pathjoin
-STATIC_ROOT=abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
+STATIC_ROOT = abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
 if (DEBUG):
-    COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..', 'sa_web', 'static'))
+    COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..', 'sa_web',
+                                     'static'))
 else:
     COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_OUTPUT_DIR = ''
@@ -362,7 +367,7 @@ COMPRESS_PRECOMPILERS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder',
 )
 # Additional locations of static files
@@ -370,7 +375,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    str(os.path.abspath(os.path.join(HERE, '..', 'flavors', flavor + "/static"))),
+    str(os.path.abspath(os.path.join(HERE, '..', 'flavors', flavor +
+                                     "/static"))),
 )
 
 ##############################################################################
@@ -414,18 +420,6 @@ if 'EMAIL_NOTIFICATIONS_BCC' in env:
 MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
 MAPBOX_TOKEN = env.get('MAPBOX_TOKEN', '')
 
-# TODO: We're not using this anymore, so remove it:
-##############################################################################
-# Local settings overrides
-# ------------------------
-# Override settings values by importing the local_settings.py module.
-
-# LOCAL_SETTINGS_FILE = os.path.join(os.path.dirname(__file__), 'local_settings.py')
-# if os.path.exists(LOCAL_SETTINGS_FILE):
-#     # By doing this instead of import, local_settings.py can refer to
-#     # local variables from settings.py without circular imports.
-#     execfile(LOCAL_SETTINGS_FILE)
-
 
 ##############################################################################
 # Locale paths
@@ -465,14 +459,14 @@ if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
         'remote_client_user',
     )
 
-
-    ###############################################################################
+    ###########################################################################
     #
     # Authentication
     #
 
     AUTHENTICATION_BACKENDS = (
-        # See http://django-social-auth.readthedocs.org/en/latest/configuration.html
+        # See:
+        # http://django-social-auth.readthedocs.org/en/latest/configuration.html
         # for list of available backends.
         'social.backends.twitter.TwitterOAuth',
         'social.backends.facebook.FacebookOAuth2',
@@ -481,20 +475,21 @@ if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
 
     AUTH_USER_MODEL = 'sa_api_v2.User'
     SOCIAL_AUTH_USER_MODEL = 'sa_api_v2.User'
-    SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+    SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', ]
 
     SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'picture', 'bio']
-    SOCIAL_AUTH_TWITTER_EXTRA_DATA = ['name', 'description', 'profile_image_url']
+    SOCIAL_AUTH_TWITTER_EXTRA_DATA = ['name', 'description',
+                                      'profile_image_url']
 
     # Explicitly request the following extra things from facebook
-    SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.width(96).height(96),first_name,last_name,bio'}
+    SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.\
+    width(96).height(96),first_name,last_name,bio'}
 
     SOCIAL_AUTH_LOGIN_ERROR_URL = 'remote-social-login-error'
 
-
-    ###############################################################################
+    ###########################################################################
     #
     # Background task processing
     #
 
-    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+    CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
