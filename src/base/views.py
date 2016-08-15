@@ -389,8 +389,11 @@ def api(request, path, **kwargs):
 
     url = make_resource_uri(path, root)
 
-    headers = {'X-SHAREABOUTS-KEY': api_key,
-               'X-CSRFTOKEN': api_csrf_token}
+    headers = {'X-CSRFTOKEN': api_csrf_token}
+
+    if request.method != 'PUT' and request.method != 'DELETE':
+        headers['X-SHAREABOUTS-KEY'] = api_key
+
     cookies = {'sessionid': api_session_cookie,
                'csrftoken': api_csrf_token} \
               if api_session_cookie else {'csrftoken': api_csrf_token}
