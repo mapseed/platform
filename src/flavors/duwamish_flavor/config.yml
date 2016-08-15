@@ -48,7 +48,7 @@ map:
     - id: osm
       type: basemap
       defaultBase: true
-      url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -121,6 +121,66 @@ map:
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
+
+    - id: cso
+      type: json
+      url: "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson"
+      popupContent: '{{description}}'
+      rules:
+        - condition: '"{{properties.description}}" === "No recent overflow"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-4ab767.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.description}}" === "Overflowed in the last 48 hrs"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-dbcf2c.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.description}}" === "Overflowing now"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-f95016.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.description}}" === "Data not available"'
+          icon:
+            iconUrl: /static/css/images/markers/dot-5359d7.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+          style:
+            opacity: 0.9
+
+    - id: zoning
+      type: esri-feature
+      url: "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17"
+      popupContent: '{{CLASS_DESC}}'
+      rules:
+        - condition: '"{{properties.CLASS_DESC}}" === "Single Family"'
+          style:
+            color: '#008000'
+            stroke: false
+        - condition: '"{{properties.CLASS_DESC}}" === "Multi-Family"'
+          style:
+            color: '#008080'
+            stroke: false
+        - condition: '"{{properties.CLASS_DESC}}" === "Neighborhood/Commercial"'
+          style:
+            color: '#800080'
+            stroke: false
+        - condition: '"{{properties.CLASS_DESC}}" === "Manufacturing/Industrial"'
+          style:
+            color: '#FFA500'
+            stroke: false
+        - condition: 'true'
+          style:
+            fill: false
+            stroke: false
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -543,7 +603,7 @@ sidebar:
 
             - id: vision
               title: _(Community Vision)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: restoration
               title: _(Restoration Sites)
@@ -566,17 +626,25 @@ sidebar:
               # Green Seattle Partnership restoration phases
             - id: phases
               title: _(Green Seattle partnership)
-              visibleDefault: true
+              visibleDefault: false
 
               # Noxious Weeds
             - id: noxious-weeds
               title: _(Noxious Weeds)
               visibleDefault: false
 
+            - id: cso
+              title: _(Sewer Overflow)
+              visibleDefault: false
+
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
               visibleDefault: true
+
+            - id: zoning
+              title: _(Zoning)
+              visibleDefault: false
 
         - id: grp-history
           title: _(Historical Data)
@@ -1032,6 +1100,7 @@ pages:
   - title: _(Background)
     slug: background
     name: background
+    hide_from_top_bar: true
 
   - title: _(Get involved)
     slug: getinvolved
