@@ -19,6 +19,7 @@ src_files:
   - static/libs/ICanHaz-no-mustache.min.js
   - static/libs/moment-with-locales.min.js
   - static/libs/leaflet.argo.js
+  - static/libs/esri-leaflet.js
   - static/libs/gatekeeper.js
   - static/js/utils.js
   - static/js/template-helpers.js
