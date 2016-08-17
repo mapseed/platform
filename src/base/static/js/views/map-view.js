@@ -107,6 +107,17 @@
       });
     }, // end initialize
 
+    onDestroyModel: function() {
+      S.Util.log('APP', 'panel-state', 'closed');
+      // remove map mask if the user closes the side panel
+      $("#spotlight-place-mask").remove();
+      if (this.locationTypeFilter) {
+        this.options.router.navigate('filter/' + this.locationTypeFilter, {trigger: true});
+      } else {
+        this.options.router.navigate('/', {trigger: true});
+      }
+    },
+
     // Adds or removes the layer  on Master Layer based on visibility
     setLayerVisibility: function(layer, visible) {
       this.map.closePopup();
