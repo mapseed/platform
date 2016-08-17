@@ -8,7 +8,8 @@ var Shareabouts = Shareabouts || {};
       'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext',
       'click #toggle-editor-btn': 'onToggleEditMode',
-      'click #update-place-model-btn': 'onUpdateModel'
+      'click #update-place-model-btn': 'onUpdateModel',
+      'click #delete-place-model-btn': 'onDeleteModel'
     },
     initialize: function() {
       var self = this;
@@ -128,10 +129,32 @@ var Shareabouts = Shareabouts || {};
 
     onUpdateModel: function() {
       // pull data off form and save model, triggering a PUT request
-      var test = $("#update-place-model-form");
-      var attrs = S.Util.getAttrs(test);
-      this.model.set(attrs);
-      this.model.save();
+      var attrs = S.Util.getAttrs($("#update-place-model-form"));
+      this.model.set(attrs).save({
+        success: function() {
+          // nothing
+        },
+        error: function() {
+          // nothing
+        }
+      });
+    },
+
+    onDeleteModel: function() {
+      var response = confirm("You are deleting this post permanently. Are you sure you want to continue?");
+      if (response) {
+        this.model.destroy({
+          // wait for successful response from the server before
+          // destroying locally
+          wait: true,
+          success: function() {
+            // nothing
+          },
+          error: function() {
+            // nothing
+          }
+        }); 
+      }
     }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));
