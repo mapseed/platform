@@ -480,7 +480,7 @@ place_types:
           iconUrl: /static/css/images/markers/marker-complaint.png
 
   editortest:
-    label: _(Question)
+    label: _(Editortest)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -780,7 +780,7 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title of your question:)
+          prompt: _(Title of your editortest:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false

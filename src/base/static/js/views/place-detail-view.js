@@ -60,7 +60,7 @@ var Shareabouts = Shareabouts || {};
 
       // Is this user authenticated (i.e. able to edit place detail views)?
       if (S.bootstrapped.currentUser) {
-      var re = /(\/([a-zA-Z0-9_]*)$)/;
+        var re = /(\/([a-zA-Z0-9_]*)$)/;
         _.each(S.bootstrapped.currentUser.groups, function(group) {
           // get the name of the datasetId from the end of the full url
           // provided in S.bootstrapped.currentUser.groups
@@ -143,6 +143,8 @@ var Shareabouts = Shareabouts || {};
     onDeleteModel: function() {
       var response = confirm("You are deleting this post permanently. Are you sure you want to continue?");
       if (response) {
+        // trigger event to close the side panel
+        this.trigger("userDeleteModel");
         this.model.destroy({
           // wait for successful response from the server before
           // destroying locally
