@@ -175,7 +175,7 @@ var Shareabouts = Shareabouts || {};
         collection.on('reset', self.render, self);
         collection.on('add', self.addLayerView, self);
         collection.on('remove', self.removeLayerView, self);
-        collection.on('destroy', self.onDestroyModel, self);
+        collection.on('userDeleteModel', self.onUserDeleteModel, self);
       });
       
       // Bind visiblity event for custom layers
@@ -203,7 +203,9 @@ var Shareabouts = Shareabouts || {};
       });
     }, // end initialize
 
-    onDestroyModel: function() {
+    onUserDeleteModel: function() {
+      console.log("onUserDeleteModel");
+
       S.Util.log('APP', 'panel-state', 'closed');
       // remove map mask if the user closes the side panel
       $("#spotlight-place-mask").remove();
