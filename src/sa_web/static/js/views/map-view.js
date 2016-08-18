@@ -107,8 +107,6 @@ var Shareabouts = Shareabouts || {};
     }, // end initialize
 
     onUserDeleteModel: function() {
-      console.log("onUserDeleteModel");
-
       S.Util.log('APP', 'panel-state', 'closed');
       // remove map mask if the user closes the side panel
       $("#spotlight-place-mask").remove();
