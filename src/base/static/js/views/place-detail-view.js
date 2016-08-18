@@ -145,11 +145,8 @@
       var response = confirm("You are deleting this post permanently. Are you sure you want to continue?");
       if (response) {
         // trigger event to close the side panel
-        this.trigger("userDeleteModel");
+        this.model.trigger("userDeleteModel");
         this.model.destroy({
-          // wait for successful response from the server before
-          // destroying locally
-          wait: true,
           success: function() {
             // nothing
           },
