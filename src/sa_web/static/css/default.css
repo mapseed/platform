@@ -1,5 +1,4 @@
 @charset "UTF-8";
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 /* normalize-scss 3.0.3+normalize.3.0.3 | MIT/GPLv2 License | bit.ly/normalize-scss */
 /**
  * Establish a vertical rhythm unit using $base-font-size, $base-line-height,
@@ -544,208 +543,109 @@ th {
   padding: 0;
 }
 
-=======
-/* line 5, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 html {
   min-height: 100%;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 8, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 body {
   height: 100%;
   text-align: left;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 11, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 body:after {
   content: "mobile";
   display: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 a {
   color: #36454f;
 }
-=======
-/* line 17, ../sass/_basic.sass */
-a {
-  color: #36454f;
-}
-/* line 19, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 a:active, a:visited {
   color: #36454f;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 label {
   color: #36454f;
 }
-=======
-/* line 22, ../sass/_basic.sass */
-label {
-  color: #36454f;
-}
-/* line 24, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 label:active, label:visited {
   color: #36454f;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 27, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 a:hover, label:hover {
   color: #00aaff;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 31, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 a:hover, a:active {
   outline: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 36, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 body {
   line-height: 1.25;
   font-family: "Roboto", sans-serif;
   color: #36454f;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 41, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 select, input, textarea {
   font-family: "Roboto", sans-serif;
   color: #36454f;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 45, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 48, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 h1, h2 {
   font-size: 2em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 51, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 h3 {
   font-size: 1.75em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 54, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 h4 {
   font-size: 1.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 57, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 h5 {
   font-size: 1.25em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 60, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 h6 {
   font-size: 1em;
   text-transform: uppercase;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 64, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 p {
   margin: 0 0 1.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 69, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 ul, ol, dl {
   margin-bottom: 0.75em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 72, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 li {
   padding-bottom: 0.75em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 76, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 nav ul, nav ol {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 81, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .unstyled-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 86, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 nav li, .unstyled-list li {
   padding-bottom: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 89, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 strong {
   font-weight: 800;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 92, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 hr {
   margin: 1.5em 0;
   border: 1px solid #eeeeee;
@@ -755,27 +655,15 @@ hr {
   border-left: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .clearfix {
   zoom: 1;
 }
-=======
-/* line 104, ../sass/_basic.sass */
-.clearfix {
-  zoom: 1;
-}
-/* line 105, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .clearfix:before {
   content: " ";
   display: block;
   height: 0;
   visibility: hidden;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 110, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .clearfix:after {
   content: " ";
   display: block;
@@ -784,80 +672,44 @@ hr {
   clear: both;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 119, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .is-hidden, .hidden {
   display: none;
   visibility: hidden;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 125, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .is-screen-reader-text, .is-visuallyhidden {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 133, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .is-invisible {
   visibility: hidden;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 136, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .nobreak {
   white-space: nowrap;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 139, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .capitalize {
   text-transform: capitalize;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 144, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 img {
   max-width: 100%;
   height: auto;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 148, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .icon-inline {
   height: 1.5em;
   width: auto;
   margin: 0 0.25em -0.325em 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 153, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
 .icon-muted {
   opacity: 0.75;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 3, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn {
   display: inline-block;
   *display: inline;
@@ -876,10 +728,6 @@ img {
   border: 3px solid rgba(0, 0, 0, 0.05);
   border-radius: 3px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 20, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn:visited, .btn:link {
   display: inline-block;
   *display: inline;
@@ -898,44 +746,24 @@ img {
   border: 3px solid rgba(0, 0, 0, 0.05);
   border-radius: 3px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 37, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn:hover {
   background-color: #93b7c9;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 40, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-primary {
   background-color: #00aaff;
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 44, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-primary:visited, .btn-primary:link {
   background-color: #00aaff;
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 48, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-primary:hover {
   background-color: #007fbf;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 51, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-secondary {
   background-color: #ccc;
   color: #007fbf;
@@ -943,10 +771,6 @@ img {
   border: none;
   box-shadow: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 57, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-secondary:visited, .btn-secondary:link {
   background-color: #ccc;
   color: #007fbf;
@@ -954,38 +778,22 @@ img {
   border: none;
   box-shadow: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 63, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-secondary:hover {
   background-color: #007fbf;
   color: #fff;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 67, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-disabled {
   background-color: #eee;
   color: #ccc;
   box-shadow: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 71, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-disabled:visited, .btn-disabled:link, .btn-disabled:hover {
   background-color: #eee;
   color: #ccc;
   box-shadow: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 76, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-block {
   clear: both;
   display: block;
@@ -995,10 +803,6 @@ img {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 84, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-block:visited, .btn-block:link {
   clear: both;
   display: block;
@@ -1009,37 +813,21 @@ img {
   box-sizing: border-box;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 93, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-large {
   font-size: 1.25em;
   padding: 0.75em 1em 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 97, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .btn-small {
   font-size: 0.75em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 104, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .big-btn {
   position: absolute;
   bottom: 0;
   left: 0;
   opacity: 0;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 109, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .big-btn + label {
   position: relative;
   float: left;
@@ -1056,10 +844,6 @@ img {
   padding-right: 10px;
   border: 2px solid #D1D3D4;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 124, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .big-btn + label:before {
   position: absolute;
   display: block;
@@ -1071,35 +855,19 @@ img {
   background: #D1D3D4;
   border-radius: 1px 0 0 1px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .big-btn:hover:not(:checked) + label {
   color: #444444;
 }
-=======
-/* line 135, ../sass/_buttons.sass */
-.big-btn:hover:not(:checked) + label {
-  color: #444444;
-}
-/* line 137, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .big-btn:hover:not(:checked) + label:before {
   content: "✔";
   text-indent: 0.9em;
   color: #EEEEEE;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 142, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .big-btn:checked + label {
   color: #222222;
   font-weight: bold;
   border: 2px solid #f25218;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 146, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .big-btn:checked + label:before {
   content: "✔";
   text-indent: 0.9em;
@@ -1108,25 +876,13 @@ img {
 }
 
 /* Place type category button styles */
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 153, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 #category-btns {
   margin-bottom: 20px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .category-btn {
   display: none;
 }
-=======
-/* line 156, ../sass/_buttons.sass */
-.category-btn {
-  display: none;
-}
-/* line 158, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-btn + label {
   top: 0px;
   text-transform: uppercase;
@@ -1138,10 +894,6 @@ img {
   height: 46px;
   margin-bottom: 1px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 168, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-btn + label > img {
   height: 36px;
   width: 30px;
@@ -1152,10 +904,6 @@ img {
   padding: 3px;
   display: inline;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 177, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-btn + label > span {
   width: 210px;
   position: absolute;
@@ -1169,53 +917,29 @@ img {
   padding-top: 11px;
   padding-bottom: 11px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 190, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-btn:checked + label, .category-btn:hover + label {
   opacity: 1;
   cursor: pointer;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .category-btn:checked + label > img, .category-btn:hover + label > img {
   border-color: #f25218;
 }
-=======
-/* line 193, ../sass/_buttons.sass */
-.category-btn:checked + label > img, .category-btn:hover + label > img {
-  border-color: #f25218;
-}
-/* line 195, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-btn:checked + label > span, .category-btn:hover + label > span {
   background-color: #f25218;
   color: white;
 }
 
 /* Selected category placeholder styles */
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 200, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 #selected-category {
   position: relative;
   width: 280px;
   margin-right: 0;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 204, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 #selected-category label {
   cursor: default !important;
 }
 
 /* Other dynamic form styles */
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 208, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-menu-hamburger {
   width: 30px;
   height: 36px;
@@ -1224,165 +948,62 @@ img {
   top: 5px;
   left: 290px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 215, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-menu-hamburger:before {
   font-family: FontAwesome;
   font-size: 2.2em;
   content: "";
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 219, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
 .category-menu-hamburger:hover {
   color: #f25218;
   cursor: pointer;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0 0 1.2em;
-}
-
-label {
-  font-size: 0.75em;
-  margin-right: 0.5em;
-  padding-bottom: 0;
-}
-label small {
-  text-transform: none;
-}
-
-input[type=date], input[type=datetime], input[type=datetime-local], input[type=email], input[type=month], input[type=number], input[type=password], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week] {
-  outline: 0;
-  border: 0.25em solid #a3c7d9;
-  border-radius: 0;
-  padding: 0.5em;
-  display: block;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-select, textarea {
-  outline: 0;
-  border: 0.25em solid #a3c7d9;
-  border-radius: 0;
-  padding: 0.5em;
-  display: block;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-input:focus, select:focus {
-  outline: 2px solid #007fbf;
-}
-
-textarea {
-  height: 6.5em;
-  resize: none;
-}
-textarea:focus {
-  outline: 2px solid #007fbf;
-}
-
-select {
-  background-color: #fff;
-}
-
-.form-submitted .gatekeeper-invalid, .form-submitted input:invalid, .form-submitted textarea:invalid, .form-submitted select:invalid {
-  outline: 2px solid #b2182b;
-}
-
-.fileinput-container {
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.fileinput-container input {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.fileinput-name {
-  display: inline-block;
-}
-
-.form-spinner {
-  clear: both;
-  padding: 1em;
-=======
 /* Story bar styles */
-/* line 224, ../sass/_buttons.sass */
 .btn-previous-story-nav {
   width: 10%;
   color: #93b7c9;
   cursor: pointer;
 }
-/* line 228, ../sass/_buttons.sass */
 .btn-previous-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
-/* line 231, ../sass/_buttons.sass */
 .btn-previous-story-nav:hover {
   color: #007fbf;
 }
 
-/* line 234, ../sass/_buttons.sass */
 .btn-next-story-nav {
   width: 10%;
   color: #93b7c9;
   cursor: pointer;
 }
-/* line 238, ../sass/_buttons.sass */
 .btn-next-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
-/* line 241, ../sass/_buttons.sass */
 .btn-next-story-nav:hover {
   color: #007fbf;
 }
 
-/* line 244, ../sass/_buttons.sass */
 .story-nav-disabled {
   visibility: hidden;
 }
 
-/* line 5, ../sass/_forms.sass */
 fieldset {
   border: 0;
   margin: 0;
   padding: 0 0 1.2em;
 }
 
-/* line 10, ../sass/_forms.sass */
 label {
   font-size: 0.75em;
   margin-right: 0.5em;
   padding-bottom: 0;
 }
-/* line 16, ../sass/_forms.sass */
 label small {
   text-transform: none;
 }
 
-/* line 20, ../sass/_forms.sass */
 input[type=date], input[type=datetime], input[type=datetime-local], input[type=email], input[type=month], input[type=number], input[type=password], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week] {
   outline: 0;
   border: 0.25em solid #a3c7d9;
@@ -1395,7 +1016,6 @@ input[type=date], input[type=datetime], input[type=datetime-local], input[type=e
   box-sizing: border-box;
 }
 
-/* line 42, ../sass/_forms.sass */
 select, textarea {
   outline: 0;
   border: 0.25em solid #a3c7d9;
@@ -1408,39 +1028,31 @@ select, textarea {
   box-sizing: border-box;
 }
 
-/* line 53, ../sass/_forms.sass */
 input:focus, select:focus {
   outline: 2px solid #007fbf;
 }
 
-/* line 56, ../sass/_forms.sass */
 textarea {
   height: 6.5em;
   resize: none;
 }
-/* line 57, ../sass/_forms.sass */
 textarea:focus {
   outline: 2px solid #007fbf;
 }
 
-/* line 62, ../sass/_forms.sass */
 select {
   background-color: #fff;
 }
 
-/* line 69, ../sass/_forms.sass */
 .form-submitted .gatekeeper-invalid, .form-submitted input:invalid, .form-submitted textarea:invalid, .form-submitted select:invalid {
   outline: 2px solid #b2182b;
 }
 
-/* line 72, ../sass/_forms.sass */
 .fileinput-container {
   position: relative;
   overflow: hidden;
   white-space: nowrap;
->>>>>>> improve story arrows, update story content
 }
-/* line 76, ../sass/_forms.sass */
 .fileinput-container input {
   position: absolute;
   right: 0;
@@ -1452,26 +1064,19 @@ select {
   cursor: pointer;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 86, ../sass/_forms.sass */
 .fileinput-name {
   display: inline-block;
 }
 
-/* line 89, ../sass/_forms.sass */
 .form-spinner {
   clear: both;
   padding: 1em;
 }
 
-/* line 93, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
 .form-field {
   margin: 0 0 1em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .form-annotation {
   font-size: 0.8em;
   font-style: italic;
@@ -1481,20 +1086,6 @@ select {
   display: none;
 }
 
-=======
-/* line 96, ../sass/_forms.sass */
-.form-annotation {
-  font-size: 0.8em;
-  font-style: italic;
-}
-
-/* line 100, ../sass/_forms.sass */
-.alt-label {
-  display: none;
-}
-
-/* line 6, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 #site-header {
   background: url(images/lightpaperfibers.png);
   position: relative;
@@ -1503,10 +1094,6 @@ select {
   box-shadow: 0 0.125em 0 rgba(0, 0, 0, 0.2);
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 13, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 #site-title {
   font-size: 0.75em;
   font-family: "Alegreya Sans", sans-serif;
@@ -1516,18 +1103,10 @@ select {
   padding: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 21, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .has-pages #site-title {
   padding-left: 3.25em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 25, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 #site-title a:link, #site-title a:visited {
   display: block;
   font-family: "Alegreya Sans", sans-serif;
@@ -1536,18 +1115,10 @@ select {
   text-decoration: none;
   color: #13b309;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 32, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 #site-title a:hover {
   color: orange;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 37, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 #nav-btn {
   background: url(images/lightpaperfibers.png);
   color: #bbb;
@@ -1564,10 +1135,6 @@ select {
   top: 0.25em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 54, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .access {
   font-weight: bold;
   text-align: center;
@@ -1577,34 +1144,18 @@ select {
   padding: 0;
   display: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .access.is-exposed {
   display: block;
 }
-=======
-/* line 62, ../sass/_header.sass */
-.access.is-exposed {
-  display: block;
-}
-/* line 64, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .access li {
   position: relative;
   padding-bottom: 0.5em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 67, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .access li li {
   padding-top: 0.5em;
   padding-bottom: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 75, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 #sign-in-btn {
   background-color: #007fbf;
   color: #fff;
@@ -1619,18 +1170,10 @@ select {
   margin: 0.25em, 0.75em, 0, 0.5em;
   height: 100%;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 88, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 #sign-in-btn:hover {
   color: #a3c7d9;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 91, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .sign-in-menu {
   font-weight: bold;
   text-align: center;
@@ -1640,67 +1183,39 @@ select {
   padding: 0;
   display: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 99, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .sign-in-menu.is-exposed {
   display: block;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 102, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .sign-in-menu-item {
   float: left;
   width: 50%;
   font-weight: bold;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 108, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 a.auth-btn {
   text-decoration: none;
   display: block;
   padding: 0.5em;
   box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 113, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 a.twitter-btn {
   background-color: #4099FF;
   color: #fff !important;
   margin-right: 0.25em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 117, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 a.facebook-btn {
   background-color: #3b5998;
   color: #fff !important;
   margin-left: 0.25em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 122, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .authed #sign-in-btn {
   font-size: 1em;
   padding: 0;
   outline: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 127, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .header-avatar {
   float: right;
   width: 3em;
@@ -1708,19 +1223,11 @@ a.facebook-btn {
   max-width: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 133, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 .signed-in-as {
   font-weight: normal;
   font-size: 0.875em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 139, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
 a.logout-btn {
   color: #a3c7d9;
   font-size: 0.875em;
@@ -1729,64 +1236,36 @@ a.logout-btn {
   text-transform: uppercase;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 5, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #map-container {
   position: relative;
   background: #a3c7d9;
   z-index: 10;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 10, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #map {
   background: #a3c7d9;
   height: 150px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 17, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .locate-me {
   background-image: url(images/locate-me.png);
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 21, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #map .leaflet-bar a {
   width: 33px;
   height: 33px;
   line-height: 33px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 25, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #map .leaflet-bar a:hover {
   width: 33px;
   height: 33px;
   line-height: 33px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 29, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #map .leaflet-control-attribution {
   font-size: 9px;
   -webkit-text-size-adjust: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 38, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #add-place-btn-container {
   background: url(images/lightpaperfibers.png);
   padding: 0.5em 0.5em 0.75em;
@@ -1796,25 +1275,13 @@ a.logout-btn {
   border-bottom: 1px solid #666;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 48, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .content-visible #add-place-btn-container {
   display: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 #centerpoint {
   display: none;
 }
-=======
-/* line 54, ../sass/_map.sass */
-#centerpoint {
-  display: none;
-}
-/* line 56, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #centerpoint.newpin {
   overflow: visible;
   position: absolute;
@@ -1827,30 +1294,18 @@ a.logout-btn {
   margin: -44px 0 0 -12px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 67, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #spotlight-place-mask {
   height: 100%;
   width: 100%;
   margin: 0 auto;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 72, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #spotlight-place-mask-fill {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 78, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #centerpoint.newpin .x {
   display: block;
   position: absolute;
@@ -1866,17 +1321,9 @@ a.logout-btn {
   -ms-transition: opacity 0.25s;
   transition: opacity 0.25s;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 #centerpoint.newpin:hover .x, #centerpoint.newpin.dragging .x {
   opacity: 1;
 }
-=======
-/* line 92, ../sass/_map.sass */
-#centerpoint.newpin:hover .x, #centerpoint.newpin.dragging .x {
-  opacity: 1;
-}
-/* line 94, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #centerpoint.newpin .shadow {
   display: block;
   height: 47px;
@@ -1891,19 +1338,11 @@ a.logout-btn {
   -ms-transition: opacity 0s, background-position 0.3s ease;
   transition: opacity 0s, background-position 0.3s ease;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 107, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #centerpoint.newpin:hover .shadow, #centerpoint.newpin.dragging .shadow {
   opacity: 0.2;
   background-image: url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png);
   background-position: 0px -3px, 3px -3px, 6px -3px, 0px -6px, 3px -6px, 6px -6px, 0px -9px, 3px -9px, 6px -9px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 111, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #centerpoint.newpin .marker {
   display: block;
   width: 25px;
@@ -1917,18 +1356,10 @@ a.logout-btn {
   -ms-transition: top 0.4s ease;
   transition: top 0.4s ease;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 123, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #centerpoint.newpin:hover .marker, #centerpoint.newpin.dragging .marker {
   top: -20px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 128, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .drag-marker-instructions {
   background-color: LightYellow;
   background-color: rgba(240, 240, 0, 0.2);
@@ -1941,10 +1372,6 @@ a.logout-btn {
   border-radius: 0.325em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 139, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .drag-marker-warning {
   background-color: LightYellow;
   background-color: rgba(240, 240, 0, 0.2);
@@ -1959,10 +1386,6 @@ a.logout-btn {
   background-color: rgba(242, 206, 206, 0.8);
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 154, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #ajax-error-msg {
   display: none;
   position: absolute;
@@ -1977,10 +1400,6 @@ a.logout-btn {
   border-radius: 4px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 167, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .cluster-large {
   border-radius: 20px;
   width: 40px;
@@ -1990,10 +1409,6 @@ a.logout-btn {
   font-size: 24px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 175, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .cluster-small {
   border-radius: 30px;
   width: 60px;
@@ -2005,10 +1420,6 @@ a.logout-btn {
   box-sizing: border-box;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 190, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .progress-bar {
   background: rgba(85, 85, 85, 0.5);
   height: 1.5em;
@@ -2018,10 +1429,6 @@ a.logout-btn {
   cursor: default;
   pointer-events: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 198, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .progress-bar strong {
   position: absolute;
   top: 0;
@@ -2033,10 +1440,6 @@ a.logout-btn {
   text-transform: uppercase;
   text-shadow: 0 0 0.25em #555555;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 208, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 .progress-bar span {
   background: #00aaff;
   display: block;
@@ -2050,10 +1453,6 @@ a.logout-btn {
   white-space: nowrap;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 220, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
 #map-progress {
   position: absolute;
   top: 10px;
@@ -2065,10 +1464,6 @@ a.logout-btn {
   font-size: 1.25em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 6, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 #content {
   background: #fff;
   padding: 1em 1em 2em;
@@ -2078,10 +1473,6 @@ a.logout-btn {
   display: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 16, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 a.close-btn {
   background: #fff;
   color: #ff5e99;
@@ -2099,17 +1490,9 @@ a.close-btn {
   box-shadow: 0 -0.325em 0 rgba(0, 0, 0, 0.1);
   border-radius: 0.325em 0.325em 0 0;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 a.close-btn:hover {
   color: #cd2c67;
 }
-=======
-/* line 32, ../sass/_content.sass */
-a.close-btn:hover {
-  color: #cd2c67;
-}
-/* line 34, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 a.close-btn span {
   font-size: 0.625em;
   text-transform: uppercase;
@@ -2118,10 +1501,6 @@ a.close-btn span {
   top: -0.2em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 44, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 #content iframe, #content object, #content embed {
   overflow: hidden;
   display: block;
@@ -2129,35 +1508,19 @@ a.close-btn span {
   /* height: auto !important */
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 52, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .promotion {
   float: right;
   margin: 0 0 1em 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 56, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .support {
   margin-bottom: 0.75em;
   position: relative;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .user-support {
   position: relative;
 }
-=======
-/* line 60, ../sass/_content.sass */
-.user-support {
-  position: relative;
-}
-/* line 62, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .user-support input[type=checkbox] {
   cursor: pointer;
   display: block;
@@ -2173,10 +1536,6 @@ a.close-btn span {
   -ms-filter: "alpha(opacity=0)";
   zoom: 1;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 76, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .user-support label {
   display: block;
   background: transparent url(images/heart-empty.png) left center no-repeat scroll;
@@ -2186,50 +1545,26 @@ a.close-btn span {
   padding-left: 22px;
   color: #007fbf;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .user-support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
 }
-=======
-/* line 84, ../sass/_content.sass */
-.user-support input[type=checkbox]:checked ~ label {
-  background-image: url(images/heart.png);
-}
-/* line 86, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .user-support:hover label {
   background-color: #93b7c9;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 91, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .social {
   min-width: 84px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 94, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .sharing {
   margin: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 97, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .share-link {
   float: right;
   padding: 0 !important;
   margin-left: 10px;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 101, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .share-link a {
   display: block;
   width: 32px;
@@ -2238,50 +1573,26 @@ a.close-btn span {
   text-indent: -9999px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 108, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .share-twitter a {
   background: url(images/twitter-32.png) 0 0 no-repeat scroll;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 111, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .share-facebook a {
   background: url(images/facebook-32.png) 0 0 no-repeat scroll;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .place-header {
   margin-bottom: 1em;
 }
-=======
-/* line 116, ../sass/_content.sass */
-.place-header {
-  margin-bottom: 1em;
-}
-/* line 118, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .place-header a {
   text-decoration: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 121, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .place-submission-details {
   display: block;
   padding-left: 3.75em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 125, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .point-submitter .avatar {
   width: 3.25em;
   height: 3.25em;
@@ -2289,53 +1600,29 @@ a.close-btn span {
   margin-left: -3.75em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 131, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-date {
   display: block;
   text-transform: uppercase;
   color: #888;
   font-size: 0.75em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .response-date a {
   color: #888;
 }
-=======
-/* line 136, ../sass/_content.sass */
-.response-date a {
-  color: #888;
-}
-/* line 138, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-date a:hover {
   color: #00aaff;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 141, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .survey-count {
   font-size: 0.75em;
   text-transform: uppercase;
   display: block;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 148, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .survey {
   position: relative;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 151, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .survey-header {
   border-bottom: 1px solid #a8a8a8;
   padding-bottom: 0.75em;
@@ -2343,10 +1630,6 @@ a.close-btn span {
   font-size: 1.25em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 157, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 a.reply-link {
   float: right;
   position: absolute;
@@ -2354,20 +1637,12 @@ a.reply-link {
   right: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 165, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response {
   position: relative;
   padding-bottom: 2.625em;
   margin-bottom: 1em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 170, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-header {
   padding-left: 3.75em;
   margin: 0 0 0 1em;
@@ -2376,10 +1651,6 @@ a.reply-link {
   left: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 177, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-submitter .avatar {
   width: 3em;
   height: 3em;
@@ -2387,10 +1658,6 @@ a.reply-link {
   margin-left: -3.75em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 185, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-body {
   margin: 0 0 1em;
   padding: 1em;
@@ -2402,10 +1669,6 @@ a.reply-link {
   border-radius: 1em;
   position: relative;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 195, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-body:after {
   content: "";
   height: 0;
@@ -2417,34 +1680,18 @@ a.reply-link {
   left: 1.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 205, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-label-comment {
   display: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 208, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .response-value-comment {
   margin-bottom: 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 211, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 article.response footer {
   text-align: right;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 214, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .survey-reply-link {
   color: #999;
   background: #eee;
@@ -2452,67 +1699,39 @@ article.response footer {
   text-decoration: none;
   font-weight: bold;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 220, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .survey-reply-link:hover {
   background: #607890;
   color: #fff;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 224, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .submit-btn {
   float: left;
   margin: 0 0.75em 0 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 228, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 form .signed-in-as {
   float: left;
   white-space: nowrap;
   padding-top: 0.125em;
   line-height: 1.5;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 233, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 form .signed-in-as .avatar {
   height: 1.5em;
   width: auto;
   position: relative;
   top: 0.5em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 238, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 form .signed-in-as a {
   font-weight: bold;
   font-size: 0.875em;
   text-transform: uppercase;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 243, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 .or-sign-in {
   display: block;
   margin-top: 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 247, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
 a.auth-inline {
   display: inline;
   font-size: 0.875em;
@@ -2521,10 +1740,7 @@ a.auth-inline {
   padding: 0.25em 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
 /* place detail view story bar */
-/* line 255, ../sass/_content.sass */
 .place-story-bar {
   background-color: LightYellow;
   padding: 8px;
@@ -2534,7 +1750,6 @@ a.auth-inline {
   font-family: FontAwesome;
   overflow: hidden;
 }
-/* line 263, ../sass/_content.sass */
 .place-story-bar .story-tagline {
   width: 100%;
   padding-left: 10px;
@@ -2543,8 +1758,6 @@ a.auth-inline {
   margin-bottom: 0;
 }
 
-/* line 6, ../sass/_sidebar.sass */
->>>>>>> improve story arrows, update story content
 #side-bar {
   display: none;
   overflow: auto;
@@ -2555,10 +1768,6 @@ a.auth-inline {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 11, ../sass/_sidebar.sass */
->>>>>>> improve story arrows, update story content
 #side-bar p {
   color: #F25218;
   font-family: "Roboto", sans-serif;
@@ -2568,16 +1777,11 @@ a.auth-inline {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 19, ../sass/_sidebar.sass */
->>>>>>> improve story arrows, update story content
 #side-bar hr {
   margin: 0.5em 0;
   border: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 /*---- leaflet side bar overrides ----*/
 .sidebar-header {
   margin: -10px -10px 0;
@@ -2592,51 +1796,28 @@ a.auth-inline {
   padding: 6px 10px 5px 6px;
 }
 
-=======
-/* line 6, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
 #ticker {
   background: url(images/lightpaperfibers.png);
   z-index: 30;
   display: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 10, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
 #ticker p {
   padding-left: 1em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 13, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
 .activity-enabled #ticker {
   display: block;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 22, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
 ul.recent-points {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .recent-points li {
   position: relative;
 }
-=======
-/* line 28, ../sass/_ticker.sass */
-.recent-points li {
-  position: relative;
-}
-/* line 31, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
 .recent-points a {
   text-decoration: none;
   float: left;
@@ -2648,18 +1829,10 @@ ul.recent-points {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 41, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
 .recent-points li:first-child a {
   border-top: 0;
   padding-top: 0.75em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 48, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
 .recent-points .avatar {
   width: 2em;
   height: 2em;
@@ -2667,7 +1840,6 @@ ul.recent-points {
   margin-left: -2.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 /* #master-legend {
     overflow: visible;
     padding-left: unset;
@@ -2677,59 +1849,28 @@ ul.recent-points {
     //display: none;
     .unstyled-list {}
 } */
-=======
-/* line 6, ../sass/_legend.sass */
-#master-legend {
-  overflow: visible;
-  padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-}
-
-/* line 16, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-list {
   font-size: 1.4em;
   font-weight: normal;
   letter-spacing: 1px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .layer-type-grouping-list {
   margin-left: 10px;
 }
-=======
-/* line 21, ../sass/_legend.sass */
-.layer-type-grouping-list {
-  margin-left: 10px;
-}
-/* line 23, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-grouping-list label {
   font-size: 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .layer-type-list li {
   position: relative;
 }
-=======
-/* line 29, ../sass/_legend.sass */
-.layer-type-list li {
-  position: relative;
-}
-/* line 31, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-list img {
   height: 1.75em;
   width: auto;
   vertical-align: middle;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 36, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-description {
   height: 0;
   overflow: visible;
@@ -2752,29 +1893,17 @@ ul.recent-points {
   transition: opacity 0.25s ease-in-out;
   pointer-events: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 37, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-description img {
   height: auto;
   width: auto;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 61, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-li:hover .layer-type-description {
   height: auto;
   padding: 0.375em 0.625em;
   opacity: 1;
   overflow: visible;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 66, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-li:hover .layer-type-description:after {
   content: "";
   display: block;
@@ -2788,30 +1917,17 @@ ul.recent-points {
   border-left-color: #000;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .layer-type-list {
   font-size: 0.875em;
 }
 
 .layer-type-title label {
-=======
-/* line 79, ../sass/_legend.sass */
-#master-legend .layer-type-list {
-  font-size: 0.875em;
-}
-/* line 81, ../sass/_legend.sass */
-#master-legend .layer-type-title label {
->>>>>>> improve story arrows, update story content
   vertical-align: middle;
   margin-right: 8px;
   font-size: 1.33em;
   letter-spacing: 1px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 87, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
 .layer-type-title input {
   vertical-align: middle;
   margin-right: 8px;
@@ -2819,7 +1935,6 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .layer-type-title:active label:hover, .shareabouts-layer-li:active a {
   color: #00aaff;
 }
@@ -2830,24 +1945,6 @@ ul.recent-points {
 }
 
 .layer-type-li label, .shareabouts-layer-li a {
-=======
-/* line 94, ../sass/_legend.sass */
-#master-legend .shareabouts-layer-li {
-  font-size: 1.3em;
-  letter-spacing: 1.4px;
-}
-/* line 97, ../sass/_legend.sass */
-#master-legend .layer-type-title:active label:hover, #master-legend .shareabouts-layer-li:active a {
-  color: #00aaff;
-}
-/* line 99, ../sass/_legend.sass */
-#master-legend .map-layer-list {
-  margin-bottom: 0.5em;
-  font-size: 0.75em;
-}
-/* line 102, ../sass/_legend.sass */
-#master-legend .layer-type-li label, #master-legend .shareabouts-layer-li a {
->>>>>>> improve story arrows, update story content
   cursor: pointer;
   position: relative;
   z-index: 20;
@@ -2856,7 +1953,6 @@ ul.recent-points {
   text-transform: none;
   font-family: "Roboto", sans-serif;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 
 .master-layer-list {
   padding-left: unset;
@@ -2878,11 +1974,6 @@ ul.recent-points {
 }
 .master-layer-list .shareabouts-layer-title {
   font-size: 22px;
-=======
-/* line 110, ../sass/_legend.sass */
-#master-legend .shareabouts-layer-title {
-  font-size: 1.4em;
->>>>>>> improve story arrows, update story content
   cursor: pointer;
   width: 1em;
   height: auto;
@@ -2904,12 +1995,7 @@ ul.recent-points {
 }
 
 @media screen and (min-width: 40.063em) {
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
   .active {
-=======
-  /* line 150, ../sass/_legend.sass */
-  .active #master-legend {
->>>>>>> improve story arrows, update story content
     height: 100%;
     /*width: 16em;*/
     top: 0;
@@ -2917,35 +2003,10 @@ ul.recent-points {
     overflow: auto;
   }
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 164, ../sass/_legend.sass */
-.master-layer-list {
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-top: 0.5;
-  margin-bottom: 0;
-}
-
-/* All layers in the Master Legend list */
-/* line 171, ../sass/_legend.sass */
-.master-layer-list .unstyled-list {
-  overflow: visible;
-  padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-}
-
-/* line 6, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .list-toggle-nav {
   display: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 9, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 #list-container {
   display: none;
   background: #fff;
@@ -2959,19 +2020,11 @@ ul.recent-points {
   overflow: auto;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 22, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list, .place-list-header {
   max-width: 70em;
   margin: 0 auto;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 28, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .list-search-form input {
   max-width: 25em;
   float: left;
@@ -2979,10 +2032,6 @@ ul.recent-points {
   margin-right: 0.5em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 36, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .list-sort-menu {
   float: right;
   padding: 1em 0 0;
@@ -2990,82 +2039,42 @@ ul.recent-points {
   text-transform: uppercase;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 42, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .list-sort-prompt {
   font-size: 0.75em;
   color: #999;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 46, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .list-sort-menu a {
   font-weight: bold;
   font-size: 0.75em;
   text-decoration: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 50, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .list-sort-menu a.is-selected {
   color: #555;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 55, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list {
   clear: both;
   padding: 1.25em 0 0;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 58, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list > li {
   margin: 0;
   padding: 0.75em 0 1.25em 0;
   border-top: 1px solid #eeeeee;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .place-list .place-header {
   font-size: 0.875em;
 }
 .place-list .place-header:before {
   display: none;
 }
-=======
-/* line 62, ../sass/_listview.sass */
-.place-list .place-header {
-  font-size: 0.875em;
-}
-/* line 64, ../sass/_listview.sass */
-.place-list .place-header:before {
-  display: none;
-}
-/* line 66, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list .place-header:after {
   display: none;
   clear: none;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 .place-list .place-header h1 {
   font-size: 1.5em;
 }
-=======
-/* line 69, ../sass/_listview.sass */
-.place-list .place-header h1 {
-  font-size: 1.5em;
-}
-/* line 71, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list .place-submission-details {
   float: left;
   width: 17.25em;
@@ -3075,62 +2084,34 @@ ul.recent-points {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 79, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list .point-submitter .avatar {
   width: 2.5em;
   height: 2.5em;
   float: left;
   margin-left: -3em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 84, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list .place-items {
   margin-right: 5em;
   margin-left: 16em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 87, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list .place-item-attachment {
   float: left;
   max-width: 9em;
   margin: 0 1em 0.75em 0;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 92, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-list .place-label:empty, .place-list .place-value:empty {
   display: none;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 95, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .place-item-attachment .place-value:empty {
   display: block;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 98, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
 .view-on-map-btn {
   margin: 1em 0;
   float: left;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 6, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
 #place-counter .counter-meter {
   width: auto;
   margin: 0 auto;
@@ -3150,10 +2131,6 @@ ul.recent-points {
   border-radius: 3px;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 24, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
 .col {
   margin: 0 10px;
   float: left;
@@ -3161,18 +2138,10 @@ ul.recent-points {
   overflow: hidden;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 30, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
 .meter-label {
   width: auto;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 33, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
 .meter-bar meter {
   width: 260px;
   height: 10px;
@@ -3185,10 +2154,6 @@ ul.recent-points {
   padding: 0.1em 0.1em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 6, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-bar {
   display: none;
   background: url(images/lightpaperfibers.png);
@@ -3200,18 +2165,10 @@ ul.recent-points {
   font-size: 1em;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 16, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocoding-enabled #geocode-address-bar {
   display: block;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 19, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-bar .error {
   background-color: #BF6083;
   color: #fff;
@@ -3225,44 +2182,24 @@ ul.recent-points {
   bottom: auto;
   left: 0.5em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 31, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-bar .error + form {
   box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
   margin-bottom: 2.5em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 34, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-bar .error.is-hidden + form {
   box-shadow: none;
   margin-bottom: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 40, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-place-bar {
   display: none;
   position: relative;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 44, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocoding-enabled #geocode-address-place-bar {
   display: block;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 47, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-place-bar .error {
   background-color: #BF6083;
   color: #fff;
@@ -3276,52 +2213,28 @@ ul.recent-points {
   bottom: auto;
   left: 0.5em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 59, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-place-bar .error + form {
   box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
   margin-bottom: 2.5em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 62, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 #geocode-address-place-bar .error.is-hidden + form {
   box-shadow: none;
   margin-bottom: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 68, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocode-address-form {
   position: relative;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 71, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 input.geocode-address-field {
   width: 100%;
   line-height: 1.25;
   padding-left: 2.125em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 75, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 input.geocode-address-field:focus {
   outline: 0;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 78, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocode-address-label {
   position: absolute;
   top: 1.5em;
@@ -3333,19 +2246,11 @@ input.geocode-address-field:focus {
   text-indent: -9999px;
   cursor: pointer;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 88, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocode-address-label:before, .geocode-address-label:after {
   content: "";
   display: block;
   position: absolute;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 92, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocode-address-label:before {
   top: 0;
   left: 0;
@@ -3355,10 +2260,6 @@ input.geocode-address-field:focus {
   border-radius: 2em;
   margin: -0.25em 0 0 -0.25em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 100, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocode-address-label:after {
   top: 50%;
   left: 50%;
@@ -3373,10 +2274,6 @@ input.geocode-address-field:focus {
   transform: rotate(-45deg);
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 113, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
 .geocode-spinner {
   position: absolute;
   top: 0;
@@ -3386,42 +2283,22 @@ input.geocode-address-field:focus {
   background-color: #a3c7d9;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 6, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 #colophon {
   padding: 1em 0.5em;
   text-align: center;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
 #colophon a {
   text-decoration: none;
 }
-=======
-/* line 9, ../sass/_footer.sass */
-#colophon a {
-  text-decoration: none;
-}
-/* line 12, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 #colophon a:hover {
   border-bottom: 1px solid #ffb885;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 17, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 #powered-by {
   font-size: 0.75em;
   display: inline;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 21, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 a.shareabouts-logo {
   font-family: "Dancing Script", cursive;
   font-weight: bold;
@@ -3429,36 +2306,20 @@ a.shareabouts-logo {
   color: #FF8B61;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 28, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 #powered-by a.openplans-logo {
   color: #FF8B61;
   font-weight: bold;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 35, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 #mapquest-attribution {
   font-size: 0.75em;
   display: inline;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 38, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 #mapquest-attribution img {
   max-height: 0.75em;
   width: auto;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 47, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 .unsupported-overlay {
   position: relative;
   z-index: 999999;
@@ -3466,35 +2327,19 @@ a.shareabouts-logo {
   font-weight: bold;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 53, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 .unsupported-message {
   background-color: #cd2c67;
   padding: 1em 1em 2em;
   box-shadow: 0 0.325em 0 rgba(0, 0, 0, 0.1), inset 0 0.325em 0 rgba(0, 0, 0, 0.1);
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 57, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 .unsupported-message p {
   font-size: 1.25em;
   margin-bottom: 0.75em;
 }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 60, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 .unsupported-message a {
   color: #fff;
 }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-/* line 63, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
 a.close-unsupported-overlay {
   color: #ff5e99;
   font-size: 1em;
@@ -3509,78 +2354,42 @@ a.close-unsupported-overlay {
 }
 
 @media only screen and (min-height: 440px) and (max-width: 60em) {
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 12, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #map {
     height: 100%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 15, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #site-title a:link, #site-title a:visited {
     font-size: 1.8em;
     line-height: 1.325;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 18, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #ticker ul.recent-points {
     height: 30em;
     overflow: scroll;
   }
 }
 @media only screen and (max-width: 60em) {
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 58, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   html, body, #map {
     height: 100%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 60, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #main {
     height: calc(100% - 64px);
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 63, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #map-container {
     height: calc(100% - 72px);
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 66, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled.content-visible #map-container {
     height: 70%;
   }
 }
 @media only screen and (min-width: 60em) {
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 72, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   body:after {
     content: "desktop";
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 75, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #site-header {
     background: url(images/lightpaperfibers.png);
     padding-left: 1em;
@@ -3591,63 +2400,35 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 84, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .has-pages #site-title {
     padding-left: 0;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 87, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #site-title a:link, #site-title a:visited {
     font-size: 3em;
     line-height: 1.325;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 90, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #nav-btn {
     display: none;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 94, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #pages-nav-container {
     height: 100%;
     float: left;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 97, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #language-picker {
     float: right;
     height: 100%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 101, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .current-language {
     background: none;
     border: none;
     box-shadow: none;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 105, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .access {
     font-size: 0.875em;
     width: auto;
@@ -3656,26 +2437,14 @@ a.close-unsupported-overlay {
     position: relative;
     top: 50%;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 112, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .access li {
     float: left;
     padding: 0;
     margin: 0 0 0 0.5em;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
   .access li ul {
     display: none;
   }
-=======
-  /* line 116, ../sass/_media.sass */
-  .access li ul {
-    display: none;
-  }
-  /* line 119, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .access li:hover > ul, .access li:hover > form > ul {
     display: block;
     background: #ccc;
@@ -3690,28 +2459,16 @@ a.close-unsupported-overlay {
     z-index: 2;
     overflow: hidden;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 132, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .access li ul li:hover ul {
     display: block;
     top: 0;
     left: 100%;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 136, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .access li li {
     float: none;
     padding: 0;
     margin: 0;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 140, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .access li li .btn {
     border: 0;
     border-radius: 0;
@@ -3719,10 +2476,6 @@ a.close-unsupported-overlay {
     box-shadow: none;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 145, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #sign-in-btn {
     font-size: 1em;
     text-decoration: none;
@@ -3733,10 +2486,6 @@ a.close-unsupported-overlay {
     z-index: 3;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 153, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .sign-in-menu {
     background: url(images/lightpaperfibers.png);
     border-radius: 3px;
@@ -3749,10 +2498,6 @@ a.close-unsupported-overlay {
     right: 1em;
     z-index: 2;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 164, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .sign-in-menu:before {
     content: "";
     height: 0;
@@ -3765,26 +2510,14 @@ a.close-unsupported-overlay {
     right: 1.5em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 175, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .authed #sign-in-btn {
     margin: 0.5em 0.5em 0 0.5em;
     z-index: 1;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 178, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .authed .sign-in-menu:before {
     right: 0.5em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 181, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #map-container {
     position: absolute;
     top: 4em;
@@ -3793,10 +2526,6 @@ a.close-unsupported-overlay {
     left: 0;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 188, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .content-visible #map-container {
     right: auto;
     left: 18em;
@@ -3804,44 +2533,24 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 193, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 195, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 197, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .leaflet-top.leaflet-right {
     right: auto;
     left: 10px;
     top: 77px;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 201, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #map {
     height: 100%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 203, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #add-place-btn-container {
     position: absolute;
     background: transparent;
@@ -3850,74 +2559,38 @@ a.close-unsupported-overlay {
     box-shadow: none;
     border-bottom: 0;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 205, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #add-place-btn-container.pos-top-left {
     top: 1.5em;
     left: 3.5em;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 208, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #add-place-btn-container.pos-top-right {
     top: 1.5em;
     right: 1.5em;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 211, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #add-place-btn-container.pos-bot-left {
     bottom: 2em;
     left: 2em;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 219, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #add-place-btn-container .btn {
     padding-right: 1em;
     padding-left: 1em;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 222, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #add-place-btn-container .btn:visited, #add-place-btn-container .btn:link {
     padding-right: 1em;
     padding-left: 1em;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 225, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #add-place-btn-container .btn-primary:hover {
     background-color: #FF8B61;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 227, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .content-visible #add-place-btn-container {
     display: block;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 230, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .place-form-visible #add-place-btn-container {
     display: none;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 233, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #content {
     color: #36454f;
     padding: 0;
@@ -3930,43 +2603,23 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 245, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 248, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 250, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 252, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .geocoding-bar-enabled #content {
     top: 8.5em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 254, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   a.close-btn {
     line-height: 2;
     top: 10px;
@@ -3977,18 +2630,10 @@ a.close-unsupported-overlay {
     border-radius: 0.325em 0 0 0.325em;
     box-shadow: -0.325em 0.325em 0 rgba(0, 0, 0, 0.1);
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 264, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   a.close-btn span {
     display: none;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 266, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .unsupported-overlay {
     position: absolute;
     top: 5em;
@@ -3996,27 +2641,15 @@ a.close-unsupported-overlay {
     left: 1em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 271, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .unsupported-message {
     border-radius: 0 0 0.625em 0.625em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 273, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   a.close-unsupported-overlay {
     right: auto;
     border-radius: 0.325em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 276, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #content > article {
     overflow: auto;
     padding: 1em 1em 2em;
@@ -4027,10 +2660,6 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 285, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #geocode-address-bar {
     position: absolute;
     top: 4em;
@@ -4042,18 +2671,10 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 295, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled #geocode-address-bar {
     right: 18em;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 299, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #geocode-address-bar .error {
     padding: 0.25em 0.5em;
     position: relative;
@@ -4068,26 +2689,14 @@ a.close-unsupported-overlay {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 312, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #geocode-address-bar .error + form {
     margin-bottom: 0;
     margin-right: 15em;
   }
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 315, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #geocode-address-bar .error.is-hidden + form {
     margin-right: 0;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 318, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #side-bar {
     position: absolute;
     top: 4em;
@@ -4102,25 +2711,13 @@ a.close-unsupported-overlay {
     background-color: rgba(255, 255, 255, 0.9);
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
   .activity-enabled.content-visible #side-bar {
     display: block;
   }
-=======
-  /* line 332, ../sass/_media.sass */
-  .activity-enabled.content-visible #side-bar {
-    display: block;
-  }
-  /* line 334, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 338, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #ticker {
     right: 0;
     bottom: 0;
@@ -4130,58 +2727,30 @@ a.close-unsupported-overlay {
     background: none;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 345, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled.content-visible #ticker {
     display: block;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 347, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   ul.recent-points {
     font-size: 0.875em;
     -webkit-transform: translateZ(0px);
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 351, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 355, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #master-legend {
     z-index: 15;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
   .activity-enabled.content-visible #master-legend {
     display: block;
   }
-=======
-  /* line 358, ../sass/_media.sass */
-  .activity-enabled.content-visible #master-legend {
-    display: block;
-  }
-  /* line 360, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 364, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .list-toggle-nav {
     display: block;
     width: auto;
@@ -4192,18 +2761,10 @@ a.close-unsupported-overlay {
     float: left;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 374, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #list-container.is-exposed {
     display: block;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 386, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #colophon {
     color: #007fbf;
     background: url(images/lightpaperfibers.png);
@@ -4222,72 +2783,40 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 405, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #powered-by {
     margin-bottom: 0;
   }
 }
 @media only screen and (min-width: 80em) {
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 409, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   #content {
     right: 0;
     left: 60%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 412, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 415, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 417, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 }
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 422, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .share-twitter a {
     background-image: url(images/twitter-64.png);
     background-size: contain;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 425, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .share-facebook a {
     background-image: url(images/facebook-64.png);
     background-size: contain;
   }
 
-<<<<<<< 3c68095eab083ef59c357ca2aa84b6d8487e514a
-=======
-  /* line 428, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
   .locate-me {
     background-image: url(images/locate-me@2x.png);
     background-size: contain;

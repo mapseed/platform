@@ -706,7 +706,7 @@ place:
   #### begin dynamic form config ####
   place_detail:
     observation:
-      includeOnForm: false
+      includeOnForm: true
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-observation.png
@@ -801,7 +801,7 @@ place:
           placeholder: _(Description...)
           optional: false
     air_watch:  #defines a top-level form category
-      includeOnForm: false
+      includeOnForm: true
       name: location_type  #needs to be "location_type"
       dataset: air
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
@@ -1120,43 +1120,17 @@ pages:
     hide_from_top_bar: true
 
 story:
-  test_story1:
-    tagline: _(Check out other reports like this one!)
+  restoration:
+    tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different 
     # zoom level and/or visible layers, it will use those wholesale 
     # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
-      - vision
       - restoration
-    order: 
-      - url: air/588
-        visible_layers:
-          - reports
-      - url: trees/593
-        visible_layers:
-          - reports
-      - url: report/600
-        visible_layers:
-          - reports
-      - url: concord
-        zoom: 15
-
-  test_story2:
-    tagline: _(Explore South Park priority sites like this one)
-    default_zoom: 17
-    default_visible_layers:
-      - vision
       - reports
+      - watershed
     order: 
       - url: skatepark
-      - url: cesar-chavez
-        zoom: 15
-      - url: south-park-community-center
-        zoom: 15
-      - url: 14th-ave
-      - url: rose-end
-      - url: 12th-and-elmgrove
-      - url: marra
-        zoom: 10
+      - url: upper-green
