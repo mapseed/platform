@@ -609,6 +609,10 @@ pages:
 story:
   streetscapes:
       tagline: _(Go to the next site)
+      default_zoom: 11
+      default_visible_layers:
+        - reports
+        - gtlayers
       order: 
         - idea/628
         - idea/629
