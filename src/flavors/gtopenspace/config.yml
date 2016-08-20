@@ -609,7 +609,7 @@ pages:
 story:
   streetscapes:
       tagline: _(Go to the next site)
-      default_zoom: 11
+      default_zoom: 15
       default_visible_layers:
         - reports
         - gtlayers
