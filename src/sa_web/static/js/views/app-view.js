@@ -594,6 +594,7 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model);
         self.showPanel(landmarkDetailView.render().$el, false);
+        landmarkDetailView.delegateEvents();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -733,6 +734,7 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         self.showPanel(placeDetailView.render().$el, !!responseId);
+        placeDetailView.delegateEvents();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
