@@ -58,28 +58,159 @@
             <div class="place-item place-item-attachment place-attachment-{{ name }}">
               <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
             </div>
-          {{/ attachments }}
+            {{/ attachments }}
 
-          {{#each_place_item "submitter_name" "name" "location_type" "fullTitle" "title" "name"}}
-            <div class="place-item place-item-{{ name }}">
-              <span class="place-label place-label-{{ name }}">{{label}}</span>
-              {{#if ../isEditingToggled}}
+            {{#each_place_item "submitter_name" "name" "location_type"}}
+              <div class="place-item place-item-{{ name }}">
+                <span class="place-label place-label-{{ ../name }}">{{ prompt }}</span>
+
+                {{#is type "datetime"}}
+                  {{#if isEditingToggled}}
+                    <input id="datetimepicker" name="{{ ../name }}" type="text" value="{{nlToBr content}}" />
+                  {{else}}
+                    <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
+                  {{/if}}
+                {{/is}}
+                
                 {{#is type "text"}}
-                  <input type="text" class="place-value place-value{{ name }}" name="{{ name }}" value="{{nlToBr value}}" />
+                  {{#if isEditingToggled}}
+                    <input type="text" class="place-value place-value-{{ ../name }}" name="{{ ../name }}" value="{{nlToBr content}}" />
+                  {{else}}
+                    <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
+                  {{/if}}
                 {{/is}}
 
                 {{#is type "textarea"}}
-                  <textarea class="place-value place-value-{{ name }}" name="{{ name }}">{{nlToBr value}}</textarea>
+                  {{#if isEditingToggled}}
+                    <textarea class="place-value place-value-{{ ../name }}" name="{{ ../name }}">{{nlToBr content}}</textarea>
+                  {{else}}
+                    <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
+                  {{/if}}
                 {{/is}}
-              {{else}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr value }}</p>
-              {{/if}}
-            </div>
+
+                {{#is type "radio_big_buttons"}}
+                  {{#if isEditingToggled}}
+                    <div>
+                      {{#each content}}
+                        <input type="radio" 
+                               name={{ ../name }} 
+                               id={{ value }} 
+                               value={{ value }} 
+                               class="big-btn" 
+                               {{#if selected}}checked{{/if}} />
+                        <label for={{ value }}>{{ label }}</label>
+                      {{/each}}
+                    </div>
+                    <div style="clear:both"></div>
+                  {{else}}
+                    <div>
+                      {{#each content}}
+                        {{#if selected}}
+                          <span class="multi-select-response">{{ label }} </span>
+                        {{/if}}
+                      {{/each}}
+                    </div>
+                  {{/if}}
+                {{/is}}
+
+                {{#is type "checkbox_big_buttons"}}
+                  {{#if isEditingToggled}}
+                    <div>
+                      {{#each content}}
+                        <input type="checkbox" 
+                               name={{ ../name }} 
+                               id={{ value }} 
+                               value={{ value }} 
+                               class="big-btn" 
+                               {{#if selected}}checked{{/if}} />
+                        <label for={{ value }}>{{ label }}</label>
+                      {{/each}}
+                    </div>
+                  {{else}}
+                    <div>
+                      {{#each content}}
+                        {{#if selected}}
+                          <span class="multi-select-response">{{ label }} </span>
+                        {{/if}}
+                      {{/each}}
+                    </div>
+                  {{/if}}
+                {{/is}}
+
+                {{#is type "binary_toggle"}}
+                  {{#if ../isEditingToggled}}
+                    <div>
+                      <input type="checkbox" 
+                             name={{ name }} 
+                             id={{ name }} 
+                             value={{#if content.selected}}
+                                     {{ content.selectedValue }}
+                                   {{else}}
+                                     {{ content.unselectedValue }}
+                                   {{/if}}
+                             data-input-type="binary_toggle" 
+                             class="big-btn" 
+                             {{#if content.selected}}checked{{/if}} />
+                      <label for={{ name }}>
+                        {{#if content.selected}}
+                          {{ content.selectedLabel }}
+                        {{else}}
+                          {{ content.unselectedLabel }}
+                        {{/if}}
+                      </label>
+                    </div>
+                  {{else}}
+                    <p>
+                      {{#if content.selected}}
+                        {{ content.selectedLabel }}
+                      {{else}}
+                        {{ content.unselectedLabel }}
+                      {{/if}}
+                    </p>
+                  {{/if}}
+                {{/is}}
+
+                {{#is type "dropdown"}}
+                  {{#if isEditingToggled}}
+                    <div>
+                      <select name={{ ../name }}>
+                        <option value="" name="no_response">{{#_}}Select...{{/_}}</option>
+                        {{#each content}}
+                          <option value={{ value }} {{#if selected}}selected{{/if}}>{{ label }}</option>
+                        {{/each}}
+                      </select>
+                    </div>
+                    <div style="clear:both"></div>
+                  {{else}}
+                    {{#each content}}
+                      <p>
+                        {{#if selected}}
+                          {{nlToBr label}}
+                        {{/if}}
+                      </p>
+                    {{/each}}
+                  {{/if}}
+                {{/is}}
+
+                {{#is type "file"}}
+                  <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+                  <span class="fileinput-container btn btn-small{{#if_fileinput_not_supported}} btn-disabled{{/if_fileinput_not_supported}}">
+                    <span>{{ inputfile_label }}</span>
+                    <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}"
+                           {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
+                           {{#if_fileinput_not_supported}} disabled{{/if_fileinput_not_supported}}>
+                  </span>
+                  <span class="fileinput-name">
+                    {{#if_fileinput_not_supported}}Sorry, your browser doesn't support file uploads.{{/if_fileinput_not_supported}}
+                  </span>
+                {{/is}}
+                <div style="clear:both"></div>
+              </div>
             {{/each_place_item }}
           </form>
           {{#if isEditingToggled}}
-            <div id="update-place-model-btn" class="btn btn-small">Update post</div>
-            <div id="delete-place-model-btn" class="btn btn-small">Delete this post</div>
+            <div id="update-place-model-btn" class="btn btn-small">{{#_}}Update post{{/_}}</div>
+            <div id="delete-place-model-btn" class="btn btn-small">{{#_}}Delete this post{{/_}}</div>
           {{/if}}
         </section>
 

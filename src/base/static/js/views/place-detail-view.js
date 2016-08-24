@@ -11,7 +11,8 @@
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext',
       'click #toggle-editor-btn': 'onToggleEditMode',
       'click #update-place-model-btn': 'onUpdateModel',
-      'click #delete-place-model-btn': 'onDeleteModel'
+      'click #delete-place-model-btn': 'onDeleteModel',
+      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle'
     },
     initialize: function() {
       var self = this;
@@ -117,6 +118,9 @@
       this.delegateEvents();
 
       $("#content article").animate({ scrollTop: 0 }, "fast");
+      
+      // initialize datetime picker, if relevant
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
 
       return this;
     },
@@ -128,9 +132,38 @@
       this.render();
     },
 
+    onBinaryToggle: function(evt) {
+      var category = this.model.get("category");
+      var targetButton = $(evt.target).attr("id"),
+      oldValue = $(evt.target).val(),
+      // find the matching config data for this element
+      altData = _.find(this.options.placeConfig.place_detail[category].fields, function(item) {
+        return item.name == targetButton;
+      });
+      // fetch alternate label and value
+      altContent = _.find(altData.content, function(item) {
+        return item.value != oldValue;
+      });
+
+      // set new value and label
+      $(evt.target).val(altContent.value);
+      $(evt.target).next("label").html(altContent.label);
+    },
+
     onUpdateModel: function() {
+      var self = this,
       // pull data off form and save model, triggering a PUT request
-      var attrs = S.Util.getAttrs($("#update-place-model-form"));
+      attrs = S.Util.getAttrs($("#update-place-model-form"));
+
+      // special handling for binary toggle buttons: we need to remove
+      // them completely from the model if they've been unselected in
+      // the editor
+      $('input[data-input-type="binary_toggle"]').each(function(input) {
+        if (!$(this).is(":checked")) {
+          self.model.unset($(this).attr("id"));
+        }
+      });
+
       this.model.set(attrs).save({
         success: function() {
           // nothing
