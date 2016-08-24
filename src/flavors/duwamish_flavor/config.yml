@@ -742,12 +742,27 @@ place:
       value: observation
       label: _(Observation)
       fields:
+        - name: date
+          type: datetime
+          prompt: _(Date:)
+          display_prompt: _(Date:)
+          optional: true
         - name: title
           type: text
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
+        - name: reside_work_georgetown  
+          type: binary_toggle 
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+          display_prompt: _(I reside or work in Georgetown or South Park:)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: true
         - name: pollution_type
           type: checkbox_big_buttons
           prompt: _(Types of pollution seen:)
@@ -763,7 +778,39 @@ place:
               value: litter
             - label: _(Other)
               value: other
-          optional: true # NOTE: checkbox_big_button inputs have no validation
+          optional: true
+        - name: blah
+          type: radio_big_buttons
+          prompt: _(Blah?)
+          display_prompt: _(Blah:)
+          content:
+            - label: _(A)
+              value: a
+            - label: _(B)
+              value: b
+            - label: _(C)
+              value: c
+            - label: _(D)
+              value: d
+            - label: _(E)
+              value: e
+          optional: true
+        - name: blah2
+          type: dropdown
+          prompt: _(BlahBlah?)
+          display_prompt: _(BlahBlah:)
+          content:
+            - label: _(A)
+              value: a
+            - label: _(B)
+              value: b
+            - label: _(C)
+              value: c
+            - label: _(D)
+              value: d
+            - label: _(E)
+              value: e
+          optional: true
         - name: description
           type: textarea
           prompt: _(Description of this pollution:)
