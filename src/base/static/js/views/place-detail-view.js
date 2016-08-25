@@ -179,7 +179,7 @@
     },
 
     onBinaryToggle: function(evt) {
-      var category = this.model.get("category");
+      var category = this.model.get("location_type");
       var targetButton = $(evt.target).attr("id"),
       oldValue = $(evt.target).val(),
       // find the matching config data for this element
