@@ -94,9 +94,8 @@
     onToggleEditMode: function() {
       var toggled = !this.isEditingToggled;
       this.isEditingToggled = toggled;
-      this.render();
       this.surveyView.options.isEditingToggled = toggled;
-      this.surveyView.render();
+      this.render();
     },
 
     render: function() {
