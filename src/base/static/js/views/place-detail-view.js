@@ -55,6 +55,10 @@
         datasetId: self.options.datasetId
       });
 
+      // fetch comments here instead of in render(), to avoid fetching on
+      // a re-render and possibly conflicting with in-progress update/delete calls
+      this.model.submissionSets[this.surveyType].fetchAllPages();
+
       this.$el.on('click', '.share-link a', function(evt){
 
         // HACK! Each action should have its own view and bind its own events.
@@ -115,8 +119,6 @@
 
       // Render the view as-is (collection may have content already)
       this.$('.survey').html(this.surveyView.render().$el);
-      // Fetch for submissions and automatically update the element
-      this.model.submissionSets[this.surveyType].fetchAllPages();
 
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
