@@ -15,45 +15,57 @@
 
           <ol class="responses unstyled-list">
             {{#responses}}
-            <li>
-              <article data-response-id="{{ id }}" class="response">
-                <header class="response-header clearfix">
-                  {{#_}}<strong class="response-submitter">
-                    {{#if submitter}}
-                      <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
-                    {{^}}
-                      <!-- TODO: FIXME: don't hardcode image URL -->
-                      <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" /> {{ submitter_name }}
-                    {{/if}}
-                  </strong>
-                  <span class="response-date">
-                    around {{ pretty_created_datetime }}
-                  </span>
-                  {{/_}}
-                </header>
+              <li>
+                <article data-response-id="{{ id }}" class="response">
+                  <header class="response-header clearfix">
+                    {{#_}}<strong class="response-submitter">
+                      {{#if submitter}}
+                        <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
+                      {{^}}
+                        <!-- TODO: FIXME: don't hardcode image URL -->
+                        <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" /> {{ submitter_name }}
+                      {{/if}}
+                    </strong>
+                    <span class="response-date">
+                      around {{ pretty_created_datetime }}
+                    </span>
+                    {{/_}}
+                  </header>
 
-                <div class="response-body">
+                  <div class="response-body">
+                    {{#items}}
+                      <div class="response-item response-item-{{ name }}" data-cid={{ ../cid }}>
+                        <span class="response-label response-label-{{ name }}">{{ label }}</span>
+                        {{#if ../../isEditingToggled}}
+                          <form>
+                            <textarea class="response-value response-value-{{ name }}" name={{ name }}>{{nlToBr value}}</textarea>
+                          </form>
+                        {{else}}
+                          <p class="response-value response-value-{{ name }}">{{nlToBr value}}</p>
+                        {{/if}}
 
-                  {{#items}}
-                  <div class="response-item response-item-{{ name }}">
-                    <span class="response-label response-label-{{ name }}">{{ label }}</span>
-                    <p class="response-value response-value-{{ name }}">{{nlToBr value }}</p>
+                        {{#if ../../isEditingToggled}}
+                          <div id="response-btn-{{ name }}" class="update-response-btn btn btn-small">{{#_}}Update comment{{/_}}</div>
+                        {{/if}}
+                      </div>
+                    {{/items}}
                   </div>
-                  {{/items}}
-
-                </div>
-              </article>
-            </li>
+                </article>
+              </li>
             {{/responses}}
           </ol>
           {{/survey_config.show_responses}}
 
           {{#if survey_config.single_submission}}
             {{^if user_submitted}}
-              {{>place-survey-form}}
+              {{#unless isEditingToggled}}
+                {{>place-survey-form}}
+              {{/unless}}
             {{else}}
               {{>place-survey-response}}
             {{/if}}
           {{else}}
-            {{>place-survey-form}}
+            {{#unless isEditingToggled}}
+              {{>place-survey-form}}
+            {{/unless}}
           {{/if}}

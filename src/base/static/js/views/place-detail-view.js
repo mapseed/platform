@@ -42,7 +42,8 @@ var Shareabouts = Shareabouts || {};
         collection: this.model.submissionSets[this.surveyType],
         surveyConfig: this.options.surveyConfig,
         userToken: this.options.userToken,
-        datasetId: self.options.datasetId
+        datasetId: self.options.datasetId,
+        isEditingToggled: this.isEditingToggled
       });
 
       this.supportView = new S.SupportView({
@@ -85,8 +86,11 @@ var Shareabouts = Shareabouts || {};
     },
 
     onToggleEditMode: function() {
-      this.isEditingToggled = !this.isEditingToggled;
+      var toggled = !this.isEditingToggled;
+      this.isEditingToggled = toggled;
       this.render();
+      this.surveyView.options.isEditingToggled = toggled;
+      this.surveyView.render();
     },
 
     render: function() {
@@ -117,6 +121,7 @@ var Shareabouts = Shareabouts || {};
       this.model.submissionSets[this.supportType].fetchAllPages();
 
       this.delegateEvents();
+      this.surveyView.delegateEvents();
 
       $("#content article").animate({ scrollTop: 0 }, "fast");
       
