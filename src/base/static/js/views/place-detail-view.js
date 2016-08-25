@@ -44,7 +44,8 @@
         collection: this.model.submissionSets[this.surveyType],
         surveyConfig: this.options.surveyConfig,
         userToken: this.options.userToken,
-        datasetId: self.options.datasetId
+        datasetId: self.options.datasetId,
+        isEditingToggled: this.isEditingToggled
       });
 
       this.supportView = new SupportView({
@@ -87,8 +88,11 @@
     },
 
     onToggleEditMode: function() {
-      this.isEditingToggled = !this.isEditingToggled;
+      var toggled = !this.isEditingToggled;
+      this.isEditingToggled = toggled;
       this.render();
+      this.surveyView.options.isEditingToggled = toggled;
+      this.surveyView.render();
     },
 
     render: function() {
@@ -119,6 +123,7 @@
       this.model.submissionSets[this.supportType].fetchAllPages();
 
       this.delegateEvents();
+      this.surveyView.delegateEvents();
 
       $("#content article").animate({ scrollTop: 0 }, "fast");
       
