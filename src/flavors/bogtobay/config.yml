@@ -72,21 +72,9 @@ map:
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-    - id: duwamish
-      type: place
-      slug: report
-
     - id: bogtobay
       type: place
       slug: report
-
-    - id: trees
-      type: place
-      slug: trees
-
-    - id: air
-      type: place
-      slug: air
 
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -749,7 +737,7 @@ place:
     question:
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: bogtobay
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -768,7 +756,7 @@ place:
     idea:
       includeOnForm: false
       name: location_type
-      dataset: duwamish
+      dataset: bogtobay
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -788,7 +776,7 @@ place:
     complaint:
       includeOnForm: false
       name: location_type
-      dataset: duwamish
+      dataset: bogtobay
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
@@ -808,7 +796,7 @@ place:
     air_watch:  #defines a top-level form category
       includeOnForm: false
       name: location_type  #needs to be "location_type"
-      dataset: air
+      dataset: bogtobay
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
@@ -950,7 +938,7 @@ place:
     pledge:
       includeOnForm: true
       name: location_type
-      dataset: trees
+      dataset: bogtobay
       icon_url: /static/css/images/markers/marker-tree.png
       value: pledge
       label: _(Stewardship Pledge)
@@ -987,7 +975,7 @@ place:
     action:
       includeOnForm: true
       name: location_type
-      dataset: trees
+      dataset: bogtobay
       icon_url: /static/css/images/markers/marker-tree.png
       value: action
       label: _(Stewardship Action)
