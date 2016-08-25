@@ -12,7 +12,8 @@
       'click #toggle-editor-btn': 'onToggleEditMode',
       'click #update-place-model-btn': 'onUpdateModel',
       'click #delete-place-model-btn': 'onDeleteModel',
-      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle'
+      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
+      'change input[type="file"]': 'onInputFileChange',
     },
     initialize: function() {
       var self = this;
@@ -73,6 +74,8 @@
           }
         });
       }
+
+      this.model.attachmentCollection.on("add", this.onAddAttachment, this);
     },
 
     onClickStoryPrevious: function() {
@@ -129,6 +132,49 @@
     },
 
     onChange: function() {
+      this.render();
+    },
+
+    onInputFileChange: function(evt) {
+      var self = this,
+          file,
+          attachment;
+
+      if(evt.target.files && evt.target.files.length) {
+        file = evt.target.files[0];
+
+        this.$('.fileinput-name').text(file.name);
+        S.Util.fileToCanvas(file, function(canvas) {
+          canvas.toBlob(function(blob) {
+            //var fieldName = $(evt.target).attr('name'),
+            var fieldName = Math.random().toString(36).substring(7),
+                data = {
+                  name: fieldName,
+                  blob: blob,
+                  file: canvas.toDataURL('image/jpeg')
+                };
+
+            attachment = self.model.attachmentCollection.find(function(model) {
+              return model.get('name') === fieldName;
+            });
+
+            if (_.isUndefined(attachment)) {
+              self.model.attachmentCollection.add(data);
+            } else {
+              attachment.set(data);
+            }
+          }, 'image/jpeg');
+        }, {
+          // TODO: make configurable
+          maxWidth: 800,
+          maxHeight: 800,
+          canvas: true
+        });
+      }
+    },
+
+    onAddAttachment: function(attachment) {
+      attachment.save();
       this.render();
     },
 
