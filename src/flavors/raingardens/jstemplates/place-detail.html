@@ -57,6 +57,9 @@
             {{# attachments }}
               <div class="place-item place-item-attachment place-attachment-{{ name }}">
                 <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
+                {{#if ../isEditingToggled}}
+                  <div class="remove-attachment-btn btn btn-small">{{#_}}Remove this image{{/_}}</div>
+                {{/if}}
               </div>
             {{/ attachments }}
 
