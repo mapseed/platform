@@ -6,7 +6,8 @@ var Shareabouts = Shareabouts || {};
   S.SurveyView = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
-      'click .reply-link': 'onReplyClick'
+      'click .reply-link': 'onReplyClick',
+      'click .update-response-btn': "onUpdateResponse"
     },
     initialize: function() {
       S.TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
@@ -51,6 +52,7 @@ var Shareabouts = Shareabouts || {};
 
         responses.push(_.extend(model.toJSON(), {
           submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
+          cid: model.cid,
           pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
             self.options.surveyConfig.pretty_datetime_format),
           items: items
@@ -62,7 +64,8 @@ var Shareabouts = Shareabouts || {};
         has_single_response: (responses.length === 1),
         user_token: this.options.userToken,
         user_submitted: !!this.userSubmission,
-        survey_config: this.options.surveyConfig
+        survey_config: this.options.surveyConfig,
+        isEditingToggled: this.options.isEditingToggled
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-detail-survey'](data));
@@ -136,8 +139,15 @@ var Shareabouts = Shareabouts || {};
       evt.preventDefault();
       this.$('textarea, input').not('[type="hidden"]').first().focus();
       S.Util.log('USER', 'place', 'leave-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
-    }
+    },
 
+    onUpdateResponse: function(evt) {
+      var cid = $(evt.target).parent().data("cid"),
+      model = this.collection.get(cid),
+      $form = $(evt.target).siblings("form"),
+      attrs = S.Util.getAttrs($form);
+      model.set(attrs).save();
+    }
   });
 
 }(Shareabouts, jQuery, Shareabouts.Util.console));
