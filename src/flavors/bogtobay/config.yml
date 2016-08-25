@@ -76,6 +76,10 @@ map:
       type: place
       slug: report
 
+    - id: bogtobay
+      type: place
+      slug: report
+
     - id: trees
       type: place
       slug: trees
@@ -708,7 +712,7 @@ place:
     observation:
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: bogtobay
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
