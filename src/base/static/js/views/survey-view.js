@@ -6,7 +6,8 @@
     events: {
       'submit form': 'onSubmit',
       'click .reply-link': 'onReplyClick',
-      'click .update-response-btn': "onUpdateResponse"
+      'click .update-response-btn': 'onUpdateResponse',
+      'click .delete-response-btn': 'onDeleteResponse'
     },
     initialize: function() {
       TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
@@ -146,5 +147,15 @@
       $form = $(evt.target).siblings("form"),
       attrs = S.Util.getAttrs($form);
       model.set(attrs).save();
+    },
+
+    onDeleteResponse: function(evt) {
+      var response = confirm("You are deleting this comment permanently. Are you sure you want to continue?");
+      if (response) {
+        var cid = $(evt.target).parent().data("cid"),
+        model = this.collection.get(cid);
+        model.destroy();
+        this.render();
+      }
     }
   });
