@@ -198,14 +198,14 @@ var Shareabouts = Shareabouts || {};
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
     applyFilters: function(filters, term) {
-      var len = S.Config.place.items.length,
-          val, key, i;
+      var val, key, i;
 
       term = term.toUpperCase();
       this.collection.each(function(model) {
         var show = function() { model.trigger('show'); },
             hide = function() { model.trigger('hide'); },
-            submitter, locationType;
+            submitter, 
+            locationType = model.get("location_type");
 
         // If the model doesn't match one of the filters, hide it.
         for (key in filters) {
@@ -219,13 +219,13 @@ var Shareabouts = Shareabouts || {};
         }
 
         // Check whether the remaining models match the search term
-        for (i=0; i<len; i++) {
-          key = S.Config.place.items[i].name;
+        for (var i = 0; i < S.Config.place.place_detail[locationType].fields.length; i++) { 
+          key = S.Config.place.place_detail[locationType].fields[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
             return show();
           }
-        }
+        };
 
         // Submitter is only present when a user submits a place when logged in
         // with FB or Twitter. We handle it specially because it is an object,
