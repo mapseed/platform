@@ -19,14 +19,14 @@ You don't want to check the API key information in to your
 repository, as anyone would be able to write to your data using your
 API key.
 
-## Step 1: Get a dataset
+## Step 1: Get one or more datasets
 
 You'll need an account on a Shareabouts API server.
 
-To use the OpenPlans hosted server, request a dataset and key via support@openplans.org. Your dataset will be on the OpenPlans API server,
-[data.shareabouts.org](http://data.shareabouts.org).
-
-Edit your `local_setting.py` file, update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server.
+For each dataset that your flavor will use, you'll need to add the dataset's url and key to your .env file.
+There is a standard format for doing this: In all caps, create a line with the text ID_SITE_URL=xyz, where *ID* is the name
+of your dataset and *xyz* is the url to the dataset. Next, create a line with the text ID_DATASET_KEY=abc, where *ID* is the name
+of your dataset and *abc* is the key provided by the server.
 
 ### Troubleshooting dataset problems
 
@@ -91,6 +91,24 @@ flavor [config file](https://github.com/openplans/shareabouts/blob/master/src/fl
 The data used in that example can also be found in the flavor under the
 [*/static/layers/*](https://github.com/openplans/shareabouts/tree/master/src/flavors/overlays/static/layers)
 folder.
+
+If you are creating a map that will use the dynamic input form and write data to multiple independent
+datasets, you'll need to add some configuration information in the `layers` section. For example, to
+configure a dataset called `water`, add the following information under `layers`:
+
+      - id: water
+        type: place
+        slug: waterreport
+
+The options are as follows:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+id                   | string  | The name of the dataset associated with this layer. Note that this name needs to match the `dataset` parameter on the dynamic form's configuration
+type                 | string  | The layer type. This needs to be set to `place`, as we currently only support place data on the dynamic form
+slug                 | string  | The name to use in urls associated with this dataset. For example, place number 43 created in the `water` dataset would be accssible at the url `/waterreport/43`
+
+Note that each dataset can have only one slug associated with it, and that all slugs must be unique.
 
 ### Geocoding
 
@@ -159,77 +177,6 @@ the map. The result of that reverse-geocoding will be a string saved to the
 model in the `location_item_name` attribute. E.g., in the above example, the
 string will be saved in the `address` field of a place.
 
-Next you can have any number of input widgets to appear on the place
-adding form. These go in the *items* subsection, under *place*.
-Each one looks like:
-
-    items:
-      - prompt: Your Name
-        type: text
-        name: submitter_name
-        optional: true
-        attrs:
-          - key: placeholder
-            value: Type Your Name Here
-          - key: size
-            value: 30
-
-The *prompt* is used to label the form. The *type*, *name*, and any
-*attrs* are used directly as HTML attributes.  This example would
-generate the following HTML:
-
-    <label for="place-submitter_name">Your Name (optional)</label>
-    <input id="place-submitter_name type="text"
-     name="submitter_name"
-	 size="30" placeholder="Type Your Name Here">
-
-The *optional* setting can be used to indicate optional items.
-* with `optional: true`, the user sees _(optional)_ added to the form
-label. The setting has no other effect.
-* with `optional:` omitted, users can leave form items blank, and will not see the _(optional)_
-label. You may prefer this if all your items are optional.
-
-To make an item required, use the `attr` section to set `key: required` and  `value: true`. We're using HTML5 validation, so browsers handle this differently
-(or [not at all](http://caniuse.com/form-validation)).
-
-The *label* setting can also be used for a place item. It is used as the label
-for that input value when it is displayed in the place detail view after it
-has been saved.
-
-**NOTE** There are three special place input properties: `submitter_name`, `name`,
-and `location_type`. These are specially displayed on the place detail view and
-therefore ignore the *label* setting.
-
-##### Attaching images to places
-
-You can attach images to places by configuring an input of type `file`. The
-configuration should look like this:
-
-    items:
-      - inputfile_label: Add an Image
-        type: file
-        name: my_image
-        attrs:
-          - key: accept
-            value: image/*
-
-This will generate markup that looks similar to this:
-
-    <label for="place-my_image"></label>
-    <span class="fileinput-container ">
-      <span>Add an Image</span>
-      <input id="place-my_image" name="my_image" type="file" accept="image/*">
-    </span>
-
-You can restyle the image input by overriding the `.fileinput-container` class
-in `custom.css` in your flavor.
-
-**NOTE** This does not currently support multiple file inputs or inputs types
-other than images.
-
-**NOTE** All images are proportionally resized with a max size of 800 pixels and
-converted to JPEGs.
-
 ##### Choosing a place type
 
 If you have only one *place type* (see above), you'll want to specify
@@ -267,7 +214,7 @@ Option               | Type    | Description
 submission_type      | string  | What type of submissions these are, eg. "comments"
 show_responses       | boolean | Whether previous submissions should be shown with the form.
 response_name        | string  | Label to use when displaying previous submissions.
-response_plural_name | string | Plural label for displaying previous submissions.
+response_plural_name | string  | Plural label for displaying previous submissions.
  action_text         | string  | For example, "commented on"
 
 
@@ -300,6 +247,133 @@ is meant to be private with a `private-` prefix. This data will be available
 to you through the Shareabouts admin interface, but will not be shown through
 in your map. See the section on [survey form configuration](#survey-form-configuration)
 for an example.
+
+#### Dynamic Form Configuration
+
+The dynamic form is configured in the *place_detail* section, found within the
+*place* section. The dynamic form gives you the ability to create any number of 
+customized input forms, and link them to independent datasets. Create a new
+dynamic form category by creating a new entry under the `place_detail` section:
+
+    water:
+      includeOnForm: true
+      name: location_type
+      dataset: waterData
+      icon_url: /static/css/images/markers/marker-water.png
+      value: water
+      label: _(Water survey)
+
+This entry will create a dynamic form category called `water`, which will write to
+a dataset called `waterData`. The options for this section are as follows:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+includeOnForm        | boolean | Whether to display this category on the dynamic form menu
+name                 | string  | 
+dataset              | string  | The name of the dataset this category will write to
+icon_url             | string  | The file path to the icon you want to associate with this category
+value                | string  | The internal value to associate with this category
+label                | string  | The text to display for this category on the dynamic form menu
+
+Use the `fields` section to create individual input fields. To create a field of
+radio buttons, for example, add an entry to the `fields` section as follows:
+
+    water:
+      includeOnForm: true
+      name: location_type
+      dataset: waterData
+      icon_url: /static/css/images/markers/marker-water.png
+      value: water
+      label: _(Water survey)
+      fields:
+        - name: pollution_type
+          type: radio_big_buttons
+          prompt: _(Type of pollutions seen:)
+          display_prompt: _(I saw the following type of pollution here:)
+          annotation: _(Please do not handle any pollution yourself)
+          content:
+            - label: _(Sewage)
+              value: sewage
+            - label: _(Tires)
+              value: tires
+            - label: _(Litter)
+              value: litter
+            - label: _(Other)
+              value: other
+          optional: false
+
+This entry will configure a set of stylized radio buttons consisting of options listed under `content`.
+The options are as follows:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+name                 | string  | The name of this input field to store in the database
+type                 | string  | The input type. Available options are: `checkbox_big_buttons`, `dropdown`, `binary_toggle` (for simple yes-no responses), `text`, `textarea`, `radio_big_buttons`, and `datetime`
+prompt               | string  | The question prompt
+display_prompt       | string  | The text to display when this question's response is rendered
+annotation           | string  | An optional message to display below a question
+content              | array   | If applicable, an array of label/value pairs to associate with the given input type. Releveant for `dropdown`, `radio-big-buttons`, `checkbox-big-buttons`, and `binary-toggle`
+optional             | boolean | Whether or not to require a response for this question
+
+##### Common Form Elements
+
+If you are configuring a dynamic form with multiple categories that share common input elements, use
+the `common_form_elements` section to configure these input types. At the very least you'll want a
+submit button:
+
+    common_form_elemets:
+      - type: submit
+        label: _(Put it on the map!)
+
+###### Here are some other common form elements you might want to include:
+
+**Images:**
+
+      - inputfile_label: Add an Image
+        type: file
+        name: my_image
+        attrs:
+          - key: accept
+            value: image/*
+
+This will generate markup that looks similar to this:
+
+    <label for="place-my_image"></label>
+    <span class="fileinput-container ">
+      <span>Add an Image</span>
+      <input id="place-my_image" name="my_image" type="file" accept="image/*">
+    </span>
+
+You can restyle the image input by overriding the `.fileinput-container` class
+in `custom.css` in your flavor.
+
+**NOTE** This does not currently support multiple file inputs or inputs types
+other than images.
+
+**NOTE** All images are proportionally resized with a max size of 800 pixels and
+converted to JPEGs.
+
+**Submitter Name**
+
+    - name: submitter_name
+        type: text
+        prompt: _(Your name)
+        placeholder: _(Name)
+        optional: true
+
+**Submitter Email Address** 
+
+    - name: private-submitter_email
+      type: text
+      prompt: _(Your Email)
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Receive email updates on your report)
+        - key: size
+          value: 30
+
 
 #### Support Form Configuration
 

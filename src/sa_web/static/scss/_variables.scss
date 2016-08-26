@@ -1,0 +1,113 @@
+// ################################
+// BASE STYLES - VARIABLES
+// ################################
+// Links - Variables
+$hover-highlight-blue: #00aaff;
+
+// Typography - Variables
+$default-font-color: #36454f;
+$default-font-family: "Roboto", sans-serif;
+$border-color-lightgrey: #eeeeee;
+
+// Buttons - Variables
+$button-background-blue: #007fbf;
+$button-background-hover-blue: #93b7c9;
+$button-background-lightblue: #a3c7d9;
+$button-color-white: #fff;
+$button-primary-background-orange: rgba(242, 82, 24, 0.89);
+$opacity-lowest-black: rgba(0, 0, 0, 0.05);
+$opacity-very-low-black: rgba(0, 0, 0, 0.1);
+$opacity-low-black: rgba(0, 0, 0, 0.2);
+$opacity-med-black: rgba(0, 0, 0, 0.5);
+$opacity-med-high-white: rgba(255, 255, 255, 0.75);
+
+// Forms - Variables
+
+// Dynamic Form - Variables
+$icon-check-mark: "✔";
+$icon-expansion-hamburger: "";
+$unselected-highlight-light-gray: #D1D3D4;
+$unselected-message-light-gray: #999999;
+$unselected-highlight-medium-gray: #444444;
+$unselected-message-medium-gray: #EEEEEE;
+$selected-highlight-orange: rgb(242, 82, 24);
+$selected-message-dark-gray: #222222;
+
+// Images - Variables
+
+// ################################
+// NONSEMANTIC BASE STYLES - VARIABLES
+// ################################
+
+// ################################
+// HEADER - VARIABLES
+// ################################
+// Navigation Button - Variables
+// Navigation Menu - Variables
+// User Menu - Variables
+
+// ################################
+// MAP - VARIABLES
+// ################################
+// Geolocation Button - Variables
+// Map Attribution - Variables
+// Add Place Button - Variables
+// Center Point (new point icon) - Variables
+// Drag Marker Instructions (for adding a new place) - Variables
+// Ajax Error Message - Variables
+
+// ################################
+// PROGRESS BARS - VARIABLES
+// ################################
+
+// ################################
+// CONTENT: PAGES AND PLACES - VARIABLES
+// ################################
+// Close Button - Variables
+// Promotion: Voting & Sharing - Variables
+// Places - Variables
+// Surveys - Variables
+
+// ################################
+// SIDEBAR - VARIABLES
+// ################################
+
+// ################################
+// TICKER - VARIABLES
+// ################################
+
+// ################################
+// MASTER LEGEND - VARIABLES
+// ################################
+
+// ################################
+// LIST VIEW - VARIABLES
+// ################################
+// Search - Variables
+// Search & Sort - Variables
+// Place List - Variables
+
+// ################################
+// PLACE COUNTER - VARIABLES
+// ################################
+
+// ################################
+// GEOCODING - VARIABLES
+// ################################
+
+// ################################
+// FOOTER - VARIABLES
+// ################################
+// Powered By - Variables
+// Mapquest Attribution - Variables
+
+// ################################
+// UNSUPPORTED BROWSERS - VARIABLES
+// ################################
+
+// ################################
+// MEDIA QUERIES - VARIABLES
+// ################################
+$map-width-when-content-visible: 60%;
+$content-visible-left-offset: $map-width-when-content-visible;
+$content-visible-width: 100% - $map-width-when-content-visible;
