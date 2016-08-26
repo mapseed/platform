@@ -97,7 +97,11 @@ map:
 
     - id: greenways
       type: cartodb
-      url: "https://lenswork64.carto.com/api/v2/viz/31e88304-666a-11e6-b4b2-0e3ff518bd15/viz.json"
+      url: "https://lenswork64.carto.com/api/v2/viz/d59f6828-6b15-11e6-bed3-0e233c30368f/viz.json"
+
+    - id: bikemaster
+      type: cartodb
+      url: "https://lenswork64.carto.com/api/v2/viz/3851820a-6b19-11e6-9cf5-0ee66e2c9693/viz.json"
 
       # Land Use
     - id: landuse
@@ -184,6 +188,7 @@ map:
 
     - id: dark
       type: basemap
+      defaultBase: true
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
@@ -387,7 +392,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-tree.png      
+          iconUrl: /static/css/images/markers/marker-tree.png    
 
   # # needs a marker
   # farm:
@@ -606,6 +611,10 @@ sidebar:
               title: _(Greenways)
               visibleDefault: true
 
+            - id: bikemaster
+              title: _(Bicycle Master Plan)
+              visibleDefault: true
+
             - id: cleanup
               title: _(River Cleanup Plan)
               visibleDefault: false
@@ -723,8 +732,8 @@ place:
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-observation.png
-      value: observation
-      label: _(Observation)
+      value: vegetation
+      label: _(Vegetation)
       fields:
         - name: title
           type: text
@@ -737,7 +746,7 @@ place:
           prompt: _(Types of pollution seen:)
           display_prompt: _(I saw the following types of pollution here:)
           content:
-            - label: _(Sewage)
+            - label: _(Trip hazard)
               value: sewage
             - label: _(Tires)
               value: tires
@@ -760,8 +769,8 @@ place:
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-question.png
-      value: question
-      label: _(Question)
+      value: design
+      label: _(Design)
       fields:
         - name: title
           type: text
@@ -775,12 +784,12 @@ place:
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
     idea:
-      includeOnForm: false
+      includeOnForm: true
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-idea.png
-      value: idea
-      label: _(Idea)
+      value: traffic
+      label: _(Traffic)
       fields:
         - name: title
           type: text
@@ -792,15 +801,15 @@ place:
           type: textarea
           prompt: _(Describe your idea below:)
           display_prompt: "_(Here's my idea:)"
-          placeholder: _(Description...)
+          placeholder: _(Description...) 
           optional: false
     complaint:
-      includeOnForm: false
+      includeOnForm: true
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-complaint.png
-      value: complaint
-      label: _(Complaint)
+      value: accessibility
+      label: _(Accessibility)
       fields:
         - name: title
           type: text
@@ -815,7 +824,7 @@ place:
           placeholder: _(Description...)
           optional: false
     air_watch:  #defines a top-level form category
-      includeOnForm: false
+      includeOnForm: true
       name: location_type  #needs to be "location_type"
       dataset: air
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
@@ -956,80 +965,6 @@ place:
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
           optional: true   
-    pledge:
-      includeOnForm: true
-      name: location_type
-      dataset: trees
-      icon_url: /static/css/images/markers/marker-tree.png
-      value: pledge
-      label: _(Stewardship Pledge)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Description)
-          display_prompt: _(Description of this tree:)
-          placeholder: _(Description...)
-          optional: false
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
-          display_prompt: _(I saw the following types of pollution here:)
-          content:
-            - label: _(Scoop the poop)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
-            - label: _(Other)
-              value: other
-          optional: true 
-          # NOTE: checkbox_big_button inputs have no validation
-    action:
-      includeOnForm: true
-      name: location_type
-      dataset: trees
-      icon_url: /static/css/images/markers/marker-tree.png
-      value: action
-      label: _(Stewardship Action)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Description)
-          display_prompt: _(Description of this tree:)
-          placeholder: _(Description...)
-          optional: false
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
-          display_prompt: _(I saw the following types of pollution here:)
-          content:
-            - label: _(Scoop the poop)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
-            - label: _(Other)
-              value: other
-          optional: true 
-          # NOTE: checkbox_big_button inputs have no validation
 
   # define form elements that appear on every form here
   common_form_elements:
