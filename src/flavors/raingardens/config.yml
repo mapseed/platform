@@ -184,7 +184,7 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    raingarden:
+    - category: raingarden
       includeOnForm: true
       name: location_type
       dataset: raingardens
