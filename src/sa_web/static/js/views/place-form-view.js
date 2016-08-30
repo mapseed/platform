@@ -13,13 +13,18 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this;
-      // keep track of relevant catgory & dataset info as user switches among categories
-      this.selectedCategory = null;
-      this.selectedDatasetId = null;
-      this.priorDatasetId = null;
-      this.selectedDatasetSlug = null;
-      this.priorModelCid = null;
-      this.singleCategory = false;
+      // keep track of relevant catgory & dataset info 
+      // as user switches among categories
+      this.formState = {
+        selectedCategory: null,
+        selectedDatasetId: null,
+        priorDatasetId: null,
+        selectedDatasetSlug: null,
+        priorModelCid: null,
+        isSingleCategory: false,
+        placeDetail: this.options.placeConfig.place_detail
+      } 
+
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
@@ -29,30 +34,30 @@ var Shareabouts = Shareabouts || {};
         this.collection[collection].on('add', self.setModel, this);
       }
     },
-    render: function(category, is_category_selected) {
-      var self = this;
-      var selectedCategoryConfig = category && this.options.placeConfig.place_detail[category] || {};
-      var placesToIncludeOnForm = _.filter(_.keys(self.options.placeConfig.place_detail), function(key) { return self.options.placeConfig.place_detail[key].includeOnForm; });       
+    render: function(category, isCategorySelected) {
+      var self = this,
+      selectedCategoryConfig = category && _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === category; }) || {},
+      placesToIncludeOnForm = _.filter(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.includeOnForm; });
 
       // if there is only one place to include on form, skip category selection page
-      if (placesToIncludeOnForm.length == 1) {
-        is_category_selected = true;
-        this.singleCategory = true;
-        category = placesToIncludeOnForm[0];
-        this.selectedCategory = category;
-        this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset;
-        this.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.selectedDatasetId == layer.id }).slug;
-        selectedCategoryConfig = this.options.placeConfig.place_detail[category];
-        this.collection[this.selectedDatasetId].add({});
+      if (placesToIncludeOnForm.length === 1) {
+        this.formState.isSingleCategory = true;
+        isCategorySelected = true;
+        category = placesToIncludeOnForm[0].category;
+        this.formState.selectedCategory = category;
+        this.formState.selectedDatasetId = placesToIncludeOnForm[0].dataset;
+        this.formState.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.formState.selectedDatasetId == layer.id }).slug;
+        selectedCategoryConfig = placesToIncludeOnForm[0];
+        this.collection[this.formState.selectedDatasetId].add({});
       }
 
       var data = _.extend({
-        place_config: this.options.placeConfig,
-        selected_category: selectedCategoryConfig,
-        is_category_selected: is_category_selected || false,
+        isCategorySelected: isCategorySelected,
+        placeConfig: this.options.placeConfig,
+        selectedCategory: selectedCategoryConfig,
         user_token: this.options.userToken,
         current_user: S.currentUser,
-        is_single_category: (placesToIncludeOnForm.length == 1) ? true : false
+        isSingleCategory: this.formState.isSingleCategory
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
@@ -61,7 +66,7 @@ var Shareabouts = Shareabouts || {};
     },
     postRender: function() {
       // if the form only has a single category, hide category selection buttons
-      if (this.singleCategory) $("#selected-category, #category-btns").addClass("is-visuallyhidden");
+      if (this.formState.isSingleCategory) $("#selected-category, #category-btns").addClass("is-visuallyhidden");
 
       // initialize datetime picker, if relevant
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
@@ -110,12 +115,12 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           animationDelay = 400;
 
-      this.selectedCategory = $(evt.target).parent().prev().attr('id'),
-      this.selectedDatasetId = this.options.placeConfig.place_detail[this.selectedCategory].dataset,
-      this.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return self.selectedDatasetId == layer.id })[0].slug
+      this.formState.selectedCategory = $(evt.target).parent().prev().attr('id');
+      this.formState.selectedDatasetId = _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory }).dataset;
+      this.formState.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return layer.id === self.formState.selectedDatasetId })[0].slug;
 
       // re-render the form with the selected category
-      this.render(this.selectedCategory, true);
+      this.render(this.formState.selectedCategory, true);
       // manually set the category button again since the re-render resets it
       $(evt.target).parent().prev().prop("checked", true);
       // hide and then show (with animation delay) the selected category button 
@@ -127,7 +132,7 @@ var Shareabouts = Shareabouts || {};
       if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
 
       // instantiate appropriate backbone model
-      this.collection[self.selectedDatasetId].add({});
+      this.collection[self.formState.selectedDatasetId].add({});
     },
     onInputFileChange: function(evt) {
       var self = this,
@@ -166,16 +171,14 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onBinaryToggle: function(evt) {
-      var targetButton = $(evt.target).attr("id"),
-          oldValue = $(evt.target).val(),
-          // find the match config data for this element
-          altData = _.filter(this.options.placeConfig.place_detail[this.selectedCategory].fields, function(item) {
-            return item.name == targetButton;
-          })[0];
-          // fetch alternate label and value
-          altContent = _.filter(altData.content, function(item) {
-            return item.value != oldValue;
-          })[0];
+      var self = this,
+      targetButton = $(evt.target).attr("id"),
+      oldValue = $(evt.target).val(),
+      // find the matching config data for this element
+      selectedCategoryConfig = _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }),
+      altData = _.find(selectedCategoryConfig.fields, function(item) { return item.name === targetButton; }),
+      // fetch alternate label and value
+      altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
 
       // set new value and label
       $(evt.target).val(altContent.value);
@@ -185,17 +188,17 @@ var Shareabouts = Shareabouts || {};
       var self = this;
       this.model = model;
 
-      if (this.priorModelCid && this.priorDatasetId) {
-        this.collection[self.priorDatasetId].get({ cid: self.priorModelCid }).destroy();
+      if (this.formState.priorModelCid && this.formState.priorDatasetId) {
+        this.collection[self.formState.priorDatasetId].get({ cid: self.formState.priorModelCid }).destroy();
       }
-      this.priorModelCid = model.cid;
-      this.priorDatasetId = this.selectedDatasetId;
+      this.formState.priorModelCid = model.cid;
+      this.formState.priorDatasetId = this.formState.selectedDatasetId;
     },
     closePanel: function() {
       this.center = null;
       // make sure we reset priorModelCid and priorDatasetId if the user closes the side panel
-      this.priorModelCid = null;
-      this.priorDatasetId = null;
+      this.formState.priorModelCid = null;
+      this.formState.priorDatasetId = null;
     },
     onExpandCategories: function(evt) {
       var animationDelay = 400;
@@ -226,8 +229,8 @@ var Shareabouts = Shareabouts || {};
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
 
-      model.attributes["datasetSlug"] = this.selectedDatasetSlug;
-      model.attributes["datasetId"] = this.selectedDatasetId;
+      model.set("datasetSlug", this.formState.selectedDatasetSlug);
+      model.set("datasetId", this.formState.selectedDatasetId);
       evt.preventDefault();
 
       $button.attr('disabled', 'disabled');

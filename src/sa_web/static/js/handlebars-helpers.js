@@ -175,12 +175,13 @@ var Shareabouts = Shareabouts || {};
     var self = this,
         result = '',
         args = Array.prototype.slice.call(arguments),
-        exclusions, options;
+        exclusions, options,
+        selectedCategoryConfig = _.find(NS.Config.place.place_detail, function(categoryConfig) { return categoryConfig.category === self.location_type; }) || {};
 
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
 
-    _.each(NS.Config.place.place_detail[this.location_type].fields, function(item, i) {
+    _.each(selectedCategoryConfig.fields, function(item, i) {
       // filter for the correct label/value pair
       var display_value = _.filter(item.content, function(option) {
         return option.value == self[item.name];
