@@ -1,6 +1,8 @@
 /* globals L Backbone _ */
 
 var Shareabouts = Shareabouts || {};
+var visibleLegendIds = [];
+var legendToShow = '';
 
 (function(S, $, console){
   S.MapView = Backbone.View.extend({
@@ -102,13 +104,16 @@ var Shareabouts = Shareabouts || {};
           collection.on('add', self.addLandmarkLayerView(collectionId), self);
           collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
         } else if (config.type && config.type === 'cartodb') {
-          cartodb.createLayer(self.map, config.url, { legends: false })
+          cartodb.createLayer(self.map, config.url)
             .on('done', function(cartoLayer) {
               self.layers[config.id] = cartoLayer;
               // This is only set when the 'visibility' event is fired before
               // our carto layer is loaded:
               if (config.asyncLayerVisibleDefault) {
                 cartoLayer.addTo(self.map);
+              }
+              else {
+                self.setLegendVisibility(cartoLayer, config.id, false);
               }
             })
             .on('error', function(err) {
@@ -189,7 +194,10 @@ var Shareabouts = Shareabouts || {};
       $(S).on('visibility', function (evt, id, visible) {
         var layer = self.layers[id];
         if (layer) {
-          self.setLayerVisibility(layer, visible);
+          self.setLayerVisibility(layer, id, visible);
+            // .on('done', function(){
+            //   self.showLegend();
+            // });
         } else if (id === 'toggle-satellite') {
           // TODO: This is a hack! We should integrate this with the config
           // probably with a radio button in the legend!
@@ -216,13 +224,49 @@ var Shareabouts = Shareabouts || {};
     }, // end initialize
 
     // Adds or removes the layer  on Master Layer based on visibility
-    setLayerVisibility: function(layer, visible) {
+    setLayerVisibility: function(layer, id, visible) {
       this.map.closePopup();
       if (visible && !this.map.hasLayer(layer)) {
         this.map.addLayer(layer);
       }
       if (!visible && this.map.hasLayer(layer)) {
         this.map.removeLayer(layer);
+      }
+      this.setLegendVisibility(layer, id, visible);
+    },
+    setLegendVisibility: function(layer, id, visible) {
+      if(layer.hasOwnProperty('layers') && layer.layers[0].hasOwnProperty('legend')) 
+      {
+          if(visible)
+          {
+            visibleLegendIds.push(id);
+            /* Show only one legend at a time; remove any others */
+            $('.cartodb-legend, .wrapper').children().remove();
+            $('.cartodb-legend, .wrapper').append(layer.layers[0].legend.template);
+          }
+          else
+          {
+            visibleLegendIds.splice(visibleLegendIds.indexOf(id), 1);
+            if(visibleLegendIds.length > 0) {
+              //recursive call of setLegendVisibility would be better here
+              legendToShow = visibleLegendIds[visibleLegendIds.length - 1];
+              var lastLayer = this.layers[legendToShow];
+              $('.cartodb-legend, .wrapper').children().remove();
+              $('.cartodb-legend, .wrapper').append(lastLayer.layers[0].legend.template);
+            }
+          }
+
+          if(visibleLegendIds.length > 0)
+            $('.cartodb-legend-stack').show();
+          else
+            $('.cartodb-legend-stack').hide();
+      }
+    },
+    showLegend: function() {
+      if(legendToShow.length > 0){
+        var layer = this.layers[legendToShow];
+        setLegendVisibility(layer, legendToShow, true);
+        legendToShow = '';
       }
     },
     reverseGeocodeMapCenter: _.debounce(function() {
