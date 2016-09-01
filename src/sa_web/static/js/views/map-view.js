@@ -240,9 +240,8 @@ var legendToShow = '';
           if(visible)
           {
             visibleLegendIds.push(id);
-            /* Show only one legend at a time; remove any others */
-            $('.cartodb-legend, .wrapper').children().remove();
-            $('.cartodb-legend, .wrapper').append(layer.layers[0].legend.template);
+            /* Show only one legend at a time */
+            $('.cartodb-legend, .wrapper').html(layer.layers[0].legend.template);
           }
           else
           {
@@ -251,8 +250,7 @@ var legendToShow = '';
               //recursive call of setLegendVisibility would be better here
               legendToShow = visibleLegendIds[visibleLegendIds.length - 1];
               var lastLayer = this.layers[legendToShow];
-              $('.cartodb-legend, .wrapper').children().remove();
-              $('.cartodb-legend, .wrapper').append(lastLayer.layers[0].legend.template);
+              $('.cartodb-legend, .wrapper').html(lastLayer.layers[0].legend.template);
             }
           }
 
