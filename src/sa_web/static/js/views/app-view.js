@@ -753,7 +753,7 @@ var Shareabouts = Shareabouts || {};
           } else {
             if (model.attributes.story) {
               // if this model is part of a story, set center and zoom level
-              map.setView(center, model.attributes.story.zoom, {animate: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
             }
