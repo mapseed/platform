@@ -47,12 +47,6 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
 
   <!-- Flavor's Custom Stylesheet -->
-  <!--  -->
-  <!-- NOTE: -->
-  <!-- The following CSS file is unable to be processed by django compressor
-  because config is accessed through views.py, which requires an HTTP request.
-  However, a request is simply not generated when using manage.py -->
-  <!--  -->
   <link rel="stylesheet" href="{{ FLAVOR_STATIC_URL }}css/custom.css">
   {% endcompress %}
 

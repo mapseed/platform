@@ -333,6 +333,7 @@ if 'SHAREABOUTS_FACEBOOK_KEY' in env \
     SOCIAL_AUTH_FACEBOOK_KEY = env['SHAREABOUTS_FACEBOOK_KEY']
     SOCIAL_AUTH_FACEBOOK_SECRET = env['SHAREABOUTS_FACEBOOK_SECRET']
 
+
 ##############################################################################
 # sitemaps and client-side caching
 
@@ -340,27 +341,28 @@ if 'SHAREABOUTS_FACEBOOK_KEY' in env \
 LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0,
                                                    microsecond=0).isoformat()
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
 from os.path import dirname, abspath, join as pathjoin
 STATIC_ROOT = abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
-if (DEBUG):
-    COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..', 'sa_web',
-                                     'static'))
-else:
-    COMPRESS_ROOT = STATIC_ROOT
-COMPRESS_OUTPUT_DIR = ''
+
+COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..'))
+
+COMPRESS_OUTPUT_DIR = 'sa_web/static/COMPRESS'
 
 # URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
-COMPRESS_URL = STATIC_URL
+COMPRESS_URL = STATIC_URL if DEBUG else abspath(pathjoin(dirname(__file__), '..')) + '/'
+
+DEFAULT_COMPRESS_DIR = STATIC_URL if DEBUG else abspath(pathjoin(dirname(__file__), '..', 'sa_web', 'static')) + '/'
+FLAVOR_COMPRESS_DIR = STATIC_URL if DEBUG else abspath(pathjoin(dirname(__file__), '..', '..', 'src')) + '/flavors/' + SHAREABOUTS['FLAVOR'] + '/static/'
+
+COMPRESS_OFFLINE_CONTEXT = {'STATIC_URL': DEFAULT_COMPRESS_DIR,
+                            'FLAVOR_STATIC_URL': FLAVOR_COMPRESS_DIR}
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
+
+COMPRESS_OFFLINE = not DEBUG
 
 # List of finder classes that know how to find static files in
 # various locations.

@@ -21,5 +21,4 @@ def get_item(dictionary, key):
 def get_flavor_static_url():
     static_url = ShareaboutsLocalConfig(
         settings.SHAREABOUTS.get('CONFIG')).static_url()
-    print("get_static_url: static_url", static_url)
     return static_url
