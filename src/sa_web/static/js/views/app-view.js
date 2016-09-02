@@ -245,6 +245,7 @@ var Shareabouts = Shareabouts || {};
         _.each(story.order, function(config, i) {
           storyStructure[config.url] = {
             "zoom": config.zoom || story.default_zoom,
+            "panTo": config.panTo || null,
             "visibleLayers": config.visible_layers || story.default_visible_layers,
             "previous": (i - 1 < 0) ? story.order[totalStoryElements - 1].url : story.order[i - 1].url,
             "next": (i + 1 == story.order.length) ? story.order[0].url : story.order[i + 1].url
@@ -612,7 +613,7 @@ var Shareabouts = Shareabouts || {};
           } else {
             if (model.attributes.story) {
               // if this model is part of a story, set center and zoom level
-              map.setView(center, model.attributes.story.zoom, {animate: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
             }
