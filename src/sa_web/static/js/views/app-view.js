@@ -45,6 +45,10 @@ var Shareabouts = Shareabouts || {};
       this.landmarks = this.options.landmarks;
       this.mergedPlaces = this.options.mergedPlaces;
 
+      // this flag is used to distinguish between user-initiated zooms and
+      // zooms initiated by a leaflet method
+      this.isProgrammaticZoom = false;
+
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
       });
@@ -374,9 +378,10 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMapZoomEnd: function(evt) {
-      if (this.hasBodyClass('content-visible') === true) {
+      if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
         $("#spotlight-place-mask").remove();
       }
+      this.isProgrammaticZoom = false;
     },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
@@ -613,6 +618,7 @@ var Shareabouts = Shareabouts || {};
           } else {
             if (model.attributes.story) {
               // if this model is part of a story, set center and zoom level
+              self.isProgrammaticZoom = true;
               map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
@@ -753,6 +759,7 @@ var Shareabouts = Shareabouts || {};
           } else {
             if (model.attributes.story) {
               // if this model is part of a story, set center and zoom level
+              self.isProgrammaticZoom = true;
               map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
