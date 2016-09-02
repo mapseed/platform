@@ -240,13 +240,14 @@ var Shareabouts = Shareabouts || {};
       // If report stories are enabled, build the data structure
       // we need to enable story navigation
       _.each(this.options.storyConfig, function(story) {
-        var storyStructure = {};
+        var storyStructure = {},
+        totalStoryElements = story.order.length;
         _.each(story.order, function(config, i) {
           storyStructure[config.url] = {
             "zoom": config.zoom || story.default_zoom,
             "visibleLayers": config.visible_layers || story.default_visible_layers,
-            "previous": (i - 1 < 0) ? null : story.order[i - 1].url,
-            "next": (i + 1 == story.order.length) ? null : story.order[i + 1].url
+            "previous": (i - 1 < 0) ? story.order[totalStoryElements - 1].url : story.order[i - 1].url,
+            "next": (i + 1 == story.order.length) ? story.order[0].url : story.order[i + 1].url
           }
         });
         story.order = storyStructure;
