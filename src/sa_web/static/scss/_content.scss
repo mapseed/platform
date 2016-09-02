@@ -344,6 +344,9 @@ a.auth-inline {
     margin-bottom: 20px;
     font-family: FontAwesome;
     overflow: hidden;
+    h1 {
+        line-height: 1em;
+    }
     .story-tagline {
         width: 100%;
         padding-left: 10px;
