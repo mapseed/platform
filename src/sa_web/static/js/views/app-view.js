@@ -48,6 +48,7 @@ var Shareabouts = Shareabouts || {};
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
       this.isProgrammaticZoom = false;
+      this.isStoryActive = false;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -427,6 +428,12 @@ var Shareabouts = Shareabouts || {};
       } else {
         this.options.router.navigate('/', {trigger: true});
       }
+
+      if (this.isStoryActive) {
+        this.isStoryActive = false;
+        this.restoreDefaultLayerVisibility();
+      }
+
     },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible', 'place-form-visible'],
@@ -580,6 +587,15 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
+    restoreDefaultLayerVisibility: function() {
+      _.each(this.options.sidebarConfig.panels[0].groupings, function(group) {
+        _.each(group.layers, function(layer) {
+          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault]);
+          $("#map-" + layer.id).prop("checked", !!layer.visibleDefault);
+        });
+      });
+    },
+
     // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
@@ -630,7 +646,12 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) self.setStoryLayerVisibility(model);
+        if (model.attributes.story) {
+          self.isStoryActive = true;
+          self.setStoryLayerVisibility(model);
+        } else {
+          self.isStoryActive = false;
+        }
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
@@ -787,7 +808,12 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) self.setStoryLayerVisibility(model);
+        if (model.attributes.story) {
+          self.isStoryActive = true;
+          self.setStoryLayerVisibility(model);
+        } else {
+          self.isStoryActive = false;
+        }
       };
 
       onPlaceNotFound = function() {
