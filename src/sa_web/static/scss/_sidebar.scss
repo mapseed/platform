@@ -36,18 +36,29 @@
 }
 
 /*---- leaflet side bar overrides ----*/
-
-.sidebar-header {
-    margin: -10px -10px 0;
-    .sidebar-close {
-        z-index: 1;
-        i {
-            margin-right: 30px;
-            background: #0074d9;
-            border-radius: 50%;
-            padding: 6px 10px 5px 6px;
+.sidebar-pane {
+    padding: 34px 0 0 10px;
+    .sidebar-header {
+        margin: -34px 0 0 -10px;
+        padding: 0 0 0 10px;
+        position: absolute;
+        width: 100%;
+        z-index: 99;
+        box-sizing: border-box;
+        .sidebar-close {
+            z-index: 1;
+            i.fa {
+                margin-right: 10px;
+                background: #0074d9;
+                border-radius: 50%;
+                padding: 6px 10px 5px 6px;
+            }
         }
     }
+    #gis-layers {
+        margin-left: -10px;
+    }
+
 }
 
 //#side-bar header {
@@ -55,3 +66,111 @@
 //font-family: 'Dancing Script', cursive;
 //text-shadow: 1px -1px 1px rgba(0,0,0,0.5);
 //}
+
+/*---- jquery-accordion overrides ----*/
+[data-accordion] {
+    [data-control] {
+        border-bottom: none;
+        background: rgba(242, 100, 47, 1);
+        color: #fff;
+        text-transform: uppercase;
+        padding-left: 34px;
+        &:after {
+            content: "\f196";
+            top: 8px;
+            color: #fff;
+            font-size: 22px;
+            font-family: "fontawesome";
+            background: none;
+        }
+    }
+    &.open > [data-control]:after {
+        content: "\f147";
+        -webkit-transform: initial;
+        -ms-transform: initial;
+        transform: initial;
+    }
+
+    [data-content] {
+        .layer-type-li {
+            border-bottom: none;
+            padding: initial;
+            padding-bottom: 1px;
+            padding-left: 10px;
+            &:last-child {
+                padding-bottom: 0;
+            }
+            &:first-child {
+                padding-top: 1px;
+            }
+
+            input {
+                &[type=checkbox] {
+                    display: none;
+                }
+
+                &:checked + label {
+                    background: rgb(0, 127, 191);
+                    color: #fff;
+                    &:before {
+                        content: "\2713";
+                        padding-right: 5px;
+                        color: #fff;
+                        position: absolute;
+                        left: 8px;
+                    }
+                }
+            }
+            label {
+                display: block;
+                padding: 6px 0;
+                margin: 0px auto;
+                background: #ddd;
+                padding-left: 30px;
+                font-size: 14px;
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+
+    }
+}
+/* .squaredFour */
+.layer-type-select {
+    position: absolute;
+    z-index: 98;
+
+    label {
+        width: 34px;
+        height: 34px;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        &:after {
+            content: "";
+            font-family: "fontawesome";
+            top: 8px;
+            left: 8px;
+            position: absolute;
+            font-size: 12px;
+            padding: 3px 1px 1px 3px;
+            width: 13px;
+            height: 13px;
+            border-radius: 4px;
+            background: #fcfff4;
+        }
+        &:hover::after {
+            color: #007fbf;
+        }
+    }
+
+    input[type=checkbox] {
+        visibility: hidden;
+        &:checked + label:after {
+            content: "\f00c";
+        }
+    }
+}
+/* end .squaredFour */

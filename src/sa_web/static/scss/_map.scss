@@ -2,6 +2,10 @@
 // MAP - SELECTORS
 // ################################
 
+.cartodb-logo {
+    display: none !important;
+}
+
 #map-container {
     position: relative;
     background: $button-background-lightblue;

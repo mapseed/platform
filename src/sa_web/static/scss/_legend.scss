@@ -20,12 +20,8 @@
     letter-spacing: 1px;
 }
 
-.layer-type-grouping-list {
-    margin-left: 10px;
-
-    label {
-        font-size: 0.5em;
-    }
+.layer-type-grouping-list label {
+    font-size: 0.5em;
 }
 
 // allows hover to be positioned on the 'layer-type-description'
@@ -97,7 +93,7 @@
 
 .layer-type-title label {
     vertical-align: middle;
-    margin-right: 8px;
+    margin-right: 0px;
     font-size: 1.33em;
     letter-spacing: 1px;
 }

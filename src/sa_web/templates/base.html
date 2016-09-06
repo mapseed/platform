@@ -40,6 +40,8 @@
 
   {% if settings.DEBUG %}
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
+  <!-- jQuery Accordion plugin style -->
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.accordion.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
 
   <!-- jQuery date-time picker plugin -->
@@ -201,6 +203,8 @@
   <script src="{{STATIC_URL}}libs/gatekeeper.js"></script>
   <script src="{{STATIC_URL}}libs/swag.min.js"></script>
   <script src="{{STATIC_URL}}libs/jquery.scrollTo.js"></script>
+  <!-- jQuery Accordion plugin scriopt -->
+  <script type="text/javascript" src="{{STATIC_URL}}libs/jquery.accordion.js"></script>
 
   <script src="{{STATIC_URL}}js/utils.js"></script>
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
@@ -351,7 +355,14 @@
   }(Shareabouts, jQuery));
 
   </script>
-
+  <!-- jQuery Accordion plugin usage -->
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#accordion-layers [data-accordion]').accordion({
+              singleOpen: false
+          });
+      });
+  </script>
   {% if settings.GOOGLE_ANALYTICS_ID %}
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
