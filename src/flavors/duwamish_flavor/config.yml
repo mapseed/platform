@@ -776,3 +776,7 @@ pages:
   - slug: youthcorps2015
     name: youthcorps2015
     hide_from_top_bar: true
+
+notifications:
+  on_new_place: true
+  submitter_email_field: private-submitter_email
