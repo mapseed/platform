@@ -27,7 +27,6 @@ app:
 #   - code: vi
 #     label: tôi nói tiếng việt
 
-
 map:
 # Settings for map and layer configs
   geolocation_enabled: true
@@ -606,7 +605,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: true
+              visibleDefault: false
 
         - id: grp-land
           title: _(Land Data)
@@ -729,49 +728,22 @@ place:
               value: naturalyard
             - label: _(Always use a commercial car wash)
               value: carwash
-            - label: _(Litter)
-              value: litter
-            - label: _(Other)
-              value: other
+            - label: _(Fix car oil leaks)
+              value: oilleaks
+            - label: _(Plant and maintain trees)
+              value: planttrees
+            - label: _(Clean out storm drains)
+              value: stormdrains
+            - label: _(Spread the word to friends!)
+              value: spreadword
           optional: true 
-          # NOTE: checkbox_big_button inputs have no validation
-    - category: action
-      includeOnForm: true
-      name: location_type
-      dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-f95016.png
-      value: action
-      label: _(Stewardship Action)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
-          optional: false
+           # NOTE: checkbox_big_button inputs have no validation
         - name: comments
           type: textarea
-          prompt: _(Additional comments)
+          prompt: _(Additional comments:)
           display_prompt: _( )
-          placeholder: _(Additional comments...)
+          placeholder: _(Enter comments...)
           optional: false
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
-          display_prompt: _(I saw the following types of pollution here:)
-          content:
-            - label: _(Scoop the poop)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
-            - label: _(Other)
-              value: other
-          optional: true 
-          # NOTE: checkbox_big_button inputs have no validation
     - category: observation
       includeOnForm: true
       name: location_type
@@ -782,31 +754,33 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title of your observation:)
+          prompt: _(Title:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
-        - name: pollution_type
+        - name: observation_type
           type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
-          display_prompt: _(I saw the following types of pollution here:)
+          prompt: _(I see:)
+          display_prompt: _(I see:)
           content:
-            - label: _(Sewage)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
-            - label: _(Other)
-              value: other
-          optional: true 
+            - label: _(Neighborhood Dog Poop Bag dispensers)
+              value: poopdispenser
+            - label: _(Rain Gardens Nearby)
+              value: raingarden_observation
+            - label: _(Cisterns Nearby)
+              value: cistern
+            - label: _(Pervious Concrete Nearby)
+              value: perviousconcrete
+            - label: _(Pavers Nearby)
+              value: paver
+            - label: _(Green Roofs Nearby)
+              value: greenroof
+          optional: true
           # NOTE: checkbox_big_button inputs have no validation
         - name: description
           type: textarea
-          prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          prompt: _(Additional comments:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: question
