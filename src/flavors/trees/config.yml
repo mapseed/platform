@@ -421,7 +421,7 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    tree:
+    - category: tree
       includeOnForm: true
       name: location_type
       dataset: trees

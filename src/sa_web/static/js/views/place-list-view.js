@@ -205,7 +205,8 @@ var Shareabouts = Shareabouts || {};
         var show = function() { model.trigger('show'); },
             hide = function() { model.trigger('hide'); },
             submitter, 
-            locationType = model.get("location_type");
+            locationType = model.get("location_type"),
+            placeConfig = _.find(S.Config.place.place_detail, function(config) { return config.category === locationType });
 
         // If the model doesn't match one of the filters, hide it.
         for (key in filters) {
@@ -219,8 +220,8 @@ var Shareabouts = Shareabouts || {};
         }
 
         // Check whether the remaining models match the search term
-        for (var i = 0; i < S.Config.place.place_detail[locationType].fields.length; i++) { 
-          key = S.Config.place.place_detail[locationType].fields[i].name;
+        for (var i = 0; i < placeConfig.fields.length; i++) { 
+          key = placeConfig.fields[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
             return show();
