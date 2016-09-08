@@ -88,7 +88,7 @@ a.close-btn {
 
     label {
         display: block;
-        background: transparent url(images/heart-empty.png) left center no-repeat scroll;
+        background: transparent url(../css/images/heart-empty.png) left center no-repeat scroll;
         box-shadow: none;
         border-radius: 0;
         font-size: 1em;
@@ -97,7 +97,7 @@ a.close-btn {
     }
 
     input[type=checkbox]:checked ~ label {
-        background-image: url(images/heart.png);
+        background-image: url(../css/images/heart.png);
     }
 
     &:hover label {
@@ -130,11 +130,11 @@ a.close-btn {
 }
 
 .share-twitter a {
-    background: url(images/twitter-32.png) 0 0 no-repeat scroll;
+    background: url(../css/images/twitter-32.png) 0 0 no-repeat scroll;
 }
 
 .share-facebook a {
-    background: url(images/facebook-32.png) 0 0 no-repeat scroll;
+    background: url(../css/images/facebook-32.png) 0 0 no-repeat scroll;
 }
 
 // Places - Selectors
