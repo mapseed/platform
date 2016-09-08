@@ -187,11 +187,15 @@ var Shareabouts = Shareabouts || {};
       // context object for each
       var userInput = self[item.name],
       fieldType = item.type,
-      content;
+      content, 
+      wasAnswered = false;
 
       // case: plain text
       if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
         content = userInput || "";
+        if (content !== "") {
+          wasAnswered = true;
+        }
       } 
       // case: checkboxes, radio buttons, and dropdowns
       else if (fieldType === "checkbox_big_buttons" || fieldType === "radio_big_buttons" || fieldType === "dropdown") {
@@ -201,10 +205,15 @@ var Shareabouts = Shareabouts || {};
         }
         content = [];
         _.each(item.content, function(option) {
+          var selected = false;
+          if (_.contains(userInput, option.value)) {
+            selected = true;
+            wasAnswered = true;
+          }
           content.push({
             value: option.value,
             label: option.label,
-            selected: (_.contains(userInput, option.value)) ? true : false
+            selected: selected
           });
         });
       }
@@ -219,20 +228,21 @@ var Shareabouts = Shareabouts || {};
           unselectedLabel: item.content[1].label,
           selected: (userInput == item.content[0].value) ? true : false
         }
+        wasAnswered = true;
       }
 
       var newItem = {
         name: item.name,
         type: item.type,
         content: content,
-        prompt: item.display_prompt
+        prompt: item.display_prompt,
+        wasAnswered: wasAnswered
       };
 
-      // if not an exclusion and not private data and not an empty response
       if (_.contains(exclusions, item.name) === false &&
           item.name.indexOf('private-') !== 0 &&
             newItem.content != undefined && 
-              newItem.content !== "") {
+              newItem.wasAnswered === true) {
         result += options.fn(newItem);
       }
     }, this);
