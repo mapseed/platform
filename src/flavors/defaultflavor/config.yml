@@ -380,6 +380,16 @@ place:
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
+    - category: greenwall
+      includeOnForm: false
+      name: location_type
+      dataset: duwamish
+      icon_url: /static/css/images/markers/marker-greenwall.png
+      value: greenwall
+      label: _(Greenwall)
+      fields:
+        - name: name
+          type: text
 
   # define form elements that appear on every form here
   common_form_elements:
