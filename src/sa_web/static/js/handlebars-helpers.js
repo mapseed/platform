@@ -189,19 +189,16 @@ var Shareabouts = Shareabouts || {};
       fieldType = item.type,
       content;
 
-      // special handling for checkboxes with only one item selected 
-      // (which will be a string and not an array of strings)
-      if (fieldType === "checkbox_big_buttons" && !$.isArray(this[item.name])) {
-        // convert to an array of length 1
-        userInput = [self[item.name]];
-      }
-      
       // case: plain text
       if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
         content = userInput || "";
       } 
       // case: checkboxes, radio buttons, and dropdowns
       else if (fieldType === "checkbox_big_buttons" || fieldType === "radio_big_buttons" || fieldType === "dropdown") {
+        // if input is not an array, convert to an array of length 1
+        if (!$.isArray(this[item.name])) {
+          userInput = [self[item.name]];
+        }
         content = [];
         _.each(item.content, function(option) {
           content.push({
@@ -228,8 +225,7 @@ var Shareabouts = Shareabouts || {};
         name: item.name,
         type: item.type,
         content: content,
-        prompt: item.display_prompt,
-        isEditingToggled: this.isEditingToggled
+        prompt: item.display_prompt
       };
 
       // if not an exclusion and not private data and not an empty response
