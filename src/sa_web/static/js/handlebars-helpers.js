@@ -181,25 +181,62 @@ var Shareabouts = Shareabouts || {};
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
 
+    // iterate through all the form fields for this location_type
     _.each(selectedCategoryConfig.fields, function(item, i) {
-      // filter for the correct label/value pair
-      var display_value = _.filter(item.content, function(option) {
-        return option.value == self[item.name];
-      })[0] || {};
+      // handle input types on a case-by-case basis, building an appropriate
+      // context object for each
+      var userInput = self[item.name],
+      fieldType = item.type,
+      content;
+
+      // special handling for checkboxes with only one item selected 
+      // (which will be a string and not an array of strings)
+      if (fieldType === "checkbox_big_buttons" && !$.isArray(this[item.name])) {
+        // convert to an array of length 1
+        userInput = [self[item.name]];
+      }
+      
+      // case: plain text
+      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
+        content = userInput || "";
+      } 
+      // case: checkboxes, radio buttons, and dropdowns
+      else if (fieldType === "checkbox_big_buttons" || fieldType === "radio_big_buttons" || fieldType === "dropdown") {
+        content = [];
+        _.each(item.content, function(option) {
+          content.push({
+            value: option.value,
+            label: option.label,
+            selected: (_.contains(userInput, option.value)) ? true : false
+          });
+        });
+      }
+      // case: binary toggle buttons
+      else if (fieldType === "binary_toggle") {
+        // NOTE: we assume that the first option listed under content
+        // corresponds to the "on" value of the toggle input
+        content = {
+          selectedValue: item.content[0].value,
+          selectedLabel: item.content[0].label,
+          unselectedValue: item.content[1].value,
+          unselectedLabel: item.content[1].label,
+          selected: (userInput == item.content[0].value) ? true : false
+        }
+      }
 
       var newItem = {
         name: item.name,
-        label: item.display_prompt,
-        // get the (possibly) translated label from a dropdown, radio, or select input, or get free text entry
-        value: display_value.label || this[item.name],
-        type: item.type
+        type: item.type,
+        content: content,
+        prompt: item.display_prompt,
+        isEditingToggled: this.isEditingToggled
       };
 
       // if not an exclusion and not private data and not an empty response
       if (_.contains(exclusions, item.name) === false &&
           item.name.indexOf('private-') !== 0 &&
-            newItem.value != undefined && 
-              newItem.value !== "") {
+            newItem.content != undefined && 
+              newItem.content !== "") {
         result += options.fn(newItem);
       }
     }, this);
