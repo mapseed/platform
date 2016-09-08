@@ -40,80 +40,82 @@
             <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
 
             {{^if survey_config}}
-            <a href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
+              <a href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
             {{/if}}
 
           </span>
         </header>
 
         <section class="place-items">
-          <form id="update-place-model-form">
-            {{# attachments }}
-              <div class="place-item place-item-attachment place-attachment-{{ name }}">
-                <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
-              </div>
-            {{/ attachments }}
+          {{# attachments }}
+            <div class="place-item place-item-attachment place-attachment-{{ name }}">
+              <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
+            </div>
+          {{/ attachments }}
 
-            {{#each_place_item "submitter_name" "name" "location_type" "fullTitle" "title" "name"}}
-              <div class="place-item place-item-{{ name }}">
-                <span class="place-label place-label-{{ ../name }}">{{ prompt }}</span>
+          {{#each_place_item "submitter_name" "name" "location_type" "fullTitle" "title" "name"}}
+            <div class="place-item place-item-{{ name }}">
+              <span class="place-label place-label-{{ name }}">{{ prompt }}</span>
 
-                {{#is type "datetime"}}
-                  <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
-                {{/is}}
-                
-                {{#is type "text"}}
-                  <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>                
-                {{/is}}
+              {{#is type "datetime"}}
+                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
+              {{/is}}
+              
+              {{#is type "text"}}
+                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>                
+              {{/is}}
 
-                {{#is type "textarea"}}
-                  <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
-                {{/is}}
+              {{#is type "textarea"}}
+                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
+              {{/is}}
 
-                {{#is type "radio_big_buttons"}}
-                  <div>
-                    {{#each content}}
-                      {{#if selected}}
-                        <span class="multi-select-response">{{ label }} </span>
-                      {{/if}}
-                    {{/each}}
-                  </div>
-                {{/is}}
+              {{#is type "radio_big_buttons"}}
+                <ul>
+                  {{#each content}}
+                    {{#if selected}}
+                      <li class="multi-select-response place-value">{{ label }} </li>
+                    {{/if}}
+                  {{/each}}
+                </ul>
+              {{/is}}
 
-                {{#is type "checkbox_big_buttons"}}
-                  <div>
-                    {{#each content}}
-                      {{#if selected}}
-                        <span class="multi-select-response">{{ label }} </span>
-                      {{/if}}
-                    {{/each}}
-                    </div>
-                {{/is}}
+              {{#is type "checkbox_big_buttons"}}
+                <ul>
+                  {{#each content}}
+                    {{#if selected}}
+                      <li class="multi-select-response place-value">{{ label }} </li>
+                    {{/if}}
+                  {{/each}}
+                </ul>
+              {{/is}}
 
-                {{#is type "binary_toggle"}}
-                  <p>
+              {{#is type "binary_toggle"}}
+                <ul>
+                  <li class="place-value">
                     {{#if content.selected}}
                       {{ content.selectedLabel }}
                     {{else}}
                       {{ content.unselectedLabel }}
                     {{/if}}
-                  </p>
-                {{/is}}
+                  </li>
+                </ul>
+              {{/is}}
 
-                {{#is type "dropdown"}}
-                  {{#each content}}
-                    <p>
-                      {{#if selected}}
+              {{#is type "dropdown"}}
+                {{#each content}}
+                  {{#if selected}}
+                    <ul>
+                      <li class="place-value">
                         {{nlToBr label}}
-                      {{/if}}
-                    </p>
-                  {{/each}}
-                {{/is}}
+                      </li>
+                    </ul>
+                  {{/if}}
+                {{/each}}
+              {{/is}}
 
-                <div style="clear:both"></div>
-              </div>
-            {{/each_place_item }}
-          </form>
+              <div style="clear:both"></div>
+            </div>
+          {{/each_place_item }}
         </section>
 
         {{#if survey_config}}
