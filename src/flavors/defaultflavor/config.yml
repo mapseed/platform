@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Demo flavor!
+  title: Mapseed Demo
   # Header name
-  name: "Demo flavor!"
+  name: "Mapseed Demo"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -26,7 +26,6 @@ app:
 
 #   - code: vi
 #     label: tôi nói tiếng việt
-
 
 map:
 # Settings for map and layer configs
