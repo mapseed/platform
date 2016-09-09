@@ -47,7 +47,6 @@ map:
     # SmarterCleanup Mapbox base layer:
     - id: osm
       type: basemap
-      defaultBase: true
       url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
@@ -56,6 +55,11 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
+    - id: dark
+      type: basemap
+      defaultBase: false
+      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     # For our Shareabouts reports
     - id: reports
@@ -110,12 +114,6 @@ map:
           style:
             fill: false
             stroke: false
-
-    - id: dark
-      type: basemap
-      defaultBase: true
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -382,6 +380,16 @@ sidebar:
       icon: list
       view: GISLegendView
       title: _(Map Layers:)
+      basemaps:
+        - id: osm
+          title: _(OpenStreetMap)
+          visibleDefault: false
+        - id: satellite
+          title: _(Satellite View)
+          visibleDefault: false
+        - id: dark
+          title: _(Dark)
+          visibleDefault: true    
       groupings:
         - id: grp-community
           title: _(Community Data)
@@ -399,19 +407,10 @@ sidebar:
               title: _(Bicycle Master Plan)
               visibleDefault: true
 
-            - id: dark
-              title: _(Dark map)
-              visibleDefault: false
-
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
           layers:
-              # Toggle our basemaps
-            - id: toggle-satellite
-              title: _(Satellite View)
-              visibleDefault: false
-
               # Land Use
             - id: landuse
               title: _(Land use)
