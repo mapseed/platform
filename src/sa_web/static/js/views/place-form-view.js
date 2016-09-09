@@ -4,29 +4,72 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.PlaceFormView = Backbone.View.extend({
-    // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
-      'change input[type="file"]': 'onInputFileChange'
+      'change input[type="file"]': 'onInputFileChange',
+      'click .category-btn.clickable + label': 'onCategoryChange',
+      'click .category-menu-hamburger': 'onExpandCategories',
+      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle'
     },
     initialize: function(){
+      var self = this;
+      // keep track of relevant catgory & dataset info 
+      // as user switches among categories
+      this.formState = {
+        selectedCategory: null,
+        selectedDatasetId: null,
+        priorDatasetId: null,
+        selectedDatasetSlug: null,
+        priorModelCid: null,
+        isSingleCategory: false,
+        placeDetail: this.options.placeConfig.place_detail
+      } 
+
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
 
-      // Bind model events
-      this.model.on('error', this.onError, this);
+      // attach collection listeners
+      for (var collection in this.collection) {
+        this.collection[collection].on('add', self.setModel, this);
+      }
     },
-    render: function(){
-      // Augment the model data with place types for the drop down
+    render: function(category, isCategorySelected) {
+      var self = this,
+      selectedCategoryConfig = category && _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === category; }) || {},
+      placesToIncludeOnForm = _.filter(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.includeOnForm; });
+
+      // if there is only one place to include on form, skip category selection page
+      if (placesToIncludeOnForm.length === 1) {
+        this.formState.isSingleCategory = true;
+        isCategorySelected = true;
+        category = placesToIncludeOnForm[0].category;
+        this.formState.selectedCategory = category;
+        this.formState.selectedDatasetId = placesToIncludeOnForm[0].dataset;
+        this.formState.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.formState.selectedDatasetId == layer.id }).slug;
+        selectedCategoryConfig = placesToIncludeOnForm[0];
+        this.collection[this.formState.selectedDatasetId].add({});
+      }
+
       var data = _.extend({
-        place_config: this.options.placeConfig,
+        isCategorySelected: isCategorySelected,
+        placeConfig: this.options.placeConfig,
+        selectedCategory: selectedCategoryConfig,
         user_token: this.options.userToken,
-        current_user: S.currentUser
-      }, S.stickyFieldValues, this.model.toJSON());
+        current_user: S.currentUser,
+        isSingleCategory: this.formState.isSingleCategory
+      }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
+
       return this;
+    },
+    postRender: function() {
+      // if the form only has a single category, hide category selection buttons
+      if (this.formState.isSingleCategory) $("#selected-category, #category-btns").addClass("is-visuallyhidden");
+
+      // initialize datetime picker, if relevant
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
     },
     remove: function() {
       this.unbind();
@@ -43,7 +86,6 @@ var Shareabouts = Shareabouts || {};
     setLocation: function(location) {
       this.location = location;
     },
-    // Get the attributes from the form
     getAttrs: function() {
       var attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
@@ -51,6 +93,11 @@ var Shareabouts = Shareabouts || {};
 
       // Get values from the form
       attrs = S.Util.getAttrs($form);
+
+      // get values off of binary toggle buttons that have not been toggled
+      $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
+        attrs[$(this).attr("name")] = $(this).val();
+      });
 
       // Get the location attributes from the map
       attrs.geometry = {
@@ -63,6 +110,29 @@ var Shareabouts = Shareabouts || {};
       }
 
       return attrs;
+    },
+    onCategoryChange: function(evt) {
+      var self = this,
+          animationDelay = 400;
+
+      this.formState.selectedCategory = $(evt.target).parent().prev().attr('id');
+      this.formState.selectedDatasetId = _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory }).dataset;
+      this.formState.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return layer.id === self.formState.selectedDatasetId })[0].slug;
+
+      // re-render the form with the selected category
+      this.render(this.formState.selectedCategory, true);
+      // manually set the category button again since the re-render resets it
+      $(evt.target).parent().prev().prop("checked", true);
+      // hide and then show (with animation delay) the selected category button 
+      // so we don't see a duplicate selected category button briefly
+      $("#selected-category").hide().show(animationDelay);
+      // slide up unused category buttons
+      $("#category-btns").animate( { height: "hide" }, animationDelay );
+      // if we've already dragged the map, make sure the map drag instructions don't reappear
+      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+
+      // instantiate appropriate backbone model
+      this.collection[self.formState.selectedDatasetId].add({});
     },
     onInputFileChange: function(evt) {
       var self = this,
@@ -100,6 +170,41 @@ var Shareabouts = Shareabouts || {};
         });
       }
     },
+    onBinaryToggle: function(evt) {
+      var self = this,
+      targetButton = $(evt.target).attr("id"),
+      oldValue = $(evt.target).val(),
+      // find the matching config data for this element
+      selectedCategoryConfig = _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }),
+      altData = _.find(selectedCategoryConfig.fields, function(item) { return item.name === targetButton; }),
+      // fetch alternate label and value
+      altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
+
+      // set new value and label
+      $(evt.target).val(altContent.value);
+      $(evt.target).next("label").html(altContent.label);
+    },
+    setModel: function(model) {
+      var self = this;
+      this.model = model;
+
+      if (this.formState.priorModelCid && this.formState.priorDatasetId) {
+        this.collection[self.formState.priorDatasetId].get({ cid: self.formState.priorModelCid }).destroy();
+      }
+      this.formState.priorModelCid = model.cid;
+      this.formState.priorDatasetId = this.formState.selectedDatasetId;
+    },
+    closePanel: function() {
+      this.center = null;
+      // make sure we reset priorModelCid and priorDatasetId if the user closes the side panel
+      this.formState.priorModelCid = null;
+      this.formState.priorDatasetId = null;
+    },
+    onExpandCategories: function(evt) {
+      var animationDelay = 400;
+      $("#selected-category").hide(animationDelay);
+      $("#category-btns").animate( { height: "show" }, animationDelay ); 
+    },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       // Make sure that the center point has been set after the form was
       // rendered. If not, this is a good indication that the user neglected
@@ -115,13 +220,17 @@ var Shareabouts = Shareabouts || {};
         return;
       }
 
-      var router = this.options.router,
+      var self = this,
+          router = this.options.router,
           model = this.model,
           // Should not include any files
           attrs = this.getAttrs(),
+          categoryId = $(evt.target),
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
 
+      model.set("datasetSlug", this.formState.selectedDatasetSlug);
+      model.set("datasetId", this.formState.selectedDatasetId);
       evt.preventDefault();
 
       $button.attr('disabled', 'disabled');
@@ -135,6 +244,11 @@ var Shareabouts = Shareabouts || {};
       this.model.save(attrs, {
         success: function() {
           S.Util.log('USER', 'new-place', 'successfully-add-place');
+
+          // add the newly-created model to mergedPlaces,
+          // for use on the place list view
+          self.options.appView.mergedPlaces.add(model);
+
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
         error: function() {
@@ -148,5 +262,4 @@ var Shareabouts = Shareabouts || {};
       });
     })
   });
-
 }(Shareabouts, jQuery, Shareabouts.Util.console));

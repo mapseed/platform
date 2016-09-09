@@ -4,6 +4,7 @@ var Shareabouts = Shareabouts || {};
 (function(S, $, console){
   S.GISLegendView = Backbone.View.extend({
     events: {
+      'change .map-legend-basemap-radio': 'toggleBasemap',
       'change .map-legend-checkbox': 'toggleVisibility',
       'change .map-legend-grouping-checkbox': 'toggleHeaderVisibility'
     },
@@ -11,6 +12,7 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       var self = this,
           data = _.extend({
+            basemaps: this.options.config.basemaps,
             groupings: this.options.config.groupings
           }, S.stickyFieldValues);
 
@@ -22,6 +24,18 @@ var Shareabouts = Shareabouts || {};
         });
       });
 
+      var initialBasemap = _.find(this.options.config.basemaps, function(basemap) {
+                               return !!basemap.visibleDefault;
+                             });
+
+      _.each(this.options.config.basemaps, function(basemap) {
+        if (basemap !== initialBasemap) {
+          $(S).trigger('visibility', [basemap.id, !!basemap.visibleDefault, true]);
+        }
+      });
+
+      $(S).trigger('visibility', [initialBasemap.id, !!initialBasemap.visibleDefault, true]);
+
       return this;
     },
 
@@ -32,6 +46,21 @@ var Shareabouts = Shareabouts || {};
           isChecked = !!$cbox.is(':checked');
 
       $(S).trigger('visibility', [id, isChecked]);
+    },
+
+    toggleBasemap: function(evt) {
+      var radio = $(evt.target),
+          id = radio.attr('data-layerid'),
+          isChecked = !!radio.is(':checked'),
+          basemaps = this.options.config.basemaps;
+
+      for(var i = 0; i < basemaps.length; i++) {
+        var basemap = basemaps[i];
+        if (basemap.id !== id) {
+          $(S).trigger('visibility', [basemap.id, !isChecked, true]);
+        }
+      }
+      $(S).trigger('visibility', [id, isChecked, true]);
     },
 
     // Toggles visibility of layers based on header checkbox

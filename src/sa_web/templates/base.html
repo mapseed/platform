@@ -39,9 +39,11 @@
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
   {% if settings.DEBUG %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+
+  <!-- jQuery date-time picker plugin -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
   {% endif %}
@@ -203,6 +205,8 @@
   <script src="{{STATIC_URL}}js/utils.js"></script>
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
   <!-- https://github.com/openplans/handlebars-helpers -->
+  <!-- jQuery date-time picker plugin -->
+  <script src="{{ STATIC_URL }}libs/jquery.datetimepicker.full.min.js"></script>
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/esri-leaflet.js"></script>

@@ -1,7 +1,18 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1>{{#if name }}{{ name }}{{^}}{{>location-string location }}{{/if}}</h1>
+          <h1>
+            {{>location-string location }}
+            {{#if fullTitle}}
+              {{fullTitle}}
+            {{else}}
+              {{#if title}}
+                {{title}}
+              {{else}}
+                {{name}}
+              {{/if}}
+            {{/if}}
+          </h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{#if submitter.avatar_url }}
@@ -43,7 +54,7 @@
           {{/ attachments }}
           {{#each_place_item "submitter_name" "name" "location_type"}}
           <div class="place-item place-item-{{ name }}">
-            <span class="place-label place-label-{{ name }}">{{ label }}</span>
+            <span class="place-label place-label-{{ name }}">{{label}}</span>
             <p class="place-value place-value-{{ name }}">{{nlToBr value }}</p>
           </div>
           {{/each_place_item }}

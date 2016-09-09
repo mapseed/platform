@@ -47,6 +47,10 @@ map:
       visible: true
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
+    # raingardens
+    - id: raingardens
+      type: place
+      slug: report
 
   # Map Layers
 
@@ -178,119 +182,109 @@ place:
 
   location_item_name: Address
 
-  items:
-    - prompt: _(Rain garden location)
-      type: geocoding
-      name: private-rain_garden_address
-      attrs:
-        - key: placeholder
-          value: _(Please type full address, (will not be published))
-        - key: size
-          value: 30
-    - prompt: _(Garden Name)
-      label: _(Garden Name:)
-      type: text
-      name: rain_garden_name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Garden Name)
-        - key: size
-          value: 30
-    - prompt: _(Rain garden size (square feet))
-      label: _(Rain garden size (square feet):)
-      type: text
-      name: rain_garden_size
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Approximate square footage?)
-        - key: size
-          value: 30
-    - prompt: _(Size of contributing area)
-      label: _(Size of contributing area:)
-      type: text
-      name: contributing_area
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(How large is the catchment area that drains to this rain garden?)
-        - key: size
-          value: 30
-    - prompt: _(Description)
-      label: _(Description:)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Any notes you want to add for others would be wonderful :))
-    - name: location_type
-      type: hidden
-      value: raingarden
-    - prompt: _(Primary sources)
-      label: _(Sources:)
-      type: checkbox-list
-      name: sources
-      attrs:
-        - label: _(Roof)
-          value: roof
-        - label: _(Pavement)
-          value: pavement
-        - label: _(Other)
-          value: other
-    - prompt: _(Designer)
-      label: _(Designer:)
-      type: text
-      name: designer
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Designed by?)
-        - key: size
-          value: 30
-    - prompt: _(Installer)
-      label: _(Installer:)
-      type: text
-      name: installer
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Installed by?)
-        - key: size
-          value: 30
-    - prompt: _(Contributor's name)
-      label: _(Contributor's name:)
-      type: text
-      name: contributor_name
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Who should we give credit to?)
-        - key: size
-          value: 30
-    - prompt: _(Your Email)
-      type: text
-      name: private-contributor_email
-      optional: 
-      sticky: true
-      attrs:
-        - key: required
-          value: _(Your email address is kept private and will not be published)
-        - key: size
-          value: 30
-    - prompt:
-      inputfile_label: _(Please add an image)
+  #### begin dynamic form config ####
+  place_detail:
+    - category: raingarden
+      includeOnForm: true
+      name: location_type
+      dataset: raingardens
+      icon_url: /static/css/images/markers/marker-idea-trans.png
+      value: raingardens
+      label: _(Rain Garden)
+      fields:
+        - name: private-rain_garden_address
+          type: geocoding
+          prompt: _(Rain garden location)
+          placeholder: _(Please type full address, (will not be published))
+          size: 30
+          optional: false
+        - name: rain_garden_name
+          type: text
+          prompt: _(Garden Name)
+          display_prompt: _(Garden Name:)
+          placeholder: _(Garden Name)
+          size: 30
+          optional: true
+        - name: rain_garden_size
+          type: text
+          prompt: _(Rain garden size (square feet))
+          display_prompt: _(Rain garden size (square feet):)
+          placeholder: _(Approximate square footage?)
+          size: 30
+          optional: false
+          sticky: true
+        - name: contributing_area
+          type: text
+          prompt: _(Size of contributing area)
+          display_prompt: _(Size of contributing area:)
+          placeholder: _(How large is the catchment area that drains to this rain garden?)
+          size: 30
+          optional: true
+          sticky: true
+        - name: description
+          type: textarea
+          prompt: _(Description)
+          display_prompt: _(Description:)
+          placeholder: _(Any notes you want to add for others would be wonderful :))
+          optional: true
+        - name: sources
+          type: checkbox_big_buttons
+          prompt: _(Primary sources)
+          display_prompt: _(Sources:)
+          content:
+            - label: _(Roof)
+              value: roof
+            - label: _(Pavement)
+              value: pavement
+            - label: _(Other)
+              value: other
+        - name: designer
+          type: text
+          prompt: _(Designer)
+          display_prompt: _(Designer:)
+          placeholder: _(Designed by?)
+          size: 30
+          optional: true
+          sticky: true
+        - name: installer
+          type: text
+          prompt: _(Installer)
+          display_prompt: _(Installer:)
+          placeholder: _(Installed by?)
+          size: 30
+          optional: true
+          sticky: true
+        - name: contributor_name
+          type: text
+          prompt: _(Contributor's name)
+          display_prompt: _(Contributor's name:)
+          placeholder: _(Who should we give credit to?)
+          size: 30
+          optional: true 
+          sticky: true
+        - name: private-contributor_email
+          type: text
+          prompt: _(Your Email)
+          placeholder: _(Your email address is kept private and will not be published)
+          size: 30
+          optional: true
+          sticky: true
+
+  # define form elements that appear on every form here
+  common_form_elements:
+    - name: my_image
       type: file
-      name: my_image
-      optional:
+      prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      optional: true
       attrs:
         - key: accept
           value: image/*
+    - type: submit
+      label: _(Put it on the map!)
+
+  #### end dynamic form config ####
+
 
 survey:
   submission_type: comments
