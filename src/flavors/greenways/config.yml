@@ -157,11 +157,11 @@ place_types:
           weight: "{{properties.stroke-width}}"
 
   vegetation:
-    label: _(Vegetation)
+    label: _(vegetation report)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-star.png
+          iconUrl: /static/css/images/markers/marker-vegetation.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -174,24 +174,24 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-vegetation.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-vegetation.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
   signage:
-    label: _(Signage)
+    label: _(signage report)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/marker-signage.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -204,24 +204,24 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/marker-signage.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/marker-signage.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
   pavement:
-    label: _(Pavement)
+    label: _(pavement report)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/marker-pavement.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -234,24 +234,24 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/marker-pavement.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/marker-pavement.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
   walkability:
-    label: _(Walkability)
+    label: _(walkability report)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-walkability.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -260,29 +260,29 @@ place_types:
 
       - condition: '{{map.zoom}} < 11'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-walkability.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-walkability.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
   # using temporary icons
   accessibility:
-    label: _(Accessibility)
+    label: _(accessibility report)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-star.png
+          iconUrl: /static/css/images/markers/marker-accessibility.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -291,28 +291,28 @@ place_types:
 
       - condition: '{{map.zoom}} < 11'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17'
+      - condition: '{{map.zoom}} < 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconUrl: /static/css/images/markers/marker-accessibility.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17'
+      - condition: '{{map.zoom}} >= 14'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconUrl: /static/css/images/markers/marker-accessibility.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
   traffic:
-      label: _(Traffic)
+      label: _(traffic report)
       rules:
         - condition: '{{layer.focused}} === true'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/marker-traffic.png
             shadowUrl: /static/css/images/marker-shadow.png
             iconSize: [50, 60]
             iconAnchor: [25, 60]
@@ -321,28 +321,28 @@ place_types:
 
         - condition: '{{map.zoom}} < 11'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [10, 12]
             iconAnchor: [5, 12]
 
-        - condition: '{{map.zoom}} < 16'
+        - condition: '{{map.zoom}} < 14'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/marker-traffic.png
             iconSize: [15, 18]
             iconAnchor: [7.5, 18]
 
-        - condition: '{{map.zoom}} >= 16'
+        - condition: '{{map.zoom}} >= 14'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/marker-traffic.png
             iconSize: [38, 46]
             iconAnchor: [19, 46]
 
   design:
-      label: _(Design)
+      label: _(design suggestion)
       rules:
         - condition: '{{layer.focused}} === true'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/marker-design.png
             shadowUrl: /static/css/images/marker-shadow.png
             iconSize: [50, 60]
             iconAnchor: [25, 60]
@@ -351,19 +351,19 @@ place_types:
 
         - condition: '{{map.zoom}} < 11'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [10, 12]
             iconAnchor: [5, 12]
 
-        - condition: '{{map.zoom}} < 16'
+        - condition: '{{map.zoom}} < 14'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/marker-design.png
             iconSize: [15, 18]
             iconAnchor: [7.5, 18]
 
-        - condition: '{{map.zoom}} >= 16'
+        - condition: '{{map.zoom}} >= 14'
           icon:
-            iconUrl: /static/css/images/markers/marker-complaint.png
+            iconUrl: /static/css/images/markers/marker-design.png
             iconSize: [38, 46]
             iconAnchor: [19, 46]
 
@@ -466,7 +466,6 @@ place:
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
-  action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Put it on the map!)
 
@@ -479,7 +478,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greenways
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/markers/marker-vegetation.png
       value: vegetation
       label: _(Vegetation)
       fields:
@@ -499,7 +498,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greenways
-      icon_url: /static/css/images/markers/marker-question.png
+      icon_url: /static/css/images/markers/marker-signage.png
       value: signage
       label: _(Signage)
       fields:
@@ -518,7 +517,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greenways
-      icon_url: /static/css/images/markers/marker-idea.png
+      icon_url: /static/css/images/markers/marker-pavement.png
       value: pavement
       label: _(Pavement)
       fields:
@@ -538,7 +537,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greenways
-      icon_url: /static/css/images/markers/marker-complaint.png
+      icon_url: /static/css/images/markers/marker-walkability.png
       value: walkability
       label: _(Walkability)
       fields:
@@ -573,7 +572,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greenways
-      icon_url: /static/css/images/markers/marker-complaint.png
+      icon_url: /static/css/images/markers/marker-accessibility.png
       value: accessibility
       label: _(Accessibility)
       fields:
@@ -593,7 +592,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greenways
-      icon_url: /static/css/images/markers/marker-complaint.png
+      icon_url: /static/css/images/markers/marker-traffic.png
       value: traffic
       label: _(Traffic)
       fields:
@@ -613,7 +612,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greenways
-      icon_url: /static/css/images/markers/marker-complaint.png
+      icon_url: /static/css/images/markers/marker-design.png
       value: design
       label: _(Design)
       fields:
