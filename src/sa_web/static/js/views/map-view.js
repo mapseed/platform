@@ -115,14 +115,6 @@ var Shareabouts = Shareabouts || {};
             });
         } else if (config.type && config.type === 'shareabouts') {
           self.layers[config.id] = self.placeLayers;
-        } else if (config.type && config.type === 'basemap') {
-          // Assume a tile layer
-          layer = L.tileLayer(config.url, config);
-          self.layers[config.id] = layer;
-
-          if (config.defaultBase) {
-            layer.addTo(self.map);
-          }
         } else if (config.layers) {
           // If "layers" is present, then we assume that the config
           // references a Leaflet WMS layer.
@@ -141,12 +133,11 @@ var Shareabouts = Shareabouts || {};
             fillOpacity: config.fillOpacity
           });
           self.layers[config.id] = layer;
-
         } else {
           // Assume a tile layer
-          layer = L.tileLayer( (config.url ? config.url : ""), config);
-
-          layer.addTo(self.map);
+          // TODO: Isn't type=tile for back compatibility
+          layer = L.tileLayer(config.url, config);
+          self.layers[config.id] = layer;
         }
       });
       // Remove default prefix
@@ -187,22 +178,17 @@ var Shareabouts = Shareabouts || {};
       });
       
       // Bind visiblity event for custom layers
-      $(S).on('visibility', function (evt, id, visible) {
+      $(S).on('visibility', function (evt, id, visible, isBasemap) {
         var layer = self.layers[id];
-        if (layer) {
-          self.setLayerVisibility(layer, visible);
-        } else if (id === 'toggle-satellite') {
-          // TODO: This is a hack! We should integrate this with the config
-          // probably with a radio button in the legend!
+        if (isBasemap) {
           if (visible) {
-            self.map.addLayer(self.layers['satellite']);
-            self.layers['satellite'].bringToBack();
-            self.map.removeLayer(self.layers['osm']);
+            self.map.addLayer(layer);
+            layer.bringToBack();
           } else {
-            self.map.addLayer(self.layers['osm']);
-            self.layers['osm'].bringToBack();
-            self.map.removeLayer(self.layers['satellite']);
+            self.map.removeLayer(layer);
           }
+        } else if (layer) {
+          self.setLayerVisibility(layer, visible);
         } else {
           // Handles cases when we fire events for layers that are not yet
           // loaded (ie cartodb layers, which are loaded asynchronously)
