@@ -200,7 +200,7 @@ var Shareabouts = Shareabouts || {};
       // case: checkboxes, radio buttons, and dropdowns
       else if (fieldType === "checkbox_big_buttons" || fieldType === "radio_big_buttons" || fieldType === "dropdown") {
         // if input is not an array, convert to an array of length 1
-        if (!$.isArray(this[item.name])) {
+        if (!$.isArray(self[item.name])) {
           userInput = [self[item.name]];
         }
         content = [];
