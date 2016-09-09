@@ -147,6 +147,30 @@ a.close-btn {
     }
 }
 
+.place-items {
+    .place-item {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        margin: 0;
+    }
+
+    .place-label {
+        font-weight: bold;
+    }
+
+    .place-value {
+        color: #777777;
+        word-break: break-all;
+    }
+
+    .multi-select-response {
+        padding: 0;
+    }
+}
+
 .place-submission-details {
     display: block;
     padding-left: 3.75em;
