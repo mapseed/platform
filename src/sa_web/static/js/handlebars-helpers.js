@@ -190,15 +190,14 @@ var Shareabouts = Shareabouts || {};
       content, 
       wasAnswered = false;
 
-      // case: plain text
       if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
+        // case: plain text
         content = userInput || "";
         if (content !== "") {
           wasAnswered = true;
         }
-      } 
-      // case: checkboxes, radio buttons, and dropdowns
-      else if (fieldType === "checkbox_big_buttons" || fieldType === "radio_big_buttons" || fieldType === "dropdown") {
+      } else if (fieldType === "checkbox_big_buttons" || fieldType === "radio_big_buttons" || fieldType === "dropdown") {
+        // case: checkboxes, radio buttons, and dropdowns
         // if input is not an array, convert to an array of length 1
         if (!$.isArray(self[item.name])) {
           userInput = [self[item.name]];
@@ -216,9 +215,8 @@ var Shareabouts = Shareabouts || {};
             selected: selected
           });
         });
-      }
-      // case: binary toggle buttons
-      else if (fieldType === "binary_toggle") {
+      } else if (fieldType === "binary_toggle") {
+        // case: binary toggle buttons
         // NOTE: we assume that the first option listed under content
         // corresponds to the "on" value of the toggle input
         content = {
