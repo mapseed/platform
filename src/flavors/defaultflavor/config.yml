@@ -317,7 +317,7 @@ place:
         - name: pollution_type
           type: checkbox_big_buttons
           prompt: _(Types of pollution seen:)
-          display_prompt: _(I saw the following types of pollution here:)
+          display_prompt: _( )
           content:
             - label: _(Sewage)
               value: sewage
@@ -332,8 +332,8 @@ place:
           optional: true # NOTE: checkbox_big_button inputs have no validation
         - name: description
           type: textarea
-          prompt: _(Description of this pollution:)
-          display_prompt: _(Further description:)
+          prompt: _(Description:)
+          display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
     - category: question
@@ -353,7 +353,7 @@ place:
         - name: description
           type: textarea
           prompt: "_(What's your question?)"
-          display_prompt: _(My question:)
+          display_prompt: _( )
           placeholder: _(Enter question...)
     - category: idea
       includeOnForm: true
@@ -372,7 +372,7 @@ place:
         - name: description
           type: textarea
           prompt: _(Describe your idea below:)
-          display_prompt: "_(Here's my idea:)"
+          display_prompt: "_( )"
           placeholder: _(Description...)
           optional: false
     - category: complaint
@@ -392,7 +392,7 @@ place:
         - name: description
           type: textarea
           prompt: "_(What's your complaint?)"
-          display_prompt: _(I have the following complaint:)
+          display_prompt: _( )
           placeholder: _(Description...)
           optional: false
     - category: greenwall
