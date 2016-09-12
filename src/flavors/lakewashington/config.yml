@@ -421,6 +421,14 @@ pages:
     slug: getinvolved
     name: contribute
 
+  - slug: sponsors
+    name: sponsors
+    hide_from_top_bar: true
+
+  - slug: terms
+    name: terms
+    hide_from_top_bar: true
+
 notifications:
   on_new_place: true
   submitter_email_field: private-submitter_email
