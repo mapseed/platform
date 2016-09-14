@@ -195,9 +195,6 @@ var legendToShow = '';
         var layer = self.layers[id];
         if (layer) {
           self.setLayerVisibility(layer, id, visible);
-            // .on('done', function(){
-            //   self.showLegend();
-            // });
         } else if (id === 'toggle-satellite') {
           // TODO: This is a hack! We should integrate this with the config
           // probably with a radio button in the legend!
@@ -258,13 +255,6 @@ var legendToShow = '';
             $('.cartodb-legend-stack').show();
           else
             $('.cartodb-legend-stack').hide();
-      }
-    },
-    showLegend: function() {
-      if(legendToShow.length > 0){
-        var layer = this.layers[legendToShow];
-        setLegendVisibility(layer, legendToShow, true);
-        legendToShow = '';
       }
     },
     reverseGeocodeMapCenter: _.debounce(function() {
