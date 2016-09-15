@@ -958,6 +958,37 @@ img {
   cursor: pointer;
 }
 
+/* Story bar styles */
+.btn-previous-story-nav {
+  width: 10%;
+  color: #93b7c9;
+  cursor: pointer;
+}
+.btn-previous-story-nav:before {
+  font-size: 3.3em;
+  content: "";
+}
+.btn-previous-story-nav:hover {
+  color: #007fbf;
+}
+
+.btn-next-story-nav {
+  width: 10%;
+  color: #93b7c9;
+  cursor: pointer;
+}
+.btn-next-story-nav:before {
+  font-size: 3.3em;
+  content: "";
+}
+.btn-next-story-nav:hover {
+  color: #007fbf;
+}
+
+.story-nav-disabled {
+  visibility: hidden;
+}
+
 fieldset {
   border: 0;
   margin: 0;
@@ -1707,6 +1738,24 @@ a.auth-inline {
   font-weight: bold;
   text-decoration: none;
   padding: 0.25em 0.5em;
+}
+
+/* place detail view story bar */
+.place-story-bar {
+  background-color: LightYellow;
+  padding: 8px;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-family: FontAwesome;
+  overflow: hidden;
+}
+.place-story-bar .story-tagline {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 0;
 }
 
 #side-bar {

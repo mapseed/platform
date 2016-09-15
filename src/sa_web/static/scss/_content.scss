@@ -334,3 +334,22 @@ a.auth-inline {
     text-decoration: none;
     padding: 0.25em 0.5em;
 }
+
+/* place detail view story bar */
+.place-story-bar {
+    background-color: LightYellow;
+    padding: 8px;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: FontAwesome;
+    overflow: hidden;
+    .story-tagline {
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-family: $default-font-family;
+        margin-bottom: 0;
+    }
+}
+
