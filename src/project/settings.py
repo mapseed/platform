@@ -341,14 +341,18 @@ if 'SHAREABOUTS_FACEBOOK_KEY' in env \
 LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0,
                                                    microsecond=0).isoformat()
 
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = not DEBUG
+
 from os.path import dirname, abspath, join as pathjoin
 STATIC_ROOT = abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
 
-COMPRESS_ENABLED = True
 
+# Path from which compressed static files will be read:
 COMPRESS_ROOT = STATIC_ROOT
 
-COMPRESS_OUTPUT_DIR = ''
+# Folder where compressed static files will be written (located under COMPRESS_ROOT):
+COMPRESS_OUTPUT_DIR = 'COMPRESS'
 
 # URL prefix for static files.
 STATIC_URL = '/static/'
@@ -363,8 +367,6 @@ COMPRESS_OFFLINE_CONTEXT = {'STATIC_URL': DEFAULT_COMPRESS_DIR,
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
-
-# COMPRESS_OFFLINE = not DEBUG
 
 # List of finder classes that know how to find static files in
 # various locations.
