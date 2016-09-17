@@ -1,7 +1,22 @@
-<h4 class="">{{ placeConfig.title }}</h4>
-<p class="drag-marker-instructions">
-  {{#_}}First drag the map to set your pin's location.{{/_}}
-</p>
+<!-- <h4 class="">{{ placeConfig.title }}</h4> -->
+<div class="drag-marker-instructions">
+  <table>
+    <tr id="drag-marker-content">
+      <td>
+        <div class="btn btn-inline btn-geolocate">
+          <img src="/static/css/images/locate-me.png" />
+          {{#_}}Set my location{{/_}}
+        </div> 
+      </td>
+      <td>
+        <p class="drag-text">{{#_}}Or, drag the map to set your location{{/_}}</p>
+      </td>
+    </tr>
+    <tr id="geolocating-msg" class="is-visuallyhidden">
+      <td>{{#_}}Setting your location...{{/_}}</td>
+    </tr>
+  </table>
+</div>
 <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
 
 <p class="form-field">{{ placeConfig.help_text }}</p>

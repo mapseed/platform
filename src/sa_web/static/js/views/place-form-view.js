@@ -9,7 +9,8 @@ var Shareabouts = Shareabouts || {};
       'change input[type="file"]': 'onInputFileChange',
       'click .category-btn.clickable + label': 'onCategoryChange',
       'click .category-menu-hamburger': 'onExpandCategories',
-      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle'
+      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
+      'click .btn-geolocate': 'onClickGeolocate'
     },
     initialize: function(){
       var self = this;
@@ -61,6 +62,8 @@ var Shareabouts = Shareabouts || {};
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
+
+      if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
       return this;
     },
@@ -133,6 +136,25 @@ var Shareabouts = Shareabouts || {};
 
       // instantiate appropriate backbone model
       this.collection[self.formState.selectedDatasetId].add({});
+    },
+    onClickGeolocate: function(evt) {
+      var self = this;
+      evt.preventDefault();
+      var ll = this.options.appView.mapView.map.getBounds().toBBoxString();
+      S.Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
+      $("#drag-marker-content").addClass("is-visuallyhidden");
+      $("#geolocating-msg").removeClass("is-visuallyhidden");
+
+      this.options.appView.mapView.map.locate()
+        .on("locationfound", function() { 
+          self.center = self.options.appView.mapView.map.getCenter();
+          $("#spotlight-place-mask").remove();
+          self.render();
+        })
+        .on("locationerror", function() {
+          $("#drag-marker-content").removeClass("is-visuallyhidden");
+          $("#geolocating-msg").addClass("is-visuallyhidden");
+        });
     },
     onInputFileChange: function(evt) {
       var self = this,
