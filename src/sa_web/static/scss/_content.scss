@@ -353,3 +353,27 @@ a.auth-inline {
     }
 }
 
+/* place form geolocation and instructions bar */
+.drag-marker-instructions {
+    position: relative;
+    background-color: lightyellow;
+    .btn-geolocate {
+        font-size: 0.85em;
+        width: 140px;
+        padding: 5px; 
+        position: relative;
+        img {
+            position: absolute;
+            left: 2px;
+            top: 6px;
+        }
+    }
+    .drag-text {
+        margin-bottom: 0;
+        padding-left: 15px;
+    }
+    #geolocating-msg {
+        color: #888888;
+    }
+}
+
