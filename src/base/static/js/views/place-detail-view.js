@@ -68,12 +68,12 @@
       });
 
       // Is this user authenticated (i.e. able to edit place detail views)?
-      if (S.bootstrapped.currentUser) {
-        var re = /(\/([a-zA-Z0-9_]*)$)/;
+      if (S.bootstrapped.currentUser && S.bootstrapped.currentUser.groups) {
         _.each(S.bootstrapped.currentUser.groups, function(group) {
           // get the name of the datasetId from the end of the full url
           // provided in S.bootstrapped.currentUser.groups
-          var match = group.dataset.match(re)[2];
+          var url = group.dataset.split("/"),
+          match = url[url.length - 1];
           if (match && match === self.options.datasetId && group.name === "administrators") {
             self.isEditable = true;
           }
