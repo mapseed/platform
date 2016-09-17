@@ -344,13 +344,15 @@ LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0,
 from os.path import dirname, abspath, join as pathjoin
 STATIC_ROOT = abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
 
-COMPRESS_ROOT = abspath(pathjoin(dirname(__file__), '..'))
+COMPRESS_ENABLED = True
 
-COMPRESS_OUTPUT_DIR = 'sa_web/static/COMPRESS'
+COMPRESS_ROOT = STATIC_ROOT
+
+COMPRESS_OUTPUT_DIR = ''
 
 # URL prefix for static files.
 STATIC_URL = '/static/'
-COMPRESS_URL = STATIC_URL if DEBUG else abspath(pathjoin(dirname(__file__), '..')) + '/'
+COMPRESS_URL = STATIC_URL
 
 DEFAULT_COMPRESS_DIR = STATIC_URL if DEBUG else abspath(pathjoin(dirname(__file__), '..', 'sa_web', 'static')) + '/'
 FLAVOR_COMPRESS_DIR = STATIC_URL if DEBUG else abspath(pathjoin(dirname(__file__), '..', '..', 'src')) + '/flavors/' + SHAREABOUTS['FLAVOR'] + '/static/'
@@ -362,7 +364,7 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
-COMPRESS_OFFLINE = not DEBUG
+# COMPRESS_OFFLINE = not DEBUG
 
 # List of finder classes that know how to find static files in
 # various locations.
