@@ -102,8 +102,15 @@ We have a Dev API with dummy data that you can load locally. To enable it, go to
 FLAVOR=duwamish_flavor
 SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
 SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+
 DUWAMISH_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
 DUWAMISH_DATASET_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+
+TREES_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees/
+TREES_DATASET_KEY=YmIxZjA1OTlmNjUxYWM5NDgwM2Q5NmMx
+
+AIR_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air/
+AIR_DATASET_KEY=MTc3Y2E2OGM2NDQyMWYyZjJhNWVhM2E4
 ```
 
 If you want to load a different flavor, like Hey Willamette, just replace the first line with ``FLAVOR=willamette``
