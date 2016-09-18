@@ -87,6 +87,11 @@ map:
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
 
+      # Trees
+    - id: trees
+      type: place
+      slug: trees
+
   # Report filters
 
 # The keys show up in the dropdown list when you are adding a new place
@@ -414,87 +419,84 @@ place:
 
   location_item_name: Address
 
-  items:
-    - prompt: _(Tree location)
-      type: geocoding
-      name: private-address
-      attrs:
-        - key: placeholder
-          value: _(Please type full address, (will not be published))
-        - key: size
-          value: 30
-    - prompt: _(Tree Name)
-      label: _(Tree Name:)
-      type: text
-      name: common_name
-      attrs:
-        - key: placeholder
-          value: _(ie "California Wax Myrtle")
-        - key: size
-          value: 30
-    - prompt: _(Latin Name)
-      label: _(Latin Name:)
-      type: text
-      name: latin_name
-      optional: true
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(ie "Myrica Californica")
-        - key: size
-          value: 30
-    - prompt: _(Condition?)
-      label: _(Size of contributing area:)
-      type: text
-      name: contributing_area
-      optional: 
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(ie "struggling", "okay", "healthy")
-        - key: size
-          value: 30
-    - prompt: _(First Name (will not be published))
-      # label: _(First Name:)
-      type: text
-      name: private-first_name
-      attrs:
-        - key: placeholder
-          value: _(will not be published)
-    - prompt: _(Last Name (will not be published))
-      type: text
-      name: private-last_name
-      attrs:
-        - key: placeholder
-          value: _(will not be published)
-    - prompt: _(Your Email)
-      type: text
-      name: private-submitter_email
-      optional: 
-      sticky: true
-      attrs:
-        - key: required
-        - key: placeholder
-          value: _(Your email address is kept private and will not be published)
-        - key: size
-          value: 30
-    - prompt: _(ID Tag)
-      type: text
-      name: private-id_tag
-      attrs:
-        - key: placeholder
-          value: _(Leave blank if unknown)
-    - name: location_type
-      type: hidden
+  #### begin dynamic form config ####
+  place_detail:
+    tree:
+      includeOnForm: true
+      name: location_type
+      dataset: trees
+      icon_url: /static/css/images/markers/tree.png
       value: tree
-    - prompt:
-      inputfile_label: _(Please add an image)
+      label: _(Tree)
+      fields:
+        - name: private-address
+          type: geocoding
+          prompt: _(Tree location)
+          display_prompt: _(Tree location:)
+          placeholder: _(Please type full address, (will not be published))
+          size: 30
+          optional: false
+        - name: common_name
+          type: text
+          prompt: _(Tree Name)
+          display_prompt: _(Tree Name:)
+          placeholder: _(ie "California Wax Myrtle")
+          size: 30
+          optional: false
+        - name: latin_name
+          type: text
+          prompt: _(Latin Name)
+          display_prompt: _(Latin Name:)
+          placeholder: _(ie "Myrica Californica")
+          size: 30
+          optional: true
+          sticky: true
+        - name: contributing_area
+          type: text
+          prompt: _(Condition?)
+          display_prompt: _(Size of contributing area:)
+          placeholder: _(ie "struggling", "okay", "healthy")
+          size: 30
+          optional: false
+          sticky: true
+        - name: private-first_name
+          type: text
+          prompt: _(First Name (will not be published))
+          # display_prompt: _(First Name:)
+          placeholder: _(will not be published)
+          optional: true
+        - name: private-last_name
+          type: text
+          prompt: _(Last Name (will not be published))
+          placeholder: _(will not be published)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email) 
+          placeholder: _(Your email address is kept private and will not be published)
+          size: 30
+          optional: true
+          sticky: true
+        - name: private-id_tag
+          type: text
+          prompt: _(ID Tag)
+          placeholder: _(Leave blank if unknown)
+          optional: true
+
+  # define form elements that appear on every form here
+  common_form_elements:
+    - name: my_image
       type: file
-      name: my_image
-      optional:
+      prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      optional: true
       attrs:
         - key: accept
           value: image/*
+    - type: submit
+      label: _(Put it on the map!)
+
+  #### end dynamic form config ####
 
 survey:
   submission_type: comments

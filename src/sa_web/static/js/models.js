@@ -21,6 +21,43 @@ var Shareabouts = Shareabouts || {};
     };
   };
 
+  var addStoryObj = function(properties, type) {
+    var storyObj = null,
+    url;
+    if (type === "place") { url = properties.datasetSlug + "/" + properties.id; }
+    else if (type === "landmark") { url = properties.title; }
+    _.each(S.Config.story, function(story) {
+      if (story.order[url]) {
+        storyObj = {
+          tagline: story.tagline,
+          next: story.order[url].next,
+          previous: story.order[url].previous,
+          zoom: story.order[url].zoom,
+          visibleLayers: story.order[url].visibleLayers
+        }
+      }
+    });
+    return { story: storyObj }
+  };
+
+  // Pull out the full title string from the block of HTML used
+  // to render the landmark
+  var addLandmarkDescription = function(properties) {
+    var fullTitle,
+    re = /^\s*<(h[0-9]|b)>(.+)<(\/h[0-9]|\/b)>/,
+    // Grab the full title from between header or bold tags at the beginning
+    // of the HTML block
+    match = properties.description.match(re);
+    if (match) {
+      // the second capture group represents the full title
+      fullTitle = match[2];
+      properties.description = properties.description.replace(re, "");
+    } else {
+      fullTitle = properties.title;
+    }
+    return { fullTitle: fullTitle }
+  };
+
   S.PaginatedCollection = Backbone.Collection.extend({
     resultsAttr: 'results',
 
@@ -122,7 +159,8 @@ var Shareabouts = Shareabouts || {};
 
     url: function() {
       var submissionType = this.options.submissionType,
-          placeId = this.options.placeModel && this.options.placeModel.id;
+          placeId = this.options.placeModel && this.options.placeModel.id,
+          datasetId = this.options.placeModel && this.options.placeModel.get("datasetId");
 
       if (!submissionType) { throw new Error('submissionType option' +
                                                      ' is required.'); }
@@ -131,7 +169,7 @@ var Shareabouts = Shareabouts || {};
                                       'must save the place before saving ' +
                                       'its ' + submissionType + '.'); }
 
-      return '/api/places/' + placeId + '/' + submissionType;
+      return '/dataset/' + datasetId + '/places/' + placeId + '/' + submissionType;
     },
 
     comparator: 'created_datetime'
@@ -219,9 +257,27 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
+    addStoryObj: function(properties) {
+      var storyObj = null,
+      url = properties.datasetSlug + "/" + properties.id;
+      _.each(S.Config.story, function(story) {
+        if (story.order[url]) {
+          storyObj = {
+            tagline: story.tagline,
+            next: story.order[url].next,
+            previous: story.order[url].previous
+          }
+        }
+      });
+      return { story: storyObj }
+    },
+
     parse: function(response) {
       var properties = _.clone(response.properties);
+      // add story object, if relevant
+      _.extend(properties, addStoryObj(response.properties, "place"));
       properties.geometry = _.clone(response.geometry);
+
       return properties;
     },
 
@@ -289,6 +345,14 @@ var Shareabouts = Shareabouts || {};
   S.LandmarkModel = Backbone.Model.extend({
     initialize: function() {
       this.set("id", this.get('title'));
+    },
+    parse: function(response) {
+      var response = _.clone(response);
+      // add story object, if relevant
+      _.extend(response, addStoryObj(response.properties, "landmark"));
+      _.extend(response, addLandmarkDescription(response.properties));
+
+      return response;
     }
   });
 

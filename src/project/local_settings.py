@@ -51,11 +51,17 @@ if 'SITE_URL' not in os.environ:
 if 'SITE_KEY' not in os.environ:
     print("ERROR: No SITE_KEY found!")
 
+
 SHAREABOUTS = {
     'FLAVOR': os.environ.get('FLAVOR', 'duwamish_flavor'),
     'DATASET_ROOT': os.environ.get('SITE_URL', 'NO_SITE_URL'),
     'DATASET_KEY': os.environ.get('SITE_KEY', 'NO_SITE_KEY')
 }
+
+#programatically add environment variables of type *_SITE_URL and *_DATASET_KEY
+for k in os.environ:
+    if re.match('.+_DATASET_KEY$|.+_SITE_URL$', k):
+        SHAREABOUTS[k] = os.environ.get(k, 'Error')
 
 # For geocoding...
 MAPQUEST_KEY = 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u'

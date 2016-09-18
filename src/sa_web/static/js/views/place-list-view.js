@@ -83,16 +83,26 @@ var Shareabouts = Shareabouts || {};
       this.views[view.model.cid] = view;
     },
     renderList: function() {
+      var self = this;      
       // A faster alternative to this._renderChildren. _renderChildren always
       // discards and recreates a new ItemView. This simply rerenders the
       // cached views.
       var $itemViewContainer = this.getItemViewContainer(this);
       $itemViewContainer.empty();
+
       this.collection.each(function(model) {
-        $itemViewContainer.append(this.views[model.cid].$el);
-        // Delegate the events so that the subviews still work
-        this.views[model.cid].supportView.delegateEvents();
-      }, this);
+        if (self.views[model.cid]) {
+          $itemViewContainer.append(self.views[model.cid].$el);
+          // Delegate the events so that the subviews still work
+          self.views[model.cid].supportView.delegateEvents();
+          // manually insert the title into places active story bars
+          // NOTE: this is pretty hacky, but works for now
+          if (model.get("name")) $(".place-header:last").html("<h1>" + model.get("name") + "</h1>");
+        }
+      });
+
+      // remove story bars from the list view
+      $(".place-story-bar").remove();
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();
@@ -244,7 +254,7 @@ var Shareabouts = Shareabouts || {};
 
         // If we've fallen through here, hide the item.
         return hide();
-      });
+      }, this);
     },
     isVisible: function() {
       return this.$el.is(':visible');
