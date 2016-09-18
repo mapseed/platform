@@ -664,7 +664,7 @@ sidebar:
       title: _(Activity Stream:)
 
     - id: reports_legend
-      title: _(Citizen Reports:)
+      title: _(Community Reports:)
       view: LegendView
       icon: info-circle
       items:
