@@ -61,11 +61,6 @@ map:
     - id: reports
       type: shareabouts
 
-    # Carto basemap additions layer
-    - id: additions
-      url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
-      type: cartodb
-
   # Legend Layers
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -807,13 +802,13 @@ place:
           placeholder: _(Description...)
           optional: false
     - category: air_watch  #defines a top-level form category
-      includeOnForm: true
+      includeOnForm: false
       name: location_type  #needs to be "location_type"
       dataset: air
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
-      fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
+      fields:  #field types can be:  "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
         - name: date_time_observed 
           type: datetime  
           prompt: _(When did you observe these conditions?)
@@ -949,7 +944,7 @@ place:
           display_prompt: _(Additional comments:)
           optional: true 
     - category: tree
-      includeOnForm: true
+      includeOnForm: false
       name: location_type
       dataset: trees
       icon_url: /static/css/images/markers/marker-tree.png
