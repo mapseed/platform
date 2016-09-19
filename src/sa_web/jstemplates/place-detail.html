@@ -3,7 +3,7 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1>
+          <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
             {{>location-string location }}
             {{#if fullTitle}}
               {{fullTitle}}
