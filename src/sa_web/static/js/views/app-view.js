@@ -475,6 +475,7 @@ var Shareabouts = Shareabouts || {};
         landmarkDetailView = new S.LandmarkDetailView({
           model: model,
           description: model.get('properties')['description'],
+          originalDescription: model.get('properties')['originalDescription'],
           mapConfig: this.options.mapConfig,
           mapView: this.mapView,
           router: this.options.router
