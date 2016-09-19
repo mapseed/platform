@@ -283,6 +283,7 @@
 
 /* Story bar styles */
 .btn-previous-story-nav {
+    vertical-align: top;
     width: 10%;
     color: $button-background-hover-blue;
     cursor: pointer;
@@ -297,6 +298,7 @@
 }
   
 .btn-next-story-nav {
+    vertical-align: top;
     width: 10%;
     color: $button-background-hover-blue;
     cursor: pointer;
