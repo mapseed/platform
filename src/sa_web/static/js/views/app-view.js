@@ -43,7 +43,6 @@ var Shareabouts = Shareabouts || {};
       this.activities = this.options.activities;
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
-      this.mergedPlaces = this.options.mergedPlaces;
 
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
@@ -146,7 +145,6 @@ var Shareabouts = Shareabouts || {};
         // Init the view for displaying user activity
         this.activityView = new S.ActivityView({
           el: 'ul.recent-points',
-          mergedPlaces: this.mergedPlaces,
           activities: this.activities,
           places: this.places,
           router: this.options.router,
@@ -216,17 +214,16 @@ var Shareabouts = Shareabouts || {};
         // self.placeFormView.setLocation(locationData);
       });
 
-
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
       if (_.isUndefined(S.Config.flavor.app.list_enabled) ||
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            collection: self.mergedPlaces
+            placeCollections: self.places
           }).render();
       }
-
+      
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
       this.$panelContent = $('#content article');
@@ -328,11 +325,8 @@ var Shareabouts = Shareabouts || {};
           totalPages,
           pagesComplete = 0;
 
-
       // loop over all place collections
-      //var loopIndex = 0;
       _.each(self.places, function(collection, key) {
-
         collection.fetchAllPages({
           remove: false,
           // Check for a valid location type before adding it to the collection
@@ -351,12 +345,10 @@ var Shareabouts = Shareabouts || {};
             if (data.metadata.next) {
               $progressContainer.show();
             }
-
-            self.mergedPlaces.add(collection.models);
           }),
 
           // Do this for every page...
-          pageComplete: function() {
+          pageComplete: function() {            
             var percent;
 
             pagesComplete++;
