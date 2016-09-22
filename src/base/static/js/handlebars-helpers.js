@@ -238,7 +238,8 @@ var Shareabouts = Shareabouts || {};
         type: item.type,
         content: content,
         prompt: item.display_prompt,
-        wasAnswered: wasAnswered
+        wasAnswered: wasAnswered,
+        isEditingToggled: this.isEditingToggled
       };
 
       if (_.contains(exclusions, item.name) === false &&

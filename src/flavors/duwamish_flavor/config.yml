@@ -55,6 +55,7 @@ map:
       type: basemap
 
     - id: satellite
+      type: basemap
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
@@ -96,43 +97,43 @@ map:
       type: place
       slug: editortest
 
-    # - id: vision
-    #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-    #   sources:
-    #     - "http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-    #   type: landmark
+    - id: vision
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      sources:
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+      type: landmark
 
-    #    # WRIA9 watershed
-    # - id: watershed
-    #   type: cartodb
-    #   url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
+       # WRIA9 watershed
+    - id: watershed
+      type: cartodb
+      url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
 
-    # - id: cleanup
-    #   type: cartodb
-    #   url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
+    - id: cleanup
+      type: cartodb
+      url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
 
-    #   # Land Use
-    # - id: landuse
-    #   type: cartodb
-    #   url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
-    #   opacity: 0.5
+      # Land Use
+    - id: landuse
+      type: cartodb
+      url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
+      opacity: 0.5
 
-    #   # Green Seattle Partnership restoration phases
-    # - id: phases
-    #   type: cartodb
-    #   url: "https://gis206.cartodb.com/api/v2/viz/217a2e02-e729-11e5-9bd4-0e5db1731f59/viz.json"
+      # Green Seattle Partnership restoration phases
+    - id: phases
+      type: cartodb
+      url: "https://gis206.cartodb.com/api/v2/viz/217a2e02-e729-11e5-9bd4-0e5db1731f59/viz.json"
 
-    #   # WMS Original Flow
-    # - id: duwamish-original
-    #   url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
-    #   type: cartodb
-    #   opacity: 0.4
+      # WMS Original Flow
+    - id: duwamish-original
+      url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
+      type: cartodb
+      opacity: 0.4
 
-    #   # Noxious Weeds
-    # - id: noxious-weeds
-    #   type: cartodb
-    #   url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
-    #   opacity: 0.5
+      # Noxious Weeds
+    - id: noxious-weeds
+      type: cartodb
+      url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
+      opacity: 0.5
 
     - id: cso
       type: json
