@@ -125,8 +125,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       // remove story bars from the list view
-      $(".place-story-bar").remove();
-      $(".place-header-title").removeClass("is-visuallyhidden");
+      $("#list-container .place-story-bar").remove();
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();
