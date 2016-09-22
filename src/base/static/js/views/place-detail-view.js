@@ -185,18 +185,16 @@
     },
 
     onBinaryToggle: function(evt) {
-      var category = this.model.get("location_type");
-      var targetButton = $(evt.target).attr("id"),
+      var self = this,
+      category = this.model.get("location_type"),
+      targetButton = $(evt.target).attr("id"),
       oldValue = $(evt.target).val(),
       // find the matching config data for this element
-      altData = _.find(this.options.placeConfig.place_detail[category].fields, function(item) {
-        return item.name == targetButton;
-      });
+      selectedCategoryConfig = _.find(this.options.placeConfig.place_detail, function(categoryConfig) { return categoryConfig.category === category; }),
+      altData = _.find(selectedCategoryConfig.fields, function(item) { return item.name === targetButton; }),
       // fetch alternate label and value
-      altContent = _.find(altData.content, function(item) {
-        return item.value != oldValue;
-      });
-
+      altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
+      
       // set new value and label
       $(evt.target).val(altContent.value);
       $(evt.target).next("label").html(altContent.label);
