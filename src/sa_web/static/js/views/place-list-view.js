@@ -75,6 +75,7 @@ var Shareabouts = Shareabouts || {};
 
       _.each(this.options.placeCollections, function(collection) {
         collection.on("add", self.addModel, self);
+        collection.on("sync", self.onSync, self);
       });
 
       // Init the views cache
@@ -87,13 +88,17 @@ var Shareabouts = Shareabouts || {};
       this.collectionFilters = options.filter || {};
       this.searchTerm = options.term || '';
     },
+    onSync: function() {
+      // sort the merged collection after each component collection
+      // is synced successfully
+      this.sort();
+    },
     onAfterItemAdded: function(view) {
       // Cache the views as they are added
       this.views[view.model.cid] = view;
     },
     addModel: function(model) {
       this.collection.add(model);
-      this.sort();
     },
     renderList: function() {
       var self = this;
