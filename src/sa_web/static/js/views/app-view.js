@@ -252,8 +252,8 @@ var Shareabouts = Shareabouts || {};
             "zoom": config.zoom || story.default_zoom,
             "panTo": config.panTo || null,
             "visibleLayers": config.visible_layers || story.default_visible_layers,
-            "previous": (i - 1 < 0) ? story.order[totalStoryElements - 1].url : story.order[i - 1].url,
-            "next": (i + 1 == story.order.length) ? story.order[0].url : story.order[i + 1].url
+            "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
+            "next": story.order[(i + 1) % totalStoryElements].url
           }
         });
         story.order = storyStructure;
