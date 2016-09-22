@@ -35,6 +35,14 @@ var Shareabouts = Shareabouts || {};
         userToken: S.Config.userToken
       });
     },
+    onBeforeRender: function() {
+      // if an attachmentCollection has models in it, make sure the place
+      // model's attachment attribute is set for the attachments to be
+      // reliably rendered in the list view
+      if (this.model.attachmentCollection.length > 0) {
+        this.model.set("attachments", this.model.attachmentCollection.toJSON());
+      }
+    },
     onRender: function(evt) {
       this.support.show(this.supportView);
     },
