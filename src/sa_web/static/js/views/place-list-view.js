@@ -95,9 +95,6 @@ var Shareabouts = Shareabouts || {};
           $itemViewContainer.append(self.views[model.cid].$el);
           // Delegate the events so that the subviews still work
           self.views[model.cid].supportView.delegateEvents();
-          // manually insert the title into places active story bars
-          // NOTE: this is pretty hacky, but works for now
-          if (model.get("name")) $(".place-header:last").html("<h1>" + model.get("name") + "</h1>");
         }
       });
 
