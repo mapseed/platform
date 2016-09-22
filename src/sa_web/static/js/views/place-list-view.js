@@ -66,7 +66,16 @@ var Shareabouts = Shareabouts || {};
       'click @ui.supportCount': 'handleSupportCountSort'
     },
     initialize: function(options) {
+      var self = this;
       options = options || {};
+
+      // This collection holds references to all place models
+      // merged together, for sorting and filtering purposes
+      this.collection = new S.PlaceCollection([]);
+
+      _.each(this.options.placeCollections, function(collection) {
+        collection.on("add", self.addModel, self);
+      });
 
       // Init the views cache
       this.views = {};
@@ -82,8 +91,12 @@ var Shareabouts = Shareabouts || {};
       // Cache the views as they are added
       this.views[view.model.cid] = view;
     },
+    addModel: function(model) {
+      this.collection.add(model);
+      this.sort();
+    },
     renderList: function() {
-      var self = this;      
+      var self = this;
       // A faster alternative to this._renderChildren. _renderChildren always
       // discards and recreates a new ItemView. This simply rerenders the
       // cached views.

@@ -30,8 +30,6 @@ var Shareabouts = Shareabouts || {};
       this.activities = {};
       // store individual landmark collections for each landmark type
       this.landmarks = {};
-      // store separate collection of all places merged together
-      this.mergedPlaces = new S.PlaceCollection([]);
 
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
@@ -101,7 +99,6 @@ var Shareabouts = Shareabouts || {};
         activities: this.activities,
         places: this.places,
         landmarks: this.landmarks,
-        mergedPlaces: this.mergedPlaces,
         datasetConfigs: configArrays,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,

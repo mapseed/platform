@@ -266,11 +266,6 @@ var Shareabouts = Shareabouts || {};
       this.model.save(attrs, {
         success: function() {
           S.Util.log('USER', 'new-place', 'successfully-add-place');
-
-          // add the newly-created model to mergedPlaces,
-          // for use on the place list view
-          self.options.appView.mergedPlaces.add(model);
-
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
         error: function() {
