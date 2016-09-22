@@ -103,6 +103,7 @@ var Shareabouts = Shareabouts || {};
 
       // remove story bars from the list view
       $(".place-story-bar").remove();
+      $(".place-header-title").removeClass("is-visuallyhidden");
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();

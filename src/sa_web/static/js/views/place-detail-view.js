@@ -87,6 +87,8 @@ var Shareabouts = Shareabouts || {};
 
       this.delegateEvents();
 
+      $("#content article").animate({ scrollTop: 0 }, "fast");
+      
       return this;
     },
 

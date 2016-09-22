@@ -890,7 +890,7 @@ img {
   width: 200px;
   display: block;
   position: relative;
-  opacity: 0.9;
+  opacity: 1;
   height: 46px;
   margin-bottom: 1px;
 }
@@ -960,6 +960,7 @@ img {
 
 /* Story bar styles */
 .btn-previous-story-nav {
+  vertical-align: top;
   width: 10%;
   color: #93b7c9;
   cursor: pointer;
@@ -973,6 +974,7 @@ img {
 }
 
 .btn-next-story-nav {
+  vertical-align: top;
   width: 10%;
   color: #93b7c9;
   cursor: pointer;
@@ -1765,6 +1767,9 @@ a.auth-inline {
   margin-bottom: 20px;
   font-family: FontAwesome;
   overflow: hidden;
+}
+.place-story-bar h1 {
+  line-height: 1em;
 }
 .place-story-bar .story-tagline {
   width: 100%;
