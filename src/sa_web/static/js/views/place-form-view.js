@@ -213,18 +213,24 @@ var Shareabouts = Shareabouts || {};
 
       var self = this,
           router = this.options.router,
+          collection = this.collection[self.formState.selectedDatasetId],
+          model,
           // Should not include any files
           attrs = this.getAttrs(),
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
       evt.preventDefault();
 
-      this.collection[self.formState.selectedDatasetId].on("add", function(model) {
-        model.set("datasetSlug", self.formState.selectedDatasetSlug);
-        model.set("datasetId", self.formState.selectedDatasetId);
-        
+      collection.add({"location_type": this.formState.selectedCategory});
+      model = collection.at(collection.length - 1);
+
+      model.set("datasetSlug", self.formState.selectedDatasetSlug);
+      model.set("datasetId", self.formState.selectedDatasetId);
+      
+      // if an attachment has been added...
+      if (self.formState.attachmentData) {
         var attachment = model.attachmentCollection.find(function(attachmentModel) {
-          return attachmentModel.get('name') === fieldName;
+          return attachmentModel.get('name') === self.formState.attachmentData.name;
         });
 
         if (_.isUndefined(attachment)) {
@@ -232,37 +238,36 @@ var Shareabouts = Shareabouts || {};
         } else {
           attachment.set(self.formState.attachmentData);
         }
+      }
 
-        $button.attr('disabled', 'disabled');
-        spinner = new Spinner(S.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+      $button.attr('disabled', 'disabled');
+      spinner = new Spinner(S.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
 
-        S.Util.log('USER', 'new-place', 'submit-place-btn-click');
+      S.Util.log('USER', 'new-place', 'submit-place-btn-click');
 
-        S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
+      S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
 
-        // Save and redirect
-        model.save(attrs, {
-          success: function() {
-            S.Util.log('USER', 'new-place', 'successfully-add-place');
+      // Save and redirect
+      model.save(attrs, {
+        success: function() {
+          S.Util.log('USER', 'new-place', 'successfully-add-place');
 
-            // add the newly-created model to mergedPlaces,
-            // for use on the place list view
-            self.options.appView.mergedPlaces.add(model);
+          // add the newly-created model to mergedPlaces,
+          // for use on the place list view
+          self.options.appView.mergedPlaces.add(model);
 
-            router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
-          },
-          error: function() {
-            S.Util.log('USER', 'new-place', 'fail-to-add-place');
-          },
-          complete: function() {
-            $button.removeAttr('disabled');
-            spinner.stop();
-          },
-          wait: true
-        });
+          router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
+        },
+        error: function() {
+          S.Util.log('USER', 'new-place', 'fail-to-add-place');
+        },
+        complete: function() {
+          $button.removeAttr('disabled');
+          spinner.stop();
+          self.resetFormState();
+        },
+        wait: true
       });
-
-      this.collection[self.formState.selectedDatasetId].add({"location_type": this.formState.selectedCategory});
     })
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));
