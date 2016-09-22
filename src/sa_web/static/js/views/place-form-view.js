@@ -14,20 +14,22 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this;
-      // keep track of relevant catgory & dataset info 
-      // as user switches among categories
+       
+      this.resetFormState();
+
+      S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
+        this.options.defaultPlaceTypeName);
+      S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+    },
+    resetFormState: function() {
       this.formState = {
         selectedCategory: null,
         selectedDatasetId: null,
         selectedDatasetSlug: null,
         isSingleCategory: false,
-        attachmentData: {},
+        attachmentData: null,
         placeDetail: this.options.placeConfig.place_detail
-      } 
-
-      S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
-        this.options.defaultPlaceTypeName);
-      S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+      }
     },
     render: function(category, isCategorySelected) {
       var self = this,
@@ -187,6 +189,7 @@ var Shareabouts = Shareabouts || {};
     },
     closePanel: function() {
       this.center = null;
+      this.resetFormState();
     },
     onExpandCategories: function(evt) {
       var animationDelay = 400;
