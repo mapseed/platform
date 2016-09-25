@@ -14,25 +14,21 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this;
-      // keep track of relevant catgory & dataset info 
-      // as user switches among categories
-      this.formState = {
-        selectedCategory: null,
-        selectedDatasetId: null,
-        priorDatasetId: null,
-        selectedDatasetSlug: null,
-        priorModelCid: null,
-        isSingleCategory: false,
-        placeDetail: this.options.placeConfig.place_detail
-      } 
+       
+      this.resetFormState();
 
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
-
-      // attach collection listeners
-      for (var collection in this.collection) {
-        this.collection[collection].on('add', self.setModel, this);
+    },
+    resetFormState: function() {
+      this.formState = {
+        selectedCategory: null,
+        selectedDatasetId: null,
+        selectedDatasetSlug: null,
+        isSingleCategory: false,
+        attachmentData: null,
+        placeDetail: this.options.placeConfig.place_detail
       }
     },
     render: function(category, isCategorySelected) {
@@ -49,7 +45,6 @@ var Shareabouts = Shareabouts || {};
         this.formState.selectedDatasetId = placesToIncludeOnForm[0].dataset;
         this.formState.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.formState.selectedDatasetId == layer.id }).slug;
         selectedCategoryConfig = placesToIncludeOnForm[0];
-        this.collection[this.formState.selectedDatasetId].add({});
       }
 
       var data = _.extend({
@@ -133,9 +128,6 @@ var Shareabouts = Shareabouts || {};
       $("#category-btns").animate( { height: "hide" }, animationDelay );
       // if we've already dragged the map, make sure the map drag instructions don't reappear
       if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
-
-      // instantiate appropriate backbone model
-      this.collection[self.formState.selectedDatasetId].add({"location_type": this.formState.selectedCategory});
     },
     onClickGeolocate: function(evt) {
       var self = this;
@@ -167,21 +159,10 @@ var Shareabouts = Shareabouts || {};
         this.$('.fileinput-name').text(file.name);
         S.Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
-            var fieldName = $(evt.target).attr('name'),
-                data = {
-                  name: fieldName,
-                  blob: blob,
-                  file: canvas.toDataURL('image/jpeg')
-                };
-
-            attachment = self.model.attachmentCollection.find(function(model) {
-              return model.get('name') === fieldName;
-            });
-
-            if (_.isUndefined(attachment)) {
-              self.model.attachmentCollection.add(data);
-            } else {
-              attachment.set(data);
+            self.formState.attachmentData = {
+              name: $(evt.target).attr('name'),
+              blob: blob,
+              file: canvas.toDataURL('image/jpeg')
             }
           }, 'image/jpeg');
         }, {
@@ -206,21 +187,9 @@ var Shareabouts = Shareabouts || {};
       $(evt.target).val(altContent.value);
       $(evt.target).next("label").html(altContent.label);
     },
-    setModel: function(model) {
-      var self = this;
-      this.model = model;
-
-      if (this.formState.priorModelCid && this.formState.priorDatasetId) {
-        this.collection[self.formState.priorDatasetId].get({ cid: self.formState.priorModelCid }).destroy();
-      }
-      this.formState.priorModelCid = model.cid;
-      this.formState.priorDatasetId = this.formState.selectedDatasetId;
-    },
     closePanel: function() {
       this.center = null;
-      // make sure we reset priorModelCid and priorDatasetId if the user closes the side panel
-      this.formState.priorModelCid = null;
-      this.formState.priorDatasetId = null;
+      this.resetFormState();
     },
     onExpandCategories: function(evt) {
       var animationDelay = 400;
@@ -244,26 +213,42 @@ var Shareabouts = Shareabouts || {};
 
       var self = this,
           router = this.options.router,
-          model = this.model,
+          collection = this.collection[self.formState.selectedDatasetId],
+          model,
           // Should not include any files
           attrs = this.getAttrs(),
-          categoryId = $(evt.target),
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
-
-      model.set("datasetSlug", this.formState.selectedDatasetSlug);
-      model.set("datasetId", this.formState.selectedDatasetId);
       evt.preventDefault();
 
+      collection.add({"location_type": this.formState.selectedCategory});
+      model = collection.at(collection.length - 1);
+
+      model.set("datasetSlug", self.formState.selectedDatasetSlug);
+      model.set("datasetId", self.formState.selectedDatasetId);
+      
+      // if an attachment has been added...
+      if (self.formState.attachmentData) {
+        var attachment = model.attachmentCollection.find(function(attachmentModel) {
+          return attachmentModel.get('name') === self.formState.attachmentData.name;
+        });
+
+        if (_.isUndefined(attachment)) {
+          model.attachmentCollection.add(self.formState.attachmentData);
+        } else {
+          attachment.set(self.formState.attachmentData);
+        }
+      }
+
       $button.attr('disabled', 'disabled');
-      spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
+      spinner = new Spinner(S.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
 
       S.Util.log('USER', 'new-place', 'submit-place-btn-click');
 
       S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
 
       // Save and redirect
-      this.model.save(attrs, {
+      model.save(attrs, {
         success: function() {
           S.Util.log('USER', 'new-place', 'successfully-add-place');
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
@@ -274,6 +259,7 @@ var Shareabouts = Shareabouts || {};
         complete: function() {
           $button.removeAttr('disabled');
           spinner.stop();
+          self.resetFormState();
         },
         wait: true
       });
