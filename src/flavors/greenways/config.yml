@@ -383,13 +383,13 @@ sidebar:
       basemaps:
         - id: osm
           title: _(OpenStreetMap)
-          visibleDefault: false
+          visibleDefault: true
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
         - id: dark
           title: _(Dark)
-          visibleDefault: true    
+          visibleDefault: false    
       groupings:
         - id: grp-community
           title: _(Community Data)
