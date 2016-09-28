@@ -588,9 +588,11 @@ var Shareabouts = Shareabouts || {};
     },
 
     restoreDefaultLayerVisibility: function() {
-      _.each(this.options.sidebarConfig.panels[0].groupings, function(group) {
-        _.each(group.layers, function(layer) {
-          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault]);
+      var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
+      _.each({"groupings": gisLayersPanel.groupings.layers, "basemaps": gisLayersPanel.basemaps}, function(layers, key) {
+        _.each(layers, function(layer) {
+          if (key === "basemaps" && !layer.visibleDefault) return;
+          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault, (key === "basemaps" ? true : false)]);
           $("#map-" + layer.id).prop("checked", !!layer.visibleDefault);
         });
       });
