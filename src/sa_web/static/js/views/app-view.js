@@ -648,9 +648,12 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) {
+        if (model.get("story")) {
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
         } else {
           self.isStoryActive = false;
         }
@@ -810,9 +813,12 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) {
+        if (model.get("story")) {
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
         } else {
           self.isStoryActive = false;
         }
