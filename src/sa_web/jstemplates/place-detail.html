@@ -29,30 +29,39 @@
               {{^}}
                 <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" />
               {{/if}}
-              {{#if submitter.name }}
-                {{ submitter.name }}
-              {{^}}
-                {{#if submitter_name }}
-                  {{ submitter_name }}
+            </h1>
+            <span class="place-submission-details">
+              {{#_}}<strong class="point-submitter">
+                {{#if submitter.avatar_url }}
+                  <img src="{{ submitter.avatar_url }}" class="avatar" />
                 {{^}}
-                  {{ anonymous_name }}
+                  <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" />
                 {{/if}}
-              {{/if}}
-            </strong> {{ action_text }} this {{ place_type_label location_type}}
+                {{#if submitter.name }}
+                  {{ submitter.name }}
+                {{^}}
+                  {{#if submitter_name }}
+                    {{ submitter_name }}
+                  {{^}}
+                    {{ anonymous_name }}
+                  {{/if}}
+                {{/if}}
+              </strong> {{ action_text }} this {{ place_type_label location_type}}
 
-            {{#if region}}
-              in {{ region }}
-            {{/if}}{{/_}}
+              {{#if region}}
+                in {{ region }}
+              {{/if}}{{/_}}
 
-            <time datetime="{{ created_datetime }}" class="response-date"><a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a></time>
+              <time datetime="{{ created_datetime }}" class="response-date"><a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a></time>
 
-            <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
+              <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
 
             {{^if survey_config}}
               <a rel="internal" href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
             {{/if}}
 
-          </span>
+            </span>
+          {{/unless}}
         </header>
 
         <section class="place-items">
