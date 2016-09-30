@@ -1600,7 +1600,7 @@ a.close-btn span {
 }
 .place-items .place-value {
   color: #777777;
-  word-break: break-all;
+  word-break: break-word;
 }
 .place-items .multi-select-response {
   padding: 0;
