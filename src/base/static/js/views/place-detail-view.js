@@ -131,6 +131,11 @@
       // initialize datetime picker, if relevant
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
 
+      if (this.isEditingToggled) {
+        $("#toggle-editor-btn").addClass("btn-depressed");
+        $(".promotion, .place-header, .survey-header, .reply-link, .response-header").addClass("faded");
+      }
+
       return this;
     },
     remove: function() {
