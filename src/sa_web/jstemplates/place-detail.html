@@ -50,24 +50,40 @@
 
         <section class="place-items">
           {{#if isEditable}}
-            <div id="toggle-editor-btn" class="btn btn-small">{{#_}}Edit this post{{/_}}</div>
+            <div id="toggle-editor-btn" class="btn btn-small editor-btn">
+              <i class="fa fa-pencil" aria-hidden="true"></i> {{#_}}Edit this post{{/_}}
+            </div>
+            {{#if isEditingToggled}}
+              <div id="delete-place-model-btn" class="btn btn-small editor-btn btn-delete">
+                <i class="fa fa-times" aria-hidden="true"></i> {{#_}}Hide this post{{/_}}
+              </div>
+              <div id="update-place-model-btn" class="btn btn-small editor-btn btn-update">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> {{#_}}Save changes{{/_}}
+              </div>
+            {{/if}}
           {{/if}}
 
           <form id="update-place-model-form">
-            {{# attachments }}
+            {{#if attachments }}
               <div class="place-item place-item-attachment place-attachment-{{ name }}">
                 <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
                 {{#if ../isEditingToggled}}
                   <div class="remove-attachment-btn btn btn-small">{{#_}}Remove this image{{/_}}</div>
                 {{/if}}
-              </div>
-            {{/ attachments }}
+              </div>           
+            {{/if}}
+            {{#unless attchments}}
+              {{#if isEditingToggled}}
+                <div class="place-item place-item-attachment">
+                  <img src="/static/css/images/image-placeholder.png" class="place-value img-placeholder" alt="image placeholder" />
+                </div>
+              {{/if}} 
+            {{/unless}}  
 
             {{#if isEditingToggled}}              
-              <label for="place-{{ name }}">{{ prompt }}</label>
-              <span class="fileinput-container btn btn-small">
+              <span id="editor-fileinput" class="fileinput-container btn btn-small editor-btn">
                 <span>{{#_}}Upload a new image{{/_}}</span>
-                <input id="upload-attachment-btn" name="new_image" type="file" />
+                <input id="upload-attachment-btn" name="new_image" type="file" style="display: none"/>
               </span>
             {{/if}}
 
@@ -207,10 +223,6 @@
               </div>
             {{/each_place_item }}
           </form>
-          {{#if isEditingToggled}}
-            <div id="update-place-model-btn" class="btn btn-small">{{#_}}Update post{{/_}}</div>
-            <div id="delete-place-model-btn" class="btn btn-small">{{#_}}Delete this post{{/_}}</div>
-          {{/if}}
         </section>
 
         {{#if survey_config}}
