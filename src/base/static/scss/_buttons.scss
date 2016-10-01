@@ -309,3 +309,35 @@
     visibility: hidden;
 }
 
+/* Place detail editor */
+.editor-btn {
+    box-shadow: -2px 2px 3px #CCCCCC;
+    background-image: linear-gradient(top, #f0ad4e, #e99a00);
+    border: none;
+    background-color: #f0ad4e;
+    color: white;
+    i {
+        color: white;
+    }
+    &:hover {
+        box-shadow: -2px 2px 3px #CCCCCC, inset 0 0 0 1px #27496d;
+        //background-image: linear-gradient(top, #e99a00, black);
+    }
+}
+
+.editor-btn.btn-depressed {
+    background-image: linear-gradient(top, #e99a00, #b97a00);
+    background-color: #b27600;
+    box-shadow: inset 0 0 2px #999999;
+}
+
+.btn-update {
+    float: right;
+    margin-right: 8px;
+    background-image: linear-gradient(top, #449d44, #449d44);
+}
+
+.btn-delete {
+    float: right;
+    background-image: linear-gradient(top, #c9302c, #c9302c);
+}
