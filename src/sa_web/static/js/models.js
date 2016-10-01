@@ -33,6 +33,7 @@ var Shareabouts = Shareabouts || {};
           next: story.order[url].next,
           previous: story.order[url].previous,
           zoom: story.order[url].zoom,
+          panTo: story.order[url].panTo,
           visibleLayers: story.order[url].visibleLayers
         }
       }
@@ -51,6 +52,7 @@ var Shareabouts = Shareabouts || {};
     if (match) {
       // the second capture group represents the full title
       fullTitle = match[2];
+      properties.originalDescription = properties.description;
       properties.description = properties.description.replace(re, "");
     } else {
       fullTitle = properties.title;

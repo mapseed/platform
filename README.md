@@ -102,9 +102,27 @@ We have a Dev API with dummy data that you can load locally. To enable it, go to
 FLAVOR=duwamish_flavor
 SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
 SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+
+DUWAMISH_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
+DUWAMISH_DATASET_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+
+TREES_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees/
+TREES_DATASET_KEY=YmIxZjA1OTlmNjUxYWM5NDgwM2Q5NmMx
+
+AIR_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air/
+AIR_DATASET_KEY=MTc3Y2E2OGM2NDQyMWYyZjJhNWVhM2E4
 ```
 
 If you want to load a different flavor, like Hey Willamette, just replace the first line with ``FLAVOR=willamette``
+
+NOTE: Flavors can load data from any number of Shareabouts datasets, provided you have a URL and key for each dataset you'd like to load. Dataset URLs and keys are set in your `.env` file, as follows:
+
+```
+<DATASET-ID>_SITE_URL=https://path/to/dataset/
+<DATASET-ID>_DATASET_KEY=dataset_key
+```
+
+`<DATASET-ID>` should be replaced with the id (in UPPERCASE) of your dataset. This is the same id that is referenced in your flavor's `config.yml` file, and corrseponds to the value of the dataset's `Slug` property defined when the dataset was created.
 
 Now you're ready to run your server locally. Just enter this command:
 

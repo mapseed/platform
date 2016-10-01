@@ -115,14 +115,6 @@ var Shareabouts = Shareabouts || {};
             });
         } else if (config.type && config.type === 'shareabouts') {
           self.layers[config.id] = self.placeLayers;
-        } else if (config.type && config.type === 'basemap') {
-          // Assume a tile layer
-          layer = L.tileLayer(config.url, config);
-          self.layers[config.id] = layer;
-
-          if (config.defaultBase) {
-            layer.addTo(self.map);
-          }
         } else if (config.layers) {
           // If "layers" is present, then we assume that the config
           // references a Leaflet WMS layer.
@@ -141,12 +133,11 @@ var Shareabouts = Shareabouts || {};
             fillOpacity: config.fillOpacity
           });
           self.layers[config.id] = layer;
-
         } else {
           // Assume a tile layer
-          layer = L.tileLayer( (config.url ? config.url : ""), config);
-
-          layer.addTo(self.map);
+          // TODO: Isn't type=tile for back compatibility
+          layer = L.tileLayer(config.url, config);
+          self.layers[config.id] = layer;
         }
       });
       // Remove default prefix
@@ -184,25 +175,21 @@ var Shareabouts = Shareabouts || {};
         collection.on('reset', self.render, self);
         collection.on('add', self.addLayerView, self);
         collection.on('remove', self.removeLayerView, self);
+        collection.on('userDeleteModel', self.onUserDeleteModel, self);
       });
       
       // Bind visiblity event for custom layers
-      $(S).on('visibility', function (evt, id, visible) {
+      $(S).on('visibility', function (evt, id, visible, isBasemap) {
         var layer = self.layers[id];
-        if (layer) {
-          self.setLayerVisibility(layer, visible);
-        } else if (id === 'toggle-satellite') {
-          // TODO: This is a hack! We should integrate this with the config
-          // probably with a radio button in the legend!
+        if (isBasemap) {
           if (visible) {
-            self.map.addLayer(self.layers['satellite']);
-            self.layers['satellite'].bringToBack();
-            self.map.removeLayer(self.layers['osm']);
+            self.map.addLayer(layer);
+            layer.bringToBack();
           } else {
-            self.map.addLayer(self.layers['osm']);
-            self.layers['osm'].bringToBack();
-            self.map.removeLayer(self.layers['satellite']);
+            self.map.removeLayer(layer);
           }
+        } else if (layer) {
+          self.setLayerVisibility(layer, visible);
         } else {
           // Handles cases when we fire events for layers that are not yet
           // loaded (ie cartodb layers, which are loaded asynchronously)
@@ -215,6 +202,17 @@ var Shareabouts = Shareabouts || {};
         }
       });
     }, // end initialize
+
+    onUserDeleteModel: function() {
+      S.Util.log('APP', 'panel-state', 'closed');
+      // remove map mask if the user closes the side panel
+      $("#spotlight-place-mask").remove();
+      if (this.locationTypeFilter) {
+        this.options.router.navigate('filter/' + this.locationTypeFilter, {trigger: true});
+      } else {
+        this.options.router.navigate('/', {trigger: true});
+      }
+    },
 
     // Adds or removes the layer  on Master Layer based on visibility
     setLayerVisibility: function(layer, visible) {

@@ -267,7 +267,6 @@ var Shareabouts = Shareabouts || {};
         // Otherwise, fetch the place and pass the callbacks along.
         } else if (!placeModel) {
           // TODO....? Is this else condition necessary any more?
-          //this.mergedPlaces.fetchById(placeId, options);
         }
       });
     },
