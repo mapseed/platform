@@ -45,8 +45,12 @@
                         {{/if}}
 
                         {{#if ../../isEditingToggled}}
-                          <div id="update-response-btn-{{ name }}" class="update-response-btn btn btn-small">{{#_}}Update comment{{/_}}</div>
-                          <div id="delete-response-btn-{{ name }}" class="delete-response-btn btn btn-small">{{#_}}Remove this comment{{/_}}</div>
+                          <div id="delete-response-btn-{{ name }}" class="btn btn-small editor-btn btn-delete">
+                            <i class="fa fa-times" aria-hidden="true"></i> {{#_}}Remove comment{{/_}}
+                          </div>
+                          <div id="update-response-btn-{{ name }}" class="btn btn-small editor-btn btn-update">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> {{#_}}Update comment{{/_}}
+                          </div>
                         {{/if}}
                       </div>
                     {{/items}}
