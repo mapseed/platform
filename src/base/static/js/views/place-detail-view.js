@@ -24,7 +24,8 @@
       this.isEditingToggled = false;
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
-      
+      this.isModified = false;
+
       this.model.on('change', this.onChange, this);
 
       // Make sure the submission collections are set
@@ -92,6 +93,10 @@
     },
 
     onToggleEditMode: function() {
+      if (this.isEditingToggled && this.isModified) {
+        if(!confirm("You have unsaved changes. Proceed?")) return;
+      }
+
       var toggled = !this.isEditingToggled;
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
@@ -132,8 +137,21 @@
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
 
       if (this.isEditingToggled) {
+        var editEvents = "change keyup";
         $("#toggle-editor-btn").addClass("btn-depressed");
         $(".promotion, .place-header, .survey-header, .reply-link, .response-header").addClass("faded");
+        $("#update-place-model-form").on(editEvents, function() {
+          self.isModified = true;
+          $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
+          $(this).off(editEvents);
+        });
+        $.each($(".response-item-comment form"), function() {
+          $(this).on(editEvents, function() {
+            self.isModified = true;
+            $(this).siblings(".btn-update").css({"opacity": "1.0", "cursor": "pointer"});
+            $(this).off(editEvents);
+          });
+        });
       }
 
       return this;
@@ -219,9 +237,9 @@
         }
       });
 
-      this.model.set(attrs).save({
+      this.model.save(attrs, {
         success: function() {
-          // nothing
+          self.isModified = false;
         },
         error: function() {
           // nothing
