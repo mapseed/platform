@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 00:46-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2016-10-04 01:15-0700\n"
+"PO-Revision-Date: 2016-10-04 01:18-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -82,10 +82,8 @@ msgid "New post"
 msgstr ""
 
 #: _config.translations.py:19
-#, fuzzy
-#| msgid "Title of report"
 msgid "The title of my post is:"
-msgstr "Tipo de informe"
+msgstr "Tipo de informe:"
 
 #: _config.translations.py:20
 msgid "Enter title"
@@ -97,18 +95,16 @@ msgid " "
 msgstr ""
 
 #: _config.translations.py:22
-#, fuzzy
-#| msgid "Show the Map"
 msgid "Scoop the poop"
-msgstr "Mostrar el mapa"
+msgstr "Sacar la caca"
 
 #: _config.translations.py:23
 msgid "Always use natural yard care"
-msgstr ""
+msgstr "Siempre cuidar los céspedes de modas naturalezas"
 
 #: _config.translations.py:24
 msgid "Always use a commercial car wash"
-msgstr ""
+msgstr "Siempre utilizar un lavadero de coches comercial"
 
 #: _config.translations.py:25
 msgid "Fix car oil leaks"
@@ -136,8 +132,6 @@ msgid "Additional comments:"
 msgstr ""
 
 #: _config.translations.py:32
-#, fuzzy
-#| msgid "comments"
 msgid "Enter comments..."
 msgstr "comentarios"
 
@@ -149,14 +143,12 @@ msgstr ""
 #: _config.translations.py:52 _config.translations.py:58
 #: _config.translations.py:65
 msgid "Title:"
-msgstr ""
+msgstr "Título"
 
 #: _config.translations.py:36 _config.translations.py:51
 #: _config.translations.py:59 _config.translations.py:66
-#, fuzzy
-#| msgid "Enter an address..."
 msgid "Enter title..."
-msgstr "Introducir una dirección"
+msgstr "Introducir título..."
 
 #: _config.translations.py:38
 msgid "Neighborhood Dog Poop Bag dispensers"
@@ -187,8 +179,6 @@ msgid "I see:"
 msgstr ""
 
 #: _config.translations.py:47
-#, fuzzy
-#| msgid "Description..."
 msgid "Enter description..."
 msgstr "Descripción..."
 
@@ -197,24 +187,18 @@ msgid "Observation"
 msgstr "Observación"
 
 #: _config.translations.py:50
-#, fuzzy
-#| msgid "Title of report"
 msgid "Title of your question:"
-msgstr "Tipo de informe"
+msgstr "Título del informe"
 
 #: _config.translations.py:53
-#, fuzzy
-#| msgid "Question"
 msgid "My question:"
-msgstr "Pregunta"
+msgstr "Mi pregunta:"
 
 #: _config.translations.py:54
 msgid "What's your question?"
 msgstr ""
 
 #: _config.translations.py:55
-#, fuzzy
-#| msgid "Enter an address..."
 msgid "Enter question..."
 msgstr "Introducir una dirección"
 
@@ -223,10 +207,8 @@ msgid "Question"
 msgstr "Pregunta"
 
 #: _config.translations.py:57
-#, fuzzy
-#| msgid "Title of report"
 msgid "Title of your idea:"
-msgstr "Tipo de informe"
+msgstr "Título de su idea:"
 
 #: _config.translations.py:60
 msgid "Describe your idea below:"
@@ -245,10 +227,8 @@ msgid "Idea"
 msgstr "Idea"
 
 #: _config.translations.py:64
-#, fuzzy
-#| msgid "Title of report"
 msgid "Title of your complaint:"
-msgstr "Tipo de informe"
+msgstr "Título de su queja:"
 
 #: _config.translations.py:67
 msgid "What's your complaint?"
@@ -274,13 +254,13 @@ msgstr ""
 #: _config.translations.py:82 _config.translations.py:87
 #: _config.translations.py:92
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: _config.translations.py:74 _config.translations.py:78
 #: _config.translations.py:83 _config.translations.py:88
 #: _config.translations.py:93
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: _config.translations.py:75
 msgid "Do you reside and/or work in the Georgetown or South Park Neighborhood?"
@@ -471,8 +451,6 @@ msgid "created"
 msgstr "creó"
 
 #: _config.translations.py:133
-#, fuzzy
-#| msgid "Your Name"
 msgid "Your name"
 msgstr "Su nombre"
 
@@ -509,10 +487,8 @@ msgid "Air Watch"
 msgstr ""
 
 #: _config.translations.py:148
-#, fuzzy
-#| msgid "Hide Reports"
 msgid "Community Reports"
-msgstr "Esconder los informes"
+msgstr "Informes de la comunidad"
 
 #: _config.translations.py:149
 msgid "River Cleanup Plan"
@@ -531,8 +507,6 @@ msgid "Community Data"
 msgstr ""
 
 #: _config.translations.py:153
-#, fuzzy
-#| msgid "Land use data"
 msgid "Land use"
 msgstr "Datos de uso de la tierra"
 
@@ -557,20 +531,14 @@ msgid "Zoning"
 msgstr ""
 
 #: _config.translations.py:159
-#, fuzzy
-#| msgid "Land use data"
 msgid "Land Data"
 msgstr "Datos de uso de la tierra"
 
 #: _config.translations.py:160
-#, fuzzy
-#| msgid "Original river path"
 msgid "Original River Path"
 msgstr "El sendero original del Duwamish"
 
 #: _config.translations.py:161
-#, fuzzy
-#| msgid "Historical Flow"
 msgid "Historical Data"
 msgstr "Sendero Histórico"
 
@@ -611,10 +579,8 @@ msgid "Complaints"
 msgstr "Quejas"
 
 #: _config.translations.py:171
-#, fuzzy
-#| msgid "Hide Reports"
 msgid "Citizen Reports:"
-msgstr "Esconder los informes"
+msgstr "Informes de los ciudadanos"
 
 #: _config.translations.py:172
 msgid "About"
@@ -626,7 +592,7 @@ msgstr "Trasfondo"
 
 #: _config.translations.py:174 jstemplates/pages/contribute.html:2
 msgid "Get involved"
-msgstr ""
+msgstr "Participar"
 
 #: _config.translations.py:175
 msgid "Green Screen"
@@ -684,11 +650,6 @@ msgstr ""
 "los desalojaron."
 
 #: jstemplates/pages/background.html:6
-#, fuzzy
-#| msgid ""
-#| "The responsible parties named so far are Boeing Manufacturing, King "
-#| "County, the City of Seattle, and the Port of Seattle, with several more "
-#| "expected to be named over the coming years."
 msgid ""
 "The responsible parties named so far are Boeing, King County, the City of "
 "Seattle, and the Port of Seattle, with several more expected to be named "
@@ -727,29 +688,26 @@ msgid "If you want to see a project like this in your community, let us know!"
 msgstr "Si quiere ver un proyecto como este en su comunidad, ¡háganoslo saber!"
 
 #: jstemplates/pages/contribute.html:4
-#, fuzzy
-#| msgid ""
-#| "The best way to be involved is to <a href=\"/place/new\">submit a report</"
-#| "a> on the map, or comment on someone else's report."
 msgid ""
-"The best way to get involved is to <a href=\"/place/new\">submit a report</"
-"a> on the map, or comment on someone else's report."
+"The best way to get involved is to <a href=\"/new\">submit a report</a> on "
+"the map, or comment on someone else's report."
 msgstr ""
-"La mejor forma de ayudarnos es <a href=\"/place/new\">submitir un informe</"
+"La mejor forma de ayudarnos es <a href=\"/new\">submitir un informe</"
 "a> en el mapa, o hacer un comentario sobre un informe de otro."
 
 #: jstemplates/pages/contribute.html:5
-#, fuzzy
-#| msgid "Want to help out? Excellent!"
 msgid "Want to help out? Awesome!"
 msgstr "¿Queire ayudarnos? ¡Excelente!"
 
 #: jstemplates/pages/contribute.html:6
 msgid ""
 "We could also use help writing code, designing a better interface, and "
-"promoting the project. <a href=\"http://github.com/smartercleanup/duwamish"
+"promoting the project. <a href=\"http://github.com/smartercleanup/platform"
 "\">Contribute to our repository on GitHub!</a>"
 msgstr ""
+"También necessitamos ayudar con traducir, escribir el código del software,"
+"y promover este proyecto. <a href=\"http://github.com/smartercleanup/platform"
+"\">¡Contribuir al repositorio del código en GitHub!</a>"
 
 #: jstemplates/pages/features.html:1
 msgid "Features"
@@ -819,10 +777,6 @@ msgstr ""
 "¡Ayudarnos y <a href=\"/place/new\">submitir un informe</a> en el mapa!"
 
 #: jstemplates/pages/overview.html:2
-#, fuzzy
-#| msgid ""
-#| "Here's a little <a href=\"/page/background\">background</a> on the lower "
-#| "Duwamish superfund site"
 msgid ""
 "Here's a little <a href=\"/page/background\">background</a> on the lower "
 "Duwamish superfund site and the cleanup of toxic waste in the river."
@@ -835,10 +789,6 @@ msgid "Start Mapping!"
 msgstr ""
 
 #: jstemplates/pages/overview.html:4
-#, fuzzy
-#| msgid ""
-#| "Welcome! We are a community of residents and stakeholders who are "
-#| "monitoring the cleanup of toxic waste in Seattle's Duwamish River."
 msgid ""
 "We are a community of residents and stakeholders who are monitoring "
 "environmental health issues in Seattle's Duwamish Valley."
@@ -852,8 +802,6 @@ msgid "Welcome"
 msgstr ""
 
 #: jstemplates/pages/sponsors.html:1
-#, fuzzy
-#| msgid "Take me to the map!"
 msgid "Back to the map"
 msgstr "¡Navigar hacia el mapa!"
 
