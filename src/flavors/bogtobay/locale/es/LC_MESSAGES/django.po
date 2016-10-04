@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-04 01:15-0700\n"
+"POT-Creation-Date: 2016-10-04 01:31-0700\n"
 "PO-Revision-Date: 2016-10-04 01:18-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -692,8 +692,8 @@ msgid ""
 "The best way to get involved is to <a href=\"/new\">submit a report</a> on "
 "the map, or comment on someone else's report."
 msgstr ""
-"La mejor forma de ayudarnos es <a href=\"/new\">submitir un informe</"
-"a> en el mapa, o hacer un comentario sobre un informe de otro."
+"La mejor forma de ayudarnos es <a href=\"/new\">submitir un informe</a> en "
+"el mapa, o hacer un comentario sobre un informe de otro."
 
 #: jstemplates/pages/contribute.html:5
 msgid "Want to help out? Awesome!"
@@ -705,8 +705,8 @@ msgid ""
 "promoting the project. <a href=\"http://github.com/smartercleanup/platform"
 "\">Contribute to our repository on GitHub!</a>"
 msgstr ""
-"También necessitamos ayudar con traducir, escribir el código del software,"
-"y promover este proyecto. <a href=\"http://github.com/smartercleanup/platform"
+"También necessitamos ayudar con traducir, escribir el código del software,y "
+"promover este proyecto. <a href=\"http://github.com/smartercleanup/platform"
 "\">¡Contribuir al repositorio del código en GitHub!</a>"
 
 #: jstemplates/pages/features.html:1
@@ -786,9 +786,17 @@ msgstr ""
 
 #: jstemplates/pages/overview.html:3
 msgid "Start Mapping!"
-msgstr ""
+msgstr "¡Usar el Mapa!"
 
 #: jstemplates/pages/overview.html:4
+msgid ""
+"This project made possible by our generous <a href=\"/page/sponsors"
+"\">sponsors"
+msgstr ""
+"Éste proyecto ha side posible por nuestros generosos <a href=\"/page/sponsors"
+"\">patrocinadores"
+
+#: jstemplates/pages/overview.html:5
 msgid ""
 "We are a community of residents and stakeholders who are monitoring "
 "environmental health issues in Seattle's Duwamish Valley."
@@ -797,9 +805,9 @@ msgstr ""
 "están controlandola operación de limpieza de desechos tóxicos en el Duwamish "
 "River de Seattle"
 
-#: jstemplates/pages/overview.html:5
+#: jstemplates/pages/overview.html:6
 msgid "Welcome"
-msgstr ""
+msgstr "Bíenvenido"
 
 #: jstemplates/pages/sponsors.html:1
 msgid "Back to the map"
