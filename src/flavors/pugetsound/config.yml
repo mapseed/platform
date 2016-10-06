@@ -47,18 +47,27 @@ map:
     - id: osm
       url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
 
     - id: dark
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
+      type: basemap
 
     - id: duwamish
       type: place
       slug: report
+
+    - id: violators
+      type: landmark
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      sources:
+        - "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/pugetsound-landmarks.geojson"
 
     # For our Shareabouts reports
     - id: reports
@@ -100,6 +109,28 @@ map:
 
 # The values map the place type to map icons (defined below).
 place_types:
+
+  mapboxZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 50]
+        iconAnchor: [25, 25]
+    - condition: '{{map.zoom}} < 16'
+      icon:
+        iconSize: [20, 20]
+        iconAnchor: [10, 10]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [30, 30]
+        iconAnchor: [15, 15]
+
+  industrial:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial.png
+
   observation:
     label: _(Observation)
     rules:
@@ -283,6 +314,9 @@ sidebar:
           layers:
             - id: reports
               title: _(Community Reports)
+              visibleDefault: true
+            - id: violators
+              title: _(Pollution violations)
               visibleDefault: true
             - id: cso
               title: _(Sewer overflow)
@@ -523,4 +557,16 @@ pages:
     slug: getinvolved
     name: contribute
 
-stories:
+story:
+  violators:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 15
+    default_visible_layers:
+      - violators
+    order: 
+      - url: rainier-petroleum
+      - url: ssa-terminals
