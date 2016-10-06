@@ -59,6 +59,10 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    - id: reported-spills
+      type: cartodb
+      url: "https://heyduwamishcore.carto.com/api/v2/viz/d92493be-8b69-11e6-9075-0e05a8b3e3d7/viz.json"
+
     - id: duwamish
       type: place
       slug: report
@@ -320,6 +324,9 @@ sidebar:
               visibleDefault: true
             - id: cso
               title: _(Sewer overflow)
+              visibleDefault: false
+            - id: reported-spills
+              title: _(Reported spills)
               visibleDefault: false
 
     - id: ticker
