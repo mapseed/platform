@@ -248,18 +248,16 @@
     },
 
     onDeleteModel: function() {
-      var response = confirm("You are deleting this post permanently. Are you sure you want to continue?");
-      if (response) {
-        // trigger event to close the side panel
-        this.model.trigger("userDeleteModel");
-        this.model.destroy({
+      if (confirm("Are you sure you want to hide this post?")) { 
+        this.model.trigger("userHideModel", this.model);
+        this.model.save({"visible": false}, {
           success: function() {
-            // nothing
+            console.log("success");
           },
           error: function() {
             // nothing
           }
-        }); 
+        });
       }
     }
   });
