@@ -19,7 +19,6 @@ var Shareabouts = Shareabouts || {};
 
       this.map = L.map(self.el, self.options.mapConfig.options);
 
-      //this.placeLayers = self.getLayerGroups();
       _.each(self.options.mapConfig.layers, function(config) {
         config.loaded = false;
       });
@@ -37,8 +36,6 @@ var Shareabouts = Shareabouts || {};
       if (self.options.mapConfig.geolocation_enabled) {
         self.initGeolocation();
       }
-
-      //self.map.addLayer(self.placeLayers);
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
