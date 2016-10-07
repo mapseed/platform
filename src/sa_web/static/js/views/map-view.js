@@ -27,6 +27,36 @@ var Shareabouts = Shareabouts || {};
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
 
+
+      // Bind visiblity event for custom layers
+      $(S).on('visibility', function (evt, id, visible, isBasemap) {
+        var layer = self.layers[id];
+        if (isBasemap) {
+          var basemaps = _.find(self.options.sidebarConfig.panels, function(panel) {
+            return "basemaps" in panel;
+          }).basemaps;
+          _.each(basemaps, function(basemap) {
+            if (basemap.id === id) {
+              self.map.addLayer(layer);
+              layer.bringToBack();
+            } else {
+              self.map.removeLayer(self.layers[basemap.id]);
+            }
+          });
+        } else if (layer) {
+          self.setLayerVisibility(layer, visible);
+        } else {
+          // Handles cases when we fire events for layers that are not yet
+          // loaded (ie cartodb layers, which are loaded asynchronously)
+          var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
+            return layer.id === id;
+          });
+          // We are setting the asynch layer config's default visibility here to
+          // ensure they are added to the map when they are eventually loaded:
+          mapLayerConfig.asyncLayerVisibleDefault = visible;
+        }
+      });
+
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config) {
         var layer,
@@ -139,6 +169,10 @@ var Shareabouts = Shareabouts || {};
           layer = L.tileLayer(config.url, config);
           self.layers[config.id] = layer;
         }
+
+        if (!self.options.legend_enabled) {
+          $(S).trigger('visibility', [config.id, true, false]);
+        }
       });
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
@@ -175,35 +209,6 @@ var Shareabouts = Shareabouts || {};
         collection.on('reset', self.render, self);
         collection.on('add', self.addLayerView, self);
         collection.on('remove', self.removeLayerView, self);
-      });
-      
-      // Bind visiblity event for custom layers
-      $(S).on('visibility', function (evt, id, visible, isBasemap) {
-        var layer = self.layers[id];
-        if (isBasemap) {
-          var basemaps = _.find(self.options.sidebarConfig.panels, function(panel) {
-            return "basemaps" in panel;
-          }).basemaps;
-          _.each(basemaps, function(basemap) {
-            if (basemap.id === id) {
-              self.map.addLayer(layer);
-              layer.bringToBack();
-            } else {
-              self.map.removeLayer(self.layers[basemap.id]);
-            }
-          });
-        } else if (layer) {
-          self.setLayerVisibility(layer, visible);
-        } else {
-          // Handles cases when we fire events for layers that are not yet
-          // loaded (ie cartodb layers, which are loaded asynchronously)
-          var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id === id;
-          });
-          // We are setting the asynch layer config's default visibility here to
-          // ensure they are added to the map when they are eventually loaded:
-          mapLayerConfig.asyncLayerVisibleDefault = visible;
-        }
       });
     }, // end initialize
 

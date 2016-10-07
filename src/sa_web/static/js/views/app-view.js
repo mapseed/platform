@@ -124,6 +124,7 @@ var Shareabouts = Shareabouts || {};
         el: '#map',
         mapConfig: this.options.mapConfig,
         sidebarConfig: S.Config.sidebar,
+        legend_enabled: !!this.options.sidebarConfig.legend_enabled,
         places: this.places,
         landmarks: this.landmarks,
         router: this.options.router,
