@@ -303,6 +303,14 @@
         }
         layer = L.argo(url, config);
         self.layers[config.id] = layer;
+      } else if (config.type && config.type === 'kml') {
+        $.ajax(config.url).done(function(xml) {
+          layer = L.argo(toGeoJSON.kml(xml), config);
+          self.layers[config.id] = layer;
+          if (config.asyncLayerVisibleDefault) {
+            layer.addTo(self.map);
+          }
+        });
       } else if (config.type && config.type === 'esri-feature') {
         if (config.loadStrategy === 'all at once') {
           // IDs can be returned all at once, while actual geometries are
