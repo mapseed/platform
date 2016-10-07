@@ -28,12 +28,6 @@ var Shareabouts = Shareabouts || {};
                                return !!basemap.visibleDefault;
                              });
 
-      _.each(this.options.config.basemaps, function(basemap) {
-        if (basemap !== initialBasemap) {
-          $(S).trigger('visibility', [basemap.id, !!basemap.visibleDefault, true]);
-        }
-      });
-
       $(S).trigger('visibility', [initialBasemap.id, !!initialBasemap.visibleDefault, true]);
 
       return this;
@@ -54,12 +48,6 @@ var Shareabouts = Shareabouts || {};
           isChecked = !!radio.is(':checked'),
           basemaps = this.options.config.basemaps;
 
-      for(var i = 0; i < basemaps.length; i++) {
-        var basemap = basemaps[i];
-        if (basemap.id !== id) {
-          $(S).trigger('visibility', [basemap.id, !isChecked, true]);
-        }
-      }
       $(S).trigger('visibility', [id, isChecked, true]);
     },
 

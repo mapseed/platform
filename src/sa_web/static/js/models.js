@@ -34,7 +34,8 @@ var Shareabouts = Shareabouts || {};
           previous: story.order[url].previous,
           zoom: story.order[url].zoom,
           panTo: story.order[url].panTo,
-          visibleLayers: story.order[url].visibleLayers
+          visibleLayers: story.order[url].visibleLayers,
+          basemap: story.order[url].basemap
         }
       }
     });

@@ -181,12 +181,17 @@ var Shareabouts = Shareabouts || {};
       $(S).on('visibility', function (evt, id, visible, isBasemap) {
         var layer = self.layers[id];
         if (isBasemap) {
-          if (visible) {
-            self.map.addLayer(layer);
-            layer.bringToBack();
-          } else {
-            self.map.removeLayer(layer);
-          }
+          var basemaps = _.find(self.options.sidebarConfig.panels, function(panel) {
+            return "basemaps" in panel;
+          }).basemaps;
+          _.each(basemaps, function(basemap) {
+            if (basemap.id === id) {
+              self.map.addLayer(layer);
+              layer.bringToBack();
+            } else {
+              self.map.removeLayer(self.layers[basemap.id]);
+            }
+          });
         } else if (layer) {
           self.setLayerVisibility(layer, visible);
         } else {

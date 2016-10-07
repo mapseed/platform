@@ -123,6 +123,7 @@ var Shareabouts = Shareabouts || {};
       this.mapView = new S.MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
+        sidebarConfig: S.Config.sidebar,
         places: this.places,
         landmarks: this.landmarks,
         router: this.options.router,
@@ -250,7 +251,8 @@ var Shareabouts = Shareabouts || {};
             "panTo": config.panTo || null,
             "visibleLayers": config.visible_layers || story.default_visible_layers,
             "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
-            "next": story.order[(i + 1) % totalStoryElements].url
+            "next": story.order[(i + 1) % totalStoryElements].url,
+            "basemap": config.basemap || null
           }
         });
         story.order = storyStructure;
@@ -561,6 +563,11 @@ var Shareabouts = Shareabouts || {};
     // If a model has a story object, set the appropriate layer
     // visilbilities and update legend checkboxes
     setStoryLayerVisibility: function(model) {
+      // change basemap if requested
+      if (model.attributes.story.basemap) {
+        $(S).trigger('visibility', [model.attributes.story.basemap, true, true]);
+        $("#map-" + model.attributes.story.basemap).prop("checked", true);
+      }
       // set layer visibility based on story config
       _.each(model.attributes.story.visibleLayers, function(targetLayer) {
         $(S).trigger('visibility', [targetLayer, true]);
@@ -581,9 +588,11 @@ var Shareabouts = Shareabouts || {};
     },
 
     restoreDefaultLayerVisibility: function() {
-      _.each(this.options.sidebarConfig.panels[0].groupings, function(group) {
-        _.each(group.layers, function(layer) {
-          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault]);
+      var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
+      _.each({"groupings": gisLayersPanel.groupings.layers, "basemaps": gisLayersPanel.basemaps}, function(layers, key) {
+        _.each(layers, function(layer) {
+          if (key === "basemaps" && !layer.visibleDefault) return;
+          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault, (key === "basemaps" ? true : false)]);
           $("#map-" + layer.id).prop("checked", !!layer.visibleDefault);
         });
       });
@@ -639,9 +648,12 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) {
+        if (model.get("story")) {
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
         } else {
           self.isStoryActive = false;
         }
@@ -801,9 +813,12 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) {
+        if (model.get("story")) {
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
         } else {
           self.isStoryActive = false;
         }
