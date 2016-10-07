@@ -78,7 +78,8 @@
       'submit @ui.searchForm': 'handleSearchSubmit',
       'click @ui.date': 'handleDateSort',
       'click @ui.surveyCount': 'handleSurveyCountSort',
-      'click @ui.supportCount': 'handleSupportCountSort'
+      'click @ui.supportCount': 'handleSupportCountSort',
+      'scroll': 'infiniteScroll'
     },
     initialize: function(options) {
       var self = this;
@@ -92,6 +93,9 @@
         collection.on("add", self.addModel, self);
         collection.on("sync", self.onSync, self);
       });
+
+      this.itemsPerPage = 10;
+      this.numItemsShown = this.itemsPerPage;
 
       // Init the views cache
       this.views = {};
@@ -123,8 +127,8 @@
       var $itemViewContainer = this.getItemViewContainer(this);
       $itemViewContainer.empty();
 
-      this.collection.each(function(model) {
-        if (self.views[model.cid]) {
+      this.collection.each(function(model, index) {
+        if (self.views[model.cid] && index < self.numItemsShown) {
           $itemViewContainer.append(self.views[model.cid].$el);
           // Delegate the events so that the subviews still work
           self.views[model.cid].supportView.delegateEvents();
@@ -134,16 +138,28 @@
       // remove story bars from the list view
       $("#list-container .place-story-bar").remove();
     },
+    infiniteScroll: function() {
+      var totalHeight = this.$('> ul').height();
+      var scrollTop = this.$el.scrollTop() + this.$el.height();
+      // 200 = number of pixels from bottom to load more
+      if (scrollTop + 200 >= totalHeight) {
+        this.numItemsShown += this.itemsPerPage;
+        this.renderList();
+      }
+    },
     handleSearchInput: function(evt) {
       evt.preventDefault();
+      this.numItemsShown = this.itemsPerPage;
       this.search(this.ui.searchField.val());
     },
     handleSearchSubmit: function(evt) {
       evt.preventDefault();
+      this.numItemsShown = this.itemsPerPage;
       this.search(this.ui.searchField.val());
     },
     handleDateSort: function(evt) {
       evt.preventDefault();
+      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'date';
       this.sort();
 
@@ -151,6 +167,7 @@
     },
     handleSurveyCountSort: function(evt) {
       evt.preventDefault();
+      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'surveyCount';
       this.sort();
 
@@ -158,6 +175,7 @@
     },
     handleSupportCountSort: function(evt) {
       evt.preventDefault();
+      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'supportCount';
       this.sort();
 
