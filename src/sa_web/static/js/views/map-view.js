@@ -19,7 +19,7 @@ var Shareabouts = Shareabouts || {};
 
       this.map = L.map(self.el, self.options.mapConfig.options);
 
-      this.placeLayers = self.getLayerGroups();
+      //this.placeLayers = self.getLayerGroups();
       _.each(self.options.mapConfig.layers, function(config) {
         config.loaded = false;
       });
@@ -38,7 +38,7 @@ var Shareabouts = Shareabouts || {};
         self.initGeolocation();
       }
 
-      self.map.addLayer(self.placeLayers);
+      //self.map.addLayer(self.placeLayers);
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -60,11 +60,21 @@ var Shareabouts = Shareabouts || {};
         $(S).trigger('mapdragend', [evt]);
       });
 
-      // Bind data events to shareabouts collections
-      _.each(self.places, function(collection) {
+      // Bind shareabouts collections event listeners
+      _.each(self.places, function(collection, collectionId) {
+        self.layers[collectionId] = self.getLayerGroups();
+        self.layerViews[collectionId] = {};
         collection.on('reset', self.render, self);
-        collection.on('add', self.addLayerView, self);
-        collection.on('remove', self.removeLayerView, self);
+        collection.on('add', self.addLayerView(collectionId), self);
+        collection.on('remove', self.removeLayerView(collectionId), self);
+      });
+
+      // Bind landmark collections event listeners
+      _.each(self.landmarks, function(collection, collectionId) {
+        self.layers[collectionId] = L.layerGroup();
+        self.layerViews[collectionId] = {};
+        collection.on('add', self.addLandmarkLayerView(collectionId), self);
+        collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
       });
 
       // Bind visiblity event for custom layers
@@ -117,22 +127,6 @@ var Shareabouts = Shareabouts || {};
         }
       });
     }, 1000),
-    render: function() {
-      var self = this;
-
-      // Clear any existing stuff on the map, and free any views in
-      // the list of layer views.
-      this.placeLayers.clearLayers();
-      this.layerViews = {};
-      _.each(Object.keys(self.places), function(collectionId) {
-        self.layers[collectionId].clearLayers();
-        self.layerViews[collectionId] = {};
-      });
-
-      this.places.each(function(model, i) {
-        self.addLayerView(model);
-      });
-    },
     initGeolocation: function() {
       var self = this;
 
@@ -200,7 +194,7 @@ var Shareabouts = Shareabouts || {};
           map: this.map,
           placeTypes: this.options.placeTypes,
           collectionId: collectionId,
-          landmarkLayers: this.layers[collectionId],
+          layer: this.layers[collectionId],
           // to access the filter
           mapView: this
         });
@@ -212,20 +206,24 @@ var Shareabouts = Shareabouts || {};
         delete this.layerViews[collectionId][model.id];
       }
     },
-    addLayerView: function(model) {
-      this.layerViews[model.cid] = new S.LayerView({
-        model: model,
-        router: this.options.router,
-        map: this.map,
-        placeLayers: this.placeLayers,
-        placeTypes: this.options.placeTypes,
-        // to access the filter
-        mapView: this
-      });
+    addLayerView: function(collectionId) {
+      return function(model) {
+        this.layerViews[collectionId][model.cid] = new S.LayerView({
+          model: model,
+          router: this.options.router,
+          map: this.map,
+          layer: this.layers[collectionId],
+          placeTypes: this.options.placeTypes,
+          // to access the filter
+          mapView: this
+        });
+      }
     },
-    removeLayerView: function(model) {
-      this.layerViews[model.cid].remove();
-      delete this.layerViews[model.cid];
+    removeLayerView: function(collectionId) {
+      return function(model) {
+        this.layerViews[model.cid].remove();
+        delete this.layerViews[model.cid];
+      }
     },
     zoomInOn: function(latLng) {
       this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
@@ -355,15 +353,10 @@ var Shareabouts = Shareabouts || {};
 
           self.layers[config.id] = layer;
         }
+      } else if (config.type && config.type === 'place') {
+        // nothing to do
       } else if (config.type && config.type === 'landmark') {
-        collectionId = config.id;
-        self.layers[collectionId] = L.layerGroup();
-        self.layerViews[collectionId] = {};
-
-        // Bind our landmark data events:
-        collection = self.landmarks[collectionId];
-        collection.on('add', self.addLandmarkLayerView(collectionId), self);
-        collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
+        // nothing to do
       } else if (config.type && config.type === 'cartodb') {
         cartodb.createLayer(self.map, config.url, { legends: false })
           .on('done', function(cartoLayer) {
@@ -377,8 +370,6 @@ var Shareabouts = Shareabouts || {};
           .on('error', function(err) {
             S.Util.log('Cartodb layer creation error:', err);
           });
-      } else if (config.type && config.type === 'shareabouts') {
-        self.layers[config.id] = self.placeLayers;
       } else if (config.layers) {
         // If "layers" is present, then we assume that the config
         // references a Leaflet WMS layer.
