@@ -382,6 +382,13 @@ place_types:
   #       iconSize: [30, 36]
   #       iconAnchor: [15, 36]
 
+  geometry_test:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_comp.png
+
   wetland:
     zoomType: georgetownZoomStyle
     rules:
@@ -678,6 +685,27 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: geometry_test
+      includeOnForm: true
+      enable_geometry: true
+      name: location_type
+      dataset: vision
+      icon_url: /static/css/images/markers/marker-parks_comp.png
+      value: geometry_test
+      label: _(Geometry test)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          placeholder: _(Enter title...)
+          display_prompt: ""
+          optional: false
+        - name: description
+          type: rawHTML
+          prompt: _(Description:)
+          display_prompt: ""
+          placeholder: _(Your description...)
+          optional: true
     - category: park
       includeOnForm: false
       name: location_type
@@ -807,7 +835,7 @@ place:
               value: "f86767"
           optional: false
     - category: wetland
-      includeOnForm: true
+      includeOnForm: false
       name: location_type
       dataset: vision
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -1430,26 +1458,6 @@ place:
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
           optional: true
-    - category: tree
-      includeOnForm: false
-      name: location_type
-      dataset: trees
-      icon_url: /static/css/images/markers/marker-tree.png
-      value: tree
-      label: _(Tree)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Description)
-          display_prompt: _(Description of this tree:)
-          placeholder: _(Description...)
-          optional: false
 
   # define form elements that appear on every form here
   common_form_elements:

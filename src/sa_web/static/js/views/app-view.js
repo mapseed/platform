@@ -383,7 +383,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMapZoomEnd: function(evt) {
       if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
-        $("#spotlight-place-mask").remove();
+        this.removeSpotlightMask();
       }
       this.isProgrammaticZoom = false;
     },
@@ -408,7 +408,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMapDragEnd: function(evt) {
       if (this.hasBodyClass('content-visible') === true) {
-        $("#spotlight-place-mask").remove();
+        this.removeSpotlightMask();
       }
       this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
     },
@@ -419,13 +419,10 @@ var Shareabouts = Shareabouts || {};
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
-      if (this.placeFormView) {
-        this.placeFormView.closePanel();
-      }
 
       S.Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
-      $("#spotlight-place-mask").remove();
+      this.removeSpotlightMask();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
@@ -489,13 +486,15 @@ var Shareabouts = Shareabouts || {};
       }
       return landmarkDetailView;
     },
-    getPlaceDetailView: function(model) {
+    getPlaceDetailView: function(model, layerView) {
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
         placeDetailView = new S.PlaceDetailView({
           model: model,
+          appView: this,
+          layerView: layerView,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
@@ -504,6 +503,7 @@ var Shareabouts = Shareabouts || {};
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
           mapView: this.mapView,
+          geometryEditorView: this.mapView.geometryEditorView,
           router: this.options.router,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
             return layer.slug == model.attributes.datasetSlug 
@@ -551,6 +551,7 @@ var Shareabouts = Shareabouts || {};
           placeConfig: this.options.placeConfig,
           mapConfig: this.options.mapConfig,
           userToken: this.options.userToken,
+          geometryEditorView: this.mapView.geometryEditorView,
           // only need to send place collection, since all data added will be a place of some kind
           collection: this.places
         });
@@ -641,15 +642,14 @@ var Shareabouts = Shareabouts || {};
             && self.mapView.layerViews[datasetId][model.cid]) {
             layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
-
-          detailView = self.getPlaceDetailView(model).delegateEvents();
+          detailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]).delegateEvents();
           self.showPanel(detailView.render().$el, !!args.responseId);
         } else if (type === "landmark") {
           layer = self.mapView.layerViews[datasetId][model.id].layer;
           detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
           self.showPanel(detailView.render().$el, false);
         }
-     
+
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         self.hideNewPin();
         self.destroyNewModels();
@@ -698,8 +698,7 @@ var Shareabouts = Shareabouts || {};
           }
         }
 
-        model.trigger('focus');
-        
+        model.trigger('focus');        
         if (!model.get("story") && self.isStoryActive) {
           self.isStoryActive = false;
           self.restoreDefaultLayerVisibility();
@@ -838,7 +837,6 @@ var Shareabouts = Shareabouts || {};
     },
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
-
       this.addSpotlightMask();
     },
     showAddButton: function() {
@@ -864,26 +862,27 @@ var Shareabouts = Shareabouts || {};
       $("#add-place-btn-container").attr("class", "pos-top-right");
 
       S.Util.log('APP', 'panel-state', 'closed');
-      $("#spotlight-place-mask").remove();
+      this.removeSpotlightMask();
     },
     hideNewPin: function() {
       this.showCenterPoint();
     },
     addSpotlightMask: function() {
-      // remove an existing mask
-      $("#spotlight-place-mask").remove();
-
-      // add map mask and spotlight effect
+      this.removeSpotlightMask();
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
           yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
       $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
       $("#spotlight-place-mask-fill").css("left", xOffset + "px")
-                               .css("top", yOffset + "px")
-                               .css("width", spotlightDiameter + "px")
-                               .css("height", spotlightDiameter + "px")
-                               // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
-                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+        .css("top", yOffset + "px")
+        .css("width", spotlightDiameter + "px")
+        .css("height", spotlightDiameter + "px")
+        // scale the box shadow to the largest screen dimension; 
+        // an arbitrarily large box shadow won't get drawn in Safari
+        .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+    },
+    removeSpotlightMask: function() {
+      $("#spotlight-place-mask").remove();
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the place markers

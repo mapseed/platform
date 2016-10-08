@@ -39,11 +39,15 @@
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
   {% if settings.DEBUG %}
-  <!-- jQuery date-time picker plugin -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
-  <!-- QuillJS -->
-  <link href="https://cdn.quilljs.com/1.1.4/quill.snow.css" rel="stylesheet">
+  <!-- leaflet plugins -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.draw.css">
+  <!-- jQuery plugins -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/spectrum.css">
+  <!-- QuillJS -->
+  <link rel="stylesheet" href="https://cdn.quilljs.com/1.1.4/quill.snow.css">
+
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
@@ -201,12 +205,14 @@
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
   <!-- https://github.com/openplans/handlebars-helpers -->
   <!-- jQuery date-time picker plugin -->
-  <script src="{{ STATIC_URL }}libs/jquery.datetimepicker.full.min.js"></script>
+  <script src="{{STATIC_URL}}libs/jquery.datetimepicker.full.min.js"></script>
   <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/esri-leaflet.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   <script src="{{STATIC_URL}}libs/quill.min.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet.draw.js"></script>
+  <script src="{{STATIC_URL}}libs/spectrum.js"></script>
   {% else %}
   <!--   TODO: build libraries with npm instead of bower -->
   <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.7.0"></script>
@@ -286,6 +292,7 @@
   <script src="{{STATIC_URL}}js/views/sidebar-view.js"></script>
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
   <script src="{{STATIC_URL}}js/views/gis-legend-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/geometry-editor-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% else %}
   <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.0"></script>
