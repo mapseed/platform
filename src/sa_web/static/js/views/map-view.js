@@ -86,10 +86,7 @@ var Shareabouts = Shareabouts || {};
           layer = self.layers[id];
         }
         if (isBasemap) {
-          var basemaps = _.find(self.options.sidebarConfig.panels, function(panel) {
-            return "basemaps" in panel;
-          }).basemaps;
-          _.each(basemaps, function(basemap) {
+          _.each(self.options.basemapConfigs, function(basemap) {
             if (basemap.id === id) {
               self.map.addLayer(layer);
               layer.bringToBack();

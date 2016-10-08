@@ -119,11 +119,14 @@ var Shareabouts = Shareabouts || {};
               router: this.options.router
             })).render();
 
+      var basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
+        return "basemaps" in panel;
+      }).basemaps;
       // Init the map view to display the places
       this.mapView = new S.MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
-        sidebarConfig: S.Config.sidebar,
+        basemapConfigs: basemapConfigs,
         legend_enabled: !!this.options.sidebarConfig.legend_enabled,
         places: this.places,
         landmarks: this.landmarks,
