@@ -353,8 +353,12 @@ var Shareabouts = Shareabouts || {};
           self.layers[config.id] = layer;
         }
       } else if (config.type && config.type === 'place') {
+        // NOTE: Since places and landmarks have their own url's, loading them
+        // into our map is handled in our Backbone router.
         // nothing to do
       } else if (config.type && config.type === 'landmark') {
+        // NOTE: Since places and landmarks have their own url's, loading them
+        // into our map is handled in our Backbone router.
         // nothing to do
       } else if (config.type && config.type === 'cartodb') {
         cartodb.createLayer(self.map, config.url, { legends: false })
