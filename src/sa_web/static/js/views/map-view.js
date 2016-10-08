@@ -73,35 +73,40 @@ var Shareabouts = Shareabouts || {};
         collection.on('add', self.addLandmarkLayerView(collectionId), self);
         collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
       });
-
+       
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible, isBasemap) {
-        var config = _.find(self.options.mapConfig.layers, function(c) {
+        var layer = self.layers[id],
+        config = _.find(self.options.mapConfig.layers, function(c) {
           return c.id === id;
         });
-        var layer = self.layers[id];
         if (config && !config.loaded && visible) {
           self.createLayerFromConfig(config);
           config.loaded = true;
           layer = self.layers[id];
         }
-
-        if (layer) {
+        if (isBasemap) {
+          var basemaps = _.find(self.options.sidebarConfig.panels, function(panel) {
+            return "basemaps" in panel;
+          }).basemaps;
+          _.each(basemaps, function(basemap) {
+            if (basemap.id === id) {
+              self.map.addLayer(layer);
+              layer.bringToBack();
+            } else if (self.layers[basemap.id]) {
+              self.map.removeLayer(self.layers[basemap.id]);
+            }
+          });
+        } else if (layer) {
           self.setLayerVisibility(layer, visible);
-          if (visible && isBasemap) {
-            layer.bringToBack();
-          }
         } else {
           // Handles cases when we fire events for layers that are not yet
           // loaded (ie cartodb layers, which are loaded asynchronously)
-          var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id === id;
-          });
           // We are setting the asynch layer config's default visibility here to
           // ensure they are added to the map when they are eventually loaded:
-          mapLayerConfig.asyncLayerVisibleDefault = visible;
+          config.asyncLayerVisibleDefault = visible;
         }
-      });
+      }); 
     }, // end initialize
 
     // Adds or removes the layer  on Master Layer based on visibility
