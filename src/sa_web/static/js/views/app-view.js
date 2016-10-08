@@ -225,7 +225,7 @@ var Shareabouts = Shareabouts || {};
             placeCollections: self.places
           }).render();
       }
-      
+
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
       this.$panelContent = $('#content article');
@@ -308,7 +308,7 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
 
-      // loop through landmark configs 
+      // loop through landmark configs
       _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
           self.landmarks[landmarkConfig.id].fetch({
@@ -351,7 +351,7 @@ var Shareabouts = Shareabouts || {};
           }),
 
           // Do this for every page...
-          pageComplete: function() {            
+          pageComplete: function() {
             var percent;
 
             pagesComplete++;
@@ -544,7 +544,7 @@ var Shareabouts = Shareabouts || {};
           collection: this.places
         });
       }
-      
+
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render().$el);
       this.placeFormView.postRender();
@@ -583,7 +583,7 @@ var Shareabouts = Shareabouts || {};
             $(S).trigger('visibility', [targetLayer.id, false]);
             // set legend checkbox
             $("#map-" + targetLayer.id).prop("checked", false);
-          } 
+          }
         }
       });
     },
@@ -813,7 +813,7 @@ var Shareabouts = Shareabouts || {};
             }
           }
         }
-        
+
         // Focus the one we're looking
         model.trigger('focus');
 

@@ -73,7 +73,7 @@ var Shareabouts = Shareabouts || {};
         collection.on('add', self.addLandmarkLayerView(collectionId), self);
         collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
       });
-       
+
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible, isBasemap) {
         var layer = self.layers[id],
@@ -106,7 +106,7 @@ var Shareabouts = Shareabouts || {};
           // ensure they are added to the map when they are eventually loaded:
           config.asyncLayerVisibleDefault = visible;
         }
-      }); 
+      });
     }, // end initialize
 
     // Adds or removes the layer  on Master Layer based on visibility
