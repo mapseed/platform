@@ -23,6 +23,8 @@ var Shareabouts = Shareabouts || {};
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
+      this.geometryEditorView = this.options.geometryEditorView;
+      this.watchFields = "#update-place-model-form, #update-place-model-title-form";
 
       this.model.on('change', this.onChange, this);
 
@@ -99,6 +101,19 @@ var Shareabouts = Shareabouts || {};
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
       this.render();
+
+      if (toggled && (this.model.get("geometry").type === "Polygon"
+        || this.model.get("geometry").type === "LineString")) {
+        this.options.appView.removeSpotlightMask();
+        this.geometryEditorView.render({
+          isCreatingNewGeometry: false,
+          style: this.model.get("style"),
+          geometryType: this.model.get("geometry").type,
+          existingLayer: this.options.layerView.layer,
+          existingLayerGroup: this.options.layerView.layerGroup,
+          placeDetailView: this
+        });
+      }
     },
 
     render: function() {
@@ -144,50 +159,50 @@ var Shareabouts = Shareabouts || {};
           [{ "header": [1, 2, 3, 4, 5, 6, false] }],
           [{ "color": [] }, { "background": [] }],
           ["link", "image", "video"]
-        ],
-        quill = new Quill(".place-item-description", {
+        ];
+        this.quill = new Quill(".place-item-description", {
           modules: { 
             "toolbar": toolbarOptions
           },
           theme: "snow",
           bounds: "#content"
-        }),
-        toolbar = quill.getModule("toolbar"),
-        watchFields = "#update-place-model-form, #update-place-model-title-form",
-        onEditorChange = function() {
-          self.isModified = true;
-          $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
-          quill.off("text-change", onEditorChange);
-          $(watchFields).off("keyup change");
-        }
+        });
+        var toolbar = this.quill.getModule("toolbar");
         $(".place-item-description").addClass("rawHTML");
 
         // override default image upload behavior: instead, create an <img>
         // tag with highlighted text set as the src attribute
         toolbar.addHandler("image", function() {
-          var range = quill.getSelection();
-          quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
+          var range = this.quill.getSelection();
+          this.quill.insertEmbed(range.index, "image", this.quill.getText(range.index, range.length), "user");
         });
 
         // detect changes made via Quill
-        quill.on("text-change", onEditorChange);
+        this.quill.on("text-change", this.onEditorChange, this);
 
         // detect changes made to non-Quill form elements
-        $(watchFields).on("keyup change", function(e) {
+        $(this.watchFields).on("keyup change", function(e) {
           if (e.type === "change") {
-            onEditorChange();
+            self.onEditorChange();
           } else if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
               || (e.keyCode >= 65 && e.keyCode <= 90) // a-z (also capital letters)
               || (e.keyCode === 8) // backspace key
               || (e.keyCode === 46) // delete key
               || (e.keyCode === 32) // spacebar
               || (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
-            onEditorChange();
+            self.onEditorChange();
           }
         });
       }
 
       return this;
+    },
+
+    onEditorChange: function() {
+      this.isModified = true;
+      $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
+      this.quill.off("text-change", this.onEditorChange);
+      $(this.watchFields).off("keyup change");
     },
 
     remove: function() {
@@ -291,8 +306,19 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
+      if (this.geometryEditorView) {
+        attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
+        attrs.style = {
+          color: this.geometryEditorView.colorpicker.color,
+          opacity: this.geometryEditorView.colorpicker.opacity,
+          fillColor: this.geometryEditorView.colorpicker.fillColor,
+          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
+        }
+      }
+
       this.model.save(attrs, {
         success: function() {
+          self.geometryEditorView.tearDown();
           self.isModified = false;
           self.isEditingToggled = false;
           self.render();

@@ -424,6 +424,13 @@ place_types:
   #       iconSize: [30, 36]
   #       iconAnchor: [15, 36]
 
+  geometry_test:
+    zoomType: georgetownZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_comp.png
+
   wetland:
     zoomType: georgetownZoomStyle
     rules:
@@ -990,6 +997,27 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: geometry_test
+      includeOnForm: true
+      enable_geometry: true
+      name: location_type
+      dataset: vision
+      icon_url: /static/css/images/markers/marker-parks_comp.png
+      value: geometry_test
+      label: _(Geometry test)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          placeholder: _(Enter title...)
+          display_prompt: ""
+          optional: false
+        - name: description
+          type: rawHTML
+          prompt: _(Description:)
+          display_prompt: ""
+          placeholder: _(Your description...)
+          optional: true
     - category: park
       includeOnForm: false
       name: location_type
@@ -1119,7 +1147,7 @@ place:
               value: "f86767"
           optional: false
     - category: wetland
-      includeOnForm: true
+      includeOnForm: false
       name: location_type
       dataset: vision
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -1744,6 +1772,7 @@ place:
 <<<<<<< 6bd738a35bf1f8dd8dd96c710f842e88ffb96f5f
 <<<<<<< 6cb64472e86f0a2f433a7abcc83b801eea7c8def
           optional: true
+<<<<<<< 53d8b0ec8a6c95972347ad0e4232028796863b27
     - category: tree
 =======
           optional: true 
@@ -1769,6 +1798,8 @@ place:
 =======
           optional: true
 >>>>>>> Update duwamish_flavor config.yml
+=======
+>>>>>>> Add geometry editor
 
   # define form elements that appear on every form here
   common_form_elements:

@@ -12,12 +12,15 @@ var Shareabouts = Shareabouts || {};
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'click .btn-geolocate': 'onClickGeolocate'
     },
-    initialize: function(){
+    initialize: function() {
       var self = this;
-       
+
+      Backbone.Events.on("panel:close", this.closePanel, this);
       this.resetFormState();
       this.options.router.on("route", this.resetFormState, this);
       this.placeDetail = this.options.placeConfig.place_detail;
+      this.map = this.options.appView.mapView.map;
+      this.geometryEditorView = this.options.geometryEditorView;
 
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
@@ -65,6 +68,19 @@ var Shareabouts = Shareabouts || {};
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
+
+      if (this.formState.selectedCategoryConfig.enable_geometry) {
+        this.options.appView.hideCenterPoint();
+        this.options.appView.removeSpotlightMask();
+        this.geometryEditorView.render({
+          isCreatingNewGeometry: true
+        });
+      } else {
+        // if the user switches from a geometry-enabled category
+        // to a geometry non-enabled category, remove draw controls
+        this.geometryEditorView.tearDown();
+        this.options.appView.showNewPin();
+      }
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
@@ -167,12 +183,13 @@ var Shareabouts = Shareabouts || {};
       this.location = location;
     },
     getAttrs: function() {
+      console.log("getAttrs");
+
       var self = this,
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
-
-      attrs = S.Util.getAttrs($form); 
+      attrs = S.Util.getAttrs($form);
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
@@ -189,12 +206,17 @@ var Shareabouts = Shareabouts || {};
           S.Util.saveAutocompleteValue(key, value, 30);
         }
       });
-
-      // Get the location attributes from the map
-      attrs.geometry = {
-        type: 'Point',
-        coordinates: [this.center.lng, this.center.lat]
-      };
+      
+      if (this.formState.selectedCategoryConfig.enable_geometry) {
+        attrs.geometry = this.geometryEditorView.geometry;
+      } else {
+        // If the selected category does not have geometry editing enabled,
+        // assume we're adding point geometry
+        attrs.geometry = {
+          type: 'Point',
+          coordinates: [this.center.lng, this.center.lat]
+        }
+      }
 
       if (this.location && locationAttr) {
         attrs[locationAttr] = this.location;
@@ -279,17 +301,22 @@ var Shareabouts = Shareabouts || {};
       this.resetFormState();
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-      // Make sure that the center point has been set after the form was
-      // rendered. If not, this is a good indication that the user neglected
-      // to move the map to set it in the correct location.
-      if (!this.center) {
-        this.$('.drag-marker-instructions').addClass('is-visuallyhidden');
-        this.$('.drag-marker-warning').removeClass('is-visuallyhidden');
-
-        // Scroll to the top of the panel if desktop
-        this.$el.parent('article').scrollTop(0);
-        // Scroll to the top of the window, if mobile
+      var self = this,
+      rejectSubmit = function(warningClass) {
+        self.$(".drag-marker-instructions").addClass("is-visuallyhidden");
+        self.$(warningClass).removeClass("is-visuallyhidden");
+        self.$el.parent("article").scrollTop(0);
         window.scrollTo(0, 0);
+      };
+
+      if (this.formState.selectedCategoryConfig.enable_geometry
+        && this.geometryEditorView.editingLayerGroup.getLayers().length == 0) {
+        // If the map has an editingLayerGroup with no layers in it, it means the
+        // user hasn't created any geometry yet
+        rejectSubmit(".no-geometry-warning");
+        return;
+      } else if (!this.center) {
+        rejectSubmit(".drag-marker-warning");
         return;
       }
 
@@ -304,12 +331,21 @@ var Shareabouts = Shareabouts || {};
         richTextAttrs = {};
 
       // if we have a Quill-enabled field, assume content from this field belongs
-      // to the description field. We'll need to make this behavior more sophisticated
-      // to support multiple Quill-enabled fields.
+      // to the model's description attribute. We'll need to make this behavior 
+      // more sophisticated to support multiple Quill-enabled fields.
       if ($(".ql-editor").html()) {
         richTextAttrs.description = $(".ql-editor").html();
       }
       attrs = _.extend(attrs, richTextAttrs);
+
+      if (this.formState.selectedCategoryConfig.enable_geometry) {
+        attrs["style"] = {
+          color: this.geometryEditorView.colorpicker.color,
+          opacity: this.geometryEditorView.colorpicker.opacity,
+          fillColor: this.geometryEditorView.colorpicker.fillColor,
+          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
+        }
+      }
 
       evt.preventDefault();
 
@@ -320,7 +356,7 @@ var Shareabouts = Shareabouts || {};
         return self.formState.selectedCategoryConfig.dataset == layer.id;
       }).slug);
       model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
-      
+
       // if an attachment has been added...
       if (self.formState.attachmentData) {
         var attachment = model.attachmentCollection.find(function(attachmentModel) {
@@ -344,6 +380,9 @@ var Shareabouts = Shareabouts || {};
       // Save and redirect
       model.save(attrs, {
         success: function() {
+          if (self.geometryEditorView) {
+            self.geometryEditorView.tearDown();
+          }
           S.Util.log('USER', 'new-place', 'successfully-add-place');
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
