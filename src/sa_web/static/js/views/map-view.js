@@ -73,7 +73,7 @@ var Shareabouts = Shareabouts || {};
         collection.on('add', self.addLandmarkLayerView(collectionId), self);
         collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
       });
-       
+
       // Bind visiblity event for custom layers
       $(S).on('visibility', function (evt, id, visible, isBasemap) {
         var layer = self.layers[id],
@@ -86,10 +86,7 @@ var Shareabouts = Shareabouts || {};
           layer = self.layers[id];
         }
         if (isBasemap) {
-          var basemaps = _.find(self.options.sidebarConfig.panels, function(panel) {
-            return "basemaps" in panel;
-          }).basemaps;
-          _.each(basemaps, function(basemap) {
+          _.each(self.options.basemapConfigs, function(basemap) {
             if (basemap.id === id) {
               self.map.addLayer(layer);
               layer.bringToBack();
@@ -106,7 +103,7 @@ var Shareabouts = Shareabouts || {};
           // ensure they are added to the map when they are eventually loaded:
           config.asyncLayerVisibleDefault = visible;
         }
-      }); 
+      });
     }, // end initialize
 
     // Adds or removes the layer  on Master Layer based on visibility
@@ -356,8 +353,12 @@ var Shareabouts = Shareabouts || {};
           self.layers[config.id] = layer;
         }
       } else if (config.type && config.type === 'place') {
+        // NOTE: Since places and landmarks have their own url's, loading them
+        // into our map is handled in our Backbone router.
         // nothing to do
       } else if (config.type && config.type === 'landmark') {
+        // NOTE: Since places and landmarks have their own url's, loading them
+        // into our map is handled in our Backbone router.
         // nothing to do
       } else if (config.type && config.type === 'cartodb') {
         cartodb.createLayer(self.map, config.url, { legends: false })
