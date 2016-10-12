@@ -64,10 +64,6 @@ map:
       type: place
       slug: report
 
-    # For our Shareabouts reports
-    - id: reports
-      type: shareabouts
-
 # The values map the place type to map icons (defined below).
 place_types:
   observation:
@@ -207,7 +203,7 @@ sidebar:
             - id: railways
               title: _(Railways)
               visibleDefault: true
-            - id: reports
+            - id: rail
               title: _(Community Reports)
               visibleDefault: true
 

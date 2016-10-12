@@ -57,10 +57,6 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
-    # For our Shareabouts reports
-    - id: reports
-      type: shareabouts
-
     # Carto basemap additions layer
     - id: additions
       url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
@@ -603,7 +599,7 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-            - id: reports
+            - id: bogtobay
               title: _(Community Reports)
               visibleDefault: true
 
