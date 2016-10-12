@@ -43,7 +43,7 @@ map:
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      attribution: '<a href="/page/terms">Terms and conditions</a>'&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      attribution: '<a href="/page/terms">Terms and conditions</a>&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: dark
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
@@ -264,6 +264,11 @@ sidebar:
           title: _(Land Data)
           visibleDefault: false
           layers:
+            - id: lakewashington
+              title: _(Community Reports)
+              description: _(Community Reports)
+              visibleDefault: true
+
               # Ares of interst
             - id: areas-of-interest
               title: _(Areas of interest)
@@ -339,7 +344,7 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - categoy: observation
+    - category: observation
       includeOnForm: true
       name: location_type
       dataset: lakewashington

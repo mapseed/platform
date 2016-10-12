@@ -35,23 +35,16 @@ map:
   layers:
     # SmarterCleanup Mapbox base layer:
     - id: osm
-      type: basemap
-      defaultBase: true
       url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
-      type: basemap
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: land-ownership
       url: https://smartercleanup.cartodb.com/api/v2/viz/14f09de6-0bf1-11e6-867c-0e5db1731f59/viz.json
       type: cartodb    
-
-    # For our Shareabouts reports
-    - id: reports
-      type: shareabouts
 
     # Carto basemap additions layer
     - id: additions
@@ -251,6 +244,13 @@ sidebar:
       icon: list
       view: GISLegendView
       title: _(Map Layers:)
+      basemaps:
+        - id: osm
+          title: _(OpenStreetMap)
+          visibleDefault: true
+        - id: satellite
+          title: _(Satellite View)
+          visibleDefault: false
       groupings:
         - id: grp-trails
           title: _(Trails)
@@ -287,18 +287,12 @@ sidebar:
               visibleDefault: false
               description: _(Urban growth areas in Washington State)
 
-              # Toggle our basemaps
-            - id: toggle-satellite
-              title: _(Satellite View)
-              description: _(Toggle the satellite map view)
-              visibleDefault: false
-
         - id: grp-community
           title: _(Community)
           visibleDefault: true
           layers:
 
-            - id: reports
+            - id: snoqualmie
               title: _(Community Reports)
               description: _(Reports added to the map by residents)
               visibleDefault: true

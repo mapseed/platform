@@ -73,10 +73,6 @@ map:
       sources:
         - "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/pugetsound-landmarks.geojson"
 
-    # For our Shareabouts reports
-    - id: reports
-      type: shareabouts
-
     - id: cso
       type: json
       url: "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson"
@@ -316,7 +312,7 @@ sidebar:
           title: _(Map layers)
           visibleDefault: true
           layers:
-            - id: reports
+            - id: duwamish
               title: _(Community Reports)
               visibleDefault: true
             - id: violators

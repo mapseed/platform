@@ -337,7 +337,6 @@ var Shareabouts = Shareabouts || {};
     parse: function(response) {
       var response = _.clone(response);
       // add story object, if relevant
-      console.log(this);
       _.extend(response, addStoryObj(response, "landmark"));
       _.extend(response, addLandmarkDescription(response.properties));
 
