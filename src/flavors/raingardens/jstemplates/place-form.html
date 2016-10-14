@@ -4,26 +4,6 @@
   and we will help you.
 </p>
 
-<div class="drag-marker-instructions">
-  <table>
-    <tr id="drag-marker-content">
-      <td>
-        <div class="btn btn-inline btn-geolocate">
-          <img src="/static/css/images/locate-me.png" />
-          {{#_}}Set my location{{/_}}
-        </div> 
-      </td>
-      <td>
-        <p class="drag-text">{{#_}}Or, drag the map to set your location{{/_}}</p>
-      </td>
-    </tr>
-    <tr id="geolocating-msg" class="is-visuallyhidden">
-      <td>{{#_}}Setting your location...{{/_}}</td>
-    </tr>
-  </table>
-</div>
-<p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
-
 <p class="form-field">{{ placeConfig.help_text }}</p>
 
 <form id="place-form" class="place-form clearfix">
@@ -38,30 +18,34 @@
 
     <!-- container for selected category -->
     {{#if isCategorySelected}}
-      <div id="selected-category">
-        <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategory.name }} value={{ selectedCategory.value }} checked>
-        <label for="selected-category-palceholder">
-          <img src={{ selectedCategory.icon_url }} />
-          <span>{{ selectedCategory.label }}</span>
-        </label>
-        <span class="category-menu-hamburger"></span>
-      </div>
+      {{#unless isSingleCategory}}
+        <div id="selected-category">
+          <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategory.name }} value={{ selectedCategory.value }} checked>
+          <label for="selected-category-palceholder">
+            <img src={{ selectedCategory.icon_url }} />
+            <span>{{ selectedCategory.label }}</span>
+          </label>
+          <span class="category-menu-hamburger"></span>
+        </div>
+      {{/unless}}
     {{/if}}
 
     <!-- place buttons for dynamic form categories -->
-    <div id="category-btns">
-      {{#each placeConfig.place_detail}}
-        {{#if this.includeOnForm}}
-          <input type="radio" id={{ category }} class="category-btn clickable">
-          <label for={{ category }}>
-            <img src={{icon_url}} />
-            <span>{{ label }}</span>
-          </label>
-        {{/if}}
-      {{/each}}
-    </div>
-    <div style="clear:both"></div>
-    <br>
+    {{#unless isSingleCategory}}
+      <div id="category-btns">
+        {{#each placeConfig.place_detail}}
+          {{#if this.includeOnForm}}
+            <input type="radio" id={{ category }} class="category-btn clickable">
+            <label for={{ category }}>
+              <img src={{icon_url}} />
+              <span>{{ label }}</span>
+            </label>
+          {{/if}}
+        {{/each}}
+      </div>
+      <div style="clear:both"></div>
+      <br>
+    {{/unless}}
 
     <!-- generate content for selected category -->
     {{#each selectedCategory.fields}}
