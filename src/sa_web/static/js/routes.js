@@ -8,8 +8,8 @@ var Shareabouts = Shareabouts || {};
       '': 'viewMap',
       'filter/:locationtype': 'filterMap',
       'page/:slug': 'viewPage',
-      ':dataset/new': 'newPlace',
       ':dataset/:id': 'viewPlace',
+      'new': 'newPlace',
       ':dataset/:id/response/:response_id': 'viewPlace',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
@@ -20,11 +20,17 @@ var Shareabouts = Shareabouts || {};
     initialize: function(options) {
       var self = this,
           startPageConfig,
-          filteredRoutes;
+          filteredRoutes,
+          // store config details for places and landmarks
+          configArrays = {};
 
-      if (!options.placeConfig.dataset_slug) {
-        options.placeConfig.dataset_slug = 'place';
-      }
+      // store individual place collections for each place type
+      this.places = {};
+      // store individual activity collections for each place type
+      this.activities = {};
+      // store individual landmark collections for each landmark type
+      this.landmarks = {};
+
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
@@ -59,37 +65,42 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       this.loading = true;
-      this.collection = new S.PlaceCollection([]);
-      this.activities = new S.ActionCollection(options.activity);
 
-      this.landmarkCollections = {};
-      var landmarkConfigsArray = options.mapConfig.layers.filter(function(layer) {
+      // set up landmark configs and instantiate landmark collections
+      configArrays.landmarks = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === 'landmark';
       });
-      var landmarkConfigs = {};
-      _.each(landmarkConfigsArray, function(landmarkConfig) {
-        var collectionId = landmarkConfig['id'];
-
-        var url = landmarkConfig.url + "?"
-        landmarkConfig.sources.forEach(function (source) {
+      _.each(configArrays.landmarks, function(config) {
+        var url = config.url + "?"
+        config.sources.forEach(function (source) {
           url += encodeURIComponent(source) + '&'
         });
         var collection = new S.LandmarkCollection([], { url: url });
+        self.landmarks[config.id] = collection;
+      });
 
-        self.landmarkCollections[collectionId] = collection;
-        landmarkConfigs[collectionId] = landmarkConfig;
+      // set up place configs and instantiate place collections
+      configArrays.places = options.mapConfig.layers.filter(function(layer) {
+        return layer.type && layer.type === 'place';
+      });
+      _.each(configArrays.places, function(config) {
+        var collection = new S.PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
+        self.places[config.id] = collection;
+      });
+
+      // instantiate action collections for shareabouts places
+      _.each(configArrays.places, function(config) {
+        var collection = new S.ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
+        self.activities[config.id] = collection;
       });
 
       this.appView = new S.AppView({
         el: 'body',
-        collection: this.collection,
         activities: this.activities,
-
-        landmarkCollections: this.landmarkCollections,
-        landmarkConfigs: landmarkConfigs,
-
+        places: this.places,
+        landmarks: this.landmarks,
+        datasetConfigs: configArrays,
         config: options.config,
-
         defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
         cluster: options.cluster,
@@ -97,6 +108,7 @@ var Shareabouts = Shareabouts || {};
         supportConfig: options.supportConfig,
         pagesConfig: options.pagesConfig,
         mapConfig: options.mapConfig,
+        storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
         sidebarConfig: options.sidebarConfig,
         activityConfig: options.activityConfig,
@@ -140,7 +152,6 @@ var Shareabouts = Shareabouts || {};
       this.appView.mapView.clearFilter();
     },
 
-    // Open view for first step in multi-step form
     newPlace: function() {
       this.appView.newPlace();
     },
@@ -150,9 +161,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewPlace: function(datasetSlug, id, responseId) {
-      // TODO: When we handle multiple datasets, we will need to
-      // implement appView.viewPlace(..) to accept a datasetSlug parameter
-      this.appView.viewPlace(id, responseId, this.loading);
+      this.appView.viewPlace(datasetSlug, id, responseId, this.loading);
     },
 
     editPlace: function(){},

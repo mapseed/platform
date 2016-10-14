@@ -1,0 +1,382 @@
+// ################################
+// CONTENT: PAGES AND PLACES - SELECTORS
+// ################################
+
+#content {
+    background: $button-color-white;
+    padding: 1em 1em 2em;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 -0.325em 0 $opacity-very-low-black;
+    display: none;
+}
+
+// Close Button - Selectors
+
+a.close-btn {
+    background: $button-color-white;
+    color: #ff5e99;
+    font-size: 1.25em;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 1.125em;
+    float: left;
+    display: block;
+    position: absolute;
+    top: -1.325em;
+    left: 0.5em;
+    padding: 0.325em 0.625em;
+    z-index: 2;
+    box-shadow: 0 -0.325em 0 $opacity-very-low-black;
+    border-radius: 0.325em 0.325em 0 0;
+
+    &:hover {
+        color: #cd2c67;
+    }
+
+    span {
+        font-size: 0.625em;
+        text-transform: uppercase;
+        margin-left: 0.625em;
+        position: relative;
+        top: -0.2em;
+    }
+}
+
+// Contains embeded video player size
+
+#content {
+    iframe, object, embed {
+        overflow: hidden;
+        display: block;
+        width: 100% !important;
+
+        /* height: auto !important */
+    }
+}
+
+// Promotion: Voting & Sharing - Selectors
+
+.promotion {
+    float: right;
+    margin: 0 0 1em 0.5em;
+}
+
+.support {
+    margin-bottom: 0.75em;
+    position: relative;
+}
+
+.user-support {
+    position: relative;
+
+    input[type=checkbox] {
+        cursor: pointer;
+        display: block;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        -ms-filter: "alpha(opacity=0)";
+        zoom: 1;
+    }
+
+    label {
+        display: block;
+        background: transparent url(images/heart-empty.png) left center no-repeat scroll;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1em;
+        padding-left: 22px;
+        color: $button-background-blue;
+    }
+
+    input[type=checkbox]:checked ~ label {
+        background-image: url(images/heart.png);
+    }
+
+    &:hover label {
+        background-color: $button-background-hover-blue;
+    }
+}
+
+.support-count {}
+
+.social {
+    min-width: 84px;
+}
+
+.sharing {
+    margin: 0;
+}
+
+.share-link {
+    float: right;
+    padding: 0 !important;
+    margin-left: 10px;
+
+    a {
+        display: block;
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        text-indent: -9999px;
+    }
+}
+
+.share-twitter a {
+    background: url(images/twitter-32.png) 0 0 no-repeat scroll;
+}
+
+.share-facebook a {
+    background: url(images/facebook-32.png) 0 0 no-repeat scroll;
+}
+
+// Places - Selectors
+
+.place-header {
+    margin-bottom: 1em;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.place-items {
+    .place-item {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        margin: 0;
+    }
+
+    .place-label {
+        font-weight: bold;
+    }
+
+    .place-value {
+        color: #777777;
+        word-break: break-word;
+    }
+
+    .multi-select-response {
+        padding: 0;
+    }
+}
+
+.place-submission-details {
+    display: block;
+    padding-left: 3.75em;
+}
+
+.point-submitter .avatar {
+    width: 3.25em;
+    height: 3.25em;
+    float: left;
+    margin-left: -3.75em;
+}
+
+.response-date {
+    display: block;
+    text-transform: uppercase;
+    color: #888;
+    font-size: 0.75em;
+
+    a {
+        color: #888;
+
+        &:hover {
+            color: $hover-highlight-blue;
+        }
+    }
+}
+
+.survey-count {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    display: block;
+}
+
+// Surveys - Selectors
+
+.survey {
+    position: relative;
+}
+
+.survey-header {
+    border-bottom: 1px solid #a8a8a8;
+    padding-bottom: 0.75em;
+    margin-bottom: 1em;
+    font-size: 1.25em;
+}
+
+a.reply-link {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+ol.responses {}
+
+.response {
+    position: relative;
+    padding-bottom: 2.625em;
+    margin-bottom: 1em;
+}
+
+.response-header {
+    padding-left: 3.75em;
+    margin: 0 0 0 1em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.response-submitter .avatar {
+    width: 3em;
+    height: 3em;
+    float: left;
+    margin-left: -3.75em;
+}
+
+.response-meta {}
+
+.response-body {
+    margin: 0 0 1em;
+    padding: 1em;
+    border-top: 1px solid #a8a8a8;
+    border-right: 1px solid #c8c8c8;
+    border-bottom: 0;
+    border-left: 1px solid #c8c8c8;
+    background: #eee;
+    border-radius: 1em;
+    position: relative;
+
+    &:after {
+        content: "";
+        height: 0;
+        width: 0;
+        border: 1em solid transparent;
+        border-top-color: #eee;
+        position: absolute;
+        top: 100%;
+        left: 1.5em;
+    }
+}
+
+.response-label-comment {
+    display: none;
+}
+
+.response-value-comment {
+    margin-bottom: 0.5em;
+}
+
+article.response footer {
+    text-align: right;
+}
+
+.survey-reply-link {
+    color: #999;
+    background: #eee;
+    padding: 0.5em 0.75em;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+        background: #607890;
+        color: $button-color-white;
+    }
+}
+
+.submit-btn {
+    float: left;
+    margin: 0 0.75em 0 0;
+}
+
+form .signed-in-as {
+    float: left;
+    white-space: nowrap;
+    padding-top: 0.125em;
+    line-height: 1.5;
+
+    .avatar {
+        height: 1.5em;
+        width: auto;
+        position: relative;
+        top: 0.5em;
+    }
+
+    a {
+        font-weight: bold;
+        font-size: 0.875em;
+        text-transform: uppercase;
+    }
+}
+
+.or-sign-in {
+    display: block;
+    margin-top: 0.5em;
+}
+
+a.auth-inline {
+    display: inline;
+    font-size: 0.875em;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.25em 0.5em;
+}
+
+/* place detail view story bar */
+.place-story-bar {
+    background-color: LightYellow;
+    padding: 8px;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-family: FontAwesome;
+    overflow: hidden;
+    h1 {
+        line-height: 1em;
+    }
+    .story-tagline {
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-family: $default-font-family;
+        margin-bottom: 0;
+    }
+}
+
+/* place form geolocation and instructions bar */
+.drag-marker-instructions {
+    position: relative;
+    background-color: lightyellow;
+    .btn-geolocate {
+        font-size: 0.85em;
+        width: 140px;
+        padding: 5px; 
+        position: relative;
+        img {
+            position: absolute;
+            left: 2px;
+            top: 6px;
+        }
+    }
+    .drag-text {
+        margin-bottom: 0;
+        padding-left: 15px;
+    }
+    #geolocating-msg {
+        color: #888888;
+    }
+}
+

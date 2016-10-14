@@ -41,8 +41,13 @@ var Shareabouts = Shareabouts || {};
 
       // Boodstrapped data from the page
       this.activities = this.options.activities;
-      this.places = this.collection;
-      this.landmarkCollections = this.options.landmarkCollections;
+      this.places = this.options.places;
+      this.landmarks = this.options.landmarks;
+
+      // this flag is used to distinguish between user-initiated zooms and
+      // zooms initiated by a leaflet method
+      this.isProgrammaticZoom = false;
+      this.isStoryActive = false;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -66,12 +71,17 @@ var Shareabouts = Shareabouts || {};
       $(document).on('click', 'a[href^="/"]', function(evt) {
         var $link = $(evt.currentTarget),
             href = $link.attr('href'),
-            url;
+            url,
+            isLinkToPlace = false;
+
+        _.each(self.options.datasetConfigs.places, function(dataset) {
+          if (href.indexOf('/' + dataset.slug) === 0) isLinkToPlace = true;
+        });
 
         // Allow shift+click for new tabs, etc.
         if (($link.attr('rel') === 'internal' ||
              href === '/' ||
-             href.indexOf(self.options.placeConfig.dataset_slug) === 0 ||
+             isLinkToPlace ||
              href.indexOf('/filter') === 0) &&
              !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
           evt.preventDefault();
@@ -87,10 +97,6 @@ var Shareabouts = Shareabouts || {};
           return false;
         }
       });
-
-      // Handle collection events
-      this.collection.on('add', this.onAddPlace, this);
-      this.collection.on('remove', this.onRemovePlace, this);
 
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
@@ -113,12 +119,17 @@ var Shareabouts = Shareabouts || {};
               router: this.options.router
             })).render();
 
+      var basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
+        return "basemaps" in panel;
+      }).basemaps;
       // Init the map view to display the places
       this.mapView = new S.MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
-        collection: this.collection,
-        landmarkCollections: this.options.landmarkCollections,
+        basemapConfigs: basemapConfigs,
+        legend_enabled: !!this.options.sidebarConfig.legend_enabled,
+        places: this.places,
+        landmarks: this.landmarks,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         cluster: this.options.cluster
@@ -139,15 +150,14 @@ var Shareabouts = Shareabouts || {};
         // Init the view for displaying user activity
         this.activityView = new S.ActivityView({
           el: 'ul.recent-points',
-          // TODO: clean this up by using #ticker instead:
-          // el: '#ticker',
-          collection: this.activities,
+          activities: this.activities,
           places: this.places,
           router: this.options.router,
           placeTypes: this.options.placeTypes,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
+          mapConfig: this.options.mapConfig,
           // How often to check for new content
           interval: this.options.activityConfig.interval || 30000
         });
@@ -165,7 +175,7 @@ var Shareabouts = Shareabouts || {};
         el: '#place-counter',
         router: this.options.router,
         mapConfig: this.options.mapConfig,
-        collection: this.collection
+        places: this.places
       })).render();
 
       // When the user chooses a geocoded address, the address view will fire
@@ -209,14 +219,13 @@ var Shareabouts = Shareabouts || {};
         // self.placeFormView.setLocation(locationData);
       });
 
-
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
       if (_.isUndefined(S.Config.flavor.app.list_enabled) ||
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            collection: this.collection
+            placeCollections: self.places
           }).render();
       }
 
@@ -235,6 +244,23 @@ var Shareabouts = Shareabouts || {};
       // For knowing if the user has moved the map after opening the form.
       this.mapView.map.on('dragend', this.onMapDragEnd, this);
 
+      // If report stories are enabled, build the data structure
+      // we need to enable story navigation
+      _.each(this.options.storyConfig, function(story) {
+        var storyStructure = {},
+        totalStoryElements = story.order.length;
+        _.each(story.order, function(config, i) {
+          storyStructure[config.url] = {
+            "zoom": config.zoom || story.default_zoom,
+            "panTo": config.panTo || null,
+            "visibleLayers": config.visible_layers || story.default_visible_layers,
+            "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
+            "next": story.order[(i + 1) % totalStoryElements].url,
+            "basemap": config.basemap || null
+          }
+        });
+        story.order = storyStructure;
+      });
 
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
@@ -243,8 +269,13 @@ var Shareabouts = Shareabouts || {};
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
-      _.each(Object.keys(this.landmarkCollections), function(collectionId) {
-        self.landmarkDetailViews[collectionId] = {};
+
+      _.each(this.places, function(value, key) {
+        self.placeDetailViews[key] = {};
+      });
+
+      _.each(this.landmarks, function(value, key) {
+        self.landmarkDetailViews[key] = {};
       });
 
       // Show tools for adding data
@@ -257,11 +288,14 @@ var Shareabouts = Shareabouts || {};
       // Load landmarks from the API
       this.loadLandmarks();
 
-      // Fetch the first page of activity
-      this.activities.fetch({
-        reset: true,
-        attribute: 'target',
-        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug }
+      // Load activities from the API
+      _.each(this.activities, function(collection, key) {
+        collection.fetch({
+          reset: true,
+          attribute: 'target',
+          attributesToAdd: { datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id,
+                             datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug }
+        });
       });
     },
 
@@ -276,10 +310,19 @@ var Shareabouts = Shareabouts || {};
     },
     loadLandmarks: function() {
       var self = this;
-      _.each(_.values(this.options.landmarkConfigs), function(landmarkConfig) {
-        self.landmarkCollections[landmarkConfig.id].fetch();
+
+      // loop through landmark configs
+      _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
+        if (landmarkConfig.placeType) {
+          self.landmarks[landmarkConfig.id].fetch({
+            attributesToAdd: { location_type: landmarkConfig.placeType },
+          });
+        } else {
+          self.landmarks[landmarkConfig.id].fetch();
+        }
       });
     },
+
     loadPlaces: function(placeParams) {
       var self = this,
           $progressContainer = $('#map-progress'),
@@ -288,46 +331,43 @@ var Shareabouts = Shareabouts || {};
           totalPages,
           pagesComplete = 0;
 
-      this.collection.fetchAllPages({
-        remove: false,
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        data: placeParams,
-        attributesToAdd: { datasetSlug: this.options.placeConfig.dataset_slug },
-        attribute: 'properties',
+      // loop over all place collections
+      _.each(self.places, function(collection, key) {
+        collection.fetchAllPages({
+          remove: false,
+          // Check for a valid location type before adding it to the collection
+          validate: true,
+          data: placeParams,
+          // get the dataset slug and id from the array of map layers
+          attributesToAdd: { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug,
+                             datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id },
+          attribute: 'properties',
 
-        success: function() {
-          // Sort the list view after all of the pages have been fetched
-          if (self.listView) {
-            self.listView.sort();
-            self.listView.updateSortLinks();
+          // Only do this for the first page...
+          pageSuccess: _.once(function(collection, data) {
+            pageSize = data.features.length;
+            totalPages = Math.ceil(data.metadata.length / pageSize);
+
+            if (data.metadata.next) {
+              $progressContainer.show();
+            }
+          }),
+
+          // Do this for every page...
+          pageComplete: function() {
+            var percent;
+
+            pagesComplete++;
+            percent = (pagesComplete/totalPages*100);
+            $currentProgress.width(percent + '%');
+
+            if (pagesComplete === totalPages) {
+              _.delay(function() {
+                $progressContainer.hide();
+              }, 2000);
+            }
           }
-        },
-
-        // Only do this for the first page...
-        pageSuccess: _.once(function(collection, data) {
-          pageSize = data.features.length;
-          totalPages = Math.ceil(data.metadata.length / pageSize);
-
-          if (data.metadata.next) {
-            $progressContainer.show();
-          }
-        }),
-
-        // Do this for every page...
-        pageComplete: function() {
-          var percent;
-
-          pagesComplete++;
-          percent = (pagesComplete/totalPages*100);
-          $currentProgress.width(percent + '%');
-
-          if (pagesComplete === totalPages) {
-            _.delay(function() {
-              $progressContainer.hide();
-            }, 2000);
-          }
-        }
+        });
       });
     },
 
@@ -337,9 +377,10 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMapZoomEnd: function(evt) {
-      if (this.hasBodyClass('content-visible') === true) {
+      if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
         $("#spotlight-place-mask").remove();
       }
+      this.isProgrammaticZoom = false;
     },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
@@ -369,10 +410,14 @@ var Shareabouts = Shareabouts || {};
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
       S.Util.log('USER', 'map', 'new-place-btn-click');
-      this.options.router.navigate('/' + this.options.placeConfig.dataset_slug + '/new', {trigger: true});
+      this.options.router.navigate('/new', {trigger: true});
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
+      if (this.placeFormView) {
+        this.placeFormView.closePanel();
+      }
+
       S.Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
       $("#spotlight-place-mask").remove();
@@ -381,35 +426,12 @@ var Shareabouts = Shareabouts || {};
       } else {
         this.options.router.navigate('/', {trigger: true});
       }
-    },
-    // This gets called for every model that gets added to the place
-    // collection, not just new ones.
-    onAddPlace: function(model) {
-      // If it's new, then show the form in order to edit and save it.
-      if (model.isNew()) {
 
-        this.placeFormView = new S.PlaceFormView({
-          model: model,
-          appView: this,
-          router: this.options.router,
-          defaultPlaceTypeName: this.options.defaultPlaceTypeName,
-          placeTypes: this.options.placeTypes,
-          placeConfig: this.options.placeConfig,
-          userToken: this.options.userToken
-        });
-
-        this.$panel.removeClass().addClass('place-form');
-        this.showPanel(this.placeFormView.render().$el);
-
-//      Init the place form's address search bar
-        this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
-          el: '#geocode-address-place-bar',
-          router: this.options.router,
-          mapConfig: this.options.mapConfig
-        })).render();
-        this.showNewPin();
-        this.setBodyClass('content-visible', 'place-form-visible');
+      if (this.isStoryActive) {
+        this.isStoryActive = false;
+        this.restoreDefaultLayerVisibility();
       }
+
     },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible', 'place-form-visible'],
@@ -449,7 +471,12 @@ var Shareabouts = Shareabouts || {};
         landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
       } else {
         landmarkDetailView = new S.LandmarkDetailView({
-          description: model.get('properties')['description']
+          model: model,
+          description: model.get('properties')['description'],
+          originalDescription: model.get('properties')['originalDescription'],
+          mapConfig: this.options.mapConfig,
+          mapView: this.mapView,
+          router: this.options.router
         });
         this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
       }
@@ -465,8 +492,14 @@ var Shareabouts = Shareabouts || {};
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
+          storyConfig: this.options.storyConfig,
+          mapConfig: this.options.mapConfig,
           placeTypes: this.options.placeTypes,
-          userToken: this.options.userToken
+          userToken: this.options.userToken,
+          mapView: this.mapView,
+          router: this.options.router,
+          url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
+          datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -501,9 +534,74 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass();
     },
     newPlace: function() {
-      // Called by the router
-      this.collection.add({});
+      var self = this;
+
+      if (!this.placeFormView) {
+        this.placeFormView = new S.PlaceFormView({
+          appView: this,
+          router: this.options.router,
+          placeConfig: this.options.placeConfig,
+          mapConfig: this.options.mapConfig,
+          userToken: this.options.userToken,
+          // only need to send place collection, since all data added will be a place of some kind
+          collection: this.places
+        });
+      }
+
+      this.$panel.removeClass().addClass('place-form');
+      this.showPanel(this.placeFormView.render().$el);
+      this.placeFormView.postRender();
+
+      this.placeFormView.delegateEvents();
+      // Init the place form's address search bar
+      this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
+        el: '#geocode-address-place-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
+
+      this.showNewPin();
+      this.setBodyClass('content-visible', 'place-form-visible');
     },
+
+    // If a model has a story object, set the appropriate layer
+    // visilbilities and update legend checkboxes
+    setStoryLayerVisibility: function(model) {
+      // change basemap if requested
+      if (model.attributes.story.basemap) {
+        $(S).trigger('visibility', [model.attributes.story.basemap, true, true]);
+        $("#map-" + model.attributes.story.basemap).prop("checked", true);
+      }
+      // set layer visibility based on story config
+      _.each(model.attributes.story.visibleLayers, function(targetLayer) {
+        $(S).trigger('visibility', [targetLayer, true]);
+        // set legend checkbox
+        $("#map-" + targetLayer).prop("checked", true);
+      });
+      // switch off all other layers
+      _.each(this.options.mapConfig.layers, function(targetLayer) {
+        if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
+          // don't turn off basemap layers!
+          if (targetLayer.type != "basemap") {
+            $(S).trigger('visibility', [targetLayer.id, false]);
+            // set legend checkbox
+            $("#map-" + targetLayer.id).prop("checked", false);
+          }
+        }
+      });
+    },
+
+    restoreDefaultLayerVisibility: function() {
+      var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
+      _.each({"groupings": gisLayersPanel.groupings.layers, "basemaps": gisLayersPanel.basemaps}, function(layers, key) {
+        _.each(layers, function(layer) {
+          if (key === "basemaps" && !layer.visibleDefault) return;
+          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault, (key === "basemaps" ? true : false)]);
+          $("#map-" + layer.id).prop("checked", !!layer.visibleDefault);
+        });
+      });
+    },
+
     // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
@@ -516,13 +614,7 @@ var Shareabouts = Shareabouts || {};
             layer, center, landmarkDetailView, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
-        // If this model is not yet loaded as a layer view in our map view,
-        // then let's create the layer view directly from the model
-        if (_.isUndefined(self.mapView.landmarkLayerViews[options.collectionId][model.id])) {
-          self.mapView.addLandmarkLayerView(options.collectionId).bind(self.mapView)(model);
-        }
-
-        layer = self.mapView.landmarkLayerViews[options.collectionId][model.id].layer
+        layer = self.mapView.layerViews[options.collectionId][model.id].layer
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
@@ -531,6 +623,7 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model);
         self.showPanel(landmarkDetailView.render().$el, false);
+        landmarkDetailView.delegateEvents();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -545,18 +638,32 @@ var Shareabouts = Shareabouts || {};
             }
 
           } else {
-            map.panTo(center, {animate: true});
+            if (model.attributes.story) {
+              // if this model is part of a story, set center and zoom level
+              self.isProgrammaticZoom = true;
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+            } else {
+              map.panTo(center, {animate: true});
+            }
           }
         }
         self.addSpotlightMask();
 
-
         // Focus the one we're looking
         model.trigger('focus');
+
+        if (model.get("story")) {
+          self.isStoryActive = true;
+          self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
+        } else {
+          self.isStoryActive = false;
+        }
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
-        console.log("appView.onLandmarkNotFound: model:", model);
         options.stillSearching[options.collectionId] = false;
         var allCollectionsSearched = true;
         _.each(_.values(options.stillSearching), function(stillSearching) {
@@ -575,9 +682,10 @@ var Shareabouts = Shareabouts || {};
         // model to avoid making unnecessary api calls for each collection:
         var cachedModel;
         var collectionId;
-        _.find(Object.keys(self.options.landmarkConfigs), function(landmarkConfigId) {
+
+        _.find(Object.keys(self.options.landmarks), function(landmarkConfigId) {
           collectionId = landmarkConfigId;
-          cachedModel = self.landmarkCollections[landmarkConfigId].get(model);
+          cachedModel = self.landmarks[collectionId].get(model);
           return cachedModel;
         });
         if (cachedModel) {
@@ -589,10 +697,10 @@ var Shareabouts = Shareabouts || {};
         // If the model is not already in our collections, then we must fetch it
         // by making a call to each collection:
         var stillSearching = {};
-        _.each(self.options.landmarkConfigs, function(landmarkConfig) {
+        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
           stillSearching[landmarkConfig.id] = true;
         });
-        _.each(self.options.landmarkConfigs, function(landmarkConfig) {
+        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
           self.viewLandmark(model, { collectionId: landmarkConfig.id,
                                      zoom: options.zoom,
                                      stillSearching: stillSearching });
@@ -608,7 +716,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-      var landmarkCollection = this.landmarkCollections[options.collectionId];
+      var landmarkCollection = this.landmarks[options.collectionId];
       if (!landmarkCollection) {
         onLandmarkNotFound();
         return;
@@ -634,10 +742,12 @@ var Shareabouts = Shareabouts || {};
         })
       }
     },
-    viewPlace: function(model, responseId, zoom) {
+    viewPlace: function(datasetSlug, model, responseId, zoom) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           layout = S.Util.getPageLayout(),
+          // get the dataset id from the map layers array for the given datasetSlug
+          datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
@@ -648,12 +758,15 @@ var Shareabouts = Shareabouts || {};
         // places collection, it may not correspond to a layerView. For this
         // case, get the model that's actually in the places collection.
         if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places.get(model.id);
+          model = self.places[datasetId].get(model.id);
         }
 
         // TODO: We need to handle the non-deterministic case when
         // 'self.mapView.layerViews[model.cid]` is undefined
-        layer = self.mapView.layerViews[model.cid].layer;
+        if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
+          layer = self.mapView.layerViews[datasetId][model.cid].layer;
+        }
+
         placeDetailView = self.getPlaceDetailView(model);
 
         if (layer) {
@@ -662,6 +775,7 @@ var Shareabouts = Shareabouts || {};
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         self.showPanel(placeDetailView.render().$el, !!responseId);
+        placeDetailView.delegateEvents();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -676,7 +790,13 @@ var Shareabouts = Shareabouts || {};
             }
 
           } else {
-            map.panTo(center, {animate: true});
+            if (model.attributes.story) {
+              // if this model is part of a story, set center and zoom level
+              self.isProgrammaticZoom = true;
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+            } else {
+              map.panTo(center, {animate: true});
+            }
           }
         }
         self.addSpotlightMask();
@@ -699,6 +819,16 @@ var Shareabouts = Shareabouts || {};
 
         // Focus the one we're looking
         model.trigger('focus');
+
+        if (model.get("story")) {
+          self.isStoryActive = true;
+          self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
+        } else {
+          self.isStoryActive = false;
+        }
       };
 
       onPlaceNotFound = function() {
@@ -713,7 +843,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, assume we have a model ID.
       modelId = model;
-      model = this.places.get(modelId);
+      model = this.places[datasetId].get(modelId);
 
       // If the model was found in the places, go ahead and use it.
       if (model) {
@@ -721,7 +851,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch and use the result.
       } else {
-        this.places.fetchById(modelId, {
+        this.places[datasetId].fetchById(modelId, {
           // Check for a valid location type before adding it to the collection
           validate: true,
           success: onPlaceFound,
@@ -825,23 +955,39 @@ var Shareabouts = Shareabouts || {};
                                .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
     },
     unfocusAllPlaces: function() {
-      // Unfocus all of the markers
-      this.collection.each(function(m){
-        if (!m.isNew()) {
-          m.trigger('unfocus');
-        }
+      // Unfocus all of the place markers
+      _.each(this.places, function(collection) {
+        collection.each(function(model) {
+          if (!model.isNew()) {
+            model.trigger('unfocus');
+          }
+        });
       });
-      _.each(this.options.landmarkCollections, function(landmarkCollection) {
-        landmarkCollection.each(function(m) {
-          m.trigger('unfocus');
+
+      // Unfocus all of the landmark markers
+      _.each(this.landmarks, function(collection) {
+        collection.each(function(model) {
+          if (!model.isNew()) {
+            model.trigger('unfocus');
+          }
         });
       });
     },
     destroyNewModels: function() {
-      this.collection.each(function(m){
-        if (m && m.isNew()) {
-          m.destroy();
-        }
+      _.each(this.places, function(collection) {
+        collection.each(function(model) {
+          if (model && model.isNew()) {
+            model.destroy()
+          }
+        });
+      });
+
+      _.each(this.landmarks, function(collection) {
+        collection.each(function(model) {
+          if (model && model.isNew()) {
+            model.destroy()
+          }
+        });
       });
     },
 

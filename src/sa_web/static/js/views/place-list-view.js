@@ -35,6 +35,14 @@ var Shareabouts = Shareabouts || {};
         userToken: S.Config.userToken
       });
     },
+    onBeforeRender: function() {
+      // if an attachmentCollection has models in it, make sure the place
+      // model's attachment attribute is set for the attachments to be
+      // reliably rendered in the list view
+      if (this.model.attachmentCollection.length > 0) {
+        this.model.set("attachments", this.model.attachmentCollection.toJSON());
+      }
+    },
     onRender: function(evt) {
       this.support.show(this.supportView);
     },
@@ -66,7 +74,17 @@ var Shareabouts = Shareabouts || {};
       'click @ui.supportCount': 'handleSupportCountSort'
     },
     initialize: function(options) {
+      var self = this;
       options = options || {};
+
+      // This collection holds references to all place models
+      // merged together, for sorting and filtering purposes
+      this.collection = new S.PlaceCollection([]);
+
+      _.each(this.options.placeCollections, function(collection) {
+        collection.on("add", self.addModel, self);
+        collection.on("sync", self.onSync, self);
+      });
 
       // Init the views cache
       this.views = {};
@@ -78,21 +96,36 @@ var Shareabouts = Shareabouts || {};
       this.collectionFilters = options.filter || {};
       this.searchTerm = options.term || '';
     },
+    onSync: function() {
+      // sort the merged collection after each component collection
+      // is synced successfully
+      this.sort();
+    },
     onAfterItemAdded: function(view) {
       // Cache the views as they are added
       this.views[view.model.cid] = view;
     },
+    addModel: function(model) {
+      this.collection.add(model);
+    },
     renderList: function() {
+      var self = this;
       // A faster alternative to this._renderChildren. _renderChildren always
       // discards and recreates a new ItemView. This simply rerenders the
       // cached views.
       var $itemViewContainer = this.getItemViewContainer(this);
       $itemViewContainer.empty();
+
       this.collection.each(function(model) {
-        $itemViewContainer.append(this.views[model.cid].$el);
-        // Delegate the events so that the subviews still work
-        this.views[model.cid].supportView.delegateEvents();
-      }, this);
+        if (self.views[model.cid]) {
+          $itemViewContainer.append(self.views[model.cid].$el);
+          // Delegate the events so that the subviews still work
+          self.views[model.cid].supportView.delegateEvents();
+        }
+      });
+
+      // remove story bars from the list view
+      $("#list-container .place-story-bar").remove();
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();
@@ -194,14 +227,15 @@ var Shareabouts = Shareabouts || {};
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
     applyFilters: function(filters, term) {
-      var len = S.Config.place.items.length,
-          val, key, i;
+      var val, key, i;
 
       term = term.toUpperCase();
       this.collection.each(function(model) {
         var show = function() { model.trigger('show'); },
             hide = function() { model.trigger('hide'); },
-            submitter, locationType;
+            submitter, 
+            locationType = model.get("location_type"),
+            placeConfig = _.find(S.Config.place.place_detail, function(config) { return config.category === locationType });
 
         // If the model doesn't match one of the filters, hide it.
         for (key in filters) {
@@ -215,13 +249,13 @@ var Shareabouts = Shareabouts || {};
         }
 
         // Check whether the remaining models match the search term
-        for (i=0; i<len; i++) {
-          key = S.Config.place.items[i].name;
+        for (var i = 0; i < placeConfig.fields.length; i++) { 
+          key = placeConfig.fields[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
             return show();
           }
-        }
+        };
 
         // Submitter is only present when a user submits a place when logged in
         // with FB or Twitter. We handle it specially because it is an object,
@@ -244,7 +278,7 @@ var Shareabouts = Shareabouts || {};
 
         // If we've fallen through here, hide the item.
         return hide();
-      });
+      }, this);
     },
     isVisible: function() {
       return this.$el.is(':visible');
