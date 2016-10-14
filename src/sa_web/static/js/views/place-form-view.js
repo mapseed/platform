@@ -63,9 +63,6 @@ var Shareabouts = Shareabouts || {};
       return this;
     },
     postRender: function() {
-      // if the form only has a single category, hide category selection buttons
-      if (this.formState.isSingleCategory) $("#selected-category, #category-btns").addClass("is-visuallyhidden");
-
       // initialize datetime picker, if relevant
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
     },
@@ -141,7 +138,7 @@ var Shareabouts = Shareabouts || {};
         .on("locationfound", function() { 
           self.center = self.options.appView.mapView.map.getCenter();
           $("#spotlight-place-mask").remove();
-          self.render();
+          $("#drag-marker-content").addClass("is-visuallyhidden");
         })
         .on("locationerror", function() {
           $("#drag-marker-content").removeClass("is-visuallyhidden");
