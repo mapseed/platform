@@ -210,7 +210,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: raingardens
-      icon_url: /static/css/images/markers/marker-idea-trans.png
+      icon_url: /static/css/images/markers/marker-drop.png
       value: raingardens
       label: _(Rain Garden)
       fields:
