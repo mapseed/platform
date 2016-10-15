@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  - SASS precompiler
 
 ## [0.7.1] - 2016-10-13 - on our `develop-0.7.0` branch
+### Added
+ - Added CHANGELOG
 ### Changed
  - Updates to sync development branch 0.7.x with 0.6.4 for Docker data container updates.
 
