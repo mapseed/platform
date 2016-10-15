@@ -3,7 +3,7 @@
 ############################################################
 
 # Set the base image:
-FROM node:6.7.0
+FROM node:6.8
 
 # File Author / Maintainer
 MAINTAINER Luke Swart <luke@smartercleanup.org>
