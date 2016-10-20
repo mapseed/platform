@@ -194,7 +194,7 @@ var Shareabouts = Shareabouts || {};
       content, 
       wasAnswered = false;
 
-      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
+      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime" || fieldType === "rawHTML") {
         // case: plain text
         content = userInput || "";
         if (content !== "") {
