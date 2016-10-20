@@ -75,12 +75,12 @@
 
               {{#is type "textarea"}}
                 <p class="place-value place-value-{{ name }}">
-                  {{#if ../../isHTML}}
-                    {{{content}}}
-                  {{else}}
-                    {{nlToBr content}}
-                  {{/if}}
+                  {{nlToBr content}}
                 </p>
+              {{/is}}
+
+              {{#is type "rawHTML"}}
+                <p class="place-value place-value-{{ name }}">{{{content}}}</p>
               {{/is}}
 
               {{#is type "radio_big_buttons"}}
