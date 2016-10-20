@@ -76,6 +76,10 @@
           <textarea id="place-{{ name }}" name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}" {{^optional}}required{{/optional}}></textarea>
         {{/is}}
 
+        {{#is type "rawHTML"}}
+          <textarea id="place-{{ name }}" name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}" {{^optional}}required{{/optional}}></textarea>
+        {{/is}}
+
         {{#is type "radio_big_buttons"}}
           <div>
             {{#each content}}
