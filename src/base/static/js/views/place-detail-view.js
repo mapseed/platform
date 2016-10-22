@@ -44,7 +44,7 @@ var Shareabouts = Shareabouts || {};
         surveyConfig: this.options.surveyConfig,
         userToken: this.options.userToken,
         datasetId: self.options.datasetId,
-        isEditingToggled: this.isEditingToggled
+        placeDetailView: self
       });
 
       this.supportView = new S.SupportView({
