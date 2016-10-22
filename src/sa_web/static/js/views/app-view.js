@@ -256,7 +256,8 @@ var Shareabouts = Shareabouts || {};
             "visibleLayers": config.visible_layers || story.default_visible_layers,
             "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
             "next": story.order[(i + 1) % totalStoryElements].url,
-            "basemap": config.basemap || null
+            "basemap": config.basemap || null,
+            "spotlight": (config.spotlight === false) ? false : true
           }
         });
         story.order = storyStructure;
@@ -661,6 +662,7 @@ var Shareabouts = Shareabouts || {};
         model.trigger('focus');
 
         if (model.get("story")) {
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
@@ -836,6 +838,8 @@ var Shareabouts = Shareabouts || {};
         model.trigger('focus');
 
         if (model.get("story")) {
+          console.log(model.get("story"));
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
