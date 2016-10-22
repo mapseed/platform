@@ -44,6 +44,11 @@ var Shareabouts = Shareabouts || {};
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
 
+      // Caches of the views (one per place)
+      this.placeFormView = null;
+      this.placeDetailViews = {};
+      this.landmarkDetailViews = {};
+
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
       this.isProgrammaticZoom = false;
@@ -132,7 +137,8 @@ var Shareabouts = Shareabouts || {};
         landmarks: this.landmarks,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
-        cluster: this.options.cluster
+        cluster: this.options.cluster,
+        placeDetailViews: this.placeDetailViews
       });
 
       if (self.options.sidebarConfig.enabled){
@@ -265,11 +271,6 @@ var Shareabouts = Shareabouts || {};
 
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
-
-      // Caches of the views (one per place)
-      this.placeFormView = null;
-      this.placeDetailViews = {};
-      this.landmarkDetailViews = {};
 
       _.each(this.places, function(value, key) {
         self.placeDetailViews[key] = {};
