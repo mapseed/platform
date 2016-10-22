@@ -65,6 +65,7 @@
         collection.on('reset', self.render, self);
         collection.on('add', self.addLayerView(collectionId), self);
         collection.on('remove', self.removeLayerView(collectionId), self);
+        collection.on('userHideModel', self.onUserHideModel(collectionId), self);
       });
 
       // Bind landmark collections event listeners
@@ -107,14 +108,19 @@
       });
     }, // end initialize
 
-    onUserHideModel: function(model) {
-      S.Util.log('APP', 'panel-state', 'closed');
-      // remove map mask if the user closes the side panel
-      $("#spotlight-place-mask").remove();
-      if (this.locationTypeFilter) {
-        this.options.router.navigate('filter/' + this.locationTypeFilter, {trigger: true});
-      } else {
-        this.options.router.navigate('/', {trigger: true});
+    onUserHideModel: function(collectionId) {
+      return function(model) {
+        this.options.placeDetailViews[model.cid].remove();
+        delete this.options.placeDetailViews[model.cid];
+        this.places[collectionId].remove(model);
+        S.Util.log('APP', 'panel-state', 'closed');
+        // remove map mask if the user closes the side panel
+        $("#spotlight-place-mask").remove();
+        if (this.locationTypeFilter) {
+          this.options.router.navigate('filter/' + this.locationTypeFilter, {trigger: true});
+        } else {
+          this.options.router.navigate('/', {trigger: true});
+        }
       }
     },
 
