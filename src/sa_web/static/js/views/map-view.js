@@ -237,8 +237,8 @@ var Shareabouts = Shareabouts || {};
     },
     removeLayerView: function(collectionId) {
       return function(model) {
-        this.layerViews[model.cid].remove();
-        delete this.layerViews[model.cid];
+        this.layerViews[collectionId][model.cid].remove();
+        delete this.layerViews[collectionId][model.cid];
       }
     },
     zoomInOn: function(latLng) {
