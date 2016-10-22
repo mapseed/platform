@@ -136,4 +136,12 @@ select {
 
 .place-header-title {
     line-height: 1.2em;
+} 
+
+/* Editor mode update form */
+#update-place-model-title-form .place-value-title {
+    max-width: 60%;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
 }
