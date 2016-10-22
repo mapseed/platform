@@ -139,18 +139,11 @@
       if (this.isEditingToggled) {
         var editEvents = "change keyup";
         $("#toggle-editor-btn").addClass("btn-depressed");
-        $(".promotion, .place-header, .survey-header, .reply-link, .response-header").addClass("faded");
-        $("#update-place-model-form").on(editEvents, function() {
+        $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header").addClass("faded");
+        $("#update-place-model-form, #update-place-model-title-form").on(editEvents, function() {
           self.isModified = true;
           $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
           $(this).off(editEvents);
-        });
-        $.each($(".response-item-comment form"), function() {
-          $(this).on(editEvents, function() {
-            self.isModified = true;
-            $(this).siblings(".btn-update").css({"opacity": "1.0", "cursor": "pointer"});
-            $(this).off(editEvents);
-          });
         });
       }
 
