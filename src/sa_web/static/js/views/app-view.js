@@ -593,12 +593,19 @@ var Shareabouts = Shareabouts || {};
     },
 
     restoreDefaultLayerVisibility: function() {
+      var triggerVisibility = function(id, isVisible, isBasemap) {
+        $(S).trigger('visibility', [id, isVisible, isBasemap]);
+        $("#map-" + id).prop("checked", isVisible);
+      }
+
       var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
-      _.each({"groupings": gisLayersPanel.groupings.layers, "basemaps": gisLayersPanel.basemaps}, function(layers, key) {
-        _.each(layers, function(layer) {
-          if (key === "basemaps" && !layer.visibleDefault) return;
-          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault, (key === "basemaps" ? true : false)]);
-          $("#map-" + layer.id).prop("checked", !!layer.visibleDefault);
+      _.each(gisLayersPanel.basemaps, function(basemap) {
+        if (basemap.visibleDefault) triggerVisibility(basemap.id, true, true);
+      });
+
+      _.each(gisLayersPanel.groupings, function(grouping) {
+        _.each(grouping.layers, function(layer) {
+          triggerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
         });
       });
     },
