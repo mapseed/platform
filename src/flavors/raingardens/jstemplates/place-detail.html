@@ -3,18 +3,25 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
-            {{>location-string location }}
-            {{#if fullTitle}}
-              {{fullTitle}}
+          {{>location-string location }}
+          <form id="update-place-model-title-form">
+            {{#if isEditingToggled}}
+              <input type="text" class="place-value place-value-title" name="title" 
+                     value="{{#if fullTitle}}{{fullTitle}}{{else}}{{#if title}}{{title}}{{else}}{{name}}{{/if}}{{/if}}" />
             {{else}}
-              {{#if title}}
-                {{title}}
-              {{else}}
-                {{name}}
-              {{/if}}
+              <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
+                {{#if fullTitle}}
+                  {{fullTitle}}
+                {{else}}
+                  {{#if title}}
+                    {{title}}
+                  {{else}}
+                    {{name}}
+                  {{/if}}
+                {{/if}}
+              </h1>
             {{/if}}
-          </h1>
+          </form>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{#if submitter.avatar_url }}
@@ -54,7 +61,7 @@
               <i class="fa fa-pencil" aria-hidden="true"></i> {{#_}}Edit this post{{/_}}
             </div>
             {{#if isEditingToggled}}
-              <div id="delete-place-model-btn" class="btn btn-small editor-btn btn-delete">
+              <div id="hide-place-model-btn" class="btn btn-small editor-btn btn-delete">
                 <i class="fa fa-times" aria-hidden="true"></i> {{#_}}Hide this post{{/_}}
               </div>
               <div id="update-place-model-btn" class="btn btn-small editor-btn btn-update faded">
@@ -67,25 +74,25 @@
             {{#each attachments }}
               <div class="place-item place-item-attachment place-attachment-{{ name }}">
                 <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
-                {{#if ../isEditingToggled}}
+                <!-- {{#if ../isEditingToggled}}
                   <div class="remove-attachment-btn btn btn-small">{{#_}}Remove this image{{/_}}</div>
-                {{/if}}
+                {{/if}} -->
               </div>           
             {{/each}}
             {{#unless attchments}}
               {{#if isEditingToggled}}
                 <div class="place-item place-item-attachment">
-                  <img src="/static/css/images/image-placeholder.png" class="place-value img-placeholder" alt="image placeholder" />
+                  <!-- <img src="/static/css/images/image-placeholder.png" class="place-value img-placeholder" alt="image placeholder" /> -->
                 </div>
               {{/if}} 
             {{/unless}}  
 
-            {{#if isEditingToggled}}              
+            <!-- {{#if isEditingToggled}}              
               <span id="editor-fileinput" class="fileinput-container btn btn-small editor-btn">
                 <span>{{#_}}Upload a new image{{/_}}</span>
                 <input id="upload-attachment-btn" name="new_image" type="file" style="display: none"/>
               </span>
-            {{/if}}
+            {{/if}} -->
 
             {{#each_place_item "submitter_name" "name" "location_type" "title"}}
               <div class="place-item place-item-{{ name }}">
