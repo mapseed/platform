@@ -11,7 +11,7 @@
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext',
       'click #toggle-editor-btn': 'onToggleEditMode',
       'click #update-place-model-btn': 'onUpdateModel',
-      'click #delete-place-model-btn': 'onDeleteModel',
+      'click #hide-place-model-btn': 'onHideModel',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'change input[type="file"]': 'onInputFileChange',
     },
@@ -240,12 +240,12 @@
       });
     },
 
-    onDeleteModel: function() {
-      if (confirm("Are you sure you want to hide this post?")) { 
-        this.model.trigger("userHideModel", this.model);
+    onHideModel: function() {
+      var self = this;
+      if (confirm("Are you sure you want to hide this post? It will no longer be visible on the map.")) { 
         this.model.save({"visible": false}, {
           success: function() {
-            console.log("success");
+            self.model.trigger("userHideModel", self.model);
           },
           error: function() {
             // nothing
