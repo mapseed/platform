@@ -66,7 +66,7 @@ var Shareabouts = Shareabouts || {};
         user_token: this.options.userToken,
         user_submitted: !!this.userSubmission,
         survey_config: this.options.surveyConfig,
-        isEditingToggled: this.options.isEditingToggled
+        isEditingToggled: this.options.placeDetailView.isEditingToggled
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-detail-survey'](data));
@@ -85,6 +85,15 @@ var Shareabouts = Shareabouts || {};
             $(window).scrollTo($responseToScrollTo);
           }
         }, 700);
+      }
+
+      if (this.options.placeDetailView.isEditingToggled) {
+        var editEvents = "change keyup";
+        $.each(this.$el.find(".responses form"), function() {
+          $(this).on(editEvents, function() {
+            $(this).siblings(".btn-update").removeClass("faded").prop("disabled", false);
+          });
+        });
       }
 
       return this;
@@ -147,7 +156,11 @@ var Shareabouts = Shareabouts || {};
       model = this.collection.get(cid),
       $form = $(evt.target).siblings("form"),
       attrs = S.Util.getAttrs($form);
-      model.set(attrs).save();
+      model.set(attrs).save({}, {
+        success: function() {
+          $(evt.target).addClass("faded").prop("disabled", true);
+        }
+      });
     },
 
     onDeleteResponse: function(evt) {
