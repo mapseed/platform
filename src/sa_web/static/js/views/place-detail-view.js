@@ -218,7 +218,7 @@ var Shareabouts = Shareabouts || {};
     onUpdateModel: function() {
       var self = this,
       // pull data off form and save model, triggering a PUT request
-      attrs = S.Util.getAttrs($("#update-place-model-form"));
+      attrs = _.extend(S.Util.getAttrs($("#update-place-model-form")), S.Util.getAttrs($("#update-place-model-title-form")));
 
       // special handling for binary toggle buttons: we need to remove
       // them completely from the model if they've been unselected in
@@ -232,6 +232,8 @@ var Shareabouts = Shareabouts || {};
       this.model.save(attrs, {
         success: function() {
           self.isModified = false;
+          self.isEditingToggled = false;
+          self.render();
         },
         error: function() {
           // nothing
