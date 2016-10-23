@@ -575,3 +575,23 @@ pages:
 notifications:
   on_new_place: true
   submitter_email_field: private-submitter_email
+
+story:
+  priorities:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 17
+    default_visible_layers:
+      - lakewashington
+      - areas-of-interest
+      - satellite
+    order: 
+      - url: lakepointe
+        spotlight: false
+      - url: littlecreek
+        spotlight: false        
+      - url: kenmore-channel
+        spotlight: false
