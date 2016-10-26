@@ -790,6 +790,14 @@
     },
 
     showPanel: function(markup, preventScrollToTop) {
+      console.log("show panel");
+
+      // if new panel content would replace an open, unsaved place detail
+      // view in editor mode, we need to stop the new content from being inserted
+      // and prompt the user
+      console.log("this.$panel", this.$panel);
+      if (this.$panel.hasClass("place-detail")) { console.log("replacing place detail") }
+
       var map = this.mapView.map;
 
       this.unfocusAllPlaces();
