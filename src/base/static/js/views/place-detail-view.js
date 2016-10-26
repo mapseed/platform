@@ -90,7 +90,14 @@ var Shareabouts = Shareabouts || {};
       this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
     },
 
+    close: function() {
+      console.log("on close");
+
+    },
+
     onToggleEditMode: function() {
+      console.log("this.isModified", this.isModified);
+
       if (this.isEditingToggled && this.isModified) {
         if(!confirm("You have unsaved changes. Proceed?")) return;
       }
@@ -102,6 +109,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     render: function() {
+      console.log("place detail view render")
+
       var self = this,
           data = _.extend({
             place_config: this.options.placeConfig,

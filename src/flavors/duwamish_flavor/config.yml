@@ -93,9 +93,9 @@ map:
       type: place
       slug: report
 
-    - id: editortest
-      type: place
-      slug: editortest
+    # - id: editortest
+    #   type: place
+    #   slug: editortest
 
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
