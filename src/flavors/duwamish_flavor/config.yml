@@ -605,7 +605,7 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: trees
               title: _(Trees!)
