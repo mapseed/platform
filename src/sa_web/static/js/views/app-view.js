@@ -256,7 +256,8 @@ var Shareabouts = Shareabouts || {};
             "visibleLayers": config.visible_layers || story.default_visible_layers,
             "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
             "next": story.order[(i + 1) % totalStoryElements].url,
-            "basemap": config.basemap || null
+            "basemap": config.basemap || null,
+            "spotlight": (config.spotlight === false) ? false : true
           }
         });
         story.order = storyStructure;
@@ -592,12 +593,19 @@ var Shareabouts = Shareabouts || {};
     },
 
     restoreDefaultLayerVisibility: function() {
+      var triggerVisibility = function(id, isVisible, isBasemap) {
+        $(S).trigger('visibility', [id, isVisible, isBasemap]);
+        $("#map-" + id).prop("checked", isVisible);
+      }
+
       var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
-      _.each({"groupings": gisLayersPanel.groupings.layers, "basemaps": gisLayersPanel.basemaps}, function(layers, key) {
-        _.each(layers, function(layer) {
-          if (key === "basemaps" && !layer.visibleDefault) return;
-          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault, (key === "basemaps" ? true : false)]);
-          $("#map-" + layer.id).prop("checked", !!layer.visibleDefault);
+      _.each(gisLayersPanel.basemaps, function(basemap) {
+        if (basemap.visibleDefault) triggerVisibility(basemap.id, true, true);
+      });
+
+      _.each(gisLayersPanel.groupings, function(grouping) {
+        _.each(grouping.layers, function(layer) {
+          triggerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
         });
       });
     },
@@ -632,7 +640,14 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           if (options.zoom) {
             if (layer.getLatLng) {
-              map.setView(center, map.getMaxZoom()-1, {reset: true});
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.setStoryLayerVisibility(model);
+                self.isProgrammaticZoom = true;
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
             } else {
               map.fitBounds(layer.getBounds());
             }
@@ -641,6 +656,7 @@ var Shareabouts = Shareabouts || {};
             if (model.attributes.story) {
               // if this model is part of a story, set center and zoom level
               self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
               map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
@@ -653,6 +669,7 @@ var Shareabouts = Shareabouts || {};
         model.trigger('focus');
 
         if (model.get("story")) {
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
@@ -784,15 +801,22 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           if (zoom) {
             if (layer.getLatLng) {
-              map.setView(center, map.getMaxZoom()-1, { reset: true });
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.isProgrammaticZoom = true;
+                self.setStoryLayerVisibility(model);
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
             } else {
               map.fitBounds(layer.getBounds());
             }
 
           } else {
             if (model.attributes.story) {
-              // if this model is part of a story, set center and zoom level
               self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
               map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
@@ -821,6 +845,8 @@ var Shareabouts = Shareabouts || {};
         model.trigger('focus');
 
         if (model.get("story")) {
+          console.log(model.get("story"));
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
