@@ -845,7 +845,6 @@ var Shareabouts = Shareabouts || {};
         model.trigger('focus');
 
         if (model.get("story")) {
-          console.log(model.get("story"));
           if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
