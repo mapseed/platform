@@ -60,17 +60,18 @@ map:
       attribution: 'Hello World'
       type: basemap
 
-    # Carto basemap additions layer
-    - id: additions
-      url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
-      type: cartodb
-
     # Legend Layers
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+
+    - id: story-markers
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      type: landmark
+      sources:
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: duwamish
       type: place
@@ -383,6 +384,12 @@ place_types:
       - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-tree.png      
+  star-stroked:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
 
   # # needs a marker
   # farm:
@@ -606,6 +613,10 @@ sidebar:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
+
+            - id: story-markers
+              title: _(Stories)
+              visibleDefault: false
 
             - id: trees
               title: _(Trees!)
@@ -1109,6 +1120,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1118,6 +1130,10 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
+
+  - title: _(Stories)
+    slug: stories
+    name: stories
 
   - title: _(Green Screen)
     slug: greenscreen
@@ -1142,7 +1158,38 @@ pages:
     hide_from_top_bar: true
 
 story:
-  restoration:
+  community-priorities:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 14
+    default_visible_layers:
+      - restoration
+   
+    order: 
+      - url: skatepark
+      - url: marra
+      - url: 
+
+story:
+  history:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 13
+    default_visible_layers:
+      - restoration
+      - duwamish-original
+    order: 
+      - url: history
+      - url: blackriver
+
+story:
+  swim:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different 
@@ -1153,5 +1200,7 @@ story:
       - restoration
       - watershed
     order: 
-      - url: skatepark
-      - url: upper-green
+      - url: swim
+      - url: swim2
+
+  
