@@ -56,7 +56,7 @@ map:
       type: basemap
 
     - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: //api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
       attribution: 'Hello World'
       type: basemap
 
@@ -825,7 +825,7 @@ place:
           placeholder: _(Description...)
           optional: false
     - category: air_watch  #defines a top-level form category
-      includeOnForm: false
+      includeOnForm: true
       name: location_type  #needs to be "location_type"
       dataset: air
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
@@ -1164,32 +1164,21 @@ story:
     # layers defined below. If a story element defines a different 
     # zoom level and/or visible layers, it will use those wholesale 
     # (that is, no default settings will be inherited).
-    default_zoom: 14
+    default_zoom: 17
     default_visible_layers:
       - restoration
-   
     order: 
-      - url: skatepark
       - url: marra
-      - url: 
+      - url: skatepark
+      - url: concord
+      - url: cesar-chavez
+      - url: rose-end
+      - url: 12th-and-elmgrove
+      - url: rowing
+      - url: south-park-neighborhood-center
+      - url: south-park-community-center
 
-story:
-  history:
-    tagline: _(Next featured site)
-    # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different 
-    # zoom level and/or visible layers, it will use those wholesale 
-    # (that is, no default settings will be inherited).
-    default_zoom: 13
-    default_visible_layers:
-      - restoration
-      - duwamish-original
-    order: 
-      - url: history
-      - url: blackriver
-
-story:
-  swim:
+  pollution:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different 
@@ -1200,7 +1189,28 @@ story:
       - restoration
       - watershed
     order: 
-      - url: swim
-      - url: swim2
+      - url: cso
+        zoom: 12
+        visible_layers: 
+          - cso
+        spotlight: false
+        basemap: dark
+      - url: lafarge
+        zoom: 17
+        basemap: osm
 
-  
+  history:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 13
+    default_visible_layers:
+      - duwamish-original
+    order: 
+      - url: history
+        spotlight: false
+      - url: blackriver
+        spotlight: false
+        zoom: 14
