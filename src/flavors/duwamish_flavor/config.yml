@@ -641,13 +641,13 @@ sidebar:
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
 
-            - id: story-markers
-              title: _(Stories)
-              visibleDefault: false
+            # - id: story-markers
+            #   title: _(Stories)
+            #   visibleDefault: false
 
-            - id: trees
-              title: _(Trees!)
-              visibleDefault: true
+            # - id: trees
+            #   title: _(Trees!)
+            #   visibleDefault: true
 
             # - id: air
             #   title: _(Air Watch Reports)
