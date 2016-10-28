@@ -50,6 +50,7 @@ var Shareabouts = Shareabouts || {};
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
+      this.activeDetailView;
 
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
@@ -64,10 +65,10 @@ var Shareabouts = Shareabouts || {};
         $('#ajax-error-msg').hide();
       });
 
-      $('.list-toggle-btn').click(function(evt){
-        evt.preventDefault();
-        self.toggleListView();
-      });
+      // $('.list-toggle-btn').click(function(evt){
+      //   evt.preventDefault();
+      //   self.toggleListView();
+      // });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
         this.setBodyClass("right-sidebar-visible");
@@ -126,6 +127,7 @@ var Shareabouts = Shareabouts || {};
       this.pagesNavView = (new S.PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
+              placeConfig: this.options.placeConfig,
               router: this.options.router
             })).render();
 
@@ -654,7 +656,7 @@ var Shareabouts = Shareabouts || {};
 
       onLandmarkFound = function(model, response, newOptions) {
         var map = self.mapView.map,
-            layer, center, landmarkDetailView, $responseToScrollTo;
+            layer, center, $responseToScrollTo;
         options = newOptions ? newOptions : options;
 
         layer = self.mapView.layerViews[options.collectionId][model.id].layer
@@ -662,11 +664,14 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
         }
-        landmarkDetailView = self.getLandmarkDetailView(options.collectionId, model);
+        self.activeDetailView = self.getLandmarkDetailView(options.collectionId, model);
+        self.activeDetailView.isModified = false;
+        self.activeDetailView.isEditingToggled = false;
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model);
-        self.showPanel(landmarkDetailView.render().$el, false);
-        landmarkDetailView.delegateEvents();
+        self.showPanel(self.activeDetailView.render().$el, false);
+        self.activeDetailView.delegateEvents();
+
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -807,7 +812,7 @@ var Shareabouts = Shareabouts || {};
 
       onPlaceFound = function(model) {
         var map = self.mapView.map,
-            layer, center, placeDetailView, $responseToScrollTo;
+            layer, center, $responseToScrollTo;
 
         // If this model is a duplicate of one that already exists in the
         // places collection, it may not correspond to a layerView. For this
@@ -822,15 +827,17 @@ var Shareabouts = Shareabouts || {};
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
-        placeDetailView = self.getPlaceDetailView(model);
+        self.activeDetailView = self.getPlaceDetailView(model);
+        self.activeDetailView.isModified = false;
+        self.activeDetailView.isEditingToggled = false;
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el, !!responseId);
-        placeDetailView.delegateEvents();
+        self.showPanel(self.activeDetailView.render().$el, !!responseId);
+        self.activeDetailView.delegateEvents();
         // TODO(Trevor): prevent default form behavior when in editing mode
 
         self.hideNewPin();
@@ -867,7 +874,7 @@ var Shareabouts = Shareabouts || {};
 
         if (responseId) {
           // get the element based on the id
-          $responseToScrollTo = placeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
+          $responseToScrollTo = self.activeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
 
           // call scrollIntoView()
           if ($responseToScrollTo.length > 0) {
@@ -944,14 +951,6 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass('content-visible', 'content-expanded');
     },
     showPanel: function(markup, preventScrollToTop) {
-      console.log("show panel");
-
-      // if new panel content would replace an open, unsaved place detail
-      // view in editor mode, we need to stop the new content from being inserted
-      // and prompt the user
-      console.log("this.$panel", this.$panel);
-      if (this.$panel.hasClass("place-detail")) { console.log("replacing place detail") }
-
       var map = this.mapView.map;
 
       this.unfocusAllPlaces();
@@ -1075,12 +1074,9 @@ var Shareabouts = Shareabouts || {};
     },
     toggleListView: function() {
       if (this.listView.isVisible()) {
-        this.viewMap();
-        this.hideListView();
-        this.options.router.navigate('');
+        this.options.router.navigate('/', {"trigger": true});
       } else {
-        this.showListView();
-        this.options.router.navigate('list');
+        this.options.router.navigate('list', {"trigger": true});
       }
       this.mapView.clearFilter();
     }
