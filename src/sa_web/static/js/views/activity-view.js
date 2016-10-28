@@ -49,9 +49,9 @@ var Shareabouts = Shareabouts || {};
       //this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       // Bind collection events
-      _.each(this.activities, function(collection) {
+      _.each(this.activities, function(collection, key) {
         collection.on('add', self.onAddAction, self);
-        collection.on('reset', self.onResetActivity, self);
+        collection.on('reset', self.onResetActivityWrapper(key), self);
       });
     },
 
@@ -142,7 +142,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    onResetActivity: function(collection) {
+    onResetActivity: function(datasetId, collection) {
       var self = this,
           placeIdsToFetch = [];
 
@@ -152,29 +152,25 @@ var Shareabouts = Shareabouts || {};
         var actionType = actionModel.get('target_type'),
             targetData = actionModel.get('target');
 
-        _.each(self.places, function(collection) {
-          if (!collection.get(targetData.id)) {
-            if (actionType === 'place') {
-              placeIdsToFetch.push(targetData.id);
-            } else {
-              placeIdsToFetch.push(_.last(targetData.place.split('/')));
-            }
+        if (!self.places[datasetId].get(targetData.id)) {
+          if (actionType === 'place') {
+            placeIdsToFetch.push(targetData.id);
+          } else {
+            placeIdsToFetch.push(_.last(targetData.place.split('/')));
           }
-        });
+        }
       });
 
       if (placeIdsToFetch.length > 0) {
-        _.each(self.places, function(collection, key) {
-          collection.fetchByIds(placeIdsToFetch, {
-            // Check for a valid location type before adding it to the collection
-            validate: true,
-            attribute: "properties",
-            attributesToAdd: { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug,
-                               datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id },
-            success: function() {
-              self.render();
-            }
-          });
+        this.places[datasetId].fetchByIds(placeIdsToFetch, {
+          // Check for a valid location type before adding it to the collection
+          validate: true,
+          attribute: "properties",
+          attributesToAdd: { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == datasetId }).slug,
+                             datasetId: datasetId },
+          success: function() {
+            self.render();
+          }
         });
       } else {
         self.render();
