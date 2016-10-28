@@ -641,10 +641,6 @@ sidebar:
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
 
-            # - id: story-markers
-            #   title: _(Stories)
-            #   visibleDefault: false
-
             # - id: trees
             #   title: _(Trees!)
             #   visibleDefault: true
