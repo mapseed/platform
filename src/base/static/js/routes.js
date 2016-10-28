@@ -26,7 +26,31 @@ Shareabouts.Util = Util;
       ':id': 'viewLandmark',
       ':zoom/:lat/:lng': 'viewMap'
     },
-    
+
+    // overwrite route so we can catch route requests that would
+    // navigate away from a detail view with unsaved editor changes
+    route: function(route, handler, callback) {
+      var router = this;
+      if (!callback) callback = this[handler];
+
+      var f = function() {
+        if (this.appView.activeDetailView &&
+          this.appView.activeDetailView.isModified) {
+          if (!this.appView.activeDetailView.onCloseWithUnsavedChanges()) {
+            return false 
+          } else {
+            this.appView.activeDetailView = null;
+            callback.apply(router, arguments);
+          }
+        } else {
+          this.appView.activeDetailView = null;
+          callback.apply(router, arguments);
+        }
+      };
+
+      return Backbone.Router.prototype.route.call(this, route, handler, f);
+    },
+
     initialize: function(options) {
       var self = this,
           startPageConfig,
