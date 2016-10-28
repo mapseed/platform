@@ -644,12 +644,12 @@ var Shareabouts = Shareabouts || {};
                 // TODO(Trevor): this needs to be cleaned up
                 self.setStoryLayerVisibility(model);
                 self.isProgrammaticZoom = true;
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
               } else {
                 map.setView(center, map.getMaxZoom()-1, {reset: true});
               }
             } else {
-              map.fitBounds(layer.getBounds());
+              map.fitBounds(layer.getBounds(), {reset: true});
             }
 
           } else {
@@ -657,9 +657,9 @@ var Shareabouts = Shareabouts || {};
               // if this model is part of a story, set center and zoom level
               self.isProgrammaticZoom = true;
               self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
             } else {
-              map.panTo(center, {animate: true});
+              map.panTo(center, {animate: true, reset: true});
             }
           }
         }
@@ -805,21 +805,21 @@ var Shareabouts = Shareabouts || {};
                 // TODO(Trevor): this needs to be cleaned up
                 self.isProgrammaticZoom = true;
                 self.setStoryLayerVisibility(model);
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
               } else {
                 map.setView(center, map.getMaxZoom()-1, {reset: true});
               }
             } else {
-              map.fitBounds(layer.getBounds());
+              map.fitBounds(layer.getBounds(), {reset: true});
             }
 
           } else {
             if (model.attributes.story) {
               self.isProgrammaticZoom = true;
               self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
             } else {
-              map.panTo(center, {animate: true});
+              map.panTo(center, {animate: true, reset: true});
             }
           }
         }
