@@ -39,6 +39,7 @@
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
       'click .minimize-btn': 'onClickMinimizeBtn'
+      'click .list-toggle-btn': 'toggleListView',
     },
     initialize: function() {
       var self = this,
@@ -65,6 +66,7 @@
       this.placeFormView = null;
       this.placeDetailViews = {};
       this.landmarkDetailViews = {};
+      this.activeDetailView;
 
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
@@ -79,10 +81,10 @@
         $('#ajax-error-msg').hide();
       });
 
-      $('.list-toggle-btn').click(function(evt){
-        evt.preventDefault();
-        self.toggleListView();
-      });
+      // $('.list-toggle-btn').click(function(evt){
+      //   evt.preventDefault();
+      //   self.toggleListView();
+      // });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
         $("body").addClass("right-sidebar-visible");
@@ -141,6 +143,7 @@
       this.pagesNavView = (new PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
+              placeConfig: this.options.placeConfig,
               router: this.options.router
             })).render();
 
@@ -789,14 +792,6 @@
     },
 
     showPanel: function(markup, preventScrollToTop) {
-      console.log("show panel");
-
-      // if new panel content would replace an open, unsaved place detail
-      // view in editor mode, we need to stop the new content from being inserted
-      // and prompt the user
-      console.log("this.$panel", this.$panel);
-      if (this.$panel.hasClass("place-detail")) { console.log("replacing place detail") }
-
       var map = this.mapView.map;
 
       this.unfocusAllPlaces();
@@ -931,12 +926,9 @@
     },
     toggleListView: function() {
       if (this.listView.isVisible()) {
-        this.viewMap();
-        this.hideListView();
-        this.options.router.navigate('');
+        this.options.router.navigate('/', {"trigger": true});
       } else {
-        this.showListView();
-        this.options.router.navigate('list');
+        this.options.router.navigate('list', {"trigger": true});
       }
       this.mapView.clearFilter();
     }
