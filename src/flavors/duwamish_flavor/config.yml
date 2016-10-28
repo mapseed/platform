@@ -611,6 +611,7 @@ sidebar:
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
 
+<<<<<<< 8df2877f0139556d94c5885752b9109156f51d59
 <<<<<<< 8e461303d65997e06616ac15476e52f5d0ffc3d4
             - id: restoration
               title: _(Restoration Sites)
@@ -683,6 +684,8 @@ sidebar:
             #   title: _(Stories)
             #   visibleDefault: false
 
+=======
+>>>>>>> Bring show list button under control of the backbone router
             # - id: trees
             #   title: _(Trees!)
             #   visibleDefault: true
