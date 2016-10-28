@@ -46,7 +46,7 @@ map:
   layers:
     - id: osm
       url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
-      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
     - id: satellite
@@ -72,10 +72,6 @@ map:
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       sources:
         - "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/pugetsound-landmarks.geojson"
-
-    # For our Shareabouts reports
-    - id: reports
-      type: shareabouts
 
     - id: cso
       type: json
@@ -316,7 +312,7 @@ sidebar:
           title: _(Map layers)
           visibleDefault: true
           layers:
-            - id: reports
+            - id: duwamish
               title: _(Community Reports)
               visibleDefault: true
             - id: violators

@@ -962,7 +962,7 @@ img {
 .btn-previous-story-nav {
   vertical-align: top;
   width: 10%;
-  color: #93b7c9;
+  color: rgba(255, 0, 0, 0.43);
   cursor: pointer;
 }
 .btn-previous-story-nav:before {
@@ -970,13 +970,13 @@ img {
   content: "";
 }
 .btn-previous-story-nav:hover {
-  color: #007fbf;
+  color: rgba(255, 0, 0, 0.65);
 }
 
 .btn-next-story-nav {
   vertical-align: top;
   width: 10%;
-  color: #93b7c9;
+  color: rgba(255, 0, 0, 0.43);
   cursor: pointer;
 }
 .btn-next-story-nav:before {
@@ -984,7 +984,7 @@ img {
   content: "";
 }
 .btn-next-story-nav:hover {
-  color: #007fbf;
+  color: rgba(255, 0, 0, 0.65);
 }
 
 .story-nav-disabled {
@@ -1599,7 +1599,6 @@ a.close-btn span {
   font-weight: bold;
 }
 .place-items .place-value {
-  color: #777777;
   word-break: break-word;
 }
 .place-items .multi-select-response {
@@ -1760,7 +1759,7 @@ a.auth-inline {
 
 /* place detail view story bar */
 .place-story-bar {
-  background-color: LightYellow;
+  background-color: #EEEEEE;
   padding: 8px;
   border-radius: 3px;
   margin-top: 10px;

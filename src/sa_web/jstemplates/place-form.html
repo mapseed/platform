@@ -33,30 +33,34 @@
 
     <!-- container for selected category -->
     {{#if isCategorySelected}}
-      <div id="selected-category">
-        <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategory.name }} value={{ selectedCategory.value }} checked>
-        <label for="selected-category-palceholder">
-          <img src={{ selectedCategory.icon_url }} />
-          <span>{{ selectedCategory.label }}</span>
-        </label>
-        <span class="category-menu-hamburger"></span>
-      </div>
+      {{#unless isSingleCategory}}
+        <div id="selected-category">
+          <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategory.name }} value={{ selectedCategory.value }} checked>
+          <label for="selected-category-palceholder">
+            <img src={{ selectedCategory.icon_url }} />
+            <span>{{ selectedCategory.label }}</span>
+          </label>
+          <span class="category-menu-hamburger"></span>
+        </div>
+      {{/unless}}
     {{/if}}
 
     <!-- place buttons for dynamic form categories -->
-    <div id="category-btns">
-      {{#each placeConfig.place_detail}}
-        {{#if this.includeOnForm}}
-          <input type="radio" id={{ category }} class="category-btn clickable">
-          <label for={{ category }}>
-            <img src={{icon_url}} />
-            <span>{{ label }}</span>
-          </label>
-        {{/if}}
-      {{/each}}
-    </div>
-    <div style="clear:both"></div>
-    <br>
+    {{#unless isSingleCategory}}
+      <div id="category-btns">
+        {{#each placeConfig.place_detail}}
+          {{#if this.includeOnForm}}
+            <input type="radio" id={{ category }} class="category-btn clickable">
+            <label for={{ category }}>
+              <img src={{icon_url}} />
+              <span>{{ label }}</span>
+            </label>
+          {{/if}}
+        {{/each}}
+      </div>
+      <div style="clear:both"></div>
+      <br>
+    {{/unless}}
 
     <!-- generate content for selected category -->
     {{#each selectedCategory.fields}}

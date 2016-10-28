@@ -119,11 +119,14 @@ var Shareabouts = Shareabouts || {};
               router: this.options.router
             })).render();
 
+      var basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
+        return "basemaps" in panel;
+      }).basemaps;
       // Init the map view to display the places
       this.mapView = new S.MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
-        sidebarConfig: S.Config.sidebar,
+        basemapConfigs: basemapConfigs,
         legend_enabled: !!this.options.sidebarConfig.legend_enabled,
         places: this.places,
         landmarks: this.landmarks,
@@ -225,7 +228,7 @@ var Shareabouts = Shareabouts || {};
             placeCollections: self.places
           }).render();
       }
-      
+
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
       this.$panelContent = $('#content article');
@@ -253,7 +256,8 @@ var Shareabouts = Shareabouts || {};
             "visibleLayers": config.visible_layers || story.default_visible_layers,
             "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
             "next": story.order[(i + 1) % totalStoryElements].url,
-            "basemap": config.basemap || null
+            "basemap": config.basemap || null,
+            "spotlight": (config.spotlight === false) ? false : true
           }
         });
         story.order = storyStructure;
@@ -308,7 +312,7 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
 
-      // loop through landmark configs 
+      // loop through landmark configs
       _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
           self.landmarks[landmarkConfig.id].fetch({
@@ -351,7 +355,7 @@ var Shareabouts = Shareabouts || {};
           }),
 
           // Do this for every page...
-          pageComplete: function() {            
+          pageComplete: function() {
             var percent;
 
             pagesComplete++;
@@ -544,7 +548,7 @@ var Shareabouts = Shareabouts || {};
           collection: this.places
         });
       }
-      
+
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render().$el);
       this.placeFormView.postRender();
@@ -583,18 +587,25 @@ var Shareabouts = Shareabouts || {};
             $(S).trigger('visibility', [targetLayer.id, false]);
             // set legend checkbox
             $("#map-" + targetLayer.id).prop("checked", false);
-          } 
+          }
         }
       });
     },
 
     restoreDefaultLayerVisibility: function() {
+      var triggerVisibility = function(id, isVisible, isBasemap) {
+        $(S).trigger('visibility', [id, isVisible, isBasemap]);
+        $("#map-" + id).prop("checked", isVisible);
+      }
+
       var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
-      _.each({"groupings": gisLayersPanel.groupings.layers, "basemaps": gisLayersPanel.basemaps}, function(layers, key) {
-        _.each(layers, function(layer) {
-          if (key === "basemaps" && !layer.visibleDefault) return;
-          $(S).trigger('visibility', [layer.id, !!layer.visibleDefault, (key === "basemaps" ? true : false)]);
-          $("#map-" + layer.id).prop("checked", !!layer.visibleDefault);
+      _.each(gisLayersPanel.basemaps, function(basemap) {
+        if (basemap.visibleDefault) triggerVisibility(basemap.id, true, true);
+      });
+
+      _.each(gisLayersPanel.groupings, function(grouping) {
+        _.each(grouping.layers, function(layer) {
+          triggerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
         });
       });
     },
@@ -629,7 +640,14 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           if (options.zoom) {
             if (layer.getLatLng) {
-              map.setView(center, map.getMaxZoom()-1, {reset: true});
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.setStoryLayerVisibility(model);
+                self.isProgrammaticZoom = true;
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
             } else {
               map.fitBounds(layer.getBounds());
             }
@@ -638,6 +656,7 @@ var Shareabouts = Shareabouts || {};
             if (model.attributes.story) {
               // if this model is part of a story, set center and zoom level
               self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
               map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
@@ -650,6 +669,7 @@ var Shareabouts = Shareabouts || {};
         model.trigger('focus');
 
         if (model.get("story")) {
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
@@ -760,7 +780,10 @@ var Shareabouts = Shareabouts || {};
 
         // TODO: We need to handle the non-deterministic case when
         // 'self.mapView.layerViews[model.cid]` is undefined
-        layer = self.mapView.layerViews[model.cid].layer;
+        if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
+          layer = self.mapView.layerViews[datasetId][model.cid].layer;
+        }
+
         placeDetailView = self.getPlaceDetailView(model);
 
         if (layer) {
@@ -778,15 +801,22 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           if (zoom) {
             if (layer.getLatLng) {
-              map.setView(center, map.getMaxZoom()-1, { reset: true });
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.isProgrammaticZoom = true;
+                self.setStoryLayerVisibility(model);
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
             } else {
               map.fitBounds(layer.getBounds());
             }
 
           } else {
             if (model.attributes.story) {
-              // if this model is part of a story, set center and zoom level
               self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
               map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
@@ -810,11 +840,12 @@ var Shareabouts = Shareabouts || {};
             }
           }
         }
-        
+
         // Focus the one we're looking
         model.trigger('focus');
 
         if (model.get("story")) {
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
