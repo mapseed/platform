@@ -65,6 +65,11 @@ You may need to use `sudo`to install these tools.
 sudo easy_install pip
 sudo pip install virtualenv
 ```
+If you are still getting an error, it means you need to install Python Setup Tools.
+```
+sudo apt-get install python-setuptools
+```
+
 Create a new virtual environment inside of the repository folder, and install the project requirements:
 
 ```

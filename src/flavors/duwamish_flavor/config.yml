@@ -56,14 +56,9 @@ map:
       type: basemap
 
     - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: //api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
       attribution: 'Hello World'
       type: basemap
-
-    # Carto basemap additions layer
-    - id: additions
-      url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
-      type: cartodb
 
     # Legend Layers
     - id: restoration
@@ -71,6 +66,12 @@ map:
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+
+    - id: story-markers
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      type: landmark
+      sources:
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: duwamish
       type: place
@@ -136,21 +137,21 @@ map:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Overflowed in the last 48 hrs"'
           icon:
-            iconUrl: /static/css/images/markers/dot-dbcf2c.png
+            iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Overflowing now"'
           icon:
-            iconUrl: /static/css/images/markers/dot-f95016.png
+            iconUrl: /static/css/images/markers/dot-e1264d.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Data not available"'
           icon:
-            iconUrl: /static/css/images/markers/dot-5359d7.png
+            iconUrl: /static/css/images/markers/dot-0d85e9.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
@@ -383,6 +384,12 @@ place_types:
       - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-tree.png      
+  star-stroked:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
 
   # # needs a marker
   # farm:
@@ -605,6 +612,10 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
+              visibleDefault: true
+
+            - id: story-markers
+              title: _(Stories)
               visibleDefault: false
 
             - id: trees
@@ -814,7 +825,7 @@ place:
           placeholder: _(Description...)
           optional: false
     - category: air_watch  #defines a top-level form category
-      includeOnForm: false
+      includeOnForm: true
       name: location_type  #needs to be "location_type"
       dataset: air
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
@@ -1109,6 +1120,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1118,6 +1130,10 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
+
+  - title: _(Stories)
+    slug: stories
+    name: stories
 
   - title: _(Green Screen)
     slug: greenscreen
@@ -1142,7 +1158,27 @@ pages:
     hide_from_top_bar: true
 
 story:
-  restoration:
+  community-priorities:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 17
+    default_visible_layers:
+      - restoration
+    order: 
+      - url: marra
+      - url: skatepark
+      - url: concord
+      - url: cesar-chavez
+      - url: rose-end
+      - url: 12th-and-elmgrove
+      - url: rowing
+      - url: south-park-neighborhood-center
+      - url: south-park-community-center
+
+  pollution:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different 
@@ -1153,5 +1189,28 @@ story:
       - restoration
       - watershed
     order: 
-      - url: skatepark
-      - url: upper-green
+      - url: cso
+        zoom: 12
+        visible_layers: 
+          - cso
+        spotlight: false
+        basemap: dark
+      - url: lafarge
+        zoom: 17
+        basemap: osm
+
+  history:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 13
+    default_visible_layers:
+      - duwamish-original
+    order: 
+      - url: history
+        spotlight: false
+      - url: blackriver
+        spotlight: false
+        zoom: 14

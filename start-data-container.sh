@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# echo 'starting...'
+echo 'starting build...'
 npm run build
-# echo 'starting staticfile collection'
+echo 'starting staticfile collection...'
 python /platform/src/manage.py collectstatic --noinput
 # whoami
-cp -r /platform/staticfiles /${FLAVOR}/
-ln -s /${FLAVOR}/staticfiles /${FLAVOR}/static
-# ls -la /air
-# echo 'all done!'
+cp -r /platform/staticfiles /${CONTAINER}/
+ln -s /${CONTAINER}/staticfiles /${CONTAINER}/static
+ls -la /${CONTAINER}
+echo 'all done!'

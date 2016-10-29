@@ -375,13 +375,13 @@ sidebar:
       basemaps:
         - id: osm
           title: _(OpenStreetMap)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
         - id: dark
           title: _(Dark)
-          visibleDefault: false    
+          visibleDefault: true    
       groupings:
         - id: grp-community
           title: _(Community Data)

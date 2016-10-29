@@ -35,7 +35,8 @@ var Shareabouts = Shareabouts || {};
           zoom: story.order[url].zoom,
           panTo: story.order[url].panTo,
           visibleLayers: story.order[url].visibleLayers,
-          basemap: story.order[url].basemap
+          basemap: story.order[url].basemap,
+          spotlight: story.order[url].spotlight
         }
       }
     });
