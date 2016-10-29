@@ -89,6 +89,8 @@
       // merged together, for sorting and filtering purposes
       this.collection = new PlaceCollection([]);
 
+      this.unrenderedItems = new S.PlaceCollection([]);
+
       _.each(this.options.placeCollections, function(collection) {
         collection.on("add", self.addModel, self);
         collection.on("sync", self.onSync, self);
@@ -117,7 +119,11 @@
       this.views[view.model.cid] = view;
     },
     addModel: function(model) {
-      this.collection.add(model);
+      if (this.collection.length < this.numItemsShown) {
+        this.collection.add(model);
+      } else {
+        this.unrenderedItems.add(model);
+      }
     },
     renderList: function() {
       var self = this;
@@ -144,7 +150,7 @@
       // 200 = number of pixels from bottom to load more
       if (scrollTop + 200 >= totalHeight) {
         this.numItemsShown += this.itemsPerPage;
-        this.renderList();
+        this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
       }
     },
     handleSearchInput: function(evt) {
@@ -232,50 +238,47 @@
       var sortFunction = this.sortBy + 'Sort';
 
       this.collection.comparator = this[sortFunction];
+      this.unrenderedItems.comparator = this[sortFunction];
       this.collection.sort();
+      this.unrenderedItems.sort();
       this.renderList();
       this.search(this.ui.searchField.val());
     },
     clearFilters: function() {
       this.collectionFilters = {};
-      this.applyFilters(this.collectionFilters, this.searchTerm);
+      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
     },
     filter: function(filters) {
       _.extend(this.collectionFilters, filters);
-      this.applyFilters(this.collectionFilters, this.searchTerm);
+      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
     },
     search: function(term) {
       this.searchTerm = term;
-      this.applyFilters(this.collectionFilters, this.searchTerm);
+      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
     },
-    applyFilters: function(filters, term) {
+    applyFilters: function(filters, term, max) {
       var val, key, i;
 
       term = term.toUpperCase();
-      this.collection.each(function(model) {
-        var show = function() { model.trigger('show'); },
-            hide = function() { model.trigger('hide'); },
-            submitter, 
-            locationType = model.get("location_type"),
-            placeConfig = _.find(Shareabouts.Config.place.place_detail, function(config) { return config.category === locationType });
+      this.unrenderedItems.add(this.collection.models);
+      this.collection.reset();
 
-        // If the model doesn't match one of the filters, hide it.
-        for (key in filters) {
-          val = filters[key];
-          if (_.isFunction(val) && !val(model)) {
-            return hide();
-          }
-          else if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
-            return hide();
-          }
+      this.unrenderedItems.each(function(model, index) {
+        if (index > max) {
+          return;
         }
 
+        var submitter,
+            locationType = model.get("location_type"),
+            placeConfig = _.find(S.Config.place.place_detail, function(config) { return config.category === locationType });
+
         // Check whether the remaining models match the search term
-        for (var i = 0; i < placeConfig.fields.length; i++) { 
+        for (var i = 0; i < placeConfig.fields.length; i++) {
           key = placeConfig.fields[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
-            return show();
+            this.unrenderedItems.remove(model);
+            return this.collection.add(model);
           }
         };
 
@@ -283,23 +286,22 @@
         // with FB or Twitter. We handle it specially because it is an object,
         // not a string.
         submitter = model.get('submitter');
-        if (!show && submitter) {
+        if (submitter) {
           if (submitter.name && submitter.name.toUpperCase().indexOf(term) !== -1 ||
               submitter.username && submitter.username.toUpperCase().indexOf(term) !== -1) {
-            return show();
+            this.unrenderedItems.remove(model);
+            return this.collection.add(model);
           }
         }
 
         // If the location_type has a label, we should search in it also.
-        locationType = Shareabouts.Config.flavor.place_types[model.get('location_type')];
-        if (!show && locationType && locationType.label) {
+        locationType = S.Config.flavor.place_types[model.get('location_type')];
+        if (locationType && locationType.label) {
           if (locationType.label.toUpperCase().indexOf(term) !== -1) {
-            return show();
+            this.unrenderedItems.remove(model);
+            return this.collection.add(model);
           }
         }
-
-        // If we've fallen through here, hide the item.
-        return hide();
       }, this);
     },
     isVisible: function() {
