@@ -60,11 +60,19 @@ var Shareabouts = Shareabouts || {};
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+
       return this;
     },
+    // called from the app view
     postRender: function() {
-      // initialize datetime picker, if relevant
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
+      // NOTE: the extra call to initialize the date-time picker is necessary here,
+      // because on a single-category form the call to initialize in the render() method
+      // above will fail, since the form content will not yet have been inserted into
+      // the DOM by the app view
+      if (this.formState.isSingleCategory) {
+        $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+      }
     },
     remove: function() {
       this.unbind();
