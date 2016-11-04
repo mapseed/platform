@@ -458,7 +458,7 @@ sidebar:
           visibleDefault: true
           layers:
             - id: gtopenspace
-              title: _(Community Reports)
+              title: _(Priority Sites)
               visibleDefault: true
 
             - id: cleanup
@@ -558,7 +558,7 @@ place:
   #### begin dynamic form config ####
   #TODO: maybe add an autocomplete
   place_detail:
-    high:
+    - category: high
       includeOnForm: true
       name: location_type
       dataset: gtopenspace
@@ -578,7 +578,7 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
-    medium:
+    - category: medium
       includeOnForm: true
       name: location_type
       dataset: gtopenspace
@@ -598,7 +598,7 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
-    low:
+    - category: low
       includeOnForm: true
       name: location_type
       dataset: gtopenspace
@@ -619,7 +619,7 @@ place:
           placeholder: _(Enter comment...)
           optional: true
 
-    feature:
+    - category: feature
       includeOnForm: false     
       name: location_type
       dataset: gtopenspace
@@ -777,30 +777,32 @@ pages:
 
 story:
   test_story1:
-      tagline: _(Explore other priority sites)
-      order: 
-        - idea/552
-        - idea/554
-        - idea/555
-        - idea/556
-        - idea/558
-        - idea/559
-        - idea/560
-        - idea/564
-        - idea/572
-        - idea/573
-        - idea/594
-        - idea/595
-        - idea/574
-        - idea/575
-        - idea/576
-        - idea/580
-        - idea/585
-        - idea/586
+    default_visible_layers:
+      - gtopenspace
+    tagline: _(Explore other priority sites)
+    order: 
+      - url: idea/552
+      - url: idea/554
+      - url: idea/555
+      - url: idea/556
+      - url: idea/558
+      - url: idea/559
+      - url: idea/560
+      - url: idea/564
+      - url: idea/572
+      - url: idea/573
+      - url: idea/594
+      - url: idea/595
+      - url: idea/574
+      - url: idea/575
+      - url: idea/576
+      - url: idea/580
+      - url: idea/585
+      - url: idea/586
 
   test_story2:
-      tagline: _(This is a priority site. Use arrows to explore others)
-      order: 
-        - friends-of-georgetown-history-museum
-        - ruby-chow-park
-        - georgetown-steam-plant
+    tagline: _(This is a priority site. Use arrows to explore others)
+    order: 
+      - url: friends-of-georgetown-history-museum
+      - url: ruby-chow-park
+      - url: georgetown-steam-plant
