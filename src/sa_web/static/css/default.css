@@ -1,12 +1,4 @@
 @charset "UTF-8";
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 /* normalize-scss 3.0.3+normalize.3.0.3 | MIT/GPLv2 License | bit.ly/normalize-scss */
 /**
  * Establish a vertical rhythm unit using $base-font-size, $base-line-height,
@@ -551,379 +543,109 @@ th {
   padding: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 5, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 html {
   min-height: 100%;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 8, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 body {
   height: 100%;
   text-align: left;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 11, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 body:after {
   content: "mobile";
   display: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 a {
   color: #36454f;
 }
-=======
-/* line 17, ../sass/_basic.sass */
-a {
-  color: #36454f;
-}
-/* line 19, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
-a {
-  color: #36454f;
-}
->>>>>>> gtopen space round 2 setup
 a:active, a:visited {
   color: #36454f;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 label {
   color: #36454f;
 }
-=======
-/* line 22, ../sass/_basic.sass */
-label {
-  color: #36454f;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-label {
-  color: #36454f;
-}
-=======
-/* line 22, ../sass/_basic.sass */
-label {
-  color: #36454f;
-}
->>>>>>> improve story arrows, update story content
-/* line 24, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
-label {
-  color: #36454f;
-}
->>>>>>> gtopen space round 2 setup
 label:active, label:visited {
   color: #36454f;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 27, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a:hover, label:hover {
   color: #00aaff;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 31, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a:hover, a:active {
   outline: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 36, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 body {
   line-height: 1.25;
   font-family: "Roboto", sans-serif;
   color: #36454f;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 41, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 select, input, textarea {
   font-family: "Roboto", sans-serif;
   color: #36454f;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 45, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 48, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 h1, h2 {
   font-size: 2em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 51, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 h3 {
   font-size: 1.75em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 54, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 h4 {
   font-size: 1.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 57, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 h5 {
   font-size: 1.25em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 60, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 h6 {
   font-size: 1em;
   text-transform: uppercase;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 64, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 p {
   margin: 0 0 1.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 69, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 ul, ol, dl {
   margin-bottom: 0.75em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 72, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 li {
   padding-bottom: 0.75em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 76, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 nav ul, nav ol {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 81, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .unstyled-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 86, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 nav li, .unstyled-list li {
   padding-bottom: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 89, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 strong {
   font-weight: 800;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 92, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 hr {
   margin: 1.5em 0;
   border: 1px solid #eeeeee;
@@ -933,52 +655,15 @@ hr {
   border-left: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .clearfix {
   zoom: 1;
 }
-=======
-/* line 104, ../sass/_basic.sass */
-.clearfix {
-  zoom: 1;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-.clearfix {
-  zoom: 1;
-}
-=======
-/* line 104, ../sass/_basic.sass */
-.clearfix {
-  zoom: 1;
-}
->>>>>>> improve story arrows, update story content
-/* line 105, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
-.clearfix {
-  zoom: 1;
-}
->>>>>>> gtopen space round 2 setup
 .clearfix:before {
   content: " ";
   display: block;
   height: 0;
   visibility: hidden;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 110, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .clearfix:after {
   content: " ";
   display: block;
@@ -987,143 +672,44 @@ hr {
   clear: both;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 119, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .is-hidden, .hidden {
   display: none;
   visibility: hidden;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 125, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .is-screen-reader-text, .is-visuallyhidden {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 133, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .is-invisible {
   visibility: hidden;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 136, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .nobreak {
   white-space: nowrap;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 139, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .capitalize {
   text-transform: capitalize;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 144, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 img {
   max-width: 100%;
   height: auto;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 148, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .icon-inline {
   height: 1.5em;
   width: auto;
   margin: 0 0.25em -0.325em 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 153, ../sass/_basic.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .icon-muted {
   opacity: 0.75;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 3, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn {
   display: inline-block;
   *display: inline;
@@ -1142,17 +728,6 @@ img {
   border: 3px solid rgba(0, 0, 0, 0.05);
   border-radius: 3px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 20, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn:visited, .btn:link {
   display: inline-block;
   *display: inline;
@@ -1171,79 +746,24 @@ img {
   border: 3px solid rgba(0, 0, 0, 0.05);
   border-radius: 3px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 37, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn:hover {
   background-color: #93b7c9;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 40, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-primary {
   background-color: #00aaff;
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 44, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-primary:visited, .btn-primary:link {
   background-color: #00aaff;
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 48, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-primary:hover {
   background-color: #007fbf;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 51, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-secondary {
   background-color: #ccc;
   color: #007fbf;
@@ -1251,17 +771,6 @@ img {
   border: none;
   box-shadow: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 57, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-secondary:visited, .btn-secondary:link {
   background-color: #ccc;
   color: #007fbf;
@@ -1269,66 +778,22 @@ img {
   border: none;
   box-shadow: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 63, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-secondary:hover {
   background-color: #007fbf;
   color: #fff;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 67, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-disabled {
   background-color: #eee;
   color: #ccc;
   box-shadow: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 71, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-disabled:visited, .btn-disabled:link, .btn-disabled:hover {
   background-color: #eee;
   color: #ccc;
   box-shadow: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 76, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-block {
   clear: both;
   display: block;
@@ -1338,17 +803,6 @@ img {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 84, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-block:visited, .btn-block:link {
   clear: both;
   display: block;
@@ -1359,65 +813,21 @@ img {
   box-sizing: border-box;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 93, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-large {
   font-size: 1.25em;
   padding: 0.75em 1em 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 97, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .btn-small {
   font-size: 0.75em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 104, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .big-btn {
   position: absolute;
   bottom: 0;
   left: 0;
   opacity: 0;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 109, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .big-btn + label {
   position: relative;
   float: left;
@@ -1434,17 +844,6 @@ img {
   padding-right: 10px;
   border: 2px solid #D1D3D4;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 124, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .big-btn + label:before {
   position: absolute;
   display: block;
@@ -1456,67 +855,19 @@ img {
   background: #D1D3D4;
   border-radius: 1px 0 0 1px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .big-btn:hover:not(:checked) + label {
   color: #444444;
 }
-=======
-/* line 135, ../sass/_buttons.sass */
-.big-btn:hover:not(:checked) + label {
-  color: #444444;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-.big-btn:hover:not(:checked) + label {
-  color: #444444;
-}
-=======
-/* line 135, ../sass/_buttons.sass */
-.big-btn:hover:not(:checked) + label {
-  color: #444444;
-}
->>>>>>> improve story arrows, update story content
-/* line 137, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
-.big-btn:hover:not(:checked) + label {
-  color: #444444;
-}
->>>>>>> gtopen space round 2 setup
 .big-btn:hover:not(:checked) + label:before {
   content: "✔";
   text-indent: 0.9em;
   color: #EEEEEE;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 142, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .big-btn:checked + label {
   color: #222222;
   font-weight: bold;
   border: 2px solid #f25218;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 146, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .big-btn:checked + label:before {
   content: "✔";
   text-indent: 0.9em;
@@ -1525,42 +876,13 @@ img {
 }
 
 /* Place type category button styles */
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 153, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #category-btns {
   margin-bottom: 20px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .category-btn {
   display: none;
 }
-=======
-/* line 156, ../sass/_buttons.sass */
-.category-btn {
-  display: none;
-}
-/* line 158, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
-.category-btn {
-  display: none;
-}
->>>>>>> gtopen space round 2 setup
 .category-btn + label {
   top: 0px;
   text-transform: uppercase;
@@ -1572,17 +894,6 @@ img {
   height: 46px;
   margin-bottom: 1px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 168, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .category-btn + label > img {
   height: 36px;
   width: 30px;
@@ -1593,17 +904,6 @@ img {
   padding: 3px;
   display: inline;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 177, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .category-btn + label > span {
   width: 210px;
   position: absolute;
@@ -1617,99 +917,29 @@ img {
   padding-top: 11px;
   padding-bottom: 11px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 190, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .category-btn:checked + label, .category-btn:hover + label {
   opacity: 1;
   cursor: pointer;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .category-btn:checked + label > img, .category-btn:hover + label > img {
   border-color: #f25218;
 }
-=======
-/* line 193, ../sass/_buttons.sass */
-.category-btn:checked + label > img, .category-btn:hover + label > img {
-  border-color: #f25218;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-.category-btn:checked + label > img, .category-btn:hover + label > img {
-  border-color: #f25218;
-}
-=======
-/* line 193, ../sass/_buttons.sass */
-.category-btn:checked + label > img, .category-btn:hover + label > img {
-  border-color: #f25218;
-}
->>>>>>> improve story arrows, update story content
-/* line 195, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
-.category-btn:checked + label > img, .category-btn:hover + label > img {
-  border-color: #f25218;
-}
->>>>>>> gtopen space round 2 setup
 .category-btn:checked + label > span, .category-btn:hover + label > span {
   background-color: #f25218;
   color: white;
 }
 
 /* Selected category placeholder styles */
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 200, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #selected-category {
   position: relative;
   width: 280px;
   margin-right: 0;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 204, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #selected-category label {
   cursor: default !important;
 }
 
 /* Other dynamic form styles */
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 208, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .category-menu-hamburger {
   width: 30px;
   height: 36px;
@@ -1718,104 +948,49 @@ img {
   top: 5px;
   left: 290px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 215, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .category-menu-hamburger:before {
   font-family: FontAwesome;
   font-size: 2.2em;
   content: "";
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 219, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .category-menu-hamburger:hover {
   color: #f25218;
   cursor: pointer;
 }
 
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 /* Story bar styles */
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
->>>>>>> gtopen space round 2 setup
 .btn-previous-story-nav {
   vertical-align: top;
   width: 10%;
-<<<<<<< e036a89eb7fcac0c03b84659ba7d7ed8545a4e2e
   color: rgba(255, 0, 0, 0.43);
-=======
-  color: #f25050;
->>>>>>> change story buttons to red
   cursor: pointer;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 225, ../sass/_buttons.sass */
-=======
-/* line 224, ../sass/_buttons.sass */
->>>>>>> temp commit
-.btn-previous-story-nav {
-=======
 .btn-previous-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
 .btn-previous-story-nav:hover {
-  color: #f07171;
+  color: rgba(255, 0, 0, 0.65);
 }
 
 .btn-next-story-nav {
->>>>>>> gtopen space round 2 setup
+  vertical-align: top;
   width: 10%;
-<<<<<<< e036a89eb7fcac0c03b84659ba7d7ed8545a4e2e
-  color: white;
-=======
-  color: #f25050;
->>>>>>> change story buttons to red
+  color: rgba(255, 0, 0, 0.43);
   cursor: pointer;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
-/* line 230, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 228, ../sass/_buttons.sass */
->>>>>>> temp commit
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-=======
 .btn-next-story-nav:before {
   font-size: 3.3em;
   content: "";
 }
 .btn-next-story-nav:hover {
-  color: #f07171;
+  color: rgba(255, 0, 0, 0.65);
 }
 
 .story-nav-disabled {
   visibility: hidden;
 }
 
->>>>>>> gtopen space round 2 setup
 fieldset {
   border: 0;
   margin: 0;
@@ -1898,329 +1073,12 @@ select {
 .form-spinner {
   clear: both;
   padding: 1em;
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* Story bar styles */
-/* line 225, ../sass/_buttons.sass */
-.btn-previous-story-nav {
-  color: white;
-  cursor: pointer;
-  float: left;
-  width: 10%;
-}
-/* line 230, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-.btn-previous-story-nav:before {
-  font-size: 3.3em;
-  content: "";
-}
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-.btn-previous-story-nav:hover {
-  color: rgba(255, 0, 0, 0.65);
 }
 
-.btn-next-story-nav {
-  vertical-align: top;
-  width: 10%;
-  color: rgba(255, 0, 0, 0.43);
-  cursor: pointer;
-}
-=======
-/* line 233, ../sass/_buttons.sass */
-=======
-/* line 231, ../sass/_buttons.sass */
->>>>>>> temp commit
-=======
-/* line 233, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-.btn-previous-story-nav:hover {
-  color: #93b7c9;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-/* line 234, ../sass/_buttons.sass */
-.btn-next-story-nav {
-  width: 10%;
-  color: white;
-  cursor: pointer;
-}
-<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
-/* line 242, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 238, ../sass/_buttons.sass */
->>>>>>> temp commit
-=======
-/* line 236, ../sass/_buttons.sass */
-.btn-next-story-nav {
-  color: white;
-  cursor: pointer;
-  float: right;
-  width: 10%;
-  text-align: right;
-}
-/* line 242, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-.btn-next-story-nav:before {
-  font-size: 3.3em;
-  content: "";
-}
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-.btn-next-story-nav:hover {
-  color: rgba(255, 0, 0, 0.65);
-}
-
-=======
-/* line 245, ../sass/_buttons.sass */
-=======
-/* line 241, ../sass/_buttons.sass */
->>>>>>> temp commit
-=======
-/* line 245, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-.btn-next-story-nav:hover {
-  color: #93b7c9;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 2adb16bd02e30dbc203849927cb3a6f2e258d7d5
-/* line 248, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 244, ../sass/_buttons.sass */
->>>>>>> temp commit
-=======
-/* line 248, ../sass/_buttons.sass */
->>>>>>> improve story arrows, update story content
-.story-nav-disabled {
-  visibility: hidden;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 5, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 5, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0 0 1.2em;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 10, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 10, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-label {
-  font-size: 0.75em;
-  margin-right: 0.5em;
-  padding-bottom: 0;
-}
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 16, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 16, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-label small {
-  text-transform: none;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 20, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 20, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-input[type=date], input[type=datetime], input[type=datetime-local], input[type=email], input[type=month], input[type=number], input[type=password], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week] {
-  outline: 0;
-  border: 0.25em solid #a3c7d9;
-  border-radius: 0;
-  padding: 0.5em;
-  display: block;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 42, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 42, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-select, textarea {
-  outline: 0;
-  border: 0.25em solid #a3c7d9;
-  border-radius: 0;
-  padding: 0.5em;
-  display: block;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 53, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 53, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-input:focus, select:focus {
-  outline: 2px solid #007fbf;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 56, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 56, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-textarea {
-  height: 6.5em;
-  resize: none;
-}
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 57, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 57, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-textarea:focus {
-  outline: 2px solid #007fbf;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 62, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 62, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-select {
-  background-color: #fff;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 69, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 69, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-.form-submitted .gatekeeper-invalid, .form-submitted input:invalid, .form-submitted textarea:invalid, .form-submitted select:invalid {
-  outline: 2px solid #b2182b;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 72, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 72, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-.fileinput-container {
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
->>>>>>> improve story arrows, update story content
-}
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 76, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 76, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-.fileinput-container input {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 86, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-=======
-/* line 86, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-.fileinput-name {
-  display: inline-block;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-/* line 89, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-/* line 89, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-.form-spinner {
-  clear: both;
-  padding: 1em;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-=======
->>>>>>> improve story arrows, update story content
-/* line 93, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-=======
-}
-
->>>>>>> gtopen space round 2 setup
 .form-field {
   margin: 0 0 1em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-=======
->>>>>>> gtopen space round 2 setup
 .form-annotation {
   font-size: 0.8em;
   font-style: italic;
@@ -2230,39 +1088,6 @@ select {
   display: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 96, ../sass/_forms.sass */
->>>>>>> improve story arrows, update story content
-.form-annotation {
-  font-size: 0.8em;
-  font-style: italic;
-}
-
-/* line 100, ../sass/_forms.sass */
-.alt-label {
-  display: none;
-}
-
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-=======
-/* line 96, ../sass/_forms.sass */
-.form-annotation {
-  font-size: 0.8em;
-  font-style: italic;
-}
-
-/* line 100, ../sass/_forms.sass */
-.alt-label {
-  display: none;
-}
-
-=======
->>>>>>> improve story arrows, update story content
-/* line 6, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #site-header {
   position: relative;
   z-index: 99;
@@ -2270,17 +1095,6 @@ select {
   box-shadow: 0 0.125em 0 rgba(0, 0, 0, 0.2);
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 13, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #site-title {
   font-size: 0.75em;
   font-family: "Alegreya Sans", sans-serif;
@@ -2290,32 +1104,10 @@ select {
   padding: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 21, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .has-pages #site-title {
   padding-left: 3.25em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 25, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #site-title a:link, #site-title a:visited {
   display: block;
   font-family: "Alegreya Sans", sans-serif;
@@ -2324,32 +1116,10 @@ select {
   text-decoration: none;
   color: #13b309;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 32, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #site-title a:hover {
   color: orange;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 37, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #nav-btn {
   color: #bbb;
   font-size: 2em;
@@ -2365,17 +1135,6 @@ select {
   top: 0.25em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 54, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .access {
   font-weight: bold;
   text-align: center;
@@ -2385,58 +1144,18 @@ select {
   padding: 0;
   display: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .access.is-exposed {
   display: block;
 }
-=======
-/* line 62, ../sass/_header.sass */
-.access.is-exposed {
-  display: block;
-}
-/* line 64, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
-.access.is-exposed {
-  display: block;
-}
->>>>>>> gtopen space round 2 setup
 .access li {
   position: relative;
   padding-bottom: 0.5em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 67, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .access li li {
   padding-top: 0.5em;
   padding-bottom: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 75, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #sign-in-btn {
   background-color: #007fbf;
   color: #fff;
@@ -2451,32 +1170,10 @@ select {
   margin: 0.25em, 0.75em, 0, 0.5em;
   height: 100%;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 88, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #sign-in-btn:hover {
   color: #a3c7d9;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 91, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .sign-in-menu {
   font-weight: bold;
   text-align: center;
@@ -2486,116 +1183,39 @@ select {
   padding: 0;
   display: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 99, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .sign-in-menu.is-exposed {
   display: block;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 102, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .sign-in-menu-item {
   float: left;
   width: 50%;
   font-weight: bold;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 108, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.auth-btn {
   text-decoration: none;
   display: block;
   padding: 0.5em;
   box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 113, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.twitter-btn {
   background-color: #4099FF;
   color: #fff !important;
   margin-right: 0.25em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 117, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.facebook-btn {
   background-color: #3b5998;
   color: #fff !important;
   margin-left: 0.25em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 122, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .authed #sign-in-btn {
   font-size: 1em;
   padding: 0;
   outline: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 127, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .header-avatar {
   float: right;
   width: 3em;
@@ -2603,33 +1223,11 @@ a.facebook-btn {
   max-width: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 133, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .signed-in-as {
   font-weight: normal;
   font-size: 0.875em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 139, ../sass/_header.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.logout-btn {
   color: #a3c7d9;
   font-size: 0.875em;
@@ -2638,113 +1236,36 @@ a.logout-btn {
   text-transform: uppercase;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 5, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #map-container {
   position: relative;
   background: #a3c7d9;
   z-index: 10;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 10, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #map {
   background: #a3c7d9;
   height: 150px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 17, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .locate-me {
   background-image: url(images/locate-me.png);
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 21, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #map .leaflet-bar a {
   width: 33px;
   height: 33px;
   line-height: 33px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 25, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #map .leaflet-bar a:hover {
   width: 33px;
   height: 33px;
   line-height: 33px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 29, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #map .leaflet-control-attribution {
   font-size: 9px;
   -webkit-text-size-adjust: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 38, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #add-place-btn-container {
   background: url(images/lightpaperfibers.png);
   padding: 0.5em 0.5em 0.75em;
@@ -2754,42 +1275,13 @@ a.logout-btn {
   border-bottom: 1px solid #666;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 48, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .content-visible #add-place-btn-container {
   display: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 #centerpoint {
   display: none;
 }
-=======
-/* line 54, ../sass/_map.sass */
-#centerpoint {
-  display: none;
-}
-/* line 56, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
-#centerpoint {
-  display: none;
-}
->>>>>>> gtopen space round 2 setup
 #centerpoint.newpin {
   overflow: visible;
   position: absolute;
@@ -2802,51 +1294,18 @@ a.logout-btn {
   margin: -44px 0 0 -12px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 67, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #spotlight-place-mask {
   height: 100%;
   width: 100%;
   margin: 0 auto;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 72, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #spotlight-place-mask-fill {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 78, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #centerpoint.newpin .x {
   display: block;
   position: absolute;
@@ -2862,27 +1321,9 @@ a.logout-btn {
   -ms-transition: opacity 0.25s;
   transition: opacity 0.25s;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 #centerpoint.newpin:hover .x, #centerpoint.newpin.dragging .x {
   opacity: 1;
 }
-=======
-/* line 92, ../sass/_map.sass */
-#centerpoint.newpin:hover .x, #centerpoint.newpin.dragging .x {
-  opacity: 1;
-}
-/* line 94, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
-#centerpoint.newpin:hover .x, #centerpoint.newpin.dragging .x {
-  opacity: 1;
-}
->>>>>>> gtopen space round 2 setup
 #centerpoint.newpin .shadow {
   display: block;
   height: 47px;
@@ -2897,33 +1338,11 @@ a.logout-btn {
   -ms-transition: opacity 0s, background-position 0.3s ease;
   transition: opacity 0s, background-position 0.3s ease;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 107, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #centerpoint.newpin:hover .shadow, #centerpoint.newpin.dragging .shadow {
   opacity: 0.2;
   background-image: url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png), url(images/marker-shadow.png);
   background-position: 0px -3px, 3px -3px, 6px -3px, 0px -6px, 3px -6px, 6px -6px, 0px -9px, 3px -9px, 6px -9px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 111, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #centerpoint.newpin .marker {
   display: block;
   width: 25px;
@@ -2937,32 +1356,10 @@ a.logout-btn {
   -ms-transition: top 0.4s ease;
   transition: top 0.4s ease;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 123, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #centerpoint.newpin:hover .marker, #centerpoint.newpin.dragging .marker {
   top: -20px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 128, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .drag-marker-instructions {
   background-color: LightYellow;
   background-color: rgba(240, 240, 0, 0.2);
@@ -2975,17 +1372,6 @@ a.logout-btn {
   border-radius: 0.325em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 139, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .drag-marker-warning {
   background-color: LightYellow;
   background-color: rgba(240, 240, 0, 0.2);
@@ -3000,17 +1386,6 @@ a.logout-btn {
   background-color: rgba(242, 206, 206, 0.8);
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 154, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #ajax-error-msg {
   display: none;
   position: absolute;
@@ -3025,17 +1400,6 @@ a.logout-btn {
   border-radius: 4px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 167, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .cluster-large {
   border-radius: 20px;
   width: 40px;
@@ -3045,17 +1409,6 @@ a.logout-btn {
   font-size: 24px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 175, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .cluster-small {
   border-radius: 30px;
   width: 60px;
@@ -3067,17 +1420,6 @@ a.logout-btn {
   box-sizing: border-box;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 190, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .progress-bar {
   background: rgba(85, 85, 85, 0.5);
   height: 1.5em;
@@ -3087,17 +1429,6 @@ a.logout-btn {
   cursor: default;
   pointer-events: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 198, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .progress-bar strong {
   position: absolute;
   top: 0;
@@ -3109,17 +1440,6 @@ a.logout-btn {
   text-transform: uppercase;
   text-shadow: 0 0 0.25em #555555;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 208, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .progress-bar span {
   background: #00aaff;
   display: block;
@@ -3133,17 +1453,6 @@ a.logout-btn {
   white-space: nowrap;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 220, ../sass/_map.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #map-progress {
   position: absolute;
   top: 10px;
@@ -3155,17 +1464,6 @@ a.logout-btn {
   font-size: 1.25em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 6, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #content {
   background: #fff;
   padding: 1em 1em 2em;
@@ -3175,17 +1473,6 @@ a.logout-btn {
   display: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 16, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.close-btn {
   background: #fff;
   color: #ff5e99;
@@ -3203,35 +1490,9 @@ a.close-btn {
   box-shadow: 0 -0.325em 0 rgba(0, 0, 0, 0.1);
   border-radius: 0.325em 0.325em 0 0;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 a.close-btn:hover {
   color: #cd2c67;
 }
-=======
-/* line 32, ../sass/_content.sass */
-a.close-btn:hover {
-  color: #cd2c67;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-a.close-btn:hover {
-  color: #cd2c67;
-}
-=======
-/* line 32, ../sass/_content.sass */
-a.close-btn:hover {
-  color: #cd2c67;
-}
->>>>>>> improve story arrows, update story content
-/* line 34, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
-a.close-btn:hover {
-  color: #cd2c67;
-}
->>>>>>> gtopen space round 2 setup
 a.close-btn span {
   font-size: 0.625em;
   text-transform: uppercase;
@@ -3240,17 +1501,6 @@ a.close-btn span {
   top: -0.2em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 44, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #content iframe, #content object, #content embed {
   overflow: hidden;
   display: block;
@@ -3258,59 +1508,19 @@ a.close-btn span {
   /* height: auto !important */
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 52, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .promotion {
   float: right;
   margin: 0 0 1em 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 56, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .support {
   margin-bottom: 0.75em;
   position: relative;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .user-support {
   position: relative;
 }
-=======
-/* line 60, ../sass/_content.sass */
-.user-support {
-  position: relative;
-}
-/* line 62, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
-.user-support {
-  position: relative;
-}
->>>>>>> gtopen space round 2 setup
 .user-support input[type=checkbox] {
   cursor: pointer;
   display: block;
@@ -3326,17 +1536,6 @@ a.close-btn span {
   -ms-filter: "alpha(opacity=0)";
   zoom: 1;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 76, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .user-support label {
   display: block;
   background: transparent url(images/heart-empty.png) left center no-repeat scroll;
@@ -3346,88 +1545,26 @@ a.close-btn span {
   padding-left: 22px;
   color: #007fbf;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .user-support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
 }
-=======
-/* line 84, ../sass/_content.sass */
-.user-support input[type=checkbox]:checked ~ label {
-  background-image: url(images/heart.png);
-}
-/* line 86, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
-.user-support input[type=checkbox]:checked ~ label {
-  background-image: url(images/heart.png);
-}
->>>>>>> gtopen space round 2 setup
 .user-support:hover label {
   background-color: #93b7c9;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 91, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .social {
   min-width: 84px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 94, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .sharing {
   margin: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 97, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .share-link {
   float: right;
   padding: 0 !important;
   margin-left: 10px;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 101, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .share-link a {
   display: block;
   width: 32px;
@@ -3436,64 +1573,21 @@ a.close-btn span {
   text-indent: -9999px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 108, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .share-twitter a {
   background: url(images/twitter-32.png) 0 0 no-repeat scroll;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 111, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .share-facebook a {
   background: url(images/facebook-32.png) 0 0 no-repeat scroll;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .place-header {
   margin-bottom: 1em;
 }
-=======
-/* line 116, ../sass/_content.sass */
-.place-header {
-  margin-bottom: 1em;
-}
-/* line 118, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
-.place-header {
-  margin-bottom: 1em;
-}
->>>>>>> gtopen space round 2 setup
 .place-header a {
   text-decoration: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .place-items .place-item {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -3511,30 +1605,11 @@ a.close-btn span {
   padding: 0;
 }
 
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 121, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-submission-details {
   display: block;
   padding-left: 3.75em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 125, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .point-submitter .avatar {
   width: 3.25em;
   height: 3.25em;
@@ -3542,99 +1617,29 @@ a.close-btn span {
   margin-left: -3.75em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 131, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response-date {
   display: block;
   text-transform: uppercase;
   color: #888;
   font-size: 0.75em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .response-date a {
   color: #888;
 }
-=======
-/* line 136, ../sass/_content.sass */
-.response-date a {
-  color: #888;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-.response-date a {
-  color: #888;
-}
-=======
-/* line 136, ../sass/_content.sass */
-.response-date a {
-  color: #888;
-}
->>>>>>> improve story arrows, update story content
-/* line 138, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
-.response-date a {
-  color: #888;
-}
->>>>>>> gtopen space round 2 setup
 .response-date a:hover {
   color: #00aaff;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 141, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .survey-count {
   font-size: 0.75em;
   text-transform: uppercase;
   display: block;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 148, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .survey {
   position: relative;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 151, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .survey-header {
   border-bottom: 1px solid #a8a8a8;
   padding-bottom: 0.75em;
@@ -3642,17 +1647,6 @@ a.close-btn span {
   font-size: 1.25em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 157, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.reply-link {
   float: right;
   position: absolute;
@@ -3660,34 +1654,12 @@ a.reply-link {
   right: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 165, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response {
   position: relative;
   padding-bottom: 2.625em;
   margin-bottom: 1em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 170, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response-header {
   padding-left: 3.75em;
   margin: 0 0 0 1em;
@@ -3696,17 +1668,6 @@ a.reply-link {
   left: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 177, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response-submitter .avatar {
   width: 3em;
   height: 3em;
@@ -3714,17 +1675,6 @@ a.reply-link {
   margin-left: -3.75em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 185, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response-body {
   margin: 0 0 1em;
   padding: 1em;
@@ -3736,17 +1686,6 @@ a.reply-link {
   border-radius: 1em;
   position: relative;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 195, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response-body:after {
   content: "";
   height: 0;
@@ -3758,62 +1697,18 @@ a.reply-link {
   left: 1.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 205, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response-label-comment {
   display: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 208, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .response-value-comment {
   margin-bottom: 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 211, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 article.response footer {
   text-align: right;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 214, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .survey-reply-link {
   color: #999;
   background: #eee;
@@ -3821,116 +1716,39 @@ article.response footer {
   text-decoration: none;
   font-weight: bold;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 220, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .survey-reply-link:hover {
   background: #607890;
   color: #fff;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 224, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .submit-btn {
   float: left;
   margin: 0 0.75em 0 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 228, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 form .signed-in-as {
   float: left;
   white-space: nowrap;
   padding-top: 0.125em;
   line-height: 1.5;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 233, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 form .signed-in-as .avatar {
   height: 1.5em;
   width: auto;
   position: relative;
   top: 0.5em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 238, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 form .signed-in-as a {
   font-weight: bold;
   font-size: 0.875em;
   text-transform: uppercase;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 243, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .or-sign-in {
   display: block;
   margin-top: 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 247, ../sass/_content.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.auth-inline {
   display: inline;
   font-size: 0.875em;
@@ -3939,26 +1757,9 @@ a.auth-inline {
   padding: 0.25em 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
 /* place detail view story bar */
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .place-story-bar {
   background-color: #EEEEEE;
-=======
-/* line 255, ../sass/_content.sass */
-.place-story-bar {
-  background-color: #a3c7d9;
->>>>>>> improve story arrows, update story content
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-=======
-=======
->>>>>>> gtopen space round 2 setup
-/* place detail view story bar */
-.place-story-bar {
-  background-color: #a3c7d9;
->>>>>>> improve story arrows, update story content
   padding: 8px;
   border-radius: 3px;
   margin-top: 10px;
@@ -3966,14 +1767,9 @@ a.auth-inline {
   font-family: FontAwesome;
   overflow: hidden;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .place-story-bar h1 {
   line-height: 1em;
 }
-=======
->>>>>>> gtopen space round 2 setup
 .place-story-bar .story-tagline {
   width: 100%;
   padding-left: 10px;
@@ -3982,7 +1778,6 @@ a.auth-inline {
   margin-bottom: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
 /* place form geolocation and instructions bar */
 .drag-marker-instructions {
   position: relative;
@@ -4007,28 +1802,6 @@ a.auth-inline {
   color: #888888;
 }
 
-=======
-/* line 263, ../sass/_content.sass */
-.place-story-bar .story-tagline {
-  width: 80%;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: "Roboto", sans-serif;
-=======
-/* line 263, ../sass/_content.sass */
-.place-story-bar h5 {
-  float: left;
-  width: 80%;
-  font-family: "Roboto", sans-serif;
-  display: inline;
->>>>>>> improve story arrows, update story content
-  margin-bottom: 0;
-}
-
-/* line 6, ../sass/_sidebar.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #side-bar {
   display: none;
   overflow: auto;
@@ -4039,17 +1812,6 @@ a.auth-inline {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 11, ../sass/_sidebar.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #side-bar p {
   color: #F25218;
   font-family: "Roboto", sans-serif;
@@ -4059,30 +1821,11 @@ a.auth-inline {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 19, ../sass/_sidebar.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #side-bar hr {
   margin: 0.5em 0;
   border: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 /*---- leaflet side bar overrides ----*/
 .sidebar-header {
   margin: -10px -10px 0;
@@ -4097,85 +1840,28 @@ a.auth-inline {
   padding: 6px 10px 5px 6px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 6, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #ticker {
   background: url(images/lightpaperfibers.png);
   z-index: 30;
   display: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 10, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #ticker p {
   padding-left: 1em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 13, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .activity-enabled #ticker {
   display: block;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 22, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 ul.recent-points {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .recent-points li {
   position: relative;
 }
-=======
-/* line 28, ../sass/_ticker.sass */
-.recent-points li {
-  position: relative;
-}
-/* line 31, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
-=======
-.recent-points li {
-  position: relative;
-}
->>>>>>> gtopen space round 2 setup
 .recent-points a {
   text-decoration: none;
   float: left;
@@ -4187,32 +1873,10 @@ ul.recent-points {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 41, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .recent-points li:first-child a {
   border-top: 0;
   padding-top: 0.75em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 48, ../sass/_ticker.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .recent-points .avatar {
   width: 2em;
   height: 2em;
@@ -4220,14 +1884,6 @@ ul.recent-points {
   margin-left: -2.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 /* #master-legend {
     overflow: visible;
     padding-left: unset;
@@ -4237,97 +1893,28 @@ ul.recent-points {
     //display: none;
     .unstyled-list {}
 } */
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 6, ../sass/_legend.sass */
-#master-legend {
-  overflow: visible;
-  padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-}
-
-/* line 16, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-list {
   font-size: 1.4em;
   font-weight: normal;
   letter-spacing: 1px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .layer-type-grouping-list {
   margin-left: 10px;
 }
-=======
-/* line 21, ../sass/_legend.sass */
-.layer-type-grouping-list {
-  margin-left: 10px;
-}
-/* line 23, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
-.layer-type-grouping-list {
-  margin-left: 10px;
-}
->>>>>>> gtopen space round 2 setup
 .layer-type-grouping-list label {
   font-size: 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 .layer-type-list li {
   position: relative;
 }
-=======
-/* line 29, ../sass/_legend.sass */
-.layer-type-list li {
-  position: relative;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-.layer-type-list li {
-  position: relative;
-}
-=======
-/* line 29, ../sass/_legend.sass */
-.layer-type-list li {
-  position: relative;
-}
->>>>>>> improve story arrows, update story content
-/* line 31, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
-.layer-type-list li {
-  position: relative;
-}
->>>>>>> gtopen space round 2 setup
 .layer-type-list img {
   height: 1.75em;
   width: auto;
   vertical-align: middle;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 36, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-description {
   height: 0;
   overflow: visible;
@@ -4350,50 +1937,17 @@ ul.recent-points {
   transition: opacity 0.25s ease-in-out;
   pointer-events: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 37, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-description img {
   height: auto;
   width: auto;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 61, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-li:hover .layer-type-description {
   height: auto;
   padding: 0.375em 0.625em;
   opacity: 1;
   overflow: visible;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 66, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-li:hover .layer-type-description:after {
   content: "";
   display: block;
@@ -4407,47 +1961,17 @@ ul.recent-points {
   border-left-color: #000;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-list {
   font-size: 0.875em;
 }
 
 .layer-type-title label {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 79, ../sass/_legend.sass */
-#master-legend .layer-type-list {
-  font-size: 0.875em;
-}
-/* line 81, ../sass/_legend.sass */
-#master-legend .layer-type-title label {
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   vertical-align: middle;
   margin-right: 8px;
   font-size: 1.33em;
   letter-spacing: 1px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 87, ../sass/_legend.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-title input {
   vertical-align: middle;
   margin-right: 8px;
@@ -4455,14 +1979,6 @@ ul.recent-points {
   letter-spacing: 1px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .layer-type-title:active label:hover, .shareabouts-layer-li:active a {
   color: #00aaff;
 }
@@ -4473,27 +1989,6 @@ ul.recent-points {
 }
 
 .layer-type-li label, .shareabouts-layer-li a {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 94, ../sass/_legend.sass */
-#master-legend .shareabouts-layer-li {
-  font-size: 1.3em;
-  letter-spacing: 1.4px;
-}
-/* line 97, ../sass/_legend.sass */
-#master-legend .layer-type-title:active label:hover, #master-legend .shareabouts-layer-li:active a {
-  color: #00aaff;
-}
-/* line 99, ../sass/_legend.sass */
-#master-legend .map-layer-list {
-  margin-bottom: 0.5em;
-  font-size: 0.75em;
-}
-/* line 102, ../sass/_legend.sass */
-#master-legend .layer-type-li label, #master-legend .shareabouts-layer-li a {
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   cursor: pointer;
   position: relative;
   z-index: 20;
@@ -4502,14 +1997,6 @@ ul.recent-points {
   text-transform: none;
   font-family: "Roboto", sans-serif;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 
 .master-layer-list {
   padding-left: unset;
@@ -4531,14 +2018,6 @@ ul.recent-points {
 }
 .master-layer-list .shareabouts-layer-title {
   font-size: 22px;
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
-/* line 110, ../sass/_legend.sass */
-#master-legend .shareabouts-layer-title {
-  font-size: 1.4em;
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   cursor: pointer;
   width: 1em;
   height: auto;
@@ -4560,20 +2039,7 @@ ul.recent-points {
 }
 
 @media screen and (min-width: 40.063em) {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
   .active {
-=======
-  /* line 150, ../sass/_legend.sass */
-  .active #master-legend {
->>>>>>> improve story arrows, update story content
-=======
-  .active {
->>>>>>> gtopen space round 2 setup
     height: 100%;
     /*width: 16em;*/
     top: 0;
@@ -4581,49 +2047,10 @@ ul.recent-points {
     overflow: auto;
   }
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 164, ../sass/_legend.sass */
-.master-layer-list {
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-top: 0.5;
-  margin-bottom: 0;
-}
-
-/* All layers in the Master Legend list */
-/* line 171, ../sass/_legend.sass */
-.master-layer-list .unstyled-list {
-  overflow: visible;
-  padding-left: unset;
-  padding-right: unset;
-  padding-top: 10px;
-}
-
-/* line 6, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .list-toggle-nav {
   display: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 9, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #list-container {
   display: none;
   background: #fff;
@@ -4637,33 +2064,11 @@ ul.recent-points {
   overflow: auto;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 22, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list, .place-list-header {
   max-width: 70em;
   margin: 0 auto;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 28, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .list-search-form input {
   max-width: 25em;
   float: left;
@@ -4671,17 +2076,6 @@ ul.recent-points {
   margin-right: 0.5em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 36, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .list-sort-menu {
   float: right;
   padding: 1em 0 0;
@@ -4689,148 +2083,42 @@ ul.recent-points {
   text-transform: uppercase;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 42, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .list-sort-prompt {
   font-size: 0.75em;
   color: #999;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 46, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .list-sort-menu a {
   font-weight: bold;
   font-size: 0.75em;
   text-decoration: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 50, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .list-sort-menu a.is-selected {
   color: #555;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 55, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list {
   clear: both;
   padding: 1.25em 0 0;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 58, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list > li {
   margin: 0;
   padding: 0.75em 0 1.25em 0;
   border-top: 1px solid #eeeeee;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
 .place-list .place-header {
   font-size: 0.875em;
 }
 .place-list .place-header:before {
   display: none;
 }
-=======
-/* line 62, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-.place-list .place-header {
-  font-size: 0.875em;
-}
-/* line 64, ../sass/_listview.sass */
-.place-list .place-header:before {
-  display: none;
-}
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-=======
-/* line 62, ../sass/_listview.sass */
-=======
->>>>>>> gtopen space round 2 setup
-.place-list .place-header {
-  font-size: 0.875em;
-}
-.place-list .place-header:before {
-  display: none;
-}
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-=======
->>>>>>> improve story arrows, update story content
-/* line 66, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list .place-header:after {
   display: none;
   clear: none;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
 .place-list .place-header h1 {
   font-size: 1.5em;
 }
-=======
-/* line 69, ../sass/_listview.sass */
-.place-list .place-header h1 {
-  font-size: 1.5em;
-}
-/* line 71, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
-.place-list .place-header h1 {
-  font-size: 1.5em;
-}
->>>>>>> gtopen space round 2 setup
 .place-list .place-submission-details {
   float: left;
   width: 17.25em;
@@ -4840,111 +2128,34 @@ ul.recent-points {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 79, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list .point-submitter .avatar {
   width: 2.5em;
   height: 2.5em;
   float: left;
   margin-left: -3em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 84, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list .place-items {
   margin-right: 5em;
   margin-left: 16em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 87, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list .place-item-attachment {
   float: left;
   max-width: 9em;
   margin: 0 1em 0.75em 0;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 92, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-list .place-label:empty, .place-list .place-value:empty {
   display: none;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 95, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .place-item-attachment .place-value:empty {
   display: block;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 98, ../sass/_listview.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .view-on-map-btn {
   margin: 1em 0;
   float: left;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 6, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #place-counter .counter-meter {
   width: auto;
   margin: 0 auto;
@@ -4964,17 +2175,6 @@ ul.recent-points {
   border-radius: 3px;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 24, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .col {
   margin: 0 10px;
   float: left;
@@ -4982,32 +2182,10 @@ ul.recent-points {
   overflow: hidden;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 30, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .meter-label {
   width: auto;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 33, ../sass/_counter.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .meter-bar meter {
   width: 260px;
   height: 10px;
@@ -5020,17 +2198,6 @@ ul.recent-points {
   padding: 0.1em 0.1em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 6, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-bar {
   display: none;
   background: url(images/lightpaperfibers.png);
@@ -5042,32 +2209,10 @@ ul.recent-points {
   font-size: 1em;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 16, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocoding-enabled #geocode-address-bar {
   display: block;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 19, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-bar .error {
   background-color: #BF6083;
   color: #fff;
@@ -5081,79 +2226,24 @@ ul.recent-points {
   bottom: auto;
   left: 0.5em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 31, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-bar .error + form {
   box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
   margin-bottom: 2.5em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 34, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-bar .error.is-hidden + form {
   box-shadow: none;
   margin-bottom: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 40, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-place-bar {
   display: none;
   position: relative;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 44, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocoding-enabled #geocode-address-place-bar {
   display: block;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 47, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-place-bar .error {
   background-color: #BF6083;
   color: #fff;
@@ -5167,94 +2257,28 @@ ul.recent-points {
   bottom: auto;
   left: 0.5em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 59, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-place-bar .error + form {
   box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
   margin-bottom: 2.5em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 62, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #geocode-address-place-bar .error.is-hidden + form {
   box-shadow: none;
   margin-bottom: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 68, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocode-address-form {
   position: relative;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 71, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 input.geocode-address-field {
   width: 100%;
   line-height: 1.25;
   padding-left: 2.125em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 75, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 input.geocode-address-field:focus {
   outline: 0;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 78, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocode-address-label {
   position: absolute;
   top: 1.5em;
@@ -5266,33 +2290,11 @@ input.geocode-address-field:focus {
   text-indent: -9999px;
   cursor: pointer;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 88, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocode-address-label:before, .geocode-address-label:after {
   content: "";
   display: block;
   position: absolute;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 92, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocode-address-label:before {
   top: 0;
   left: 0;
@@ -5302,17 +2304,6 @@ input.geocode-address-field:focus {
   border-radius: 2em;
   margin: -0.25em 0 0 -0.25em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 100, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocode-address-label:after {
   top: 50%;
   left: 50%;
@@ -5327,17 +2318,6 @@ input.geocode-address-field:focus {
   transform: rotate(-45deg);
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 113, ../sass/_geocode.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .geocode-spinner {
   position: absolute;
   top: 0;
@@ -5347,81 +2327,22 @@ input.geocode-address-field:focus {
   background-color: #a3c7d9;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 6, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #colophon {
   padding: 1em 0.5em;
   text-align: center;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
 #colophon a {
   text-decoration: none;
 }
-=======
-/* line 9, ../sass/_footer.sass */
-#colophon a {
-  text-decoration: none;
-}
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-#colophon a {
-  text-decoration: none;
-}
-=======
-/* line 9, ../sass/_footer.sass */
-#colophon a {
-  text-decoration: none;
-}
->>>>>>> improve story arrows, update story content
-/* line 12, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
-#colophon a {
-  text-decoration: none;
-}
->>>>>>> gtopen space round 2 setup
 #colophon a:hover {
   border-bottom: 1px solid #ffb885;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 17, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #powered-by {
   font-size: 0.75em;
   display: inline;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 21, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.shareabouts-logo {
   font-family: "Dancing Script", cursive;
   font-weight: bold;
@@ -5429,64 +2350,20 @@ a.shareabouts-logo {
   color: #FF8B61;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 28, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #powered-by a.openplans-logo {
   color: #FF8B61;
   font-weight: bold;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 35, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #mapquest-attribution {
   font-size: 0.75em;
   display: inline;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 38, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 #mapquest-attribution img {
   max-height: 0.75em;
   width: auto;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 47, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .unsupported-overlay {
   position: relative;
   z-index: 999999;
@@ -5494,63 +2371,19 @@ a.shareabouts-logo {
   font-weight: bold;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 53, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .unsupported-message {
   background-color: #cd2c67;
   padding: 1em 1em 2em;
   box-shadow: 0 0.325em 0 rgba(0, 0, 0, 0.1), inset 0 0.325em 0 rgba(0, 0, 0, 0.1);
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 57, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .unsupported-message p {
   font-size: 1.25em;
   margin-bottom: 0.75em;
 }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 60, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 .unsupported-message a {
   color: #fff;
 }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-/* line 63, ../sass/_footer.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
 a.close-unsupported-overlay {
   color: #ff5e99;
   font-size: 1em;
@@ -5565,141 +2398,42 @@ a.close-unsupported-overlay {
 }
 
 @media only screen and (min-height: 440px) and (max-width: 60em) {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 12, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #map {
     height: 100%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 15, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #site-title a:link, #site-title a:visited {
     font-size: 1.8em;
     line-height: 1.325;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 18, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #ticker ul.recent-points {
     height: 30em;
     overflow: scroll;
   }
 }
 @media only screen and (max-width: 60em) {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 58, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   html, body, #map {
     height: 100%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 60, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #main {
     height: calc(100% - 64px);
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 63, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #map-container {
     height: calc(100% - 72px);
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 66, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled.content-visible #map-container {
     height: 70%;
   }
 }
 @media only screen and (min-width: 60em) {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 72, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   body:after {
     content: "desktop";
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 75, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #site-header {
     background: url(images/lightpaperfibers.png);
     padding-left: 1em;
@@ -5710,112 +2444,35 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 84, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .has-pages #site-title {
     padding-left: 0;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 87, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #site-title a:link, #site-title a:visited {
     font-size: 3em;
     line-height: 1.325;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 90, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #nav-btn {
     display: none;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 94, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #pages-nav-container {
     height: 100%;
     float: left;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 97, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #language-picker {
     float: right;
     height: 100%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 101, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .current-language {
     background: none;
     border: none;
     box-shadow: none;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 105, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .access {
     font-size: 0.875em;
     width: auto;
@@ -5824,51 +2481,14 @@ a.close-unsupported-overlay {
     position: relative;
     top: 50%;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 112, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .access li {
     float: left;
     padding: 0;
     margin: 0 0 0 0.5em;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
   .access li ul {
     display: none;
   }
-=======
-  /* line 116, ../sass/_media.sass */
-  .access li ul {
-    display: none;
-  }
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-  .access li ul {
-    display: none;
-  }
-=======
-  /* line 116, ../sass/_media.sass */
-  .access li ul {
-    display: none;
-  }
->>>>>>> improve story arrows, update story content
-  /* line 119, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
-  .access li ul {
-    display: none;
-  }
->>>>>>> gtopen space round 2 setup
   .access li:hover > ul, .access li:hover > form > ul {
     display: block;
     background: #ccc;
@@ -5883,49 +2503,16 @@ a.close-unsupported-overlay {
     z-index: 2;
     overflow: hidden;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 132, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .access li ul li:hover ul {
     display: block;
     top: 0;
     left: 100%;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 136, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .access li li {
     float: none;
     padding: 0;
     margin: 0;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 140, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .access li li .btn {
     border: 0;
     border-radius: 0;
@@ -5933,17 +2520,6 @@ a.close-unsupported-overlay {
     box-shadow: none;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 145, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #sign-in-btn {
     font-size: 1em;
     text-decoration: none;
@@ -5954,17 +2530,6 @@ a.close-unsupported-overlay {
     z-index: 3;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 153, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .sign-in-menu {
     background: url(images/lightpaperfibers.png);
     border-radius: 3px;
@@ -5977,17 +2542,6 @@ a.close-unsupported-overlay {
     right: 1em;
     z-index: 2;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 164, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .sign-in-menu:before {
     content: "";
     height: 0;
@@ -6000,47 +2554,14 @@ a.close-unsupported-overlay {
     right: 1.5em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 175, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .authed #sign-in-btn {
     margin: 0.5em 0.5em 0 0.5em;
     z-index: 1;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 178, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .authed .sign-in-menu:before {
     right: 0.5em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 181, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #map-container {
     position: absolute;
     top: 4em;
@@ -6049,17 +2570,6 @@ a.close-unsupported-overlay {
     left: 0;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 188, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .content-visible #map-container {
     right: auto;
     left: 18em;
@@ -6067,79 +2577,24 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 193, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 195, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 197, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .leaflet-top.leaflet-right {
     right: auto;
     left: 10px;
     top: 77px;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 201, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #map {
     height: 100%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 203, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #add-place-btn-container {
     position: absolute;
     background: transparent;
@@ -6148,137 +2603,38 @@ a.close-unsupported-overlay {
     box-shadow: none;
     border-bottom: 0;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 205, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #add-place-btn-container.pos-top-left {
     top: 1.5em;
     left: 3.5em;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 208, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #add-place-btn-container.pos-top-right {
     top: 1.5em;
     right: 1.5em;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 211, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #add-place-btn-container.pos-bot-left {
     bottom: 2em;
     left: 2em;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 219, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #add-place-btn-container .btn {
     padding-right: 1em;
     padding-left: 1em;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 222, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #add-place-btn-container .btn:visited, #add-place-btn-container .btn:link {
     padding-right: 1em;
     padding-left: 1em;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 225, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #add-place-btn-container .btn-primary:hover {
     background-color: #FF8B61;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 227, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .content-visible #add-place-btn-container {
     display: block;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 230, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .place-form-visible #add-place-btn-container {
     display: none;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 233, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #content {
     color: #36454f;
     padding: 0;
@@ -6291,78 +2647,23 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 245, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 248, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 250, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 252, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .geocoding-bar-enabled #content {
     top: 8.5em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 254, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   a.close-btn {
     line-height: 2;
     top: 10px;
@@ -6373,32 +2674,10 @@ a.close-unsupported-overlay {
     border-radius: 0.325em 0 0 0.325em;
     box-shadow: -0.325em 0.325em 0 rgba(0, 0, 0, 0.1);
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 264, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   a.close-btn span {
     display: none;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 266, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .unsupported-overlay {
     position: absolute;
     top: 5em;
@@ -6406,48 +2685,15 @@ a.close-unsupported-overlay {
     left: 1em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 271, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .unsupported-message {
     border-radius: 0 0 0.625em 0.625em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 273, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   a.close-unsupported-overlay {
     right: auto;
     border-radius: 0.325em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 276, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #content > article {
     overflow: auto;
     padding: 1em 1em 2em;
@@ -6458,17 +2704,6 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 285, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #geocode-address-bar {
     position: absolute;
     top: 4em;
@@ -6480,32 +2715,10 @@ a.close-unsupported-overlay {
     margin-top: 0;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 295, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled #geocode-address-bar {
     right: 18em;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 299, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #geocode-address-bar .error {
     padding: 0.25em 0.5em;
     position: relative;
@@ -6520,47 +2733,14 @@ a.close-unsupported-overlay {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 312, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #geocode-address-bar .error + form {
     margin-bottom: 0;
     margin-right: 15em;
   }
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 315, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #geocode-address-bar .error.is-hidden + form {
     margin-right: 0;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 318, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #side-bar {
     position: absolute;
     top: 4em;
@@ -6575,50 +2755,13 @@ a.close-unsupported-overlay {
     background-color: rgba(255, 255, 255, 0.9);
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
   .activity-enabled.content-visible #side-bar {
     display: block;
   }
-=======
-  /* line 332, ../sass/_media.sass */
-  .activity-enabled.content-visible #side-bar {
-    display: block;
-  }
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
-  .activity-enabled.content-visible #side-bar {
-    display: block;
-  }
-=======
-  /* line 332, ../sass/_media.sass */
-  .activity-enabled.content-visible #side-bar {
-    display: block;
-  }
->>>>>>> improve story arrows, update story content
-  /* line 334, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
-  .activity-enabled.content-visible #side-bar {
-    display: block;
-  }
->>>>>>> gtopen space round 2 setup
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 338, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #ticker {
     right: 0;
     bottom: 0;
@@ -6628,103 +2771,30 @@ a.close-unsupported-overlay {
     background: none;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 345, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled.content-visible #ticker {
     display: block;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 347, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   ul.recent-points {
     font-size: 0.875em;
     -webkit-transform: translateZ(0px);
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 351, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 355, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #master-legend {
     z-index: 15;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
   .activity-enabled.content-visible #master-legend {
     display: block;
   }
-=======
-  /* line 358, ../sass/_media.sass */
-  .activity-enabled.content-visible #master-legend {
-    display: block;
-  }
-  /* line 360, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
-  .activity-enabled.content-visible #master-legend {
-    display: block;
-  }
->>>>>>> gtopen space round 2 setup
   .activity-enabled #map-container {
     right: 0;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 364, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .list-toggle-nav {
     display: block;
     width: auto;
@@ -6735,32 +2805,10 @@ a.close-unsupported-overlay {
     float: left;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 374, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #list-container.is-exposed {
     display: block;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 386, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #colophon {
     color: #007fbf;
     background: url(images/lightpaperfibers.png);
@@ -6779,128 +2827,40 @@ a.close-unsupported-overlay {
     box-sizing: border-box;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 405, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #powered-by {
     margin-bottom: 0;
   }
 }
 @media only screen and (min-width: 80em) {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 409, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   #content {
     right: 0;
     left: 60%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 412, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled #content {
     left: 60%;
     width: 40%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 415, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .content-visible #map-container {
     width: 60%;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 417, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .activity-enabled.content-visible #map-container {
     width: 60%;
   }
 }
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 422, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .share-twitter a {
     background-image: url(images/twitter-64.png);
     background-size: contain;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 425, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .share-facebook a {
     background-image: url(images/facebook-64.png);
     background-size: contain;
   }
 
-<<<<<<< 42da6f4c1bd1df1e84205b7a6f6bb6d9607c82ff
-<<<<<<< cb06e3a2f631a4eae671ca2a5dc2a9a45cd5cc47
-<<<<<<< 03939623463687b32fa91f6e9eed0d677bf3ce88
-=======
-<<<<<<< 991b926d69a41fc305b359d703894cfa86e02991
->>>>>>> improve story arrows, update story content
-=======
-  /* line 428, ../sass/_media.sass */
->>>>>>> improve story arrows, update story content
-=======
->>>>>>> gtopen space round 2 setup
   .locate-me {
     background-image: url(images/locate-me@2x.png);
     background-size: contain;

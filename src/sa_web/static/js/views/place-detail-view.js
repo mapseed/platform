@@ -9,8 +9,6 @@ var Shareabouts = Shareabouts || {};
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
     },
     initialize: function() {
-      console.log(this.model);
-
       var self = this;
 
       this.surveyType = this.options.surveyConfig.submission_type;
