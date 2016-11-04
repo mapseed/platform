@@ -2188,14 +2188,16 @@ ul.recent-points {
 
 .meter-bar meter {
   width: 260px;
-  height: 10px;
-  -webkit-appearance: none;
   border: 1px solid #ccc;
   border-radius: 3px;
   display: inline-block;
   *display: inline;
   *zoom: 1;
   padding: 0.1em 0.1em;
+}
+
+.meter-bar meter::-webkit-meter-bar {
+  border: 1px solid #ccc;
 }
 
 #geocode-address-bar {
