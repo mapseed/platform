@@ -43,7 +43,11 @@ var Shareabouts = Shareabouts || {};
       this.activities = this.options.activities;
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
-      this.mergedPlaces = this.options.mergedPlaces;
+
+      // this flag is used to distinguish between user-initiated zooms and
+      // zooms initiated by a leaflet method
+      this.isProgrammaticZoom = false;
+      this.isStoryActive = false;
 
       $('body').ajaxError(function(evt, request, settings){
         $('#ajax-error-msg').show();
@@ -115,10 +119,15 @@ var Shareabouts = Shareabouts || {};
               router: this.options.router
             })).render();
 
+      var basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
+        return "basemaps" in panel;
+      }).basemaps;
       // Init the map view to display the places
       this.mapView = new S.MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
+        basemapConfigs: basemapConfigs,
+        legend_enabled: !!this.options.sidebarConfig.legend_enabled,
         places: this.places,
         landmarks: this.landmarks,
         router: this.options.router,
@@ -141,7 +150,6 @@ var Shareabouts = Shareabouts || {};
         // Init the view for displaying user activity
         this.activityView = new S.ActivityView({
           el: 'ul.recent-points',
-          mergedPlaces: this.mergedPlaces,
           activities: this.activities,
           places: this.places,
           router: this.options.router,
@@ -211,14 +219,13 @@ var Shareabouts = Shareabouts || {};
         // self.placeFormView.setLocation(locationData);
       });
 
-
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
       if (_.isUndefined(S.Config.flavor.app.list_enabled) ||
         S.Config.flavor.app.list_enabled) {
           this.listView = new S.PlaceListView({
             el: '#list-container',
-            collection: self.mergedPlaces
+            placeCollections: self.places
           }).render();
       }
 
@@ -240,13 +247,17 @@ var Shareabouts = Shareabouts || {};
       // If report stories are enabled, build the data structure
       // we need to enable story navigation
       _.each(this.options.storyConfig, function(story) {
-        var storyStructure = {};
+        var storyStructure = {},
+        totalStoryElements = story.order.length;
         _.each(story.order, function(config, i) {
           storyStructure[config.url] = {
             "zoom": config.zoom || story.default_zoom,
+            "panTo": config.panTo || null,
             "visibleLayers": config.visible_layers || story.default_visible_layers,
-            "previous": (i - 1 < 0) ? null : story.order[i - 1].url,
-            "next": (i + 1 == story.order.length) ? null : story.order[i + 1].url
+            "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
+            "next": story.order[(i + 1) % totalStoryElements].url,
+            "basemap": config.basemap || null,
+            "spotlight": (config.spotlight === false) ? false : true
           }
         });
         story.order = storyStructure;
@@ -301,7 +312,7 @@ var Shareabouts = Shareabouts || {};
     loadLandmarks: function() {
       var self = this;
 
-      // loop through landmark configs 
+      // loop through landmark configs
       _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
           self.landmarks[landmarkConfig.id].fetch({
@@ -321,11 +332,8 @@ var Shareabouts = Shareabouts || {};
           totalPages,
           pagesComplete = 0;
 
-
       // loop over all place collections
-      //var loopIndex = 0;
       _.each(self.places, function(collection, key) {
-
         collection.fetchAllPages({
           remove: false,
           // Check for a valid location type before adding it to the collection
@@ -344,8 +352,6 @@ var Shareabouts = Shareabouts || {};
             if (data.metadata.next) {
               $progressContainer.show();
             }
-
-            self.mergedPlaces.add(collection.models);
           }),
 
           // Do this for every page...
@@ -372,9 +378,10 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMapZoomEnd: function(evt) {
-      if (this.hasBodyClass('content-visible') === true) {
+      if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
         $("#spotlight-place-mask").remove();
       }
+      this.isProgrammaticZoom = false;
     },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
@@ -420,6 +427,12 @@ var Shareabouts = Shareabouts || {};
       } else {
         this.options.router.navigate('/', {trigger: true});
       }
+
+      if (this.isStoryActive) {
+        this.isStoryActive = false;
+        this.restoreDefaultLayerVisibility();
+      }
+
     },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible', 'place-form-visible'],
@@ -461,6 +474,7 @@ var Shareabouts = Shareabouts || {};
         landmarkDetailView = new S.LandmarkDetailView({
           model: model,
           description: model.get('properties')['description'],
+          originalDescription: model.get('properties')['originalDescription'],
           mapConfig: this.options.mapConfig,
           mapView: this.mapView,
           router: this.options.router
@@ -534,7 +548,7 @@ var Shareabouts = Shareabouts || {};
           collection: this.places
         });
       }
-      
+
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render().$el);
       this.placeFormView.postRender();
@@ -554,6 +568,12 @@ var Shareabouts = Shareabouts || {};
     // If a model has a story object, set the appropriate layer
     // visilbilities and update legend checkboxes
     setStoryLayerVisibility: function(model) {
+      // change basemap if requested
+      if (model.attributes.story.basemap) {
+        $(S).trigger('visibility', [model.attributes.story.basemap, true, true]);
+        $("#map-" + model.attributes.story.basemap).prop("checked", true);
+      }
+
       // set layer visibility based on story config
       _.each(model.attributes.story.visibleLayers, function(targetLayer) {
         $(S).trigger('visibility', [targetLayer, true]);
@@ -568,8 +588,26 @@ var Shareabouts = Shareabouts || {};
             $(S).trigger('visibility', [targetLayer.id, false]);
             // set legend checkbox
             $("#map-" + targetLayer.id).prop("checked", false);
-          } 
+          }
         }
+      });
+    },
+
+    restoreDefaultLayerVisibility: function() {
+      var triggerVisibility = function(id, isVisible, isBasemap) {
+        $(S).trigger('visibility', [id, isVisible, isBasemap]);
+        $("#map-" + id).prop("checked", isVisible);
+      }
+
+      var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
+      _.each(gisLayersPanel.basemaps, function(basemap) {
+        if (basemap.visibleDefault) triggerVisibility(basemap.id, true, true);
+      });
+
+      _.each(gisLayersPanel.groupings, function(grouping) {
+        _.each(grouping.layers, function(layer) {
+          triggerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
+        });
       });
     },
 
@@ -603,7 +641,14 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           if (options.zoom) {
             if (layer.getLatLng) {
-              map.setView(center, map.getMaxZoom()-1, {reset: true});
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.setStoryLayerVisibility(model);
+                self.isProgrammaticZoom = true;
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
             } else {
               map.fitBounds(layer.getBounds());
             }
@@ -611,7 +656,9 @@ var Shareabouts = Shareabouts || {};
           } else {
             if (model.attributes.story) {
               // if this model is part of a story, set center and zoom level
-              map.setView(center, model.attributes.story.zoom, {animate: true});
+              self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
             }
@@ -622,7 +669,16 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) self.setStoryLayerVisibility(model);
+        if (model.get("story")) {
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
+          self.isStoryActive = true;
+          self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
+        } else {
+          self.isStoryActive = false;
+        }
       };
 
       onLandmarkNotFound = function(model, response, newOptions) {
@@ -725,7 +781,10 @@ var Shareabouts = Shareabouts || {};
 
         // TODO: We need to handle the non-deterministic case when
         // 'self.mapView.layerViews[model.cid]` is undefined
-        layer = self.mapView.layerViews[model.cid].layer;
+        if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
+          layer = self.mapView.layerViews[datasetId][model.cid].layer;
+        }
+
         placeDetailView = self.getPlaceDetailView(model);
 
         if (layer) {
@@ -743,15 +802,23 @@ var Shareabouts = Shareabouts || {};
         if (layer) {
           if (zoom) {
             if (layer.getLatLng) {
-              map.setView(center, map.getMaxZoom()-1, { reset: true });
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.isProgrammaticZoom = true;
+                self.setStoryLayerVisibility(model);
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
             } else {
               map.fitBounds(layer.getBounds());
             }
 
           } else {
             if (model.attributes.story) {
-              // if this model is part of a story, set center and zoom level
-              map.setView(center, model.attributes.story.zoom, {animate: true});
+              self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.panTo(center, {animate: true});
             }
@@ -778,7 +845,16 @@ var Shareabouts = Shareabouts || {};
         // Focus the one we're looking
         model.trigger('focus');
 
-        if (model.attributes.story) self.setStoryLayerVisibility(model);
+        if (model.get("story")) {
+          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
+          self.isStoryActive = true;
+          self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
+        } else {
+          self.isStoryActive = false;
+        }
       };
 
       onPlaceNotFound = function() {

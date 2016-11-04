@@ -202,7 +202,7 @@
         width: 200px;
         display: block;
         position: relative;
-        opacity: 0.5;
+        opacity: 1;
         height: 46px;
         margin-bottom: 1px;
     }
@@ -283,8 +283,9 @@
 
 /* Story bar styles */
 .btn-previous-story-nav {
+    vertical-align: top;
     width: 10%;
-    color: $button-background-hover-blue;
+    color: $button-background-red;
     cursor: pointer;
     &:before {
         font-size: 3.3em;
@@ -292,13 +293,14 @@
     }
 
     &:hover {
-        color: $button-background-blue;
+        color: $button-background-hover-red;
     }
 }
   
 .btn-next-story-nav {
+    vertical-align: top;
     width: 10%;
-    color: $button-background-hover-blue;
+    color: $button-background-red;
     cursor: pointer;
     &:before {
         font-size: 3.3em;
@@ -306,7 +308,7 @@
     }
 
     &:hover {
-        color: $button-background-blue;
+        color: $button-background-hover-red;
     }
 }
 

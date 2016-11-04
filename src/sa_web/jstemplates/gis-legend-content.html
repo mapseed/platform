@@ -1,6 +1,23 @@
 <!-- MAP LAYERS -->
 
 <ul class="layer-type-list unstyled-list">
+    <li class="layer-type-grouping">
+      <div class="layer-type-grouping-title">Basemaps</div>
+      <ul class="layer-type-grouping-list unstyled-list">
+        {{# basemaps}}
+          <li class="layer-type-li">
+            <div class="layer-type-title">
+              <input id="map-{{ id }}" data-layerid="{{ id }}"
+                     {{#if visibleDefault}}
+                     checked="checked"
+                     {{/if}}
+                     class="map-legend-basemap-radio" type="radio" name="basemap"></input>
+              <label for="map-{{ id }}">{{ title }}</label>
+            </div>
+          </li>
+        {{/basemaps}}
+      </ul>
+    </li>
   {{# groupings}}
     <li class="layer-type-grouping">
       <div class="layer-type-grouping-title">

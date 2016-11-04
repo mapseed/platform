@@ -69,6 +69,10 @@ shell.cat([
 ]).to('src/sa_web/static/dist/cat-preload-bundle.js')
 
 shell.cat([
+<<<<<<< 54ea4d755cec3e633a7d86f7ed92dfba4aa7ee33
+=======
+  'src/sa_web/static/css/default.css',
+>>>>>>> fix build
   'src/sa_web/static/css/leaflet-sidebar.css',
   'src/sa_web/static/css/default.css',
   'src/sa_web/static/css/jquery.datetimepicker.css',

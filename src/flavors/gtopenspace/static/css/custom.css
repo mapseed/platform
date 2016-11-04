@@ -8,7 +8,7 @@
 #site-title a:visited {
   display: block;
   float: left;
-  width: 450px;
+  width: 750px;
   height: 50px;
   overflow: hidden;
 }
@@ -46,8 +46,9 @@
 @media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
-    width: 180px;
+    width: 250px;
     height: 25px;
+    font-size: 1.1em;
     background-size: 180px auto;
     margin: 10px 0 0 0;
   }
@@ -66,4 +67,8 @@
 }
 
 @media only screen and (min-width: 1300px) {
+}
+
+.place-story-bar h1 {
+  line-height: 1em;
 }
