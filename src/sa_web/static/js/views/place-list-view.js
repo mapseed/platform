@@ -45,6 +45,10 @@ var Shareabouts = Shareabouts || {};
     },
     onRender: function(evt) {
       this.support.show(this.supportView);
+      // in case story mode has hidden the title
+      if (this.model.get("story")) {
+        this.$el.find(".place-header-title").removeClass("is-visuallyhidden");
+      }
     },
     show: function() {
       this.$el.show();
