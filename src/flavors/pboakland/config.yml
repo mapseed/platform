@@ -56,6 +56,28 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
+    - id: districts
+      type: json
+      url: "https://raw.githubusercontent.com/smartercleanup/data/master/oakland-districts.geojson"
+      popupContent: '{{name}}'
+      rules:
+    # LineString
+      - condition: '"{{geometry.type}}" == "LineString"'
+        style:
+          color: "{{properties.stroke}}"
+          opacity: '{{properties.stroke-opacity}}'
+          weight: "{{properties.stroke-width}}"
+    # Polygons
+      - condition: '"{{geometry.type}}" == "Polygon"'
+        style:
+          shapeType: polygon
+          fillColor: "{{properties.fill}}"
+          fill: 'true'
+          color: "{{properties.stroke}}"
+          opacity: 0.7
+          fillOpacity: '{{properties.fill-opacity}}'
+          weight: "{{properties.stroke-width}}"
+
     - id: duwamish
       type: place
       slug: report
@@ -245,6 +267,10 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Community Reports)
+              visibleDefault: true
+
+            - id: districts
+              title: _(Oakland districts)
               visibleDefault: true
 
     - id: ticker
