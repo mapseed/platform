@@ -27,6 +27,18 @@ var Shareabouts = Shareabouts || {};
     return a === b ? options.fn(this) : options.inverse(this);
   });
 
+  Handlebars.registerHelper('if_fileinput_not_supported', function(options) {    
+    return !NS.Util.fileInputSupported() ? options.fn(this) : null;
+  });
+
+  Handlebars.registerHelper('if_not_authenticated', function(options) {
+    return !(NS.bootstrapped && NS.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
+  });
+
+  Handlebars.registerHelper('property', function(a, b) {
+    return a[b];
+  });
+
   // Current user -------------------------------------------------------------
 
   Handlebars.registerHelper('is_authenticated', function(options) {
@@ -129,7 +141,6 @@ var Shareabouts = Shareabouts || {};
     return count;
   });
 
-
   // Gets the value for the given object and key. Useful for using the value
   // of a token as a key.
   Handlebars.registerHelper('get_value', function(obj, key, options) {
@@ -160,24 +171,75 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('each_place_item', function() {
-    var result = '',
+    var self = this,
+        result = '',
         args = Array.prototype.slice.call(arguments),
-        exclusions, options;
+        exclusions, options,
+        selectedCategoryConfig = _.find(NS.Config.place.place_detail, function(categoryConfig) { return categoryConfig.category === self.location_type; }) || {};
 
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
 
+    // iterate through all the form fields for this location_type
+    _.each(selectedCategoryConfig.fields, function(item, i) {
+      // handle input types on a case-by-case basis, building an appropriate
+      // context object for each
+      var userInput = self[item.name],
+      fieldType = item.type,
+      content, 
+      wasAnswered = false;
 
-    _.each(NS.Config.place.items, function(item, i) {
+      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
+        // case: plain text
+        content = userInput || "";
+        if (content !== "") {
+          wasAnswered = true;
+        }
+      } else if (fieldType === "checkbox_big_buttons" || fieldType === "radio_big_buttons" || fieldType === "dropdown") {
+        // case: checkboxes, radio buttons, and dropdowns
+        // if input is not an array, convert to an array of length 1
+        if (!$.isArray(self[item.name])) {
+          userInput = [self[item.name]];
+        }
+        content = [];
+        _.each(item.content, function(option) {
+          var selected = false;
+          if (_.contains(userInput, option.value)) {
+            selected = true;
+            wasAnswered = true;
+          }
+          content.push({
+            value: option.value,
+            label: option.label,
+            selected: selected
+          });
+        });
+      } else if (fieldType === "binary_toggle") {
+        // case: binary toggle buttons
+        // NOTE: we assume that the first option listed under content
+        // corresponds to the "on" value of the toggle input
+        content = {
+          selectedValue: item.content[0].value,
+          selectedLabel: item.content[0].label,
+          unselectedValue: item.content[1].value,
+          unselectedLabel: item.content[1].label,
+          selected: (userInput == item.content[0].value) ? true : false
+        }
+        wasAnswered = true;
+      }
+
       var newItem = {
         name: item.name,
-        label: item.label,
-        value: this[item.name]
+        type: item.type,
+        content: content,
+        prompt: item.display_prompt,
+        wasAnswered: wasAnswered
       };
 
-      // if not an exclusion and not private data
       if (_.contains(exclusions, item.name) === false &&
-          item.name.indexOf('private-') !== 0) {
+          item.name.indexOf('private-') !== 0 &&
+            newItem.content != undefined && 
+              newItem.wasAnswered === true) {
         result += options.fn(newItem);
       }
     }, this);

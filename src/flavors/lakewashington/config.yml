@@ -36,9 +36,18 @@ map:
     minZoom: 1
     maxZoom: 18
   layers:
-    # Mapbox Satellite
-    - url: //api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
-      attribution: <a href="/page/terms">Terms and conditions</a> '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+    # Basemaps
+    - id: osm
+      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: satellite
+      url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: '<a href="/page/terms">Terms and conditions</a>&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: dark
+      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: 'Hello World'
 
     - id: areas-of-interest
       url: "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks"
@@ -67,6 +76,10 @@ map:
       url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
       type: cartodb
       opacity: 0.4
+
+    - id: lakewashington
+      type: place
+      slug: report
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -236,11 +249,26 @@ sidebar:
       icon: list
       view: GISLegendView
       title: _(Map Layers:)
+      basemaps:
+        - id: osm
+          title: _(OpenStreetMap)
+          visibleDefault: false
+        - id: satellite
+          title: _(Satellite View)
+          visibleDefault: true
+        - id: dark
+          title: _(Dark)
+          visibleDefault: false
       groupings:
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
           layers:
+            - id: lakewashington
+              title: _(Community Reports)
+              description: _(Community Reports)
+              visibleDefault: true
+
               # Ares of interst
             - id: areas-of-interest
               title: _(Areas of interest)
@@ -313,6 +341,119 @@ place:
   submit_button_label: _(Submit)
 
   location_item_name: location
+
+  #### begin dynamic form config ####
+  place_detail:
+    - category: observation
+      includeOnForm: true
+      name: location_type
+      dataset: lakewashington
+      icon_url: /static/css/images/markers/marker-observation.png
+      value: observation
+      label: _(Observation)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: _(Description of this observation:)
+          display_prompt: _(Further description:)
+          placeholder: _(Enter description...)
+          optional: false
+    - category: question
+      includeOnForm: true
+      name: location_type
+      dataset: lakewashington
+      icon_url: /static/css/images/markers/marker-question.png
+      value: question
+      label: _(Question)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your question:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: "_(What's your question?)"
+          display_prompt: _( )
+          placeholder: _(Enter question...)
+    - category: idea
+      includeOnForm: true
+      name: location_type
+      dataset: lakewashington
+      icon_url: /static/css/images/markers/marker-idea.png
+      value: idea
+      label: _(Idea)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your idea:)
+          placeholder: _(Enter title...)
+          display_prompt: _(Title:)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: _(Describe your idea below:)
+          display_prompt: "_(Here's my idea:)"
+          placeholder: _(Description...)
+          optional: false
+    - category: complaint
+      includeOnForm: true
+      name: location_type
+      dataset: lakewashington
+      icon_url: /static/css/images/markers/marker-complaint.png
+      value: complaint
+      label: _(Complaint)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your complaint:)
+          placeholder: _(Enter title...)
+          display_prompt: _(Title:)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: "_(What's your complaint?)"
+          display_prompt: _(I have the following complaint:)
+          placeholder: _(Description...)
+          optional: false
+
+  # define form elements that appear on every form here
+  common_form_elements:
+    - name: submitter_name
+      type: text
+      prompt: _(Your name)
+      placeholder: _(Name)
+      optional: true
+    - name: private-submitter_email
+      type: text
+      prompt: _(Your Email)
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Receive email updates on your report)
+        - key: size
+          value: 30
+    - name: my_image
+      type: file
+      prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
+    - type: submit
+      label: _(Put it on the map!)
+
+  #### end dynamic form config ####
+
 
   items:
     - prompt: _(Type of report)
@@ -421,14 +562,36 @@ pages:
     slug: getinvolved
     name: contribute
 
-  - slug: sponsors
+  - title: _(Sponsors)
+    slug: sponsors
     name: sponsors
-    hide_from_top_bar: true
+    hide_from_top_bar: true    
 
-  - slug: terms
+  - title: _(Terms)
+    slug: terms
     name: terms
-    hide_from_top_bar: true
+    hide_from_top_bar: true    
 
 notifications:
   on_new_place: true
   submitter_email_field: private-submitter_email
+
+story:
+  priorities:
+    tagline: _(Next featured site)
+    # every story item will default to the zoom level and visible
+    # layers defined below. If a story element defines a different 
+    # zoom level and/or visible layers, it will use those wholesale 
+    # (that is, no default settings will be inherited).
+    default_zoom: 17
+    default_visible_layers:
+      - lakewashington
+      - areas-of-interest
+      - satellite
+    order: 
+      - url: lakepointe
+        spotlight: false
+      - url: littlecreek
+        spotlight: false        
+      - url: kenmore-channel
+        spotlight: false

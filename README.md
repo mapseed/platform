@@ -86,6 +86,12 @@ NOTE: For Linux users on RHEL/CentOS distros, you will need to have the followin
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
+**Setting up the SASS compiler**
+If you are going to make changes to the CSS, you'll need to edit the SASS files under `src/sa_web/static/sass/default.sass`, then set up the SASS compiler to convert the SASS into CSS. To do this, you should first [install Ruby](https://www.ruby-lang.org/en/documentation/installation/), then run `gem install compass`. From inside the `src/sa_web/static/` directory, run `compass watch`, which will automatically compile the SASS file `src/sa_web/static/sass/default.sass` into CSS under `src/sa_web/static/css/default.css`.
+
+Note that there are plans to avoid this extra dependency in issue #348.
+
+
 ### Configuring the Dev API
 
 Now that you have the client installed, all you need to do is load the API. The API powers the database that manages the community generated reports.
@@ -101,9 +107,27 @@ We have a Dev API with dummy data that you can load locally. To enable it, go to
 FLAVOR=duwamish_flavor
 SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
 SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+
+DUWAMISH_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
+DUWAMISH_DATASET_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+
+TREES_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees/
+TREES_DATASET_KEY=YmIxZjA1OTlmNjUxYWM5NDgwM2Q5NmMx
+
+AIR_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air/
+AIR_DATASET_KEY=MTc3Y2E2OGM2NDQyMWYyZjJhNWVhM2E4
 ```
 
 If you want to load a different flavor, like Hey Willamette, just replace the first line with ``FLAVOR=willamette``
+
+NOTE: Flavors can load data from any number of Shareabouts datasets, provided you have a URL and key for each dataset you'd like to load. Dataset URLs and keys are set in your `.env` file, as follows:
+
+```
+<DATASET-ID>_SITE_URL=https://path/to/dataset/
+<DATASET-ID>_DATASET_KEY=dataset_key
+```
+
+`<DATASET-ID>` should be replaced with the id (in UPPERCASE) of your dataset. This is the same id that is referenced in your flavor's `config.yml` file, and corrseponds to the value of the dataset's `Slug` property defined when the dataset was created.
 
 Now you're ready to run your server locally. Just enter this command:
 
