@@ -37,15 +37,15 @@ map:
 
   options:
     center:
-      lat: 37.80565
-      lng: -122.25225
-    zoom: 13
+      lat: 37.79997
+      lng: -122.23721
+    zoom: 15
     minZoom: 1
     maxZoom: 18
 
   layers:
     - id: osm
-      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      url: http://{s}.osm.maptiles.xyz/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -488,6 +488,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background

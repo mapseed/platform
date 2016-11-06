@@ -8,6 +8,15 @@
 /* =Header
 -------------------------------------------------------------- */
 
+  #site-header {
+    background: url(images/logo_cooc_min.png);
+    padding-left: 1em;
+    overflow: visible;
+    height: 4em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 
 /* =Media Queries
 -------------------------------------------------------------- */
