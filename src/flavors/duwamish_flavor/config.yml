@@ -272,10 +272,18 @@ sidebar:
               title: _(Noxious Weeds)
               visibleDefault: false
 
+            - id: cso
+              title: _(Sewer Overflow)
+              visibleDefault: false
+
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
               visibleDefault: true
+
+            - id: zoning
+              title: _(Zoning)
+              visibleDefault: false
 
         - id: grp-history
           title: _(Historical Data)
