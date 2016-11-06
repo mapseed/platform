@@ -170,6 +170,11 @@ var Shareabouts = Shareabouts || {};
     return $el.html();
   });
 
+  Handlebars.registerHelper("contains", function( value, array, options ){
+    array = ( array instanceof Array ) ? array : [array];
+    return (array.indexOf(value) > -1) ? options.fn( this ) : "";
+  });
+
   Handlebars.registerHelper('each_place_item', function() {
     var self = this,
         result = '',
@@ -233,7 +238,8 @@ var Shareabouts = Shareabouts || {};
         type: item.type,
         content: content,
         prompt: item.display_prompt,
-        wasAnswered: wasAnswered
+        wasAnswered: wasAnswered,
+        isEditingToggled: this.isEditingToggled
       };
 
       if (_.contains(exclusions, item.name) === false &&

@@ -122,3 +122,12 @@ select {
 .alt-label {
     display: none;
 }
+
+/* Editor mode update form */
+#update-place-model-title-form .place-value-title {
+    border-width: 4px;
+    max-width: 60%;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}

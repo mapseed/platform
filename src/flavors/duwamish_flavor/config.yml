@@ -51,6 +51,7 @@ map:
       type: basemap
 
     - id: satellite
+      type: basemap
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
@@ -77,13 +78,9 @@ map:
       type: place
       slug: report
 
-    - id: trees
-      type: place
-      slug: trees
-
-    - id: air
-      type: place
-      slug: air
+    # - id: editortest
+    #   type: place
+    #   slug: editortest
 
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -519,6 +516,36 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
+  editortest:
+    label: _(Editortest)
+    rules:
+      - condition: '{{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/triangle-fa307d.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: '{{map.zoom}} < 11'
+        icon:
+          iconUrl: /static/css/images/markers/dot-dbcf2c.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: '{{map.zoom}} < 16'
+        icon:
+          iconUrl: /static/css/images/markers/triangle-fa307d.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: '{{map.zoom}} >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/triangle-fa307d.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
   # greenwall:
   #   label: _(Green Screen Vote)
   #   rules:
@@ -614,71 +641,64 @@ sidebar:
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
 
-            - id: story-markers
-              title: _(Stories)
-              visibleDefault: false
+            # - id: trees
+            #   title: _(Trees!)
+            #   visibleDefault: true
 
-            - id: trees
-              title: _(Trees!)
-              visibleDefault: true
+            # - id: air
+            #   title: _(Air Watch Reports)
+            #   visibleDefault: true
 
-            - id: air
-              title: _(Air Watch Reports)
-              visibleDefault: true
+            # - id: cleanup
+            #   title: _(River Cleanup Plan)
+            #   visibleDefault: true
 
-            - id: cleanup
-              title: _(River Cleanup Plan)
-              visibleDefault: true
+            # - id: vision
+            #   title: _(Community Vision)
+            #   visibleDefault: true
 
-            - id: vision
-              title: _(Community Vision)
-              visibleDefault: false
+            # - id: restoration
+            #   title: _(Restoration Sites)
+            #   visibleDefault: true
 
-            - id: restoration
-              title: _(Restoration Sites)
-              visibleDefault: true
+        # - id: grp-land
+        #   title: _(Land Data)
+        #   visibleDefault: false
+        #   layers:
+              # Toggle our basemaps
+            # - id: toggle-satellite
+            #   title: _(Satellite View)
+            #   visibleDefault: false
 
-        - id: grp-land
-          title: _(Land Data)
-          visibleDefault: false
-          layers:
-              # Land Use
-            - id: landuse
-              title: _(Land use)
-              visibleDefault: false
+            #   # Land Use
+            # - id: landuse
+            #   title: _(Land use)
+            #   visibleDefault: false
 
-              # Green Seattle Partnership restoration phases
-            - id: phases
-              title: _(Green Seattle partnership)
-              visibleDefault: false
+            #   # Green Seattle Partnership restoration phases
+            # - id: phases
+            #   title: _(Green Seattle partnership)
+            #   visibleDefault: true
 
-              # Noxious Weeds
-            - id: noxious-weeds
-              title: _(Noxious Weeds)
-              visibleDefault: false
+            #   # Noxious Weeds
+            # - id: noxious-weeds
+            #   title: _(Noxious Weeds)
+            #   visibleDefault: false
 
-            - id: cso
-              title: _(Sewer Overflow)
-              visibleDefault: false
+            #   # WRIA9 watershed
+            # - id: watershed
+            #   title: _(Watershed)
+            #   visibleDefault: true
 
-              # WRIA9 watershed
-            - id: watershed
-              title: _(Watershed)
-              visibleDefault: true
+        # - id: grp-history
+        #   title: _(Historical Data)
+        #   visibleDefault: false
+        #   layers:
 
-            - id: zoning
-              title: _(Zoning)
-              visibleDefault: false
-
-        - id: grp-history
-          title: _(Historical Data)
-          visibleDefault: false
-          layers:
-
-              # WMS Original Flow
-            - id: duwamish-original
-              title: _(Original River Path)
-              visibleDefault: false
+        #       # WMS Original Flow
+        #     - id: duwamish-original
+        #       title: _(Original River Path)
+        #       visibleDefault: false
 
     - id: ticker
       view: ActivityView
@@ -737,12 +757,27 @@ place:
       value: observation
       label: _(Observation)
       fields:
+        - name: date
+          type: datetime
+          prompt: _(Date:)
+          display_prompt: _(Date:)
+          optional: true
         - name: title
           type: text
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
+        - name: reside_work_georgetown  
+          type: binary_toggle 
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+          display_prompt: _(I reside or work in Georgetown or South Park:)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: true
         - name: pollution_type
           type: checkbox_big_buttons
           prompt: _(Types of pollution seen:)
@@ -758,7 +793,39 @@ place:
               value: litter
             - label: _(Other)
               value: other
-          optional: true # NOTE: checkbox_big_button inputs have no validation
+          optional: true
+        - name: blah
+          type: radio_big_buttons
+          prompt: _(Blah?)
+          display_prompt: _(Blah:)
+          content:
+            - label: _(A)
+              value: a
+            - label: _(B)
+              value: b
+            - label: _(C)
+              value: c
+            - label: _(D)
+              value: d
+            - label: _(E)
+              value: e
+          optional: true
+        - name: blah2
+          type: dropdown
+          prompt: _(BlahBlah?)
+          display_prompt: _(BlahBlah:)
+          content:
+            - label: _(A)
+              value: a
+            - label: _(B)
+              value: b
+            - label: _(C)
+              value: c
+            - label: _(D)
+              value: d
+            - label: _(E)
+              value: e
+          optional: true
         - name: description
           type: textarea
           prompt: _(Description of this pollution:)
@@ -775,7 +842,7 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title of your question:)
+          prompt: _(Title of your editortest:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
@@ -966,26 +1033,24 @@ place:
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
           optional: true 
-    - category: tree
+    - category: editortest
       includeOnForm: false
-      name: location_type
-      dataset: trees
-      icon_url: /static/css/images/markers/marker-tree.png
-      value: tree
-      label: _(Tree)
+      dataset: editortest
+      icon_url: /static/css/images/markers/triangle-fa307d.png
+      value: editortest
+      label: _(Editortest)
       fields:
         - name: title
           type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
+          prompt: _(Title of your question:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
           optional: false
         - name: description
           type: textarea
-          prompt: _(Description)
-          display_prompt: _(Description of this tree:)
-          placeholder: _(Description...)
-          optional: false
+          prompt: "_(What's your question?)"
+          display_prompt: _(My question:)
+          placeholder: _(Enter question...)
 
   # define form elements that appear on every form here
   common_form_elements:
