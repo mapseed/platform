@@ -5,20 +5,20 @@
         {{/unless}}
 
         <header class="place-header clearfix">
-          {{#unless isHTML}}
-            <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
-              {{>location-string location }}
-              {{#if fullTitle}}
-                {{fullTitle}}
+          <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
+            {{>location-string location }}
+            {{#if fullTitle}}
+              {{fullTitle}}
+            {{else}}
+              {{#if title}}
+                {{title}}
               {{else}}
-                {{#if title}}
-                  {{title}}
-                {{else}}
-                  {{name}}
-                {{/if}}
+                {{name}}
               {{/if}}
-            </h1>
-            <span class="place-submission-details">
+            {{/if}}
+          </h1>
+          <span class="place-submission-details">
+            {{#is_not showMetadata false}}
               {{#_}}<strong class="point-submitter">
                 {{#if submitter.avatar_url }}
                   <img src="{{ submitter.avatar_url }}" class="avatar" />
@@ -43,13 +43,13 @@
               <time datetime="{{ created_datetime }}" class="response-date"><a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a></time>
 
               <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
+            {{/is_not}}
 
-            {{^if survey_config}}
-              <a rel="internal" href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
-            {{/if}}
+          {{^if survey_config}}
+            <a rel="internal" href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
+          {{/if}}
 
-            </span>
-          {{/unless}}
+          </span>
         </header>
 
         <section class="place-items">

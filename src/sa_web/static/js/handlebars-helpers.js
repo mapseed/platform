@@ -27,6 +27,10 @@ var Shareabouts = Shareabouts || {};
     return a === b ? options.fn(this) : options.inverse(this);
   });
 
+  Handlebars.registerHelper('is_not', function(a, b, options) {
+    return a !== b ? options.fn(this) : options.inverse(this);
+  });
+
   Handlebars.registerHelper('if_fileinput_not_supported', function(options) {    
     return !NS.Util.fileInputSupported() ? options.fn(this) : null;
   });
