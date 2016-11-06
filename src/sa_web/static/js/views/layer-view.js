@@ -71,7 +71,11 @@ var Shareabouts = Shareabouts || {};
           }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
-          this.layer.setStyle(this.styleRule.style);
+          if (this.model.get("style")) {
+            this.layer.setStyle(this.model.get("style"));
+          } else {
+            this.layer.setStyle(this.styleRule.style);
+          }
         }
 
         // Focus on the layer onclick
