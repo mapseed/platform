@@ -23,14 +23,7 @@
             {{/if}}
           </form>
           <span class="place-submission-details">
-            {{#_}}<strong class="point-submitter">
-              {{#if submitter.avatar_url }}
-                <img src="{{ submitter.avatar_url }}" class="avatar" />
-              {{^}}
-                <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" />
-              {{/if}}
-            </h1>
-            <span class="place-submission-details">
+            {{#is_not showMetadata false}}
               {{#_}}<strong class="point-submitter">
                 {{#if submitter.avatar_url }}
                   <img src="{{ submitter.avatar_url }}" class="avatar" />
@@ -55,13 +48,13 @@
               <time datetime="{{ created_datetime }}" class="response-date"><a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a></time>
 
               <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
+            {{/is_not}}
 
-            {{^if survey_config}}
-              <a rel="internal" href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
-            {{/if}}
+          {{^if survey_config}}
+            <a rel="internal" href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
+          {{/if}}
 
-            </span>
-          {{/unless}}
+          </span>
         </header>
 
         <section class="place-items">
@@ -232,6 +225,14 @@
                         {{/if}}
                       </p>
                     {{/each}}
+                  {{/if}}
+                {{/is}}
+
+                {{#is type "rawHTML"}}
+                  {{#if isEditingToggled}}
+                    <textarea class="place-value place-value-{{ ../name }}" name="{{ ../name }}">{{nlToBr content}}</textarea>
+                  {{else}}
+                    <div>{{{content}}}</div>
                   {{/if}}
                 {{/is}}
 

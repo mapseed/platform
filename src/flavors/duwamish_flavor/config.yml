@@ -682,6 +682,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
+<<<<<<< 1ed7a2bf0bb13c0bdbcf50200620447c54097b77
 <<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
 <<<<<<< 6bd738a35bf1f8dd8dd96c710f842e88ffb96f5f
 =======
@@ -943,6 +944,8 @@ sidebar:
 >>>>>>> Update duwamish_flavor config.yml
 =======
 >>>>>>> update duwamish flavor config to accommodate landmark data
+=======
+>>>>>>> don't show place detail metadata if showMetadata flag exists and is set to false
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
