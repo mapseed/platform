@@ -1,10 +1,25 @@
-<h4 class="">{{ place_config.title }}</h4>
-<p class="drag-marker-instructions">
-  {{#_}}First drag the map to set your pin's location.{{/_}}
-</p>
+<!-- <h4 class="">{{ placeConfig.title }}</h4> -->
+<div class="drag-marker-instructions">
+  <table>
+    <tr id="drag-marker-content">
+      <td>
+        <div class="btn btn-inline btn-geolocate">
+          <img src="/static/css/images/locate-me.png" />
+          {{#_}}Set my location{{/_}}
+        </div> 
+      </td>
+      <td>
+        <p class="drag-text">{{#_}}Or, drag the map to set your location{{/_}}</p>
+      </td>
+    </tr>
+    <tr id="geolocating-msg" class="is-visuallyhidden">
+      <td>{{#_}}Setting your location...{{/_}}</td>
+    </tr>
+  </table>
+</div>
 <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
 
-<p class="form-field">{{ place_config.help_text }}</p>
+<p class="form-field">{{ placeConfig.help_text }}</p>
 
 <form id="place-form" class="place-form clearfix">
 
@@ -17,34 +32,38 @@
        -->
 
     <!-- container for selected category -->
-    {{#if is_category_selected}}
-    <div id="selected-category">
-      <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selected_category.name }} value={{ selected_category.value }} checked>
-      <label for="selected-category-palceholder">
-        <img src={{ selected_category.icon_url }} />
-        <span>{{ selected_category.label }}</span>
-      </label>
-      <span class="category-menu-hamburger"></span>
-    </div>
+    {{#if isCategorySelected}}
+      {{#unless isSingleCategory}}
+        <div id="selected-category">
+          <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategory.name }} value={{ selectedCategory.value }} checked>
+          <label for="selected-category-palceholder">
+            <img src={{ selectedCategory.icon_url }} />
+            <span>{{ selectedCategory.label }}</span>
+          </label>
+          <span class="category-menu-hamburger"></span>
+        </div>
+      {{/unless}}
     {{/if}}
 
     <!-- place buttons for dynamic form categories -->
-    <div id="category-btns">
-      {{#each place_config.place_detail}}
-        {{#if this.includeOnForm}}
-          <input type="radio" id={{ @key }} class="category-btn clickable">
-          <label for={{ @key }}>
-            <img src={{icon_url}} />
-            <span>{{ label }}</span>
-          </label>
-        {{/if}}
-      {{/each}}
-    </div>
-    <div style="clear:both"></div>
-    <br>
+    {{#unless isSingleCategory}}
+      <div id="category-btns">
+        {{#each placeConfig.place_detail}}
+          {{#if this.includeOnForm}}
+            <input type="radio" id={{ category }} class="category-btn clickable">
+            <label for={{ category }}>
+              <img src={{icon_url}} />
+              <span>{{ label }}</span>
+            </label>
+          {{/if}}
+        {{/each}}
+      </div>
+      <div style="clear:both"></div>
+      <br>
+    {{/unless}}
 
     <!-- generate content for selected category -->
-    {{#each selected_category.fields}}
+    {{#each selectedCategory.fields}}
       <div class="{{ type }} form-field">
         <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
         
@@ -121,15 +140,15 @@
     {{/each}}
 
     <!-- begin fields that are included in every form type by default -->
-    {{#if is_category_selected}}
+    {{#if isCategorySelected}}
       <div id="common-form-elements">
-        {{#each place_config.common_form_elements }}
+        {{#each placeConfig.common_form_elements }}
           <div class="{{ this.type }} form-field">
             {{#is name "submitter_name"}}
               {{#if_not_authenticated}}
                 <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
                 <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}" placeholder="{{placeholder}}">
-                <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
+                <!--<span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>-->
               {{/if_not_authenticated}}
             {{/is}}
 

@@ -147,6 +147,29 @@ a.close-btn {
     }
 }
 
+.place-items {
+    .place-item {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        margin: 0;
+    }
+
+    .place-label {
+        font-weight: bold;
+    }
+
+    .place-value {
+        word-break: break-word;
+    }
+
+    .multi-select-response {
+        padding: 0;
+    }
+}
+
 .place-submission-details {
     display: block;
     padding-left: 3.75em;
@@ -313,19 +336,46 @@ a.auth-inline {
 
 /* place detail view story bar */
 .place-story-bar {
-    background-color: LightYellow;
+    background-color: #EEEEEE;
     padding: 8px;
     border-radius: 3px;
     margin-top: 10px;
     margin-bottom: 20px;
     font-family: FontAwesome;
     overflow: hidden;
+    h1 {
+        line-height: 1em;
+    }
     .story-tagline {
         width: 100%;
         padding-left: 10px;
         padding-right: 10px;
         font-family: $default-font-family;
         margin-bottom: 0;
+    }
+}
+
+/* place form geolocation and instructions bar */
+.drag-marker-instructions {
+    position: relative;
+    background-color: lightyellow;
+    .btn-geolocate {
+        font-size: 0.85em;
+        width: 140px;
+        padding: 5px; 
+        position: relative;
+        img {
+            position: absolute;
+            left: 2px;
+            top: 6px;
+        }
+    }
+    .drag-text {
+        margin-bottom: 0;
+        padding-left: 15px;
+    }
+    #geolocating-msg {
+        color: #888888;
     }
 }
 

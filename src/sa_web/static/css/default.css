@@ -890,7 +890,7 @@ img {
   width: 200px;
   display: block;
   position: relative;
-  opacity: 0.5;
+  opacity: 1;
   height: 46px;
   margin-bottom: 1px;
 }
@@ -960,8 +960,9 @@ img {
 
 /* Story bar styles */
 .btn-previous-story-nav {
+  vertical-align: top;
   width: 10%;
-  color: #93b7c9;
+  color: rgba(255, 0, 0, 0.43);
   cursor: pointer;
 }
 .btn-previous-story-nav:before {
@@ -969,12 +970,13 @@ img {
   content: "";
 }
 .btn-previous-story-nav:hover {
-  color: #007fbf;
+  color: rgba(255, 0, 0, 0.65);
 }
 
 .btn-next-story-nav {
+  vertical-align: top;
   width: 10%;
-  color: #93b7c9;
+  color: rgba(255, 0, 0, 0.43);
   cursor: pointer;
 }
 .btn-next-story-nav:before {
@@ -982,7 +984,7 @@ img {
   content: "";
 }
 .btn-next-story-nav:hover {
-  color: #007fbf;
+  color: rgba(255, 0, 0, 0.65);
 }
 
 .story-nav-disabled {
@@ -1087,7 +1089,6 @@ select {
 }
 
 #site-header {
-  background: url(images/lightpaperfibers.png);
   position: relative;
   z-index: 99;
   padding: 0.5em;
@@ -1120,7 +1121,6 @@ select {
 }
 
 #nav-btn {
-  background: url(images/lightpaperfibers.png);
   color: #bbb;
   font-size: 2em;
   line-height: 1;
@@ -1588,6 +1588,23 @@ a.close-btn span {
   text-decoration: none;
 }
 
+.place-items .place-item {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.place-items ul {
+  margin: 0;
+}
+.place-items .place-label {
+  font-weight: bold;
+}
+.place-items .place-value {
+  word-break: break-word;
+}
+.place-items .multi-select-response {
+  padding: 0;
+}
+
 .place-submission-details {
   display: block;
   padding-left: 3.75em;
@@ -1742,7 +1759,7 @@ a.auth-inline {
 
 /* place detail view story bar */
 .place-story-bar {
-  background-color: LightYellow;
+  background-color: #EEEEEE;
   padding: 8px;
   border-radius: 3px;
   margin-top: 10px;
@@ -1750,12 +1767,39 @@ a.auth-inline {
   font-family: FontAwesome;
   overflow: hidden;
 }
+.place-story-bar h1 {
+  line-height: 1em;
+}
 .place-story-bar .story-tagline {
   width: 100%;
   padding-left: 10px;
   padding-right: 10px;
   font-family: "Roboto", sans-serif;
   margin-bottom: 0;
+}
+
+/* place form geolocation and instructions bar */
+.drag-marker-instructions {
+  position: relative;
+  background-color: lightyellow;
+}
+.drag-marker-instructions .btn-geolocate {
+  font-size: 0.85em;
+  width: 140px;
+  padding: 5px;
+  position: relative;
+}
+.drag-marker-instructions .btn-geolocate img {
+  position: absolute;
+  left: 2px;
+  top: 6px;
+}
+.drag-marker-instructions .drag-text {
+  margin-bottom: 0;
+  padding-left: 15px;
+}
+.drag-marker-instructions #geolocating-msg {
+  color: #888888;
 }
 
 #side-bar {

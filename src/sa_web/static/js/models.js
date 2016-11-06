@@ -21,11 +21,11 @@ var Shareabouts = Shareabouts || {};
     };
   };
 
-  var addStoryObj = function(properties, type) {
+  var addStoryObj = function(response, type) {
     var storyObj = null,
     url;
-    if (type === "place") { url = properties.datasetSlug + "/" + properties.id; }
-    else if (type === "landmark") { url = properties.title; }
+    if (type === "place") { url = response.properties.datasetSlug + "/" + response.properties.id; }
+    else if (type === "landmark") { url = response.title; }
     _.each(S.Config.story, function(story) {
       if (story.order[url]) {
         storyObj = {
@@ -33,7 +33,10 @@ var Shareabouts = Shareabouts || {};
           next: story.order[url].next,
           previous: story.order[url].previous,
           zoom: story.order[url].zoom,
-          visibleLayers: story.order[url].visibleLayers
+          panTo: story.order[url].panTo,
+          visibleLayers: story.order[url].visibleLayers,
+          basemap: story.order[url].basemap,
+          spotlight: story.order[url].spotlight
         }
       }
     });
@@ -51,6 +54,7 @@ var Shareabouts = Shareabouts || {};
     if (match) {
       // the second capture group represents the full title
       fullTitle = match[2];
+      properties.originalDescription = properties.description;
       properties.description = properties.description.replace(re, "");
     } else {
       fullTitle = properties.title;
@@ -257,25 +261,10 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
-    addStoryObj: function(properties) {
-      var storyObj = null,
-      url = properties.datasetSlug + "/" + properties.id;
-      _.each(S.Config.story, function(story) {
-        if (story.order[url]) {
-          storyObj = {
-            tagline: story.tagline,
-            next: story.order[url].next,
-            previous: story.order[url].previous
-          }
-        }
-      });
-      return { story: storyObj }
-    },
-
     parse: function(response) {
       var properties = _.clone(response.properties);
       // add story object, if relevant
-      _.extend(properties, addStoryObj(response.properties, "place"));
+      _.extend(properties, addStoryObj(response, "place"));
       properties.geometry = _.clone(response.geometry);
 
       return properties;
@@ -349,7 +338,7 @@ var Shareabouts = Shareabouts || {};
     parse: function(response) {
       var response = _.clone(response);
       // add story object, if relevant
-      _.extend(response, addStoryObj(response.properties, "landmark"));
+      _.extend(response, addStoryObj(response, "landmark"));
       _.extend(response, addLandmarkDescription(response.properties));
 
       return response;
