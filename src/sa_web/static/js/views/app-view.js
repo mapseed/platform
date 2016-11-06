@@ -649,7 +649,7 @@ var Shareabouts = Shareabouts || {};
                 map.setView(center, map.getMaxZoom()-1, {reset: true});
               }
             } else {
-              map.fitBounds(layer.getBounds());
+              map.fitBounds(layer.getBounds(), {reset: true});
             }
 
           } else {
@@ -810,7 +810,7 @@ var Shareabouts = Shareabouts || {};
                 map.setView(center, map.getMaxZoom()-1, {reset: true});
               }
             } else {
-              map.fitBounds(layer.getBounds());
+              map.fitBounds(layer.getBounds(), {reset: true});
             }
 
           } else {
