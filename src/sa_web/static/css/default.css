@@ -991,6 +991,38 @@ img {
   visibility: hidden;
 }
 
+/* Place detail editor */
+.editor-btn {
+  box-shadow: -2px 2px 3px #CCCCCC;
+  background-image: linear-gradient(to bottom, #f0ad4e, #e99a00);
+  border: none;
+  background-color: #f0ad4e;
+  color: white;
+}
+.editor-btn i {
+  color: white;
+}
+.editor-btn:hover {
+  box-shadow: -2px 2px 3px #CCCCCC, inset 0 0 0 1px #27496d;
+}
+
+.editor-btn.btn-depressed {
+  background-image: linear-gradient(to bottom, #e99a00, #b97a00);
+  background-color: #b27600;
+  box-shadow: inset 0 0 2px #999999;
+}
+
+.btn-update {
+  float: right;
+  margin-right: 8px;
+  background-image: linear-gradient(to bottom, #449d44, #449d44);
+}
+
+.btn-delete {
+  float: right;
+  background-image: linear-gradient(to bottom, #c9302c, #c9302c);
+}
+
 fieldset {
   border: 0;
   margin: 0;
@@ -1086,6 +1118,15 @@ select {
 
 .alt-label {
   display: none;
+}
+
+/* Editor mode update form */
+#update-place-model-title-form .place-value-title {
+  border-width: 4px;
+  max-width: 60%;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 #site-header {
@@ -1800,6 +1841,22 @@ a.auth-inline {
 }
 .drag-marker-instructions #geolocating-msg {
   color: #888888;
+}
+
+/* place detail editor */
+.img-placeholder {
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#editor-fileinput {
+  top: -15px;
+}
+
+.faded {
+  opacity: 0.3;
+  cursor: auto;
 }
 
 #side-bar {

@@ -88,12 +88,6 @@
     <div id="pages-nav-container"></div>
     {% block post_pages_nav %}{% endblock %}
 
-    {% if config.data.app.list_enabled != False %}
-    <nav class="list-toggle-nav">
-      <a href="#" class="list-toggle-btn btn btn-block"><span class="show-the-map is-visuallyhidden">{{ config.place.show_map_button_label }}</span><span class="is-screen-reader-text">/</span><span class="show-the-list">{{ config.place.show_list_button_label }}</span></a>
-    </nav>
-    {% endif %}
-
     {% if config.map.counter %}
       <div id="place-counter" class="list-toggle-nav"></div>
     {% endif %}
