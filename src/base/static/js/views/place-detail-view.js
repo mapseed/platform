@@ -137,13 +137,20 @@
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
 
       if (this.isEditingToggled) {
-        var editEvents = "change keyup";
+        var editEvents = "keyup";
         $("#toggle-editor-btn").addClass("btn-depressed");
         $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header").addClass("faded");
-        $("#update-place-model-form, #update-place-model-title-form").on(editEvents, function() {
-          self.isModified = true;
-          $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
-          $(this).off(editEvents);
+        $("#update-place-model-form, #update-place-model-title-form").on(editEvents, function(e) {
+          if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
+              || (e.keyCode >= 65 && e.keyCode <= 90) // a-z (also capital letters)
+              || (e.keyCode === 8) // backspace key
+              || (e.keyCode === 46) // delete key
+              || (e.keyCode === 32) // spacebar
+              || (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
+            self.isModified = true;
+            $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
+            $(this).off(editEvents);
+          }
         });
       }
 
