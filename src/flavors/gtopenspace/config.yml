@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Georgetown Open Space
+  title: Georgetown Open Space Vision Framework
   # Header name
-  name: "Georgetown Open Space"
+  name: "Georgetown Open Space Vision Framework"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -51,13 +51,7 @@ map:
       type: cartodb
 
   # Legend Layers
-    - id: gtopenspace
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      type: landmark
-      slug: idea
-      sources: 
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
+  
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
@@ -65,7 +59,11 @@ map:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-    - id: gtopenspace
+    - id: gtopenspace1
+      type: place
+      slug: idea
+
+    - id: gtopenspace2
       type: place
       slug: idea
 
@@ -370,7 +368,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
   high:
-    label: _(Featured site)
+    label: _(High)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -398,9 +396,8 @@ place_types:
           iconUrl: /static/css/images/markers/marker-e1264d.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
-
-  feature:
-    label: _(Featured site)
+  streetscape:
+    label: _(Streetscape)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -426,6 +423,36 @@ place_types:
       - condition: '{{map.zoom}} >= 15'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+  park-improvement:
+    label: _(Park Improvement)
+    rules:
+      - condition: '{{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+          shadowSize: [60, 60]
+          shadowAnchor: [30, 30]
+
+      - condition: '{{map.zoom}} < 11'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
+          iconSize: [12, 12]
+          iconAnchor: [6, 6]
+
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
+          iconSize: [18, 18]
+          iconAnchor: [9, 9]
+
+      - condition: '{{map.zoom}} >= 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
@@ -457,8 +484,13 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-            - id: gtopenspace
-              title: _(Priority Sites)
+
+            - id: gtopenspace2
+              title: _(Chosen sites)
+              visibleDefault: true
+
+            - id: gtopenspace1
+              title: _(Nominated sites)
               visibleDefault: true
 
             - id: cleanup
@@ -561,7 +593,7 @@ place:
     - category: high
       includeOnForm: true
       name: location_type
-      dataset: gtopenspace
+      dataset: gtopenspace2
       icon_url: /static/css/images/markers/marker-e1264d.png
       value: high
       label: _(High priority)
@@ -581,7 +613,7 @@ place:
     - category: medium
       includeOnForm: true
       name: location_type
-      dataset: gtopenspace
+      dataset: gtopenspace2
       icon_url: /static/css/images/markers/marker-f39914.png
       value: medium
       label: _(Medium priority)
@@ -601,7 +633,7 @@ place:
     - category: low
       includeOnForm: true
       name: location_type
-      dataset: gtopenspace
+      dataset: gtopenspace2
       icon_url: /static/css/images/markers/marker-a5cf32.png
       value: low
       label: _(Low priority)
@@ -620,9 +652,9 @@ place:
           optional: true
 
     - category: feature
-      includeOnForm: false     
+      includeOnForm: true     
       name: location_type
-      dataset: gtopenspace
+      dataset: gtopenspace2
       icon_url: /static/css/images/markers/marker-star.png
       value: feature
       label: _(Featured site)
@@ -657,14 +689,14 @@ place:
     #       value: _(Receive email updates on your report)
     #     - key: size
     #       value: 30
-    # - name: my_image
-    #   type: file
-    #   prompt: _(Image)Georgetown Mini Mart City Park
-    #   inputfile_label: _(Add an Image)
-    #   optional: true
-    #   attrs:
-    #     - key: accept
-    #       value: image/*
+    - name: my_image
+      type: file
+      prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
     - type: submit
       label: _(Put it on the map!)
 
@@ -778,11 +810,11 @@ pages:
 story:
   test_story1:
     default_visible_layers:
-      - gtopenspace
+      - gtopenspace1
     tagline: _(Explore other priority sites)
     order: 
       - url: idea/552
-      - url: idea/554
+      - url: idea/651
       - url: idea/555
       - url: idea/556
       - url: idea/558
