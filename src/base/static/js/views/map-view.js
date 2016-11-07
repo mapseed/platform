@@ -238,6 +238,10 @@
     },
     removeLayerView: function(collectionId) {
       return function(model) {
+        // remove map-bound events for this layer view
+        this.map.off("zoomend", this.layerViews[collectionId][model.cid].updateLayer, this.layerViews[collectionId][model.cid]);
+        this.map.off("move", this.layerViews[collectionId][model.cid].throttledRender, this.layerViews[collectionId][model.cid]);
+        
         this.layerViews[collectionId][model.cid].remove();
         delete this.layerViews[collectionId][model.cid];
       }
