@@ -55,7 +55,7 @@ map:
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
       slug: idea
-      sources: 
+      sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: restoration
@@ -65,7 +65,7 @@ map:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-    - id: gtopenspace
+    - id: gtopenspace1
       type: place
       slug: idea
 
@@ -620,7 +620,7 @@ place:
           optional: true
 
     - category: feature
-      includeOnForm: false     
+      includeOnForm: false
       name: location_type
       dataset: gtopenspace
       icon_url: /static/css/images/markers/marker-star.png
@@ -780,7 +780,7 @@ story:
     default_visible_layers:
       - gtopenspace
     tagline: _(Explore other priority sites)
-    order: 
+    order:
       - url: idea/552
       - url: idea/554
       - url: idea/555
@@ -802,7 +802,7 @@ story:
 
   test_story2:
     tagline: _(This is a priority site. Use arrows to explore others)
-    order: 
+    order:
       - url: friends-of-georgetown-history-museum
       - url: ruby-chow-park
       - url: georgetown-steam-plant
