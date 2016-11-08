@@ -44,6 +44,9 @@
 
   <!-- jQuery date-time picker plugin -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
+
+  <!-- QuillJS -->
+  <link href="https://cdn.quilljs.com/1.1.4/quill.snow.css" rel="stylesheet">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
   {% endif %}
@@ -205,6 +208,7 @@
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/esri-leaflet.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
+  <script src="{{STATIC_URL}}libs/quill.min.js"></script>
   {% else %}
   <!--   TODO: build libraries with npm instead of bower -->
   <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.7.0"></script>
