@@ -229,11 +229,8 @@
                 {{/is}}
 
                 {{#is type "rawHTML"}}
-                  {{#if isEditingToggled}}
-                    <textarea class="place-value place-value-{{ ../name }}" name="{{ ../name }}">{{nlToBr content}}</textarea>
-                  {{else}}
-                    <div>{{{content}}}</div>
-                  {{/if}}
+                  <!-- NOTE: assume QuillJS will be used to edit content of this type -->
+                  <div class="place-value place-value-{{ ../name }}">{{{content}}}</div>
                 {{/is}}
 
                 <div style="clear:both"></div>
