@@ -50,7 +50,7 @@ map:
     # raingardens
     - id: raingardens
       type: place
-      slug: report
+      slug: place
 
   # Map Layers
 
