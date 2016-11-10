@@ -1,8 +1,8 @@
-/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper */
+/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper Quill */
 
 var Shareabouts = Shareabouts || {};
 
-(function(S, $, console){
+(function(S, $, console, Quill){
   S.PlaceFormView = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
@@ -60,18 +60,48 @@ var Shareabouts = Shareabouts || {};
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-
       return this;
     },
     // called from the app view
     postRender: function() {
-      // NOTE: the extra call to initialize the date-time picker is necessary here,
-      // because on a single-category form the call to initialize in the render() method
-      // above will fail, since the form content will not yet have been inserted into
-      // the DOM by the app view
-      if (this.formState.isSingleCategory) {
-        $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+      var self = this,
+      $prompt;
+
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+      if ($(".rawHTML").length > 0) {
+        // NOTE: we currently support a single QuillJS field per form
+        $prompt = $(".rawHTML").find("label").detach();
+
+        // Quill toolbar configuration
+        var toolbarOptions = [
+          ["bold", "italic", "underline", "strike"],
+          [{ "list": "ordered" }, { "list": "bullet" }],
+          [{ "header": [1, 2, 3, 4, 5, 6, false] }],
+          [{ "color": [] }, { "background": [] }],
+          ["link", "image", "video"]
+        ],
+        quill = new Quill(".rawHTML", {
+          modules: { 
+            "toolbar": toolbarOptions
+          },
+          theme: "snow",
+          placeholder: _.find(
+            _.find(self.formState.placeDetail, function(categoryConfig) { 
+              return categoryConfig.category === self.formState.selectedCategory
+            }).fields, function(categoryField) {
+              return categoryField.type === "rawHTML"
+            }).placeholder
+        }),
+        toolbar = quill.getModule("toolbar");
+        $(".ql-toolbar").before($prompt);
+        quill.deleteText(0, 50);
+
+        // override default image upload behavior: instead, create an <img>
+        // tag with highlighted text set as the src attribute
+        toolbar.addHandler("image", function() {
+          var range = quill.getSelection();
+          quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
+        }); 
       }
     },
     remove: function() {
@@ -122,16 +152,11 @@ var Shareabouts = Shareabouts || {};
       this.formState.selectedDatasetId = _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory }).dataset;
       this.formState.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return layer.id === self.formState.selectedDatasetId })[0].slug;
 
-      // re-render the form with the selected category
       this.render(this.formState.selectedCategory, true);
-      // manually set the category button again since the re-render resets it
+      this.postRender();
       $(evt.target).parent().prev().prop("checked", true);
-      // hide and then show (with animation delay) the selected category button 
-      // so we don't see a duplicate selected category button briefly
       $("#selected-category").hide().show(animationDelay);
-      // slide up unused category buttons
       $("#category-btns").animate( { height: "hide" }, animationDelay );
-      // if we've already dragged the map, make sure the map drag instructions don't reappear
       if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
     onClickGeolocate: function(evt) {
@@ -217,13 +242,25 @@ var Shareabouts = Shareabouts || {};
       }
 
       var self = this,
-          router = this.options.router,
-          collection = this.collection[self.formState.selectedDatasetId],
-          model,
-          // Should not include any files
-          attrs = this.getAttrs(),
-          $button = this.$('[name="save-place-btn"]'),
-          spinner, $fileInputs;
+        router = this.options.router,
+        collection = this.collection[self.formState.selectedDatasetId],
+        model,
+        // Should not include any files
+        attrs = this.getAttrs(),
+        $button = this.$('[name="save-place-btn"]'),
+        spinner, $fileInputs,
+        richTextAttrs = {};
+
+      // if we have a Quill-enabled field, assume content from this field belongs
+      // to the description field. We'll need to make this behavior more sophisticated
+      // to support multiple Quill-enabled fields.
+      if ($(".ql-editor").html()) {
+        richTextAttrs.description = $(".ql-editor").html();
+      }
+      attrs = _.extend(attrs, richTextAttrs);
+
+      console.log("attrs", attrs);
+
       evt.preventDefault();
 
       collection.add({"location_type": this.formState.selectedCategory});
@@ -270,4 +307,4 @@ var Shareabouts = Shareabouts || {};
       });
     })
   });
-}(Shareabouts, jQuery, Shareabouts.Util.console));
+}(Shareabouts, jQuery, Shareabouts.Util.console, Quill));
