@@ -77,7 +77,8 @@
         {{/is}}
 
         {{#is type "rawHTML"}}
-          <textarea id="place-{{ name }}" name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}" {{^optional}}required{{/optional}}></textarea>
+          <!-- NOTE: assume QuillJS will be used to edit content of this type -->
+          <div id="place-{{ name }}" class="rawHTML"></div>
         {{/is}}
 
         {{#is type "radio_big_buttons"}}

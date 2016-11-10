@@ -67,6 +67,7 @@ map:
       type: basemap
 
     # Legend Layers
+<<<<<<< 3c33c7619e6d08ceb9aef5cd6659f142c2d01992
     # - id: restoration
     #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
     #   type: landmark
@@ -79,6 +80,8 @@ map:
       sources: 
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
+=======
+>>>>>>> Add rich text editor support to the dynamic form
     - id: story-markers
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
@@ -105,13 +108,7 @@ map:
       type: place
       slug: air
 
-    # - id: vision
-    #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-    #   sources:
-    #     - "http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-    #   type: landmark
-
-       # WRIA9 watershed
+    # WRIA9 watershed
     - id: watershed
       type: cartodb
       url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
@@ -714,10 +711,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: rail
       includeOnForm: false
       name: location_type
@@ -734,10 +743,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: school
       includeOnForm: false
       name: location_type
@@ -754,10 +775,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: town-hall
       includeOnForm: false
       name: location_type
@@ -774,12 +807,24 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: wetland
-      includeOnForm: false
+      includeOnForm: true
       name: location_type
       dataset: vision
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -794,10 +839,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: police
       includeOnForm: false
       name: location_type
@@ -814,10 +871,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: mapbox
       includeOnForm: false
       name: location_type
@@ -834,10 +903,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: park2
       includeOnForm: false
       name: location_type
@@ -854,10 +935,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: industrial
       includeOnForm: false
       name: location_type
@@ -874,10 +967,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: theatre
       includeOnForm: false
       name: location_type
@@ -894,10 +999,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: swimming
       includeOnForm: false
       name: location_type
@@ -914,10 +1031,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: danger
       includeOnForm: false
       name: location_type
@@ -934,10 +1063,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: bicycle
       includeOnForm: false
       name: location_type
@@ -954,10 +1095,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: zoo
       includeOnForm: false
       name: location_type
@@ -974,10 +1127,22 @@ place:
           optional: false
         - name: description
           type: rawHTML
-          prompt: _(Raw HTML:)
+          prompt: _(Description:)
           display_prompt: ""
-          placeholder: _(Enter raw HTML...)
+          placeholder: _(Your description...)
           optional: true
+        - name: marker-color
+          type: radio_big_buttons
+          prompt: _(Icon color:)
+          display_prompt: _(Icon color:)
+          content:
+            - label: _(a3e46b)
+              value: "a3e46b"
+            - label: _(f1f075)
+              value: "f1f075"
+            - label: _(f86767)
+              value: "f86767"
+          optional: false
     - category: observation
       includeOnForm: true
       name: location_type
