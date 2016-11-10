@@ -142,14 +142,11 @@
         
         // Quill toolbar configuration
         var toolbarOptions = [
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-          [{ 'color': [] }, { 'background': [] }],
-          [{ 'font': [] }],
-          [{ 'align': [] }],
-          ['link', 'image'],
-          ['clean']
+          ["bold", "italic", "underline", "strike"],
+          [{ "list": "ordered" }, { "list": "bullet" }],
+          [{ "header": [1, 2, 3, 4, 5, 6, false] }],
+          [{ "color": [] }, { "background": [] }],
+          ["link", "image", "video"]
         ],
         quill = new Quill(".place-item-description", {
           modules: { 
@@ -165,6 +162,7 @@
           quill.off("text-change", onEditorChange);
           $(watchFields).off("keyup");
         }
+        $(".place-item-description").addClass("rawHTML");
 
         // override default image upload behavior: instead, create an <img>
         // tag with highlighted text set as the src attribute
