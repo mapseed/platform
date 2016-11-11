@@ -90,6 +90,7 @@
             "toolbar": toolbarOptions
           },
           theme: "snow",
+          bounds: "#content",
           placeholder: _.find(
             _.find(self.formState.placeDetail, function(categoryConfig) { 
               return categoryConfig.category === self.formState.selectedCategory
