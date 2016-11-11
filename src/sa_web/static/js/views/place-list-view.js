@@ -44,6 +44,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onRender: function(evt) {
+      this.support.reset();
       this.support.show(this.supportView);
     },
     show: function() {
@@ -86,7 +87,6 @@ var Shareabouts = Shareabouts || {};
 
       _.each(this.options.placeCollections, function(collection) {
         collection.on("add", self.addModel, self);
-        collection.on("sync", self.onSync, self);
       });
 
       this.itemsPerPage = 10;
@@ -102,20 +102,15 @@ var Shareabouts = Shareabouts || {};
       this.collectionFilters = options.filter || {};
       this.searchTerm = options.term || '';
     },
-    onSync: function() {
-      // sort the merged collection after each component collection
-      // is synced successfully
-      this.sort();
-    },
     onAfterItemAdded: function(view) {
       // Cache the views as they are added
       this.views[view.model.cid] = view;
     },
     addModel: function(model) {
       if (this.collection.length < this.numItemsShown) {
-        this.collection.add(model);
+        this.collection.add(model, {sort: false});
       } else {
-        this.unrenderedItems.add(model);
+        this.unrenderedItems.add(model, {sort: false});
       }
     },
     renderList: function() {
