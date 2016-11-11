@@ -9,7 +9,7 @@
 -------------------------------------------------------------- */
 
   #site-header {
-    background: url(images/logo_cooc_min.png);
+    background: url(images/oakland-bg.png);
     padding-left: 1em;
     overflow: visible;
     height: 4em;
@@ -17,6 +17,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
