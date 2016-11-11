@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - on our `develop` branch
 ### Added
  - SASS precompiler
+ - Add in-app editor
+ - List view performance improvements
 
 ## [0.7.1] - 2016-10-13 - on our `develop-0.7.0` branch
 ### Added
