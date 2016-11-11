@@ -150,7 +150,8 @@ var Shareabouts = Shareabouts || {};
           modules: { 
             "toolbar": toolbarOptions
           },
-          theme: "snow"
+          theme: "snow",
+          bounds: "#content"
         }),
         toolbar = quill.getModule("toolbar"),
         watchFields = "#update-place-model-form, #update-place-model-title-form",
