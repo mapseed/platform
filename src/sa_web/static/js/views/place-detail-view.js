@@ -269,6 +269,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     onUpdateModel: function() {
+      if (!this.isModified) return;
+
       var self = this,
       richTextAttrs = {};
       // if we have a Quill-enabled field, assume content from this field belongs
