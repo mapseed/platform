@@ -161,7 +161,7 @@
           self.isModified = true;
           $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
           quill.off("text-change", onEditorChange);
-          $(watchFields).off("keyup");
+          $(watchFields).off("keyup change");
         }
         $(".place-item-description").addClass("rawHTML");
 
@@ -176,8 +176,10 @@
         quill.on("text-change", onEditorChange);
 
         // detect changes made to non-Quill form elements
-        $(watchFields).on("keyup", function(e) {
-          if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
+        $(watchFields).on("keyup change", function(e) {
+          if (e.type === "change") {
+            onEditorChange();
+          } else if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
               || (e.keyCode >= 65 && e.keyCode <= 90) // a-z (also capital letters)
               || (e.keyCode === 8) // backspace key
               || (e.keyCode === 46) // delete key
