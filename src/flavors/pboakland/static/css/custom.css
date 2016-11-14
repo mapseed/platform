@@ -18,6 +18,11 @@
     box-sizing: border-box;
   }
 
+.btn-primary:visited, .btn-primary:link {
+  background-color: #00aaff;
+  color: #fff;
+  background-color: rgba(79, 204, 14, 0.9);
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */
