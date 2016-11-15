@@ -36,6 +36,14 @@
   background-color: rgba(79, 204, 14, 0.9);
 }
 
+.category-btn + label > img {
+  width: 36px;
+}
+
+.category-btn + label > span {
+  left: 44px;
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
