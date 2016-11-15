@@ -284,19 +284,21 @@ sidebar:
       view: LegendView
       icon: info-circle
       items:
-        - title: _(Observations)
+        - title: _(Youth services)
           image: /static/css/images/markers/marker-youth.png
           url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-parks.png
-          url: /filter/idea
-        - title: _(Questions)
+        - title: _(Senior services)
           image: /static/css/images/markers/marker-seniors.png
           url: /filter/question
-        - title: _(Complaints)
+        - title: _(Parks and recreation)
+          image: /static/css/images/markers/marker-parks.png
+          url: /filter/idea
+        - title: _(Streets and sidewalks)
           image: /static/css/images/markers/marker-streets.png
           url: /filter/complaint
-
+        - title: _(Health and safety)
+          image: /static/css/images/markers/marker-health.png
+          url: /filter/complaint
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
