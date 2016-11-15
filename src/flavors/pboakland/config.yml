@@ -85,124 +85,124 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   youth:
-    label: _(Observation)
+    label: _(Idea for youth services)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-youth.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+          shadowSize: [50, 50]
+          shadowAnchor: [25, 50]
 
       - condition: '{{map.zoom}} < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-youth.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          iconSize: [15, 15]
+          iconAnchor: [7.5, 7.5]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-youth.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   senior:
-    label: _(Question)
+    label: _(Idea for senior services)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-seniors.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+          shadowSize: [50, 50]
+          shadowAnchor: [25, 50]
 
       - condition: '{{map.zoom}} < 11'
         icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-seniors.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          iconSize: [15, 15]
+          iconAnchor: [7.5, 7.5]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-seniors.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   parks:
-    label: _(Idea)
+    label: _(Idea for parks and recreation)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-parks.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+          shadowSize: [50, 50]
+          shadowAnchor: [25, 50]
 
       - condition: '{{map.zoom}} < 11'
         icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-parks.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          iconSize: [15, 15]
+          iconAnchor: [7.5, 7.5]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-parks.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   streets:
-    label: _(Streets and Sidewalk idea)
+    label: _(Idea for streets and sidewalks)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-streets.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+          shadowSize: [50, 50]
+          shadowAnchor: [25, 50]
 
       - condition: '{{map.zoom}} < 11'
         icon:
-          iconUrl: /static/css/images/markers/dot-e1264d.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-streets.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          iconSize: [15, 15]
+          iconAnchor: [7.5, 7.5]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-streets.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   health:
     label: _(Health and Safety idea)
@@ -211,28 +211,28 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-health.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+          shadowSize: [50, 50]
+          shadowAnchor: [25, 50]
 
-      - condition: '{{map.zoom}} < 15'
+      - condition: '{{map.zoom}} < 11'
+        icon:
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconSize: [10, 10]
+          iconAnchor: [5, 5]
+
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-health.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconSize: [15, 15]
+          iconAnchor: [7.5, 7.5]
 
-      - condition: '{{map.zoom}} < 18'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-health.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
-
-      - condition: '{{map.zoom}} >= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-health.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
 
 # Sidebar and activity stream should be enabled and disabled together!
@@ -398,8 +398,8 @@ place:
               value: 100k-149k
             - label: _($150,000 or more)
               value: 150k-or-more
-          optional: false
-        - name: volunteer
+          optional: true
+        - name: private-volunteer
           type: binary_toggle
           prompt: _(I want to volunteer:)
           display_prompt: _(I want to volunteer:)
@@ -419,7 +419,7 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title of your question:)
+          prompt: _(Title of your idea:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
@@ -458,7 +458,7 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title of your complaint:)
+          prompt: _(Title of your idea:)
           placeholder: _(Enter title...)
           display_prompt: _(Title:)
           optional: false
@@ -478,7 +478,7 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title of your complaint:)
+          prompt: _(Title of your idea:)
           placeholder: _(Enter title...)
           display_prompt: _(Title:)
           optional: false
@@ -561,10 +561,11 @@ pages:
     start_page: true
 
   - title: _(Guidelines)
-    slug: background
-    name: background
+    slug: guidelines
+    name: guidelines
     hide_from_top_bar: false
 
-  - title: _(Get involved)
+  - title: _(Get more involved)
     slug: getinvolved
     name: contribute
+    hide_from_top_bar: false
