@@ -18,8 +18,16 @@
   box-sizing: border-box;
 }
 
+#site-title {
+  height: 50px;
+}
+
 #site-title-image {
   height: 50px;
+}
+
+#sign-in-btn {
+  margin-top: 5px;
 }
 
 .btn-primary:visited, .btn-primary:link {
