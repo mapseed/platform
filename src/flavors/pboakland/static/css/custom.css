@@ -8,15 +8,19 @@
 /* =Header
 -------------------------------------------------------------- */
 
-  #site-header {
-    background: url(images/oakland-bg.png);
-    padding-left: 1em;
-    overflow: visible;
-    height: 4em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
+#site-header {
+  background-color: white;
+  background: none;
+  padding-left: 1em;
+  overflow: visible;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#site-title-image {
+  height: 50px;
+}
 
 .btn-primary:visited, .btn-primary:link {
   background-color: #00aaff;
