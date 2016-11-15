@@ -37,7 +37,7 @@ map:
     - id: osm
       type: basemap
       defaultBase: true
-      url: //{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
+      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite

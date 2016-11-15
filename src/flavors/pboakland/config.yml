@@ -89,7 +89,7 @@ place_types:
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-youth.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -104,13 +104,13 @@ place_types:
 
       - condition: '{{map.zoom}} < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-youth.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: '{{map.zoom}} >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/marker-youth.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -119,7 +119,7 @@ place_types:
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/marker-seniors.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -134,13 +134,13 @@ place_types:
 
       - condition: '{{map.zoom}} < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/marker-seniors.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: '{{map.zoom}} >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/marker-seniors.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -149,7 +149,7 @@ place_types:
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/marker-parks.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -164,13 +164,13 @@ place_types:
 
       - condition: '{{map.zoom}} < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/marker-parks.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: '{{map.zoom}} >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/marker-parks.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -179,7 +179,7 @@ place_types:
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-streets.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -188,19 +188,19 @@ place_types:
 
       - condition: '{{map.zoom}} < 11'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/dot-e1264d.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: '{{map.zoom}} < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-streets.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: '{{map.zoom}} >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-streets.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -209,7 +209,7 @@ place_types:
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconUrl: /static/css/images/markers/marker-health.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -218,19 +218,19 @@ place_types:
 
       - condition: '{{map.zoom}} < 15'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconUrl: /static/css/images/markers/marker-health.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: '{{map.zoom}} < 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconUrl: /static/css/images/markers/marker-health.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
       - condition: '{{map.zoom}} >= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
+          iconUrl: /static/css/images/markers/marker-health.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -280,21 +280,21 @@ sidebar:
       title: _(Activity Stream:)
 
     - id: reports_legend
-      title: _(Citizen Reports:)
+      title: _(Community ideas:)
       view: LegendView
       icon: info-circle
       items:
         - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
+          image: /static/css/images/markers/marker-youth.png
           url: /filter/observation
         - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
+          image: /static/css/images/markers/marker-parks.png
           url: /filter/idea
         - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
+          image: /static/css/images/markers/marker-seniors.png
           url: /filter/question
         - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
+          image: /static/css/images/markers/marker-streets.png
           url: /filter/complaint
 
 activity:
@@ -326,7 +326,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: pboakland
-      icon_url: /static/css/images/markers/marker-observation.png
+      icon_url: /static/css/images/markers/marker-youth.png
       value: youth
       label: _(Youth Services)
       fields:
@@ -413,7 +413,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: pboakland
-      icon_url: /static/css/images/markers/marker-question.png
+      icon_url: /static/css/images/markers/marker-seniors.png
       value: senior
       label: _(Senior Services)
       fields:
@@ -432,7 +432,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: pboakland
-      icon_url: /static/css/images/markers/marker-idea.png
+      icon_url: /static/css/images/markers/marker-parks.png
       value: parks
       label: _(Parks and Recreation)
       fields:
@@ -452,7 +452,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: pboakland
-      icon_url: /static/css/images/markers/marker-complaint.png
+      icon_url: /static/css/images/markers/marker-streets.png
       value: streets
       label: _(Streets and Sidewalk)
       fields:
@@ -472,7 +472,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: pboakland
-      icon_url: /static/css/images/markers/marker-complaint.png
+      icon_url: /static/css/images/markers/marker-health.png
       value: health
       label: _(Health and Safety)
       fields:
