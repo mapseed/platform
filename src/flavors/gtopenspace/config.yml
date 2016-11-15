@@ -370,7 +370,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
   high:
-    label: _(Featured site)
+    label: _(High)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:

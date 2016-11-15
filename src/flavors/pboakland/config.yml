@@ -175,7 +175,7 @@ place_types:
           iconAnchor: [19, 46]
 
   streets:
-    label: _(Complaint)
+    label: _(Streets and Sidewalk idea)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -205,7 +205,7 @@ place_types:
           iconAnchor: [19, 46]
 
   health:
-    label: _(Health and Safety)
+    label: _(Health and Safety idea)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -313,7 +313,7 @@ place:
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
-  action_text: _(created)
+  action_text: _(added)
   anonymous_name: _(Someone)
   submit_button_label: _(Put it on the map!)
 
