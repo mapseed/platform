@@ -37,7 +37,7 @@ map:
     - id: osm
       type: basemap
       defaultBase: true
-      url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: //{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -51,7 +51,7 @@ map:
       type: cartodb
 
   # Legend Layers
-    - id: gtopenspace
+    - id: 10sites
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
       slug: idea
@@ -65,7 +65,7 @@ map:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-    - id: gtopenspace1
+    - id: gtopenspace2
       type: place
       slug: idea
 
@@ -300,7 +300,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-whale.png
+          iconUrl: /static/css/images/markers/marker-star-maroon.png
 
   # # needs a marker
   # farm:
@@ -457,9 +457,13 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-            - id: gtopenspace
+            - id: 10sites
               title: _(Priority Sites)
               visibleDefault: true
+
+            - id: gtopenspace2
+              title: _(Additional ideas)
+              visibleDefault: false
 
             - id: cleanup
               title: _(River Cleanup Plan)
