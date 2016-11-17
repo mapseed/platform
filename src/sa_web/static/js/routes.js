@@ -17,6 +17,30 @@ var Shareabouts = Shareabouts || {};
       ':zoom/:lat/:lng': 'viewMap'
     },
 
+    // overwrite route so we can catch route requests that would
+    // navigate away from a detail view with unsaved editor changes
+    route: function(route, handler, callback) {
+      var router = this;
+      if (!callback) callback = this[handler];
+
+      var f = function() {
+        if (this.appView.activeDetailView &&
+          this.appView.activeDetailView.isModified) {
+          if (!this.appView.activeDetailView.onCloseWithUnsavedChanges()) {
+            return false 
+          } else {
+            this.appView.activeDetailView = null;
+            callback.apply(router, arguments);
+          }
+        } else {
+          this.appView.activeDetailView = null;
+          callback.apply(router, arguments);
+        }
+      };
+
+      return Backbone.Router.prototype.route.call(this, route, handler, f);
+    },
+
     initialize: function(options) {
       var self = this,
           startPageConfig,
@@ -30,8 +54,6 @@ var Shareabouts = Shareabouts || {};
       this.activities = {};
       // store individual landmark collections for each landmark type
       this.landmarks = {};
-      // store separate collection of all places merged together
-      this.mergedPlaces = new S.PlaceCollection([]);
 
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
@@ -66,7 +88,7 @@ var Shareabouts = Shareabouts || {};
         }
       }, this);
 
-      this.loading = true;      
+      this.loading = true;
 
       // set up landmark configs and instantiate landmark collections
       configArrays.landmarks = options.mapConfig.layers.filter(function(layer) {
@@ -101,7 +123,6 @@ var Shareabouts = Shareabouts || {};
         activities: this.activities,
         places: this.places,
         landmarks: this.landmarks,
-        mergedPlaces: this.mergedPlaces,
         datasetConfigs: configArrays,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,
@@ -225,7 +246,7 @@ var Shareabouts = Shareabouts || {};
             .addClass(locationType)
             .html(menuItem.title);
         }
-        
+
       } else {
         // If the filter is 'all', we're unsetting the filter.
         this.appView.mapView.clearFilter();

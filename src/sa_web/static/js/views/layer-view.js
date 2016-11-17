@@ -12,13 +12,14 @@ var Shareabouts = Shareabouts || {};
       // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
 
+      this.map.on('zoomend', this.updateLayer, this);
+
       // Bind model events
       this.model.on('change', this.updateLayer, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
-
-      this.map.on('zoomend', this.updateLayer, this);
-
+      this.model.on('destroy', this.onDestroy, this);
+      
       // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
 
@@ -71,7 +72,11 @@ var Shareabouts = Shareabouts || {};
           }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
-          this.layer.setStyle(this.styleRule.style);
+          if (this.model.get("style")) {
+            this.layer.setStyle(this.model.get("style"));
+          } else {
+            this.layer.setStyle(this.styleRule.style);
+          }
         }
 
         // Focus on the layer onclick
@@ -82,6 +87,14 @@ var Shareabouts = Shareabouts || {};
         this.render();
       }
     },
+    onDestroy: function() {
+      // NOTE: it's necessary to remove the zoomend event here
+      // so this view won't try to recreate a marker when the map is
+      // zoomed. Somehow even when a layer view is removed, the
+      // zoomend listener on the map still retains a reference to it
+      // and is capable of calling view methods on a "deleted" view.
+      this.map.off('zoomend', this.updateLayer, this);
+    },
     updateLayer: function() {
       // Update the marker layer if the model changes and the layer exists
       this.removeLayer();
@@ -89,7 +102,7 @@ var Shareabouts = Shareabouts || {};
     },
     removeLayer: function() {
       if (this.layer) {
-        this.options.placeLayers.removeLayer(this.layer);
+        this.options.layer.removeLayer(this.layer);
       }
     },
     render: function() {
@@ -146,7 +159,7 @@ var Shareabouts = Shareabouts || {};
       if (!this.options.mapView.locationTypeFilter ||
         this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
         if (this.layer) {
-          this.options.placeLayers.addLayer(this.layer);
+          this.options.layer.addLayer(this.layer);
         }
       } else {
         this.hide();

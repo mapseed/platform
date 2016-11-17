@@ -19,7 +19,9 @@ var Shareabouts = Shareabouts || {};
 
       this.map = L.map(self.el, self.options.mapConfig.options);
 
-      this.placeLayers = self.getLayerGroups();
+      _.each(self.options.mapConfig.layers, function(config) {
+        config.loaded = false;
+      });
       this.layers = {};
       this.layerViews = {};
 
@@ -27,128 +29,6 @@ var Shareabouts = Shareabouts || {};
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
 
-      // Add layers defined in the config file
-      _.each(self.options.mapConfig.layers, function(config) {
-        var layer,
-            collectionId,
-            collection;
-        if (config.type && config.type === 'json') {
-          var url = config.url;
-          if (config.sources) {
-            url += '?';
-            config.sources.forEach(function (source) {
-              url += encodeURIComponent(source) + '&';
-            });
-          }
-          layer = L.argo(url, config);
-          self.layers[config.id] = layer;
-        } else if (config.type && config.type === 'esri-feature') {
-          if (config.loadStrategy === 'all at once') {
-            // IDs can be returned all at once, while actual geometries are
-            // capped at 1000 per request. Gets an array of all IDs then
-            // requests their geometry 1000 at a time.
-            L.esri.Tasks.query({
-              url: config.url
-            }).ids(function(error, ids) {
-              var esriLayers = [];
-
-              for (var i = 0; i < ids.length; i += 1000) {
-                L.esri.Tasks.query({url: config.url})
-                  .featureIds(ids.slice(i, i + 1000))
-                  .run(function(error, geoJson) {
-                    var currentLayer = L.argo(geoJson, config);
-
-                    if (config.popupContent) {
-                      curentLayer.bindPopup(function(feature) {
-                        return L.Argo.t(config.popupContent, feature.properties);
-                      });
-                    }
-
-                    esriLayers.push(currentLayer);
-
-                    if (esriLayers.length === (Math.floor(ids.length / 1000) + 1)) {
-                      // All requests have completed
-                      self.layers[config.id] = L.layerGroup(esriLayers);
-                    }
-                  });
-              }
-            });
-          } else {
-            layer = L.esri.featureLayer(
-              {
-                url: config.url,
-                style: function(feature) {
-                  return L.Argo.getStyleRule(feature, config.rules)['style'];
-                }
-              }
-            );
-
-            if (config.popupContent) {
-              layer.bindPopup(function(feature) {
-                return L.Argo.t(config.popupContent, feature.properties);
-              });
-            }
-
-            self.layers[config.id] = layer;
-          }
-        } else if (config.type && config.type === 'landmark') {
-          collectionId = config.id;
-          self.layers[collectionId] = L.layerGroup();
-          self.layerViews[collectionId] = {};
-
-          // Bind our landmark data events:
-          collection = self.landmarks[collectionId];
-          collection.on('add', self.addLandmarkLayerView(collectionId), self);
-          collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
-        } else if (config.type && config.type === 'cartodb') {
-          cartodb.createLayer(self.map, config.url, { legends: false })
-            .on('done', function(cartoLayer) {
-              self.layers[config.id] = cartoLayer;
-              // This is only set when the 'visibility' event is fired before
-              // our carto layer is loaded:
-              if (config.asyncLayerVisibleDefault) {
-                cartoLayer.addTo(self.map);
-              }
-            })
-            .on('error', function(err) {
-              S.Util.log('Cartodb layer creation error:', err);
-            });
-        } else if (config.type && config.type === 'shareabouts') {
-          self.layers[config.id] = self.placeLayers;
-        } else if (config.type && config.type === 'basemap') {
-          // Assume a tile layer
-          layer = L.tileLayer(config.url, config);
-          self.layers[config.id] = layer;
-
-          if (config.defaultBase) {
-            layer.addTo(self.map);
-          }
-        } else if (config.layers) {
-          // If "layers" is present, then we assume that the config
-          // references a Leaflet WMS layer.
-          // http://leafletjs.com/reference.html#tilelayer-wms
-          layer = L.tileLayer.wms(config.url, {
-            layers: config.layers,
-            format: config.format,
-            transparent: config.transparent,
-            version: config.version,
-            crs: L.CRS.EPSG3857,
-            // default TileLayer options
-            attribution: config.attribution,
-            opacity: config.opacity,
-            fillColor: config.color,
-            weight: config.weight,
-            fillOpacity: config.fillOpacity
-          });
-          self.layers[config.id] = layer;
-
-        } else {
-          // Assume a tile layer
-          layer = L.tileLayer( (config.url ? config.url : ""), config);
-
-          layer.addTo(self.map);
-        }
-      });
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
 
@@ -156,8 +36,6 @@ var Shareabouts = Shareabouts || {};
       if (self.options.mapConfig.geolocation_enabled) {
         self.initGeolocation();
       }
-
-      self.map.addLayer(self.placeLayers);
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -179,42 +57,71 @@ var Shareabouts = Shareabouts || {};
         $(S).trigger('mapdragend', [evt]);
       });
 
-      // Bind data events to shareabouts collections
-      _.each(self.places, function(collection) {
+      // Bind shareabouts collections event listeners
+      _.each(self.places, function(collection, collectionId) {
+        self.layers[collectionId] = self.getLayerGroups();
+        self.layerViews[collectionId] = {};
         collection.on('reset', self.render, self);
-        collection.on('add', self.addLayerView, self);
-        collection.on('remove', self.removeLayerView, self);
+        collection.on('add', self.addLayerView(collectionId), self);
+        collection.on('remove', self.removeLayerView(collectionId), self);
+        collection.on('userHideModel', self.onUserHideModel(collectionId), self);
       });
-      
+
+      // Bind landmark collections event listeners
+      _.each(self.landmarks, function(collection, collectionId) {
+        self.layers[collectionId] = L.layerGroup();
+        self.layerViews[collectionId] = {};
+        collection.on('add', self.addLandmarkLayerView(collectionId), self);
+        collection.on('remove', self.removeLandmarkLayerView(collectionId), self);
+      });
+
       // Bind visiblity event for custom layers
-      $(S).on('visibility', function (evt, id, visible) {
-        var layer = self.layers[id];
-        if (layer) {
+      $(S).on('visibility', function (evt, id, visible, isBasemap) {
+        var layer = self.layers[id],
+        config = _.find(self.options.mapConfig.layers, function(c) {
+          return c.id === id;
+        });
+        if (config && !config.loaded && visible) {
+          self.createLayerFromConfig(config);
+          config.loaded = true;
+          layer = self.layers[id];
+        }
+        if (isBasemap) {
+          _.each(self.options.basemapConfigs, function(basemap) {
+            if (basemap.id === id) {
+              self.map.addLayer(layer);
+              layer.bringToBack();
+            } else if (self.layers[basemap.id]) {
+              self.map.removeLayer(self.layers[basemap.id]);
+            }
+          });
+        } else if (layer) {
           self.setLayerVisibility(layer, visible);
-        } else if (id === 'toggle-satellite') {
-          // TODO: This is a hack! We should integrate this with the config
-          // probably with a radio button in the legend!
-          if (visible) {
-            self.map.addLayer(self.layers['satellite']);
-            self.layers['satellite'].bringToBack();
-            self.map.removeLayer(self.layers['osm']);
-          } else {
-            self.map.addLayer(self.layers['osm']);
-            self.layers['osm'].bringToBack();
-            self.map.removeLayer(self.layers['satellite']);
-          }
         } else {
           // Handles cases when we fire events for layers that are not yet
           // loaded (ie cartodb layers, which are loaded asynchronously)
-          var mapLayerConfig = _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id === id;
-          });
           // We are setting the asynch layer config's default visibility here to
           // ensure they are added to the map when they are eventually loaded:
-          mapLayerConfig.asyncLayerVisibleDefault = visible;
+          config.asyncLayerVisibleDefault = visible;
         }
       });
     }, // end initialize
+
+    onUserHideModel: function(collectionId) {
+      return function(model) {
+        this.options.placeDetailViews[model.cid].remove();
+        delete this.options.placeDetailViews[model.cid];
+        this.places[collectionId].remove(model);
+        S.Util.log('APP', 'panel-state', 'closed');
+        // remove map mask if the user closes the side panel
+        $("#spotlight-place-mask").remove();
+        if (this.locationTypeFilter) {
+          this.options.router.navigate('filter/' + this.locationTypeFilter, {trigger: true});
+        } else {
+          this.options.router.navigate('/', {trigger: true});
+        }
+      }
+    },
 
     // Adds or removes the layer  on Master Layer based on visibility
     setLayerVisibility: function(layer, visible) {
@@ -236,22 +143,6 @@ var Shareabouts = Shareabouts || {};
         }
       });
     }, 1000),
-    render: function() {
-      var self = this;
-
-      // Clear any existing stuff on the map, and free any views in
-      // the list of layer views.
-      this.placeLayers.clearLayers();
-      this.layerViews = {};
-      _.each(Object.keys(self.places), function(collectionId) {
-        self.layers[collectionId].clearLayers();
-        self.layerViews[collectionId] = {};
-      });
-
-      this.places.each(function(model, i) {
-        self.addLayerView(model);
-      });
-    },
     initGeolocation: function() {
       var self = this;
 
@@ -319,7 +210,7 @@ var Shareabouts = Shareabouts || {};
           map: this.map,
           placeTypes: this.options.placeTypes,
           collectionId: collectionId,
-          landmarkLayers: this.layers[collectionId],
+          layer: this.layers[collectionId],
           // to access the filter
           mapView: this
         });
@@ -331,20 +222,28 @@ var Shareabouts = Shareabouts || {};
         delete this.layerViews[collectionId][model.id];
       }
     },
-    addLayerView: function(model) {
-      this.layerViews[model.cid] = new S.LayerView({
-        model: model,
-        router: this.options.router,
-        map: this.map,
-        placeLayers: this.placeLayers,
-        placeTypes: this.options.placeTypes,
-        // to access the filter
-        mapView: this
-      });
+    addLayerView: function(collectionId) {
+      return function(model) {
+        this.layerViews[collectionId][model.cid] = new S.LayerView({
+          model: model,
+          router: this.options.router,
+          map: this.map,
+          layer: this.layers[collectionId],
+          placeTypes: this.options.placeTypes,
+          // to access the filter
+          mapView: this
+        });
+      }
     },
-    removeLayerView: function(model) {
-      this.layerViews[model.cid].remove();
-      delete this.layerViews[model.cid];
+    removeLayerView: function(collectionId) {
+      return function(model) {
+        // remove map-bound events for this layer view
+        this.map.off("zoomend", this.layerViews[collectionId][model.cid].updateLayer, this.layerViews[collectionId][model.cid]);
+        this.map.off("move", this.layerViews[collectionId][model.cid].throttledRender, this.layerViews[collectionId][model.cid]);
+        
+        this.layerViews[collectionId][model.cid].remove();
+        delete this.layerViews[collectionId][model.cid];
+      }
     },
     zoomInOn: function(latLng) {
       this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
@@ -408,6 +307,116 @@ var Shareabouts = Shareabouts || {};
             return L.divIcon({ html: n, className: className, iconSize: [size, size] });
           }
         });
+      }
+    },
+    createLayerFromConfig: function(config) {
+      var self = this,
+          layer,
+          collectionId,
+          collection;
+      if (config.type && config.type === 'json') {
+        var url = config.url;
+        if (config.sources) {
+          url += '?';
+          config.sources.forEach(function (source) {
+            url += encodeURIComponent(source) + '&';
+          });
+        }
+        layer = L.argo(url, config);
+        self.layers[config.id] = layer;
+      } else if (config.type && config.type === 'esri-feature') {
+        if (config.loadStrategy === 'all at once') {
+          // IDs can be returned all at once, while actual geometries are
+          // capped at 1000 per request. Gets an array of all IDs then
+          // requests their geometry 1000 at a time.
+          L.esri.Tasks.query({
+            url: config.url
+          }).ids(function(error, ids) {
+            var esriLayers = [];
+
+            for (var i = 0; i < ids.length; i += 1000) {
+              L.esri.Tasks.query({url: config.url})
+                .featureIds(ids.slice(i, i + 1000))
+                .run(function(error, geoJson) {
+                  var currentLayer = L.argo(geoJson, config);
+
+                  if (config.popupContent) {
+                    curentLayer.bindPopup(function(feature) {
+                      return L.Argo.t(config.popupContent, feature.properties);
+                    });
+                  }
+
+                  esriLayers.push(currentLayer);
+
+                  if (esriLayers.length === (Math.floor(ids.length / 1000) + 1)) {
+                    // All requests have completed
+                    self.layers[config.id] = L.layerGroup(esriLayers);
+                  }
+                });
+            }
+          });
+        } else {
+          layer = L.esri.featureLayer(
+            {
+              url: config.url,
+              style: function(feature) {
+                return L.Argo.getStyleRule(feature, config.rules)['style'];
+              }
+            }
+          );
+
+          if (config.popupContent) {
+            layer.bindPopup(function(feature) {
+              return L.Argo.t(config.popupContent, feature.properties);
+            });
+          }
+
+          self.layers[config.id] = layer;
+        }
+      } else if (config.type && config.type === 'place') {
+        // NOTE: Since places and landmarks have their own url's, loading them
+        // into our map is handled in our Backbone router.
+        // nothing to do
+      } else if (config.type && config.type === 'landmark') {
+        // NOTE: Since places and landmarks have their own url's, loading them
+        // into our map is handled in our Backbone router.
+        // nothing to do
+      } else if (config.type && config.type === 'cartodb') {
+        cartodb.createLayer(self.map, config.url, { legends: false })
+          .on('done', function(cartoLayer) {
+            self.layers[config.id] = cartoLayer;
+            // This is only set when the 'visibility' event is fired before
+            // our carto layer is loaded:
+            if (config.asyncLayerVisibleDefault) {
+              cartoLayer.addTo(self.map);
+            }
+          })
+          .on('error', function(err) {
+            S.Util.log('Cartodb layer creation error:', err);
+          });
+      } else if (config.layers) {
+        // If "layers" is present, then we assume that the config
+        // references a Leaflet WMS layer.
+        // http://leafletjs.com/reference.html#tilelayer-wms
+        layer = L.tileLayer.wms(config.url, {
+          layers: config.layers,
+          format: config.format,
+          transparent: config.transparent,
+          version: config.version,
+          crs: L.CRS.EPSG3857,
+          // default TileLayer options
+          attribution: config.attribution,
+          opacity: config.opacity,
+          fillColor: config.color,
+          weight: config.weight,
+          fillOpacity: config.fillOpacity
+        });
+        self.layers[config.id] = layer;
+      } else {
+        // Assume a tile layer
+        // TODO: Isn't type=tile for back compatibility
+        layer = L.tileLayer(config.url, config);
+        self.layers[config.id] = layer;
       }
     }
   });

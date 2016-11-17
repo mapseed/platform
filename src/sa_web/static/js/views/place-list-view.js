@@ -35,8 +35,21 @@ var Shareabouts = Shareabouts || {};
         userToken: S.Config.userToken
       });
     },
+    onBeforeRender: function() {
+      // if an attachmentCollection has models in it, make sure the place
+      // model's attachment attribute is set for the attachments to be
+      // reliably rendered in the list view
+      if (this.model.attachmentCollection.length > 0) {
+        this.model.set("attachments", this.model.attachmentCollection.toJSON());
+      }
+    },
     onRender: function(evt) {
+      this.support.reset();
       this.support.show(this.supportView);
+      // in case story mode has hidden the title
+      if (this.model.get("story")) {
+        this.$el.find(".place-header-title").removeClass("is-visuallyhidden");
+      }
     },
     show: function() {
       this.$el.show();
@@ -63,10 +76,25 @@ var Shareabouts = Shareabouts || {};
       'submit @ui.searchForm': 'handleSearchSubmit',
       'click @ui.date': 'handleDateSort',
       'click @ui.surveyCount': 'handleSurveyCountSort',
-      'click @ui.supportCount': 'handleSupportCountSort'
+      'click @ui.supportCount': 'handleSupportCountSort',
+      'scroll': 'infiniteScroll'
     },
     initialize: function(options) {
+      var self = this;
       options = options || {};
+
+      // This collection holds references to all place models
+      // merged together, for sorting and filtering purposes
+      this.collection = new S.PlaceCollection([]);
+
+      this.unrenderedItems = new S.PlaceCollection([]);
+
+      _.each(this.options.placeCollections, function(collection) {
+        collection.on("add", self.addModel, self);
+      });
+
+      this.itemsPerPage = 10;
+      this.numItemsShown = this.itemsPerPage;
 
       // Init the views cache
       this.views = {};
@@ -82,39 +110,54 @@ var Shareabouts = Shareabouts || {};
       // Cache the views as they are added
       this.views[view.model.cid] = view;
     },
+    addModel: function(model) {
+      if (this.collection.length < this.numItemsShown) {
+        this.collection.add(model, {sort: false});
+      } else {
+        this.unrenderedItems.add(model, {sort: false});
+      }
+    },
     renderList: function() {
-      var self = this;      
+      var self = this;
       // A faster alternative to this._renderChildren. _renderChildren always
       // discards and recreates a new ItemView. This simply rerenders the
       // cached views.
       var $itemViewContainer = this.getItemViewContainer(this);
       $itemViewContainer.empty();
 
-      this.collection.each(function(model) {
-        if (self.views[model.cid]) {
+      this.collection.each(function(model, index) {
+        if (self.views[model.cid] && index < self.numItemsShown) {
           $itemViewContainer.append(self.views[model.cid].$el);
           // Delegate the events so that the subviews still work
           self.views[model.cid].supportView.delegateEvents();
-          // manually insert the title into places active story bars
-          // NOTE: this is pretty hacky, but works for now
-          if (model.get("name")) $(".place-header:last").html("<h1>" + model.get("name") + "</h1>");
         }
       });
 
       // remove story bars from the list view
-      $(".place-story-bar").remove();
+      $("#list-container .place-story-bar").remove();
+    },
+    infiniteScroll: function() {
+      var totalHeight = this.$('> ul').height();
+      var scrollTop = this.$el.scrollTop() + this.$el.height();
+      // 200 = number of pixels from bottom to load more
+      if (scrollTop + 200 >= totalHeight) {
+        this.numItemsShown += this.itemsPerPage;
+        this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
+      }
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();
+      this.numItemsShown = this.itemsPerPage;
       this.search(this.ui.searchField.val());
     },
     handleSearchSubmit: function(evt) {
       evt.preventDefault();
+      this.numItemsShown = this.itemsPerPage;
       this.search(this.ui.searchField.val());
     },
     handleDateSort: function(evt) {
       evt.preventDefault();
-
+      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'date';
       this.sort();
 
@@ -122,7 +165,7 @@ var Shareabouts = Shareabouts || {};
     },
     handleSurveyCountSort: function(evt) {
       evt.preventDefault();
-
+      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'surveyCount';
       this.sort();
 
@@ -130,7 +173,7 @@ var Shareabouts = Shareabouts || {};
     },
     handleSupportCountSort: function(evt) {
       evt.preventDefault();
-
+      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'supportCount';
       this.sort();
 
@@ -187,73 +230,71 @@ var Shareabouts = Shareabouts || {};
       var sortFunction = this.sortBy + 'Sort';
 
       this.collection.comparator = this[sortFunction];
+      this.unrenderedItems.comparator = this[sortFunction];
       this.collection.sort();
+      this.unrenderedItems.sort();
       this.renderList();
       this.search(this.ui.searchField.val());
     },
     clearFilters: function() {
       this.collectionFilters = {};
-      this.applyFilters(this.collectionFilters, this.searchTerm);
+      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
     },
     filter: function(filters) {
       _.extend(this.collectionFilters, filters);
-      this.applyFilters(this.collectionFilters, this.searchTerm);
+      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
     },
     search: function(term) {
       this.searchTerm = term;
-      this.applyFilters(this.collectionFilters, this.searchTerm);
+      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
     },
-    applyFilters: function(filters, term) {
-      var len = S.Config.place.items.length,
-          val, key, i;
+    applyFilters: function(filters, term, max) {
+      var val, key, i;
 
       term = term.toUpperCase();
-      this.collection.each(function(model) {
-        var show = function() { model.trigger('show'); },
-            hide = function() { model.trigger('hide'); },
-            submitter, locationType;
 
-        // If the model doesn't match one of the filters, hide it.
-        for (key in filters) {
-          val = filters[key];
-          if (_.isFunction(val) && !val(model)) {
-            return hide();
-          }
-          else if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
-            return hide();
-          }
+      this.unrenderedItems.add(this.collection.models);
+      this.collection.reset();
+
+      this.unrenderedItems.each(function(model, index) {
+        if (index > max) {
+          return;
         }
+
+        var submitter,
+            locationType = model.get("location_type"),
+            placeConfig = _.find(S.Config.place.place_detail, function(config) { return config.category === locationType });
 
         // Check whether the remaining models match the search term
-        for (i=0; i<len; i++) {
-          key = S.Config.place.items[i].name;
+        for (var i = 0; i < placeConfig.fields.length; i++) {
+          key = placeConfig.fields[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
-            return show();
+            this.unrenderedItems.remove(model);
+            return this.collection.add(model);
           }
-        }
+        };
 
         // Submitter is only present when a user submits a place when logged in
         // with FB or Twitter. We handle it specially because it is an object,
         // not a string.
         submitter = model.get('submitter');
-        if (!show && submitter) {
+        if (submitter) {
           if (submitter.name && submitter.name.toUpperCase().indexOf(term) !== -1 ||
               submitter.username && submitter.username.toUpperCase().indexOf(term) !== -1) {
-            return show();
+            this.unrenderedItems.remove(model);
+            return this.collection.add(model);
           }
         }
 
         // If the location_type has a label, we should search in it also.
         locationType = S.Config.flavor.place_types[model.get('location_type')];
-        if (!show && locationType && locationType.label) {
+        if (locationType && locationType.label) {
           if (locationType.label.toUpperCase().indexOf(term) !== -1) {
-            return show();
+            this.unrenderedItems.remove(model);
+            return this.collection.add(model);
           }
         }
-
-        // If we've fallen through here, hide the item.
-        return hide();
       }, this);
     },
     isVisible: function() {
