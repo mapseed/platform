@@ -196,6 +196,32 @@ strong {
   font-weight: bold;
 }
 
+// NB: This is part of Compass internals, and is only necessary because
+// compass-mixins is missing this one. See https://github.com/Igosuki/compass-mixins/issues/63
+// for more info. This was copied from:
+// https://github.com/zellwk/vertical-rhythms-without-compass/blob/master/vertical-rhythms/_vertical-rhythms.scss#L73-L92
+
+// @private Outputs rhythm values. For rem units, outputs pixel fallbacks
+// by default.
+@mixin output-rhythm($property, $values) {
+  @if $rhythm-unit == rem and $rem-with-px-fallback {
+    @include rem($property, $values);
+  }
+  @else {
+    $output: ();
+    @each $value in $values {
+      @if unit($value) == px {
+        // Ensure all pixel values are rounded to the nearest pixel.
+        $output: join($output, round($value));
+      }
+      @else {
+        $output: join($output, $value);
+      }
+    }
+    #{$property}: $output;
+  }
+}
+
 @if not $strict-normalize or support-legacy-browser(ie, "7") {
   /**
    * Set 1 unit of vertical rhythm on the top and bottom margin.
