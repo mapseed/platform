@@ -5,7 +5,7 @@ var fs = require('fs');
 sass.render({
   file: 'src/sa_web/static/scss/default.scss',
   importer: compass,
-  outFile: 'test.css'
+  outFile: 'default.css'
 }, function(error, result) {
   if(!error) {
     // No errors during the compilation, write this result on the disk
