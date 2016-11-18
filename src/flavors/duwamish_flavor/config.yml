@@ -1886,7 +1886,14 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+<<<<<<< 0c187628d115974bb44911486ea4b5f3fc57b0ed
     start_page: false
+=======
+    start_page: true
+    # only show the start page on devices with pixel widths 
+    # greater than this value
+    show_above_width: 960
+>>>>>>> Prevent start page routing on devices below a defined pixel width
 
   - title: _(Background)
     slug: background
