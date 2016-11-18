@@ -1595,7 +1595,7 @@ pages:
   - title: _(Stories)
     slug: stories
     name: stories
-    start_page: false
+    start_page: true
     hide_from_top_bar: true
 
   - title: _(Green Screen)
