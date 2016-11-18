@@ -1323,7 +1323,7 @@ a.logout-btn {
 }
 
 #main-btns-container {
-  margin-top: 5px;
+  margin-left: 2%;
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
@@ -1334,6 +1334,7 @@ a.logout-btn {
 }
 
 #nav-stories {
+  background-color: #007fbf;
   display: inline;
 }
 
@@ -2519,9 +2520,26 @@ a.close-unsupported-overlay {
 
   #main-btns-container {
     font-size: 0.75em;
-    width: 275px;
-    margin-left: auto;
-    margin-right: auto;
+  }
+
+  #add-place {
+    display: inline-block;
+    width: 49%;
+    margin-top: -4px;
+  }
+
+  #nav-stories {
+    display: inline-block;
+    width: 49%;
+    margin-top: -4px;
+  }
+
+  #add-place:hover {
+    background-color: #FF8B61;
+  }
+
+  #nav-stories:hover {
+    background-color: #FF8B61;
   }
 }
 @media only screen and (min-width: 60em) {
