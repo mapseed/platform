@@ -1907,7 +1907,10 @@ pages:
   - title: _(Stories)
     slug: stories
     name: stories
+<<<<<<< 3955393b2a778e7ad1fd5845536926c13840ded8
     start_page: false
+=======
+>>>>>>> styling tweaks
     hide_from_top_bar: true
 
   - title: _(Green Screen)
