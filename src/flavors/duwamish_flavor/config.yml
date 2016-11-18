@@ -67,7 +67,6 @@ map:
       type: basemap
 
     # Legend Layers
-<<<<<<< 3c33c7619e6d08ceb9aef5cd6659f142c2d01992
     # - id: restoration
     #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
     #   type: landmark
@@ -80,8 +79,6 @@ map:
       sources: 
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-=======
->>>>>>> Add rich text editor support to the dynamic form
     - id: story-markers
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
@@ -1581,7 +1578,10 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: false
+    start_page: true
+    # only show the start page on devices with pixel widths 
+    # greater than this value
+    show_above_width: 960
 
   - title: _(Background)
     slug: background
