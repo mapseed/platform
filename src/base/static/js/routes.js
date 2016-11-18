@@ -162,7 +162,10 @@ Shareabouts.Util = Util;
       if (Backbone.history.getFragment() === '') {
         startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
 
-        if (startPageConfig && startPageConfig.slug) {
+        if (startPageConfig 
+          && startPageConfig.slug
+          // don't route to the start page on small screens
+          && $(window).width() > (startPageConfig.show_above_width || 960)) {
           this.navigate('page/' + startPageConfig.slug, {trigger: true});
         }
       }
