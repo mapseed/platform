@@ -48,15 +48,21 @@
 // Tool buttons - Selectors
 
 #main-btns-container {
-    display: table;
-    table-layout: fixed;
-    z-index: 12;
+    // background: url(images/lightpaperfibers.png);
+    margin-top: 5px;
     padding: 0.5em 0.5em 0.75em;
+    position: relative;
+    z-index: 30;
+    // box-shadow: 0 -0.325em 0 $opacity-very-low-black;
+    // border-bottom: 1px solid #666;
 }
 
-#add-place-btn-container {
-    padding: 5px;
-    display: table-cell;
+#add-place {
+    display: inline;
+}
+
+#nav-stories {
+    display: inline;
 }
 
 #story-btn-container {
@@ -69,6 +75,10 @@
  
 #nav-stories {
     background-color: #007fbf;
+}
+
+.content-visible #story-btn-container {
+    display: none;
 }
 
 // Center Point (new point icon) - Selectors
@@ -281,4 +291,4 @@
 
 .leaflet-control-attribution {
     display: none;
-} 
+}
