@@ -1322,16 +1322,26 @@ a.logout-btn {
   -webkit-text-size-adjust: none;
 }
 
-#add-place-btn-container {
-  background: url(images/lightpaperfibers.png);
+#main-btns-container {
+  margin-top: 5px;
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
-  box-shadow: 0 -0.325em 0 rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #666;
+}
+
+#add-place {
+  display: inline;
+}
+
+#nav-stories {
+  display: inline;
 }
 
 .content-visible #add-place-btn-container {
+  display: none;
+}
+
+.content-visible #story-btn-container {
   display: none;
 }
 
@@ -1518,6 +1528,10 @@ a.logout-btn {
   z-index: 3;
   display: none;
   font-size: 1.25em;
+}
+
+.leaflet-control-attribution {
+  display: none;
 }
 
 #content {
@@ -2496,11 +2510,18 @@ a.close-unsupported-overlay {
   }
 
   #map-container {
-    height: calc(100% - 72px);
+    height: calc(100% - 35px);
   }
 
   .activity-enabled.content-visible #map-container {
     height: 70%;
+  }
+
+  #main-btns-container {
+    font-size: 0.75em;
+    width: 275px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 @media only screen and (min-width: 60em) {
@@ -2669,7 +2690,7 @@ a.close-unsupported-overlay {
     height: 100%;
   }
 
-  #add-place-btn-container {
+  #main-btns-container {
     position: absolute;
     background: transparent;
     font-size: 1.25em;
@@ -2677,35 +2698,35 @@ a.close-unsupported-overlay {
     box-shadow: none;
     border-bottom: 0;
   }
-  #add-place-btn-container.pos-top-left {
+  #main-btns-container.pos-top-left {
     top: 1.5em;
     left: 3.5em;
   }
-  #add-place-btn-container.pos-top-right {
+  #main-btns-container.pos-top-right {
     top: 1.5em;
     right: 1.5em;
   }
-  #add-place-btn-container.pos-bot-left {
+  #main-btns-container.pos-bot-left {
     bottom: 2em;
     left: 2em;
   }
-  #add-place-btn-container .btn {
+  #main-btns-container .btn {
     padding-right: 1em;
     padding-left: 1em;
   }
-  #add-place-btn-container .btn:visited, #add-place-btn-container .btn:link {
+  #main-btns-container .btn:visited, #main-btns-container .btn:link {
     padding-right: 1em;
     padding-left: 1em;
   }
-  #add-place-btn-container .btn-primary:hover {
+  #main-btns-container .btn-primary:hover {
     background-color: #FF8B61;
   }
 
-  .content-visible #add-place-btn-container {
+  .content-visible #main-btns-container {
     display: block;
   }
 
-  .place-form-visible #add-place-btn-container {
+  .place-form-visible #main-btns-container {
     display: none;
   }
 

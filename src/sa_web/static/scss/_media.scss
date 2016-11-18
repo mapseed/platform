@@ -73,11 +73,18 @@
 
     #map-container {
         // calculated as 100% of #main height minus the fixed pixel height of the footer
-        height: calc(100% - 72px);
+        height: calc(100% - 35px);
     }
 
     .activity-enabled.content-visible #map-container {
         height: 70%;
+    }
+
+    #main-btns-container {
+        font-size: 0.75em;
+        width: 275px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -274,7 +281,7 @@
         height: 100%;
     }
 
-    #add-place-btn-container {
+    #main-btns-container {
         position: absolute;
 
         &.pos-top-left {
@@ -313,14 +320,14 @@
         }
     }
 
-    .content-visible #add-place-btn-container {
+    .content-visible #main-btns-container {
         display: block;
 
         // override of the mobile style
    
     }
 
-    .place-form-visible #add-place-btn-container {
+    .place-form-visible #main-btns-container {
         display: none;
     }
 
