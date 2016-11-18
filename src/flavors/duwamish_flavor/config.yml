@@ -1423,7 +1423,10 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: false
+    start_page: true
+    # only show the start page on devices with pixel widths 
+    # greater than this value
+    show_above_width: 960
 
   - title: _(Background)
     slug: background
