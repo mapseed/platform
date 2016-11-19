@@ -104,6 +104,20 @@ NOTE: If you're new to programming with virtualenv, be sure to remember to activ
 source env/bin/activate
 ```
 
+### Using the in-app editor
+The platform includes an in-app editor (currently only available on the `develop` branch) that you can use to update and hide places and comments on a per-dataset basis. Only authenticated administrators are allowed to make edits. Authentication is performed via third-party social media services (Twitter and Facebook are currently supported), so administrators will need an account on either of these services to use the editor.
+
+Follow these instructions to grant administrator privileges to one or more users:
+1. If the user to whom you'd like to grant administrator privileges has previosuly logged into your app via a social media service, skip to the next step. Otherwise, you'll need to manually add the user before granting privileges. Follow these steps:
+    - In the admin panel, click `Users`, then `Add user +`, then create a new user. The username you enter here must match the social media username of the person to whom you'd like to grant administrator privileges. 
+    - Next, in the `User social auths` panel, click `Add user social auth +`, select the user you just created under `User`, enter the name of the social service provider (`twitter` or `facebook`), then enter the social user's `Uid`. The `Uid` can be looked up online: [here](https://tweeterid.com/) for Twitter, and [here](https://lookup-id.com/) for Facebook.
+2. In the Django admin panel, click on `Data sets` and then the name of the dataset you'd like to grant administrator privileges for.
+3. Under the `Groups` section, create a new group called `administrators` if it doesn't already exist. Note that this group must be called `administrators`.
+4. Add users to whom you'd like to grant privileges by selecting the user in the `Available submitters` panel and clicking the right arrow to move them to the `Chosen submitters` panel. 
+5. Click `Edit permissions` below the submitters panels, and grant `retrieve`, `create`, `update`, and `destroy` privileges. Also make sure that a `*` character is entered in the text box at left. The help text in the admin panel suggests that this box can be left blank, but this is in fact not true.
+6. Click `Save`.
+7. Now when any of the `Chosen submitters` are logged into your app via a social media service, an edit button will appear on place detail views that belong to datasets where they have administrator privileges. Administrators can edit the title and content of places, edit and delete individual comments, and hide entire places.
+
 Credits
 -------------
 Many features are powered by Shareabouts, an open-source project of [OpenPlans](http://openplans.org).
