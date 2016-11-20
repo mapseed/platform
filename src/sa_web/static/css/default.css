@@ -1120,6 +1120,10 @@ select {
   display: none;
 }
 
+.isAutocomplete {
+  background-color: #ffffe0;
+}
+
 /* QuillJS editor styles */
 .rawHTML {
   margin-top: 0px !important;
