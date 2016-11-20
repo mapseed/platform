@@ -6,27 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2016-11-20 02:30-0800\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
-
-#~ # SOME DESCRIPTIVE TITLE.
-#~ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-#~ # This file is distributed under the same license as the PACKAGE package.
-#~ # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#~ #
-#~ #: flavors/pboakland/_config.translations.py:27
-#~ #: flavors/pboakland/_config.translations.py:30
-#~ #, fuzzy
-#~ msgid ""
-#~ msgstr ""
-#~ "Project-Id-Version: PACKAGE VERSION\n"
-#~ "Report-Msgid-Bugs-To: \n"
-#~ "POT-Creation-Date: 2016-11-20 00:53-0800\n"
-"PO-Revision-Date: 2016-11-20 02:04-0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-20 00:53-0800\n"
+"PO-Revision-Date: 2016-11-20 02:32-0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -420,7 +402,7 @@ msgstr ""
 #: flavors/pboakland/_config.translations.py:116
 #: flavors/pboakland/jstemplates/pages/guidelines.html:1
 msgid "Guidelines"
-msgstr ""
+msgstr "指南"
 
 #: flavors/pboakland/_config.translations.py:117
 #: flavors/pboakland/jstemplates/pages/contribute.html:1
@@ -444,7 +426,7 @@ msgstr ""
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:5
 msgid "Volunteer"
-msgstr ""
+msgstr "志愿者"
 
 #: flavors/pboakland/jstemplates/pages/overview.html:1
 msgid "Participatory Budgeting Oakland"
