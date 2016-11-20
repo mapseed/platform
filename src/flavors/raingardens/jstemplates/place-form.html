@@ -59,21 +59,42 @@
               <p class="error is-hidden"></p>
               <label class="geocode-address-label" for="geocode-address-field"></label>
               <div class="geocode-spinner is-hidden"></div>
-              <input name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} type="text" id="geocode-address-field" class="geocode-address-field">
+              <input name="{{ name }}" 
+                     {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
+                     type="text" id="geocode-address-field" 
+                     class="geocode-address-field"
+                     value={{autocompleteValue}}>
             </div>
           </div>
         {{/is}}
         
         {{#is type "datetime"}}
-          <input id="datetimepicker" name="{{ name }}" type="text" {{^optional}}required{{/optional}}>
+          <input id="datetimepicker" 
+                 name="{{ name }}" 
+                 type="text" 
+                 {{#if autocompleteValue}}class="isAutocomplete"{{/if}}
+                 {{^optional}}required{{/optional}} 
+                 value={{autocompleteValue}}>
         {{/is}}
 
         {{#is type "text"}}
-          <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}" {{^optional}}required{{/optional}}>
+          <input id="place-{{ name }}"
+                 {{#if autocompleteValue}}class="isAutocomplete"{{/if}}
+                 name="{{ name }}" 
+                 type="{{ type }}" 
+                 {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
+                 {{#unless autocompleteValue}} placeholder="{{ placeholder }}"{{/unless}}
+                 {{^optional}}required{{/optional}} 
+                 value={{autocompleteValue}}>
         {{/is}}
 
         {{#is type "textarea"}}
-          <textarea id="place-{{ name }}" name="{{ name }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} placeholder="{{placeholder}}" {{^optional}}required{{/optional}}></textarea>
+          <textarea id="place-{{ name }}"
+                    {{#if autocompleteValue}}class="isAutocomplete"{{/if}}
+                    name="{{ name }}" 
+                    {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
+                    {{#unless autocompleteValue}} placeholder="{{ placeholder }}"{{/unless}}
+                    {{^optional}}required{{/optional}}>{{autocompleteValue}}</textarea>
         {{/is}}
 
         {{#is type "rawHTML"}}
@@ -84,8 +105,14 @@
         {{#is type "radio_big_buttons"}}
           <div>
             {{#each content}}
-                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn" {{^optional}}required{{/optional}}>
-                <label for={{ value }}>{{ label }}</label>
+                <input type="radio" 
+                       name={{ ../name }} 
+                       id={{ value }} value={{ value }} 
+                       class="big-btn" 
+                       {{^optional}}required{{/optional}}
+                       {{#contains value ../autocompleteValue}}checked{{/contains}}>
+                <label for={{ value }} 
+                       class="{{#contains value ../autocompleteValue}}isAutocomplete{{/contains}}">{{ label }}</label>
             {{/each}}
           </div>
           <div style="clear:both"></div>
@@ -94,8 +121,14 @@
         {{#is type "checkbox_big_buttons"}}
           <div>
             {{#each content}}
-              <input type="checkbox" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn">
-              <label for={{ value }}>{{ label }}</label>
+              <input type="checkbox" 
+                     name={{ ../name }} 
+                     id={{ value }} 
+                     value={{ value }} 
+                     class="big-btn"
+                     {{#contains value ../autocompleteValue}}checked{{/contains}}>
+              <label for={{ value }} 
+                     class="{{#contains value ../autocompleteValue}}isAutocomplete{{/contains}}">{{ label }}</label>
             {{/each}}
           </div>
         {{/is}}
@@ -109,10 +142,12 @@
 
         {{#is type "dropdown"}}
           <div>
-            <select name={{ ../name }} {{^optional}}required{{/optional}}>
+            <select name={{ ../name }} 
+                    {{^optional}}required{{/optional}}
+                    {{#autocompleteValue}}class="isAutocomplete"{{/autocompleteValue}}>
               <option value="" name="no_response">{{#_}}Select...{{/_}}</option>
               {{#each content}}
-                  <option value={{value}}>{{label}}</option>
+                  <option value={{value}} {{#is value ../autocompleteValue}}selected{{/is}}>{{label}}</option>
               {{/each}}
             </select>
           </div>
