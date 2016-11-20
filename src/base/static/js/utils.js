@@ -36,9 +36,19 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    getAttrs: function($form) {
-      var attrs = {},
-          multivalues = [];
+    saveAttrAsCookie: function(key, value, date) {
+      document.cookie = "mapseed-" + key 
+        + "=" + value + "; expires="
+        + date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));  // one month expiration
+        + "; path=/new";
+    },
+
+    getAttrs: function($form, formConfig) {
+      var self = this,
+          attrs = {},
+          multivalues = [],
+          formConfig = formConfig || {},
+          date = new Date();
 
       // Get values from the form. Make the item into an array if there are
       // multiple values in the form, as in the case of a set of check boxes or
@@ -52,6 +62,13 @@ var Shareabouts = Shareabouts || {};
           attrs[item.name].push(item.value);
         } else {
           attrs[item.name] = item.value;
+        }
+      });
+
+      _.each(attrs, function(value, key) {
+        var itemConfig = _.find(formConfig.fields, function(field) { return field.name === key }) || {};
+        if (itemConfig.autocomplete) {
+          self.saveAttrAsCookie(key, value, date);
         }
       });
 

@@ -63,6 +63,10 @@ var Shareabouts = Shareabouts || {};
         isSingleCategory: this.formState.isSingleCategory
       }, S.stickyFieldValues);
 
+      if (data.selectedCategory.fields) {
+        data = this.checkAutocomplete(data);
+      }
+
       this.$el.html(Handlebars.templates['place-form'](data));
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
@@ -132,6 +136,21 @@ var Shareabouts = Shareabouts || {};
         self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
+    checkAutocomplete: function(data) {
+      var cookiePrefix = "mapseed-",
+      cookies = {};
+      _.each(document.cookie.split(";"), function(cookie) {
+          cookie = cookie.split("=");
+          if ($.trim(cookie[0]).startsWith(cookiePrefix)) {
+            cookies[$.trim(cookie[0]).replace(cookiePrefix, "")] = cookie[1].split(",");
+          }
+      });
+      data.selectedCategory.fields.forEach(function(field, i) {
+        data.selectedCategory.fields[i].autocompleteValue = 
+          (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
+      });
+      return data;
+    },
     remove: function() {
       this.unbind();
     },
@@ -161,7 +180,7 @@ var Shareabouts = Shareabouts || {};
           $form = this.$('form');
 
       // Get values from the form
-      attrs = S.Util.getAttrs($form);
+      attrs = S.Util.getAttrs($form, _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }));
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
