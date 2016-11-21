@@ -36,14 +36,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    saveAttrAsCookie: function(key, value, date) {
-      document.cookie = "mapseed-" + key 
-        + "=" + value + "; expires="
-        + date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));  // one month expiration
-        + "; path=/new";
-    },
-
-    getAttrs: function($form, formConfig) {
+    getAttrs: function($form, formConfig, commonFormElements) {
       var self = this,
           attrs = {},
           multivalues = [],
@@ -66,9 +59,9 @@ var Shareabouts = Shareabouts || {};
       });
 
       _.each(attrs, function(value, key) {
-        var itemConfig = _.find(formConfig.fields, function(field) { return field.name === key }) || {};
+        var itemConfig = _.find(formConfig.fields.concat(commonFormElements), function(field) { return field.name === key }) || {};
         if (itemConfig.autocomplete) {
-          self.saveAttrAsCookie(key, value, date);
+          self.cookies.save(key, value, 30);
         }
       });
 
