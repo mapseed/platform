@@ -1455,13 +1455,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)
@@ -1474,69 +1470,6 @@ place:
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
-
-
-
-  items:
-    - prompt: _(Type of report)
-      type: select
-      options:
-        - label: _(Observation)
-          value: observation
-        - label: _(Question)
-          value: question
-        - label: _(Idea)
-          value: idea
-        - label: _(Complaint)
-          value: complaint
-      name: location_type
-      attrs:
-        - key: required
-    - prompt: _(Title of report)
-      type: text
-      name: name
-      optional:
-      attrs:
-        - key: required
-        - key: placeholder
-          value: _(Enter title)
-        - key: size
-          value: 30
-    - prompt: _(Description)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Description...)
-    - prompt: _(Your Name)
-      type: text
-      name: submitter_name
-      optional: true
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Name)
-        - key: size
-          value: 30
-    - prompt: _(Your Email)
-      type: text
-      name: private-submitter_email
-      optional: true
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
-    - prompt: _(Image)
-      inputfile_label: _(Add an Image)
-      type: file
-      name: my_image
-      optional: true
-      attrs:
-        - key: accept
-          value: image/*
 
 survey:
   submission_type: comments
