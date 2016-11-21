@@ -342,13 +342,13 @@ place:
           display_prompt: _(Title:)
           placeholder: _( )
           optional: false
-        - name: description
+        - name: idea-what
           type: textarea
           prompt: _(What is your idea for how to improve our neighborhood?:)
           display_prompt: _( )
           placeholder: _(Ideas must be for a program, service, or infrastructure improvement benefiting low-to-moderate income communities in the district.)
           optional: true
-        - name: description
+        - name: idea-why
           type: textarea
           prompt: _(Why is this important? What need in the community does this serve?:)
           display_prompt: _( )
