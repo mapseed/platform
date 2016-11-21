@@ -36,9 +36,12 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    getAttrs: function($form) {
-      var attrs = {},
-          multivalues = [];
+    getAttrs: function($form, formConfig, commonFormElements) {
+      var self = this,
+          attrs = {},
+          multivalues = [],
+          formConfig = formConfig || {},
+          date = new Date();
 
       // Get values from the form. Make the item into an array if there are
       // multiple values in the form, as in the case of a set of check boxes or
@@ -52,6 +55,13 @@ var Shareabouts = Shareabouts || {};
           attrs[item.name].push(item.value);
         } else {
           attrs[item.name] = item.value;
+        }
+      });
+
+      _.each(attrs, function(value, key) {
+        var itemConfig = _.find(formConfig.fields.concat(commonFormElements), function(field) { return field.name === key }) || {};
+        if (itemConfig.autocomplete) {
+          self.cookies.save(key, value, 30);
         }
       });
 
@@ -335,8 +345,10 @@ var Shareabouts = Shareabouts || {};
     // Cookies! Om nom nom
     // Thanks ppk! http://www.quirksmode.org/js/cookies.html
     cookies: {
+      COOKIE_PREFIX: "mapseed-",
       save: function(name,value,days) {
-        var expires;
+        var expires,
+        name = this.COOKIE_PREFIX + name;
         if (days) {
           var date = new Date();
           date.setTime(date.getTime()+(days*24*60*60*1000));

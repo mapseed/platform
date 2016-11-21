@@ -56,6 +56,10 @@ var Shareabouts = Shareabouts || {};
         isSingleCategory: this.formState.isSingleCategory
       }, S.stickyFieldValues);
 
+      if (data.selectedCategory.fields) {
+        data = this.checkAutocomplete(data);
+      }
+
       this.$el.html(Handlebars.templates['place-form'](data));
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
@@ -105,6 +109,26 @@ var Shareabouts = Shareabouts || {};
         }); 
       }
     },
+    checkAutocomplete: function(data) {
+      var cookiePrefix = "mapseed-",
+      cookies = {};
+      _.each(document.cookie.split(";"), function(cookie) {
+          cookie = cookie.split("=");
+          if ($.trim(cookie[0]).startsWith(cookiePrefix)) {
+            cookies[$.trim(cookie[0]).replace(cookiePrefix, "")] = cookie[1].split(",");
+          }
+      });
+      data.selectedCategory.fields.forEach(function(field, i) {
+        data.selectedCategory.fields[i].autocompleteValue = 
+          (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
+      });
+      data.placeConfig.common_form_elements.forEach(function(field, i) {
+        data.placeConfig.common_form_elements[i].autocompleteValue = 
+          (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
+      });
+
+      return data;
+    },
     remove: function() {
       this.unbind();
     },
@@ -121,12 +145,18 @@ var Shareabouts = Shareabouts || {};
       this.location = location;
     },
     getAttrs: function() {
-      var attrs = {},
+      var self = this,
+          attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
 
       // Get values from the form
-      attrs = S.Util.getAttrs($form);
+      attrs = S.Util.getAttrs($form, 
+        _.find(this.formState.placeDetail, function(categoryConfig) { 
+          return categoryConfig.category === self.formState.selectedCategory; 
+        }),
+        this.options.placeConfig.common_form_elements
+      );
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
@@ -259,8 +289,6 @@ var Shareabouts = Shareabouts || {};
         richTextAttrs.description = $(".ql-editor").html();
       }
       attrs = _.extend(attrs, richTextAttrs);
-
-      console.log("attrs", attrs);
 
       evt.preventDefault();
 
