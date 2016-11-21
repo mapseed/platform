@@ -135,8 +135,30 @@
 
         {{#is type "binary_toggle"}}
           <div>
-            <input type="checkbox" name={{ name }} id={{ name }} value={{ content.[1].value }} data-input-type="binary_toggle" class="big-btn">
-            <label for={{ name }}>{{ content.[1].label }}</label>
+            <input type="checkbox" 
+                   name={{ name }} 
+                   id={{ name }}
+                   value={{#if autocompleteValue}}
+                           {{ autocompleteValue }}
+                         {{else}}
+                           {{ content.[1].value }}
+                         {{/if}}
+                   data-input-type="binary_toggle" 
+                   class="big-btn"
+                   {{#is autocompleteValue content.[0].value}}checked{{/is}}>
+            <label for={{ name }}
+                   {{#if autocompleteValue}}class="isAutocomplete"{{/if}}>
+              {{#if autocompleteValue}}
+                {{#is autocompleteValue content.[0].value}}
+                  {{content.[0].label}}
+                {{/is}}
+                {{#is autocompleteValue content.[1].value}}
+                  {{content.[1].label}}
+                {{/is}}
+              {{else}}
+                {{content.[1].label}}
+              {{/if}}
+            </label>
           </div>
         {{/is}}
 
