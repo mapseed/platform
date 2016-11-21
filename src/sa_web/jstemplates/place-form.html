@@ -99,7 +99,7 @@
         {{#is type "radio_big_buttons"}}
           <div>
             {{#each content}}
-                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn" {{^optional}}required{{/optional}}>
+                <input type="radio" name={{ ../name }} id={{ value }} value={{ value }} class="big-btn" {{^../optional}}required{{/../optional}}>
                 <label for={{ value }}>{{ label }}</label>
             {{/each}}
           </div>
