@@ -147,6 +147,7 @@
         data.selectedCategory.fields[i].autocompleteValue = 
           (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
       });
+
       return data;
     },
     remove: function() {
@@ -320,8 +321,6 @@
         richTextAttrs.description = $(".ql-editor").html();
       }
       attrs = _.extend(attrs, richTextAttrs);
-
-      console.log("attrs", attrs);
 
       evt.preventDefault();
 
