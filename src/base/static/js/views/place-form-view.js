@@ -147,6 +147,10 @@
         data.selectedCategory.fields[i].autocompleteValue = 
           (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
       });
+      data.placeConfig.common_form_elements.forEach(function(field, i) {
+        data.placeConfig.common_form_elements[i].autocompleteValue = 
+          (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
+      });
 
       return data;
     },
@@ -179,7 +183,12 @@
           $form = this.$('form');
 
       // Get values from the form
-      attrs = S.Util.getAttrs($form, _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }));
+      attrs = S.Util.getAttrs($form, 
+        _.find(this.formState.placeDetail, function(categoryConfig) { 
+          return categoryConfig.category === self.formState.selectedCategory; 
+        }),
+        this.options.placeConfig.common_form_elements
+      );
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
