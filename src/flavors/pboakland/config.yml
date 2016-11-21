@@ -347,7 +347,13 @@ place:
           prompt: _(What is your idea for how to improve our neighborhood?:)
           display_prompt: _( )
           placeholder: _(Ideas must be for a program, service, or infrastructure improvement benefiting low-to-moderate income communities in the district.)
-          optional: false
+          optional: true
+        - name: description
+          type: textarea
+          prompt: _(Why is this important? What need in the community does this serve?:)
+          display_prompt: _( )
+          placeholder: _( )
+          optional: true          
         - name: private-phone
           type: text
           prompt: _(Your phone number:)
@@ -573,5 +579,5 @@ pages:
 
   - title: _(Get more involved)
     slug: getinvolved
-    name: contribute
+    name: getinvolved
     hide_from_top_bar: false

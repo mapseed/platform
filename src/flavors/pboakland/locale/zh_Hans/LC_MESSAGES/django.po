@@ -1,32 +1,32 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-20 00:53-0800\n"
+"POT-Creation-Date: 2016-11-20 23:08-0500\n"
 "PO-Revision-Date: 2016-11-20 02:32-0800\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Last-Translator: Luke Swart <luke@smartercleanup.org>, 2016\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/heyduwamish/teams/58669/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: flavors/pboakland/_config.translations.py:1
 msgid ""
-"Welcome! Participatory Budgeting Oakland is an innovative democratic process "
-"that gives Oakland residents in City Council District 2 the power to decide "
-"how to spend city funds in their district. Help us vote now!"
+"Welcome! Participatory Budgeting Oakland is an innovative democratic process"
+" that gives Oakland residents in City Council District 2 the power to decide"
+" how to spend city funds in their district. Help us vote now!"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:2
 #: flavors/pboakland/_config.translations.py:15
-#: flavors/pboakland/_config.translations.py:94
+#: flavors/pboakland/_config.translations.py:97
 msgid "Someone"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 #: flavors/pboakland/_config.translations.py:8
 #: flavors/pboakland/_config.translations.py:14
 msgid "Leave a Comment"
-msgstr ""
+msgstr "发表评论"
 
 #: flavors/pboakland/_config.translations.py:9
 #: flavors/pboakland/_config.translations.py:10
@@ -82,27 +82,29 @@ msgid "Tell us more..."
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:19
-#: flavors/pboakland/_config.translations.py:57
-#: flavors/pboakland/_config.translations.py:64
-#: flavors/pboakland/_config.translations.py:71
-#: flavors/pboakland/_config.translations.py:78
+#: flavors/pboakland/_config.translations.py:60
+#: flavors/pboakland/_config.translations.py:67
+#: flavors/pboakland/_config.translations.py:74
+#: flavors/pboakland/_config.translations.py:81
 msgid "Title of your idea:"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:20
 #: flavors/pboakland/_config.translations.py:24
-#: flavors/pboakland/_config.translations.py:60
-#: flavors/pboakland/_config.translations.py:69
-#: flavors/pboakland/_config.translations.py:76
-#: flavors/pboakland/_config.translations.py:83
+#: flavors/pboakland/_config.translations.py:26
+#: flavors/pboakland/_config.translations.py:27
+#: flavors/pboakland/_config.translations.py:63
+#: flavors/pboakland/_config.translations.py:72
+#: flavors/pboakland/_config.translations.py:79
+#: flavors/pboakland/_config.translations.py:86
 msgid " "
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:21
-#: flavors/pboakland/_config.translations.py:59
-#: flavors/pboakland/_config.translations.py:65
-#: flavors/pboakland/_config.translations.py:72
-#: flavors/pboakland/_config.translations.py:79
+#: flavors/pboakland/_config.translations.py:62
+#: flavors/pboakland/_config.translations.py:68
+#: flavors/pboakland/_config.translations.py:75
+#: flavors/pboakland/_config.translations.py:82
 msgid "Title:"
 msgstr ""
 
@@ -117,296 +119,299 @@ msgid ""
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:25
-msgid "Your phone number:"
-msgstr ""
-
-#: flavors/pboakland/_config.translations.py:26
-msgid "Your phone number will not appear on the map"
+msgid "Why is this important? What need in the community does this serve?:"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:28
-msgid "Your age:"
+msgid "Your phone number:"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:29
-msgid "Your age will not appear on the map"
+msgid "Your phone number will not appear on the map"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:31
-msgid "American Indian/Alaskan Native"
+msgid "Your age:"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:32
-msgid "Asian"
-msgstr ""
-
-#: flavors/pboakland/_config.translations.py:33
-msgid "Black or African American"
+msgid "Your age will not appear on the map"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:34
-msgid "Hispanic or Latino/a"
+msgid "American Indian/Alaskan Native"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:35
-msgid "Native Hawaiian or Pacific Islander"
+msgid "Asian"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:36
-msgid "White"
+msgid "Black or African American"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:37
-msgid "Other"
+msgid "Hispanic or Latino/a"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:38
-msgid "Your ethnicity:"
+msgid "Native Hawaiian or Pacific Islander"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:39
-msgid "Ethnicity:"
+msgid "White"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:40
-msgid "Your ethnicity will not appear on the map"
+msgid "Other"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:41
-msgid "Under $10,000"
+msgid "Your ethnicity:"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:42
-msgid "$10,000 - $14,999"
+msgid "Ethnicity:"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:43
-msgid "$15,000 - $24,999"
+msgid "Your ethnicity will not appear on the map"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:44
-msgid "$25,000 - $34,999"
+msgid "Under $10,000"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:45
-msgid "$35,000 - $49,000"
+msgid "$10,000 - $14,999"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:46
-msgid "$50,000 - $74,999"
+msgid "$15,000 - $24,999"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:47
-msgid "$75,000 - $99,000"
+msgid "$25,000 - $34,999"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:48
-msgid "$100,000 - $149,000"
+msgid "$35,000 - $49,000"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:49
-msgid "$150,000 or more"
+msgid "$50,000 - $74,999"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:50
-msgid "Your income:"
+msgid "$75,000 - $99,000"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:51
-msgid "Your income will not appear on the map"
+msgid "$100,000 - $149,000"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:52
-msgid "Yes"
+msgid "$150,000 or more"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:53
-msgid "No"
+msgid "Your income:"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:54
+msgid "Your income will not appear on the map"
+msgstr ""
+
 #: flavors/pboakland/_config.translations.py:55
-msgid "I want to volunteer:"
+msgid "Yes"
 msgstr ""
 
 #: flavors/pboakland/_config.translations.py:56
+msgid "No"
+msgstr ""
+
+#: flavors/pboakland/_config.translations.py:57
+#: flavors/pboakland/_config.translations.py:58
+msgid "I want to volunteer:"
+msgstr ""
+
+#: flavors/pboakland/_config.translations.py:59
 msgid "Youth Services"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:58
-#: flavors/pboakland/_config.translations.py:66
-#: flavors/pboakland/_config.translations.py:73
-#: flavors/pboakland/_config.translations.py:80
+#: flavors/pboakland/_config.translations.py:61
+#: flavors/pboakland/_config.translations.py:69
+#: flavors/pboakland/_config.translations.py:76
+#: flavors/pboakland/_config.translations.py:83
 msgid "Enter title..."
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:61
+#: flavors/pboakland/_config.translations.py:64
 msgid "What's your question?"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:62
+#: flavors/pboakland/_config.translations.py:65
 msgid "Enter question..."
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:63
+#: flavors/pboakland/_config.translations.py:66
 msgid "Senior Services"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:67
+#: flavors/pboakland/_config.translations.py:70
 msgid "Describe your idea below:"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:68
-#: flavors/pboakland/_config.translations.py:75
-#: flavors/pboakland/_config.translations.py:82
+#: flavors/pboakland/_config.translations.py:71
+#: flavors/pboakland/_config.translations.py:78
+#: flavors/pboakland/_config.translations.py:85
 msgid "Description..."
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:70
+#: flavors/pboakland/_config.translations.py:73
 msgid "Parks and Recreation"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:74
-#: flavors/pboakland/_config.translations.py:81
+#: flavors/pboakland/_config.translations.py:77
+#: flavors/pboakland/_config.translations.py:84
 msgid "What's your complaint?"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:77
+#: flavors/pboakland/_config.translations.py:80
 msgid "Streets and Sidewalk"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:84
+#: flavors/pboakland/_config.translations.py:87
 msgid "Health and Safety"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:85
+#: flavors/pboakland/_config.translations.py:88
 msgid "added"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:86
+#: flavors/pboakland/_config.translations.py:89
 msgid "Your name"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:87
+#: flavors/pboakland/_config.translations.py:90
 msgid "Name"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:88
+#: flavors/pboakland/_config.translations.py:91
 msgid "Receive email updates on your report"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:89
+#: flavors/pboakland/_config.translations.py:92
 msgid "Your Email"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:90
+#: flavors/pboakland/_config.translations.py:93
 msgid "Image"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:91
+#: flavors/pboakland/_config.translations.py:94
 msgid "Add an Image"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:92
+#: flavors/pboakland/_config.translations.py:95
 msgid "Submit!"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:93
+#: flavors/pboakland/_config.translations.py:96
 msgid "See full list"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:95
+#: flavors/pboakland/_config.translations.py:98
 msgid "Share your idea!"
-msgstr ""
+msgstr "分享您的想法"
 
-#: flavors/pboakland/_config.translations.py:96
+#: flavors/pboakland/_config.translations.py:99
 msgid "Idea for youth services"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:97
+#: flavors/pboakland/_config.translations.py:100
 msgid "Idea for senior services"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:98
+#: flavors/pboakland/_config.translations.py:101
 msgid "Idea for streets and sidewalks"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:99
+#: flavors/pboakland/_config.translations.py:102
 msgid "Health and Safety idea"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:100
+#: flavors/pboakland/_config.translations.py:103
 msgid "Idea for parks and recreation"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:101
+#: flavors/pboakland/_config.translations.py:104
 msgid "Community Reports"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:102
+#: flavors/pboakland/_config.translations.py:105
 msgid "Oakland districts"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:103
+#: flavors/pboakland/_config.translations.py:106
 msgid "Community Data"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:104
+#: flavors/pboakland/_config.translations.py:107
 msgid "Map Layers:"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:105
+#: flavors/pboakland/_config.translations.py:108
 msgid "OpenStreetMap"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:106
+#: flavors/pboakland/_config.translations.py:109
 msgid "Satellite View"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:107
+#: flavors/pboakland/_config.translations.py:110
 msgid "Dark"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:108
+#: flavors/pboakland/_config.translations.py:111
 msgid "Activity Stream:"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:109
+#: flavors/pboakland/_config.translations.py:112
 msgid "Youth services"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:110
+#: flavors/pboakland/_config.translations.py:113
 msgid "Senior services"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:111
+#: flavors/pboakland/_config.translations.py:114
 msgid "Parks and recreation"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:112
+#: flavors/pboakland/_config.translations.py:115
 msgid "Streets and sidewalks"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:113
+#: flavors/pboakland/_config.translations.py:116
 msgid "Health and safety"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:114
+#: flavors/pboakland/_config.translations.py:117
 msgid "Community ideas:"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:115
+#: flavors/pboakland/_config.translations.py:118
 msgid "About"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:116
+#: flavors/pboakland/_config.translations.py:119
 #: flavors/pboakland/jstemplates/pages/guidelines.html:1
 msgid "Guidelines"
 msgstr "指南"
 
-#: flavors/pboakland/_config.translations.py:117
-#: flavors/pboakland/jstemplates/pages/contribute.html:1
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:4
+#: flavors/pboakland/_config.translations.py:120
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
 msgid "Get more involved"
 msgstr ""
 
@@ -424,7 +429,25 @@ msgstr ""
 msgid "Contact Us"
 msgstr ""
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:4
+msgid ""
+"Discuss your ideas in person with your neighbors at a District 2 "
+"Neighborhood Assembly! Assemblies will be held in late January - stay tuned "
+"for details."
+msgstr ""
+
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
+msgid "Have a question? Feel free to contact us."
+msgstr ""
+
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
+msgid ""
+"There are lots of ways to get involved in PB in Oakland! You can help to get"
+" the word out to district residents, facilitate small group meetings, "
+"provide support at PB events, and more. Sign up here."
+msgstr ""
+
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:8
 msgid "Volunteer"
 msgstr "志愿者"
 
