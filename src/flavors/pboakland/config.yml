@@ -317,9 +317,8 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See full list)
   show_map_button_label: _(Show the Map)
-  action_text: _(suggested)
   title: _(Tell us more...)
-  action_text: _(added)
+  action_text: _(suggested)
   anonymous_name: _(Someone)
   submit_button_label: _(Put it on the map!)
 
