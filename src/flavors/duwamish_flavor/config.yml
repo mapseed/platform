@@ -66,6 +66,7 @@ map:
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: story-markers
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -383,7 +384,8 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-tree.png      
+          iconUrl: /static/css/images/markers/marker-tree.png
+
   star-stroked:
     zoomType: mapboxZoomStyle
     rules:
