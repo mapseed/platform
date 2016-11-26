@@ -802,13 +802,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your idea)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your idea)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)

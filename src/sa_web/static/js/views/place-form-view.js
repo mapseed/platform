@@ -16,6 +16,7 @@ var Shareabouts = Shareabouts || {};
       var self = this;
        
       this.resetFormState();
+      this.placeDetail = this.options.placeConfig.place_detail;
 
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
@@ -23,34 +24,33 @@ var Shareabouts = Shareabouts || {};
     },
     resetFormState: function() {
       this.formState = {
-        selectedCategory: null,
-        selectedDatasetId: null,
-        selectedDatasetSlug: null,
+        selectedCategoryConfig: {
+          fields: []
+        },
         isSingleCategory: false,
         attachmentData: null,
-        placeDetail: this.options.placeConfig.place_detail
+        commonFormElements: this.options.placeConfig.common_form_elements || {}
       }
     },
-    render: function(category, isCategorySelected) {
+    render: function(isCategorySelected) {
       var self = this,
-      selectedCategoryConfig = category && _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === category; }) || {},
-      placesToIncludeOnForm = _.filter(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.includeOnForm; });
+      placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
+        return place.includeOnForm; 
+      });
 
       // if there is only one place to include on form, skip category selection page
       if (placesToIncludeOnForm.length === 1) {
         this.formState.isSingleCategory = true;
         isCategorySelected = true;
-        category = placesToIncludeOnForm[0].category;
-        this.formState.selectedCategory = category;
-        this.formState.selectedDatasetId = placesToIncludeOnForm[0].dataset;
-        this.formState.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.formState.selectedDatasetId == layer.id }).slug;
-        selectedCategoryConfig = placesToIncludeOnForm[0];
+        this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
       }
+
+      this.checkAutocomplete();
 
       var data = _.extend({
         isCategorySelected: isCategorySelected,
         placeConfig: this.options.placeConfig,
-        selectedCategory: selectedCategoryConfig,
+        selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
         current_user: S.currentUser,
         isSingleCategory: this.formState.isSingleCategory
@@ -74,6 +74,19 @@ var Shareabouts = Shareabouts || {};
         $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
       }
     },
+    checkAutocomplete: function() {
+      var self = this,
+      storedValue;
+
+      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
+      });
+      this.formState.commonFormElements.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
+      });
+    },
     remove: function() {
       this.unbind();
     },
@@ -90,7 +103,8 @@ var Shareabouts = Shareabouts || {};
       this.location = location;
     },
     getAttrs: function() {
-      var attrs = {},
+      var self = this,
+          attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
 
@@ -100,6 +114,17 @@ var Shareabouts = Shareabouts || {};
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
         attrs[$(this).attr("name")] = $(this).val();
+      });
+
+      _.each(attrs, function(value, key) {
+        var itemConfig = _.find(
+          self.formState.selectedCategoryConfig.fields
+            .concat(self.formState.commonFormElements), function(field) { 
+              return field.name === key;
+            }) || {};
+        if (itemConfig.autocomplete) {
+          S.Util.saveAutocompleteValue(key, value, 30);
+        }
       });
 
       // Get the location attributes from the map
@@ -118,12 +143,12 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           animationDelay = 400;
 
-      this.formState.selectedCategory = $(evt.target).parent().prev().attr('id');
-      this.formState.selectedDatasetId = _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory }).dataset;
-      this.formState.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return layer.id === self.formState.selectedDatasetId })[0].slug;
+      this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
+        return place.category == $(evt.target).parent().prev().attr('id');
+      });
 
       // re-render the form with the selected category
-      this.render(this.formState.selectedCategory, true);
+      this.render(true);
       // manually set the category button again since the re-render resets it
       $(evt.target).parent().prev().prop("checked", true);
       // hide and then show (with animation delay) the selected category button 
@@ -182,10 +207,10 @@ var Shareabouts = Shareabouts || {};
       var self = this,
       targetButton = $(evt.target).attr("id"),
       oldValue = $(evt.target).val(),
-      // find the matching config data for this element
-      selectedCategoryConfig = _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }),
-      altData = _.find(selectedCategoryConfig.fields, function(item) { return item.name === targetButton; }),
-      // fetch alternate label and value
+      altData = _.find(this.formState.selectedCategoryConfig.fields
+        .concat(self.formState.commonFormElements), function(item) { 
+          return item.name === targetButton; 
+        }),
       altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
 
       // set new value and label
@@ -218,7 +243,7 @@ var Shareabouts = Shareabouts || {};
 
       var self = this,
           router = this.options.router,
-          collection = this.collection[self.formState.selectedDatasetId],
+          collection = this.collection[self.formState.selectedCategoryConfig.dataset],
           model,
           // Should not include any files
           attrs = this.getAttrs(),
@@ -226,11 +251,13 @@ var Shareabouts = Shareabouts || {};
           spinner, $fileInputs;
       evt.preventDefault();
 
-      collection.add({"location_type": this.formState.selectedCategory});
+      collection.add({"location_type": this.formState.selectedCategoryConfig.category});
       model = collection.at(collection.length - 1);
 
-      model.set("datasetSlug", self.formState.selectedDatasetSlug);
-      model.set("datasetId", self.formState.selectedDatasetId);
+      model.set("datasetSlug", _.find(this.options.mapConfig.layers, function(layer) { 
+        return self.formState.selectedCategoryConfig.dataset == layer.id;
+      }).slug);
+      model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
       
       // if an attachment has been added...
       if (self.formState.attachmentData) {

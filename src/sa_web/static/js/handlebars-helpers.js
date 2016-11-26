@@ -170,6 +170,11 @@ var Shareabouts = Shareabouts || {};
     return $el.html();
   });
 
+  Handlebars.registerHelper("contains", function( value, array, options ){
+    array = ( array instanceof Array ) ? array : [array];
+    return (array.indexOf(value) > -1) ? options.fn( this ) : "";
+  });
+
   Handlebars.registerHelper('each_place_item', function() {
     var self = this,
         result = '',

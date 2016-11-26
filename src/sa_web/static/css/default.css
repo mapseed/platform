@@ -1088,6 +1088,10 @@ select {
   display: none;
 }
 
+.isAutocomplete {
+  background-color: #ffffe0;
+}
+
 #site-header {
   position: relative;
   z-index: 99;
