@@ -20,10 +20,10 @@
     {{#if isCategorySelected}}
       {{#unless isSingleCategory}}
         <div id="selected-category">
-          <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategory.name }} value={{ selectedCategory.value }} checked>
+          <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategoryConfig.name }} value={{ selectedCategoryConfig.value }} checked>
           <label for="selected-category-palceholder">
-            <img src={{ selectedCategory.icon_url }} />
-            <span>{{ selectedCategory.label }}</span>
+            <img src={{ selectedCategoryConfig.icon_url }} />
+            <span>{{ selectedCategoryConfig.label }}</span>
           </label>
           <span class="category-menu-hamburger"></span>
         </div>
@@ -48,7 +48,7 @@
     {{/unless}}
 
     <!-- generate content for selected category -->
-    {{#each selectedCategory.fields}}
+    {{#each selectedCategoryConfig.fields}}
       <div class="{{ type }} form-field">
         <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
           {{> place-form-field-types }}

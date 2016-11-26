@@ -29,7 +29,6 @@ var Shareabouts = Shareabouts || {};
         },
         isSingleCategory: false,
         attachmentData: null,
-        placeDetail: this.options.placeConfig.place_detail,
         commonFormElements: this.options.placeConfig.common_form_elements || {}
       }
     },
@@ -64,10 +63,6 @@ var Shareabouts = Shareabouts || {};
         isSingleCategory: this.formState.isSingleCategory
       }, S.stickyFieldValues);
 
-      if (data.selectedCategory.fields) {
-        data = this.checkAutocomplete(data);
-      }
-
       this.$el.html(Handlebars.templates['place-form'](data));
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
@@ -99,9 +94,7 @@ var Shareabouts = Shareabouts || {};
           theme: "snow",
           bounds: "#content",
           placeholder: _.find(
-            _.find(self.formState.placeDetail, function(categoryConfig) { 
-              return categoryConfig.category === self.formState.selectedCategory
-            }).fields, function(categoryField) {
+            this.formState.selectedCategoryConfig.fields, function(categoryField) {
               return categoryField.type === "rawHTML"
             }).placeholder
         }),
@@ -137,8 +130,9 @@ var Shareabouts = Shareabouts || {};
         self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
-    checkAutocomplete: function(data) {
-      var cookiePrefix = "mapseed-",
+    checkAutocomplete: function() {
+      var self = this,
+      cookiePrefix = "mapseed-",
       cookies = {};
       _.each(document.cookie.split(";"), function(cookie) {
           cookie = cookie.split("=");
@@ -146,16 +140,14 @@ var Shareabouts = Shareabouts || {};
             cookies[$.trim(cookie[0]).replace(cookiePrefix, "")] = cookie[1].split(",");
           }
       });
-      data.selectedCategory.fields.forEach(function(field, i) {
-        data.selectedCategory.fields[i].autocompleteValue = 
+      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
+        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = 
           (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
       });
-      data.placeConfig.common_form_elements.forEach(function(field, i) {
-        data.placeConfig.common_form_elements[i].autocompleteValue = 
+      this.formState.commonFormElements.forEach(function(field, i) {
+        self.formState.commonFormElements[i].autocompleteValue = 
           (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
       });
-
-      return data;
     },
     remove: function() {
       this.unbind();
@@ -185,13 +177,7 @@ var Shareabouts = Shareabouts || {};
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
 
-      // Get values from the form
-      attrs = S.Util.getAttrs($form, 
-        _.find(this.formState.placeDetail, function(categoryConfig) { 
-          return categoryConfig.category === self.formState.selectedCategory; 
-        }),
-        this.options.placeConfig.common_form_elements
-      );
+      attrs = S.Util.getAttrs($form); 
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
@@ -225,11 +211,11 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           animationDelay = 400;
 
-      this.formState.selectedCategory = $(evt.target).parent().prev().attr('id');
-      this.formState.selectedDatasetId = _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory }).dataset;
-      this.formState.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return layer.id === self.formState.selectedDatasetId })[0].slug;
+      this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
+        return place.category == $(evt.target).parent().prev().attr('id');
+      });
 
-      this.render(this.formState.selectedCategory, true);
+      this.render(true);
       this.postRender();
       $(evt.target).parent().prev().prop("checked", true);
       $("#selected-category").hide().show(animationDelay);
@@ -314,7 +300,7 @@ var Shareabouts = Shareabouts || {};
 
       var self = this,
         router = this.options.router,
-        collection = this.collection[self.formState.selectedDatasetId],
+        collection = this.collection[self.formState.selectedCategoryConfig.dataset],
         model,
         // Should not include any files
         attrs = this.getAttrs(),

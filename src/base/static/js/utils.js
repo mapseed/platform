@@ -36,12 +36,10 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    getAttrs: function($form, formConfig, commonFormElements) {
+    getAttrs: function($form) {
       var self = this,
           attrs = {},
-          multivalues = [],
-          formConfig = formConfig || {},
-          date = new Date();
+          multivalues = [];
 
       // Get values from the form. Make the item into an array if there are
       // multiple values in the form, as in the case of a set of check boxes or
@@ -55,13 +53,6 @@ var Shareabouts = Shareabouts || {};
           attrs[item.name].push(item.value);
         } else {
           attrs[item.name] = item.value;
-        }
-      });
-
-      _.each(attrs, function(value, key) {
-        var itemConfig = _.find(formConfig.fields.concat(commonFormElements), function(field) { return field.name === key }) || {};
-        if (itemConfig.autocomplete) {
-          self.cookies.save(key, value, 30);
         }
       });
 
