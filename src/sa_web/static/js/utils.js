@@ -36,12 +36,10 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    getAttrs: function($form, formConfig, commonFormElements) {
+    getAttrs: function($form) {
       var self = this,
           attrs = {},
-          multivalues = [],
-          formConfig = formConfig || {},
-          date = new Date();
+          multivalues = [];
 
       // Get values from the form. Make the item into an array if there are
       // multiple values in the form, as in the case of a set of check boxes or
@@ -58,14 +56,25 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
-      _.each(attrs, function(value, key) {
-        var itemConfig = _.find(formConfig.fields.concat(commonFormElements), function(field) { return field.name === key }) || {};
-        if (itemConfig.autocomplete) {
-          self.cookies.save(key, value, 30);
-        }
-      });
-
       return attrs;
+    },
+
+    // attempt to save form autocomplete values in localStorage;
+    // fall back to cookies
+    saveAutocompleteValue: function(name, value, days) {
+      if (typeof Storage !== "undefined") {
+        this.localstorage.save(name, value, days);
+      } else {
+        this.cookies.save(name, value, days, "mapseed-");
+      }
+    },
+
+    getAutocompleteValue: function(name) {
+      if (typeof Storage !== "undefined") {
+        return this.localstorage.get(name);
+      } else {
+        return this.cookies.get(name, "mapseed-");
+      }
     },
 
     findPageConfig: function(pagesConfig, properties) {
@@ -345,10 +354,10 @@ var Shareabouts = Shareabouts || {};
     // Cookies! Om nom nom
     // Thanks ppk! http://www.quirksmode.org/js/cookies.html
     cookies: {
-      COOKIE_PREFIX: "mapseed-",
-      save: function(name,value,days) {
+      save: function(name, value, days, prefix) {
         var expires,
-        name = this.COOKIE_PREFIX + name;
+        prefix = prefix || "",
+        name = prefix + name;
         if (days) {
           var date = new Date();
           date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -359,9 +368,10 @@ var Shareabouts = Shareabouts || {};
         }
         document.cookie = name+'='+value+expires+'; path=/';
       },
-      get: function(name) {
-        var nameEQ = name + '=';
-        var ca = document.cookie.split(';');
+      get: function(name, prefix) {
+        var nameEQ = prefix + name + '=',
+        prefix = prefix || "",
+        ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
           var c = ca[i];
           while (c.charAt(0) === ' ') {
@@ -375,6 +385,29 @@ var Shareabouts = Shareabouts || {};
       },
       destroy: function(name) {
         this.save(name,'',-1);
+      }
+    },
+
+    localstorage: {
+      LOCALSTORAGE_PREFIX: "mapseed-",
+      save: function(name, value, days) {
+        var expDate = new Date();
+        expDate.setTime(expDate.getTime() + (days * 24 * 60 * 60 * 1000));
+        localStorage.setItem(this.LOCALSTORAGE_PREFIX + name, JSON.stringify({
+          expires: expDate,
+          value: value
+        }));
+      },
+      get: function(name) {
+        var now = new Date().getTime(),
+        name = this.LOCALSTORAGE_PREFIX + name,
+        item = JSON.parse(localStorage.getItem(name)) || {};
+        if (now > Date.parse(item.expires)) {
+          localStorage.removeItem(name);
+          return null;
+        }
+
+        return item.value;
       }
     },
 
