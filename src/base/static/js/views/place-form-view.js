@@ -27,6 +27,7 @@
         },
         isSingleCategory: false,
         attachmentData: null,
+        placeDetail: this.options.placeConfig.place_detail,
         commonFormElements: this.options.placeConfig.common_form_elements || {}
       }
     },
@@ -284,10 +285,8 @@
       var self = this,
       targetButton = $(evt.target).attr("id"),
       oldValue = $(evt.target).val(),
-      altData = _.find(this.formState.selectedCategoryConfig.fields
-        .concat(self.formState.commonFormElements), function(item) { 
-          return item.name === targetButton; 
-        }),
+      selectedCategoryConfig = _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }),
+      altData = _.find(selectedCategoryConfig.fields.concat(self.formState.commonFormElements), function(item) { return item.name === targetButton; }),
       altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
 
       // set new value and label
