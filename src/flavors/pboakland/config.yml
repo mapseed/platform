@@ -324,7 +324,6 @@ place:
 
   location_item_name: location
 
-
   #### begin dynamic form config ####
   place_detail:
     - category: youth
@@ -352,73 +351,6 @@ place:
           prompt: _(Why is this important? What need in the community does this serve?:)
           display_prompt: _( )
           placeholder: _( )
-          optional: true          
-        - name: private-phone
-          type: text
-          prompt: _(Your phone number:)
-          display_prompt: _()
-          placeholder: _(Your phone number will not appear on the map)
-          optional: true
-        - name: private-age
-          type: text
-          prompt: _(Your age:)
-          display_prompt: _()
-          placeholder: _(Your age will not appear on the map)
-          optional: true
-        - name: private-ethnicity
-          type: radio_big_buttons
-          annotation: _(Your ethnicity will not appear on the map)
-          prompt: _(Your ethnicity:)
-          display_prompt: _(Ethnicity:)
-          content:
-            - label: _(American Indian/Alaskan Native)
-              value: indian-alaskan
-            - label: _(Asian)
-              value: asian
-            - label: _(Black or African American)
-              value: black
-            - label: _(Hispanic or Latino/a)
-              value: hispanic
-            - label: _(Native Hawaiian or Pacific Islander)
-              value: hawaiian-pacific
-            - label: _(White)
-              value: white
-            - label: _(Other)
-              value: other
-          optional: true
-        - name: private-income
-          type: dropdown
-          prompt: _(Your income:)
-          annotation: _(Your income will not appear on the map)
-          content:
-            - label: _(Under $10,000)
-              value: under-10k
-            - label: _($10,000 - $14,999)
-              value: 10k-15k
-            - label: _($15,000 - $24,999)
-              value: 15k-25k
-            - label: _($25,000 - $34,999)
-              value: 25k-35k
-            - label: _($35,000 - $49,000)
-              value: 35k-49k
-            - label: _($50,000 - $74,999)
-              value: 50k-75k
-            - label: _($75,000 - $99,000)
-              value: 75k-99k
-            - label: _($100,000 - $149,000)
-              value: 100k-149k
-            - label: _($150,000 or more)
-              value: 150k-or-more
-          optional: true
-        - name: private-volunteer
-          type: binary_toggle
-          prompt: _(I want to volunteer:)
-          display_prompt: _(I want to volunteer:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
           optional: true
     - category: senior
       includeOnForm: true
@@ -445,73 +377,6 @@ place:
           prompt: _(Why is this important? What need in the community does this serve?:)
           display_prompt: _( )
           placeholder: _( )
-          optional: true          
-        - name: private-phone
-          type: text
-          prompt: _(Your phone number:)
-          display_prompt: _()
-          placeholder: _(Your phone number will not appear on the map)
-          optional: true
-        - name: private-age
-          type: text
-          prompt: _(Your age:)
-          display_prompt: _()
-          placeholder: _(Your age will not appear on the map)
-          optional: true
-        - name: private-ethnicity
-          type: radio_big_buttons
-          annotation: _(Your ethnicity will not appear on the map)
-          prompt: _(Your ethnicity:)
-          display_prompt: _(Ethnicity:)
-          content:
-            - label: _(American Indian/Alaskan Native)
-              value: indian-alaskan
-            - label: _(Asian)
-              value: asian
-            - label: _(Black or African American)
-              value: black
-            - label: _(Hispanic or Latino/a)
-              value: hispanic
-            - label: _(Native Hawaiian or Pacific Islander)
-              value: hawaiian-pacific
-            - label: _(White)
-              value: white
-            - label: _(Other)
-              value: other
-          optional: true
-        - name: private-income
-          type: dropdown
-          prompt: _(Your income:)
-          annotation: _(Your income will not appear on the map)
-          content:
-            - label: _(Under $10,000)
-              value: under-10k
-            - label: _($10,000 - $14,999)
-              value: 10k-15k
-            - label: _($15,000 - $24,999)
-              value: 15k-25k
-            - label: _($25,000 - $34,999)
-              value: 25k-35k
-            - label: _($35,000 - $49,000)
-              value: 35k-49k
-            - label: _($50,000 - $74,999)
-              value: 50k-75k
-            - label: _($75,000 - $99,000)
-              value: 75k-99k
-            - label: _($100,000 - $149,000)
-              value: 100k-149k
-            - label: _($150,000 or more)
-              value: 150k-or-more
-          optional: true
-        - name: private-volunteer
-          type: binary_toggle
-          prompt: _(I want to volunteer:)
-          display_prompt: _(I want to volunteer:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
           optional: true
     - category: parks
       includeOnForm: true
@@ -538,73 +403,6 @@ place:
           prompt: _(Why is this important? What need in the community does this serve?:)
           display_prompt: _( )
           placeholder: _( )
-          optional: true          
-        - name: private-phone
-          type: text
-          prompt: _(Your phone number:)
-          display_prompt: _()
-          placeholder: _(Your phone number will not appear on the map)
-          optional: true
-        - name: private-age
-          type: text
-          prompt: _(Your age:)
-          display_prompt: _()
-          placeholder: _(Your age will not appear on the map)
-          optional: true
-        - name: private-ethnicity
-          type: radio_big_buttons
-          annotation: _(Your ethnicity will not appear on the map)
-          prompt: _(Your ethnicity:)
-          display_prompt: _(Ethnicity:)
-          content:
-            - label: _(American Indian/Alaskan Native)
-              value: indian-alaskan
-            - label: _(Asian)
-              value: asian
-            - label: _(Black or African American)
-              value: black
-            - label: _(Hispanic or Latino/a)
-              value: hispanic
-            - label: _(Native Hawaiian or Pacific Islander)
-              value: hawaiian-pacific
-            - label: _(White)
-              value: white
-            - label: _(Other)
-              value: other
-          optional: true
-        - name: private-income
-          type: dropdown
-          prompt: _(Your income:)
-          annotation: _(Your income will not appear on the map)
-          content:
-            - label: _(Under $10,000)
-              value: under-10k
-            - label: _($10,000 - $14,999)
-              value: 10k-15k
-            - label: _($15,000 - $24,999)
-              value: 15k-25k
-            - label: _($25,000 - $34,999)
-              value: 25k-35k
-            - label: _($35,000 - $49,000)
-              value: 35k-49k
-            - label: _($50,000 - $74,999)
-              value: 50k-75k
-            - label: _($75,000 - $99,000)
-              value: 75k-99k
-            - label: _($100,000 - $149,000)
-              value: 100k-149k
-            - label: _($150,000 or more)
-              value: 150k-or-more
-          optional: true
-        - name: private-volunteer
-          type: binary_toggle
-          prompt: _(I want to volunteer:)
-          display_prompt: _(I want to volunteer:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
           optional: true
     - category: streets
       includeOnForm: true
@@ -631,73 +429,6 @@ place:
           prompt: _(Why is this important? What need in the community does this serve?:)
           display_prompt: _( )
           placeholder: _( )
-          optional: true          
-        - name: private-phone
-          type: text
-          prompt: _(Your phone number:)
-          display_prompt: _()
-          placeholder: _(Your phone number will not appear on the map)
-          optional: true
-        - name: private-age
-          type: text
-          prompt: _(Your age:)
-          display_prompt: _()
-          placeholder: _(Your age will not appear on the map)
-          optional: true
-        - name: private-ethnicity
-          type: radio_big_buttons
-          annotation: _(Your ethnicity will not appear on the map)
-          prompt: _(Your ethnicity:)
-          display_prompt: _(Ethnicity:)
-          content:
-            - label: _(American Indian/Alaskan Native)
-              value: indian-alaskan
-            - label: _(Asian)
-              value: asian
-            - label: _(Black or African American)
-              value: black
-            - label: _(Hispanic or Latino/a)
-              value: hispanic
-            - label: _(Native Hawaiian or Pacific Islander)
-              value: hawaiian-pacific
-            - label: _(White)
-              value: white
-            - label: _(Other)
-              value: other
-          optional: true
-        - name: private-income
-          type: dropdown
-          prompt: _(Your income:)
-          annotation: _(Your income will not appear on the map)
-          content:
-            - label: _(Under $10,000)
-              value: under-10k
-            - label: _($10,000 - $14,999)
-              value: 10k-15k
-            - label: _($15,000 - $24,999)
-              value: 15k-25k
-            - label: _($25,000 - $34,999)
-              value: 25k-35k
-            - label: _($35,000 - $49,000)
-              value: 35k-49k
-            - label: _($50,000 - $74,999)
-              value: 50k-75k
-            - label: _($75,000 - $99,000)
-              value: 75k-99k
-            - label: _($100,000 - $149,000)
-              value: 100k-149k
-            - label: _($150,000 or more)
-              value: 150k-or-more
-          optional: true
-        - name: private-volunteer
-          type: binary_toggle
-          prompt: _(I want to volunteer:)
-          display_prompt: _(I want to volunteer:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
           optional: true
     - category: health
       includeOnForm: true
@@ -725,81 +456,89 @@ place:
           display_prompt: _( )
           placeholder: _( )
           optional: true          
-        - name: private-phone
-          type: text
-          prompt: _(Your phone number:)
-          display_prompt: _()
-          placeholder: _(Your phone number will not appear on the map)
-          optional: true
-        - name: private-age
-          type: text
-          prompt: _(Your age:)
-          display_prompt: _()
-          placeholder: _(Your age will not appear on the map)
-          optional: true
-        - name: private-ethnicity
-          type: radio_big_buttons
-          annotation: _(Your ethnicity will not appear on the map)
-          prompt: _(Your ethnicity:)
-          display_prompt: _(Ethnicity:)
-          content:
-            - label: _(American Indian/Alaskan Native)
-              value: indian-alaskan
-            - label: _(Asian)
-              value: asian
-            - label: _(Black or African American)
-              value: black
-            - label: _(Hispanic or Latino/a)
-              value: hispanic
-            - label: _(Native Hawaiian or Pacific Islander)
-              value: hawaiian-pacific
-            - label: _(White)
-              value: white
-            - label: _(Other)
-              value: other
-          optional: true
-        - name: private-income
-          type: dropdown
-          prompt: _(Your income:)
-          annotation: _(Your income will not appear on the map)
-          content:
-            - label: _(Under $10,000)
-              value: under-10k
-            - label: _($10,000 - $14,999)
-              value: 10k-15k
-            - label: _($15,000 - $24,999)
-              value: 15k-25k
-            - label: _($25,000 - $34,999)
-              value: 25k-35k
-            - label: _($35,000 - $49,000)
-              value: 35k-49k
-            - label: _($50,000 - $74,999)
-              value: 50k-75k
-            - label: _($75,000 - $99,000)
-              value: 75k-99k
-            - label: _($100,000 - $149,000)
-              value: 100k-149k
-            - label: _($150,000 or more)
-              value: 150k-or-more
-          optional: true
-        - name: private-volunteer
-          type: binary_toggle
-          prompt: _(I want to volunteer:)
-          display_prompt: _(I want to volunteer:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          optional: true
+
   # define form elements that appear on every form here
   common_form_elements:
+    - name: private-phone
+      autocomplete: true
+      type: text
+      prompt: _(Your phone number:)
+      display_prompt: _()
+      placeholder: _(Your phone number will not appear on the map)
+      optional: true
+    - name: private-age
+      autocomplete: true
+      type: text
+      prompt: _(Your age:)
+      display_prompt: _()
+      placeholder: _(Your age will not appear on the map)
+      optional: true
+    - name: private-ethnicity
+      autocomplete: true
+      type: radio_big_buttons
+      annotation: _(Your ethnicity will not appear on the map)
+      prompt: _(Your ethnicity:)
+      display_prompt: _(Ethnicity:)
+      content:
+        - label: _(American Indian/Alaskan Native)
+          value: indian-alaskan
+        - label: _(Asian)
+          value: asian
+        - label: _(Black or African American)
+          value: black
+        - label: _(Hispanic or Latino/a)
+          value: hispanic
+        - label: _(Native Hawaiian or Pacific Islander)
+          value: hawaiian-pacific
+        - label: _(White)
+          value: white
+        - label: _(Other)
+          value: other
+      optional: true
+    - name: private-income
+      autocomplete: true
+      type: dropdown
+      prompt: _(Your income:)
+      annotation: _(Your income will not appear on the map)
+      content:
+        - label: _(Under $10,000)
+          value: under-10k
+        - label: _($10,000 - $14,999)
+          value: 10k-15k
+        - label: _($15,000 - $24,999)
+          value: 15k-25k
+        - label: _($25,000 - $34,999)
+          value: 25k-35k
+        - label: _($35,000 - $49,000)
+          value: 35k-49k
+        - label: _($50,000 - $74,999)
+          value: 50k-75k
+        - label: _($75,000 - $99,000)
+          value: 75k-99k
+        - label: _($100,000 - $149,000)
+          value: 100k-149k
+        - label: _($150,000 or more)
+          value: 150k-or-more
+      optional: true
+    - name: private-volunteer
+      autocomplete: true
+      type: binary_toggle
+      prompt: _(I want to volunteer:)
+      display_prompt: _(I want to volunteer:)
+      content:
+        - label: _(Yes)
+          value: "yes"
+        - label: _(No)
+          value: "no"
+      optional: true
     - name: submitter_name
+      autocomplete: true
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
     - name: private-submitter_email
+      autocomplete: true
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your idea)
