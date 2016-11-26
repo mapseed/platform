@@ -348,8 +348,8 @@
     cookies: {
       save: function(name, value, days, prefix) {
         var expires,
-          prefix = prefix || "",
-          name = prefix + name;
+        prefix = prefix || "",
+        name = prefix + name;
         if (days) {
           var date = new Date();
           date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -362,8 +362,9 @@
       },
       get: function(name, prefix) {
         var prefix = prefix || "",
-          nameEQ = prefix + name + '=',
-          ca = document.cookie.split(';');
+        nameEQ = prefix + name + '=',
+        ca = document.cookie.split(';');
+        var ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
           var c = ca[i];
           while (c.charAt(0) === ' ') {
@@ -409,6 +410,29 @@
           } catch (e) {
             // ignore exceptions
           }
+          return null;
+        }
+
+        return item.value;
+      }
+    },
+
+    localstorage: {
+      LOCALSTORAGE_PREFIX: "mapseed-",
+      save: function(name, value, days) {
+        var expDate = new Date();
+        expDate.setTime(expDate.getTime() + (days * 24 * 60 * 60 * 1000));
+        localStorage.setItem(this.LOCALSTORAGE_PREFIX + name, JSON.stringify({
+          expires: expDate,
+          value: value
+        }));
+      },
+      get: function(name) {
+        var now = new Date().getTime(),
+        name = this.LOCALSTORAGE_PREFIX + name,
+        item = JSON.parse(localStorage.getItem(name)) || {};
+        if (now > Date.parse(item.expires)) {
+          localStorage.removeItem(name);
           return null;
         }
 
