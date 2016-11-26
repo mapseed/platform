@@ -550,7 +550,7 @@ var Shareabouts = Shareabouts || {};
       }
 
       this.$panel.removeClass().addClass('place-form');
-      this.showPanel(this.placeFormView.render().$el);
+      this.showPanel(this.placeFormView.render(false).$el);
       this.placeFormView.postRender();
 
       this.placeFormView.delegateEvents();
