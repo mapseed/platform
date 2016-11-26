@@ -162,13 +162,6 @@ var self = module.exports = {
         }
       });
 
-      _.each(attrs, function(value, key) {
-        var itemConfig = _.find(formConfig.fields.concat(commonFormElements), function(field) { return field.name === key }) || {};
-        if (itemConfig.autocomplete) {
-          self.cookies.save(key, value, 30);
-        }
-      });
-
       return attrs;
     },
 
