@@ -68,7 +68,7 @@ var Shareabouts = Shareabouts || {};
         this.cookies.save(name, value, days, "mapseed-");
       }
     },
- 
+
     getAutocompleteValue: function(name) {
       if (typeof Storage !== "undefined") {
         return this.localstorage.get(name);
@@ -354,10 +354,10 @@ var Shareabouts = Shareabouts || {};
     // Cookies! Om nom nom
     // Thanks ppk! http://www.quirksmode.org/js/cookies.html
     cookies: {
-      COOKIE_PREFIX: "mapseed-",
-      save: function(name,value,days) {
+      save: function(name, value, days, prefix) {
         var expires,
-        name = this.COOKIE_PREFIX + name;
+        prefix = prefix || "",
+        name = prefix + name;
         if (days) {
           var date = new Date();
           date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -418,6 +418,7 @@ var Shareabouts = Shareabouts || {};
           } catch (e) {
             // ignore exceptions
           }
+
           return null;
         }
 
