@@ -28,7 +28,8 @@ var Shareabouts = Shareabouts || {};
         selectedDatasetSlug: null,
         isSingleCategory: false,
         attachmentData: null,
-        placeDetail: this.options.placeConfig.place_detail
+        placeDetail: this.options.placeConfig.place_detail,
+        commonFormElements: this.options.placeConfig.common_form_elements || {}
       }
     },
     render: function(category, isCategorySelected) {
@@ -238,10 +239,8 @@ var Shareabouts = Shareabouts || {};
       var self = this,
       targetButton = $(evt.target).attr("id"),
       oldValue = $(evt.target).val(),
-      // find the matching config data for this element
       selectedCategoryConfig = _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }),
-      altData = _.find(selectedCategoryConfig.fields, function(item) { return item.name === targetButton; }),
-      // fetch alternate label and value
+      altData = _.find(selectedCategoryConfig.fields.concat(self.formState.commonFormElements), function(item) { return item.name === targetButton; }),
       altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
 
       // set new value and label
