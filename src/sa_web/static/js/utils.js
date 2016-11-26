@@ -369,8 +369,8 @@ var Shareabouts = Shareabouts || {};
         document.cookie = name+'='+value+expires+'; path=/';
       },
       get: function(name, prefix) {
-        var nameEQ = prefix + name + '=',
-        prefix = prefix || "",
+        var prefix = prefix || "",
+        nameEQ = prefix + name + '=',
         ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
           var c = ca[i];
