@@ -65,8 +65,14 @@
     <!-- generate content for selected category -->
     {{#each selectedCategory.fields}}
       <div class="{{ type }} form-field">
-        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-        
+        {{#if horizontal_rule}}
+          <hr />
+        {{/if}}
+
+        {{#if prompt}}
+          <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+        {{/if}}
+
         <!-- begin field type definitions -->
         {{#is type "geocoding"}}
           <div class="geocoding-enabled">
@@ -129,6 +135,14 @@
           <div style="clear:both"></div>
         {{/is}}
         <div style="clear:both"></div>
+
+        {{#is type "section_header"}}
+          <h3 id={{ name }} class="form-section-header">{{content}}</h3>
+        {{/is}}
+        
+        {{#is type "section_description"}}
+          <p id={{ name }} class="form-section-description">{{content}}</p>
+        {{/is}}
 
         <!-- optional post-form field message -->
         {{#if annotation}}
