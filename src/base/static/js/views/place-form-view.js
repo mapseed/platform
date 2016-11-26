@@ -130,21 +130,15 @@
     },
     checkAutocomplete: function() {
       var self = this,
-      cookiePrefix = "mapseed-",
-      cookies = {};
-      _.each(document.cookie.split(";"), function(cookie) {
-          cookie = cookie.split("=");
-          if ($.trim(cookie[0]).startsWith(cookiePrefix)) {
-            cookies[$.trim(cookie[0]).replace(cookiePrefix, "")] = cookie[1].split(",");
-          }
-      });
+      storedValue;
+
       this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = 
-          (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
       });
       this.formState.commonFormElements.forEach(function(field, i) {
-        self.formState.commonFormElements[i].autocompleteValue = 
-          (cookies[field.name] && cookies[field.name].length == 1) ? cookies[field.name][0] : cookies[field.name];
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
     remove: function() {
