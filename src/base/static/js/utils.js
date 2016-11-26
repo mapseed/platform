@@ -68,7 +68,7 @@ var Shareabouts = Shareabouts || {};
         this.cookies.save(name, value, days, "mapseed-");
       }
     },
- 
+
     getAutocompleteValue: function(name) {
       if (typeof Storage !== "undefined") {
         return this.localstorage.get(name);
