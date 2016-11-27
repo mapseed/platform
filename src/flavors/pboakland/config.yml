@@ -88,156 +88,64 @@ map:
 
 # The values map the place type to map icons (defined below).
 place_types:
+
+  markerZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [75, 90]
+        iconAnchor: [38, 90]
+    - condition: '{{map.zoom}} < 14'
+      icon:
+        iconSize: [15, 18]
+        iconAnchor: [7.5, 18]
+    - condition: '{{map.zoom}} < 16'
+      icon:
+        iconSize: [30, 36]
+        iconAnchor: [15, 36]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [50, 60]
+        iconAnchor: [25, 60]
+
   youth:
     label: _(idea for youth services)
+    zoomType: markerZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-youth.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-          shadowSize: [50, 50]
-          shadowAnchor: [25, 50]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map.zoom}} < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-youth.png
-          iconSize: [15, 15]
-          iconAnchor: [7.5, 7.5]
-
-      - condition: '{{map.zoom}} >= 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-youth.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
 
   senior:
     label: _(idea for senior services)
+    zoomType: markerZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-seniors.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-          shadowSize: [50, 50]
-          shadowAnchor: [25, 50]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map.zoom}} < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-seniors.png
-          iconSize: [15, 15]
-          iconAnchor: [7.5, 7.5]
-
-      - condition: '{{map.zoom}} >= 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-seniors.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
 
   parks:
     label: _(idea for parks and recreation)
+    zoomType: markerZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-parks.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-          shadowSize: [50, 50]
-          shadowAnchor: [25, 50]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map.zoom}} < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks.png
-          iconSize: [15, 15]
-          iconAnchor: [7.5, 7.5]
-
-      - condition: '{{map.zoom}} >= 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
 
   streets:
     label: _(idea for streets and sidewalks)
+    zoomType: markerZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-streets.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-          shadowSize: [50, 50]
-          shadowAnchor: [25, 50]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map.zoom}} < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-streets.png
-          iconSize: [15, 15]
-          iconAnchor: [7.5, 7.5]
-
-      - condition: '{{map.zoom}} >= 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-streets.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
 
   health:
     label: _(idea for health and safety)
+    zoomType: markerZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-health.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-          shadowSize: [50, 50]
-          shadowAnchor: [25, 50]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 10]
-          iconAnchor: [5, 5]
-
-      - condition: '{{map.zoom}} < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-health.png
-          iconSize: [15, 15]
-          iconAnchor: [7.5, 7.5]
-
-      - condition: '{{map.zoom}} >= 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-health.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
