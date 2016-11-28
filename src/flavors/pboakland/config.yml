@@ -367,6 +367,21 @@ place:
 
   # define form elements that appear on every form here
   common_form_elements:
+    - name: my_image
+      type: file
+      prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
+    - name: demographics-header
+      type: section_header
+      horizontal_rule: false
+      content: _(Demographic information)
+    - name: demographics-description
+      type: section_description
+      content: _(This info is kept private, and is to ensure we are serving a diversity of people who best represent the needs of the community.)
     - name: private-phone
       autocomplete: true
       type: text
@@ -452,14 +467,6 @@ place:
       placeholder: _(Receive email updates on your idea)
       optional: true
       sticky: true
-    - name: my_image
-      type: file
-      prompt: _(Image)
-      inputfile_label: _(Add an Image)
-      optional: true
-      attrs:
-        - key: accept
-          value: image/*
     - type: submit
       label: _(Submit!)
 
