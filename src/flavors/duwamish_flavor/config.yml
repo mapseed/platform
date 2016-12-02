@@ -27,7 +27,6 @@ languages:
   - code: vi
     label: tôi nói tiếng việt
 
-
 map:
 # Settings for map and layer configs
   geolocation_enabled: true
@@ -46,7 +45,7 @@ map:
   layers:
     # SmarterCleanup Mapbox base layer:
     - id: osm
-      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
@@ -66,6 +65,7 @@ map:
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: story-markers
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -219,6 +219,38 @@ place_types:
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
+
+  reportsZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 60]
+        iconAnchor: [25, 30]
+        shadowSize: [50, 60]
+        shadowAnchor: [14, 60]
+    - condition: '{{map.zoom}} < 13'
+      icon:
+        iconSize: [15, 18]
+        iconAnchor: [7.5, 18]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [30, 36]
+        iconAnchor: [15, 36]
+
+  # treeZoomStyle:
+  #   - condition: '{{layer.focused}} === true'
+  #     icon:
+  #       iconSize: [50, 60]
+  #       iconAnchor: [25, 30]
+  #       shadowSize: [50, 60]
+  #       shadowAnchor: [14, 60]
+  #   - condition: '{{map.zoom}} < 17'
+  #     icon:
+  #       iconSize: [15, 18]
+  #       iconAnchor: [7.5, 18]
+  #   - condition: '{{map.zoom}} >= 17'
+  #     icon:
+  #       iconSize: [30, 36]
+  #       iconAnchor: [15, 36]
 
   wetland:
     zoomType: georgetownZoomStyle
@@ -383,7 +415,8 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-tree.png      
+          iconUrl: /static/css/images/markers/marker-tree.png
+
   star-stroked:
     zoomType: mapboxZoomStyle
     rules:
@@ -401,63 +434,19 @@ place_types:
 
   observation:
     label: _(Observation)
+    zoomType: reportsZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
 
   question:
     label: _(Question)
+    zoomType: reportsZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
 
   idea:
     label: _(Idea)
@@ -498,7 +487,7 @@ place_types:
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-          shadowSize: [50, 60]
+          shadowSize: [50 , 60]
           shadowAnchor: [14, 60]
 
       - condition: '{{map.zoom}} < 11'
@@ -1214,3 +1203,17 @@ story:
       - url: blackriver
         spotlight: false
         zoom: 14
+
+  dirtcorps:
+    tagline: _(Next featured site)
+    default_zoom: 18
+    default_visible_layers:
+      - restoration
+    order: 
+      - url: south-orcas-rain-gardens
+      - url: rose-greenstreet
+      - url: markey-bioretention
+      - url: carleton-grocery-gsi
+      - url: elmgrove-rain-garden
+      - url: southern-greenstreet
+      - url: dirt-corps-classroom

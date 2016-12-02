@@ -37,7 +37,7 @@ map:
     - id: osm
       type: basemap
       defaultBase: true
-      url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -51,23 +51,25 @@ map:
       type: cartodb
 
   # Legend Layers
-
-    - id: siteinfo
+    - id: 10sites
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
+      slug: site
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+
+    - id: dvsafestreets
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      type: landmark
+      slug: site
+      sources:
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.24e0d2bg/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.0f2jhd96/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
-    - id: gtopenspace1
-      type: place
-      slug: site
 
     - id: gtopenspace2
       type: place
@@ -257,6 +259,7 @@ place_types:
           fillOpacity: '{{properties.fill-opacity}}'
           weight: "{{properties.stroke-width}}"
 
+
   danger:
     zoomType: mapboxZoomStyle
     rules:
@@ -304,7 +307,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-star.png
+          iconUrl: /static/css/images/markers/marker-star-maroon.png
 
   # # needs a marker
   # farm:
@@ -316,7 +319,7 @@ place_types:
 
 
   low:
-    label: _(Low)
+    label: _(Low priority item)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -345,7 +348,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
   medium:
-    label: _(Medium)
+    label: _(Medium priority item)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -374,7 +377,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
   high:
-    label: _(High)
+    label: _(High priority item)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -490,18 +493,17 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-
-            - id: siteinfo
-              title: _(Open space sites)
+            - id: 10sites
+              title: _(Priority Sites)
               visibleDefault: true
 
-            - id: gtopenspace1
-              title: _(Potential future sites)
+            - id: dvsafestreets
+              title: _(Duwamish Valley Safe Streets)
               visibleDefault: false
 
             - id: gtopenspace2
-              title: _(Community input)
-              visibleDefault: true
+              title: _(Additional ideas)
+              visibleDefault: false
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -513,7 +515,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: false
+              visibleDefault: true
 
               # WMS Original Flow
             - id: duwamish-original
@@ -555,7 +557,7 @@ activity:
 place:
   dataset_slug: report # default is 'place'
   adding_supported: true
-  add_button_label: _(Share an idea on the map!)
+  add_button_label: _(Add information to the map)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show list of ideas)
   show_map_button_label: _(Show the Map)
@@ -633,7 +635,7 @@ place:
           optional: true
 
     - category: feature
-      includeOnForm: true     
+      includeOnForm: false
       name: location_type
       dataset: gtopenspace2
       icon_url: /static/css/images/markers/marker-star.png
@@ -833,31 +835,24 @@ pages:
 story:
   test_story1:
     default_visible_layers:
-      - gtopenspace1
+      - 10sites
+      - restoration
     tagline: _(Explore other priority sites)
-    order: 
-      - url: idea/552
-      - url: idea/651
-      - url: idea/555
-      - url: idea/556
-      - url: idea/558
-      - url: idea/559
-      - url: idea/560
-      - url: idea/564
-      - url: idea/572
-      - url: idea/573
-      - url: idea/594
-      - url: idea/595
-      - url: idea/574
-      - url: idea/575
-      - url: idea/576
-      - url: idea/580
-      - url: idea/585
-      - url: idea/586
+    order:
+      - url: sp-connection
+      - url: gateway-park
+      - url: dogpark
+      - url: airport-way
+      - url: michigan-corson-bailey
+      - url: s-michigan
+      - url: fifth-ave-festival
+      - url: river-st
+      - url: ellis
+      - url: corson
 
   test_story2:
     tagline: _(This is a priority site. Use arrows to explore others)
-    order: 
+    order:
       - url: friends-of-georgetown-history-museum
       - url: ruby-chow-park
       - url: georgetown-steam-plant

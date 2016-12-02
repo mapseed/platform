@@ -8,18 +8,69 @@
 /* =Header
 -------------------------------------------------------------- */
 
-  #site-header {
-    background: url(images/logo_cooc_min.png);
-    padding-left: 1em;
-    overflow: visible;
-    height: 4em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
+#site-header {
+  background-color: white;
+  background: none;
+  padding-left: 1em;
+  overflow: visible;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#site-title {
+  height: 50px;
+}
+
+#site-title-image {
+  height: 50px;
+}
+
+#sign-in-btn {
+  margin-top: 5px;
+}
+
+.btn-primary:visited, .btn-primary:link {
+  background-color: #00aaff;
+  color: #fff;
+  background-color: rgba(79, 204, 14, 0.9);
+}
+
+.category-btn + label > img {
+  width: 36px;
+}
+
+.category-btn + label > span {
+  left: 44px;
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */
+
+@media only screen and (max-width: 60em) {
+    html, body, #map {
+        height: 100%;
+    }
+
+    #main {
+        // calculated as 100% of viewport height minus the fixed pixel height of the header
+        height: calc(100% - 64px);
+    }
+
+    #map-container {
+        // calculated as 100% of #main height minus the fixed pixel height of the footer
+        height: calc(100% - 72px);
+    }
+
+    .activity-enabled.content-visible #map-container {
+        height: 70%;
+    }
+
+    #site-title-image {
+      content: url("images/pblogo.png");
+    }
+}
+
 
 @media only screen and (min-width: 768px) {
 }

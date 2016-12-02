@@ -50,7 +50,7 @@ map:
     # raingardens
     - id: raingardens
       type: place
-      slug: report
+      slug: place
 
   # Map Layers
 
@@ -233,7 +233,7 @@ place:
           display_prompt: _(Rain garden size (square feet):)
           placeholder: _(Approximate square footage?)
           size: 30
-          optional: false
+          optional: true
           sticky: true
         - name: contributing_area
           type: text
@@ -282,14 +282,14 @@ place:
           display_prompt: _(Contributor's name:)
           placeholder: _(Who should we give credit to?)
           size: 30
-          optional: true 
+          optional: false
           sticky: true
         - name: private-contributor_email
           type: text
           prompt: _(Your Email)
           placeholder: _(Your email address is kept private and will not be published)
           size: 30
-          optional: true
+          optional: false
           sticky: true
 
   # define form elements that appear on every form here

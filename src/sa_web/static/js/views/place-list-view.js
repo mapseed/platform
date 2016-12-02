@@ -44,6 +44,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onRender: function(evt) {
+      this.support.reset();
       this.support.show(this.supportView);
       // in case story mode has hidden the title
       if (this.model.get("story")) {
