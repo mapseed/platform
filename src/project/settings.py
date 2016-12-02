@@ -3,36 +3,15 @@ import datetime
 import os.path
 import re
 
+import dotenv
+
 ##############################################################################
 # Environment overrides
 # ---------------------
 # Pull in certain values from the environment.
 env = os.environ
 
-
-def read_env():
-    try:
-        file_path = os.path.join(os.path.dirname(__file__), '..',  '.env')
-        # print "filepath:" + str(file_path)
-        with open(file_path) as f:
-            content = f.read()
-    except IOError:
-        content = ''
-
-    for line in content.splitlines():
-        m1 = re.match(r'\A([A-Za-z_0-9]+)=(.*)\Z', line)
-        if m1:
-            key, val = m1.group(1), m1.group(2)
-            m2 = re.match(r"\A'(.*)'\Z", val)
-            if m2:
-                val = m2.group(1)
-            m3 = re.match(r'\A"(.*)"\Z', val)
-            if m3:
-                val = re.sub(r'\\(.)', r'\1', m3.group(1))
-            # overrides existing env variables, only in the Python env
-            os.environ[key] = val
-read_env()
-
+dotenv.read_dotenv('./.env')
 
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 # here = os.path.abspath(os.path.dirname(__file__))
@@ -45,7 +24,8 @@ else:
     TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com')
+    (env.get('ADMIN_NAME', 'Your Name'),
+     env.get('ADMIN_EMAIL', 'your_email@example.com'))
 )
 
 MANAGERS = ADMINS
@@ -387,8 +367,9 @@ if 'CLICKY_ANALYTICS_ID' in env:
 # Services
 
 # email services:
-EMAIL_ADDRESS = 'luke@smartercleanup.org'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# prints emails to the console (for testing only!)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 if 'EMAIL_ADDRESS' in env:
     EMAIL_ADDRESS = env['EMAIL_ADDRESS']
@@ -413,18 +394,6 @@ if 'EMAIL_NOTIFICATIONS_BCC' in env:
 # geolocation services:
 MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
 MAPBOX_TOKEN = env.get('MAPBOX_TOKEN', '')
-
-# TODO: We're not using this anymore, so remove it:
-##############################################################################
-# Local settings overrides
-# ------------------------
-# Override settings values by importing the local_settings.py module.
-
-# LOCAL_SETTINGS_FILE = os.path.join(os.path.dirname(__file__), 'local_settings.py')
-# if os.path.exists(LOCAL_SETTINGS_FILE):
-#     # By doing this instead of import, local_settings.py can refer to
-#     # local variables from settings.py without circular imports.
-#     execfile(LOCAL_SETTINGS_FILE)
 
 
 ##############################################################################

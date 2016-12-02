@@ -374,7 +374,7 @@ def api(request, path, **kwargs):
         dataset_id = kwargs['dataset_id']
     else:
         raise AttributeError("No dataset_id! kwargs, path:", kwargs, path)
-        
+
     root = settings.SHAREABOUTS.get(dataset_id.upper() + '_SITE_URL')
 
     if root.startswith('file://'):

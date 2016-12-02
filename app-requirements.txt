@@ -19,3 +19,4 @@ ujson==1.33
 # Config
 pyyaml
 django-extensions
+django-dotenv
