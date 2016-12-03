@@ -364,30 +364,25 @@ if 'CLICKY_ANALYTICS_ID' in env:
 ##############################################################################
 # Services
 
-# email services:
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# prints emails to the console (for testing only!)
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-if 'EMAIL_ADDRESS' in env:
+if 'DEBUG' in env:
+    DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in
+                              ('true', 'on', 't', 'yes'))
+# email notification service:
+if all(k in env for k in ['EMAIL_ADDRESS', 'EMAIL_HOST', 'EMAIL_PORT',
+                          'EMAIL_USERNAME', 'EMAIL_PASSWORD', 'EMAIL_USE_TLS',
+                          'EMAIL_NOTIFICATIONS_BCC']):
     EMAIL_ADDRESS = env['EMAIL_ADDRESS']
-if 'EMAIL_HOST' in env:
     EMAIL_HOST = env['EMAIL_HOST']
-if 'EMAIL_PORT' in env:
     EMAIL_PORT = env['EMAIL_PORT']
-if 'EMAIL_USERNAME' in env:
     EMAIL_HOST_USER = env['EMAIL_USERNAME']
-if 'EMAIL_PASSWORD' in env:
     EMAIL_HOST_PASSWORD = env['EMAIL_PASSWORD']
-if 'EMAIL_USE_TLS' in env:
     EMAIL_USE_TLS = env['EMAIL_USE_TLS']
-
-if 'EMAIL_NOTIFICATIONS_BCC' in env:
     EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
-
-# Uncomment the following line if you would like to also receive emails that
-# are sent to your users.
-# EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
+    EMAIL_DEBUG = (env.get('EMAIL_DEBUG').lower() in
+                   ('true', 'on', 't', 'yes'))
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' \
+                    if not EMAIL_DEBUG else \
+                    'django.core.mail.backends.console.EmailBackend'
 
 # geolocation services:
 MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
