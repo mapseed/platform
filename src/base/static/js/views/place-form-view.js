@@ -14,6 +14,7 @@
     initialize: function(){
       var self = this;
       this.resetFormState();
+      this.options.router.on("route", this.resetFormState, this);
       this.placeDetail = this.options.placeConfig.place_detail;
 
       TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
