@@ -566,6 +566,14 @@ sidebar:
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
 
+            - id: restoration
+              title: _(Restoration Sites)
+              visibleDefault: true
+
+            - id: cleanup
+              title: _(River Cleanup Plan)
+              visibleDefault: false
+
             - id: story-markers
               title: _(Stories)
               visibleDefault: false
@@ -578,17 +586,9 @@ sidebar:
               title: _(Air Watch Reports)
               visibleDefault: true
 
-            - id: cleanup
-              title: _(River Cleanup Plan)
-              visibleDefault: true
-
             - id: vision
               title: _(Community Vision)
               visibleDefault: false
-
-            - id: restoration
-              title: _(Restoration Sites)
-              visibleDefault: true
 
         - id: grp-land
           title: _(Land Data)
@@ -616,7 +616,7 @@ sidebar:
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: zoning
               title: _(Zoning)
@@ -1173,10 +1173,17 @@ story:
     default_visible_layers:
       - restoration
     order: 
+      - url: dirtcorps
+        spotlight: false
       - url: south-orcas-rain-gardens
       - url: rose-greenstreet
-      - url: markey-bioretention
-      - url: carleton-grocery-gsi
+      - url: markey
       - url: elmgrove-rain-garden
       - url: southern-greenstreet
       - url: dirt-corps-classroom
+      - url: point-rediscovery
+      - url: green-screen
+      - url: rain-wise-home
+      - url: rainwise-home-rose-st
+      - url: carleton-grocery-gsi
+      - url: dirt-corps-warehouse
