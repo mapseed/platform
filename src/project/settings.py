@@ -8,13 +8,11 @@ import dotenv
 ##############################################################################
 # Environment overrides
 # ---------------------
-# Pull in certain values from the environment.
-env = os.environ
-
-dotenv.read_dotenv('./.env')
-
+# Pull in hidden config values using environment variables
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-# here = os.path.abspath(os.path.dirname(__file__))
+
+dotenv.read_dotenv(os.path.join(HERE, '..', '.env'))
+env = os.environ
 
 if 'DEBUG' in env:
     DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in
