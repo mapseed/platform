@@ -784,13 +784,13 @@ place:
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
       fields:  #field types can be:  "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
-        - name: date_time_observed 
-          type: datetime  
+        - name: date_time_observed
+          type: datetime
           prompt: _(When did you observe these conditions?)
           display_prompt: _(I observed these conditions on:)
           optional: true
-        - name: reside_work_georgetown  
-          type: binary_toggle 
+        - name: reside_work_georgetown
+          type: binary_toggle
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
           display_prompt: _(I reside or work in Georgetown or South Park:)
           content:
@@ -800,7 +800,7 @@ place:
               value: "no"
           optional: true # NOTE: binary_toggle inputs have no validation
         - name: odd_smell
-          type: binary_toggle 
+          type: binary_toggle
           prompt: _(I observe an odd smell)
           display_prompt: _(I observed an odd smell:)
           content:
@@ -917,7 +917,7 @@ place:
           type: text
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
-          optional: true 
+          optional: true
     - category: tree
       includeOnForm: false
       name: location_type
@@ -1113,13 +1113,13 @@ story:
   community-priorities:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different 
-    # zoom level and/or visible layers, it will use those wholesale 
+    # layers defined below. If a story element defines a different
+    # zoom level and/or visible layers, it will use those wholesale
     # (that is, no default settings will be inherited).
     default_zoom: 17
     default_visible_layers:
       - restoration
-    order: 
+    order:
       - url: marra
       - url: skatepark
       - url: concord
@@ -1133,17 +1133,17 @@ story:
   pollution:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different 
-    # zoom level and/or visible layers, it will use those wholesale 
+    # layers defined below. If a story element defines a different
+    # zoom level and/or visible layers, it will use those wholesale
     # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
       - restoration
       - watershed
-    order: 
+    order:
       - url: cso
         zoom: 12
-        visible_layers: 
+        visible_layers:
           - cso
         spotlight: false
         basemap: dark
@@ -1154,13 +1154,13 @@ story:
   history:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different 
-    # zoom level and/or visible layers, it will use those wholesale 
+    # layers defined below. If a story element defines a different
+    # zoom level and/or visible layers, it will use those wholesale
     # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
       - duwamish-original
-    order: 
+    order:
       - url: history
         spotlight: false
       - url: blackriver
@@ -1172,7 +1172,7 @@ story:
     default_zoom: 17
     default_visible_layers:
       - restoration
-    order: 
+    order:
       - url: dirtcorps
         spotlight: false
       - url: south-orcas-rain-gardens
@@ -1187,3 +1187,7 @@ story:
       - url: rainwise-home-rose-st
       - url: carleton-grocery-gsi
       - url: dirt-corps-warehouse
+
+notifications:
+  on_new_place: true
+  submitter_email_field: private-submitter_email
