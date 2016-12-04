@@ -56,10 +56,16 @@ map:
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
 
+<<<<<<< 0f90fe46670b495d25f754e7f58a73f5547fa458
     - id: blueprint
+=======
+    - id: dark
+>>>>>>> correct basemap layers in duwamish_flavor config
       url: //api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
       attribution: 'Hello World'
+      type: basemap
 
     - id: vintage
       url: //api.mapbox.com/styles/v1/mslee/cif5p01n202nisaktvljx9mv3/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
@@ -217,11 +223,14 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: osm
-          title: _(OpenStreetMap)
+        - id: transportation
+          title: _(Transportation)
           visibleDefault: true
         - id: satellite
           title: _(Satellite View)
+          visibleDefault: false
+        - id: terrain
+          title: _(Terrain)
           visibleDefault: false
         - id: dark
           title: _(Dark)
