@@ -44,7 +44,10 @@ map:
     maxZoom: 18
   layers:
     # SmarterCleanup Mapbox base layer:
+<<<<<<< 73b78795a4f2c5e057ab5a114abf8bbc43209ef2
 <<<<<<< fd03c5acbf29b692f59901187346b3573591b46f
+=======
+>>>>>>> correct basemap layers in duwamish_flavor config
     - id: transportation
       url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -60,18 +63,22 @@ map:
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
-      type: basemap
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
 
 <<<<<<< fd03c5acbf29b692f59901187346b3573591b46f
     - id: blueprint
 =======
     - id: dark
+<<<<<<< 73b78795a4f2c5e057ab5a114abf8bbc43209ef2
       type: basemap
 >>>>>>> keep type: basemap flags for basemap layers
+=======
+>>>>>>> correct basemap layers in duwamish_flavor config
       url: //api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
       attribution: 'Hello World'
+      type: basemap
 
     - id: vintage
       url: //api.mapbox.com/styles/v1/mslee/cif5p01n202nisaktvljx9mv3/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
@@ -233,11 +240,14 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: osm
-          title: _(OpenStreetMap)
+        - id: transportation
+          title: _(Transportation)
           visibleDefault: true
         - id: satellite
           title: _(Satellite View)
+          visibleDefault: false
+        - id: terrain
+          title: _(Terrain)
           visibleDefault: false
         - id: dark
           title: _(Dark)
