@@ -18,6 +18,7 @@ httpagentparser
 # Config
 pyyaml
 django-extensions
+django-dotenv
 
 
 #=============================================================#
