@@ -106,10 +106,14 @@
       }
     },
     onMarkerClick: function() {
-      Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
-      this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
+      S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
+      // support places with landmark-style urls
+      if (this.model.get("url-title")) {
+        this.options.router.navigate('/' + this.model.get("url-title"), {trigger: true});
+      } else {
+        this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
+      }      
     },
-
     isPoint: function() {
       return this.model.get('geometry').type == 'Point';
     },
