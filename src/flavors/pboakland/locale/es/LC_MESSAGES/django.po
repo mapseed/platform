@@ -76,10 +76,6 @@ msgstr ""
 msgid "Show the Map"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:17
-msgid "Put it on the map!"
-msgstr ""
-
 #: flavors/pboakland/_config.translations.py:18
 msgid "Tell us more..."
 msgstr ""
@@ -425,7 +421,7 @@ msgstr ""
 
 #: flavors/pboakland/_config.translations.py:144
 msgid "About"
-msgstr "Acerca de"
+msgstr ""
 
 #: flavors/pboakland/_config.translations.py:145
 #: flavors/pboakland/jstemplates/pages/guidelines.html:3
@@ -472,7 +468,7 @@ msgstr ""
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:8
 msgid "Volunteer"
-msgstr "Voluntario"
+msgstr ""
 
 #: flavors/pboakland/jstemplates/pages/guidelines.html:1
 msgid "<strong>Anyone</strong> can post ideas."
