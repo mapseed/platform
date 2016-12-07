@@ -570,7 +570,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
+    start_page: false
 
   - title: _(Guidelines)
     slug: guidelines
