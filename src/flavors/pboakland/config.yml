@@ -61,9 +61,8 @@ map:
       attribution: 'Hello World'
 
     - id: districts
-      type: json
-      url: "https://raw.githubusercontent.com/smartercleanup/data/master/oakland-districts.geojson"
-      popupContent: '{{name}}'
+      type: cartodb
+      url: "https://heyduwamishcore.carto.com/api/v2/viz/b852afe8-bc1c-11e6-b3fb-0e05a8b3e3d7/viz.json"
       rules:
     # LineString
       - condition: '"{{geometry.type}}" == "LineString"'
