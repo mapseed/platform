@@ -59,8 +59,13 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
-    - id: dark
+    - id: blueprint
       url: //api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
+      attribution: 'Hello World'
+      type: basemap
+
+    - id: vintage
+      url: //api.mapbox.com/styles/v1/mslee/cif5p01n202nisaktvljx9mv3/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
       attribution: 'Hello World'
       type: basemap
 
@@ -555,8 +560,11 @@ sidebar:
         - id: terrain
           title: _(Terrain)
           visibleDefault: false
-        - id: dark
-          title: _(Dark)
+        - id: blueprint
+          title: _(Blueprint)
+          visibleDefault: false
+        - id: vintage
+          title: _(Vintage)
           visibleDefault: false
       groupings:
         - id: grp-community
@@ -1073,7 +1081,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
+    start_page: false
 
   - title: _(Background)
     slug: background
@@ -1147,10 +1155,10 @@ story:
         visible_layers:
           - cso
         spotlight: false
-        basemap: dark
+        basemap: blueprint
       - url: lafarge
         zoom: 17
-        basemap: osm
+        basemap: transportation
 
   history:
     tagline: _(Next featured site)
@@ -1164,9 +1172,11 @@ story:
     order:
       - url: history
         spotlight: false
+        basemap: vintage
       - url: blackriver
         spotlight: false
         zoom: 14
+        basemap: satellite
 
   dirtcorps:
     tagline: _(Next featured site)
