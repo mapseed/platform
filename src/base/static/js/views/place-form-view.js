@@ -69,12 +69,12 @@
       return this;
     },
     // called from the app view
-    postRender: function() {
+    postRender: function(isCategorySelected) {
       var self = this,
       $prompt;
 
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-      if ($(".rawHTML").length > 0) {
+      if (isCategorySelected && $(".rawHTML").length > 0) {
         // NOTE: we currently support a single QuillJS field per form
         $prompt = $(".rawHTML").find("label").detach();
 
@@ -209,7 +209,7 @@
       });
 
       this.render(true);
-      this.postRender();
+      this.postRender(true);
       $(evt.target).parent().prev().prop("checked", true);
       $("#selected-category").hide().show(animationDelay);
       $("#category-btns").animate( { height: "hide" }, animationDelay );
