@@ -106,7 +106,7 @@ place_types:
         iconSize: [50, 60]
         iconAnchor: [25, 60]
 
-  youth:
+  community:
     label: _(idea for community programs and services)
     zoomType: markerZoomStyle
     rules:
@@ -222,13 +222,13 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: youth
+    - category: community
       includeOnForm: true
       name: location_type
       dataset: pboakland
       icon_url: /static/css/images/markers/marker-youth.png
-      value: youth
-      label: _(Youth Services)
+      value: community
+      label: _(Community Programs and Services)
       fields:
         - name: title
           type: text
