@@ -2935,3 +2935,19 @@ a.close-unsupported-overlay {
     box-shadow: none;
   }
 }
+.getinvolved {
+  text-align: center;
+  height: 100% auto;
+  width: 100% auto;
+  position: relative;
+}
+.getinvolved .fa-info-circle {
+  color: red;
+  font-size: 100px;
+}
+.getinvolved .fa-hand-o-right {
+  color: red;
+}
+.getinvolved #getinvolved {
+  font-style: italic;
+}
