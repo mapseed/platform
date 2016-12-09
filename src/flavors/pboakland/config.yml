@@ -343,13 +343,6 @@ place:
     - name: demographics-description
       type: section_description
       content: _(This info is kept private, and is to ensure we are serving a diversity of people who best represent the needs of the community.)
-    - name: private-phone
-      autocomplete: true
-      type: text
-      prompt: _(Your phone number:)
-      display_prompt: _()
-      placeholder: _(Your phone number will not appear on the map)
-      optional: true
     - name: private-age
       autocomplete: true
       type: text
@@ -428,6 +421,13 @@ place:
       placeholder: _(Receive email updates on your idea)
       optional: true
       sticky: true
+    - name: private-phone
+      autocomplete: true
+      type: text
+      prompt: _(Your phone number:)
+      display_prompt: _()
+      placeholder: _(Your phone number will not appear on the map)
+      optional: true
     - type: submit
       label: _(Submit!)
 
