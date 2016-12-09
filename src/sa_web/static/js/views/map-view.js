@@ -1,9 +1,11 @@
-/* globals L Backbone _ */
+var Backbone = require('../../libs/backbone.js');
+var _ = require('../../libs/underscore.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+var BasicLayerView = require('./basic-layer-view.js');
+var LayerView = require('./layer-view.js');
 
-(function(S, $, console){
-S.MapView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   events: {
     'click .locate-me': 'onClickGeolocate'
   },
@@ -11,10 +13,10 @@ S.MapView = Backbone.View.extend({
     var self = this,
         i, layerModel,
         logUserZoom = function() {
-          S.Util.log('USER', 'map', 'zoom', self.map.getBounds().toBBoxString(), self.map.getZoom());
+          Util.log('USER', 'map', 'zoom', self.map.getBounds().toBBoxString(), self.map.getZoom());
         },
         logUserPan = function(evt) {
-          S.Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
+          Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
         };
 
     this.map = L.map(self.el, self.options.mapConfig.options);
@@ -42,13 +44,13 @@ S.MapView = Backbone.View.extend({
     $(self.map.zoomControl._zoomOutButton).click(logUserZoom);
 
     self.map.on('zoomend', function(evt) {
-      S.Util.log('APP', 'zoom', self.map.getZoom());
+      Util.log('APP', 'zoom', self.map.getZoom());
       $(S).trigger('zoomend', [evt]);
     });
 
     self.map.on('moveend', function(evt) {
-      S.Util.log('APP', 'center-lat', self.map.getCenter().lat);
-      S.Util.log('APP', 'center-lng', self.map.getCenter().lng);
+      Util.log('APP', 'center-lat', self.map.getCenter().lat);
+      Util.log('APP', 'center-lng', self.map.getCenter().lng);
 
       $(S).trigger('mapmoveend', [evt]);
     });
@@ -64,6 +66,7 @@ S.MapView = Backbone.View.extend({
       collection.on('reset', self.render, self);
       collection.on('add', self.addLayerView(collectionId), self);
       collection.on('remove', self.removeLayerView(collectionId), self);
+      collection.on('userHideModel', self.onUserHideModel(collectionId), self);
     });
 
     // Bind landmark collections event listeners
@@ -106,6 +109,22 @@ S.MapView = Backbone.View.extend({
     });
   }, // end initialize
 
+  onUserHideModel: function(collectionId) {
+    return function(model) {
+      this.options.placeDetailViews[model.cid].remove();
+      delete this.options.placeDetailViews[model.cid];
+      this.places[collectionId].remove(model);
+      Util.log('APP', 'panel-state', 'closed');
+      // remove map mask if the user closes the side panel
+      $("#spotlight-place-mask").remove();
+      if (this.locationTypeFilter) {
+        this.options.router.navigate('filter/' + this.locationTypeFilter, {trigger: true});
+      } else {
+        this.options.router.navigate('/', {trigger: true});
+      }
+    }
+  },
+
   // Adds or removes the layer  on Master Layer based on visibility
   setLayerVisibility: function(layer, visible) {
     this.map.closePopup();
@@ -118,10 +137,10 @@ S.MapView = Backbone.View.extend({
   },
   reverseGeocodeMapCenter: _.debounce(function() {
     var center = this.map.getCenter();
-    S.Util.MapQuest.reverseGeocode(center, {
+    Util.MapQuest.reverseGeocode(center, {
       success: function(data) {
         var locationsData = data.results[0].locations;
-        // S.Util.console.log('Reverse geocoded center: ', data);
+        // Util.console.log('Reverse geocoded center: ', data);
         $(S).trigger('reversegeocode', [locationsData[0]]);
       }
     });
@@ -179,7 +198,7 @@ S.MapView = Backbone.View.extend({
   },
   onClickGeolocate: function(evt) {
     evt.preventDefault();
-    S.Util.log('USER', 'map', 'geolocate', this.map.getBounds().toBBoxString(), this.map.getZoom());
+    Util.log('USER', 'map', 'geolocate', this.map.getBounds().toBBoxString(), this.map.getZoom());
     this.geolocate();
   },
   geolocate: function() {
@@ -187,7 +206,7 @@ S.MapView = Backbone.View.extend({
   },
   addLandmarkLayerView: function(collectionId) {
     return function(model) {
-      this.layerViews[collectionId][model.id] = new S.BasicLayerView({
+      this.layerViews[collectionId][model.id] = new BasicLayerView({
         model: model,
         router: this.options.router,
         map: this.map,
@@ -207,7 +226,7 @@ S.MapView = Backbone.View.extend({
   },
   addLayerView: function(collectionId) {
     return function(model) {
-      this.layerViews[collectionId][model.cid] = new S.LayerView({
+      this.layerViews[collectionId][model.cid] = new LayerView({
         model: model,
         router: this.options.router,
         map: this.map,
@@ -220,8 +239,12 @@ S.MapView = Backbone.View.extend({
   },
   removeLayerView: function(collectionId) {
     return function(model) {
-      this.layerViews[model.cid].remove();
-      delete this.layerViews[model.cid];
+      // remove map-bound events for this layer view
+      this.map.off("zoomend", this.layerViews[collectionId][model.cid].updateLayer, this.layerViews[collectionId][model.cid]);
+      this.map.off("move", this.layerViews[collectionId][model.cid].throttledRender, this.layerViews[collectionId][model.cid]);
+      
+      this.layerViews[collectionId][model.cid].remove();
+      delete this.layerViews[collectionId][model.cid];
     }
   },
   zoomInOn: function(latLng) {
@@ -371,7 +394,7 @@ S.MapView = Backbone.View.extend({
           }
         })
         .on('error', function(err) {
-          S.Util.log('Cartodb layer creation error:', err);
+          Util.log('Cartodb layer creation error:', err);
         });
     } else if (config.layers) {
       // If "layers" is present, then we assume that the config
@@ -399,5 +422,3 @@ S.MapView = Backbone.View.extend({
     }
   }
 });
-
-})(Shareabouts, jQuery, Shareabouts.Util.console);

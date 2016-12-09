@@ -1,15 +1,15 @@
-/*globals jQuery Backbone _ Handlebars Spinner Gatekeeper */
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+var SurveyView = require('./survey-view.js');
 
-(function(S, $, console){
-S.LandmarkSurveyView = S.SurveyView.extend({
+module.exports = SurveyView.extend({
   initialize: function() {
   },
 
   render: function() {
     var self = this,
-        layout = S.Util.getPageLayout(),
+        layout = Util.getPageLayout(),
         responseIdToScrollTo, $responseToScrollTo, data;
 
     this.$el.html(Handlebars.templates['place-detail-survey']({}));
@@ -31,4 +31,3 @@ S.LandmarkSurveyView = S.SurveyView.extend({
     return this;
   }
 });
-}(Shareabouts, jQuery, Shareabouts.Util.console));

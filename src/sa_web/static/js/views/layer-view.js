@@ -1,9 +1,7 @@
-/*globals L Backbone _ jQuery */
+var Backbone = require('../../libs/backbone.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-S.LayerView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
    // A view responsible for the representation of a place on the map.
   initialize: function(){
     this.map = this.options.map;
@@ -12,13 +10,14 @@ S.LayerView = Backbone.View.extend({
     // A throttled version of the render function
     this.throttledRender = _.throttle(this.render, 300);
 
+    this.map.on('zoomend', this.updateLayer, this);
+
     // Bind model events
     this.model.on('change', this.updateLayer, this);
     this.model.on('focus', this.focus, this);
     this.model.on('unfocus', this.unfocus, this);
-
-    this.map.on('zoomend', this.updateLayer, this);
-
+    this.model.on('destroy', this.onDestroy, this);
+    
     // On map move, adjust the visibility of the markers for max efficiency
     this.map.on('move', this.throttledRender, this);
 
@@ -71,7 +70,11 @@ S.LayerView = Backbone.View.extend({
         }
       } else {
         this.layer = L.GeoJSON.geometryToLayer(geom);
-        this.layer.setStyle(this.styleRule.style);
+        if (this.model.get("style")) {
+          this.layer.setStyle(this.model.get("style"));
+        } else {
+          this.layer.setStyle(this.styleRule.style);
+        }
       }
 
       // Focus on the layer onclick
@@ -81,6 +84,14 @@ S.LayerView = Backbone.View.extend({
 
       this.render();
     }
+  },
+  onDestroy: function() {
+    // NOTE: it's necessary to remove the zoomend event here
+    // so this view won't try to recreate a marker when the map is
+    // zoomed. Somehow even when a layer view is removed, the
+    // zoomend listener on the map still retains a reference to it
+    // and is capable of calling view methods on a "deleted" view.
+    this.map.off('zoomend', this.updateLayer, this);
   },
   updateLayer: function() {
     // Update the marker layer if the model changes and the layer exists
@@ -107,7 +118,7 @@ S.LayerView = Backbone.View.extend({
     }
   },
   onMarkerClick: function() {
-    S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
+    Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
     this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
   },
 
@@ -157,5 +168,3 @@ S.LayerView = Backbone.View.extend({
     this.removeLayer();
   }
 });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

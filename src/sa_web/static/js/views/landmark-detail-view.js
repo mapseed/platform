@@ -1,16 +1,16 @@
-/*globals Backbone _ jQuery Handlebars */
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
 
-var Shareabouts = Shareabouts || {};
+var PlaceDetailView = require('./place-detail-view.js');
+var LandmarkSurveyView = require('./landmark-survey-view.js');
 
-(function(S, $, console){
-S.LandmarkDetailView = S.PlaceDetailView.extend({
+module.exports = PlaceDetailView.extend({
   initialize: function() {
     var self = this;
     this.description = this.options.description;
     this.originalDescription = this.options.originalDescription;
     this.model = this.options.model;
 
-    this.landmarkSurveyView = new S.LandmarkSurveyView({});
+    this.landmarkSurveyView = new LandmarkSurveyView({});
   },
 
   render: function() {
@@ -39,4 +39,3 @@ S.LandmarkDetailView = S.PlaceDetailView.extend({
   }
 
 });
-}(Shareabouts, jQuery, Shareabouts.Util.console));

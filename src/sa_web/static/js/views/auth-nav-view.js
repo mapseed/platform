@@ -1,9 +1,8 @@
-/*globals jQuery _ Handlebars Backbone */
+var Backbone = require('../../libs/backbone.js');
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-S.AuthNavView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   events: {
     'click .internal-menu-item a': 'onLinkClick',
     'click #nav-btn': 'onMobileNavClick',
@@ -11,7 +10,7 @@ S.AuthNavView = Backbone.View.extend({
   },
 
   render: function() {
-    var data = S.bootstrapped.currentUser,
+    var data = Shareabouts.bootstrapped.currentUser,
         template = Handlebars.templates['auth-nav'](data);
     this.$el.html(template);
 
@@ -34,8 +33,6 @@ S.AuthNavView = Backbone.View.extend({
   onAuthNavClick: function(evt) {
     evt.preventDefault();
     $('.sign-in-menu').toggleClass('is-exposed');
-    S.Util.log('USER', 'page-menu', ($('.sign-in-menu').hasClass('is-exposed') ? 'show' : 'hide') + '-auth');
+    Util.log('USER', 'page-menu', ($('.sign-in-menu').hasClass('is-exposed') ? 'show' : 'hide') + '-auth');
   }
 });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

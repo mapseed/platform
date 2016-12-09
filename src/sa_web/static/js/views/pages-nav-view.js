@@ -1,9 +1,7 @@
-/*globals jQuery _ Handlebars Backbone */
+var Backbone = require('../../libs/backbone.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-S.PagesNavView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   events: {
     'click .internal-menu-item a': 'onPageLinkClick',
     'click #nav-btn': 'onMobileNavClick',
@@ -17,7 +15,9 @@ S.PagesNavView = Backbone.View.extend({
     })
     var data = {
           pages: navPageConfig,
-          has_pages: (navPageConfig.length > 0)
+          has_pages: (navPageConfig.length > 0),
+          show_list_button_label: this.options.placeConfig.show_list_button_label,
+          show_map_button_label: this.options.placeConfig.show_map_button_label
         },
         template = Handlebars.templates['pages-nav'](data);
     this.$el.html(template);
@@ -31,13 +31,13 @@ S.PagesNavView = Backbone.View.extend({
     $('.access').removeClass('is-exposed');
     // Load the content
     this.options.router.navigate(evt.target.getAttribute('href'), {trigger: true});
-    S.Util.log('USER', 'page-menu', 'click-link', evt.target.getAttribute('href') + " -- " + evt.target.textContent);
+    Util.log('USER', 'page-menu', 'click-link', evt.target.getAttribute('href') + " -- " + evt.target.textContent);
   },
 
   onMobileNavClick: function(evt) {
     evt.preventDefault();
     $('.access').toggleClass('is-exposed');
-    S.Util.log('USER', 'page-menu', ($('.access').hasClass('is-exposed') ? 'show' : 'hide') + '-mobile-nav');
+    Util.log('USER', 'page-menu', ($('.access').hasClass('is-exposed') ? 'show' : 'hide') + '-mobile-nav');
   },
 
   onAuthNavClick: function(evt) {
@@ -45,5 +45,3 @@ S.PagesNavView = Backbone.View.extend({
     $('.sign-in-menu').toggleClass('is-exposed');
   }
 });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

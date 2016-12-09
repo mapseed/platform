@@ -1,9 +1,11 @@
-/*globals jQuery _ Backbone Handlebars */
+var Backbone = require('../../libs/backbone.js');
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var _ = require('../../libs/underscore.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+var ActionCollection = require('../models/action-collection.js');
 
-(function(S, $, console){
-S.ActivityView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   initialize: function() {
     var self = this;
 
@@ -18,7 +20,7 @@ S.ActivityView = Backbone.View.extend({
     // Store a separate collection of all activities 
     // merged together, useful for collecting models from 
     // different datasets to facilitate sorting
-    this.mergedActivities = new S.ActionCollection([]);
+    this.mergedActivities = new ActionCollection([]);
 
     // Infinite scroll elements and functions
     // Window where the activity lives
@@ -39,7 +41,7 @@ S.ActivityView = Backbone.View.extend({
       var actionType = this.getAttribute('data-action-type'),
           placeId = this.getAttribute('data-place-id');
 
-      S.Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
+      Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
       self.options.router.navigate(this.getAttribute('href'), {trigger: true});
     });
 
@@ -213,13 +215,13 @@ S.ActivityView = Backbone.View.extend({
         }
       }
 
-      placeData.place_type_label = placeType.label || placeData.location_type;
-
       // Check whether the location type starts with a vowel; useful for
       // choosing between 'a' and 'an'.  Not language-independent.
-      if ('AEIOUaeiou'.indexOf(placeData.place_type_label[0]) > -1) {
+      if ('AEIOUaeiou'.indexOf(placeData.location_type[0]) > -1) {
         placeData.type_starts_with_vowel = true;
       }
+
+      placeData.place_type_label = placeType.label || placeData.location_type;
 
       actionData = _.extend({
         place: placeData,
@@ -325,5 +327,3 @@ S.ActivityView = Backbone.View.extend({
     return self;
   }
 });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

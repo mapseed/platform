@@ -1,9 +1,11 @@
-/*globals Backbone */
+var Backbone = require('../../libs/backbone.js');
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var _ = require('../../libs/underscore.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+var TemplateHelpers = require('../template-helpers.js');
 
-(function(S, $, console){
-S.PlaceCounterView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   initialize: function() {
     var self = this;
     self.numberOfPlaces = 0;
@@ -27,15 +29,13 @@ S.PlaceCounterView = Backbone.View.extend({
   },
   render: function() {
     var data = {
-      //length: S.TemplateHelpers.formatNumber(this.collection.models.length),
+      //length: TemplateHelpers.formatNumber(this.collection.models.length),
       meter_config: this.options.mapConfig,
       value: this.numberOfPlaces,
-      value_pretty: S.TemplateHelpers.formatNumber(this.numberOfPlaces),
-      counter_max_pretty: S.TemplateHelpers.formatNumber(this.options.mapConfig.counter_max)
+      value_pretty: TemplateHelpers.formatNumber(this.numberOfPlaces),
+      counter_max_pretty: TemplateHelpers.formatNumber(this.options.mapConfig.counter_max)
     };
     this.$el.html(Handlebars.templates['count-meter'](data));
     return this;
   }
 });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

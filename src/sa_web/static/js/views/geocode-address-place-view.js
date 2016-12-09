@@ -1,9 +1,6 @@
-/*globals L Backbone _ Handlebars jQuery Spinner */
+var GeocodeAddressView = require('./geocode-address-view.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-S.GeocodeAddressPlaceView = S.GeocodeAddressView.extend({
+module.exports = GeocodeAddressView.extend({
   events: {
     'change .geocode-address-field': 'onAddressChange',
     'blur .geocode-address-field': 'onGeocodeAddress'
@@ -12,5 +9,3 @@ S.GeocodeAddressPlaceView = S.GeocodeAddressView.extend({
     return this;
   }
 });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

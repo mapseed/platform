@@ -1,32 +1,51 @@
-/*globals _ jQuery L Backbone Handlebars */
+var Backbone = require('../../libs/backbone.js');
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var _ = require('../../libs/underscore.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+// Views
+var MapView = require('./map-view.js');
+var PagesNavView = require('./pages-nav-view.js');
+var AuthNavView = require('./auth-nav-view.js');
+var LandmarkDetailView = require('./landmark-detail-view.js');
+var PlaceListView = require('./place-list-view.js');
+var SidebarView = require('./sidebar-view.js');
+var ActivityView = require('./activity-view.js');
+var GeocodeAddressView = require('./geocode-address-view.js');
+var PlaceCounterView = require('./place-counter-view.js');
+var PlaceDetailView = require('./place-detail-view.js');
+var PlaceFormView = require('./place-form-view.js');
+var GeocodeAddressPlaceView = require('./geocode-address-place-view.js');
 
-(function(S, $, console){
-// Spinner options
-S.bigSpinnerOptions = {
+// Models
+var PlaceModel = require('../models/place-model.js');
+var LandmarkModel = require('../models/landmark-model.js');
+
+// Spinner options -- these need to be own modules
+Shareabouts.bigSpinnerOptions = {
   lines: 13, length: 0, width: 10, radius: 30, corners: 1, rotate: 0,
   direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
   hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
   left: 'auto'
 };
 
-S.smallSpinnerOptions = {
+Shareabouts.smallSpinnerOptions = {
   lines: 13, length: 0, width: 3, radius: 10, corners: 1, rotate: 0,
   direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
   hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
   left: 'auto'
 };
 
-S.AppView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   events: {
     'click #add-place': 'onClickAddPlaceBtn',
+    'click .list-toggle-btn': 'toggleListView',
     'click .close-btn': 'onClickClosePanelBtn'
   },
-  initialize: function(){
+  initialize: function() {
     var self = this,
         // Only include submissions if the list view is enabled (anything but false)
-        includeSubmissions = S.Config.flavor.app.list_enabled !== false,
+        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
         placeParams = {
           // NOTE: this is to simply support the list view. It won't
           // scale well, so let's think about a better solution.
@@ -35,14 +54,20 @@ S.AppView = Backbone.View.extend({
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
-    if (S.Config.flavor.app.places_page_size) {
-      placeParams.page_size = S.Config.flavor.app.places_page_size;
+    if (Shareabouts.Config.flavor.app.places_page_size) {
+      placeParams.page_size = Shareabouts.Config.flavor.app.places_page_size;
     }
 
     // Boodstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
     this.landmarks = this.options.landmarks;
+
+    // Caches of the views (one per place)
+    this.placeFormView = null;
+    this.placeDetailViews = {};
+    this.landmarkDetailViews = {};
+    this.activeDetailView;
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
@@ -57,15 +82,10 @@ S.AppView = Backbone.View.extend({
       $('#ajax-error-msg').hide();
     });
 
-    $('.list-toggle-btn').click(function(evt){
-      evt.preventDefault();
-      self.toggleListView();
-    });
-
-    if (this.options.activityConfig.show_in_right_panel === true) {
-      this.setBodyClass("right-sidebar-visible");
-      $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
-    }
+    // $('.list-toggle-btn').click(function(evt){
+    //   evt.preventDefault();
+    //   self.toggleListView();
+    // });
 
     $(document).on('click', '.activity-item a', function(evt) {
       window.app.clearLocationTypeFilter();
@@ -113,13 +133,14 @@ S.AppView = Backbone.View.extend({
     // Only append the tools to add places (if supported)
     $('#map-container').append(Handlebars.templates['add-places'](this.options.placeConfig));
 
-    this.pagesNavView = (new S.PagesNavView({
+    this.pagesNavView = (new PagesNavView({
             el: '#pages-nav-container',
             pagesConfig: this.options.pagesConfig,
+            placeConfig: this.options.placeConfig,
             router: this.options.router
           })).render();
 
-    this.authNavView = (new S.AuthNavView({
+    this.authNavView = (new AuthNavView({
             el: '#auth-nav-container',
             router: this.options.router
           })).render();
@@ -128,7 +149,7 @@ S.AppView = Backbone.View.extend({
       return "basemaps" in panel;
     }).basemaps;
     // Init the map view to display the places
-    this.mapView = new S.MapView({
+    this.mapView = new MapView({
       el: '#map',
       mapConfig: this.options.mapConfig,
       basemapConfigs: basemapConfigs,
@@ -137,11 +158,12 @@ S.AppView = Backbone.View.extend({
       landmarks: this.landmarks,
       router: this.options.router,
       placeTypes: this.options.placeTypes,
-      cluster: this.options.cluster
+      cluster: this.options.cluster,
+      placeDetailViews: this.placeDetailViews
     });
 
     if (self.options.sidebarConfig.enabled){
-      (new S.SidebarView({
+      (new SidebarView({
         el: '#sidebar-container',
         mapView: this.mapView,
         sidebarConfig: this.options.sidebarConfig
@@ -153,7 +175,7 @@ S.AppView = Backbone.View.extend({
     if (_.isUndefined(this.options.activityConfig.enabled) ||
       this.options.activityConfig.enabled) {
       // Init the view for displaying user activity
-      this.activityView = new S.ActivityView({
+      this.activityView = new ActivityView({
         el: 'ul.recent-points',
         activities: this.activities,
         places: this.places,
@@ -169,14 +191,14 @@ S.AppView = Backbone.View.extend({
     }
 
     // Init the address search bar
-    this.geocodeAddressView = (new S.GeocodeAddressView({
+    this.geocodeAddressView = (new GeocodeAddressView({
       el: '#geocode-address-bar',
       router: this.options.router,
       mapConfig: this.options.mapConfig
     })).render();
 
     // Init the place-counter
-    this.placeCounterView = (new S.PlaceCounterView({
+    this.placeCounterView = (new PlaceCounterView({
       el: '#place-counter',
       router: this.options.router,
       mapConfig: this.options.mapConfig,
@@ -226,9 +248,9 @@ S.AppView = Backbone.View.extend({
 
     // List view is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.
-    if (_.isUndefined(S.Config.flavor.app.list_enabled) ||
-      S.Config.flavor.app.list_enabled) {
-        this.listView = new S.PlaceListView({
+    if (_.isUndefined(Shareabouts.Config.flavor.app.list_enabled) ||
+      Shareabouts.Config.flavor.app.list_enabled) {
+        this.listView = new PlaceListView({
           el: '#list-container',
           placeCollections: self.places
         }).render();
@@ -270,11 +292,6 @@ S.AppView = Backbone.View.extend({
 
     // This is the "center" when the popup is open
     this.offsetRatio = {x: 0.2, y: 0.0};
-
-    // Caches of the views (one per place)
-    this.placeFormView = null;
-    this.placeDetailViews = {};
-    this.landmarkDetailViews = {};
 
     _.each(this.places, function(value, key) {
       self.placeDetailViews[key] = {};
@@ -415,7 +432,7 @@ S.AppView = Backbone.View.extend({
   },
   onClickAddPlaceBtn: function(evt) {
     evt.preventDefault();
-    S.Util.log('USER', 'map', 'new-place-btn-click');
+    Util.log('USER', 'map', 'new-place-btn-click');
     this.options.router.navigate('/new', {trigger: true});
   },
   onClickClosePanelBtn: function(evt) {
@@ -424,7 +441,7 @@ S.AppView = Backbone.View.extend({
       this.placeFormView.closePanel();
     }
 
-    S.Util.log('USER', 'panel', 'close-btn-click');
+    Util.log('USER', 'panel', 'close-btn-click');
     // remove map mask if the user closes the side panel
     $("#spotlight-place-mask").remove();
     if (this.mapView.locationTypeFilter) {
@@ -452,7 +469,7 @@ S.AppView = Backbone.View.extend({
       // (bodyClasses), then we probably don't want to use this method and
       // should fail loudly.
       if (_.indexOf(bodyClasses, newBodyClasses[i]) === -1) {
-        S.Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
+        Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
       }
       $body.addClass(newBodyClasses[i]);
     }
@@ -476,7 +493,7 @@ S.AppView = Backbone.View.extend({
     if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
       landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
     } else {
-      landmarkDetailView = new S.LandmarkDetailView({
+      landmarkDetailView = new LandmarkDetailView({
         model: model,
         description: model.get('properties')['description'],
         originalDescription: model.get('properties')['originalDescription'],
@@ -493,7 +510,7 @@ S.AppView = Backbone.View.extend({
     if (this.placeDetailViews[model.cid]) {
       placeDetailView = this.placeDetailViews[model.cid];
     } else {
-      placeDetailView = new S.PlaceDetailView({
+      placeDetailView = new PlaceDetailView({
         model: model,
         surveyConfig: this.options.surveyConfig,
         supportConfig: this.options.supportConfig,
@@ -543,7 +560,7 @@ S.AppView = Backbone.View.extend({
     var self = this;
 
     if (!this.placeFormView) {
-      this.placeFormView = new S.PlaceFormView({
+      this.placeFormView = new PlaceFormView({
         appView: this,
         router: this.options.router,
         placeConfig: this.options.placeConfig,
@@ -555,12 +572,12 @@ S.AppView = Backbone.View.extend({
     }
 
     this.$panel.removeClass().addClass('place-form');
-    this.showPanel(this.placeFormView.render(false).$el);
+    this.showPanel(this.placeFormView.render().$el);
     this.placeFormView.postRender();
 
     this.placeFormView.delegateEvents();
     // Init the place form's address search bar
-    this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
+    this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
       el: '#geocode-address-place-bar',
       router: this.options.router,
       mapConfig: this.options.mapConfig
@@ -618,13 +635,13 @@ S.AppView = Backbone.View.extend({
   // TODO: Refactor this into 'viewPlace'
   viewLandmark: function(model, options) {
     var self = this,
-        includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-        layout = S.Util.getPageLayout(),
+        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+        layout = Util.getPageLayout(),
         onLandmarkFound, onLandmarkNotFound, modelId;
 
     onLandmarkFound = function(model, response, newOptions) {
       var map = self.mapView.map,
-          layer, center, landmarkDetailView, $responseToScrollTo;
+          layer, center, $responseToScrollTo;
       options = newOptions ? newOptions : options;
 
       layer = self.mapView.layerViews[options.collectionId][model.id].layer
@@ -632,11 +649,14 @@ S.AppView = Backbone.View.extend({
       if (layer) {
         center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
       }
-      landmarkDetailView = self.getLandmarkDetailView(options.collectionId, model);
+      self.activeDetailView = self.getLandmarkDetailView(options.collectionId, model);
+      self.activeDetailView.isModified = false;
+      self.activeDetailView.isEditingToggled = false;
 
       self.$panel.removeClass().addClass('place-detail place-detail-' + model);
-      self.showPanel(landmarkDetailView.render().$el, false);
-      landmarkDetailView.delegateEvents();
+      self.showPanel(self.activeDetailView.render().$el, false);
+      self.activeDetailView.delegateEvents();
+
       self.hideNewPin();
       self.destroyNewModels();
       self.hideCenterPoint();
@@ -649,7 +669,7 @@ S.AppView = Backbone.View.extend({
               // TODO(Trevor): this needs to be cleaned up
               self.setStoryLayerVisibility(model);
               self.isProgrammaticZoom = true;
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
             } else {
               map.setView(center, map.getMaxZoom()-1, {reset: true});
             }
@@ -664,7 +684,7 @@ S.AppView = Backbone.View.extend({
             self.setStoryLayerVisibility(model);
             map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
           } else {
-            map.panTo(center, {animate: true, reset: true});
+            map.panTo(center, {animate: true});
           }
         }
       }
@@ -731,7 +751,7 @@ S.AppView = Backbone.View.extend({
     }
 
     // If we are passed a LandmarkModel then show it immediately.
-    if (model instanceof S.LandmarkModel) {
+    if (model instanceof LandmarkModel) {
       onLandmarkFound(model)
       return;
     }
@@ -766,15 +786,15 @@ S.AppView = Backbone.View.extend({
   },
   viewPlace: function(datasetSlug, model, responseId, zoom) {
     var self = this,
-        includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-        layout = S.Util.getPageLayout(),
+        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+        layout = Util.getPageLayout(),
         // get the dataset id from the map layers array for the given datasetSlug
         datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
         onPlaceFound, onPlaceNotFound, modelId;
 
     onPlaceFound = function(model) {
       var map = self.mapView.map,
-          layer, center, placeDetailView, $responseToScrollTo;
+          layer, center, $responseToScrollTo;
 
       // If this model is a duplicate of one that already exists in the
       // places collection, it may not correspond to a layerView. For this
@@ -789,15 +809,19 @@ S.AppView = Backbone.View.extend({
         layer = self.mapView.layerViews[datasetId][model.cid].layer;
       }
 
-      placeDetailView = self.getPlaceDetailView(model);
+      self.activeDetailView = self.getPlaceDetailView(model);
+      self.activeDetailView.isModified = false;
+      self.activeDetailView.isEditingToggled = false;
 
       if (layer) {
         center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
       }
 
       self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-      self.showPanel(placeDetailView.render().$el, !!responseId);
-      placeDetailView.delegateEvents();
+      self.showPanel(self.activeDetailView.render().$el, !!responseId);
+      self.activeDetailView.delegateEvents();
+      // TODO(Trevor): prevent default form behavior when in editing mode
+
       self.hideNewPin();
       self.destroyNewModels();
       self.hideCenterPoint();
@@ -824,7 +848,7 @@ S.AppView = Backbone.View.extend({
             self.setStoryLayerVisibility(model);
             map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
           } else {
-            map.panTo(center, {animate: true, reset: true});
+            map.panTo(center, {animate: true});
           }
         }
       }
@@ -832,7 +856,7 @@ S.AppView = Backbone.View.extend({
 
       if (responseId) {
         // get the element based on the id
-        $responseToScrollTo = placeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
+        $responseToScrollTo = self.activeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
 
         // call scrollIntoView()
         if ($responseToScrollTo.length > 0) {
@@ -866,7 +890,7 @@ S.AppView = Backbone.View.extend({
     };
 
     // If we get a PlaceModel then show it immediately.
-    if (model instanceof S.PlaceModel) {
+    if (model instanceof PlaceModel) {
       onPlaceFound(model);
       return;
     }
@@ -893,7 +917,7 @@ S.AppView = Backbone.View.extend({
     }
   },
   viewPage: function(slug) {
-    var pageConfig = S.Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
+    var pageConfig = Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
         pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
         pageHtml = Handlebars.templates[pageTemplateName]({config: this.options.config});
 
@@ -915,7 +939,7 @@ S.AppView = Backbone.View.extend({
 
     if (!preventScrollToTop) {
       // will be "mobile" or "desktop", as defined in default.css
-      var layout = S.Util.getPageLayout();
+      var layout = Util.getPageLayout();
       if (layout === 'desktop') {
         // For desktop, the panel content is scrollable
         this.$panelContent.scrollTo(0, 0);
@@ -933,7 +957,7 @@ S.AppView = Backbone.View.extend({
 
     $("#add-place-btn-container").attr("class", "pos-top-left");
 
-    S.Util.log('APP', 'panel-state', 'open');
+    Util.log('APP', 'panel-state', 'open');
   },
   showNewPin: function() {
     this.$centerpoint.show().addClass('newpin');
@@ -962,7 +986,7 @@ S.AppView = Backbone.View.extend({
 
     $("#add-place-btn-container").attr("class", "pos-top-right");
 
-    S.Util.log('APP', 'panel-state', 'closed');
+    Util.log('APP', 'panel-state', 'closed');
     $("#spotlight-place-mask").remove();
   },
   hideNewPin: function() {
@@ -1039,14 +1063,10 @@ S.AppView = Backbone.View.extend({
   },
   toggleListView: function() {
     if (this.listView.isVisible()) {
-      this.viewMap();
-      this.hideListView();
-      this.options.router.navigate('');
+      this.options.router.navigate('/', {"trigger": true});
     } else {
-      this.showListView();
-      this.options.router.navigate('list');
+      this.options.router.navigate('list', {"trigger": true});
     }
     this.mapView.clearFilter();
   }
 });
-}(Shareabouts, jQuery, Shareabouts.Util.console));

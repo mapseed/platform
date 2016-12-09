@@ -1,15 +1,18 @@
-/*globals jQuery Backbone _ Handlebars Spinner Gatekeeper */
+var Backbone = require('../../libs/backbone.js');
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+var TemplateHelpers = require('../template-helpers.js');
 
-(function(S, $, console){
-S.SurveyView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   events: {
     'submit form': 'onSubmit',
-    'click .reply-link': 'onReplyClick'
+    'click .reply-link': 'onReplyClick',
+    'click .update-response-btn': 'onUpdateResponse',
+    'click .delete-response-btn': 'onDeleteResponse'
   },
   initialize: function() {
-    S.TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
+    TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
 
     this.collection.on('reset', this.onChange, this);
     this.collection.on('add', this.onChange, this);
@@ -32,7 +35,7 @@ S.SurveyView = Backbone.View.extend({
         responses = [],
         url = window.location.toString(),
         urlParts = url.split('response/'),
-        layout = S.Util.getPageLayout(),
+        layout = Util.getPageLayout(),
         responseIdToScrollTo, $responseToScrollTo, data;
 
     // get the response id from the url
@@ -47,11 +50,12 @@ S.SurveyView = Backbone.View.extend({
     // Responses should be an array of objects with submitter_name,
     // pretty_created_datetime, and items (name, label, and prompt)
     this.collection.each(function(model, i) {
-      var items = S.TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
+      var items = TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
 
       responses.push(_.extend(model.toJSON(), {
         submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
-        pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
+        cid: model.cid,
+        pretty_created_datetime: Util.getPrettyDateTime(model.get('created_datetime'),
           self.options.surveyConfig.pretty_datetime_format),
         items: items
       }));
@@ -62,8 +66,9 @@ S.SurveyView = Backbone.View.extend({
       has_single_response: (responses.length === 1),
       user_token: this.options.userToken,
       user_submitted: !!this.userSubmission,
-      survey_config: this.options.surveyConfig
-    }, S.stickyFieldValues);
+      survey_config: this.options.surveyConfig,
+      isEditingToggled: this.options.placeDetailView.isEditingToggled
+    }, Shareabouts.stickyFieldValues);
 
     this.$el.html(Handlebars.templates['place-detail-survey'](data));
 
@@ -81,6 +86,22 @@ S.SurveyView = Backbone.View.extend({
           $(window).scrollTo($responseToScrollTo);
         }
       }, 700);
+    }
+
+    if (this.options.placeDetailView.isEditingToggled) {
+      var editEvents = "keyup";
+      $.each(this.$el.find(".responses form"), function() {
+        $(this).on(editEvents, function(e) {
+          if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
+            || (e.keyCode >= 65 && e.keyCode <= 90) // a-z (also capital letters)
+            || (e.keyCode === 8) // backspace key
+            || (e.keyCode === 46) // delete key
+            || (e.keyCode === 32) // spacebar
+            || (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
+            $(this).siblings(".btn-update").removeClass("faded").prop("disabled", false);
+          }
+        });
+      });
     }
 
     return this;
@@ -101,17 +122,17 @@ S.SurveyView = Backbone.View.extend({
     var self = this,
         $form = this.$('form'),
         $button = this.$('[name="commit"]'),
-        attrs = S.Util.getAttrs($form),
+        attrs = Util.getAttrs($form),
         spinner;
 
     // Disable the submit button until we're done, so that the user doesn't
     // over-click it
     $button.attr('disabled', 'disabled');
-    spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
+    spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
 
-    S.Util.log('USER', 'place', 'submit-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
+    Util.log('USER', 'place', 'submit-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
 
-    S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
+    Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
 
     // Create a model with the attributes from the form
     this.collection.create(attrs, {
@@ -119,10 +140,10 @@ S.SurveyView = Backbone.View.extend({
       success: function() {
         // Clear the form
         $form.get(0).reset();
-        S.Util.log('USER', 'place', 'successfully-reply', self.collection.options.placeModel.getLoggingDetails());
+        Util.log('USER', 'place', 'successfully-reply', self.collection.options.placeModel.getLoggingDetails());
       },
       error: function() {
-        S.Util.log('USER', 'place', 'fail-to-reply', self.collection.options.placeModel.getLoggingDetails());
+        Util.log('USER', 'place', 'fail-to-reply', self.collection.options.placeModel.getLoggingDetails());
       },
       complete: function() {
         // No matter what, enable the button
@@ -135,9 +156,28 @@ S.SurveyView = Backbone.View.extend({
   onReplyClick: function(evt) {
     evt.preventDefault();
     this.$('textarea, input').not('[type="hidden"]').first().focus();
-    S.Util.log('USER', 'place', 'leave-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
+    Util.log('USER', 'place', 'leave-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
+  },
+
+  onUpdateResponse: function(evt) {
+    var cid = $(evt.target).parent().data("cid"),
+    model = this.collection.get(cid),
+    $form = $(evt.target).siblings("form"),
+    attrs = Util.getAttrs($form);
+    model.set(attrs).save({}, {
+      success: function() {
+        $(evt.target).addClass("faded").prop("disabled", true);
+      }
+    });
+  },
+
+  onDeleteResponse: function(evt) {
+    var response = confirm("You are deleting this comment permanently. Are you sure you want to continue?");
+    if (response) {
+      var cid = $(evt.target).parent().data("cid"),
+      model = this.collection.get(cid);
+      model.destroy();
+      this.render();
+    }
   }
-
 });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

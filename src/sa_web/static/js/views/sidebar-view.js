@@ -1,9 +1,8 @@
-/*globals Backbone _ jQuery Handlebars */
+var Backbone = require('../../libs/backbone.js');
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var _ = require('../../libs/underscore.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-S.SidebarView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   initialize: function() {
     var self = this;
 
@@ -36,4 +35,3 @@ S.SidebarView = Backbone.View.extend({
   }
 
 });
-}(Shareabouts, jQuery, Shareabouts.Util.console));
