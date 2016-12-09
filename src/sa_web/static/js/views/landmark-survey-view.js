@@ -1,34 +1,33 @@
-/*globals jQuery Backbone _ Handlebars Spinner Gatekeeper */
+var Handlebars = require('../../libs/handlebars-v3.0.3.js');
+var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+var SurveyView = require('./survey-view.js');
 
-(function(S, $, console){
-  S.LandmarkSurveyView = S.SurveyView.extend({
-    initialize: function() {
-    },
+module.exports = SurveyView.extend({
+  initialize: function() {
+  },
 
-    render: function() {
-      var self = this,
-          layout = S.Util.getPageLayout(),
-          responseIdToScrollTo, $responseToScrollTo, data;
+  render: function() {
+    var self = this,
+        layout = Util.getPageLayout(),
+        responseIdToScrollTo, $responseToScrollTo, data;
 
-      this.$el.html(Handlebars.templates['place-detail-survey']({}));
+    this.$el.html(Handlebars.templates['place-detail-survey']({}));
 
-      // get the element based on the id
-      $responseToScrollTo = this.$el.find('[data-response-id="'+ responseIdToScrollTo +'"]');
+    // get the element based on the id
+    $responseToScrollTo = this.$el.find('[data-response-id="'+ responseIdToScrollTo +'"]');
 
-      if ($responseToScrollTo.length > 0) {
-        setTimeout(function() {
-          // For desktop, the panel content is scrollable
-          if (layout === 'desktop') {
-            $('#content article').scrollTo($responseToScrollTo);
-          } else {
-            // For mobile, it's the window
-            $(window).scrollTo($responseToScrollTo);
-          }
-        }, 700);
-      }
-      return this;
+    if ($responseToScrollTo.length > 0) {
+      setTimeout(function() {
+        // For desktop, the panel content is scrollable
+        if (layout === 'desktop') {
+          $('#content article').scrollTo($responseToScrollTo);
+        } else {
+          // For mobile, it's the window
+          $(window).scrollTo($responseToScrollTo);
+        }
+      }, 700);
     }
-  });
-}(Shareabouts, jQuery, Shareabouts.Util.console));
+    return this;
+  }
+});
