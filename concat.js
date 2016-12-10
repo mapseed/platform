@@ -31,8 +31,11 @@ shell.cat([
   'src/sa_web/static/libs/jquery.datetimepicker.full.min.js',
   'src/sa_web/static/libs/handlebars-helpers.js',
   'src/sa_web/static/libs/leaflet.argo.js',
+  'src/sa_web/static/libs/esri-leaflet.js',
   'src/sa_web/static/libs/leaflet.sidebar.js',
-  'src/sa_web/static/libs/esri-leaflet.js'
+  'src/sa_web/static/libs/quill.min.js',
+  'src/sa_web/static/libs/leaflet.draw.js',
+  'src/sa_web/static/libs/spectrum.js'
 ]).to('src/sa_web/static/dist/cat-lib-bundle.js')
 
 shell.cat([
@@ -58,6 +61,7 @@ shell.cat([
   'src/sa_web/static/js/views/legend-view.js',
   'src/sa_web/static/js/views/gis-legend-view.js',
   'src/sa_web/static/js/views/sidebar-view.js',
+  'src/sa_web/static/js/views/geometry-editor-view.js',
   'src/sa_web/static/js/routes.js',
   'src/flavors/' + flavor + '/static/js/*.js',
   'src/flavors/' + flavor + '/static/js/views/*.js'
@@ -70,8 +74,11 @@ shell.cat([
 
 shell.cat([
   'src/sa_web/static/css/leaflet-sidebar.css',
-  'src/sa_web/static/css/default.css',
+  'src/sa_web/static/css/leaflet.draw.css',
   'src/sa_web/static/css/jquery.datetimepicker.css',
+  'src/sa_web/static/css/spectrum.css',
+  'src/sa_web/static/css/quill.snow.css',
+  'src/sa_web/static/css/default.css',
   'src/flavors/' + flavor + '/static/css/custom.css'
 ]).to('src/sa_web/static/dist/cat-bundle.css')
 
