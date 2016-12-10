@@ -106,7 +106,6 @@ var Shareabouts = Shareabouts || {};
           data = _.extend({
             place_config: this.options.placeConfig,
             survey_config: this.options.surveyConfig,
-            url: this.options.url,
             isEditable: self.isEditable || false,
             isEditingToggled: self.isEditingToggled || false
           }, this.model.toJSON());
