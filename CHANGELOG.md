@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - on our `develop` branch (unreleased)
 ### Added
 
-## [0.7.2] - 2016-12-02 (unreleased)
+## [0.7.2] - 2016-12-02
 ### Added
- - Email notifications and configuration
+ - Email notifications and updated configuration
 
 ## [0.7.1] - 2016-10-13
 ### Added
@@ -53,7 +53,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.6.0 - 2016-02-06
 
-[Unreleased]: https://github.com/smartercleanup/platform/compare/0.7.1...develop
+[Unreleased]: https://github.com/smartercleanup/platform/compare/0.7.2...develop
+[0.7.1]: https://github.com/smartercleanup/platform/compare/0.7.1...0.7.2
 [0.7.1]: https://github.com/smartercleanup/platform/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/smartercleanup/platform/compare/0.6.4...0.7.0
 [0.6.4]: https://github.com/smartercleanup/platform/compare/0.6.3...0.6.4
