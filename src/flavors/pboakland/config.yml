@@ -433,6 +433,9 @@ place:
 
   #### end dynamic form config ####
 
+notifications:
+  on_new_place: true
+
 survey:
   submission_type: comments
 
