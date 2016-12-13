@@ -435,6 +435,7 @@ place:
 
 notifications:
   on_new_place: true
+  submitter_email_field: private-submitter_email
 
 survey:
   submission_type: comments
