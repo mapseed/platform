@@ -1,0 +1,14 @@
+Thanks for submitting a new idea to improve your community!
+
+You can see people's comments on your idea at http://{{ request.get_host }}/{{ place.properties.datasetSlug }}/{{ place.id }}.
+
+How to get more involved:
+
+Attend a Neighborhood Assembly
+Discuss your ideas in person with your friends and neighbors at an upcoming Neighborhood Assembly! Click here for upcoming assembly dates, times, and locations.
+
+Volunteer
+There are lots of ways to get involved in PB in Oakland! You can help to get the word out to district residents, facilitate small group meetings, provide support at PB events, and more. Sign up here.
+
+Contact Us
+Have a question, or interested in receiving more information about the PB process? Feel free to contact us.

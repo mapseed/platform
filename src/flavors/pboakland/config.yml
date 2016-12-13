@@ -22,7 +22,7 @@ languages:
   - code: es
     label: Hablo Español
 
-  - code: zh-hans
+  - code: zh-hant
     label: 我讲中文
 
   - code: en
