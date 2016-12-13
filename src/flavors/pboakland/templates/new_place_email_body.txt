@@ -1,6 +1,6 @@
 Thanks for submitting a new idea to improve your community!
 
-You can see people's comments on your idea at http://{{ request.get_host }}/{{ place.properties.datasetSlug }}/{{ place.id }}.
+You can see people's comments on your idea at http://{{ request.get_host }}/{{ place.properties.datasetSlug }}/{{ place.id }}
 
 How to get more involved:
 
