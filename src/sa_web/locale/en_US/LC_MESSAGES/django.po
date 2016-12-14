@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-07 06:44-0500\n"
+"POT-Creation-Date: 2016-12-14 14:47-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: flavors/georgetowngreen/templates/index.html:54
-#: flavors/happytrail/templates/index.html:55
-#: flavors/marra/templates/index.html:54 flavors/noise/templates/index.html:54
+#: flavors/snoqualmie/templates/index.html:56
 msgid "Powered by"
 msgstr ""
 
@@ -27,14 +25,20 @@ msgstr ""
 msgid ""
 "<strong>\n"
 "\n"
-"        {{#if target.submitter}}\n"
-"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /> "
-"{{ target.submitter.name }}\n"
+"        {{#if target.submitter.avatar_url}}\n"
+"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /"
+">\n"
 "        {{^}}\n"
-"          <!-- TODO: FIXME: don't hardcode image URL -->\n"
 "          <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class=\"avatar"
-"\" /> {{ target.submitter_name }}\n"
+"\" />\n"
 "        {{/if}}\n"
+"\n"
+"        {{#if target.submitter.name}}\n"
+"          {{ target.submitter.name }}\n"
+"        {{^}}\n"
+"          {{ target.submitter_name }}\n"
+"        {{/if}}\n"
+"\n"
 "        </strong>\n"
 "\n"
 "        {{#if is_place }}\n"
@@ -62,7 +66,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/jstemplates/auth-nav.html:1 sa_web/jstemplates/place-form.html:3
+#: sa_web/jstemplates/auth-nav.html:1
 msgid "Log Out"
 msgstr ""
 
@@ -131,28 +135,29 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:1
-msgid "First drag the map to set your pin's location."
+#: sa_web/jstemplates/place-form-field-types.html:1
+msgid "Select..."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:2
+#: sa_web/jstemplates/place-form.html:1
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
 msgstr ""
 
+#: sa_web/jstemplates/place-form.html:2
+msgid "Or, drag the map to set your location"
+msgstr ""
+
+#: sa_web/jstemplates/place-form.html:3
+msgid "Set my location"
+msgstr ""
+
 #: sa_web/jstemplates/place-form.html:4
-msgid ""
-"Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
-"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
-"login/facebook/\">Facebook</a>"
+msgid "Setting your location..."
 msgstr ""
 
 #: sa_web/jstemplates/place-form.html:5
-msgid "Sorry, your browser doesn't support file uploads."
-msgstr ""
-
-#: sa_web/jstemplates/place-form.html:6
 #: sa_web/jstemplates/place-survey-form.html:1
 msgid "optional"
 msgstr ""
@@ -184,7 +189,7 @@ msgid ""
 "    your experience."
 msgstr ""
 
-#: sa_web/templates/base.html:97
+#: sa_web/templates/base.html:113
 #, python-format
 msgid ""
 "\n"
@@ -192,7 +197,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:102
+#: sa_web/templates/base.html:118
 #, python-format
 msgid ""
 "\n"
@@ -204,13 +209,13 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:116
+#: sa_web/templates/base.html:133
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
 msgstr ""
 
-#: sa_web/templates/base.html:125
+#: sa_web/templates/base.html:144
 msgid "Close"
 msgstr ""
 

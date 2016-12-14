@@ -153,7 +153,7 @@ msgstr "為什麼這很重要？該服務是社區裡需要的嗎？"
 #: flavors/pboakland/_config.translations.py:28
 #: flavors/pboakland/_config.translations.py:115
 msgid "Community Programs and Services"
-msgstr ""
+msgstr "社區計劃和服務"
 
 #: flavors/pboakland/_config.translations.py:38
 msgid "Parks and Recreation"
