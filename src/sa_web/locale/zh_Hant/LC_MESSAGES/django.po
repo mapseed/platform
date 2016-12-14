@@ -1,24 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: HeyDuwamish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-12 21:21-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2016-01-07 06:44-0500\n"
+"PO-Revision-Date: 2016-12-14 04:10+0000\n"
+"Last-Translator: Jacob <signup@futuresoup.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/mapseed/heyduwamish/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: flavors/snoqualmie/templates/index.html:56
+#: flavors/georgetowngreen/templates/index.html:54
+#: flavors/happytrail/templates/index.html:55
+#: flavors/marra/templates/index.html:54 flavors/noise/templates/index.html:54
 msgid "Powered by"
 msgstr ""
 
@@ -26,31 +27,21 @@ msgstr ""
 msgid ""
 "<strong>\n"
 "\n"
-"        {{#if target.submitter.avatar_url}}\n"
-"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /"
-">\n"
+"        {{#if target.submitter}}\n"
+"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /> {{ target.submitter.name }}\n"
 "        {{^}}\n"
-"          <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class=\"avatar"
-"\" />\n"
+"          <!-- TODO: FIXME: don't hardcode image URL -->\n"
+"          <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class=\"avatar\" /> {{ target.submitter_name }}\n"
 "        {{/if}}\n"
-"\n"
-"        {{#if target.submitter.name}}\n"
-"          {{ target.submitter.name }}\n"
-"        {{^}}\n"
-"          {{ target.submitter_name }}\n"
-"        {{/if}}\n"
-"\n"
 "        </strong>\n"
 "\n"
 "        {{#if is_place }}\n"
-"          {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span "
-"class=\"place-type\">{{ place.place_type_label }}</span>\n"
+"          {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span class=\"place-type\">{{ place.place_type_label }}</span>\n"
 "          {{#if place.name }}\n"
 "            named <span class=\"place-name\">{{ place.name }}</span>\n"
 "          {{^}}\n"
 "            {{#if place.location }}\n"
-"              at <span class=\"place-name\">{{>location-string place."
-"location }}</span>\n"
+"              at <span class=\"place-name\">{{>location-string place.location }}</span>\n"
 "            {{/if }}\n"
 "          {{/if }}\n"
 "        {{else}}\n"
@@ -59,15 +50,14 @@ msgid ""
 "          {{#if place.name }}\n"
 "            <span class=\"place-name\">{{ place.name }}</span>\n"
 "          {{else}}\n"
-"            a{{# place.type_starts_with_vowel }}n{{/ place."
-"type_starts_with_vowel }} {{ place.place_type_label }}\n"
+"            a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} {{ place.place_type_label }}\n"
 "          {{/if }}\n"
 "\n"
 "        {{/if }}\n"
 "        "
 msgstr ""
 
-#: sa_web/jstemplates/auth-nav.html:1
+#: sa_web/jstemplates/auth-nav.html:1 sa_web/jstemplates/place-form.html:3
 msgid "Log Out"
 msgstr ""
 
@@ -76,8 +66,7 @@ msgid "Sign In"
 msgstr ""
 
 #: sa_web/jstemplates/auth-nav.html:3
-msgid ""
-"Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgid "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
 #: sa_web/jstemplates/geocode-address.html:1
@@ -96,12 +85,10 @@ msgstr ""
 msgid ""
 "<strong class=\"response-submitter\">\n"
 "                    {{#if submitter}}\n"
-"                      <img src=\"{{ submitter.avatar_url }}\" class=\"avatar"
-"\" /> {{ submitter.name }}\n"
+"                      <img src=\"{{ submitter.avatar_url }}\" class=\"avatar\" /> {{ submitter.name }}\n"
 "                    {{^}}\n"
 "                      <!-- TODO: FIXME: don't hardcode image URL -->\n"
-"                      <img src=\"{{ STATIC_URL }}css/images/user-50.png\" "
-"class=\"avatar\" /> {{ submitter_name }}\n"
+"                      <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class=\"avatar\" /> {{ submitter_name }}\n"
 "                    {{/if}}\n"
 "                  </strong>\n"
 "                  <span class=\"response-date\">\n"
@@ -116,8 +103,7 @@ msgid ""
 "              {{#if submitter.avatar_url }}\n"
 "                <img src=\"{{ submitter.avatar_url }}\" class=\"avatar\" />\n"
 "              {{^}}\n"
-"                <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class="
-"\"avatar\" />\n"
+"                <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class=\"avatar\" />\n"
 "              {{/if}}\n"
 "              {{#if submitter.name }}\n"
 "                {{ submitter.name }}\n"
@@ -128,37 +114,35 @@ msgid ""
 "                  {{ anonymous_name }}\n"
 "                {{/if}}\n"
 "              {{/if}}\n"
-"            </strong> {{ action_text }} this {{ place_type_label "
-"location_type}}\n"
+"            </strong> {{ action_text }} this {{ place_type_label location_type}}\n"
 "\n"
 "            {{#if region}}\n"
 "              in {{ region }}\n"
 "            {{/if}}"
 msgstr ""
 
-#: sa_web/jstemplates/place-form-field-types.html:1
-msgid "Select..."
+#: sa_web/jstemplates/place-form.html:1
+msgid "First drag the map to set your pin's location."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:1
+#: sa_web/jstemplates/place-form.html:2
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:2
-msgid "Or, drag the map to set your location"
-msgstr ""
-
-#: sa_web/jstemplates/place-form.html:3
-msgid "Set my location"
-msgstr ""
-
 #: sa_web/jstemplates/place-form.html:4
-msgid "Setting your location..."
+msgid ""
+"Or sign in with <a class=\"auth-inline twitter-btn\" "
+"href=\"/users/login/twitter/\">Twitter</a> <a class=\"auth-inline facebook-"
+"btn\" href=\"/users/login/facebook/\">Facebook</a>"
 msgstr ""
 
 #: sa_web/jstemplates/place-form.html:5
+msgid "Sorry, your browser doesn't support file uploads."
+msgstr ""
+
+#: sa_web/jstemplates/place-form.html:6
 #: sa_web/jstemplates/place-survey-form.html:1
 msgid "optional"
 msgstr ""
@@ -190,7 +174,7 @@ msgid ""
 "    your experience."
 msgstr ""
 
-#: sa_web/templates/base.html:113
+#: sa_web/templates/base.html:97
 #, python-format
 msgid ""
 "\n"
@@ -198,24 +182,40 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:118
+#: sa_web/templates/base.html:102
 #, python-format
 msgid ""
 "\n"
-"        %(config.app.name)s is great but it needs something called "
-"JavaScript to work\n"
+"        %(config.app.name)s is great but it needs something called JavaScript to work\n"
 "        properly. But fear not, it's really easy to turn on. Click\n"
-"        <a href=\"//enable-javascript.com/\" target=\"_blank\">here</a> for "
-"simple instructions!\n"
+"        <a href=\"//enable-javascript.com/\" target=\"_blank\">here</a> for simple instructions!\n"
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:133
+#: sa_web/templates/base.html:116
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
 msgstr ""
 
-#: sa_web/templates/base.html:144
+#: sa_web/templates/base.html:125
 msgid "Close"
 msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "    App Name is not officially supported in {{browser.name}}\n"
+#~ "    {{browser.version}}. Things may not work. Or they may, we're not sure. If\n"
+#~ "    you want to be safe, we suggest using one of <a\n"
+#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> instead.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Shareabouts is not officially supported in {{browser.name}}\n"
+#~ "    {{browser.version}}. Things may not work. Or they may, we're not sure. If\n"
+#~ "    you want to be safe, we suggest using one of <a\n"
+#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> instead.\n"
+#~ "    "
+
+#~ msgid "Close Button"
+#~ msgstr "Close"
