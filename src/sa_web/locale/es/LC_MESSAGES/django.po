@@ -223,8 +223,6 @@ msgstr ""
 "hasta tu ubicación."
 
 #: sa_web/jstemplates/place-form.html:2
-#, fuzzy
-#| msgid "First drag the map to set your pin's location."
 msgid "Or, drag the map to set your location"
 msgstr "Primero, arrastra el mapa para fijar la posición del marcador."
 

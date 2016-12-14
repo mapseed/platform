@@ -332,8 +332,6 @@ msgid "Share your idea!"
 msgstr "分享您的看法！"
 
 #: flavors/pboakland/_config.translations.py:103
-#, fuzzy
-#| msgid "Housing and Jobs"
 msgid "idea for housing and jobs"
 msgstr "住房和工作"
 
@@ -342,8 +340,6 @@ msgid "idea for streets and sidewalks"
 msgstr "對街道和人行道的看法"
 
 #: flavors/pboakland/_config.translations.py:105
-#, fuzzy
-#| msgid "idea for senior services"
 msgid "idea for community programs and services"
 msgstr "對老年人服務的看法"
 
