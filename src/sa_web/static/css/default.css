@@ -1840,6 +1840,16 @@ a.auth-inline {
   padding: 6px 10px 5px 6px;
 }
 
+.right-sidebar-visible #right-sidebar {
+  position: absolute;
+  right: 0;
+  width: 20%;
+  max-height: 100%;
+  overflow: auto;
+  box-shadow: -0.325em 0 0 rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
 #ticker {
   background: url(images/lightpaperfibers.png);
   z-index: 30;
@@ -1851,6 +1861,7 @@ a.auth-inline {
 
 .activity-enabled #ticker {
   display: block;
+  width: 40%;
 }
 
 ul.recent-points {
@@ -2427,8 +2438,24 @@ a.close-unsupported-overlay {
     height: calc(100% - 72px);
   }
 
+  .right-sidebar-visible #map-container {
+    height: 65%;
+  }
+
   .activity-enabled.content-visible #map-container {
     height: 70%;
+  }
+
+  .right-sidebar-visible #right-sidebar {
+    width: 100%;
+    display: block;
+    left: 0;
+    top: calc(65% + 72px);
+    height: 400px;
+  }
+
+  .content-visible.right-sidebar-visible #right-sidebar {
+    display: none;
   }
 }
 @media only screen and (min-width: 60em) {
@@ -2436,11 +2463,15 @@ a.close-unsupported-overlay {
     content: "desktop";
   }
 
+  #right-sidebar {
+    height: calc(100% - 64px - 0px);
+  }
+
   #site-header {
     background: url(images/lightpaperfibers.png);
     padding-left: 1em;
     overflow: visible;
-    height: 4em;
+    height: 64px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -2579,10 +2610,6 @@ a.close-unsupported-overlay {
     width: 40%;
   }
 
-  .activity-enabled.content-visible #map-container {
-    width: 60%;
-  }
-
   .geocoding-bar-enabled #map-container {
     top: 8.5em;
   }
@@ -2642,11 +2669,18 @@ a.close-unsupported-overlay {
     padding: 0;
     position: absolute;
     top: 4em;
-    right: 0;
     bottom: 1.75em;
     overflow: visible;
     box-shadow: -0.325em 0 0 rgba(0, 0, 0, 0.1);
     width: 40%;
+  }
+
+  .content-visible #content {
+    right: 0;
+  }
+
+  .right-sidebar-visible.content-visible #content {
+    left: 40%;
   }
 
   .activity-enabled #content {
@@ -2660,6 +2694,14 @@ a.close-unsupported-overlay {
 
   .activity-enabled.content-visible #map-container {
     width: 60%;
+  }
+
+  .right-sidebar-visible #map-container {
+    width: 80%;
+  }
+
+  .right-sidebar-visible.content-visible #map-container {
+    width: 40%;
   }
 
   .geocoding-bar-enabled #content {

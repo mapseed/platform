@@ -45,6 +45,8 @@ $selected-message-dark-gray: #222222;
 // ################################
 // HEADER - VARIABLES
 // ################################
+$header-height-fullscreen: 64px;
+//$header-height-smallscreen: 50px; ??????
 // Navigation Button - Variables
 // Navigation Menu - Variables
 // User Menu - Variables
@@ -74,6 +76,7 @@ $selected-message-dark-gray: #222222;
 // ################################
 // SIDEBAR - VARIABLES
 // ################################
+$sidebar-width: 20%;
 
 // ################################
 // TICKER - VARIABLES
@@ -101,6 +104,8 @@ $selected-message-dark-gray: #222222;
 // ################################
 // FOOTER - VARIABLES
 // ################################
+$footer-height-fullscreen: 0px;
+$footer-height-smallscreen: 72px;
 // Powered By - Variables
 // Mapquest Attribution - Variables
 
@@ -112,5 +117,12 @@ $selected-message-dark-gray: #222222;
 // MEDIA QUERIES - VARIABLES
 // ################################
 $map-width-when-content-visible: 60%;
+$map-width-when-sidebar-visible: 80%;
+$map-width-when-content-and-sidebar-visible: 40%;
+$map-height-smallscreen-when-sidebar-visible: 65%;
+
 $content-visible-left-offset: $map-width-when-content-visible;
+$content-visible-with-sidebar-left-offset: $map-width-when-content-and-sidebar-visible;
+
 $content-visible-width: 100% - $map-width-when-content-visible;
+$content-with-sidebar-visible-width: 100% - $map-width-when-content-and-sidebar-visible - $sidebar-width;
