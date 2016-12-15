@@ -64,6 +64,10 @@ var Shareabouts = Shareabouts || {};
         $('#ajax-error-msg').hide();
       });
 
+      if (this.options.storyConfig) {
+        this.options.placeConfig.hasStories = true;
+      }
+
       // $('.list-toggle-btn').click(function(evt){
       //   evt.preventDefault();
       //   self.toggleListView();
