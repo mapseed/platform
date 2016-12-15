@@ -1,5 +1,6 @@
 Thanks for submitting a new idea to improve your community!
 ¡Gracias por proponer una nueva idea para mejorar tu comunidad!
+谢谢您提交新的想法来改善你的社区！
 
 You can see people's comments on your idea at http://{{ request.get_host }}/{{ place.properties.datasetSlug }}/{{ place.id }}
 
@@ -26,7 +27,7 @@ http://www.123contactform.com/form-1169694/PB-Oakland-Contact-Us
 
 ¡Gracias por proponer una nueva idea para mejorar tu comunidad!
 
-Puedes ver los comentarios de otras personas sobre tu idea en:
+Puedes ver los comentarios de otras personas sobre tu idea en: http://{{ request.get_host }}/{{ place.properties.datasetSlug }}/{{ place.id }}
 
 Otras formas de participar:
 
@@ -45,5 +46,21 @@ http://www.123contactform.com/form-1169694/PB-Oakland-Contact-Us
 
 ===========================
 
+谢谢您提交新的想法来改善你的社区！ 
+
+您可以看到人们對您的想法進行的评论： http://{{ request.get_host }}/{{ place.properties.datasetSlug }}/{{ place.id }}
+
+如何參與此活動： 
+參加鄰居大會 
+ 
+在即將到來的鄰居大會中與您的鄰居當面討論您的想法！請在下面登記「聯絡方式」表格獲
+得詳細資訊。點擊此處獲取將到來的鄰居大會日期、時間和地點。 
+
+志願者 
+有很多方式可以參與奧克蘭的PB活動！您可以幫助把資訊傳遞給地區居民，促進小組會議
+舉行，為PB活動提供支援。在此登記。 
+
+聯絡我們 
+如果有任何問題，或者有興趣收到關於PB流程的更多資訊，請隨時聯絡我們。 
 
 
