@@ -1,4 +1,7 @@
-var Backbone = require('../../libs/backbone.js');
+var SubmissionCollection = require('./submission-collection.js');
+var AttachmentCollection = require('./attachment-collection.js');
+
+var ModelUtils = require('./model-utils.js');
 
 module.exports = Backbone.Model.extend({
   initialize: function() {
@@ -14,14 +17,14 @@ module.exports = Backbone.Model.extend({
         models = submissions;
       }
 
-      this.submissionSets[name] = new S.SubmissionCollection(models, {
+      this.submissionSets[name] = new SubmissionCollection(models, {
         submissionType: name,
         placeModel: this
       });
     }, this);
 
     attachmentData = this.get('attachments') || [];
-    this.attachmentCollection = new S.AttachmentCollection(attachmentData, {
+    this.attachmentCollection = new AttachmentCollection(attachmentData, {
       thingModel: this
     });
 
@@ -31,7 +34,7 @@ module.exports = Backbone.Model.extend({
   },
 
   set: function(key, val, options) {
-    var args = normalizeModelArguments(key, val, options);
+    var args = ModelUtils.normalizeModelArguments(key, val, options);
 
     if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachments) {
       this.attachmentCollection.reset(args.attrs.attachments);
@@ -44,14 +47,14 @@ module.exports = Backbone.Model.extend({
       }
     }, this);
 
-    return S.PlaceModel.__super__.set.call(this, args.attrs, args.options);
+    return module.exports.__super__.set.call(this, args.attrs, args.options);
   },
 
   save: function(key, val, options) {
     // Overriding save so that we can handle adding attachments
     var self = this,
         realSuccessHandler,
-        args = normalizeModelArguments(key, val, options),
+        args = ModelUtils.normalizeModelArguments(key, val, options),
         attrs = args.attrs;
     options = args.options;
 
@@ -71,7 +74,7 @@ module.exports = Backbone.Model.extend({
     }
 
     options.ignoreAttachments = true;
-    S.PlaceModel.__super__.save.call(this, attrs, options);
+    module.exports.__super__.save.call(this, attrs, options);
   },
 
   saveAttachments: function() {
@@ -85,7 +88,7 @@ module.exports = Backbone.Model.extend({
   parse: function(response) {
     var properties = _.clone(response.properties);
     // add story object, if relevant
-    _.extend(properties, addStoryObj(response, "place"));
+    _.extend(properties, ModelUtils.addStoryObj(response, "place"));
     properties.geometry = _.clone(response.geometry);
 
     return properties;

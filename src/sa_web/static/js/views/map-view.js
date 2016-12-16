@@ -1,5 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
-var _ = require('../../libs/underscore.js');
 var Util = require('../utils.js');
 
 var BasicLayerView = require('./basic-layer-view.js');
@@ -45,18 +43,18 @@ module.exports = Backbone.View.extend({
 
     self.map.on('zoomend', function(evt) {
       Util.log('APP', 'zoom', self.map.getZoom());
-      $(S).trigger('zoomend', [evt]);
+      $(Shareabouts).trigger('zoomend', [evt]);
     });
 
     self.map.on('moveend', function(evt) {
       Util.log('APP', 'center-lat', self.map.getCenter().lat);
       Util.log('APP', 'center-lng', self.map.getCenter().lng);
 
-      $(S).trigger('mapmoveend', [evt]);
+      $(Shareabouts).trigger('mapmoveend', [evt]);
     });
 
     self.map.on('dragend', function(evt) {
-      $(S).trigger('mapdragend', [evt]);
+      $(Shareabouts).trigger('mapdragend', [evt]);
     });
 
     // Bind shareabouts collections event listeners
@@ -78,7 +76,7 @@ module.exports = Backbone.View.extend({
     });
 
     // Bind visiblity event for custom layers
-    $(S).on('visibility', function (evt, id, visible, isBasemap) {
+    $(Shareabouts).on('visibility', function (evt, id, visible, isBasemap) {
       var layer = self.layers[id],
       config = _.find(self.options.mapConfig.layers, function(c) {
         return c.id === id;
@@ -141,7 +139,7 @@ module.exports = Backbone.View.extend({
       success: function(data) {
         var locationsData = data.results[0].locations;
         // Util.console.log('Reverse geocoded center: ', data);
-        $(S).trigger('reversegeocode', [locationsData[0]]);
+        $(Shareabouts).trigger('reversegeocode', [locationsData[0]]);
       }
     });
   }, 1000),

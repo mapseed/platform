@@ -1,7 +1,6 @@
-var Backbone = require('../../libs/backbone.js');
 var AttachmentModel = require('./attachment-model.js');
 
-model.exports = Backbone.Collection.extend({
+module.exports = Backbone.Collection.extend({
   model: AttachmentModel,
 
   initialize: function(models, options) {

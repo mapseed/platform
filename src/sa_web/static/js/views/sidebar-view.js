@@ -1,6 +1,24 @@
-var Backbone = require('../../libs/backbone.js');
-var Handlebars = require('../../libs/handlebars-v3.0.3.js');
-var _ = require('../../libs/underscore.js');
+var views = {
+  ActivityView: require('./activity-view.js'),
+  AppView: require('./app-view.js'),
+  AuthNavView: require('./auth-nav-view.js'),
+  BasicLayerView: require('./basic-layer-view.js'),
+  GeocodeAddressPlaceView: require('./geocode-address-place-view.js'),
+  GeocodeAddressView: require('./geocode-address-view.js'),
+  GISLegendView: require('./gis-legend-view.js'),
+  LandmarkDetailView: require('./landmark-detail-view.js'),
+  LandmarkSurveyView: require('./landmark-survey-view.js'),
+  LayerView: require('./layer-view.js'),
+  LegendView: require('./legend-view.js'),
+  MapView: require('./map-view.js'),
+  PagesNavView: require('./pages-nav-view.js'),
+  PlaceCounterView: require('./place-counter-view.js'),
+  PlaceDetailView: require('./place-detail-view.js'),
+  PlaceFormView: require('./place-form-view.js'),
+  PlaceListView: require('./place-list-view.js'),
+  SupportView: require('./support-view.js'),
+  SurveyView: require('./survey-view.js')
+};
 
 module.exports = Backbone.View.extend({
   initialize: function() {
@@ -20,7 +38,7 @@ module.exports = Backbone.View.extend({
       // TODO: Generalize this for views rendered outside of the sidebar:
       // (or for views with more complicated dependencies like ActivityView)
       if (panelConfig.id != 'ticker') {
-        (new S[panelConfig.view]({
+        (new views[panelConfig.view]({
           el: '#' + panelConfig.id,
           mapView: self.options.mapView,
           config: panelConfig

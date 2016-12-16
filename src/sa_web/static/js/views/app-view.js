@@ -1,6 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
-var Handlebars = require('../../libs/handlebars-v3.0.3.js');
-var _ = require('../../libs/underscore.js');
 var Util = require('../utils.js');
 
 // Views
@@ -208,7 +205,7 @@ module.exports = Backbone.View.extend({
     // When the user chooses a geocoded address, the address view will fire
     // a geocode event on the namespace. At that point we center the map on
     // the geocoded location.
-    $(S).on('geocode', function(evt, locationData) {
+    $(Shareabouts).on('geocode', function(evt, locationData) {
       self.mapView.zoomInOn(locationData.latLng);
 
       if (self.isAddingPlace()) {
@@ -226,7 +223,7 @@ module.exports = Backbone.View.extend({
     // reverse geocode the center of the map, if geocoding is enabled. If
     // the user is doing anything else, we just want to clear out any text
     // that's currently set in the address search bar.
-    $(S).on('mapdragend', function(evt) {
+    $(Shareabouts).on('mapdragend', function(evt) {
       if (self.isAddingPlace()) {
         self.conditionallyReverseGeocode();
       } else if (self.geocodeAddressView) {
@@ -237,7 +234,7 @@ module.exports = Backbone.View.extend({
     // After reverse geocoding, the map view will fire a reversegeocode
     // event. This should only happen when adding a place while geocoding
     // is enabled.
-    $(S).on('reversegeocode', function(evt, locationData) {
+    $(Shareabouts).on('reversegeocode', function(evt, locationData) {
       var locationString = Handlebars.templates['location-string'](locationData);
       self.geocodeAddressView.setAddress($.trim(locationString));
       self.geocodeAddressPlaceView.setAddress($.trim(locationString));
@@ -592,12 +589,12 @@ module.exports = Backbone.View.extend({
   setStoryLayerVisibility: function(model) {
     // change basemap if requested
     if (model.attributes.story.basemap) {
-      $(S).trigger('visibility', [model.attributes.story.basemap, true, true]);
+      $(Shareabouts).trigger('visibility', [model.attributes.story.basemap, true, true]);
       $("#map-" + model.attributes.story.basemap).prop("checked", true);
     }
     // set layer visibility based on story config
     _.each(model.attributes.story.visibleLayers, function(targetLayer) {
-      $(S).trigger('visibility', [targetLayer, true]);
+      $(Shareabouts).trigger('visibility', [targetLayer, true]);
       // set legend checkbox
       $("#map-" + targetLayer).prop("checked", true);
     });
@@ -606,7 +603,7 @@ module.exports = Backbone.View.extend({
       if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
         // don't turn off basemap layers!
         if (targetLayer.type != "basemap") {
-          $(S).trigger('visibility', [targetLayer.id, false]);
+          $(Shareabouts).trigger('visibility', [targetLayer.id, false]);
           // set legend checkbox
           $("#map-" + targetLayer.id).prop("checked", false);
         }
@@ -616,7 +613,7 @@ module.exports = Backbone.View.extend({
 
   restoreDefaultLayerVisibility: function() {
     var triggerVisibility = function(id, isVisible, isBasemap) {
-      $(S).trigger('visibility', [id, isVisible, isBasemap]);
+      $(Shareabouts).trigger('visibility', [id, isVisible, isBasemap]);
       $("#map-" + id).prop("checked", isVisible);
     }
 
@@ -953,7 +950,7 @@ module.exports = Backbone.View.extend({
     this.setBodyClass('content-visible');
     map.invalidateSize({ animate:true, pan:true });
 
-    $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
+    $(Shareabouts).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
 
     $("#add-place-btn-container").attr("class", "pos-top-left");
 

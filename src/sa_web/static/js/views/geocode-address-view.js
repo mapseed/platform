@@ -1,6 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
-var Handlebars = require('../../libs/handlebars-v3.0.3.js');
-var _ = require('../../libs/underscore.js');
 var Util = require('../utils.js');
 
 module.exports = Backbone.View.extend({
@@ -48,7 +45,7 @@ module.exports = Backbone.View.extend({
 
           // TODO: This might make more sense if the view itself was the
           //       event's target.
-          $(S).trigger('geocode', [locationsData[0]]);
+          $(Shareabouts).trigger('geocode', [locationsData[0]]);
         } else {
           // TODO: Show some feedback that we couldn't geocode.
           console.error('Woah, no location found for ', data.results[0].providedLocation.location, data);

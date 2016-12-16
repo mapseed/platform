@@ -1,6 +1,21 @@
 /*globals Backbone jQuery _ */
 
-var Shareabouts = Shareabouts || {};
+var PlaceModel = require('./models/place-model.js');
+var LandmarkModel = require('./models/landmark-model.js');
+var Util = require('./utils.js');
+var LandmarkCollection = require('./models/landmark-collection.js');
+var PlaceCollection = require('./models/place-collection.js');
+var ActionCollection = require('./models/action-collection.js');
+var AppView = require('./views/app-view.js');
+
+// HACK
+require('./handlebars-helpers.js');
+require('../libs/handlebars-helpers.js');
+
+var Shareabouts = window.Shareabouts || {};
+
+// HACKHACK
+window.Shareabouts.Util = Util;
 
 (function(S, $, console){
   S.App = Backbone.Router.extend({
@@ -55,16 +70,16 @@ var Shareabouts = Shareabouts || {};
       // store individual landmark collections for each landmark type
       this.landmarks = {};
 
-      S.PlaceModel.prototype.getLoggingDetails = function() {
+      PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
-      S.LandmarkModel.prototype.getLoggingDetails = function() {
+      LandmarkModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
 
       // Reject a place that does not have a supported location type. This will
       // prevent invalid places from being added or saved to the collection.
-      S.PlaceModel.prototype.validate = function(attrs, options) {
+      PlaceModel.prototype.validate = function(attrs, options) {
         var locationType = attrs.location_type,
             locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
 
@@ -76,7 +91,7 @@ var Shareabouts = Shareabouts || {};
 
       // Global route changes
       this.bind('route', function(route, router) {
-        S.Util.log('ROUTE', self.getCurrentPath());
+        Util.log('ROUTE', self.getCurrentPath());
       });
 
       filteredRoutes = this.getFilteredRoutes();
@@ -99,7 +114,7 @@ var Shareabouts = Shareabouts || {};
         config.sources.forEach(function (source) {
           url += encodeURIComponent(source) + '&'
         });
-        var collection = new S.LandmarkCollection([], { url: url });
+        var collection = new LandmarkCollection([], { url: url });
         self.landmarks[config.id] = collection;
       });
 
@@ -108,17 +123,17 @@ var Shareabouts = Shareabouts || {};
         return layer.type && layer.type === 'place';
       });
       _.each(configArrays.places, function(config) {
-        var collection = new S.PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
+        var collection = new PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
         self.places[config.id] = collection;
       });
 
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
-        var collection = new S.ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
+        var collection = new ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
         self.activities[config.id] = collection;
       });
 
-      this.appView = new S.AppView({
+      this.appView = new AppView({
         el: 'body',
         activities: this.activities,
         places: this.places,
@@ -150,7 +165,7 @@ var Shareabouts = Shareabouts || {};
 
       // Load the default page when there is no page already in the url
       if (Backbone.history.getFragment() === '') {
-        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
+        startPageConfig = Util.findPageConfig(options.pagesConfig, {start_page: true});
 
         if (startPageConfig && startPageConfig.slug) {
           this.navigate('page/' + startPageConfig.slug, {trigger: true});
@@ -273,4 +288,18 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-}(Shareabouts, jQuery, Shareabouts.Util.console));
+}(Shareabouts, jQuery, Util.console));
+
+// HACKHACK
+window.bootstrapCurrentUser = function(data) {
+  // Handle the case when we are logged into the admin panel
+  if (data && !data.avatar_url) data.avatar_url = "{{ STATIC_URL }}css/images/user-50.png"
+  if (data && !data.name) data.name = data.username
+  window.Shareabouts.bootstrapped.currentUser = data;
+}
+
+window.setApiSessionCookie = function(data) {
+  if (data) {
+    Util.cookies.save('sa-api-sessionid', data.sessionid);
+  }
+}

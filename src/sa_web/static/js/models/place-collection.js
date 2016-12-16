@@ -26,7 +26,7 @@ module.exports = PaginatedCollection.extend({
   fetchById: function(id, options) {
     options = options ? _.clone(options) : {};
     var self = this,
-        place = new S.PlaceModel(),
+        place = new PlaceModel(),
         success = options.success;
 
     place.id = id;

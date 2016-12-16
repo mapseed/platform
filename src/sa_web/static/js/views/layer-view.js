@@ -1,4 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
 var Util = require('../utils.js');
 
 module.exports = Backbone.View.extend({

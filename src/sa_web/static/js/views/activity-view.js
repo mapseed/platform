@@ -1,6 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
-var Handlebars = require('../../libs/handlebars-v3.0.3.js');
-var _ = require('../../libs/underscore.js');
 var Util = require('../utils.js');
 
 var ActionCollection = require('../models/action-collection.js');
