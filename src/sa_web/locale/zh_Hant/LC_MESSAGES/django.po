@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HeyDuwamish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 15:38-0500\n"
+"POT-Creation-Date: 2016-12-16 00:17-0500\n"
 "PO-Revision-Date: 2016-12-14 04:10+0000\n"
 "Last-Translator: Language-Team: Chinese Traditional (http://www.transifex."
 "com/mapseed/heyduwamish/language/zh-Hant/)\n"
@@ -80,8 +80,9 @@ msgid ""
 msgstr ""
 
 #: sa_web/jstemplates/geocode-address.html:1
+#: sa_web/jstemplates/place-list.html:4
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: sa_web/jstemplates/place-detail-promotion-bar.html:1
 msgid "Recommend on Facebook"
@@ -135,6 +136,10 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
+#: sa_web/jstemplates/place-detail.html:21
+msgid "View On Map"
+msgstr "在地圖上查看"
+
 #: sa_web/jstemplates/place-form-field-types.html:1
 msgid "Select..."
 msgstr ""
@@ -168,11 +173,11 @@ msgstr "最近的"
 
 #: sa_web/jstemplates/place-list.html:2
 msgid "Most {{ support_label_plural }}"
-msgstr ""
+msgstr "最 {{ support_label_plural }}"
 
 #: sa_web/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
-msgstr ""
+msgstr "最 {{ survey_label_plural }}"
 
 #: sa_web/jstemplates/place-survey-response.html:1
 msgid "Thanks for participating!"
@@ -217,7 +222,7 @@ msgstr ""
 
 #: sa_web/templates/base.html:144
 msgid "Close"
-msgstr ""
+msgstr "關"
 
 #~ msgid ""
 #~ "\n"
