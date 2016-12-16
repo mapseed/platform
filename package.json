@@ -20,11 +20,8 @@
   "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
     "postinstall": "./node_modules/grunt-cli/bin/grunt",
-    "build-lib-js": "cat src/sa_web/static/dist/cat-lib-bundle.js | uglifyjs -cm | tee src/sa_web/static/dist/lib-bundle.js | gzip > src/sa_web/static/dist/lib-bundle.js.gz",
-    "build-preload-js": "cat src/sa_web/static/dist/cat-preload-bundle.js | uglifyjs -cm | tee src/sa_web/static/dist/preload-bundle.js | gzip > src/sa_web/static/dist/preload-bundle.js.gz",
-    "build-js": "cat src/sa_web/static/dist/cat-bundle.js | uglifyjs -cm | tee src/sa_web/static/dist/bundle.js | gzip > src/sa_web/static/dist/bundle.js.gz",
     "build-css":  "cat src/sa_web/static/dist/cat-bundle.css | tee src/sa_web/static/dist/bundle.css | gzip > src/sa_web/static/dist/bundle.css.gz",
-    "build": "node concat.js && npm run build-lib-js && npm run build-preload-js && npm run build-js && npm run build-css"
+    "build": "webpack && npm run build-css"
   },
   "dependencies": {
     "grunt": "^0.4.5",
