@@ -19,7 +19,7 @@ body {
 // Links - Selectors
 
 a {
-    color: $default-font-color;
+    color: $default-link-color;
 
     &:active, &:visited {
         color: $default-font-color;

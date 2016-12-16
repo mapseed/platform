@@ -557,7 +557,7 @@ body:after {
 }
 
 a {
-  color: #36454f;
+  color: #00aaff;
 }
 a:active, a:visited {
   color: #36454f;
@@ -571,7 +571,7 @@ label:active, label:visited {
 }
 
 a:hover, label:hover {
-  color: #00aaff;
+  color: #36454f;
 }
 
 a:hover, a:active {
@@ -751,12 +751,12 @@ img {
 }
 
 .btn-primary {
-  background-color: #00aaff;
+  background-color: #36454f;
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
 .btn-primary:visited, .btn-primary:link {
-  background-color: #00aaff;
+  background-color: #36454f;
   color: #fff;
   background-color: rgba(242, 82, 24, 0.89);
 }
@@ -1445,7 +1445,7 @@ a.logout-btn {
   text-shadow: 0 0 0.25em #555555;
 }
 .progress-bar span {
-  background: #00aaff;
+  background: #36454f;
   display: block;
   width: 0%;
   height: 1em;
@@ -1627,7 +1627,7 @@ a.close-btn span {
   color: #888;
 }
 .response-date a:hover {
-  color: #00aaff;
+  color: #36454f;
 }
 
 .survey-count {
@@ -1980,7 +1980,7 @@ ul.recent-points {
 }
 
 .layer-type-title:active label:hover, .shareabouts-layer-li:active a {
-  color: #00aaff;
+  color: #36454f;
 }
 
 .map-layer-list {
