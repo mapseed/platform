@@ -86,11 +86,11 @@ NOTE: For Linux users on RHEL/CentOS distros, you will need to have the followin
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
-**Setting up the SASS compiler**
-If you are going to make changes to the CSS, you'll need to edit the SASS files under `src/sa_web/static/sass/default.sass`, then set up the SASS compiler to convert the SASS into CSS. To do this, you should first [install Ruby](https://www.ruby-lang.org/en/documentation/installation/), then run `gem install compass`. From inside the `src/sa_web/static/` directory, run `compass watch`, which will automatically compile the SASS file `src/sa_web/static/sass/default.sass` into CSS under `src/sa_web/static/css/default.css`.
+### Run the server
 
-Note that there are plans to avoid this extra dependency in issue #348.
+`npm start`
 
+Go to `localhost:8000`.
 
 ### Configuring the Dev API
 
