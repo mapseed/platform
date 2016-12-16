@@ -2,6 +2,6 @@ module.exports = {
   entry: ["./src/sa_web/static/js/routes.js", "./src/sa_web/static/js/handlebars-helpers.js"],
   output: {
     path: "./src/sa_web/static/dist/",
-    filename: "test-bundle.js"
+    filename: "bundle.js"
   }
 }
