@@ -5,7 +5,7 @@ app:
   # Header name
   name: "Participatory Budgeting Oakland"
   # Meta description that will show up in Google search results
-  meta_description: "_(Welcome! Participatory Budgeting Oakland is an innovative democratic process that gives Oakland residents in City Council District 2 the power to decide how to spend city funds in their district. Help us vote now!)"
+  meta_description: "_(Welcome! Participatory Budgeting Oakland is an innovative democratic process that gives Oakland residents in City Council Districts 1 and 2 the power to decide how to spend city funds in their district. Help us vote now!)"
   # Meta author that will show up in Google search results
   meta_author: HaxGeo.com
 
@@ -22,7 +22,7 @@ languages:
   - code: es
     label: Hablo Español
 
-  - code: zh-hans
+  - code: zh-hant
     label: 我讲中文
 
   - code: en
@@ -432,6 +432,10 @@ place:
       label: _(Submit!)
 
   #### end dynamic form config ####
+
+notifications:
+  on_new_place: true
+  submitter_email_field: private-submitter_email
 
 survey:
   submission_type: comments
