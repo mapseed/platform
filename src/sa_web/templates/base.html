@@ -259,6 +259,19 @@
       mapQuestKey: '{{ settings.MAPQUEST_KEY }}',
       mapboxToken: '{{ settings.MAPBOX_TOKEN }}'
     };
+
+    function bootstrapCurrentUser(data) {
+      // Handle the case when we are logged into the admin panel
+      if (data && !data.avatar_url) data.avatar_url = "{{ STATIC_URL }}css/images/user-50.png"
+      if (data && !data.name) data.name = data.username
+      Shareabouts.bootstrapped.currentUser = data;
+    }
+
+    function setApiSessionCookie(data) {
+      if (data) {
+        Shareabouts.Util.cookies.save('sa-api-sessionid', data.sessionid);
+      }
+    }
   </script>
 
   {% if settings.DEBUG %}

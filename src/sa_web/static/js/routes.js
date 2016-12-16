@@ -8,10 +8,8 @@ var PlaceCollection = require('./models/place-collection.js');
 var ActionCollection = require('./models/action-collection.js');
 var AppView = require('./views/app-view.js');
 
-var Shareabouts = window.Shareabouts || {};
-
-// HACKHACK
-window.Shareabouts.Util = Util;
+// Global-namespace Util
+Shareabouts.Util = Util;
 
 (function(S, $, console){
   S.App = Backbone.Router.extend({
@@ -285,17 +283,3 @@ window.Shareabouts.Util = Util;
   });
 
 }(Shareabouts, jQuery, Util.console));
-
-// HACKHACK
-window.bootstrapCurrentUser = function(data) {
-  // Handle the case when we are logged into the admin panel
-  if (data && !data.avatar_url) data.avatar_url = "{{ STATIC_URL }}css/images/user-50.png"
-  if (data && !data.name) data.name = data.username
-  window.Shareabouts.bootstrapped.currentUser = data;
-}
-
-window.setApiSessionCookie = function(data) {
-  if (data) {
-    Util.cookies.save('sa-api-sessionid', data.sessionid);
-  }
-}
