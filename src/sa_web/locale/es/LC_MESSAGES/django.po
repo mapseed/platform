@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HeyDuwamish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-13 23:16-0500\n"
+"POT-Creation-Date: 2016-12-15 23:56-0500\n"
 "PO-Revision-Date: 2016-12-14 03:49+0000\n"
 "Last-Translator: Jacob <signup@futuresoup.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/mapseed/heyduwamish/"
@@ -209,6 +209,10 @@ msgid ""
 "              in {{ region }}\n"
 "            {{/if}}"
 msgstr ""
+
+#: sa_web/jstemplates/place-detail.html:21
+msgid "View On Map"
+msgstr "Ver en el mapa"
 
 #: sa_web/jstemplates/place-form-field-types.html:1
 msgid "Select..."
