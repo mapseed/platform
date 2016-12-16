@@ -8,10 +8,6 @@ var PlaceCollection = require('./models/place-collection.js');
 var ActionCollection = require('./models/action-collection.js');
 var AppView = require('./views/app-view.js');
 
-// HACK
-require('./handlebars-helpers.js');
-require('../libs/handlebars-helpers.js');
-
 var Shareabouts = window.Shareabouts || {};
 
 // HACKHACK
