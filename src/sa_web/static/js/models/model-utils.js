@@ -19,7 +19,7 @@ var addStoryObj = function(response, type) {
   url;
   if (type === "place") { url = response.properties.datasetSlug + "/" + response.properties.id; }
   else if (type === "landmark") { url = response.title; }
-  _.each(S.Config.story, function(story) {
+  _.each(Shareabouts.Config.story, function(story) {
     if (story.order[url]) {
       storyObj = {
         tagline: story.tagline,

@@ -1,79 +1,130 @@
 /*globals Backbone jQuery _ */
 
-var Shareabouts = Shareabouts || {};
+var PlaceModel = require('./models/place-model.js');
+var LandmarkModel = require('./models/landmark-model.js');
+var Util = require('./utils.js');
+var LandmarkCollection = require('./models/landmark-collection.js');
+var PlaceCollection = require('./models/place-collection.js');
+var ActionCollection = require('./models/action-collection.js');
+var AppView = require('./views/app-view.js');
+
+// HACK
+require('./handlebars-helpers.js');
+require('../libs/handlebars-helpers.js');
+
+var Shareabouts = window.Shareabouts || {};
+
+// HACKHACK
+window.Shareabouts.Util = Util;
 
 (function(S, $, console){
-S.App = Backbone.Router.extend({
-  routes: {
-    '': 'viewMap',
-    'filter/:locationtype': 'filterMap',
-    'page/:slug': 'viewPage',
-    ':dataset/:id': 'viewPlace',
-    'new': 'newPlace',
-    ':dataset/:id/response/:response_id': 'viewPlace',
-    ':dataset/:id/edit': 'editPlace',
-    'list': 'showList',
-    ':id': 'viewLandmark',
-    ':zoom/:lat/:lng': 'viewMap'
-  },
+  S.App = Backbone.Router.extend({
+    routes: {
+      '': 'viewMap',
+      'filter/:locationtype': 'filterMap',
+      'page/:slug': 'viewPage',
+      ':dataset/:id': 'viewPlace',
+      'new': 'newPlace',
+      ':dataset/:id/response/:response_id': 'viewPlace',
+      ':dataset/:id/edit': 'editPlace',
+      'list': 'showList',
+      ':id': 'viewLandmark',
+      ':zoom/:lat/:lng': 'viewMap'
+    },
 
-  initialize: function(options) {
-    var self = this,
-        startPageConfig,
-        filteredRoutes,
-        // store config details for places and landmarks
-        configArrays = {};
+    // overwrite route so we can catch route requests that would
+    // navigate away from a detail view with unsaved editor changes
+    route: function(route, handler, callback) {
+      var router = this;
+      if (!callback) callback = this[handler];
 
-    // store individual place collections for each place type
-    this.places = {};
-    // store individual activity collections for each place type
-    this.activities = {};
-    // store individual landmark collections for each landmark type
-    this.landmarks = {};
+      var f = function() {
+        if (this.appView.activeDetailView &&
+          this.appView.activeDetailView.isModified) {
+          if (!this.appView.activeDetailView.onCloseWithUnsavedChanges()) {
+            return false 
+          } else {
+            this.appView.activeDetailView = null;
+            callback.apply(router, arguments);
+          }
+        } else {
+          this.appView.activeDetailView = null;
+          callback.apply(router, arguments);
+        }
+      };
 
-    S.PlaceModel.prototype.getLoggingDetails = function() {
-      return this.id;
-    };
-    S.LandmarkModel.prototype.getLoggingDetails = function() {
-      return this.id;
-    };
+      return Backbone.Router.prototype.route.call(this, route, handler, f);
+    },
 
-    // Reject a place that does not have a supported location type. This will
-    // prevent invalid places from being added or saved to the collection.
-    S.PlaceModel.prototype.validate = function(attrs, options) {
-      var locationType = attrs.location_type,
-          locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
+    initialize: function(options) {
+      var self = this,
+          startPageConfig,
+          filteredRoutes,
+          // store config details for places and landmarks
+          configArrays = {};
 
-      if (!_.contains(locationTypes, locationType)) {
-        console.warn(locationType + ' is not supported.');
-        return locationType + ' is not supported.';
-      }
-    };
+      // store individual place collections for each place type
+      this.places = {};
+      // store individual activity collections for each place type
+      this.activities = {};
+      // store individual landmark collections for each landmark type
+      this.landmarks = {};
 
-    // Global route changes
-    this.bind('route', function(route, router) {
-      S.Util.log('ROUTE', self.getCurrentPath());
-    });
+      PlaceModel.prototype.getLoggingDetails = function() {
+        return this.id;
+      };
+      LandmarkModel.prototype.getLoggingDetails = function() {
+        return this.id;
+      };
 
-    filteredRoutes = this.getFilteredRoutes();
-    this.bind('route', function(route) {
-      // If the route shouldn't be filtered, then clear the filter. Otherwise
-      // leave it alone.
-      if (!_.contains(filteredRoutes, route)) {
-        this.clearLocationTypeFilter();
-      }
-    }, this);
+      // Reject a place that does not have a supported location type. This will
+      // prevent invalid places from being added or saved to the collection.
+      PlaceModel.prototype.validate = function(attrs, options) {
+        var locationType = attrs.location_type,
+            locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
 
-    this.loading = true;
+        if (!_.contains(locationTypes, locationType)) {
+          console.warn(locationType + ' is not supported.');
+          return locationType + ' is not supported.';
+        }
+      };
 
-    // set up landmark configs and instantiate landmark collections
-    configArrays.landmarks = options.mapConfig.layers.filter(function(layer) {
-      return layer.type && layer.type === 'landmark';
-    });
-    _.each(configArrays.landmarks, function(config) {
-      var url = config.url + "?"
-      config.sources.forEach(function (source) {
-        url += encodeURIComponent(source) + '&'
+      // Global route changes
+      this.bind('route', function(route, router) {
+        Util.log('ROUTE', self.getCurrentPath());
+      });
+
+      filteredRoutes = this.getFilteredRoutes();
+      this.bind('route', function(route) {
+        // If the route shouldn't be filtered, then clear the filter. Otherwise
+        // leave it alone.
+        if (!_.contains(filteredRoutes, route)) {
+          this.clearLocationTypeFilter();
+        }
+      }, this);
+
+      this.loading = true;
+
+      // set up landmark configs and instantiate landmark collections
+      configArrays.landmarks = options.mapConfig.layers.filter(function(layer) {
+        return layer.type && layer.type === 'landmark';
+      });
+      _.each(configArrays.landmarks, function(config) {
+        var url = config.url + "?"
+        config.sources.forEach(function (source) {
+          url += encodeURIComponent(source) + '&'
+        });
+        var collection = new LandmarkCollection([], { url: url });
+        self.landmarks[config.id] = collection;
+      });
+
+      // set up place configs and instantiate place collections
+      configArrays.places = options.mapConfig.layers.filter(function(layer) {
+        return layer.type && layer.type === 'place';
+      });
+      _.each(configArrays.places, function(config) {
+        var collection = new PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
+        self.places[config.id] = collection;
       });
       var collection = new S.LandmarkCollection([], { url: url });
       self.landmarks[config.id] = collection;
@@ -122,11 +173,33 @@ S.App = Backbone.Router.extend({
       historyOptions.root = '/' + options.defaultPlaceTypeName + '/';
     }
 
-    Backbone.history.start(historyOptions);
+      // instantiate action collections for shareabouts places
+      _.each(configArrays.places, function(config) {
+        var collection = new ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
+        self.activities[config.id] = collection;
+      });
 
-    // Load the default page when there is no page already in the url
-    if (Backbone.history.getFragment() === '') {
-      startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
+      this.appView = new AppView({
+        el: 'body',
+        activities: this.activities,
+        places: this.places,
+        landmarks: this.landmarks,
+        datasetConfigs: configArrays,
+        config: options.config,
+        defaultPlaceTypeName: options.defaultPlaceTypeName,
+        placeTypes: options.placeTypes,
+        cluster: options.cluster,
+        surveyConfig: options.surveyConfig,
+        supportConfig: options.supportConfig,
+        pagesConfig: options.pagesConfig,
+        mapConfig: options.mapConfig,
+        storyConfig: options.storyConfig,
+        placeConfig: options.placeConfig,
+        sidebarConfig: options.sidebarConfig,
+        activityConfig: options.activityConfig,
+        userToken: options.userToken,
+        router: this
+      });
 
       if (startPageConfig && startPageConfig.slug) {
         this.navigate('page/' + startPageConfig.slug, {trigger: true});
@@ -136,11 +209,9 @@ S.App = Backbone.Router.extend({
     this.loading = false;
   },
 
-  getCurrentPath: function() {
-    var root = Backbone.history.root,
-        fragment = Backbone.history.fragment;
-    return root + fragment;
-  },
+      // Load the default page when there is no page already in the url
+      if (Backbone.history.getFragment() === '') {
+        startPageConfig = Util.findPageConfig(options.pagesConfig, {start_page: true});
 
   viewMap: function(zoom, lat, lng) {
     if (this.appView.mapView.locationTypeFilter) {
@@ -249,4 +320,18 @@ S.App = Backbone.Router.extend({
   }
 });
 
-}(Shareabouts, jQuery, Shareabouts.Util.console));
+}(Shareabouts, jQuery, Util.console));
+
+// HACKHACK
+window.bootstrapCurrentUser = function(data) {
+  // Handle the case when we are logged into the admin panel
+  if (data && !data.avatar_url) data.avatar_url = "{{ STATIC_URL }}css/images/user-50.png"
+  if (data && !data.name) data.name = data.username
+  window.Shareabouts.bootstrapped.currentUser = data;
+}
+
+window.setApiSessionCookie = function(data) {
+  if (data) {
+    Util.cookies.save('sa-api-sessionid', data.sessionid);
+  }
+}

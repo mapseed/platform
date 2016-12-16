@@ -1,4 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
 var ModelUtils = require('./model-utils.js');
 
 // This model is based off the Mapbox Classic API

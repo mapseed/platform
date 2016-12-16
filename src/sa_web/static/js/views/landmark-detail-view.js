@@ -1,5 +1,3 @@
-var Handlebars = require('../../libs/handlebars-v3.0.3.js');
-
 var PlaceDetailView = require('./place-detail-view.js');
 var LandmarkSurveyView = require('./landmark-survey-view.js');
 

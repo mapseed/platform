@@ -1,5 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
-
 module.exports = Backbone.Collection.extend({
   resultsAttr: 'results',
 

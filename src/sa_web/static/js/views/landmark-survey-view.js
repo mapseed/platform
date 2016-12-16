@@ -1,4 +1,3 @@
-var Handlebars = require('../../libs/handlebars-v3.0.3.js');
 var Util = require('../utils.js');
 
 var SurveyView = require('./survey-view.js');

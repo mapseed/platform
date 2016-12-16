@@ -1,5 +1,3 @@
-var Backbone = require('../../libs/backbone.js');
-var Handlebars = require('../../libs/handlebars-v3.0.3.js');
 var Util = require('../utils.js');
 
 var SupportView = require('./support-view.js');

@@ -1,8 +1,4 @@
-// leaflet-sidebar-view: GIS: needs layers, not reports
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-S.GISLegendView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   events: {
     'change .map-legend-basemap-radio': 'toggleBasemap',
     'change .map-legend-checkbox': 'toggleVisibility',
@@ -14,13 +10,13 @@ S.GISLegendView = Backbone.View.extend({
         data = _.extend({
           basemaps: this.options.config.basemaps,
           groupings: this.options.config.groupings
-        }, S.stickyFieldValues);
+        }, Shareabouts.stickyFieldValues);
 
     this.$el.html(Handlebars.templates['gis-legend-content'](data));
 
     _.each(this.options.config.groupings, function(group) {
       _.each(group.layers, function(layer) {
-        $(S).trigger('visibility', [layer.id, !!layer.visibleDefault]);
+        $(Shareabouts).trigger('visibility', [layer.id, !!layer.visibleDefault]);
       });
     });
 
@@ -28,7 +24,7 @@ S.GISLegendView = Backbone.View.extend({
                              return !!basemap.visibleDefault;
                            });
 
-    $(S).trigger('visibility', [initialBasemap.id, !!initialBasemap.visibleDefault, true]);
+    $(Shareabouts).trigger('visibility', [initialBasemap.id, !!initialBasemap.visibleDefault, true]);
 
     return this;
   },
@@ -39,7 +35,7 @@ S.GISLegendView = Backbone.View.extend({
         id = $cbox.attr('data-layerid'),
         isChecked = !!$cbox.is(':checked');
 
-    $(S).trigger('visibility', [id, isChecked]);
+    $(Shareabouts).trigger('visibility', [id, isChecked]);
   },
 
   toggleBasemap: function(evt) {
@@ -48,7 +44,7 @@ S.GISLegendView = Backbone.View.extend({
         isChecked = !!radio.is(':checked'),
         basemaps = this.options.config.basemaps;
 
-    $(S).trigger('visibility', [id, isChecked, true]);
+    $(Shareabouts).trigger('visibility', [id, isChecked, true]);
   },
 
   // Toggles visibility of layers based on header checkbox
@@ -62,10 +58,9 @@ S.GISLegendView = Backbone.View.extend({
 
     for (i = 0; i < group.layers.length; i++) {
       var layer = group.layers[i];
-      $(S).trigger("visibility", [layer.id, isChecked]);
+      $(Shareabouts).trigger("visibility", [layer.id, isChecked]);
       $("#map-" + layer.id).prop("checked", isChecked);
     }
   }
 
 });
-})(Shareabouts, jQuery, Shareabouts.Util.console);

@@ -1,10 +1,9 @@
-var Backbone = require('../../libs/backbone.js');
 var ModelUtils = require('./model-utils.js');
 var Util = require('../utils.js');
 
 // This does not support editing at this time, which is why it is not a
 // ShareaboutsModel
-model.exports = Backbone.Model.extend({
+module.exports = Backbone.Model.extend({
   idAttribute: 'name',
 
   initialize: function(attributes, options) {
