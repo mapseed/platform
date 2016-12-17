@@ -128,7 +128,7 @@
         height: 100%;
 
         //position: none;
-   
+
     }
 
     .current-language {
@@ -317,7 +317,7 @@
         display: block;
 
         // override of the mobile style
-   
+
     }
 
     .place-form-visible #add-place-btn-container {
@@ -420,7 +420,7 @@
         right: 18em;
 
         //right: 20em;
-   
+
     }
 
     #geocode-address-bar .error {
@@ -473,7 +473,7 @@
             right: 0;
 
             // width of #master-legend
-       
+
         }
     }
 
@@ -496,14 +496,14 @@
         -webkit-transform: translateZ(0px);
 
         // needed on #ticker > * for touch scrolling
-   
+
     }
 
     .activity-enabled #map-container {
         right: 0;
 
         // width of #ticker
-   
+
     }
 
     // master-legend
@@ -520,7 +520,7 @@
             right: 0;
 
             // width of #master-legend
-       
+
         }
     }
 
@@ -549,13 +549,13 @@
         &:visited, &:link {
             //background-color: $button-background-blue;
             //color: #eee;
-       
+
         }
 
         &:hover {
             //background-color: $hover-highlight-blue;
             //color: $button-color-white;
-       
+
         }
     }
 
@@ -626,6 +626,7 @@
 
 
 /* Added temporarily for sidebar*/
+
 @media only screen and (max-width: 960px) {
 
     .sidebar.collapsed {
