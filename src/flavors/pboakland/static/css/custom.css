@@ -25,9 +25,8 @@ label {
 }
 
 .btn-primary:visited, .btn-primary:link {
-  background-color: #FFBE00;
-  color: #FFBE00;
-  background-color: rgba(0, 72, 58, 0.9);
+  color: #007fbf;
+  background-color: rgba(155, 189, 206, .9);
 }
 
 /* =Header
