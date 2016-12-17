@@ -1969,7 +1969,6 @@ ul.recent-points {
   vertical-align: middle;
   margin-right: 8px;
   font-size: 1.33em;
-  /*font-size: 5px;*/
   letter-spacing: 1px;
 }
 
@@ -1997,7 +1996,6 @@ ul.recent-points {
   text-decoration: none;
   text-transform: none;
   font-family: "Roboto", sans-serif;
-  /*font-size: 5px;*/
 }
 
 .master-layer-list {
@@ -2157,7 +2155,6 @@ ul.recent-points {
   margin: 1em 0;
   float: left;
 }
-
 
 #place-counter .counter-meter {
   width: auto;
@@ -2921,7 +2918,7 @@ a.close-unsupported-overlay {
   }
 
   .sidebar-header .sidebar-close i {
-    /*padding: 5px 8px 6px 8px;*/
+    padding: 5px 8px 6px 8px;
   }
 
   .sidebar-header .sidebar-close i::before {
