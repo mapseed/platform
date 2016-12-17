@@ -24,11 +24,6 @@ label {
   padding-bottom: 11px;
 }
 
-.btn-primary:visited, .btn-primary:link {
-  color: #007fbf;
-  background-color: rgba(155, 189, 206, .9);
-}
-
 /* =Header
 -------------------------------------------------------------- */
 
