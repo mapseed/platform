@@ -32,12 +32,10 @@
       right: 10px; } }
 
 .sidebar-tabs {
-  position: absolute;
   /*top: 0;*/
   /*bottom: 0;*/
   height: 100%;
-  background-color: #fff;
-  }
+  background-color: #fff; }
   .sidebar-left .sidebar-tabs {
     /*left: 0;*/
   }
@@ -45,7 +43,7 @@
     /*right: 0;*/
   }
   .sidebar-tabs, .sidebar-tabs > ul {
-    /*position: fixed;*/
+    /*position: absolute;*/
     width: 33px;
     margin: 0;
     padding: 0; }
@@ -104,7 +102,7 @@
   box-sizing: border-box;
   padding: 10px 10px; }
   .sidebar-pane.active {
-    display: block;}
+    display: block; }
   @media (min-width: 768px) and (max-width: 991px) {
     .sidebar-pane {
       min-width: 260px; } }
