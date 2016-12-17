@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HeyDuwamish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 23:56-0500\n"
+"POT-Creation-Date: 2016-12-16 13:47-0500\n"
 "PO-Revision-Date: 2016-12-14 03:49+0000\n"
 "Last-Translator: Jacob <signup@futuresoup.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/mapseed/heyduwamish/"
@@ -155,6 +155,7 @@ msgstr ""
 "\"name\" }}"
 
 #: sa_web/jstemplates/geocode-address.html:1
+#: sa_web/jstemplates/place-list.html:4
 msgid "Search"
 msgstr "Buscar"
 
@@ -232,11 +233,11 @@ msgstr "Primero, arrastra el mapa para fijar la posición del marcador."
 
 #: sa_web/jstemplates/place-form.html:3
 msgid "Set my location"
-msgstr ""
+msgstr "Fijar mi ubicación"
 
 #: sa_web/jstemplates/place-form.html:4
 msgid "Setting your location..."
-msgstr ""
+msgstr "Se está fijando tu ubicación"
 
 #: sa_web/jstemplates/place-form.html:5
 #: sa_web/jstemplates/place-survey-form.html:1
