@@ -36,11 +36,13 @@
       {{#unless isSingleCategory}}
         <div id="selected-category">
           <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategoryConfig.name }} value={{ selectedCategoryConfig.value }} checked>
-          <label for="selected-category-palceholder">
-            <img src={{ selectedCategoryConfig.icon_url }} />
-            <span>{{ selectedCategoryConfig.label }}</span>
-          </label>
-          <span class="category-menu-hamburger"></span>
+          <table class="category-btn-container">
+            <tr>
+              <td class="category-icon"><img src={{ selectedCategoryConfig.icon_url }} /></td>
+              <td class="category-label">{{ selectedCategoryConfig.label }}</td>
+              <td class="category-menu-hamburger"></td>
+            </tr>
+          </table>
         </div>
       {{/unless}}
     {{/if}}
@@ -51,10 +53,12 @@
         {{#each placeConfig.place_detail}}
           {{#if this.includeOnForm}}
             <input type="radio" id={{ category }} class="category-btn clickable">
-            <label for={{ category }}>
-              <img src={{icon_url}} />
-              <span>{{ label }}</span>
-            </label>
+            <table class="category-btn-container">
+              <tr>
+                <td class="category-icon"><img src={{icon_url}} /></td>
+                <td class="category-label">{{ label }}</td>
+              </tr>
+            </table>
           {{/if}}
         {{/each}}
       </div>

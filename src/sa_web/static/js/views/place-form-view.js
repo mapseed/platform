@@ -7,7 +7,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-btn.clickable + label': 'onCategoryChange',
+      'click .category-btn.clickable': 'onCategoryChange',
       'click .category-menu-hamburger': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'click .btn-geolocate': 'onClickGeolocate'
@@ -73,6 +73,13 @@ var Shareabouts = Shareabouts || {};
       if (this.formState.isSingleCategory) {
         $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
       }
+
+      this.bindCategoryListeners();
+    },
+    bindCategoryListeners: function() {
+      $(".category-btn-container").off().on("click", function(evt) {
+        $(this).prev().trigger("click");
+      });
     },
     checkAutocomplete: function() {
       var self = this,
@@ -141,23 +148,28 @@ var Shareabouts = Shareabouts || {};
     },
     onCategoryChange: function(evt) {
       var self = this,
-          animationDelay = 400;
+          animationDelay = 200;
 
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
-        return place.category == $(evt.target).parent().prev().attr('id');
+        return place.category == $(evt.target).attr('id');
       });
 
-      // re-render the form with the selected category
       this.render(true);
-      // manually set the category button again since the re-render resets it
-      $(evt.target).parent().prev().prop("checked", true);
-      // hide and then show (with animation delay) the selected category button 
-      // so we don't see a duplicate selected category button briefly
+      $("#" + $(evt.target).attr("id"))
+        .prop("checked", true)
+        .next()
+        .addClass("category-btn-container-selected");
       $("#selected-category").hide().show(animationDelay);
-      // slide up unused category buttons
       $("#category-btns").animate( { height: "hide" }, animationDelay );
-      // if we've already dragged the map, make sure the map drag instructions don't reappear
-      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      if (this.center) {
+        this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      }
+    },
+    onExpandCategories: function(evt) {
+      var animationDelay = 200;
+      $("#selected-category").hide(animationDelay);
+      $("#category-btns").animate( { height: "show" }, animationDelay ); 
+      this.bindCategoryListeners();
     },
     onClickGeolocate: function(evt) {
       var self = this;
@@ -220,11 +232,6 @@ var Shareabouts = Shareabouts || {};
     closePanel: function() {
       this.center = null;
       this.resetFormState();
-    },
-    onExpandCategories: function(evt) {
-      var animationDelay = 400;
-      $("#selected-category").hide(animationDelay);
-      $("#category-btns").animate( { height: "show" }, animationDelay ); 
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       // Make sure that the center point has been set after the form was
