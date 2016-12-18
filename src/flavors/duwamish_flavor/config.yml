@@ -670,6 +670,10 @@ activity:
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
+  # To show the activity stream in the right panel, set this flag to true.
+  # To also remove it from the leaflet controls, comment out the "id: ticker"
+  # entry in the leaflet control config above.
+  show_in_right_panel: false
 
   # Place Types
 
