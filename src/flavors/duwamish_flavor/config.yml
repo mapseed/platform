@@ -44,8 +44,13 @@ map:
     maxZoom: 18
   layers:
     # SmarterCleanup Mapbox base layer:
-    - id: osm
+    - id: transportation
       url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
+      attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
+
+    - id: terrain
+      url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
@@ -54,8 +59,13 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
-    - id: dark
+    - id: blueprint
       url: //api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
+      attribution: 'Hello World'
+      type: basemap
+
+    - id: vintage
+      url: //api.mapbox.com/styles/v1/mslee/cif5p01n202nisaktvljx9mv3/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
       attribution: 'Hello World'
       type: basemap
 
@@ -65,6 +75,12 @@ map:
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+
+    - id: dirt-corps
+      type: landmark
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks      
+      sources: 
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: story-markers
@@ -227,10 +243,10 @@ place_types:
         iconAnchor: [25, 30]
         shadowSize: [50, 60]
         shadowAnchor: [14, 60]
-    - condition: '{{map.zoom}} < 13'
+    - condition: '{{map.zoom}} < 16'
       icon:
-        iconSize: [15, 18]
-        iconAnchor: [7.5, 18]
+        iconSize: [10, 12]
+        iconAnchor: [5, 12]
     - condition: '{{map.zoom}} >= 16'
       icon:
         iconSize: [30, 36]
@@ -450,63 +466,19 @@ place_types:
 
   idea:
     label: _(Idea)
+    zoomType: reportsZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
 
   complaint:
     label: _(Complaint)
+    zoomType: reportsZoomStyle
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50 , 60]
-          shadowAnchor: [14, 60]
-
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
 
   # greenwall:
   #   label: _(Green Screen Vote)
@@ -585,14 +557,20 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: osm
-          title: _(OpenStreetMap)
+        - id: transportation
+          title: _(Transportation)
           visibleDefault: true
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
-        - id: dark
-          title: _(Dark)
+        - id: terrain
+          title: _(Terrain)
+          visibleDefault: false
+        - id: blueprint
+          title: _(Blueprint)
+          visibleDefault: false
+        - id: vintage
+          title: _(Vintage)
           visibleDefault: false
       groupings:
         - id: grp-community
@@ -601,6 +579,18 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
+              visibleDefault: true
+
+            - id: restoration
+              title: _(Restoration Sites)
+              visibleDefault: true
+
+            - id: cleanup
+              title: _(River Cleanup Plan)
+              visibleDefault: false
+
+            - id: dirt-corps
+              title: _(Dirt Corps sites)
               visibleDefault: true
 
             - id: story-markers
@@ -615,17 +605,9 @@ sidebar:
               title: _(Air Watch Reports)
               visibleDefault: true
 
-            - id: cleanup
-              title: _(River Cleanup Plan)
-              visibleDefault: true
-
             - id: vision
               title: _(Community Vision)
               visibleDefault: false
-
-            - id: restoration
-              title: _(Restoration Sites)
-              visibleDefault: true
 
         - id: grp-land
           title: _(Land Data)
@@ -653,7 +635,7 @@ sidebar:
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: zoning
               title: _(Zoning)
@@ -821,13 +803,13 @@ place:
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
       fields:  #field types can be:  "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
-        - name: date_time_observed 
-          type: datetime  
+        - name: date_time_observed
+          type: datetime
           prompt: _(When did you observe these conditions?)
           display_prompt: _(I observed these conditions on:)
           optional: true
-        - name: reside_work_georgetown  
-          type: binary_toggle 
+        - name: reside_work_georgetown
+          type: binary_toggle
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
           display_prompt: _(I reside or work in Georgetown or South Park:)
           content:
@@ -837,7 +819,7 @@ place:
               value: "no"
           optional: true # NOTE: binary_toggle inputs have no validation
         - name: odd_smell
-          type: binary_toggle 
+          type: binary_toggle
           prompt: _(I observe an odd smell)
           display_prompt: _(I observed an odd smell:)
           content:
@@ -954,7 +936,7 @@ place:
           type: text
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
-          optional: true 
+          optional: true
     - category: tree
       includeOnForm: false
       name: location_type
@@ -1109,7 +1091,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
+    start_page: false
 
   - title: _(Background)
     slug: background
@@ -1150,13 +1132,13 @@ story:
   community-priorities:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different 
-    # zoom level and/or visible layers, it will use those wholesale 
+    # layers defined below. If a story element defines a different
+    # zoom level and/or visible layers, it will use those wholesale
     # (that is, no default settings will be inherited).
     default_zoom: 17
     default_visible_layers:
       - restoration
-    order: 
+    order:
       - url: marra
       - url: skatepark
       - url: concord
@@ -1170,50 +1152,67 @@ story:
   pollution:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different 
-    # zoom level and/or visible layers, it will use those wholesale 
+    # layers defined below. If a story element defines a different
+    # zoom level and/or visible layers, it will use those wholesale
     # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
       - restoration
       - watershed
-    order: 
+    order:
       - url: cso
         zoom: 12
-        visible_layers: 
+        visible_layers:
           - cso
         spotlight: false
-        basemap: dark
+        basemap: blueprint
       - url: lafarge
         zoom: 17
-        basemap: osm
+        basemap: transportation
 
   history:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different 
-    # zoom level and/or visible layers, it will use those wholesale 
+    # layers defined below. If a story element defines a different
+    # zoom level and/or visible layers, it will use those wholesale
     # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
       - duwamish-original
-    order: 
+    order:
       - url: history
         spotlight: false
+        basemap: vintage
       - url: blackriver
         spotlight: false
         zoom: 14
+        basemap: satellite
 
   dirtcorps:
     tagline: _(Next featured site)
-    default_zoom: 18
+    default_zoom: 17
     default_visible_layers:
       - restoration
-    order: 
+    order:
+      - url: dirtcorps
+        zoom: 15
+        panTo:
+          Lat: 47.53420
+          Lng: -122.32165
+        spotlight: false
       - url: south-orcas-rain-gardens
       - url: rose-greenstreet
-      - url: markey-bioretention
-      - url: carleton-grocery-gsi
+      - url: markey
       - url: elmgrove-rain-garden
       - url: southern-greenstreet
       - url: dirt-corps-classroom
+      - url: point-rediscovery
+      - url: green-screen
+      - url: rain-wise-home
+      - url: rainwise-home-rose-st
+      - url: carleton-grocery-gsi
+      - url: dirt-corps-warehouse
+
+notifications:
+  on_new_place: true
+  submitter_email_field: private-submitter_email
