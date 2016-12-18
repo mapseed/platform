@@ -86,11 +86,9 @@ NOTE: For Linux users on RHEL/CentOS distros, you will need to have the followin
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
-### Run the server
+### Install npm dependencies
 
-`npm start`
-
-Go to `localhost:8000`.
+`npm install`
 
 ### Configuring the Dev API
 
@@ -132,7 +130,7 @@ NOTE: Flavors can load data from any number of Shareabouts datasets, provided yo
 Now you're ready to run your server locally. Just enter this command:
 
 ```
-src/manage.py runserver
+npm start
 ```
 The server will, by default, be started at http://localhost:8000/. [Here is the documentation](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) if you want to reconfigure it.
 
