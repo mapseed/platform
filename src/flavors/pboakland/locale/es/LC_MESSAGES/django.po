@@ -440,7 +440,7 @@ msgid ""
 msgstr ""
 "Comenta tus ideas en persona con tus vecinos en una asamblea comunitaria "
 "próximamente. Las asambleas se celebrarán a finales de enero y se están "
-"programando en estos momentos. ¡Apúntate!"
+"programando en estos momentos. Puedes apuntarte usando el formulario de 'Contacto' para recibir los detalles."
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:7
 msgid "Have a question? Feel free to contact us."
