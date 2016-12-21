@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-16 00:17-0500\n"
+"POT-Creation-Date: 2016-12-21 00:02-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Language-Team: Chinese Traditional (https://www.transifex."
 "com/mapseed/teams/58669/zh-Hant/)\n"
@@ -395,25 +395,31 @@ msgid "Guidelines"
 msgstr "指南"
 
 #: flavors/pboakland/_config.translations.py:122
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
 msgid "Get more involved"
 msgstr "積極參與此活動"
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:1
 msgid ""
+"<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
+"Us\" height=\"400\" width=100% </iframe>"
+msgstr ""
+
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
+msgid ""
 "Already submitted an idea? There are many more ways to get involved in "
 "participatory budgeting:"
 msgstr "已經提交了看法嗎？有很多方式可以參與預算編制活動："
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:3
 msgid "Attend a Neighborhood Assembly"
 msgstr "參加鄰居聚會"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:3
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:4
 msgid "Contact Us"
 msgstr "聯絡我們"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:4
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
 msgid ""
 "Discuss your ideas in person with your neighbors at an upcoming Neighborhood "
 "Assembly! Assemblies will be held in late January and are currently being "
@@ -422,22 +428,22 @@ msgstr ""
 "即將到來的鄰居大會中與您的鄰居當面討論您的想法！大會將在1月下旬舉行，目前正在"
 "安排。請在下面登記「聯絡方式」表格獲得詳細資訊。"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
 msgid "Have a question? Feel free to contact us."
 msgstr "有問題？請隨時聯絡我們。"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:8
 msgid ""
 "There are lots of ways to get involved in PB in Oakland! You can help to get "
 "the word out to district residents, facilitate small group meetings, provide "
 "support at PB events, and more. Sign up <a href=\"http://www.123contactform."
-"com/form-2317799/My-Form\">here</a>."
+"com/form-2317799/PB-Oakland-Volunteer-Sign-Up\" target=\"_blank\">here</a>."
 msgstr ""
 "有很多方式可以參與奧克蘭的PB活動！您可以幫助把資訊傳遞給地區居民，促進小組會"
 "議舉行，為PB活動提供支援等。登記<a href=\"http://www.123contactform.com/"
-"form-2317799/PB-Oakland-Volunteer-Sign-Up\">這裡</a>。"
+"form-2317799/PB-Oakland-Volunteer-Sign-Up\" target=\"_blank\">這裡</a>。"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:8
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:9
 msgid "Volunteer"
 msgstr "志願者"
 
