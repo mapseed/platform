@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HeyDuwamish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-21 00:02-0500\n"
+"POT-Creation-Date: 2016-12-21 02:56-0500\n"
 "PO-Revision-Date: 2016-12-14 04:10+0000\n"
 "Last-Translator: Language-Team: Chinese Traditional (http://www.transifex."
 "com/mapseed/heyduwamish/language/zh-Hant/)\n"
@@ -145,14 +145,14 @@ msgid "Select..."
 msgstr ""
 
 #: sa_web/jstemplates/place-form.html:1
+msgid "First, drag the map to set your location"
+msgstr "首先，拖動地圖以設置您的位置"
+
+#: sa_web/jstemplates/place-form.html:2
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
 msgstr "您似乎尚未設置自己的位置。請拖動地圖以設置您的位置"
-
-#: sa_web/jstemplates/place-form.html:2
-msgid "Or, drag the map to set your location"
-msgstr "拖拽地圖來設置您的位置"
 
 #: sa_web/jstemplates/place-form.html:3
 msgid "Set my location"
