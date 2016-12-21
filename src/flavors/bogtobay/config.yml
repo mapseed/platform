@@ -374,12 +374,14 @@ place_types:
           iconUrl: /static/css/images/markers/marker-tree.png      
 
   pledge:
-    zoomType: mapboxZoomStyle
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-f95016.png
-
+          iconUrl: https://jrsheker.files.wordpress.com/2015/05/icon_pledge.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
   # # needs a marker
   # farm:
   #   zoomType: mapboxZoomStyle
@@ -710,7 +712,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-f95016.png
+      icon_url: https://jrsheker.files.wordpress.com/2015/05/icon_pledge.png
       value: pledge
       label: _(Stewardship Pledge)
       fields:
