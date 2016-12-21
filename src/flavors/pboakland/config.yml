@@ -176,11 +176,11 @@ sidebar:
               title: _(Oakland districts)
               visibleDefault: true
 
-    # - id: ticker
-    #   view: ActivityView
-    #   icon: comments-o
-    #   activity: true
-    #   title: _(Activity Stream:)
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
+      title: _(Activity Stream:)
 
     - id: reports_legend
       title: _(Community ideas:)
@@ -204,7 +204,7 @@ activity:
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
-  show_in_right_panel: true
+  show_in_right_panel: false
 
   # Place Types
 
