@@ -1788,6 +1788,7 @@ a.auth-inline {
 .drag-marker-instructions .drag-text {
   margin-bottom: 0;
   padding-left: 15px;
+  font-size: 1.45em;
 }
 .drag-marker-instructions #geolocating-msg {
   color: #888888;
