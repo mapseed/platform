@@ -456,7 +456,7 @@ msgstr ""
 "¡Hay muchísimas formas de ser parte del proceso PB en Oakland! Puedes "
 "ayudarnos a hacer correr la voz entre residentes del distrito, facilitar "
 "reuniones en grupos pequeños, asistirnos en eventos de PB y más. Apúntate <a "
-"href=\"http://www.123contactform.com/form-1169718/PB-Oakland-Contact-Espanol"
+"href=\"http://www.123contactform.com/form-2373917/PB-Oakland-Volunteer-Spanish"
 "\">aquí</a>."
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:9
