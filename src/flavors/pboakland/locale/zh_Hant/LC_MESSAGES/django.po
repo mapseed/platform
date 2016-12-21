@@ -21,11 +21,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: flavors/pboakland/_config.translations.py:1
-#, fuzzy
-#| msgid ""
-#| "Welcome! Participatory Budgeting Oakland is an innovative democratic "
-#| "process that gives Oakland residents in City Council District 2 the power "
-#| "to decide how to spend city funds in their district. Help us vote now!"
 msgid ""
 "Welcome! Participatory Budgeting Oakland is an innovative democratic process "
 "that gives Oakland residents in City Council Districts 1 and 2 the power to "
@@ -419,12 +414,6 @@ msgid "Contact Us"
 msgstr "聯絡我們"
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:4
-#, fuzzy
-#| msgid ""
-#| "Discuss your ideas in person with your neighbors at an upcoming "
-#| "Neighborhood Assembly! Assemblies will be held in late January and are "
-#| "currently being scheduled. Please sign up “Contact” form below to receive "
-#| "details."
 msgid ""
 "Discuss your ideas in person with your neighbors at an upcoming Neighborhood "
 "Assembly! Assemblies will be held in late January and are currently being "
