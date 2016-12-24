@@ -19,7 +19,10 @@
   },
   "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
-    "build-scss": "node scripts/sass.js",
+    "build-scss": "./scripts/run-node-sass.sh",
+    "watch-scss": "./scripts/run-node-sass.sh -w",
+    "start-server": "./src/manage.py runserver",
+    "start": "npm run build-scss && npm run watch-scss && npm run start-server",
     "build-lib-js": "cat src/sa_web/static/dist/cat-lib-bundle.js | uglifyjs -cm | tee src/sa_web/static/dist/lib-bundle.js | gzip > src/sa_web/static/dist/lib-bundle.js.gz",
     "build-preload-js": "cat src/sa_web/static/dist/cat-preload-bundle.js | uglifyjs -cm | tee src/sa_web/static/dist/preload-bundle.js | gzip > src/sa_web/static/dist/preload-bundle.js.gz",
     "build-js": "cat src/sa_web/static/dist/cat-bundle.js | uglifyjs -cm | tee src/sa_web/static/dist/bundle.js | gzip > src/sa_web/static/dist/bundle.js.gz",
@@ -36,7 +39,7 @@
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "node-env-file": "^0.1.7",
-    "node-sass": "^3.11.2",
+    "node-sass": "^4.0.0",
     "sheetify": "^2.0.3",
     "shelljs": "^0.5.3",
     "uglifyjs": "^2.4.10"
