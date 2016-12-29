@@ -1195,14 +1195,18 @@ story:
     tagline: _(Next featured site)
     default_zoom: 17
     default_visible_layers:
+      - dirt-corps
       - restoration
     order:
       - url: dirtcorps
         zoom: 15
         panTo:
-          Lat: 47.53420
-          Lng: -122.32165
+          lat: 47.53420
+          lng: -122.32165
         spotlight: false
+        visible_layers:
+          - dirt-corps
+        basemap: terrain
       - url: south-orcas-rain-gardens
       - url: rose-greenstreet
       - url: markey
