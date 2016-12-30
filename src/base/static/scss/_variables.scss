@@ -9,6 +9,7 @@ $hover-highlight-blue: #36454f;
 $default-font-color: #36454f;
 $default-font-family: "Roboto", sans-serif;
 $border-color-lightgrey: #eeeeee;
+$link-hover-color: #00aaff;
 
 // Buttons - Variables
 $button-background-blue: #007fbf;
@@ -87,7 +88,7 @@ $header-height-fullscreen: 64px;
 // ################################
 // SIDEBAR - VARIABLES
 // ################################
-$sidebar-width: 20%;
+$sidebar-width: 15%;
 
 // ################################
 // TICKER - VARIABLES
@@ -128,8 +129,8 @@ $footer-height-smallscreen: 39px;
 // MEDIA QUERIES - VARIABLES
 // ################################
 $map-width-when-content-visible: 60%;
-$map-width-when-sidebar-visible: 80%;
-$map-width-when-content-and-sidebar-visible: 40%;
+$map-width-when-sidebar-visible: 85%;
+$map-width-when-content-and-sidebar-visible: 45%;
 $map-height-smallscreen-when-sidebar-visible: 65%;
 
 $content-visible-left-offset: $map-width-when-content-visible;

@@ -109,6 +109,7 @@ map:
       type: place
       slug: trees
 
+<<<<<<< 5eb4dcd00a43c3424131ab86406ee32f6538b7a5
     - id: vision
       type: place
       slug: vision
@@ -116,6 +117,11 @@ map:
     - id: duwamishfeatured
       type: place
       slug: featured
+=======
+    # - id: air
+    #   type: place
+    #   slug: air
+>>>>>>> Add sidebar story navigator
 
        # WRIA9 watershed
     - id: watershed
@@ -634,9 +640,9 @@ sidebar:
               title: _(Stories)
               visibleDefault: false
 
-            - id: trees
-              title: _(Trees!)
-              visibleDefault: false
+            # - id: trees
+            #   title: _(Trees!)
+            #   visibleDefault: true
 
             - id: vision
               title: _(Community Vision)
@@ -684,11 +690,11 @@ sidebar:
               title: _(Original River Path)
               visibleDefault: false
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
+    # - id: ticker
+    #   view: ActivityView
+    #   icon: comments-o
+    #   activity: true
+    #   title: _(Activity Stream:)
 
     - id: reports_legend
       title: _(Community Reports:)
@@ -716,10 +722,24 @@ activity:
   # To show the activity stream in the right panel, set this flag to true.
   # To also remove it from the leaflet controls, comment out the "id: ticker"
   # entry in the leaflet control config above.
-  show_in_right_panel: false
+  show_in_right_panel: true
 
-  # Place Types
+right_sidebar:
+  show: true
+  tabs:
+    - name: story
+      show: true
+      tab_name: _(Stories)
+      templates:
+        - sidebar-story-overview
+        - sidebar-story-detail
+    - name: activity
+      show: true
+      tab_name: _(Activity)
+      templates:
+        - ""
 
+# Place Types
 place:
   adding_supported: true
   add_button_label: _(Add Report)
@@ -1643,6 +1663,9 @@ pages:
 story:
   community-priorities:
     tagline: _(Next featured site)
+    header: _(Explore community restoration projects along the Duwamish)
+    #description: _(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)
+    image_url: /static/css/images/community-priorities.png
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different
     # zoom level and/or visible layers, it will use those wholesale
@@ -1650,7 +1673,9 @@ story:
     default_zoom: 17
     default_visible_layers:
       - restoration
+      - duwamish
     order:
+      - url: report/436
       - url: marra
       - url: skatepark
       - url: concord
@@ -1660,9 +1685,13 @@ story:
       - url: rowing
       - url: south-park-neighborhood-center
       - url: south-park-community-center
+    start_at: marra
 
   pollution:
     tagline: _(Next featured site)
+    header: _(Take a tour of polluted sites along the Duwamish)
+    #description: _(The Duwamish River is one of the most polluted waterways in the country. Explore the sites in this map story to learn about the environmental challenges facing the Duwamish.)
+    image_url: /static/css/images/pollution.jpg
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different
     # zoom level and/or visible layers, it will use those wholesale
@@ -1687,9 +1716,13 @@ story:
       - url: lafarge
         zoom: 17
         basemap: transportation
+    start_at: cso
 
   history:
     tagline: _(Next featured site)
+    header: _(Duwamish history)
+    #description: _(Explore the history of the Duwamish River Valley)
+    image_url: /static/css/images/history.jpg
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different
     # zoom level and/or visible layers, it will use those wholesale
@@ -1705,34 +1738,28 @@ story:
         spotlight: false
         zoom: 14
         basemap: satellite
+    start_at: history
 
-  dirtcorps:
-    tagline: _(Next featured site)
-    default_zoom: 17
-    default_visible_layers:
-      - dirt-corps
-      - restoration
-    order:
-      - url: dirtcorps
-        zoom: 15
-        panTo:
-          lat: 47.53420
-          lng: -122.32165
-        spotlight: false
-        visible_layers:
-          - dirt-corps
-        basemap: terrain
-      - url: carleton-grocery-gsi
-      - url: s-orcas-greenstreet
-      - url: southern-greenstreet
-      - url: rose-greenstreet
-      - url: markey
-      - url: elmgrove-rain-garden
-      - url: dirt-corps-classroom
-      - url: point-rediscovery
-      - url: green-screen
-      - url: rain-wise-home
-      - url: rainwise-home-rose-st
+  # dirtcorps:
+  #   tagline: _(Next featured site)
+  #   default_zoom: 17
+  #   default_visible_layers:
+  #     - restoration
+  #   order:
+  #     - url: dirtcorps
+  #       spotlight: false
+  #     - url: south-orcas-rain-gardens
+  #     - url: rose-greenstreet
+  #     - url: markey
+  #     - url: elmgrove-rain-garden
+  #     - url: southern-greenstreet
+  #     - url: dirt-corps-classroom
+  #     - url: point-rediscovery
+  #     - url: green-screen
+  #     - url: rain-wise-home
+  #     - url: rainwise-home-rose-st
+  #     - url: carleton-grocery-gsi
+  #     - url: dirt-corps-warehouse
 
 notifications:
   on_new_place: true

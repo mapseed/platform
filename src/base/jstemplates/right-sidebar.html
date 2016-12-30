@@ -1,0 +1,10 @@
+<div id="right-sidebar">
+  <div class="sidebar-tabs-container">
+    {{#each tabs}}
+      <span id="{{name}}" data-pane="0" class="sidebar-tab {{#if @first}}selected{{/if}}">
+        {{tab_name}}
+      </span>
+    {{/each}}  
+  </div>
+  <div class="sidebar-content"></div>
+</div>

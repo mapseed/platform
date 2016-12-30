@@ -143,7 +143,12 @@
       <article></article>
     </div><!-- end #content -->
     <!-- right-panel sidebar -->
-    <div id="right-sidebar"></div>
+    <div id="right-sidebar-container">
+      <a href="#" class="collapse-btn"></a>
+      <div id="right-sidebar-content">
+        <div id="right-sidebar-spinner"></div>
+      </div>
+    </div>
   </div><!-- end #main -->
 
  {% if config.sidebar.enabled %}
@@ -304,8 +309,9 @@
       activity:   {{ config.activity|as_json }},
       sidebar:    {{ config.sidebar|as_json}},
       leaflet_sidebar: {{ config.leaflet_sidebar|as_json }},
-      pages:      {{ pages_config_json|safe }},
-      story:      {{ config.story|as_json }}
+      pages:           {{ pages_config_json|safe }},
+      story:           {{ config.story|as_json }},
+      rightSidebar:    {{ config.right_sidebar|as_json }} 
     };
     $(function() {
       // Ready set go!
@@ -318,6 +324,7 @@
         placeTypes: S.Config.placeTypes,
         cluster: S.Config.cluster,
         sidebarConfig: S.Config.sidebar,
+        rightSidebarConfig: S.Config.rightSidebar,
         surveyConfig: S.Config.survey,
         supportConfig: S.Config.support,
         mapConfig: S.Config.map,

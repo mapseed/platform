@@ -145,6 +145,7 @@ Shareabouts.Util = Util;
         storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
         sidebarConfig: options.sidebarConfig,
+        rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
         userToken: options.userToken,
         router: this
