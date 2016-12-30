@@ -47,5 +47,4 @@ RUN pip install -r /platform/app-requirements.txt
 # containers run on a single machine.
 ENV CONTAINER duwamish_flavor
 
-CMD /platform/start-data-container.sh
-
+CMD /platform/scripts/start-data-container.sh
