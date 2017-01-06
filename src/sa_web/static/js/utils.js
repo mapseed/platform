@@ -30,7 +30,8 @@ module.exports = {
   },
 
   getAttrs: function($form) {
-    var attrs = {},
+    var self = this,
+        attrs = {},
         multivalues = [];
 
     // Get values from the form. Make the item into an array if there are
@@ -49,6 +50,24 @@ module.exports = {
     });
 
     return attrs;
+  },
+  
+  // attempt to save form autocomplete values in localStorage;
+  // fall back to cookies
+  saveAutocompleteValue: function(name, value, days) {
+    if (typeof Storage !== "undefined") {
+      this.localstorage.save(name, value, days);
+    } else {
+      this.cookies.save(name, value, days, "mapseed-");
+    }
+  },
+
+  getAutocompleteValue: function(name) {
+    if (typeof Storage !== "undefined") {
+      return this.localstorage.get(name);
+    } else {
+      return this.cookies.get(name, "mapseed-");
+    }
   },
 
   findPageConfig: function(pagesConfig, properties) {
@@ -328,8 +347,10 @@ module.exports = {
   // Cookies! Om nom nom
   // Thanks ppk! http://www.quirksmode.org/js/cookies.html
   cookies: {
-    save: function(name,value,days) {
-      var expires;
+    save: function(name, value, days, prefix) {
+      var expires,
+        prefix = prefix || "",
+        name = prefix + name;
       if (days) {
         var date = new Date();
         date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -340,9 +361,10 @@ module.exports = {
       }
       document.cookie = name+'='+value+expires+'; path=/';
     },
-    get: function(name) {
-      var nameEQ = name + '=';
-      var ca = document.cookie.split(';');
+    get: function(name, prefix) {
+      var prefix = prefix || "",
+        nameEQ = prefix + name + '=',
+        ca = document.cookie.split(';');
       for(var i=0;i < ca.length;i++) {
         var c = ca[i];
         while (c.charAt(0) === ' ') {
@@ -356,6 +378,29 @@ module.exports = {
     },
     destroy: function(name) {
       this.save(name,'',-1);
+    }
+  },
+  
+  localstorage: {
+    LOCALSTORAGE_PREFIX: "mapseed-",
+    save: function(name, value, days) {
+      var expDate = new Date();
+      expDate.setTime(expDate.getTime() + (days * 24 * 60 * 60 * 1000));
+      localStorage.setItem(this.LOCALSTORAGE_PREFIX + name, JSON.stringify({
+        expires: expDate,
+        value: value
+      }));
+    },
+    get: function(name) {
+      var now = new Date().getTime(),
+      name = this.LOCALSTORAGE_PREFIX + name,
+      item = JSON.parse(localStorage.getItem(name)) || {};
+      if (now > Date.parse(item.expires)) {
+        localStorage.removeItem(name);
+        return null;
+      }
+
+      return item.value;
     }
   },
 

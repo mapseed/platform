@@ -39,11 +39,15 @@
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
   {% if settings.DEBUG %}
-  <!-- jQuery date-time picker plugin -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
-  <!-- QuillJS -->
-  <link href="https://cdn.quilljs.com/1.1.4/quill.snow.css" rel="stylesheet">
+  <!-- leaflet plugins -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.draw.css">
+  <!-- jQuery plugins -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/spectrum.css">
+  <!-- QuillJS -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/quill.snow.css">
+
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
@@ -221,7 +225,7 @@
   <script src="{{STATIC_URL}}libs/swag.min.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
-  
+
   <script>
     moment.locale('{{LANGUAGE_CODE}}');
 

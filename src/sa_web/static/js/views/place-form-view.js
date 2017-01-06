@@ -11,10 +11,15 @@ module.exports = Backbone.View.extend({
     'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
     'click .btn-geolocate': 'onClickGeolocate'
   },
-  initialize: function(){
+  initialize: function() {
     var self = this;
-     
+    
+    Backbone.Events.on("panel:close", this.closePanel, this);
     this.resetFormState();
+    this.options.router.on("route", this.resetFormState, this);
+    this.placeDetail = this.options.placeConfig.place_detail;
+    this.map = this.options.appView.mapView.map;
+    this.geometryEditorView = this.options.geometryEditorView;
 
     TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
       this.options.defaultPlaceTypeName);
@@ -22,34 +27,33 @@ module.exports = Backbone.View.extend({
   },
   resetFormState: function() {
     this.formState = {
-      selectedCategory: null,
-      selectedDatasetId: null,
-      selectedDatasetSlug: null,
+      selectedCategoryConfig: {
+        fields: []
+      },
       isSingleCategory: false,
       attachmentData: null,
-      placeDetail: this.options.placeConfig.place_detail
+      commonFormElements: this.options.placeConfig.common_form_elements || {}
     }
   },
-  render: function(category, isCategorySelected) {
+  render: function(isCategorySelected) {
     var self = this,
-    selectedCategoryConfig = category && _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === category; }) || {},
-    placesToIncludeOnForm = _.filter(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.includeOnForm; });
+    placesToIncludeOnForm = _.filter(this.placeDetail, function(place) {
+      return place.includeOnForm;
+    });
 
     // if there is only one place to include on form, skip category selection page
     if (placesToIncludeOnForm.length === 1) {
       this.formState.isSingleCategory = true;
       isCategorySelected = true;
-      category = placesToIncludeOnForm[0].category;
-      this.formState.selectedCategory = category;
-      this.formState.selectedDatasetId = placesToIncludeOnForm[0].dataset;
-      this.formState.selectedDatasetSlug = _.find(this.options.mapConfig.layers, function(layer) { return self.formState.selectedDatasetId == layer.id }).slug;
-      selectedCategoryConfig = placesToIncludeOnForm[0];
+      this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
     }
+    
+    this.checkAutocomplete();
 
     var data = _.extend({
       isCategorySelected: isCategorySelected,
       placeConfig: this.options.placeConfig,
-      selectedCategory: selectedCategoryConfig,
+      selectedCategoryConfig: this.formState.selectedCategoryConfig,
       user_token: this.options.userToken,
       current_user: Shareabouts.currentUser,
       isSingleCategory: this.formState.isSingleCategory
@@ -57,12 +61,25 @@ module.exports = Backbone.View.extend({
 
     this.$el.html(Handlebars.templates['place-form'](data));
 
+    if (this.formState.selectedCategoryConfig.enable_geometry) {
+      this.options.appView.hideCenterPoint();
+      this.options.appView.removeSpotlightMask();
+      this.geometryEditorView.render({
+        isCreatingNewGeometry: true
+      });
+    } else {
+      // if the user switches from a geometry-enabled category
+      // to a geometry non-enabled category, remove draw controls
+      this.geometryEditorView.tearDown();
+      this.options.appView.showNewPin();
+    }
+    
     if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
     return this;
   },
   // called from the app view
-  postRender: function() {
+  postRender: function(isCategorySelected) {
     var self = this,
     $prompt;
 
@@ -104,6 +121,19 @@ module.exports = Backbone.View.extend({
       }); 
     }
   },
+  checkAutocomplete: function() {
+    var self = this,
+    storedValue;
+
+    this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
+      storedValue = S.Util.getAutocompleteValue(field.name);
+      self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
+    });
+    this.formState.commonFormElements.forEach(function(field, i) {
+      storedValue = S.Util.getAutocompleteValue(field.name);
+      self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
+    });
+  },
   remove: function() {
     this.unbind();
   },
@@ -120,7 +150,10 @@ module.exports = Backbone.View.extend({
     this.location = location;
   },
   getAttrs: function() {
-    var attrs = {},
+    console.log("getAttrs");
+    
+    var self = this,
+        attrs = {},
         locationAttr = this.options.placeConfig.location_item_name,
         $form = this.$('form');
 
@@ -132,11 +165,27 @@ module.exports = Backbone.View.extend({
       attrs[$(this).attr("name")] = $(this).val();
     });
 
-    // Get the location attributes from the map
-    attrs.geometry = {
-      type: 'Point',
-      coordinates: [this.center.lng, this.center.lat]
-    };
+    _.each(attrs, function(value, key) {
+      var itemConfig = _.find(
+        self.formState.selectedCategoryConfig.fields
+          .concat(self.formState.commonFormElements), function(field) { 
+            return field.name === key;
+          }) || {};
+      if (itemConfig.autocomplete) {
+        S.Util.saveAutocompleteValue(key, value, 30);
+      }
+    });
+      
+    if (this.formState.selectedCategoryConfig.enable_geometry) {
+      attrs.geometry = this.geometryEditorView.geometry;
+    } else {
+      // If the selected category does not have geometry editing enabled,
+      // assume we're adding point geometry
+      attrs.geometry = {
+        type: 'Point',
+        coordinates: [this.center.lng, this.center.lat]
+      }
+    }
 
     if (this.location && locationAttr) {
       attrs[locationAttr] = this.location;
@@ -148,12 +197,12 @@ module.exports = Backbone.View.extend({
     var self = this,
         animationDelay = 400;
 
-    this.formState.selectedCategory = $(evt.target).parent().prev().attr('id');
-    this.formState.selectedDatasetId = _.find(self.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory }).dataset;
-    this.formState.selectedDatasetSlug = _.filter(this.options.mapConfig.layers, function(layer) { return layer.id === self.formState.selectedDatasetId })[0].slug;
-
-    this.render(this.formState.selectedCategory, true);
-    this.postRender();
+    this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
+      return place.category == $(evt.target).parent().prev().attr('id');
+    });
+    
+    this.render(true);
+    this.postRender(true);
     $(evt.target).parent().prev().prop("checked", true);
     $("#selected-category").hide().show(animationDelay);
     $("#category-btns").animate( { height: "hide" }, animationDelay );
@@ -207,10 +256,10 @@ module.exports = Backbone.View.extend({
     var self = this,
     targetButton = $(evt.target).attr("id"),
     oldValue = $(evt.target).val(),
-    // find the matching config data for this element
-    selectedCategoryConfig = _.find(this.formState.placeDetail, function(categoryConfig) { return categoryConfig.category === self.formState.selectedCategory; }),
-    altData = _.find(selectedCategoryConfig.fields, function(item) { return item.name === targetButton; }),
-    // fetch alternate label and value
+    altData = _.find(this.formState.selectedCategoryConfig.fields
+      .concat(self.formState.commonFormElements), function(item) { 
+        return item.name === targetButton; 
+      }),
     altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
 
     // set new value and label
@@ -227,23 +276,28 @@ module.exports = Backbone.View.extend({
     $("#category-btns").animate( { height: "show" }, animationDelay ); 
   },
   onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-    // Make sure that the center point has been set after the form was
-    // rendered. If not, this is a good indication that the user neglected
-    // to move the map to set it in the correct location.
-    if (!this.center) {
-      this.$('.drag-marker-instructions').addClass('is-visuallyhidden');
-      this.$('.drag-marker-warning').removeClass('is-visuallyhidden');
-
-      // Scroll to the top of the panel if desktop
-      this.$el.parent('article').scrollTop(0);
-      // Scroll to the top of the window, if mobile
+    var self = this,
+    rejectSubmit = function(warningClass) {
+      self.$(".drag-marker-instructions").addClass("is-visuallyhidden");
+      self.$(warningClass).removeClass("is-visuallyhidden");
+      self.$el.parent("article").scrollTop(0);
       window.scrollTo(0, 0);
+    };
+
+    if (this.formState.selectedCategoryConfig.enable_geometry
+        && this.geometryEditorView.editingLayerGroup.getLayers().length == 0) {
+      // If the map has an editingLayerGroup with no layers in it, it means the
+      // user hasn't created any geometry yet
+      rejectSubmit(".no-geometry-warning");
+      return;
+    } else if (!this.center) {
+      rejectSubmit(".drag-marker-warning");
       return;
     }
 
     var self = this,
       router = this.options.router,
-      collection = this.collection[self.formState.selectedDatasetId],
+      collection = this.collection[self.formState.selectedCategoryConfig.dataset],
       model,
       // Should not include any files
       attrs = this.getAttrs(),
@@ -252,22 +306,31 @@ module.exports = Backbone.View.extend({
       richTextAttrs = {};
 
     // if we have a Quill-enabled field, assume content from this field belongs
-    // to the description field. We'll need to make this behavior more sophisticated
-    // to support multiple Quill-enabled fields.
+    // to the model's description attribute. We'll need to make this behavior 
+    // more sophisticated to support multiple Quill-enabled fields.
     if ($(".ql-editor").html()) {
       richTextAttrs.description = $(".ql-editor").html();
     }
     attrs = _.extend(attrs, richTextAttrs);
 
-    console.log("attrs", attrs);
+    if (this.formState.selectedCategoryConfig.enable_geometry) {
+      attrs["style"] = {
+        color: this.geometryEditorView.colorpicker.color,
+        opacity: this.geometryEditorView.colorpicker.opacity,
+        fillColor: this.geometryEditorView.colorpicker.fillColor,
+        fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
+      }
+    }
 
     evt.preventDefault();
 
-    collection.add({"location_type": this.formState.selectedCategory});
+    collection.add({"location_type": this.formState.selectedCategoryConfig.category});
     model = collection.at(collection.length - 1);
 
-    model.set("datasetSlug", self.formState.selectedDatasetSlug);
-    model.set("datasetId", self.formState.selectedDatasetId);
+    model.set("datasetSlug", _.find(this.options.mapConfig.layers, function(layer) { 
+      return self.formState.selectedCategoryConfig.dataset == layer.id;
+    }).slug);
+    model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
     
     // if an attachment has been added...
     if (self.formState.attachmentData) {
@@ -292,6 +355,9 @@ module.exports = Backbone.View.extend({
     // Save and redirect
     model.save(attrs, {
       success: function() {
+        if (self.geometryEditorView) {
+          self.geometryEditorView.tearDown();
+        }
         Util.log('USER', 'new-place', 'successfully-add-place');
         router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
       },

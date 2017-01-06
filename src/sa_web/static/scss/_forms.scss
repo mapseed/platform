@@ -123,6 +123,10 @@ select {
     display: none;
 }
 
+.isAutocomplete {
+    background-color: #ffffe0;
+}
+
 /* QuillJS editor styles */
 .rawHTML {
     margin-top: 0px !important;
@@ -144,5 +148,4 @@ select {
     max-width: 60%;
     margin-bottom: 10px;
     font-size: 1.5em;
-    font-weight: bold;
-}
+    font-weight:'bf1fb'}

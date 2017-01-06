@@ -36,6 +36,12 @@ module.exports = Backbone.View.extend({
     if (self.options.mapConfig.geolocation_enabled) {
       self.initGeolocation();
     }
+    
+    // TODO: only init if geometry editing is enabled?
+    this.geometryEditorView = new S.GeometryEditorView({
+      map: this.map,
+      router: this.options.router
+    });
 
     self.map.on('dragend', logUserPan);
     $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -228,7 +234,7 @@ module.exports = Backbone.View.extend({
         model: model,
         router: this.options.router,
         map: this.map,
-        layer: this.layers[collectionId],
+        layerGroup: this.layers[collectionId],
         placeTypes: this.options.placeTypes,
         // to access the filter
         mapView: this

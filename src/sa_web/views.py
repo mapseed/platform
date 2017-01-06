@@ -151,26 +151,34 @@ def send_place_created_notifications(request, response):
         # The reuest has any potentially private data fields.
         requested_place = json.loads(request.body)
     except ValueError:
-        errors.append('Received invalid place JSON from request: %r' % (request.body,))
+        errors.append("Received invalid place JSON from request: %r" %
+                      (request.body,))
 
     try:
         # The response has things like ID and cretated datetime
-        try: response.render()
-        except: pass
+        try:
+            response.render()
+        except:
+            pass
         place = json.loads(response.content)
     except ValueError:
-        errors.append('Received invalid place JSON from response: %r' % (response.content,))
+        errors.append("Received invalid place JSON from response: %r" %
+                      (response.content,))
 
     try:
         from_email = settings.EMAIL_ADDRESS
     except AttributeError:
-        errors.append('EMAIL_ADDRESS setting must be configured in order to send notification emails.')
+        errors.append("EMAIL_ADDRESS setting must be configured in order to "
+                      "send notification emails.")
 
     try:
-        email_field = config.get('notifications', {}).get('submitter_email_field', 'submitter_email')
+        email_field = config.get('notifications', {}).get(
+            'submitter_email_field', 'submitter_email')
         recipient_email = requested_place['properties'][email_field]
     except KeyError:
-        errors.append('No "%s" field found on the place. Be sure to configure the "notifications.submitter_email_field" property if necessary.' % (email_field,))
+        errors.append("No '%s' field found on the place. "
+                      "Be sure to configure the 'notifications.submitter_"
+                      "email_field' property if necessary." % (email_field,))
 
     # Bail if any errors were found. Send all errors to the logs and otherwise
     # fail silently.
@@ -214,8 +222,8 @@ def send_place_created_notifications(request, response):
         body,
         from_email,
         to=[recipient_email],
-        bcc=bcc_list)#,
-        # connection=connection)
+        bcc=bcc_list)
+    # connection=connection)
 
     if html_body:
         msg.attach_alternative(html_body, 'text/html')
@@ -366,7 +374,7 @@ def api(request, path, **kwargs):
         dataset_id = kwargs['dataset_id']
     else:
         raise AttributeError("No dataset_id! kwargs, path:", kwargs, path)
-        
+
     root = settings.SHAREABOUTS.get(dataset_id.upper() + '_SITE_URL')
 
     if root.startswith('file://'):

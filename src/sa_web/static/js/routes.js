@@ -20,6 +20,7 @@ Shareabouts.Util = Util;
       ':dataset/:id': 'viewPlace',
       'new': 'newPlace',
       ':dataset/:id/response/:response_id': 'viewPlace',
+      ':id/response/:response_id': 'viewLandmark',
       ':dataset/:id/edit': 'editPlace',
       'list': 'showList',
       ':id': 'viewLandmark',
@@ -161,7 +162,10 @@ Shareabouts.Util = Util;
       if (Backbone.history.getFragment() === '') {
         startPageConfig = Util.findPageConfig(options.pagesConfig, {start_page: true});
 
-        if (startPageConfig && startPageConfig.slug) {
+        if (startPageConfig 
+          && startPageConfig.slug
+          // don't route to the start page on small screens
+          && $(window).width() > (startPageConfig.show_above_width || 960)) {
           this.navigate('page/' + startPageConfig.slug, {trigger: true});
         }
       }
@@ -189,12 +193,21 @@ Shareabouts.Util = Util;
       this.appView.newPlace();
     },
 
-    viewLandmark: function(id) {
-      this.appView.viewLandmark(id, { zoom: this.loading });
+    viewLandmark: function(modelId, responseId) {
+      this.appView.viewPlaceOrLandmark({
+        modelId: modelId,
+        responseId: responseId,
+        loading: this.loading
+      });
     },
 
-    viewPlace: function(datasetSlug, id, responseId) {
-      this.appView.viewPlace(datasetSlug, id, responseId, this.loading);
+    viewPlace: function(datasetSlug, modelId, responseId) {      
+      this.appView.viewPlaceOrLandmark({
+        datasetSlug: datasetSlug,
+        modelId: modelId,
+        responseId: responseId,
+        loading: this.loading
+      });
     },
 
     editPlace: function(){},
