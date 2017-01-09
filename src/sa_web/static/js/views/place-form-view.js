@@ -1,9 +1,8 @@
-/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper Quill */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var TemplateHelpers = require('../template-helpers.js');
 
-(function(S, $, console, Quill){
-  S.PlaceFormView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
@@ -22,9 +21,9 @@ var Shareabouts = Shareabouts || {};
       this.map = this.options.appView.mapView.map;
       this.geometryEditorView = this.options.geometryEditorView;
 
-      S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
+      TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
-      S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+      TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
     },
     resetFormState: function() {
       this.formState = {
@@ -38,8 +37,8 @@ var Shareabouts = Shareabouts || {};
     },
     render: function(isCategorySelected) {
       var self = this,
-      placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
-        return place.includeOnForm; 
+      placesToIncludeOnForm = _.filter(this.placeDetail, function(place) {
+        return place.includeOnForm;
       });
 
       // if there is only one place to include on form, skip category selection page
@@ -50,15 +49,15 @@ var Shareabouts = Shareabouts || {};
       }
       
       this.checkAutocomplete();
-      
+
       var data = _.extend({
         isCategorySelected: isCategorySelected,
         placeConfig: this.options.placeConfig,
         selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
-        current_user: S.currentUser,
+        current_user: Shareabouts.currentUser,
         isSingleCategory: this.formState.isSingleCategory
-      }, S.stickyFieldValues);
+      }, Shareabouts.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
@@ -155,7 +154,7 @@ var Shareabouts = Shareabouts || {};
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
-      attrs = S.Util.getAttrs($form);
+      attrs = Util.getAttrs($form);
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
@@ -209,7 +208,7 @@ var Shareabouts = Shareabouts || {};
       var self = this;
       evt.preventDefault();
       var ll = this.options.appView.mapView.map.getBounds().toBBoxString();
-      S.Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
+      Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
       $("#drag-marker-content").addClass("is-visuallyhidden");
       $("#geolocating-msg").removeClass("is-visuallyhidden");
 
@@ -233,7 +232,7 @@ var Shareabouts = Shareabouts || {};
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
-        S.Util.fileToCanvas(file, function(canvas) {
+        Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
             self.formState.attachmentData = {
               name: $(evt.target).attr('name'),
@@ -282,7 +281,7 @@ var Shareabouts = Shareabouts || {};
       };
 
       if (this.formState.selectedCategoryConfig.enable_geometry
-        && this.geometryEditorView.editingLayerGroup.getLayers().length == 0) {
+          && this.geometryEditorView.editingLayerGroup.getLayers().length == 0) {
         // If the map has an editingLayerGroup with no layers in it, it means the
         // user hasn't created any geometry yet
         rejectSubmit(".no-geometry-warning");
@@ -343,11 +342,11 @@ var Shareabouts = Shareabouts || {};
       }
 
       $button.attr('disabled', 'disabled');
-      spinner = new Spinner(S.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
 
-      S.Util.log('USER', 'new-place', 'submit-place-btn-click');
+      Util.log('USER', 'new-place', 'submit-place-btn-click');
 
-      S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
+      Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
 
       // Save and redirect
       model.save(attrs, {
@@ -355,11 +354,11 @@ var Shareabouts = Shareabouts || {};
           if (self.geometryEditorView) {
             self.geometryEditorView.tearDown();
           }
-          S.Util.log('USER', 'new-place', 'successfully-add-place');
+          Util.log('USER', 'new-place', 'successfully-add-place');
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
         error: function() {
-          S.Util.log('USER', 'new-place', 'fail-to-add-place');
+          Util.log('USER', 'new-place', 'fail-to-add-place');
         },
         complete: function() {
           $button.removeAttr('disabled');
@@ -370,4 +369,3 @@ var Shareabouts = Shareabouts || {};
       });
     })
   });
-}(Shareabouts, jQuery, Shareabouts.Util.console, Quill));

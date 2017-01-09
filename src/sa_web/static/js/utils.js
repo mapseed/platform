@@ -1,11 +1,4 @@
-/*global _, moment, BinaryFile, loadImage, EXIF */
-
-var Shareabouts = Shareabouts || {};
-
-(function(S){
-  'use strict';
-
-  S.Util = {
+  module.exports = {
     patch: function(obj, overrides, func) {
       var attr, originals = {};
 
@@ -100,8 +93,8 @@ var Shareabouts = Shareabouts || {};
           if (major > 7) {
             return true;
           }
-		 default:
-			return true;
+        default:
+          return true;
       }
 
       return false;
@@ -135,14 +128,14 @@ var Shareabouts = Shareabouts || {};
           stickyItemNames = _.union(stickySurveyItemNames, stickyPlaceItemNames);
 
       // Create the cache
-      if (!S.stickyFieldValues) {
-        S.stickyFieldValues = {};
+      if (!Shareabouts.stickyFieldValues) {
+        Shareabouts.stickyFieldValues = {};
       }
 
       _.each(stickyItemNames, function(name) {
         // Check for existence of the key, not the truthiness of the value
         if (name in data) {
-          S.stickyFieldValues[name] = data[name];
+          Shareabouts.stickyFieldValues[name] = data[name];
         }
       });
     },
@@ -156,7 +149,7 @@ var Shareabouts = Shareabouts || {};
       if (window.ga) {
         this.analytics(args);
       } else {
-        S.Util.console.log(args);
+        this.console.log(args);
       }
     },
 
@@ -306,7 +299,7 @@ var Shareabouts = Shareabouts || {};
 
           loadImage(file, function(canvas) {
             // rotate the image, if needed
-            var rotated = S.Util.fixImageOrientation(canvas, orientation);
+            var rotated = Util.fixImageOrientation(canvas, orientation);
             callback(rotated);
           }, options);
       };
@@ -356,8 +349,8 @@ var Shareabouts = Shareabouts || {};
     cookies: {
       save: function(name, value, days, prefix) {
         var expires,
-        prefix = prefix || "",
-        name = prefix + name;
+          prefix = prefix || "",
+          name = prefix + name;
         if (days) {
           var date = new Date();
           date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -370,8 +363,8 @@ var Shareabouts = Shareabouts || {};
       },
       get: function(name, prefix) {
         var prefix = prefix || "",
-        nameEQ = prefix + name + '=',
-        ca = document.cookie.split(';');
+          nameEQ = prefix + name + '=',
+          ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
           var c = ca[i];
           while (c.charAt(0) === ' ') {
@@ -413,7 +406,7 @@ var Shareabouts = Shareabouts || {};
 
     MapQuest: {
       geocode: function(location, bounds, options) {
-        var mapQuestKey = S.bootstrapped.mapQuestKey;
+        var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
 
         if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
 
@@ -427,7 +420,7 @@ var Shareabouts = Shareabouts || {};
         $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {
-        var mapQuestKey = S.bootstrapped.mapQuestKey,
+        var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey,
             lat, lng;
 
         if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
@@ -487,7 +480,7 @@ var Shareabouts = Shareabouts || {};
       },
 
       geocode: function(location, hint, options) {
-        var mapboxToken = S.bootstrapped.mapboxToken,
+        var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
             originalSuccess = options && options.success,
             transformedResultsSuccess = function(data) {
               if (originalSuccess) {
@@ -509,7 +502,7 @@ var Shareabouts = Shareabouts || {};
         $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {
-        var mapboxToken = S.bootstrapped.mapboxToken,
+        var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
             lat, lng;
 
         if (!mapboxToken) throw "You must provide a Mapbox access token " +
@@ -525,4 +518,67 @@ var Shareabouts = Shareabouts || {};
       }
     }
   };
-}(Shareabouts));
+
+  /*****************************************************************************
+
+  CSRF Validation
+  ---------------
+  Django protects against Cross Site Request Forgeries (CSRF) by default. This
+  type of attack occurs when a malicious Web site contains a link, a form button
+  or some javascript that is intended to perform some action on your Web site,
+  using the credentials of a logged-in user who visits the malicious site in their
+  browser.
+
+  Since the API proxy view sends requests that write data to the Shareabouts
+  service authenticated as the owner of this dataset, we want to protect the API
+  view against CSRF. In order to ensure that AJAX POST/PUT/DELETE requests that
+  are made via jQuery will not be caught by the CSRF protection, we use the
+  following code. For more information, see:
+  https://docs.djangoproject.com/en/1.4/ref/contrib/csrf/
+
+  */
+
+  jQuery(document).ajaxSend(function(event, xhr, settings) {
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      function sameOrigin(url) {
+          // url could be relative or scheme relative or absolute
+          var host = document.location.host; // host + port
+          var protocol = document.location.protocol;
+          var sr_origin = '//' + host;
+          var origin = protocol + sr_origin;
+          // Allow absolute or scheme relative URLs to same origin
+          return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+              (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+              // or any other URL that isn't scheme relative or absolute i.e relative.
+              !(/^(\/\/|http:|https:).*/.test(url));
+      }
+      function safeMethod(method) {
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      }
+
+      // If this is a DELETE request, explicitly set the data to be sent so that
+      // the browser will calculate a value for the Content-Length header.
+      if (settings.type === 'DELETE') {
+          xhr.setRequestHeader("Content-Type", "application/json");
+          settings.data = '{}';
+      }
+  });
+

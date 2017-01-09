@@ -1,9 +1,8 @@
-/*globals jQuery _ Backbone Handlebars */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var ActionCollection = require('../models/action-collection.js');
 
-(function(S, $, console){
-  S.ActivityView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     initialize: function() {
       var self = this;
 
@@ -18,7 +17,7 @@ var Shareabouts = Shareabouts || {};
       // Store a separate collection of all activities 
       // merged together, useful for collecting models from 
       // different datasets to facilitate sorting
-      this.mergedActivities = new S.ActionCollection([]);
+      this.mergedActivities = new ActionCollection([]);
 
       // Infinite scroll elements and functions
       // Window where the activity lives
@@ -39,7 +38,7 @@ var Shareabouts = Shareabouts || {};
         var actionType = this.getAttribute('data-action-type'),
             placeId = this.getAttribute('data-place-id');
 
-        S.Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
+        Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
         self.options.router.navigate(this.getAttribute('href'), {trigger: true});
       });
 
@@ -133,7 +132,7 @@ var Shareabouts = Shareabouts || {};
     onAddAction: function(model, collection) {
       this.renderAction(model, collection.indexOf(model));
     },
-  
+
     // closure for onResetActivity
     onResetActivityWrapper: function(datasetId) {
       var self = this;
@@ -325,5 +324,3 @@ var Shareabouts = Shareabouts || {};
       return self;
     }
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

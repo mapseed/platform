@@ -1,9 +1,6 @@
-/*globals L Backbone _ Handlebars jQuery Spinner */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-  S.GeocodeAddressView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     events: {
       'submit .geocode-address-form': 'onGeocodeAddress',
       'change .geocode-address-field': 'onAddressChange'
@@ -32,11 +29,11 @@ var Shareabouts = Shareabouts || {};
       // Make sure there's only one spinner created. Do it here so the element
       // is visible and it gets rendered nicely.
       if (self.$('.geocode-spinner > .spinner').length === 0) {
-        new Spinner(S.smallSpinnerOptions).spin(this.$('.geocode-spinner')[0]);
+        new Spinner(Shareabouts.smallSpinnerOptions).spin(this.$('.geocode-spinner')[0]);
       }
 
 
-      S.Util[geocodingEngine].geocode(address, hint, {
+      Util[geocodingEngine].geocode(address, hint, {
         success: function(data) {
           var locationsData = data.results[0].locations;
           // Hide the spinner
@@ -48,7 +45,7 @@ var Shareabouts = Shareabouts || {};
 
             // TODO: This might make more sense if the view itself was the
             //       event's target.
-            $(S).trigger('geocode', [locationsData[0]]);
+            $(Shareabouts).trigger('geocode', [locationsData[0]]);
           } else {
             // TODO: Show some feedback that we couldn't geocode.
             console.error('Woah, no location found for ', data.results[0].providedLocation.location, data);
@@ -61,12 +58,10 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
-      S.Util.log('USER', 'geocoder', 'geocode-address', address);
+      Util.log('USER', 'geocoder', 'geocode-address', address);
     },
     setAddress: function(location) {
       var $address = this.$('.geocode-address-field');
       $address.val(location).change();
     }
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

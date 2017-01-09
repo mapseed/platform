@@ -1,9 +1,11 @@
-/*globals Backbone _ jQuery Handlebars Quill */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var SurveyView = require('./survey-view.js');
+  var SupportView = require('./support-view.js');
 
-(function(S, $, Quill, console){
-  S.PlaceDetailView = Backbone.View.extend({
+  var SubmissionCollection = require('../models/submission-collection.js');
+
+  module.exports = Backbone.View.extend({
     events: {
       'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext',
@@ -30,18 +32,18 @@ var Shareabouts = Shareabouts || {};
 
       // Make sure the submission collections are set
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
-        new S.SubmissionCollection(null, {
+        new SubmissionCollection(null, {
           submissionType: this.surveyType,
           placeModel: this.model
         });
 
       this.model.submissionSets[this.supportType] = this.model.submissionSets[this.supportType] ||
-        new S.SubmissionCollection(null, {
+        new SubmissionCollection(null, {
           submissionType: this.supportType,
           placeModel: this.model
         });
 
-      this.surveyView = new S.SurveyView({
+      this.surveyView = new SurveyView({
         collection: this.model.submissionSets[this.surveyType],
         surveyConfig: this.options.surveyConfig,
         userToken: this.options.userToken,
@@ -49,7 +51,7 @@ var Shareabouts = Shareabouts || {};
         placeDetailView: self
       });
 
-      this.supportView = new S.SupportView({
+      this.supportView = new SupportView({
         collection: this.model.submissionSets[this.supportType],
         supportConfig: this.options.supportConfig,
         userToken: this.options.userToken,
@@ -65,14 +67,14 @@ var Shareabouts = Shareabouts || {};
         // HACK! Each action should have its own view and bind its own events.
         var shareTo = this.getAttribute('data-shareto');
 
-        S.Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
+        Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
 
       // Is this user authenticated (i.e. able to edit place detail views)?
-      if (S.bootstrapped.currentUser && S.bootstrapped.currentUser.groups) {
-        _.each(S.bootstrapped.currentUser.groups, function(group) {
+      if (Shareabouts.bootstrapped.currentUser && Shareabouts.bootstrapped.currentUser.groups) {
+        _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
           // get the name of the datasetId from the end of the full url
-          // provided in S.bootstrapped.currentUser.groups
+          // provided in Shareabouts.bootstrapped.currentUser.groups
           var url = group.dataset.split("/"),
           match = url[url.length - 1];
           if (match && match === self.options.datasetId && group.name === "administrators") {
@@ -101,7 +103,7 @@ var Shareabouts = Shareabouts || {};
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
       this.render();
-
+      
       if (toggled && (this.model.get("geometry").type === "Polygon"
         || this.model.get("geometry").type === "LineString")) {
         this.options.appView.removeSpotlightMask();
@@ -197,14 +199,12 @@ var Shareabouts = Shareabouts || {};
 
       return this;
     },
-
     onEditorChange: function() {
       this.isModified = true;
       $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
       this.quill.off("text-change", this.onEditorChange);
       $(this.watchFields).off("keyup change");
     },
-
     remove: function() {
       // Nothing yet
     },
@@ -222,7 +222,7 @@ var Shareabouts = Shareabouts || {};
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
-        S.Util.fileToCanvas(file, function(canvas) {
+        Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
             //var fieldName = $(evt.target).attr('name'),
             var fieldName = Math.random().toString(36).substring(7),
@@ -293,8 +293,8 @@ var Shareabouts = Shareabouts || {};
       if ($(".ql-editor").html()) {
         richTextAttrs.description = $(".ql-editor").html();
       }
-      var attrs = _.extend(S.Util.getAttrs($("#update-place-model-form")), 
-        S.Util.getAttrs($("#update-place-model-title-form")),
+      var attrs = _.extend(Util.getAttrs($("#update-place-model-form")), 
+        Util.getAttrs($("#update-place-model-title-form")),
         richTextAttrs);
 
       // special handling for binary toggle buttons: we need to remove
@@ -305,7 +305,7 @@ var Shareabouts = Shareabouts || {};
           self.model.unset($(this).attr("id"));
         }
       });
-
+      
       if (this.geometryEditorView) {
         attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
         attrs.style = {
@@ -343,4 +343,3 @@ var Shareabouts = Shareabouts || {};
       }
     }
   });
-}(Shareabouts, jQuery, Quill, Shareabouts.Util.console));

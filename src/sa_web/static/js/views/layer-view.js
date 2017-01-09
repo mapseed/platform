@@ -1,14 +1,11 @@
-/*globals L Backbone _ jQuery */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-  S.LayerView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
      // A view responsible for the representation of a place on the map.
     initialize: function(){
       this.map = this.options.map;
       this.isFocused = false;
-
+      
       this.layerGroup = this.options.layerGroup;
 
       // A throttled version of the render function
@@ -132,13 +129,13 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMarkerClick: function() {
-      S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
+      Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
       // support places with landmark-style urls
       if (this.model.get("url-title")) {
         this.options.router.navigate('/' + this.model.get("url-title"), {trigger: true});
       } else {
         this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
-      }      
+      }     
     },
     isPoint: function() {
       return this.model.get('geometry').type == 'Point';
@@ -186,5 +183,3 @@ var Shareabouts = Shareabouts || {};
       this.removeLayer();
     }
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));
