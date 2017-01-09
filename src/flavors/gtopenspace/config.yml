@@ -167,18 +167,27 @@ place_types:
           iconUrl: /static/css/images/markers/marker-star.png
           iconSize: [12, 12]
           iconAnchor: [6, 6]
+          shadowUrl: /static/css/images/marker-shadow.png
+          shadowSize: [60, 60]
+          shadowAnchor: [30, 30]
 
       - condition: '{{map.zoom}} < 15'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
           iconSize: [18, 18]
           iconAnchor: [9, 9]
+          shadowUrl: /static/css/images/marker-shadow.png
+          shadowSize: [60, 60]
+          shadowAnchor: [30, 30]
 
       - condition: '{{map.zoom}} >= 15'
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
           iconSize: [30, 30]
           iconAnchor: [15, 15]    
+          shadowUrl: /static/css/images/marker-shadow.png
+          shadowSize: [60, 60]
+          shadowAnchor: [30, 30]
 
   wetland:
     zoomType: georgetownZoomStyle
@@ -360,19 +369,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: '{{map.zoom}} < 17'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-a5cf32.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-a5cf32.png
           iconSize: [38, 46]
@@ -395,13 +404,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-f39914.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-f39914.png
           iconSize: [38, 46]
@@ -424,13 +433,13 @@ place_types:
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: '{{map.zoom}} < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-e1264d.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: '{{map.zoom}} >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-e1264d.png
           iconSize: [38, 46]
@@ -580,30 +589,6 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: false
-
-        - id: grp-land
-          title: _(Land Data)
-          visibleDefault: false
-          layers:
-              # Land Use
-            - id: landuse
-              title: _(Land use)
-              visibleDefault: false
-
-              # Green Seattle Partnership restoration phases
-            - id: phases
-              title: _(Green Seattle partnership)
-              visibleDefault: false
-
-              # Noxious Weeds
-            - id: noxious-weeds
-              title: _(Noxious Weeds)
-              visibleDefault: false
-
-              # WRIA9 watershed
-            - id: watershed
-              title: _(Watershed)
               visibleDefault: false
 
         - id: grp-history
@@ -904,7 +889,7 @@ pages:
     hide_from_top_bar: true
 
 story:
-  test_story1:
+  priority_sites:
     default_visible_layers:
       - 10sites
       - restoration
@@ -921,9 +906,7 @@ story:
       - url: ellis
       - url: corson
 
-  test_story2:
-    tagline: _(This is a priority site. Use arrows to explore others)
+  original_sites:
+    tagline: _(Explore other sites)
     order:
-      - url: friends-of-georgetown-history-museum
-      - url: ruby-chow-park
-      - url: georgetown-steam-plant
+      
