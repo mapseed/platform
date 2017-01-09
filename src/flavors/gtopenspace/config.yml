@@ -907,6 +907,35 @@ story:
       - url: corson
 
   original_sites:
-    tagline: _(Explore other sites)
-    order:
-      
+    tagline: _(Go to the next site)
+    default_visible_layers:
+      - gtopenspace1
+    order: 
+      - url: site/628
+      - url: site/629
+      - url: site/634
+      - url: site/631
+      - url: site/635
+      - url: site/633
+      - url: site/636
+      - url: site/637
+      - url: site/552
+      - url: site/638
+      - url: site/639
+      - url: site/643
+      - url: site/641
+      - url: site/642
+      - url: site/644
+      - url: site/645
+      - url: site/646
+      - url: site/647
+      - url: site/648
+      - url: site/649
+      - url: site/650
+      - url: site/651
+      - url: site/558
+      - url: site/653
+      - url: site/654
+      - url: site/655
+      - url: site/656
+      - url: site/676
