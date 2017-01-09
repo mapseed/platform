@@ -1,647 +1,820 @@
-var Util = require('../utils.js');
+  var Util = require('../utils.js');
 
-// Views
-var MapView = require('./map-view.js');
-var PagesNavView = require('./pages-nav-view.js');
-var AuthNavView = require('./auth-nav-view.js');
-var LandmarkDetailView = require('./landmark-detail-view.js');
-var PlaceListView = require('./place-list-view.js');
-var SidebarView = require('./sidebar-view.js');
-var ActivityView = require('./activity-view.js');
-var GeocodeAddressView = require('./geocode-address-view.js');
-var PlaceCounterView = require('./place-counter-view.js');
-var PlaceDetailView = require('./place-detail-view.js');
-var PlaceFormView = require('./place-form-view.js');
-var GeocodeAddressPlaceView = require('./geocode-address-place-view.js');
+  // Views
+  var MapView = require('./map-view.js');
+  var PagesNavView = require('./pages-nav-view.js');
+  var AuthNavView = require('./auth-nav-view.js');
+  var LandmarkDetailView = require('./landmark-detail-view.js');
+  var PlaceListView = require('./place-list-view.js');
+  var SidebarView = require('./sidebar-view.js');
+  var ActivityView = require('./activity-view.js');
+  var GeocodeAddressView = require('./geocode-address-view.js');
+  var PlaceCounterView = require('./place-counter-view.js');
+  var PlaceDetailView = require('./place-detail-view.js');
+  var PlaceFormView = require('./place-form-view.js');
+  var GeocodeAddressPlaceView = require('./geocode-address-place-view.js');
 
-// Models
-var PlaceModel = require('../models/place-model.js');
-var LandmarkModel = require('../models/landmark-model.js');
+  // Models
+  var PlaceModel = require('../models/place-model.js');
+  var LandmarkModel = require('../models/landmark-model.js');
 
-// Spinner options -- these need to be own modules
-Shareabouts.bigSpinnerOptions = {
-  lines: 13, length: 0, width: 10, radius: 30, corners: 1, rotate: 0,
-  direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
-  hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
-  left: 'auto'
-};
+  // Spinner options -- these need to be own modules
+  Shareabouts.bigSpinnerOptions = {
+    lines: 13, length: 0, width: 10, radius: 30, corners: 1, rotate: 0,
+    direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
+    hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
+    left: 'auto'
+  };
 
-Shareabouts.smallSpinnerOptions = {
-  lines: 13, length: 0, width: 3, radius: 10, corners: 1, rotate: 0,
-  direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
-  hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
-  left: 'auto'
-};
+  Shareabouts.smallSpinnerOptions = {
+    lines: 13, length: 0, width: 3, radius: 10, corners: 1, rotate: 0,
+    direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
+    hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
+    left: 'auto'
+  };
 
-module.exports = Backbone.View.extend({
-  events: {
-    'click #add-place': 'onClickAddPlaceBtn',
-    'click .list-toggle-btn': 'toggleListView',
-    'click .close-btn': 'onClickClosePanelBtn'
-  },
-  initialize: function() {
-    var self = this,
-        // Only include submissions if the list view is enabled (anything but false)
-        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
-        placeParams = {
-          // NOTE: this is to simply support the list view. It won't
-          // scale well, so let's think about a better solution.
-          include_submissions: includeSubmissions
-        };
+  module.exports = Backbone.View.extend({
+    events: {
+      'click #add-place': 'onClickAddPlaceBtn',
+      'click .list-toggle-btn': 'toggleListView',
+      'click .close-btn': 'onClickClosePanelBtn'
+    },
+    initialize: function() {
+      var self = this,
+          // Only include submissions if the list view is enabled (anything but false)
+          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+          placeParams = {
+            // NOTE: this is to simply support the list view. It won't
+            // scale well, so let's think about a better solution.
+            include_submissions: includeSubmissions
+          };
 
-    // Use the page size as dictated by the server by default, unless
-    // directed to do otherwise in the configuration.
-    if (Shareabouts.Config.flavor.app.places_page_size) {
-      placeParams.page_size = Shareabouts.Config.flavor.app.places_page_size;
-    }
+      // Use the page size as dictated by the server by default, unless
+      // directed to do otherwise in the configuration.
+      if (Shareabouts.Config.flavor.app.places_page_size) {
+        placeParams.page_size = Shareabouts.Config.flavor.app.places_page_size;
+      }
 
-    // Boodstrapped data from the page
-    this.activities = this.options.activities;
-    this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
+      // Boodstrapped data from the page
+      this.activities = this.options.activities;
+      this.places = this.options.places;
+      this.landmarks = this.options.landmarks;
 
-    // Caches of the views (one per place)
-    this.placeFormView = null;
-    this.placeDetailViews = {};
-    this.landmarkDetailViews = {};
-    this.activeDetailView;
+      // Caches of the views (one per place)
+      this.placeFormView = null;
+      this.placeDetailViews = {};
+      this.landmarkDetailViews = {};
+      this.activeDetailView;
 
-    // this flag is used to distinguish between user-initiated zooms and
-    // zooms initiated by a leaflet method
-    this.isProgrammaticZoom = false;
-    this.isStoryActive = false;
+      // this flag is used to distinguish between user-initiated zooms and
+      // zooms initiated by a leaflet method
+      this.isProgrammaticZoom = false;
+      this.isStoryActive = false;
 
-    $('body').ajaxError(function(evt, request, settings){
-      $('#ajax-error-msg').show();
-    });
-
-    $('body').ajaxSuccess(function(evt, request, settings){
-      $('#ajax-error-msg').hide();
-    });
-
-    // $('.list-toggle-btn').click(function(evt){
-    //   evt.preventDefault();
-    //   self.toggleListView();
-    // });
-
-    $(document).on('click', '.activity-item a', function(evt) {
-      window.app.clearLocationTypeFilter();
-    });
-
-    // Globally capture clicks. If they are internal and not in the pass
-    // through list, route them through Backbone's navigate method.
-    $(document).on('click', 'a[href^="/"]', function(evt) {
-      var $link = $(evt.currentTarget),
-          href = $link.attr('href'),
-          url,
-          isLinkToPlace = false;
-
-      _.each(self.options.datasetConfigs.places, function(dataset) {
-        if (href.indexOf('/' + dataset.slug) === 0) isLinkToPlace = true;
+      $('body').ajaxError(function(evt, request, settings){
+        $('#ajax-error-msg').show();
       });
 
-      // Allow shift+click for new tabs, etc.
-      if (($link.attr('rel') === 'internal' ||
-           href === '/' ||
-           isLinkToPlace ||
-           href.indexOf('/filter') === 0) &&
-           !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
-        evt.preventDefault();
+      $('body').ajaxSuccess(function(evt, request, settings){
+        $('#ajax-error-msg').hide();
+      });
 
-        // Remove leading slashes and hash bangs (backward compatablility)
-        url = href.replace(/^\//, '').replace('#!/', '');
+      // $('.list-toggle-btn').click(function(evt){
+      //   evt.preventDefault();
+      //   self.toggleListView();
+      // });
 
-        // # Instruct Backbone to trigger routing events
-        self.options.router.navigate(url, {
-          trigger: true
+      $(document).on('click', '.activity-item a', function(evt) {
+        window.app.clearLocationTypeFilter();
+      });
+
+      // Globally capture clicks. If they are internal and not in the pass
+      // through list, route them through Backbone's navigate method.
+      $(document).on('click', 'a[href^="/"]', function(evt) {
+        var $link = $(evt.currentTarget),
+            href = $link.attr('href'),
+            url,
+            isLinkToPlace = false;
+
+        _.each(self.options.datasetConfigs.places, function(dataset) {
+          if (href.indexOf('/' + dataset.slug) === 0) isLinkToPlace = true;
         });
 
-        return false;
-      }
-    });
+        // Allow shift+click for new tabs, etc.
+        if (($link.attr('rel') === 'internal' ||
+             href === '/' ||
+             isLinkToPlace ||
+             href.indexOf('/filter') === 0) &&
+             !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
+          evt.preventDefault();
 
-    // On any route (/place or /page), hide the list view
-    this.options.router.bind('route', function(route) {
-      if (!_.contains(this.getListRoutes(), route) && this.listView && this.listView.isVisible()) {
-        this.hideListView();
-      }
-    }, this);
+          // Remove leading slashes and hash bangs (backward compatablility)
+          url = href.replace(/^\//, '').replace('#!/', '');
 
-    // Only append the tools to add places (if supported)
-    $('#map-container').append(Handlebars.templates['add-places'](this.options.placeConfig));
+          // # Instruct Backbone to trigger routing events
+          self.options.router.navigate(url, {
+            trigger: true
+          });
 
-    this.pagesNavView = (new PagesNavView({
-            el: '#pages-nav-container',
-            pagesConfig: this.options.pagesConfig,
-            placeConfig: this.options.placeConfig,
-            router: this.options.router
-          })).render();
+          return false;
+        }
+      });
 
-    this.authNavView = (new AuthNavView({
-            el: '#auth-nav-container',
-            router: this.options.router
-          })).render();
+      // On any route (/place or /page), hide the list view
+      this.options.router.bind('route', function(route) {
+        if (!_.contains(this.getListRoutes(), route) && this.listView && this.listView.isVisible()) {
+          this.hideListView();
+        }
+      }, this);
 
-    var basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
-      return "basemaps" in panel;
-    }).basemaps;
-    // Init the map view to display the places
-    this.mapView = new MapView({
-      el: '#map',
-      mapConfig: this.options.mapConfig,
-      basemapConfigs: basemapConfigs,
-      legend_enabled: !!this.options.sidebarConfig.legend_enabled,
-      places: this.places,
-      landmarks: this.landmarks,
-      router: this.options.router,
-      placeTypes: this.options.placeTypes,
-      cluster: this.options.cluster,
-      placeDetailViews: this.placeDetailViews
-    });
+      // Only append the tools to add places (if supported)
+      $('#map-container').append(Handlebars.templates['add-places'](this.options.placeConfig));
 
-    if (self.options.sidebarConfig.enabled){
-      (new SidebarView({
-        el: '#sidebar-container',
-        mapView: this.mapView,
-        sidebarConfig: this.options.sidebarConfig
-      })).render();
-    }
+      this.pagesNavView = (new PagesNavView({
+              el: '#pages-nav-container',
+              pagesConfig: this.options.pagesConfig,
+              placeConfig: this.options.placeConfig,
+              router: this.options.router
+            })).render();
 
-    // Activity is enabled by default (undefined) or by enabling it
-    // explicitly. Set it to a falsey value to disable activity.
-    if (_.isUndefined(this.options.activityConfig.enabled) ||
-      this.options.activityConfig.enabled) {
-      // Init the view for displaying user activity
-      this.activityView = new ActivityView({
-        el: 'ul.recent-points',
-        activities: this.activities,
+      this.authNavView = (new AuthNavView({
+              el: '#auth-nav-container',
+              router: this.options.router
+            })).render();
+
+      var basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
+        return "basemaps" in panel;
+      }).basemaps;
+      // Init the map view to display the places
+      this.mapView = new MapView({
+        el: '#map',
+        mapConfig: this.options.mapConfig,
+        basemapConfigs: basemapConfigs,
+        legend_enabled: !!this.options.sidebarConfig.legend_enabled,
         places: this.places,
+        landmarks: this.landmarks,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
-        surveyConfig: this.options.surveyConfig,
-        supportConfig: this.options.supportConfig,
-        placeConfig: this.options.placeConfig,
-        mapConfig: this.options.mapConfig,
-        // How often to check for new content
-        interval: this.options.activityConfig.interval || 30000
+        cluster: this.options.cluster,
+        placeDetailViews: this.placeDetailViews
       });
-    }
 
-    // Init the address search bar
-    this.geocodeAddressView = (new GeocodeAddressView({
-      el: '#geocode-address-bar',
-      router: this.options.router,
-      mapConfig: this.options.mapConfig
-    })).render();
+      if (self.options.sidebarConfig.enabled){
+        (new SidebarView({
+          el: '#sidebar-container',
+          mapView: this.mapView,
+          sidebarConfig: this.options.sidebarConfig
+        })).render();
+      }
 
-    // Init the place-counter
-    this.placeCounterView = (new PlaceCounterView({
-      el: '#place-counter',
-      router: this.options.router,
-      mapConfig: this.options.mapConfig,
-      places: this.places
-    })).render();
+      // Activity is enabled by default (undefined) or by enabling it
+      // explicitly. Set it to a falsey value to disable activity.
+      if (_.isUndefined(this.options.activityConfig.enabled) ||
+        this.options.activityConfig.enabled) {
+        // Init the view for displaying user activity
+        this.activityView = new ActivityView({
+          el: 'ul.recent-points',
+          activities: this.activities,
+          places: this.places,
+          router: this.options.router,
+          placeTypes: this.options.placeTypes,
+          surveyConfig: this.options.surveyConfig,
+          supportConfig: this.options.supportConfig,
+          placeConfig: this.options.placeConfig,
+          mapConfig: this.options.mapConfig,
+          // How often to check for new content
+          interval: this.options.activityConfig.interval || 30000
+        });
+      }
 
-    // When the user chooses a geocoded address, the address view will fire
-    // a geocode event on the namespace. At that point we center the map on
-    // the geocoded location.
-    $(Shareabouts).on('geocode', function(evt, locationData) {
-      self.mapView.zoomInOn(locationData.latLng);
+      // Init the address search bar
+      this.geocodeAddressView = (new GeocodeAddressView({
+        el: '#geocode-address-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
 
-      if (self.isAddingPlace()) {
+      // Init the place-counter
+      this.placeCounterView = (new PlaceCounterView({
+        el: '#place-counter',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig,
+        places: this.places
+      })).render();
+
+      // When the user chooses a geocoded address, the address view will fire
+      // a geocode event on the namespace. At that point we center the map on
+      // the geocoded location.
+      $(Shareabouts).on('geocode', function(evt, locationData) {
+        self.mapView.zoomInOn(locationData.latLng);
+
+        if (self.isAddingPlace()) {
+          self.placeFormView.setLatLng(locationData.latLng);
+          // Don't pass location data into our geolocation's form field
+          // self.placeFormView.setLocation(locationData);
+        }
+      });
+
+      // When the map center moves, the map view will fire a mapmoveend event
+      // on the namespace. If the move was the result of the user dragging, a
+      // mapdragend event will be fired.
+      //
+      // If the user is adding a place, we want to take the opportunity to
+      // reverse geocode the center of the map, if geocoding is enabled. If
+      // the user is doing anything else, we just want to clear out any text
+      // that's currently set in the address search bar.
+      $(Shareabouts).on('mapdragend', function(evt) {
+        if (self.isAddingPlace()) {
+          self.conditionallyReverseGeocode();
+        } else if (self.geocodeAddressView) {
+          self.geocodeAddressView.setAddress('');
+        }
+      });
+
+      // After reverse geocoding, the map view will fire a reversegeocode
+      // event. This should only happen when adding a place while geocoding
+      // is enabled.
+      $(Shareabouts).on('reversegeocode', function(evt, locationData) {
+        var locationString = Handlebars.templates['location-string'](locationData);
+        self.geocodeAddressView.setAddress($.trim(locationString));
+        self.geocodeAddressPlaceView.setAddress($.trim(locationString));
         self.placeFormView.setLatLng(locationData.latLng);
         // Don't pass location data into our geolocation's form field
         // self.placeFormView.setLocation(locationData);
-      }
-    });
-
-    // When the map center moves, the map view will fire a mapmoveend event
-    // on the namespace. If the move was the result of the user dragging, a
-    // mapdragend event will be fired.
-    //
-    // If the user is adding a place, we want to take the opportunity to
-    // reverse geocode the center of the map, if geocoding is enabled. If
-    // the user is doing anything else, we just want to clear out any text
-    // that's currently set in the address search bar.
-    $(Shareabouts).on('mapdragend', function(evt) {
-      if (self.isAddingPlace()) {
-        self.conditionallyReverseGeocode();
-      } else if (self.geocodeAddressView) {
-        self.geocodeAddressView.setAddress('');
-      }
-    });
-
-    // After reverse geocoding, the map view will fire a reversegeocode
-    // event. This should only happen when adding a place while geocoding
-    // is enabled.
-    $(Shareabouts).on('reversegeocode', function(evt, locationData) {
-      var locationString = Handlebars.templates['location-string'](locationData);
-      self.geocodeAddressView.setAddress($.trim(locationString));
-      self.geocodeAddressPlaceView.setAddress($.trim(locationString));
-      self.placeFormView.setLatLng(locationData.latLng);
-      // Don't pass location data into our geolocation's form field
-      // self.placeFormView.setLocation(locationData);
-    });
-
-    // List view is enabled by default (undefined) or by enabling it
-    // explicitly. Set it to a falsey value to disable activity.
-    if (_.isUndefined(Shareabouts.Config.flavor.app.list_enabled) ||
-      Shareabouts.Config.flavor.app.list_enabled) {
-        this.listView = new PlaceListView({
-          el: '#list-container',
-          placeCollections: self.places
-        }).render();
-    }
-
-    // Cache panel elements that we use a lot
-    this.$panel = $('#content');
-    this.$panelContent = $('#content article');
-    this.$panelCloseBtn = $('.close-btn');
-    this.$centerpoint = $('#centerpoint');
-    this.$addButton = $('#add-place-btn-container');
-
-    // Bind to map move events so we can style our center points
-    // with utmost awesomeness.
-    this.mapView.map.on('zoomend', this.onMapZoomEnd, this);
-    this.mapView.map.on('movestart', this.onMapMoveStart, this);
-    this.mapView.map.on('moveend', this.onMapMoveEnd, this);
-    // For knowing if the user has moved the map after opening the form.
-    this.mapView.map.on('dragend', this.onMapDragEnd, this);
-
-    // If report stories are enabled, build the data structure
-    // we need to enable story navigation
-    _.each(this.options.storyConfig, function(story) {
-      var storyStructure = {},
-      totalStoryElements = story.order.length;
-      _.each(story.order, function(config, i) {
-        storyStructure[config.url] = {
-          "zoom": config.zoom || story.default_zoom,
-          "panTo": config.panTo || null,
-          "visibleLayers": config.visible_layers || story.default_visible_layers,
-          "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
-          "next": story.order[(i + 1) % totalStoryElements].url,
-          "basemap": config.basemap || null,
-          "spotlight": (config.spotlight === false) ? false : true
-        }
       });
-      story.order = storyStructure;
-    });
 
-    // This is the "center" when the popup is open
-    this.offsetRatio = {x: 0.2, y: 0.0};
+      // List view is enabled by default (undefined) or by enabling it
+      // explicitly. Set it to a falsey value to disable activity.
+      if (_.isUndefined(Shareabouts.Config.flavor.app.list_enabled) ||
+        Shareabouts.Config.flavor.app.list_enabled) {
+          this.listView = new PlaceListView({
+            el: '#list-container',
+            placeCollections: self.places
+          }).render();
+      }
 
-    _.each(this.places, function(value, key) {
-      self.placeDetailViews[key] = {};
-    });
+      // Cache panel elements that we use a lot
+      this.$panel = $('#content');
+      this.$panelContent = $('#content article');
+      this.$panelCloseBtn = $('.close-btn');
+      this.$centerpoint = $('#centerpoint');
+      this.$addButton = $('#add-place-btn-container');
 
-    _.each(this.landmarks, function(value, key) {
-      self.landmarkDetailViews[key] = {};
-    });
+      // Bind to map move events so we can style our center points
+      // with utmost awesomeness.
+      this.mapView.map.on('zoomend', this.onMapZoomEnd, this);
+      this.mapView.map.on('movestart', this.onMapMoveStart, this);
+      this.mapView.map.on('moveend', this.onMapMoveEnd, this);
+      // For knowing if the user has moved the map after opening the form.
+      this.mapView.map.on('dragend', this.onMapDragEnd, this);
 
-    // Show tools for adding data
-    this.setBodyClass();
-    this.showCenterPoint();
-
-    // Load places from the API
-    this.loadPlaces(placeParams);
-
-    // Load landmarks from the API
-    this.loadLandmarks();
-
-    // Load activities from the API
-    _.each(this.activities, function(collection, key) {
-      collection.fetch({
-        reset: true,
-        attribute: 'target',
-        attributesToAdd: { datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id,
-                           datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug }
-      });
-    });
-  },
-
-  getListRoutes: function() {
-    // Return a list of the routes that are allowed to show the list view.
-    // Navigating to any other route will automatically hide the list view.
-    return ['showList', 'filterMap'];
-  },
-
-  isAddingPlace: function(model) {
-    return this.$panel.is(":visible") && this.$panel.hasClass('place-form');
-  },
-  loadLandmarks: function() {
-    var self = this;
-
-    // loop through landmark configs
-    _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
-      if (landmarkConfig.placeType) {
-        self.landmarks[landmarkConfig.id].fetch({
-          attributesToAdd: { location_type: landmarkConfig.placeType },
+      // If report stories are enabled, build the data structure
+      // we need to enable story navigation
+      _.each(this.options.storyConfig, function(story) {
+        var storyStructure = {},
+        totalStoryElements = story.order.length;
+        _.each(story.order, function(config, i) {
+          storyStructure[config.url] = {
+            "zoom": config.zoom || story.default_zoom,
+            "panTo": config.panTo || null,
+            "visibleLayers": config.visible_layers || story.default_visible_layers,
+            "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
+            "next": story.order[(i + 1) % totalStoryElements].url,
+            "basemap": config.basemap || null,
+            "spotlight": (config.spotlight === false) ? false : true
+          }
         });
+        story.order = storyStructure;
+      });
+
+      // This is the "center" when the popup is open
+      this.offsetRatio = {x: 0.2, y: 0.0};
+
+      _.each(this.places, function(value, key) {
+        self.placeDetailViews[key] = {};
+      });
+
+      _.each(this.landmarks, function(value, key) {
+        self.landmarkDetailViews[key] = {};
+      });
+
+      // Show tools for adding data
+      this.setBodyClass();
+      this.showCenterPoint();
+
+      // Load places from the API
+      this.loadPlaces(placeParams);
+
+      // Load landmarks from the API
+      this.loadLandmarks();
+
+      // Load activities from the API
+      _.each(this.activities, function(collection, key) {
+        collection.fetch({
+          reset: true,
+          attribute: 'target',
+          attributesToAdd: { datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id,
+                             datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug }
+        });
+      });
+    },
+
+    getListRoutes: function() {
+      // Return a list of the routes that are allowed to show the list view.
+      // Navigating to any other route will automatically hide the list view.
+      return ['showList', 'filterMap'];
+    },
+
+    isAddingPlace: function(model) {
+      return this.$panel.is(":visible") && this.$panel.hasClass('place-form');
+    },
+    loadLandmarks: function() {
+      var self = this;
+
+      // loop through landmark configs
+      _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
+        if (landmarkConfig.placeType) {
+          self.landmarks[landmarkConfig.id].fetch({
+            attributesToAdd: { location_type: landmarkConfig.placeType },
+          });
+        } else {
+          self.landmarks[landmarkConfig.id].fetch();
+        }
+      });
+    },
+
+    loadPlaces: function(placeParams) {
+      var self = this,
+          $progressContainer = $('#map-progress'),
+          $currentProgress = $('#map-progress .current-progress'),
+          pageSize,
+          totalPages,
+          pagesComplete = 0;
+
+      // loop over all place collections
+      _.each(self.places, function(collection, key) {
+        collection.fetchAllPages({
+          remove: false,
+          // Check for a valid location type before adding it to the collection
+          validate: true,
+          data: placeParams,
+          // get the dataset slug and id from the array of map layers
+          attributesToAdd: { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug,
+                             datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id },
+          attribute: 'properties',
+
+          // Only do this for the first page...
+          pageSuccess: _.once(function(collection, data) {
+            pageSize = data.features.length;
+            totalPages = Math.ceil(data.metadata.length / pageSize);
+
+            if (data.metadata.next) {
+              $progressContainer.show();
+            }
+          }),
+
+          // Do this for every page...
+          pageComplete: function() {
+            var percent;
+
+            pagesComplete++;
+            percent = (pagesComplete/totalPages*100);
+            $currentProgress.width(percent + '%');
+
+            if (pagesComplete === totalPages) {
+              _.delay(function() {
+                $progressContainer.hide();
+              }, 2000);
+            }
+          }
+        });
+      });
+    },
+
+    setPlaceFormViewLatLng: function(centerLatLng) {
+      if (this.placeFormView) {
+        this.placeFormView.setLatLng(centerLatLng);
+      }
+    },
+    onMapZoomEnd: function(evt) {
+      if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
+        this.removeSpotlightMask();
+      }
+      this.isProgrammaticZoom = false;
+    },
+    onMapMoveStart: function(evt) {
+      this.$centerpoint.addClass('dragging');
+    },
+    onMapMoveEnd: function(evt) {
+      var ll = this.mapView.map.getCenter(),
+          zoom = this.mapView.map.getZoom();
+
+      this.$centerpoint.removeClass('dragging');
+
+      // Never set the placeFormView's latLng until the user does it with a
+      // drag event (below)
+      if (this.placeFormView && this.placeFormView.center) {
+        this.setPlaceFormViewLatLng(ll);
+      }
+
+      if (this.hasBodyClass('content-visible') === false) {
+        this.setLocationRoute(zoom, ll.lat, ll.lng);
+      }
+    },
+    onMapDragEnd: function(evt) {
+      if (this.hasBodyClass('content-visible') === true) {
+        this.removeSpotlightMask();
+      }
+      this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
+    },
+    onClickAddPlaceBtn: function(evt) {
+      evt.preventDefault();
+      Util.log('USER', 'map', 'new-place-btn-click');
+      this.options.router.navigate('/new', {trigger: true});
+    },
+    onClickClosePanelBtn: function(evt) {
+      evt.preventDefault();
+
+      Util.log('USER', 'panel', 'close-btn-click');
+      // remove map mask if the user closes the side panel
+      this.removeSpotlightMask();
+      if (this.mapView.locationTypeFilter) {
+        this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
-        self.landmarks[landmarkConfig.id].fetch();
+        this.options.router.navigate('/', {trigger: true});
       }
-    });
-  },
 
-  loadPlaces: function(placeParams) {
-    var self = this,
-        $progressContainer = $('#map-progress'),
-        $currentProgress = $('#map-progress .current-progress'),
-        pageSize,
-        totalPages,
-        pagesComplete = 0;
+      if (this.isStoryActive) {
+        this.isStoryActive = false;
+        this.restoreDefaultLayerVisibility();
+      }
+    },
+    setBodyClass: function(/* newBodyClasses */) {
+      var bodyClasses = ['content-visible', 'place-form-visible'],
+          newBodyClasses = Array.prototype.slice.call(arguments, 0),
+          i, $body = $('body');
 
-    // loop over all place collections
-    _.each(self.places, function(collection, key) {
-      collection.fetchAllPages({
-        remove: false,
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        data: placeParams,
-        // get the dataset slug and id from the array of map layers
-        attributesToAdd: { datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug,
-                           datasetId: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).id },
-        attribute: 'properties',
+      for (i = 0; i < bodyClasses.length; ++i) {
+        $body.removeClass(bodyClasses[i]);
+      }
+      for (i = 0; i < newBodyClasses.length; ++i) {
+        // If the newBodyClass isn't among the ones that will be cleared
+        // (bodyClasses), then we probably don't want to use this method and
+        // should fail loudly.
+        if (_.indexOf(bodyClasses, newBodyClasses[i]) === -1) {
+          Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
+        }
+        $body.addClass(newBodyClasses[i]);
+      }
+    },
+    hasBodyClass: function(className) {
+      return $('body').hasClass(className);
+    },
+    conditionallyReverseGeocode: function() {
+      if (this.options.mapConfig.geocoding_enabled) {
+        this.mapView.reverseGeocodeMapCenter();
+      }
+    },
+    onRemovePlace: function(model) {
+      if (this.placeDetailViews[model.cid]) {
+        this.placeDetailViews[model.cid].remove();
+        delete this.placeDetailViews[model.cid];
+      }
+    },
+    // TODO: clean up landmark/place distinction here
+    getLandmarkDetailView: function(collectionId, model) {
+      var landmarkDetailView;
+      if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
+        landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
+      } else {
+        landmarkDetailView = new LandmarkDetailView({
+          model: model,
+          description: model.get('properties')['description'],
+          originalDescription: model.get('properties')['originalDescription'],
+          mapConfig: this.options.mapConfig,
+          mapView: this.mapView,
+          router: this.options.router
+        });
+        this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
+      }
+      return landmarkDetailView;
+    },
+    getPlaceDetailView: function(model, layerView) {
+      var placeDetailView;
+      if (this.placeDetailViews[model.cid]) {
+        placeDetailView = this.placeDetailViews[model.cid];
+      } else {
+        placeDetailView = new PlaceDetailView({
+          model: model,
+          appView: this,
+          layerView: layerView,
+          surveyConfig: this.options.surveyConfig,
+          supportConfig: this.options.supportConfig,
+          placeConfig: this.options.placeConfig,
+          storyConfig: this.options.storyConfig,
+          mapConfig: this.options.mapConfig,
+          placeTypes: this.options.placeTypes,
+          userToken: this.options.userToken,
+          mapView: this.mapView,
+          geometryEditorView: this.mapView.geometryEditorView,
+          router: this.options.router,
+          datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
+            return layer.slug == model.attributes.datasetSlug 
+          }).id
+        });
+        this.placeDetailViews[model.cid] = placeDetailView;
+      }
 
-        // Only do this for the first page...
-        pageSuccess: _.once(function(collection, data) {
-          pageSize = data.features.length;
-          totalPages = Math.ceil(data.metadata.length / pageSize);
+      return placeDetailView;
+    },
+    setLocationRoute: function(zoom, lat, lng) {
+      this.options.router.navigate('/' + zoom + '/' +
+        parseFloat(lat).toFixed(5) + '/' + parseFloat(lng).toFixed(5));
+    },
 
-          if (data.metadata.next) {
-            $progressContainer.show();
-          }
-        }),
+    viewMap: function(zoom, lat, lng) {
+      var self = this,
+          ll;
 
-        // Do this for every page...
-        pageComplete: function() {
-          var percent;
+      // If the map locatin is part of the url already
+      if (zoom && lat && lng) {
+        ll = L.latLng(parseFloat(lat), parseFloat(lng));
 
-          pagesComplete++;
-          percent = (pagesComplete/totalPages*100);
-          $currentProgress.width(percent + '%');
+        // Why defer? Good question. There is a mysterious race condition in
+        // some cases where the view fails to set and the user is left in map
+        // limbo. This condition is seemingly eliminated by defering the
+        // execution of this step.
+        _.defer(function() {
+          self.mapView.map.setView(ll, parseInt(zoom, 10));
+        });
+      }
 
-          if (pagesComplete === totalPages) {
-            _.delay(function() {
-              $progressContainer.hide();
-            }, 2000);
+      this.hidePanel();
+      this.hideNewPin();
+      this.destroyNewModels();
+      this.setBodyClass();
+    },
+    newPlace: function() {
+      var self = this;
+
+      if (!this.placeFormView) {
+        this.placeFormView = new PlaceFormView({
+          appView: this,
+          router: this.options.router,
+          placeConfig: this.options.placeConfig,
+          mapConfig: this.options.mapConfig,
+          userToken: this.options.userToken,
+          geometryEditorView: this.mapView.geometryEditorView,
+          // only need to send place collection, since all data added will be a place of some kind
+          collection: this.places
+        });
+      }
+
+      this.$panel.removeClass().addClass('place-form');
+      this.showPanel(this.placeFormView.render(false).$el);
+      this.placeFormView.postRender();
+
+      this.placeFormView.delegateEvents();
+      // Init the place form's address search bar
+      this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
+        el: '#geocode-address-place-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
+
+      this.showNewPin();
+      this.setBodyClass('content-visible', 'place-form-visible');
+    },
+
+    // If a model has a story object, set the appropriate layer
+    // visilbilities and update legend checkboxes
+    setStoryLayerVisibility: function(model) {
+      // change basemap if requested
+      if (model.attributes.story.basemap) {
+        $(Shareabouts).trigger('visibility', [model.attributes.story.basemap, true, true]);
+        $("#map-" + model.attributes.story.basemap).prop("checked", true);
+      }
+      // set layer visibility based on story config
+      _.each(model.attributes.story.visibleLayers, function(targetLayer) {
+        $(Shareabouts).trigger('visibility', [targetLayer, true]);
+        // set legend checkbox
+        $("#map-" + targetLayer).prop("checked", true);
+      });
+      // switch off all other layers
+      _.each(this.options.mapConfig.layers, function(targetLayer) {
+        if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
+          // don't turn off basemap layers!
+          if (targetLayer.type != "basemap") {
+            $(Shareabouts).trigger('visibility', [targetLayer.id, false]);
+            // set legend checkbox
+            $("#map-" + targetLayer.id).prop("checked", false);
           }
         }
       });
-    });
-  },
+    },
 
-  setPlaceFormViewLatLng: function(centerLatLng) {
-    if (this.placeFormView) {
-      this.placeFormView.setLatLng(centerLatLng);
-    }
-  },
-  onMapZoomEnd: function(evt) {
-    if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
-      this.removeSpotlightMask();
-    }
-    this.isProgrammaticZoom = false;
-  },
-  onMapMoveStart: function(evt) {
-    this.$centerpoint.addClass('dragging');
-  },
-  onMapMoveEnd: function(evt) {
-    var ll = this.mapView.map.getCenter(),
-        zoom = this.mapView.map.getZoom();
-
-    this.$centerpoint.removeClass('dragging');
-
-    // Never set the placeFormView's latLng until the user does it with a
-    // drag event (below)
-    if (this.placeFormView && this.placeFormView.center) {
-      this.setPlaceFormViewLatLng(ll);
-    }
-
-    if (this.hasBodyClass('content-visible') === false) {
-      this.setLocationRoute(zoom, ll.lat, ll.lng);
-    }
-  },
-  onMapDragEnd: function(evt) {
-    if (this.hasBodyClass('content-visible') === true) {
-      this.removeSpotlightMask();
-    }
-    this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
-  },
-  onClickAddPlaceBtn: function(evt) {
-    evt.preventDefault();
-    Util.log('USER', 'map', 'new-place-btn-click');
-    this.options.router.navigate('/new', {trigger: true});
-  },
-  onClickClosePanelBtn: function(evt) {
-    evt.preventDefault();
-
-    Util.log('USER', 'panel', 'close-btn-click');
-    // remove map mask if the user closes the side panel
-    this.removeSpotlightMask();
-    if (this.mapView.locationTypeFilter) {
-      this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
-    } else {
-      this.options.router.navigate('/', {trigger: true});
-    }
-
-    if (this.isStoryActive) {
-      this.isStoryActive = false;
-      this.restoreDefaultLayerVisibility();
-    }
-  },
-  setBodyClass: function(/* newBodyClasses */) {
-    var bodyClasses = ['content-visible', 'place-form-visible'],
-        newBodyClasses = Array.prototype.slice.call(arguments, 0),
-        i, $body = $('body');
-
-    for (i = 0; i < bodyClasses.length; ++i) {
-      $body.removeClass(bodyClasses[i]);
-    }
-    for (i = 0; i < newBodyClasses.length; ++i) {
-      // If the newBodyClass isn't among the ones that will be cleared
-      // (bodyClasses), then we probably don't want to use this method and
-      // should fail loudly.
-      if (_.indexOf(bodyClasses, newBodyClasses[i]) === -1) {
-        Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
+    restoreDefaultLayerVisibility: function() {
+      var triggerVisibility = function(id, isVisible, isBasemap) {
+        $(Shareabouts).trigger('visibility', [id, isVisible, isBasemap]);
+        $("#map-" + id).prop("checked", isVisible);
       }
-      $body.addClass(newBodyClasses[i]);
-    }
-  },
-  hasBodyClass: function(className) {
-    return $('body').hasClass(className);
-  },
-  conditionallyReverseGeocode: function() {
-    if (this.options.mapConfig.geocoding_enabled) {
-      this.mapView.reverseGeocodeMapCenter();
-    }
-  },
-  onRemovePlace: function(model) {
-    if (this.placeDetailViews[model.cid]) {
-      this.placeDetailViews[model.cid].remove();
-      delete this.placeDetailViews[model.cid];
-    }
-  },
-  // TODO: clean up landmark/place distinction here
-  getLandmarkDetailView: function(collectionId, model) {
-    var landmarkDetailView;
-    if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
-      landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
-    } else {
-      landmarkDetailView = new LandmarkDetailView({
-        model: model,
-        description: model.get('properties')['description'],
-        originalDescription: model.get('properties')['originalDescription'],
-        mapConfig: this.options.mapConfig,
-        mapView: this.mapView,
-        router: this.options.router
+
+      var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
+      _.each(gisLayersPanel.basemaps, function(basemap) {
+        if (basemap.visibleDefault) triggerVisibility(basemap.id, true, true);
       });
-      this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
-    }
-    return landmarkDetailView;
-  },
-  getPlaceDetailView: function(model, layerView) {
-    var placeDetailView;
-    if (this.placeDetailViews[model.cid]) {
-      placeDetailView = this.placeDetailViews[model.cid];
-    } else {
-      placeDetailView = new PlaceDetailView({
-        model: model,
-        appView: this,
-        layerView: layerView,
-        surveyConfig: this.options.surveyConfig,
-        supportConfig: this.options.supportConfig,
-        placeConfig: this.options.placeConfig,
-        storyConfig: this.options.storyConfig,
-        mapConfig: this.options.mapConfig,
-        placeTypes: this.options.placeTypes,
-        userToken: this.options.userToken,
-        mapView: this.mapView,
-        geometryEditorView: this.mapView.geometryEditorView,
-        router: this.options.router,
-        datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
-          return layer.slug == model.attributes.datasetSlug 
-        }).id
+
+      _.each(gisLayersPanel.groupings, function(grouping) {
+        _.each(grouping.layers, function(layer) {
+          triggerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
+        });
       });
-      this.placeDetailViews[model.cid] = placeDetailView;
-    }
+    },
+    viewPlaceOrLandmark: function(args) {
+      var self = this,
+        includeSubmissions = S.Config.flavor.app.list_enabled !== false,
+        layout = S.Util.getPageLayout(),
+        onFound, onNotFound, searchLoadedCollections, createCollectionsListeners,
+        foundInCallback = false;
 
-    return placeDetailView;
-  },
-  setLocationRoute: function(zoom, lat, lng) {
-    this.options.router.navigate('/' + zoom + '/' +
-      parseFloat(lat).toFixed(5) + '/' + parseFloat(lng).toFixed(5));
-  },
+      onFound = function(model, type, datasetId) {
+        var map = self.mapView.map,
+          layer, center, zoom, detailView, $responseToScrollTo;
 
-  viewMap: function(zoom, lat, lng) {
-    var self = this,
-        ll;
+        if (type === "place") {
+          // If this model is a duplicate of one that already exists in the
+          // places collection, it may not correspond to a layerView. For this
+          // case, get the model that's actually in the places collection.
+          if (_.isUndefined(self.mapView.layerViews[model.cid])) {
+            model = self.places[datasetId].get(model.id);
+          }
 
-    // If the map locatin is part of the url already
-    if (zoom && lat && lng) {
-      ll = L.latLng(parseFloat(lat), parseFloat(lng));
-
-      // Why defer? Good question. There is a mysterious race condition in
-      // some cases where the view fails to set and the user is left in map
-      // limbo. This condition is seemingly eliminated by defering the
-      // execution of this step.
-      _.defer(function() {
-        self.mapView.map.setView(ll, parseInt(zoom, 10));
-      });
-    }
-
-    this.hidePanel();
-    this.hideNewPin();
-    this.destroyNewModels();
-    this.setBodyClass();
-  },
-  newPlace: function() {
-    var self = this;
-
-    if (!this.placeFormView) {
-      this.placeFormView = new PlaceFormView({
-        appView: this,
-        router: this.options.router,
-        placeConfig: this.options.placeConfig,
-        mapConfig: this.options.mapConfig,
-        userToken: this.options.userToken,
-        geometryEditorView: this.mapView.geometryEditorView,
-        // only need to send place collection, since all data added will be a place of some kind
-        collection: this.places
-      });
-    }
-
-    this.$panel.removeClass().addClass('place-form');
-    this.showPanel(this.placeFormView.render(false).$el);
-    this.placeFormView.postRender();
-
-    this.placeFormView.delegateEvents();
-    // Init the place form's address search bar
-    this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
-      el: '#geocode-address-place-bar',
-      router: this.options.router,
-      mapConfig: this.options.mapConfig
-    })).render();
-
-    this.showNewPin();
-    this.setBodyClass('content-visible', 'place-form-visible');
-  },
-
-  // If a model has a story object, set the appropriate layer
-  // visilbilities and update legend checkboxes
-  setStoryLayerVisibility: function(model) {
-    // change basemap if requested
-    if (model.attributes.story.basemap) {
-      $(Shareabouts).trigger('visibility', [model.attributes.story.basemap, true, true]);
-      $("#map-" + model.attributes.story.basemap).prop("checked", true);
-    }
-    // set layer visibility based on story config
-    _.each(model.attributes.story.visibleLayers, function(targetLayer) {
-      $(Shareabouts).trigger('visibility', [targetLayer, true]);
-      // set legend checkbox
-      $("#map-" + targetLayer).prop("checked", true);
-    });
-    // switch off all other layers
-    _.each(this.options.mapConfig.layers, function(targetLayer) {
-      if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
-        // don't turn off basemap layers!
-        if (targetLayer.type != "basemap") {
-          $(Shareabouts).trigger('visibility', [targetLayer.id, false]);
-          // set legend checkbox
-          $("#map-" + targetLayer.id).prop("checked", false);
+          // TODO: We need to handle the non-deterministic case when
+          // 'self.mapView.layerViews[datasetId][model.cid]` is undefined -- ????
+          if (self.mapView.layerViews[datasetId] 
+            && self.mapView.layerViews[datasetId][model.cid]) {
+            layer = self.mapView.layerViews[datasetId][model.cid].layer;
+          }
+          detailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]).delegateEvents();
+          self.showPanel(detailView.render().$el, !!args.responseId);
+        } else if (type === "landmark") {
+          layer = self.mapView.layerViews[datasetId][model.id].layer;
+          detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
+          self.showPanel(detailView.render().$el, false);
         }
+
+        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
+        self.hideNewPin();
+        self.destroyNewModels();
+        self.hideCenterPoint();
+        self.setBodyClass('content-visible');
+        self.addSpotlightMask();
+
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+          zoom = map.getZoom();
+          
+          if (model.get("story")) {
+            if (!model.get("story").spotlight) {
+              this.removeSpotlightMask();
+            }
+            self.isStoryActive = true;
+            self.isProgrammaticZoom = true;
+            self.setStoryLayerVisibility(model);
+            center = model.get("story").panTo || center;
+            zoom = model.get("story").zoom;
+          }
+
+          if (layer.getLatLng) {
+            map.setView(center, zoom, {
+              animate: true,
+              reset: (args.loading) ? true : false
+            });
+          } else {
+            map.fitBounds(layer.getBounds(), {
+              animate: true,
+              reset: (args.loading) ? true : false
+            });
+          }
+        }
+
+        if (args.responseId) {
+          $responseToScrollTo = detailView.$el.find('[data-response-id="'+ args.responseId +'"]');
+          if ($responseToScrollTo.length > 0) {
+            if (layout === '"desktop"') {
+              // For desktop, the panel content is scrollable
+              self.$panelContent.scrollTo($responseToScrollTo, 500);
+            } else {
+              // For mobile, it's the window
+              $(window).scrollTo($responseToScrollTo, 500);
+            }
+          }
+        }
+
+        model.trigger('focus');        
+        if (!model.get("story") && self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
+        }
+      };
+
+      onNotFound = function() {
+        self.options.router.navigate('/');
+        return;
+      };
+
+      searchLoadedCollections = function(collections, property, type) {
+        var found = false,
+        searchTerm = {};
+        searchTerm[property] = args.modelId;
+        _.find(collections, function(collection, datasetId) {
+          var model = collection.where(searchTerm);
+          if (model.length === 1) {
+            found = true;
+            onFound(model[0], type, datasetId);
+            return;
+          }
+        });
+
+        return found;
+      };
+
+      bindCollectionsListeners = function(collections, property, type, finalCollection) {
+        var numCollections = _.keys(collections).length,
+        i = 0,
+        searchTerm = {};
+        searchTerm[property] = args.modelId;
+        _.each(collections, function(collection, datasetId) {
+          collection.on("sync", function(syncedCollection) {
+            i++;
+            var model = syncedCollection.where(searchTerm);
+            if (model.length === 1) {
+              foundInCallback = true;
+              onFound(model[0], type, datasetId);
+            } else if (numCollections === i && finalCollection && !foundInCallback) {
+              // if this is the last collection of the set and the final
+              // set of collections and no model has been found, it means the
+              // model doesn't exist.
+              onNotFound();
+            }
+          });
+        });
+      };
+
+      if (args.datasetSlug) {
+        // If we have a slug, we definitely have a place model
+        var datasetId = _.find(self.options.mapConfig.layers, function(layer) { 
+          return layer.slug === args.datasetSlug;
+        }).id;
+        model = this.places[datasetId].get(args.modelId);
+        if (model) {
+          onFound(model, "place", datasetId);
+          return;
+        } else {
+          this.places[datasetId].fetchById(args.modelId, {
+            validate: true,
+            success: function(model) {
+              onFound(model, "place", datasetId);
+              return;
+            },
+            error: function() {
+              onNotFound();
+              return;
+            },
+            data: {
+              include_submissions: includeSubmissions
+            }
+          });
+        }
+      } else {
+        // Otherwise, we have a landmark-style url, which may correspond
+        // to a place or a landmark.
+        // Conduct a search according to the following strategy: 
+        // 1. check loaded place collections
+        // 2. check loaded landmark collections
+        // 3. set up sync listeners on all place and landmark collections
+        if (searchLoadedCollections(this.places, "url-title", "place")) {
+          return;
+        };
+        if (searchLoadedCollections(this.landmarks, "id", "landmark")) {
+          return;
+        };
+        bindCollectionsListeners(this.places, "url-title", "place", false);
+        bindCollectionsListeners(this.landmarks, "id", "landmark", true);
       }
-    });
-  },
+    },
+    viewPlace: function(datasetSlug, model, responseId, zoom) {
+      var self = this,
+          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+          layout = Util.getPageLayout(),
+          // get the dataset id from the map layers array for the given datasetSlug
+          datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
+          onPlaceFound, onPlaceNotFound, modelId;
 
-  restoreDefaultLayerVisibility: function() {
-    var triggerVisibility = function(id, isVisible, isBasemap) {
-      $(Shareabouts).trigger('visibility', [id, isVisible, isBasemap]);
-      $("#map-" + id).prop("checked", isVisible);
-    }
+      onPlaceFound = function(model) {
+        var map = self.mapView.map,
+            layer, center, $responseToScrollTo;
 
-    var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
-    _.each(gisLayersPanel.basemaps, function(basemap) {
-      if (basemap.visibleDefault) triggerVisibility(basemap.id, true, true);
-    });
-
-    _.each(gisLayersPanel.groupings, function(grouping) {
-      _.each(grouping.layers, function(layer) {
-        triggerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
-      });
-    });
-  },
-  viewPlaceOrLandmark: function(args) {
-    var self = this,
-      includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-      layout = S.Util.getPageLayout(),
-      onFound, onNotFound, searchLoadedCollections, createCollectionsListeners,
-      foundInCallback = false;
-
-    onFound = function(model, type, datasetId) {
-      var map = self.mapView.map,
-        layer, center, zoom, detailView, $responseToScrollTo;
-
-      if (type === "place") {
         // If this model is a duplicate of one that already exists in the
         // places collection, it may not correspond to a layerView. For this
         // case, get the model that's actually in the places collection.
@@ -650,445 +823,272 @@ module.exports = Backbone.View.extend({
         }
 
         // TODO: We need to handle the non-deterministic case when
-        // 'self.mapView.layerViews[datasetId][model.cid]` is undefined -- ????
-        if (self.mapView.layerViews[datasetId] 
-          && self.mapView.layerViews[datasetId][model.cid]) {
+        // 'self.mapView.layerViews[model.cid]` is undefined
+        if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
-        detailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]).delegateEvents();
-        self.showPanel(detailView.render().$el, !!args.responseId);
-      } else if (type === "landmark") {
-        layer = self.mapView.layerViews[datasetId][model.id].layer;
-        detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
-        self.showPanel(detailView.render().$el, false);
-      }
 
-      self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-      self.hideNewPin();
-      self.destroyNewModels();
-      self.hideCenterPoint();
-      self.setBodyClass('content-visible');
-      self.addSpotlightMask();
+        self.activeDetailView = self.getPlaceDetailView(model);
+        self.activeDetailView.isModified = false;
+        self.activeDetailView.isEditingToggled = false;
 
-      if (layer) {
-        center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
-        zoom = map.getZoom();
-        
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) {
-            this.removeSpotlightMask();
-          }
-          self.isStoryActive = true;
-          self.isProgrammaticZoom = true;
-          self.setStoryLayerVisibility(model);
-          center = model.get("story").panTo || center;
-          zoom = model.get("story").zoom;
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
         }
 
-        if (layer.getLatLng) {
-          map.setView(center, zoom, {
-            animate: true,
-            reset: (args.loading) ? true : false
-          });
-        } else {
-          map.fitBounds(layer.getBounds(), {
-            animate: true,
-            reset: (args.loading) ? true : false
-          });
-        }
-      }
+        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
+        self.showPanel(self.activeDetailView.render().$el, !!responseId);
+        self.activeDetailView.delegateEvents();
+        // TODO(Trevor): prevent default form behavior when in editing mode
 
-      if (args.responseId) {
-        $responseToScrollTo = detailView.$el.find('[data-response-id="'+ args.responseId +'"]');
-        if ($responseToScrollTo.length > 0) {
-          if (layout === '"desktop"') {
-            // For desktop, the panel content is scrollable
-            self.$panelContent.scrollTo($responseToScrollTo, 500);
+        self.hideNewPin();
+        self.destroyNewModels();
+        self.hideCenterPoint();
+        self.setBodyClass('content-visible');
+
+        if (layer) {
+          if (zoom) {
+            if (layer.getLatLng) {
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.isProgrammaticZoom = true;
+                self.setStoryLayerVisibility(model);
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
+            } else {
+              map.fitBounds(layer.getBounds(), {reset: true});
+            }
+
           } else {
-            // For mobile, it's the window
-            $(window).scrollTo($responseToScrollTo, 500);
+            if (model.attributes.story) {
+              self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
+            } else {
+              map.panTo(center, {animate: true});
+            }
           }
         }
-      }
+        self.addSpotlightMask();
 
-      model.trigger('focus');        
-      if (!model.get("story") && self.isStoryActive) {
-        self.isStoryActive = false;
-        self.restoreDefaultLayerVisibility();
-      }
-    };
+        if (responseId) {
+          // get the element based on the id
+          $responseToScrollTo = self.activeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
 
-    onNotFound = function() {
-      self.options.router.navigate('/');
-      return;
-    };
-
-    searchLoadedCollections = function(collections, property, type) {
-      var found = false,
-      searchTerm = {};
-      searchTerm[property] = args.modelId;
-      _.find(collections, function(collection, datasetId) {
-        var model = collection.where(searchTerm);
-        if (model.length === 1) {
-          found = true;
-          onFound(model[0], type, datasetId);
-          return;
-        }
-      });
-
-      return found;
-    };
-
-    bindCollectionsListeners = function(collections, property, type, finalCollection) {
-      var numCollections = _.keys(collections).length,
-      i = 0,
-      searchTerm = {};
-      searchTerm[property] = args.modelId;
-      _.each(collections, function(collection, datasetId) {
-        collection.on("sync", function(syncedCollection) {
-          i++;
-          var model = syncedCollection.where(searchTerm);
-          if (model.length === 1) {
-            foundInCallback = true;
-            onFound(model[0], type, datasetId);
-          } else if (numCollections === i && finalCollection && !foundInCallback) {
-            // if this is the last collection of the set and the final
-            // set of collections and no model has been found, it means the
-            // model doesn't exist.
-            onNotFound();
+          // call scrollIntoView()
+          if ($responseToScrollTo.length > 0) {
+            if (layout === 'desktop') {
+              // For desktop, the panel content is scrollable
+              self.$panelContent.scrollTo($responseToScrollTo, 500);
+            } else {
+              // For mobile, it's the window
+              $(window).scrollTo($responseToScrollTo, 500);
+            }
           }
-        });
-      });
-    };
+        }
 
-    if (args.datasetSlug) {
-      // If we have a slug, we definitely have a place model
-      var datasetId = _.find(self.options.mapConfig.layers, function(layer) { 
-        return layer.slug === args.datasetSlug;
-      }).id;
-      model = this.places[datasetId].get(args.modelId);
-      if (model) {
-        onFound(model, "place", datasetId);
+        // Focus the one we're looking
+        model.trigger('focus');
+
+        if (model.get("story")) {
+          if (!model.get("story").spotlight) this.removeSpotlightMask();
+          self.isStoryActive = true;
+          self.setStoryLayerVisibility(model);
+        } else if (self.isStoryActive) {
+          self.isStoryActive = false;
+          self.restoreDefaultLayerVisibility();
+        } else {
+          self.isStoryActive = false;
+        }
+      };
+
+      onPlaceNotFound = function() {
+        self.options.router.navigate('/');
+      };
+
+      // If we get a PlaceModel then show it immediately.
+      if (model instanceof PlaceModel) {
+        onPlaceFound(model);
         return;
+      }
+
+      // Otherwise, assume we have a model ID.
+      modelId = model;
+      model = this.places[datasetId].get(modelId);
+
+      // If the model was found in the places, go ahead and use it.
+      if (model) {
+        onPlaceFound(model);
+
+      // Otherwise, fetch and use the result.
       } else {
-        this.places[datasetId].fetchById(args.modelId, {
+        this.places[datasetId].fetchById(modelId, {
+          // Check for a valid location type before adding it to the collection
           validate: true,
-          success: function(model) {
-            onFound(model, "place", datasetId);
-            return;
-          },
-          error: function() {
-            onNotFound();
-            return;
-          },
+          success: onPlaceFound,
+          error: onPlaceNotFound,
           data: {
             include_submissions: includeSubmissions
           }
         });
       }
-    } else {
-      // Otherwise, we have a landmark-style url, which may correspond
-      // to a place or a landmark.
-      // Conduct a search according to the following strategy: 
-      // 1. check loaded place collections
-      // 2. check loaded landmark collections
-      // 3. set up sync listeners on all place and landmark collections
-      if (searchLoadedCollections(this.places, "url-title", "place")) {
-        return;
-      };
-      if (searchLoadedCollections(this.landmarks, "id", "landmark")) {
-        return;
-      };
-      bindCollectionsListeners(this.places, "url-title", "place", false);
-      bindCollectionsListeners(this.landmarks, "id", "landmark", true);
-    }
-  },
-  viewPlace: function(datasetSlug, model, responseId, zoom) {
-    var self = this,
-        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
-        layout = Util.getPageLayout(),
-        // get the dataset id from the map layers array for the given datasetSlug
-        datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
-        onPlaceFound, onPlaceNotFound, modelId;
+    },
+    viewPage: function(slug) {
+      var pageConfig = Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
+          pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
+          pageHtml = Handlebars.templates[pageTemplateName]({config: this.options.config});
 
-    onPlaceFound = function(model) {
-      var map = self.mapView.map,
-          layer, center, $responseToScrollTo;
+      this.$panel.removeClass().addClass('page page-' + slug);
+      this.showPanel(pageHtml);
 
-      // If this model is a duplicate of one that already exists in the
-      // places collection, it may not correspond to a layerView. For this
-      // case, get the model that's actually in the places collection.
-      if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-        model = self.places[datasetId].get(model.id);
-      }
+      this.hideNewPin();
+      this.destroyNewModels();
+      this.hideCenterPoint();
+      this.setBodyClass('content-visible');
+    },
+    showPanel: function(markup, preventScrollToTop) {
+      var map = this.mapView.map;
 
-      // TODO: We need to handle the non-deterministic case when
-      // 'self.mapView.layerViews[model.cid]` is undefined
-      if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
-        layer = self.mapView.layerViews[datasetId][model.cid].layer;
-      }
+      this.unfocusAllPlaces();
 
-      self.activeDetailView = self.getPlaceDetailView(model);
-      self.activeDetailView.isModified = false;
-      self.activeDetailView.isEditingToggled = false;
+      this.$panelContent.html(markup);
+      this.$panel.show();
 
-      if (layer) {
-        center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
-      }
-
-      self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-      self.showPanel(self.activeDetailView.render().$el, !!responseId);
-      self.activeDetailView.delegateEvents();
-      // TODO(Trevor): prevent default form behavior when in editing mode
-
-      self.hideNewPin();
-      self.destroyNewModels();
-      self.hideCenterPoint();
-      self.setBodyClass('content-visible');
-
-      if (layer) {
-        if (zoom) {
-          if (layer.getLatLng) {
-            if (model.attributes.story) {
-              // TODO(Trevor): this needs to be cleaned up
-              self.isProgrammaticZoom = true;
-              self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-            } else {
-              map.setView(center, map.getMaxZoom()-1, {reset: true});
-            }
-          } else {
-            map.fitBounds(layer.getBounds(), {reset: true});
-          }
-
+      if (!preventScrollToTop) {
+        // will be "mobile" or "desktop", as defined in default.css
+        var layout = Util.getPageLayout();
+        if (layout === 'desktop') {
+          // For desktop, the panel content is scrollable
+          this.$panelContent.scrollTo(0, 0);
         } else {
-          if (model.attributes.story) {
-            self.isProgrammaticZoom = true;
-            self.setStoryLayerVisibility(model);
-            map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-          } else {
-            map.panTo(center, {animate: true});
+          // Scroll to the top of window when showing new content on mobile. Does
+          // nothing on desktop. (Except when embedded in a scrollable site.)
+          window.scrollTo(0, 0);
+        }
+      }
+
+      this.setBodyClass('content-visible');
+      map.invalidateSize({ animate:true, pan:true });
+
+      $(Shareabouts).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
+
+      $("#add-place-btn-container").attr("class", "pos-top-left");
+
+      Util.log('APP', 'panel-state', 'open');
+    },
+    showNewPin: function() {
+      this.$centerpoint.show().addClass('newpin');
+
+      this.addSpotlightMask();
+    },
+    showAddButton: function() {
+      this.$addButton.show();
+    },
+    hideAddButton: function() {
+      this.$addButton.hide();
+    },
+    showCenterPoint: function() {
+      this.$centerpoint.show().removeClass('newpin');
+    },
+    hideCenterPoint: function() {
+      this.$centerpoint.hide();
+    },
+    hidePanel: function() {
+      var map = this.mapView.map;
+
+      this.unfocusAllPlaces();
+      this.$panel.hide();
+      this.setBodyClass();
+      map.invalidateSize({ animate:true, pan:true });
+
+      $("#add-place-btn-container").attr("class", "pos-top-right");
+
+      Util.log('APP', 'panel-state', 'closed');
+      this.removeSpotlightMask();
+    },
+    hideNewPin: function() {
+      this.showCenterPoint();
+    },
+    addSpotlightMask: function() {
+      // remove an existing mask
+      this.removeSpotlightMask();
+
+      var spotlightDiameter = 200,
+          xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
+          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
+      $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
+      $("#spotlight-place-mask-fill").css("left", xOffset + "px")
+        .css("top", yOffset + "px")
+        .css("width", spotlightDiameter + "px")
+        .css("height", spotlightDiameter + "px")
+        // scale the box shadow to the largest screen dimension; 
+        // an arbitrarily large box shadow won't get drawn in Safari
+        .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+    },
+    removeSpotlightMask: function() {
+      $("#spotlight-place-mask").remove();
+    },
+    unfocusAllPlaces: function() {
+      // Unfocus all of the place markers
+      _.each(this.places, function(collection) {
+        collection.each(function(model) {
+          if (!model.isNew()) {
+            model.trigger('unfocus');
           }
-        }
-      }
-      self.addSpotlightMask();
+        });
+      });
 
-      if (responseId) {
-        // get the element based on the id
-        $responseToScrollTo = self.activeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
-
-        // call scrollIntoView()
-        if ($responseToScrollTo.length > 0) {
-          if (layout === 'desktop') {
-            // For desktop, the panel content is scrollable
-            self.$panelContent.scrollTo($responseToScrollTo, 500);
-          } else {
-            // For mobile, it's the window
-            $(window).scrollTo($responseToScrollTo, 500);
+      // Unfocus all of the landmark markers
+      _.each(this.landmarks, function(collection) {
+        collection.each(function(model) {
+          if (!model.isNew()) {
+            model.trigger('unfocus');
           }
-        }
-      }
+        });
+      });
+    },
+    destroyNewModels: function() {
+      _.each(this.places, function(collection) {
+        collection.each(function(model) {
+          if (model && model.isNew()) {
+            model.destroy()
+          }
+        });
+      });
 
-      // Focus the one we're looking
-      model.trigger('focus');
+      _.each(this.landmarks, function(collection) {
+        collection.each(function(model) {
+          if (model && model.isNew()) {
+            model.destroy()
+          }
+        });
+      });
+    },
 
-      if (model.get("story")) {
-        if (!model.get("story").spotlight) this.removeSpotlightMask();
-        self.isStoryActive = true;
-        self.setStoryLayerVisibility(model);
-      } else if (self.isStoryActive) {
-        self.isStoryActive = false;
-        self.restoreDefaultLayerVisibility();
+    render: function() {
+      this.mapView.render();
+    },
+    showListView: function() {
+      // Re-sort if new places have come in
+      this.listView.sort();
+      // Show
+      this.listView.$el.addClass('is-exposed');
+      $('.show-the-list').addClass('is-visuallyhidden');
+      $('.show-the-map').removeClass('is-visuallyhidden');
+    },
+    hideListView: function() {
+      this.listView.$el.removeClass('is-exposed');
+      $('.show-the-list').removeClass('is-visuallyhidden');
+      $('.show-the-map').addClass('is-visuallyhidden');
+    },
+    toggleListView: function() {
+      if (this.listView.isVisible()) {
+        this.options.router.navigate('/', {"trigger": true});
       } else {
-        self.isStoryActive = false;
+        this.options.router.navigate('list', {"trigger": true});
       }
-    };
-
-    onPlaceNotFound = function() {
-      self.options.router.navigate('/');
-    };
-
-    // If we get a PlaceModel then show it immediately.
-    if (model instanceof PlaceModel) {
-      onPlaceFound(model);
-      return;
+      this.mapView.clearFilter();
     }
-
-    // Otherwise, assume we have a model ID.
-    modelId = model;
-    model = this.places[datasetId].get(modelId);
-
-    // If the model was found in the places, go ahead and use it.
-    if (model) {
-      onPlaceFound(model);
-
-    // Otherwise, fetch and use the result.
-    } else {
-      this.places[datasetId].fetchById(modelId, {
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        success: onPlaceFound,
-        error: onPlaceNotFound,
-        data: {
-          include_submissions: includeSubmissions
-        }
-      });
-    }
-  },
-  viewPage: function(slug) {
-    var pageConfig = Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
-        pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
-        pageHtml = Handlebars.templates[pageTemplateName]({config: this.options.config});
-
-    this.$panel.removeClass().addClass('page page-' + slug);
-    this.showPanel(pageHtml);
-
-    this.hideNewPin();
-    this.destroyNewModels();
-    this.hideCenterPoint();
-    this.setBodyClass('content-visible');
-  },
-  showPanel: function(markup, preventScrollToTop) {
-    var map = this.mapView.map;
-
-    this.unfocusAllPlaces();
-
-    this.$panelContent.html(markup);
-    this.$panel.show();
-
-    if (!preventScrollToTop) {
-      // will be "mobile" or "desktop", as defined in default.css
-      var layout = Util.getPageLayout();
-      if (layout === 'desktop') {
-        // For desktop, the panel content is scrollable
-        this.$panelContent.scrollTo(0, 0);
-      } else {
-        // Scroll to the top of window when showing new content on mobile. Does
-        // nothing on desktop. (Except when embedded in a scrollable site.)
-        window.scrollTo(0, 0);
-      }
-    }
-
-    this.setBodyClass('content-visible');
-    map.invalidateSize({ animate:true, pan:true });
-
-    $(Shareabouts).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
-
-    $("#add-place-btn-container").attr("class", "pos-top-left");
-
-    Util.log('APP', 'panel-state', 'open');
-  },
-  showNewPin: function() {
-    this.$centerpoint.show().addClass('newpin');
-
-    this.addSpotlightMask();
-  },
-  showAddButton: function() {
-    this.$addButton.show();
-  },
-  hideAddButton: function() {
-    this.$addButton.hide();
-  },
-  showCenterPoint: function() {
-    this.$centerpoint.show().removeClass('newpin');
-  },
-  hideCenterPoint: function() {
-    this.$centerpoint.hide();
-  },
-  hidePanel: function() {
-    var map = this.mapView.map;
-
-    this.unfocusAllPlaces();
-    this.$panel.hide();
-    this.setBodyClass();
-    map.invalidateSize({ animate:true, pan:true });
-
-    $("#add-place-btn-container").attr("class", "pos-top-right");
-
-    Util.log('APP', 'panel-state', 'closed');
-    this.removeSpotlightMask();
-  },
-  hideNewPin: function() {
-    this.showCenterPoint();
-  },
-  addSpotlightMask: function() {
-    // remove an existing mask
-    this.removeSpotlightMask();
-
-    var spotlightDiameter = 200,
-        xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
-        yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
-    $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
-    $("#spotlight-place-mask-fill").css("left", xOffset + "px")
-      .css("top", yOffset + "px")
-      .css("width", spotlightDiameter + "px")
-      .css("height", spotlightDiameter + "px")
-      // scale the box shadow to the largest screen dimension; 
-      // an arbitrarily large box shadow won't get drawn in Safari
-      .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
-  },
-  removeSpotlightMask: function() {
-    $("#spotlight-place-mask").remove();
-  },
-  unfocusAllPlaces: function() {
-    // Unfocus all of the place markers
-    _.each(this.places, function(collection) {
-      collection.each(function(model) {
-        if (!model.isNew()) {
-          model.trigger('unfocus');
-        }
-      });
-    });
-
-    // Unfocus all of the landmark markers
-    _.each(this.landmarks, function(collection) {
-      collection.each(function(model) {
-        if (!model.isNew()) {
-          model.trigger('unfocus');
-        }
-      });
-    });
-  },
-  destroyNewModels: function() {
-    _.each(this.places, function(collection) {
-      collection.each(function(model) {
-        if (model && model.isNew()) {
-          model.destroy()
-        }
-      });
-    });
-
-    _.each(this.landmarks, function(collection) {
-      collection.each(function(model) {
-        if (model && model.isNew()) {
-          model.destroy()
-        }
-      });
-    });
-  },
-
-  render: function() {
-    this.mapView.render();
-  },
-  showListView: function() {
-    // Re-sort if new places have come in
-    this.listView.sort();
-    // Show
-    this.listView.$el.addClass('is-exposed');
-    $('.show-the-list').addClass('is-visuallyhidden');
-    $('.show-the-map').removeClass('is-visuallyhidden');
-  },
-  hideListView: function() {
-    this.listView.$el.removeClass('is-exposed');
-    $('.show-the-list').removeClass('is-visuallyhidden');
-    $('.show-the-map').addClass('is-visuallyhidden');
-  },
-  toggleListView: function() {
-    if (this.listView.isVisible()) {
-      this.options.router.navigate('/', {"trigger": true});
-    } else {
-      this.options.router.navigate('list', {"trigger": true});
-    }
-    this.mapView.clearFilter();
-  }
-});
+  });
