@@ -5,11 +5,13 @@
     initialize: function(){
       this.map = this.options.map;
       this.isFocused = false;
+      
+      this.layerGroup = this.options.layerGroup;
 
       // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
 
-      this.map.on('zoomend', this.updateLayer, this);
+      this.map.on('zoomend', this.onZoomend, this);
 
       // Bind model events
       this.model.on('change', this.updateLayer, this);
@@ -92,6 +94,16 @@
       // and is capable of calling view methods on a "deleted" view.
       this.map.off('zoomend', this.updateLayer, this);
     },
+    onZoomend: function() {
+      // Don't try to update layers for polygonal and linestring geometry on zoomend.
+      // This creates problems if a layer is in editing mode, and in any
+      // case we don't have config-based layer style rules (although this
+      // might change down the road).
+      if (this.model.get("geometry") 
+        && this.model.get("geometry").type === "Point") {
+        this.updateLayer();
+      }
+    },
     updateLayer: function() {
       // Update the marker layer if the model changes and the layer exists
       this.removeLayer();
@@ -99,7 +111,7 @@
     },
     removeLayer: function() {
       if (this.layer) {
-        this.options.layer.removeLayer(this.layer);
+        this.layerGroup.removeLayer(this.layer);
       }
     },
     render: function() {
@@ -117,22 +129,14 @@
       }
     },
     onMarkerClick: function() {
-      var self = this;
-      self.layer.editing.enable();
-      self.layer = L.featureGroup([self.layer]).setStyle({fillColor: "#FF0000"});
-
-      var drawControl = new L.Control.Draw({
-        position: 'bottomright',
-        edit: {
-          featureGroup: self.layer
-        }
-      });
-      this.map.addControl(drawControl);
-
       Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
-      this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
+      // support places with landmark-style urls
+      if (this.model.get("url-title")) {
+        this.options.router.navigate('/' + this.model.get("url-title"), {trigger: true});
+      } else {
+        this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
+      }     
     },
-
     isPoint: function() {
       return this.model.get('geometry').type == 'Point';
     },
@@ -168,7 +172,7 @@
       if (!this.options.mapView.locationTypeFilter ||
         this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
         if (this.layer) {
-          this.options.layer.addLayer(this.layer);
+          this.layerGroup.addLayer(this.layer);
         }
       } else {
         this.hide();

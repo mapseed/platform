@@ -13,7 +13,7 @@
     },
     initialize: function() {
       var self = this;
-      
+
       Backbone.Events.on("panel:close", this.closePanel, this);
       this.resetFormState();
       this.options.router.on("route", this.resetFormState, this);
@@ -73,7 +73,7 @@
         this.geometryEditorView.tearDown();
         this.options.appView.showNewPin();
       }
-      
+
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
       return this;
@@ -84,7 +84,7 @@
       $prompt;
 
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-      if ($(".rawHTML").length > 0) {
+      if (isCategorySelected && $(".rawHTML").length > 0) {
         // NOTE: we currently support a single QuillJS field per form
         $prompt = $(".rawHTML").find("label").detach();
 
@@ -103,9 +103,7 @@
           theme: "snow",
           bounds: "#content",
           placeholder: _.find(
-            _.find(self.formState.placeDetail, function(categoryConfig) { 
-              return categoryConfig.category === self.formState.selectedCategory
-            }).fields, function(categoryField) {
+            this.formState.selectedCategoryConfig.fields, function(categoryField) {
               return categoryField.type === "rawHTML"
             }).placeholder
         }),
@@ -151,13 +149,11 @@
     },
     getAttrs: function() {
       console.log("getAttrs");
-      
+
       var self = this,
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
-
-      // Get values from the form
       attrs = Util.getAttrs($form);
 
       // get values off of binary toggle buttons that have not been toggled
@@ -175,7 +171,7 @@
           S.Util.saveAutocompleteValue(key, value, 30);
         }
       });
-        
+      
       if (this.formState.selectedCategoryConfig.enable_geometry) {
         attrs.geometry = this.geometryEditorView.geometry;
       } else {
@@ -200,7 +196,7 @@
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
         return place.category == $(evt.target).parent().prev().attr('id');
       });
-      
+
       this.render(true);
       this.postRender(true);
       $(evt.target).parent().prev().prop("checked", true);
@@ -331,7 +327,7 @@
         return self.formState.selectedCategoryConfig.dataset == layer.id;
       }).slug);
       model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
-      
+
       // if an attachment has been added...
       if (self.formState.attachmentData) {
         var attachment = model.attachmentCollection.find(function(attachmentModel) {

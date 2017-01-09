@@ -803,138 +803,6 @@
         bindCollectionsListeners(this.landmarks, "id", "landmark", true);
       }
     },
-    viewPlace: function(datasetSlug, model, responseId, zoom) {
-      var self = this,
-          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
-          layout = Util.getPageLayout(),
-          // get the dataset id from the map layers array for the given datasetSlug
-          datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
-          onPlaceFound, onPlaceNotFound, modelId;
-
-      onPlaceFound = function(model) {
-        var map = self.mapView.map,
-            layer, center, $responseToScrollTo;
-
-        // If this model is a duplicate of one that already exists in the
-        // places collection, it may not correspond to a layerView. For this
-        // case, get the model that's actually in the places collection.
-        if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places[datasetId].get(model.id);
-        }
-
-        // TODO: We need to handle the non-deterministic case when
-        // 'self.mapView.layerViews[model.cid]` is undefined
-        if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
-          layer = self.mapView.layerViews[datasetId][model.cid].layer;
-        }
-
-        self.activeDetailView = self.getPlaceDetailView(model);
-        self.activeDetailView.isModified = false;
-        self.activeDetailView.isEditingToggled = false;
-
-        if (layer) {
-          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
-        }
-
-        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(self.activeDetailView.render().$el, !!responseId);
-        self.activeDetailView.delegateEvents();
-        // TODO(Trevor): prevent default form behavior when in editing mode
-
-        self.hideNewPin();
-        self.destroyNewModels();
-        self.hideCenterPoint();
-        self.setBodyClass('content-visible');
-
-        if (layer) {
-          if (zoom) {
-            if (layer.getLatLng) {
-              if (model.attributes.story) {
-                // TODO(Trevor): this needs to be cleaned up
-                self.isProgrammaticZoom = true;
-                self.setStoryLayerVisibility(model);
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-              } else {
-                map.setView(center, map.getMaxZoom()-1, {reset: true});
-              }
-            } else {
-              map.fitBounds(layer.getBounds(), {reset: true});
-            }
-
-          } else {
-            if (model.attributes.story) {
-              self.isProgrammaticZoom = true;
-              self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-            } else {
-              map.panTo(center, {animate: true});
-            }
-          }
-        }
-        self.addSpotlightMask();
-
-        if (responseId) {
-          // get the element based on the id
-          $responseToScrollTo = self.activeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
-
-          // call scrollIntoView()
-          if ($responseToScrollTo.length > 0) {
-            if (layout === 'desktop') {
-              // For desktop, the panel content is scrollable
-              self.$panelContent.scrollTo($responseToScrollTo, 500);
-            } else {
-              // For mobile, it's the window
-              $(window).scrollTo($responseToScrollTo, 500);
-            }
-          }
-        }
-
-        // Focus the one we're looking
-        model.trigger('focus');
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) this.removeSpotlightMask();
-          self.isStoryActive = true;
-          self.setStoryLayerVisibility(model);
-        } else if (self.isStoryActive) {
-          self.isStoryActive = false;
-          self.restoreDefaultLayerVisibility();
-        } else {
-          self.isStoryActive = false;
-        }
-      };
-
-      onPlaceNotFound = function() {
-        self.options.router.navigate('/');
-      };
-
-      // If we get a PlaceModel then show it immediately.
-      if (model instanceof PlaceModel) {
-        onPlaceFound(model);
-        return;
-      }
-
-      // Otherwise, assume we have a model ID.
-      modelId = model;
-      model = this.places[datasetId].get(modelId);
-
-      // If the model was found in the places, go ahead and use it.
-      if (model) {
-        onPlaceFound(model);
-
-      // Otherwise, fetch and use the result.
-      } else {
-        this.places[datasetId].fetchById(modelId, {
-          // Check for a valid location type before adding it to the collection
-          validate: true,
-          success: onPlaceFound,
-          error: onPlaceNotFound,
-          data: {
-            include_submissions: includeSubmissions
-          }
-        });
-      }
-    },
     viewPage: function(slug) {
       var pageConfig = Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
           pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
@@ -1012,9 +880,7 @@
       this.showCenterPoint();
     },
     addSpotlightMask: function() {
-      // remove an existing mask
       this.removeSpotlightMask();
-
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
           yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);

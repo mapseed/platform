@@ -51,7 +51,7 @@
 
       return attrs;
     },
-    
+
     // attempt to save form autocomplete values in localStorage;
     // fall back to cookies
     saveAutocompleteValue: function(name, value, days) {
@@ -93,8 +93,8 @@
           if (major > 7) {
             return true;
           }
-     default:
-      return true;
+        default:
+          return true;
       }
 
       return false;
@@ -380,7 +380,7 @@
         this.save(name,'',-1);
       }
     },
-    
+
     localstorage: {
       LOCALSTORAGE_PREFIX: "mapseed-",
       save: function(name, value, days) {

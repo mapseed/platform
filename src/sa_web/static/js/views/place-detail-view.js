@@ -103,6 +103,19 @@
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
       this.render();
+      
+      if (toggled && (this.model.get("geometry").type === "Polygon"
+        || this.model.get("geometry").type === "LineString")) {
+        this.options.appView.removeSpotlightMask();
+        this.geometryEditorView.render({
+          isCreatingNewGeometry: false,
+          style: this.model.get("style"),
+          geometryType: this.model.get("geometry").type,
+          existingLayer: this.options.layerView.layer,
+          existingLayerGroup: this.options.layerView.layerGroup,
+          placeDetailView: this
+        });
+      }
     },
 
     render: function() {
@@ -292,9 +305,20 @@
           self.model.unset($(this).attr("id"));
         }
       });
+      
+      if (this.geometryEditorView) {
+        attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
+        attrs.style = {
+          color: this.geometryEditorView.colorpicker.color,
+          opacity: this.geometryEditorView.colorpicker.opacity,
+          fillColor: this.geometryEditorView.colorpicker.fillColor,
+          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
+        }
+      }
 
       this.model.save(attrs, {
         success: function() {
+          self.geometryEditorView.tearDown();
           self.isModified = false;
           self.isEditingToggled = false;
           self.render();

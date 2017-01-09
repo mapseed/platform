@@ -36,7 +36,7 @@
       if (self.options.mapConfig.geolocation_enabled) {
         self.initGeolocation();
       }
-      
+
       // TODO: only init if geometry editing is enabled?
       this.geometryEditorView = new S.GeometryEditorView({
         map: this.map,
