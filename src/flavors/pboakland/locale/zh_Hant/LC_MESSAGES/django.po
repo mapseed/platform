@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-10 16:25-0500\n"
+"POT-Creation-Date: 2017-01-11 20:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Language-Team: Chinese Traditional (https://www.transifex."
 "com/mapseed/teams/58669/zh-Hant/)\n"
@@ -395,11 +395,21 @@ msgid "Guidelines"
 msgstr "指南"
 
 #: flavors/pboakland/_config.translations.py:122
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:20
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:21
 msgid "Get more involved"
 msgstr "積極參與此活動"
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:1
+msgid ""
+"<a href=\"https://docs.google.com/forms/d/"
+"e/1FAIpQLSdjvMEknTchNBxteVitB3340hKzZrAP0tTXbb9ogXwaZfVxew/viewform\"><img "
+"src=\"http://i.imgur.com/VMu0cem.png\"></a>"
+msgstr ""
+"<a href=\"https://docs.google.com/forms/d/"
+"e/1FAIpQLSdjvMEknTchNBxteVitB3340hKzZrAP0tTXbb9ogXwaZfVxew/viewform\"><img "
+"src=\"http://i.imgur.com/mR2SQaP.png\"></a>"
+
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
 msgid ""
 "<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
 "%2Fdocs.google.com%2Fforms%2Fd%2Fe"
@@ -408,7 +418,7 @@ msgid ""
 "for the assembly here!</a>"
 msgstr ""
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:3
 msgid ""
 "<h4>Assembly 1</h4>\n"
 "<strong>Wednesday, January 25th\n"
@@ -434,7 +444,7 @@ msgstr ""
 "<br>Oakland, CA 94607</a>\n"
 "<br>英語/中文 "
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:9
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:10
 msgid ""
 "<h4>Assembly 2</h4>\n"
 "<strong>Thursday, January 26th 6:00 pm - 8:00 pm</strong>\n"
@@ -460,27 +470,27 @@ msgstr ""
 "<br>Oakland, CA 94606</a>\n"
 "<br>英語/西班牙語 "
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:15
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:16
 msgid ""
 "<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
 "Us\" height=\"400\" width=100% </iframe>"
 msgstr ""
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:16
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:17
 msgid ""
 "Already submitted an idea? There are many more ways to get involved in "
 "participatory budgeting:"
 msgstr "已經提交了看法嗎？有很多方式可以參與預算編制活動："
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:17
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:18
 msgid "Attend a Neighborhood Assembly"
 msgstr "參加鄰居聚會"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:18
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:19
 msgid "Contact Us"
 msgstr "聯絡我們"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:19
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:20
 msgid ""
 "Discuss your ideas in person with your neighbors at an upcoming Neighborhood "
 "Assembly! <a href=\"https://participatorybudgeting.nationbuilder.com/r?"
@@ -488,13 +498,15 @@ msgid ""
 "%2F1FAIpQLSdjvMEknTchNBxteVitB3340hKzZrAP0tTXbb9ogXwaZfVxew"
 "%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakassembly&n=1&test_email=1\">Attend "
 "an upcoming assembly</a> to share your ideas."
-msgstr "幫助決定如何將聯邦基金用於您的社區！ 基金將用於低中收入社區的計畫、服務和其他改進！參加即將舉行的社區活動，分享您的想法。"
+msgstr ""
+"幫助決定如何將聯邦基金用於您的社區！ 基金將用於低中收入社區的計畫、服務和其他"
+"改進！參加即將舉行的社區活動，分享您的想法。"
 
-#: flavors/pboakland/jstemplates/pages/getinvfolved.html:21
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:22
 msgid "Have a question? Feel free to contact us."
 msgstr "有問題？請隨時聯絡我們。"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:22
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:23
 msgid ""
 "There are lots of ways to get involved in PB in Oakland! You can help to get "
 "the word out to district residents, facilitate small group meetings, provide "
@@ -505,13 +517,13 @@ msgstr ""
 "議舉行，為PB活動提供支援等。登記<a href=\"http://www.123contactform.com/"
 "form-2317799/PB-Oakland-Volunteer-Sign-Up\" target=\"_blank\">這裡</a>。"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:23
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:24
 msgid ""
 "This is a FREE event! Food, activities for children and translation will be "
 "provided!"
 msgstr "這是一個免費的活動！將為兒童提供食物和活動。"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:24
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:25
 msgid "Volunteer"
 msgstr "志願者"
 
