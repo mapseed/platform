@@ -3,7 +3,7 @@
 
 Community powered mapping for environmental health, starting with our most polluted rivers.
 
-[![Build Status](https://secure.travis-ci.org/smartercleanup/platform.png)](http://travis-ci.org/smartercleanup/platform)
+[![Build Status](https://secure.travis-ci.org/mapseed/platform.png)](http://travis-ci.org/mapseed/platform)
 ===========
 For a brief summary, please view: [http://smartercleanup.org/](http://smartercleanup.org/)
 
