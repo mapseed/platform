@@ -88,7 +88,11 @@ NOTE: Mac OS X users need a command line C/C++ compiler in place for the above s
 
 ### Install npm dependencies
 
+Make sure that you are somewhere inside the project folder, then run:
+
 `npm install`
+
+Also, for best results, [install Node version 7+ and the latest npm](https://nodejs.org/en/download/package-manager/).
 
 ### Configuring the Dev API
 
