@@ -3,7 +3,7 @@
 ############################################################
 
 # Set the base image:
-FROM node:6.8
+FROM node:7.4
 
 # File Author / Maintainer
 MAINTAINER Luke Swart <luke@smartercleanup.org>
@@ -28,7 +28,7 @@ RUN apt-get install -y postgresql libpq-dev
 # RUN npm install npm -g
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout master && cd -
+RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout 0.7.3 && cd -
 
 # # cd in project root and uncomment this for local testing:
 # ADD . /platform
@@ -47,5 +47,4 @@ RUN pip install -r /platform/app-requirements.txt
 # containers run on a single machine.
 ENV CONTAINER duwamish_flavor
 
-CMD /platform/start-data-container.sh
-
+CMD /platform/scripts/start-data-container.sh

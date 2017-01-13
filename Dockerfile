@@ -33,4 +33,4 @@ RUN pip install -r /platform/app-requirements.txt
 # Set the default directory where CMD will execute
 WORKDIR /platform
 
-CMD /platform/start.sh
+CMD /platform/scripts/start.sh
