@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Translators:
-# Best Guest <translator@heyduwamish.org>, 2016
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: HeyDuwamish\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-07 06:44-0500\n"
-"PO-Revision-Date: 2016-05-02 18:22-0700\n"
-"Last-Translator: Best Guest <translator@heyduwamish.org>\n"
-"Language-Team: Vietnamese (http://www.transifex.com/heyduwamish/heyduwamish/language/vi/)\n"
+"POT-Creation-Date: 2016-01-07 06:22-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: flavors/duwamish_flavor/_config.translations.py:1
 msgid ""
@@ -25,127 +25,132 @@ msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:2
 msgid "Community action"
-msgstr "Cộng Đồng Sẽ Hành Động"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:3
 msgid "Places where pollution has been problematic"
-msgstr "Những Nơi Ô Nhiễm Đã Khó Giải Quyết"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:4
 msgid "Areas of concern"
-msgstr "Khu Vực Quan Tâm"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:5
 msgid "Land use data"
-msgstr "Dữ Liệu Sử Dụng Đất Đai"
+msgstr "Datos de uso de la tierra"
 
 #: flavors/duwamish_flavor/_config.translations.py:6
 msgid "legend coming soon!"
-msgstr ""
+msgstr "próximamente la leyenda..."
 
 #: flavors/duwamish_flavor/_config.translations.py:7
 msgid "Buildings"
-msgstr "Những Tòa Nhà"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:8
 msgid "Land coverage data"
-msgstr ""
+msgstr "Datos de cobertura de la tierra"
 
 #: flavors/duwamish_flavor/_config.translations.py:9
+#, fuzzy
+#| msgid "The orginal Duwamish River path"
 msgid "The original Duwamish River path"
-msgstr "Con Đường Sông Duwamish Trước Đó"
+msgstr "El sendero original del Duwamish"
 
 #: flavors/duwamish_flavor/_config.translations.py:10
 msgid "Original river path"
-msgstr "Con Đường Sông Trước Đó"
+msgstr "El sendero original del Duwamish"
 
 #: flavors/duwamish_flavor/_config.translations.py:11
 msgid ""
-"Welcome! We are a community of residents and stakeholders who are monitoring"
-" the cleanup of toxic waste in Seattle's Duwamish River."
+"Welcome! We are a community of residents and stakeholders who are monitoring "
+"the cleanup of toxic waste in Seattle's Duwamish River."
 msgstr ""
+"¡Biénvenido! Somos una comunidad de los residentes y los interesados quienes "
+"están controlandola operación de limpieza de desechos tóxicos en el Duwamish "
+"River de Seattle"
 
 #: flavors/duwamish_flavor/_config.translations.py:12
 #: flavors/duwamish_flavor/_config.translations.py:25
 #: flavors/duwamish_flavor/_config.translations.py:48
 msgid "Someone"
-msgstr "Một Người Nào Đó"
+msgstr "Alguien"
 
 #: flavors/duwamish_flavor/_config.translations.py:13
 msgid "support"
-msgstr "ủng hộ"
+msgstr "apoyo"
 
 #: flavors/duwamish_flavor/_config.translations.py:14
 msgid "Support"
-msgstr "Ủng Hộ"
+msgstr "Apoyo"
 
 #: flavors/duwamish_flavor/_config.translations.py:15
 msgid "supports"
-msgstr "ủng hộ"
+msgstr "apoya"
 
 #: flavors/duwamish_flavor/_config.translations.py:16
 msgid "comments"
-msgstr "Bình Luận"
+msgstr "comentarios"
 
 #: flavors/duwamish_flavor/_config.translations.py:17
 msgid "commented on"
-msgstr "Bình Luận Về"
+msgstr "hizo un comentario de"
 
 #: flavors/duwamish_flavor/_config.translations.py:18
 #: flavors/duwamish_flavor/_config.translations.py:24
 msgid "Leave a Comment"
-msgstr ""
+msgstr "Dejar un comentario"
 
 #: flavors/duwamish_flavor/_config.translations.py:19
 #: flavors/duwamish_flavor/_config.translations.py:20
 #: flavors/duwamish_flavor/_config.translations.py:22
 msgid "Comment"
-msgstr "Bình Luận"
+msgstr "Comentar"
 
 #: flavors/duwamish_flavor/_config.translations.py:21
 #: flavors/duwamish_flavor/_config.translations.py:40
 msgid "Your Name"
-msgstr "Tên Của Quý Vị"
+msgstr "Su nombre"
 
 #: flavors/duwamish_flavor/_config.translations.py:23
 msgid "comment"
-msgstr "bình luận"
+msgstr "comenta"
 
 #: flavors/duwamish_flavor/_config.translations.py:26
 msgid "Show the Map"
-msgstr "Trình Bày Bản Đồ"
+msgstr "Mostrar el mapa"
 
 #: flavors/duwamish_flavor/_config.translations.py:27
 msgid "Put it on the map!"
-msgstr "Đặt Lên Trên Bản Đồ!"
+msgstr "¡Póngalo en el mapa!"
 
 #: flavors/duwamish_flavor/_config.translations.py:28
 msgid "Tell us more..."
-msgstr "Hãy Cho Chúng Tôi Biết Thêm..."
+msgstr "Decirnos más"
 
 #: flavors/duwamish_flavor/_config.translations.py:29
 msgid "Type of report"
-msgstr "Loại Báo Cáo"
+msgstr "Tipo de informe"
 
 #: flavors/duwamish_flavor/_config.translations.py:30
 #: flavors/duwamish_flavor/_config.translations.py:52
 msgid "Observation"
-msgstr ""
+msgstr "Observación"
 
 #: flavors/duwamish_flavor/_config.translations.py:31
 #: flavors/duwamish_flavor/_config.translations.py:49
 msgid "Question"
-msgstr "Câu Hỏi"
+msgstr "Pregunta"
 
 #: flavors/duwamish_flavor/_config.translations.py:32
 #: flavors/duwamish_flavor/_config.translations.py:53
 msgid "Idea"
-msgstr "Ý Kiến"
+msgstr "Idea"
 
 #: flavors/duwamish_flavor/_config.translations.py:33
 #: flavors/duwamish_flavor/_config.translations.py:50
 msgid "Complaint"
-msgstr "Lời Phàn Nàn"
+msgstr "Queja"
 
 #: flavors/duwamish_flavor/_config.translations.py:34
 #: flavors/duwamish_flavor/_config.translations.py:51
@@ -155,7 +160,7 @@ msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:35
 msgid "Title of report"
-msgstr "Tiêu đề Của Báo Cáo"
+msgstr "Tipo de informe"
 
 #: flavors/duwamish_flavor/_config.translations.py:36
 msgid "Enter title"
@@ -163,81 +168,81 @@ msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:37
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: flavors/duwamish_flavor/_config.translations.py:38
 msgid "Description..."
-msgstr ""
+msgstr "Descripción..."
 
 #: flavors/duwamish_flavor/_config.translations.py:39
 msgid "Name"
-msgstr "Tên"
+msgstr "Nombre"
 
 #: flavors/duwamish_flavor/_config.translations.py:41
 msgid "Receive email updates on your report"
-msgstr "Thường xuyên nhận email mới nhật về báo cáo của quý vị"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:42
 msgid "Your Email"
-msgstr "Email Của Quý Vị"
+msgstr "Su correo electrónico"
 
 #: flavors/duwamish_flavor/_config.translations.py:43
 msgid "Image"
-msgstr "Hình Ảnh"
+msgstr "Imagen"
 
 #: flavors/duwamish_flavor/_config.translations.py:44
 msgid "Add an Image"
-msgstr "Bổ Sung Thêm Với Hình Ảnh"
+msgstr "Añadir una Imagen"
 
 #: flavors/duwamish_flavor/_config.translations.py:45
 msgid "Add a report to the map!"
-msgstr "Bỏ Báo Cáo Lên Trên Bản Đồ!"
+msgstr "¡Añadir un informe al mapa!"
 
 #: flavors/duwamish_flavor/_config.translations.py:46
 msgid "created"
-msgstr "Báo Cáo Tạo Ra Trước Đây"
+msgstr "creó"
 
 #: flavors/duwamish_flavor/_config.translations.py:47
 msgid "See All Reports"
-msgstr "Xem Tất Cả Báo Cáo"
+msgstr "Ver todos los informes"
 
 #: flavors/duwamish_flavor/_config.translations.py:54
 msgid "Observations"
-msgstr ""
+msgstr "Observaciones"
 
 #: flavors/duwamish_flavor/_config.translations.py:55
 msgid "Ideas"
-msgstr "Ý Kiến"
+msgstr "Ideas"
 
 #: flavors/duwamish_flavor/_config.translations.py:56
 msgid "Questions"
-msgstr "Câu Hỏi"
+msgstr "Preguntas"
 
 #: flavors/duwamish_flavor/_config.translations.py:57
 msgid "Complaints"
-msgstr "Lời Phàn Nàn"
+msgstr "Quejas"
 
 #: flavors/duwamish_flavor/_config.translations.py:59
 msgid "Report Types"
-msgstr "Báo Cáo Loại Gì"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:60
 msgid "Map Layers"
-msgstr "Các Lớp Của Bản Đồ"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:61
 msgid "About"
-msgstr "Mục Tiêu Về Dự Án Này"
+msgstr "Sobre"
 
 #: flavors/duwamish_flavor/_config.translations.py:62
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:1
 msgid "Background"
-msgstr "Lý Lịch Về Dự Án Này"
+msgstr "Trasfondo"
 
 #: flavors/duwamish_flavor/_config.translations.py:63
 #: flavors/duwamish_flavor/jstemplates/pages/contribute.html:2
 msgid "Get involved"
-msgstr "Quý Vị Hãy Tham Gia"
+msgstr ""
 
 #: flavors/duwamish_flavor/_config.translations.py:64
 msgid "Green Screen"
@@ -248,105 +253,140 @@ msgid ""
 "In 2001, the US Environmental Protection Agency declared the lower 5 miles "
 "of the Duwamish to be a superfund site, which mandates a cleanup paid by "
 "those responsible for the pollution. After more than a decade of public "
-"deliberation, the EPA came to a final decision in December 2014, and ordered"
-" a $342 million cleanup to take place over the next 17 years."
+"deliberation, the EPA came to a final decision in December 2014, and ordered "
+"a $342 million cleanup to take place over the next 17 years."
 msgstr ""
+"En 2001, la Agencia de Protección del Medio Ambiente de Estados Unidos (EPA) "
+"declaró los cinco miles inferiores del Duwamish un sitio de Superfondo, que "
+"require una limpieza pagado por los responsables por la contaminación. Tras "
+"más de un decenio de debates públicos, la EPA tomó la decisión en deciembre "
+"de 2014, y ordenó una limpieza de 342 millions de dólares llevarse a cabo en "
+"los próximos 17 años."
 
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:3
 msgid "Take me to the map!"
-msgstr "Quay trở lại bản đồ!"
+msgstr "¡Navigar hacia el mapa!"
 
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:4
 msgid ""
 "The Duwamish River is Seattle's only river, and is one of the most polluted "
-"waterways in the US. After 100 years of urban industrialization, it contains"
-" more than 40 toxic chemicals above safe limits for humans and the "
+"waterways in the US. After 100 years of urban industrialization, it contains "
+"more than 40 toxic chemicals above safe limits for humans and the "
 "environment, including PCBs, dioxins, carcinogenic PAHs, and arsenic. "
 "Studies show that the low income communities living along the river have "
 "higher rates of heart disease, asthma, and other illnesses than other "
 "Seattle areas. It is also home to salmon, osprey, sea lions, and other "
 "creatures who face unsafe levels of contamination."
 msgstr ""
+"El Duwamish River es el río único de Seattle, y es uno de los ríos más "
+"contaminada en los Estados Unidos. Tras más de 100 años de la "
+"industrialización, contiene más de 40 químicos tóxicos encima de los limites "
+"para el ser humano y el medio ambiente, incluyendo los PCB's, la dioxina, "
+"PAH's carcinógenas, y el arsénico. Los estudios demuestran que las "
+"comunidades de bajo ingreso que viven junto al río tienen mayores índices de "
+"enfermedad coronaria, asma, y otros enfermedades que los otros áreas de "
+"Seattle. También es hogar para salmón, águilas pescadoras, leones marinos, y "
+"otros animales que están expuestos a niveles peligrosos de contaminación."
 
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:5
 msgid ""
 "The history here is rich. The Duwamish Tribe lived along the shores of this "
-"river for over 10,000 years, since the last ice age, until they were removed"
-" by incoming settlers who came about a century and a half ago."
+"river for over 10,000 years, since the last ice age, until they were removed "
+"by incoming settlers who came about a century and a half ago."
 msgstr ""
+"La historia aquí is muy rica. La Tribu Duwamish vivía a lo largo de las "
+"orillas de este río por más de 10,000 años, desde la última edad de hielo, "
+"hasta que hace alrededor de un siglo y media cuando los colonos entrantes "
+"los desalojaron."
 
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:6
 msgid ""
 "The responsible parties named so far are Boeing Manufacturing, King County, "
 "the City of Seattle, and the Port of Seattle, with several more expected to "
 "be named over the coming years."
-msgstr "Các công ty hoặc những người gây ô nhiễm trong sông Duwamsih cần phải chịu trách nhiệm như là Boeing, Quận King, thành phố Seattle, Bến Cảng Seattle, và nhiều công ty khác sẽ chịu trách nhiệm sau khi chúng tôi xác định vai trò của họ với gây ô nhiễm trong sông Duwamish."
+msgstr ""
+"Boeing Manufacturing, King County, City of Seattle, y el Port of Seattle son "
+"los partes responsables indentificados en este momento, y se espera que se "
+"identificará más partes responsables en los próximos años."
 
 #: flavors/duwamish_flavor/jstemplates/pages/background.html:7
 msgid ""
 "We hope that 'Hey Duwamish' can be used as a community monitoring system to "
 "help ensure that the $342 million is well spent. We want to restore the "
 "health of our watershed to its maximum potential and highlight the progress "
-"being made through initiatives such as the <a "
-"href=\"http://murray.seattle.gov/murray-announces-funding-for-duwamish-"
-"river-community-projects\">Duwamish Opportunity Fund</a>."
-msgstr "Chúng tôi hy vọng trang web 'Hey Duwamish' có thể giúp cộng đồng theo dõi và giám sát những nguồn ô nhiễm để đảm bảo $342 triệu đô la Mỹ được sử dụng hợp lý. Chúng tôi muốn khôi phục lại thiên nhiên của lưu vực sông tối đa và làm nổi bật những tiến bộ đang được thực hiện từ các sáng kiến như  <a href=\"http://murray.seattle.gov/murray-announces-funding-for-duwamish-river-community-projects\">Duwamish Opportunity Fund</a>."
+"being made through initiatives such as the <a href=\"http://murray.seattle."
+"gov/murray-announces-funding-for-duwamish-river-community-projects"
+"\">Duwamish Opportunity Fund</a>."
+msgstr ""
+"Esperamos que se usará 'Hey Duwamish' como un sistema de vigilencia para "
+"asegurar que se empleareán correctamente el 342 millones de dólares. "
+"Quiremos restaurar la cuenca hasta el potencial máximo y subrayar el "
+"progreso de los iniciativos como el <a href=/'http://murray.seattle.gov/"
+"murray-announces-funding-for-duwamish-river-community-projects\">Duwamish "
+"Opportunity Fund (Ayuda Financiera para el Duwamish)</a>."
 
 #: flavors/duwamish_flavor/jstemplates/pages/contribute.html:1
 msgid ""
 "<a href=\"http://eepurl.com/6IfA5\">Send us a message</a> and we'll be in "
 "touch ;)"
 msgstr ""
+"<a href=\"http://eepurl.com/6IfA5\">Dejarnos un mensage</a> y nosotros vamos "
+"a contactar con usted ;7"
 
 #: flavors/duwamish_flavor/jstemplates/pages/contribute.html:3
 msgid "If you want to see a project like this in your community, let us know!"
-msgstr "Nếu quý vị muốn thấy ý kiến hoặc dự án như thế này trong cộng đồng của quý vị, cho chúng tôi biết!"
+msgstr "Si quiere ver un proyecto como este en su comunidad, ¡háganoslo saber!"
 
 #: flavors/duwamish_flavor/jstemplates/pages/contribute.html:4
 msgid ""
-"The best way to be involved is to <a href=\"/place/new\">submit a report</a>"
-" on the map, or comment on someone else's report."
+"The best way to be involved is to <a href=\"/place/new\">submit a report</a> "
+"on the map, or comment on someone else's report."
 msgstr ""
+"La mejor forma de ayudarnos es <a href=\"/place/new\">submitir un informe</"
+"a> en el mapa, o hacer un comentario sobre un informe de otro."
 
 #: flavors/duwamish_flavor/jstemplates/pages/contribute.html:5
 msgid "Want to help out? Excellent!"
-msgstr "Quý vị có muốn giúp chúng tôi Không? Nếu có thì là tuyệt vời!"
+msgstr "¿Queire ayudarnos? ¡Excelente!"
 
 #: flavors/duwamish_flavor/jstemplates/pages/contribute.html:6
 msgid ""
-"We can also use help writing <a "
-"href=\"http://github.com/smartercleanup/duwamish\">code</a>, designing a "
-"better interface, and promoting the project."
+"We can also use help writing <a href=\"http://github.com/smartercleanup/"
+"duwamish\">code</a>, designing a better interface, and promoting the project."
 msgstr ""
+"También deseamos obtener apoyo en <a href=\"http://github.com/smartercleanup/"
+"duwamish\">escribir el código</a>, diseñar una interfaz mejor, y promoter "
+"este proyecto."
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:1
 msgid "Features"
-msgstr "Chức Năng"
+msgstr "Características"
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:2
 msgid "For designers and developers,"
-msgstr ""
+msgstr "Para diseñadores y desarolladores,"
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:3
 msgid "For project managers during a project,"
-msgstr "Nếu quý vị cần tìm thông tin về những người quản lý một dự án nào đó thì xin vui lòng nhấn vào đây."
+msgstr "Para los gestores de proyectos durante la ejecución de un proyecto,"
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:4
 msgid "For users,"
-msgstr "Dành cho người sử dụng,"
+msgstr "Para los usarios,"
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:5
-msgid ""
-"a simple map interface, to explore submitted locations and add your own"
+msgid "a simple map interface, to explore submitted locations and add your own"
 msgstr ""
+"una interfaz sencilla del mapa, explorar informes submitidos y añadir sus "
+"propios informes"
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:6
 msgid "blogging tools to create pages or blog posts"
-msgstr ""
+msgstr "buenas herramientas para el blogging a crear páginas o bitácoras"
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:7
 msgid "export to GIS"
-msgstr ""
+msgstr "exportar a GIS"
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:8
 msgid ""
@@ -356,8 +396,8 @@ msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:9
 msgid ""
-"geospatial database, so you can limit contributions to within boundaries, or"
-" asiggn neighborhood names"
+"geospatial database, so you can limit contributions to within boundaries, or "
+"asiggn neighborhood names"
 msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/pages/features.html:10
@@ -383,30 +423,46 @@ msgstr ""
 #: flavors/duwamish_flavor/jstemplates/pages/overview.html:1
 msgid "Help us out and <a href=\"/place/new\">submit a report</a> on the map!"
 msgstr ""
+"¡Ayudarnos y <a href=\"/place/new\">submitir un informe</a> en el mapa!"
 
 #: flavors/duwamish_flavor/jstemplates/pages/overview.html:2
+#, fuzzy
+#| msgid ""
+#| "Here's a little <a href=\"/page/background\">background</a> on the lower "
+#| "Duwamish superfund site"
 msgid ""
 "Here's a little <a href=\"/page/background\">background</a> on the lower "
 "Duwamish superfund site and the cleanup of toxic waste in the river."
 msgstr ""
+"Aquí está un poco de <a href=\"/page/background\">trasfondo</a> sobre la "
+"parte inferior del Duwamish sitio de Superfund"
 
 #: flavors/duwamish_flavor/jstemplates/pages/overview.html:3
 msgid "Start Mapping!"
-msgstr "Bắt Đầu Đưa Thông Tin Vào Bản Đồ!"
+msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/pages/overview.html:4
+#, fuzzy
+#| msgid ""
+#| "Welcome! We are a community of residents and stakeholders who are "
+#| "monitoring the cleanup of toxic waste in Seattle's Duwamish River."
 msgid ""
 "We are a community of residents and stakeholders who are monitoring "
 "environmental health issues in Seattle's Duwamish Valley."
 msgstr ""
+"¡Biénvenido! Somos una comunidad de los residentes y los interesados quienes "
+"están controlandola operación de limpieza de desechos tóxicos en el Duwamish "
+"River de Seattle"
 
 #: flavors/duwamish_flavor/jstemplates/pages/overview.html:5
 msgid "Welcome"
-msgstr "Xin Chào Quý Vị"
+msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/pages/sponsors.html:1
+#, fuzzy
+#| msgid "Take me to the map!"
 msgid "Back to the map"
-msgstr "Trở Lại Bản Đồ"
+msgstr "¡Navigar hacia el mapa!"
 
 #: flavors/duwamish_flavor/jstemplates/pages/sponsors.html:2
 msgid ""
@@ -417,7 +473,7 @@ msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/pages/sponsors.html:3
 msgid "Sponsors"
-msgstr "Dự Án Này Được Tài Trợ Từ"
+msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/pages/youthcorps2015.html:1
 msgid "Duwamish Valley Youth Corps 2015"
@@ -445,9 +501,9 @@ msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/place-form2.html:4
 msgid ""
-"Or sign in with <a class=\"auth-inline twitter-btn\" "
-"href=\"/users/login/twitter/\">Twitter</a> <a class=\"auth-inline facebook-"
-"btn\" href=\"/users/login/facebook/\">Facebook</a>"
+"Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
+"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
+"login/facebook/\">Facebook</a>"
 msgstr ""
 
 #: flavors/duwamish_flavor/jstemplates/place-form2.html:5
@@ -460,4 +516,70 @@ msgstr ""
 
 #: flavors/duwamish_flavor/templates/index.html:56
 msgid "Powered by"
-msgstr ""
+msgstr "Impulsado por"
+
+#~ msgid "Email address"
+#~ msgstr "Dirección de correo electrónico"
+
+#~ msgid "Hide Reports"
+#~ msgstr "Esconder los informes"
+
+#~ msgid "Show Reports"
+#~ msgstr "Mostrar los informes"
+
+#~ msgid "Contribute"
+#~ msgstr "Contribuir"
+
+#~ msgid "Get started!"
+#~ msgstr "¡Empecemos!"
+
+#~ msgid "Historical Flow"
+#~ msgstr "Sendero Histórico"
+
+#~ msgid "Duwamish area buildings"
+#~ msgstr "Datos de los edificios"
+
+#~ msgid "The impacted areas of the Duwamish River cleanup"
+#~ msgstr "Área impactadas por el limpio"
+
+#~ msgid "Region of interest"
+#~ msgstr "Región de interés del Duwamish"
+
+#~ msgid "Early action cleanup sites"
+#~ msgstr "Sitios de medidas tempranas"
+
+#~ msgid "Project management info"
+#~ msgstr "Dibujos de gestión de proyectos"
+
+#~ msgid "Show All"
+#~ msgstr "Mostrar todos"
+
+#~ msgid "Show None"
+#~ msgstr "Ocultar todo"
+
+#~ msgid "Location Name"
+#~ msgstr "Nombre to ubicación"
+
+#~ msgid "Choose One"
+#~ msgstr "Elegir Uno"
+
+#~ msgid "Submit a report"
+#~ msgstr "Presentar un informe"
+
+#~ msgid "Enter an address..."
+#~ msgstr "Introducir una dirección"
+
+#~ msgid "Submit"
+#~ msgstr "Presentar"
+
+#~ msgid "Location Type"
+#~ msgstr "Tipo to ubicación"
+
+#~ msgid "Landmark"
+#~ msgstr "Lugar destacado"
+
+#~ msgid "Park"
+#~ msgstr "Parque"
+
+#~ msgid "School"
+#~ msgstr "Escuela"
