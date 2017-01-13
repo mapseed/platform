@@ -148,11 +148,6 @@ a.close-btn {
 }
 
 .place-items {
-    .place-item {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
     ul {
         margin: 0;
     }
@@ -373,6 +368,7 @@ a.auth-inline {
     .drag-text {
         margin-bottom: 0;
         padding-left: 15px;
+        font-size: 1.45em;
     }
     #geolocating-msg {
         color: #888888;

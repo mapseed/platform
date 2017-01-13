@@ -58,6 +58,24 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
 
+    // attempt to save form autocomplete values in localStorage;
+    // fall back to cookies
+    saveAutocompleteValue: function(name, value, days) {
+      if (typeof Storage !== "undefined") {
+        this.localstorage.save(name, value, days);
+      } else {
+        this.cookies.save(name, value, days, "mapseed-");
+      }
+    },
+ 
+    getAutocompleteValue: function(name) {
+      if (typeof Storage !== "undefined") {
+        return this.localstorage.get(name);
+      } else {
+        return this.cookies.get(name, "mapseed-");
+      }
+    },
+
     findPageConfig: function(pagesConfig, properties) {
       // Search the first level for the page config
       var pageConfig = _.findWhere(pagesConfig, properties);
@@ -335,8 +353,10 @@ var Shareabouts = Shareabouts || {};
     // Cookies! Om nom nom
     // Thanks ppk! http://www.quirksmode.org/js/cookies.html
     cookies: {
-      save: function(name,value,days) {
-        var expires;
+      save: function(name, value, days, prefix) {
+        var expires,
+        prefix = prefix || "",
+        name = prefix + name;
         if (days) {
           var date = new Date();
           date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -347,8 +367,10 @@ var Shareabouts = Shareabouts || {};
         }
         document.cookie = name+'='+value+expires+'; path=/';
       },
-      get: function(name) {
-        var nameEQ = name + '=';
+      get: function(name, prefix) {
+        var prefix = prefix || "",
+        nameEQ = prefix + name + '=',
+        ca = document.cookie.split(';');
         var ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
           var c = ca[i];
@@ -363,6 +385,42 @@ var Shareabouts = Shareabouts || {};
       },
       destroy: function(name) {
         this.save(name,'',-1);
+      }
+    },
+
+    localstorage: {
+      LOCALSTORAGE_PREFIX: "mapseed-",
+      save: function(name, value, days) {
+        var expDate = new Date();
+        expDate.setTime(expDate.getTime() + (days * 24 * 60 * 60 * 1000));
+        try {
+          localStorage.setItem(this.LOCALSTORAGE_PREFIX + name, JSON.stringify({
+            expires: expDate,
+            value: value
+          }));
+        } catch (e) {
+          // ignore exceptions
+        }
+       },
+      get: function(name) {
+        var now = new Date().getTime(),
+        name = this.LOCALSTORAGE_PREFIX + name,
+        item = {};
+        try {
+          item = JSON.parse(localStorage.getItem(name)) || {};
+        } catch (e) {
+          // ignore exceptions
+        }
+        if (now > Date.parse(item.expires)) {
+          try {
+            localStorage.removeItem(name);
+          } catch (e) {
+            // ignore exceptions
+          }
+          return null;
+        }
+
+        return item.value;
       }
     },
 
