@@ -99,7 +99,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'sa_web.middleware.CacheRequestBody',
+    'base.middleware.CacheRequestBody',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -140,12 +140,12 @@ INSTALLED_APPS = (
     'django_extensions',
 
     # Project apps
-    'sa_web',
+    'base',
     'proxy',
 )
 
 # Use a test runner that does not use a database.
-TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
+TEST_RUNNER = 'base.test_runner.DatabaselessTestSuiteRunner'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -177,7 +177,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'sa_web': {
+        'base': {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
@@ -327,7 +327,7 @@ STATIC_ROOT = abspath(pathjoin(dirname(__file__), '..', '..', 'staticfiles'))
 if (DEBUG):
     COMPRESS_ROOT = abspath(pathjoin(dirname(__file__),
                                      '..',
-                                     'sa_web',
+                                     'base',
                                      'static'))
 else:
     COMPRESS_ROOT = STATIC_ROOT
@@ -405,7 +405,7 @@ MAPBOX_TOKEN = env.get('MAPBOX_TOKEN', '')
 # Help Django find any translation files.
 
 LOCALE_PATHS = (
-    os.path.join(HERE, '..', 'sa_web', 'locale'),
+    os.path.join(HERE, '..', 'base', 'locale'),
     os.path.join(HERE, '..', 'flavors', flavor, 'locale'),
 )
 

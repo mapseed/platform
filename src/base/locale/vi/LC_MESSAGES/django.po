@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-14 14:47-0500\n"
+"POT-Creation-Date: 2016-01-07 06:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,29 +16,26 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: flavors/snoqualmie/templates/index.html:56
+#: flavors/georgetowngreen/templates/index.html:54
+#: flavors/happytrail/templates/index.html:55
+#: flavors/marra/templates/index.html:54 flavors/noise/templates/index.html:54
 msgid "Powered by"
 msgstr ""
 
-#: sa_web/jstemplates/activity-list-item.html:1
+#: base/jstemplates/activity-list-item.html:1
 msgid ""
 "<strong>\n"
 "\n"
-"        {{#if target.submitter.avatar_url}}\n"
-"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /"
-">\n"
+"        {{#if target.submitter}}\n"
+"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /> "
+"{{ target.submitter.name }}\n"
 "        {{^}}\n"
+"          <!-- TODO: FIXME: don't hardcode image URL -->\n"
 "          <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class=\"avatar"
-"\" />\n"
+"\" /> {{ target.submitter_name }}\n"
 "        {{/if}}\n"
-"\n"
-"        {{#if target.submitter.name}}\n"
-"          {{ target.submitter.name }}\n"
-"        {{^}}\n"
-"          {{ target.submitter_name }}\n"
-"        {{/if}}\n"
-"\n"
 "        </strong>\n"
 "\n"
 "        {{#if is_place }}\n"
@@ -66,32 +63,32 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/jstemplates/auth-nav.html:1
+#: base/jstemplates/auth-nav.html:1 base/jstemplates/place-form.html:3
 msgid "Log Out"
-msgstr ""
+msgstr "đảng xuãt"
 
-#: sa_web/jstemplates/auth-nav.html:2
+#: base/jstemplates/auth-nav.html:2
 msgid "Sign In"
 msgstr ""
 
-#: sa_web/jstemplates/auth-nav.html:3
+#: base/jstemplates/auth-nav.html:3
 msgid ""
 "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
-#: sa_web/jstemplates/geocode-address.html:1
+#: base/jstemplates/geocode-address.html:1
 msgid "Search"
 msgstr ""
 
-#: sa_web/jstemplates/place-detail-promotion-bar.html:1
+#: base/jstemplates/place-detail-promotion-bar.html:1
 msgid "Recommend on Facebook"
 msgstr ""
 
-#: sa_web/jstemplates/place-detail-promotion-bar.html:2
+#: base/jstemplates/place-detail-promotion-bar.html:2
 msgid "Tweet This"
 msgstr ""
 
-#: sa_web/jstemplates/place-detail-survey.html:1
+#: base/jstemplates/place-detail-survey.html:1
 msgid ""
 "<strong class=\"response-submitter\">\n"
 "                    {{#if submitter}}\n"
@@ -109,7 +106,7 @@ msgid ""
 "                  "
 msgstr ""
 
-#: sa_web/jstemplates/place-detail.html:1
+#: base/jstemplates/place-detail.html:1
 msgid ""
 "<strong class=\"point-submitter\">\n"
 "              {{#if submitter.avatar_url }}\n"
@@ -135,61 +132,60 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
-#: sa_web/jstemplates/place-form-field-types.html:1
-msgid "Select..."
+#: base/jstemplates/place-form.html:1
+msgid "First drag the map to set your pin's location."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:1
+#: base/jstemplates/place-form.html:2
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:2
-msgid "Or, drag the map to set your location"
+#: base/jstemplates/place-form.html:4
+msgid ""
+"Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
+"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
+"login/facebook/\">Facebook</a>"
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:3
-msgid "Set my location"
+#: base/jstemplates/place-form.html:5
+msgid "Sorry, your browser doesn't support file uploads."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:4
-msgid "Setting your location..."
-msgstr ""
-
-#: sa_web/jstemplates/place-form.html:5
-#: sa_web/jstemplates/place-survey-form.html:1
+#: base/jstemplates/place-form.html:6
+#: base/jstemplates/place-survey-form.html:1
 msgid "optional"
 msgstr ""
 
-#: sa_web/jstemplates/place-list.html:1
+#: base/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr ""
 
-#: sa_web/jstemplates/place-list.html:2
+#: base/jstemplates/place-list.html:2
 msgid "Most {{ support_label_plural }}"
 msgstr ""
 
-#: sa_web/jstemplates/place-list.html:3
+#: base/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
 msgstr ""
 
-#: sa_web/jstemplates/place-survey-response.html:1
+#: base/jstemplates/place-survey-response.html:1
 msgid "Thanks for participating!"
 msgstr ""
 
-#: sa_web/jstemplates/unsupported-overlay.html:1
+#: base/jstemplates/unsupported-overlay.html:1
 msgid "Proceed Anyway"
 msgstr ""
 
-#: sa_web/jstemplates/unsupported-overlay.html:2
+#: base/jstemplates/unsupported-overlay.html:2
 msgid ""
 "You are using an unsupported browser. Please\n"
 "    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
 "    your experience."
 msgstr ""
 
-#: sa_web/templates/base.html:113
+#: base/templates/base.html:97
 #, python-format
 msgid ""
 "\n"
@@ -197,7 +193,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:118
+#: base/templates/base.html:102
 #, python-format
 msgid ""
 "\n"
@@ -209,34 +205,12 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:133
+#: base/templates/base.html:116
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
 msgstr ""
 
-#: sa_web/templates/base.html:144
+#: base/templates/base.html:125
 msgid "Close"
 msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "    App Name is not officially supported in {{browser.name}}\n"
-#~ "    {{browser.version}}. Things may not work. Or they may, we're not "
-#~ "sure. If\n"
-#~ "    you want to be safe, we suggest using one of <a\n"
-#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
-#~ "instead.\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "Shareabouts is not officially supported in {{browser.name}}\n"
-#~ "    {{browser.version}}. Things may not work. Or they may, we're not "
-#~ "sure. If\n"
-#~ "    you want to be safe, we suggest using one of <a\n"
-#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
-#~ "instead.\n"
-#~ "    "
-
-#~ msgid "Close Button"
-#~ msgstr "Close"

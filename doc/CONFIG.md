@@ -139,7 +139,7 @@ Look at the config.yml for examples of styling Places. The properties of icons a
 But briefly:
 
 The *iconUrl* is relative to the root of the website. Put the corresponding
-image file in src/sa_web/static/css/images/.
+image file in src/base/static/css/images/.
 The iconSize you specify in config.yml should match that of the image.
 
 *iconAnchor* is measured in pixels, and specifies where relative to the
@@ -519,7 +519,7 @@ Refer to your email provider's instructions on configuring a client for sending 
 
     EMAIL_NOTIFICATIONS_BCC
 
-To change the subject or body of the email that is sent to users, create templates called *new_place_email_subject.txt* and *new_place_email_body.txt* respectively in your flavor's *templates/* folder. These should templates have the variables `request`, `config`, and `place` in the context. See the file *src/sa_web/templates/new_place_email_body.txt* for an example.
+To change the subject or body of the email that is sent to users, create templates called *new_place_email_subject.txt* and *new_place_email_body.txt* respectively in your flavor's *templates/* folder. These should templates have the variables `request`, `config`, and `place` in the context. See the file *src/base/templates/new_place_email_body.txt* for an example.
 
 ### Styling
 
