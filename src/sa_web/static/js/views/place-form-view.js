@@ -1,8 +1,8 @@
-/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper */
+/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper Quill */
 
 var Shareabouts = Shareabouts || {};
 
-(function(S, $, console){
+(function(S, $, console, Quill){
   S.PlaceFormView = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
@@ -12,11 +12,15 @@ var Shareabouts = Shareabouts || {};
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'click .btn-geolocate': 'onClickGeolocate'
     },
-    initialize: function(){
+    initialize: function() {
       var self = this;
-       
+
+      Backbone.Events.on("panel:close", this.closePanel, this);
       this.resetFormState();
+      this.options.router.on("route", this.resetFormState, this);
       this.placeDetail = this.options.placeConfig.place_detail;
+      this.map = this.options.appView.mapView.map;
+      this.geometryEditorView = this.options.geometryEditorView;
 
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
@@ -44,9 +48,9 @@ var Shareabouts = Shareabouts || {};
         isCategorySelected = true;
         this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
       }
-
+      
       this.checkAutocomplete();
-
+      
       var data = _.extend({
         isCategorySelected: isCategorySelected,
         placeConfig: this.options.placeConfig,
@@ -58,20 +62,62 @@ var Shareabouts = Shareabouts || {};
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
-      if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
+      if (this.formState.selectedCategoryConfig.enable_geometry) {
+        this.options.appView.hideCenterPoint();
+        this.options.appView.removeSpotlightMask();
+        this.geometryEditorView.render({
+          isCreatingNewGeometry: true
+        });
+      } else {
+        // if the user switches from a geometry-enabled category
+        // to a geometry non-enabled category, remove draw controls
+        this.geometryEditorView.tearDown();
+        this.options.appView.showNewPin();
+      }
 
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+      if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
       return this;
     },
     // called from the app view
-    postRender: function() {
-      // NOTE: the extra call to initialize the date-time picker is necessary here,
-      // because on a single-category form the call to initialize in the render() method
-      // above will fail, since the form content will not yet have been inserted into
-      // the DOM by the app view
-      if (this.formState.isSingleCategory) {
-        $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+    postRender: function(isCategorySelected) {
+      var self = this,
+      $prompt;
+
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+      if (isCategorySelected && $(".rawHTML").length > 0) {
+        // NOTE: we currently support a single QuillJS field per form
+        $prompt = $(".rawHTML").find("label").detach();
+
+        // Quill toolbar configuration
+        var toolbarOptions = [
+          ["bold", "italic", "underline", "strike"],
+          [{ "list": "ordered" }, { "list": "bullet" }],
+          [{ "header": [1, 2, 3, 4, 5, 6, false] }],
+          [{ "color": [] }, { "background": [] }],
+          ["link", "image", "video"]
+        ],
+        quill = new Quill(".rawHTML", {
+          modules: { 
+            "toolbar": toolbarOptions
+          },
+          theme: "snow",
+          bounds: "#content",
+          placeholder: _.find(
+            this.formState.selectedCategoryConfig.fields, function(categoryField) {
+              return categoryField.type === "rawHTML"
+            }).placeholder
+        }),
+        toolbar = quill.getModule("toolbar");
+        $(".ql-toolbar").before($prompt);
+        quill.deleteText(0, 50);
+
+        // override default image upload behavior: instead, create an <img>
+        // tag with highlighted text set as the src attribute
+        toolbar.addHandler("image", function() {
+          var range = quill.getSelection();
+          quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
+        }); 
       }
 
       this.bindCategoryListeners();
@@ -79,6 +125,19 @@ var Shareabouts = Shareabouts || {};
     bindCategoryListeners: function() {
       $(".category-btn-container").off().on("click", function(evt) {
         $(this).prev().trigger("click");
+      });
+    },
+    checkAutocomplete: function() {
+      var self = this,
+      storedValue;
+
+      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
+      });
+      this.formState.commonFormElements.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
     checkAutocomplete: function() {
@@ -114,8 +173,6 @@ var Shareabouts = Shareabouts || {};
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
-
-      // Get values from the form
       attrs = S.Util.getAttrs($form);
 
       // get values off of binary toggle buttons that have not been toggled
@@ -133,12 +190,17 @@ var Shareabouts = Shareabouts || {};
           S.Util.saveAutocompleteValue(key, value, 30);
         }
       });
-
-      // Get the location attributes from the map
-      attrs.geometry = {
-        type: 'Point',
-        coordinates: [this.center.lng, this.center.lat]
-      };
+      
+      if (this.formState.selectedCategoryConfig.enable_geometry) {
+        attrs.geometry = this.geometryEditorView.geometry;
+      } else {
+        // If the selected category does not have geometry editing enabled,
+        // assume we're adding point geometry
+        attrs.geometry = {
+          type: 'Point',
+          coordinates: [this.center.lng, this.center.lat]
+        }
+      }
 
       if (this.location && locationAttr) {
         attrs[locationAttr] = this.location;
@@ -234,28 +296,52 @@ var Shareabouts = Shareabouts || {};
       this.resetFormState();
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-      // Make sure that the center point has been set after the form was
-      // rendered. If not, this is a good indication that the user neglected
-      // to move the map to set it in the correct location.
-      if (!this.center) {
-        this.$('.drag-marker-instructions').addClass('is-visuallyhidden');
-        this.$('.drag-marker-warning').removeClass('is-visuallyhidden');
-
-        // Scroll to the top of the panel if desktop
-        this.$el.parent('article').scrollTop(0);
-        // Scroll to the top of the window, if mobile
+      var self = this,
+      rejectSubmit = function(warningClass) {
+        self.$(".drag-marker-instructions").addClass("is-visuallyhidden");
+        self.$(warningClass).removeClass("is-visuallyhidden");
+        self.$el.parent("article").scrollTop(0);
         window.scrollTo(0, 0);
+      };
+
+      if (this.formState.selectedCategoryConfig.enable_geometry
+        && this.geometryEditorView.editingLayerGroup.getLayers().length == 0) {
+        // If the map has an editingLayerGroup with no layers in it, it means the
+        // user hasn't created any geometry yet
+        rejectSubmit(".no-geometry-warning");
+        return;
+      } else if (!this.center) {
+        rejectSubmit(".drag-marker-warning");
         return;
       }
 
       var self = this,
-          router = this.options.router,
-          collection = this.collection[self.formState.selectedCategoryConfig.dataset],
-          model,
-          // Should not include any files
-          attrs = this.getAttrs(),
-          $button = this.$('[name="save-place-btn"]'),
-          spinner, $fileInputs;
+        router = this.options.router,
+        collection = this.collection[self.formState.selectedCategoryConfig.dataset],
+        model,
+        // Should not include any files
+        attrs = this.getAttrs(),
+        $button = this.$('[name="save-place-btn"]'),
+        spinner, $fileInputs,
+        richTextAttrs = {};
+
+      // if we have a Quill-enabled field, assume content from this field belongs
+      // to the model's description attribute. We'll need to make this behavior 
+      // more sophisticated to support multiple Quill-enabled fields.
+      if ($(".ql-editor").html()) {
+        richTextAttrs.description = $(".ql-editor").html();
+      }
+      attrs = _.extend(attrs, richTextAttrs);
+
+      if (this.formState.selectedCategoryConfig.enable_geometry) {
+        attrs["style"] = {
+          color: this.geometryEditorView.colorpicker.color,
+          opacity: this.geometryEditorView.colorpicker.opacity,
+          fillColor: this.geometryEditorView.colorpicker.fillColor,
+          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
+        }
+      }
+
       evt.preventDefault();
 
       collection.add({"location_type": this.formState.selectedCategoryConfig.category});
@@ -289,6 +375,9 @@ var Shareabouts = Shareabouts || {};
       // Save and redirect
       model.save(attrs, {
         success: function() {
+          if (self.geometryEditorView) {
+            self.geometryEditorView.tearDown();
+          }
           S.Util.log('USER', 'new-place', 'successfully-add-place');
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
@@ -304,4 +393,4 @@ var Shareabouts = Shareabouts || {};
       });
     })
   });
-}(Shareabouts, jQuery, Shareabouts.Util.console));
+}(Shareabouts, jQuery, Shareabouts.Util.console, Quill));

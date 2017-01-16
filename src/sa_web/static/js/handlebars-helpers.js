@@ -27,6 +27,10 @@ var Shareabouts = Shareabouts || {};
     return a === b ? options.fn(this) : options.inverse(this);
   });
 
+  Handlebars.registerHelper('is_not', function(a, b, options) {
+    return a !== b ? options.fn(this) : options.inverse(this);
+  });
+
   Handlebars.registerHelper('if_fileinput_not_supported', function(options) {    
     return !NS.Util.fileInputSupported() ? options.fn(this) : null;
   });
@@ -194,7 +198,7 @@ var Shareabouts = Shareabouts || {};
       content, 
       wasAnswered = false;
 
-      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
+      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime" || fieldType === "rawHTML") {
         // case: plain text
         content = userInput || "";
         if (content !== "") {
@@ -238,7 +242,8 @@ var Shareabouts = Shareabouts || {};
         type: item.type,
         content: content,
         prompt: item.display_prompt,
-        wasAnswered: wasAnswered
+        wasAnswered: wasAnswered,
+        isEditingToggled: this.isEditingToggled
       };
 
       if (_.contains(exclusions, item.name) === false &&

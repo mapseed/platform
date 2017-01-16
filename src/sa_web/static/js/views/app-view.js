@@ -21,6 +21,7 @@ var Shareabouts = Shareabouts || {};
   S.AppView = Backbone.View.extend({
     events: {
       'click #add-place': 'onClickAddPlaceBtn',
+      'click .list-toggle-btn': 'toggleListView',
       'click .close-btn': 'onClickClosePanelBtn'
     },
     initialize: function(){
@@ -44,6 +45,12 @@ var Shareabouts = Shareabouts || {};
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
 
+      // Caches of the views (one per place)
+      this.placeFormView = null;
+      this.placeDetailViews = {};
+      this.landmarkDetailViews = {};
+      this.activeDetailView;
+
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
       this.isProgrammaticZoom = false;
@@ -57,10 +64,10 @@ var Shareabouts = Shareabouts || {};
         $('#ajax-error-msg').hide();
       });
 
-      $('.list-toggle-btn').click(function(evt){
-        evt.preventDefault();
-        self.toggleListView();
-      });
+      // $('.list-toggle-btn').click(function(evt){
+      //   evt.preventDefault();
+      //   self.toggleListView();
+      // });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
         this.setBodyClass("right-sidebar-visible");
@@ -116,6 +123,7 @@ var Shareabouts = Shareabouts || {};
       this.pagesNavView = (new S.PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
+              placeConfig: this.options.placeConfig,
               router: this.options.router
             })).render();
 
@@ -137,7 +145,8 @@ var Shareabouts = Shareabouts || {};
         landmarks: this.landmarks,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
-        cluster: this.options.cluster
+        cluster: this.options.cluster,
+        placeDetailViews: this.placeDetailViews
       });
 
       if (self.options.sidebarConfig.enabled){
@@ -271,11 +280,6 @@ var Shareabouts = Shareabouts || {};
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
 
-      // Caches of the views (one per place)
-      this.placeFormView = null;
-      this.placeDetailViews = {};
-      this.landmarkDetailViews = {};
-
       _.each(this.places, function(value, key) {
         self.placeDetailViews[key] = {};
       });
@@ -384,7 +388,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMapZoomEnd: function(evt) {
       if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
-        $("#spotlight-place-mask").remove();
+        this.removeSpotlightMask();
       }
       this.isProgrammaticZoom = false;
     },
@@ -409,7 +413,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMapDragEnd: function(evt) {
       if (this.hasBodyClass('content-visible') === true) {
-        $("#spotlight-place-mask").remove();
+        this.removeSpotlightMask();
       }
       this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
     },
@@ -420,13 +424,10 @@ var Shareabouts = Shareabouts || {};
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
-      if (this.placeFormView) {
-        this.placeFormView.closePanel();
-      }
 
       S.Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
-      $("#spotlight-place-mask").remove();
+      this.removeSpotlightMask();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
@@ -471,6 +472,8 @@ var Shareabouts = Shareabouts || {};
         delete this.placeDetailViews[model.cid];
       }
     },
+
+    // TODO: clean up landmark/place distinction here
     getLandmarkDetailView: function(collectionId, model) {
       var landmarkDetailView;
       if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
@@ -488,13 +491,15 @@ var Shareabouts = Shareabouts || {};
       }
       return landmarkDetailView;
     },
-    getPlaceDetailView: function(model) {
+    getPlaceDetailView: function(model, layerView) {
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
         placeDetailView = new S.PlaceDetailView({
           model: model,
+          appView: this,
+          layerView: layerView,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
@@ -503,9 +508,11 @@ var Shareabouts = Shareabouts || {};
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
           mapView: this.mapView,
+          geometryEditorView: this.mapView.geometryEditorView,
           router: this.options.router,
-          url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
-          datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
+          datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
+            return layer.slug == model.attributes.datasetSlug 
+          }).id
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -549,6 +556,7 @@ var Shareabouts = Shareabouts || {};
           placeConfig: this.options.placeConfig,
           mapConfig: this.options.mapConfig,
           userToken: this.options.userToken,
+          geometryEditorView: this.mapView.geometryEditorView,
           // only need to send place collection, since all data added will be a place of some kind
           collection: this.places
         });
@@ -614,229 +622,78 @@ var Shareabouts = Shareabouts || {};
         });
       });
     },
-
-    // TODO: Refactor this into 'viewPlace'
-    viewLandmark: function(model, options) {
+    viewPlaceOrLandmark: function(args) {
       var self = this,
-          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-          layout = S.Util.getPageLayout(),
-          onLandmarkFound, onLandmarkNotFound, modelId;
+        includeSubmissions = S.Config.flavor.app.list_enabled !== false,
+        layout = S.Util.getPageLayout(),
+        onFound, onNotFound, searchLoadedCollections, createCollectionsListeners,
+        foundInCallback = false;
 
-      onLandmarkFound = function(model, response, newOptions) {
+      onFound = function(model, type, datasetId) {
         var map = self.mapView.map,
-            layer, center, landmarkDetailView, $responseToScrollTo;
-        options = newOptions ? newOptions : options;
+          layer, center, zoom, detailView, $responseToScrollTo;
 
-        layer = self.mapView.layerViews[options.collectionId][model.id].layer
-
-        if (layer) {
-          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
-        }
-        landmarkDetailView = self.getLandmarkDetailView(options.collectionId, model);
-
-        self.$panel.removeClass().addClass('place-detail place-detail-' + model);
-        self.showPanel(landmarkDetailView.render().$el, false);
-        landmarkDetailView.delegateEvents();
-        self.hideNewPin();
-        self.destroyNewModels();
-        self.hideCenterPoint();
-        self.setBodyClass('content-visible');
-
-        if (layer) {
-          if (options.zoom) {
-            if (layer.getLatLng) {
-              if (model.attributes.story) {
-                // TODO(Trevor): this needs to be cleaned up
-                self.setStoryLayerVisibility(model);
-                self.isProgrammaticZoom = true;
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
-              } else {
-                map.setView(center, map.getMaxZoom()-1, {reset: true});
-              }
-            } else {
-              map.fitBounds(layer.getBounds(), {reset: true});
-            }
-
-          } else {
-            if (model.attributes.story) {
-              // if this model is part of a story, set center and zoom level
-              self.isProgrammaticZoom = true;
-              self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-            } else {
-              map.panTo(center, {animate: true, reset: true});
-            }
+        if (type === "place") {
+          // If this model is a duplicate of one that already exists in the
+          // places collection, it may not correspond to a layerView. For this
+          // case, get the model that's actually in the places collection.
+          if (_.isUndefined(self.mapView.layerViews[model.cid])) {
+            model = self.places[datasetId].get(model.id);
           }
-        }
-        self.addSpotlightMask();
 
-        // Focus the one we're looking
-        model.trigger('focus');
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
-          self.isStoryActive = true;
-          self.setStoryLayerVisibility(model);
-        } else if (self.isStoryActive) {
-          self.isStoryActive = false;
-          self.restoreDefaultLayerVisibility();
-        } else {
-          self.isStoryActive = false;
-        }
-      };
-
-      onLandmarkNotFound = function(model, response, newOptions) {
-        options.stillSearching[options.collectionId] = false;
-        var allCollectionsSearched = true;
-        _.each(_.values(options.stillSearching), function(stillSearching) {
-          if (stillSearching) {
-            allCollectionsSearched = false;
+          // TODO: We need to handle the non-deterministic case when
+          // 'self.mapView.layerViews[datasetId][model.cid]` is undefined -- ????
+          if (self.mapView.layerViews[datasetId] 
+            && self.mapView.layerViews[datasetId][model.cid]) {
+            layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
-        });
-        if (allCollectionsSearched) {
-          self.options.router.navigate('/');
-        }
-      };
-
-      // If a collectionId is not specified, then we need to search all collections
-      if (options['collectionId'] === undefined) {
-        // First, let's check the caches of all of our collections for the
-        // model to avoid making unnecessary api calls for each collection:
-        var cachedModel;
-        var collectionId;
-
-        _.find(Object.keys(self.options.landmarks), function(landmarkConfigId) {
-          collectionId = landmarkConfigId;
-          cachedModel = self.landmarks[collectionId].get(model);
-          return cachedModel;
-        });
-        if (cachedModel) {
-          onLandmarkFound(cachedModel, {}, { collectionId: collectionId,
-                                          zoom: options.zoom });
-          return;
-        }
-
-        // If the model is not already in our collections, then we must fetch it
-        // by making a call to each collection:
-        var stillSearching = {};
-        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
-          stillSearching[landmarkConfig.id] = true;
-        });
-        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
-          self.viewLandmark(model, { collectionId: landmarkConfig.id,
-                                     zoom: options.zoom,
-                                     stillSearching: stillSearching });
-        });
-        return;
-      }
-
-      // If we are passed a LandmarkModel then show it immediately.
-      if (model instanceof S.LandmarkModel) {
-        onLandmarkFound(model)
-        return;
-      }
-
-      // Otherwise, assume we have a model ID.
-      modelId = model;
-      var landmarkCollection = this.landmarks[options.collectionId];
-      if (!landmarkCollection) {
-        onLandmarkNotFound();
-        return;
-      }
-      model = landmarkCollection.get(modelId);
-
-      // If the model was found in the landmarks, go ahead and use it.
-      if (model) {
-        onLandmarkFound(model);
-
-      // Otherwise, fetch and use the result.
-      } else {
-        landmarkCollection.fetch({
-          success: function(collection, response, options) {
-            var foundModel = collection.findWhere({ id: modelId });
-            if (foundModel) {
-              onLandmarkFound(foundModel);
-            } else {
-              onLandmarkNotFound();
-            }
-          },
-          error: onLandmarkNotFound
-        })
-      }
-    },
-    viewPlace: function(datasetSlug, model, responseId, zoom) {
-      var self = this,
-          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-          layout = S.Util.getPageLayout(),
-          // get the dataset id from the map layers array for the given datasetSlug
-          datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
-          onPlaceFound, onPlaceNotFound, modelId;
-
-      onPlaceFound = function(model) {
-        var map = self.mapView.map,
-            layer, center, placeDetailView, $responseToScrollTo;
-
-        // If this model is a duplicate of one that already exists in the
-        // places collection, it may not correspond to a layerView. For this
-        // case, get the model that's actually in the places collection.
-        if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places[datasetId].get(model.id);
-        }
-
-        // TODO: We need to handle the non-deterministic case when
-        // 'self.mapView.layerViews[model.cid]` is undefined
-        if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
-          layer = self.mapView.layerViews[datasetId][model.cid].layer;
-        }
-
-        placeDetailView = self.getPlaceDetailView(model);
-
-        if (layer) {
-          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+          detailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]).delegateEvents();
+          self.showPanel(detailView.render().$el, !!args.responseId);
+        } else if (type === "landmark") {
+          layer = self.mapView.layerViews[datasetId][model.id].layer;
+          detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
+          self.showPanel(detailView.render().$el, false);
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el, !!responseId);
-        placeDetailView.delegateEvents();
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
         self.setBodyClass('content-visible');
-
-        if (layer) {
-          if (zoom) {
-            if (layer.getLatLng) {
-              if (model.attributes.story) {
-                // TODO(Trevor): this needs to be cleaned up
-                self.isProgrammaticZoom = true;
-                self.setStoryLayerVisibility(model);
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
-              } else {
-                map.setView(center, map.getMaxZoom()-1, {reset: true});
-              }
-            } else {
-              map.fitBounds(layer.getBounds(), {reset: true});
-            }
-
-          } else {
-            if (model.attributes.story) {
-              self.isProgrammaticZoom = true;
-              self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-            } else {
-              map.panTo(center, {animate: true, reset: true});
-            }
-          }
-        }
         self.addSpotlightMask();
 
-        if (responseId) {
-          // get the element based on the id
-          $responseToScrollTo = placeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+          zoom = map.getZoom();
+          
+          if (model.get("story")) {
+            if (!model.get("story").spotlight) {
+              $("#spotlight-place-mask").remove();
+            }
+            self.isStoryActive = true;
+            self.isProgrammaticZoom = true;
+            self.setStoryLayerVisibility(model);
+            center = model.get("story").panTo || center;
+            zoom = model.get("story").zoom;
+          }
 
-          // call scrollIntoView()
+          if (layer.getLatLng) {
+            map.setView(center, zoom, {
+              animate: true,
+              reset: (args.loading) ? true : false
+            });
+          } else {
+            map.fitBounds(layer.getBounds(), {
+              animate: true,
+              reset: (args.loading) ? true : false
+            });
+          }
+        }
+
+        if (args.responseId) {
+          $responseToScrollTo = detailView.$el.find('[data-response-id="'+ args.responseId +'"]');
           if ($responseToScrollTo.length > 0) {
-            if (layout === 'desktop') {
+            if (layout === '"desktop"') {
               // For desktop, the panel content is scrollable
               self.$panelContent.scrollTo($responseToScrollTo, 500);
             } else {
@@ -846,52 +703,99 @@ var Shareabouts = Shareabouts || {};
           }
         }
 
-        // Focus the one we're looking
-        model.trigger('focus');
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
-          self.isStoryActive = true;
-          self.setStoryLayerVisibility(model);
-        } else if (self.isStoryActive) {
+        model.trigger('focus');        
+        if (!model.get("story") && self.isStoryActive) {
           self.isStoryActive = false;
           self.restoreDefaultLayerVisibility();
-        } else {
-          self.isStoryActive = false;
         }
       };
 
-      onPlaceNotFound = function() {
+      onNotFound = function() {
         self.options.router.navigate('/');
+        return;
       };
 
-      // If we get a PlaceModel then show it immediately.
-      if (model instanceof S.PlaceModel) {
-        onPlaceFound(model);
-        return;
-      }
-
-      // Otherwise, assume we have a model ID.
-      modelId = model;
-      model = this.places[datasetId].get(modelId);
-
-      // If the model was found in the places, go ahead and use it.
-      if (model) {
-        onPlaceFound(model);
-
-      // Otherwise, fetch and use the result.
-      } else {
-        this.places[datasetId].fetchById(modelId, {
-          // Check for a valid location type before adding it to the collection
-          validate: true,
-          success: onPlaceFound,
-          error: onPlaceNotFound,
-          data: {
-            include_submissions: includeSubmissions
+      searchLoadedCollections = function(collections, property, type) {
+        var found = false,
+        searchTerm = {};
+        searchTerm[property] = args.modelId;
+        _.find(collections, function(collection, datasetId) {
+          var model = collection.where(searchTerm);
+          if (model.length === 1) {
+            found = true;
+            onFound(model[0], type, datasetId);
+            return;
           }
         });
+
+        return found;
+      };
+
+      bindCollectionsListeners = function(collections, property, type, finalCollection) {
+        var numCollections = _.keys(collections).length,
+        i = 0,
+        searchTerm = {};
+        searchTerm[property] = args.modelId;
+        _.each(collections, function(collection, datasetId) {
+          collection.on("sync", function(syncedCollection) {
+            i++;
+            var model = syncedCollection.where(searchTerm);
+            if (model.length === 1) {
+              foundInCallback = true;
+              onFound(model[0], type, datasetId);
+            } else if (numCollections === i && finalCollection && !foundInCallback) {
+              // if this is the last collection of the set and the final
+              // set of collections and no model has been found, it means the
+              // model doesn't exist.
+              onNotFound();
+            }
+          });
+        });
+      };
+
+      if (args.datasetSlug) {
+        // If we have a slug, we definitely have a place model
+        var datasetId = _.find(self.options.mapConfig.layers, function(layer) { 
+          return layer.slug === args.datasetSlug;
+        }).id;
+        model = this.places[datasetId].get(args.modelId);
+        if (model) {
+          onFound(model, "place", datasetId);
+          return;
+        } else {
+          this.places[datasetId].fetchById(args.modelId, {
+            validate: true,
+            success: function(model) {
+              onFound(model, "place", datasetId);
+              return;
+            },
+            error: function() {
+              onNotFound();
+              return;
+            },
+            data: {
+              include_submissions: includeSubmissions
+            }
+          });
+        }
+      } else {
+        // Otherwise, we have a landmark-style url, which may correspond
+        // to a place or a landmark.
+        // Conduct a search according to the following strategy: 
+        // 1. check loaded place collections
+        // 2. check loaded landmark collections
+        // 3. set up sync listeners on all place and landmark collections
+        if (searchLoadedCollections(this.places, "url-title", "place")) {
+          return;
+        };
+        if (searchLoadedCollections(this.landmarks, "id", "landmark")) {
+          return;
+        };
+        bindCollectionsListeners(this.places, "url-title", "place", false);
+        bindCollectionsListeners(this.landmarks, "id", "landmark", true);
       }
     },
+
     viewPage: function(slug) {
       var pageConfig = S.Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
           pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
@@ -905,6 +809,7 @@ var Shareabouts = Shareabouts || {};
       this.hideCenterPoint();
       this.setBodyClass('content-visible');
     },
+
     showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
 
@@ -937,7 +842,6 @@ var Shareabouts = Shareabouts || {};
     },
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
-
       this.addSpotlightMask();
     },
     showAddButton: function() {
@@ -963,26 +867,27 @@ var Shareabouts = Shareabouts || {};
       $("#add-place-btn-container").attr("class", "pos-top-right");
 
       S.Util.log('APP', 'panel-state', 'closed');
-      $("#spotlight-place-mask").remove();
+      this.removeSpotlightMask();
     },
     hideNewPin: function() {
       this.showCenterPoint();
     },
     addSpotlightMask: function() {
-      // remove an existing mask
-      $("#spotlight-place-mask").remove();
-
-      // add map mask and spotlight effect
+      this.removeSpotlightMask();
       var spotlightDiameter = 200,
           xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
           yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
       $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
       $("#spotlight-place-mask-fill").css("left", xOffset + "px")
-                               .css("top", yOffset + "px")
-                               .css("width", spotlightDiameter + "px")
-                               .css("height", spotlightDiameter + "px")
-                               // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
-                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+        .css("top", yOffset + "px")
+        .css("width", spotlightDiameter + "px")
+        .css("height", spotlightDiameter + "px")
+        // scale the box shadow to the largest screen dimension; 
+        // an arbitrarily large box shadow won't get drawn in Safari
+        .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+    },
+    removeSpotlightMask: function() {
+      $("#spotlight-place-mask").remove();
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the place markers
@@ -1039,12 +944,9 @@ var Shareabouts = Shareabouts || {};
     },
     toggleListView: function() {
       if (this.listView.isVisible()) {
-        this.viewMap();
-        this.hideListView();
-        this.options.router.navigate('');
+        this.options.router.navigate('/', {"trigger": true});
       } else {
-        this.showListView();
-        this.options.router.navigate('list');
+        this.options.router.navigate('list', {"trigger": true});
       }
       this.mapView.clearFilter();
     }

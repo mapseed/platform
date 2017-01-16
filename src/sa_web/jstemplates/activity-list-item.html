@@ -1,6 +1,6 @@
       <li class="activity-item clearfix">
         {{!-- data attributes are not ideal, see comment in activity view --}}
-        <a href="/{{ place.datasetSlug }}/{{ place.id }}{{#is target_type 'comments'}}/response/{{ target.id }}{{/is}}" data-action-type="{{ target_type }}" data-place-id="{{ place.id }}">{{#_}}<strong>
+        <a href="/{{#if place.url-title}}{{ place.url-title }}{{else}}{{ place.datasetSlug }}/{{ place.id }}{{/if}}{{#is target_type 'comments'}}/response/{{ target.id }}{{/is}}" data-action-type="{{ target_type }}" data-place-id="{{ place.id }}">{{#_}}<strong>
 
         {{#if target.submitter.avatar_url}}
           <img src="{{ target.submitter.avatar_url }}" class="avatar" />

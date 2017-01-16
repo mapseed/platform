@@ -37,7 +37,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     getAttrs: function($form) {
-      var attrs = {},
+      var self = this,
+          attrs = {},
           multivalues = [];
 
       // Get values from the form. Make the item into an array if there are
@@ -67,7 +68,7 @@ var Shareabouts = Shareabouts || {};
         this.cookies.save(name, value, days, "mapseed-");
       }
     },
- 
+
     getAutocompleteValue: function(name) {
       if (typeof Storage !== "undefined") {
         return this.localstorage.get(name);
@@ -371,7 +372,6 @@ var Shareabouts = Shareabouts || {};
         var prefix = prefix || "",
         nameEQ = prefix + name + '=',
         ca = document.cookie.split(';');
-        var ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
           var c = ca[i];
           while (c.charAt(0) === ' ') {

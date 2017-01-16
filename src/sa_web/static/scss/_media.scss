@@ -82,16 +82,28 @@
         height: 70%;
     }
 
-    .right-sidebar-visible #right-sidebar {
-        width: 100%;
-        display: block;
-        left: 0;
-        top: calc(#{$map-height-smallscreen-when-sidebar-visible} + #{$footer-height-smallscreen});
-        height: 400px;
+    #main-btns-container {
+        font-size: 0.75em;
     }
 
-    .content-visible.right-sidebar-visible #right-sidebar {
-        display: none;
+    #add-place {
+        display: inline-block;
+        width: 49%;
+        margin-top: -4px;
+    }
+
+    #nav-stories {
+        display: inline-block;
+        width: 49%;
+        margin-top: -4px;
+    }
+
+    #add-place:hover {
+        background-color: #FF8B61;
+    }
+
+    #nav-stories:hover {
+        background-color: #FF8B61;
     }
 }
 
@@ -289,7 +301,7 @@
         height: 100%;
     }
 
-    #add-place-btn-container {
+    #main-btns-container {
         position: absolute;
 
         &.pos-top-left {
@@ -328,14 +340,14 @@
         }
     }
 
-    .content-visible #add-place-btn-container {
+    .content-visible #main-btns-container {
         display: block;
 
         // override of the mobile style
    
     }
 
-    .place-form-visible #add-place-btn-container {
+    .place-form-visible #main-btns-container {
         display: none;
     }
 
@@ -656,66 +668,66 @@
 
 
 /* Added temporarily for sidebar*/
-@media only screen and (max-width: 960px) {
+// @media only screen and (max-width: 960px) {
 
-    .sidebar.collapsed {
-        width: 100%;
-        box-sizing: border-box;
-        position: absolute;
-        bottom: 0;
-        height: 33px;
-        top: initial;
-    }
+//     .sidebar.collapsed {
+//         width: 100%;
+//         box-sizing: border-box;
+//         position: absolute;
+//         bottom: 0;
+//         height: 33px;
+//         top: initial;
+//     }
 
-    .sidebar {
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 0px;
-        border: none;
-        z-index: 2000;
-        box-sizing: border-box;
-        box-shadow: none;
-    }
+//     .sidebar {
+//         top: 0;
+//         bottom: 0;
+//         left: 0;
+//         width: 100%;
+//         overflow: hidden;
+//         border-radius: 0px;
+//         border: none;
+//         z-index: 2000;
+//         box-sizing: border-box;
+//         box-shadow: none;
+//     }
 
-    .sidebar-left .sidebar-tabs {
-        bottom: 0px;
-        position: absolute;
-        height: 33px;
-        z-index: 99;
-        padding: 0 9px;
-        box-sizing: border-box;
-        box-shadow: 0px 0px 3px 1px rgba(0,0,0,.2);
-    }
-    .sidebar-tabs, .sidebar-tabs > ul {
-        width: 100%;
-        display: flex;
-    }
-    .sidebar-tabs li {
-        border-radius: 3px;
-    }
-    .sidebar-content {
-        padding-bottom: 33px;
-        left: 0 !important;
-        height: auto;
-    }
-    .sidebar-header .sidebar-close i {
-        padding: 5px 8px 6px 8px;
-    }
-    .sidebar-header .sidebar-close i::before {
-        content: "\f00d";
-    }
-    .sidebar-tabs .active {
-        border-radius: 3px;
-    }
+//     .sidebar-left .sidebar-tabs {
+//         bottom: 0px;
+//         position: absolute;
+//         height: 33px;
+//         z-index: 99;
+//         padding: 0 9px;
+//         box-sizing: border-box;
+//         box-shadow: 0px 0px 3px 1px rgba(0,0,0,.2);
+//     }
+//     .sidebar-tabs, .sidebar-tabs > ul {
+//         width: 100%;
+//         display: flex;
+//     }
+//     .sidebar-tabs li {
+//         border-radius: 3px;
+//     }
+//     .sidebar-content {
+//         padding-bottom: 33px;
+//         left: 0 !important;
+//         height: auto;
+//     }
+//     .sidebar-header .sidebar-close i {
+//         padding: 5px 8px 6px 8px;
+//     }
+//     .sidebar-header .sidebar-close i::before {
+//         content: "\f00d";
+//     }
+//     .sidebar-tabs .active {
+//         border-radius: 3px;
+//     }
 
-    /* Report button*/
-    #add-place-btn-container {
-        border-bottom: none;
-        box-shadow: none;
-    }
-}
+//     /* Report button*/
+//     #add-place-btn-container {
+//         border-bottom: none;
+//         box-shadow: none;
+//     }
+// }
 
 

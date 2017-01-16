@@ -44,6 +44,11 @@
             {{^optional}}required{{/optional}}>{{autocompleteValue}}</textarea>
 {{/is}}
 
+{{#is type "rawHTML"}}
+  <!-- NOTE: assume QuillJS will be used to edit content of this type -->
+  <div id="place-{{ name }}" class="rawHTML"></div>
+{{/is}}
+
 {{#is type "radio_big_buttons"}}
   <div>
     {{#each content}}
@@ -118,6 +123,7 @@
   </div>
   <div style="clear:both"></div>
 {{/is}}
+
 <div style="clear:both"></div>
 
 {{#is type "section_header"}}

@@ -6,7 +6,9 @@ var Shareabouts = Shareabouts || {};
   S.SurveyView = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
-      'click .reply-link': 'onReplyClick'
+      'click .reply-link': 'onReplyClick',
+      'click .update-response-btn': 'onUpdateResponse',
+      'click .delete-response-btn': 'onDeleteResponse'
     },
     initialize: function() {
       S.TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
@@ -51,6 +53,7 @@ var Shareabouts = Shareabouts || {};
 
         responses.push(_.extend(model.toJSON(), {
           submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
+          cid: model.cid,
           pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
             self.options.surveyConfig.pretty_datetime_format),
           items: items
@@ -62,7 +65,8 @@ var Shareabouts = Shareabouts || {};
         has_single_response: (responses.length === 1),
         user_token: this.options.userToken,
         user_submitted: !!this.userSubmission,
-        survey_config: this.options.surveyConfig
+        survey_config: this.options.surveyConfig,
+        isEditingToggled: this.options.placeDetailView.isEditingToggled
       }, S.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-detail-survey'](data));
@@ -81,6 +85,22 @@ var Shareabouts = Shareabouts || {};
             $(window).scrollTo($responseToScrollTo);
           }
         }, 700);
+      }
+
+      if (this.options.placeDetailView.isEditingToggled) {
+        var editEvents = "keyup";
+        $.each(this.$el.find(".responses form"), function() {
+          $(this).on(editEvents, function(e) {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
+              || (e.keyCode >= 65 && e.keyCode <= 90) // a-z (also capital letters)
+              || (e.keyCode === 8) // backspace key
+              || (e.keyCode === 46) // delete key
+              || (e.keyCode === 32) // spacebar
+              || (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
+              $(this).siblings(".btn-update").removeClass("faded").prop("disabled", false);
+            }
+          });
+        });
       }
 
       return this;
@@ -136,8 +156,29 @@ var Shareabouts = Shareabouts || {};
       evt.preventDefault();
       this.$('textarea, input').not('[type="hidden"]').first().focus();
       S.Util.log('USER', 'place', 'leave-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
-    }
+    },
 
+    onUpdateResponse: function(evt) {
+      var cid = $(evt.target).parent().data("cid"),
+      model = this.collection.get(cid),
+      $form = $(evt.target).siblings("form"),
+      attrs = S.Util.getAttrs($form);
+      model.set(attrs).save({}, {
+        success: function() {
+          $(evt.target).addClass("faded").prop("disabled", true);
+        }
+      });
+    },
+
+    onDeleteResponse: function(evt) {
+      var response = confirm("You are deleting this comment permanently. Are you sure you want to continue?");
+      if (response) {
+        var cid = $(evt.target).parent().data("cid"),
+        model = this.collection.get(cid);
+        model.destroy();
+        this.render();
+      }
+    }
   });
 
 }(Shareabouts, jQuery, Shareabouts.Util.console));
