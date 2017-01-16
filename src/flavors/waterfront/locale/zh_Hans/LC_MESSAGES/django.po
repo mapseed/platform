@@ -20,4 +20,3 @@ msgstr ""
 
 #: flavors/waterfront/templates/index.html:52
 msgid "Powered by"
-msgstr ""

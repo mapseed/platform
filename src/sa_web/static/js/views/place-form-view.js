@@ -7,7 +7,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-btn.clickable + label': 'onCategoryChange',
+      'click .category-btn.clickable': 'onCategoryChange',
       'click .category-menu-hamburger': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'click .btn-geolocate': 'onClickGeolocate'
@@ -119,6 +119,26 @@ var Shareabouts = Shareabouts || {};
           quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
         }); 
       }
+
+      this.bindCategoryListeners();
+    },
+    bindCategoryListeners: function() {
+      $(".category-btn-container").off().on("click", function(evt) {
+        $(this).prev().trigger("click");
+      });
+    },
+    checkAutocomplete: function() {
+      var self = this,
+      storedValue;
+
+      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
+      });
+      this.formState.commonFormElements.forEach(function(field, i) {
+        storedValue = S.Util.getAutocompleteValue(field.name);
+        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
+      });
     },
     checkAutocomplete: function() {
       var self = this,
@@ -149,8 +169,6 @@ var Shareabouts = Shareabouts || {};
       this.location = location;
     },
     getAttrs: function() {
-      console.log("getAttrs");
-
       var self = this,
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
@@ -192,18 +210,28 @@ var Shareabouts = Shareabouts || {};
     },
     onCategoryChange: function(evt) {
       var self = this,
-          animationDelay = 400;
+          animationDelay = 200;
 
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
-        return place.category == $(evt.target).parent().prev().attr('id');
+        return place.category == $(evt.target).attr('id');
       });
 
       this.render(true);
-      this.postRender(true);
-      $(evt.target).parent().prev().prop("checked", true);
+      $("#" + $(evt.target).attr("id"))
+        .prop("checked", true)
+        .next()
+        .addClass("category-btn-container-selected");
       $("#selected-category").hide().show(animationDelay);
       $("#category-btns").animate( { height: "hide" }, animationDelay );
-      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      if (this.center) {
+        this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      }
+    },
+    onExpandCategories: function(evt) {
+      var animationDelay = 200;
+      $("#selected-category").hide(animationDelay);
+      $("#category-btns").animate( { height: "show" }, animationDelay ); 
+      this.bindCategoryListeners();
     },
     onClickGeolocate: function(evt) {
       var self = this;
@@ -267,11 +295,6 @@ var Shareabouts = Shareabouts || {};
       this.center = null;
       this.resetFormState();
     },
-    onExpandCategories: function(evt) {
-      var animationDelay = 400;
-      $("#selected-category").hide(animationDelay);
-      $("#category-btns").animate( { height: "show" }, animationDelay ); 
-    },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       var self = this,
       rejectSubmit = function(warningClass) {
@@ -328,7 +351,7 @@ var Shareabouts = Shareabouts || {};
         return self.formState.selectedCategoryConfig.dataset == layer.id;
       }).slug);
       model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
-
+      
       // if an attachment has been added...
       if (self.formState.attachmentData) {
         var attachment = model.attachmentCollection.find(function(attachmentModel) {

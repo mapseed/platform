@@ -19,4 +19,3 @@ msgstr ""
 
 #: flavors/pugetsound/templates/index.html:52
 msgid "Powered by"
-msgstr ""

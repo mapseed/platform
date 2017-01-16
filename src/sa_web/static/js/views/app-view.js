@@ -69,6 +69,11 @@ var Shareabouts = Shareabouts || {};
       //   self.toggleListView();
       // });
 
+      if (this.options.activityConfig.show_in_right_panel === true) {
+        this.setBodyClass("right-sidebar-visible");
+        $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
+      }
+
       $(document).on('click', '.activity-item a', function(evt) {
         window.app.clearLocationTypeFilter();
       });

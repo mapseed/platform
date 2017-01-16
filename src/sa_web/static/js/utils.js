@@ -393,17 +393,30 @@ var Shareabouts = Shareabouts || {};
       save: function(name, value, days) {
         var expDate = new Date();
         expDate.setTime(expDate.getTime() + (days * 24 * 60 * 60 * 1000));
-        localStorage.setItem(this.LOCALSTORAGE_PREFIX + name, JSON.stringify({
-          expires: expDate,
-          value: value
-        }));
-      },
+        try {
+          localStorage.setItem(this.LOCALSTORAGE_PREFIX + name, JSON.stringify({
+            expires: expDate,
+            value: value
+          }));
+        } catch (e) {
+          // ignore exceptions
+        }
+       },
       get: function(name) {
         var now = new Date().getTime(),
         name = this.LOCALSTORAGE_PREFIX + name,
-        item = JSON.parse(localStorage.getItem(name)) || {};
+        item = {};
+        try {
+          item = JSON.parse(localStorage.getItem(name)) || {};
+        } catch (e) {
+          // ignore exceptions
+        }
         if (now > Date.parse(item.expires)) {
-          localStorage.removeItem(name);
+          try {
+            localStorage.removeItem(name);
+          } catch (e) {
+            // ignore exceptions
+          }
           return null;
         }
 

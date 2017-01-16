@@ -2,14 +2,14 @@
 <div class="drag-marker-instructions">
   <table>
     <tr id="drag-marker-content">
-      <td>
+<!--       <td>
         <div class="btn btn-inline btn-geolocate">
           <img src="/static/css/images/locate-me.png" />
           {{#_}}Set my location{{/_}}
         </div> 
-      </td>
+      </td> -->
       <td>
-        <p class="drag-text">{{#_}}Or, drag the map to set your location{{/_}}</p>
+        <p class="drag-text">{{#_}}First, drag the map to set your location{{/_}}</p>
       </td>
     </tr>
     <tr id="geolocating-msg" class="is-visuallyhidden">
@@ -37,11 +37,13 @@
       {{#unless isSingleCategory}}
         <div id="selected-category">
           <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategoryConfig.name }} value={{ selectedCategoryConfig.value }} checked>
-          <label for="selected-category-palceholder">
-            <img src={{ selectedCategoryConfig.icon_url }} />
-            <span>{{ selectedCategoryConfig.label }}</span>
-          </label>
-          <span class="category-menu-hamburger"></span>
+          <table class="category-btn-container">
+            <tr>
+              <td class="category-icon"><img src={{ selectedCategoryConfig.icon_url }} /></td>
+              <td class="category-label">{{ selectedCategoryConfig.label }}</td>
+              <td class="category-menu-hamburger"></td>
+            </tr>
+          </table>
         </div>
       {{/unless}}
     {{/if}}
@@ -52,10 +54,12 @@
         {{#each placeConfig.place_detail}}
           {{#if this.includeOnForm}}
             <input type="radio" id={{ category }} class="category-btn clickable">
-            <label for={{ category }}>
-              <img src={{icon_url}} />
-              <span>{{ label }}</span>
-            </label>
+            <table class="category-btn-container">
+              <tr>
+                <td class="category-icon"><img src={{icon_url}} /></td>
+                <td class="category-label">{{ label }}</td>
+              </tr>
+            </table>
           {{/if}}
         {{/each}}
       </div>
@@ -66,8 +70,15 @@
     <!-- generate content for selected category -->
     {{#each selectedCategoryConfig.fields}}
       <div class="{{ type }} form-field">
-        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-          {{> place-form-field-types }}
+        {{#if horizontal_rule}}
+          <hr />
+        {{/if}}
+
+        {{#if prompt}}
+          <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+        {{/if}}
+
+        {{> place-form-field-types }}
       </div>
     {{/each}}
 
@@ -76,7 +87,7 @@
       <div id="common-form-elements">
         {{#each placeConfig.common_form_elements }}
           <div class="{{ this.type }} form-field">
-            <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+            <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>          
             {{> place-form-field-types }}
           </div>
         {{/each}}

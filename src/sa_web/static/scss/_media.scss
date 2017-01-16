@@ -58,22 +58,24 @@
 
 // Catchall media query for screen widths below 60em. Calculated screen heights
 // mean we don't need several media queries as above, and in general don't need
-// to worry about querying heights, but keeping the skeleton of those around in
-// case future design features require specific media queries.
-
+// to worry about querying heights.
 @media only screen and (max-width: 60em) {
     html, body, #map {
         height: 100%;
     }
 
     #main {
-        // calculated as 100% of viewport height minus the fixed pixel height of the header
-        height: calc(100% - 64px);
+        // calculated as 100% of viewport height, minus the height of the header
+        height: calc(100% - #{$header-height-fullscreen});
     }
 
     #map-container {
         // calculated as 100% of #main height minus the fixed pixel height of the footer
-        height: calc(100% - 35px);
+        height: calc(100% - #{$footer-height-smallscreen});
+    }
+
+    .right-sidebar-visible #map-container {
+        height: $map-height-smallscreen-when-sidebar-visible;
     }
 
     .activity-enabled.content-visible #map-container {
@@ -112,12 +114,17 @@
         content: "desktop";
     }
 
+    // right sidebar
+    #right-sidebar {
+        height: calc(100% - #{$header-height-fullscreen} - #{$footer-height-fullscreen});
+    }
+
     // Header
     #site-header {
         background: url(images/lightpaperfibers.png);
         padding-left: 1em;
         overflow: visible;
-        height: 4em;
+        height: $header-height-fullscreen;
 
         // height of site-header
         -webkit-box-sizing: border-box;
@@ -280,10 +287,6 @@
         width: 40%;
     }
 
-    .activity-enabled.content-visible #map-container {
-        width: $map-width-when-content-visible;
-    }
-
     .geocoding-bar-enabled #map-container {
         top: 8.5em;
     }
@@ -356,13 +359,20 @@
         top: 4em;
 
         // height of site-header
-        right: 0;
         bottom: 1.75em;
 
         //left: 40%;
         overflow: visible;
         box-shadow: (-0.325em) 0 0 $opacity-very-low-black;
         width: $content-visible-width;
+    }
+
+    .content-visible #content {
+        right: 0;
+    }
+
+    .right-sidebar-visible.content-visible #content {
+        left: $content-visible-with-sidebar-left-offset;
     }
 
     .activity-enabled #content {
@@ -376,6 +386,14 @@
 
     .activity-enabled.content-visible #map-container {
         width: $map-width-when-content-visible;
+    }
+
+    .right-sidebar-visible #map-container {
+        width: $map-width-when-sidebar-visible;
+    }
+
+    .right-sidebar-visible.content-visible #map-container {
+        width: $map-width-when-content-and-sidebar-visible;
     }
 
     .geocoding-bar-enabled #content {

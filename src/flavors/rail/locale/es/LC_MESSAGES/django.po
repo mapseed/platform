@@ -20,4 +20,3 @@ msgstr ""
 
 #: src/flavors/rail/templates/index.html:52
 msgid "Powered by"
-msgstr ""

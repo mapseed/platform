@@ -213,81 +213,72 @@ button.sp-selected {
 
 .category-btn {
     display: none;
+}
 
-    + label {
-        top: 0px;
-        text-transform: uppercase;
-        font-size: 12pt;
-        width: 200px;
-        display: block;
-        position: relative;
-        opacity: 1;
-        height: 46px;
-        margin-bottom: 1px;
+.category-btn-container {
+    width: 100%;
+    margin-bottom: 4px;
+    border-collapse: separate;
+    border-spacing: 0;
+    
+    img {
+        width: 36px;
+        padding-top: 4px;
+        padding-left: 2px;
     }
 
-    + label > img {
-        height: 36px;
-        width: 30px;
+    .category-icon {
+        cursor: pointer;
+        width: 40px;
         border-top: 2px solid transparent;
         border-bottom: 2px solid transparent;
         border-left: 2px solid transparent;
-        border-radius: 4px 0 0 4px;
-        padding: 3px;
-        display: inline;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
     }
 
-    + label > span {
-        width: 210px;
-        position: absolute;
-        top: 0px;
-        left: 38px;
-        padding-left: 15px;
+    .category-label {
+        cursor: pointer;
+        padding-left: 10px;
         border-top: 2px solid transparent;
         border-bottom: 2px solid transparent;
         border-right: 2px solid transparent;
-        border-radius: 0 4px 4px 0;
-        padding-top: 11px;
-        padding-bottom: 11px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        text-transform: uppercase;
+        font-size: 1.2em;
+        opacity: 1;
     }
 
-    &:checked, &:hover {
-        + label {
-            opacity: 1;
-            cursor: pointer;
+    &:hover {
+        .category-icon {
+            border-color: $selected-highlight-orange;
+        }
 
-            > img {
-                border-color: $selected-highlight-orange;
-            }
-
-            > span {
-                background-color: $selected-highlight-orange;
-                color: white;
-            }
+        .category-label {
+            background-color: $selected-highlight-orange;
+            border-color: $selected-highlight-orange;
+            color: white;
         }
     }
 }
 
 /* Selected category placeholder styles */
-#selected-category {
-    position: relative;
-    width: 280px;
-    margin-right: 0;
+#selected-category, .category-btn-container-selected {
+    .category-icon {
+        border-color: $selected-highlight-orange;
+    }
 
-    label {
-        cursor: default !important;
+    .category-label {
+        background-color: $selected-highlight-orange;
+        border-color: $selected-highlight-orange;
+        color: white;
     }
 }
 
 /* Other dynamic form styles */
 .category-menu-hamburger {
-    width: 30px;
-    height: 36px;
-    margin-right: 10px;
-    position: absolute;
-    top: 5px;
-    left: 290px;
-
+    padding-left: 20px;
     &:before {
         font-family: FontAwesome;
         font-size: 2.2em;
