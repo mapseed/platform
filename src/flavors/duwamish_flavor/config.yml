@@ -75,6 +75,11 @@ map:
       type: landmark
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+
+    - id: dirt-corps
+      type: landmark
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks      
+      sources: 
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: story-markers
@@ -432,7 +437,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-star.png
+          iconUrl: /static/css/images/markers/marker-dirtcorps.png
 
   # # needs a marker
   # farm:
@@ -582,6 +587,10 @@ sidebar:
             - id: cleanup
               title: _(River Cleanup Plan)
               visibleDefault: false
+
+            - id: dirt-corps
+              title: _(Dirt Corps sites)
+              visibleDefault: true
 
             - id: story-markers
               title: _(Stories)
@@ -1186,10 +1195,18 @@ story:
     tagline: _(Next featured site)
     default_zoom: 17
     default_visible_layers:
+      - dirt-corps
       - restoration
     order:
       - url: dirtcorps
+        zoom: 15
+        panTo:
+          lat: 47.53420
+          lng: -122.32165
         spotlight: false
+        visible_layers:
+          - dirt-corps
+        basemap: terrain
       - url: south-orcas-rain-gardens
       - url: rose-greenstreet
       - url: markey
