@@ -437,7 +437,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-star.png
+          iconUrl: /static/css/images/markers/marker-dirtcorps.png
 
   # # needs a marker
   # farm:
