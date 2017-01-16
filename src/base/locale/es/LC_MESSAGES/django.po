@@ -24,7 +24,7 @@ msgstr ""
 msgid "Powered by"
 msgstr "Impulsado por"
 
-#: sa_web/jstemplates/activity-list-item.html:1
+#: base/jstemplates/activity-list-item.html:1
 #, fuzzy
 #| msgid ""
 #| "<strong>\n"
@@ -139,35 +139,35 @@ msgstr ""
 "\n"
 "        {{/if }}"
 
-#: sa_web/jstemplates/auth-nav.html:1
+#: base/jstemplates/auth-nav.html:1
 msgid "Log Out"
 msgstr "Cerrar sesión"
 
-#: sa_web/jstemplates/auth-nav.html:2
+#: base/jstemplates/auth-nav.html:2
 msgid "Sign In"
 msgstr "Iniciar sesión"
 
-#: sa_web/jstemplates/auth-nav.html:3
+#: base/jstemplates/auth-nav.html:3
 msgid ""
 "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 "Sesión iniciada como </span> <span class=\"current-user\">{{ current_user "
 "\"name\" }}"
 
-#: sa_web/jstemplates/geocode-address.html:1
-#: sa_web/jstemplates/place-list.html:4
+#: base/jstemplates/geocode-address.html:1
+#: base/jstemplates/place-list.html:4
 msgid "Search"
 msgstr "Buscar"
 
-#: sa_web/jstemplates/place-detail-promotion-bar.html:1
+#: base/jstemplates/place-detail-promotion-bar.html:1
 msgid "Recommend on Facebook"
 msgstr "Recomendar en Facebook"
 
-#: sa_web/jstemplates/place-detail-promotion-bar.html:2
+#: base/jstemplates/place-detail-promotion-bar.html:2
 msgid "Tweet This"
 msgstr "Twittear esto"
 
-#: sa_web/jstemplates/place-detail-survey.html:1
+#: base/jstemplates/place-detail-survey.html:1
 msgid ""
 "<strong class=\"response-submitter\">\n"
 "                    {{#if submitter}}\n"
@@ -185,7 +185,7 @@ msgid ""
 "                  "
 msgstr ""
 
-#: sa_web/jstemplates/place-detail.html:1
+#: base/jstemplates/place-detail.html:1
 msgid ""
 "<strong class=\"point-submitter\">\n"
 "              {{#if submitter.avatar_url }}\n"
@@ -211,19 +211,19 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
-#: sa_web/jstemplates/place-detail.html:21
+#: base/jstemplates/place-detail.html:21
 msgid "View On Map"
 msgstr "Ver en el mapa"
 
-#: sa_web/jstemplates/place-form-field-types.html:1
+#: base/jstemplates/place-form-field-types.html:1
 msgid "Select..."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:1
+#: base/jstemplates/place-form.html:1
 msgid "First, drag the map to set your location"
 msgstr "Primero, arrastra el mapa para fijar la posición del marcador."
 
-#: sa_web/jstemplates/place-form.html:2
+#: base/jstemplates/place-form.html:2
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
@@ -231,40 +231,40 @@ msgstr ""
 "Parece que no has fijado tu ubicación todavía. Por favor arrastra el mapa "
 "hasta tu ubicación."
 
-#: sa_web/jstemplates/place-form.html:3
+#: base/jstemplates/place-form.html:3
 msgid "Set my location"
 msgstr "Fijar mi ubicación"
 
-#: sa_web/jstemplates/place-form.html:4
+#: base/jstemplates/place-form.html:4
 msgid "Setting your location..."
 msgstr "Se está fijando tu ubicación"
 
-#: sa_web/jstemplates/place-form.html:5
-#: sa_web/jstemplates/place-survey-form.html:1
+#: base/jstemplates/place-form.html:5
+#: base/jstemplates/place-survey-form.html:1
 msgid "optional"
 msgstr "opcional"
 
-#: sa_web/jstemplates/place-list.html:1
+#: base/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr "Lo más reciente"
 
-#: sa_web/jstemplates/place-list.html:2
+#: base/jstemplates/place-list.html:2
 msgid "Most {{ support_label_plural }}"
 msgstr "Lo más {{ support_label_plural }}"
 
-#: sa_web/jstemplates/place-list.html:3
+#: base/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
 msgstr "Lo más {{ survey_label_plural }}"
 
-#: sa_web/jstemplates/place-survey-response.html:1
+#: base/jstemplates/place-survey-response.html:1
 msgid "Thanks for participating!"
 msgstr "¡Gracias por participar!"
 
-#: sa_web/jstemplates/unsupported-overlay.html:1
+#: base/jstemplates/unsupported-overlay.html:1
 msgid "Proceed Anyway"
 msgstr "Proceder de todas maneras"
 
-#: sa_web/jstemplates/unsupported-overlay.html:2
+#: base/jstemplates/unsupported-overlay.html:2
 msgid ""
 "You are using an unsupported browser. Please\n"
 "    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
@@ -274,7 +274,7 @@ msgstr ""
 "<a href=\"http://browsehappy.com/\">actualiza tu navegador</a> para mejorar\n"
 "tu experiencia."
 
-#: sa_web/templates/base.html:113
+#: base/templates/base.html:113
 #, python-format
 msgid ""
 "\n"
@@ -284,7 +284,7 @@ msgstr ""
 "\n"
 "Ups, %(config.app.name)s necesita JavaScript para funcionar correctamente."
 
-#: sa_web/templates/base.html:118
+#: base/templates/base.html:118
 #, python-format
 msgid ""
 "\n"
@@ -301,7 +301,7 @@ msgstr ""
 "href=\"http://enable-javascript.com/\" target=\"_blank\">aquí</a> para ver "
 "unas instrucciones sencillas!"
 
-#: sa_web/templates/base.html:133
+#: base/templates/base.html:133
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
@@ -309,7 +309,7 @@ msgstr ""
 "No podemos conectarnos al servidor en este momento. Espera con calma "
 "mientras restablecemos la comunicación."
 
-#: sa_web/templates/base.html:144
+#: base/templates/base.html:144
 msgid "Close"
 msgstr "Cerrar"
 

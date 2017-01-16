@@ -21,7 +21,7 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: sa_web/jstemplates/activity-list-item.html:1
+#: base/jstemplates/activity-list-item.html:1
 msgid ""
 "<strong>\n"
 "\n"
@@ -66,33 +66,33 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/jstemplates/auth-nav.html:1
+#: base/jstemplates/auth-nav.html:1
 msgid "Log Out"
 msgstr "註銷"
 
-#: sa_web/jstemplates/auth-nav.html:2
+#: base/jstemplates/auth-nav.html:2
 msgid "Sign In"
 msgstr "登記"
 
-#: sa_web/jstemplates/auth-nav.html:3
+#: base/jstemplates/auth-nav.html:3
 msgid ""
 "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
-#: sa_web/jstemplates/geocode-address.html:1
-#: sa_web/jstemplates/place-list.html:4
+#: base/jstemplates/geocode-address.html:1
+#: base/jstemplates/place-list.html:4
 msgid "Search"
 msgstr "搜索"
 
-#: sa_web/jstemplates/place-detail-promotion-bar.html:1
+#: base/jstemplates/place-detail-promotion-bar.html:1
 msgid "Recommend on Facebook"
 msgstr ""
 
-#: sa_web/jstemplates/place-detail-promotion-bar.html:2
+#: base/jstemplates/place-detail-promotion-bar.html:2
 msgid "Tweet This"
 msgstr ""
 
-#: sa_web/jstemplates/place-detail-survey.html:1
+#: base/jstemplates/place-detail-survey.html:1
 msgid ""
 "<strong class=\"response-submitter\">\n"
 "                    {{#if submitter}}\n"
@@ -110,7 +110,7 @@ msgid ""
 "                  "
 msgstr ""
 
-#: sa_web/jstemplates/place-detail.html:1
+#: base/jstemplates/place-detail.html:1
 msgid ""
 "<strong class=\"point-submitter\">\n"
 "              {{#if submitter.avatar_url }}\n"
@@ -136,65 +136,65 @@ msgid ""
 "            {{/if}}"
 msgstr ""
 
-#: sa_web/jstemplates/place-detail.html:21
+#: base/jstemplates/place-detail.html:21
 msgid "View On Map"
 msgstr "在地圖上查看"
 
-#: sa_web/jstemplates/place-form-field-types.html:1
+#: base/jstemplates/place-form-field-types.html:1
 msgid "Select..."
 msgstr ""
 
-#: sa_web/jstemplates/place-form.html:1
+#: base/jstemplates/place-form.html:1
 msgid "First, drag the map to set your location"
 msgstr "首先，拖動地圖以設置您的位置"
 
-#: sa_web/jstemplates/place-form.html:2
+#: base/jstemplates/place-form.html:2
 msgid ""
 "It looks like you didn't set your location yet. Please drag the map to your "
 "location."
 msgstr "您似乎尚未設置自己的位置。請拖動地圖以設置您的位置"
 
-#: sa_web/jstemplates/place-form.html:3
+#: base/jstemplates/place-form.html:3
 msgid "Set my location"
 msgstr "設置我的位置"
 
-#: sa_web/jstemplates/place-form.html:4
+#: base/jstemplates/place-form.html:4
 msgid "Setting your location..."
 msgstr "設置您的位置"
 
-#: sa_web/jstemplates/place-form.html:5
-#: sa_web/jstemplates/place-survey-form.html:1
+#: base/jstemplates/place-form.html:5
+#: base/jstemplates/place-survey-form.html:1
 msgid "optional"
 msgstr ""
 
-#: sa_web/jstemplates/place-list.html:1
+#: base/jstemplates/place-list.html:1
 msgid "Most Recent"
 msgstr "最近的"
 
-#: sa_web/jstemplates/place-list.html:2
+#: base/jstemplates/place-list.html:2
 msgid "Most {{ support_label_plural }}"
 msgstr "最 {{ support_label_plural }}"
 
-#: sa_web/jstemplates/place-list.html:3
+#: base/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
 msgstr "最 {{ survey_label_plural }}"
 
-#: sa_web/jstemplates/place-survey-response.html:1
+#: base/jstemplates/place-survey-response.html:1
 msgid "Thanks for participating!"
 msgstr ""
 
-#: sa_web/jstemplates/unsupported-overlay.html:1
+#: base/jstemplates/unsupported-overlay.html:1
 msgid "Proceed Anyway"
 msgstr ""
 
-#: sa_web/jstemplates/unsupported-overlay.html:2
+#: base/jstemplates/unsupported-overlay.html:2
 msgid ""
 "You are using an unsupported browser. Please\n"
 "    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
 "    your experience."
 msgstr ""
 
-#: sa_web/templates/base.html:113
+#: base/templates/base.html:113
 #, python-format
 msgid ""
 "\n"
@@ -202,7 +202,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:118
+#: base/templates/base.html:118
 #, python-format
 msgid ""
 "\n"
@@ -214,13 +214,13 @@ msgid ""
 "        "
 msgstr ""
 
-#: sa_web/templates/base.html:133
+#: base/templates/base.html:133
 msgid ""
 "We can't connect to the server at the moment. Hang tight while we re-"
 "establish communication."
 msgstr ""
 
-#: sa_web/templates/base.html:144
+#: base/templates/base.html:144
 msgid "Close"
 msgstr "關"
 
