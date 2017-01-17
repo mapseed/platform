@@ -1207,18 +1207,17 @@ story:
         visible_layers:
           - dirt-corps
         basemap: terrain
-      - url: south-orcas-rain-gardens
+      - url: carleton-grocery-gsi
+      - url: s-orcas-greenstreet
+      - url: southern-greenstreet
       - url: rose-greenstreet
       - url: markey
       - url: elmgrove-rain-garden
-      - url: southern-greenstreet
       - url: dirt-corps-classroom
       - url: point-rediscovery
       - url: green-screen
       - url: rain-wise-home
       - url: rainwise-home-rose-st
-      - url: carleton-grocery-gsi
-      - url: dirt-corps-warehouse
 
 notifications:
   on_new_place: true
