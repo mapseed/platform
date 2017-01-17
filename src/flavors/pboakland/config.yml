@@ -209,6 +209,8 @@ activity:
   # Place Types
 
 place:
+  administrators:
+    - goldpbear
   adding_supported: true
   add_button_label: _(Share your idea!)
   # Labels for the buttons that toggle the map and list views
@@ -327,8 +329,22 @@ place:
           display_prompt: _( )
           placeholder: _( )
           optional: true
+
   # define form elements that appear on every form here
   common_form_elements:
+    - name: venue
+      type: dropdown
+      admin_only: true
+      admin_msg: _((For administrator use only))
+      prompt: _(Venue name:)
+      display_prompt: _(Submitted at:)
+      content:
+        - label: _(Asian Cultural Center)
+          value: asian_cultural_center
+        - label: _(Williams Chapel)
+          value: williams_chapel
+        - label: _(Other)
+          value: other
     - name: my_image
       type: file
       prompt: _(Image)
