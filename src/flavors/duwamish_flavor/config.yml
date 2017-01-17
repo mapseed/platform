@@ -242,11 +242,11 @@ place_types:
         iconAnchor: [25, 30]
         shadowSize: [50, 60]
         shadowAnchor: [14, 60]
-    - condition: '{{map.zoom}} < 16'
+    - condition: '{{map.zoom}} < 17'
       icon:
         iconSize: [10, 12]
         iconAnchor: [5, 12]
-    - condition: '{{map.zoom}} >= 16'
+    - condition: '{{map.zoom}} >= 17'
       icon:
         iconSize: [30, 36]
         iconAnchor: [15, 36]
@@ -578,7 +578,7 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: restoration
               title: _(Restoration Sites)
