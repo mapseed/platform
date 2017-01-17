@@ -558,13 +558,13 @@ sidebar:
       basemaps:
         - id: transportation
           title: _(Transportation)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
         - id: terrain
           title: _(Terrain)
-          visibleDefault: false
+          visibleDefault: true
         - id: blueprint
           title: _(Blueprint)
           visibleDefault: false
@@ -578,7 +578,7 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: restoration
               title: _(Restoration Sites)
@@ -598,11 +598,11 @@ sidebar:
 
             - id: trees
               title: _(Trees!)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: air
               title: _(Air Watch Reports)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: vision
               title: _(Community Vision)
