@@ -1163,6 +1163,12 @@ story:
       - restoration
       - watershed
     order:
+      - url: cleanup
+        zoom: 14
+        spotlight: false
+        basemap: terrain
+        visible_layers:
+          - cleanup
       - url: cso
         zoom: 12
         visible_layers:
