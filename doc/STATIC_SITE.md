@@ -61,7 +61,7 @@ directly from your client using a static snapshot of your map data.
 
    Lastly, you'll want to disable support clicks. In your flavor folder, add a
    JS template file named *jstemplates/place-detail-support.html*. In to this
-   file, copy the contents of *src/sa_web/jstemplates/place-detail-support.html*
+   file, copy the contents of *src/base/jstemplates/place-detail-support.html*
    and remove all of the `<input>` elements. Your new template should look
    something like:
 

@@ -9,11 +9,11 @@ If you are a translator and wondering about how to start contributing to Hey Duw
 
   Our **Spanish** translation files are here:
    - [src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po)
-   - [src/sa_web/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/sa_web/locale/es/LC_MESSAGES/django.po)
+   - [src/base/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/base/locale/es/LC_MESSAGES/django.po)
 
   Our **Vietnamese** translation files are here:
    - [src/flavors/duwamish_flavor/locale/vi/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/flavors/duwamish_flavor/locale/vi/LC_MESSAGES/django.po)
-   - [src/sa_web/locale/vi/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/sa_web/locale/vi/LC_MESSAGES/django.po)
+   - [src/base/locale/vi/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/base/locale/vi/LC_MESSAGES/django.po)
 
   These translation files are using a common translation format called a "PO file". A useful tool for editing a PO File can be found here: http://poedit.net/
 
@@ -22,8 +22,8 @@ If you are a translator and wondering about how to start contributing to Hey Duw
   For example, you may see the following block in a translation file:
 
   ```python
-  #: src/sa_web/jstemplates/auth-nav.html:1
-  #: src/sa_web/jstemplates/place-form.html:3
+  #: src/base/jstemplates/auth-nav.html:1
+  #: src/base/jstemplates/place-form.html:3
   msgid "Log Out"
   msgstr ""
   ```
@@ -33,8 +33,8 @@ If you are a translator and wondering about how to start contributing to Hey Duw
   So you would want to make it look like this:
 
   ```python
-  #: src/sa_web/jstemplates/auth-nav.html:1
-  #: src/sa_web/jstemplates/place-form.html:3
+  #: src/base/jstemplates/auth-nav.html:1
+  #: src/base/jstemplates/place-form.html:3
   msgid "Log Out"
   msgstr "đảng xuãt"
   ```

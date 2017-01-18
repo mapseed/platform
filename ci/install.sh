@@ -3,4 +3,4 @@
 cp src/project/local_settings.py.template src/project/local_settings.py
 
 # Install Jasmine dependencies
-bundle install --gemfile="src/sa_web/jasmine/Gemfile"
+bundle install --gemfile="src/base/jasmine/Gemfile"

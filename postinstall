@@ -101,7 +101,7 @@ gzip_types
 EOF
 
 echo "Compiling translations..."
-cd src/sa_web
+cd src/base
 python ../manage.py compilemessages
 cd ../flavors/$SHAREABOUTS_FLAVOR
 python ../../manage.py compilemessages

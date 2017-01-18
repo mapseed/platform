@@ -10,7 +10,7 @@ Si eres un@ traductor@, y no estás segur@ cómo contribuir a Hey Duwamish, ¡es
   Se encuentra nuestros archivos de traducción en los archivos aquí:
 
    - [src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/flavors/duwamish_flavor/locale/es/LC_MESSAGES/django.po)
-   - [src/sa_web/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/sa_web/locale/es/LC_MESSAGES/django.po)
+   - [src/base/locale/es/LC_MESSAGES/django.po](https://github.com/smartercleanup/duwamish/blob/master/src/base/locale/es/LC_MESSAGES/django.po)
 
   Estos archivos se desarollan con arreglo al formato de un "PO file". Un editor de texto que facilita el desarollamiento de los archivos de PO está aquí: http://poedit.net/
 
@@ -19,8 +19,8 @@ Si eres un@ traductor@, y no estás segur@ cómo contribuir a Hey Duwamish, ¡es
   Por ejemplo, un archivo puede contener este texto:
 
   ```python
-  #: src/sa_web/jstemplates/auth-nav.html:1
-  #: src/sa_web/jstemplates/place-form.html:3
+  #: src/base/jstemplates/auth-nav.html:1
+  #: src/base/jstemplates/place-form.html:3
   msgid "Log Out"
   msgstr ""
   ```
@@ -30,8 +30,8 @@ Si eres un@ traductor@, y no estás segur@ cómo contribuir a Hey Duwamish, ¡es
   Por consiguente, lo haríamos así:
 
   ```python
-  #: src/sa_web/jstemplates/auth-nav.html:1
-  #: src/sa_web/jstemplates/place-form.html:3
+  #: src/base/jstemplates/auth-nav.html:1
+  #: src/base/jstemplates/place-form.html:3
   msgid "Log Out"
   msgstr "Cerrar Sesión"
   ```

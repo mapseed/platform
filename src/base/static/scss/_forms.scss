@@ -1,0 +1,128 @@
+// Forms - Selectors
+
+form {}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0 0 1.2em;
+}
+
+label {
+    font-size: 0.75em;
+
+    //text-transform: uppercase;
+    //color: #999;
+    margin-right: 0.5em;
+    padding-bottom: 0;
+
+    small {
+        text-transform: none;
+    }
+}
+
+input {
+    &[type=date],
+    &[type=datetime],
+    &[type=datetime-local],
+    &[type=email],
+    &[type=month],
+    &[type=number],
+    &[type=password],
+    &[type=tel],
+    &[type=text],
+    &[type=time],
+    &[type=url],
+    &[type=week] {
+        outline: 0;
+        border: 0.25em solid $button-background-lightblue;
+        border-radius: 0;
+        padding: 0.5em;
+        display: block;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}
+
+select, textarea {
+    outline: 0;
+    border: 0.25em solid $button-background-lightblue;
+    border-radius: 0;
+    padding: 0.5em;
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    outline: 2px solid $button-background-blue;
+}
+
+textarea {
+    &:focus {
+        outline: 2px solid $button-background-blue;
+    }
+
+    height: 6.5em;
+    resize: none;
+}
+
+select {
+    background-color: $button-color-white;
+}
+
+// Old IE does not like this to be combine with :invalid rules.
+// * It will ignore it!
+
+.form-submitted {
+    .gatekeeper-invalid, input:invalid, textarea:invalid, select:invalid {
+        outline: 2px solid #b2182b;
+    }
+}
+
+.fileinput-container {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+
+    input {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+}
+
+.fileinput-name {
+    display: inline-block;
+}
+
+.form-spinner {
+    clear: both;
+    padding: 1em;
+}
+
+.form-field {
+    margin: 0 0 1em;
+}
+
+.form-annotation {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.alt-label {
+    display: none;
+}
+
+.isAutocomplete {
+    background-color: #ffffe0;
+}

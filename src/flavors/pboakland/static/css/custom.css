@@ -4,6 +4,25 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+label {
+  font-size: 1.15em;
+  margin-right: 0.5em;
+  padding-bottom: 0;
+}
+
+.category-btn + label > span {
+  width: 296px;
+  position: absolute;
+  top: 0px;
+  left: 38px;
+  padding-left: 15px;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
 
 /* =Header
 -------------------------------------------------------------- */
@@ -30,19 +49,18 @@
   margin-top: 5px;
 }
 
-.btn-primary:visited, .btn-primary:link {
-  background-color: #00aaff;
-  color: #fff;
-  background-color: rgba(79, 204, 14, 0.9);
+/* disable CartoDB link */
+.cartodb-logo a {
+  pointer-events: none;
+  cursor: default;
 }
 
-.category-btn + label > img {
-  width: 36px;
+/* hide attribution */
+.leaflet-control-attribution {
+  display: none;
 }
 
-.category-btn + label > span {
-  left: 44px;
-}
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
@@ -79,4 +97,77 @@
 }
 
 @media only screen and (min-width: 1300px) {
+}
+
+/* smaller logo for smaller screens */
+@media only screen and (max-width: 60em) {
+  #site-title-image {
+    content:url("images/pblogo_small.png");
+  }
+}
+
+/* bottom-clinging sidebar override */
+@media only screen and (max-width: 960px) {
+    .sidebar.collapsed {
+        width: 33px;
+        box-sizing: border-box;
+        position: absolute;
+        height: 33px;
+        top: 85px;
+        bottom: auto;
+    }
+
+    .sidebar {
+        top: 85px;
+        left: 10px;
+        width: 90%;
+        overflow: hidden;
+        border-radius: 4px;
+        border: none;
+        z-index: 2000;
+        box-sizing: border-box;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+    }
+
+    .sidebar-left .sidebar-tabs {
+        top: 0;
+        position: absolute;
+        height: 99px;
+        z-index: 99;
+        padding: 0 9px;
+        box-sizing: border-box;
+        box-shadow: none;
+    }
+    .sidebar-tabs, .sidebar-tabs > ul {
+        width: 33px;
+        display: block;
+    }
+    .sidebar-tabs > ul {
+      margin-left: -9px;
+    }
+    .sidebar-tabs li {
+        height: 33px;
+        border-radius: 3px;
+    }
+    .sidebar-content {
+        padding-left: 30px;
+        padding-bottom: 33px;
+        left: 0 !important;
+    }
+    .sidebar-header .sidebar-close i {
+        padding: 5px 8px 6px 8px;
+    }
+    .sidebar-header .sidebar-close i::before {
+        content: "\f053";
+    }
+    .sidebar-tabs .active {
+        border-radius: 0px;
+    }
+    .sidebar-tabs ul li:nth-child(1) {
+      display: none;
+    }
+    .sidebar-tabs ul li:nth-child(3) {
+      display: none;
+    }
+
 }

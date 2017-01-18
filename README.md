@@ -3,7 +3,7 @@
 
 Community powered mapping for environmental health, starting with our most polluted rivers.
 
-[![Build Status](https://secure.travis-ci.org/smartercleanup/platform.png)](http://travis-ci.org/smartercleanup/platform)
+[![Build Status](https://secure.travis-ci.org/mapseed/platform.png)](http://travis-ci.org/mapseed/platform)
 ===========
 For a brief summary, please view: [http://smartercleanup.org/](http://smartercleanup.org/)
 
@@ -86,11 +86,13 @@ NOTE: For Linux users on RHEL/CentOS distros, you will need to have the followin
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
-**Setting up the SASS compiler**
-If you are going to make changes to the CSS, you'll need to edit the SASS files under `src/sa_web/static/sass/default.sass`, then set up the SASS compiler to convert the SASS into CSS. To do this, you should first [install Ruby](https://www.ruby-lang.org/en/documentation/installation/), then run `gem install compass`. From inside the `src/sa_web/static/` directory, run `compass watch`, which will automatically compile the SASS file `src/sa_web/static/sass/default.sass` into CSS under `src/sa_web/static/css/default.css`.
+### Install npm dependencies
 
-Note that there are plans to avoid this extra dependency in issue #348.
+Make sure that you are somewhere inside the project folder, then run:
 
+`npm install`
+
+Also, for best results, [install Node version 7+ and the latest npm](https://nodejs.org/en/download/package-manager/).
 
 ### Configuring the Dev API
 
@@ -132,7 +134,7 @@ NOTE: Flavors can load data from any number of Shareabouts datasets, provided yo
 Now you're ready to run your server locally. Just enter this command:
 
 ```
-src/manage.py runserver
+npm start
 ```
 The server will, by default, be started at http://localhost:8000/. [Here is the documentation](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) if you want to reconfigure it.
 
