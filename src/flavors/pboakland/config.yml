@@ -334,6 +334,7 @@ place:
   common_form_elements:
     - name: venue
       type: dropdown
+      optional: true
       admin_only: true
       admin_msg: _((For administrator use only))
       prompt: _(Venue name:)
