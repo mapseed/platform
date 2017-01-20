@@ -111,7 +111,9 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       // Only append the tools to add places (if supported)
-      $('#map-container').append(Handlebars.templates['add-places'](this.options.placeConfig));
+      // NOTE: append after the #map-container div (rather than inside of it)
+      // in order to support bottom-clinging tools that are always visible
+      $('#map-container').after(Handlebars.templates['add-places'](this.options.placeConfig));
 
       this.pagesNavView = (new S.PagesNavView({
               el: '#pages-nav-container',
@@ -931,7 +933,7 @@ var Shareabouts = Shareabouts || {};
 
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
 
-      $("#add-place-btn-container").attr("class", "pos-top-left");
+      $("#main-btns-container").attr("class", "pos-top-left");
 
       S.Util.log('APP', 'panel-state', 'open');
     },
@@ -960,7 +962,7 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass();
       map.invalidateSize({ animate:true, pan:true });
 
-      $("#add-place-btn-container").attr("class", "pos-top-right");
+      $("#main-btns-container").attr("class", "pos-top-right");
 
       S.Util.log('APP', 'panel-state', 'closed');
       $("#spotlight-place-mask").remove();

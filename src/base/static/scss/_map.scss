@@ -45,23 +45,30 @@
 
 // Map Attribution - Selectors
 
-// Add Place Button - Selectors
+// Tool buttons - Selectors
 
-#add-place-btn-container {
-    background: url(images/lightpaperfibers.png);
+#main-btns-container {
+    display: table;
+    table-layout: fixed;
+    z-index: 12;
     padding: 0.5em 0.5em 0.75em;
-    position: relative;
-    z-index: 30;
-    box-shadow: 0 -0.325em 0 $opacity-very-low-black;
-    border-bottom: 1px solid #666;
 }
 
-#add-place {}
+#add-place-btn-container {
+    padding: 5px;
+    display: table-cell;
+}
 
-.content-visible #add-place-btn-container {
-    display: none;
+#story-btn-container {
+    padding: 5px;
+    display: table-cell;
+}
 
-    // hide the add button on mobile when the panel is open
+#add-place {
+}
+ 
+#nav-stories {
+    background-color: #007fbf;
 }
 
 // Center Point (new point icon) - Selectors
@@ -269,3 +276,7 @@
     display: none;
     font-size: 1.25em;
 }
+
+.leaflet-control-attribution {
+    display: none;
+} 
