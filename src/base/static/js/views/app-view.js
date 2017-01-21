@@ -79,6 +79,8 @@ var Shareabouts = Shareabouts || {};
             url,
             isLinkToPlace = false;
 
+        $("body").removeClass("start-page-visible");
+
         _.each(self.options.datasetConfigs.places, function(dataset) {
           if (href.indexOf('/' + dataset.slug) === 0) isLinkToPlace = true;
         });
@@ -458,7 +460,7 @@ var Shareabouts = Shareabouts || {};
         }
         $body.addClass(newBodyClasses[i]);
       }
-    },
+    }, 
     hasBodyClass: function(className) {
       return $('body').hasClass(className);
     },
