@@ -178,3 +178,36 @@ label {
     padding: 5px;
     border-radius: 4px;
 }
+    #right-sidebar {
+      margin-top: 30px;
+    }
+
+    /* no need for any leaflet controls at small screen size */
+    #sidebar {
+      display: none;
+    }
+
+    /* map legend box */
+    .master-layer-list {
+      display: none;
+    }
+}
+
+/* map legend box */
+.master-layer-list {
+  padding: 10px;
+  background-color: #EEE;
+  margin-top: 0;
+}
+
+.master-layer-list .shareabouts-layer-li:first-child {
+  font-size: 14px;
+  letter-spacing: -.6px;
+  line-height: 1.8;
+}
+
+.master-layer-list .shareabouts-layer-li {
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 1.9;
+}
