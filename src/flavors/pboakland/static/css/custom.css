@@ -169,15 +169,6 @@ label {
     .sidebar-tabs ul li:nth-child(3) {
       display: none;
     }
-
-}
-
-/* admin-only form fields */
-.is-admin-field {
-    background-color: rgba(250, 128, 114, 0.48);
-    padding: 5px;
-    border-radius: 4px;
-}
     #right-sidebar {
       margin-top: 30px;
     }
@@ -191,6 +182,14 @@ label {
     .master-layer-list {
       display: none;
     }
+
+}
+
+/* admin-only form fields */
+.is-admin-field {
+    background-color: rgba(250, 128, 114, 0.48);
+    padding: 5px;
+    border-radius: 4px;
 }
 
 /* map legend box */
