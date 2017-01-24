@@ -210,7 +210,7 @@ activity:
 
 place:
   administrators:
-    - goldpbear
+    - hadassahdamien
   adding_supported: true
   add_button_label: _(Share your idea!)
   # Labels for the buttons that toggle the map and list views
