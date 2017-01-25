@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HeyDuwamish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-11 20:34-0500\n"
+"POT-Creation-Date: 2017-01-25 01:15-0500\n"
 "PO-Revision-Date: 2016-12-14 04:10+0000\n"
 "Last-Translator: Language-Team: Chinese Traditional (http://www.transifex."
 "com/mapseed/heyduwamish/language/zh-Hant/)\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: flavors/snoqualmie/templates/index.html:56
-msgid "Powered by"
-msgstr ""
 
 #: base/jstemplates/activity-list-item.html:1
 msgid ""
@@ -79,8 +75,7 @@ msgid ""
 "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
-#: base/jstemplates/geocode-address.html:1
-#: base/jstemplates/place-list.html:4
+#: base/jstemplates/geocode-address.html:1 base/jstemplates/place-list.html:4
 msgid "Search"
 msgstr "搜索"
 
@@ -110,61 +105,8 @@ msgid ""
 "                  "
 msgstr ""
 
-#: base/jstemplates/place-detail.html:1
-msgid ""
-"<strong class=\"point-submitter\">\n"
-"              {{#if submitter.avatar_url }}\n"
-"                <img src=\"{{ submitter.avatar_url }}\" class=\"avatar\" />\n"
-"              {{^}}\n"
-"                <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class="
-"\"avatar\" />\n"
-"              {{/if}}\n"
-"              {{#if submitter.name }}\n"
-"                {{ submitter.name }}\n"
-"              {{^}}\n"
-"                {{#if submitter_name }}\n"
-"                  {{ submitter_name }}\n"
-"                {{^}}\n"
-"                  {{ anonymous_name }}\n"
-"                {{/if}}\n"
-"              {{/if}}\n"
-"            </strong> {{ action_text }} this {{ place_type_label "
-"location_type}}\n"
-"\n"
-"            {{#if region}}\n"
-"              in {{ region }}\n"
-"            {{/if}}"
-msgstr ""
-
-#: base/jstemplates/place-detail.html:21
-msgid "View On Map"
-msgstr "在地圖上查看"
-
 #: base/jstemplates/place-form-field-types.html:1
 msgid "Select..."
-msgstr ""
-
-#: base/jstemplates/place-form.html:1
-msgid "First, drag the map to set your location"
-msgstr "首先，拖動地圖以設置您的位置"
-
-#: base/jstemplates/place-form.html:2
-msgid ""
-"It looks like you didn't set your location yet. Please drag the map to your "
-"location."
-msgstr "您似乎尚未設置自己的位置。請拖動地圖以設置您的位置"
-
-#: base/jstemplates/place-form.html:3
-msgid "Set my location"
-msgstr "設置我的位置"
-
-#: base/jstemplates/place-form.html:4
-msgid "Setting your location..."
-msgstr "設置您的位置"
-
-#: base/jstemplates/place-form.html:5
-#: base/jstemplates/place-survey-form.html:1
-msgid "optional"
 msgstr ""
 
 #: base/jstemplates/place-list.html:1
@@ -178,6 +120,10 @@ msgstr "最 {{ support_label_plural }}"
 #: base/jstemplates/place-list.html:3
 msgid "Most {{ survey_label_plural }}"
 msgstr "最 {{ survey_label_plural }}"
+
+#: base/jstemplates/place-survey-form.html:1
+msgid "optional"
+msgstr ""
 
 #: base/jstemplates/place-survey-response.html:1
 msgid "Thanks for participating!"
@@ -223,6 +169,27 @@ msgstr ""
 #: base/templates/base.html:144
 msgid "Close"
 msgstr "關"
+
+#: flavors/snoqualmie/templates/index.html:56
+msgid "Powered by"
+msgstr ""
+
+msgid "View On Map"
+msgstr "在地圖上查看"
+
+msgid "First, drag the map to set your location"
+msgstr "首先，拖動地圖以設置您的位置"
+
+msgid ""
+"It looks like you didn't set your location yet. Please drag the map to "
+"your location."
+msgstr "您似乎尚未設置自己的位置。請拖動地圖以設置您的位置"
+
+#~ msgid "Set my location"
+#~ msgstr "設置我的位置"
+
+#~ msgid "Setting your location..."
+#~ msgstr "設置您的位置"
 
 #~ msgid ""
 #~ "\n"
