@@ -344,6 +344,10 @@ place:
           value: asian_cultural_center
         - label: _(Williams Chapel)
           value: williams_chapel
+        - label: _(Beebe Memorial Cathedral)
+          value: beebe_memorial_cathedral
+        - label: _(Mobile Assembly at Bella Vista Elementary School)
+          value: bella_vista
         - label: _(Other)
           value: other
     - name: my_image
