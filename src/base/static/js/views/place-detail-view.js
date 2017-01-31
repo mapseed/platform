@@ -3,101 +3,101 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.PlaceDetailView = Backbone.View.extend({
-    events: {
-      'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
-      'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
-    },
-    initialize: function() {
-      var self = this;
+S.PlaceDetailView = Backbone.View.extend({
+  events: {
+    'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
+    'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext'
+  },
+  initialize: function() {
+    var self = this;
 
-      this.surveyType = this.options.surveyConfig.submission_type;
-      this.supportType = this.options.supportConfig.submission_type;
+    this.surveyType = this.options.surveyConfig.submission_type;
+    this.supportType = this.options.supportConfig.submission_type;
 
-      this.model.on('change', this.onChange, this);
+    this.model.on('change', this.onChange, this);
 
-      // Make sure the submission collections are set
-      this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
-        new S.SubmissionCollection(null, {
-          submissionType: this.surveyType,
-          placeModel: this.model
-        });
-
-      this.model.submissionSets[this.supportType] = this.model.submissionSets[this.supportType] ||
-        new S.SubmissionCollection(null, {
-          submissionType: this.supportType,
-          placeModel: this.model
-        });
-
-      this.surveyView = new S.SurveyView({
-        collection: this.model.submissionSets[this.surveyType],
-        surveyConfig: this.options.surveyConfig,
-        userToken: this.options.userToken,
-        datasetId: self.options.datasetId
+    // Make sure the submission collections are set
+    this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
+      new S.SubmissionCollection(null, {
+        submissionType: this.surveyType,
+        placeModel: this.model
       });
 
-      this.supportView = new S.SupportView({
-        collection: this.model.submissionSets[this.supportType],
-        supportConfig: this.options.supportConfig,
-        userToken: this.options.userToken,
-        datasetId: self.options.datasetId
+    this.model.submissionSets[this.supportType] = this.model.submissionSets[this.supportType] ||
+      new S.SubmissionCollection(null, {
+        submissionType: this.supportType,
+        placeModel: this.model
       });
 
-      this.$el.on('click', '.share-link a', function(evt){
+    this.surveyView = new S.SurveyView({
+      collection: this.model.submissionSets[this.surveyType],
+      surveyConfig: this.options.surveyConfig,
+      userToken: this.options.userToken,
+      datasetId: self.options.datasetId
+    });
 
-        // HACK! Each action should have its own view and bind its own events.
-        var shareTo = this.getAttribute('data-shareto');
+    this.supportView = new S.SupportView({
+      collection: this.model.submissionSets[this.supportType],
+      supportConfig: this.options.supportConfig,
+      userToken: this.options.userToken,
+      datasetId: self.options.datasetId
+    });
 
-        S.Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
-      });
-    },
+    this.$el.on('click', '.share-link a', function(evt){
 
-    onClickStoryPrevious: function() {
-      this.options.router.navigate(this.model.attributes.story.previous, {trigger: true});
-    },
+      // HACK! Each action should have its own view and bind its own events.
+      var shareTo = this.getAttribute('data-shareto');
 
-    onClickStoryNext: function() {
-      this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
-    },
+      S.Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
+    });
+  },
 
-    render: function() {
-      var self = this,
-          data = _.extend({
-            place_config: this.options.placeConfig,
-            survey_config: this.options.surveyConfig,
-            url: this.options.url
-          }, this.model.toJSON());
+  onClickStoryPrevious: function() {
+    this.options.router.navigate(this.model.attributes.story.previous, {trigger: true});
+  },
 
-      data.submitter_name = this.model.get('submitter_name') ||
-        this.options.placeConfig.anonymous_name;
+  onClickStoryNext: function() {
+    this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
+  },
 
-      // Augment the template data with the attachments list
-      data.attachments = this.model.attachmentCollection.toJSON();
+  render: function() {
+    var self = this,
+        data = _.extend({
+          place_config: this.options.placeConfig,
+          survey_config: this.options.surveyConfig,
+          url: this.options.url
+        }, this.model.toJSON());
 
-      this.$el.html(Handlebars.templates['place-detail'](data));
+    data.submitter_name = this.model.get('submitter_name') ||
+      this.options.placeConfig.anonymous_name;
 
-      // Render the view as-is (collection may have content already)
-      this.$('.survey').html(this.surveyView.render().$el);
-      // Fetch for submissions and automatically update the element
-      this.model.submissionSets[this.surveyType].fetchAllPages();
+    // Augment the template data with the attachments list
+    data.attachments = this.model.attachmentCollection.toJSON();
 
-      this.$('.support').html(this.supportView.render().$el);
-      // Fetch for submissions and automatically update the element
-      this.model.submissionSets[this.supportType].fetchAllPages();
+    this.$el.html(Handlebars.templates['place-detail'](data));
 
-      this.delegateEvents();
+    // Render the view as-is (collection may have content already)
+    this.$('.survey').html(this.surveyView.render().$el);
+    // Fetch for submissions and automatically update the element
+    this.model.submissionSets[this.surveyType].fetchAllPages();
 
-      $("#content article").animate({ scrollTop: 0 }, "fast");
-      
-      return this;
-    },
+    this.$('.support').html(this.supportView.render().$el);
+    // Fetch for submissions and automatically update the element
+    this.model.submissionSets[this.supportType].fetchAllPages();
 
-    remove: function() {
-      // Nothing yet
-    },
+    this.delegateEvents();
 
-    onChange: function() {
-      this.render();
-    }
-  });
+    $("#content article").animate({ scrollTop: 0 }, "fast");
+    
+    return this;
+  },
+
+  remove: function() {
+    // Nothing yet
+  },
+
+  onChange: function() {
+    this.render();
+  }
+});
 }(Shareabouts, jQuery, Shareabouts.Util.console));
