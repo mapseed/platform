@@ -129,9 +129,6 @@ var Shareabouts = Shareabouts || {};
         startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
 
         if (startPageConfig && startPageConfig.slug) {
-          // if we route to a start page, add an additional body class
-          // so we can control start page height
-          $("body").addClass("start-page-visible");
           this.navigate('page/' + startPageConfig.slug, {trigger: true});
         }
       }

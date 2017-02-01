@@ -112,6 +112,14 @@ var Shareabouts = Shareabouts || {};
     setLatLng: function(latLng) {
       this.center = latLng;
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+
+      // set the form to display full screen after initial map drag
+      if (!this.options.appView.hasBodyClass("content-expanded") &&
+        this.options.appView.hasBodyClass("place-form-visible")) {      
+        this.options.appView.setBodyClass("content-expanded");
+        $(".maximize-btn").hide();
+        $(".minimize-btn").show();
+      }
     },
     setLocation: function(location) {
       this.location = location;
@@ -189,7 +197,7 @@ var Shareabouts = Shareabouts || {};
       this.options.appView.mapView.map.locate()
         .on("locationfound", function() { 
           self.center = self.options.appView.mapView.map.getCenter();
-          $("#spotlight-place-mask").remove();
+          $("#spotlight-mask").hide();
           $("#drag-marker-content").addClass("is-visuallyhidden");
         })
         .on("locationerror", function() {

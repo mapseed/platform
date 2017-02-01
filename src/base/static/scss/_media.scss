@@ -64,6 +64,10 @@
         height: 100%;
     }
 
+    #site-header {
+        background: url(images/lightpaperfibers.png);
+    }
+
     #main {
         // calculated as 100% of viewport height, minus the height of the header
         height: calc(100% - #{$header-height-fullscreen});
@@ -78,12 +82,8 @@
         height: $map-height-smallscreen-when-sidebar-visible;
     }
 
-    .activity-enabled.content-visible #map-container {
-        height: 70%;
-    }
-
-    .content-visible.start-page-visible #map-container {
-        height: 5%;
+    .content-visible #map-container {
+        height: 60%
     }
 
     .right-sidebar-visible #right-sidebar {
@@ -94,8 +94,23 @@
         height: 400px;
     }
 
+    .content-expanded {
+        #map-container {
+            height: 10%;
+        }
+        #content {
+            min-height: 90%;
+        }
+    }
+
     .content-visible.right-sidebar-visible #right-sidebar {
         display: none;
+    }
+
+    .content-visible.place-form-visible {
+        #map-container {
+            height: 65%;
+        }
     }
 
     #main-btns-container {
@@ -122,6 +137,11 @@
         // bump up the bottom margin here so content at the very bottom
         // of a page is not obscured by bottom-clinging buttons
         margin-bottom: $footer-height-smallscreen + 20px;
+    }
+
+    #nav-stories, #add-place {
+        //font-size: 0.9em;
+        white-space: nowrap;
     }
 }
 
