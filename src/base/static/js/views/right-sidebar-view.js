@@ -8,10 +8,6 @@ var Shareabouts = Shareabouts || {};
   S.SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
     template: "#sidebar-story-detail",
     className: "sidebar-story-item",
-    initialize: function() {
-  
-    },
-
     serializeData: function() {
       var data = this.model.toJSON();
       _.extend(data, {
@@ -75,18 +71,26 @@ var Shareabouts = Shareabouts || {};
   // a view for managing a collection of story items
   S.SidebarStoryView = Backbone.Marionette.CollectionView.extend({
     itemView: S.SidebarStoryItemView,
+    events: {
+      "click .nav-previous-pane": "showMenu"
+    },
     initialize: function() {
       this.itemViewOptions = {
         layerViews: this.options.layerViews,
         router: this.options.router
       }
     },
+    
     onBeforeRender: function() {
       var data = {
         header: this.options.storyHeader
       };
 
       this.$el.html(Handlebars.templates["sidebar-story-detail-container"](data));
+    },
+
+    showMenu: function() {
+      this.options.sidebarStoryMenuView.render();
     }
   });
 
@@ -95,6 +99,7 @@ var Shareabouts = Shareabouts || {};
     events: {
       "click .sidebar-story-overview-item": "showStory"
     },
+    
     initialize: function() {
       var self = this;
 
@@ -121,7 +126,8 @@ var Shareabouts = Shareabouts || {};
         layerViews: this.options.layerViews,
         router: this.options.router,
         storyName: storyName,
-        storyHeader: this.options.storyConfig[storyName].header
+        storyHeader: this.options.storyConfig[storyName].header,
+        sidebarStoryMenuView: this
       });
       this.sidebarStoryView.render();
     },
@@ -143,6 +149,7 @@ var Shareabouts = Shareabouts || {};
 
         return self.places[collectionId].get(id);
       },
+      
       searchLandmarkAndPlaceCollections = function(url) {
         var foundModel;
         _.each(self.landmarks, function(landmarkCollection, collectionName) {
@@ -263,14 +270,6 @@ var Shareabouts = Shareabouts || {};
           }
         });
       });
-    },
-
-    onClickPreviousPane: function(e) {
-
-    },
-
-    onClickStoryItem: function(e) {
-
     },
 
     onClickTab: function(e) {

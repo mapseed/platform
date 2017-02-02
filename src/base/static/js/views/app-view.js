@@ -328,11 +328,6 @@
         });
       });
 
-      // if (this.options.activityConfig.show_in_right_panel === true) {
-      //   this.setBodyClass("right-sidebar-visible");
-      //   $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
-      // }
-
       if (this.options.rightSidebarConfig.show) {
         this.setBodyClass("right-sidebar-active");
         this.setBodyClass("right-sidebar-visible");
