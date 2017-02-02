@@ -36,12 +36,6 @@
       if (self.options.mapConfig.geolocation_enabled) {
         self.initGeolocation();
       }
-      
-      // TODO: only init if geometry editing is enabled?
-      this.geometryEditorView = new S.GeometryEditorView({
-        map: this.map,
-        router: this.options.router
-      });
 
       self.map.on('dragend', logUserPan);
       $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -70,7 +64,6 @@
         collection.on('reset', self.render, self);
         collection.on('add', self.addLayerView(collectionId), self);
         collection.on('remove', self.removeLayerView(collectionId), self);
-        collection.on('userHideModel', self.onUserHideModel(collectionId), self);
       });
 
       // Bind landmark collections event listeners
@@ -112,22 +105,6 @@
         }
       });
     }, // end initialize
-
-    onUserHideModel: function(collectionId) {
-      return function(model) {
-        this.options.placeDetailViews[model.cid].remove();
-        delete this.options.placeDetailViews[model.cid];
-        this.places[collectionId].remove(model);
-        Util.log('APP', 'panel-state', 'closed');
-        // remove map mask if the user closes the side panel
-        $("#spotlight-place-mask").remove();
-        if (this.locationTypeFilter) {
-          this.options.router.navigate('filter/' + this.locationTypeFilter, {trigger: true});
-        } else {
-          this.options.router.navigate('/', {trigger: true});
-        }
-      }
-    },
 
     // Adds or removes the layer  on Master Layer based on visibility
     setLayerVisibility: function(layer, visible) {
@@ -234,7 +211,7 @@
           model: model,
           router: this.options.router,
           map: this.map,
-          layerGroup: this.layers[collectionId],
+          layer: this.layers[collectionId],
           placeTypes: this.options.placeTypes,
           // to access the filter
           mapView: this
@@ -243,12 +220,8 @@
     },
     removeLayerView: function(collectionId) {
       return function(model) {
-        // remove map-bound events for this layer view
-        this.map.off("zoomend", this.layerViews[collectionId][model.cid].updateLayer, this.layerViews[collectionId][model.cid]);
-        this.map.off("move", this.layerViews[collectionId][model.cid].throttledRender, this.layerViews[collectionId][model.cid]);
-        
-        this.layerViews[collectionId][model.cid].remove();
-        delete this.layerViews[collectionId][model.cid];
+        this.layerViews[model.cid].remove();
+        delete this.layerViews[model.cid];
       }
     },
     zoomInOn: function(latLng) {

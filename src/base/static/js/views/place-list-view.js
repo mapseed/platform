@@ -78,8 +78,7 @@
       'submit @ui.searchForm': 'handleSearchSubmit',
       'click @ui.date': 'handleDateSort',
       'click @ui.surveyCount': 'handleSurveyCountSort',
-      'click @ui.supportCount': 'handleSupportCountSort',
-      'scroll': 'infiniteScroll'
+      'click @ui.supportCount': 'handleSupportCountSort'
     },
     initialize: function(options) {
       var self = this;
@@ -89,14 +88,10 @@
       // merged together, for sorting and filtering purposes
       this.collection = new PlaceCollection([]);
 
-      this.unrenderedItems = new PlaceCollection([]);
-
       _.each(this.options.placeCollections, function(collection) {
         collection.on("add", self.addModel, self);
+        collection.on("sync", self.onSync, self);
       });
-
-      this.itemsPerPage = 10;
-      this.numItemsShown = this.itemsPerPage;
 
       // Init the views cache
       this.views = {};
@@ -108,16 +103,17 @@
       this.collectionFilters = options.filter || {};
       this.searchTerm = options.term || '';
     },
+    onSync: function() {
+      // sort the merged collection after each component collection
+      // is synced successfully
+      this.sort();
+    },
     onAfterItemAdded: function(view) {
       // Cache the views as they are added
       this.views[view.model.cid] = view;
     },
     addModel: function(model) {
-      if (this.collection.length < this.numItemsShown) {
-        this.collection.add(model, {sort: false});
-      } else {
-        this.unrenderedItems.add(model, {sort: false});
-      }
+      this.collection.add(model);
     },
     renderList: function() {
       var self = this;
@@ -127,8 +123,8 @@
       var $itemViewContainer = this.getItemViewContainer(this);
       $itemViewContainer.empty();
 
-      this.collection.each(function(model, index) {
-        if (self.views[model.cid] && index < self.numItemsShown) {
+      this.collection.each(function(model) {
+        if (self.views[model.cid]) {
           $itemViewContainer.append(self.views[model.cid].$el);
           // Delegate the events so that the subviews still work
           self.views[model.cid].supportView.delegateEvents();
@@ -138,28 +134,16 @@
       // remove story bars from the list view
       $("#list-container .place-story-bar").remove();
     },
-    infiniteScroll: function() {
-      var totalHeight = this.$('> ul').height();
-      var scrollTop = this.$el.scrollTop() + this.$el.height();
-      // 200 = number of pixels from bottom to load more
-      if (scrollTop + 200 >= totalHeight) {
-        this.numItemsShown += this.itemsPerPage;
-        this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
-      }
-    },
     handleSearchInput: function(evt) {
       evt.preventDefault();
-      this.numItemsShown = this.itemsPerPage;
       this.search(this.ui.searchField.val());
     },
     handleSearchSubmit: function(evt) {
       evt.preventDefault();
-      this.numItemsShown = this.itemsPerPage;
       this.search(this.ui.searchField.val());
     },
     handleDateSort: function(evt) {
       evt.preventDefault();
-      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'date';
       this.sort();
 
@@ -167,7 +151,6 @@
     },
     handleSurveyCountSort: function(evt) {
       evt.preventDefault();
-      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'surveyCount';
       this.sort();
 
@@ -175,7 +158,6 @@
     },
     handleSupportCountSort: function(evt) {
       evt.preventDefault();
-      this.numItemsShown = this.itemsPerPage;
       this.sortBy = 'supportCount';
       this.sort();
 
@@ -232,48 +214,50 @@
       var sortFunction = this.sortBy + 'Sort';
 
       this.collection.comparator = this[sortFunction];
-      this.unrenderedItems.comparator = this[sortFunction];
       this.collection.sort();
-      this.unrenderedItems.sort();
       this.renderList();
       this.search(this.ui.searchField.val());
     },
     clearFilters: function() {
       this.collectionFilters = {};
-      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
+      this.applyFilters(this.collectionFilters, this.searchTerm);
     },
     filter: function(filters) {
       _.extend(this.collectionFilters, filters);
-      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
+      this.applyFilters(this.collectionFilters, this.searchTerm);
     },
     search: function(term) {
       this.searchTerm = term;
-      this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
+      this.applyFilters(this.collectionFilters, this.searchTerm);
     },
-    applyFilters: function(filters, term, max) {
+    applyFilters: function(filters, term) {
       var val, key, i;
 
       term = term.toUpperCase();
-
-      this.unrenderedItems.add(this.collection.models);
-      this.collection.reset();
-
-      this.unrenderedItems.each(function(model, index) {
-        if (index > max) {
-          return;
-        }
-
-        var submitter,
+      this.collection.each(function(model) {
+        var show = function() { model.trigger('show'); },
+            hide = function() { model.trigger('hide'); },
+            submitter, 
             locationType = model.get("location_type"),
             placeConfig = _.find(Shareabouts.Config.place.place_detail, function(config) { return config.category === locationType });
 
+        // If the model doesn't match one of the filters, hide it.
+        for (key in filters) {
+          val = filters[key];
+          if (_.isFunction(val) && !val(model)) {
+            return hide();
+          }
+          else if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
+            return hide();
+          }
+        }
+
         // Check whether the remaining models match the search term
-        for (var i = 0; i < placeConfig.fields.length; i++) {
+        for (var i = 0; i < placeConfig.fields.length; i++) { 
           key = placeConfig.fields[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
-            this.unrenderedItems.remove(model);
-            return this.collection.add(model);
+            return show();
           }
         };
 
@@ -281,22 +265,23 @@
         // with FB or Twitter. We handle it specially because it is an object,
         // not a string.
         submitter = model.get('submitter');
-        if (submitter) {
+        if (!show && submitter) {
           if (submitter.name && submitter.name.toUpperCase().indexOf(term) !== -1 ||
               submitter.username && submitter.username.toUpperCase().indexOf(term) !== -1) {
-            this.unrenderedItems.remove(model);
-            return this.collection.add(model);
+            return show();
           }
         }
 
         // If the location_type has a label, we should search in it also.
         locationType = Shareabouts.Config.flavor.place_types[model.get('location_type')];
-        if (locationType && locationType.label) {
+        if (!show && locationType && locationType.label) {
           if (locationType.label.toUpperCase().indexOf(term) !== -1) {
-            this.unrenderedItems.remove(model);
-            return this.collection.add(model);
+            return show();
           }
         }
+
+        // If we've fallen through here, hide the item.
+        return hide();
       }, this);
     },
     isVisible: function() {

@@ -6,20 +6,15 @@
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
-      'click .category-btn.clickable + label': 'onCategoryChange',
+      'click .category-btn.clickable': 'onCategoryChange',
       'click .category-menu-hamburger': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'click .btn-geolocate': 'onClickGeolocate'
     },
-    initialize: function() {
+    initialize: function(){
       var self = this;
-      
-      Backbone.Events.on("panel:close", this.closePanel, this);
       this.resetFormState();
-      this.options.router.on("route", this.resetFormState, this);
       this.placeDetail = this.options.placeConfig.place_detail;
-      this.map = this.options.appView.mapView.map;
-      this.geometryEditorView = this.options.geometryEditorView;
 
       TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
@@ -61,65 +56,28 @@
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
-      if (this.formState.selectedCategoryConfig.enable_geometry) {
-        this.options.appView.hideCenterPoint();
-        this.options.appView.removeSpotlightMask();
-        this.geometryEditorView.render({
-          isCreatingNewGeometry: true
-        });
-      } else {
-        // if the user switches from a geometry-enabled category
-        // to a geometry non-enabled category, remove draw controls
-        this.geometryEditorView.tearDown();
-        this.options.appView.showNewPin();
-      }
-      
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
+
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
 
       return this;
     },
     // called from the app view
-    postRender: function(isCategorySelected) {
-      var self = this,
-      $prompt;
-
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-      if ($(".rawHTML").length > 0) {
-        // NOTE: we currently support a single QuillJS field per form
-        $prompt = $(".rawHTML").find("label").detach();
-
-        // Quill toolbar configuration
-        var toolbarOptions = [
-          ["bold", "italic", "underline", "strike"],
-          [{ "list": "ordered" }, { "list": "bullet" }],
-          [{ "header": [1, 2, 3, 4, 5, 6, false] }],
-          [{ "color": [] }, { "background": [] }],
-          ["link", "image", "video"]
-        ],
-        quill = new Quill(".rawHTML", {
-          modules: { 
-            "toolbar": toolbarOptions
-          },
-          theme: "snow",
-          bounds: "#content",
-          placeholder: _.find(
-            _.find(self.formState.placeDetail, function(categoryConfig) { 
-              return categoryConfig.category === self.formState.selectedCategory
-            }).fields, function(categoryField) {
-              return categoryField.type === "rawHTML"
-            }).placeholder
-        }),
-        toolbar = quill.getModule("toolbar");
-        $(".ql-toolbar").before($prompt);
-        quill.deleteText(0, 50);
-
-        // override default image upload behavior: instead, create an <img>
-        // tag with highlighted text set as the src attribute
-        toolbar.addHandler("image", function() {
-          var range = quill.getSelection();
-          quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
-        }); 
-      }
+    postRender: function() {
+      // NOTE: the extra call to initialize the date-time picker is necessary here,
+      // because on a single-category form the call to initialize in the render() method
+      // above will fail, since the form content will not yet have been inserted into
+      // the DOM by the app view
+      if (this.formState.isSingleCategory) {
+        $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+      } 
+ 
+      this.bindCategoryListeners();
+    },
+    bindCategoryListeners: function() {
+      $(".category-btn-container").off().on("click", function(evt) {
+        $(this).prev().trigger("click");
+      });
     },
     checkAutocomplete: function() {
       var self = this,
@@ -176,16 +134,11 @@
         }
       });
         
-      if (this.formState.selectedCategoryConfig.enable_geometry) {
-        attrs.geometry = this.geometryEditorView.geometry;
-      } else {
-        // If the selected category does not have geometry editing enabled,
-        // assume we're adding point geometry
-        attrs.geometry = {
-          type: 'Point',
-          coordinates: [this.center.lng, this.center.lat]
-        }
-      }
+      // Get the location attributes from the map
+      attrs.geometry = {
+        type: 'Point',
+        coordinates: [this.center.lng, this.center.lat]
+      };
 
       if (this.location && locationAttr) {
         attrs[locationAttr] = this.location;
@@ -195,18 +148,28 @@
     },
     onCategoryChange: function(evt) {
       var self = this,
-          animationDelay = 400;
+          animationDelay = 200;
 
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
-        return place.category == $(evt.target).parent().prev().attr('id');
+        return place.category == $(evt.target).attr('id');
       });
       
       this.render(true);
-      this.postRender(true);
-      $(evt.target).parent().prev().prop("checked", true);
+      $("#" + $(evt.target).attr("id"))
+        .prop("checked", true)
+        .next()
+        .addClass("category-btn-container-selected");
       $("#selected-category").hide().show(animationDelay);
       $("#category-btns").animate( { height: "hide" }, animationDelay );
-      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      if (this.center) {
+        this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      }
+    },
+    onExpandCategories: function(evt) {
+      var animationDelay = 200;
+      $("#selected-category").hide(animationDelay);
+      $("#category-btns").animate( { height: "show" }, animationDelay ); 
+      this.bindCategoryListeners();
     },
     onClickGeolocate: function(evt) {
       var self = this;
@@ -270,57 +233,29 @@
       this.center = null;
       this.resetFormState();
     },
-    onExpandCategories: function(evt) {
-      var animationDelay = 400;
-      $("#selected-category").hide(animationDelay);
-      $("#category-btns").animate( { height: "show" }, animationDelay ); 
-    },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-      var self = this,
-      rejectSubmit = function(warningClass) {
-        self.$(".drag-marker-instructions").addClass("is-visuallyhidden");
-        self.$(warningClass).removeClass("is-visuallyhidden");
-        self.$el.parent("article").scrollTop(0);
-        window.scrollTo(0, 0);
-      };
+      // Make sure that the center point has been set after the form was
+      // rendered. If not, this is a good indication that the user neglected
+      // to move the map to set it in the correct location.
+      if (!this.center) {
+        this.$('.drag-marker-instructions').addClass('is-visuallyhidden');
+        this.$('.drag-marker-warning').removeClass('is-visuallyhidden');
 
-      if (this.formState.selectedCategoryConfig.enable_geometry
-          && this.geometryEditorView.editingLayerGroup.getLayers().length == 0) {
-        // If the map has an editingLayerGroup with no layers in it, it means the
-        // user hasn't created any geometry yet
-        rejectSubmit(".no-geometry-warning");
-        return;
-      } else if (!this.center) {
-        rejectSubmit(".drag-marker-warning");
+        // Scroll to the top of the panel if desktop
+        this.$el.parent('article').scrollTop(0);
+        // Scroll to the top of the window, if mobile
+        window.scrollTo(0, 0);
         return;
       }
 
       var self = this,
         router = this.options.router,
-        collection = this.collection[self.formState.selectedCategoryConfig.dataset],
-        model,
-        // Should not include any files
-        attrs = this.getAttrs(),
-        $button = this.$('[name="save-place-btn"]'),
-        spinner, $fileInputs,
-        richTextAttrs = {};
-
-      // if we have a Quill-enabled field, assume content from this field belongs
-      // to the model's description attribute. We'll need to make this behavior 
-      // more sophisticated to support multiple Quill-enabled fields.
-      if ($(".ql-editor").html()) {
-        richTextAttrs.description = $(".ql-editor").html();
-      }
-      attrs = _.extend(attrs, richTextAttrs);
-
-      if (this.formState.selectedCategoryConfig.enable_geometry) {
-        attrs["style"] = {
-          color: this.geometryEditorView.colorpicker.color,
-          opacity: this.geometryEditorView.colorpicker.opacity,
-          fillColor: this.geometryEditorView.colorpicker.fillColor,
-          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
-        }
-      }
+          collection = this.collection[self.formState.selectedCategoryConfig.dataset],
+          model,
+          // Should not include any files
+          attrs = this.getAttrs(),
+          $button = this.$('[name="save-place-btn"]'),
+          spinner, $fileInputs;
 
       evt.preventDefault();
 
@@ -355,9 +290,6 @@
       // Save and redirect
       model.save(attrs, {
         success: function() {
-          if (self.geometryEditorView) {
-            self.geometryEditorView.tearDown();
-          }
           Util.log('USER', 'new-place', 'successfully-add-place');
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },

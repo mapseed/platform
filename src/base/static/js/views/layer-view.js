@@ -9,13 +9,13 @@
       // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
 
-      this.map.on('zoomend', this.updateLayer, this);
-
       // Bind model events
       this.model.on('change', this.updateLayer, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
-      this.model.on('destroy', this.onDestroy, this);
+
+      this.map.on('zoomend', this.updateLayer, this);
+
       
       // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
@@ -69,11 +69,7 @@
           }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
-          if (this.model.get("style")) {
-            this.layer.setStyle(this.model.get("style"));
-          } else {
-            this.layer.setStyle(this.styleRule.style);
-          }
+          this.layer.setStyle(this.styleRule.style);
         }
 
         // Focus on the layer onclick
@@ -83,14 +79,6 @@
 
         this.render();
       }
-    },
-    onDestroy: function() {
-      // NOTE: it's necessary to remove the zoomend event here
-      // so this view won't try to recreate a marker when the map is
-      // zoomed. Somehow even when a layer view is removed, the
-      // zoomend listener on the map still retains a reference to it
-      // and is capable of calling view methods on a "deleted" view.
-      this.map.off('zoomend', this.updateLayer, this);
     },
     updateLayer: function() {
       // Update the marker layer if the model changes and the layer exists
@@ -117,18 +105,6 @@
       }
     },
     onMarkerClick: function() {
-      var self = this;
-      self.layer.editing.enable();
-      self.layer = L.featureGroup([self.layer]).setStyle({fillColor: "#FF0000"});
-
-      var drawControl = new L.Control.Draw({
-        position: 'bottomright',
-        edit: {
-          featureGroup: self.layer
-        }
-      });
-      this.map.addControl(drawControl);
-
       Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
       this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
     },
