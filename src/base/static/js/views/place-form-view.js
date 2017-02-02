@@ -70,8 +70,8 @@
       // the DOM by the app view
       if (this.formState.isSingleCategory) {
         $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-      } 
- 
+      }
+
       this.bindCategoryListeners();
     },
     bindCategoryListeners: function() {
@@ -108,8 +108,6 @@
       this.location = location;
     },
     getAttrs: function() {
-      console.log("getAttrs");
-      
       var self = this,
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
@@ -249,14 +247,13 @@
       }
 
       var self = this,
-        router = this.options.router,
+          router = this.options.router,
           collection = this.collection[self.formState.selectedCategoryConfig.dataset],
           model,
           // Should not include any files
           attrs = this.getAttrs(),
           $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
-
       evt.preventDefault();
 
       collection.add({"location_type": this.formState.selectedCategoryConfig.category});

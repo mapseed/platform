@@ -4,7 +4,8 @@
 
   module.exports = Backbone.View.extend({
     events: {
-      'submit form': 'onSubmit'
+      'submit form': 'onSubmit',
+      'click .reply-link': 'onReplyClick'
     },
     initialize: function() {
       TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
