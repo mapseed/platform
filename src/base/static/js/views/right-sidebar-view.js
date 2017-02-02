@@ -22,15 +22,20 @@ var Shareabouts = Shareabouts || {};
     },
 
     onBeforeRender: function() {
+      // try to find the icon for a landmark layer
       this.layerView = this.options.layerViews[this.model.get("datasetId")][this.model.get("id")];
+      // try to find the icon for a place layer
+      if (!this.layerView) {
+        this.layerView = this.options.layerViews[this.model.get("datasetId")][this.model.cid];        
+      }
+
       if (this.layerView &&
           this.layerView.layer instanceof L.Marker) {
-        this.iconUrl = this.layerView.layer.options.icon.options.iconUrl;
+        this.iconUrl = this.layerView.layer.options.icon.options.iconUrl;   
       } else {
         // else, supply a default icon (for polygon geometry, etc.)
-        // TODO: this should be a config value, and we might want to
-        // find a unique icon for this purpose
-        this.iconUrl = "/static/css/images/markers/marker-star.png";
+        // TODO: this could be configurable?
+        this.iconUrl = "/static/css/images/markers/map-polygon-marker.png";
       }
     },
 
