@@ -22,13 +22,13 @@
     "build-scss": "./scripts/run-node-sass.sh",
     "watch-scss": "./scripts/run-node-sass.sh -w",
     "start-server": "./src/manage.py runserver",
-    "start": "npm run build-scss && npm run watch-scss && npm run start-server",
-    "build-lib-js": "cat src/base/static/dist/cat-lib-bundle.js | uglifyjs -cm | tee src/base/static/dist/lib-bundle.js | gzip > src/base/static/dist/lib-bundle.js.gz",
-    "build-preload-js": "cat src/base/static/dist/cat-preload-bundle.js | uglifyjs -cm | tee src/base/static/dist/preload-bundle.js | gzip > src/base/static/dist/preload-bundle.js.gz",
-    "build-js": "cat src/base/static/dist/cat-bundle.js | uglifyjs -cm | tee src/base/static/dist/bundle.js | gzip > src/base/static/dist/bundle.js.gz",
+    "start": "npm run build-scss && npm run watch-scss & npm run watch-js & npm run start-server",
+    "build-js": "webpack -d",
+    "build-js-production": "webpack -p",
+    "watch-js": "webpack -d --watch",
     "build-css":  "cat src/base/static/dist/cat-bundle.css | tee src/base/static/dist/bundle.css | gzip > src/base/static/dist/bundle.css.gz",
     "build-concat": "node scripts/concat.js",
-    "build": "npm run build-scss && npm run build-concat && npm run build-lib-js && npm run build-preload-js && npm run build-js && npm run build-css"
+    "build": "npm run build-scss && npm run build-concat && npm run build-js-production && npm run build-css"
   },
   "dependencies": {
     "compass-importer": "^0.4.1",
