@@ -84,11 +84,11 @@
       storedValue;
 
       this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
+        storedValue = Util.getAutocompleteValue(field.name);
         self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
       });
       this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
+        storedValue = Util.getAutocompleteValue(field.name);
         self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
@@ -128,7 +128,7 @@
               return field.name === key;
             }) || {};
         if (itemConfig.autocomplete) {
-          S.Util.saveAutocompleteValue(key, value, 30);
+          Util.saveAutocompleteValue(key, value, 30);
         }
       });
         
