@@ -42,7 +42,8 @@
     "node-sass": "^4.0.0",
     "sheetify": "^2.0.3",
     "shelljs": "^0.5.3",
-    "uglifyjs": "^2.4.10"
+    "uglifyjs": "^2.4.10",
+    "webpack": "^2.2.1"
   },
   "devDependencies": {
     "catw": "^1.0.1",
