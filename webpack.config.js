@@ -1,7 +1,7 @@
 module.exports = {
-  entry: ["./src/sa_web/static/js/routes.js", "./src/sa_web/static/js/handlebars-helpers.js"],
+  entry: ["./src/base/static/js/routes.js", "./src/base/static/js/handlebars-helpers.js"],
   output: {
-    path: "./src/sa_web/static/dist/",
+    path: "./src/base/static/dist/",
     filename: "bundle.js"
   }
 }
