@@ -730,14 +730,9 @@ right_sidebar:
     - name: story
       show: true
       tab_name: _(Stories)
-      templates:
-        - sidebar-story-overview
-        - sidebar-story-detail
     - name: activity
       show: true
       tab_name: _(Activity)
-      templates:
-        - ""
 
 # Place Types
 place:

@@ -74,18 +74,19 @@ var Shareabouts = Shareabouts || {};
 
   // a view for managing a collection of story items
   S.SidebarStoryView = Backbone.Marionette.CollectionView.extend({
-    template: "#sidebar-story-detail-container",
     itemView: S.SidebarStoryItemView,
-    itemViewContainer: ".sidebar-content",
     initialize: function() {
       this.itemViewOptions = {
         layerViews: this.options.layerViews,
         router: this.options.router
       }
     },
-
     onBeforeRender: function() {
-      $(this.itemViewContainer).empty();
+      var data = {
+        header: this.options.storyHeader
+      };
+
+      this.$el.html(Handlebars.templates["sidebar-story-detail-container"](data));
     }
   });
 
@@ -114,17 +115,15 @@ var Shareabouts = Shareabouts || {};
     showStory: function(e) {
       var storyName = $(e.target).data("storyname");
 
-      // render SidebarStoryView...
-      //this.sidebarStoryView.collection = this.storyCollections[storyName];
       this.sidebarStoryView = new S.SidebarStoryView({
-        el: ".sidebar-content",
+        el: ".right-sidebar-content",
         collection: this.storyCollections[storyName],
         layerViews: this.options.layerViews,
-        router: this.options.router
+        router: this.options.router,
+        storyName: storyName,
+        storyHeader: this.options.storyConfig[storyName].header
       });
-      this.sidebarStoryView.render(storyName);
-      //this.storyCollections[storyName].trigger("reset");
-
+      this.sidebarStoryView.render();
     },
 
     render: function() {
@@ -188,30 +187,53 @@ var Shareabouts = Shareabouts || {};
 
       new Spinner(S.smallSpinnerOptions).spin(this.$el.find("#right-sidebar-spinner")[0]);
 
-      // wait to initialize the sidebar until all 
-      // collections have loaded
-      $.when.apply($, S.deferredCollections).then(function() {
-        self.render();
-        self.storyMenuView = new S.SidebarStoryMenuView({
-          el: ".sidebar-content",
-          landmarks: self.landmarks,
-          places: self.places,
-          layers: self.options.layers,
-          storyConfig: self.options.storyConfig,
-          rightSidebarView: self,
-          layerViews: self.options.layerViews,
-          router: self.options.router
-        }).render();
+      // a model for tracking overall state of the sidebar
+      this.state = new Backbone.Model({
+        currentTab: this.options.rightSidebarConfig.tabs[0].name
       });
 
       this.places = this.options.appView.places;
       this.landmarks = this.options.appView.landmarks;
       this.tabs = this.options.rightSidebarConfig.tabs;
 
-      // a model for tracking overall state of the sidebar
-      this.state = new Backbone.Model.extend({
-        currentTab: this.tabs[0].name
-      });
+      // wait to initialize the sidebar until all 
+      // collections have loaded
+      $.when.apply($, S.deferredCollections).then(function() {
+        self.render();
+        self.switchTabs();
+      });      
+    },
+
+    switchTabs: function() {
+      // for now, support only two kinds of tabs: story
+      // navigation and activity stream
+      if (this.state.get("currentTab") === "story") {
+        this.initStories();
+      } else if (this.state.get("currentTab") === "activity") {
+        this.initActivity();
+      } else {
+        console.warn("Unsupported sidebar tab:", self.state.get("currentTab"));
+      }
+    },
+
+    initStories: function() {
+      this.storyMenuView = new S.SidebarStoryMenuView({
+        el: ".right-sidebar-content",
+        landmarks: this.landmarks,
+        places: this.places,
+        layers: this.options.layers,
+        storyConfig: this.options.storyConfig,
+        rightSidebarView: this,
+        layerViews: this.options.layerViews,
+        router: this.options.router
+      }).render();
+    },
+
+    initActivity: function() {
+      // TODO: a full view for activity content here?
+      $(".right-sidebar-content").html("<ul class='recent-points unstyled-list'></ul>");
+      this.options.activityView.$el = $("ul.recent-points");
+      this.options.activityView.render();
     },
 
     render: function() {
@@ -220,12 +242,6 @@ var Shareabouts = Shareabouts || {};
       };
 
       this.$el.html(Handlebars.templates['right-sidebar'](data));
-
-    },
-
-    renderTabContent: function(tabName, content) {
-
-
     },
 
     onClickStoryOverview: function(e) {
@@ -247,16 +263,6 @@ var Shareabouts = Shareabouts || {};
           }
         });
       });
-
-      var data = {
-        header: this.tabsConfig.story[storyName].header,
-        models: self.storyModels,
-        currentRoute: Backbone.history.getFragment()
-      };
-
-      self.$rightSidebarContent.html(
-        Handlebars.templates[tabInfo.tabTemplates[1]](data)
-      );
     },
 
     onClickPreviousPane: function(e) {
@@ -269,27 +275,14 @@ var Shareabouts = Shareabouts || {};
 
     onClickTab: function(e) {
       var $tab = $(e.target),
-      selectedTab = $tab.attr("id"),
-      pane = $tab.data("pane"),
-      tabTemplates = _.find(this.tabs, function(tab) {
-        return tab.name === selectedTab;
-      }).templates;
+      selectedTab = $tab.attr("id");
 
-      this.tabInfo[selectedTab] = {
-        pane: pane,
-        tabTemplates: tabTemplates
-      }
-
-      this.currentTab = selectedTab;
+      this.state.set("currentTab", selectedTab);
 
       $(".sidebar-tab").removeClass("selected");
       $tab.addClass("selected");
 
-      var data = {
-        stories: this.tabsConfig[selectedTab]
-      };
-
-      this.$rightSidebarContent.html(Handlebars.templates[tabTemplates[pane]](data));
+      this.switchTabs();
     }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));
