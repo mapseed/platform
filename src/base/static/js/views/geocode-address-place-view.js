@@ -1,4 +1,4 @@
-  var GeocodeAddressView = require('./geocode-address-view.js');
+  var GeocodeAddressView = require('mapseed-geocode-address-view');
 
   module.exports = GeocodeAddressView.extend({
     events: {

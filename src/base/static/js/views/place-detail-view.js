@@ -1,7 +1,7 @@
   var Util = require('../utils.js');
 
-  var SurveyView = require('./survey-view.js');
-  var SupportView = require('./support-view.js');
+  var SurveyView = require('mapseed-survey-view');
+  var SupportView = require('mapseed-support-view');
 
   var SubmissionCollection = require('../models/submission-collection.js');
 

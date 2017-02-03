@@ -1,18 +1,18 @@
   var Util = require('../utils.js');
 
   // Views
-  var MapView = require('./map-view.js');
-  var PagesNavView = require('./pages-nav-view.js');
-  var AuthNavView = require('./auth-nav-view.js');
-  var LandmarkDetailView = require('./landmark-detail-view.js');
-  var PlaceListView = require('./place-list-view.js');
-  var SidebarView = require('./sidebar-view.js');
-  var ActivityView = require('./activity-view.js');
-  var GeocodeAddressView = require('./geocode-address-view.js');
-  var PlaceCounterView = require('./place-counter-view.js');
-  var PlaceDetailView = require('./place-detail-view.js');
-  var PlaceFormView = require('./place-form-view.js');
-  var GeocodeAddressPlaceView = require('./geocode-address-place-view.js');
+  var MapView = require('mapseed-map-view');
+  var PagesNavView = require('mapseed-pages-nav-view');
+  var AuthNavView = require('mapseed-auth-nav-view');
+  var LandmarkDetailView = require('mapseed-landmark-detail-view');
+  var PlaceListView = require('mapseed-place-list-view');
+  var SidebarView = require('mapseed-sidebar-view');
+  var ActivityView = require('mapseed-activity-view');
+  var GeocodeAddressView = require('mapseed-geocode-address-view');
+  var PlaceCounterView = require('mapseed-place-counter-view');
+  var PlaceDetailView = require('mapseed-place-detail-view');
+  var PlaceFormView = require('mapseed-place-form-view');
+  var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
 
   // Models
   var PlaceModel = require('../models/place-model.js');

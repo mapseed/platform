@@ -1,7 +1,7 @@
   var Util = require('../utils.js');
 
-  var BasicLayerView = require('./basic-layer-view.js');
-  var LayerView = require('./layer-view.js');
+  var BasicLayerView = require('mapseed-basic-layer-view');
+  var LayerView = require('mapseed-layer-view');
 
   module.exports = Backbone.View.extend({
     events: {

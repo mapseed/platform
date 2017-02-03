@@ -1,18 +1,13 @@
-var Shareabouts = Shareabouts || {};
+module.exports = Backbone.View.extend({
+  render: function() {
+    var self = this,
+        data = _.extend({
+          items: this.options.config.items
+        }, Shareabouts.stickyFieldValues);
 
-(function(S, $, console){
-  S.LegendView = Backbone.View.extend({
+    // use prepend here so as to not overwrite activity stream
+    this.$el.prepend(Handlebars.templates['legend'](data));
 
-    render: function() {
-      var self = this,
-          data = _.extend({
-            items: this.options.config.items
-          }, S.stickyFieldValues);
-
-      // use prepend here so as to not overwrite activity stream
-      this.$el.prepend(Handlebars.templates['legend'](data));
-
-      return this;
-    }
-  });
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+    return this;
+  }
+});

@@ -6,7 +6,7 @@ var Util = require('./utils.js');
 var LandmarkCollection = require('./models/landmark-collection.js');
 var PlaceCollection = require('./models/place-collection.js');
 var ActionCollection = require('./models/action-collection.js');
-var AppView = require('./views/app-view.js');
+var AppView = require('mapseed-app-view');
 
 // Global-namespace Util
 Shareabouts.Util = Util;

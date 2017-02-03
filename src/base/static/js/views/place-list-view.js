@@ -1,6 +1,6 @@
   var Util = require('../utils.js');
 
-  var SupportView = require('./support-view.js');
+  var SupportView = require('mapseed-support-view');
 
   var SubmissionCollection = require('../models/submission-collection.js');
   var PlaceCollection = require('../models/place-collection.js');

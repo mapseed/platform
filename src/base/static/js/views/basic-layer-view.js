@@ -1,6 +1,6 @@
   var Util = require('../utils.js');
 
-  var LayerView = require('./layer-view.js');
+  var LayerView = require('mapseed-layer-view');
 
   module.exports = LayerView.extend({
     initialize: function() {
