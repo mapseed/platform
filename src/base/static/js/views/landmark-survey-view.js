@@ -1,6 +1,6 @@
   var Util = require('../utils.js');
 
-  var SurveyView = require('./survey-view.js');
+  var SurveyView = require('mapseed-survey-view');
 
   module.exports = SurveyView.extend({
     initialize: function() {
