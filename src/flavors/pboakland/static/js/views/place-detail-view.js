@@ -74,10 +74,10 @@ var Shareabouts = Shareabouts || {};
           return item.name === "venue"
         }).content;
         data.venueLabel = _.find(venueContent, function(item) {
-          return item.value = data.venue;
+          return item.value === data.venue;
         }).label;        
       }
-      
+
       data.submitter_name = this.model.get('submitter_name') ||
         this.options.placeConfig.anonymous_name;
 
