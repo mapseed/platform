@@ -1,5 +1,5 @@
-  var PlaceDetailView = require('./place-detail-view.js');
-  var LandmarkSurveyView = require('./landmark-survey-view.js');
+  var PlaceDetailView = require('mapseed-place-detail-view');
+  var LandmarkSurveyView = require('mapseed-landmark-survey-view');
 
   module.exports = PlaceDetailView.extend({
     initialize: function() {
