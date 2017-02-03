@@ -39,7 +39,7 @@
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
       'click .minimize-btn': 'onClickMinimizeBtn',
-      'click .list-toggle-btn': 'toggleListView',
+      'click .collapse-btn': 'onToggleSidebarVisibility'
     },
     initialize: function() {
       // store promises returned from collection fetches

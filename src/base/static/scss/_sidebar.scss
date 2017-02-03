@@ -59,6 +59,10 @@
 
 /*---- right-clinging sidebar styles ----*/
 
+#right-sidebar {
+    height: calc(100% - #{$header-height-fullscreen} - 15px);
+}
+
 .right-sidebar-visible {
     #right-sidebar-container {
         position: absolute;
@@ -123,7 +127,8 @@
         }
     }
     .right-sidebar-content {
-        overflow: hidden;
+        overflow: auto;
+        height: 100%;
         padding-left: 10px;
         padding-right: 10px;
         padding-top: 20px;
