@@ -44,10 +44,12 @@ var Shareabouts = Shareabouts || {};
         // shareabouts-style urls
         if (Backbone.history.getFragment() === (this.model.get("datasetSlug") + "/" + this.model.get("id"))) {
           this.$el.addClass("story-selected");
+          this.options.sidebarStoryView.storyItemSelected = true;
         }
         this.options.router.on("route", function(fn, route) {
           if ((route[0] + "/" + route[1]) === (self.model.get("datasetSlug") + "/" + self.model.get("id"))) {
             self.$el.addClass("story-selected");
+            self.options.sidebarStoryView.storyItemSelected = true;
           } else {
             self.$el.removeClass("story-selected");
           }
@@ -56,10 +58,12 @@ var Shareabouts = Shareabouts || {};
         // else, listen for a landmark-style url
         if (Backbone.history.getFragment() === this.model.get("id")) {
           this.$el.addClass("story-selected");
+          this.options.sidebarStoryView.storyItemSelected = true;
         }
         this.options.router.on("route", function(fn, route) {
           if (route[0] === self.model.get("id")) {
             self.$el.addClass("story-selected");
+            self.options.sidebarStoryView.storyItemSelected = true;
           } else {
             self.$el.removeClass("story-selected");
           }
@@ -77,8 +81,10 @@ var Shareabouts = Shareabouts || {};
     initialize: function() {
       this.itemViewOptions = {
         layerViews: this.options.layerViews,
-        router: this.options.router
+        router: this.options.router,
+        sidebarStoryView: this
       }
+      this.storyItemSelected = false;
     },
     
     onBeforeRender: function() {
@@ -87,6 +93,18 @@ var Shareabouts = Shareabouts || {};
       };
 
       this.$el.html(Handlebars.templates["sidebar-story-detail-container"](data));
+    },
+
+    onRender: function() {
+      // if no place detail view is open or the current place detail
+      // view is not part of the selected story, route to the first story point
+      if (this.storyItemSelected === false) {
+        if (this.collection.models[0].get("datasetSlug")) {
+          this.options.router.navigate(this.collection.models[0].get("datasetSlug") + "/" + this.collection.models[0].get("id"), {trigger: true});
+        } else {
+          this.options.router.navigate(this.collection.models[0].get("id"), {trigger: true});
+        }
+      }
     },
 
     showMenu: function() {
