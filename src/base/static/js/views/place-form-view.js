@@ -33,10 +33,16 @@ var Shareabouts = Shareabouts || {};
       }
     },
     render: function(isCategorySelected) {
-      var self = this,
+      var isAdmin = false,
+      self = this,
       placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
         return place.includeOnForm; 
       });
+
+      if (S.bootstrapped.currentUser &&
+        _.contains(this.options.placeConfig.administrators, S.bootstrapped.currentUser.username)) {
+        isAdmin = true;
+      }
 
       // if there is only one place to include on form, skip category selection page
       if (placesToIncludeOnForm.length === 1) {
@@ -49,6 +55,7 @@ var Shareabouts = Shareabouts || {};
 
       var data = _.extend({
         isCategorySelected: isCategorySelected,
+        isAdmin: isAdmin,
         placeConfig: this.options.placeConfig,
         selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
