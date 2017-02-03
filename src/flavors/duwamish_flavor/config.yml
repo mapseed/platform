@@ -1735,26 +1735,27 @@ story:
         basemap: satellite
     start_at: history
 
-  # dirtcorps:
-  #   tagline: _(Next featured site)
-  #   default_zoom: 17
-  #   default_visible_layers:
-  #     - restoration
-  #   order:
-  #     - url: dirtcorps
-  #       spotlight: false
-  #     - url: south-orcas-rain-gardens
-  #     - url: rose-greenstreet
-  #     - url: markey
-  #     - url: elmgrove-rain-garden
-  #     - url: southern-greenstreet
-  #     - url: dirt-corps-classroom
-  #     - url: point-rediscovery
-  #     - url: green-screen
-  #     - url: rain-wise-home
-  #     - url: rainwise-home-rose-st
-  #     - url: carleton-grocery-gsi
-  #     - url: dirt-corps-warehouse
+  dirtcorps:
+    tagline: _(Next featured site)
+    header: _(DIRT Corps)
+    image_url: /static/css/images/dirt-corps.jpg
+    default_zoom: 17
+    default_visible_layers:
+      - restoration
+      - dirt-corps
+    order:
+      - url: dirtcorps
+        spotlight: false
+      - url: rose-greenstreet
+      - url: markey
+      - url: elmgrove-rain-garden
+      - url: southern-greenstreet
+      - url: dirt-corps-classroom
+      - url: point-rediscovery
+      - url: green-screen
+      - url: rain-wise-home
+      - url: rainwise-home-rose-st
+      - url: carleton-grocery-gsi
 
 notifications:
   on_new_place: true
