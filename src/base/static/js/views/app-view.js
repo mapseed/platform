@@ -456,7 +456,7 @@ var Shareabouts = Shareabouts || {};
       $(".maximize-btn, .minimize-btn").toggle();
     },
     setBodyClass: function(/* newBodyClasses */) {
-      var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded'],
+      var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded', 'content-expanded-mid'],
           newBodyClasses = Array.prototype.slice.call(arguments, 0),
           i, $body = $('body');
 

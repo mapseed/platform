@@ -103,6 +103,15 @@
         }
     }
 
+    .content-expanded-mid {
+        #map-container {
+            height: 50%;
+        }
+        #content {
+            min-height: 90%;
+        }
+    }
+
     .content-visible.right-sidebar-visible #right-sidebar {
         display: none;
     }
