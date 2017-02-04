@@ -116,7 +116,7 @@ var Shareabouts = Shareabouts || {};
       // set the form to display at larger size after initial map drag
       if (!this.options.appView.hasBodyClass("content-expanded-mid") &&
           this.options.appView.hasBodyClass("place-form-visible")) {      
-        this.options.appView.setBodyClass("content-expanded-mid");
+        this.options.appView.setBodyClass("content-visible", "content-expanded-mid");
       }
     },
     setLocation: function(location) {

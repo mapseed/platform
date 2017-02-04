@@ -448,7 +448,7 @@ var Shareabouts = Shareabouts || {};
 
     },
     onClickMaximizeBtn: function(evt) {
-      this.setBodyClass("content-expanded");
+      this.setBodyClass("content-expanded", "content-visible");
       $(".maximize-btn, .minimize-btn").toggle();
     },
     onClickMinimizeBtn: function(evt) {

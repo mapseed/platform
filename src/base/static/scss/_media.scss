@@ -90,25 +90,26 @@
         width: 100%;
         display: block;
         left: 0;
-        top: calc(#{$map-height-smallscreen-when-sidebar-visible} + #{$footer-height-smallscreen});
+//        top: calc(#{$map-height-smallscreen-when-sidebar-visible} + #{$footer-height-smallscreen});
         height: 400px;
+        margin-top: 0;
     }
 
-    .content-expanded {
+    .content-visible.content-expanded {
         #map-container {
-            height: 10%;
+            height: 10% !important;
         }
         #content {
-            min-height: 90%;
+            min-height: 90% !important;
         }
     }
 
-    .content-expanded-mid {
+    .content-visible.content-expanded-mid {
         #map-container {
-            height: 50%;
+            height: 50% !important;
         }
         #content {
-            min-height: 90%;
+            min-height: 90% !important;
         }
     }
 
@@ -384,6 +385,12 @@
 
         .btn-primary:hover {
             background-color: #FF8B61;
+        }
+    }
+
+    .right-sidebar-visible #main-btns-container {
+        &.pos-top-right {
+            right: calc(#{$sidebar-width} + 10px);
         }
     }
 
