@@ -21,7 +21,9 @@ var Shareabouts = Shareabouts || {};
   S.AppView = Backbone.View.extend({
     events: {
       'click #add-place': 'onClickAddPlaceBtn',
-      'click .close-btn': 'onClickClosePanelBtn'
+      'click .close-btn': 'onClickClosePanelBtn',
+      'click .maximize-btn': 'onClickMaximizeBtn',
+      'click .minimize-btn': 'onClickMinimizeBtn'
     },
     initialize: function(){
       var self = this,
@@ -111,7 +113,10 @@ var Shareabouts = Shareabouts || {};
       }, this);
 
       // Only append the tools to add places (if supported)
-      $('#map-container').append(Handlebars.templates['add-places'](this.options.placeConfig));
+      $('#map-container').append(Handlebars.templates['centerpoint']());
+      // NOTE: append add place/story buttons after the #map-container 
+      // div (rather than inside of it) in order to support bottom-clinging buttons
+      $('#map-container').after(Handlebars.templates['add-places'](this.options.placeConfig));
 
       this.pagesNavView = (new S.PagesNavView({
               el: '#pages-nav-container',
@@ -384,7 +389,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMapZoomEnd: function(evt) {
       if (this.hasBodyClass('content-visible') === true && !this.isProgrammaticZoom) {
-        $("#spotlight-place-mask").remove();
+        this.hideSpotlightMask();
       }
       this.isProgrammaticZoom = false;
     },
@@ -409,7 +414,7 @@ var Shareabouts = Shareabouts || {};
     },
     onMapDragEnd: function(evt) {
       if (this.hasBodyClass('content-visible') === true) {
-        $("#spotlight-place-mask").remove();
+        this.hideSpotlightMask();
       }
       this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
     },
@@ -424,9 +429,12 @@ var Shareabouts = Shareabouts || {};
         this.placeFormView.closePanel();
       }
 
+      $(".maximize-btn").show();
+      $(".minimize-btn").hide();
+
       S.Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
-      $("#spotlight-place-mask").remove();
+      this.hideSpotlightMask();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
       } else {
@@ -439,8 +447,16 @@ var Shareabouts = Shareabouts || {};
       }
 
     },
+    onClickMaximizeBtn: function(evt) {
+      this.setBodyClass("content-expanded", "content-visible");
+      $(".maximize-btn, .minimize-btn").toggle();
+    },
+    onClickMinimizeBtn: function(evt) {
+      this.setBodyClass("content-visible");
+      $(".maximize-btn, .minimize-btn").toggle();
+    },
     setBodyClass: function(/* newBodyClasses */) {
-      var bodyClasses = ['content-visible', 'place-form-visible'],
+      var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded', 'content-expanded-mid'],
           newBodyClasses = Array.prototype.slice.call(arguments, 0),
           i, $body = $('body');
 
@@ -456,7 +472,7 @@ var Shareabouts = Shareabouts || {};
         }
         $body.addClass(newBodyClasses[i]);
       }
-    },
+    }, 
     hasBodyClass: function(className) {
       return $('body').hasClass(className);
     },
@@ -566,6 +582,9 @@ var Shareabouts = Shareabouts || {};
         mapConfig: this.options.mapConfig
       })).render();
 
+      $(".maximize-btn").show();
+      $(".minimize-btn").hide();
+
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
     },
@@ -622,6 +641,9 @@ var Shareabouts = Shareabouts || {};
           layout = S.Util.getPageLayout(),
           onLandmarkFound, onLandmarkNotFound, modelId;
 
+      $(".maximize-btn").show();
+      $(".minimize-btn").hide();
+
       onLandmarkFound = function(model, response, newOptions) {
         var map = self.mapView.map,
             layer, center, landmarkDetailView, $responseToScrollTo;
@@ -668,13 +690,13 @@ var Shareabouts = Shareabouts || {};
             }
           }
         }
-        self.addSpotlightMask();
+        self.showSpotlightMask();
 
         // Focus the one we're looking
         model.trigger('focus');
 
         if (model.get("story")) {
-          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
+          if (!model.get("story").spotlight) self.hideSpotlightMask();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
@@ -772,6 +794,9 @@ var Shareabouts = Shareabouts || {};
           datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
           onPlaceFound, onPlaceNotFound, modelId;
 
+      $(".maximize-btn").show();
+      $(".minimize-btn").hide();
+
       onPlaceFound = function(model) {
         var map = self.mapView.map,
             layer, center, placeDetailView, $responseToScrollTo;
@@ -828,7 +853,7 @@ var Shareabouts = Shareabouts || {};
             }
           }
         }
-        self.addSpotlightMask();
+        self.showSpotlightMask();
 
         if (responseId) {
           // get the element based on the id
@@ -850,7 +875,7 @@ var Shareabouts = Shareabouts || {};
         model.trigger('focus');
 
         if (model.get("story")) {
-          if (!model.get("story").spotlight) $("#spotlight-place-mask").remove();
+          if (!model.get("story").spotlight) self.hideSpotlightMask();
           self.isStoryActive = true;
           self.setStoryLayerVisibility(model);
         } else if (self.isStoryActive) {
@@ -897,13 +922,16 @@ var Shareabouts = Shareabouts || {};
           pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
           pageHtml = Handlebars.templates[pageTemplateName]({config: this.options.config});
 
+      $(".maximize-btn").hide();
+      $(".minimize-btn").show();
+
       this.$panel.removeClass().addClass('page page-' + slug);
       this.showPanel(pageHtml);
 
       this.hideNewPin();
       this.destroyNewModels();
       this.hideCenterPoint();
-      this.setBodyClass('content-visible');
+      this.setBodyClass('content-visible', 'content-expanded');
     },
     showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
@@ -931,14 +959,14 @@ var Shareabouts = Shareabouts || {};
 
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
 
-      $("#add-place-btn-container").attr("class", "pos-top-left");
+      $("#main-btns-container").attr("class", "pos-top-left");
 
       S.Util.log('APP', 'panel-state', 'open');
     },
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
 
-      this.addSpotlightMask();
+      this.showSpotlightMask();
     },
     showAddButton: function() {
       this.$addButton.show();
@@ -960,29 +988,19 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass();
       map.invalidateSize({ animate:true, pan:true });
 
-      $("#add-place-btn-container").attr("class", "pos-top-right");
+      $("#main-btns-container").attr("class", "pos-top-right");
 
       S.Util.log('APP', 'panel-state', 'closed');
-      $("#spotlight-place-mask").remove();
+      this.hideSpotlightMask();
     },
     hideNewPin: function() {
       this.showCenterPoint();
     },
-    addSpotlightMask: function() {
-      // remove an existing mask
-      $("#spotlight-place-mask").remove();
-
-      // add map mask and spotlight effect
-      var spotlightDiameter = 200,
-          xOffset = $("#map").width() / 2 - (spotlightDiameter / 2),
-          yOffset = $("#map").height() / 2 - (spotlightDiameter / 2);
-      $("#map").append("<div id='spotlight-place-mask'><div id='spotlight-place-mask-fill'></div></div>");
-      $("#spotlight-place-mask-fill").css("left", xOffset + "px")
-                               .css("top", yOffset + "px")
-                               .css("width", spotlightDiameter + "px")
-                               .css("height", spotlightDiameter + "px")
-                               // scale the box shadow to the largest screen dimension; an arbitrarily large box shadow won't get drawn in Safari
-                               .css("box-shadow", "0px 0px 0px " + Math.max((yOffset * 2), (xOffset * 2)) + "px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4)");
+    showSpotlightMask: function() {
+      $("#spotlight-mask").show();
+    },
+    hideSpotlightMask: function() {
+      $("#spotlight-mask").hide();
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the place markers
