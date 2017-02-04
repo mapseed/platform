@@ -131,10 +131,14 @@
     opacity: 0;
 
     + label {
+        font-size: 1.15em;
+        min-height: 2.1em;
+        line-height: 2.1em;
+        padding-right: 10px;
+        padding-left: 60px;
+        text-indent: 0;
         position: relative;
         float: left;
-        line-height: 2.5em;
-        text-indent: 3.25em;
         margin-top: 5px;
         cursor: pointer;
         -webkit-user-select: none;
@@ -143,7 +147,7 @@
         user-select: none;
         color: $unselected-message-light-gray;
         border-radius: 4px;
-        padding-right: 10px;
+        
         border: 2px solid $unselected-highlight-light-gray;
 
         &:before {
