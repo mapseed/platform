@@ -126,9 +126,7 @@
 
 .big-btn {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
+    display: none;
 
     + label {
         font-size: 1.15em;
