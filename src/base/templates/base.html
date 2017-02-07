@@ -133,6 +133,7 @@
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
+      <div id="spotlight-mask"></div>
 
       {% if config.sidebar.enabled %}
         <div id="sidebar-container"></div>
@@ -142,6 +143,8 @@
 
     <div id="content"><!-- .place or .page -->
       <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
+      <a href="#" class="maximize-btn"><span>{% blocktrans %}Maximize{% endblocktrans %}</span></a>
+      <a href="#" class="minimize-btn"><span>{% blocktrans %}Minimize{% endblocktrans %}</span></a>
       <article></article>
     </div><!-- end #content -->
     <!-- right-panel sidebar -->

@@ -31,10 +31,16 @@
       }
     },
     render: function(isCategorySelected) {
-      var self = this,
-      placesToIncludeOnForm = _.filter(this.placeDetail, function(place) {
-        return place.includeOnForm;
+      var isAdmin = false,
+      self = this,
+      placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
+        return place.includeOnForm; 
       });
+
+      if (S.bootstrapped.currentUser &&
+        _.contains(this.options.placeConfig.administrators, S.bootstrapped.currentUser.username)) {
+        isAdmin = true;
+      }
 
       // if there is only one place to include on form, skip category selection page
       if (placesToIncludeOnForm.length === 1) {
@@ -47,6 +53,7 @@
 
       var data = _.extend({
         isCategorySelected: isCategorySelected,
+        isAdmin: isAdmin,
         placeConfig: this.options.placeConfig,
         selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
@@ -103,6 +110,12 @@
     setLatLng: function(latLng) {
       this.center = latLng;
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+
+      // set the form to display at larger size after initial map drag
+      if (!this.options.appView.hasBodyClass("content-expanded-mid") &&
+          this.options.appView.hasBodyClass("place-form-visible")) {      
+        this.options.appView.setBodyClass("content-visible", "content-expanded-mid");
+      }
     },
     setLocation: function(location) {
       this.location = location;
@@ -180,7 +193,7 @@
       this.options.appView.mapView.map.locate()
         .on("locationfound", function() { 
           self.center = self.options.appView.mapView.map.getCenter();
-          $("#spotlight-place-mask").remove();
+          $("#spotlight-mask").hide();
           $("#drag-marker-content").addClass("is-visuallyhidden");
         })
         .on("locationerror", function() {

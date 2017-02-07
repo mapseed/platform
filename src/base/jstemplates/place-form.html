@@ -68,27 +68,52 @@
 
     <!-- generate content for selected category -->
     {{#each selectedCategoryConfig.fields}}
-      <div class="{{ type }} form-field">
-        {{#if horizontal_rule}}
-          <hr />
+      {{#if admin_only}}
+        {{#if ../../isAdmin}}
+          <div class="{{ type }} form-field is-admin-field">
+            {{#if horizontal_rule}}
+              <hr />
+            {{/if}}
+ 
+            {{#if prompt}}
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }} {{admin_msg}}</label>
+            {{/if}}
+ 
+            {{> place-form-field-types }}
+          </div>
         {{/if}}
+      {{else}}
+        <div class="{{ type }} form-field">
+          {{#if horizontal_rule}}
+            <hr />
+          {{/if}}
 
-        {{#if prompt}}
-          <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-        {{/if}}
+          {{#if prompt}}
+            <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
+          {{/if}}
 
-        {{> place-form-field-types }}
-      </div>
+          {{> place-form-field-types }}
+        </div>
+      {{/if}}
     {{/each}}
 
     <!-- begin fields that are included in every form type by default -->
     {{#if isCategorySelected}}
       <div id="common-form-elements">
         {{#each placeConfig.common_form_elements }}
-          <div class="{{ this.type }} form-field">
-            <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>          
-            {{> place-form-field-types }}
-          </div>
+          {{#if admin_only}}
+            {{#if ../../isAdmin}}
+              <div class="{{ this.type }} form-field is-admin-field">
+                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }} {{admin_msg}}</label>
+                {{> place-form-field-types}}
+              </div>
+            {{/if}}
+          {{else}}
+            <div class="{{ this.type }} form-field">
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>          
+              {{> place-form-field-types}}
+            </div>
+          {{/if}}      
         {{/each}}
       </div>
     {{/if}}

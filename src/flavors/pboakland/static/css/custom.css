@@ -24,11 +24,15 @@ label {
   padding-bottom: 11px;
 }
 
+.recent-points {
+  background-color: white;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
 #site-header {
-  background-color: white;
+  background-color: white !important;
   background: none;
   padding-left: 1em;
   overflow: visible;
