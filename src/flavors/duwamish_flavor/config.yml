@@ -738,7 +738,7 @@ right_sidebar:
 place:
   adding_supported: true
   add_button_label: _(Add Report)
-  story_button_label: _(Explore Stories)
+  #story_button_label: _(Explore Stories)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
