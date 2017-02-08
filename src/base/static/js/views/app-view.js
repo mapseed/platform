@@ -23,7 +23,7 @@ var Shareabouts = Shareabouts || {};
       'click #add-place': 'onClickAddPlaceBtn',
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
-      'click .minimize-btn': 'onClickMinimizeBtn'
+      'click .minimize-btn': 'onClickMinimizeBtn',
       'click .list-toggle-btn': 'toggleListView',
     },
     initialize: function(){
