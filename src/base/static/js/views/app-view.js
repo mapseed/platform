@@ -450,10 +450,12 @@ var Shareabouts = Shareabouts || {};
     onClickMaximizeBtn: function(evt) {
       this.setBodyClass("content-expanded", "content-visible");
       $(".maximize-btn, .minimize-btn").toggle();
+      this.mapView.map.invalidateSize({ animate:true, pan:true });
     },
     onClickMinimizeBtn: function(evt) {
       this.setBodyClass("content-visible");
       $(".maximize-btn, .minimize-btn").toggle();
+      this.mapView.map.invalidateSize({ animate:true, pan:true });
     },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded', 'content-expanded-mid'],
