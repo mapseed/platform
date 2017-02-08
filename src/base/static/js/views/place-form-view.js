@@ -110,14 +110,15 @@ var Shareabouts = Shareabouts || {};
     },
     // This is called from the app view
     setLatLng: function(latLng) {
-      this.center = latLng;
-      this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
-
       // set the form to display at larger size after initial map drag
       if (!this.options.appView.hasBodyClass("content-expanded-mid") &&
           this.options.appView.hasBodyClass("place-form-visible")) {      
         this.options.appView.setBodyClass("content-visible", "content-expanded-mid");
+        this.options.appView.mapView.map.invalidateSize({ animate:true, pan:true });
       }
+
+      this.center = latLng;
+      this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
     setLocation: function(location) {
       this.location = location;
