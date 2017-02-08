@@ -1670,7 +1670,6 @@ story:
       - restoration
       - duwamish
     order:
-      - url: report/436
       - url: marra
       - url: skatepark
       - url: concord
