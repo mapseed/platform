@@ -442,7 +442,6 @@ place:
       autocomplete: true
       type: text
       prompt: _(Your Email)
-<<<<<<< 6b2d78cea36f280bfbb94c1caa74dc6d7fde44e3
       placeholder: _(Receive email updates on your idea)
       optional: true
       sticky: true
@@ -452,15 +451,6 @@ place:
       prompt: _(Your phone number:)
       display_prompt: _()
       placeholder: _(Your phone number will not appear on the map)
-=======
-      placeholder: _(Receive email updates on your report)
-      optional: true
-      sticky: true
-    - name: my_image
-      type: file
-      prompt: _(Image)
-      inputfile_label: _(Add an Image)
->>>>>>> standardize common_form_elements section of flavor configs
       optional: true
     - type: submit
       label: _(Submit!)
