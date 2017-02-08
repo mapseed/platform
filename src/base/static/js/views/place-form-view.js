@@ -202,18 +202,28 @@
     },
     onCategoryChange: function(evt) {
       var self = this,
-          animationDelay = 400;
+          animationDelay = 200;
 
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
-        return place.category == $(evt.target).parent().prev().attr('id');
+        return place.category == $(evt.target).attr('id');
       });
 
       this.render(true);
-      this.postRender(true);
-      $(evt.target).parent().prev().prop("checked", true);
+      $("#" + $(evt.target).attr("id"))
+        .prop("checked", true)
+        .next()
+        .addClass("category-btn-container-selected");
       $("#selected-category").hide().show(animationDelay);
       $("#category-btns").animate( { height: "hide" }, animationDelay );
-      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      if (this.center) {
+        this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      }
+    },
+    onExpandCategories: function(evt) {
+      var animationDelay = 200;
+      $("#selected-category").hide(animationDelay);
+      $("#category-btns").animate( { height: "show" }, animationDelay ); 
+      this.bindCategoryListeners();
     },
     onClickGeolocate: function(evt) {
       var self = this;
