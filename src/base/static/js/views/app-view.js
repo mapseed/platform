@@ -493,7 +493,8 @@
     },
     onToggleSidebarVisibility: function() {
       //$("body").toggleClass("right-sidebar-visible");
-      $("body").toggleClass("right-sidebar-collapsed");      
+      $("body").toggleClass("right-sidebar-collapsed");
+      this.mapView.map.invalidateSize();
     },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible',
