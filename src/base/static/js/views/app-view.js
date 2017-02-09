@@ -957,7 +957,16 @@ var Shareabouts = Shareabouts || {};
       }
 
       this.setBodyClass('content-visible');
-      map.invalidateSize({ animate:true, pan:true });
+
+      // Set a very short timeout here to hopefully avoid a race condition
+      // between the CSS transition that resizes the map container and
+      // invalidateSize(). Otherwise, invalidateSize() may fire before the new
+      // map container dimensions have been set by CSS, resulting in the
+      // infamous off-center bug.
+      // NOTE: the timeout duration in use here was arbitrarily selected.
+      setTimeout(function() {
+        map.invalidateSize({ animate:true, pan:true });
+      }, 30);
 
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
 
