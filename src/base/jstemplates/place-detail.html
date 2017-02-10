@@ -6,7 +6,9 @@
           {{>location-string location }}
           <form id="update-place-model-title-form">
             {{#if isEditingToggled}}
-              <input type="text" class="place-value place-value-title" name="title" 
+              <input type="text" 
+                     class="place-value place-value-title" 
+                     name="title" 
                      value="{{#if fullTitle}}{{fullTitle}}{{else}}{{#if title}}{{title}}{{else}}{{name}}{{/if}}{{/if}}" />
             {{else}}
               <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
@@ -26,9 +28,11 @@
             {{#is_not showMetadata false}}
               {{#_}}<strong class="point-submitter">
                 {{#if submitter.avatar_url }}
-                  <img src="{{ submitter.avatar_url }}" class="avatar" />
+                  <img src="{{ submitter.avatar_url }}" 
+                       class="avatar" />
                 {{^}}
-                  <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" />
+                  <img src="{{ STATIC_URL }}css/images/user-50.png" 
+                       class="avatar" />
                 {{/if}}
                 {{#if submitter.name }}
                   {{ submitter.name }}
@@ -45,13 +49,18 @@
                 in {{ region }}
               {{/if}}{{/_}}
 
-              <time datetime="{{ created_datetime }}" class="response-date"><a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a></time>
+              <time datetime="{{ created_datetime }}" 
+                    class="response-date">
+                <a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a>
+              </time>
 
               <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
             {{/is_not}}
 
           {{^if survey_config}}
-            <a rel="internal" href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">{{#_}}View On Map{{/_}}</a>
+            <a rel="internal" 
+               href="/{{ datasetSlug }}/{{ id }}" 
+               class="view-on-map-btn btn btn-small">View On Map</a>
           {{/if}}
 
           </span>
@@ -59,77 +68,73 @@
 
         <section class="place-items">
           {{#if isEditable}}
-            <div id="toggle-editor-btn" class="btn btn-small editor-btn">
-              <i class="fa fa-pencil" aria-hidden="true"></i> {{#_}}Edit this post{{/_}}
+            <div id="toggle-editor-btn" 
+                 class="btn btn-small editor-btn">
+              <i class="fa fa-pencil" 
+                 aria-hidden="true"></i> {{#_}}Edit this post{{/_}}
             </div>
-          {{/ attachments }}
 
-          {{#each_place_item "submitter_name" "name" "location_type" "fullTitle" "title" "name"}}
-            <div class="place-item place-item-{{ name }}">
-              <span class="place-label place-label-{{ name }}">{{ prompt }}</span>
+            {{#if isEditingToggled}}
+              <div id="hide-place-model-btn" 
+                   class="btn btn-small editor-btn btn-delete">
+                <i class="fa fa-times" 
+                   aria-hidden="true"></i> {{#_}}Hide this post{{/_}}
+              </div>
+              <div id="update-place-model-btn" 
+                   class="btn btn-small editor-btn btn-update faded">
+                <i class="fa fa-floppy-o" 
+                   aria-hidden="true"></i> {{#_}}Save changes{{/_}}
+              </div>
+            {{/if}}
+          {{/if}}
 
-              {{#is type "datetime"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
-              {{/is}}
-              
-              {{#is type "text"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>                
-              {{/is}}
+          <form id="update-place-model-form">
+            {{#each attachments }}
+              <div class="place-item place-item-attachment place-attachment-{{ name }}">
+                <img src="{{ file }}" 
+                     class="place-value place-value-{{ name }}" 
+                     alt="{{ name }}" />
+                <!-- {{#if ../isEditingToggled}}
+                  <div class="remove-attachment-btn btn btn-small">{{#_}}Remove this image{{/_}}</div>
+                {{/if}} -->
+              </div>           
+            {{/each}}
+            {{#unless attchments}}
+              {{#if isEditingToggled}}
+                <div class="place-item place-item-attachment">
+                  <!-- <img src="/static/css/images/image-placeholder.png" class="place-value img-placeholder" alt="image placeholder" /> -->
+                </div>
+              {{/if}} 
+            {{/unless}}  
 
-              {{#is type "textarea"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
-              {{/is}}
+            <!-- {{#if isEditingToggled}}              
+              <span id="editor-fileinput" class="fileinput-container btn btn-small editor-btn">
+                <span>{{#_}}Upload a new image{{/_}}</span>
+                <input id="upload-attachment-btn" name="new_image" type="file" style="display: none"/>
+              </span>
+            {{/if}} -->
 
-              {{#is type "richTextarea"}}
-                <span class="place-value place-value-{{ name }}">{{{content}}}</span>
-              {{/is}}
+            {{#each_place_item "submitter_name" "name" "location_type" "title"}}
+              <div class="place-item place-item-{{ name }}">
+                <div class="place-label place-label-{{ name }}">{{ prompt }}</div>
 
-              {{#is type "radio_big_buttons"}}
-                <ul>
-                  {{#each content}}
-                    {{#if selected}}
-                      <li class="multi-select-response place-value">{{ label }} </li>
-                    {{/if}}
-                  {{/each}}
-                </ul>
-              {{/is}}
-
-              {{#is type "checkbox_big_buttons"}}
-                <ul>
-                  {{#each content}}
-                    {{#if selected}}
-                      <li class="multi-select-response place-value">{{ label }} </li>
-                    {{/if}}
-                  {{/each}}
-                </ul>
-              {{/is}}
-
-              {{#is type "binary_toggle"}}
-                <ul>
-                  <li class="place-value">
-                    {{#if content.selected}}
-                      {{ content.selectedLabel }}
-                    {{else}}
-                      {{ content.unselectedLabel }}
-                    {{/if}}
-                  </li>
-                </ul>
-              {{/is}}
-
-              {{#is type "dropdown"}}
-                {{#each content}}
-                  {{#if selected}}
-                    <ul>
-                      <li class="place-value">
-                        {{nlToBr label}}
-                      </li>
-                    </ul>
+                {{#is type "datetime"}}
+                  {{#if isEditingToggled}}
+                    <input id="datetimepicker" 
+                           name="{{ ../name }}" 
+                           type="text" 
+                           value="{{nlToBr content}}" />
+                  {{else}}
+                    <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
                   {{/if}}
                 {{/is}}
                 
                 {{#is type "text"}}
                   {{#if isEditingToggled}}
-                    <input type="text" class="place-value place-value-{{ ../name }}" name="{{ ../name }}" value="{{nlToBr content}}" />
+                    <input type="text"
+                           class="place-value place-value-{{ ../name }}"
+                           name="{{ ../name }}"
+                           value="{{nlToBr content}}" />
                   {{else}}
                     <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
                   {{/if}}
@@ -137,9 +142,21 @@
 
                 {{#is type "textarea"}}
                   {{#if isEditingToggled}}
-                    <textarea class="place-value place-value-{{ ../name }}" name="{{ ../name }}">{{nlToBr content}}</textarea>
+                    <textarea class="place-value place-value-{{ ../name }}" 
+                              name="{{ ../name }}">{{nlToBr content}}</textarea>
                   {{else}}
-                    <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
+                    <p class="place-value place-value-{{ ../name }}">{{{nlToBr content}}}</p>
+                  {{/if}}
+                {{/is}}
+
+                {{#is type "richTextarea"}}
+                  {{#if isEditingToggled}}
+                    <div class="rich-text-field">
+                      <div class="place-value place-value-{{ ../name }}" 
+                           name="{{ ../name }}">{{{content}}}</div>
+                    </div> 
+                  {{else}}
+                    <span class="place-value place-value-{{ ../name }}">{{{content}}}</span>
                   {{/if}}
                 {{/is}}
 
@@ -229,7 +246,8 @@
                   {{#if isEditingToggled}}
                     <div>
                       <select name={{ ../name }}>
-                        <option value="" name="no_response">{{#_}}Select...{{/_}}</option>
+                        <option value="" 
+                                name="no_response">{{#_}}Select...{{/_}}</option>
                         {{#each content}}
                           <option value={{ value }} {{#if selected}}selected{{/if}}>{{ label }}</option>
                         {{/each}}
@@ -247,11 +265,6 @@
                   {{/if}}
                 {{/is}}
 
-                {{#is type "rawHTML"}}
-                  <!-- NOTE: assume QuillJS will be used to edit content of this type -->
-                  <div class="place-value place-value-{{ ../name }}">{{{content}}}</div>
-                {{/is}}
-
                 <div style="clear:both"></div>
               </div>
             {{/each_place_item }}
@@ -259,7 +272,8 @@
         </section>
 
         {{#if survey_config}}
-          <section class="survey" id="survey"></section>
+          <section class="survey" 
+                   id="survey"></section>
         {{/if}}
 
         {{> place-detail-story-bar-tagline }}
