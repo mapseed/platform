@@ -134,16 +134,16 @@ select {
     border-radius: 4px;
 } 
 
-/* QuillJS editor styles */
-.rawHTML {
+/* QuillJS rich text editor styles */
+.rich-text-field {
+    min-height: 200px;
     margin-top: 0px !important;
-    height: 200px;
     border-bottom: 0.35em solid #a3c7d9 !important;
     border-left: 0.35em solid #a3c7d9 !important;
     border-right: 0.35em solid #a3c7d9 !important;
 }
 
-.ql-toolbar.ql-snow {
+.ql-toolbar {
     border-top: 0.30em solid #a3c7d9 !important;
     border-left: 0.30em solid #a3c7d9 !important;
     border-right: 0.30em solid #a3c7d9 !important;   
