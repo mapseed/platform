@@ -31,7 +31,6 @@ var Shareabouts = Shareabouts || {};
       
       onEditorChange = function() {
         quill.off("text-change", onEditorChange);
-        $(self.options.watchFields).off("keyup change");
         self.options.onModified();
       };
 
@@ -46,20 +45,6 @@ var Shareabouts = Shareabouts || {};
 
       // detect changes made via Quill
       quill.on("text-change", onEditorChange);
-
-      // detect changes made to non-Quill form elements
-      $(this.options.watchFields).on("keyup change", function(e) {
-        if (e.type === "change") {
-          onEditorChange();
-        } else if ((e.keyCode >= 48 && e.keyCode <= 57) || // 0-9 (also shift symbols)
-            (e.keyCode >= 65 && e.keyCode <= 90) || // a-z (also capital letters)
-            (e.keyCode === 8) || // backspace key
-            (e.keyCode === 46) || // delete key
-            (e.keyCode === 32) || // spacebar
-            (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
-          onEditorChange();
-        }
-      });
     }
   });
 
