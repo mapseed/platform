@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-10 01:23-0500\n"
+"POT-Creation-Date: 2017-02-10 01:31-0500\n"
 "PO-Revision-Date: 2017-01-10 04:18+0000\n"
 "Last-Translator: PB Project <frank+pbproject@openplans.org>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/mapseed/teams/58669/es/)\n"
@@ -428,11 +428,22 @@ msgid "Guidelines"
 msgstr "Pautas"
 
 #: flavors/pboakland/_config.translations.py:129
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:4
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:8
 msgid "Get more involved"
 msgstr "Otras maneras de participar"
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:1
+#: flavors/pboakland/jstemplates/pages/overview.html:1
+msgid ""
+"\n"
+"<img src=\"http://i.imgur.com/u13G9jG.png\">\n"
+"<img src=\"http://i.imgur.com/nkhPpWV.png\">\n"
+msgstr ""
+"\n"
+"<img src=\"http://i.imgur.com/01pk6VD.png\">\n"
+"<img src=\"http://i.imgur.com/YKGgrRU.png\">\n"
+
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
 msgid ""
 "<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
 "Us\" height=\"400\" width=100% </iframe>"
@@ -440,7 +451,7 @@ msgstr ""
 "<iframe src=\"http://www.123contactform.com/form-1169718/PB-Oakland-Contact-"
 "Espanol\" height=\"400\" width=100% </iframe>"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
 msgid ""
 "Already submitted an idea? There are many more ways to get involved in "
 "participatory budgeting:"
@@ -448,15 +459,15 @@ msgstr ""
 "¿Ya presentaste una idea? Hay muchas otras formas de ser parte del proceso "
 "de presupuesto participativo:"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:3
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
 msgid "Contact Us"
 msgstr "Contacto"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:9
 msgid "Have a question? Feel free to contact us."
 msgstr "¿Tienes alguna pregunta? Te invitamos a comunicarte con nosotros."
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:10
 msgid ""
 "There are lots of ways to get involved in PB in Oakland! You can help to get "
 "the word out to district residents, facilitate small group meetings, provide "
@@ -469,7 +480,7 @@ msgstr ""
 "href=\"http://www.123contactform.com/form-2373917/PB-Oakland-Volunteer-"
 "Spanish\" target=\"_blank\">aquí</a>."
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:11
 msgid "Volunteer"
 msgstr "Voluntario"
 
@@ -495,13 +506,6 @@ msgstr ""
 "Para presentar una idea, arrastra el mapa hasta que la cruceta caiga sobre "
 "la ubicación deseada. <strong>Solo se aceptarán ideas dentro de los límites "
 "de los distritos 1 y 2.</strong>"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:1
-msgid ""
-"\n"
-"<img src=\"http://i.imgur.com/01pk6VD.png\">\n"
-"<img src=\"http://i.imgur.com/YKGgrRU.png\">\n"
-msgstr ""
 
 #: flavors/pboakland/jstemplates/pages/overview.html:5
 msgid ""
