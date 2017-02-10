@@ -58,6 +58,7 @@ shell.cat([
   'src/base/static/js/views/legend-view.js',
   'src/base/static/js/views/gis-legend-view.js',
   'src/base/static/js/views/sidebar-view.js',
+  'src/base/static/js/views/rich-text-editor-view.js',
   'src/base/static/js/routes.js',
   'src/flavors/' + flavor + '/static/js/*.js',
   'src/flavors/' + flavor + '/static/js/views/*.js'
