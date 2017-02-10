@@ -134,59 +134,29 @@
       $("#content article").animate({ scrollTop: 0 }, "fast");
       
       // initialize datetime picker, if relevant
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
 
       if (this.isEditingToggled) {
+
+        // consider the editor modified if change or keyup events are registered
+        // from the following selectors
+        var watchFields = "#update-place-model-form, #update-place-model-title-form";
+
         $("#toggle-editor-btn").addClass("btn-depressed");
-        $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header").addClass("faded");
+        $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header")
+          .addClass("faded");
         
-        // Quill toolbar configuration
-        var toolbarOptions = [
-          ["bold", "italic", "underline", "strike"],
-          [{ "list": "ordered" }, { "list": "bullet" }],
-          [{ "header": [1, 2, 3, 4, 5, 6, false] }],
-          [{ "color": [] }, { "background": [] }],
-          ["link", "image", "video"]
-        ],
-        quill = new Quill(".place-item-description", {
-          modules: { 
-            "toolbar": toolbarOptions
-          },
-          theme: "snow",
-          bounds: "#content"
-        }),
-        toolbar = quill.getModule("toolbar"),
-        watchFields = "#update-place-model-form, #update-place-model-title-form",
-        onEditorChange = function() {
-          self.isModified = true;
-          $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
-          quill.off("text-change", onEditorChange);
-          $(watchFields).off("keyup change");
-        }
-        $(".place-item-description").addClass("rawHTML");
-
-        // override default image upload behavior: instead, create an <img>
-        // tag with highlighted text set as the src attribute
-        toolbar.addHandler("image", function() {
-          var range = quill.getSelection();
-          quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
-        });
-
-        // detect changes made via Quill
-        quill.on("text-change", onEditorChange);
-
-        // detect changes made to non-Quill form elements
-        $(watchFields).on("keyup change", function(e) {
-          if (e.type === "change") {
-            onEditorChange();
-          } else if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
-              || (e.keyCode >= 65 && e.keyCode <= 90) // a-z (also capital letters)
-              || (e.keyCode === 8) // backspace key
-              || (e.keyCode === 46) // delete key
-              || (e.keyCode === 32) // spacebar
-              || (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
-            onEditorChange();
-          }
+        $(".rich-text-field").each(function() {
+          new S.RichTextEditorView({
+            target: $(this).get(0),
+            onModified: function() {
+              self.isModified = true;
+              $("#update-place-model-btn")
+                .css({"opacity": "1.0", "cursor": "pointer"});
+            },
+            watchFields: watchFields,
+            fieldName: $(this).find(".place-value").attr("name")
+          });
         });
       }
 
@@ -274,12 +244,12 @@
 
       var self = this,
       richTextAttrs = {};
-      // if we have a Quill-enabled field, assume content from this field belongs
-      // to the description field. We'll need to make this behavior more sophisticated
-      // to support multiple Quill-enabled fields.
-      if ($(".ql-editor").html()) {
-        richTextAttrs.description = $(".ql-editor").html();
-      }
+
+      // attach data from Quill-enabled fields
+      $(".ql-editor").each(function() {
+        richTextAttrs[$(this).data("fieldName")] = $(this).html();
+      });
+
       var attrs = _.extend(S.Util.getAttrs($("#update-place-model-form")), 
         S.Util.getAttrs($("#update-place-model-title-form")),
         richTextAttrs);
