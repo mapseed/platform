@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-27 16:24-0500\n"
+"POT-Creation-Date: 2017-02-10 01:31-0500\n"
 "PO-Revision-Date: 2017-01-10 04:18+0000\n"
 "Last-Translator: PB Project <frank+pbproject@openplans.org>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/mapseed/teams/58669/es/)\n"
@@ -428,61 +428,22 @@ msgid "Guidelines"
 msgstr "Pautas"
 
 #: flavors/pboakland/_config.translations.py:129
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:14
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:8
 msgid "Get more involved"
 msgstr "Otras maneras de participar"
 
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:1
+#: flavors/pboakland/jstemplates/pages/overview.html:1
 msgid ""
-"<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
-"%2Fdocs.google.com%2Fforms%2Fd%2Fe"
-"%2F1FAIpQLSdQhm7CNUsSR5Ovl0257eGftoGdRvrZTBJJgmkcAWwYPiIxTQ"
-"%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1assemblies&n=3&test_email=1\"><img "
-"src=\"http://i.imgur.com/0SGzi7a.png\"></a>"
+"\n"
+"<img src=\"http://i.imgur.com/u13G9jG.png\">\n"
+"<img src=\"http://i.imgur.com/nkhPpWV.png\">\n"
 msgstr ""
-"<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
-"%2Fdocs.google.com%2Fforms%2Fd%2Fe"
-"%2F1FAIpQLSdQhm7CNUsSR5Ovl0257eGftoGdRvrZTBJJgmkcAWwYPiIxTQ"
-"%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1assemblies&n=3&test_email=1\"><img "
-"src=\"http://i.imgur.com/JImAVRD.png\"></a>"
+"\n"
+"<img src=\"http://i.imgur.com/01pk6VD.png\">\n"
+"<img src=\"http://i.imgur.com/YKGgrRU.png\">\n"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
-msgid ""
-"<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
-"%2Fdocs.google.com%2Fforms%2Fd%2Fe"
-"%2F1FAIpQLSdQhm7CNUsSR5Ovl0257eGftoGdRvrZTBJJgmkcAWwYPiIxTQ"
-"%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1assemblies&n=3&test_email=1\">RSVP "
-"here!</a>"
-msgstr ""
-"<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
-"%2Fdocs.google.com%2Fforms%2Fd%2Fe"
-"%2F1FAIpQLSdjvMEknTchNBxteVitB3340hKzZrAP0tTXbb9ogXwaZfVxew"
-"%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakassembly&n=6&test_email=1\">¡Confirme "
-"su asistencia a la asamblea aquí!</a>"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:3
-msgid ""
-"<h4>District 1 - Assembly (Spanish)</h4>\n"
-"<strong> Saturday, January 28th 1:00 pm - 3:00 pm</strong>\n"
-"<br>Beebe Memorial Cathedral\n"
-"<a href=\"https://www.google.com/maps/place/Beebe+Memorial+Cathedral/"
-"@37.8283232,-122.26643,17z/data=!3m1!4b1!4m5!3m4!"
-"1s0x80857dfd413562d9:0x9883d2d3e980e87!8m2!3d37.828319!"
-"4d-122.264236\"><br>3900 Telegraph Ave.\n"
-"<br>Oakland, CA 94606</a>\n"
-"<br>English/Spanish Translation"
-msgstr ""
-"<h4>Distrito 1 - Asamblea (Español)</h4>\n"
-"<strong> Sábado, 28 de enero 1:00 pm - 3:00 pm</strong>\n"
-"<br>Beebe Memorial Cathedral\n"
-"<a href=\"https://www.google.com/maps/place/Beebe+Memorial+Cathedral/"
-"@37.8283232,-122.26643,17z/data=!3m1!4b1!4m5!3m4!"
-"1s0x80857dfd413562d9:0x9883d2d3e980e87!8m2!3d37.828319!"
-"4d-122.264236\"><br>3900 Telegraph Ave.\n"
-"<br>Oakland, CA 94606</a>\n"
-"<br>Traducción en Español"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:9
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
 msgid ""
 "<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
 "Us\" height=\"400\" width=100% </iframe>"
@@ -490,7 +451,7 @@ msgstr ""
 "<iframe src=\"http://www.123contactform.com/form-1169718/PB-Oakland-Contact-"
 "Espanol\" height=\"400\" width=100% </iframe>"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:10
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
 msgid ""
 "Already submitted an idea? There are many more ways to get involved in "
 "participatory budgeting:"
@@ -498,27 +459,15 @@ msgstr ""
 "¿Ya presentaste una idea? Hay muchas otras formas de ser parte del proceso "
 "de presupuesto participativo:"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:11
-msgid "Attend a Neighborhood Assembly"
-msgstr "Asistir a una asamblea comunitaria"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:12
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
 msgid "Contact Us"
 msgstr "Contacto"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:13
-msgid ""
-"Discuss your ideas in person with your neighbors at an upcoming Neighborhood "
-"Assembly!"
-msgstr ""
-"¡Comenta tus ideas en persona con tus vecinos en una asamblea comunitaria "
-"próximamente!"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:15
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:9
 msgid "Have a question? Feel free to contact us."
 msgstr "¿Tienes alguna pregunta? Te invitamos a comunicarte con nosotros."
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:16
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:10
 msgid ""
 "There are lots of ways to get involved in PB in Oakland! You can help to get "
 "the word out to district residents, facilitate small group meetings, provide "
@@ -531,14 +480,7 @@ msgstr ""
 "href=\"http://www.123contactform.com/form-2373917/PB-Oakland-Volunteer-"
 "Spanish\" target=\"_blank\">aquí</a>."
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:17
-msgid ""
-"This is a FREE event! Food, activities for children and translation will be "
-"provided!"
-msgstr ""
-"Hazte VOLUNTARIO ayúdanos a hacer de PB todo un éxito registrándote aquí."
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:18
+#: flavors/pboakland/jstemplates/pages/getinvolved.html:11
 msgid "Volunteer"
 msgstr "Voluntario"
 
@@ -565,7 +507,18 @@ msgstr ""
 "la ubicación deseada. <strong>Solo se aceptarán ideas dentro de los límites "
 "de los distritos 1 y 2.</strong>"
 
-#: flavors/pboakland/jstemplates/pages/overview.html:1
+#: flavors/pboakland/jstemplates/pages/overview.html:5
+msgid ""
+"<em><h4>The idea collection phase has now ended.</em>\n"
+"\n"
+"<h5>Up next is the PB Vote which is coming up Feb 18-22nd! "
+msgstr ""
+
+#: flavors/pboakland/jstemplates/pages/overview.html:8
+msgid "Explore the map!"
+msgstr ""
+
+#: flavors/pboakland/jstemplates/pages/overview.html:9
 msgid ""
 "For information on participatory budgeting in the U.S. and Canada, visit the "
 "website of the <a href=\"http://www.participatorybudgeting.org/\" "
@@ -576,7 +529,7 @@ msgstr ""
 "participatorybudgeting.org/\" target=”_blank”>Proyecto de Presupuesto "
 "Participativo</a>."
 
-#: flavors/pboakland/jstemplates/pages/overview.html:2
+#: flavors/pboakland/jstemplates/pages/overview.html:10
 msgid ""
 "For more information on the City of Oakland’s Community Development Block "
 "Grant (CDBG) program, click <a href=\"http://www2.oaklandnet.com/government/"
@@ -587,38 +540,11 @@ msgstr ""
 "<a href=\"http://www2.oaklandnet.com/government/o/hcd/s/CDBG/index.htm\" "
 "target=”_blank”>aquí</a>."
 
-#: flavors/pboakland/jstemplates/pages/overview.html:3
-msgid ""
-"Idea submission for the PB process in Districts 1 and 2 is now open! If you "
-"have an idea for a project to improve your district, please share it on the "
-"map!"
-msgstr ""
-"Ya se están recibiendo ideas para el proceso de PB en los distritos 1 y 2. "
-"Si tienes una idea para un proyecto que podría mejorar tu distrito, "
-"compártela en el mapa."
-
-#: flavors/pboakland/jstemplates/pages/overview.html:4
-msgid ""
-"In early February, community volunteers will review and prioritize all of "
-"the ideas and turn them into full proposals. At the end of February, "
-"residents of low- and moderate-income neighborhoods in Districts 1 and 2 "
-"will vote on the top projects."
-msgstr ""
-"A principios de febrero, voluntarios de la comunidad examinarán todas las "
-"ideas, determinarán cuáles tienen prioridad y las convertirán en propuestas "
-"cabales. A finales de febrero, los residentes de comunidades de ingresos "
-"escasos y moderados de los distritos 1 y 2 votarán por los proyectos "
-"seleccionados."
-
-#: flavors/pboakland/jstemplates/pages/overview.html:5
+#: flavors/pboakland/jstemplates/pages/overview.html:11
 msgid "Participatory Budgeting Oakland"
 msgstr "El Programa de Presupuesto Participativo en Oakland"
 
-#: flavors/pboakland/jstemplates/pages/overview.html:6
-msgid "Start Mapping!"
-msgstr "¡Comienza a llenar el mapa!"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:7
+#: flavors/pboakland/jstemplates/pages/overview.html:12
 msgid ""
 "is an innovative democratic process that gives Oakland residents of City "
 "Council Districts 1 and 2 the power to decide how federal Community "
@@ -660,31 +586,96 @@ msgstr ""
 msgid "View On Map"
 msgstr ""
 
-#: flavors/pboakland/jstemplates/place-form.html:1
-msgid "First, drag the map to set your location"
-msgstr ""
-
-#: flavors/pboakland/jstemplates/place-form.html:2
-msgid ""
-"It looks like you didn't set your location yet. Please drag the map to your "
-"location."
-msgstr ""
-
-#: flavors/pboakland/jstemplates/place-form.html:3
-msgid "Set my location"
-msgstr ""
-
-#: flavors/pboakland/jstemplates/place-form.html:4
-msgid "Setting your location..."
-msgstr ""
-
-#: flavors/pboakland/jstemplates/place-form.html:5
-msgid "optional"
-msgstr ""
-
 #: flavors/pboakland/templates/index.html:54
 msgid "Powered by"
 msgstr "Con el respaldo de"
+
+#~ msgid ""
+#~ "<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
+#~ "%2Fdocs.google.com%2Fforms%2Fd%2Fe"
+#~ "%2F1FAIpQLSdQhm7CNUsSR5Ovl0257eGftoGdRvrZTBJJgmkcAWwYPiIxTQ"
+#~ "%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1assemblies&n=3&test_email=1\"><img "
+#~ "src=\"http://i.imgur.com/0SGzi7a.png\"></a>"
+#~ msgstr ""
+#~ "<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
+#~ "%2Fdocs.google.com%2Fforms%2Fd%2Fe"
+#~ "%2F1FAIpQLSdQhm7CNUsSR5Ovl0257eGftoGdRvrZTBJJgmkcAWwYPiIxTQ"
+#~ "%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1assemblies&n=3&test_email=1\"><img "
+#~ "src=\"http://i.imgur.com/JImAVRD.png\"></a>"
+
+#~ msgid ""
+#~ "<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
+#~ "%2Fdocs.google.com%2Fforms%2Fd%2Fe"
+#~ "%2F1FAIpQLSdQhm7CNUsSR5Ovl0257eGftoGdRvrZTBJJgmkcAWwYPiIxTQ"
+#~ "%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1assemblies&n=3&test_email=1\">RSVP "
+#~ "here!</a>"
+#~ msgstr ""
+#~ "<a href=\"https://participatorybudgeting.nationbuilder.com/r?u=https%3A%2F"
+#~ "%2Fdocs.google.com%2Fforms%2Fd%2Fe"
+#~ "%2F1FAIpQLSdjvMEknTchNBxteVitB3340hKzZrAP0tTXbb9ogXwaZfVxew"
+#~ "%2Fviewform&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakassembly&n=6&test_email=1\">¡Confirme "
+#~ "su asistencia a la asamblea aquí!</a>"
+
+#~ msgid ""
+#~ "<h4>District 1 - Assembly (Spanish)</h4>\n"
+#~ "<strong> Saturday, January 28th 1:00 pm - 3:00 pm</strong>\n"
+#~ "<br>Beebe Memorial Cathedral\n"
+#~ "<a href=\"https://www.google.com/maps/place/Beebe+Memorial+Cathedral/"
+#~ "@37.8283232,-122.26643,17z/data=!3m1!4b1!4m5!3m4!"
+#~ "1s0x80857dfd413562d9:0x9883d2d3e980e87!8m2!3d37.828319!"
+#~ "4d-122.264236\"><br>3900 Telegraph Ave.\n"
+#~ "<br>Oakland, CA 94606</a>\n"
+#~ "<br>English/Spanish Translation"
+#~ msgstr ""
+#~ "<h4>Distrito 1 - Asamblea (Español)</h4>\n"
+#~ "<strong> Sábado, 28 de enero 1:00 pm - 3:00 pm</strong>\n"
+#~ "<br>Beebe Memorial Cathedral\n"
+#~ "<a href=\"https://www.google.com/maps/place/Beebe+Memorial+Cathedral/"
+#~ "@37.8283232,-122.26643,17z/data=!3m1!4b1!4m5!3m4!"
+#~ "1s0x80857dfd413562d9:0x9883d2d3e980e87!8m2!3d37.828319!"
+#~ "4d-122.264236\"><br>3900 Telegraph Ave.\n"
+#~ "<br>Oakland, CA 94606</a>\n"
+#~ "<br>Traducción en Español"
+
+#~ msgid "Attend a Neighborhood Assembly"
+#~ msgstr "Asistir a una asamblea comunitaria"
+
+#~ msgid ""
+#~ "Discuss your ideas in person with your neighbors at an upcoming "
+#~ "Neighborhood Assembly!"
+#~ msgstr ""
+#~ "¡Comenta tus ideas en persona con tus vecinos en una asamblea comunitaria "
+#~ "próximamente!"
+
+#~ msgid ""
+#~ "This is a FREE event! Food, activities for children and translation will "
+#~ "be provided!"
+#~ msgstr ""
+#~ "Hazte VOLUNTARIO ayúdanos a hacer de PB todo un éxito registrándote aquí."
+
+#~ msgid ""
+#~ "Idea submission for the PB process in Districts 1 and 2 is now open! If "
+#~ "you have an idea for a project to improve your district, please share it "
+#~ "on the map!"
+#~ msgstr ""
+#~ "Ya se están recibiendo ideas para el proceso de PB en los distritos 1 y "
+#~ "2. Si tienes una idea para un proyecto que podría mejorar tu distrito, "
+#~ "compártela en el mapa."
+
+#~ msgid ""
+#~ "In early February, community volunteers will review and prioritize all of "
+#~ "the ideas and turn them into full proposals. At the end of February, "
+#~ "residents of low- and moderate-income neighborhoods in Districts 1 and 2 "
+#~ "will vote on the top projects."
+#~ msgstr ""
+#~ "A principios de febrero, voluntarios de la comunidad examinarán todas las "
+#~ "ideas, determinarán cuáles tienen prioridad y las convertirán en "
+#~ "propuestas cabales. A finales de febrero, los residentes de comunidades "
+#~ "de ingresos escasos y moderados de los distritos 1 y 2 votarán por los "
+#~ "proyectos seleccionados."
+
+#~ msgid "Start Mapping!"
+#~ msgstr "¡Comienza a llenar el mapa!"
 
 #~ msgid ""
 #~ "<a href=\"https://docs.google.com/forms/d/"
