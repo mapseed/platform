@@ -28,6 +28,10 @@
 
       this.model.on('change', this.onChange, this);
 
+      // consider the editor modified if change or keyup events are registered
+      // from the following selectors
+      this.watchFields = "#update-place-model-form, #update-place-model-title-form";
+
       // Make sure the submission collections are set
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
         new SubmissionCollection(null, {
@@ -137,24 +141,29 @@
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
 
       if (this.isEditingToggled) {
-
-        // consider the editor modified if change or keyup events are registered
-        // from the following selectors
-        var watchFields = "#update-place-model-form, #update-place-model-title-form";
-
         $("#toggle-editor-btn").addClass("btn-depressed");
         $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header")
           .addClass("faded");
         
+        // detect changes made to non-Quill form elements
+        $(this.watchFields).on("keyup change", function(e) {
+          if (e.type === "change") {
+            self.onModified();
+          } else if ((e.keyCode >= 48 && e.keyCode <= 57) || // 0-9 (also shift symbols)
+              (e.keyCode >= 65 && e.keyCode <= 90) || // a-z (also capital letters)
+              (e.keyCode === 8) || // backspace key
+              (e.keyCode === 46) || // delete key
+              (e.keyCode === 32) || // spacebar
+              (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
+            
+            self.onModified();
+          }
+        });
+
         $(".rich-text-field").each(function() {
           new S.RichTextEditorView({
             target: $(this).get(0),
-            onModified: function() {
-              self.isModified = true;
-              $("#update-place-model-btn")
-                .css({"opacity": "1.0", "cursor": "pointer"});
-            },
-            watchFields: watchFields,
+            onModified: self.onModified,
             fieldName: $(this).find(".place-value").attr("name")
           });
         });
@@ -162,6 +171,13 @@
 
       return this;
     },
+
+    onModified: function() {
+      this.isModified = true;
+      $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
+      $(this.watchFields).off("keyup change");
+    },
+
     remove: function() {
       // Nothing yet
     },
