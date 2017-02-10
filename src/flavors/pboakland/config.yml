@@ -490,6 +490,7 @@ survey:
       sticky: true
 
 support:
+  show_in_activity_stream: false
   submission_type: support
   submit_btn_text: _(Support)
   response_name: _(support)
