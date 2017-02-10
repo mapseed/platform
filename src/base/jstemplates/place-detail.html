@@ -174,13 +174,13 @@
                     </div>
                     <div style="clear:both"></div>
                   {{else}}
-                    <div>
+                    <ul>
                       {{#each content}}
                         {{#if selected}}
-                          <span class="multi-select-response">{{ label }} </span>
+                          <li class="multi-select-response">{{ label }} </li>
                         {{/if}}
                       {{/each}}
-                    </div>
+                    </ul>
                   {{/if}}
                 {{/is}}
 
@@ -198,13 +198,13 @@
                       {{/each}}
                     </div>
                   {{else}}
-                    <div>
+                    <ul>
                       {{#each content}}
                         {{#if selected}}
-                          <span class="multi-select-response">{{ label }} </span>
+                          <li class="multi-select-response">{{ label }} </li>
                         {{/if}}
                       {{/each}}
-                    </div>
+                    </ul>
                   {{/if}}
                 {{/is}}
 
