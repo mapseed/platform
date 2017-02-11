@@ -32,7 +32,8 @@ shell.cat([
   'src/base/static/libs/handlebars-helpers.js',
   'src/base/static/libs/leaflet.argo.js',
   'src/base/static/libs/leaflet.sidebar.js',
-  'src/base/static/libs/esri-leaflet.js'
+  'src/base/static/libs/esri-leaflet.js',
+  'src/base/static/libs/quill.min.js'
 ]).to('src/base/static/dist/cat-lib-bundle.js')
 
 shell.cat([
