@@ -73,6 +73,13 @@ map:
       type: place
       slug: report
 
+      # Land Use
+    - id: stories
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      sources:
+        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
+      type: landmark
+
     - id: vision
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       sources:
@@ -170,6 +177,8 @@ map:
           style:
             fill: false
             stroke: false
+
+
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -382,13 +391,16 @@ place_types:
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
-  # # needs a marker
-  # farm:
-  #   zoomType: mapboxZoomStyle
-  #   rules:
-  #     - condition: 'true'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/dot-0d85e9.png
+
+  star-stroked:
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
 
   observation:
     label: _(Observation)
@@ -603,6 +615,10 @@ sidebar:
           layers:
             - id: bogtobay
               title: _(Community Reports)
+              visibleDefault: true
+
+            - id: stories
+              title: _(Featured Sites)
               visibleDefault: true
 
             - id: cleanup
