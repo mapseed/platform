@@ -335,6 +335,13 @@
     float: right;
     margin-right: 8px;
     background-image: linear-gradient(#449d44, #449d44);
+    opacity: 0.5;
+    cursor: default;
+}
+
+.isModified {
+    opacity: 1.0;
+    cursor: pointer;
 }
 
 .btn-delete {
