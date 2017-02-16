@@ -198,6 +198,10 @@ map:
             fill: false
             stroke: false
 
+    - id: esri-test
+      type: esri-feature
+      url: "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17"
+
 # The keys show up in the dropdown list when you are adding a new place
 
 # The values map the place type to map icons (defined below).
@@ -582,7 +586,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -590,7 +594,7 @@ sidebar:
 
             - id: dirt-corps
               title: _(Dirt Corps sites)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: story-markers
               title: _(Stories)
@@ -1095,7 +1099,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
+    start_page: false
 
   - title: _(Background)
     slug: background
@@ -1109,7 +1113,7 @@ pages:
   - title: _(Stories)
     slug: stories
     name: stories
-    start_page: true
+    start_page: false
     hide_from_top_bar: true
 
   - title: _(Green Screen)
