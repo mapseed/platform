@@ -80,7 +80,7 @@
                    aria-hidden="true"></i> {{#_}}Hide this post{{/_}}
               </div>
               <div id="update-place-model-btn" 
-                   class="btn btn-small editor-btn btn-update faded">
+                   class="btn btn-small editor-btn btn-update{{#if isModified}} isModified{{/if}}">
                 <i class="fa fa-floppy-o" 
                    aria-hidden="true"></i> {{#_}}Save changes{{/_}}
               </div>
