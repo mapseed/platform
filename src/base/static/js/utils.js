@@ -528,6 +528,14 @@ var self = module.exports = {
         }
 
         return item.value;
+      },
+      destroy: function(name) {
+        name = this.LOCALSTORAGE_PREFIX + name;
+        try {
+          localStorage.removeItem(name);
+        } catch (e) {
+          // ignore exceptions
+        }
       }
     },
 

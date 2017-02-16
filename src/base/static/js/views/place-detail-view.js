@@ -14,6 +14,7 @@
       'click #hide-place-model-btn': 'onHideModel',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'change input[type="file"]': 'onInputFileChange',
+      'change input, textarea': 'saveDraftChanges'
     },
     initialize: function() {
       var self = this;
@@ -25,6 +26,10 @@
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
+      
+      // use the current url as the key under which to store draft changes made
+      // to this place detail view
+      this.LOCALSTORAGE_KEY = Backbone.history.getFragment().replace("/", "-");
 
       this.model.on('change', this.onChange, this);
 
@@ -88,6 +93,15 @@
       this.model.attachmentCollection.on("add", this.onAddAttachment, this);
     },
 
+    saveDraftChanges: function() {
+      var attrs = this.scrapeForm();
+      S.Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30) // save for 30 days
+    },
+
+    clearDraftChanges: function() {
+      S.Util.localstorage.destroy(this.LOCALSTORAGE_KEY);
+    },
+
     onClickStoryPrevious: function() {
       this.options.router.navigate(this.model.attributes.story.previous, {trigger: true});
     },
@@ -98,7 +112,8 @@
 
     onToggleEditMode: function() {
       if (this.isEditingToggled && this.isModified) {
-        if(!confirm("You have unsaved changes. Proceed?")) return;
+        this.saveDraftChanges();
+        //if(!confirm("You have unsaved changes. Proceed?")) return;
       }
 
       var toggled = !this.isEditingToggled;
@@ -113,8 +128,9 @@
             place_config: this.options.placeConfig,
             survey_config: this.options.surveyConfig,
             url: this.options.url,
-            isEditable: self.isEditable || false,
-            isEditingToggled: self.isEditingToggled || false
+            isEditable: this.isEditable || false,
+            isEditingToggled: this.isEditingToggled || false,
+            isModified: this.isModified
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -122,6 +138,14 @@
 
       // Augment the template data with the attachments list
       data.attachments = this.model.attachmentCollection.toJSON();
+
+      // Augment the data with any draft changes saved to localstorage
+      if (this.isEditingToggled &&
+          S.Util.localstorage.get(this.LOCALSTORAGE_KEY)) {
+        this.isModified = true;
+        data.isModified = true;
+        _.extend(data, S.Util.localstorage.get(this.LOCALSTORAGE_KEY));
+      }  
 
       this.$el.html(Handlebars.templates['place-detail'](data));
 
@@ -144,7 +168,7 @@
         $("#toggle-editor-btn").addClass("btn-depressed");
         $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header")
           .addClass("faded");
-        
+
         // detect changes made to non-Quill form elements
         $(this.watchFields).on("keyup change", function(e) {
           if (e.type === "change") {
@@ -174,7 +198,7 @@
 
     onModified: function() {
       this.isModified = true;
-      $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
+      $("#update-place-model-btn").addClass("isModified");
       $(this.watchFields).off("keyup change");
     },
 
@@ -226,12 +250,14 @@
 
     // called by the router
     onCloseWithUnsavedChanges: function() {
-      if (confirm("You have unsaved changes. Proceed?")) {
-        this.isModified = false;
-        return true;
-      }
+      // if (confirm("You have unsaved changes. Proceed?")) {
+      //   this.isModified = false;
+      //   return true;
+      // }
 
-      return false;
+      // return false;
+      
+      return true;
     },
 
     onAddAttachment: function(attachment) {
@@ -255,9 +281,7 @@
       $(evt.target).next("label").html(altContent.label);
     },
 
-    onUpdateModel: function() {
-      if (!this.isModified) return;
-
+    scrapeForm: function() {
       var self = this,
       richTextAttrs = {};
 
@@ -279,8 +303,20 @@
         }
       });
 
+      return attrs;
+    },
+
+    onUpdateModel: function() {
+      if (!this.isModified) {
+        return;
+      }
+
+      var self = this,
+      attrs = this.scrapeForm();
+
       this.model.save(attrs, {
         success: function() {
+          self.clearDraftChanges();
           self.isModified = false;
           self.isEditingToggled = false;
           self.render();
