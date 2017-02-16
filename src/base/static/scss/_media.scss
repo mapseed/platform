@@ -64,6 +64,10 @@
         height: 100%;
     }
 
+    #site-header {
+        background: url(images/lightpaperfibers.png);
+    }
+
     #main {
         // calculated as 100% of viewport height, minus the height of the header
         height: calc(100% - #{$header-height-fullscreen});
@@ -78,20 +82,76 @@
         height: $map-height-smallscreen-when-sidebar-visible;
     }
 
-    .activity-enabled.content-visible #map-container {
-        height: 70%;
+    .content-visible #map-container {
+        height: 60%
     }
 
     .right-sidebar-visible #right-sidebar {
         width: 100%;
         display: block;
         left: 0;
-        top: calc(#{$map-height-smallscreen-when-sidebar-visible} + #{$footer-height-smallscreen});
+//        top: calc(#{$map-height-smallscreen-when-sidebar-visible} + #{$footer-height-smallscreen});
         height: 400px;
+        margin-top: 0;
+    }
+
+    .content-visible.content-expanded {
+        #map-container {
+            height: 10% !important;
+        }
+        #content {
+            min-height: 90% !important;
+        }
+    }
+
+    .content-visible.content-expanded-mid {
+        #map-container {
+            height: 50% !important;
+        }
+        #content {
+            min-height: 90% !important;
+        }
     }
 
     .content-visible.right-sidebar-visible #right-sidebar {
         display: none;
+    }
+
+    .content-visible.place-form-visible {
+        #map-container {
+            height: 60%;
+        }
+    }
+
+    #main-btns-container {
+        position: fixed;
+        width: 98%;
+        background-color: white;
+        bottom: 0;
+        z-index: 12;
+        font-size: 0.75em;
+        -webkit-box-shadow: 0px -3px 3px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px -3px 3px 0px rgba(0,0,0,0.3);
+        box-shadow: 0px -3px 3px 0px rgba(0,0,0,0.3);
+    }
+
+    #add-place:hover {
+        background-color: #FF8B61;
+    }
+
+    #nav-stories:hover {
+        background-color: #FF8B61;
+    }
+
+    #content {
+        // bump up the bottom margin here so content at the very bottom
+        // of a page is not obscured by bottom-clinging buttons
+        margin-bottom: $footer-height-smallscreen + 20px;
+    }
+
+    #nav-stories, #add-place {
+        //font-size: 0.9em;
+        white-space: nowrap;
     }
 }
 
@@ -289,17 +349,17 @@
         height: 100%;
     }
 
-    #add-place-btn-container {
+    #main-btns-container {
         position: absolute;
 
         &.pos-top-left {
-            top: 1.5em;
+            top: $header-height-fullscreen + 10px;
             left: 3.5em;
         }
 
         &.pos-top-right {
-            top: 1.5em;
-            right: 1.5em;
+            top: $header-height-fullscreen + 10px;
+            right: 10px;
         }
 
         &.pos-bot-left {
@@ -328,14 +388,17 @@
         }
     }
 
-    .content-visible #add-place-btn-container {
-        display: block;
-
-        // override of the mobile style
-   
+    .right-sidebar-visible #main-btns-container {
+        &.pos-top-right {
+            right: calc(#{$sidebar-width} + 10px);
+        }
     }
 
-    .place-form-visible #add-place-btn-container {
+    .content-visible #main-btns-container {
+        display: none;   
+    }
+
+    .place-form-visible #main-btns-container {
         display: none;
     }
 
@@ -346,8 +409,7 @@
         position: absolute;
         top: 4em;
 
-        // height of site-header
-        bottom: 1.75em;
+        bottom: 0;
 
         //left: 40%;
         overflow: visible;
@@ -656,66 +718,66 @@
 
 
 /* Added temporarily for sidebar*/
-@media only screen and (max-width: 960px) {
+// @media only screen and (max-width: 960px) {
 
-    .sidebar.collapsed {
-        width: 100%;
-        box-sizing: border-box;
-        position: absolute;
-        bottom: 0;
-        height: 33px;
-        top: initial;
-    }
+//     .sidebar.collapsed {
+//         width: 100%;
+//         box-sizing: border-box;
+//         position: absolute;
+//         bottom: 0;
+//         height: 33px;
+//         top: initial;
+//     }
 
-    .sidebar {
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 0px;
-        border: none;
-        z-index: 2000;
-        box-sizing: border-box;
-        box-shadow: none;
-    }
+//     .sidebar {
+//         top: 0;
+//         bottom: 0;
+//         left: 0;
+//         width: 100%;
+//         overflow: hidden;
+//         border-radius: 0px;
+//         border: none;
+//         z-index: 2000;
+//         box-sizing: border-box;
+//         box-shadow: none;
+//     }
 
-    .sidebar-left .sidebar-tabs {
-        bottom: 0px;
-        position: absolute;
-        height: 33px;
-        z-index: 99;
-        padding: 0 9px;
-        box-sizing: border-box;
-        box-shadow: 0px 0px 3px 1px rgba(0,0,0,.2);
-    }
-    .sidebar-tabs, .sidebar-tabs > ul {
-        width: 100%;
-        display: flex;
-    }
-    .sidebar-tabs li {
-        border-radius: 3px;
-    }
-    .sidebar-content {
-        padding-bottom: 33px;
-        left: 0 !important;
-        height: auto;
-    }
-    .sidebar-header .sidebar-close i {
-        padding: 5px 8px 6px 8px;
-    }
-    .sidebar-header .sidebar-close i::before {
-        content: "\f00d";
-    }
-    .sidebar-tabs .active {
-        border-radius: 3px;
-    }
+//     .sidebar-left .sidebar-tabs {
+//         bottom: 0px;
+//         position: absolute;
+//         height: 33px;
+//         z-index: 99;
+//         padding: 0 9px;
+//         box-sizing: border-box;
+//         box-shadow: 0px 0px 3px 1px rgba(0,0,0,.2);
+//     }
+//     .sidebar-tabs, .sidebar-tabs > ul {
+//         width: 100%;
+//         display: flex;
+//     }
+//     .sidebar-tabs li {
+//         border-radius: 3px;
+//     }
+//     .sidebar-content {
+//         padding-bottom: 33px;
+//         left: 0 !important;
+//         height: auto;
+//     }
+//     .sidebar-header .sidebar-close i {
+//         padding: 5px 8px 6px 8px;
+//     }
+//     .sidebar-header .sidebar-close i::before {
+//         content: "\f00d";
+//     }
+//     .sidebar-tabs .active {
+//         border-radius: 3px;
+//     }
 
-    /* Report button*/
-    #add-place-btn-container {
-        border-bottom: none;
-        box-shadow: none;
-    }
-}
+//     /* Report button*/
+//     #add-place-btn-container {
+//         border-bottom: none;
+//         box-shadow: none;
+//     }
+// }
 
 

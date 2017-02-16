@@ -176,13 +176,13 @@ sidebar:
               title: _(Oakland districts)
               visibleDefault: true
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
+    # - id: ticker
+    #   view: ActivityView
+    #   icon: comments-o
+    #   activity: true
+    #   title: _(Activity Stream:)
 
-    - id: reports_legend
+    - id: right-sidebar
       title: _(Community ideas:)
       view: LegendView
       icon: info-circle
@@ -204,11 +204,15 @@ activity:
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
-  show_in_right_panel: false
+  show_in_right_panel: true
 
   # Place Types
 
 place:
+  administrators:
+    - HadassahDamien
+    - phreethought
+    - goldpbear
   adding_supported: true
   add_button_label: _(Share your idea!)
   # Labels for the buttons that toggle the map and list views
@@ -327,8 +331,27 @@ place:
           display_prompt: _( )
           placeholder: _( )
           optional: true
+
   # define form elements that appear on every form here
   common_form_elements:
+    - name: venue
+      type: dropdown
+      optional: true
+      admin_only: true
+      admin_msg: _((For administrator use only))
+      prompt: _(Venue name:)
+      display_prompt: _(Submitted at:)
+      content:
+        - label: _(Asian Cultural Center)
+          value: asian_cultural_center
+        - label: _(Williams Chapel)
+          value: williams_chapel
+        - label: _(Beebe Memorial Cathedral)
+          value: beebe_memorial_cathedral
+        - label: _(Mobile Assembly at Bella Vista Elementary School)
+          value: bella_vista
+        - label: _(Other)
+          value: other
     - name: my_image
       type: file
       prompt: _(Image)
@@ -467,6 +490,7 @@ survey:
       sticky: true
 
 support:
+  show_in_activity_stream: false
   submission_type: support
   submit_btn_text: _(Support)
   response_name: _(support)

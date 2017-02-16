@@ -37,6 +37,7 @@ ul.recent-points {
     }
 
     a {
+        color: #36454f;
         text-decoration: none;
         float: left;
         border-top: 1px solid #888;
@@ -54,10 +55,7 @@ ul.recent-points {
     }
 
     a:hover {
-        //color: $button-color-white;
-        //background: #666;
-        //border-color: #666;
-   
+        color: #00aaff;
     }
 
     .avatar {

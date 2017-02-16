@@ -24,11 +24,15 @@ label {
   padding-bottom: 11px;
 }
 
+.recent-points {
+  background-color: white;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
 #site-header {
-  background-color: white;
+  background-color: white !important;
   background: none;
   padding-left: 1em;
   overflow: visible;
@@ -65,6 +69,35 @@ label {
 /* =Media Queries
 -------------------------------------------------------------- */
 
+@media only screen and (min-width: 60em) {
+  /* add places button in header styles */
+  .page-visible #main-btns-container {
+    display: block;
+    position: relative;
+    top: 3px;
+    left: 15px;
+    float: left;
+    padding: 0;
+    font-size: 0.875em !important;
+  }
+  .page-visible #add-place {
+    padding-left: 0.4em !important;
+    padding-right: 0.4em !important;
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+  }
+  .page-visible #add-place span {
+    font-size: 0.875em !important;
+  }
+  .page-visible #add-place-btn-container {
+    padding: 0;
+  }
+  .list-visible #main-btns-container {
+    display: none;
+  }
+
+}
+
 @media only screen and (max-width: 60em) {
     html, body, #map {
         height: 100%;
@@ -86,6 +119,15 @@ label {
 
     #site-title-image {
       content: url("images/pblogo.png");
+    }
+
+    #main-btns-container {
+      left: 0 !important;
+      display: fixed !important;
+    }
+
+    .list-toggle-nav {
+      display: none !important;
     }
 }
 
@@ -169,5 +211,44 @@ label {
     .sidebar-tabs ul li:nth-child(3) {
       display: none;
     }
+    #right-sidebar {
+      margin-top: 30px;
+    }
 
+    /* no need for any leaflet controls at small screen size */
+    #sidebar {
+      display: none;
+    }
+
+    /* map legend box */
+    .master-layer-list {
+      display: none;
+    }
+
+}
+
+/* admin-only form fields */
+.is-admin-field {
+    background-color: rgba(250, 128, 114, 0.48);
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* map legend box */
+.master-layer-list {
+  padding: 10px;
+  background-color: #EEE;
+  margin-top: 0;
+}
+
+.master-layer-list .shareabouts-layer-li:first-child {
+  font-size: 14px;
+  letter-spacing: -.6px;
+  line-height: 1.8;
+}
+
+.master-layer-list .shareabouts-layer-li {
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 1.9;
 }

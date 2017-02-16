@@ -126,3 +126,10 @@ select {
 .isAutocomplete {
     background-color: #ffffe0;
 }
+
+/* admin-only form fields */
+.is-admin-field {
+    background-color: rgba(250, 128, 114, 0.48);
+    padding: 5px;
+    border-radius: 4px;
+} 

@@ -250,8 +250,8 @@ place_types:
         shadowAnchor: [14, 60]
     - condition: '{{map.zoom}} < 17'
       icon:
-        iconSize: [10, 12]
-        iconAnchor: [5, 12]
+        iconSize: [15, 18]
+        iconAnchor: [7.5, 9]
     - condition: '{{map.zoom}} >= 17'
       icon:
         iconSize: [30, 36]
@@ -588,7 +588,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -596,7 +596,7 @@ sidebar:
 
             - id: dirt-corps
               title: _(Dirt Corps sites)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: story-markers
               title: _(Stories)
@@ -694,7 +694,8 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Add Report)
+  story_button_label: _(Explore Stories)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
@@ -1100,7 +1101,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: false
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1114,6 +1115,8 @@ pages:
   - title: _(Stories)
     slug: stories
     name: stories
+    start_page: true
+    hide_from_top_bar: true
 
   - title: _(Green Screen)
     slug: greenscreen

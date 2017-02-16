@@ -7,47 +7,7 @@ Community powered mapping for environmental health, starting with our most pollu
 ===========
 For a brief summary, please view: [http://smartercleanup.org/](http://smartercleanup.org/)
 
-We are building a geography based community monitoring platform. Our goal is to empower residents to monitor environmental health issues and engage with local leaders to address their concerns. Our first release focuses on the Lower Duwamish River superfund site in Seattle, WA and now we are active along the Willamette River cleanup in Portland, Oregon.
-
-We were inspired by the GarageLab collective in Buenos Aires, Argentina who built [Que Pasa Riachuelo](http://quepasariachuelo.org.ar/) to monitor the pollution along the Riachuelo river basin.
-
-More details on getting involved with the Smarter Cleanup movement can be found [here](http://wiki.smartercleanup.org/doku.php?id=contribute)
-
-Features
--------------
-<dl>
-  <dt>Submit a Report</dt>
-  <dd>Adding reports is easy. The simple interface lets users quickly drop pins on the map with an image, description, and other useful information that can be customized by the form administrator.</dd>
-
-  <dt>Comment on Reports</dt>
-  <dd>Engage your audience in meaningful conversation. Users can leave comments on reports, and vote to support them.</dd>
-
-  <dt>Explore Rich Environmental Data</dt>
-  <dd>Overlay pertinent geographic data. Applying custom vector data as map layers using CartoDB, Mapbox, GeoServer, or your own WMS server.</dd>
-
-  <dt>Custom landing pages for your map data</dt>
-  <dd>Make sure all the important information about your neighborhood has a place to live on the open web with friendly URLs</dd>
-
-  <dt>Multiple Languages</dt>
-  <dd>Just edit the translation files and you are ready to go.</dd>
-</dl>
-
-Contributing
-------------
-In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project.
-
-Here are some ways *you* can contribute:
-
-* by reporting bugs
-* by suggesting new features
-* by writing or editing documentation
-* by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up inconsistent whitespace)
-* by refactoring code
-* by resolving issues
-* by reviewing patches
-
-Catch us on Freenode at #Smartercleanup
+Take a look at our [roadmap](https://github.com/mapseed/platform/wiki/Roadmap) to see where we're headed
 
 Local Setup
 -------------

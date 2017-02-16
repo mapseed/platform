@@ -45,23 +45,30 @@
 
 // Map Attribution - Selectors
 
-// Add Place Button - Selectors
+// Tool buttons - Selectors
 
-#add-place-btn-container {
-    background: url(images/lightpaperfibers.png);
+#main-btns-container {
+    display: table;
+    table-layout: fixed;
+    z-index: 12;
     padding: 0.5em 0.5em 0.75em;
-    position: relative;
-    z-index: 30;
-    box-shadow: 0 -0.325em 0 $opacity-very-low-black;
-    border-bottom: 1px solid #666;
 }
 
-#add-place {}
+#add-place-btn-container {
+    padding: 5px;
+    display: table-cell;
+}
 
-.content-visible #add-place-btn-container {
-    display: none;
+#story-btn-container {
+    padding: 5px;
+    display: table-cell;
+}
 
-    // hide the add button on mobile when the panel is open
+#add-place {
+}
+ 
+#nav-stories {
+    background-color: #007fbf;
 }
 
 // Center Point (new point icon) - Selectors
@@ -80,18 +87,6 @@
         height: 100px;
         margin: (-44px) 0 0 -12px;
     }
-}
-
-#spotlight-place-mask {
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-}
-
-#spotlight-place-mask-fill {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
 }
 
 #centerpoint.newpin {
@@ -153,6 +148,20 @@
     &:hover .marker, &.dragging .marker {
         top: -20px;
     }
+}
+
+// map spotlight effect
+
+#spotlight-mask {
+    display: none;
+    pointer-events: none;
+    position: absolute;
+    left: calc(50% - 100px);
+    top: calc(50% - 100px);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 800px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4);
 }
 
 // Drag Marker Instructions (for adding a new place) - Selectors
@@ -269,3 +278,7 @@
     display: none;
     font-size: 1.25em;
 }
+
+.leaflet-control-attribution {
+    display: none;
+} 

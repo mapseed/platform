@@ -458,7 +458,7 @@ var Shareabouts = Shareabouts || {};
       this.mapView.map.invalidateSize({ animate:true, pan:true });
     },
     setBodyClass: function(/* newBodyClasses */) {
-      var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded', 'content-expanded-mid'],
+      var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded', 'content-expanded-mid', 'list-visible'],
           newBodyClasses = Array.prototype.slice.call(arguments, 0),
           i, $body = $('body');
 
@@ -586,6 +586,8 @@ var Shareabouts = Shareabouts || {};
 
       $(".maximize-btn").show();
       $(".minimize-btn").hide();
+
+      $(".list-toggle-nav").show();
 
       this.showNewPin();
       this.setBodyClass('content-visible', 'place-form-visible');
@@ -933,7 +935,13 @@ var Shareabouts = Shareabouts || {};
       this.hideNewPin();
       this.destroyNewModels();
       this.hideCenterPoint();
-      this.setBodyClass('content-visible', 'content-expanded');
+      this.setBodyClass('content-visible', 'content-expanded', 'page-visible');
+
+      // swap list view and add place btns
+      $(".list-toggle-nav").hide();
+      $("#main-btns-container")
+        .detach()
+        .insertAfter("#pages-nav-container");
     },
     showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
@@ -990,6 +998,7 @@ var Shareabouts = Shareabouts || {};
       this.setBodyClass();
       map.invalidateSize({ animate:true, pan:true });
 
+      $(".list-toggle-nav").show();
       $("#main-btns-container").attr("class", "pos-top-right");
 
       S.Util.log('APP', 'panel-state', 'closed');
@@ -1045,6 +1054,8 @@ var Shareabouts = Shareabouts || {};
       this.mapView.render();
     },
     showListView: function() {
+      this.setBodyClass("list-visible");
+
       // Re-sort if new places have come in
       this.listView.sort();
       // Show
