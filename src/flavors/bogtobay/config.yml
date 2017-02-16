@@ -386,7 +386,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: https://jrsheker.files.wordpress.com/2015/05/icon_pledge.png
+          iconUrl: /static/css/images/markers/marker-pledge.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
@@ -396,7 +396,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-star.png
+          iconUrl: /static/css/images/markers/marker-star-maroon.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
@@ -728,13 +728,13 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: https://jrsheker.files.wordpress.com/2015/05/icon_pledge.png
+      icon_url: /static/css/images/markers/marker-pledge.png
       value: pledge
       label: _(Stewardship Pledge)
       fields:
         - name: title
           type: text
-          prompt: _(The title of my post is:)
+          prompt: _(Post title:)
           display_prompt: _( )
           placeholder: _(Enter title)
           optional: false
@@ -1098,3 +1098,24 @@ pages:
   - slug: youthcorps2015
     name: youthcorps2015
     hide_from_top_bar: true
+
+story:
+  dirtcorps:
+    tagline: _(Next featured site)
+    default_zoom: 17
+    default_visible_layers:
+      - stories
+      - pledge
+    order:
+      # - url: dirtcorps
+      #   zoom: 15
+      #   panTo:
+      #     lat: 47.53420
+      #     lng: -122.32165
+      #   spotlight: false
+      #   visible_layers:
+      #     - dirt-corps
+      #   basemap: terrain
+      - url: greenroof
+      - url: bioswale
+      - url: longfellow
