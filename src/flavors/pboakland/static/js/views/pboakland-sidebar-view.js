@@ -21,10 +21,6 @@
   };
 
   module.exports = Backbone.View.extend({
-    initialize: function() {
-      var self = this;
-
-    },
 
     render: function() {
       // build a config object without the legend box, so
