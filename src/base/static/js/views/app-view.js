@@ -65,7 +65,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
-        this.setBodyClass("right-sidebar-visible");
+        $("body").addClass("right-sidebar-visible");
         $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
       }
 
