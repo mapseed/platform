@@ -80,12 +80,6 @@ map:
         - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
       type: landmark
 
-    - id: vision
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-      type: landmark
-
        # WRIA9 watershed
     - id: watershed
       type: cartodb
@@ -178,30 +172,10 @@ map:
             fill: false
             stroke: false
 
-
-
 # The keys show up in the dropdown list when you are adding a new place
 
 # The values map the place type to map icons (defined below).
 place_types:
-
-  georgetownZoomStyle:
-    - condition: '{{layer.focused}} === true'
-      icon:
-        iconSize: [60, 60]
-        iconAnchor: [30, 30]
-    - condition: '{{map.zoom}} < 15'
-      icon:
-        iconSize: [7.5, 7.5]
-        iconAnchor: [4, 4]
-    - condition: '{{map.zoom}} < 17'
-      icon:
-        iconSize: [25, 25]
-        iconAnchor: [12.5, 12.5]
-    - condition: '{{map.zoom}} >= 17'
-      icon:
-        iconSize: [40, 40]
-        iconAnchor: [20, 20]
 
   mapboxZoomStyle:
     - condition: '{{layer.focused}} === true'
@@ -216,95 +190,6 @@ place_types:
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
-
-  wetland:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
-  park:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
-
-  school:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
-
-  police:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
-
-  rail:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-
-  town-hall:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_comp.png
-
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_prog.png
-
-      - condition: '"{{properties.marker-color}}" == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
 
   mapbox:
     # Mapbox Points
@@ -623,10 +508,6 @@ sidebar:
 
             - id: cleanup
               title: _(River Cleanup Plan)
-              visibleDefault: false
-
-            - id: vision
-              title: _(Community Vision)
               visibleDefault: false
 
             - id: restoration
