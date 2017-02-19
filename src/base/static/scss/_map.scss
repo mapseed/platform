@@ -89,18 +89,6 @@
     }
 }
 
-#spotlight-place-mask {
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-}
-
-#spotlight-place-mask-fill {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-}
-
 #centerpoint.newpin {
     .x {
         display: block;
@@ -166,6 +154,7 @@
 
 #spotlight-mask {
     display: none;
+    pointer-events: none;
     position: absolute;
     left: calc(50% - 100px);
     top: calc(50% - 100px);
