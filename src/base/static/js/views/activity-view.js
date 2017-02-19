@@ -207,6 +207,13 @@
             anonSubmitterName = this.options.surveyConfig.anonymous_name;
           } else if (actionType === supportConfig.submission_type) {
             // Support
+            if (supportConfig.show_in_activity_stream === false) {
+              // skip supports if they're configured not to be shown
+              return;
+            } 
+            
+            // show associated place model title instead of generic support text 
+            placeData.name = placeData.title;
             actionText = this.options.supportConfig.action_text;
             anonSubmitterName = this.options.supportConfig.anonymous_name;
           }
