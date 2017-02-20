@@ -37,8 +37,8 @@
         return place.includeOnForm; 
       });
 
-      if (S.bootstrapped.currentUser &&
-        _.contains(this.options.placeConfig.administrators, S.bootstrapped.currentUser.username)) {
+      if (Shareabouts.bootstrapped.currentUser &&
+        _.contains(this.options.placeConfig.administrators, Shareabouts.bootstrapped.currentUser.username)) {
         isAdmin = true;
       }
 

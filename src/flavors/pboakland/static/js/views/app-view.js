@@ -659,8 +659,8 @@
     // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
-          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-          layout = S.Util.getPageLayout(),
+          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+          layout = Util.getPageLayout(),
           onLandmarkFound, onLandmarkNotFound, modelId;
 
       $(".maximize-btn").show();
@@ -775,7 +775,7 @@
       }
 
       // If we are passed a LandmarkModel then show it immediately.
-      if (model instanceof S.LandmarkModel) {
+      if (model instanceof LandmarkModel) {
         onLandmarkFound(model)
         return;
       }
