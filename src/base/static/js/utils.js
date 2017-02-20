@@ -1,4 +1,4 @@
-  module.exports = {
+  var self = module.exports = {
     patch: function(obj, overrides, func) {
       var attr, originals = {};
 
@@ -298,7 +298,7 @@
 
           loadImage(file, function(canvas) {
             // rotate the image, if needed
-            var rotated = Util.fixImageOrientation(canvas, orientation);
+            var rotated = self.fixImageOrientation(canvas, orientation);
             callback(rotated);
           }, options);
       };
@@ -484,7 +484,7 @@
         data.results = data.features;
         if (data.results.length > 0) {
           data.results[0] = {
-            locations: [ Shareabouts.Util.Mapbox.toMapQuestResult(data.results[0]) ],
+            locations: [ self.Mapbox.toMapQuestResult(data.results[0]) ],
             providedLocation: { location: data.query.join(' ') }
           };
         }
@@ -496,7 +496,7 @@
             originalSuccess = options && options.success,
             transformedResultsSuccess = function(data) {
               if (originalSuccess) {
-                originalSuccess(Shareabouts.Util.Mapbox.toMapQuestResults(data));
+                originalSuccess(self.Mapbox.toMapQuestResults(data));
               }
             };
 
