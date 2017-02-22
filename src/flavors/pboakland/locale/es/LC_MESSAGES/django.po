@@ -615,7 +615,7 @@ msgstr ""
 
 #: flavors/pboakland/jstemplates/pages/overview.html:14
 msgid "Explore the map!"
-msgstr ""
+msgstr "Explora el mapa!"
 
 #: flavors/pboakland/jstemplates/pages/overview.html:15
 msgid ""
