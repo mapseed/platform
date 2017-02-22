@@ -184,21 +184,12 @@ var Shareabouts = Shareabouts || {};
       this.appView.newPlace();
     },
 
-    viewLandmark: function(modelId, responseId) {
-      this.appView.viewPlaceOrLandmark({
-        modelId: modelId,
-        responseId: responseId,
-        loading: this.loading
-      });
+    viewLandmark: function(id) {
+      this.appView.viewLandmark(id, { zoom: this.loading });
     },
 
-    viewPlace: function(datasetSlug, modelId, responseId) {      
-      this.appView.viewPlaceOrLandmark({
-        datasetSlug: datasetSlug,
-        modelId: modelId,
-        responseId: responseId,
-        loading: this.loading
-      });
+    viewPlace: function(datasetSlug, id, responseId) {
+      this.appView.viewPlace(datasetSlug, id, responseId, this.loading);
     },
 
     editPlace: function(){},

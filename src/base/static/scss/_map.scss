@@ -48,22 +48,15 @@
 // Tool buttons - Selectors
 
 #main-btns-container {
-    // background: url(images/lightpaperfibers.png);
-    margin-left: 2%;
+    display: table;
+    table-layout: fixed;
+    z-index: 12;
     padding: 0.5em 0.5em 0.75em;
-    position: relative;
-    z-index: 30;
-    // box-shadow: 0 -0.325em 0 $opacity-very-low-black;
-    // border-bottom: 1px solid #666;
 }
 
-#add-place {
-    display: inline;
-}
-
-#nav-stories {
-    background-color: #007fbf;
-    display: inline;
+#add-place-btn-container {
+    padding: 5px;
+    display: table-cell;
 }
 
 #story-btn-container {

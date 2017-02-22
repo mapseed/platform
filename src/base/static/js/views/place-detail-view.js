@@ -24,6 +24,7 @@ var Shareabouts = Shareabouts || {};
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
+      this.geometryEditorView = this.options.geometryEditorView;
       
       // use the current url as the key under which to store draft changes made
       // to this place detail view
@@ -121,7 +122,10 @@ var Shareabouts = Shareabouts || {};
 
       if (toggled && (this.model.get("geometry").type === "Polygon"
         || this.model.get("geometry").type === "LineString")) {
-        this.options.appView.removeSpotlightMask();
+        
+        console.log("this.options", this.options);
+
+        this.options.appView.hideSpotlightMask();
         this.geometryEditorView.render({
           isCreatingNewGeometry: false,
           style: this.model.get("style"),

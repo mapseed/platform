@@ -71,7 +71,7 @@ var Shareabouts = Shareabouts || {};
 
       if (this.formState.selectedCategoryConfig.enable_geometry) {
         this.options.appView.hideCenterPoint();
-        this.options.appView.removeSpotlightMask();
+        this.options.appView.hideSpotlightMask();
         this.geometryEditorView.render({
           isCreatingNewGeometry: true
         });
@@ -226,18 +226,22 @@ var Shareabouts = Shareabouts || {};
     },
     onCategoryChange: function(evt) {
       var self = this,
-          animationDelay = 400;
+          animationDelay = 200;
 
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
-        return place.category == $(evt.target).parent().prev().attr('id');
+        return place.category == $(evt.target).attr('id');
       });
 
       this.render(true);
-      this.postRender(true);
-      $(evt.target).parent().prev().prop("checked", true);
+      $("#" + $(evt.target).attr("id"))
+        .prop("checked", true)
+        .next()
+        .addClass("category-btn-container-selected");
       $("#selected-category").hide().show(animationDelay);
       $("#category-btns").animate( { height: "hide" }, animationDelay );
-      if (this.center) this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      if (this.center) {
+        this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      }
     },
     onClickGeolocate: function(evt) {
       var self = this;
