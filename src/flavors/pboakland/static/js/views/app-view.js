@@ -458,7 +458,13 @@ var Shareabouts = Shareabouts || {};
       this.mapView.map.invalidateSize({ animate:true, pan:true });
     },
     setBodyClass: function(/* newBodyClasses */) {
-      var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded', 'content-expanded-mid', 'list-visible'],
+      var bodyClasses = ['content-visible',
+                         'place-form-visible',
+                         'page-visible',
+                         'content-expanded',
+                         'content-expanded-mid',
+                         'right-sidebar-visible',
+                         'list-visible'],
           newBodyClasses = Array.prototype.slice.call(arguments, 0),
           i, $body = $('body');
 
