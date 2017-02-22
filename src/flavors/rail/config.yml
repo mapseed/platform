@@ -278,7 +278,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: _(Description of this pollution:)
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
@@ -298,7 +298,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
@@ -317,7 +317,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: _(Describe your idea below:)
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
@@ -337,7 +337,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: "_(What's your complaint?)"
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)

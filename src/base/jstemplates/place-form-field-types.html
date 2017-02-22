@@ -44,6 +44,15 @@
             {{^optional}}required{{/optional}}>{{autocompleteValue}}</textarea>
 {{/is}}
 
+{{#is type "richTextarea"}}
+  <textarea id="place-{{ name }}" 
+            class="rich-text-field{{#if autocompleteValue}} isAutocomplete{{/if}}"
+            name="{{ name }}" 
+            {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
+            {{#unless autocompleteValue}} placeholder="{{ placeholder }}"{{/unless}}
+            {{^optional}}required{{/optional}}>{{autocompleteValue}}</textarea>
+{{/is}}
+
 {{#is type "radio_big_buttons"}}
   <div>
     {{#each content}}

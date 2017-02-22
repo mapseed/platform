@@ -47,7 +47,6 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/spectrum.css">
   <!-- QuillJS -->
   <link rel="stylesheet" href="https://cdn.quilljs.com/1.1.4/quill.snow.css">
-
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
@@ -298,6 +297,7 @@
   <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
   <script src="{{STATIC_URL}}js/views/gis-legend-view.js"></script>
   <script src="{{STATIC_URL}}js/views/geometry-editor-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/rich-text-editor-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% else %}
   <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.0"></script>

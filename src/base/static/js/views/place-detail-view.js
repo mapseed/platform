@@ -12,6 +12,7 @@ var Shareabouts = Shareabouts || {};
       'click #hide-place-model-btn': 'onHideModel',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'change input[type="file"]': 'onInputFileChange',
+      'change input, textarea': 'saveDraftChanges'
     },
     initialize: function() {
       var self = this;
@@ -23,10 +24,16 @@ var Shareabouts = Shareabouts || {};
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
-      this.geometryEditorView = this.options.geometryEditorView;
-      this.watchFields = "#update-place-model-form, #update-place-model-title-form";
+      
+      // use the current url as the key under which to store draft changes made
+      // to this place detail view
+      this.LOCALSTORAGE_KEY = Backbone.history.getFragment().replace("/", "-");
 
       this.model.on('change', this.onChange, this);
+
+      // consider the editor modified if change or keyup events are registered
+      // from the following selectors
+      this.watchFields = "#update-place-model-form, #update-place-model-title-form";
 
       // Make sure the submission collections are set
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
@@ -84,6 +91,15 @@ var Shareabouts = Shareabouts || {};
       this.model.attachmentCollection.on("add", this.onAddAttachment, this);
     },
 
+    saveDraftChanges: function() {
+      var attrs = this.scrapeForm();
+      S.Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30) // save for 30 days
+    },
+
+    clearDraftChanges: function() {
+      S.Util.localstorage.destroy(this.LOCALSTORAGE_KEY);
+    },
+
     onClickStoryPrevious: function() {
       this.options.router.navigate(this.model.attributes.story.previous, {trigger: true});
     },
@@ -94,7 +110,8 @@ var Shareabouts = Shareabouts || {};
 
     onToggleEditMode: function() {
       if (this.isEditingToggled && this.isModified) {
-        if(!confirm("You have unsaved changes. Proceed?")) return;
+        this.saveDraftChanges();
+        //if(!confirm("You have unsaved changes. Proceed?")) return;
       }
 
       var toggled = !this.isEditingToggled;
@@ -121,8 +138,10 @@ var Shareabouts = Shareabouts || {};
           data = _.extend({
             place_config: this.options.placeConfig,
             survey_config: this.options.surveyConfig,
-            isEditable: self.isEditable || false,
-            isEditingToggled: self.isEditingToggled || false
+            url: this.options.url,
+            isEditable: this.isEditable || false,
+            isEditingToggled: this.isEditingToggled || false,
+            isModified: this.isModified
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -130,6 +149,14 @@ var Shareabouts = Shareabouts || {};
 
       // Augment the template data with the attachments list
       data.attachments = this.model.attachmentCollection.toJSON();
+
+      // Augment the data with any draft changes saved to localstorage
+      if (this.isEditingToggled &&
+          S.Util.localstorage.get(this.LOCALSTORAGE_KEY)) {
+        this.isModified = true;
+        data.isModified = true;
+        _.extend(data, S.Util.localstorage.get(this.LOCALSTORAGE_KEY));
+      }  
 
       this.$el.html(Handlebars.templates['place-detail'](data));
 
@@ -146,62 +173,43 @@ var Shareabouts = Shareabouts || {};
       $("#content article").animate({ scrollTop: 0 }, "fast");
       
       // initialize datetime picker, if relevant
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' }); // <-- add to datetimepicker, or could be a handlebars helper?
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
 
       if (this.isEditingToggled) {
         $("#toggle-editor-btn").addClass("btn-depressed");
-        $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header").addClass("faded");
-        
-        // Quill toolbar configuration
-        var toolbarOptions = [
-          ["bold", "italic", "underline", "strike"],
-          [{ "list": "ordered" }, { "list": "bullet" }],
-          [{ "header": [1, 2, 3, 4, 5, 6, false] }],
-          [{ "color": [] }, { "background": [] }],
-          ["link", "image", "video"]
-        ];
-        this.quill = new Quill(".place-item-description", {
-          modules: { 
-            "toolbar": toolbarOptions
-          },
-          theme: "snow",
-          bounds: "#content"
-        });
-        var toolbar = this.quill.getModule("toolbar");
-        $(".place-item-description").addClass("rawHTML");
-
-        // override default image upload behavior: instead, create an <img>
-        // tag with highlighted text set as the src attribute
-        toolbar.addHandler("image", function() {
-          var range = this.quill.getSelection();
-          this.quill.insertEmbed(range.index, "image", this.quill.getText(range.index, range.length), "user");
-        });
-
-        // detect changes made via Quill
-        this.quill.on("text-change", this.onEditorChange, this);
+        $(".promotion, .place-submission-details, .survey-header, .reply-link, .response-header")
+          .addClass("faded");
 
         // detect changes made to non-Quill form elements
         $(this.watchFields).on("keyup change", function(e) {
           if (e.type === "change") {
-            self.onEditorChange();
-          } else if ((e.keyCode >= 48 && e.keyCode <= 57) // 0-9 (also shift symbols)
-              || (e.keyCode >= 65 && e.keyCode <= 90) // a-z (also capital letters)
-              || (e.keyCode === 8) // backspace key
-              || (e.keyCode === 46) // delete key
-              || (e.keyCode === 32) // spacebar
-              || (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
-            self.onEditorChange();
+            self.onModified();
+          } else if ((e.keyCode >= 48 && e.keyCode <= 57) || // 0-9 (also shift symbols)
+              (e.keyCode >= 65 && e.keyCode <= 90) || // a-z (also capital letters)
+              (e.keyCode === 8) || // backspace key
+              (e.keyCode === 46) || // delete key
+              (e.keyCode === 32) || // spacebar
+              (e.keyCode >= 186 && e.keyCode <= 222)) { // punctuation
+            
+            self.onModified();
           }
+        });
+
+        $(".rich-text-field").each(function() {
+          new S.RichTextEditorView({
+            target: $(this).get(0),
+            onModified: self.onModified,
+            fieldName: $(this).find(".place-value").attr("name")
+          });
         });
       }
 
       return this;
     },
 
-    onEditorChange: function() {
+    onModified: function() {
       this.isModified = true;
-      $("#update-place-model-btn").css({"opacity": "1.0", "cursor": "pointer"});
-      this.quill.off("text-change", this.onEditorChange);
+      $("#update-place-model-btn").addClass("isModified");
       $(this.watchFields).off("keyup change");
     },
 
@@ -253,12 +261,14 @@ var Shareabouts = Shareabouts || {};
 
     // called by the router
     onCloseWithUnsavedChanges: function() {
-      if (confirm("You have unsaved changes. Proceed?")) {
-        this.isModified = false;
-        return true;
-      }
+      // if (confirm("You have unsaved changes. Proceed?")) {
+      //   this.isModified = false;
+      //   return true;
+      // }
 
-      return false;
+      // return false;
+      
+      return true;
     },
 
     onAddAttachment: function(attachment) {
@@ -282,17 +292,15 @@ var Shareabouts = Shareabouts || {};
       $(evt.target).next("label").html(altContent.label);
     },
 
-    onUpdateModel: function() {
-      if (!this.isModified) return;
-
+    scrapeForm: function() {
       var self = this,
       richTextAttrs = {};
-      // if we have a Quill-enabled field, assume content from this field belongs
-      // to the description field. We'll need to make this behavior more sophisticated
-      // to support multiple Quill-enabled fields.
-      if ($(".ql-editor").html()) {
-        richTextAttrs.description = $(".ql-editor").html();
-      }
+
+      // attach data from Quill-enabled fields
+      $(".ql-editor").each(function() {
+        richTextAttrs[$(this).data("fieldName")] = $(this).html();
+      });
+
       var attrs = _.extend(S.Util.getAttrs($("#update-place-model-form")), 
         S.Util.getAttrs($("#update-place-model-title-form")),
         richTextAttrs);
@@ -306,19 +314,20 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
-      if (this.geometryEditorView) {
-        attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
-        attrs.style = {
-          color: this.geometryEditorView.colorpicker.color,
-          opacity: this.geometryEditorView.colorpicker.opacity,
-          fillColor: this.geometryEditorView.colorpicker.fillColor,
-          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
-        }
+      return attrs;
+    },
+
+    onUpdateModel: function() {
+      if (!this.isModified) {
+        return;
       }
+
+      var self = this,
+      attrs = this.scrapeForm();
 
       this.model.save(attrs, {
         success: function() {
-          self.geometryEditorView.tearDown();
+          self.clearDraftChanges();
           self.isModified = false;
           self.isEditingToggled = false;
           self.render();

@@ -193,6 +193,11 @@ a.minimize-btn {
     }
 }
 
+.place-item {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 .place-items {
     ul {
         margin: 0;
@@ -207,6 +212,7 @@ a.minimize-btn {
     }
 
     .multi-select-response {
+        list-style-type: disc;
         padding: 0;
     }
 }

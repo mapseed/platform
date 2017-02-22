@@ -23,7 +23,8 @@ var Shareabouts = Shareabouts || {};
       'click #add-place': 'onClickAddPlaceBtn',
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
-      'click .minimize-btn': 'onClickMinimizeBtn'
+      'click .minimize-btn': 'onClickMinimizeBtn',
+      'click .list-toggle-btn': 'toggleListView',
     },
     initialize: function(){
       var self = this,
@@ -659,14 +660,51 @@ var Shareabouts = Shareabouts || {};
 
       onLandmarkFound = function(model, response, newOptions) {
         var map = self.mapView.map,
-          layer, center, zoom, detailView, $responseToScrollTo;
+            layer, center, $responseToScrollTo;
+        options = newOptions ? newOptions : options;
 
-        if (type === "place") {
-          // If this model is a duplicate of one that already exists in the
-          // places collection, it may not correspond to a layerView. For this
-          // case, get the model that's actually in the places collection.
-          if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-            model = self.places[datasetId].get(model.id);
+        layer = self.mapView.layerViews[options.collectionId][model.id].layer
+
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+        }
+        self.activeDetailView = self.getLandmarkDetailView(options.collectionId, model);
+        self.activeDetailView.isModified = false;
+        self.activeDetailView.isEditingToggled = false;
+
+        self.$panel.removeClass().addClass('place-detail place-detail-' + model);
+        self.showPanel(self.activeDetailView.render().$el, false);
+        self.activeDetailView.delegateEvents();
+
+        self.hideNewPin();
+        self.destroyNewModels();
+        self.hideCenterPoint();
+        self.setBodyClass('content-visible');
+
+        if (layer) {
+          if (options.zoom) {
+            if (layer.getLatLng) {
+              if (model.attributes.story) {
+                // TODO(Trevor): this needs to be cleaned up
+                self.setStoryLayerVisibility(model);
+                self.isProgrammaticZoom = true;
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
+              } else {
+                map.setView(center, map.getMaxZoom()-1, {reset: true});
+              }
+            } else {
+              map.fitBounds(layer.getBounds(), {reset: true});
+            }
+
+          } else {
+            if (model.attributes.story) {
+              // if this model is part of a story, set center and zoom level
+              self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
+            } else {
+              map.panTo(center, {animate: true, reset: true});
+            }
           }
         }
         self.showSpotlightMask();
@@ -714,7 +752,19 @@ var Shareabouts = Shareabouts || {};
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
+        self.activeDetailView = self.getPlaceDetailView(model);
+        self.activeDetailView.isModified = false;
+        self.activeDetailView.isEditingToggled = false;
+
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+        }
+
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
+        self.showPanel(self.activeDetailView.render().$el, !!responseId);
+        self.activeDetailView.delegateEvents();
+        // TODO(Trevor): prevent default form behavior when in editing mode
+
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -742,10 +792,13 @@ var Shareabouts = Shareabouts || {};
               reset: (args.loading) ? true : false
             });
           } else {
-            map.fitBounds(layer.getBounds(), {
-              animate: true,
-              reset: (args.loading) ? true : false
-            });
+            if (model.attributes.story) {
+              self.isProgrammaticZoom = true;
+              self.setStoryLayerVisibility(model);
+              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
+            } else {
+              map.panTo(center, {animate: true, reset: true});
+            }
           }
         }
         self.showSpotlightMask();
