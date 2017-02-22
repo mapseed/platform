@@ -44,10 +44,6 @@ map:
     maxZoom: 18
   layers:
     # SmarterCleanup Mapbox base layer:
-<<<<<<< 73b78795a4f2c5e057ab5a114abf8bbc43209ef2
-<<<<<<< fd03c5acbf29b692f59901187346b3573591b46f
-=======
->>>>>>> correct basemap layers in duwamish_flavor config
     - id: transportation
       url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -55,27 +51,15 @@ map:
 
     - id: terrain
       url: //api.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
-=======
-    - id: osm
-      type: basemap
-      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
->>>>>>> keep type: basemap flags for basemap layers
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
-<<<<<<< fd03c5acbf29b692f59901187346b3573591b46f
     - id: blueprint
-=======
-    - id: dark
-<<<<<<< 73b78795a4f2c5e057ab5a114abf8bbc43209ef2
-      type: basemap
->>>>>>> keep type: basemap flags for basemap layers
-=======
->>>>>>> correct basemap layers in duwamish_flavor config
       url: //api.mapbox.com/styles/v1/mslee/ciellcr9y001g5pknxuqwjhqm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg
       attribution: 'Hello World'
       type: basemap
@@ -86,12 +70,11 @@ map:
       type: basemap
 
     # Legend Layers
-<<<<<<< 0d8a691ec150d6a74bac28e30fa193d6fa773fcd
-    # - id: restoration
-    #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-    #   type: landmark
-    #   sources:
-    #     - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+    - id: restoration
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      type: landmark
+      sources:
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: dirt-corps
       type: landmark
@@ -99,8 +82,6 @@ map:
       sources: 
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-=======
->>>>>>> Add rich text editor support to the dynamic form
     - id: story-markers
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
@@ -111,21 +92,6 @@ map:
       type: place
       slug: report
 
-    - id: vision
-      type: place
-      slug: vision
-
-    # - id: restoration
-    #   type: place
-    #   slug: restoration
-
-    - id: restoration
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      type: landmark
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
     - id: trees
       type: place
       slug: trees
@@ -134,7 +100,13 @@ map:
       type: place
       slug: air
 
-    # WRIA9 watershed
+    - id: vision
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      sources:
+        - "http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+      type: landmark
+
+       # WRIA9 watershed
     - id: watershed
       type: cartodb
       url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
@@ -226,134 +198,9 @@ map:
             fill: false
             stroke: false
 
-<<<<<<< 6bd738a35bf1f8dd8dd96c710f842e88ffb96f5f
     - id: esri-test
       type: esri-feature
       url: "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17"
-=======
-# Sidebar and activity stream should be enabled and disabled together!
-# note: sidebar is aka 'MasterLegend'
-# TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
-sidebar:
-  enabled: true
-  legend_enabled: true
-  slug: filter-type
-  # Layers are defined in the "map config" section
-  # A panel's icon is a icon's name taken from here:
-  # https://fortawesome.github.io/Font-Awesome/icons/
-  panels:
-    - id: gis-layers
-      icon: list
-      view: GISLegendView
-      title: _(Map Layers:)
-      basemaps:
-        - id: transportation
-          title: _(Transportation)
-          visibleDefault: true
-        - id: satellite
-          title: _(Satellite View)
-          visibleDefault: false
-        - id: terrain
-          title: _(Terrain)
-          visibleDefault: false
-        - id: dark
-          title: _(Dark)
-          visibleDefault: false
-      groupings:
-        - id: grp-community
-          title: _(Community Data)
-          visibleDefault: true
-          layers:
-            - id: duwamish
-              title: _(Duwamish Cleanup Reports)
-              visibleDefault: true
-
-            - id: trees
-              title: _(Trees!)
-              visibleDefault: true
-
-            - id: air
-              title: _(Air Watch Reports)
-              visibleDefault: true
-
-            - id: cleanup
-              title: _(River Cleanup Plan)
-              visibleDefault: true
-
-            - id: vision
-              title: _(Community Vision)
-              visibleDefault: true
-
-            - id: restoration
-              title: _(Restoration Sites)
-              visibleDefault: true
-
-        - id: grp-land
-          title: _(Land Data)
-          visibleDefault: false
-          layers:
-              # Land Use
-            - id: landuse
-              title: _(Land use)
-              visibleDefault: false
-
-              # Green Seattle Partnership restoration phases
-            - id: phases
-              title: _(Green Seattle partnership)
-              visibleDefault: true
-
-              # Noxious Weeds
-            - id: noxious-weeds
-              title: _(Noxious Weeds)
-              visibleDefault: false
-
-            - id: cso
-              title: _(Sewer Overflow)
-              visibleDefault: false
-
-              # WRIA9 watershed
-            - id: watershed
-              title: _(Watershed)
-              visibleDefault: true
-
-            - id: zoning
-              title: _(Zoning)
-              visibleDefault: false
-
-        - id: grp-history
-          title: _(Historical Data)
-          visibleDefault: false
-          layers:
-
-              # WMS Original Flow
-            - id: duwamish-original
-              title: _(Original River Path)
-              visibleDefault: false
-
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
-
-    - id: reports_legend
-      title: _(Community Reports:)
-      view: LegendView
-      icon: info-circle
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
->>>>>>> Update duwamish_flavor config.yml
 
 # The keys show up in the dropdown list when you are adding a new place
 
@@ -424,99 +271,92 @@ place_types:
   #       iconSize: [30, 36]
   #       iconAnchor: [15, 36]
 
-  geometry_test:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_comp.png
-
   wetland:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_comp.png
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_prog.png
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '"{{properties.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
   park:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_comp.png
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_prog.png
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '"{{properties.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
 
   school:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_comp.png
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_prog.png
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '"{{properties.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
 
   police:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_comp.png
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_prog.png
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '"{{properties.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
 
   rail:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_comp.png
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_prog.png
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '"{{properties.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
 
   town-hall:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '"{{properties.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_comp.png
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '"{{properties.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_prog.png
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '"{{properties.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
 
@@ -643,36 +483,37 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
 
-  editortest:
-    label: _(Editortest)
-    rules:
-      - condition: '{{layer.focused}} === true'
-        icon:
-          iconUrl: /static/css/images/markers/triangle-fa307d.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+  # greenwall:
+  #   label: _(Green Screen Vote)
+  #   rules:
+  #     - condition: '{{layer.focused}} === true'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         shadowUrl: /static/css/images/marker-shadow.png
+  #         iconSize: [50, 60]
+  #         iconAnchor: [25, 60]
+  #         shadowSize: [50, 60]
+  #         shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+  #     - condition: '{{map.zoom}} < 15'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         iconSize: [10, 12]
+  #         iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
-        icon:
-          iconUrl: /static/css/images/markers/triangle-fa307d.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+  #     - condition: '{{map.zoom}} < 18'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         iconSize: [18, 21.75]
+  #         iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/triangle-fa307d.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+  #     - condition: '{{map.zoom}} >= 18'
+  #       icon:
+  #         iconUrl: /static/css/images/markers/marker-greenwall.png
+  #         iconSize: [38, 46]
+  #         iconAnchor: [19, 46]
 
+  # using temporary icons
   air_watch:
     label: _(Air Watch)
     rules:
@@ -703,11 +544,6 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-<<<<<<< 1ed7a2bf0bb13c0bdbcf50200620447c54097b77
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
-<<<<<<< 6bd738a35bf1f8dd8dd96c710f842e88ffb96f5f
-=======
->>>>>>> update duwamish flavor config to accommodate landmark data
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
@@ -724,7 +560,6 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
         - id: transportation
           title: _(Transportation)
           visibleDefault: false
@@ -739,16 +574,6 @@ sidebar:
           visibleDefault: false
         - id: vintage
           title: _(Vintage)
-=======
-        - id: osm
-          title: _(OpenStreetMap)
-          visibleDefault: true
-        - id: satellite
-          title: _(Satellite View)
-          visibleDefault: false
-        - id: dark
-          title: _(Dark)
->>>>>>> update duwamish flavor config to accommodate landmark data
           visibleDefault: false
       groupings:
         - id: grp-community
@@ -759,9 +584,6 @@ sidebar:
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
 
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
-<<<<<<< 8df2877f0139556d94c5885752b9109156f51d59
-<<<<<<< 8e461303d65997e06616ac15476e52f5d0ffc3d4
             - id: restoration
               title: _(Restoration Sites)
               visibleDefault: true
@@ -774,45 +596,21 @@ sidebar:
               title: _(Dirt Corps sites)
               visibleDefault: true
 
-=======
->>>>>>> update duwamish flavor config to accommodate landmark data
             - id: story-markers
               title: _(Stories)
               visibleDefault: false
 
             - id: trees
               title: _(Trees!)
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
               visibleDefault: false
 
-<<<<<<< c90e2144806d7376c5b7a4f56814ede16d341b48
             - id: air
               title: _(Air Watch Reports)
-<<<<<<< 8fbcac2f8976793382920cb25215fe529086974a
               visibleDefault: false
 
             - id: vision
               title: _(Community Vision)
               visibleDefault: false
-=======
-              visibleDefault: true
-
-            - id: air
-              title: _(Air Watch Reports)
-              visibleDefault: true
-
-            - id: cleanup
-              title: _(River Cleanup Plan)
-              visibleDefault: true
-
-            - id: vision
-              title: _(Community Vision)
-              visibleDefault: true
-
-            - id: restoration
-              title: _(Restoration Sites)
-              visibleDefault: true
->>>>>>> update duwamish flavor config to accommodate landmark data
 
         - id: grp-land
           title: _(Land Data)
@@ -840,11 +638,7 @@ sidebar:
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
               visibleDefault: false
-=======
-              visibleDefault: true
->>>>>>> update duwamish flavor config to accommodate landmark data
 
             - id: zoning
               title: _(Zoning)
@@ -854,87 +648,11 @@ sidebar:
           title: _(Historical Data)
           visibleDefault: false
           layers:
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
-=======
-            # - id: story-markers
-            #   title: _(Stories)
-            #   visibleDefault: false
-
-=======
->>>>>>> Bring show list button under control of the backbone router
-            # - id: trees
-            #   title: _(Trees!)
-            #   visibleDefault: true
->>>>>>> update config
-=======
->>>>>>> update duwamish flavor config to accommodate landmark data
 
               # WMS Original Flow
             - id: duwamish-original
               title: _(Original River Path)
               visibleDefault: false
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
-=======
-              visibleDefault: true
-=======
-            # - id: air
-            #   title: _(Air Watch Reports)
-            #   visibleDefault: true
->>>>>>> merge stashed changes:
-
-            # - id: cleanup
-            #   title: _(River Cleanup Plan)
-            #   visibleDefault: true
-
-            # - id: vision
-            #   title: _(Community Vision)
-            #   visibleDefault: true
-
-            # - id: restoration
-            #   title: _(Restoration Sites)
-            #   visibleDefault: true
-
-        # - id: grp-land
-        #   title: _(Land Data)
-        #   visibleDefault: false
-        #   layers:
-              # Toggle our basemaps
-            # - id: toggle-satellite
-            #   title: _(Satellite View)
-            #   visibleDefault: false
-
-            #   # Land Use
-            # - id: landuse
-            #   title: _(Land use)
-            #   visibleDefault: false
-
-            #   # Green Seattle Partnership restoration phases
-            # - id: phases
-            #   title: _(Green Seattle partnership)
-            #   visibleDefault: true
-
-            #   # Noxious Weeds
-            # - id: noxious-weeds
-            #   title: _(Noxious Weeds)
-            #   visibleDefault: false
-
-            #   # WRIA9 watershed
-            # - id: watershed
-            #   title: _(Watershed)
-            #   visibleDefault: true
-
-        # - id: grp-history
-        #   title: _(Historical Data)
-        #   visibleDefault: false
-        #   layers:
-
-        #       # WMS Original Flow
-        #     - id: duwamish-original
-        #       title: _(Original River Path)
-        #       visibleDefault: false
->>>>>>> fix an issue where ghost markers remain after deleting a place via the in-browser editor
-=======
->>>>>>> update duwamish flavor config to accommodate landmark data
 
     - id: ticker
       view: ActivityView
@@ -960,13 +678,6 @@ sidebar:
           image: /static/css/images/markers/marker-complaint.png
           url: /filter/complaint
 
-<<<<<<< 83319689cffcc0d0a59d4554fbca3749f99ad253
-=======
->>>>>>> Update duwamish_flavor config.yml
-=======
->>>>>>> update duwamish flavor config to accommodate landmark data
-=======
->>>>>>> don't show place detail metadata if showMetadata flag exists and is set to false
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
@@ -997,475 +708,6 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: geometry_test
-      includeOnForm: true
-      enable_geometry: true
-      name: location_type
-      dataset: vision
-      icon_url: /static/css/images/markers/marker-parks_comp.png
-      value: geometry_test
-      label: _(Geometry test)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-    - category: park
-      includeOnForm: false
-      name: location_type
-      dataset: vision
-      icon_url: /static/css/images/markers/marker-parks_comp.png
-      value: park
-      label: _(Park)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: rail
-      includeOnForm: false
-      name: location_type
-      dataset: vision
-      icon_url: /static/css/images/markers/marker-transp_comp.png
-      value: rail
-      label: _(Rail)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: school
-      includeOnForm: false
-      name: location_type
-      dataset: vision
-      icon_url: /static/css/images/markers/marker-qual_comp.png
-      value: school
-      label: _(School)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: town-hall
-      includeOnForm: false
-      name: location_type
-      dataset: vision
-      icon_url: /static/css/images/markers/marker-hist_comp.png
-      value: town-hall
-      label: _(Town hall)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: wetland
-      includeOnForm: false
-      name: location_type
-      dataset: vision
-      icon_url: /static/css/images/markers/marker-land_comp.png
-      value: wetland
-      label: _(Wetland)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: police
-      includeOnForm: false
-      name: location_type
-      dataset: vision
-      icon_url: /static/css/images/markers/marker-safe_comp.png
-      value: police
-      label: _(Police)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: mapbox
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-star.png
-      value: mapbox
-      label: _(Mapbox)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: park2
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-heart.png
-      value: park2
-      label: _(Park2)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: industrial
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-industrial.png
-      value: industrial
-      label: _(Industrial)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: theatre
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-art.png
-      value: theatre
-      label: _(Theatre)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: swimming
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-swimming.png
-      value: swimming
-      label: _(Swimming)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: danger
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-construction.png
-      value: danger
-      label: _(Danger)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: bicycle
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-bike.png
-      value: bicycle
-      label: _(Bicycle)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
-    - category: zoo
-      includeOnForm: false
-      name: location_type
-      dataset: restoration
-      icon_url: /static/css/images/markers/marker-whale.png
-      value: zoo
-      label: _(Zoo)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: ""
-          optional: false
-        - name: description
-          type: rawHTML
-          prompt: _(Description:)
-          display_prompt: ""
-          placeholder: _(Your description...)
-          optional: true
-        - name: marker-color
-          type: radio_big_buttons
-          prompt: _(Icon color:)
-          display_prompt: _(Icon color:)
-          content:
-            - label: _(a3e46b)
-              value: "a3e46b"
-            - label: _(f1f075)
-              value: "f1f075"
-            - label: _(f86767)
-              value: "f86767"
-          optional: false
     - category: observation
       includeOnForm: true
       name: location_type
@@ -1474,27 +716,12 @@ place:
       value: observation
       label: _(Observation)
       fields:
-        - name: date
-          type: datetime
-          prompt: _(Date:)
-          display_prompt: _(Date:)
-          optional: true
         - name: title
           type: text
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
-        - name: reside_work_georgetown  
-          type: binary_toggle 
-          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
-          display_prompt: _(I reside or work in Georgetown or South Park:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          optional: true
         - name: pollution_type
           type: checkbox_big_buttons
           prompt: _(Types of pollution seen:)
@@ -1510,39 +737,7 @@ place:
               value: litter
             - label: _(Other)
               value: other
-          optional: true
-        - name: blah
-          type: radio_big_buttons
-          prompt: _(Blah?)
-          display_prompt: _(Blah:)
-          content:
-            - label: _(A)
-              value: a
-            - label: _(B)
-              value: b
-            - label: _(C)
-              value: c
-            - label: _(D)
-              value: d
-            - label: _(E)
-              value: e
-          optional: true
-        - name: blah2
-          type: dropdown
-          prompt: _(BlahBlah?)
-          display_prompt: _(BlahBlah:)
-          content:
-            - label: _(A)
-              value: a
-            - label: _(B)
-              value: b
-            - label: _(C)
-              value: c
-            - label: _(D)
-              value: d
-            - label: _(E)
-              value: e
-          optional: true
+          optional: true # NOTE: checkbox_big_button inputs have no validation
         - name: description
           type: textarea
           prompt: _(Description of this pollution:)
@@ -1559,7 +754,7 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Title of your editortest:)
+          prompt: _(Title of your question:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
@@ -1606,26 +801,6 @@ place:
           type: textarea
           prompt: "_(What's your complaint?)"
           display_prompt: _(I have the following complaint:)
-          placeholder: _(Description...)
-          optional: false
-    - category: tree
-      includeOnForm: false
-      name: location_type
-      dataset: trees
-      icon_url: /static/css/images/markers/marker-tree.png
-      value: tree
-      label: _(Tree)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title)
-          display_prompt: _(Title of this tree:)
-          placeholder: _(Enter title)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Description)
-          display_prompt: _(Description of this tree:)
           placeholder: _(Description...)
           optional: false
     - category: air_watch  #defines a top-level form category
@@ -1769,37 +944,27 @@ place:
           type: text
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
-<<<<<<< 6bd738a35bf1f8dd8dd96c710f842e88ffb96f5f
-<<<<<<< 6cb64472e86f0a2f433a7abcc83b801eea7c8def
           optional: true
-<<<<<<< 53d8b0ec8a6c95972347ad0e4232028796863b27
     - category: tree
-=======
-          optional: true 
-    - category: editortest
->>>>>>> add basic editor mode to place detail views, based on S.bootstrapped.currentUser credentials
       includeOnForm: false
-      dataset: editortest
-      icon_url: /static/css/images/markers/triangle-fa307d.png
-      value: editortest
-      label: _(Editortest)
+      name: location_type
+      dataset: trees
+      icon_url: /static/css/images/markers/marker-tree.png
+      value: tree
+      label: _(Tree)
       fields:
         - name: title
           type: text
-          prompt: _(Title of your question:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
+          prompt: _(Title)
+          display_prompt: _(Title of this tree:)
+          placeholder: _(Enter title)
           optional: false
         - name: description
           type: textarea
-          prompt: "_(What's your question?)"
-          display_prompt: _(My question:)
-          placeholder: _(Enter question...)
-=======
-          optional: true
->>>>>>> Update duwamish_flavor config.yml
-=======
->>>>>>> Add geometry editor
+          prompt: _(Description)
+          display_prompt: _(Description of this tree:)
+          placeholder: _(Description...)
+          optional: false
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -1811,9 +976,13 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
-      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Receive email updates on your report)
+        - key: size
+          value: 30
     - name: my_image
       type: file
       prompt: _(Image)
@@ -1826,6 +995,69 @@ place:
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
+
+
+
+  items:
+    - prompt: _(Type of report)
+      type: select
+      options:
+        - label: _(Observation)
+          value: observation
+        - label: _(Question)
+          value: question
+        - label: _(Idea)
+          value: idea
+        - label: _(Complaint)
+          value: complaint
+      name: location_type
+      attrs:
+        - key: required
+    - prompt: _(Title of report)
+      type: text
+      name: name
+      optional:
+      attrs:
+        - key: required
+        - key: placeholder
+          value: _(Enter title)
+        - key: size
+          value: 30
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Name)
+        - key: size
+          value: 30
+    - prompt: _(Your Email)
+      type: text
+      name: private-submitter_email
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Receive email updates on your report)
+        - key: size
+          value: 30
+    - prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
 
 survey:
   submission_type: comments
@@ -1867,14 +1099,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-<<<<<<< 0c187628d115974bb44911486ea4b5f3fc57b0ed
     start_page: false
-=======
-    start_page: true
-    # only show the start page on devices with pixel widths 
-    # greater than this value
-    show_above_width: 960
->>>>>>> Prevent start page routing on devices below a defined pixel width
 
   - title: _(Background)
     slug: background
@@ -1888,10 +1113,7 @@ pages:
   - title: _(Stories)
     slug: stories
     name: stories
-<<<<<<< 3955393b2a778e7ad1fd5845536926c13840ded8
     start_page: false
-=======
->>>>>>> styling tweaks
     hide_from_top_bar: true
 
   - title: _(Green Screen)
@@ -1926,10 +1148,7 @@ story:
     default_zoom: 17
     default_visible_layers:
       - restoration
-      - trees
     order:
-      - url: trees/187
-      - url: trees/276
       - url: marra
       - url: skatepark
       - url: concord
