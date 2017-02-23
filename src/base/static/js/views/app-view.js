@@ -65,7 +65,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
-        this.setBodyClass("right-sidebar-visible");
+        $("body").addClass("right-sidebar-visible");
         $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
       }
 
@@ -459,7 +459,6 @@ var Shareabouts = Shareabouts || {};
     },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible',
-                         'right-sidebar-visible',
                          'place-form-visible',
                          'page-visible',
                          'content-expanded',
@@ -479,7 +478,7 @@ var Shareabouts = Shareabouts || {};
         }
         $body.addClass(newBodyClasses[i]);
       }
-    },
+    }, 
     hasBodyClass: function(className) {
       return $('body').hasClass(className);
     },
