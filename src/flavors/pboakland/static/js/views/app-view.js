@@ -83,7 +83,7 @@
       });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
-        this.setBodyClass("right-sidebar-visible");
+        $("body").addClass("right-sidebar-visible");
         $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
       }
 
@@ -476,7 +476,12 @@
       this.mapView.map.invalidateSize({ animate:true, pan:true });
     },
     setBodyClass: function(/* newBodyClasses */) {
-      var bodyClasses = ['content-visible', 'place-form-visible', 'page-visible', 'content-expanded', 'content-expanded-mid', 'list-visible'],
+      var bodyClasses = ['content-visible',
+                         'place-form-visible',
+                         'page-visible',
+                         'content-expanded',
+                         'content-expanded-mid',
+                         'list-visible'],
           newBodyClasses = Array.prototype.slice.call(arguments, 0),
           i, $body = $('body');
 
