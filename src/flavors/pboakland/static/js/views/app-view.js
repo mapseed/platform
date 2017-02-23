@@ -65,7 +65,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
-        this.setBodyClass("right-sidebar-visible");
+        $("body").addClass("right-sidebar-visible");
         $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
       }
 
@@ -463,7 +463,6 @@ var Shareabouts = Shareabouts || {};
                          'page-visible',
                          'content-expanded',
                          'content-expanded-mid',
-                         'right-sidebar-visible',
                          'list-visible'],
           newBodyClasses = Array.prototype.slice.call(arguments, 0),
           i, $body = $('body');
