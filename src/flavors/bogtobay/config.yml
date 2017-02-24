@@ -55,8 +55,8 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
-    - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    - id: light
+      url: //api.mapbox.com/styles/v1/smartercleanup/cizhuxpgi00042so2kw8c1lfl/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
 
@@ -509,8 +509,8 @@ sidebar:
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
-        - id: dark
-          title: _(Dark)
+        - id: light
+          title: _(Light)
           visibleDefault: false
       groupings:
         - id: grp-community
