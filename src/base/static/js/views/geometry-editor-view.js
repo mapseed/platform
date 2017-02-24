@@ -1,5 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
+/* A view enabling the creation and editing of geometry layers */
 (function(S, $, console) {
   S.GeometryEditorView = Backbone.View.extend({
     events: {},
@@ -172,9 +173,9 @@ var Shareabouts = Shareabouts || {};
           return coordinates;
         };
 
-        if (self.geometryType === "polygon" 
-          || self.geometryType === "rectangle"
-          || self.geometryType === "Polygon") {
+        if (self.geometryType === "polygon" ||
+            self.geometryType === "rectangle" ||
+            self.geometryType === "Polygon") {
           var coordinates = buildCoords(layer),
           latLngs = layer.getLatLngs();
           // make sure the final polygon vertex exactly matches the first
@@ -212,7 +213,8 @@ var Shareabouts = Shareabouts || {};
 
       this.map.on("draw:edited", function(e) {
         e.layers.eachLayer(function(layer) {
-          // really there's only one layer to iterate over
+          
+          // really there's only one layer to iterate over here
           generateGeometry(layer);
         });
 
@@ -250,7 +252,9 @@ var Shareabouts = Shareabouts || {};
         this.isCreatingNewGeometry = args.isCreatingNewGeometry;
         this.setColorpicker(args.style);
         this.geometryType = args.geometryType;
-        this.changeLayerGroup(args.existingLayer, args.existingLayerGroup,
+        this.existingLayer = args.existingLayer;
+        this.existingLayerGroup = args.existingLayerGroup;
+        this.changeLayerGroup(this.existingLayer, this.existingLayerGroup,
           this.editingLayerGroup);
         this.placeDetailView = args.placeDetailView;
         this.addControl(this.drawControlEditOnlyNoRemove);
@@ -301,9 +305,15 @@ var Shareabouts = Shareabouts || {};
     tearDown: function() {
       var self = this;
       this.options.router.off("route", this.tearDown, this);
+      if (this.existingLayerGroup) {
+        this.changeLayerGroup(this.existingLayer, this.editingLayerGroup, 
+          this.existingLayerGroup);
+      }
+      
       this.editingLayerGroup.getLayers().forEach(function(layer) {
         self.editingLayerGroup.removeLayer(layer);
       });
+      
       this.removeLayerFromMap(this.editingLayerGroup);
       this.removeControl(this.drawControl);
       this.removeControl(this.drawControlEditOnly);

@@ -90,6 +90,8 @@ var Shareabouts = Shareabouts || {};
       }
 
       this.model.attachmentCollection.on("add", this.onAddAttachment, this);
+
+      _.bind(this.onModified, this);
     },
 
     saveDraftChanges: function() {
@@ -115,15 +117,20 @@ var Shareabouts = Shareabouts || {};
         //if(!confirm("You have unsaved changes. Proceed?")) return;
       }
 
+      if (this.isEditingToggled && this.geometryEditorView) {
+        
+        // TODO: fire edit cancel event of some sort?        
+        
+        this.geometryEditorView.tearDown();
+      }
+
       var toggled = !this.isEditingToggled;
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
       this.render();
 
-      if (toggled && (this.model.get("geometry").type === "Polygon"
-        || this.model.get("geometry").type === "LineString")) {
-        
-        console.log("this.options", this.options);
+      if (toggled && (this.model.get("geometry").type === "Polygon" || 
+          this.model.get("geometry").type === "LineString")) {
 
         this.options.appView.hideSpotlightMask();
         this.geometryEditorView.render({
@@ -202,8 +209,9 @@ var Shareabouts = Shareabouts || {};
         $(".rich-text-field").each(function() {
           new S.RichTextEditorView({
             target: $(this).get(0),
-            onModified: self.onModified,
-            fieldName: $(this).find(".place-value").attr("name")
+            placeDetailView: self,
+            fieldName: $(this).find(".place-value").attr("name"),
+
           });
         });
       }
@@ -329,6 +337,16 @@ var Shareabouts = Shareabouts || {};
       var self = this,
       attrs = this.scrapeForm();
 
+      if (this.geometryEditorView) {
+        attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
+        attrs.style = {
+          color: this.geometryEditorView.colorpicker.color,
+          opacity: this.geometryEditorView.colorpicker.opacity,
+          fillColor: this.geometryEditorView.colorpicker.fillColor,
+          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
+        }
+      }
+
       this.model.save(attrs, {
         success: function() {
           self.clearDraftChanges();
@@ -336,8 +354,8 @@ var Shareabouts = Shareabouts || {};
           self.isEditingToggled = false;
           self.render();
         },
-        error: function() {
-          // nothing
+        error: function(e) {
+          console.log("error!", e);
         }
       });
     },

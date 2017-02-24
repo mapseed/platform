@@ -31,17 +31,17 @@ var Shareabouts = Shareabouts || {};
       
       onEditorChange = function() {
         quill.off("text-change", onEditorChange);
-        self.options.onModified();
+        self.options.placeDetailView.onModified();
       };
 
       $(quill.root).data("fieldName", this.options.fieldName);
 
       // override default image upload behavior: instead, create an <img>
       // tag with highlighted text set as the src attribute
-      // toolbar.addHandler("image", function() {
-      //   var range = quill.getSelection();
-      //   quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
-      // });
+      toolbar.addHandler("image", function() {
+        var range = quill.getSelection();
+        quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
+      });
 
       // detect changes made via Quill
       quill.on("text-change", onEditorChange);

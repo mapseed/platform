@@ -77,11 +77,11 @@ map:
       slug: report
 
       # Land Use
-    - id: stories
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
-      type: landmark
+    # - id: stories
+    #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+    #   sources:
+    #     - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
+    #   type: landmark
 
        # WRIA9 watershed
     - id: watershed
@@ -521,9 +521,9 @@ sidebar:
               title: _(Community Reports)
               visibleDefault: true
 
-            - id: stories
-              title: _(Featured Sites)
-              visibleDefault: true
+            # - id: stories
+            #   title: _(Featured Sites)
+            #   visibleDefault: true
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -624,6 +624,26 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: star-stroked
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge.png
+      value: pledge
+      label: _(Featured Site)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
     - category: pledge
       includeOnForm: true
       name: location_type
