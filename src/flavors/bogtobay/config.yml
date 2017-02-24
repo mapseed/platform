@@ -60,6 +60,11 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    - id: outdoor
+      url: //api.mapbox.com/styles/v1/smartercleanup/cir0yq1nl001lbsnh22c6747c/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: 'Hello World'
+      type: basemap
+
     # Carto basemap additions layer
     - id: additions
       url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
@@ -505,12 +510,15 @@ sidebar:
       basemaps:
         - id: osm
           title: _(OpenStreetMap)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
         - id: light
           title: _(Light)
+          visibleDefault: true
+        - id: outdoor
+          title: _(Outdoor)
           visibleDefault: false
       groupings:
         - id: grp-community
