@@ -38,8 +38,8 @@ map:
 
   options:
     center:
-      lat: 47.53163
-      lng: -122.35504
+      lat: 47.54406
+      lng: -122.36087
     zoom: 14
     minZoom: 1
     maxZoom: 18
@@ -984,6 +984,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1028,3 +1029,5 @@ story:
         basemap: satellite
       - url: bioswale
       - url: longfellow
+        zoom: 14
+        basemap: light
