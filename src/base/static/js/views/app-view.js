@@ -964,6 +964,8 @@ var Shareabouts = Shareabouts || {};
       // map container dimensions have been set by CSS, resulting in the
       // infamous off-center bug.
       // NOTE: the timeout duration in use here was arbitrarily selected.
+      // TODO: this is a hack. Is there a better way to handle this? Can we 
+      // listen for an event from CSS maybe?
       setTimeout(function() {
         map.invalidateSize({ animate:true, pan:true });
       }, 30);
