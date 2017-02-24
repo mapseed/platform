@@ -38,8 +38,8 @@ map:
 
   options:
     center:
-      lat: 47.53163
-      lng: -122.35504
+      lat: 47.54406
+      lng: -122.36087
     zoom: 14
     minZoom: 1
     maxZoom: 18
@@ -55,8 +55,13 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
-    - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    - id: light
+      url: //api.mapbox.com/styles/v1/smartercleanup/cizhuxpgi00042so2kw8c1lfl/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: 'Hello World'
+      type: basemap
+
+    - id: outdoor
+      url: //api.mapbox.com/styles/v1/smartercleanup/cir0yq1nl001lbsnh22c6747c/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
 
@@ -505,12 +510,15 @@ sidebar:
       basemaps:
         - id: osm
           title: _(OpenStreetMap)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
-        - id: dark
-          title: _(Dark)
+        - id: light
+          title: _(Light)
+          visibleDefault: true
+        - id: outdoor
+          title: _(Outdoor)
           visibleDefault: false
       groupings:
         - id: grp-community
@@ -976,6 +984,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1020,3 +1029,5 @@ story:
         basemap: satellite
       - url: bioswale
       - url: longfellow
+        zoom: 14
+        basemap: light
