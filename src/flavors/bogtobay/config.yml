@@ -77,9 +77,9 @@ map:
       sources:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-    # - id: bogtobay
-    #   type: place
-    #   slug: report
+    - id: bogtobay
+      type: place
+      slug: report
 
       # Land Use
     - id: stories
@@ -525,9 +525,9 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-            # - id: bogtobay
-            #   title: _(Community Reports)
-            #   visibleDefault: true
+            - id: bogtobay
+              title: _(Community Reports)
+              visibleDefault: true
 
             - id: stories
               title: _(Featured Sites)
