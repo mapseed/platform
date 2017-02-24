@@ -13,6 +13,19 @@
   overflow: hidden;
 }
 
+/* reorient add a report button to bottom left when content panel is open */
+@media only screen and (min-width: 60em) {
+  .content-visible #main-btns-container {
+    top: calc(100% - 85px);
+    left: 15px;
+    display: block;
+  }
+
+  .place-form-visible #main-btns-container {
+    display: none !important;
+  }
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
