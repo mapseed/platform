@@ -243,6 +243,12 @@ var Shareabouts = Shareabouts || {};
         this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
       }
     },
+    onExpandCategories: function(evt) {
+      var animationDelay = 200;
+      $("#selected-category").hide(animationDelay);
+      $("#category-btns").animate( { height: "show" }, animationDelay ); 
+      this.bindCategoryListeners();
+    },
     onClickGeolocate: function(evt) {
       var self = this;
       evt.preventDefault();
