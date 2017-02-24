@@ -440,6 +440,9 @@
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
+      if (this.placeFormView) {
+        this.placeFormView.closePanel();
+      }
 
       $(".maximize-btn").show();
       $(".minimize-btn").hide();
