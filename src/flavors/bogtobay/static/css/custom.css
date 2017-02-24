@@ -24,6 +24,10 @@
   .place-form-visible #main-btns-container {
     display: none !important;
   }
+
+  .content-expanded-mid #main-btns-container {
+    display: none !important;
+  }
 }
 
 /* =Header
