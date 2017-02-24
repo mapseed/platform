@@ -45,7 +45,7 @@
   <!-- jQuery date-time picker plugin -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
   {% else %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css"></link>
+  <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css?ver=0.7.4.1"></link>
   {% endif %}
 
   <!-- Flavor's Custom Stylesheet -->
@@ -66,7 +66,7 @@
   {% endif %}
 
   <!--[if lte IE 8]>
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.ie.css" />
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.ie.css" />
   <![endif]-->
 
   <!--[if lt IE 9]>
@@ -192,36 +192,46 @@
   {% block cdn_load %}{% endblock %}
 
   {% if settings.DEBUG %}
-  <script src="{{STATIC_URL}}libs/underscore.js"></script>
-  <script src="{{STATIC_URL}}libs/backbone.js"></script>
-  <script src="{{STATIC_URL}}libs/backbone.marionette.js"></script>
-  <script src="{{STATIC_URL}}libs/handlebars-v3.0.3.js"></script>
-  <script src="{{STATIC_URL}}libs/moment-with-locales.min.js"></script>
-  <script src="{{STATIC_URL}}libs/json2.js"></script>
+  <!-- Non-minified, where available -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/esri-leaflet/1.0.3/esri-leaflet.js"></script>
+  <script src="//cdn.quilljs.com/1.1.4/quill.js"></script>
+  <!-- jQuery date-time picker plugin -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.3/build/jquery.datetimepicker.full.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.12/jquery.scrollTo.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.2/spin.min.js"></script>
+  {% else %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/esri-leaflet/1.0.3/esri-leaflet.js"></script>
+  <script src="//cdn.quilljs.com/1.1.4/quill.min.js"></script>
+  <!-- jQuery date-time picker plugin -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.3/build/jquery.datetimepicker.full.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.12/jquery.scrollTo.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.2/spin.min.js"></script>
+  {% endif %}
+  
+  <!-- These are obscure or customized, self-hosted. -->
   <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
   <script src="{{STATIC_URL}}libs/exif.js"></script>
-  <script src="{{STATIC_URL}}libs/load-image.js"></script>
-  <script src="{{STATIC_URL}}libs/canvas-to-blob.js"></script>
-  <script src="{{STATIC_URL}}libs/spin.min.js"></script>
   <script src="{{STATIC_URL}}libs/gatekeeper.js"></script>
   <script src="{{STATIC_URL}}libs/swag.min.js"></script>
-  <script src="{{STATIC_URL}}libs/jquery.scrollTo.js"></script>
-
-  <script src="{{STATIC_URL}}js/utils.js"></script>
-  <script src="{{STATIC_URL}}js/template-helpers.js"></script>
-  <!-- https://github.com/openplans/handlebars-helpers -->
-  <!-- jQuery date-time picker plugin -->
-  <script src="{{ STATIC_URL }}libs/jquery.datetimepicker.full.min.js"></script>
-  <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
-  <script src="{{STATIC_URL}}libs/esri-leaflet.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
-  {% else %}
-  <!--   TODO: build libraries with npm instead of bower -->
-  <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.7.0"></script>
-  <script src="{{STATIC_URL}}dist/preload-bundle.js?ver=0.7.0"></script>
-  {% endif %}
-
+  
   <script>
     moment.locale('{{LANGUAGE_CODE}}');
 
@@ -252,6 +262,8 @@
 
   <!-- Bootstrap site and user information -->
   <script>
+    var Shareabouts = Shareabouts || {};
+    
     Shareabouts.bootstrapped = {
       staticUrl: '{{ STATIC_URL }}',
       mapQuestKey: '{{ settings.MAPQUEST_KEY }}',
@@ -272,33 +284,7 @@
     }
   </script>
 
-  {% if settings.DEBUG %}
-  <script src="{{STATIC_URL}}js/handlebars-helpers.js"></script>
-  <script src="{{STATIC_URL}}js/models.js"></script>
-  <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/auth-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/app-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/basic-layer-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/map-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/support-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/landmark-detail-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/landmark-survey-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-counter-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/geocode-address-place-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/sidebar-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/gis-legend-view.js"></script>
-  <script src="{{STATIC_URL}}js/routes.js"></script>
-  {% else %}
-  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.0"></script>
-  {% endif %}
+  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.4.1"></script>
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>

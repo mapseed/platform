@@ -1,9 +1,8 @@
-/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var TemplateHelpers = require('../template-helpers.js');
 
-(function(S, $, console){
-  S.PlaceFormView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
@@ -14,13 +13,12 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this;
-       
       this.resetFormState();
       this.placeDetail = this.options.placeConfig.place_detail;
 
-      S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
+      TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
-      S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+      TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
     },
     resetFormState: function() {
       this.formState = {
@@ -39,8 +37,8 @@ var Shareabouts = Shareabouts || {};
         return place.includeOnForm; 
       });
 
-      if (S.bootstrapped.currentUser &&
-        _.contains(this.options.placeConfig.administrators, S.bootstrapped.currentUser.username)) {
+      if (Shareabouts.bootstrapped.currentUser &&
+        _.contains(this.options.placeConfig.administrators, Shareabouts.bootstrapped.currentUser.username)) {
         isAdmin = true;
       }
 
@@ -50,7 +48,7 @@ var Shareabouts = Shareabouts || {};
         isCategorySelected = true;
         this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
       }
-
+      
       this.checkAutocomplete();
 
       var data = _.extend({
@@ -59,9 +57,9 @@ var Shareabouts = Shareabouts || {};
         placeConfig: this.options.placeConfig,
         selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
-        current_user: S.currentUser,
+        current_user: Shareabouts.currentUser,
         isSingleCategory: this.formState.isSingleCategory
-      }, S.stickyFieldValues);
+      }, Shareabouts.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
@@ -93,11 +91,11 @@ var Shareabouts = Shareabouts || {};
       storedValue;
 
       this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
+        storedValue = Util.getAutocompleteValue(field.name);
         self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
       });
       this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
+        storedValue = Util.getAutocompleteValue(field.name);
         self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
@@ -130,7 +128,7 @@ var Shareabouts = Shareabouts || {};
           $form = this.$('form');
 
       // Get values from the form
-      attrs = S.Util.getAttrs($form);
+      attrs = Util.getAttrs($form);
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
@@ -144,10 +142,10 @@ var Shareabouts = Shareabouts || {};
               return field.name === key;
             }) || {};
         if (itemConfig.autocomplete) {
-          S.Util.saveAutocompleteValue(key, value, 30);
+          Util.saveAutocompleteValue(key, value, 30);
         }
       });
-
+        
       // Get the location attributes from the map
       attrs.geometry = {
         type: 'Point',
@@ -167,7 +165,7 @@ var Shareabouts = Shareabouts || {};
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
         return place.category == $(evt.target).attr('id');
       });
-
+      
       this.render(true);
       $("#" + $(evt.target).attr("id"))
         .prop("checked", true)
@@ -189,7 +187,7 @@ var Shareabouts = Shareabouts || {};
       var self = this;
       evt.preventDefault();
       var ll = this.options.appView.mapView.map.getBounds().toBBoxString();
-      S.Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
+      Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
       $("#drag-marker-content").addClass("is-visuallyhidden");
       $("#geolocating-msg").removeClass("is-visuallyhidden");
 
@@ -213,7 +211,7 @@ var Shareabouts = Shareabouts || {};
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
-        S.Util.fileToCanvas(file, function(canvas) {
+        Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
             self.formState.attachmentData = {
               name: $(evt.target).attr('name'),
@@ -294,20 +292,20 @@ var Shareabouts = Shareabouts || {};
       }
 
       $button.attr('disabled', 'disabled');
-      spinner = new Spinner(S.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
 
-      S.Util.log('USER', 'new-place', 'submit-place-btn-click');
+      Util.log('USER', 'new-place', 'submit-place-btn-click');
 
-      S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
+      Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
 
       // Save and redirect
       model.save(attrs, {
         success: function() {
-          S.Util.log('USER', 'new-place', 'successfully-add-place');
+          Util.log('USER', 'new-place', 'successfully-add-place');
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
         error: function() {
-          S.Util.log('USER', 'new-place', 'fail-to-add-place');
+          Util.log('USER', 'new-place', 'fail-to-add-place');
         },
         complete: function() {
           $button.removeAttr('disabled');
@@ -318,4 +316,3 @@ var Shareabouts = Shareabouts || {};
       });
     })
   });
-}(Shareabouts, jQuery, Shareabouts.Util.console));

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased] - on our `develop` branch (unreleased)
 ### Added
 
+## [0.7.4] - 2017-02-19
+### Added
+ - webpack is now used for our bundling
+### Changed
+ - models.js has now been refactors into a models directory, separating all of our models.
+
 ## [0.7.3] - 2016-12-30
 ### Added
  - Run `npm start` to build/watch our scss files and start the dev server locally.
@@ -64,6 +70,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.6.0 - 2016-02-06
 
 [Unreleased]: https://github.com/smartercleanup/platform/compare/0.7.3...develop
+[0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.3...0.7.4
 [0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.2...0.7.3
 [0.7.2]: https://github.com/smartercleanup/platform/compare/0.7.1...0.7.2
 [0.7.1]: https://github.com/smartercleanup/platform/compare/0.7.0...0.7.1

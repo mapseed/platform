@@ -1,7 +1,6 @@
-var Shareabouts = Shareabouts || {};
+  var Util = require('../utils.js');
 
-(function(S, $, console){
-  S.SupportView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     events: {
       'change #support': 'onSupportChange'
     },
@@ -56,26 +55,26 @@ var Shareabouts = Shareabouts || {};
           userSupport;
 
       evt.target.disabled = true;
-      S.Util.log('USER', 'place', 'support-btn-click', self.collection.options.placeModel.getLoggingDetails(), self.collection.size());
+      Util.log('USER', 'place', 'support-btn-click', self.collection.options.placeModel.getLoggingDetails(), self.collection.size());
 
       if (checked) {
         $form = this.$('form');
-        attrs = S.Util.getAttrs($form);
+        attrs = Util.getAttrs($form);
         this.collection.create(attrs, {
           wait: true,
           beforeSend: function($xhr) {
             // Do not generate activity for anonymous supports
-            if (!S.bootstrapped.currentUser) {
+            if (!Shareabouts.bootstrapped.currentUser) {
               $xhr.setRequestHeader('X-Shareabouts-Silent', 'true');
             }
           },
           success: function() {
-            S.Util.log('USER', 'place', 'successfully-support', self.collection.options.placeModel.getLoggingDetails());
+            Util.log('USER', 'place', 'successfully-support', self.collection.options.placeModel.getLoggingDetails());
           },
           error: function() {
             self.getSupportStatus(self.options.userToken).destroy();
             alert('Oh dear. It looks like that didn\'t save.');
-            S.Util.log('USER', 'place', 'fail-to-support', self.collection.options.placeModel.getLoggingDetails());
+            Util.log('USER', 'place', 'fail-to-support', self.collection.options.placeModel.getLoggingDetails());
           }
         });
       } else {
@@ -83,16 +82,14 @@ var Shareabouts = Shareabouts || {};
         this.userSupport.destroy({
           wait: true,
           success: function() {
-            S.Util.log('USER', 'place', 'successfully-unsupport', self.collection.options.placeModel.getLoggingDetails());
+            Util.log('USER', 'place', 'successfully-unsupport', self.collection.options.placeModel.getLoggingDetails());
           },
           error: function() {
             self.collection.add(userSupport);
             alert('Oh dear. It looks like that didn\'t save.');
-            S.Util.log('USER', 'place', 'fail-to-unsupport', self.collection.options.placeModel.getLoggingDetails());
+            Util.log('USER', 'place', 'fail-to-unsupport', self.collection.options.placeModel.getLoggingDetails());
           }
         });
       }
     }
   });
-
-})(Shareabouts, jQuery, Shareabouts.Util.console);

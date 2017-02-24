@@ -1,11 +1,10 @@
-/*globals L Backbone _ jQuery */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var LayerView = require('mapseed-layer-view');
 
-(function(S, $, console){
-  S.BasicLayerView = S.LayerView.extend({
+  module.exports = LayerView.extend({
     initialize: function() {
-      S.LayerView.prototype.initialize.call(this)
+      LayerView.prototype.initialize.call(this)
     },
     removeLayer: function() {
       if (this.layer) {
@@ -13,7 +12,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMarkerClick: function() {
-      S.Util.log('USER', 'map', 'landmark-layer-click', this.model.getLoggingDetails());
+      Util.log('USER', 'map', 'landmark-layer-click', this.model.getLoggingDetails());
       this.options.router.navigate('/' + this.model.id, {trigger: true});
     },
     show: function() {
@@ -27,5 +26,3 @@ var Shareabouts = Shareabouts || {};
       }
     }
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

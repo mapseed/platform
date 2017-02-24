@@ -1,11 +1,4 @@
-/*global _, moment, BinaryFile, loadImage, EXIF */
-
-var Shareabouts = Shareabouts || {};
-
-(function(S){
-  'use strict';
-
-  S.Util = {
+  var self = module.exports = {
     patch: function(obj, overrides, func) {
       var attr, originals = {};
 
@@ -67,7 +60,7 @@ var Shareabouts = Shareabouts || {};
         this.cookies.save(name, value, days, "mapseed-");
       }
     },
- 
+
     getAutocompleteValue: function(name) {
       if (typeof Storage !== "undefined") {
         return this.localstorage.get(name);
@@ -99,8 +92,8 @@ var Shareabouts = Shareabouts || {};
           if (major > 7) {
             return true;
           }
-		 default:
-			return true;
+     default:
+      return true;
       }
 
       return false;
@@ -134,14 +127,14 @@ var Shareabouts = Shareabouts || {};
           stickyItemNames = _.union(stickySurveyItemNames, stickyPlaceItemNames);
 
       // Create the cache
-      if (!S.stickyFieldValues) {
-        S.stickyFieldValues = {};
+      if (!Shareabouts.stickyFieldValues) {
+        Shareabouts.stickyFieldValues = {};
       }
 
       _.each(stickyItemNames, function(name) {
         // Check for existence of the key, not the truthiness of the value
         if (name in data) {
-          S.stickyFieldValues[name] = data[name];
+          Shareabouts.stickyFieldValues[name] = data[name];
         }
       });
     },
@@ -155,7 +148,7 @@ var Shareabouts = Shareabouts || {};
       if (window.ga) {
         this.analytics(args);
       } else {
-        S.Util.console.log(args);
+        this.console.log(args);
       }
     },
 
@@ -305,7 +298,7 @@ var Shareabouts = Shareabouts || {};
 
           loadImage(file, function(canvas) {
             // rotate the image, if needed
-            var rotated = S.Util.fixImageOrientation(canvas, orientation);
+            var rotated = self.fixImageOrientation(canvas, orientation);
             callback(rotated);
           }, options);
       };
@@ -355,8 +348,8 @@ var Shareabouts = Shareabouts || {};
     cookies: {
       save: function(name, value, days, prefix) {
         var expires,
-        prefix = prefix || "",
-        name = prefix + name;
+          prefix = prefix || "",
+          name = prefix + name;
         if (days) {
           var date = new Date();
           date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -369,9 +362,8 @@ var Shareabouts = Shareabouts || {};
       },
       get: function(name, prefix) {
         var prefix = prefix || "",
-        nameEQ = prefix + name + '=',
-        ca = document.cookie.split(';');
-        var ca = document.cookie.split(';');
+          nameEQ = prefix + name + '=',
+          ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
           var c = ca[i];
           while (c.charAt(0) === ' ') {
@@ -387,7 +379,7 @@ var Shareabouts = Shareabouts || {};
         this.save(name,'',-1);
       }
     },
-
+    
     localstorage: {
       LOCALSTORAGE_PREFIX: "mapseed-",
       save: function(name, value, days) {
@@ -401,7 +393,7 @@ var Shareabouts = Shareabouts || {};
         } catch (e) {
           // ignore exceptions
         }
-       },
+      },
       get: function(name) {
         var now = new Date().getTime(),
         name = this.LOCALSTORAGE_PREFIX + name,
@@ -426,7 +418,7 @@ var Shareabouts = Shareabouts || {};
 
     MapQuest: {
       geocode: function(location, bounds, options) {
-        var mapQuestKey = S.bootstrapped.mapQuestKey;
+        var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
 
         if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
 
@@ -440,7 +432,7 @@ var Shareabouts = Shareabouts || {};
         $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {
-        var mapQuestKey = S.bootstrapped.mapQuestKey,
+        var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey,
             lat, lng;
 
         if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
@@ -492,7 +484,7 @@ var Shareabouts = Shareabouts || {};
         data.results = data.features;
         if (data.results.length > 0) {
           data.results[0] = {
-            locations: [ Shareabouts.Util.Mapbox.toMapQuestResult(data.results[0]) ],
+            locations: [ self.Mapbox.toMapQuestResult(data.results[0]) ],
             providedLocation: { location: data.query.join(' ') }
           };
         }
@@ -500,11 +492,11 @@ var Shareabouts = Shareabouts || {};
       },
 
       geocode: function(location, hint, options) {
-        var mapboxToken = S.bootstrapped.mapboxToken,
+        var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
             originalSuccess = options && options.success,
             transformedResultsSuccess = function(data) {
               if (originalSuccess) {
-                originalSuccess(Shareabouts.Util.Mapbox.toMapQuestResults(data));
+                originalSuccess(self.Mapbox.toMapQuestResults(data));
               }
             };
 
@@ -522,7 +514,7 @@ var Shareabouts = Shareabouts || {};
         $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {
-        var mapboxToken = S.bootstrapped.mapboxToken,
+        var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
             lat, lng;
 
         if (!mapboxToken) throw "You must provide a Mapbox access token " +
@@ -538,4 +530,3 @@ var Shareabouts = Shareabouts || {};
       }
     }
   };
-}(Shareabouts));

@@ -1,7 +1,6 @@
-var Shareabouts = Shareabouts || {};
+  var Util = require('./utils.js');
 
-(function(S){
-  S.TemplateHelpers = {
+  module.exports = {
     // Attached helper properties for how to display this form element
     insertInputTypeFlags: function(configItems) {
       _.each(configItems, function(item, index) {
@@ -13,7 +12,7 @@ var Shareabouts = Shareabouts || {};
         item.is_file = (item.type === 'file');
         item.is_geocoding = (item.type === 'geocoding');
         item.is_hidden = (item.type === 'hidden');
-        item.is_fileinput_supported = S.Util.fileInputSupported();
+        item.is_fileinput_supported = Util.fileInputSupported();
       });
     },
 
@@ -130,4 +129,3 @@ var Shareabouts = Shareabouts || {};
       return NewValue;
     }
   };
-})(Shareabouts);

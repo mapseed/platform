@@ -1,10 +1,7 @@
-/*global Handlebars _ moment */
+  var Util = require('./utils.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(NS) {
   Handlebars.registerHelper('STATIC_URL', function() {
-    return NS.bootstrapped.staticUrl;
+    return Shareabouts.bootstrapped.staticUrl;
   });
 
   Handlebars.registerHelper('debug', function(value) {
@@ -28,11 +25,11 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('if_fileinput_not_supported', function(options) {    
-    return !NS.Util.fileInputSupported() ? options.fn(this) : null;
+    return !Util.fileInputSupported() ? options.fn(this) : null;
   });
 
   Handlebars.registerHelper('if_not_authenticated', function(options) {
-    return !(NS.bootstrapped && NS.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
+    return !(Shareabouts.bootstrapped && Shareabouts.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
   });
 
   Handlebars.registerHelper('property', function(a, b) {
@@ -42,11 +39,11 @@ var Shareabouts = Shareabouts || {};
   // Current user -------------------------------------------------------------
 
   Handlebars.registerHelper('is_authenticated', function(options) {
-    return (NS.bootstrapped && NS.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
+    return (Shareabouts.bootstrapped && Shareabouts.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
   });
 
   Handlebars.registerHelper('current_user', function(attr) {
-    return (NS.bootstrapped.currentUser ? NS.bootstrapped.currentUser[attr] : undefined);
+    return (Shareabouts.bootstrapped.currentUser ? Shareabouts.bootstrapped.currentUser[attr] : undefined);
   });
 
   // Date and time ------------------------------------------------------------
@@ -85,47 +82,47 @@ var Shareabouts = Shareabouts || {};
 
   // Place Details ------------------------------------------------------------
   Handlebars.registerHelper('action_text', function() {
-    return NS.Config.place.action_text || '';
+    return Shareabouts.Config.place.action_text || '';
   });
 
   Handlebars.registerHelper('place_type_label', function(typeName) {
-    var placeType = NS.Config.placeTypes[typeName];
+    var placeType = Shareabouts.Config.placeTypes[typeName];
     return placeType ? (placeType.label || typeName) : '';
   });
 
   Handlebars.registerHelper('anonymous_name', function(typeName) {
-    return NS.Config.place.anonymous_name;
+    return Shareabouts.Config.place.anonymous_name;
   });
 
   Handlebars.registerHelper('survey_label_by_count', function() {
     var count = 0,
         submissionSet;
 
-    if (this.submission_sets && this.submission_sets[NS.Config.survey.submission_type]) {
-      submissionSet = this.submission_sets[NS.Config.survey.submission_type];
+    if (this.submission_sets && this.submission_sets[Shareabouts.Config.survey.submission_type]) {
+      submissionSet = this.submission_sets[Shareabouts.Config.survey.submission_type];
       count = submissionSet ? submissionSet.length : 0;
     }
 
     if (count === 1) {
-      return NS.Config.survey.response_name;
+      return Shareabouts.Config.survey.response_name;
     }
-    return NS.Config.survey.response_plural_name;
+    return Shareabouts.Config.survey.response_plural_name;
   });
 
   Handlebars.registerHelper('survey_label', function() {
-    return NS.Config.survey.response_name;
+    return Shareabouts.Config.survey.response_name;
   });
 
   Handlebars.registerHelper('survey_label_plural', function() {
-    return NS.Config.survey.response_plural_name;
+    return Shareabouts.Config.survey.response_plural_name;
   });
 
   Handlebars.registerHelper('support_label', function() {
-    return NS.Config.support.response_name;
+    return Shareabouts.Config.support.response_name;
   });
 
   Handlebars.registerHelper('support_label_plural', function() {
-    return NS.Config.support.response_plural_name;
+    return Shareabouts.Config.support.response_plural_name;
   });
 
 
@@ -133,8 +130,8 @@ var Shareabouts = Shareabouts || {};
     var count = 0,
         submissionSet;
 
-    if (this.submission_sets && this.submission_sets[NS.Config.survey.submission_type]) {
-      submissionSet = this.submission_sets[NS.Config.survey.submission_type];
+    if (this.submission_sets && this.submission_sets[Shareabouts.Config.survey.submission_type]) {
+      submissionSet = this.submission_sets[Shareabouts.Config.survey.submission_type];
       count = submissionSet ? submissionSet.length : 0;
     }
 
@@ -180,7 +177,7 @@ var Shareabouts = Shareabouts || {};
         result = '',
         args = Array.prototype.slice.call(arguments),
         exclusions, options,
-        selectedCategoryConfig = _.find(NS.Config.place.place_detail, function(categoryConfig) { return categoryConfig.category === self.location_type; }) || {};
+        selectedCategoryConfig = _.find(Shareabouts.Config.place.place_detail, function(categoryConfig) { return categoryConfig.category === self.location_type; }) || {};
 
     options = args.slice(-1)[0];
     exclusions = args.slice(0, args.length-1);
@@ -260,4 +257,70 @@ var Shareabouts = Shareabouts || {};
     return [protocol, '//', host, '/place/', place_id].join('');
   });
 
-}(Shareabouts));
+// Get the current url
+Handlebars.registerHelper('windowLocation', function(place_id) {
+  return window.location;
+});
+
+// Change new lines to <br> tags. This one is better than Swag.
+Handlebars.registerHelper('nlToBr', function(str) {
+  if (str) {
+    str = Handlebars.Utils.escapeExpression(str);
+    return new Handlebars.SafeString(str.replace(/\r?\n|\r/g, '<br>'));
+  } else {
+    return str;
+  }
+});
+
+// Date and time ------------------------------------------------------------
+Handlebars.registerHelper('formatDateTime', function(datetime, format) {
+  if (datetime) {
+    return moment(datetime).format(format);
+  }
+  return '';
+});
+
+Handlebars.registerHelper('fromNow', function(datetime) {
+  if (datetime) {
+    return moment(datetime).fromNow();
+  }
+  return '';
+});
+
+// Iteration ----------------------------------------------------------------
+Handlebars.registerHelper('times', function(n, options) {
+  var accum = '', i;
+  for(i = 0; i < n; ++i){
+    accum += options.fn(i);
+  }
+  return accum;
+});
+
+Handlebars.registerHelper('range', function(from, to, options) {
+  var accum = '', i;
+  for(i = from; i < to; i++){
+    accum += options.fn(i);
+  }
+  return accum;
+});
+
+// HTML ---------------------------------------------------------------------
+Handlebars.registerHelper('select', function(value, options) {
+  var $el = $('<div/>').html(options.fn(this)),
+    selectValue = function(v) {
+      $el.find('[value="'+v+'"]').attr({
+        checked: 'checked',
+        selected: 'selected'
+      });
+    };
+
+  if ($.isArray(value)) {
+    jQuery.each(value, function(i, v) {
+      selectValue(v);
+    });
+  } else {
+    selectValue(value);
+  }
+
+  return $el.html();
+});

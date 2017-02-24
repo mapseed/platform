@@ -1,14 +1,16 @@
-/*globals Backbone _ jQuery Handlebars */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var SupportView = require('mapseed-support-view');
 
-(function(S, $, console) {
+  var SubmissionCollection = require('../models/submission-collection.js');
+  var PlaceCollection = require('../models/place-collection.js');
+
   // Handlebars support for Marionette
   Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
     return Handlebars.compile(rawTemplate);
   };
 
-  S.PlaceListItemView = Backbone.Marionette.Layout.extend({
+  var PlaceListItemView = Backbone.Marionette.Layout.extend({
     template: '#place-detail',
     tagName: 'li',
     className: 'clearfix',
@@ -21,18 +23,18 @@ var Shareabouts = Shareabouts || {};
       'change': 'render'
     },
     initialize: function() {
-      var supportType = S.Config.support.submission_type;
+      var supportType = Shareabouts.Config.support.submission_type;
 
       this.model.submissionSets[supportType] = this.model.submissionSets[supportType] ||
-        new S.SubmissionCollection(null, {
+        new SubmissionCollection(null, {
           submissionType: supportType,
           placeModel: this.model
         });
 
-      this.supportView = new S.SupportView({
-        collection: this.model.submissionSets[S.Config.support.submission_type],
-        supportConfig: S.Config.support,
-        userToken: S.Config.userToken
+      this.supportView = new SupportView({
+        collection: this.model.submissionSets[Shareabouts.Config.support.submission_type],
+        supportConfig: Shareabouts.Config.support,
+        userToken: Shareabouts.Config.userToken
       });
     },
     onBeforeRender: function() {
@@ -59,9 +61,9 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-  S.PlaceListView = Backbone.Marionette.CompositeView.extend({
+  module.exports = Backbone.Marionette.CompositeView.extend({
     template: '#place-list',
-    itemView: S.PlaceListItemView,
+    itemView: PlaceListItemView,
     itemViewContainer: '.place-list',
     ui: {
       searchField: '#list-search',
@@ -84,7 +86,7 @@ var Shareabouts = Shareabouts || {};
 
       // This collection holds references to all place models
       // merged together, for sorting and filtering purposes
-      this.collection = new S.PlaceCollection([]);
+      this.collection = new PlaceCollection([]);
 
       _.each(this.options.placeCollections, function(collection) {
         collection.on("add", self.addModel, self);
@@ -142,7 +144,6 @@ var Shareabouts = Shareabouts || {};
     },
     handleDateSort: function(evt) {
       evt.preventDefault();
-
       this.sortBy = 'date';
       this.sort();
 
@@ -150,7 +151,6 @@ var Shareabouts = Shareabouts || {};
     },
     handleSurveyCountSort: function(evt) {
       evt.preventDefault();
-
       this.sortBy = 'surveyCount';
       this.sort();
 
@@ -158,7 +158,6 @@ var Shareabouts = Shareabouts || {};
     },
     handleSupportCountSort: function(evt) {
       evt.preventDefault();
-
       this.sortBy = 'supportCount';
       this.sort();
 
@@ -176,8 +175,8 @@ var Shareabouts = Shareabouts || {};
       }
     },
     surveyCountSort: function(a, b) {
-      var submissionA = a.submissionSets[S.Config.survey.submission_type],
-          submissionB = b.submissionSets[S.Config.survey.submission_type],
+      var submissionA = a.submissionSets[Shareabouts.Config.survey.submission_type],
+          submissionB = b.submissionSets[Shareabouts.Config.survey.submission_type],
           aCount = submissionA ? submissionA.size() : 0,
           bCount = submissionB ? submissionB.size() : 0;
 
@@ -194,8 +193,8 @@ var Shareabouts = Shareabouts || {};
       }
     },
     supportCountSort: function(a, b) {
-      var submissionA = a.submissionSets[S.Config.support.submission_type],
-          submissionB = b.submissionSets[S.Config.support.submission_type],
+      var submissionA = a.submissionSets[Shareabouts.Config.support.submission_type],
+          submissionB = b.submissionSets[Shareabouts.Config.support.submission_type],
           aCount = submissionA ? submissionA.size() : 0,
           bCount = submissionB ? submissionB.size() : 0;
 
@@ -240,7 +239,7 @@ var Shareabouts = Shareabouts || {};
             hide = function() { model.trigger('hide'); },
             submitter, 
             locationType = model.get("location_type"),
-            placeConfig = _.find(S.Config.place.place_detail, function(config) { return config.category === locationType });
+            placeConfig = _.find(Shareabouts.Config.place.place_detail, function(config) { return config.category === locationType });
 
         // If the model doesn't match one of the filters, hide it.
         for (key in filters) {
@@ -274,7 +273,7 @@ var Shareabouts = Shareabouts || {};
         }
 
         // If the location_type has a label, we should search in it also.
-        locationType = S.Config.flavor.place_types[model.get('location_type')];
+        locationType = Shareabouts.Config.flavor.place_types[model.get('location_type')];
         if (!show && locationType && locationType.label) {
           if (locationType.label.toUpperCase().indexOf(term) !== -1) {
             return show();
@@ -289,5 +288,3 @@ var Shareabouts = Shareabouts || {};
       return this.$el.is(':visible');
     }
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));
