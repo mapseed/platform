@@ -6,10 +6,7 @@
 
 @font-face {
   font-family: 'Sigmar One';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Sigmar One Regular'), local('SigmarOne-Regular'), url(https://fonts.gstatic.com/s/sigmarone/v7/aRAZJs6CY7SV6eSg6Wx4jwzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+  src: url('SigmarOne.otf');
 }
 
 #site-title a:link,
