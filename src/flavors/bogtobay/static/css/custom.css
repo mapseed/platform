@@ -15,16 +15,28 @@
 #site-title a:link,
 #site-title a:visited {
   color: #c5dea3 !important;
+  font-weight: normal;
   font-family: 'Sigmar One', sans-serif !important;
   display: block;
   float: left;
   width: 350px;
   height: 50px;
   overflow: hidden;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
 
 .menu-item a {
   color: white !important;
+  letter-spacing: 0.1em;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
 
 
