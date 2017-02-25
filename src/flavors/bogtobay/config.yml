@@ -213,6 +213,22 @@ place_types:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
+  teardropZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 60]
+        iconAnchor: [25, 25]
+        shadowSize: [50, 60]
+        shadowAnchor: [14, 60]
+    - condition: '{{map.zoom}} < 11'
+      icon:
+        iconSize: [20, 24]
+        iconAnchor: [10, 24]
+    - condition: '{{map.zoom}} >= 11'
+      icon:
+        iconSize: [38, 46]
+        iconAnchor: [19, 46]
+
   mapbox:
     # Mapbox Points
     rules:
@@ -290,7 +306,7 @@ place_types:
           iconUrl: /static/css/images/markers/marker-tree.png      
 
   pledge:
-    zoomType: roundZoomStyle
+    zoomType: teardropZoomStyle
     rules:
       - condition: 'true'
         icon:
