@@ -294,7 +294,7 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge.png
+          iconUrl: /static/css/images/markers/marker-pledge-2.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
@@ -636,7 +636,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge.png
+      icon_url: /static/css/images/markers/marker-pledge-2.png
       value: pledge
       label: _(Stewardship Pledge)
       fields:
