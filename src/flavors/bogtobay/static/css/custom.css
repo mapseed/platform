@@ -4,8 +4,18 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+@font-face {
+  font-family: 'Sigmar One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Sigmar One Regular'), local('SigmarOne-Regular'), url(https://fonts.gstatic.com/s/sigmarone/v7/aRAZJs6CY7SV6eSg6Wx4jwzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
 #site-title a:link,
 #site-title a:visited {
+  color: #c5dea3 !important;
+  font-family: 'Sigmar One', sans-serif !important;
   display: block;
   float: left;
   width: 350px;
@@ -13,14 +23,29 @@
   overflow: hidden;
 }
 
-/* reorient add a report button to bottom left when content panel is open */
+.menu-item a {
+  color: white !important;
+}
+
+
+/* =Header
+-------------------------------------------------------------- */
 @media only screen and (min-width: 60em) {
+  #site-header {
+    background: url(images/longfellow_creek1.jpg);
+  }
+
+  #site-title {
+    margin-left: 65px;
+  }
+
   .content-visible #main-btns-container {
     top: calc(100% - 85px);
     left: 15px;
     display: block;
   }
 
+  /* reorient add a report button to bottom left when content panel is open */
   .place-form-visible #main-btns-container {
     display: none !important;
   }
@@ -30,19 +55,20 @@
   }
 }
 
-/* =Header
--------------------------------------------------------------- */
-
-
-
 
 /* =Media Queries
 -------------------------------------------------------------- */
 /* iphone 4 (320 x 480)*/
 
 @media only screen and (max-width: 60em) {
+  #site-header {
+    background: none;
+    background-color: #605245;
+  }
+
   #site-title a:link,
   #site-title a:visited {
+    margin-top: 5px !important;
     width: 180px;
     height: 25px;
     background-size: 180px auto;
