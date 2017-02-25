@@ -16,7 +16,7 @@
 #site-title a:visited {
   color: #c5dea3 !important;
   font-weight: normal;
-  font-family: 'Sigmar One', sans-serif !important;
+  font-family: 'Sigmar One', 'Arial Black', sans-serif !important;
   display: block;
   float: left;
   width: 350px;
