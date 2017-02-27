@@ -4,19 +4,44 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+@font-face {
+  font-family: 'Permanent Marker';
+  src: url('PermanentMarker.ttf');
+}
 
 /* =Header
 -------------------------------------------------------------- */
-
-
-/* =Media Queries
--------------------------------------------------------------- */
-
-@media only screen and (min-width: 768px) {
+#site-title a:link,
+#site-title a:visited {
+  color: #e6f2ff !important;
+  font-weight: normal;
+  font-family: 'Permanent Marker', cursive !important;
+  display: block;
+  float: left;
+  margin-right: 50px;
+}
+	
+.menu-item a {
+  color: white !important;
+  letter-spacing: 0.1em;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 60em) {
+  #site-header {
+    background: url(images/lake-washington-banner.png) !important;
+  }
 }
 
-@media only screen and (min-width: 1300px) {
+@media only screen and (max-width: 60em) {
+	#site-header {
+		background: none;
+		background-color: #7fb9e1;
+	}
+
+	#site-title a:link,
+  #site-title a:visited {
+    font-size: 1.8em;
+    margin-right: 0;
+    margin-top: 5px;
+  }
 }
