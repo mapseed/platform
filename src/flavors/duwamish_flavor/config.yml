@@ -85,6 +85,7 @@ map:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: duwamish
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
       type: place
       slug: report
 
@@ -103,6 +104,7 @@ map:
       slug: restoration
 
     - id: trees
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees
       type: place
       slug: trees
 
@@ -111,6 +113,7 @@ map:
       slug: featured
 
     - id: air
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
       type: place
       slug: air
 
