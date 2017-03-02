@@ -658,8 +658,8 @@
     },
     viewPlaceOrLandmark: function(args) {
       var self = this,
-        includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-        layout = S.Util.getPageLayout(),
+        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+        layout = Util.getPageLayout(),
         onFound, onNotFound, searchLoadedCollections, createCollectionsListeners,
         foundInCallback = false;
 

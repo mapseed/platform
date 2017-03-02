@@ -106,7 +106,7 @@
       }
     },
     onMarkerClick: function() {
-      S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
+      Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
       // support places with landmark-style urls
       if (this.model.get("url-title")) {
         this.options.router.navigate('/' + this.model.get("url-title"), {trigger: true});
