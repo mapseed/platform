@@ -39,12 +39,13 @@
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
   {% if settings.DEBUG %}
-  <!-- jQuery date-time picker plugin -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
   <!-- QuillJS -->
   <link href="https://cdn.quilljs.com/1.1.4/quill.snow.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+
+  <!-- jQuery date-time picker plugin -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css?ver=0.7.4.1"></link>
   {% endif %}
@@ -88,6 +89,12 @@
     {% block pre_pages_nav %}{% endblock %}
     <div id="pages-nav-container"></div>
     {% block post_pages_nav %}{% endblock %}
+
+    {% if config.data.app.list_enabled != False %}
+    <nav class="list-toggle-nav">
+      <a href="#" class="list-toggle-btn btn btn-block"><span class="show-the-map is-visuallyhidden">{{ config.place.show_map_button_label }}</span><span class="is-screen-reader-text">/</span><span class="show-the-list">{{ config.place.show_list_button_label }}</span></a>
+    </nav>
+    {% endif %}
 
     {% if config.map.counter %}
       <div id="place-counter" class="list-toggle-nav"></div>
@@ -225,26 +232,21 @@
   <script src="{{STATIC_URL}}libs/gatekeeper.js"></script>
   <script src="{{STATIC_URL}}libs/swag.min.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
-
+  
   <script>
     moment.locale('{{LANGUAGE_CODE}}');
-
     $(function() {
       // Check official browser support.
       var userAgent = {{ user_agent_json|safe }};
-
       if (!Shareabouts.Util.isSupported(userAgent)) {
         var userAgentData = userAgent,
             $unsupportedEl = $('.unsupported-overlay'),
             unsupportedHtml;
-
         userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
         unsupportedHtml = Handlebars.templates['unsupported-overlay'](userAgentData);
-
         $unsupportedEl.hide();
         $unsupportedEl.html(unsupportedHtml);
         $unsupportedEl.slideDown();
-
         $unsupportedEl.find('.close-btn').click(function(evt) {
           evt.preventDefault();
           $unsupportedEl.slideUp();
@@ -263,14 +265,12 @@
       mapQuestKey: '{{ settings.MAPQUEST_KEY }}',
       mapboxToken: '{{ settings.MAPBOX_TOKEN }}'
     };
-
     function bootstrapCurrentUser(data) {
       // Handle the case when we are logged into the admin panel
       if (data && !data.avatar_url) data.avatar_url = "{{ STATIC_URL }}css/images/user-50.png"
       if (data && !data.name) data.name = data.username
       Shareabouts.bootstrapped.currentUser = data;
     }
-
     function setApiSessionCookie(data) {
       if (data) {
         Shareabouts.Util.cookies.save('sa-api-sessionid', data.sessionid);
@@ -278,34 +278,7 @@
     }
   </script>
 
-  {% if settings.DEBUG %}
-  <script src="{{STATIC_URL}}js/handlebars-helpers.js"></script>
-  <script src="{{STATIC_URL}}js/models.js"></script>
-  <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/auth-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/app-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/basic-layer-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/map-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/support-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/landmark-detail-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/landmark-survey-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-counter-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/geocode-address-place-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/sidebar-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/legend-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/gis-legend-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/rich-text-editor-view.js"></script>
-  <script src="{{STATIC_URL}}js/routes.js"></script>
-  {% else %}
-  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.0"></script>
-  {% endif %}
+  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.4.1"></script>
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
@@ -323,7 +296,6 @@
         S.bootstrapped.currentUser ?
         'user:' + S.bootstrapped.currentUser.id :
         {{ user_token_json|safe }}),
-
       flavor:     {{ config.data|as_json }},
       place:      {{ config.place|as_json }},
       placeTypes: {{ config.place_types|as_json }},
@@ -337,15 +309,12 @@
       pages:      {{ pages_config_json|safe }},
       story:      {{ config.story|as_json }}
     };
-
     $(function() {
       // Ready set go!
       window.app = new Shareabouts.App({
         activity: [],
-
         defaultPlaceTypeName: S.Config.defaultPlaceTypeName,
         userToken: S.Config.userToken,
-
         config: S.Config.flavor,
         placeConfig: S.Config.place,
         placeTypes: S.Config.placeTypes,
@@ -359,9 +328,7 @@
         pagesConfig: S.Config.pages
       });
     });
-
   }(Shareabouts, jQuery));
-
   </script>
 
   {% if settings.GOOGLE_ANALYTICS_ID %}
@@ -370,7 +337,6 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
     ga('create', '{{ settings.GOOGLE_ANALYTICS_ID }}', '{{ settings.GOOGLE_ANALYTICS_DOMAIN|default:"auto" }}');
     // Set the language-code
     ga('set', 'dimension2', '{{ LANGUAGE_CODE }}');
