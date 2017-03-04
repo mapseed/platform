@@ -4,6 +4,9 @@ var AttachmentCollection = require('./attachment-collection.js');
 var ModelUtils = require('./model-utils.js');
 
 module.exports = Backbone.Model.extend({
+  defaults: {
+    type: "place"
+  },
   initialize: function() {
     var attachmentData;
 

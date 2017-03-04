@@ -63,33 +63,11 @@
     height: calc(100% - #{$header-height-fullscreen} - 15px);
 }
 
-.right-sidebar-visible {
-    #right-sidebar-container {
-        position: absolute;
-        right: 0;
-        width: $sidebar-width;
-        overflow: visible;
-        box-shadow: (-0.325em) 0 0 $opacity-very-low-black;
-        z-index: 10;
-    }
-    #right-sidebar-content {
-        overflow: auto;
-        height: 100%;
-    }
-    .collapse-btn:before {
-        content: "\276F";
-    }
-}
-.right-sidebar-collapsed {
-    #right-sidebar-container {
-        width: 0;
-    }
+#right-sidebar-container {
+    width: 0;
     .collapse-btn:before {
         content: "\276E";
     }
-}
-
-#right-sidebar-container {
     #right-sidebar-spinner {
         position: absolute;
         top: 50%;
@@ -249,6 +227,23 @@
     }
 }
 
+.right-sidebar-visible {
+    #right-sidebar-container {
+        position: absolute;
+        right: 0;
+        width: $sidebar-width;
+        overflow: visible;
+        box-shadow: (-0.325em) 0 0 $opacity-very-low-black;
+        z-index: 10;
+    }
+    #right-sidebar-content {
+        overflow: auto;
+        height: 100%;
+    }
+    .collapse-btn:before {
+        content: "\276F" !important;
+    }
+}
 
 
 

@@ -449,6 +449,19 @@
     }
 
     .right-sidebar-active {
+        #map-container {
+            width: 100%;
+        }
+        &.content-visible {
+            #map-container {
+                width: $map-width-when-content-visible;
+            }
+            #content {
+                left: $content-visible-left-offset;
+                width: $content-visible-width;
+            }
+        }
+
         &.right-sidebar-visible {
             #map-container {
                 width: $map-width-when-sidebar-visible;
@@ -459,20 +472,6 @@
                 }
                 #content {
                     left: $content-visible-with-sidebar-left-offset;
-                }
-            }
-        }
-        &.right-sidebar-collapsed {
-            #map-container {
-                width: 100%;
-            }
-            &.content-visible {
-                #map-container {
-                    width: $map-width-when-content-visible;
-                }
-                #content {
-                    left: $content-visible-left-offset;
-                    width: $content-visible-width;
                 }
             }
         }
