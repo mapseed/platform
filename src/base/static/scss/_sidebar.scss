@@ -65,6 +65,8 @@
 
 #right-sidebar-container {
     width: 0;
+    position: absolute;
+    right: 0;
     .collapse-btn:before {
         content: "\276E";
     }
