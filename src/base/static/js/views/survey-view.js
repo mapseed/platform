@@ -66,7 +66,7 @@
         user_submitted: !!this.userSubmission,
         survey_config: this.options.surveyConfig,
         isEditingToggled: this.options.placeDetailView.isEditingToggled
-      }, S.stickyFieldValues);
+      }, Shareabouts.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-detail-survey'](data));
 

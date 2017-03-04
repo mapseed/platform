@@ -2,6 +2,7 @@
 
   var SurveyView = require('mapseed-survey-view');
   var SupportView = require('mapseed-support-view');
+  var RichTextEditorView = require('mapseed-rich-text-editor-view');
 
   var SubmissionCollection = require('../models/submission-collection.js');
 
@@ -78,8 +79,8 @@
       });
 
       // Is this user authenticated (i.e. able to edit place detail views)?
-      if (S.bootstrapped.currentUser && S.bootstrapped.currentUser.groups) {
-        _.each(S.bootstrapped.currentUser.groups, function(group) {
+      if (Shareabouts.bootstrapped.currentUser && Shareabouts.bootstrapped.currentUser.groups) {
+        _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
           // get the name of the datasetId from the end of the full url
           // provided in S.bootstrapped.currentUser.groups
           var url = group.dataset.split("/"),
@@ -95,11 +96,11 @@
 
     saveDraftChanges: function() {
       var attrs = this.scrapeForm();
-      S.Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30) // save for 30 days
+      Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30) // save for 30 days
     },
 
     clearDraftChanges: function() {
-      S.Util.localstorage.destroy(this.LOCALSTORAGE_KEY);
+      Util.localstorage.destroy(this.LOCALSTORAGE_KEY);
     },
 
     onClickStoryPrevious: function() {
@@ -141,10 +142,10 @@
 
       // Augment the data with any draft changes saved to localstorage
       if (this.isEditingToggled &&
-          S.Util.localstorage.get(this.LOCALSTORAGE_KEY)) {
+          Util.localstorage.get(this.LOCALSTORAGE_KEY)) {
         this.isModified = true;
         data.isModified = true;
-        _.extend(data, S.Util.localstorage.get(this.LOCALSTORAGE_KEY));
+        _.extend(data, Util.localstorage.get(this.LOCALSTORAGE_KEY));
       }  
 
       this.$el.html(Handlebars.templates['place-detail'](data));
@@ -185,9 +186,9 @@
         });
 
         $(".rich-text-field").each(function() {
-          new S.RichTextEditorView({
+          new RichTextEditorView({
             target: $(this).get(0),
-            onModified: self.onModified,
+            placeDetailView: self,
             fieldName: $(this).find(".place-value").attr("name")
           });
         });
@@ -219,7 +220,7 @@
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
-        S.Util.fileToCanvas(file, function(canvas) {
+        Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
             //var fieldName = $(evt.target).attr('name'),
             var fieldName = Math.random().toString(36).substring(7),
@@ -290,8 +291,8 @@
         richTextAttrs[$(this).data("fieldName")] = $(this).html();
       });
 
-      var attrs = _.extend(S.Util.getAttrs($("#update-place-model-form")), 
-        S.Util.getAttrs($("#update-place-model-title-form")),
+      var attrs = _.extend(Util.getAttrs($("#update-place-model-form")), 
+        Util.getAttrs($("#update-place-model-title-form")),
         richTextAttrs);
 
       // special handling for binary toggle buttons: we need to remove
