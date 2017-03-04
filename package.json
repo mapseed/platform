@@ -37,6 +37,7 @@
     "node-env-file": "^0.1.7",
     "node-sass": "^4.0.0",
     "shelljs": "^0.5.3",
+    "togeojson": "^0.16.0",
     "webpack": "^2.2.1"
   },
   "devDependencies": {

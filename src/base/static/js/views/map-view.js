@@ -2,6 +2,7 @@
 
   var BasicLayerView = require('mapseed-basic-layer-view');
   var LayerView = require('mapseed-layer-view');
+  var toGeoJSON = require('togeojson');
 
   module.exports = Backbone.View.extend({
     events: {
