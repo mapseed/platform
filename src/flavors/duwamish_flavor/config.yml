@@ -109,7 +109,6 @@ map:
       type: place
       slug: trees
 
-<<<<<<< 5eb4dcd00a43c3424131ab86406ee32f6538b7a5
     - id: vision
       type: place
       slug: vision
@@ -117,11 +116,10 @@ map:
     - id: duwamishfeatured
       type: place
       slug: featured
-=======
-    # - id: air
-    #   type: place
-    #   slug: air
->>>>>>> Add sidebar story navigator
+
+    - id: air
+      type: place
+      slug: air
 
        # WRIA9 watershed
     - id: watershed
@@ -640,9 +638,13 @@ sidebar:
               title: _(Stories)
               visibleDefault: false
 
-            # - id: trees
-            #   title: _(Trees!)
-            #   visibleDefault: true
+            - id: trees
+              title: _(Trees!)
+              visibleDefault: true
+
+            - id: air
+              title: _(Air Watch Reports)
+              visibleDefault: true
 
             - id: vision
               title: _(Community Vision)
@@ -690,6 +692,8 @@ sidebar:
               title: _(Original River Path)
               visibleDefault: false
 
+    # NOTE: ticker is commented out here as it appears in the right sidebar.
+    # Uncomment these lines to restore the ticker to the Leaflet sidebar.
     # - id: ticker
     #   view: ActivityView
     #   icon: comments-o
