@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - on our `develop` branch (unreleased)
-### Added
+
+## [0.7.5] - 2017-03-04
+### Changed
+ - Replaced 'eval' statements with a static eval and AST parser
 
 ## [0.7.4] - 2017-02-19
 ### Added
@@ -69,7 +72,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.6.0 - 2016-02-06
 
-[Unreleased]: https://github.com/smartercleanup/platform/compare/0.7.3...develop
+[Unreleased]: https://github.com/smartercleanup/platform/compare/0.7.5...develop
+[0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.4...0.7.5
 [0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.3...0.7.4
 [0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.2...0.7.3
 [0.7.2]: https://github.com/smartercleanup/platform/compare/0.7.1...0.7.2
