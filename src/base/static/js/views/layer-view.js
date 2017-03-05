@@ -1,4 +1,5 @@
   var Util = require('../utils.js');
+  var Argo = require('../../libs/leaflet.argo.js');
 
   module.exports = Backbone.View.extend({
      // A view responsible for the representation of a place on the map.
