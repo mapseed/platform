@@ -656,18 +656,30 @@
         });
       });
     },
+
     viewPlaceOrLandmark: function(args) {
       var self = this,
-        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
-        layout = Util.getPageLayout(),
-        onFound, onNotFound, searchLoadedCollections, createCollectionsListeners,
-        foundInCallback = false;
+          layout = Util.getPageLayout();
 
-      onFound = function(model, type, datasetId) {
+      Util.getPlaceFromCollections(
+        {
+          places: this.places,
+          landmarks: this.landmarks
+        },
+        args,
+        this.options.mapConfig,
+        {
+          onFound: _.bind(onFound, this),
+          onNotFound: _.bind(onNotFound, this)
+        }
+      );
+
+      function onFound(model, type, datasetId) {
         var map = self.mapView.map,
-          layer, center, zoom, detailView, $responseToScrollTo;
+            layer, center, zoom, detailView, $responseToScrollTo;
 
         if (type === "place") {
+
           // If this model is a duplicate of one that already exists in the
           // places collection, it may not correspond to a layerView. For this
           // case, get the model that's actually in the places collection.
@@ -676,7 +688,7 @@
           }
 
           // TODO: We need to handle the non-deterministic case when
-          // 'self.mapView.layerViews[datasetId][model.cid]` is undefined -- ????
+          // 'self.mapView.layerViews[datasetId][model.cid]` is undefined
           if (self.mapView.layerViews[datasetId] 
             && self.mapView.layerViews[datasetId][model.cid]) {
             layer = self.mapView.layerViews[datasetId][model.cid].layer;
@@ -695,7 +707,7 @@
         self.destroyNewModels();
         self.hideCenterPoint();
         self.setBodyClass('content-visible');
-        self.addSpotlightMask();
+        self.showSpotlightMask();
 
         if (layer) {
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
@@ -703,7 +715,7 @@
           
           if (model.get("story")) {
             if (!model.get("story").spotlight) {
-              $("#spotlight-place-mask").remove();
+              self.hideSpotlightMask();
             }
             self.isStoryActive = true;
             self.isProgrammaticZoom = true;
@@ -714,13 +726,11 @@
 
           if (layer.getLatLng) {
             map.setView(center, zoom, {
-              animate: true,
-              reset: (args.loading) ? true : false
+              animate: true
             });
           } else {
             map.fitBounds(layer.getBounds(), {
-              animate: true,
-              reset: (args.loading) ? true : false
+              animate: true
             });
           }
         }
@@ -746,90 +756,10 @@
         }
       };
 
-      onNotFound = function() {
+      function onNotFound() {
         self.options.router.navigate('/');
         return;
       };
-
-      searchLoadedCollections = function(collections, property, type) {
-        var found = false,
-        searchTerm = {};
-        searchTerm[property] = args.modelId;
-        _.find(collections, function(collection, datasetId) {
-          var model = collection.where(searchTerm);
-          if (model.length === 1) {
-            found = true;
-            onFound(model[0], type, datasetId);
-            return;
-          }
-        });
-
-        return found;
-      };
-
-      bindCollectionsListeners = function(collections, property, type, finalCollection) {
-        var numCollections = _.keys(collections).length,
-        i = 0,
-        searchTerm = {};
-        searchTerm[property] = args.modelId;
-        _.each(collections, function(collection, datasetId) {
-          collection.on("sync", function(syncedCollection) {
-            i++;
-            var model = syncedCollection.where(searchTerm);
-            if (model.length === 1) {
-              foundInCallback = true;
-              onFound(model[0], type, datasetId);
-            } else if (numCollections === i && finalCollection && !foundInCallback) {
-              // if this is the last collection of the set and the final
-              // set of collections and no model has been found, it means the
-              // model doesn't exist.
-              onNotFound();
-            }
-          });
-        });
-      };
-
-      if (args.datasetSlug) {
-        // If we have a slug, we definitely have a place model
-        var datasetId = _.find(self.options.mapConfig.layers, function(layer) { 
-          return layer.slug === args.datasetSlug;
-        }).id;
-        model = this.places[datasetId].get(args.modelId);
-        if (model) {
-          onFound(model, "place", datasetId);
-          return;
-        } else {
-          this.places[datasetId].fetchById(args.modelId, {
-            validate: true,
-            success: function(model) {
-              onFound(model, "place", datasetId);
-              return;
-            },
-            error: function() {
-              onNotFound();
-              return;
-            },
-            data: {
-              include_submissions: includeSubmissions
-            }
-          });
-        }
-      } else {
-        // Otherwise, we have a landmark-style url, which may correspond
-        // to a place or a landmark.
-        // Conduct a search according to the following strategy: 
-        // 1. check loaded place collections
-        // 2. check loaded landmark collections
-        // 3. set up sync listeners on all place and landmark collections
-        if (searchLoadedCollections(this.places, "url-title", "place")) {
-          return;
-        };
-        if (searchLoadedCollections(this.landmarks, "id", "landmark")) {
-          return;
-        };
-        bindCollectionsListeners(this.places, "url-title", "place", false);
-        bindCollectionsListeners(this.landmarks, "id", "landmark", true);
-      }
     },
 
     viewPage: function(slug) {
