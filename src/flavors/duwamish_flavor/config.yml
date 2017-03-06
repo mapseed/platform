@@ -103,11 +103,6 @@ map:
       type: place
       slug: trees
 
-    - id: air
-      type: place
-      slug: air
-
-
     - id: vision
       type: place
       slug: vision
@@ -616,10 +611,6 @@ sidebar:
 
             - id: trees
               title: _(Trees!)
-              visibleDefault: false
-
-            - id: air
-              title: _(Air Watch Reports)
               visibleDefault: false
 
             - id: vision
