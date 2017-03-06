@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - on our `develop` branch (unreleased)
 
-## [0.7.5] - 2017-03-04
+## [0.7.5] - 2017-03-05
 ### Changed
  - Replaced 'eval' statements with a static eval and AST parser
+ - Refactored pboakland flavor-specific views to extend from base views, instead of overriding the base views.
 
 ## [0.7.4] - 2017-02-19
 ### Added
