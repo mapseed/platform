@@ -196,10 +196,10 @@ sidebar:
       basemaps:
         - id: transport
           title: _(Transportation)
-          visibleDefault: false
+          visibleDefault: true
         - id: pioneer
           title: _(Pioneer)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
