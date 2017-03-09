@@ -197,3 +197,45 @@ img {
 .icon-muted {
     opacity: 0.75;
 }
+
+/* Overrides for Quill rich text editor styles. We set these to prevent text 
+   styles within the rich text editor from rendering in a different style than
+   they do in place detail views
+*/
+
+.ql-editor {
+    h1, h2 {
+        font-size: 2em !important;
+        font-family: "Roboto", sans-serif !important;
+        margin-bottom: 0.25em !important;
+    }
+
+    h3 {
+        font-size: 1.75em !important;
+        font-family: "Roboto", sans-serif !important;
+        margin-bottom: 0.25em !important;
+    }
+
+    h4 {
+        font-size: 1.5em !important;
+        font-family: "Roboto", sans-serif !important;
+        margin-bottom: 0.25em !important;
+    }
+
+    h5 {
+        font-size: 1.25em !important;
+        font-family: "Roboto", sans-serif !important;
+        margin-bottom: 0.25em !important;
+    }
+
+    h6 {
+        font-size: 1em !important;
+        font-family: "Roboto", sans-serif !important;
+        margin-bottom: 0.25em !important;
+        text-transform: uppercase !important;
+    }    
+
+    p {
+        margin-bottom: 1.5em !important;
+    }
+}
