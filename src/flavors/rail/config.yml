@@ -195,7 +195,7 @@ sidebar:
       title: _(Map Layers:)
       basemaps:
         - id: transport
-          title: _(OpenStreetMap)
+          title: _(Transportation)
           visibleDefault: false
         - id: pioneer
           title: _(Pioneer)
