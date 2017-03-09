@@ -49,7 +49,11 @@ map:
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: transport
-      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
+      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e72cddbdee5d4ecc81f5731d89655980
+      attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: pioneer
+      url: //{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=e72cddbdee5d4ecc81f5731d89655980
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -192,6 +196,9 @@ sidebar:
       basemaps:
         - id: transport
           title: _(OpenStreetMap)
+          visibleDefault: false
+        - id: pioneer
+          title: _(Pioneer)
           visibleDefault: true
         - id: satellite
           title: _(Satellite View)
