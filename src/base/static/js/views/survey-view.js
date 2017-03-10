@@ -53,7 +53,7 @@
         responses.push(_.extend(model.toJSON(), {
           submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
           cid: model.cid,
-          pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
+          pretty_created_datetime: Util.getPrettyDateTime(model.get('created_datetime'),
             self.options.surveyConfig.pretty_datetime_format),
           items: items
         }));
@@ -161,7 +161,7 @@
       var cid = $(evt.target).parent().data("cid"),
       model = this.collection.get(cid),
       $form = $(evt.target).siblings("form"),
-      attrs = S.Util.getAttrs($form);
+      attrs = Util.getAttrs($form);
       model.set(attrs).save({}, {
         success: function() {
           $(evt.target).addClass("faded").prop("disabled", true);
