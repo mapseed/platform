@@ -11,8 +11,8 @@
 
 #site-title a:link,
 #site-title a:visited {
-  color: #acd670 !important;
-  font-weight: normal;
+  color: #4ee350 !important;
+  font-weight: normal !important;
   font-family: 'Sigmar One', 'Arial Black', sans-serif !important;
   display: block;
   float: left;
@@ -23,7 +23,7 @@
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;*/
-  text-shadow: 2px -2px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.7);
 }
 
 /* =Header
