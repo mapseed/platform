@@ -38,8 +38,8 @@ map:
 
   options:
     center:
-      lat: 47.53163
-      lng: -122.35504
+      lat: 47.54406
+      lng: -122.36087
     zoom: 14
     minZoom: 1
     maxZoom: 18
@@ -59,6 +59,14 @@ map:
 
     - id: light
       url: //api.mapbox.com/styles/v1/smartercleanup/cizhuxpgi00042so2kw8c1lfl/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+<<<<<<< HEAD
+=======
+      attribution: 'Hello World'
+      type: basemap
+
+    - id: outdoor
+      url: //api.mapbox.com/styles/v1/smartercleanup/cir0yq1nl001lbsnh22c6747c/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+>>>>>>> cb73dac7b86c207c60770af10deb2b5846ddb20e
       attribution: 'Hello World'
       type: basemap
 
@@ -210,6 +218,22 @@ place_types:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
+  teardropZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 60]
+        iconAnchor: [25, 25]
+        shadowSize: [50, 60]
+        shadowAnchor: [14, 60]
+    - condition: '{{map.zoom}} < 11'
+      icon:
+        iconSize: [20, 24]
+        iconAnchor: [10, 24]
+    - condition: '{{map.zoom}} >= 11'
+      icon:
+        iconSize: [38, 46]
+        iconAnchor: [19, 46]
+
   mapbox:
     # Mapbox Points
     rules:
@@ -287,11 +311,11 @@ place_types:
           iconUrl: /static/css/images/markers/marker-tree.png      
 
   pledge:
-    zoomType: roundZoomStyle
+    zoomType: teardropZoomStyle
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge.png
+          iconUrl: /static/css/images/markers/marker-pledge-2.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
@@ -507,12 +531,15 @@ sidebar:
       basemaps:
         - id: osm
           title: _(OpenStreetMap)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
         - id: light
           title: _(Light)
+          visibleDefault: true
+        - id: outdoor
+          title: _(Outdoor)
           visibleDefault: false
       groupings:
         - id: grp-community
@@ -630,7 +657,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge.png
+      icon_url: /static/css/images/markers/marker-pledge-2.png
       value: pledge
       label: _(Stewardship Pledge)
       fields:
@@ -978,6 +1005,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1022,3 +1050,5 @@ story:
         basemap: satellite
       - url: bioswale
       - url: longfellow
+        zoom: 14
+        basemap: light

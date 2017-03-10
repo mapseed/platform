@@ -1,9 +1,9 @@
-/* globals L Backbone _ */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var BasicLayerView = require('mapseed-basic-layer-view');
+  var LayerView = require('mapseed-layer-view');
 
-(function(S, $, console){
-  S.MapView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     events: {
       'click .locate-me': 'onClickGeolocate'
     },
@@ -11,10 +11,10 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           i, layerModel,
           logUserZoom = function() {
-            S.Util.log('USER', 'map', 'zoom', self.map.getBounds().toBBoxString(), self.map.getZoom());
+            Util.log('USER', 'map', 'zoom', self.map.getBounds().toBBoxString(), self.map.getZoom());
           },
           logUserPan = function(evt) {
-            S.Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
+            Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
           };
 
       this.map = L.map(self.el, self.options.mapConfig.options);
@@ -42,19 +42,19 @@ var Shareabouts = Shareabouts || {};
       $(self.map.zoomControl._zoomOutButton).click(logUserZoom);
 
       self.map.on('zoomend', function(evt) {
-        S.Util.log('APP', 'zoom', self.map.getZoom());
-        $(S).trigger('zoomend', [evt]);
+        Util.log('APP', 'zoom', self.map.getZoom());
+        $(Shareabouts).trigger('zoomend', [evt]);
       });
 
       self.map.on('moveend', function(evt) {
-        S.Util.log('APP', 'center-lat', self.map.getCenter().lat);
-        S.Util.log('APP', 'center-lng', self.map.getCenter().lng);
+        Util.log('APP', 'center-lat', self.map.getCenter().lat);
+        Util.log('APP', 'center-lng', self.map.getCenter().lng);
 
-        $(S).trigger('mapmoveend', [evt]);
+        $(Shareabouts).trigger('mapmoveend', [evt]);
       });
 
       self.map.on('dragend', function(evt) {
-        $(S).trigger('mapdragend', [evt]);
+        $(Shareabouts).trigger('mapdragend', [evt]);
       });
 
       // Bind shareabouts collections event listeners
@@ -75,7 +75,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Bind visiblity event for custom layers
-      $(S).on('visibility', function (evt, id, visible, isBasemap) {
+      $(Shareabouts).on('visibility', function (evt, id, visible, isBasemap) {
         var layer = self.layers[id],
         config = _.find(self.options.mapConfig.layers, function(c) {
           return c.id === id;
@@ -118,11 +118,11 @@ var Shareabouts = Shareabouts || {};
     },
     reverseGeocodeMapCenter: _.debounce(function() {
       var center = this.map.getCenter();
-      S.Util.MapQuest.reverseGeocode(center, {
+      Util.MapQuest.reverseGeocode(center, {
         success: function(data) {
           var locationsData = data.results[0].locations;
-          // S.Util.console.log('Reverse geocoded center: ', data);
-          $(S).trigger('reversegeocode', [locationsData[0]]);
+          // Util.console.log('Reverse geocoded center: ', data);
+          $(Shareabouts).trigger('reversegeocode', [locationsData[0]]);
         }
       });
     }, 1000),
@@ -179,7 +179,7 @@ var Shareabouts = Shareabouts || {};
     },
     onClickGeolocate: function(evt) {
       evt.preventDefault();
-      S.Util.log('USER', 'map', 'geolocate', this.map.getBounds().toBBoxString(), this.map.getZoom());
+      Util.log('USER', 'map', 'geolocate', this.map.getBounds().toBBoxString(), this.map.getZoom());
       this.geolocate();
     },
     geolocate: function() {
@@ -187,7 +187,7 @@ var Shareabouts = Shareabouts || {};
     },
     addLandmarkLayerView: function(collectionId) {
       return function(model) {
-        this.layerViews[collectionId][model.id] = new S.BasicLayerView({
+        this.layerViews[collectionId][model.id] = new BasicLayerView({
           model: model,
           router: this.options.router,
           map: this.map,
@@ -207,7 +207,7 @@ var Shareabouts = Shareabouts || {};
     },
     addLayerView: function(collectionId) {
       return function(model) {
-        this.layerViews[collectionId][model.cid] = new S.LayerView({
+        this.layerViews[collectionId][model.cid] = new LayerView({
           model: model,
           router: this.options.router,
           map: this.map,
@@ -371,7 +371,7 @@ var Shareabouts = Shareabouts || {};
             }
           })
           .on('error', function(err) {
-            S.Util.log('Cartodb layer creation error:', err);
+            Util.log('Cartodb layer creation error:', err);
           });
       } else if (config.layers) {
         // If "layers" is present, then we assume that the config
@@ -399,5 +399,3 @@ var Shareabouts = Shareabouts || {};
       }
     }
   });
-
-})(Shareabouts, jQuery, Shareabouts.Util.console);

@@ -1,15 +1,14 @@
-/*globals jQuery Backbone _ Handlebars Spinner Gatekeeper */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  var TemplateHelpers = require('../template-helpers.js');
 
-(function(S, $, console){
-  S.SurveyView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
       'click .reply-link': 'onReplyClick'
     },
     initialize: function() {
-      S.TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
+      TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
 
       this.collection.on('reset', this.onChange, this);
       this.collection.on('add', this.onChange, this);
@@ -32,7 +31,7 @@ var Shareabouts = Shareabouts || {};
           responses = [],
           url = window.location.toString(),
           urlParts = url.split('response/'),
-          layout = S.Util.getPageLayout(),
+          layout = Util.getPageLayout(),
           responseIdToScrollTo, $responseToScrollTo, data;
 
       // get the response id from the url
@@ -47,11 +46,11 @@ var Shareabouts = Shareabouts || {};
       // Responses should be an array of objects with submitter_name,
       // pretty_created_datetime, and items (name, label, and prompt)
       this.collection.each(function(model, i) {
-        var items = S.TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
+        var items = TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
 
         responses.push(_.extend(model.toJSON(), {
           submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
-          pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
+          pretty_created_datetime: Util.getPrettyDateTime(model.get('created_datetime'),
             self.options.surveyConfig.pretty_datetime_format),
           items: items
         }));
@@ -63,7 +62,7 @@ var Shareabouts = Shareabouts || {};
         user_token: this.options.userToken,
         user_submitted: !!this.userSubmission,
         survey_config: this.options.surveyConfig
-      }, S.stickyFieldValues);
+      }, Shareabouts.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-detail-survey'](data));
 
@@ -101,17 +100,17 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           $form = this.$('form'),
           $button = this.$('[name="commit"]'),
-          attrs = S.Util.getAttrs($form),
+          attrs = Util.getAttrs($form),
           spinner;
 
       // Disable the submit button until we're done, so that the user doesn't
       // over-click it
       $button.attr('disabled', 'disabled');
-      spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
+      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
 
-      S.Util.log('USER', 'place', 'submit-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
+      Util.log('USER', 'place', 'submit-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
 
-      S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
+      Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
 
       // Create a model with the attributes from the form
       this.collection.create(attrs, {
@@ -119,10 +118,10 @@ var Shareabouts = Shareabouts || {};
         success: function() {
           // Clear the form
           $form.get(0).reset();
-          S.Util.log('USER', 'place', 'successfully-reply', self.collection.options.placeModel.getLoggingDetails());
+          Util.log('USER', 'place', 'successfully-reply', self.collection.options.placeModel.getLoggingDetails());
         },
         error: function() {
-          S.Util.log('USER', 'place', 'fail-to-reply', self.collection.options.placeModel.getLoggingDetails());
+          Util.log('USER', 'place', 'fail-to-reply', self.collection.options.placeModel.getLoggingDetails());
         },
         complete: function() {
           // No matter what, enable the button
@@ -135,9 +134,6 @@ var Shareabouts = Shareabouts || {};
     onReplyClick: function(evt) {
       evt.preventDefault();
       this.$('textarea, input').not('[type="hidden"]').first().focus();
-      S.Util.log('USER', 'place', 'leave-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
+      Util.log('USER', 'place', 'leave-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
     }
-
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

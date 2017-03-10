@@ -1,34 +1,49 @@
-/*globals _ jQuery L Backbone Handlebars */
+  var Util = require('../utils.js');
 
-var Shareabouts = Shareabouts || {};
+  // Views
+  var MapView = require('mapseed-map-view');
+  var PagesNavView = require('mapseed-pages-nav-view');
+  var AuthNavView = require('mapseed-auth-nav-view');
+  var LandmarkDetailView = require('mapseed-landmark-detail-view');
+  var PlaceListView = require('mapseed-place-list-view');
+  var SidebarView = require('mapseed-sidebar-view');
+  var ActivityView = require('mapseed-activity-view');
+  var GeocodeAddressView = require('mapseed-geocode-address-view');
+  var PlaceCounterView = require('mapseed-place-counter-view');
+  var PlaceDetailView = require('mapseed-place-detail-view');
+  var PlaceFormView = require('mapseed-place-form-view');
+  var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
 
-(function(S, $, console){
-  // Spinner options
-  S.bigSpinnerOptions = {
+  // Models
+  var PlaceModel = require('../models/place-model.js');
+  var LandmarkModel = require('../models/landmark-model.js');
+
+  // Spinner options -- these need to be own modules
+  Shareabouts.bigSpinnerOptions = {
     lines: 13, length: 0, width: 10, radius: 30, corners: 1, rotate: 0,
     direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
     hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
     left: 'auto'
   };
 
-  S.smallSpinnerOptions = {
+  Shareabouts.smallSpinnerOptions = {
     lines: 13, length: 0, width: 3, radius: 10, corners: 1, rotate: 0,
     direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
     hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
     left: 'auto'
   };
 
-  S.AppView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
     events: {
       'click #add-place': 'onClickAddPlaceBtn',
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
       'click .minimize-btn': 'onClickMinimizeBtn'
     },
-    initialize: function(){
+    initialize: function() {
       var self = this,
           // Only include submissions if the list view is enabled (anything but false)
-          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
+          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
           placeParams = {
             // NOTE: this is to simply support the list view. It won't
             // scale well, so let's think about a better solution.
@@ -37,8 +52,8 @@ var Shareabouts = Shareabouts || {};
 
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
-      if (S.Config.flavor.app.places_page_size) {
-        placeParams.page_size = S.Config.flavor.app.places_page_size;
+      if (Shareabouts.Config.flavor.app.places_page_size) {
+        placeParams.page_size = Shareabouts.Config.flavor.app.places_page_size;
       }
 
       // Boodstrapped data from the page
@@ -118,13 +133,13 @@ var Shareabouts = Shareabouts || {};
       // div (rather than inside of it) in order to support bottom-clinging buttons
       $('#map-container').after(Handlebars.templates['add-places'](this.options.placeConfig));
 
-      this.pagesNavView = (new S.PagesNavView({
+      this.pagesNavView = (new PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
               router: this.options.router
             })).render();
 
-      this.authNavView = (new S.AuthNavView({
+      this.authNavView = (new AuthNavView({
               el: '#auth-nav-container',
               router: this.options.router
             })).render();
@@ -133,7 +148,7 @@ var Shareabouts = Shareabouts || {};
         return "basemaps" in panel;
       }).basemaps;
       // Init the map view to display the places
-      this.mapView = new S.MapView({
+      this.mapView = new MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
         basemapConfigs: basemapConfigs,
@@ -146,7 +161,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       if (self.options.sidebarConfig.enabled){
-        (new S.SidebarView({
+        (new SidebarView({
           el: '#sidebar-container',
           mapView: this.mapView,
           sidebarConfig: this.options.sidebarConfig
@@ -158,7 +173,7 @@ var Shareabouts = Shareabouts || {};
       if (_.isUndefined(this.options.activityConfig.enabled) ||
         this.options.activityConfig.enabled) {
         // Init the view for displaying user activity
-        this.activityView = new S.ActivityView({
+        this.activityView = new ActivityView({
           el: 'ul.recent-points',
           activities: this.activities,
           places: this.places,
@@ -174,14 +189,14 @@ var Shareabouts = Shareabouts || {};
       }
 
       // Init the address search bar
-      this.geocodeAddressView = (new S.GeocodeAddressView({
+      this.geocodeAddressView = (new GeocodeAddressView({
         el: '#geocode-address-bar',
         router: this.options.router,
         mapConfig: this.options.mapConfig
       })).render();
 
       // Init the place-counter
-      this.placeCounterView = (new S.PlaceCounterView({
+      this.placeCounterView = (new PlaceCounterView({
         el: '#place-counter',
         router: this.options.router,
         mapConfig: this.options.mapConfig,
@@ -191,7 +206,7 @@ var Shareabouts = Shareabouts || {};
       // When the user chooses a geocoded address, the address view will fire
       // a geocode event on the namespace. At that point we center the map on
       // the geocoded location.
-      $(S).on('geocode', function(evt, locationData) {
+      $(Shareabouts).on('geocode', function(evt, locationData) {
         self.mapView.zoomInOn(locationData.latLng);
 
         if (self.isAddingPlace()) {
@@ -209,7 +224,7 @@ var Shareabouts = Shareabouts || {};
       // reverse geocode the center of the map, if geocoding is enabled. If
       // the user is doing anything else, we just want to clear out any text
       // that's currently set in the address search bar.
-      $(S).on('mapdragend', function(evt) {
+      $(Shareabouts).on('mapdragend', function(evt) {
         if (self.isAddingPlace()) {
           self.conditionallyReverseGeocode();
         } else if (self.geocodeAddressView) {
@@ -220,7 +235,7 @@ var Shareabouts = Shareabouts || {};
       // After reverse geocoding, the map view will fire a reversegeocode
       // event. This should only happen when adding a place while geocoding
       // is enabled.
-      $(S).on('reversegeocode', function(evt, locationData) {
+      $(Shareabouts).on('reversegeocode', function(evt, locationData) {
         var locationString = Handlebars.templates['location-string'](locationData);
         self.geocodeAddressView.setAddress($.trim(locationString));
         self.geocodeAddressPlaceView.setAddress($.trim(locationString));
@@ -231,9 +246,9 @@ var Shareabouts = Shareabouts || {};
 
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
-      if (_.isUndefined(S.Config.flavor.app.list_enabled) ||
-        S.Config.flavor.app.list_enabled) {
-          this.listView = new S.PlaceListView({
+      if (_.isUndefined(Shareabouts.Config.flavor.app.list_enabled) ||
+        Shareabouts.Config.flavor.app.list_enabled) {
+          this.listView = new PlaceListView({
             el: '#list-container',
             placeCollections: self.places
           }).render();
@@ -275,7 +290,7 @@ var Shareabouts = Shareabouts || {};
 
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
-
+      
       // Caches of the views (one per place)
       this.placeFormView = null;
       this.placeDetailViews = {};
@@ -420,7 +435,7 @@ var Shareabouts = Shareabouts || {};
     },
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
-      S.Util.log('USER', 'map', 'new-place-btn-click');
+      Util.log('USER', 'map', 'new-place-btn-click');
       this.options.router.navigate('/new', {trigger: true});
     },
     onClickClosePanelBtn: function(evt) {
@@ -432,7 +447,7 @@ var Shareabouts = Shareabouts || {};
       $(".maximize-btn").show();
       $(".minimize-btn").hide();
 
-      S.Util.log('USER', 'panel', 'close-btn-click');
+      Util.log('USER', 'panel', 'close-btn-click');
       // remove map mask if the user closes the side panel
       this.hideSpotlightMask();
       if (this.mapView.locationTypeFilter) {
@@ -445,7 +460,6 @@ var Shareabouts = Shareabouts || {};
         this.isStoryActive = false;
         this.restoreDefaultLayerVisibility();
       }
-
     },
     onClickMaximizeBtn: function(evt) {
       this.setBodyClass("content-expanded", "content-visible");
@@ -474,7 +488,7 @@ var Shareabouts = Shareabouts || {};
         // (bodyClasses), then we probably don't want to use this method and
         // should fail loudly.
         if (_.indexOf(bodyClasses, newBodyClasses[i]) === -1) {
-          S.Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
+          Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
         }
         $body.addClass(newBodyClasses[i]);
       }
@@ -498,7 +512,7 @@ var Shareabouts = Shareabouts || {};
       if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
         landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
       } else {
-        landmarkDetailView = new S.LandmarkDetailView({
+        landmarkDetailView = new LandmarkDetailView({
           model: model,
           description: model.get('properties')['description'],
           originalDescription: model.get('properties')['originalDescription'],
@@ -515,7 +529,7 @@ var Shareabouts = Shareabouts || {};
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
-        placeDetailView = new S.PlaceDetailView({
+        placeDetailView = new PlaceDetailView({
           model: model,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
@@ -565,7 +579,7 @@ var Shareabouts = Shareabouts || {};
       var self = this;
 
       if (!this.placeFormView) {
-        this.placeFormView = new S.PlaceFormView({
+        this.placeFormView = new PlaceFormView({
           appView: this,
           router: this.options.router,
           placeConfig: this.options.placeConfig,
@@ -582,7 +596,7 @@ var Shareabouts = Shareabouts || {};
 
       this.placeFormView.delegateEvents();
       // Init the place form's address search bar
-      this.geocodeAddressPlaceView = (new S.GeocodeAddressPlaceView({
+      this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
         el: '#geocode-address-place-bar',
         router: this.options.router,
         mapConfig: this.options.mapConfig
@@ -600,12 +614,12 @@ var Shareabouts = Shareabouts || {};
     setStoryLayerVisibility: function(model) {
       // change basemap if requested
       if (model.attributes.story.basemap) {
-        $(S).trigger('visibility', [model.attributes.story.basemap, true, true]);
+        $(Shareabouts).trigger('visibility', [model.attributes.story.basemap, true, true]);
         $("#map-" + model.attributes.story.basemap).prop("checked", true);
       }
       // set layer visibility based on story config
       _.each(model.attributes.story.visibleLayers, function(targetLayer) {
-        $(S).trigger('visibility', [targetLayer, true]);
+        $(Shareabouts).trigger('visibility', [targetLayer, true]);
         // set legend checkbox
         $("#map-" + targetLayer).prop("checked", true);
       });
@@ -614,7 +628,7 @@ var Shareabouts = Shareabouts || {};
         if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
           // don't turn off basemap layers!
           if (targetLayer.type != "basemap") {
-            $(S).trigger('visibility', [targetLayer.id, false]);
+            $(Shareabouts).trigger('visibility', [targetLayer.id, false]);
             // set legend checkbox
             $("#map-" + targetLayer.id).prop("checked", false);
           }
@@ -624,7 +638,7 @@ var Shareabouts = Shareabouts || {};
 
     restoreDefaultLayerVisibility: function() {
       var triggerVisibility = function(id, isVisible, isBasemap) {
-        $(S).trigger('visibility', [id, isVisible, isBasemap]);
+        $(Shareabouts).trigger('visibility', [id, isVisible, isBasemap]);
         $("#map-" + id).prop("checked", isVisible);
       }
 
@@ -639,12 +653,11 @@ var Shareabouts = Shareabouts || {};
         });
       });
     },
-
     // TODO: Refactor this into 'viewPlace'
     viewLandmark: function(model, options) {
       var self = this,
-          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-          layout = S.Util.getPageLayout(),
+          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+          layout = Util.getPageLayout(),
           onLandmarkFound, onLandmarkNotFound, modelId;
 
       $(".maximize-btn").show();
@@ -759,7 +772,7 @@ var Shareabouts = Shareabouts || {};
       }
 
       // If we are passed a LandmarkModel then show it immediately.
-      if (model instanceof S.LandmarkModel) {
+      if (model instanceof LandmarkModel) {
         onLandmarkFound(model)
         return;
       }
@@ -794,8 +807,8 @@ var Shareabouts = Shareabouts || {};
     },
     viewPlace: function(datasetSlug, model, responseId, zoom) {
       var self = this,
-          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-          layout = S.Util.getPageLayout(),
+          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+          layout = Util.getPageLayout(),
           // get the dataset id from the map layers array for the given datasetSlug
           datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
           onPlaceFound, onPlaceNotFound, modelId;
@@ -829,6 +842,7 @@ var Shareabouts = Shareabouts || {};
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         self.showPanel(placeDetailView.render().$el, !!responseId);
         placeDetailView.delegateEvents();
+
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -841,9 +855,9 @@ var Shareabouts = Shareabouts || {};
                 // TODO(Trevor): this needs to be cleaned up
                 self.isProgrammaticZoom = true;
                 self.setStoryLayerVisibility(model);
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
+                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
               } else {
-                map.setView(center, map.getMaxZoom()-1, {reset: true});
+                map.setView(center, map.getMaxZoom()-1, {animate: true, reset: true});
               }
             } else {
               map.fitBounds(layer.getBounds(), {reset: true});
@@ -897,7 +911,7 @@ var Shareabouts = Shareabouts || {};
       };
 
       // If we get a PlaceModel then show it immediately.
-      if (model instanceof S.PlaceModel) {
+      if (model instanceof PlaceModel) {
         onPlaceFound(model);
         return;
       }
@@ -924,7 +938,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     viewPage: function(slug) {
-      var pageConfig = S.Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
+      var pageConfig = Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
           pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
           pageHtml = Handlebars.templates[pageTemplateName]({config: this.options.config});
 
@@ -949,7 +963,7 @@ var Shareabouts = Shareabouts || {};
 
       if (!preventScrollToTop) {
         // will be "mobile" or "desktop", as defined in default.css
-        var layout = S.Util.getPageLayout();
+        var layout = Util.getPageLayout();
         if (layout === 'desktop') {
           // For desktop, the panel content is scrollable
           this.$panelContent.scrollTo(0, 0);
@@ -961,13 +975,24 @@ var Shareabouts = Shareabouts || {};
       }
 
       this.setBodyClass('content-visible');
-      map.invalidateSize({ animate:true, pan:true });
 
-      $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
+      // Set a very short timeout here to hopefully avoid a race condition
+      // between the CSS transition that resizes the map container and
+      // invalidateSize(). Otherwise, invalidateSize() may fire before the new
+      // map container dimensions have been set by CSS, resulting in the
+      // infamous off-center bug.
+      // NOTE: the timeout duration in use here was arbitrarily selected.
+      // TODO: this is a hack. Is there a better way to handle this? Can we 
+      // listen for an event from CSS maybe?
+      setTimeout(function() {
+        map.invalidateSize({ animate:true, pan:true });
+      }, 30);
+
+      $(Shareabouts).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
 
       $("#main-btns-container").attr("class", "pos-top-left");
 
-      S.Util.log('APP', 'panel-state', 'open');
+      Util.log('APP', 'panel-state', 'open');
     },
     showNewPin: function() {
       this.$centerpoint.show().addClass('newpin');
@@ -996,7 +1021,7 @@ var Shareabouts = Shareabouts || {};
 
       $("#main-btns-container").attr("class", "pos-top-right");
 
-      S.Util.log('APP', 'panel-state', 'closed');
+      Util.log('APP', 'panel-state', 'closed');
       this.hideSpotlightMask();
     },
     hideNewPin: function() {
@@ -1073,4 +1098,3 @@ var Shareabouts = Shareabouts || {};
       this.mapView.clearFilter();
     }
   });
-}(Shareabouts, jQuery, Shareabouts.Util.console));

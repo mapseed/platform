@@ -1,9 +1,7 @@
-/*globals L Backbone _ jQuery */
+  var Util = require('../utils.js');
+  var Argo = require('../../libs/leaflet.argo.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-  S.LayerView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
      // A view responsible for the representation of a place on the map.
     initialize: function(){
       this.map = this.options.map;
@@ -19,6 +17,7 @@ var Shareabouts = Shareabouts || {};
 
       this.map.on('zoomend', this.updateLayer, this);
 
+      
       // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
 
@@ -107,7 +106,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMarkerClick: function() {
-      S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
+      Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
       this.options.router.navigate('/' + this.model.get('datasetSlug') + '/' + this.model.id, {trigger: true});
     },
 
@@ -157,5 +156,3 @@ var Shareabouts = Shareabouts || {};
       this.removeLayer();
     }
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));
