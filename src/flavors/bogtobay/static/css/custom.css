@@ -108,6 +108,15 @@
   color: #FFF !important;
 }
 
+.form-field label {
+  font-size: 1em;
+}
+
+.fileinput-container {
+  width: 150px !important;
+  font-size: 0.9em;
+}
+
 /* =Grid-based layout on about page
 Adapted from http://littlesnippets.net/snip1579/
 -------------------------------------------------------------- */
