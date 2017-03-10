@@ -310,7 +310,29 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-2.png
+          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  pledge2:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-4.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  pledge3:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-5.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
@@ -652,7 +674,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-2.png
+      icon_url: /static/css/images/markers/marker-pledge-3.png
       value: pledge
       label: _(Stewardship Pledge)
       fields:
@@ -683,6 +705,46 @@ place:
               value: spreadword
           optional: true 
            # NOTE: checkbox_big_button inputs have no validation
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+    - category: pledge2
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-4.png
+      value: pledge2
+      label: _(Stewardship Pledge B)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+    - category: pledge3
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-5.png
+      value: pledge3
+      label: _(Stewardship Pledge C)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
         - name: comments
           type: textarea
           prompt: _(Additional comments:)
