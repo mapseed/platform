@@ -4,26 +4,28 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-@font-face {
+/*@font-face {
   font-family: 'Sigmar One';
   src: url('SigmarOne.otf');
 }
-
+*/
 #site-title a:link,
 #site-title a:visited {
-  color: #4ee350 !important;
+/*  color: #4ee350 !important;
   font-weight: normal !important;
   font-family: 'Sigmar One', 'Arial Black', sans-serif !important;
   display: block;
   float: left;
   margin-right: 50px;
-  overflow: hidden;
+  overflow: hidden;*/
 /*  text-shadow:
    -1px -1px 0 #000,  
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;*/
-  text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.7);
+  /*text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.7);*/
+  content: url(images/bogtobay-logo-large.png);
+  width: 251px;
 }
 
 /* =Header
@@ -188,6 +190,7 @@ Adapted from http://littlesnippets.net/snip1579/
   #site-title a:link,
   #site-title a:visited {
     background-size: 180px auto;
+    width: 200px;
   }
   #place-form-type-choice {
     padding-bottom: 1em;
