@@ -51,6 +51,61 @@
   }
 }
 
+/* =Custom pledge type icons
+-------------------------------------------------------------- */
+#poopscoop + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f014";
+}
+
+#naturalyard + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f06c";
+}
+
+#carwash + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.7em;
+  content: "\f1b9";
+}
+
+#oilleaks + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f0ad";
+}
+
+#planttrees + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f1bb";
+}
+
+#stormdrains + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.9em;
+  content: "\f043";
+}
+
+#spreadword + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f0a1";
+}
+
+/* =Dynamic form big button overrides
+-------------------------------------------------------------- */
+.big-btn + label {
+  color: #555;
+}
+
+.big-btn:checked + label:before {
+  font-weight: normal !important;
+  color: #FFF !important;
+}
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
