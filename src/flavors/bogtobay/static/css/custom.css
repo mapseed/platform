@@ -4,27 +4,8 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-/*@font-face {
-  font-family: 'Sigmar One';
-  src: url('SigmarOne.otf');
-}
-*/
 #site-title a:link,
 #site-title a:visited {
-/*  color: #4ee350 !important;
-  font-weight: normal !important;
-  font-family: 'Sigmar One', 'Arial Black', sans-serif !important;
-  display: block;
-  float: left;
-  margin-right: 50px;
-  overflow: hidden;*/
-/*  text-shadow:
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;*/
-  /*text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.7);*/
-  content: url(images/bogtobay-logo-large.png);
   width: 251px;
 }
 
@@ -116,6 +97,28 @@
   width: 150px !important;
   font-size: 0.9em;
 }
+
+/* =Leaflet sidebar overrides
+-------------------------------------------------------------- */
+.map-legend-grouping-checkbox {
+  -ms-transform: scale(1.4); /* IE */
+  -moz-transform: scale(1.4); /* FF */
+  -webkit-transform: scale(1.4); /* Safari and Chrome */
+  -o-transform: scale(1.4); /* Opera */
+  transform: scale(1.4);
+}
+
+.layer-type-grouping-title, .map-legend-grouping-checkbox + label {
+  font-size: 1.1em;
+  font-weight: bold;
+  vertical-align: middle;
+  padding-left: 8px;
+}
+
+.map-legend-basemap-radio + label, .map-legend-checkbox + label {
+  font-size: 1.1em;
+}
+
 
 /* =Grid-based layout on about page
 Adapted from http://littlesnippets.net/snip1579/
@@ -211,6 +214,14 @@ Adapted from http://littlesnippets.net/snip1579/
       padding: .5em .5em;
       margin: 0;
       border: 2px solid white;
+  }
+
+  .snip1579 {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 70%;
+    margin-bottom: 8px;
   }
 }
 
