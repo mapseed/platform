@@ -2,7 +2,7 @@ var ModelUtils = require('./model-utils.js');
 
 // This model is based off the Mapbox Classic API
 module.exports = Backbone.Model.extend({
-  efaults: {
+  defaults: {
     type: "landmark"
   },
   initialize: function() {
