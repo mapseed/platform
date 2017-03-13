@@ -369,12 +369,12 @@ place_types:
       - condition: '"{{geometry.type}}" == "Polygon"'
         style:
           shapeType: polygon
-          fillColor: "{{properties.fill}}"
+          fillColor: "{{style.fillColor}}"
           fill: 'true'
-          color: "{{properties.stroke}}"
+          color: "{{style.color}}"
           opacity: 0.7
-          fillOpacity: '{{properties.fill-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          fillOpacity: '{{style.fillOpacity}}'
+          weight: "{{style.weight}}"
 
   danger:
     zoomType: mapboxZoomStyle
