@@ -224,6 +224,16 @@ module.exports = Backbone.View.extend({
     $.when.apply($, Shareabouts.deferredCollections).then(function() {
       self.render();
       self.switchTabs();
+    })
+    .fail(function(a) {
+
+      // NOTE: if one or more of the Promises passed to $.when fail, then the
+      // master deferred object will fail, and the sidebar will hang. In this
+      // case, display an error message.
+      $("#right-sidebar-spinner")
+        .html("Error loading one or more datasets")
+        .addClass("sidebar-error");
+
     });      
   },
 

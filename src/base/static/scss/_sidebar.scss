@@ -63,7 +63,15 @@
     height: calc(100% - #{$header-height-fullscreen} - 15px);
 }
 
+.sidebar-error {
+    color: #BBB;
+    text-align: center;
+    left: 0 !important;
+    padding: 10px;
+}
+
 #right-sidebar-container {
+    background-color: #FFF;
     width: 0;
     position: absolute;
     right: 0;
