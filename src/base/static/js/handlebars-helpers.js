@@ -24,6 +24,10 @@
     return a === b ? options.fn(this) : options.inverse(this);
   });
 
+  Handlebars.registerHelper('is_not', function(a, b, options) {
+    return a !== b ? options.fn(this) : options.inverse(this);
+  });
+
   Handlebars.registerHelper('if_fileinput_not_supported', function(options) {    
     return !Util.fileInputSupported() ? options.fn(this) : null;
   });
@@ -191,7 +195,7 @@
       content, 
       wasAnswered = false;
 
-      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime") {
+      if (fieldType === "text" || fieldType === "textarea" || fieldType === "datetime" || fieldType === "richTextarea") {
         // case: plain text
         content = userInput || "";
         if (content !== "") {

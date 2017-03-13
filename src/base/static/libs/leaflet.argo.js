@@ -158,7 +158,7 @@ L.extend(L.Argo, {
     // Cycle through rules until we hit a matching condition
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
-      // this is so we don't have to worry about strings vs nums.
+      // this is so we don't have to worry about strings vs nums.      
       condition = L.Argo.t(rules[i].condition, properties.style);
 
       if (parse.staticParse(condition)) {
