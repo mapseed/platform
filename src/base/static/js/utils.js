@@ -1,4 +1,4 @@
-  var self = module.exports = {
+var self = module.exports = {
     patch: function(obj, overrides, func) {
       var attr, originals = {};
 
@@ -27,6 +27,122 @@
       } else {
         return moment(datetime).fromNow();
       }
+    },
+
+    // Given the information provided in a url (that is, an id and possibly a slug),
+    // attempt to find the corresponding model within all collections on the page.
+    // Three conditions are possible:
+    // 1. A slug is provided, which means we have a Shareabouts place model
+    // 2. A landmark-style url (e.g. /xyz) is provided, which means we might
+    //    have an actual landmark loaded from a third-party source, or...
+    // 3. A landmark-style url is provided, but the url actually corresponds
+    //    to a Shareabouts place model with a url-title property set
+    // NOTE: We assume that all landmark-style urls (both those from third-party 
+    // data sources and those corresponding to Shareabouts place models) are unique.
+    getPlaceFromCollections: function(collectionsSet, args, mapConfig, callbacks) {
+
+      // If we have a slug, we definitely have a place model
+      if (args.datasetSlug) {
+        searchPlaceCollections();
+      } else {
+
+        // Otherwise, we have a landmark-style url, which may correspond
+        // to a place or a landmark.
+        // First, check if the model exists among collections already loaded
+        // on the page.
+        if (searchLoadedCollections(collectionsSet.places, "url-title", "place")) {
+          return;
+        };
+        if (searchLoadedCollections(collectionsSet.landmarks, "id", "landmark")) {
+          return;
+        };
+
+        // If the model is not found in the loaded collections, bind sync
+        // listeners for all collections.
+        bindCollectionsListeners(collectionsSet.places, "place", false);
+        bindCollectionsListeners(collectionsSet.landmarks, "landmark", true);
+      }
+        
+      function searchPlaceCollections() {
+        var datasetId = _.find(mapConfig.layers, function(layer) { 
+          return layer.slug === args.datasetSlug;
+        }).id,
+        model = collectionsSet.places[datasetId].get(args.modelId);
+        
+        if (model) {
+          callbacks.onFound(model, "place", datasetId);
+        } else {
+
+          // if the model has not already loaded, fetch it by id
+          // from the API
+          collectionsSet.places[datasetId].fetchById(args.modelId, {
+            validate: true,
+            success: function(model) {
+              callbacks.onFound(model, "place", datasetId);
+            },
+            error: function() {
+              callbacks.onNotFound();
+            },
+            data: {
+              include_submissions: Shareabouts.Config.flavor.app.list_enabled !== false
+            }
+          });
+        } 
+      }
+
+      function searchLoadedCollections(collections, property, type) {
+        var found = false,
+        searchTerm = {};
+        searchTerm[property] = args.modelId;
+        _.find(collections, function(collection, datasetId) {
+          var model = collection.where(searchTerm);
+          if (model.length === 1) {
+            found = true;
+            callbacks.onFound(model[0], type, datasetId);
+            return;
+          }
+        });
+
+        return found;
+      };
+
+      function bindCollectionsListeners(collections, type, isFinalCollection) {
+        var numCollections = _.keys(collections).length,
+            i = 0,
+            foundInCallback = false,
+            searchTerm = {};
+
+        if (type === "place") {
+          searchTerm["url-title"] = args.modelId;
+        } else if (type === "landmark") {
+          searchTerm["id"] = args.modelId;
+        }
+
+        _.each(collections, function(collection, datasetId) {
+          collection.on("sync", onSync);
+          function onSync(syncedCollection) {
+            i++;
+            var model = syncedCollection.where(searchTerm);
+
+            if (model.length === 1) {
+              foundInCallback = true;
+              collection.off("sync", onSync);
+              callbacks.onFound(model[0], type, datasetId);
+            } else if (numCollections === i && 
+                isFinalCollection && 
+                !foundInCallback) {
+
+              // if this is the last collection of the set and the final
+              // set of collections and no model has been found, it means the
+              // model doesn't exist.
+              collection.off("sync", onSync);
+              callbacks.onNotFound();
+            } else {
+              collection.off("sync", onSync);
+            }
+          };
+        });
+      };
     },
 
     getAttrs: function($form) {

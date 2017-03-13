@@ -507,6 +507,8 @@
         delete this.placeDetailViews[model.cid];
       }
     },
+
+    // TODO: clean up landmark/place distinction here
     getLandmarkDetailView: function(collectionId, model) {
       var landmarkDetailView;
       if (this.landmarkDetailViews[collectionId] && this.landmarkDetailViews[collectionId][model.id]) {
@@ -540,8 +542,9 @@
           userToken: this.options.userToken,
           mapView: this.mapView,
           router: this.options.router,
-          url: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).url,
-          datasetId: _.find(this.options.mapConfig.layers, function(layer) { return layer.slug == model.attributes.datasetSlug }).id
+          datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
+            return layer.slug == model.attributes.datasetSlug 
+          }).id
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -653,235 +656,89 @@
         });
       });
     },
-    // TODO: Refactor this into 'viewPlace'
-    viewLandmark: function(model, options) {
+
+    viewPlaceOrLandmark: function(args) {
       var self = this,
-          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
-          layout = Util.getPageLayout(),
-          onLandmarkFound, onLandmarkNotFound, modelId;
+          layout = Util.getPageLayout();
 
-      $(".maximize-btn").show();
-      $(".minimize-btn").hide();
+      Util.getPlaceFromCollections(
+        {
+          places: this.places,
+          landmarks: this.landmarks
+        },
+        args,
+        this.options.mapConfig,
+        {
+          onFound: _.bind(onFound, this),
+          onNotFound: _.bind(onNotFound, this)
+        }
+      );
 
-      onLandmarkFound = function(model, response, newOptions) {
+      function onFound(model, type, datasetId) {
         var map = self.mapView.map,
-            layer, center, landmarkDetailView, $responseToScrollTo;
-        options = newOptions ? newOptions : options;
+            layer, center, zoom, detailView, $responseToScrollTo;
 
-        layer = self.mapView.layerViews[options.collectionId][model.id].layer
+        if (type === "place") {
 
-        if (layer) {
-          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
-        }
-        landmarkDetailView = self.getLandmarkDetailView(options.collectionId, model);
-
-        self.$panel.removeClass().addClass('place-detail place-detail-' + model);
-        self.showPanel(landmarkDetailView.render().$el, false);
-        landmarkDetailView.delegateEvents();
-        self.hideNewPin();
-        self.destroyNewModels();
-        self.hideCenterPoint();
-        self.setBodyClass('content-visible');
-
-        if (layer) {
-          if (options.zoom) {
-            if (layer.getLatLng) {
-              if (model.attributes.story) {
-                // TODO(Trevor): this needs to be cleaned up
-                self.setStoryLayerVisibility(model);
-                self.isProgrammaticZoom = true;
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true, reset: true});
-              } else {
-                map.setView(center, map.getMaxZoom()-1, {reset: true});
-              }
-            } else {
-              map.fitBounds(layer.getBounds(), {reset: true});
-            }
-
-          } else {
-            if (model.attributes.story) {
-              // if this model is part of a story, set center and zoom level
-              self.isProgrammaticZoom = true;
-              self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-            } else {
-              map.panTo(center, {animate: true, reset: true});
-            }
+          // If this model is a duplicate of one that already exists in the
+          // places collection, it may not correspond to a layerView. For this
+          // case, get the model that's actually in the places collection.
+          if (_.isUndefined(self.mapView.layerViews[model.cid])) {
+            model = self.places[datasetId].get(model.id);
           }
-        }
-        self.showSpotlightMask();
 
-        // Focus the one we're looking
-        model.trigger('focus');
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) self.hideSpotlightMask();
-          self.isStoryActive = true;
-          self.setStoryLayerVisibility(model);
-        } else if (self.isStoryActive) {
-          self.isStoryActive = false;
-          self.restoreDefaultLayerVisibility();
-        } else {
-          self.isStoryActive = false;
-        }
-      };
-
-      onLandmarkNotFound = function(model, response, newOptions) {
-        options.stillSearching[options.collectionId] = false;
-        var allCollectionsSearched = true;
-        _.each(_.values(options.stillSearching), function(stillSearching) {
-          if (stillSearching) {
-            allCollectionsSearched = false;
+          // TODO: We need to handle the non-deterministic case when
+          // 'self.mapView.layerViews[datasetId][model.cid]` is undefined
+          if (self.mapView.layerViews[datasetId] 
+            && self.mapView.layerViews[datasetId][model.cid]) {
+            layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
-        });
-        if (allCollectionsSearched) {
-          self.options.router.navigate('/');
+
+          detailView = self.getPlaceDetailView(model).delegateEvents();
+          self.showPanel(detailView.render().$el, !!args.responseId);
+        } else if (type === "landmark") {
+          layer = self.mapView.layerViews[datasetId][model.id].layer;
+          detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
+          self.showPanel(detailView.render().$el, false);
         }
-      };
-
-      // If a collectionId is not specified, then we need to search all collections
-      if (options['collectionId'] === undefined) {
-        // First, let's check the caches of all of our collections for the
-        // model to avoid making unnecessary api calls for each collection:
-        var cachedModel;
-        var collectionId;
-
-        _.find(Object.keys(self.options.landmarks), function(landmarkConfigId) {
-          collectionId = landmarkConfigId;
-          cachedModel = self.landmarks[collectionId].get(model);
-          return cachedModel;
-        });
-        if (cachedModel) {
-          onLandmarkFound(cachedModel, {}, { collectionId: collectionId,
-                                          zoom: options.zoom });
-          return;
-        }
-
-        // If the model is not already in our collections, then we must fetch it
-        // by making a call to each collection:
-        var stillSearching = {};
-        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
-          stillSearching[landmarkConfig.id] = true;
-        });
-        _.each(self.options.datasetConfigs.landmarks, function(landmarkConfig) {
-          self.viewLandmark(model, { collectionId: landmarkConfig.id,
-                                     zoom: options.zoom,
-                                     stillSearching: stillSearching });
-        });
-        return;
-      }
-
-      // If we are passed a LandmarkModel then show it immediately.
-      if (model instanceof LandmarkModel) {
-        onLandmarkFound(model)
-        return;
-      }
-
-      // Otherwise, assume we have a model ID.
-      modelId = model;
-      var landmarkCollection = this.landmarks[options.collectionId];
-      if (!landmarkCollection) {
-        onLandmarkNotFound();
-        return;
-      }
-      model = landmarkCollection.get(modelId);
-
-      // If the model was found in the landmarks, go ahead and use it.
-      if (model) {
-        onLandmarkFound(model);
-
-      // Otherwise, fetch and use the result.
-      } else {
-        landmarkCollection.fetch({
-          success: function(collection, response, options) {
-            var foundModel = collection.findWhere({ id: modelId });
-            if (foundModel) {
-              onLandmarkFound(foundModel);
-            } else {
-              onLandmarkNotFound();
-            }
-          },
-          error: onLandmarkNotFound
-        })
-      }
-    },
-    viewPlace: function(datasetSlug, model, responseId, zoom) {
-      var self = this,
-          includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
-          layout = Util.getPageLayout(),
-          // get the dataset id from the map layers array for the given datasetSlug
-          datasetId = _.find(self.options.mapConfig.layers, function(layer) { return layer.slug == datasetSlug }).id,
-          onPlaceFound, onPlaceNotFound, modelId;
-
-      $(".maximize-btn").show();
-      $(".minimize-btn").hide();
-
-      onPlaceFound = function(model) {
-        var map = self.mapView.map,
-            layer, center, placeDetailView, $responseToScrollTo;
-
-        // If this model is a duplicate of one that already exists in the
-        // places collection, it may not correspond to a layerView. For this
-        // case, get the model that's actually in the places collection.
-        if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places[datasetId].get(model.id);
-        }
-
-        // TODO: We need to handle the non-deterministic case when
-        // 'self.mapView.layerViews[model.cid]` is undefined
-        if (self.mapView.layerViews[datasetId] && self.mapView.layerViews[datasetId][model.cid]) {
-          layer = self.mapView.layerViews[datasetId][model.cid].layer;
-        }
-
-        placeDetailView = self.getPlaceDetailView(model);
-
-        if (layer) {
-          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
-        }
-
+     
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el, !!responseId);
-        placeDetailView.delegateEvents();
-
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
         self.setBodyClass('content-visible');
-
-        if (layer) {
-          if (zoom) {
-            if (layer.getLatLng) {
-              if (model.attributes.story) {
-                // TODO(Trevor): this needs to be cleaned up
-                self.isProgrammaticZoom = true;
-                self.setStoryLayerVisibility(model);
-                map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-              } else {
-                map.setView(center, map.getMaxZoom()-1, {animate: true, reset: true});
-              }
-            } else {
-              map.fitBounds(layer.getBounds(), {reset: true});
-            }
-
-          } else {
-            if (model.attributes.story) {
-              self.isProgrammaticZoom = true;
-              self.setStoryLayerVisibility(model);
-              map.setView(model.attributes.story.panTo || center, model.attributes.story.zoom, {animate: true});
-            } else {
-              map.panTo(center, {animate: true, reset: true});
-            }
-          }
-        }
         self.showSpotlightMask();
 
-        if (responseId) {
-          // get the element based on the id
-          $responseToScrollTo = placeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+          zoom = map.getZoom();
+          
+          if (model.get("story")) {
+            if (!model.get("story").spotlight) {
+              self.hideSpotlightMask();
+            }
+            self.isStoryActive = true;
+            self.isProgrammaticZoom = true;
+            self.setStoryLayerVisibility(model);
+            center = model.get("story").panTo || center;
+            zoom = model.get("story").zoom;
+          }
 
-          // call scrollIntoView()
+          if (layer.getLatLng) {
+            map.setView(center, zoom, {
+              animate: true
+            });
+          } else {
+            map.fitBounds(layer.getBounds(), {
+              animate: true
+            });
+          }
+        }
+
+        if (args.responseId) {
+          $responseToScrollTo = detailView.$el.find('[data-response-id="'+ args.responseId +'"]');
           if ($responseToScrollTo.length > 0) {
-            if (layout === 'desktop') {
+            if (layout === '"desktop"') {
               // For desktop, the panel content is scrollable
               self.$panelContent.scrollTo($responseToScrollTo, 500);
             } else {
@@ -891,52 +748,20 @@
           }
         }
 
-        // Focus the one we're looking
         model.trigger('focus');
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) self.hideSpotlightMask();
-          self.isStoryActive = true;
-          self.setStoryLayerVisibility(model);
-        } else if (self.isStoryActive) {
+        
+        if (!model.get("story") && self.isStoryActive) {
           self.isStoryActive = false;
           self.restoreDefaultLayerVisibility();
-        } else {
-          self.isStoryActive = false;
         }
       };
 
-      onPlaceNotFound = function() {
+      function onNotFound() {
         self.options.router.navigate('/');
-      };
-
-      // If we get a PlaceModel then show it immediately.
-      if (model instanceof PlaceModel) {
-        onPlaceFound(model);
         return;
-      }
-
-      // Otherwise, assume we have a model ID.
-      modelId = model;
-      model = this.places[datasetId].get(modelId);
-
-      // If the model was found in the places, go ahead and use it.
-      if (model) {
-        onPlaceFound(model);
-
-      // Otherwise, fetch and use the result.
-      } else {
-        this.places[datasetId].fetchById(modelId, {
-          // Check for a valid location type before adding it to the collection
-          validate: true,
-          success: onPlaceFound,
-          error: onPlaceNotFound,
-          data: {
-            include_submissions: includeSubmissions
-          }
-        });
-      }
+      };
     },
+
     viewPage: function(slug) {
       var pageConfig = Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
           pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
@@ -953,6 +778,7 @@
       this.hideCenterPoint();
       this.setBodyClass('content-visible', 'content-expanded');
     },
+
     showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
 
