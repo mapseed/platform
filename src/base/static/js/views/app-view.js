@@ -615,46 +615,53 @@
     // If a model has a story object, set the appropriate layer
     // visilbilities and update legend checkboxes
     setStoryLayerVisibility: function(model) {
-      // change basemap if requested
-      if (model.attributes.story.basemap) {
-        $(Shareabouts).trigger('visibility', [model.attributes.story.basemap, true, true]);
-        $("#map-" + model.attributes.story.basemap).prop("checked", true);
+
+      // change the basemap if it's been set in the story config
+      if (model.get("story").basemap) {
+        this.setLayerVisibility(model.get("story").basemap, true, true);
       }
+
       // set layer visibility based on story config
-      _.each(model.attributes.story.visibleLayers, function(targetLayer) {
-        $(Shareabouts).trigger('visibility', [targetLayer, true]);
-        // set legend checkbox
-        $("#map-" + targetLayer).prop("checked", true);
-      });
+      _.each(model.get("story").visibleLayers, function(targetLayer) {
+        this.setLayerVisibility(targetLayer, true, false)
+      }, this);
+
       // switch off all other layers
       _.each(this.options.mapConfig.layers, function(targetLayer) {
         if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
+          
           // don't turn off basemap layers!
-          if (targetLayer.type != "basemap") {
-            $(Shareabouts).trigger('visibility', [targetLayer.id, false]);
-            // set legend checkbox
-            $("#map-" + targetLayer.id).prop("checked", false);
+          if (targetLayer.type !== "basemap") {
+            this.setLayerVisibility(targetLayer.id, false, false)
           }
         }
-      });
+      }, this);
     },
 
     restoreDefaultLayerVisibility: function() {
-      var triggerVisibility = function(id, isVisible, isBasemap) {
-        $(Shareabouts).trigger('visibility', [id, isVisible, isBasemap]);
-        $("#map-" + id).prop("checked", isVisible);
-      }
+      var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { 
+        return panel.id === "gis-layers"; 
+      }),
+      defaultBasemapId = _.find(gisLayersPanel.basemaps, function(basemap) {
+        return basemap.visibleDefault === true;
+      }).id;
 
-      var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(panel) { return panel.id === "gis-layers"; });
-      _.each(gisLayersPanel.basemaps, function(basemap) {
-        if (basemap.visibleDefault) triggerVisibility(basemap.id, true, true);
-      });
+      this.setLayerVisibility(defaultBasemapId, true, true);
 
       _.each(gisLayersPanel.groupings, function(grouping) {
         _.each(grouping.layers, function(layer) {
-          triggerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
-        });
-      });
+          this.setLayerVisibility(layer.id, (layer.visibleDefault ? true : false), false);
+        }, this);
+      }, this);
+    },
+
+    ensureLayerVisibility: function(datasetId) {
+      this.setLayerVisibility(datasetId, true, false);
+    },
+
+    setLayerVisibility: function(id, isVisible, isBasemap) {
+      $(Shareabouts).trigger('visibility', [id, isVisible, isBasemap]);
+      $("#map-" + id).prop("checked", isVisible);
     },
 
     viewPlaceOrLandmark: function(args) {
@@ -733,6 +740,8 @@
               animate: true
             });
           }
+
+          self.ensureLayerVisibility(datasetId);
         }
 
         if (args.responseId) {
