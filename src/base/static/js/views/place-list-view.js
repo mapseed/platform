@@ -48,9 +48,11 @@
     onRender: function(evt) {
       this.support.reset();
       this.support.show(this.supportView);
-      // in case story mode has hidden the title
+      
+      // in case story mode has hidden the title or inserted navigation bars
       if (this.model.get("story")) {
         this.$el.find(".place-header-title").removeClass("is-visuallyhidden");
+        this.$el.find(".place-story-bar").remove();
       }
     },
     show: function() {
@@ -134,9 +136,6 @@
           self.views[model.cid].supportView.delegateEvents();
         }
       });
-
-      // remove story bars from the list view
-      $("#list-container .place-story-bar").remove();
     },
     infiniteScroll: function() {
       var totalHeight = this.$('> ul').height();
