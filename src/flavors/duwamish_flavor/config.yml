@@ -275,90 +275,90 @@ place_types:
   wetland:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
 
   park:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
 
   school:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
 
   police:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
 
   rail:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
 
   town-hall:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
 
