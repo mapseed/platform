@@ -240,6 +240,7 @@
         content: content,
         prompt: item.display_prompt,
         wasAnswered: wasAnswered,
+        formOnly: item.form_only || false,
         isEditingToggled: this.isEditingToggled
       };
 
