@@ -151,6 +151,7 @@
       this.mapView = new MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
+        sidebarConfig: this.options.sidebarConfig,
         basemapConfigs: basemapConfigs,
         legend_enabled: !!this.options.sidebarConfig.legend_enabled,
         places: this.places,

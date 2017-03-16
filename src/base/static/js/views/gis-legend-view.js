@@ -21,8 +21,8 @@
       });
 
       var initialBasemap = _.find(this.options.config.basemaps, function(basemap) {
-                               return !!basemap.visibleDefault;
-                             });
+        return !!basemap.visibleDefault;
+      });
 
       $(Shareabouts).trigger('visibility', [initialBasemap.id, !!initialBasemap.visibleDefault, true]);
 
