@@ -40,6 +40,8 @@ var self = module.exports = {
     // NOTE: We assume that all landmark-style urls (both those from third-party 
     // data sources and those corresponding to Shareabouts place models) are unique.
     getPlaceFromCollections: function(collectionsSet, args, mapConfig, callbacks) {
+      var numCollections = 0,
+      numCollectionsSynced = 0;
 
       // If we have a slug, we definitely have a place model
       if (args.datasetSlug) {
@@ -59,8 +61,8 @@ var self = module.exports = {
 
         // If the model is not found in the loaded collections, bind sync
         // listeners for all collections.
-        bindCollectionsListeners(collectionsSet.places, "place", false);
-        bindCollectionsListeners(collectionsSet.landmarks, "landmark", true);
+        bindCollectionsListeners(collectionsSet.places, "place");
+        bindCollectionsListeners(collectionsSet.landmarks, "landmark");
       }
         
       function searchPlaceCollections() {
@@ -95,6 +97,7 @@ var self = module.exports = {
         searchTerm = {};
         searchTerm[property] = args.modelId;
         _.find(collections, function(collection, datasetId) {
+          numCollections++;
           var model = collection.where(searchTerm);
           if (model.length === 1) {
             found = true;
@@ -106,11 +109,9 @@ var self = module.exports = {
         return found;
       };
 
-      function bindCollectionsListeners(collections, type, isFinalCollection) {
-        var numCollections = _.keys(collections).length,
-            i = 0,
-            foundInCallback = false,
-            searchTerm = {};
+      function bindCollectionsListeners(collections, type) {
+        var searchTerm = {},
+        found = false;
 
         if (type === "place") {
           searchTerm["url-title"] = args.modelId;
@@ -121,20 +122,17 @@ var self = module.exports = {
         _.each(collections, function(collection, datasetId) {
           collection.on("sync", onSync);
           function onSync(syncedCollection) {
-            i++;
+            numCollectionsSynced++;
             var model = syncedCollection.where(searchTerm);
 
             if (model.length === 1) {
-              foundInCallback = true;
+              found = true;
               collection.off("sync", onSync);
               callbacks.onFound(model[0], type, datasetId);
-            } else if (numCollections === i && 
-                isFinalCollection && 
-                !foundInCallback) {
+            } else if (numCollectionsSynced === numCollections && !found) {
 
-              // if this is the last collection of the set and the final
-              // set of collections and no model has been found, it means the
-              // model doesn't exist.
+              // If this is the final collection on the page to sync and we
+              // haven't yet found the model, it means it doesn't exist.
               collection.off("sync", onSync);
               callbacks.onNotFound();
             } else {
