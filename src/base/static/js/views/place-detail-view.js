@@ -78,18 +78,7 @@
         Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
 
-      // Is this user authenticated (i.e. able to edit place detail views)?
-      if (Shareabouts.bootstrapped.currentUser && Shareabouts.bootstrapped.currentUser.groups) {
-        _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
-          // get the name of the datasetId from the end of the full url
-          // provided in S.bootstrapped.currentUser.groups
-          var url = group.dataset.split("/"),
-          match = url[url.length - 1];
-          if (match && match === self.options.datasetId && group.name === "administrators") {
-            self.isEditable = true;
-          }
-        });
-      }
+      this.isEditable = Util.getAdminStatus(this.options.datasetId);
 
       this.model.attachmentCollection.on("add", this.onAddAttachment, this);
     },
