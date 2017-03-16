@@ -29,6 +29,31 @@ var self = module.exports = {
       }
     },
 
+    // Determine whether or not the current logged-in user has admin rights
+    // for the passed datasetId. Returns true or false.
+    getAdminStatus: function(datasetId) {
+      var isAdmin = false;
+
+      if (Shareabouts.bootstrapped.currentUser && 
+          Shareabouts.bootstrapped.currentUser.groups) {
+        
+        _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
+          // Get the name of the datasetId from the end of the full url
+          // provided in Shareabouts.bootstrapped.currentUser.groups
+          var url = group.dataset.split("/"),
+          match = url[url.length - 1];
+          if (match && 
+              match === datasetId && 
+              group.name === "administrators") {
+            
+            isAdmin = true;
+          }
+        });
+      }
+
+      return isAdmin;
+    },
+
     // Given the information provided in a url (that is, an id and possibly a slug),
     // attempt to find the corresponding model within all collections on the page.
     // Three conditions are possible:

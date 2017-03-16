@@ -20,6 +20,8 @@
       TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+
+      this.determineAdminStatus();
     },
     resetFormState: function() {
       this.formState = {
@@ -31,17 +33,18 @@
         commonFormElements: this.options.placeConfig.common_form_elements || {}
       }
     },
+    // Augment the place detail configuration information with a flag indicating
+    // whether or not the logged-in user has admin rights on each category's dataset
+    determineAdminStatus: function() {
+      _.each(this.options.placeConfig.place_detail, function(place) {
+        _.extend(place, {isAdmin: Util.getAdminStatus(place.dataset)});
+      });
+    },
     render: function(isCategorySelected) {
-      var isAdmin = false,
-      self = this,
+      var self = this,
       placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
         return place.includeOnForm; 
       });
-
-      if (Shareabouts.bootstrapped.currentUser &&
-        _.contains(this.options.placeConfig.administrators, Shareabouts.bootstrapped.currentUser.username)) {
-        isAdmin = true;
-      }
 
       // if there is only one place to include on form, skip category selection page
       if (placesToIncludeOnForm.length === 1) {
@@ -54,7 +57,6 @@
 
       var data = _.extend({
         isCategorySelected: isCategorySelected,
-        isAdmin: isAdmin,
         placeConfig: this.options.placeConfig,
         selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
@@ -129,19 +131,6 @@
         self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
       });
     },
-    checkAutocomplete: function() {
-      var self = this,
-      storedValue;
-
-      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
-        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
-      });
-      this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
-        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
-      });
-    },
     remove: function() {
       this.unbind();
     },
@@ -170,7 +159,7 @@
           locationAttr = this.options.placeConfig.location_item_name,
           $form = this.$('form');
 
-      attrs = S.Util.getAttrs($form); 
+      attrs = Util.getAttrs($form); 
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
