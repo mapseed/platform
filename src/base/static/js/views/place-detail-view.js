@@ -20,13 +20,12 @@
     initialize: function() {
       var self = this;
 
-      // should we display the toggle edit mode button?
-      this.isEditable = false;
-      // should we display editable fields?
+      this.isEditable = Util.getAdminStatus(this.options.datasetId);
       this.isEditingToggled = false;
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
+      this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, {category: this.model.get("location_type")});
       
       // use the current url as the key under which to store draft changes made
       // to this place detail view
@@ -78,9 +77,9 @@
         Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
 
-      this.isEditable = Util.getAdminStatus(this.options.datasetId);
-
       this.model.attachmentCollection.on("add", this.onAddAttachment, this);
+
+      this.prepFields();
     },
 
     saveDraftChanges: function() {
@@ -109,7 +108,87 @@
       var toggled = !this.isEditingToggled;
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
+      this.prepFields();
       this.render();
+    },
+    prepFields: function() {
+      var exclusions = ["submitter_name", "name", "location_type", "title"];
+      this.fields = [];
+
+      // Iterate through all the form fields for this place
+      _.each(this.categoryConfig.fields, function(item, i) {
+        
+        // Handle input types on a case-by-case basis, building an appropriate
+        // context object for each
+        var userInput = this.model.get(item.name),
+        content, 
+        wasAnswered = false;
+
+        if (item.type === "text" || 
+            item.type === "textarea" || 
+            item.type === "datetime" || 
+            item.type === "richTextarea") {
+          
+          // Plain text
+          content = userInput || "";
+          if (content !== "") {
+            wasAnswered = true;
+          }
+        } else if (item.type === "checkbox_big_buttons" || 
+            item.type === "radio_big_buttons" || 
+            item.type === "dropdown") {
+          
+          // Checkboxes, radio buttons, and dropdowns
+          if (!_.isArray(userInput)) {
+
+            // If input is not an array, convert to an array of length 1
+            userInput = [userInput];
+          }
+          content = [];
+          
+          _.each(item.content, function(option) {
+            var selected = false;
+            if (_.contains(userInput, option.value)) {
+              selected = true;
+              wasAnswered = true;
+            }
+            content.push({
+              value: option.value,
+              label: option.label,
+              selected: selected
+            });
+          });
+        } else if (item.type === "binary_toggle") {
+          
+          // Binary toggle buttons
+          // NOTE: We assume that the first option listed under content
+          // corresponds to the "on" value of the toggle input
+          content = {
+            selectedValue: item.content[0].value,
+            selectedLabel: item.content[0].label,
+            unselectedValue: item.content[1].value,
+            unselectedLabel: item.content[1].label,
+            selected: (userInput == item.content[0].value) ? true : false
+          }
+          wasAnswered = true;
+        }
+
+        var newItem = {
+          name: item.name,
+          type: item.type,
+          content: content,
+          prompt: item.display_prompt
+        };
+
+        if (_.contains(exclusions, item.name) === false &&
+            item.name.indexOf('private-') !== 0 &&
+            newItem.content !== undefined && 
+            wasAnswered === true &&
+            item.form_only !== true) {
+          
+          this.fields.push(newItem);
+        }
+      }, this);
     },
 
     render: function() {
@@ -120,7 +199,8 @@
             url: this.options.url,
             isEditable: this.isEditable || false,
             isEditingToggled: this.isEditingToggled || false,
-            isModified: this.isModified
+            isModified: this.isModified,
+            fields: this.fields
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -132,6 +212,7 @@
       // Augment the data with any draft changes saved to localstorage
       if (this.isEditingToggled &&
           Util.localstorage.get(this.LOCALSTORAGE_KEY)) {
+        
         this.isModified = true;
         data.isModified = true;
         _.extend(data, Util.localstorage.get(this.LOCALSTORAGE_KEY));
@@ -284,15 +365,23 @@
         Util.getAttrs($("#update-place-model-title-form")),
         richTextAttrs);
 
-      // special handling for binary toggle buttons: we need to remove
+      // Special handling for binary toggle buttons: we need to remove
       // them completely from the model if they've been unselected in
       // the editor
-      $('input[data-input-type="binary_toggle"]').each(function(input) {
+      $("#update-place-model-form input[data-input-type='binary_toggle']").each(function(input) {
         if (!$(this).is(":checked")) {
           self.model.unset($(this).attr("id"));
         }
       });
 
+      // Special handling for checkbox groups: if all items in a checkbox group
+      // have been unselected, remove the group completely from the model
+      $("#update-place-model-form .checkbox-group").each(function(group) {
+        if ($(this).find("input:checkbox:checked").length === 0) {
+          self.model.unset($(this).find(":first-child").attr("name"));
+        }
+      });
+      
       return attrs;
     },
 
@@ -309,6 +398,7 @@
           self.clearDraftChanges();
           self.isModified = false;
           self.isEditingToggled = false;
+          self.prepFields();
           self.render();
         },
         error: function() {

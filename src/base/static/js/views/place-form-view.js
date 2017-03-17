@@ -64,6 +64,8 @@
         isSingleCategory: this.formState.isSingleCategory
       }, Shareabouts.stickyFieldValues);
 
+      console.log(data);
+
       this.$el.html(Handlebars.templates['place-form'](data));
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
@@ -120,15 +122,19 @@
     },
     checkAutocomplete: function() {
       var self = this,
-      storedValue;
+      autocompleteValue;
 
       this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = Util.getAutocompleteValue(field.name);
-        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
+        autocompleteValue = Util.getAutocompleteValue(field.name);
+        // do we have an autocomplete value? set the autocompleteValue flag
+        self.formState.selectedCategoryConfig.fields[i].existingContent = autocompleteValue;
+        
+        // if there is an autocomplete value, set the generic content attribute to hold it.
+        //self.formState.selectedCategoryConfig.fields[i].content = autocompleteValue || null;
       });
       this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = Util.getAutocompleteValue(field.name);
-        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
+        autocompleteValue = Util.getAutocompleteValue(field.name);
+        self.formState.commonFormElements[i].autocompleteValue = autocompleteValue || null;
       });
     },
     remove: function() {
