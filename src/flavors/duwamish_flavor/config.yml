@@ -1002,12 +1002,14 @@ place:
       fields:
         - name: title
           type: text
+          autocomplete: true
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
         - name: pollution_type
           type: checkbox_big_buttons
+          autocomplete: true
           prompt: _(Types of pollution seen:)
           display_prompt: _(I saw the following types of pollution here:)
           content:
@@ -1022,8 +1024,37 @@ place:
             - label: _(Other)
               value: other
           optional: true # NOTE: checkbox_big_button inputs have no validation
+        - name: pollution_type_2
+          type: radio_big_buttons
+          autocomplete: true
+          prompt: _(Types of pollution seen:)
+          display_prompt: _(I saw the following types of pollution here:)
+          content:
+            - label: _(Sewage)
+              value: sewage2
+            - label: _(Tires)
+              value: tires2
+            - label: _(Illegal dumpsite)
+              value: dumpsite2
+            - label: _(Litter)
+              value: litter2
+            - label: _(Other)
+              value: other2
+          optional: true # NOTE: checkbox_big_button inputs have no validation
+        - name: reside_work_georgetown
+          type: binary_toggle
+          autocomplete: true
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+          display_prompt: _(I reside or work in Georgetown or South Park:)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: true # NOTE: binary_toggle inputs have no validation
         - name: description
           type: textarea
+          autocomplete: true
           prompt: _(Description of this pollution:)
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
