@@ -1,0 +1,29 @@
+{% load i18n %}
+{% trans 'Thanks for submitting a new idea to improve your community!' %}
+
+{% blocktrans %}Here's what you suggested:{% endblocktrans %} %} {{ place.properties.name }}
+
+{% blocktrans %}You can see people's comments on your idea at{% endblocktrans %} http://ideas.pblongbeach.org/place/{{ place.id }}.
+
+{% trans 'For more information on the participatory budgeting process, go to www.pblongbeach.org.' %}
+
+
+{% trans 'How to get more involved:' %}
+=========================
+
+## {% trans 'Attend a Neighborhood Assembly' %}
+
+{% trans 'Discuss your ideas in person with your friends and neighbors at a 9th District Neighborhood Assembly! Go to http://www.pblongbeach.org/district9.html for upcoming assembly dates, times, and locations.' %}
+
+## {% trans 'Volunteer' %}
+
+{% trans 'There are lots of ways to get involved in PB Long Beach! You can help to get the word out to underserved communities, facilitate small group meetings, help translate materials, or design flyers. Sign up at http://www.pblongbeach.org/volunteer.html.' %}
+
+## {% trans 'Connect with Us' %}
+
+{% trans 'Find us on Facebook (https://www.facebook.com/rexrichardsonlb) and follow us on Twitter (https://twitter.com/rexrichardson)!' %}
+
+## {% trans 'Contact Us' %}
+
+{% trans 'Have a question? Feel free to contact us at http://www.pblongbeach.org/contact.html.' %}
+

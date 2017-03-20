@@ -1,0 +1,94 @@
+{{#if shortlisted }}
+{{ else }}
+  {{#if year }}
+  {{ else }}
+    {{> place-detail-promotion-bar }}
+  {{/if }}
+{{/if }}
+
+<header class="place-header clearfix">
+
+  {{#if shortlisted }}
+            
+    <h1>{{ name }}</h1>
+    <p> A {{ place_type_label location_type }} project on the ballot in 2014.</p>        
+  {{ else }}
+    <!-- if it's an old project, we don't want to show who submitted it -->
+    {{#if year }}
+
+      <p class="approved-location-type {{ location_type }}"><span class="approved-location-icon"></span> A {{ place_type_label location_type }} project in District {{ District }} funded by {{#is District '19' }}City Council{{^}}{{ council_member }}{{/is }} in <strong>{{ year }}</strong>.</p>
+
+      <h1>{{ name }}</h1>
+
+    {{ else }} <!-- no year means it's a user-submitted location -->
+
+      <h1>{{ name }}</h1>
+      
+      <span class="place-submission-details">
+        {{#_}}
+
+        {{#if source}}
+          A {{place_type_label location_type }} idea {{#if CounDist}} in District {{ CounDist }}{{/if}} from <strong>{{ source }}</strong>
+        {{^}}
+        <strong class="point-submitter">
+          {{#if submitter}}
+            <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
+          {{^}}
+            <!-- TODO: FIXME: don't hardcode image URL -->
+            <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
+          {{/if}}
+            </strong> suggested this {{place_type_label location_type }} idea {{#if CounDist}} in District {{ CounDist }}{{/if}}. 
+        {{/if}}
+            <p><small>Near {{>location-string location }}</small></p>
+
+        {{/_}}
+
+        <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>
+      </span>
+    {{/if }}
+  {{/if }}
+
+</header>
+
+<section class="place-items">
+  {{#_}}
+  {{#if shortlisted }}
+    <p><strong>Location</strong>: {{ Location }}</p>
+    <p><strong>Description</strong>: {{ description }}</p>
+    <p><strong>Cost</strong>: {{ Cost }}</p>
+    <p>Vote for this project between March 29th and April 6th. <a href="http://pbnyc.org/" title="Participatory Budgeting in New York City | REAL MONEY. REAL PROJECTS. REAL POWER.">Find out how and where</a>.</p>
+  {{ else }}
+    {{#if year }} <!-- it's a manually-added project from previous years -->
+      <p class="description">{{ description }}</p>
+    
+      {{#if status }}
+        <p><strong>Status</strong>: {{ status }} {{#if updated }} (last updated {{ updated }}) {{/if }}</p>
+      {{/if }}
+
+      <p><strong>Cost</strong>: {{ cost }}</p>
+      {{#if agency}}<p><strong>Agency</strong>: {{ agency }}</p> {{/if}}
+    
+    {{ else }}
+  
+      {{#if name }} <p>My project idea is: <span class="idea-title">{{ name }}</span></p> {{/if }}
+
+      {{#if description }} <p>Details: {{ description }}</p> {{/if }}
+  
+      {{# attachments }}
+        <div class="place-item place-attachment-{{ name }}">
+          <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
+        </div>
+      {{/ attachments }}
+
+    {{/if }}
+  {{/if }}
+  
+  {{^if survey_config}}
+    <a href="/place/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
+  {{/if}}
+  {{/_}}
+</section>
+
+{{#survey_config}}
+  <section class="survey"></section>
+{{/survey_config}}
