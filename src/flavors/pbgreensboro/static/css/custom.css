@@ -86,13 +86,37 @@ textarea:focus {
   opacity: 0.8;
 }
 
+.category-btn-container:hover .category-label {
+  background-color: #68bab9 !important;
+  border-color: #68bab9 !important;
+}
+
+.category-btn-container:hover .category-icon {
+  border-top: 2px solid #68bab9 !important;
+  border-bottom: 2px solid #68bab9 !important;
+  border-left: 2px solid #68bab9 !important;
+}
+
+#selected-category .category-label, .category-btn-container-selected .category-label {
+  background-color: #68bab9 !important;
+  border-color: #68bab9 !important;
+}
+
+.category-menu-hamburger:hover {
+  color: #68bab9 !important;
+}
+
+#selected-category .category-icon, .category-btn-container-selected .category-icon {
+  border-color: #68bab9 !important;
+}
 
 /* =The Site Header
 -------------------------------------------------------------- */
 
 #site-header {
-  color: #000;
-  background-color: #e6eef2;
+  background: none !important;
+  background-color: #e6eef2 !important;
+  /*height: 80px !important;*/
 }
 #site-logo {
   float: left;
@@ -118,6 +142,7 @@ textarea:focus {
 }
 #auth-nav-container {}
 a#sign-in-btn {
+  background-color: transparent !important;
   color: #68bab9;
 }
 a#sign-in-btn:hover {
@@ -137,7 +162,7 @@ a#add-place {
   color: #fff;
 }
 a#add-place:hover {
-  background-color: #68bab9;
+  background-color: #68bab9 !important;
   color: #fff;
 }
 
