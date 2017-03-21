@@ -762,7 +762,7 @@ place:
       name: location_type
       dataset: greensboropb
       icon_url: /static/css/images/markers/new/street-sidewalk.png
-      value: streets_sidewalks
+      value: streets
       label: _(Streets & Sidewalks)
       fields:
         - name: title
@@ -788,7 +788,7 @@ place:
       name: location_type
       dataset: greensboropb
       icon_url: /static/css/images/markers/new/health.png
-      value: public_health
+      value: health
       label: _(Public Health)
       fields:
         - name: title
@@ -814,7 +814,7 @@ place:
       name: location_type
       dataset: greensboropb
       icon_url: /static/css/images/markers/new/safety.png
-      value: safety_environment
+      value: safety
       label: _(Safety & Environment)
       fields:
         - name: title
