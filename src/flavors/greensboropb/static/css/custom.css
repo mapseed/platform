@@ -110,6 +110,14 @@ textarea:focus {
   border-color: #68bab9 !important;
 }
 
+.big-btn:checked + label:before {
+  background-color: #68bab9 !important;
+}
+
+.big-btn:checked + label {
+  border: 2px solid #68bab9 !important;
+}
+
 /* =The Site Header
 -------------------------------------------------------------- */
 
