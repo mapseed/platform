@@ -89,6 +89,12 @@ map:
       type: place
       slug: vision
 
+    - id: dvyc
+      type: landmark
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks      
+      sources: 
+        - "https://raw.githubusercontent.com/mapseed/data/master/dvyc.geojson"
+
     - id: restoration
       type: place
       slug: restoration
@@ -439,6 +445,13 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-dirtcorps.png
 
+  star:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
+
   # # needs a marker
   # farm:
   #   zoomType: mapboxZoomStyle
@@ -590,6 +603,10 @@ sidebar:
 
             - id: dirt-corps
               title: _(Dirt Corps sites)
+              visibleDefault: true
+
+            - id: dvyc
+              title: _(Youth Corps)
               visibleDefault: true
 
             - id: story-markers
