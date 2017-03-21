@@ -9,7 +9,6 @@
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 {% endblock %}
 
-
 {% block meta %}
   {% if place %}
     <!-- Twitter -->
@@ -41,6 +40,8 @@
     <meta property="og:title" content="{{ config.app.title }}" />
     <meta property="og:description" content="{{ config.app.meta_description }}" />
   {% endif%}
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block app_icons %}
