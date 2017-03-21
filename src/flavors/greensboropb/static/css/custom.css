@@ -171,8 +171,10 @@ a#add-place:hover {
 -------------------------------------------------------------- */
 
 #geocode-address-bar {
-  background-color: #DAF2F2;
+  display: block;
+  background: #DAF2F2 !important;
   border-right: 1px solid #c3d7e5;
+  height: 40px;
 }
 .geocode-address-label {
   font-size: 0.75em;
@@ -247,6 +249,12 @@ input.geocode-address-field {
 /* =Legend & Guidelines Chart
 -------------------------------------------------------------- */
 
+.master-layer-list {
+  background-color: #DAF2F2;
+  margin-top: 0;
+  padding-top: 8px;
+  padding-left: 8px;
+}
 .legend {
   background-color: #DAF2F2;
   padding: 15px 10px;
@@ -459,8 +467,20 @@ p.checkbox + p.select {
     background-color: #68bab9;
     color: #fff;
   }
+  #main-btns-container {
+    top: 135px !important;
+  }
   #add-place-btn-container {
     background-color: transparent;
+  }
+  .geocoding-bar-enabled #map-container {
+    top: 125px;
+  }
+  .activity-enabled #geocode-address-bar {
+    right: 20%;
+  }
+  #content {
+    top: 123px !important;
   }
 }
 
