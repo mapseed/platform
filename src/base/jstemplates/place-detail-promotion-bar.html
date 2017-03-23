@@ -1,6 +1,6 @@
-        <section class="promotion clearfix">
-          <div class="support"></div>
-          <div class="social">
+        <section class="promotion clearfix {{#if story}}single-line{{/if}}">
+          <div class="support {{#if story}}single-line{{/if}}"></div>
+          <div class="social {{#if story}}single-line{{/if}}">
             <ul class="sharing unstyled-list">
               <li class="share-link share-twitter"><a href="https://twitter.com/intent/tweet?url={{ place_url id }}&text={{ name }}" target="_blank" data-shareto="twitter">{{#_}}Tweet This{{/_}}</a></li>
               <li class="share-link share-facebook"><a href="https://www.facebook.com/sharer/sharer.php?u={{ place_url id }}" target="_blank" data-shareto="facebook">{{#_}}Recommend on Facebook{{/_}}</a></li>
