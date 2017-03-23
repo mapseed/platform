@@ -368,9 +368,9 @@ place_types:
     # LineString
       - condition: '"{{geometry.type}}" == "LineString"'
         style:
-          color: "{{properties.stroke}}"
-          opacity: '{{properties.stroke-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          color: "{{style.color}}"
+          opacity: "{{style.opacity}}"
+          weight: "{{style.weight}}"
     # Polygons
       - condition: '"{{geometry.type}}" == "Polygon"'
         style:
