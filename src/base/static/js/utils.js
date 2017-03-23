@@ -531,29 +531,6 @@ var self = module.exports = {
       }
     },
 
-    localstorage: {
-      LOCALSTORAGE_PREFIX: "mapseed-",
-      save: function(name, value, days) {
-        var expDate = new Date();
-        expDate.setTime(expDate.getTime() + (days * 24 * 60 * 60 * 1000));
-        localStorage.setItem(this.LOCALSTORAGE_PREFIX + name, JSON.stringify({
-          expires: expDate,
-          value: value
-        }));
-      },
-      get: function(name) {
-        var now = new Date().getTime(),
-        name = this.LOCALSTORAGE_PREFIX + name,
-        item = JSON.parse(localStorage.getItem(name)) || {};
-        if (now > Date.parse(item.expires)) {
-          localStorage.removeItem(name);
-          return null;
-        }
-
-        return item.value;
-      }
-    },
-
     MapQuest: {
       geocode: function(location, bounds, options) {
         var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
