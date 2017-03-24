@@ -12,7 +12,7 @@
              type="text" 
              id="geocode-address-field" 
              class="geocode-address-field"
-             value={{nlToBr content}}>
+             value={{nlToBr existingContent}}>
     </div>
   </div>
 {{/is}}
@@ -23,7 +23,7 @@
          type="text"
          {{#if autocomplete}}class="is-autocomplete"{{/if}}
          {{^optional}}required{{/optional}}
-         value={{nlToBr content}}>
+         value={{nlToBr existingContent}}>
 {{/is}}
 
 {{#is type "text"}}
@@ -47,12 +47,12 @@
 {{/is}}
 
 {{#is type "richTextarea"}}
-  <textarea id="place-{{ name }}" 
-            class="rich-text-field{{#if autocomplete}} is-autocomplete{{/if}}"
-            name="{{ name }}" 
-            {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
-            {{#unless autcomplete}} placeholder="{{ placeholder }}"{{/unless}}
-            {{^optional}}required{{/optional}}>{{existingContent}}</textarea>
+  <div id="place-{{ name }}" 
+       class="rich-text-field{{#if autocomplete}} is-autocomplete{{/if}}"
+       name="{{ name }}" 
+       {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
+       {{#unless autcomplete}} placeholder="{{ placeholder }}"{{/unless}}
+       {{^optional}}required{{/optional}}>{{{existingContent}}}</div>
 {{/is}}
 
 {{#is type "radio_big_buttons"}}
