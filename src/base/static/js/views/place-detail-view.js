@@ -176,18 +176,19 @@
         var newItem = {
           name: item.name,
           type: item.type,
-          content: content,
+          existingContent: content,
           prompt: item.display_prompt
         };
 
         if (_.contains(exclusions, item.name) === false &&
             item.name.indexOf('private-') !== 0 &&
-            newItem.content !== undefined && 
+            newItem.existingContent !== undefined && 
             wasAnswered === true &&
             item.form_only !== true) {
           
           this.fields.push(newItem);
         }
+
       }, this);
     },
 
@@ -259,7 +260,7 @@
           new RichTextEditorView({
             target: $(this).get(0),
             placeDetailView: self,
-            fieldName: $(this).find(".place-value").attr("name")
+            fieldName: $(this).attr("name")
           });
         });
       }
