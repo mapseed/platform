@@ -1,9 +1,7 @@
-/*globals L Backbone _ jQuery */
+  var Util = require('../utils.js');
+  var Argo = require('../../libs/leaflet.argo.js');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-  S.LayerView = Backbone.View.extend({
+  module.exports = Backbone.View.extend({
      // A view responsible for the representation of a place on the map.
     initialize: function(){
       this.map = this.options.map;
@@ -14,7 +12,7 @@ var Shareabouts = Shareabouts || {};
       // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
 
-      this.map.on('zoomend', this.onZoomend, this);
+      this.map.on('zoomend', this.updateLayer, this);
 
       // Bind model events
       this.model.on('change', this.updateLayer, this);
@@ -97,16 +95,6 @@ var Shareabouts = Shareabouts || {};
       // and is capable of calling view methods on a "deleted" view.
       this.map.off('zoomend', this.updateLayer, this);
     },
-    onZoomend: function() {
-      // Don't try to update layers for polygonal and linestring geometry on zoomend.
-      // This creates problems if a layer is in editing mode, and in any
-      // case we don't have config-based layer style rules (although this
-      // might change down the road).
-      if (this.model.get("geometry") 
-        && this.model.get("geometry").type === "Point") {
-        this.updateLayer();
-      }
-    },
     updateLayer: function() {
       // Update the marker layer if the model changes and the layer exists
       this.removeLayer();
@@ -132,7 +120,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMarkerClick: function() {
-      S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
+      Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
       // support places with landmark-style urls
       if (this.model.get("url-title")) {
         this.options.router.navigate('/' + this.model.get("url-title"), {trigger: true});
@@ -186,5 +174,3 @@ var Shareabouts = Shareabouts || {};
       this.removeLayer();
     }
   });
-
-}(Shareabouts, jQuery, Shareabouts.Util.console));

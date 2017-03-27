@@ -1,6 +1,15 @@
 /*globals Backbone jQuery _ */
 
-var Shareabouts = Shareabouts || {};
+var PlaceModel = require('./models/place-model.js');
+var LandmarkModel = require('./models/landmark-model.js');
+var Util = require('./utils.js');
+var LandmarkCollection = require('./models/landmark-collection.js');
+var PlaceCollection = require('./models/place-collection.js');
+var ActionCollection = require('./models/action-collection.js');
+var AppView = require('mapseed-app-view');
+
+// Global-namespace Util
+Shareabouts.Util = Util;
 
 (function(S, $, console){
   S.App = Backbone.Router.extend({
@@ -56,16 +65,16 @@ var Shareabouts = Shareabouts || {};
       // store individual landmark collections for each landmark type
       this.landmarks = {};
 
-      S.PlaceModel.prototype.getLoggingDetails = function() {
+      PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
-      S.LandmarkModel.prototype.getLoggingDetails = function() {
+      LandmarkModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
 
       // Reject a place that does not have a supported location type. This will
       // prevent invalid places from being added or saved to the collection.
-      S.PlaceModel.prototype.validate = function(attrs, options) {
+      PlaceModel.prototype.validate = function(attrs, options) {
         var locationType = attrs.location_type,
             locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
 
@@ -77,7 +86,7 @@ var Shareabouts = Shareabouts || {};
 
       // Global route changes
       this.bind('route', function(route, router) {
-        S.Util.log('ROUTE', self.getCurrentPath());
+        Util.log('ROUTE', self.getCurrentPath());
       });
 
       filteredRoutes = this.getFilteredRoutes();
@@ -100,7 +109,7 @@ var Shareabouts = Shareabouts || {};
         config.sources.forEach(function (source) {
           url += encodeURIComponent(source) + '&'
         });
-        var collection = new S.LandmarkCollection([], { url: url });
+        var collection = new LandmarkCollection([], { url: url });
         self.landmarks[config.id] = collection;
       });
 
@@ -109,17 +118,17 @@ var Shareabouts = Shareabouts || {};
         return layer.type && layer.type === 'place';
       });
       _.each(configArrays.places, function(config) {
-        var collection = new S.PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
+        var collection = new PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
         self.places[config.id] = collection;
       });
 
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
-        var collection = new S.ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
+        var collection = new ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
         self.activities[config.id] = collection;
       });
 
-      this.appView = new S.AppView({
+      this.appView = new AppView({
         el: 'body',
         activities: this.activities,
         places: this.places,
@@ -184,12 +193,21 @@ var Shareabouts = Shareabouts || {};
       this.appView.newPlace();
     },
 
-    viewLandmark: function(id) {
-      this.appView.viewLandmark(id, { zoom: this.loading });
+    viewLandmark: function(modelId, responseId) {
+      this.appView.viewPlaceOrLandmark({
+        modelId: modelId,
+        responseId: responseId,
+        loading: this.loading
+      });
     },
 
-    viewPlace: function(datasetSlug, id, responseId) {
-      this.appView.viewPlace(datasetSlug, id, responseId, this.loading);
+    viewPlace: function(datasetSlug, modelId, responseId) {      
+      this.appView.viewPlaceOrLandmark({
+        datasetSlug: datasetSlug,
+        modelId: modelId,
+        responseId: responseId,
+        loading: this.loading
+      });
     },
 
     editPlace: function(){},
@@ -277,4 +295,69 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-}(Shareabouts, jQuery, Shareabouts.Util.console));
+}(Shareabouts, jQuery, Util.console));
+
+/*****************************************************************************
+
+  CSRF Validation
+  ---------------
+  Django protects against Cross Site Request Forgeries (CSRF) by default. This
+  type of attack occurs when a malicious Web site contains a link, a form button
+  or some javascript that is intended to perform some action on your Web site,
+  using the credentials of a logged-in user who visits the malicious site in their
+  browser.
+
+  Since the API proxy view sends requests that write data to the Shareabouts
+  service authenticated as the owner of this dataset, we want to protect the API
+  view against CSRF. In order to ensure that AJAX POST/PUT/DELETE requests that
+  are made via jQuery will not be caught by the CSRF protection, we use the
+  following code. For more information, see:
+  https://docs.djangoproject.com/en/1.4/ref/contrib/csrf/
+
+  */
+
+  jQuery(document).ajaxSend(function(event, xhr, settings) {
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      function sameOrigin(url) {
+          // url could be relative or scheme relative or absolute
+          var host = document.location.host; // host + port
+          var protocol = document.location.protocol;
+          var sr_origin = '//' + host;
+          var origin = protocol + sr_origin;
+          // Allow absolute or scheme relative URLs to same origin
+          return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+              (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+              // or any other URL that isn't scheme relative or absolute i.e relative.
+              !(/^(\/\/|http:|https:).*/.test(url));
+      }
+      function safeMethod(method) {
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      }
+
+      // If this is a DELETE request, explicitly set the data to be sent so that
+      // the browser will calculate a value for the Content-Length header.
+      if (settings.type === 'DELETE') {
+          xhr.setRequestHeader("Content-Type", "application/json");
+          settings.data = '{}';
+      }
+  });
+
+

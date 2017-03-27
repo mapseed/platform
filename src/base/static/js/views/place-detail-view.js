@@ -1,9 +1,13 @@
-/*globals Backbone _ jQuery Handlebars Quill */
 
-var Shareabouts = Shareabouts || {};
+  var Util = require('../utils.js');
 
-(function(S, $, Quill, console){
-  S.PlaceDetailView = Backbone.View.extend({
+  var SurveyView = require('mapseed-survey-view');
+  var SupportView = require('mapseed-support-view');
+  var RichTextEditorView = require('mapseed-rich-text-editor-view');
+
+  var SubmissionCollection = require('../models/submission-collection.js');
+
+  module.exports = Backbone.View.extend({
     events: {
       'click .place-story-bar .btn-previous-story-nav': 'onClickStoryPrevious',
       'click .place-story-bar .btn-next-story-nav': 'onClickStoryNext',
@@ -17,14 +21,14 @@ var Shareabouts = Shareabouts || {};
     initialize: function() {
       var self = this;
 
-      // should we display the toggle edit mode button?
-      this.isEditable = false;
-      // should we display editable fields?
+      this.isEditable = Util.getAdminStatus(this.options.datasetId);
       this.isEditingToggled = false;
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
-      this.geometryEditorView = this.options.geometryEditorView;
+      this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, 
+        {category: this.model.get("location_type")});
+      this.commonFormElements = this.options.placeConfig.common_form_elements;
       
       // use the current url as the key under which to store draft changes made
       // to this place detail view
@@ -38,18 +42,18 @@ var Shareabouts = Shareabouts || {};
 
       // Make sure the submission collections are set
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
-        new S.SubmissionCollection(null, {
+        new SubmissionCollection(null, {
           submissionType: this.surveyType,
           placeModel: this.model
         });
 
       this.model.submissionSets[this.supportType] = this.model.submissionSets[this.supportType] ||
-        new S.SubmissionCollection(null, {
+        new SubmissionCollection(null, {
           submissionType: this.supportType,
           placeModel: this.model
         });
 
-      this.surveyView = new S.SurveyView({
+      this.surveyView = new SurveyView({
         collection: this.model.submissionSets[this.surveyType],
         surveyConfig: this.options.surveyConfig,
         userToken: this.options.userToken,
@@ -57,7 +61,7 @@ var Shareabouts = Shareabouts || {};
         placeDetailView: self
       });
 
-      this.supportView = new S.SupportView({
+      this.supportView = new SupportView({
         collection: this.model.submissionSets[this.supportType],
         supportConfig: this.options.supportConfig,
         userToken: this.options.userToken,
@@ -73,34 +77,21 @@ var Shareabouts = Shareabouts || {};
         // HACK! Each action should have its own view and bind its own events.
         var shareTo = this.getAttribute('data-shareto');
 
-        S.Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
+        Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
-
-      // Is this user authenticated (i.e. able to edit place detail views)?
-      if (S.bootstrapped.currentUser && S.bootstrapped.currentUser.groups) {
-        _.each(S.bootstrapped.currentUser.groups, function(group) {
-          // get the name of the datasetId from the end of the full url
-          // provided in S.bootstrapped.currentUser.groups
-          var url = group.dataset.split("/"),
-          match = url[url.length - 1];
-          if (match && match === self.options.datasetId && group.name === "administrators") {
-            self.isEditable = true;
-          }
-        });
-      }
 
       this.model.attachmentCollection.on("add", this.onAddAttachment, this);
 
-      _.bind(this.onModified, this);
+      this.prepFields(this.isEditingToggled);
     },
 
     saveDraftChanges: function() {
       var attrs = this.scrapeForm();
-      S.Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30) // save for 30 days
+      Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30) // save for 30 days
     },
 
     clearDraftChanges: function() {
-      S.Util.localstorage.destroy(this.LOCALSTORAGE_KEY);
+      Util.localstorage.destroy(this.LOCALSTORAGE_KEY);
     },
 
     onClickStoryPrevious: function() {
@@ -127,6 +118,7 @@ var Shareabouts = Shareabouts || {};
       var toggled = !this.isEditingToggled;
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
+      this.prepFields(this.isEditingToggled);
       this.render();
 
       if (toggled && (this.model.get("geometry").type === "Polygon" || 
@@ -144,6 +136,53 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
+    prepFields: function(isEditingToggled) {
+      var exclusions = ["submitter_name", "name", "location_type", "title", "my_image"];
+      this.fields = [],
+      fieldIsValid = function(fieldData) {
+        return _.contains(exclusions, fieldData.name) === false &&
+          (fieldData.name && fieldData.name.indexOf('private-') !== 0) &&
+          fieldData.hasValue && 
+          fieldData.form_only !== true &&
+          fieldData.type !== "submit"
+      },
+      fieldIsValidForEditor = function(fieldData) {
+        return _.contains(exclusions, fieldData.name) === false &&
+          fieldData.type !== "submit"
+      };
+
+      _.each(this.categoryConfig.fields, function(field, i) {
+        var fieldData = _.extend({}, this.categoryConfig.fields[i],
+          Util.prepField(field, this.model.get(field.name)));
+
+        if (isEditingToggled &&
+            fieldIsValidForEditor(fieldData)) {
+          
+          this.fields.push(fieldData);
+        } else if (fieldIsValid(fieldData)) {
+          
+          this.fields.push(fieldData);
+        }
+
+      }, this);
+
+      _.each(this.commonFormElements, function(field, i) {
+
+        var fieldData = _.extend({}, this.commonFormElements[i],
+          Util.prepField(field, this.model.get(field.name)));
+
+        if (isEditingToggled &&
+            fieldIsValidForEditor(fieldData)) {
+          
+          this.fields.push(fieldData);
+        } else if (fieldIsValid(fieldData)) {
+          
+          this.fields.push(fieldData);
+        }
+
+      }, this);
+    },
+
     render: function() {
       var self = this,
           data = _.extend({
@@ -152,7 +191,8 @@ var Shareabouts = Shareabouts || {};
             url: this.options.url,
             isEditable: this.isEditable || false,
             isEditingToggled: this.isEditingToggled || false,
-            isModified: this.isModified
+            isModified: this.isModified,
+            fields: this.fields
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -163,10 +203,11 @@ var Shareabouts = Shareabouts || {};
 
       // Augment the data with any draft changes saved to localstorage
       if (this.isEditingToggled &&
-          S.Util.localstorage.get(this.LOCALSTORAGE_KEY)) {
+          Util.localstorage.get(this.LOCALSTORAGE_KEY)) {
+        
         this.isModified = true;
         data.isModified = true;
-        _.extend(data, S.Util.localstorage.get(this.LOCALSTORAGE_KEY));
+        _.extend(data, Util.localstorage.get(this.LOCALSTORAGE_KEY));
       }  
 
       this.$el.html(Handlebars.templates['place-detail'](data));
@@ -207,11 +248,10 @@ var Shareabouts = Shareabouts || {};
         });
 
         $(".rich-text-field").each(function() {
-          new S.RichTextEditorView({
+          new RichTextEditorView({
             target: $(this).get(0),
             placeDetailView: self,
-            fieldName: $(this).find(".place-value").attr("name"),
-
+            fieldName: $(this).attr("name")
           });
         });
       }
@@ -242,7 +282,7 @@ var Shareabouts = Shareabouts || {};
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
-        S.Util.fileToCanvas(file, function(canvas) {
+        Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
             //var fieldName = $(evt.target).attr('name'),
             var fieldName = Math.random().toString(36).substring(7),
@@ -313,19 +353,27 @@ var Shareabouts = Shareabouts || {};
         richTextAttrs[$(this).data("fieldName")] = $(this).html();
       });
 
-      var attrs = _.extend(S.Util.getAttrs($("#update-place-model-form")), 
-        S.Util.getAttrs($("#update-place-model-title-form")),
+      var attrs = _.extend(Util.getAttrs($("#update-place-model-form")), 
+        Util.getAttrs($("#update-place-model-title-form")),
         richTextAttrs);
 
-      // special handling for binary toggle buttons: we need to remove
+      // Special handling for binary toggle buttons: we need to remove
       // them completely from the model if they've been unselected in
       // the editor
-      $('input[data-input-type="binary_toggle"]').each(function(input) {
+      $("#update-place-model-form input[data-input-type='binary_toggle']").each(function(input) {
         if (!$(this).is(":checked")) {
           self.model.unset($(this).attr("id"));
         }
       });
 
+      // Special handling for checkbox groups: if all items in a checkbox group
+      // have been unselected, remove the group completely from the model
+      $("#update-place-model-form .checkbox-group").each(function(group) {
+        if ($(this).find("input:checkbox:checked").length === 0) {
+          self.model.unset($(this).find(":first-child").attr("name"));
+        }
+      });
+      
       return attrs;
     },
 
@@ -352,10 +400,11 @@ var Shareabouts = Shareabouts || {};
           self.clearDraftChanges();
           self.isModified = false;
           self.isEditingToggled = false;
+          self.prepFields();
           self.render();
         },
-        error: function(e) {
-          console.log("error!", e);
+        error: function() {
+          // nothing
         }
       });
     },
@@ -374,4 +423,4 @@ var Shareabouts = Shareabouts || {};
       }
     }
   });
-}(Shareabouts, jQuery, Quill, Shareabouts.Util.console));
+

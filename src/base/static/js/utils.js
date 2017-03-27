@@ -1,11 +1,4 @@
-/*global _, moment, BinaryFile, loadImage, EXIF */
-
-var Shareabouts = Shareabouts || {};
-
-(function(S){
-  'use strict';
-
-  S.Util = {
+var self = module.exports = {
     patch: function(obj, overrides, func) {
       var attr, originals = {};
 
@@ -36,6 +29,145 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
+    // Determine whether or not the current logged-in user has admin rights
+    // for the passed datasetId. Returns true or false.
+    getAdminStatus: function(datasetId) {
+      var isAdmin = false;
+
+      if (Shareabouts.bootstrapped.currentUser && 
+          Shareabouts.bootstrapped.currentUser.groups) {
+        
+        _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
+          // Get the name of the datasetId from the end of the full url
+          // provided in Shareabouts.bootstrapped.currentUser.groups
+          var url = group.dataset.split("/"),
+          match = url[url.length - 1];
+          if (match && 
+              match === datasetId && 
+              group.name === "administrators") {
+            
+            isAdmin = true;
+          }
+        });
+      }
+
+      return isAdmin;
+    },
+
+    // Given the information provided in a url (that is, an id and possibly a slug),
+    // attempt to find the corresponding model within all collections on the page.
+    // Three conditions are possible:
+    // 1. A slug is provided, which means we have a Shareabouts place model
+    // 2. A landmark-style url (e.g. /xyz) is provided, which means we might
+    //    have an actual landmark loaded from a third-party source, or...
+    // 3. A landmark-style url is provided, but the url actually corresponds
+    //    to a Shareabouts place model with a url-title property set
+    // NOTE: We assume that all landmark-style urls (both those from third-party 
+    // data sources and those corresponding to Shareabouts place models) are unique.
+    getPlaceFromCollections: function(collectionsSet, args, mapConfig, callbacks) {
+      var numCollections = 0,
+      numCollectionsSynced = 0;
+
+      // If we have a slug, we definitely have a place model
+      if (args.datasetSlug) {
+        searchPlaceCollections();
+      } else {
+
+        // Otherwise, we have a landmark-style url, which may correspond
+        // to a place or a landmark.
+        // First, check if the model exists among collections already loaded
+        // on the page.
+        if (searchLoadedCollections(collectionsSet.places, "url-title", "place")) {
+          return;
+        };
+        if (searchLoadedCollections(collectionsSet.landmarks, "id", "landmark")) {
+          return;
+        };
+
+        // If the model is not found in the loaded collections, bind sync
+        // listeners for all collections.
+        bindCollectionsListeners(collectionsSet.places, "place");
+        bindCollectionsListeners(collectionsSet.landmarks, "landmark");
+      }
+        
+      function searchPlaceCollections() {
+        var datasetId = _.find(mapConfig.layers, function(layer) { 
+          return layer.slug === args.datasetSlug;
+        }).id,
+        model = collectionsSet.places[datasetId].get(args.modelId);
+        
+        if (model) {
+          callbacks.onFound(model, "place", datasetId);
+        } else {
+
+          // if the model has not already loaded, fetch it by id
+          // from the API
+          collectionsSet.places[datasetId].fetchById(args.modelId, {
+            validate: true,
+            success: function(model) {
+              callbacks.onFound(model, "place", datasetId);
+            },
+            error: function() {
+              callbacks.onNotFound();
+            },
+            data: {
+              include_submissions: Shareabouts.Config.flavor.app.list_enabled !== false
+            }
+          });
+        } 
+      }
+
+      function searchLoadedCollections(collections, property, type) {
+        var found = false,
+        searchTerm = {};
+        searchTerm[property] = args.modelId;
+        _.find(collections, function(collection, datasetId) {
+          numCollections++;
+          var model = collection.where(searchTerm);
+          if (model.length === 1) {
+            found = true;
+            callbacks.onFound(model[0], type, datasetId);
+            return;
+          }
+        });
+
+        return found;
+      };
+
+      function bindCollectionsListeners(collections, type) {
+        var searchTerm = {},
+        found = false;
+
+        if (type === "place") {
+          searchTerm["url-title"] = args.modelId;
+        } else if (type === "landmark") {
+          searchTerm["id"] = args.modelId;
+        }
+
+        _.each(collections, function(collection, datasetId) {
+          collection.on("sync", onSync);
+          function onSync(syncedCollection) {
+            numCollectionsSynced++;
+            var model = syncedCollection.where(searchTerm);
+
+            if (model.length === 1) {
+              found = true;
+              collection.off("sync", onSync);
+              callbacks.onFound(model[0], type, datasetId);
+            } else if (numCollectionsSynced === numCollections && !found) {
+
+              // If this is the final collection on the page to sync and we
+              // haven't yet found the model, it means it doesn't exist.
+              collection.off("sync", onSync);
+              callbacks.onNotFound();
+            } else {
+              collection.off("sync", onSync);
+            }
+          };
+        });
+      };
+    },
+
     getAttrs: function($form) {
       var self = this,
           attrs = {},
@@ -57,6 +189,77 @@ var Shareabouts = Shareabouts || {};
       });
 
       return attrs;
+    },
+
+    // Given a fieldConfig and an existingValue (which might be derived from an
+    // autocomplete value stored in localstorage or from a rendered place detail
+    // view value in editor mode), construct a content object for this field
+    // suitable for consumption by the form field types template.
+    prepField: function(fieldConfig, existingValue) {
+      //var exclusions = ["submitter_name", "name", "location_type", "title"],
+      var content,
+      hasValue = false;
+
+      if (fieldConfig.type === "text" || 
+          fieldConfig.type === "textarea" || 
+          fieldConfig.type === "datetime" || 
+          fieldConfig.type === "richTextarea") {
+        
+        // Plain text
+        content = existingValue || "";
+
+        if (content !== "") {
+          hasValue = true;
+        }
+
+      } else if (fieldConfig.type === "checkbox_big_buttons" || 
+          fieldConfig.type === "radio_big_buttons" || 
+          fieldConfig.type === "dropdown") {
+        
+        // Checkboxes, radio buttons, and dropdowns
+        if (!_.isArray(existingValue)) {
+
+          // If input is not an array, convert to an array of length 1
+          existingValue = [existingValue];
+        }
+
+        content = [];
+
+        _.each(fieldConfig.content, function(option) {
+          var selected = false;
+          if (_.contains(existingValue, option.value)) {
+            selected = true;
+            hasValue = true;
+          }
+          content.push({
+            value: option.value,
+            label: option.label,
+            selected: selected
+          });
+        });
+      } else if (fieldConfig.type === "binary_toggle") {
+        
+        // Binary toggle buttons
+        // NOTE: We assume that the first option listed under content
+        // corresponds to the "on" value of the toggle input
+        content = {
+          selectedValue: fieldConfig.content[0].value,
+          selectedLabel: fieldConfig.content[0].label,
+          unselectedValue: fieldConfig.content[1].value,
+          unselectedLabel: fieldConfig.content[1].label,
+          selected: (existingValue === fieldConfig.content[0].value) ? true : false
+        }
+
+        hasValue = true;
+      }
+
+      return {
+        name: fieldConfig.name,
+        type: fieldConfig.type,
+        content: content,
+        prompt: fieldConfig.display_prompt,
+        hasValue: hasValue
+      };
     },
 
     // attempt to save form autocomplete values in localStorage;
@@ -100,8 +303,8 @@ var Shareabouts = Shareabouts || {};
           if (major > 7) {
             return true;
           }
-		 default:
-			return true;
+     default:
+      return true;
       }
 
       return false;
@@ -135,14 +338,14 @@ var Shareabouts = Shareabouts || {};
           stickyItemNames = _.union(stickySurveyItemNames, stickyPlaceItemNames);
 
       // Create the cache
-      if (!S.stickyFieldValues) {
-        S.stickyFieldValues = {};
+      if (!Shareabouts.stickyFieldValues) {
+        Shareabouts.stickyFieldValues = {};
       }
 
       _.each(stickyItemNames, function(name) {
         // Check for existence of the key, not the truthiness of the value
         if (name in data) {
-          S.stickyFieldValues[name] = data[name];
+          Shareabouts.stickyFieldValues[name] = data[name];
         }
       });
     },
@@ -156,7 +359,7 @@ var Shareabouts = Shareabouts || {};
       if (window.ga) {
         this.analytics(args);
       } else {
-        S.Util.console.log(args);
+        this.console.log(args);
       }
     },
 
@@ -306,7 +509,7 @@ var Shareabouts = Shareabouts || {};
 
           loadImage(file, function(canvas) {
             // rotate the image, if needed
-            var rotated = S.Util.fixImageOrientation(canvas, orientation);
+            var rotated = self.fixImageOrientation(canvas, orientation);
             callback(rotated);
           }, options);
       };
@@ -388,7 +591,7 @@ var Shareabouts = Shareabouts || {};
         this.save(name,'',-1);
       }
     },
-
+    
     localstorage: {
       LOCALSTORAGE_PREFIX: "mapseed-",
       save: function(name, value, days) {
@@ -402,7 +605,7 @@ var Shareabouts = Shareabouts || {};
         } catch (e) {
           // ignore exceptions
         }
-       },
+      },
       get: function(name) {
         var now = new Date().getTime(),
         name = this.LOCALSTORAGE_PREFIX + name,
@@ -436,7 +639,7 @@ var Shareabouts = Shareabouts || {};
 
     MapQuest: {
       geocode: function(location, bounds, options) {
-        var mapQuestKey = S.bootstrapped.mapQuestKey;
+        var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
 
         if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
 
@@ -450,7 +653,7 @@ var Shareabouts = Shareabouts || {};
         $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {
-        var mapQuestKey = S.bootstrapped.mapQuestKey,
+        var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey,
             lat, lng;
 
         if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
@@ -502,7 +705,7 @@ var Shareabouts = Shareabouts || {};
         data.results = data.features;
         if (data.results.length > 0) {
           data.results[0] = {
-            locations: [ Shareabouts.Util.Mapbox.toMapQuestResult(data.results[0]) ],
+            locations: [ self.Mapbox.toMapQuestResult(data.results[0]) ],
             providedLocation: { location: data.query.join(' ') }
           };
         }
@@ -510,11 +713,11 @@ var Shareabouts = Shareabouts || {};
       },
 
       geocode: function(location, hint, options) {
-        var mapboxToken = S.bootstrapped.mapboxToken,
+        var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
             originalSuccess = options && options.success,
             transformedResultsSuccess = function(data) {
               if (originalSuccess) {
-                originalSuccess(Shareabouts.Util.Mapbox.toMapQuestResults(data));
+                originalSuccess(self.Mapbox.toMapQuestResults(data));
               }
             };
 
@@ -532,7 +735,7 @@ var Shareabouts = Shareabouts || {};
         $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {
-        var mapboxToken = S.bootstrapped.mapboxToken,
+        var mapboxToken = Shareabouts.bootstrapped.mapboxToken,
             lat, lng;
 
         if (!mapboxToken) throw "You must provide a Mapbox access token " +
@@ -548,4 +751,3 @@ var Shareabouts = Shareabouts || {};
       }
     }
   };
-}(Shareabouts));

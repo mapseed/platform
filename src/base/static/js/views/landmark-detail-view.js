@@ -1,16 +1,14 @@
-/*globals Backbone _ jQuery Handlebars */
+  var PlaceDetailView = require('mapseed-place-detail-view');
+  var LandmarkSurveyView = require('mapseed-landmark-survey-view');
 
-var Shareabouts = Shareabouts || {};
-
-(function(S, $, console){
-  S.LandmarkDetailView = S.PlaceDetailView.extend({
+  module.exports = PlaceDetailView.extend({
     initialize: function() {
       var self = this;
       this.description = this.options.description;
       this.originalDescription = this.options.originalDescription;
       this.model = this.options.model;
 
-      this.landmarkSurveyView = new S.LandmarkSurveyView({});
+      this.landmarkSurveyView = new LandmarkSurveyView({});
     },
 
     render: function() {
@@ -39,4 +37,3 @@ var Shareabouts = Shareabouts || {};
     }
 
   });
-}(Shareabouts, jQuery, Shareabouts.Util.console));

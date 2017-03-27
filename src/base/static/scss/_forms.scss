@@ -123,8 +123,15 @@ select {
     display: none;
 }
 
-.isAutocomplete {
+.is-autocomplete {
     background-color: #ffffe0;
+}
+
+/* messaging for admin-only dynamic form category buttons */
+.form-category-admin-msg {
+    font-size: 0.7em;
+    text-transform: lowercase;
+    padding-left: 10px;
 }
 
 /* admin-only form fields */
@@ -132,6 +139,10 @@ select {
     background-color: rgba(250, 128, 114, 0.48);
     padding: 5px;
     border-radius: 4px;
+}
+
+.place-header-title {
+    line-height: 1.2em;
 } 
 
 /* QuillJS rich text editor styles */

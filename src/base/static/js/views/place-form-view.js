@@ -1,9 +1,9 @@
-/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper Quill */
 
-var Shareabouts = Shareabouts || {};
+  var Util = require('../utils.js');
 
-(function(S, $, console, Quill){
-  S.PlaceFormView = Backbone.View.extend({
+  var TemplateHelpers = require('../template-helpers.js');
+
+  module.exports = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
       'change input[type="file"]': 'onInputFileChange',
@@ -16,15 +16,18 @@ var Shareabouts = Shareabouts || {};
       var self = this;
 
       Backbone.Events.on("panel:close", this.closePanel, this);
+
       this.resetFormState();
       this.options.router.on("route", this.resetFormState, this);
       this.placeDetail = this.options.placeConfig.place_detail;
       this.map = this.options.appView.mapView.map;
       this.geometryEditorView = this.options.geometryEditorView;
 
-      S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
+      TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
-      S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+      TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+
+      this.determineAdminStatus();
     },
     resetFormState: function() {
       this.formState = {
@@ -36,17 +39,18 @@ var Shareabouts = Shareabouts || {};
         commonFormElements: this.options.placeConfig.common_form_elements || {}
       }
     },
+    // Augment the place detail configuration information with a flag indicating
+    // whether or not the logged-in user has admin rights on each category's dataset
+    determineAdminStatus: function() {
+      _.each(this.options.placeConfig.place_detail, function(place) {
+        _.extend(place, {isAdmin: Util.getAdminStatus(place.dataset)});
+      });
+    },
     render: function(isCategorySelected) {
-      var isAdmin = false,
-      self = this,
+      var self = this,
       placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
         return place.includeOnForm; 
       });
-
-      if (S.bootstrapped.currentUser &&
-        _.contains(this.options.placeConfig.administrators, S.bootstrapped.currentUser.username)) {
-        isAdmin = true;
-      }
 
       // if there is only one place to include on form, skip category selection page
       if (placesToIncludeOnForm.length === 1) {
@@ -54,18 +58,17 @@ var Shareabouts = Shareabouts || {};
         isCategorySelected = true;
         this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
       }
-
+      
       this.checkAutocomplete();
 
       var data = _.extend({
         isCategorySelected: isCategorySelected,
-        isAdmin: isAdmin,
         placeConfig: this.options.placeConfig,
         selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
-        current_user: S.currentUser,
+        current_user: Shareabouts.currentUser,
         isSingleCategory: this.formState.isSingleCategory
-      }, S.stickyFieldValues);
+      }, Shareabouts.stickyFieldValues);
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
@@ -135,17 +138,25 @@ var Shareabouts = Shareabouts || {};
       });
     },
     checkAutocomplete: function() {
-      var self = this,
-      storedValue;
+      _.each(this.formState.selectedCategoryConfig.fields, function(field, i) { 
+          _.extend(this.formState.selectedCategoryConfig.fields[i],
+            Util.prepField(field, (field.autocomplete) ? 
+              Util.getAutocompleteValue(field.name) :
+              null));
 
-      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
-        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
-      });
+          this.formState.selectedCategoryConfig.fields[i].isAutocomplete = 
+            (field.hasValue && field.autocomplete) ? true : false;
+      }, this);
+
       this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = S.Util.getAutocompleteValue(field.name);
-        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
-      });
+        _.extend(this.formState.commonFormElements[i],
+            Util.prepField(field, (field.autocomplete) ? 
+              Util.getAutocompleteValue(field.name) :
+              null));
+
+          this.formState.commonFormElements[i].isAutocomplete = 
+            (field.hasValue && field.autocomplete) ? true : false;
+      }, this);
     },
     checkAutocomplete: function() {
       var self = this,
@@ -188,8 +199,8 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
-          $form = this.$('form');
-      attrs = S.Util.getAttrs($form);
+          $form = this.$('form'),
+          attrs = Util.getAttrs($form); 
 
       // get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
@@ -203,7 +214,7 @@ var Shareabouts = Shareabouts || {};
               return field.name === key;
             }) || {};
         if (itemConfig.autocomplete) {
-          S.Util.saveAutocompleteValue(key, value, 30);
+          Util.saveAutocompleteValue(key, value, 30);
         }
       });
       
@@ -253,7 +264,7 @@ var Shareabouts = Shareabouts || {};
       var self = this;
       evt.preventDefault();
       var ll = this.options.appView.mapView.map.getBounds().toBBoxString();
-      S.Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
+      Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
       $("#drag-marker-content").addClass("is-visuallyhidden");
       $("#geolocating-msg").removeClass("is-visuallyhidden");
 
@@ -277,7 +288,7 @@ var Shareabouts = Shareabouts || {};
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
-        S.Util.fileToCanvas(file, function(canvas) {
+        Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
             self.formState.attachmentData = {
               name: $(evt.target).attr('name'),
@@ -341,8 +352,8 @@ var Shareabouts = Shareabouts || {};
         richTextAttrs = {};
 
       // if we have a Quill-enabled field, assume content from this field belongs
-      // to the model's description attribute. We'll need to make this behavior 
-      // more sophisticated to support multiple Quill-enabled fields.
+      // to the description field. We'll need to make this behavior more sophisticated
+      // to support multiple Quill-enabled fields.
       if ($(".ql-editor").html()) {
         richTextAttrs.description = $(".ql-editor").html();
       }
@@ -381,11 +392,11 @@ var Shareabouts = Shareabouts || {};
       }
 
       $button.attr('disabled', 'disabled');
-      spinner = new Spinner(S.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
 
-      S.Util.log('USER', 'new-place', 'submit-place-btn-click');
+      Util.log('USER', 'new-place', 'submit-place-btn-click');
 
-      S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
+      Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
 
       // Save and redirect
       model.save(attrs, {
@@ -393,11 +404,12 @@ var Shareabouts = Shareabouts || {};
           if (self.geometryEditorView) {
             self.geometryEditorView.tearDown();
           }
-          S.Util.log('USER', 'new-place', 'successfully-add-place');
+          Util.log('USER', 'new-place', 'successfully-add-place');
+
           router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
         },
         error: function() {
-          S.Util.log('USER', 'new-place', 'fail-to-add-place');
+          Util.log('USER', 'new-place', 'fail-to-add-place');
         },
         complete: function() {
           $button.removeAttr('disabled');
@@ -408,4 +420,3 @@ var Shareabouts = Shareabouts || {};
       });
     })
   });
-}(Shareabouts, jQuery, Shareabouts.Util.console, Quill));
