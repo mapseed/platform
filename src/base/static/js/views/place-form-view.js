@@ -64,8 +64,6 @@
         isSingleCategory: this.formState.isSingleCategory
       }, Shareabouts.stickyFieldValues);
 
-      console.log(data);
-
       this.$el.html(Handlebars.templates['place-form'](data));
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
@@ -121,21 +119,25 @@
       });
     },
     checkAutocomplete: function() {
-      var self = this,
-      autocompleteValue;
+      _.each(this.formState.selectedCategoryConfig.fields, function(field, i) { 
+          _.extend(this.formState.selectedCategoryConfig.fields[i],
+            Util.prepField(field, (field.autocomplete) ? 
+              Util.getAutocompleteValue(field.name) :
+              null));
 
-      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        autocompleteValue = Util.getAutocompleteValue(field.name);
-        // do we have an autocomplete value? set the autocompleteValue flag
-        self.formState.selectedCategoryConfig.fields[i].existingContent = autocompleteValue;
-        
-        // if there is an autocomplete value, set the generic content attribute to hold it.
-        //self.formState.selectedCategoryConfig.fields[i].content = autocompleteValue || null;
-      });
+          this.formState.selectedCategoryConfig.fields[i].isAutocomplete = 
+            (field.hasValue && field.autocomplete) ? true : false;
+      }, this);
+
       this.formState.commonFormElements.forEach(function(field, i) {
-        autocompleteValue = Util.getAutocompleteValue(field.name);
-        self.formState.commonFormElements[i].autocompleteValue = autocompleteValue || null;
-      });
+        _.extend(this.formState.commonFormElements[i],
+            Util.prepField(field, (field.autocomplete) ? 
+              Util.getAutocompleteValue(field.name) :
+              null));
+
+          this.formState.commonFormElements[i].isAutocomplete = 
+            (field.hasValue && field.autocomplete) ? true : false;
+      }, this);
     },
     remove: function() {
       this.unbind();

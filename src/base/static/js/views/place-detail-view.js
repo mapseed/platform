@@ -25,7 +25,9 @@
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
-      this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, {category: this.model.get("location_type")});
+      this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, 
+        {category: this.model.get("location_type")});
+      this.commonFormElements = this.options.placeConfig.common_form_elements;
       
       // use the current url as the key under which to store draft changes made
       // to this place detail view
@@ -79,7 +81,7 @@
 
       this.model.attachmentCollection.on("add", this.onAddAttachment, this);
 
-      this.prepFields();
+      this.prepFields(this.isEditingToggled);
     },
 
     saveDraftChanges: function() {
@@ -108,85 +110,52 @@
       var toggled = !this.isEditingToggled;
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
-      this.prepFields();
+      this.prepFields(this.isEditingToggled);
       this.render();
     },
-    prepFields: function() {
-      var exclusions = ["submitter_name", "name", "location_type", "title"];
-      this.fields = [];
 
-      // Iterate through all the form fields for this place
-      _.each(this.categoryConfig.fields, function(item, i) {
-        
-        // Handle input types on a case-by-case basis, building an appropriate
-        // context object for each
-        var userInput = this.model.get(item.name),
-        content, 
-        wasAnswered = false;
+    prepFields: function(isEditingToggled) {
+      var exclusions = ["submitter_name", "name", "location_type", "title", "my_image"];
+      this.fields = [],
+      fieldIsValid = function(fieldData) {
+        return _.contains(exclusions, fieldData.name) === false &&
+          (fieldData.name && fieldData.name.indexOf('private-') !== 0) &&
+          fieldData.hasValue && 
+          fieldData.form_only !== true &&
+          fieldData.type !== "submit"
+      },
+      fieldIsValidForEditor = function(fieldData) {
+        return _.contains(exclusions, fieldData.name) === false &&
+          fieldData.type !== "submit"
+      };
 
-        if (item.type === "text" || 
-            item.type === "textarea" || 
-            item.type === "datetime" || 
-            item.type === "richTextarea") {
-          
-          // Plain text
-          content = userInput || "";
-          if (content !== "") {
-            wasAnswered = true;
-          }
-        } else if (item.type === "checkbox_big_buttons" || 
-            item.type === "radio_big_buttons" || 
-            item.type === "dropdown") {
-          
-          // Checkboxes, radio buttons, and dropdowns
-          if (!_.isArray(userInput)) {
+      _.each(this.categoryConfig.fields, function(field, i) {
+        var fieldData = _.extend({}, this.categoryConfig.fields[i],
+          Util.prepField(field, this.model.get(field.name)));
 
-            // If input is not an array, convert to an array of length 1
-            userInput = [userInput];
-          }
-          content = [];
+        if (isEditingToggled &&
+            fieldIsValidForEditor(fieldData)) {
           
-          _.each(item.content, function(option) {
-            var selected = false;
-            if (_.contains(userInput, option.value)) {
-              selected = true;
-              wasAnswered = true;
-            }
-            content.push({
-              value: option.value,
-              label: option.label,
-              selected: selected
-            });
-          });
-        } else if (item.type === "binary_toggle") {
+          this.fields.push(fieldData);
+        } else if (fieldIsValid(fieldData)) {
           
-          // Binary toggle buttons
-          // NOTE: We assume that the first option listed under content
-          // corresponds to the "on" value of the toggle input
-          content = {
-            selectedValue: item.content[0].value,
-            selectedLabel: item.content[0].label,
-            unselectedValue: item.content[1].value,
-            unselectedLabel: item.content[1].label,
-            selected: (userInput == item.content[0].value) ? true : false
-          }
-          wasAnswered = true;
+          this.fields.push(fieldData);
         }
 
-        var newItem = {
-          name: item.name,
-          type: item.type,
-          existingContent: content,
-          prompt: item.display_prompt
-        };
+      }, this);
 
-        if (_.contains(exclusions, item.name) === false &&
-            item.name.indexOf('private-') !== 0 &&
-            newItem.existingContent !== undefined && 
-            wasAnswered === true &&
-            item.form_only !== true) {
+      _.each(this.commonFormElements, function(field, i) {
+
+        var fieldData = _.extend({}, this.commonFormElements[i],
+          Util.prepField(field, this.model.get(field.name)));
+
+        if (isEditingToggled &&
+            fieldIsValidForEditor(fieldData)) {
           
-          this.fields.push(newItem);
+          this.fields.push(fieldData);
+        } else if (fieldIsValid(fieldData)) {
+          
+          this.fields.push(fieldData);
         }
 
       }, this);

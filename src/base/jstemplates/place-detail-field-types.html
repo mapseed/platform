@@ -1,24 +1,24 @@
 <!-- Template for all fields displayed by the place detail view. -->
 
 {{#is type "datetime"}}
-  <p class="place-value place-value-{{ ../name }}">{{nlToBr existingContent}}</p>
+  <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
 {{/is}}
 
 {{#is type "text"}}
-  <p class="place-value place-value-{{ ../name }}">{{nlToBr existingContent}}</p>
+  <p class="place-value place-value-{{ ../name }}">{{nlToBr content}}</p>
 {{/is}}
 
 {{#is type "textarea"}}
-  <p class="place-value place-value-{{ ../name }}">{{{nlToBr existingContent}}}</p>
+  <p class="place-value place-value-{{ ../name }}">{{{nlToBr content}}}</p>
 {{/is}}
 
 {{#is type "richTextarea"}}
-  <span class="place-value place-value-{{ ../name }}">{{{existingContent}}}</span>
+  <span class="place-value place-value-{{ ../name }}">{{{content}}}</span>
 {{/is}}
 
 {{#is type "radio_big_buttons"}}
   <ul>
-    {{#each existingContent}}
+    {{#each content}}
       {{#if selected}}
         <li class="multi-select-response">{{ label }} </li>
       {{/if}}
@@ -28,7 +28,7 @@
 
 {{#is type "checkbox_big_buttons"}}
   <ul>
-    {{#each existingContent}}
+    {{#each content}}
       {{#if selected}}
         <li class="multi-select-response">{{ label }} </li>
       {{/if}}
@@ -38,16 +38,16 @@
 
 {{#is type "binary_toggle"}}
   <p>
-    {{#if existingContent.selected}}
-      {{ existingContent.selectedLabel }}
+    {{#if content.selected}}
+      {{ content.selectedLabel }}
     {{else}}
-      {{ existingContent.unselectedLabel }}
+      {{ content.unselectedLabel }}
     {{/if}}
   </p>
 {{/is}}
 
 {{#is type "dropdown"}}
-  {{#each existingContent}}
+  {{#each content}}
     <p>
       {{#if selected}}
         {{nlToBr label}}

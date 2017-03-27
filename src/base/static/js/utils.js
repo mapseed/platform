@@ -190,6 +190,77 @@ var self = module.exports = {
       return attrs;
     },
 
+    // Given a fieldConfig and an existingValue (which might be derived from an
+    // autocomplete value stored in localstorage or from a rendered place detail
+    // view value in editor mode), construct a content object for this field
+    // suitable for consumption by the form field types template.
+    prepField: function(fieldConfig, existingValue) {
+      //var exclusions = ["submitter_name", "name", "location_type", "title"],
+      var content,
+      hasValue = false;
+
+      if (fieldConfig.type === "text" || 
+          fieldConfig.type === "textarea" || 
+          fieldConfig.type === "datetime" || 
+          fieldConfig.type === "richTextarea") {
+        
+        // Plain text
+        content = existingValue || "";
+
+        if (content !== "") {
+          hasValue = true;
+        }
+
+      } else if (fieldConfig.type === "checkbox_big_buttons" || 
+          fieldConfig.type === "radio_big_buttons" || 
+          fieldConfig.type === "dropdown") {
+        
+        // Checkboxes, radio buttons, and dropdowns
+        if (!_.isArray(existingValue)) {
+
+          // If input is not an array, convert to an array of length 1
+          existingValue = [existingValue];
+        }
+
+        content = [];
+
+        _.each(fieldConfig.content, function(option) {
+          var selected = false;
+          if (_.contains(existingValue, option.value)) {
+            selected = true;
+            hasValue = true;
+          }
+          content.push({
+            value: option.value,
+            label: option.label,
+            selected: selected
+          });
+        });
+      } else if (fieldConfig.type === "binary_toggle") {
+        
+        // Binary toggle buttons
+        // NOTE: We assume that the first option listed under content
+        // corresponds to the "on" value of the toggle input
+        content = {
+          selectedValue: fieldConfig.content[0].value,
+          selectedLabel: fieldConfig.content[0].label,
+          unselectedValue: fieldConfig.content[1].value,
+          unselectedLabel: fieldConfig.content[1].label,
+          selected: (existingValue === fieldConfig.content[0].value) ? true : false
+        }
+
+        hasValue = true;
+      }
+
+      return {
+        name: fieldConfig.name,
+        type: fieldConfig.type,
+        content: content,
+        prompt: fieldConfig.display_prompt,
+        hasValue: hasValue
+      };
+    },
+
     // attempt to save form autocomplete values in localStorage;
     // fall back to cookies
     saveAutocompleteValue: function(name, value, days) {
