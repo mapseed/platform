@@ -615,7 +615,6 @@
     // If a model has a story object, set the appropriate layer
     // visilbilities and update legend checkboxes
     setStoryLayerVisibility: function(model) {
-
       // change the basemap if it's been set in the story config
       if (model.get("story").basemap) {
         this.setLayerVisibility(model.get("story").basemap, true, true);
@@ -720,6 +719,8 @@
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
           zoom = map.getZoom();
           
+          self.ensureLayerVisibility(datasetId);
+
           if (model.get("story")) {
             if (!model.get("story").spotlight) {
               self.hideSpotlightMask();
@@ -740,8 +741,6 @@
               animate: true
             });
           }
-
-          self.ensureLayerVisibility(datasetId);
         }
 
         if (args.responseId) {
