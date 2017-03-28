@@ -6,6 +6,7 @@
     initialize: function(){
       this.map = this.options.map;
       this.isFocused = false;
+      this.isEditing = false;
 
       this.layerGroup = this.options.layerGroup;
 
@@ -96,9 +97,15 @@
       this.map.off('zoomend', this.updateLayer, this);
     },
     updateLayer: function() {
-      // Update the marker layer if the model changes and the layer exists
-      this.removeLayer();
-      this.initLayer();
+      if (!this.isEditing) {
+
+        console.log("updateLayer");
+        // Update the marker layer if the model changes and the layer exists.
+        // Don't update if the layer is in editing mode, as this interferes 
+        // with the Leaflet draw plugin.
+        this.removeLayer();
+        this.initLayer();
+      }
     },
     removeLayer: function() {
       if (this.layer) {

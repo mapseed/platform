@@ -403,6 +403,7 @@
           self.isEditingToggled = false;
           self.prepFields();
           self.render();
+          
         },
         error: function() {
           // nothing

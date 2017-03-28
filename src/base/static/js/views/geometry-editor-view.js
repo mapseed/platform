@@ -174,16 +174,20 @@ module.exports = Backbone.View.extend({
       if (self.geometryType === "polygon" ||
           self.geometryType === "rectangle" ||
           self.geometryType === "Polygon") {
+        
         var coordinates = buildCoords(layer),
         latLngs = layer.getLatLngs();
-        // make sure the final polygon vertex exactly matches the first
+        
+        // Make sure the final polygon vertex exactly matches the first. The
+        // database will reject polygonal geometry otherwise.
         coordinates.push([latLngs[0].lng, latLngs[0].lat]);
         self.geometry = {
           "type": "Polygon",
           "coordinates": [coordinates]
         }
-      } else if (self.geometryType === "polyline"
-        || self.geometryType === "LineString") {
+      } else if (self.geometryType === "polyline" ||
+          self.geometryType === "LineString") {
+        
         var coordinates = buildCoords(layer);
         self.geometry = {
           "type": "LineString",
@@ -219,6 +223,7 @@ module.exports = Backbone.View.extend({
       // if we're in editor mode, trigger a save to the server when
       // the editor toolbar save button is clicked
       if (!self.options.isCreatingNewGeometry && self.placeDetailView) {
+        self.tearDown();
         self.placeDetailView.isModified = true;
         self.placeDetailView.onUpdateModel();
       }
@@ -251,6 +256,7 @@ module.exports = Backbone.View.extend({
       this.setColorpicker(args.style);
       this.geometryType = args.geometryType;
       this.existingLayer = args.existingLayer;
+      this.existingLayer.isEditing = true;
       this.existingLayerGroup = args.existingLayerGroup;
       this.changeLayerGroup(this.existingLayer, this.existingLayerGroup,
         this.editingLayerGroup);
@@ -312,6 +318,7 @@ module.exports = Backbone.View.extend({
       self.editingLayerGroup.removeLayer(layer);
     });
     
+    this.existingLayer.isEditing = false;
     this.removeLayerFromMap(this.editingLayerGroup);
     this.removeControl(this.drawControl);
     this.removeControl(this.drawControlEditOnly);
