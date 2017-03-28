@@ -93,8 +93,6 @@
 
       this.unrenderedItems = new PlaceCollection([]);
 
-      this.unrenderedItems = new S.PlaceCollection([]);
-
       _.each(this.options.placeCollections, function(collection) {
         collection.on("add", self.addModel, self);
       });

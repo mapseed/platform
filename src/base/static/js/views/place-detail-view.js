@@ -29,6 +29,7 @@
       this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, 
         {category: this.model.get("location_type")});
       this.commonFormElements = this.options.placeConfig.common_form_elements;
+      this.geometryEditorView = this.options.geometryEditorView;
       
       // use the current url as the key under which to store draft changes made
       // to this place detail view

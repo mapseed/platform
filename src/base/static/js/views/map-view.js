@@ -3,6 +3,7 @@
   var BasicLayerView = require('mapseed-basic-layer-view');
   var LayerView = require('mapseed-layer-view');
   var toGeoJSON = require('togeojson');
+  var GeometryEditorView = require('mapseed-geometry-editor-view');
 
   module.exports = Backbone.View.extend({
     events: {
@@ -39,7 +40,7 @@
       }
 
       // TODO: only init if geometry editing is enabled?
-      this.geometryEditorView = new S.GeometryEditorView({
+      this.geometryEditorView = new GeometryEditorView({
         map: this.map,
         router: this.options.router
       });

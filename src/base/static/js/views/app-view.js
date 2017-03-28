@@ -706,7 +706,7 @@
             layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
 
-          detailView = self.getPlaceDetailView(model).delegateEvents();
+          detailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]).delegateEvents();
           self.showPanel(detailView.render().$el, !!args.responseId);
         } else if (type === "landmark") {
           layer = self.mapView.layerViews[datasetId][model.id].layer;
