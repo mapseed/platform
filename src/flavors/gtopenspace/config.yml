@@ -35,6 +35,7 @@ map:
   layers:
     # SmarterCleanup Mapbox base layer:
     - id: transport
+      type: basemap
       url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e72cddbdee5d4ecc81f5731d89655980
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
@@ -891,7 +892,9 @@ story:
     default_visible_layers:
       - 10sites
       - restoration
+      - transport
     tagline: _(Explore other priority sites)
+    basemap: transport
     order:
       - url: sp-connection
       - url: gateway-park
