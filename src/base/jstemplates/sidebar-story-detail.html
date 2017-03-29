@@ -1,4 +1,4 @@
-<a href="/{{#if datasetSlug}}{{datasetSlug}}/{{id}}{{else}}{{id}}{{/if}}"
+<a href="/{{#if url-title}}{{url-title}}{{else}}{{#if datasetSlug}}{{datasetSlug}}/{{id}}{{else}}{{id}}{{/if}}{{/if}}"
 	 rel="internal">
 	<li>	
 		<img class="sidebar-story-thumbnail" src={{iconUrl}} />

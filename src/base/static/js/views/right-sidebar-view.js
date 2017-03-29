@@ -35,11 +35,26 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
 
   onRender: function(evt) {
     var self = this;
-    // listen for route change events and update the story
-    // list accordingly
-    if (this.model.get("datasetSlug")) {
-      // if the model has a slug, listen for
-      // shareabouts-style urls
+    // listen for route change events and update the story list accordingly
+    if (this.model.get("url-title")) {
+
+      // if the model has a url-title, use this
+      if (Backbone.history.getFragment() === this.model.get("url-title")) {
+        this.$el.addClass("story-selected");
+        this.options.sidebarStoryView.storyItemSelected = true;
+      }
+      this.options.router.on("route", function(fn, route) {
+        if (route[0] === self.model.get("url-title")) {
+          self.$el.addClass("story-selected");
+          self.options.sidebarStoryView.storyItemSelected = true;
+        } else {
+          self.$el.removeClass("story-selected");
+        }
+      }); 
+
+    } else if (this.model.get("datasetSlug")) {
+      
+      // if the model has a slug, listen for shareabouts-style urls
       if (Backbone.history.getFragment() === (this.model.get("datasetSlug") + "/" + this.model.get("id"))) {
         this.$el.addClass("story-selected");
         this.options.sidebarStoryView.storyItemSelected = true;
@@ -53,6 +68,7 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
         }
       });   
     } else {
+      
       // else, listen for a landmark-style url
       if (Backbone.history.getFragment() === this.model.get("id")) {
         this.$el.addClass("story-selected");
@@ -65,7 +81,7 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
         } else {
           self.$el.removeClass("story-selected");
         }
-      });    
+      }); 
     }
   }
 });
@@ -97,7 +113,9 @@ var SidebarStoryView = Backbone.Marionette.CollectionView.extend({
     // if no place detail view is open or the current place detail
     // view is not part of the selected story, route to the first story point
     if (this.storyItemSelected === false) {
-      if (this.collection.models[0].get("datasetSlug")) {
+      if (this.collection.models[0].get("url-title")) {
+        this.options.router.navigate(this.collection.models[0].get("url-title"), {trigger: true});
+      } else if (this.collection.models[0].get("datasetSlug")) {
         this.options.router.navigate(this.collection.models[0].get("datasetSlug") + "/" + this.collection.models[0].get("id"), {trigger: true});
       } else {
         this.options.router.navigate(this.collection.models[0].get("id"), {trigger: true});
