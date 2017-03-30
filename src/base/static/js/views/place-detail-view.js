@@ -394,6 +394,7 @@
           fillColor: this.geometryEditorView.colorpicker.fillColor,
           fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
         }
+        this.geometryEditorView.tearDown();
       }
 
       this.model.save(attrs, {
@@ -403,7 +404,6 @@
           self.isEditingToggled = false;
           self.prepFields();
           self.render();
-          
         },
         error: function() {
           // nothing
