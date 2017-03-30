@@ -62,6 +62,13 @@
         geom = this.model.get('geometry');
         if (geom.type === 'Point') {
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
+
+          // If we've saved an icon url in the model, use that
+          if (this.model.get("icon")) {
+            //this.layer = L.marker(this.latLng, {icon: L.icon(this.model.get("icon"))});
+            this.styleRule.icon.iconUrl = this.model.get("icon");
+          } 
+
           if (this.hasIcon()) {
             this.layer = (this.isFocused && this.styleRule.focus_icon ?
               L.marker(this.latLng, {icon: L.icon(this.styleRule.focus_icon)}) :

@@ -128,6 +128,23 @@
   <div style="clear:both"></div>
 {{/is}}
 
+{{#is type "iconField"}}
+  <div class="icon-field-container">
+    {{#each content}}
+      <input type="radio" 
+             name={{ ../name }} 
+             id="{{ ../name }}-{{ @index }}" 
+             value={{ url }} 
+             {{^../optional}}required{{/../optional}}
+             {{#if selected}}checked{{/if}}>
+      <label for="{{ ../name }}-{{ @index }}"
+             class="{{#ifAnd ../isAutocomplete selected}}is-autocomplete{{/ifAnd}}">{{ label }}
+        <img src={{url}} />
+      </label>
+    {{/each}}
+  </div>
+{{/is}}
+
 {{#is type "file"}}
   <span class="fileinput-container btn btn-small{{#if_fileinput_not_supported}} btn-disabled{{/if_fileinput_not_supported}}">
     <span>{{ inputfile_label }}</span>

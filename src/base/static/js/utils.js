@@ -237,6 +237,22 @@ var self = module.exports = {
             selected: selected
           });
         });
+      } else if (fieldConfig.type === "iconField") {
+
+        // Icon fields
+        content = [];
+
+        _.each(fieldConfig.content, function(option) {
+          var selected = false;
+          if (existingValue === option.url) {
+            selected = true;
+            hasValue = true;
+          }
+          content.push({
+            url: option.url,
+            selected: selected
+          })
+        });
       } else if (fieldConfig.type === "binary_toggle") {
         
         // Binary toggle buttons

@@ -272,6 +272,13 @@ place_types:
   #       iconSize: [30, 36]
   #       iconAnchor: [15, 36]
 
+  icon_test:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: ""
+
   wetland:
     zoomType: georgetownZoomStyle
     rules:
@@ -1078,6 +1085,43 @@ place:
           prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
+    - category: icon_test
+      includeOnForm: true
+      name: location_type
+      dataset: duwamish
+      icon_url: /static/css/images/markers/marker-question.png
+      value: icon_test
+      label: _(Icon Test)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your question:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: "_(What's your question?)"
+          display_prompt: _(My question:)
+          placeholder: _(Enter question...)
+        - name: icon
+          type: iconField
+          prompt: _(Choose an icon style to appear on the map:)
+          content:
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
     - category: idea
       includeOnForm: true
       name: location_type

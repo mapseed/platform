@@ -194,8 +194,6 @@
       this.location = location;
     },
     getAttrs: function() {
-      console.log("getAttrs");
-
       var self = this,
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
@@ -354,6 +352,7 @@
       // if we have a Quill-enabled field, assume content from this field belongs
       // to the description field. We'll need to make this behavior more sophisticated
       // to support multiple Quill-enabled fields.
+      // TODO: update this!
       if ($(".ql-editor").html()) {
         richTextAttrs.description = $(".ql-editor").html();
       }
