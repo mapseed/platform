@@ -318,7 +318,9 @@ module.exports = Backbone.View.extend({
       self.editingLayerGroup.removeLayer(layer);
     });
     
-    this.existingLayer.isEditing = false;
+    if (this.existingLayer) {
+      this.existingLayer.isEditing = false;
+    }
     this.removeLayerFromMap(this.editingLayerGroup);
     this.removeControl(this.drawControl);
     this.removeControl(this.drawControlEditOnly);

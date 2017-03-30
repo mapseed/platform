@@ -99,7 +99,6 @@
     updateLayer: function() {
       if (!this.isEditing) {
 
-        console.log("updateLayer");
         // Update the marker layer if the model changes and the layer exists.
         // Don't update if the layer is in editing mode, as this interferes 
         // with the Leaflet draw plugin.
