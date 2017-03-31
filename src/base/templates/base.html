@@ -296,6 +296,7 @@
         S.bootstrapped.currentUser ?
         'user:' + S.bootstrapped.currentUser.id :
         {{ user_token_json|safe }}),
+      app:        {{ config.app|as_json }},
       flavor:     {{ config.data|as_json }},
       place:      {{ config.place|as_json }},
       placeTypes: {{ config.place_types|as_json }},

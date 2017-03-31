@@ -165,21 +165,19 @@ a.minimize-btn {
     float: right;
     padding: 0 !important;
     margin-left: 10px;
-
-    a {
-        display: block;
-        width: 32px;
-        height: 32px;
-        overflow: hidden;
-        text-indent: -9999px;
-    }
+    display: block;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    text-indent: -9999px;
+    cursor: pointer;
 }
 
-.share-twitter a {
+.share-twitter {
     background: url(images/twitter-32.png) 0 0 no-repeat scroll;
 }
 
-.share-facebook a {
+.share-facebook {
     background: url(images/facebook-32.png) 0 0 no-repeat scroll;
 }
 

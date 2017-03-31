@@ -9,6 +9,9 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # Fallback image to use for sharing on social services if no model image is present
+  thumbnail: /static/css/images/fb-thumbnail.png
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
