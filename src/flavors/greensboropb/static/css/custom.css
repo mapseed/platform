@@ -479,6 +479,9 @@ p.checkbox + p.select {
   #main-btns-container {
     top: 135px !important;
   }
+  .content-visible #main-btns-container {
+    top: calc(100% - 85px) !important;
+  }
   #add-place-btn-container {
     background-color: transparent;
   }
