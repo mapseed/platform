@@ -71,6 +71,8 @@
     padding: 1.25em 0 0;
 
     > li {
+        max-height: 250px;
+        overflow: auto;
         margin: 0;
         padding: 0.75em 0 1.25em 0;
         border-top: 1px solid $border-color-lightgrey;
@@ -115,7 +117,7 @@
         margin-left: 16em;
     }
 
-    .place-item-attachment {
+    .place-item-attachment, img, iframe {
         float: left;
         max-width: 9em;
         margin: 0 1em 0.75em 0;
