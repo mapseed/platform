@@ -64,8 +64,8 @@
 
   {{^if survey_config}}
     <a rel="internal" 
-       href="/{{ datasetSlug }}/{{ id }}" 
-       class="view-on-map-btn btn btn-small">View On Map</a>
+       href="/{{#if url-title}}{{url-title}}{{else}}{{ datasetSlug }}/{{ id }}{{/if}}" 
+       class="view-on-map-btn btn btn-small">{{#_}}View On Map{{/_}}</a>
   {{/if}}
 
   </span>
