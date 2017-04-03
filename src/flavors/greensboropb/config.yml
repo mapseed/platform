@@ -913,7 +913,7 @@ place:
         - label: _(White)
           value: white
         - label: _(Other)
-          value: other
+          value: other-ethnicity
       optional: true
     - name: private-income
       autocomplete: true
