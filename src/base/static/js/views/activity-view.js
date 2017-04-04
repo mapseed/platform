@@ -196,12 +196,16 @@
         // Get the place that the action is about.
         if (isPlaceAction) {
           placeData = actionModel.get('target');
-          placeData.name = placeData.title;
+          if (placeData.title) {
+            placeData.name = placeData.title;
+          }
           actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
           placeData = placeModel.toJSON();
-          placeData.name = placeData.title;
+          if (placeData.title) {
+            placeData.name = placeData.title; 
+          }
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
