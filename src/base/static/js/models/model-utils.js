@@ -17,8 +17,17 @@ var normalizeModelArguments = function(key, val, options) {
 var addStoryObj = function(response, type) {
   var storyObj = null,
   url;
-  if (type === "place") { url = response.properties.datasetSlug + "/" + response.properties.id; }
-  else if (type === "landmark") { url = response.title; }
+
+  if (type === "place") {
+    if (response.properties["url-title"]) {
+      url = response.properties["url-title"];
+    } else {
+      url = response.properties.datasetSlug + "/" + response.properties.id;
+    }
+  } else if (type === "landmark") {
+    url = response.title;
+  }
+
   _.each(Shareabouts.Config.story, function(story) {
     if (story.order[url]) {
       storyObj = {

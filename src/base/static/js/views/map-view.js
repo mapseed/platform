@@ -2,6 +2,7 @@
 
   var BasicLayerView = require('mapseed-basic-layer-view');
   var LayerView = require('mapseed-layer-view');
+  var toGeoJSON = require('togeojson');
 
   module.exports = Backbone.View.extend({
     events: {
@@ -303,6 +304,14 @@
         }
         layer = L.argo(url, config);
         self.layers[config.id] = layer;
+      } else if (config.type && config.type === 'kml') {
+        $.ajax(config.url).done(function(xml) {
+          layer = L.argo(toGeoJSON.kml(xml), config);
+          self.layers[config.id] = layer;
+          if (config.asyncLayerVisibleDefault) {
+            layer.addTo(self.map);
+          }
+        });
       } else if (config.type && config.type === 'esri-feature') {
         if (config.loadStrategy === 'all at once') {
           // IDs can be returned all at once, while actual geometries are
@@ -335,14 +344,14 @@
             }
           });
         } else {
-          layer = L.esri.featureLayer(
-            {
-              url: config.url,
-              style: function(feature) {
-                return L.Argo.getStyleRule(feature, config.rules)['style'];
-              }
-            }
-          );
+          var configStyled = (config.rules != null);
+          var esriOptions = {url: config.url, ignoreRenderer: configStyled};
+          if (configStyled) {
+            esriOptions.style = function(feature) {
+              return L.Argo.getStyleRule(feature, config.rules)['style'];
+            };
+          }
+          layer = L.esri.featureLayer(esriOptions);
 
           if (config.popupContent) {
             layer.bindPopup(function(feature) {
