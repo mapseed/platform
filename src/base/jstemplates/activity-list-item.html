@@ -18,9 +18,11 @@
 
         {{#if is_place }}
           {{ action }}: <span class="place-type">{{ place.name }}</span>
-          {{#if place.location }}
-            at <span class="place-name">{{>location-string place.location }}</span>
+<!--           
+          {{#if place.location_text }}
+            at <span class="place-name">{{>location-string place.location_text }}</span>
           {{/if }}
+ -->
         {{else}}
           {{ action }}:
           {{#if place.name }}
