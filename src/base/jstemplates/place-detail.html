@@ -72,17 +72,19 @@
 
 <section class="place-items">
   <form id="update-place-model-form">
-    {{#each attachments }}
-      <div class="place-item place-item-attachment place-attachment-{{ name }}">
-        <img src="{{ file }}" 
-             class="place-value place-value-{{ name }}" 
-             alt="{{ name }}" />
-        <!-- {{#if ../isEditingToggled}}
-          <div class="remove-attachment-btn btn btn-small">{{#_}}Remove this image{{/_}}</div>
-        {{/if}} -->
-      </div>           
-    {{/each}}
-    {{#unless attchments}}
+    {{#unless suppressAttachments}}
+      {{#each attachments }}
+        <div class="place-item place-item-attachment place-attachment-{{ name }}">
+          <img src="{{ file }}" 
+               class="place-value place-value-{{ name }}" 
+               alt="{{ name }}" />
+          <!-- {{#if ../isEditingToggled}}
+            <div class="remove-attachment-btn btn btn-small">{{#_}}Remove this image{{/_}}</div>
+          {{/if}} -->
+        </div>           
+      {{/each}}
+    {{/unless}}
+    {{#unless attachments}}
       {{#if isEditingToggled}}
         <div class="place-item place-item-attachment">
           <!-- <img src="/static/css/images/image-placeholder.png" class="place-value img-placeholder" alt="image placeholder" /> -->
