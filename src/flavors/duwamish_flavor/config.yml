@@ -721,6 +721,10 @@ place:
   place_detail:
     - category: mapbox
       includeOnForm: false
+      # NOTE: use this flag to prevent attachments from appearing in their usual
+      # place above place detail values. Useful if attachments have been added as
+      # Quill embeds.
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -741,6 +745,7 @@ place:
           optional: false
     - category: wetland
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -761,6 +766,7 @@ place:
           optional: false
     - category: park
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-parks_comp.png
@@ -781,6 +787,7 @@ place:
           optional: false
     - category: school
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-qual_comp.png
@@ -801,6 +808,7 @@ place:
           optional: false
     - category: police
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-safe_comp.png
@@ -821,6 +829,7 @@ place:
           optional: false
     - category: rail
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-transp_comp.png
@@ -841,6 +850,7 @@ place:
           optional: false
     - category: town-hall
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-hist_comp.png
@@ -861,6 +871,7 @@ place:
           optional: false
     - category: danger
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-construction.png
@@ -881,6 +892,7 @@ place:
           optional: false
     - category: park2
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-heart.png
@@ -901,6 +913,7 @@ place:
           optional: false
     - category: industrial
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-industrial.png
@@ -921,6 +934,7 @@ place:
           optional: false
     - category: bicycle
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-bike.png
@@ -941,6 +955,7 @@ place:
           optional: false
     - category: swimming
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-swimming.png
@@ -961,6 +976,7 @@ place:
           optional: false
     - category: theatre
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-art.png
@@ -981,6 +997,7 @@ place:
           optional: false
     - category: zoo
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-whale.png
@@ -1030,23 +1047,6 @@ place:
               value: litter
             - label: _(Other)
               value: other
-          optional: true # NOTE: checkbox_big_button inputs have no validation
-        - name: pollution_type_2
-          type: radio_big_buttons
-          autocomplete: true
-          prompt: _(Types of pollution seen:)
-          display_prompt: _(I saw the following types of pollution here:)
-          content:
-            - label: _(Sewage)
-              value: sewage2
-            - label: _(Tires)
-              value: tires2
-            - label: _(Illegal dumpsite)
-              value: dumpsite2
-            - label: _(Litter)
-              value: litter2
-            - label: _(Other)
-              value: other2
           optional: true # NOTE: checkbox_big_button inputs have no validation
         - name: reside_work_georgetown
           type: binary_toggle

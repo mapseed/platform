@@ -372,14 +372,14 @@
             }
           });
         } else {
-          layer = L.esri.featureLayer(
-            {
-              url: config.url,
-              style: function(feature) {
-                return L.Argo.getStyleRule(feature, config.rules)['style'];
-              }
-            }
-          );
+          var configStyled = (config.rules != null);
+          var esriOptions = {url: config.url, ignoreRenderer: configStyled};
+          if (configStyled) {
+            esriOptions.style = function(feature) {
+              return L.Argo.getStyleRule(feature, config.rules)['style'];
+            };
+          }
+          layer = L.esri.featureLayer(esriOptions);
 
           if (config.popupContent) {
             layer.bindPopup(function(feature) {

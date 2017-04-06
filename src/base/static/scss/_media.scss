@@ -395,7 +395,9 @@
     }
 
     .content-visible #main-btns-container {
-        display: none;   
+        top: calc(100% - 85px);
+        left: 15px;
+        display: block;
     }
 
     .place-form-visible #main-btns-container {

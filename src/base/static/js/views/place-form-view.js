@@ -158,19 +158,6 @@
             (field.hasValue && field.autocomplete) ? true : false;
       }, this);
     },
-    checkAutocomplete: function() {
-      var self = this,
-      storedValue;
-
-      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = Util.getAutocompleteValue(field.name);
-        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
-      });
-      this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = Util.getAutocompleteValue(field.name);
-        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
-      });
-    },
     remove: function() {
       this.unbind();
     },

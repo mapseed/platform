@@ -1,0 +1,20 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div id="language-picker">
+  <nav class="access" role="article">
+    <form action="{% url 'set_language' %}" method="post">
+      {% csrf_token %}
+      <ul class="menu">
+        {% get_language_info for LANGUAGE_CODE as current_language %}
+        {% for language in config.languages %}
+          <li class="menu-item">
+            {% if language.code != current_language.code %}
+              <button type="submit" name="language" value="{{ language.code }}" class="{{ language.code }} btn btn-block">{{ language.label }}</button>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </form>
+  </nav>
+</div> <!-- .language-picker -->

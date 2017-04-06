@@ -259,7 +259,8 @@
       this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
     },
     applyFilters: function(filters, term, max) {
-      var val, key, i;
+      var val, key, i, 
+          previouslyUnrenderedModels = [];
 
       term = term.toUpperCase();
 
@@ -280,7 +281,7 @@
           key = placeConfig.fields[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
-            this.unrenderedItems.remove(model);
+            previouslyUnrenderedModels.push(model);
             return this.collection.add(model);
           }
         };
@@ -292,7 +293,7 @@
         if (submitter) {
           if (submitter.name && submitter.name.toUpperCase().indexOf(term) !== -1 ||
               submitter.username && submitter.username.toUpperCase().indexOf(term) !== -1) {
-            this.unrenderedItems.remove(model);
+            previouslyUnrenderedModels.push(model);
             return this.collection.add(model);
           }
         }
@@ -301,10 +302,14 @@
         locationType = Shareabouts.Config.flavor.place_types[model.get('location_type')];
         if (locationType && locationType.label) {
           if (locationType.label.toUpperCase().indexOf(term) !== -1) {
-            this.unrenderedItems.remove(model);
+            previouslyUnrenderedModels.push(model);
             return this.collection.add(model);
           }
         }
+      }, this);
+
+      previouslyUnrenderedModels.forEach(function(model) {
+        this.unrenderedItems.remove(model);
       }, this);
     },
     isVisible: function() {

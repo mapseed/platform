@@ -54,11 +54,6 @@
        {{^optional}}required{{/optional}}>{{{content}}}</div>
 {{/is}}
 
-{{#is type "rawHTML"}}
-  <!-- NOTE: assume QuillJS will be used to edit content of this type -->
-  <div id="place-{{ name }}" class="rawHTML"></div>
-{{/is}}
-
 {{#is type "radio_big_buttons"}}
   <div>
     {{#each content}}

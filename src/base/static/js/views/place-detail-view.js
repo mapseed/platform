@@ -15,7 +15,6 @@
       'click #update-place-model-btn': 'onUpdateModel',
       'click #hide-place-model-btn': 'onHideModel',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
-      'change input[type="file"]': 'onInputFileChange',
       'change input, textarea': 'saveDraftChanges'
     },
     initialize: function() {
@@ -30,6 +29,7 @@
         {category: this.model.get("location_type")});
       this.commonFormElements = this.options.placeConfig.common_form_elements;
       this.geometryEditorView = this.options.geometryEditorView;
+      this.onAddAttachmentCallback = null;
       
       // use the current url as the key under which to store draft changes made
       // to this place detail view
@@ -73,6 +73,8 @@
       // a re-render and possibly conflicting with in-progress update/delete calls
       this.model.submissionSets[this.surveyType].fetchAllPages();
 
+      this.model.attachmentCollection.on("add", this.onAddAttachmentWrapper, this);
+
       this.$el.on('click', '.share-link a', function(evt){
 
         // HACK! Each action should have its own view and bind its own events.
@@ -81,9 +83,11 @@
         Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
 
-      this.model.attachmentCollection.on("add", this.onAddAttachment, this);
-
       this.prepFields(this.isEditingToggled);
+    },
+
+    onAddAttachmentWrapper: function(attachment) {
+      this.onAddAttachmentCallback.call(this.onAddAttachmentCallbackContext, attachment);
     },
 
     saveDraftChanges: function() {
@@ -193,7 +197,8 @@
             isEditable: this.isEditable || false,
             isEditingToggled: this.isEditingToggled || false,
             isModified: this.isModified,
-            fields: this.fields
+            fields: this.fields,
+            suppressAttachments: this.categoryConfig.suppressAttachments
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
@@ -250,9 +255,11 @@
 
         $(".rich-text-field").each(function() {
           new RichTextEditorView({
-            target: $(this).get(0),
+            el: $(this).get(0),
+            model: self.model,
             placeDetailView: self,
-            fieldName: $(this).attr("name")
+            fieldName: $(this).attr("name"),
+            fieldId: $(this).attr("id")
           });
         });
       }
@@ -274,44 +281,6 @@
       this.render();
     },
 
-    onInputFileChange: function(evt) {
-      var self = this,
-          file,
-          attachment;
-
-      if(evt.target.files && evt.target.files.length) {
-        file = evt.target.files[0];
-
-        this.$('.fileinput-name').text(file.name);
-        Util.fileToCanvas(file, function(canvas) {
-          canvas.toBlob(function(blob) {
-            //var fieldName = $(evt.target).attr('name'),
-            var fieldName = Math.random().toString(36).substring(7),
-                data = {
-                  name: fieldName,
-                  blob: blob,
-                  file: canvas.toDataURL('image/jpeg')
-                };
-
-            attachment = self.model.attachmentCollection.find(function(model) {
-              return model.get('name') === fieldName;
-            });
-
-            if (_.isUndefined(attachment)) {
-              self.model.attachmentCollection.add(data);
-            } else {
-              attachment.set(data);
-            }
-          }, 'image/jpeg');
-        }, {
-          // TODO: make configurable
-          maxWidth: 800,
-          maxHeight: 800,
-          canvas: true
-        });
-      }
-    },
-
     // called by the router
     onCloseWithUnsavedChanges: function() {
       // if (confirm("You have unsaved changes. Proceed?")) {
@@ -322,11 +291,6 @@
       // return false;
       
       return true;
-    },
-
-    onAddAttachment: function(attachment) {
-      attachment.save();
-      this.render();
     },
 
     onBinaryToggle: function(evt) {
