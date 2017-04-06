@@ -77,57 +77,35 @@
 
       // Bind visiblity event for custom layers
       $(Shareabouts).on('visibility', function (evt, id, visible, isBasemap) {
-        var layerIds;
+        var layer = self.layers[id],
+        config = _.find(self.options.mapConfig.layers, function(c) {
+          return c.id === id;
+        });
 
-        // If this layer is a composite of other layers, get the list of
-        // constituent layers to turn off or on. Otherwise, assume the group id
-        // corresponds to the id of the layer to turn off or on.
-        // NOTE: we assume the gis-layers section on the sidebar config is the
-        // first section listed under the panels section.
-        var sidebarLayerItem = _(self.options.sidebarConfig.panels[0].groupings)
-          .chain()
-          .pluck("layers")
-          .flatten()
-          .findWhere({id: id})
-          .value();
-
-        if (sidebarLayerItem && sidebarLayerItem.constituentLayers) {
-          layerIds = sidebarLayerItem.constituentLayers;
-        } else {
-          layerIds = [id];
+        if (config && !config.loaded && visible) {
+          self.createLayerFromConfig(config);
+          config.loaded = true;
+          layer = self.layers[id];
         }
-  
-        _.each(layerIds, function(layerId) {
-          var layer = self.layers[layerId],
-          config = _.find(self.options.mapConfig.layers, function(c) {
-            return c.id === layerId;
+
+        if (isBasemap) {
+          _.each(self.options.basemapConfigs, function(basemap) {
+            if (basemap.id === id) {
+              self.map.addLayer(layer);
+              layer.bringToBack();
+            } else if (self.layers[basemap.id]) {
+              self.map.removeLayer(self.layers[basemap.id]);
+            }
           });
-
-          if (config && !config.loaded && visible) {
-            self.createLayerFromConfig(config);
-            config.loaded = true;
-            layer = self.layers[layerId];
-          }
-
-          if (isBasemap) {
-            _.each(self.options.basemapConfigs, function(basemap) {
-              if (basemap.id === layerId) {
-                self.map.addLayer(layer);
-                layer.bringToBack();
-              } else if (self.layers[basemap.id]) {
-                self.map.removeLayer(self.layers[basemap.id]);
-              }
-            });
-          } else if (layer) {
-            self.setLayerVisibility(layer, visible);
-          } else {
-            // Handles cases when we fire events for layers that are not yet
-            // loaded (ie cartodb layers, which are loaded asynchronously)
-            // We are setting the asynch layer config's default visibility here to
-            // ensure they are added to the map when they are eventually loaded:
-            config.asyncLayerVisibleDefault = visible;
-          }
-        }); 
+        } else if (layer) {
+          self.setLayerVisibility(layer, visible);
+        } else {
+          // Handles cases when we fire events for layers that are not yet
+          // loaded (ie cartodb layers, which are loaded asynchronously)
+          // We are setting the asynch layer config's default visibility here to
+          // ensure they are added to the map when they are eventually loaded:
+          config.asyncLayerVisibleDefault = visible;
+        }
       });
     }, // end initialize
 
