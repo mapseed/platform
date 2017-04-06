@@ -1,4 +1,5 @@
 var Util = require('../utils.js');
+var QuillResize = require('../../libs/quill-image-resize.js');
 
 // a view for converting target textareas to rich text editor boxes
 module.exports = Backbone.View.extend({
@@ -17,17 +18,25 @@ module.exports = Backbone.View.extend({
       [{ "color": [] }, { "background": [] }],
       ["link", "image", "video"]
     ];
-    
+
+    Quill.register("modules/imageResize", QuillResize.ImageResize);
+
     this.quill = new Quill(this.el, {
       modules: { 
-        "toolbar": toolbarOptions
+        "toolbar": toolbarOptions,
+        imageResize: {
+          modules: [QuillResize.Resize],
+          handleStyles: {
+            zIndex: "100"
+          }
+        }
       },
       theme: "snow",
       bounds: "#content"
     });
-    this.toolbar = this.quill.getModule("toolbar"),
+    this.toolbar = this.quill.getModule("toolbar");
     
-    onEditorChange = function() {
+    var onEditorChange = function() {
       this.quill.off("text-change", onEditorChange);
       this.options.placeDetailView.onModified();
     };
