@@ -107,10 +107,6 @@ map:
       type: place
       slug: vision
 
-    - id: restoration
-      type: place
-      slug: restoration
-
        # WRIA9 watershed
     - id: watershed
       type: cartodb
