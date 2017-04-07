@@ -22,54 +22,11 @@ from proxy.views import proxy_view as remote_proxy_view
 
 log = logging.getLogger(__name__)
 
-
-def make_api_root(dataset_root):
-    components = dataset_root.split('/')
-    if dataset_root.endswith('/'):
-        return '/'.join(components[:-4]) + '/'
-    else:
-        return '/'.join(components[:-3]) + '/'
-
-def make_auth_root(dataset_root):
-    return make_api_root(dataset_root) + 'users/'
-
-def make_resource_uri(resource, root):
-    resource = resource.strip('/')
-    root = root.rstrip('/')
-    uri = '%s/%s' % (root, resource)
-    return uri
-
-
-class ShareaboutsApi (object):
-    def __init__(self, dataset_root):
-        self.dataset_root = dataset_root
-        self.auth_root = make_auth_root(dataset_root)
-        self.root = make_api_root(dataset_root)
-
-    def get(self, resource, default=None, **kwargs):
-        uri = make_resource_uri(resource, root=self.dataset_root)
-        res = requests.get(uri, params=kwargs,
-                           headers={'Accept': 'application/json'})
-        return (res.text if res.status_code == 200 else default)
-
-    def current_user(self, default=u'null', **kwargs):
-        uri = make_resource_uri('current', root=self.auth_root)
-        res = requests.get(uri, headers={'Accept': 'application/json'}, **kwargs)
-
-        return (res.text if res.status_code == 200 else default)
-
-
 @ensure_csrf_cookie
 def index(request, place_id=None):
     # Load app config settings
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
-
-    # Get initial data for bootstrapping into the page.
-    dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
-    if (dataset_root.startswith('file:')):
-        dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
-    api = ShareaboutsApi(dataset_root=dataset_root)
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -101,24 +58,20 @@ def index(request, place_id=None):
             "browser": {"name": "", "version": None},
             "platform": {"name": "", "version": None}
         })
-
-    place = None
-    if place_id and place_id != 'new':
-        place = api.get('places/' + place_id)
-        if place:
-            place = json.loads(place)
+    
+    # Get initial data for bootstrapping into the page.
+    dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    if (dataset_root.startswith('file:')):
+        dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
 
     context = {'config': config,
-
                'user_token_json': user_token_json,
                'pages_config': pages_config,
                'pages_config_json': pages_config_json,
                'user_agent_json': user_agent_json,
                # Useful for customized meta tags
-               'place': place,
-
-               'API_ROOT': api.root,
-               'DATASET_ROOT': api.dataset_root,
+               'API_ROOT': dataset_root,
+               'DATASET_ROOT': dataset_root
                }
 
     return render(request, 'index.html', context)
@@ -362,6 +315,7 @@ def readonly_file_api(request, path, datafilename='data.json'):
                 return readonly_response(request, feature)
         else:
             raise Http404
+<<<<<<< fa20320487d039d0e61102467dc883750e35130c
 
 
 def api(request, path, **kwargs):
@@ -465,3 +419,5 @@ def csv_download(request, path):
     response['Content-disposition'] = 'attachment; filename=' + filename
 
     return response
+=======
+>>>>>>> Take out server-side proxying infrastructure

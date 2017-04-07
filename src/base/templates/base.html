@@ -281,9 +281,17 @@
     }
   </script>
 
+<<<<<<< fa20320487d039d0e61102467dc883750e35130c
   <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.6.8"></script>
+=======
+  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.4.1"></script>
+  
+  <!--
+  TODO: How did these work? Need to test
+>>>>>>> Take out server-side proxying infrastructure
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
+  -->
 
   {% handlebarsjs '(.*)' precompile register_partials %}
   {% handlebarsjs 'pages/*' precompile %}
