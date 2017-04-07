@@ -65,7 +65,6 @@
 
           // If we've saved an icon url in the model, use that
           if (this.model.get("icon")) {
-            //this.layer = L.marker(this.latLng, {icon: L.icon(this.model.get("icon"))});
             this.styleRule.icon.iconUrl = this.model.get("icon");
           } 
 
@@ -105,7 +104,6 @@
     },
     updateLayer: function() {
       if (!this.isEditing) {
-
         // Update the marker layer if the model changes and the layer exists.
         // Don't update if the layer is in editing mode, as this interferes 
         // with the Leaflet draw plugin.

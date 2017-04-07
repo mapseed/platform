@@ -256,13 +256,15 @@ module.exports = Backbone.View.extend({
       this.setColorpicker(args.style);
       this.geometryType = args.geometryType;
       this.existingLayer = args.existingLayer;
-      this.existingLayer.isEditing = true;
+      this.existingLayerView = args.existingLayerView;
       this.existingLayerGroup = args.existingLayerGroup;
       this.changeLayerGroup(this.existingLayer, this.existingLayerGroup,
         this.editingLayerGroup);
       this.placeDetailView = args.placeDetailView;
       this.addControl(this.drawControlEditOnlyNoRemove);
+      
       $(".leaflet-control-colorpicker").css("display", "block");
+      this.existingLayerView.isEditing = true;
     } else {
       this.setColorpicker();
       this.addControl(this.drawControl);
@@ -318,8 +320,8 @@ module.exports = Backbone.View.extend({
       self.editingLayerGroup.removeLayer(layer);
     });
     
-    if (this.existingLayer) {
-      this.existingLayer.isEditing = false;
+    if (this.existingLayerView) {
+      this.existingLayerView.isEditing = false;
     }
     this.removeLayerFromMap(this.editingLayerGroup);
     this.removeControl(this.drawControl);

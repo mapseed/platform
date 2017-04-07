@@ -134,6 +134,7 @@
           isCreatingNewGeometry: false,
           style: this.model.get("style"),
           geometryType: this.model.get("geometry").type,
+          existingLayerView: this.options.layerView,
           existingLayer: this.options.layerView.layer,
           existingLayerGroup: this.options.layerView.layerGroup,
           placeDetailView: this
