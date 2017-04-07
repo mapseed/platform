@@ -30,7 +30,9 @@
       this.commonFormElements = this.options.placeConfig.common_form_elements;
       this.geometryEditorView = this.options.geometryEditorView;
       this.onAddAttachmentCallback = null;
-      
+      this.hasPolygonOrLinestringGeometry = this.model.get("geometry").type === "Polygon" || 
+          this.model.get("geometry").type === "LineString"
+
       // use the current url as the key under which to store draft changes made
       // to this place detail view
       this.LOCALSTORAGE_KEY = Backbone.history.getFragment().replace("/", "-");
@@ -113,7 +115,7 @@
         //if(!confirm("You have unsaved changes. Proceed?")) return;
       }
 
-      if (this.isEditingToggled && this.geometryEditorView) {
+      if (this.isEditingToggled && this.hasPolygonOrLinestringGeometry) {
         
         // TODO: fire edit cancel event of some sort?        
         
@@ -126,9 +128,7 @@
       this.prepFields(this.isEditingToggled);
       this.render();
 
-      if (toggled && (this.model.get("geometry").type === "Polygon" || 
-          this.model.get("geometry").type === "LineString")) {
-
+      if (toggled && this.hasPolygonOrLinestringGeometry) {
         this.options.appView.hideSpotlightMask();
         this.geometryEditorView.render({
           isCreatingNewGeometry: false,
@@ -350,7 +350,7 @@
       var self = this,
       attrs = this.scrapeForm();
 
-      if (this.geometryEditorView) {
+      if (this.hasPolygonOrLinestringGeometry) {
         attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
         attrs.style = {
           color: this.geometryEditorView.colorpicker.color,
