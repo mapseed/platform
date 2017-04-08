@@ -2,9 +2,7 @@
 {% load i18n %}
 
 {% block site-title %}
-<a href="/">
-  <img src="{{STATIC_URL}}css/images/bogtobay-logo-large.png" />
-</a>
+<a href="/">{{ config.app.name }}</a>
 {% endblock %}
 
 {% block meta %}

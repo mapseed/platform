@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Bog to Bay!
+  title: Our Watersheds
   # Header name
-  name: "Bog to Bay!"
+  name: "Our Watersheds"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -24,12 +24,11 @@ languages:
   - code: en
     label: I Speak English
 
-
 #   - code: vi
 #     label: tôi nói tiếng việt
 
-map:
 # Settings for map and layer configs
+map:
   geolocation_enabled: true
   geolocation_onload: false
   cartodb_enabled: true
@@ -38,9 +37,9 @@ map:
 
   options:
     center:
-      lat: 47.54406
-      lng: -122.36087
-    zoom: 14
+      lat: 47.21770
+      lng: -120.31128
+    zoom: 8
     minZoom: 1
     maxZoom: 18
   layers:
@@ -65,10 +64,13 @@ map:
       attribution: 'Hello World'
       type: basemap
 
-    # Carto basemap additions layer
-    - id: additions
-      url: https://smartercleanup.cartodb.com/api/v2/viz/3c0197f8-c7d8-11e5-8232-0ecfd53eb7d3/viz.json
-      type: cartodb
+    - id: topo
+      type: basemap
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer?
+      layers: '0'
+      version: '1.3.0'
+      transparent: 'false'
+      format: 'image/png'
 
   # Legend Layers
     - id: restoration
@@ -545,12 +547,15 @@ sidebar:
       icon: list
       view: GISLegendView
       title: _(Map Layers:)
-      basemaps:
+      basemaps:        
         - id: osm
           title: _(OpenStreetMap)
           visibleDefault: false
         - id: satellite
           title: _(Satellite View)
+          visibleDefault: false
+        - id: topo
+          title: _(Topography)
           visibleDefault: true
         - id: light
           title: _(Light)
@@ -561,15 +566,15 @@ sidebar:
       groupings:
         - id: grp-community
           title: _(Community Data)
-          visibleDefault: true
+          visibleDefault: false
           layers:
             - id: bogtobay
               title: _(Community Reports)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: stories
               title: _(Featured Sites)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -605,7 +610,7 @@ sidebar:
               # WRIA9 watershed
             - id: watershed
               title: _(Watershed)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: zoning
               title: _(Zoning)
