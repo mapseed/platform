@@ -325,8 +325,6 @@
 /* Geometry editor colorpicker */
 .sp-container {
     position: absolute !important;
-    top: -146px;
-    left: -205px;
     background-color: white;
     pointer-events: all;
 }
@@ -356,4 +354,8 @@
 
 .leaflet-control-colorpicker-interior:hover {
     background-color: #f4f4f4;
+}
+
+.leaflet-draw-tooltip {
+    display: none;
 }

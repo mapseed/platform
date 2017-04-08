@@ -2,11 +2,12 @@
   var Util = require('../utils.js');
 
   var TemplateHelpers = require('../template-helpers.js');
+  var RichTextEditorView = require('mapseed-rich-text-editor-view');
 
   module.exports = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
-      'change input[type="file"]': 'onInputFileChange',
+      'change .shareabouts-file-input': 'onInputFileChange',
       'click .category-btn.clickable': 'onCategoryChange',
       'click .category-menu-hamburger': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
@@ -22,6 +23,7 @@
       this.placeDetail = this.options.placeConfig.place_detail;
       this.map = this.options.appView.mapView.map;
       this.geometryEditorView = this.options.geometryEditorView;
+      this.geometryEnabled = false;
 
       TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
@@ -35,7 +37,7 @@
           fields: []
         },
         isSingleCategory: false,
-        attachmentData: null,
+        attachmentData: [],
         commonFormElements: this.options.placeConfig.common_form_elements || {}
       }
     },
@@ -72,13 +74,15 @@
 
       this.$el.html(Handlebars.templates['place-form'](data));
 
-      if (this.formState.selectedCategoryConfig.enable_geometry) {
+      if (this.geometryEnabled) {
         this.options.appView.hideCenterPoint();
         this.options.appView.hideSpotlightMask();
         this.geometryEditorView.render({
-          isCreatingNewGeometry: true
+          $el: this.$el,
+          iconUrl: this.formState.selectedCategoryConfig.icon_url
         });
       } else {
+
         // if the user switches from a geometry-enabled category
         // to a geometry non-enabled category, remove draw controls
         this.geometryEditorView.tearDown();
@@ -87,49 +91,22 @@
 
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
+      this.$(".rich-text-field").each(function() {
+        new RichTextEditorView({
+          el: $(this).get(0),
+          model: this.model,
+          placeFormView: self,
+          fieldName: $(this).attr("name"),
+          fieldId: $(this).attr("id")
+        });
+      });
+      
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+
       return this;
     },
     // called from the app view
-    postRender: function(isCategorySelected) {
-      var self = this,
-      $prompt;
-
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-      if (isCategorySelected && $(".rawHTML").length > 0) {
-        // NOTE: we currently support a single QuillJS field per form
-        $prompt = $(".rawHTML").find("label").detach();
-
-        // Quill toolbar configuration
-        var toolbarOptions = [
-          ["bold", "italic", "underline", "strike"],
-          [{ "list": "ordered" }, { "list": "bullet" }],
-          [{ "header": [1, 2, 3, 4, 5, 6, false] }],
-          [{ "color": [] }, { "background": [] }],
-          ["link", "image", "video"]
-        ],
-        quill = new Quill(".rawHTML", {
-          modules: { 
-            "toolbar": toolbarOptions
-          },
-          theme: "snow",
-          bounds: "#content",
-          placeholder: _.find(
-            this.formState.selectedCategoryConfig.fields, function(categoryField) {
-              return categoryField.type === "rawHTML"
-            }).placeholder
-        }),
-        toolbar = quill.getModule("toolbar");
-        $(".ql-toolbar").before($prompt);
-        quill.deleteText(0, 50);
-
-        // override default image upload behavior: instead, create an <img>
-        // tag with highlighted text set as the src attribute
-        toolbar.addHandler("image", function() {
-          var range = quill.getSelection();
-          quill.insertEmbed(range.index, "image", quill.getText(range.index, range.length), "user");
-        }); 
-      }
-
+    postRender: function() {
       this.bindCategoryListeners();
     },
     bindCategoryListeners: function() {
@@ -187,7 +164,7 @@
           $form = this.$('form'),
           attrs = Util.getAttrs($form); 
 
-      // get values off of binary toggle buttons that have not been toggled
+      // Get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
         attrs[$(this).attr("name")] = $(this).val();
       });
@@ -202,10 +179,16 @@
           Util.saveAutocompleteValue(key, value, 30);
         }
       });
+
+      // Add content that has been modified by Quill rich text fields
+      this.$(".rich-text-field").each(function() {
+        attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
+      });
       
-      if (this.formState.selectedCategoryConfig.enable_geometry) {
+      if (this.geometryEnabled) {
         attrs.geometry = this.geometryEditorView.geometry;
       } else {
+        
         // If the selected category does not have geometry editing enabled,
         // assume we're adding point geometry
         attrs.geometry = {
@@ -227,6 +210,14 @@
       this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
         return place.category == $(evt.target).attr('id');
       });
+
+      if (_.find(this.formState.selectedCategoryConfig.fields, function(field) {
+        return field.type === "geometryToolbar";
+      })) {
+        this.geometryEnabled = true;
+      } else {
+        this.geometryEnabled = false;
+      }
 
       this.render(true);
       $("#" + $(evt.target).attr("id"))
@@ -275,11 +266,11 @@
         this.$('.fileinput-name').text(file.name);
         Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
-            self.formState.attachmentData = {
+            self.formState.attachmentData.push({
               name: $(evt.target).attr('name'),
               blob: blob,
               file: canvas.toDataURL('image/jpeg')
-            }
+            })
           }, 'image/jpeg');
         }, {
           // TODO: make configurable
@@ -306,103 +297,121 @@
       this.center = null;
       this.resetFormState();
     },
+
+    // This function handles submission of data from conventional places with 
+    // map drag-based point geometry only
+    onSimpleSubmit: function() {
+      if (!this.center) {
+        this.rejectSubmit(".drag-marker-warning");
+        return false;
+      }
+
+      var attrs = this.getAttrs();
+
+      return attrs;
+    },
+
+    // This function handles submission of data from geometry-enabled places,
+    // which can generate point, polyline, or polygon geometry
+    onComplexSubmit: function() {
+      if (this.geometryEditorView.editingLayerGroup.getLayers().length === 0) {
+
+        // If the map has an editingLayerGroup with no layers in it, it means the
+        // user hasn't created any geometry
+        this.rejectSubmit(".no-geometry-warning");
+        return false;
+      }
+
+      // Save any geometry edits made that the use might not have explicitly 
+      // saved herself
+      this.geometryEditorView.saveWorkingGeometry();
+
+      var attrs = this.getAttrs();
+
+      // Add a style object if we have anything other than point geometry
+      if (attrs.geometry.type !== "Point") {
+        attrs["style"] = {
+          color: this.geometryEditorView.colorpickerSettings.color,
+          opacity: this.geometryEditorView.colorpickerSettings.opacity,
+          fillColor: this.geometryEditorView.colorpickerSettings.fillColor,
+          fillOpacity: this.geometryEditorView.colorpickerSettings.fillOpacity
+        }
+      }
+
+      return attrs;
+    },
+
+    rejectSubmit: function(warningClass) {
+      self.$(".drag-marker-instructions").addClass("is-visuallyhidden");
+      self.$(warningClass).removeClass("is-visuallyhidden");
+      self.$el.parent("article").scrollTop(0);
+      window.scrollTo(0, 0);
+    },
+
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       var self = this,
-      rejectSubmit = function(warningClass) {
-        self.$(".drag-marker-instructions").addClass("is-visuallyhidden");
-        self.$(warningClass).removeClass("is-visuallyhidden");
-        self.$el.parent("article").scrollTop(0);
-        window.scrollTo(0, 0);
-      };
-
-      if (this.formState.selectedCategoryConfig.enable_geometry
-        && this.geometryEditorView.editingLayerGroup.getLayers().length == 0) {
-        // If the map has an editingLayerGroup with no layers in it, it means the
-        // user hasn't created any geometry yet
-        rejectSubmit(".no-geometry-warning");
-        return;
-      } else if (!this.center) {
-        rejectSubmit(".drag-marker-warning");
-        return;
-      }
-
-      var self = this,
-        router = this.options.router,
-        collection = this.collection[self.formState.selectedCategoryConfig.dataset],
-        model,
-        // Should not include any files
-        attrs = this.getAttrs(),
-        $button = this.$('[name="save-place-btn"]'),
-        spinner, $fileInputs,
-        richTextAttrs = {};
-
-      // if we have a Quill-enabled field, assume content from this field belongs
-      // to the description field. We'll need to make this behavior more sophisticated
-      // to support multiple Quill-enabled fields.
-      // TODO: update this!
-      if ($(".ql-editor").html()) {
-        richTextAttrs.description = $(".ql-editor").html();
-      }
-      attrs = _.extend(attrs, richTextAttrs);
-
-      if (this.formState.selectedCategoryConfig.enable_geometry) {
-        attrs["style"] = {
-          color: this.geometryEditorView.colorpicker.color,
-          opacity: this.geometryEditorView.colorpicker.opacity,
-          fillColor: this.geometryEditorView.colorpicker.fillColor,
-          fillOpacity: this.geometryEditorView.colorpicker.fillOpacity
-        }
-      }
-
+          attrs,
+          spinner,
+          $fileInputs,
+          model,
+          router = this.options.router,
+          collection = this.collection[self.formState.selectedCategoryConfig.dataset],
+          $button = this.$('[name="save-place-btn"]');
+      
       evt.preventDefault();
 
-      collection.add({"location_type": this.formState.selectedCategoryConfig.category});
-      model = collection.at(collection.length - 1);
-
-      model.set("datasetSlug", _.find(this.options.mapConfig.layers, function(layer) { 
-        return self.formState.selectedCategoryConfig.dataset == layer.id;
-      }).slug);
-      model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
-
-      // if an attachment has been added...
-      if (self.formState.attachmentData) {
-        var attachment = model.attachmentCollection.find(function(attachmentModel) {
-          return attachmentModel.get('name') === self.formState.attachmentData.name;
-        });
-
-        if (_.isUndefined(attachment)) {
-          model.attachmentCollection.add(self.formState.attachmentData);
-        } else {
-          attachment.set(self.formState.attachmentData);
-        }
+      if (this.geometryEnabled) {
+        attrs = this.onComplexSubmit();
+      } else {
+        attrs = this.onSimpleSubmit();
       }
 
-      $button.attr('disabled', 'disabled');
-      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+      if (attrs) {
+        collection.add({"location_type": this.formState.selectedCategoryConfig.category});
+        model = collection.at(collection.length - 1);
+        model.set("datasetSlug", _.find(this.options.mapConfig.layers, function(layer) { 
+          return self.formState.selectedCategoryConfig.dataset == layer.id;
+        }).slug);
+        model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
 
-      Util.log('USER', 'new-place', 'submit-place-btn-click');
+        // if an attachment has been added...
+        // multiple attachments may be added via Quill...
+        if (self.formState.attachmentData) {
+          var attachment = model.attachmentCollection.find(function(attachmentModel) {
+            return attachmentModel.get('name') === self.formState.attachmentData.name;
+          });
 
-      Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
-
-      // Save and redirect
-      model.save(attrs, {
-        success: function() {
-          if (self.geometryEditorView) {
-            self.geometryEditorView.tearDown();
+          if (_.isUndefined(attachment)) {
+            model.attachmentCollection.add(self.formState.attachmentData);
+          } else {
+            attachment.set(self.formState.attachmentData);
           }
-          Util.log('USER', 'new-place', 'successfully-add-place');
+        }
 
-          router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
-        },
-        error: function() {
-          Util.log('USER', 'new-place', 'fail-to-add-place');
-        },
-        complete: function() {
-          $button.removeAttr('disabled');
-          spinner.stop();
-          self.resetFormState();
-        },
-        wait: true
-      });
+        $button.attr('disabled', 'disabled');
+        spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+        Util.log('USER', 'new-place', 'submit-place-btn-click');
+        Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
+
+        // Save and redirect
+        model.save(attrs, {
+          success: function() {
+            Util.log('USER', 'new-place', 'successfully-add-place');
+            router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
+          },
+          error: function() {
+            Util.log('USER', 'new-place', 'fail-to-add-place');
+          },
+          complete: function() {
+            if (self.geometryEditorView) {
+              self.geometryEditorView.tearDown();
+            }
+            $button.removeAttr('disabled');
+            spinner.stop();
+            self.resetFormState();
+          },
+          wait: true
+        });
+      }
     })
   });

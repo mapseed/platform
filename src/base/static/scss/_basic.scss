@@ -153,8 +153,8 @@ hr {
 // Hide for both screenreaders and browsers
 
 .is-hidden, .hidden {
-    display: none;
-    visibility: hidden;
+    display: none !important;
+    visibility: hidden !important;
 }
 
 // Hide only visually, but have it available for screenreaders

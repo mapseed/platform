@@ -367,3 +367,43 @@ button.sp-selected {
     float: right;
     background-image: linear-gradient(#c9302c, #c9302c);
 }
+
+.geometry-toolbar {
+    font-family: $default-font-family;
+    color: #FFF;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: $button-background-lightblue;
+    .geometry-toolbar-create, .geometry-toolbar-edit {
+        display: inline-block;
+        text-align: center;
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-family: FontAwesome;
+
+        img {
+            width: 40px;
+            padding: 5px;
+            border: 2px solid transparent;
+            border-radius: 3px;
+            margin-left: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+            float: left;
+            &:hover {
+                border: 2px solid #FFF;
+            }
+            &.selected {
+                background-color: #FFF;
+                border: 2px solid #FFF;
+            }
+        }
+    }
+    .helper-messages {
+        min-height: 2.5em;
+    }
+}
+

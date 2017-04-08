@@ -1068,12 +1068,15 @@ place:
           optional: false
     - category: question
       includeOnForm: true
+      suppressAttachments: true
       name: location_type
       dataset: duwamish
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
       fields:
+        - name: geometry
+          type: geometryToolbar
         - name: title
           type: text
           prompt: _(Title of your question:)
@@ -1081,7 +1084,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)

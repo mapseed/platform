@@ -1,11 +1,22 @@
 /* A view enabling the creation and editing of geometry layers */
 
 module.exports = Backbone.View.extend({
-  events: {},
+  events: {
+    "click .create-marker": "onClickCreateMarker",
+    "click .create-polyline": "onClickCreatePolyline",
+    "click .create-polygon": "onClickCreatePolygon",
+    "click .edit-geometry": "onClickEditGeometry",
+    "click .delete-geometry": "onClickDeleteGeometry",
+    "click .colorpicker": "onClickColorpicker"
+  },
   initialize: function() {
     var self = this;
 
     this.map = this.options.map;
+    this.workingGeometry = null;
+    this.numVertices = 0;
+    this.layerType = null;
+    this.existingLayerView = null;
     this.editingLayerGroup = new L.FeatureGroup();
     this.DRAWING_DEFAULTS = {
       color: "#f06eaa",
@@ -21,121 +32,45 @@ module.exports = Backbone.View.extend({
         opacity: "opacity"
       }
     };
-    this.priorColorData = {
+    this.colorpickerSettings = {
+      editMode: "fill",
       color: this.DRAWING_DEFAULTS.color,
       opacity: this.DRAWING_DEFAULTS.opacity,
       fillColor: this.DRAWING_DEFAULTS.fillColor,
       fillOpacity: this.DRAWING_DEFAULTS.fillOpacity
     };
-    this.drawControl = new L.Control.Draw({
-      position: "bottomright",
-      edit: false,
-      draw: {
-        circle: false,
-        marker: false,
-        polygon: {
-          shapeOptions: {
-            color: this.DRAWING_DEFAULTS.color,
-            opacity: this.DRAWING_DEFAULTS.opacity,
-            fillColor: this.DRAWING_DEFAULTS.fillColor,
-            fillOpacity: this.DRAWING_DEFAULTS.fillOpacity
-          }
-        },
-        rectangle: {
-          shapeOptions: {
-            color: this.DRAWING_DEFAULTS.color,
-            opacity: this.DRAWING_DEFAULTS.opacity,
-            fillColor: this.DRAWING_DEFAULTS.fillColor,
-            fillOpacity: this.DRAWING_DEFAULTS.fillOpacity
-          }
-        },
-        polyline: {
-          shapeOptions: {
-            color: this.DRAWING_DEFAULTS.color,
-            opacity: this.DRAWING_DEFAULTS.opacity
-          }
-        }
-      }
-    });
-    this.drawControlEditOnly = new L.Control.Draw({
-      position: "bottomright",
-      edit: {
-        featureGroup: this.editingLayerGroup,
-        edit: {
-          selectedPathOptions: {
-            maintainColor: true
-          }
-        },
-        remove: true
-      },
-      draw: false
-    });
-    this.drawControlEditOnlyNoRemove = new L.Control.Draw({
-      position: "bottomright",
-      edit: {
-        featureGroup: this.editingLayerGroup,
-        edit: {
-          selectedPathOptions: {
-            maintainColor: true
-          }
-        },
-        remove: false
-      },
-      draw: false
-    });
 
-    var colorpickerControl = L.Control.extend({
-      options: {
-        position: "bottomright",
-      },
-      editMode: "fill",
-      color: this.DRAWING_DEFAULTS.color,
-      opacity: this.DRAWING_DEFAULTS.opacity,
-      fillColor: this.DRAWING_DEFAULTS.fillColor,
-      fillOpacity: this.DRAWING_DEFAULTS.fillOpacity,
-      onAdd: function(map) {
-        var controlDiv = L.DomUtil.create('div', 'leaflet-control-colorpicker');
-        L.DomEvent
-          .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
-          .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
-          .addListener(controlDiv, 'click', function() {
-            $(".sp-picker-container").css("display", ($(".sp-picker-container").is(":visible") ? "none" : "block"));
-          });
-        var controlUI = L.DomUtil.create('div', 'leaflet-control-colorpicker-interior', controlDiv);
-        controlUI.title = 'Map ColorPicker';
-        return controlDiv;
-      }
-    });
-    $(".leaflet-control-colorpicker, .sp-picker-container").remove();
-    this.colorpicker = new colorpickerControl;
-    this.addControl(this.colorpicker);
-
-    $(".leaflet-control-colorpicker").spectrum({
+    // Init the colorpicker
+    $("body").append("<div class='toolbar-colorpicker-container'></div>");
+    $(".toolbar-colorpicker-container").spectrum({
       flat: true,
       showButtons: false,
       showInput: true,
       showAlpha: true,
-      // convert to rgba() format
-      color: tinycolor(self.colorpicker.fillColor).setAlpha(self.colorpicker.fillOpacity).toRgbString(),
+      
+      // Convert to rgba() format
+      color: tinycolor(self.colorpickerSettings.fillColor)
+        .setAlpha(self.colorpickerSettings.fillOpacity)
+        .toRgbString(),
       move: function(color) {
         if (self.placeDetailView) {
           self.placeDetailView.onModified();
         }
         if (self.editingLayerGroup.getLayers().length > 0) {
-          if (self.colorpicker.editMode === "fill") {
+          if (self.colorpickerSettings.editMode === "fill") {
             self.editingLayerGroup.getLayers()[0].setStyle({
               fillColor: color.toHexString(),
               fillOpacity: color.getAlpha()
             });
-            self.colorpicker.fillColor = color.toHexString();
-            self.colorpicker.fillOpacity = color.getAlpha();
-          } else if (self.colorpicker.editMode === "stroke") {
+            self.colorpickerSettings.fillColor = color.toHexString();
+            self.colorpickerSettings.fillOpacity = color.getAlpha();
+          } else if (self.colorpickerSettings.editMode === "stroke") {
             self.editingLayerGroup.getLayers()[0].setStyle({
               color: color.toHexString(),
               opacity: color.getAlpha()
             });
-            self.colorpicker.color = color.toHexString();
-            self.colorpicker.opacity = color.getAlpha();
+            self.colorpickerSettings.color = color.toHexString();
+            self.colorpickerSettings.opacity = color.getAlpha();
           }
         }
       },
@@ -145,19 +80,11 @@ module.exports = Backbone.View.extend({
     });
 
     $(".sp-picker-container")
-      .css("display", "none")
-      .prepend("<button type='button' class='sp-choose sp-selected' x-edit-mode='fill'>Fill</button>" +
-        "<button type='button' class='sp-choose' x-edit-mode='stroke'>Stroke</button>");
+      .addClass("hidden")
+      .prepend(Handlebars.templates["colorpicker-controls"]());
 
-    $(".sp-choose").on("click", function() {
-      $(this)
-        .addClass("sp-selected")
-        .siblings()
-        .removeClass("sp-selected");
-      self.colorpicker.editMode = $(this).attr("x-edit-mode");
-      $(".leaflet-control-colorpicker").spectrum("set",
-        tinycolor(self.colorpicker[self.DRAWING_DEFAULTS[$(this).attr("x-edit-mode")].color])
-          .setAlpha(self.colorpicker[self.DRAWING_DEFAULTS[$(this).attr("x-edit-mode")].opacity]).toRgbString());
+    $(".sp-choose").on("click", function(evt) {
+      self.onClickColorEditModeChange(evt);
     });
 
     var generateGeometry = function(layer) {
@@ -193,102 +120,258 @@ module.exports = Backbone.View.extend({
           "type": "LineString",
           "coordinates": coordinates
         }
+      } else if (self.geometryType === "marker" ||
+          self.geometryType === "Point") {
+
+        self.geometry = {
+          "type": "Point",
+          "coordinates": [layer._latlng.lng, layer._latlng.lat]
+        }
       }
     }
-   
-    this.map.on("draw:deleted", function(e) {
-      if (self.editingLayerGroup.getLayers().length == 0) {
-        $(".leaflet-control-colorpicker").css("display", "none");
-        self.removeControl(self.drawControlEditOnly);
-        self.addControl(self.drawControl);
+
+    // ========== Drawing events ==========
+    this.map.on("draw:drawvertex", function(evt) {
+      self.numVertices++;
+
+      if (self.layerType === "polygon" && self.numVertices <= 2) {
+        self.displayHelpMessage("draw-polygon-continue-msg");
+      } else if (self.layerType === "polygon" && self.numVertices > 2) {
+        self.displayHelpMessage("draw-polygon-finish-msg");
+      } else if (self.layerType === "polyline" && self.numVertices === 1) {
+        self.displayHelpMessage("draw-polyline-continue-msg");
+      } else if (self.layerType === "polyline" && self.numVertices > 1) {
+        self.displayHelpMessage("draw-polyline-finish-msg");
       }
     });
 
-    this.map.on("draw:created", function(e) {
-      self.geometryType = e.layerType;
-      generateGeometry(e.layer);
-      self.editingLayerGroup.addLayer(e.layer);
-      self.removeControl(self.drawControl);
-      self.addControl(self.drawControlEditOnly);
-      $(".leaflet-control-colorpicker").css("display", "block");
+    this.map.on("draw:created", function(evt) {
+      self.resetWorkingGeometry();
+      self.setColorpicker();
+      self.geometryType = evt.layerType;
+      generateGeometry(evt.layer);
+      self.editingLayerGroup.addLayer(evt.layer);
+
+      self.$geometryToolbarEdit.removeClass("hidden");
+      self.$geometryToolbarCreate.addClass("hidden");
+
+      self.displayHelpMessage("modify-geometry-msg");
     });
 
-    this.map.on("draw:edited", function(e) {
-      e.layers.eachLayer(function(layer) {
+    this.map.on("draw:editvertex", function(evt) {
+      if (self.placeDetailView) {
+        self.placeDetailView.onModified();
+      }
+    });
+
+    this.map.on("draw:edited", function(evt) {
+      evt.layers.eachLayer(function(layer) {
         
-        // really there's only one layer to iterate over here
+        // Really there's only one layer to iterate over here, because we have at
+        // most one layey in the editing layer group.
         generateGeometry(layer);
       });
-
-      // if we're in editor mode, trigger a save to the server when
-      // the editor toolbar save button is clicked
-      if (!self.options.isCreatingNewGeometry && self.placeDetailView) {
-        self.tearDown();
-        self.placeDetailView.isModified = true;
-        self.placeDetailView.onUpdateModel();
-      }
     });
 
     return this;
   },
 
+  // ========== Toolbar handlers ==========
+  onClickColorEditModeChange: function(evt) {
+    var editMode = $(evt.target).data("edit-mode");
+
+    $(evt.target)
+      .addClass("sp-selected")
+      .siblings()
+      .removeClass("sp-selected");
+    
+    this.colorpickerSettings.editMode = editMode;
+    this.updateColorpicker();
+  },
+
+  onClickColorpicker: function(evt) {
+    this.saveWorkingGeometry();
+    this.resetWorkingGeometry();
+    this.updateColorpicker();
+    $(".sp-container")
+      .css("left", (evt.pageX - 100) + "px")
+      .css("top", (evt.pageY + 30) + "px")
+    $(".sp-picker-container").toggleClass("hidden");
+    this.setGeometryToolbarHighlighting(evt.target);
+  },
+
+  onClickCreateMarker: function(evt) {
+
+    // Prevent repeat clicks on the same geometry drawing tool
+    if (this.layerType === "marker") return;
+
+    this.resetWorkingGeometry();
+
+    this.workingGeometry = new L.Draw.Marker(this.map, {
+      icon: new L.icon({
+        iconUrl: this.iconUrl,
+        
+        // TODO: these hard-coded values won't work for all icon types...
+        iconSize: [50, 60],
+        iconAnchor: [25, 30]
+      })
+    });
+    this.workingGeometry.enable();
+
+    this.layerType = "marker";
+    this.setGeometryToolbarHighlighting(evt.target);
+    this.displayHelpMessage("draw-marker-geometry-msg");
+  },
+
+  onClickCreatePolyline: function(evt) {
+
+    // Prevent repeat clicks on the same geometry drawing tool
+    if (this.layerType === "polyline") return;
+
+    this.resetWorkingGeometry();
+
+    this.workingGeometry = new L.Draw.Polyline(this.map, {
+      shapeOptions: {
+        color: this.DRAWING_DEFAULTS.color,
+        opacity: this.DRAWING_DEFAULTS.opacity
+      }
+    });
+    this.workingGeometry.enable();
+
+    this.numVertices = 0;
+    this.layerType = "polyline";
+    this.setGeometryToolbarHighlighting(evt.target);
+    this.displayHelpMessage("draw-poly-geometry-start-msg");
+  },
+
+  onClickCreatePolygon: function(evt) {
+    
+    // Prevent repeat clicks on the same geometry drawing tool
+    if (this.layerType === "polygon") return;
+
+    this.resetWorkingGeometry();
+
+    this.workingGeometry = new L.Draw.Polygon(this.map, {
+      shapeOptions: {
+        color: this.DRAWING_DEFAULTS.color,
+        opacity: this.DRAWING_DEFAULTS.opacity,
+        fillColor: this.DRAWING_DEFAULTS.fillColor,
+        fillOpacity: this.DRAWING_DEFAULTS.fillOpacity
+      }
+    });
+    this.workingGeometry.enable();
+    
+    this.numVertices = 0;
+    this.layerType = "polygon";
+    this.setGeometryToolbarHighlighting(evt.target);
+    this.displayHelpMessage("draw-poly-geometry-start-msg");
+  },
+
+  onClickEditGeometry: function(evt) {
+    if (this.workingGeometry) {
+      
+      // If the user clicks the edit button while editing, we commit the edited
+      // changes and disable editing
+      this.workingGeometry.save();
+      this.resetWorkingGeometry();
+      this.setGeometryToolbarHighlighting(evt.target);
+      this.displayHelpMessage("modify-geometry-msg");
+    } else {
+      this.workingGeometry = new L.EditToolbar.Edit(this.map, {
+        featureGroup: this.editingLayerGroup
+      });
+      this.workingGeometry.enable();
+
+      this.setGeometryToolbarHighlighting(evt.target);
+      this.displayHelpMessage("edit-poly-geometry-msg");
+      this.hideColorpicker();
+    }
+  },
+
+  onClickDeleteGeometry: function() {
+    var self = this;
+
+    self.editingLayerGroup.eachLayer(function(layer) {
+      self.editingLayerGroup.removeLayer(layer);
+    });
+
+    this.swapToolbarVisibility();
+    this.layerType = null;
+    this.resetWorkingGeometry();
+    this.displayHelpMessage("create-new-geometry-msg");
+    this.hideColorpicker();
+    this.resetGeometryToolbarHighlighting();
+  },
+
+  // ========== Helpers ==========
   setColorpicker: function(styles) {
     var styles = styles || {};
-    this.colorpicker.color = styles.color || this.DRAWING_DEFAULTS.color;
-    this.colorpicker.opacity = styles.opacity || this.DRAWING_DEFAULTS.opacity;
-    this.colorpicker.fillColor = styles.fillColor || this.DRAWING_DEFAULTS.fillColor;
-    this.colorpicker.fillOpacity = styles.fillOpacity || this.DRAWING_DEFAULTS.fillOpacity;
-    this.colorpicker.editMode = "fill";
-    $(".sp-choose[x-edit-mode='fill']")
+    this.colorpickerSettings.color = styles.color || this.DRAWING_DEFAULTS.color;
+    this.colorpickerSettings.opacity = styles.opacity || this.DRAWING_DEFAULTS.opacity;
+    this.colorpickerSettings.fillColor = styles.fillColor || this.DRAWING_DEFAULTS.fillColor;
+    this.colorpickerSettings.fillOpacity = styles.fillOpacity || this.DRAWING_DEFAULTS.fillOpacity;
+    this.colorpickerSettings.editMode = "fill";
+    $(".sp-choose[data-edit-mode='fill']")
       .addClass("sp-selected")
       .siblings()
       .removeClass("sp-selected");
     $(".leaflet-control-colorpicker").spectrum("set", 
-      tinycolor(this.colorpicker.fillColor)
-        .setAlpha(this.colorpicker.fillOpacity).toRgbString());
+      tinycolor(this.colorpickerSettings.fillColor)
+        .setAlpha(this.colorpickerSettings.fillOpacity).toRgbString());
   },
 
-  render: function(args) {
-    this.options.router.on("route", this.tearDown, this);
-    this.addLayerToMap(this.editingLayerGroup);
-    if (!args.isCreatingNewGeometry) {
-      this.isCreatingNewGeometry = args.isCreatingNewGeometry;
-      this.setColorpicker(args.style);
-      this.geometryType = args.geometryType;
-      this.existingLayer = args.existingLayer;
-      this.existingLayerView = args.existingLayerView;
-      this.existingLayerGroup = args.existingLayerGroup;
-      this.changeLayerGroup(this.existingLayer, this.existingLayerGroup,
-        this.editingLayerGroup);
-      this.placeDetailView = args.placeDetailView;
-      this.addControl(this.drawControlEditOnlyNoRemove);
-      
-      $(".leaflet-control-colorpicker").css("display", "block");
-      this.existingLayerView.isEditing = true;
+  hideColorpicker: function() {
+    $(".sp-picker-container").addClass("hidden");
+  },
+
+  resetWorkingGeometry: function() {
+    if (this.workingGeometry) {
+      this.workingGeometry.disable();
+      this.workingGeometry = null;
+    }
+  },
+
+  updateColorpicker: function() {
+    $(".toolbar-colorpicker-container").spectrum("set",
+      tinycolor(this.colorpickerSettings[this.DRAWING_DEFAULTS[this.colorpickerSettings.editMode].color])
+        .setAlpha(this.colorpickerSettings[this.DRAWING_DEFAULTS[this.colorpickerSettings.editMode].opacity]).toRgbString());
+  },
+
+  saveWorkingGeometry: function() {
+    if (this.workingGeometry) {
+      this.workingGeometry.save();
+    }
+  },
+
+  displayHelpMessage: function(msg) {
+    this.$el.find(".helper-messages ." + msg)
+      .removeClass("hidden")
+      .siblings()
+      .addClass("hidden");
+  },
+
+  setGeometryToolbarHighlighting: function(target) {
+    var target = this.$el.find(target);
+
+    if (target.hasClass("selected")) {
+      target.removeClass("selected");
     } else {
-      this.setColorpicker();
-      this.addControl(this.drawControl);
+      target
+        .addClass("selected")
+        .siblings()
+        .removeClass("selected");
     }
   },
 
-  mapHasControl: function(control) {
-    if (control && control._map) {
-      return true;
-    }
-
-    return false;
+  swapToolbarVisibility: function() {
+    this.$geometryToolbarEdit.toggleClass("hidden");
+    this.$geometryToolbarCreate.toggleClass("hidden");
+    this.resetGeometryToolbarHighlighting();
   },
 
-  addControl: function(control) {
-    if (!this.mapHasControl(control)) {
-      this.map.addControl(control);
-    }
-  },
-
-  removeControl: function(control) {
-    if (this.mapHasControl(control)) {
-      this.map.removeControl(control);
-    }
+  resetGeometryToolbarHighlighting: function() {
+    this.$el.find(".geometry-toolbar img")
+      .removeClass("selected");
   },
 
   addLayerToMap: function(layer) {
@@ -308,26 +391,60 @@ module.exports = Backbone.View.extend({
     targetLayerGroup.addLayer(layer);
   },
 
+  // ========== Render and tear down ==========
+  render: function(args) {
+    
+    // If we route away from the view containing this geometry editor, be
+    // sure to tear the geometry editor down
+    this.options.router.on("route", this.tearDown, this);
+    
+    this.$el = args.$el;
+    
+    // Cache toolbar elements
+    this.$geometryToolbarCreate = this.$el.find(".geometry-toolbar-create");
+    this.$geometryToolbarEdit = this.$el.find(".geometry-toolbar-edit");
+
+    this.addLayerToMap(this.editingLayerGroup);
+
+    this.delegateEvents();
+    
+    if (args.existingLayerView) {
+      this.existingLayerView = args.existingLayerView;
+      this.setColorpicker(args.style);
+      this.changeLayerGroup(this.existingLayerView.layer, this.existingLayerView.layerGroup,
+        this.editingLayerGroup);
+      this.geometryType = args.geometryType;
+      this.placeDetailView = args.placeDetailView;
+      this.existingLayerView.isEditing = true;
+      this.swapToolbarVisibility();
+      this.iconUrl = args.iconUrl;
+
+      // Disable deleting geometry in edit mode
+      this.$el.find(".delete-geometry").addClass("hidden");
+      this.$el.find(".edit-geometry").trigger("click");
+    } else {
+      this.iconUrl = args.iconUrl;
+      this.setColorpicker();
+    }
+  },
+
   tearDown: function() {
     var self = this;
     this.options.router.off("route", this.tearDown, this);
-    if (this.existingLayerGroup) {
-      this.changeLayerGroup(this.existingLayer, this.editingLayerGroup, 
-        this.existingLayerGroup);
+    this.resetWorkingGeometry();
+    this.layerType = null;
+    if (this.existingLayerView) {
+      this.changeLayerGroup(this.existingLayerView.layer, this.existingLayerView.layerGroup,
+        this.editingLayerGroup);
+      this.existingLayerView.isEditing = false;
     }
     
     this.editingLayerGroup.getLayers().forEach(function(layer) {
       self.editingLayerGroup.removeLayer(layer);
     });
-    
-    if (this.existingLayerView) {
-      this.existingLayerView.isEditing = false;
-    }
+
     this.removeLayerFromMap(this.editingLayerGroup);
-    this.removeControl(this.drawControl);
-    this.removeControl(this.drawControlEditOnly);
-    this.removeControl(this.drawControlEditOnlyNoRemove);
-    $(".leaflet-control-colorpicker").css("display", "none");
-    $(".sp-picker-container").css("display", "none");
+
+    $(".sp-picker-container").addClass("hidden");
   }
 });
