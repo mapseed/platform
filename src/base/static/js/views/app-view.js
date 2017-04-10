@@ -444,9 +444,6 @@
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
-      if (this.placeFormView) {
-        this.placeFormView.closePanel();
-      }
 
       $(".maximize-btn").show();
       $(".minimize-btn").hide();
@@ -530,13 +527,15 @@
       }
       return landmarkDetailView;
     },
-    getPlaceDetailView: function(model) {
+    getPlaceDetailView: function(model, layerView) {
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
         placeDetailView = new PlaceDetailView({
           model: model,
+          appView: this,
+          layerView: layerView,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
@@ -545,6 +544,7 @@
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
           mapView: this.mapView,
+          geometryEditorView: this.mapView.geometryEditorView,
           router: this.options.router,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
             return layer.slug == model.attributes.datasetSlug 
@@ -592,6 +592,7 @@
           placeConfig: this.options.placeConfig,
           mapConfig: this.options.mapConfig,
           userToken: this.options.userToken,
+          geometryEditorView: this.mapView.geometryEditorView,
           // only need to send place collection, since all data added will be a place of some kind
           collection: this.places
         });
@@ -704,15 +705,14 @@
             layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
 
-          detailView = self.getPlaceDetailView(model).delegateEvents();
+          detailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]).delegateEvents();
           self.showPanel(detailView.render().$el, !!args.responseId);
         } else if (type === "landmark") {
           layer = self.mapView.layerViews[datasetId][model.id].layer;
           detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
           self.showPanel(detailView.render().$el, false);
         }
-     
-        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
+
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();

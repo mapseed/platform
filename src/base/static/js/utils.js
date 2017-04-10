@@ -169,7 +169,8 @@ var self = module.exports = {
     },
 
     getAttrs: function($form) {
-      var attrs = {},
+      var self = this,
+          attrs = {},
           multivalues = [];
 
       // Get values from the form. Make the item into an array if there are
@@ -235,6 +236,22 @@ var self = module.exports = {
             label: option.label,
             selected: selected
           });
+        });
+      } else if (fieldConfig.type === "iconField") {
+
+        // Icon fields
+        content = [];
+
+        _.each(fieldConfig.content, function(option) {
+          var selected = false;
+          if (existingValue === option.url) {
+            selected = true;
+            hasValue = true;
+          }
+          content.push({
+            url: option.url,
+            selected: selected
+          })
         });
       } else if (fieldConfig.type === "binary_toggle") {
         
@@ -620,6 +637,7 @@ var self = module.exports = {
           } catch (e) {
             // ignore exceptions
           }
+
           return null;
         }
 

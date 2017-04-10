@@ -1,3 +1,4 @@
+
   var Util = require('../utils.js');
 
   var SurveyView = require('mapseed-survey-view');
@@ -27,8 +28,12 @@
       this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, 
         {category: this.model.get("location_type")});
       this.commonFormElements = this.options.placeConfig.common_form_elements;
+      this.geometryEditorView = this.options.geometryEditorView;
       this.onAddAttachmentCallback = null;
-      
+      this.geometryEnabled = (_.find(this.categoryConfig.fields, function(field) {
+        return field.type === "geometryToolbar";
+      })) ? true : false;
+
       // use the current url as the key under which to store draft changes made
       // to this place detail view
       this.LOCALSTORAGE_KEY = Backbone.history.getFragment().replace("/", "-");
@@ -111,16 +116,36 @@
         //if(!confirm("You have unsaved changes. Proceed?")) return;
       }
 
+      if (this.isEditingToggled && this.geometryEnabled) {
+        
+        // TODO: fire edit cancel event of some sort?        
+        
+        this.geometryEditorView.tearDown();
+      }
+
       var toggled = !this.isEditingToggled;
       this.isEditingToggled = toggled;
       this.surveyView.options.isEditingToggled = toggled;
       this.prepFields(this.isEditingToggled);
       this.render();
+
+      if (toggled && this.geometryEnabled) {
+        this.options.appView.hideSpotlightMask();
+        this.geometryEditorView.render({
+          $el: this.$el,
+          style: this.model.get("style"),
+          iconUrl: this.categoryConfig.iconUrl,
+          geometryType: this.model.get("geometry").type,
+          existingLayerView: this.options.layerView,
+          placeDetailView: this
+        });
+      }
     },
 
     prepFields: function(isEditingToggled) {
-      var exclusions = ["submitter_name", "name", "location_type", "title", "my_image"];
-      this.fields = [],
+      this.fields = [];
+      
+      var exclusions = ["submitter_name", "name", "location_type", "title", "my_image"],
       fieldIsValid = function(fieldData) {
         return _.contains(exclusions, fieldData.name) === false &&
           (fieldData.name && fieldData.name.indexOf('private-') !== 0) &&
@@ -327,6 +352,23 @@
       var self = this,
       attrs = this.scrapeForm();
 
+      if (this.geometryEnabled) {
+        
+        // Save any geometry edits made that the use might not have explicitly 
+        // saved herself
+        this.geometryEditorView.saveWorkingGeometry();
+        
+        attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
+        attrs.style = {
+          color: this.geometryEditorView.colorpickerSettings.color,
+          opacity: this.geometryEditorView.colorpickerSettings.opacity,
+          fillColor: this.geometryEditorView.colorpickerSettings.fillColor,
+          fillOpacity: this.geometryEditorView.colorpickerSettings.fillOpacity
+        }
+        
+        this.geometryEditorView.tearDown();
+      }
+
       this.model.save(attrs, {
         success: function() {
           self.clearDraftChanges();
@@ -355,3 +397,4 @@
       }
     }
   });
+

@@ -4,8 +4,7 @@ var QuillResize = require('../../libs/quill-image-resize.js');
 // a view for converting target textareas to rich text editor boxes
 module.exports = Backbone.View.extend({
   events: {
-    'change input[type="file"]': 'onQuillInputFileChange'
-
+    'change .quill-file-input': 'onQuillInputFileChange'
   },
   initialize: function() {
     var self = this,
@@ -38,24 +37,26 @@ module.exports = Backbone.View.extend({
     
     var onEditorChange = function() {
       this.quill.off("text-change", onEditorChange);
-      this.options.placeDetailView.onModified();
+      if (this.options.placeDetailView) {
+        this.options.placeDetailView.onModified();
+      }
     };
 
     $(this.quill.root).data("fieldName", this.options.fieldName);
 
-    // override default image upload behavior; instead, trigger a save to our
+    // Override default image upload behavior; instead, trigger a save to our
     // S3 bucket and embed and img tag with the resulting src.
     this.toolbar.addHandler("image", function() {
       $("#" + self.options.fieldId)
         .remove("input[type='file']")
-        .append("<input class='is-hidden' type='file' accept='image/png, image/gif, image/jpeg' />");
+        .append("<input class='is-hidden quill-file-input' type='file' accept='image/png, image/gif, image/jpeg' />");
 
       self.delegateEvents();
 
       $("#" + self.options.fieldId + " input[type='file']").trigger("click");
     });
 
-    // detect changes made via Quill
+    // Detect changes made via Quill
     this.quill.on("text-change", onEditorChange, this);
   },
 
@@ -87,9 +88,20 @@ module.exports = Backbone.View.extend({
             file: canvas.toDataURL('image/jpeg')
           }
 
-          self.options.placeDetailView.onAddAttachmentCallback = self.onAddAttachment;
-          self.options.placeDetailView.onAddAttachmentCallbackContext = self;
-          self.model.attachmentCollection.add(data);
+          if (self.options.placeDetailView) {
+
+            // If we have a place detail view, we already have a model to which
+            // we can add attachments
+            self.options.placeDetailView.onAddAttachmentCallback = self.onAddAttachment;
+            self.options.placeDetailView.onAddAttachmentCallbackContext = self;
+            self.model.attachmentCollection.add(data);
+          } else if (self.options.placeFormView) {
+
+            // Otherwise, store up the added attachments in the place form view
+            self.options.placeFormView.formState.attachmentData.push(data);
+            self.quill.insertEmbed(self.quill.getSelection().index, "image", data.file, "user");
+          }
+
         }, 'image/jpeg');
       }, {
         // TODO: make configurable

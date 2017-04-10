@@ -51,7 +51,7 @@
     {{#each selectedCategoryConfig.fields}}
       <div class="{{ type }} form-field">
         <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-        {{> place-form-field-types }}
+          {{> place-form-field-types }}
       </div>
     {{/each}}
 

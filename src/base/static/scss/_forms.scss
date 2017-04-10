@@ -75,6 +75,34 @@ select {
     background-color: $button-color-white;
 }
 
+/* Icon fields */
+.icon-field-container {
+    outline: 0;
+    border-radius: 0;
+    padding: 0.5em;
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    input {
+        display: none;
+        &:checked + label > img {
+            border: 2px solid $button-primary-background-orange;
+        }
+    }
+
+    img {
+        border: 2px solid transparent;
+        border-radius: 4px;
+        padding: 7px;
+        height: 25px;
+        cursor: pointer;
+    }
+}
+
+
 // Old IE does not like this to be combine with :invalid rules.
 // * It will ignore it!
 

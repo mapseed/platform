@@ -39,13 +39,20 @@
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
   {% if settings.DEBUG %}
+  <!-- leaflet plugins -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
-  <!-- QuillJS -->
-  <link href="https://cdn.quilljs.com/1.1.4/quill.snow.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw-src.css">
 
   <!-- jQuery date-time picker plugin -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
+  
+  <!-- Spectrum colorpicker -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
+  
+  <!-- QuillJS -->
+  <link rel="stylesheet" href="https://cdn.quilljs.com/1.1.4/quill.snow.css">
+  
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   {% else %}
   <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css?ver=0.7.5.0"></link>
   {% endif %}
@@ -89,12 +96,6 @@
     {% block pre_pages_nav %}{% endblock %}
     <div id="pages-nav-container"></div>
     {% block post_pages_nav %}{% endblock %}
-
-    {% if config.data.app.list_enabled != False %}
-    <nav class="list-toggle-nav">
-      <a href="#" class="list-toggle-btn btn btn-block"><span class="show-the-map is-visuallyhidden">{{ config.place.show_map_button_label }}</span><span class="is-screen-reader-text">/</span><span class="show-the-list">{{ config.place.show_list_button_label }}</span></a>
-    </nav>
-    {% endif %}
 
     {% if config.map.counter %}
       <div id="place-counter" class="list-toggle-nav"></div>
@@ -210,6 +211,8 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.2/spin.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw-src.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.js"></script>
   {% else %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
@@ -226,6 +229,8 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.2/spin.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw-src.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.js"></script>
   {% endif %}
   
   <!-- These are obscure or customized, self-hosted. -->

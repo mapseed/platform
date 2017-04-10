@@ -6,6 +6,9 @@
     initialize: function(){
       this.map = this.options.map;
       this.isFocused = false;
+      this.isEditing = false;
+
+      this.layerGroup = this.options.layerGroup;
 
       // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
@@ -59,6 +62,12 @@
         geom = this.model.get('geometry');
         if (geom.type === 'Point') {
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
+
+          // If we've saved an icon url in the model, use that
+          if (this.model.get("icon")) {
+            this.styleRule.icon.iconUrl = this.model.get("icon");
+          } 
+
           if (this.hasIcon()) {
             this.layer = (this.isFocused && this.styleRule.focus_icon ?
               L.marker(this.latLng, {icon: L.icon(this.styleRule.focus_icon)}) :
@@ -94,13 +103,17 @@
       this.map.off('zoomend', this.updateLayer, this);
     },
     updateLayer: function() {
-      // Update the marker layer if the model changes and the layer exists
-      this.removeLayer();
-      this.initLayer();
+      if (!this.isEditing) {
+        // Update the marker layer if the model changes and the layer exists.
+        // Don't update if the layer is in editing mode, as this interferes 
+        // with the Leaflet draw plugin.
+        this.removeLayer();
+        this.initLayer();
+      }
     },
     removeLayer: function() {
       if (this.layer) {
-        this.options.layer.removeLayer(this.layer);
+        this.layerGroup.removeLayer(this.layer);
       }
     },
     render: function() {
@@ -161,7 +174,7 @@
       if (!this.options.mapView.locationTypeFilter ||
         this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
         if (this.layer) {
-          this.options.layer.addLayer(this.layer);
+          this.layerGroup.addLayer(this.layer);
         }
       } else {
         this.hide();
