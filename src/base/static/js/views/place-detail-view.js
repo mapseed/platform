@@ -111,25 +111,22 @@
     },
 
     onToggleEditMode: function() {
-      if (this.isEditingToggled && this.isModified) {
-        this.saveDraftChanges();
-        //if(!confirm("You have unsaved changes. Proceed?")) return;
+      if (this.isEditingToggled) {
+        this.isModified = false;
+        if (this.isModified) {
+          this.saveDraftChanges();
+        }
+        if (this.geometryEnabled) {
+          this.geometryEditorView.tearDown();
+        }
       }
 
-      if (this.isEditingToggled && this.geometryEnabled) {
-        
-        // TODO: fire edit cancel event of some sort?        
-        
-        this.geometryEditorView.tearDown();
-      }
-
-      var toggled = !this.isEditingToggled;
-      this.isEditingToggled = toggled;
-      this.surveyView.options.isEditingToggled = toggled;
+      this.isEditingToggled = !this.isEditingToggled;
+      this.surveyView.options.isEditingToggled = this.isEditingToggled;
       this.prepFields(this.isEditingToggled);
       this.render();
 
-      if (toggled && this.geometryEnabled) {
+      if (this.isEditingToggled && this.geometryEnabled) {
         this.options.appView.hideSpotlightMask();
         this.geometryEditorView.render({
           $el: this.$el,
@@ -203,6 +200,8 @@
             suppressAttachments: this.categoryConfig.suppressAttachments
           }, this.model.toJSON());
 
+      this.options.router.on("route", this.tearDown, this);
+
       data.submitter_name = this.model.get('submitter_name') ||
         this.options.placeConfig.anonymous_name;
 
@@ -267,6 +266,12 @@
       }
 
       return this;
+    },
+
+    tearDown: function() {
+      this.options.router.off("route", this.tearDown, this);
+      this.isEditingToggled = false;
+      this.isModified = false;
     },
 
     onModified: function() {

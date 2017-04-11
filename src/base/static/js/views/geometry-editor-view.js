@@ -431,12 +431,18 @@ module.exports = Backbone.View.extend({
   tearDown: function() {
     var self = this;
     this.options.router.off("route", this.tearDown, this);
+
+    if (this.workingGeometry) {
+      this.workingGeometry.revertLayers();
+    }
+
     this.resetWorkingGeometry();
     this.layerType = null;
     if (this.existingLayerView) {
-      this.changeLayerGroup(this.existingLayerView.layer, this.existingLayerView.layerGroup,
-        this.editingLayerGroup);
+      this.changeLayerGroup(this.existingLayerView.layer, this.editingLayerGroup,
+        this.existingLayerView.layerGroup);
       this.existingLayerView.isEditing = false;
+      this.existingLayerView.updateLayer();
     }
     
     this.editingLayerGroup.getLayers().forEach(function(layer) {
