@@ -61,6 +61,50 @@ var Gatekeeper = {};
             return this;
           }
         }
+
+        // Validate a user-supplied landmark-style url. Validation fails under two
+        // conditions:
+        // 1. If the supplied url matches any other url in the passed set of collections
+        // 2. If the supplied url contains a / character in it
+        if ($this.attr("name") === "url-title") {
+          var url = $this.val();
+
+          if (url.split("/").length > 1) {
+            $this.addClass("gatekeeper-invalid");
+            $form.find(".invalid-msg.forward-slash")
+              .removeClass("hidden");
+            return this; 
+          }
+
+          var isValid = true;
+          if ($this.val() !== "") {
+            _.each(NS.collectionsSet, function(collectionSet) {
+              _.each(collectionSet, function(collection) {
+                var model = collection.findWhere({"url-title": url}),
+                    isValidLocal = true;
+                
+                // NOTE: in edit mode, we want to prevent validation of a model's
+                // url-title against itself.
+                if (context.model && model && model.cid !== context.model.cid) {
+                  isValidLocal = false;
+                } else if (!context.model && model) {
+                  isValidLocal = false;
+                }
+
+                if (!isValidLocal) {
+                  $this.addClass("gatekeeper-invalid");
+                  isValid = false;
+                  $form.find(".invalid-msg.duplicate-url")
+                    .removeClass("hidden");
+                }
+              });
+            });
+          }
+
+          if (!isValid) {
+            return this;
+          }
+        }
       }
     });
 
