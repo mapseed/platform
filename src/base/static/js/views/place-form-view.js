@@ -343,6 +343,10 @@
           fillColor: this.geometryEditorView.colorpickerSettings.fillColor,
           fillOpacity: this.geometryEditorView.colorpickerSettings.fillOpacity
         }
+      } else if (attrs.geometry.type === "Point") {
+        attrs["style"] = {
+          iconUrl: this.geometryEditorView.iconUrl
+        }
       }
 
       return attrs;

@@ -384,21 +384,36 @@ button.sp-selected {
         margin-bottom: 0;
         font-family: FontAwesome;
 
-        img {
-            width: 40px;
-            padding: 5px;
-            border: 2px solid transparent;
-            border-radius: 3px;
-            margin-left: 20px;
-            margin-right: 20px;
+        button {
+            max-width: 110px;
+            background: transparent;
             cursor: pointer;
-            float: left;
+            border: 2px solid transparent;
+            padding: 5px;
+            border-radius: 3px;
+            margin-right: 10px;
+            margin-left: 10px;
+            color: #FFF;
+
             &:hover {
                 border: 2px solid #FFF;
             }
             &.selected {
                 background-color: #FFF;
                 border: 2px solid #FFF;
+                color: $button-background-lightblue;
+            }
+
+            img {
+                width: 30px;
+                float: left;
+                padding-top: 4px;
+            }
+
+            span {
+                font-family: $default-font-family;
+                font-size: 0.9em;
+                font-weight: 100;
             }
         }
     }

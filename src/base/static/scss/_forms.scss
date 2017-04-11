@@ -75,8 +75,9 @@ select {
     background-color: $button-color-white;
 }
 
-/* Icon fields */
-.icon-field-container {
+/* Icon selection submenu for the geometry toolbar */
+.geometry-toolbar-icon-field {
+    margin-top: 15px;
     outline: 0;
     border-radius: 0;
     padding: 0.5em;
@@ -88,8 +89,12 @@ select {
     
     input {
         display: none;
+        + label > img:hover {
+            border: 2px solid #FFF;
+        }
         &:checked + label > img {
-            border: 2px solid $button-primary-background-orange;
+            border: 2px solid #FFF;
+            background-color: #FFF;
         }
     }
 
@@ -99,6 +104,10 @@ select {
         padding: 7px;
         height: 25px;
         cursor: pointer;
+    }
+
+    p {
+        margin-bottom: 0;
     }
 }
 

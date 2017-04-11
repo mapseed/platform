@@ -149,22 +149,36 @@
       <p class="edit-marker-geometry-msg hidden"><em>{{#_}}Drag your marker to reposition it{{/_}}</em></p>
       <p class="draw-poly-geometry-start-msg hidden"><em>{{#_}}Click anywhere on the map to start drawing{{/_}}</em></p>
       <p class="draw-polygon-continue-msg hidden"><em>{{#_}}Click to continue drawing your shape{{/_}}</em></p>
-      <p class="draw-polygon-finish-msg hidden"><em>{{#_}}Click to continue drawing, or click on your first point to complete your shape{{/_}}</em></p>
+      <p class="draw-polygon-finish-msg hidden"><em>{{#_}}Click to continue drawing, or double click to complete your shape{{/_}}</em></p>
       <p class="draw-polyline-continue-msg hidden"><em>{{#_}}Click to continue drawing{{/_}}</em></p>
-      <p class="draw-polyline-finish-msg hidden"><em>{{#_}}Click to continue drawing, or click on your last point to complete your shape{{/_}}</em></p>
+      <p class="draw-polyline-finish-msg hidden"><em>{{#_}}Click to continue drawing, or double click to complete your shape{{/_}}</em></p>
       <p class="draw-marker-geometry-msg hidden"><em>{{#_}}Click anywhere on the map to place your marker{{/_}}</em></p>
     </div>
     <div class="geometry-toolbar-create">
-      <img class="create-marker" src="/static/css/images/create-marker-icon.svg">
-      <img class="create-polyline" src="/static/css/images/create-polyline-icon.svg">
-      <img class="create-polygon" src="/static/css/images/create-polygon-icon.svg">
+      <button class="create-marker"><img src="/static/css/images/create-marker-icon.svg"><span>{{#_}}Create marker{{/_}}</span></button>
+      <button class="create-polyline"><img src="/static/css/images/create-polyline-icon.svg"><span>{{#_}}Create polyline{{/_}}</span></button>
+      <button class="create-polygon"><img src="/static/css/images/create-polygon-icon.svg"><span>{{#_}}Create polygon{{/_}}</span></button>
     </div>
     <div class="geometry-toolbar-edit hidden">
-      <img class="edit-geometry" src="/static/css/images/edit-geometry-icon.svg">
-      <img class="delete-geometry" src="/static/css/images/delete-geometry-icon.svg">
-      <img class="colorpicker" src="/static/css/images/colorpicker-icon.svg">
+      <button class="edit-geometry"><img src="/static/css/images/edit-geometry-icon.svg"><span>{{#_}}Edit shape{{/_}}</span></button>
+      <button class="delete-geometry"><img src="/static/css/images/delete-geometry-icon.svg"><span>{{#_}}Delete shape{{/_}}</span></button>
+      <button class="colorpicker"><img src="/static/css/images/colorpicker-icon.svg"><span>{{#_}}Change colors{{/_}}</span></button>
     </div>
     <div class="clearfix"></div>
+    <div class="geometry-toolbar-icon-field hidden">
+      <p><em>{{#_}}Choose an icon style below{{/_}}</em></p>
+      {{#each content}}
+        <input type="radio" 
+               name={{ ../name }} 
+               id="{{ ../name }}-{{ @index }}" 
+               value={{ url }} 
+               {{#if selected}}checked{{/if}}>
+        <label for="{{ ../name }}-{{ @index }}"
+               class="{{#ifAnd ../isAutocomplete selected}}is-autocomplete{{/ifAnd}}">{{ label }}
+          <img src={{url}} />
+        </label>
+      {{/each}}
+    </div>
   </div>
 {{/is}}
 

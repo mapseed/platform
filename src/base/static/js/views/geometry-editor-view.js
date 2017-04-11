@@ -7,7 +7,8 @@ module.exports = Backbone.View.extend({
     "click .create-polygon": "onClickCreatePolygon",
     "click .edit-geometry": "onClickEditGeometry",
     "click .delete-geometry": "onClickDeleteGeometry",
-    "click .colorpicker": "onClickColorpicker"
+    "click .colorpicker": "onClickColorpicker",
+    "change input[name='geometry']": "onIconSelection"
   },
   initialize: function() {
     var self = this;
@@ -16,7 +17,9 @@ module.exports = Backbone.View.extend({
     this.workingGeometry = null;
     this.numVertices = 0;
     this.layerType = null;
+    this.iconUrl = null;
     this.existingLayerView = null;
+    this.isEditing = false;
     this.editingLayerGroup = new L.FeatureGroup();
     this.DRAWING_DEFAULTS = {
       color: "#f06eaa",
@@ -148,6 +151,8 @@ module.exports = Backbone.View.extend({
     this.map.on("draw:created", function(evt) {
       self.resetWorkingGeometry();
       self.setColorpicker();
+      self.hideIconToolbar();
+
       self.geometryType = evt.layerType;
       generateGeometry(evt.layer);
       self.editingLayerGroup.addLayer(evt.layer);
@@ -164,11 +169,17 @@ module.exports = Backbone.View.extend({
       }
     });
 
+    this.map.on("draw:editmove", function(evt) {
+      if (self.placeDetailView) {
+        self.placeDetailView.onModified();
+      }
+    });
+
     this.map.on("draw:edited", function(evt) {
       evt.layers.eachLayer(function(layer) {
         
         // Really there's only one layer to iterate over here, because we have at
-        // most one layey in the editing layer group.
+        // most one layer in the editing layer group.
         generateGeometry(layer);
       });
     });
@@ -178,6 +189,8 @@ module.exports = Backbone.View.extend({
 
   // ========== Toolbar handlers ==========
   onClickColorEditModeChange: function(evt) {
+    evt.preventDefault();
+
     var editMode = $(evt.target).data("edit-mode");
 
     $(evt.target)
@@ -190,6 +203,8 @@ module.exports = Backbone.View.extend({
   },
 
   onClickColorpicker: function(evt) {
+    evt.preventDefault();
+
     this.saveWorkingGeometry();
     this.resetWorkingGeometry();
     this.updateColorpicker();
@@ -197,33 +212,42 @@ module.exports = Backbone.View.extend({
       .css("left", (evt.pageX - 100) + "px")
       .css("top", (evt.pageY + 30) + "px")
     $(".sp-picker-container").toggleClass("hidden");
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
+    this.setDefaultCursor();
+    this.isEditing = false;
   },
 
   onClickCreateMarker: function(evt) {
+    evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
     if (this.layerType === "marker") return;
 
     this.resetWorkingGeometry();
+    this.showIconToolbar();
+    this.iconUrl = this.$el.find(".geometry-toolbar-icon-field input:checked").val();
 
     this.workingGeometry = new L.Draw.Marker(this.map, {
       icon: new L.icon({
         iconUrl: this.iconUrl,
         
         // TODO: these hard-coded values won't work for all icon types...
-        iconSize: [50, 60],
-        iconAnchor: [25, 30]
+        iconSize: [25, 25],
+        iconAnchor: [12.5, 12.5]
       })
     });
     this.workingGeometry.enable();
 
     this.layerType = "marker";
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-marker-geometry-msg");
+    this.setEditingCursor();
+    this.delegateEvents();
+    this.isEditing = false;
   },
 
   onClickCreatePolyline: function(evt) {
+    evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
     if (this.layerType === "polyline") return;
@@ -240,12 +264,16 @@ module.exports = Backbone.View.extend({
 
     this.numVertices = 0;
     this.layerType = "polyline";
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.hideIconToolbar();
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
+    this.setEditingCursor();
+    this.isEditing = false;
   },
 
   onClickCreatePolygon: function(evt) {
-    
+    evt.preventDefault();
+
     // Prevent repeat clicks on the same geometry drawing tool
     if (this.layerType === "polygon") return;
 
@@ -263,11 +291,16 @@ module.exports = Backbone.View.extend({
     
     this.numVertices = 0;
     this.layerType = "polygon";
-    this.setGeometryToolbarHighlighting(evt.target);
+    this.hideIconToolbar();
+    this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
+    this.setEditingCursor();
+    this.isEditing = false;
   },
 
   onClickEditGeometry: function(evt) {
+    evt.preventDefault();
+    
     if (this.workingGeometry) {
       
       // If the user clicks the edit button while editing, we commit the edited
@@ -276,19 +309,29 @@ module.exports = Backbone.View.extend({
       this.resetWorkingGeometry();
       this.setGeometryToolbarHighlighting(evt.target);
       this.displayHelpMessage("modify-geometry-msg");
+      this.setDefaultCursor();
+      this.hideIconToolbar();
+      this.isEditing = false;
     } else {
       this.workingGeometry = new L.EditToolbar.Edit(this.map, {
         featureGroup: this.editingLayerGroup
       });
       this.workingGeometry.enable();
 
-      this.setGeometryToolbarHighlighting(evt.target);
+      if (this.geometryType === "marker") {
+        this.showIconToolbar();
+      }
+      
+      this.setGeometryToolbarHighlighting(evt.currentTarget);
       this.displayHelpMessage("edit-poly-geometry-msg");
       this.hideColorpicker();
+      this.isEditing = true;
     }
   },
 
-  onClickDeleteGeometry: function() {
+  onClickDeleteGeometry: function(evt) {
+    evt.preventDefault();
+
     var self = this;
 
     self.editingLayerGroup.eachLayer(function(layer) {
@@ -300,7 +343,30 @@ module.exports = Backbone.View.extend({
     this.resetWorkingGeometry();
     this.displayHelpMessage("create-new-geometry-msg");
     this.hideColorpicker();
+    this.hideIconToolbar();
     this.resetGeometryToolbarHighlighting();
+    this.setDefaultCursor();
+    this.isEditing = false;
+  },
+
+  onIconSelection: function(evt) {
+    this.iconUrl = this.$el.find(".geometry-toolbar-icon-field input:checked").val();
+    var icon = L.icon({
+      iconUrl: this.iconUrl,
+      
+      // TODO: these hard-coded values won't work for all icon types...
+      iconSize: [25, 25],
+      iconAnchor: [12.5, 12.5]
+    });
+
+    if (this.isEditing) {
+      this.getLayerFromEditingLayerGroup().setIcon(icon);
+    } else {
+      this.workingGeometry.options.icon.options.iconUrl = this.iconUrl;
+      if (this.workingGeometry._marker) {
+        this.workingGeometry._marker.setIcon(icon);
+      }
+    }
   },
 
   // ========== Helpers ==========
@@ -350,8 +416,22 @@ module.exports = Backbone.View.extend({
       .addClass("hidden");
   },
 
-  setGeometryToolbarHighlighting: function(target) {
-    var target = this.$el.find(target);
+  showIconToolbar: function() {
+    this.$el.find(".geometry-toolbar-icon-field")
+      .removeClass("hidden");
+  },
+
+  setIconToolbarIcon: function() {
+    this.$el.find(".geometry-toolbar-icon-field :input[value='" + this.iconUrl + "']")
+      .prop("checked", true);
+  },
+
+  hideIconToolbar: function() {
+    this.$el.find(".geometry-toolbar-icon-field").addClass("hidden");
+  },
+
+  setGeometryToolbarHighlighting: function(currentTarget) {
+    var target = this.$el.find(currentTarget)
 
     if (target.hasClass("selected")) {
       target.removeClass("selected");
@@ -370,7 +450,7 @@ module.exports = Backbone.View.extend({
   },
 
   resetGeometryToolbarHighlighting: function() {
-    this.$el.find(".geometry-toolbar img")
+    this.$el.find(".geometry-toolbar button")
       .removeClass("selected");
   },
 
@@ -389,6 +469,28 @@ module.exports = Backbone.View.extend({
   changeLayerGroup: function(layer, sourceLayerGroup, targetLayerGroup) {
     sourceLayerGroup.removeLayer(layer);
     targetLayerGroup.addLayer(layer);
+  },
+
+  setEditingCursor: function() {
+    $(".leaflet-container").addClass("add-edit-cursor");
+  },
+
+  setDefaultCursor: function() {
+    $(".leaflet-container").removeClass("add-edit-cursor");
+  },
+
+  getLayerFromEditingLayerGroup: function() {
+    var returnLayer;
+
+    // NOTE: we make an assumption here that our workingGeometry is a layer
+    // group with only one layer in it, so the iteration below will return a
+    // single layer. This assumption is enforced by the UI: it's only possible
+    // to create a single piece of geometry before editing tools are displayed.
+    this.editingLayerGroup.eachLayer(function(layer) {
+      returnLayer = layer;
+    });
+
+    return returnLayer;
   },
 
   // ========== Render and tear down ==========
@@ -417,11 +519,17 @@ module.exports = Backbone.View.extend({
       this.placeDetailView = args.placeDetailView;
       this.existingLayerView.isEditing = true;
       this.swapToolbarVisibility();
-      this.iconUrl = args.iconUrl;
+      this.iconUrl = args.style.iconUrl;
 
       // Disable deleting geometry in edit mode
       this.$el.find(".delete-geometry").addClass("hidden");
       this.$el.find(".edit-geometry").trigger("click");
+
+      // TODO: reconcile "Point" with "marker"
+      if (this.geometryType === "Point") {
+        this.showIconToolbar();
+        this.setIconToolbarIcon();
+      }
     } else {
       this.iconUrl = args.iconUrl;
       this.setColorpicker();
@@ -450,6 +558,7 @@ module.exports = Backbone.View.extend({
     });
 
     this.removeLayerFromMap(this.editingLayerGroup);
+    this.setDefaultCursor();
 
     $(".sp-picker-container").addClass("hidden");
   }

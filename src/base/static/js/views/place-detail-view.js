@@ -86,7 +86,7 @@
         Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
 
-      this.prepFields(this.isEditingToggled);
+      this.buildFieldListForRender();
     },
 
     onAddAttachmentWrapper: function(attachment) {
@@ -123,7 +123,7 @@
 
       this.isEditingToggled = !this.isEditingToggled;
       this.surveyView.options.isEditingToggled = this.isEditingToggled;
-      this.prepFields(this.isEditingToggled);
+      this.buildFieldListForRender();
       this.render();
 
       if (this.isEditingToggled && this.geometryEnabled) {
@@ -131,7 +131,6 @@
         this.geometryEditorView.render({
           $el: this.$el,
           style: this.model.get("style"),
-          iconUrl: this.categoryConfig.iconUrl,
           geometryType: this.model.get("geometry").type,
           existingLayerView: this.options.layerView,
           placeDetailView: this
@@ -139,7 +138,7 @@
       }
     },
 
-    prepFields: function(isEditingToggled) {
+    buildFieldListForRender: function() {
       this.fields = [];
       
       var exclusions = ["submitter_name", "name", "location_type", "title", "my_image"],
@@ -159,7 +158,7 @@
         var fieldData = _.extend({}, this.categoryConfig.fields[i],
           Util.prepField(field, this.model.get(field.name)));
 
-        if (isEditingToggled &&
+        if (this.isEditingToggled &&
             fieldIsValidForEditor(fieldData)) {
           
           this.fields.push(fieldData);
@@ -171,11 +170,10 @@
       }, this);
 
       _.each(this.commonFormElements, function(field, i) {
-
         var fieldData = _.extend({}, this.commonFormElements[i],
           Util.prepField(field, this.model.get(field.name)));
 
-        if (isEditingToggled &&
+        if (this.isEditingToggled &&
             fieldIsValidForEditor(fieldData)) {
           
           this.fields.push(fieldData);
@@ -359,16 +357,22 @@
 
       if (this.geometryEnabled) {
         
-        // Save any geometry edits made that the use might not have explicitly 
+        // Save any geometry edits made that the user might not have explicitly 
         // saved herself
         this.geometryEditorView.saveWorkingGeometry();
-        
         attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
-        attrs.style = {
-          color: this.geometryEditorView.colorpickerSettings.color,
-          opacity: this.geometryEditorView.colorpickerSettings.opacity,
-          fillColor: this.geometryEditorView.colorpickerSettings.fillColor,
-          fillOpacity: this.geometryEditorView.colorpickerSettings.fillOpacity
+        
+        if (attrs.geometry.type === "Polygon" || attrs.geometry.type === "Polyline") {
+          attrs.style = {
+            color: this.geometryEditorView.colorpickerSettings.color,
+            opacity: this.geometryEditorView.colorpickerSettings.opacity,
+            fillColor: this.geometryEditorView.colorpickerSettings.fillColor,
+            fillOpacity: this.geometryEditorView.colorpickerSettings.fillOpacity
+          }
+        } else if (attrs.geometry.type === "Point") {
+          attrs.style = {
+            iconUrl: this.geometryEditorView.iconUrl
+          }
         }
         
         this.geometryEditorView.tearDown();
@@ -379,7 +383,7 @@
           self.clearDraftChanges();
           self.isModified = false;
           self.isEditingToggled = false;
-          self.prepFields();
+          self.buildFieldListForRender();
           self.render();
         },
         error: function() {
