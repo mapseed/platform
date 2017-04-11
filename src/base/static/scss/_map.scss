@@ -11,8 +11,10 @@
 #map {
     background: $button-background-lightblue;
     height: 150px;
+}
 
-    //opacity: 0.5;
+.add-edit-cursor {
+    cursor: crosshair !important;
 }
 
 // Geolocation Button - Selectors

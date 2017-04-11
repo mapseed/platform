@@ -237,9 +237,9 @@ var self = module.exports = {
             selected: selected
           });
         });
-      } else if (fieldConfig.type === "iconField") {
+      } else if (fieldConfig.type === "geometryToolbar") {
 
-        // Icon fields
+        // Geometry toolbar
         content = [];
 
         _.each(fieldConfig.content, function(option) {
@@ -251,7 +251,10 @@ var self = module.exports = {
           content.push({
             url: option.url,
             selected: selected
-          })
+          });
+          if (!hasValue) {
+            content[0].selected = true;
+          }
         });
       } else if (fieldConfig.type === "binary_toggle") {
         
