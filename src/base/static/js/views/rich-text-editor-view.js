@@ -18,13 +18,12 @@ module.exports = Backbone.View.extend({
       ["link", "image", "video"]
     ];
 
-    Quill.register("modules/imageResize", QuillResize.ImageResize);
+    Quill.register("modules/imageResize", QuillResize);
 
     this.quill = new Quill(this.el, {
       modules: { 
         "toolbar": toolbarOptions,
         imageResize: {
-          modules: [QuillResize.Resize],
           handleStyles: {
             zIndex: "100"
           }

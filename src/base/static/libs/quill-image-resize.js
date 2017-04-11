@@ -3,27 +3,11 @@
  * (Works on Chrome, Edge, Safari and replaces Firefox's native resize behavior)
  * @see https://quilljs.com/blog/building-a-custom-module/
  */
-export class ImageResize {
 
-	constructor(quill, options = {}) {
-		// save the quill reference and options
-		this.quill = quill;
-		this.options = options;
-		// bind handlers to this instance
-		this.handleClick = this.handleClick.bind(this);
-		this.handleMousedown = this.handleMousedown.bind(this);
-		this.handleMouseup = this.handleMouseup.bind(this);
-		this.handleDrag = this.handleDrag.bind(this);
-		this.checkImage = this.checkImage.bind(this);
-		// track resize handles
-		this.boxes = [];
-		// disable native image resizing on firefox
-		document.execCommand('enableObjectResizing', false, 'false');
-		// respond to clicks inside the editor
-		this.quill.root.addEventListener('click', this.handleClick, false);
-	}
+module.exports = function(quill, options) {
+	var options = options || {};
 
-	handleClick(evt) {
+	this.handleClick = function(evt) {
 		if (evt.target && evt.target.tagName && evt.target.tagName.toUpperCase() == 'IMG') {
 			if (this.img === evt.target) {
 				// we are already focused on this image
@@ -42,24 +26,24 @@ export class ImageResize {
 		}
 	}
 
-	show(img) {
+	this.show = function(img) {
 		// keep track of this img element
 		this.img = img;
 		this.showResizers();
 		this.showSizeDisplay();
 		// position the resize handles at the corners
-		const rect = this.img.getBoundingClientRect();
+		var rect = this.img.getBoundingClientRect();
 		this.positionBoxes(rect);
 		this.positionSizeDisplay(rect);
 	}
 
-	hide() {
+	this.hide = function() {
 		this.hideResizers();
 		this.hideSizeDisplay();
 		this.img = undefined;
 	}
 
-	showResizers() {
+	this.showResizers = function() {
 		// prevent spurious text selection
 		this.setUserSelect('none');
 		// add 4 resize handles
@@ -72,7 +56,7 @@ export class ImageResize {
 		this.quill.root.addEventListener('input', this.checkImage, true);
 	}
 
-	hideResizers() {
+	this.hideResizers = function() {
 		// stop listening for image deletion or movement
 		document.removeEventListener('keyup', this.checkImage);
 		this.quill.root.removeEventListener('input', this.checkImage);
@@ -80,7 +64,9 @@ export class ImageResize {
 		this.setUserSelect('');
 		this.setCursor('');
 		// remove boxes
-		this.boxes.forEach(box => this.quill.root.parentElement.removeChild(box));
+		this.boxes.forEach(function(box) {
+			this.quill.root.parentElement.removeChild(box)
+		}, this);
 		// release memory
 		this.dragBox = undefined;
 		this.dragStartX = undefined;
@@ -88,11 +74,11 @@ export class ImageResize {
 		this.boxes = [];
 	}
 
-	addBox(cursor) {
+	this.addBox = function(cursor) {
 		// create div element for resize handle
-		const box = document.createElement('div');
+		var box = document.createElement('div');
 		// apply styles
-		const styles = {
+		var styles = {
 			position: 'absolute',
 			height: '12px',
 			width: '12px',
@@ -102,7 +88,8 @@ export class ImageResize {
 			opacity: '0.80',
 			cursor: cursor,
 		};
-		this.extend(box.style, styles, this.options.handleStyles || {});
+		this.extend(box.style, styles);
+		this.extend(box.style, this.options.handleStyles || {});
 		// listen for mousedown on each box
 		box.addEventListener('mousedown', this.handleMousedown, false);
 		// add drag handle to document
@@ -112,33 +99,31 @@ export class ImageResize {
 		this.boxes.push(box);
 	}
 
-	extend(destination, ...sources) {
-		sources.forEach(source => {
-			for (let prop in source) {
-				if (source.hasOwnProperty(prop)) {
-					destination[prop] = source[prop];
-				}
+	this.extend = function(destination, source) {
+		for (var prop in source) {
+			if (source.hasOwnProperty(prop)) {
+				destination[prop] = source[prop];
 			}
-		});
+		}
 		return destination;
 	}
 
-	positionBoxes(rect) {
+	this.positionBoxes = function(rect) {
 		// set the top and left for each drag handle
 		[
 			{ left: this.img.offsetLeft - 6,              top: this.img.offsetTop - 6 },               // top left
 			{ left: this.img.offsetLeft + rect.width - 6, top: this.img.offsetTop - 6 },               // top right
 			{ left: this.img.offsetLeft + rect.width - 6, top: this.img.offsetTop + rect.height - 6 }, // bottom right
 			{ left: this.img.offsetLeft - 6,              top: this.img.offsetTop + rect.height - 6 }, // bottom left
-		].forEach((pos, idx) => {
+		].forEach(function(pos, idx) {
 			this.extend(this.boxes[idx].style, {
 				top: Math.round(pos.top + window.pageYOffset) + 'px',
 				left: Math.round(pos.left + window.pageXOffset) + 'px',
 			});
-		});
+		}, this);
 	}
 
-	handleMousedown(evt) {
+	this.handleMousedown = function(evt) {
 		// note which box
 		this.dragBox = evt.target;
 		// note starting mousedown position
@@ -152,7 +137,7 @@ export class ImageResize {
 		document.addEventListener('mouseup', this.handleMouseup, false);
 	}
 
-	handleMouseup() {
+	this.handleMouseup = function() {
 		// reset cursor everywhere
 		this.setCursor('');
 		// stop listening for movement and mouseup
@@ -160,7 +145,7 @@ export class ImageResize {
 		document.removeEventListener('mouseup', this.handleMouseup);
 	}
 
-	handleDrag(evt) {
+	this.handleDrag = function(evt) {
 		if (!this.img) {
 			// image not set yet
 			return;
@@ -175,45 +160,45 @@ export class ImageResize {
 			this.img.width = Math.round(this.preDragWidth + evt.clientX - this.dragStartX);
 		}
 		// reposition the drag handles around the image
-		const rect = this.img.getBoundingClientRect();
+		var rect = this.img.getBoundingClientRect();
 		this.positionBoxes(rect);
 		this.positionSizeDisplay(rect);
 	}
 
-	setUserSelect(value) {
+	this.setUserSelect = function(value) {
 		[
 			'userSelect',
 			'mozUserSelect',
 			'webkitUserSelect',
 			'msUserSelect'
-		].forEach(prop => {
+		].forEach(function(prop) {
 			// set on contenteditable element and <html>
 			this.quill.root.style[prop] = value;
 			document.documentElement.style[prop] = value;
-		});
+		}, this);
 	}
 
-	setCursor(value) {
+	this.setCursor = function(value) {
 		[
 			document.body,
 			this.img,
 			this.quill.root
-		].forEach(el => el.style.cursor = value);
+		].forEach(function(el) { el.style.cursor = value });
 	}
 
-	checkImage() {
+	this.checkImage = function() {
 		if (this.img) {
 			this.hide();
 		}
 	}
 
-	showSizeDisplay() {
+	this.showSizeDisplay = function() {
 		if (!this.options.displaySize) {
 			return;
 		}
 		this.display = document.createElement('div');
 		// apply styles
-		const styles = {
+		var styles = {
 			position: 'absolute',
 			font: '12px/1.0 Arial, Helvetica, sans-serif',
 			padding: '4px 8px',
@@ -225,11 +210,12 @@ export class ImageResize {
 			opacity: '0.80',
 			cursor: 'default',
 		};
-		this.extend(this.display.style, styles, this.options.displayStyles || {});
+		this.extend(this.display.style, styles);
+		this.extend(this.display.style, this.options.displayStyles || {});
 		document.body.appendChild(this.display);
 	}
 
-	hideSizeDisplay() {
+	this.hideSizeDisplay = function() {
 		if (!this.options.displaySize) {
 			return;
 		}
@@ -237,15 +223,15 @@ export class ImageResize {
 		this.display = undefined;
 	}
 
-	positionSizeDisplay(rect) {
+	this.positionSizeDisplay = function(rect) {
 		if (!this.display || !this.img) {
 			return;
 		}
-		const size = this.getCurrentSize();
+		var size = this.getCurrentSize();
 		this.display.innerHTML = size.join(' &times; ');
 		if (size[0] > 120 && size[1] > 30) {
 			// position on top of image
-			const dispRect = this.display.getBoundingClientRect();
+			var dispRect = this.display.getBoundingClientRect();
 			this.extend(this.display.style, {
 				left: Math.round(rect.left + rect.width + window.pageXOffset - dispRect.width - 8) + 'px',
 				top: Math.round(rect.top + rect.height + window.pageYOffset - dispRect.height - 8) + 'px',
@@ -260,11 +246,28 @@ export class ImageResize {
 		}
 	}
 
-	getCurrentSize() {
+	this.getCurrentSize = function() {
 		return [
 			this.img.width,
 			Math.round(this.img.width / this.img.naturalWidth * this.img.naturalHeight),
 		];
 	}
+
+	// save the quill reference and options
+	this.quill = quill;
+	this.options = options;
+	// bind handlers to this instance
+	this.handleClick = this.handleClick.bind(this);
+	this.handleMousedown = this.handleMousedown.bind(this);
+	this.handleMouseup = this.handleMouseup.bind(this);
+	this.handleDrag = this.handleDrag.bind(this);
+	this.checkImage = this.checkImage.bind(this);
+	// track resize handles
+	this.boxes = [];
+	// disable native image resizing on firefox
+	document.execCommand('enableObjectResizing', false, 'false');
+	// respond to clicks inside the editor
+	this.quill.root.addEventListener('click', this.handleClick, false);
+
 
 }
