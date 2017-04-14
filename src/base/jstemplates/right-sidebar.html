@@ -1,10 +1,13 @@
-<div id="right-sidebar">
-  <div class="sidebar-tabs-container">
-    {{#each tabs}}
-      <span id="{{name}}" data-pane="0" class="sidebar-tab {{#if @first}}selected{{/if}}">
-        {{tab_name}}
-      </span>
-    {{/each}}  
-  </div>
-  <div class="right-sidebar-content"></div>
+<div class="sidebar-tabs-container{{#is numTabs 1}} single-tab{{/is}}">
+  {{#each tabs}}
+    <span id="{{name}}" 
+    			data-pane="0" 
+    			class="sidebar-tab{{#if @first}} selected{{/if}}">
+      {{tab_name}}
+    </span>
+  {{/each}}  
+</div>
+<div class="right-sidebar-content">
+	<div class="right-sidebar-content-menu"></div>
+	<div class="right-sidebar-content-detail"></div>
 </div>

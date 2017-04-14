@@ -688,13 +688,11 @@ sidebar:
               title: _(Original River Path)
               visibleDefault: false
 
-    # NOTE: ticker is commented out here as it appears in the right sidebar.
-    # Uncomment these lines to restore the ticker to the Leaflet sidebar.
-    # - id: ticker
-    #   view: ActivityView
-    #   icon: comments-o
-    #   activity: true
-    #   title: _(Activity Stream:)
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
+      title: _(Activity Stream:)
 
     - id: reports_legend
       title: _(Community Reports:)
@@ -719,10 +717,6 @@ activity:
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
-  # To show the activity stream in the right panel, set this flag to true.
-  # To also remove it from the leaflet controls, comment out the "id: ticker"
-  # entry in the leaflet control config above.
-  show_in_right_panel: true
 
 right_sidebar:
   show: true
@@ -730,9 +724,9 @@ right_sidebar:
     - name: story
       show: true
       tab_name: _(Stories)
-    - name: activity
-      show: true
-      tab_name: _(Activity)
+    # - name: activity
+    #   show: true
+    #   tab_name: _(Activity)
 
 # Place Types
 place:
