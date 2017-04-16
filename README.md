@@ -4,7 +4,9 @@
 
 > Community powered mapping for environmental health, starting with our most polluted rivers.
 
-Mapseed is a platform that allows anyone to create community-driven maps on the web. These maps allow users to report issues or submit ideas and respond to the issues & ideas of others. Combine user-generated content with exterior data overlaid on the same map to allow anyone to see what's going on in the area at a glance.
+Mapseed is a platform that allows anyone to create community-driven maps on the web. These maps allow users to report issues or submit ideas and respond to the issues & ideas of others. Combine user-generated content with external data overlaid on the same map to allow anyone to see what's going on in the area at a glance.
+
+This module, `platform`, is the tool for creating the maps themselves, while the [`api` module](https://github.com/mapseed/api) collects the user reports on the backend.
 
 ## Table of Contents
 
