@@ -25,7 +25,7 @@ This module, `platform`, is the tool for creating the maps themselves, while the
 
 Mapseed was originally developed for tracking the environmental cleanup of the Duwamish River. [HeyDuwamish.org](http://heyduwamish.org) runs on Mapseed. It's now used for several other websites, including [HeyWillamette.org](http://heywillamette.org). You can find out more at [SmarterCleanup.org](http://smartercleanup.org).
 
-The Mapseed platform is a fork of [Shareabouts](https://github.com/openplans/shareabouts), which was developed by [OpenPlans](http://openplans.org/) before they closed in 2014. It is a "spiritual successor" to [Qué Pasa Riachuelo?](https://github.com/garagelab/qpr2).
+The Mapseed platform is a fork of [Shareabouts](https://github.com/openplans/shareabouts), which was developed by [OpenPlans](http://openplans.org/) before they closed in 2015. It is a "spiritual successor" to [Qué Pasa Riachuelo?](https://github.com/garagelab/qpr2).
 
 ## Install
 
