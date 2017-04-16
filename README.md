@@ -10,6 +10,17 @@ This module, `platform`, is the tool for creating the maps themselves, while the
 
 ## Table of Contents
 
+- [Background](#background)
+- [Install](#install)
+- [Usage](#usage)
+  - [Connecting to an API](#connecting-to-an-api)
+  - [Configuring](#configuring)
+  - [Starting your map server](#starting-your-map-server)
+- [Maintainers](#maintainers)
+- [Contribute](#contribute)
+  - [Use the Dev API](#use-the-dev-api)
+- [License](#license)
+
 ## Background
 
 Mapseed was originally developed for tracking the environmental cleanup of the Duwamish River. [HeyDuwamish.org](http://heyduwamish.org) runs on Mapseed. It's now used for several other websites, including [HeyWillamette.org](http://heywillamette.org). You can find out more at [SmarterCleanup.org](http://smartercleanup.org).
