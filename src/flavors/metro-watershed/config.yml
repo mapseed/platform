@@ -44,8 +44,8 @@ map:
     maxZoom: 18
   layers:
     # SmarterCleanup Mapbox base layer:
-    - id: osm
-      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+    - id: topo-raw
+      url: //{s}.tile.stamen.com/terrain-background/{z}/{x}/{y}.png
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
@@ -66,11 +66,11 @@ map:
 
     - id: topo
       type: basemap
-      url: https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WMSServer?
-      layers: '0'
-      version: '1.3.0'
-      transparent: 'false'
-      format: 'image/png'
+      url: //{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png
+      # layers: '0'
+      # version: '1.3.0'
+      # transparent: 'false'
+      # format: 'image/png'
 
   # Legend Layers
     - id: restoration
@@ -548,9 +548,9 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:        
-        - id: osm
-          title: _(OpenStreetMap)
-          visibleDefault: false
+        - id: topo-raw
+          title: _(Topography (raw))
+          visibleDefault: true
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
