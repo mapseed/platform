@@ -81,11 +81,13 @@
         config = _.find(self.options.mapConfig.layers, function(c) {
           return c.id === id;
         });
+
         if (config && !config.loaded && visible) {
           self.createLayerFromConfig(config);
           config.loaded = true;
           layer = self.layers[id];
         }
+
         if (isBasemap) {
           _.each(self.options.basemapConfigs, function(basemap) {
             if (basemap.id === id) {
