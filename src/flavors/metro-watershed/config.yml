@@ -55,7 +55,7 @@ map:
       type: basemap
 
     - id: light
-      url: //api.mapbox.com/styles/v1/smartercleanup/cizhuxpgi00042so2kw8c1lfl/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: //api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
 
@@ -71,6 +71,14 @@ map:
       # version: '1.3.0'
       # transparent: 'false'
       # format: 'image/png'
+
+    - id: landcover
+      type: basemap
+      url: //raster.nationalmap.gov/arcgis/services/LandCover/USGS_EROS_LandCover_NLCD/MapServer/WMSServer?
+      layers: '1'
+      version: '1.3.0'
+      transparent: 'true'
+      format: 'image/png'
 
   # Legend Layers
     - id: restoration
@@ -91,13 +99,25 @@ map:
       type: landmark
 
        # WRIA9 watershed
-    - id: watershed
+    - id: school-boundaries
       type: cartodb
-      url: "https://heyduwamishcore.cartodb.com/api/v2/viz/61226fec-0399-11e6-8de1-0e31c9be1b51/viz.json"
+      url: "https://smartercleanup.carto.com/api/v2/viz/1f590d18-256d-11e7-aff5-0e3ff518bd15/viz.json"
 
-    - id: cleanup
+    - id: watershed-cedar
       type: cartodb
-      url: "https://smartercleanup.cartodb.com/api/v2/viz/b369d508-c02b-11e5-9a08-0ecfd53eb7d3/viz.json"
+      url: "https://smartercleanup.carto.com/api/v2/viz/a9ea3c0c-26aa-11e7-95f1-0ecd1babdde5/viz.json"
+
+    - id: watershed-green
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/1ef4a962-26ae-11e7-9ad1-0ee66e2c9693/viz.json"
+
+    - id: watershed-sammamish
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/e85f97d4-26af-11e7-af3c-0e3ebc282e83/viz.json"
+
+    - id: stormwater-facilities
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/256fb630-26b1-11e7-8650-0e233c30368f/viz.json"
 
       # Land Use
     - id: landuse
@@ -556,7 +576,7 @@ sidebar:
           visibleDefault: false
         - id: topo
           title: _(Topography)
-          visibleDefault: true
+          visibleDefault: false
         - id: light
           title: _(Light)
           visibleDefault: false
@@ -564,8 +584,8 @@ sidebar:
           title: _(Outdoor)
           visibleDefault: false
       groupings:
-        - id: grp-community
-          title: _(Community Data)
+        - id: grp-human-boundaries
+          title: _(Human Boundaries)
           visibleDefault: false
           layers:
             - id: bogtobay
@@ -576,13 +596,46 @@ sidebar:
               title: _(Featured Sites)
               visibleDefault: false
 
-            - id: cleanup
-              title: _(River Cleanup Plan)
+            - id: stormwater-facilities
+              title: _(Stormwater Facilities)
               visibleDefault: false
 
             - id: restoration
               title: _(Restoration Sites)
               visibleDefault: false
+
+            - id: school-boundaries
+              title: _(School Districts)
+              visibleDefault: false
+
+        - id: grp-natural-boundaries
+          title: _(Natural Boundaries)
+          visibleDefault: false
+          layers:
+            - id: bogtobay
+              title: _(Community Reports)
+              visibleDefault: false
+
+            - id: watershed-cedar
+              title: _(Cedar River - Lake Washington Watershed)
+              visibleDefault: false
+
+            - id: watershed-green
+              title: _(Green / Duwamish Watershed)
+              visibleDefault: false
+
+            - id: watershed-sammamish
+              title: _(Lake Sammamish Watershed)
+              visibleDefault: false
+
+            - id: stories
+              title: _(Featured Sites)
+              visibleDefault: false
+
+            - id: restoration
+              title: _(Restoration Sites)
+              visibleDefault: false
+
 
         - id: grp-land
           title: _(Land Data)
@@ -594,6 +647,11 @@ sidebar:
               visibleDefault: false
 
               # Green Seattle Partnership restoration phases
+
+            - id: landcover
+              title: _(Land cover)
+              visibleDefault: false
+
             - id: phases
               title: _(Green Seattle partnership)
               visibleDefault: false
@@ -605,11 +663,6 @@ sidebar:
 
             - id: cso
               title: _(Sewer Overflow)
-              visibleDefault: false
-
-              # WRIA9 watershed
-            - id: watershed
-              title: _(Watershed)
               visibleDefault: false
 
             - id: zoning
@@ -675,13 +728,14 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: stormwater-pledge
+
+    - category: conserve-water
       includeOnForm: true
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-pledge-3.png
-      value: stormwater-pledge
-      label: _(Stormwater Pledge)
+      value: conserve-water
+      label: _(Conserve Water)
       fields:
         - name: title
           type: text
@@ -716,13 +770,14 @@ place:
           display_prompt: _( )
           placeholder: _(Enter comments...)
           optional: false
-    - category: conservation-pledge
+
+    - category: prevent-stormwater
       includeOnForm: true
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-pledge-4.png
-      value: conservation-pledge
-      label: _(Water Conservation Pledge)
+      value: prevent-stormwater
+      label: _(Prevent Stormwater Pollution)
       fields:
         - name: title
           type: text
@@ -736,6 +791,7 @@ place:
           display_prompt: _( )
           placeholder: _(Enter comments...)
           optional: false
+
     - category: wastewater-pledge
       includeOnForm: true
       name: location_type
@@ -746,9 +802,9 @@ place:
       fields:
         - name: title
           type: text
-          prompt: _(Post title:)
+          prompt: _(Post title)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials + District Initials + Year + Custom title)
           optional: false
         - name: comments
           type: textarea
@@ -756,246 +812,48 @@ place:
           display_prompt: _( )
           placeholder: _(Enter comments...)
           optional: false
-    - category: observation
+
+    - category: stormwater-pledge
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-observation.png
-      value: observation
-      label: _(Observation)
+      icon_url: /static/css/images/markers/marker-pledge-3.png
+      value: stormwater-pledge
+      label: _(Stormwater Pledge)
       fields:
         - name: title
           type: text
-          prompt: _(Title:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
           optional: false
-        - name: observation_type
+        - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(I see:)
-          display_prompt: _(I see:)
+          prompt: _(My stewardship actions:)
+          display_prompt: _(My stewardship actions include:)
           content:
-            - label: _(Neighborhood Dog Poop Bag dispensers)
-              value: poopdispenser
-            - label: _(Rain Gardens Nearby)
-              value: raingarden_observation
-            - label: _(Cisterns Nearby)
-              value: cistern
-            - label: _(Pervious Concrete Nearby)
-              value: perviousconcrete
-            - label: _(Pavers Nearby)
-              value: paver
-            - label: _(Green Roofs Nearby)
-              value: greenroof
-          optional: true
-          # NOTE: checkbox_big_button inputs have no validation
-        - name: description
+            - label: _(Conducted a Home Water Audit)
+              value: poopscoop
+            - label: _(Always use natural yard care)
+              value: naturalyard
+            - label: _(Always use a commercial car wash)
+              value: carwash
+            - label: _(Fix car oil leaks)
+              value: oilleaks
+            - label: _(Plant and maintain trees)
+              value: planttrees
+            - label: _(Clean out storm drains)
+              value: stormdrains
+            - label: _(Spread the word to friends!)
+              value: spreadword
+          optional: false 
+           # NOTE: checkbox_big_button inputs have no validation
+        - name: comments
           type: textarea
           prompt: _(Additional comments:)
           display_prompt: _( )
-          placeholder: _(Enter description...)
+          placeholder: _(Enter comments...)
           optional: false
-    - category: question
-      includeOnForm: true
-      name: location_type
-      dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-question.png
-      value: question
-      label: _(Question)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your question:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: "_(What's your question?)"
-          display_prompt: _(My question:)
-          placeholder: _(Enter question...)
-    - category: idea
-      includeOnForm: false
-      name: location_type
-      dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-idea.png
-      value: idea
-      label: _(Idea)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your idea:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Describe your idea below:)
-          display_prompt: "_(Here's my idea:)"
-          placeholder: _(Description...)
-          optional: false
-    - category: complaint
-      includeOnForm: false
-      name: location_type
-      dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-complaint.png
-      value: complaint
-      label: _(Complaint)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your complaint:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: "_(What's your complaint?)"
-          display_prompt: _(I have the following complaint:)
-          placeholder: _(Description...)
-          optional: false
-    - category: air_watch  #defines a top-level form category
-      includeOnForm: false
-      name: location_type  #needs to be "location_type"
-      dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
-      value: air_watch  #internal value used for this category
-      label: _(Air watch)  #label for this category
-      fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
-        - name: date_time_observed 
-          type: datetime  
-          prompt: _(When did you observe these conditions?)
-          display_prompt: _(I observed these conditions on:)
-          optional: true
-        - name: reside_work_georgetown  
-          type: binary_toggle 
-          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
-          display_prompt: _(I reside or work in Georgetown or South Park:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          optional: true # NOTE: binary_toggle inputs have no validation
-        - name: odd_smell
-          type: binary_toggle 
-          prompt: _(I observe an odd smell)
-          display_prompt: _(I observed an odd smell:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: burning
-          type: binary_toggle
-          prompt: _(I have burning or itching eyes/nose/skin)
-          display_prompt: _(I have burning or itching eyes/nose/skin:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: difficulty_breathing
-          type: binary_toggle
-          prompt: _(I am having difficulty breathing)
-          display_prompt: _(I am having difficulty breathing:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: headache
-          type: binary_toggle
-          prompt: _(I am experiencing a headache)
-          display_prompt: _(I am experiencing a headache:)
-          content:
-            - label: _(Yes)
-              value: "yes"
-            - label: _(No)
-              value: "no"
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: true
-        - name: other_physical_effects
-          type: text
-          prompt: _(Please note other physical effects you are experiencing)
-          display_prompt: _(Other physical effects I experienced:)
-          annotation: _(Please be sure to seek medical attention if needed.)
-          optional: false
-        - name: source  #internally used name for this form element
-          type: dropdown  #form type
-          prompt: _(Select one of the following to identify the source of the bad air quality.)  #question prompt
-          display_prompt: _(Pollution source observed:)  #text used when a submitted report is viewed later
-          content:
-            - label: _(Asbestos)
-              value: absestos
-            - label: _(Burning during burn ban)
-              value: burning
-            - label: _(Chimney smoke)
-              value: chimney_smoke
-            - label: _(Gas station)
-              value: gas_station
-            - label: _(Mobile coater)
-              value: mobile_coater
-            - label: _(Odor)
-              value: odor
-            - label: _(Outdoor fire)
-              value: outdoor_fire
-            - label: _(Vehicle pollution)
-              value: vehicle_pollution
-            - label: _(Visible emission)
-              value: visible_emission
-            - label: _(Specific business or industry)
-              value: business_or_industry
-            - label: "_(Don't know/unsure)"
-              value: unsure
-            - label: _(Other (please describe in comments))
-              value: other
-          optional: false
-        - name: normal_activities
-          type: radio_big_buttons
-          prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
-          display_prompt: _(My normal activities are affected by the air quality in my neighborhood:)
-          content:
-            - label: _(Strongly agree)
-              value: strongly_agree
-            - label: _(Agree)
-              value: agree
-            - label: _(Neutral)
-              value: neutral
-            - label: _(Disagree)
-              value: disagree
-            - label: _(Strongly disagree)
-              value: strongly_disagree
-          optional: false
-        - name: activities_impacted
-          type: dropdown
-          prompt: _(Select one of the following to indicate how your normal activities are impacted.)
-          display_prompt: _(My normal activities were impacted in the following way:)
-          content:
-            - label: _(I choose to stay indoors to avoid the source of pollution)
-              value: stay_indoors
-            - label: _(I close the windows, limiting circulation)
-              value: close_windows
-            - label: _(I open all windows to circulate air)
-              value: open_windows
-            - label: _(I avoid outdoor physical activities)
-              value: avoid_outdoor_activities
-            - label: _(I need to constantly clean surfaces, as they are often greasy or dusty)
-              value: clean_surfaces
-            - label: _(Other (please specify in comments))
-              value: other
-          optional: false
-        - name: additional_comments
-          type: text
-          prompt: _(Provide any additional comments)
-          display_prompt: _(Additional comments:)
-          optional: true   
 
   # define form elements that appear on every form here
   common_form_elements:
