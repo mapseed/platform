@@ -1,6 +1,20 @@
 <!-- Template for all input types, used by both the place form view and the 
   place detail view in editor mode. -->
 
+{{#if horizontal_rule}}
+  <hr />
+{{/if}}
+
+{{#if prompt}}
+  <label for="place-{{ name }}">
+    {{ prompt }} 
+    {{# optional }}
+      <small>({{#_}}optional{{/_}})</small>
+    {{/ optional }} 
+    {{admin_msg}}
+  </label>
+{{/if}}
+
 {{#is type "geocoding"}}
   <div class="geocoding-enabled">
     <div id="geocode-address-place-bar" class="clearfix">
@@ -11,7 +25,7 @@
              {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
              type="text" id="geocode-address-field" 
              class="geocode-address-field"
-             value={{nlToBr content}}>
+             value="{{content}}">
     </div>
   </div>
 {{/is}}
@@ -33,7 +47,7 @@
          {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
          {{#unless autocomplete}} placeholder="{{ placeholder }}"{{/unless}}
          {{^optional}}required{{/optional}}
-         value={{nlToBr content}}>
+         value="{{nlToBr content}}">
 {{/is}}
 
 {{#is type "textarea"}}
@@ -95,17 +109,21 @@
                  {{else}}
                    {{ content.unselectedValue }}
                  {{/if}}
+           data-alt-value={{#if content.selected }}
+                            {{ content.unselectedValue }}
+                          {{else}}
+                            {{ content.selectedValue }}
+                          {{/if}}
            data-input-type="binary_toggle" 
            class="big-btn"
            {{#if content.selected}}checked{{/if}}>
     <label for={{ name }}
-           {{#ifAnd isAutocomplete content.selected}}class="is-autocomplete"{{/ifAnd}}>
-        {{#if content.selected }}
-          {{content.selectedLabel}}
-        {{else}}
-          {{content.unselectedLabel}}
-        {{/if}}
-    </label>
+           {{#ifAnd isAutocomplete content.selected}}class="is-autocomplete"{{/ifAnd}}
+           data-alt-label={{#if content.selected }}
+                            {{content.unselectedLabel}}
+                          {{else}}
+                            {{content.selectedLabel}}
+                          {{/if}}>{{#if content.selected }}{{content.selectedLabel}}{{else}}{{content.unselectedLabel}}{{/if}}</label>
   </div>
 {{/is}}
 
@@ -123,20 +141,17 @@
   <div style="clear:both"></div>
 {{/is}}
 
-{{#is type "iconField"}}
-  <div class="icon-field-container">
-    {{#each content}}
-      <input type="radio" 
-             name={{ ../name }} 
-             id="{{ ../name }}-{{ @index }}" 
-             value={{ url }} 
-             {{^../optional}}required{{/../optional}}
-             {{#if selected}}checked{{/if}}>
-      <label for="{{ ../name }}-{{ @index }}"
-             class="{{#ifAnd ../isAutocomplete selected}}is-autocomplete{{/ifAnd}}">{{ label }}
-        <img src={{url}} />
-      </label>
-    {{/each}}
+{{#is type "url-title"}}
+  <input id="place-{{ name }}" 
+         name="{{ name }}" 
+         type="text" 
+         {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} 
+         placeholder="{{ placeholder }}"
+         {{^optional}}required{{/optional}}
+         value={{nlToBr content}}>
+  <div class="invalid-msg-container">
+    <div class="invalid-msg duplicate-url hidden"><em>{{#_}}This url is already in use. Please try another.{{/_}}</em></div>
+    <div class="invalid-msg forward-slash hidden"><em>{{#_}}Please choose a url without a forward slash character (/) in it.{{/_}}</em></div>
   </div>
 {{/is}}
 
@@ -205,3 +220,4 @@
 {{#if annotation}}
   <div class="form-annotation">{{annotation}}</div>
 {{/if}}
+

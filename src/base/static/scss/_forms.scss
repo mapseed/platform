@@ -180,7 +180,66 @@ select {
 
 .place-header-title {
     line-height: 1.2em;
-} 
+}
+
+.invalid-msg {
+    margin-top: 5px;
+    color: #b2182b;
+    font-size: 0.8em;
+}
+
+/* Place form silhouettes */
+.place-form-silhouettes {
+    padding: 25px;
+}
+
+.silhouette-row {
+    margin-bottom: 10px;
+
+    div {
+        display: inline-block;
+    }
+}
+
+.silhouette {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: $border-radius-small;
+    background-color: #EEE;
+
+    &.textarea-med {
+        width: 60%;
+        height: 75px;
+    }
+
+    &.text-extra-short {
+        width: 5%;
+        height: 20px;
+    }
+
+    &.text-short {
+        width: 10%;
+        height: 20px;
+    }
+
+    &.text-med {
+        width: 25%;
+        height: 20px;
+    }
+
+    &.text-long {
+        width: 45%;
+        height: 20px;
+    }
+
+    &.radio {
+        border-radius: 50%;
+        border: 2px solid #DDD;
+        width: 15px;
+        height: 15px;
+    }
+
+}
 
 /* QuillJS rich text editor styles */
 .rich-text-field {

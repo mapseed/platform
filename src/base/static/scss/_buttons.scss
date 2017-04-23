@@ -208,88 +208,115 @@ button.sp-selected {
     }
 }
 
-/* Place type category button styles */
+/* Dynamic form category button styles */
 #category-btns {
     margin-bottom: 20px;
 }
 
 .category-btn {
     display: none;
+
+    &:checked {
+        + label {
+            &:hover {
+                border: 2px solid transparent;
+            }
+
+            .category-icon {
+                border-color: $selected-highlight-orange-faded;
+                background-color: $selected-highlight-orange-faded;
+                border-top-left-radius: $border-radius-medium;
+                border-bottom-left-radius: $border-radius-medium;
+            }
+
+            .category-label-container {
+                background-color: $selected-highlight-orange;
+                border-color: $selected-highlight-orange;
+                border-top-right-radius: $border-radius-medium;
+                border-bottom-right-radius: $border-radius-medium;
+                color: white;
+            }
+
+            .expansion-icon-container {
+                display: block;
+            }
+        }
+    }
 }
 
 .category-btn-container {
-    width: 100%;
+    position: relative;
+    display: block;
     margin-bottom: 4px;
+    min-height: 55px;
+    max-height: 55px;
     border-collapse: separate;
     border-spacing: 0;
-    
-    img {
-        width: 36px;
-        padding-top: 4px;
-        padding-left: 2px;
-    }
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: $border-radius-medium;
 
     .category-icon {
-        cursor: pointer;
-        width: 40px;
-        border-top: 2px solid transparent;
-        border-bottom: 2px solid transparent;
-        border-left: 2px solid transparent;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
+        position: absolute;
+        height: 55px;
+        width: 76px;
+    }
+
+    img {
+        width: 36px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 20px;
+    }
+
+    .category-label-container {
+        position: absolute;
+        height: 100%;
+        width: calc(100% - 76px);
+        left: 76px;
     }
 
     .category-label {
+        position: absolute;
+        top: 50%;
+        height: 20px;
+        margin-top: -10px;
         cursor: pointer;
-        padding-left: 10px;
-        border-top: 2px solid transparent;
-        border-bottom: 2px solid transparent;
-        border-right: 2px solid transparent;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
+        margin-left: 30px;
         text-transform: uppercase;
-        font-size: 1.2em;
+        font-size: 1.4em;
         opacity: 1;
     }
 
-    &:hover {
-        .category-icon {
-            border-color: $selected-highlight-orange;
-        }
-
-        .category-label {
-            background-color: $selected-highlight-orange;
-            border-color: $selected-highlight-orange;
-            color: white;
-        }
-    }
-}
-
-/* Selected category placeholder styles */
-#selected-category, .category-btn-container-selected {
-    .category-icon {
-        border-color: $selected-highlight-orange;
-    }
-
-    .category-label {
-        background-color: $selected-highlight-orange;
-        border-color: $selected-highlight-orange;
-        color: white;
-    }
-}
-
-/* Other dynamic form styles */
-.category-menu-hamburger {
-    padding-left: 20px;
-    &:before {
+    .expansion-icon-container {
+        display: none;
+        float: right;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        margin-top: -25px;
+        color: #FFF;
         font-family: FontAwesome;
-        font-size: 2.2em;
-        content: $icon-expansion-hamburger;
+        font-size: 40px;
+        padding-right: 15px;
+    
+        &:before {
+            content: $icon-disclosure-triangle-left;
+        }
+
+        &:hover {
+            &:before {
+                content: $icon-disclosure-triangle-down;
+            }
+            cursor: pointer;
+        }
     }
 
     &:hover {
-        color: $selected-highlight-orange;
-        cursor: pointer;
+        border-color: $selected-highlight-orange;
     }
 }
 

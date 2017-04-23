@@ -5,9 +5,11 @@ var Gatekeeper = {};
 
 (function(NS) {
 
-  NS.getInvalidFormEls = function(form) {
-    var $form = $(form),
+  NS.getInvalidFormEls = function(context) {
+    var $form = context.$el,
         invalidEls;
+
+    $form.find(".invalid-msg").addClass("hidden");
 
     invalidEls = $form.find('input, select, textarea').map(function() {
       var $this = $(this),
@@ -16,6 +18,8 @@ var Gatekeeper = {};
           isCheckbox,
           restoreRequired,
           hasValue;
+
+      $this.removeClass("gatekeeper-invalid");
 
       // Only validate visible elements
       if ($this.is(':visible')) {
@@ -132,7 +136,7 @@ var Gatekeeper = {};
     return function(evt) {
       evt.preventDefault();
 
-      if (NS.validate(evt.target)) {
+      if (NS.validate(this)) {
         if (success) {
           success.apply(this, arguments);
         }
