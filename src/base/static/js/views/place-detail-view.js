@@ -34,6 +34,10 @@
         return field.type === "geometryToolbar";
       })) ? true : false;
 
+      if (!Gatekeeper.collectionsSet) {
+        Gatekeeper.collectionsSet = this.options.collectionsSet;      
+      }
+
       // use the current url as the key under which to store draft changes made
       // to this place detail view
       this.LOCALSTORAGE_KEY = Backbone.history.getFragment().replace("/", "-");
@@ -156,7 +160,7 @@
 
       _.each(this.categoryConfig.fields, function(field, i) {
         var fieldData = _.extend({}, this.categoryConfig.fields[i],
-          Util.prepField(field, this.model.get(field.name)));
+          Util.buildFieldContent(field, this.model.get(field.name)));
 
         if (this.isEditingToggled &&
             fieldIsValidForEditor(fieldData)) {
@@ -171,7 +175,7 @@
 
       _.each(this.commonFormElements, function(field, i) {
         var fieldData = _.extend({}, this.commonFormElements[i],
-          Util.prepField(field, this.model.get(field.name)));
+          Util.buildFieldContent(field, this.model.get(field.name)));
 
         if (this.isEditingToggled &&
             fieldIsValidForEditor(fieldData)) {
@@ -299,19 +303,16 @@
     },
 
     onBinaryToggle: function(evt) {
-      var self = this,
-      category = this.model.get("location_type"),
-      targetButton = $(evt.target).attr("id"),
-      oldValue = $(evt.target).val(),
-      // find the matching config data for this element
-      selectedCategoryConfig = _.find(this.options.placeConfig.place_detail, function(categoryConfig) { return categoryConfig.category === category; }),
-      altData = _.find(selectedCategoryConfig.fields, function(item) { return item.name === targetButton; }),
-      // fetch alternate label and value
-      altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
-      
-      // set new value and label
-      $(evt.target).val(altContent.value);
-      $(evt.target).next("label").html(altContent.label);
+      var oldValue = $(evt.target).val(),
+          newValue = $(evt.target).data("alt-value"),
+          oldLabel = $(evt.target).siblings("label").html(),
+          newLabel = $(evt.target).siblings("label").data("alt-label");
+
+      // swap new and old values and labels
+      $(evt.target).data("alt-value", oldValue);
+      $(evt.target).val(newValue);
+      $(evt.target).siblings("label").html(newLabel);
+      $(evt.target).siblings("label").data("alt-label", oldLabel);
     },
 
     scrapeForm: function() {
@@ -347,7 +348,8 @@
       return attrs;
     },
 
-    onUpdateModel: function() {
+    // TODO: can we relax any of the validation rules in edit mode?
+    onUpdateModel: Gatekeeper.onValidSubmit(function(evt) {
       if (!this.isModified) {
         return;
       }
@@ -385,12 +387,18 @@
           self.isEditingToggled = false;
           self.buildFieldListForRender();
           self.render();
+
+          if (Backbone.history.fragment === Util.getUrl(self.model)) {
+            Backbone.history.loadUrl(Backbone.history.fragment);
+          } else {
+            self.options.router.navigate(Util.getUrl(self.model), { trigger: true, replace: true });
+          }
         },
         error: function() {
           // nothing
         }
       });
-    },
+    }, null),
 
     onHideModel: function() {
       var self = this;

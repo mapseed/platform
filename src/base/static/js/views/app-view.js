@@ -549,7 +549,11 @@
           router: this.options.router,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
             return layer.slug == model.attributes.datasetSlug 
-          }).id
+          }).id,
+          collectionsSet: {
+            places: this.places,
+            landmarks: this.landmarks
+          }
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -594,14 +598,15 @@
           mapConfig: this.options.mapConfig,
           userToken: this.options.userToken,
           geometryEditorView: this.mapView.geometryEditorView,
-          // only need to send place collection, since all data added will be a place of some kind
-          collection: this.places
+          collectionsSet: {
+            places: this.places,
+            landmarks: this.landmarks
+          }
         });
       }
 
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render(false).$el);
-      this.placeFormView.postRender();
 
       this.placeFormView.delegateEvents();
 

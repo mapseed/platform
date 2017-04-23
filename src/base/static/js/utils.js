@@ -195,15 +195,16 @@ var self = module.exports = {
     // autocomplete value stored in localstorage or from a rendered place detail
     // view value in editor mode), construct a content object for this field
     // suitable for consumption by the form field types template.
-    prepField: function(fieldConfig, existingValue) {
+    buildFieldContent: function(fieldConfig, existingValue) {
       //var exclusions = ["submitter_name", "name", "location_type", "title"],
       var content,
-      hasValue = false;
+          hasValue = false;
 
       if (fieldConfig.type === "text" || 
           fieldConfig.type === "textarea" || 
           fieldConfig.type === "datetime" || 
-          fieldConfig.type === "richTextarea") {
+          fieldConfig.type === "richTextarea" ||
+          fieldConfig.type === "url-title") {
         
         // Plain text
         content = existingValue || "";
@@ -276,7 +277,7 @@ var self = module.exports = {
         name: fieldConfig.name,
         type: fieldConfig.type,
         content: content,
-        prompt: fieldConfig.display_prompt,
+        prompt: fieldConfig.prompt,
         hasValue: hasValue
       };
     },
@@ -310,6 +311,16 @@ var self = module.exports = {
           pageConfig = this.findPageConfig(pagesConfig[i].pages, properties);
           if (pageConfig) return pageConfig;
         }
+      }
+    },
+
+    // If the passed url has a url-title field in it, return the value of this
+    // field. Otherwise, return the slug/id form of the url.
+    getUrl: function(model) {
+      if (model.get("url-title")) {
+        return model.get("url-title");
+      } else {
+        return model.get("datasetSlug") + "/" + model.id;
       }
     },
 

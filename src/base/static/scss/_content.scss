@@ -418,28 +418,22 @@ a.auth-inline {
     }
 }
 
-/* place form geolocation and instructions bar */
-.drag-marker-instructions {
+/* place form geometry informational and warning messages */
+.place-form-geometry-messages {
     position: relative;
-    background-color: lightyellow;
-    .btn-geolocate {
-        font-size: 0.85em;
-        width: 140px;
-        padding: 5px; 
-        position: relative;
-        img {
-            position: absolute;
-            left: 2px;
-            top: 6px;
-        }
-    }
-    .drag-text {
+    margin-bottom: 15px;
+    p {
+        border-radius: $border-radius-medium;
+        padding: 15px;
         margin-bottom: 0;
-        padding-left: 15px;
         font-size: 1.45em;
-    }
-    #geolocating-msg {
-        color: #888888;
+        font-weight: bold;
+        &.alert {
+            background-color: $background-color-alert;
+        }
+        &.warning {
+            background-color: $background-color-warning;        
+        }
     }
 }
 
