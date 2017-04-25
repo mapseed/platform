@@ -403,6 +403,9 @@
     onHideModel: function() {
       var self = this;
       if (confirm("Are you sure you want to hide this post? It will no longer be visible on the map.")) { 
+        if (this.geometryEnabled) {
+          this.geometryEditorView.tearDown();
+        } 
         this.model.save({"visible": false}, {
           success: function() {
             self.model.trigger("userHideModel", self.model);
