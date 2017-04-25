@@ -55,6 +55,11 @@ map:
       type: basemap
 
     - id: light
+      url: //a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
+      attribution: 'Hello World'
+      type: basemap
+
+    - id: light-nolabels
       url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
@@ -91,11 +96,10 @@ map:
       type: place
       slug: report
 
-      # Land Use
     - id: stories
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
+        - "https://raw.githubusercontent.com/mapseed/data/master/central-puget-sound.geojson"
       type: landmark
 
        # WRIA9 watershed
@@ -584,6 +588,9 @@ sidebar:
         - id: light
           title: _(Light)
           visibleDefault: false
+        - id: light-nolabels
+          title: _(Light - no labels)
+          visibleDefault: false
         - id: outdoor
           title: _(Outdoor)
           visibleDefault: false
@@ -943,7 +950,7 @@ pages:
     hide_from_top_bar: true
 
 story:
-  bogtobay:
+  watersheds:
     tagline: _(Next featured site)
     default_zoom: 18
     default_visible_layers:
@@ -958,20 +965,30 @@ story:
       #   visible_layers:
       #     - dirt-corps
       #   basemap: terrain
-      - url: longfellow
-        zoom: 14
-        basemap: satellite
-      - url: greenroof
-        zoom: 18
-        basemap: satellite
-      - url: bioswale
-        zoom: 18
-      - url: barton
-        spotlight: false
-      - url: watershed
+      - url: sammamish
         zoom: 10
+        basemap: light-nolabels
+        visible_layers:
+          - wria-7-8-9
+          - watershed-sammamish
         spotlight: false
-        panTo:
-          lat: 47.28482
-          lng: -121.74225
-        basemap: topo-raw
+      - url: cedar
+        zoom: 10
+        basemap: light-nolabels
+        visible_layers:
+          - wria-7-8-9
+          - watershed-cedar
+        spotlight: false
+      - url: green-duwamish
+        zoom: 10
+        basemap: light-nolabels
+        visible_layers:
+          - wria-7-8-9
+          - watershed-green
+        spotlight: false     
+      - url: stormwater-facilities
+        zoom: 10
+        basemap: light-nolabels
+        visible_layers:
+          - stormwater-facilities
+        spotlight: false
