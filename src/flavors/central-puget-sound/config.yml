@@ -37,8 +37,8 @@ map:
 
   options:
     center:
-      lat: 47.21770
-      lng: -120.31128
+      lat: 47.78548
+      lng: -122.82440
     zoom: 8
     minZoom: 1
     maxZoom: 18
@@ -55,7 +55,7 @@ map:
       type: basemap
 
     - id: light
-      url: //api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
 
@@ -102,6 +102,10 @@ map:
     - id: school-boundaries
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/1f590d18-256d-11e7-aff5-0e3ff518bd15/viz.json"
+
+    - id: wria-7-8-9
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/7b95f83a-294a-11e7-8367-0e05a8b3e3d7/viz.json"
 
     - id: watershed-cedar
       type: cartodb
@@ -592,16 +596,8 @@ sidebar:
               title: _(Community Reports)
               visibleDefault: false
 
-            - id: stories
-              title: _(Featured Sites)
-              visibleDefault: false
-
             - id: stormwater-facilities
               title: _(Stormwater Facilities)
-              visibleDefault: false
-
-            - id: restoration
-              title: _(Restoration Sites)
               visibleDefault: false
 
             - id: school-boundaries
@@ -614,6 +610,10 @@ sidebar:
           layers:
             - id: bogtobay
               title: _(Community Reports)
+              visibleDefault: false
+
+            - id: wria-7-8-9
+              title: _(WRIA boundaries)
               visibleDefault: false
 
             - id: watershed-cedar
@@ -636,7 +636,6 @@ sidebar:
               title: _(Restoration Sites)
               visibleDefault: false
 
-
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
@@ -646,14 +645,8 @@ sidebar:
               title: _(Land use)
               visibleDefault: false
 
-              # Green Seattle Partnership restoration phases
-
             - id: landcover
               title: _(Land cover)
-              visibleDefault: false
-
-            - id: phases
-              title: _(Green Seattle partnership)
               visibleDefault: false
 
               # Noxious Weeds
@@ -955,7 +948,6 @@ story:
     default_zoom: 18
     default_visible_layers:
       - stories
-      - watershed
     order:
       # - url: dirtcorps
       #   zoom: 15
@@ -982,4 +974,4 @@ story:
         panTo:
           lat: 47.28482
           lng: -121.74225
-        basemap: outdoor
+        basemap: topo-raw
