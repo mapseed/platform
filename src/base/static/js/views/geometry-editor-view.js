@@ -300,15 +300,20 @@ module.exports = Backbone.View.extend({
 
   onClickEditGeometry: function(evt) {
     evt.preventDefault();
-    
+
     if (this.workingGeometry) {
-      
+
       // If the user clicks the edit button while editing, we commit the edited
       // changes and disable editing
       this.workingGeometry.save();
       this.resetWorkingGeometry();
-      this.setGeometryToolbarHighlighting(evt.target);
-      this.displayHelpMessage("modify-geometry-msg");
+      this.setGeometryToolbarHighlighting(evt.currentTarget);
+      if (this.geometryType === "marker" ||
+          this.geometryType === "Point") {
+        this.displayHelpMessage("edit-marker-geometry-msg");
+      } else {        
+        this.displayHelpMessage("modify-geometry-msg");
+      }
       this.setDefaultCursor();
       this.hideIconToolbar();
       this.isEditing = false;
@@ -317,13 +322,14 @@ module.exports = Backbone.View.extend({
         featureGroup: this.editingLayerGroup
       });
       this.workingGeometry.enable();
-
-      if (this.geometryType === "marker") {
+      if (this.geometryType === "marker" ||
+          this.geometryType === "Point") {
         this.showIconToolbar();
+        this.displayHelpMessage("edit-marker-geometry-msg");
+      } else {        
+        this.displayHelpMessage("edit-poly-geometry-msg");
       }
-      
       this.setGeometryToolbarHighlighting(evt.currentTarget);
-      this.displayHelpMessage("edit-poly-geometry-msg");
       this.hideColorpicker();
       this.isEditing = true;
     }
@@ -360,7 +366,13 @@ module.exports = Backbone.View.extend({
     });
 
     if (this.isEditing) {
+      this.workingGeometry.save();
+      this.resetWorkingGeometry();
       this.getLayerFromEditingLayerGroup().setIcon(icon);
+      this.workingGeometry = new L.EditToolbar.Edit(this.map, {
+        featureGroup: this.editingLayerGroup
+      });
+      this.workingGeometry.enable();
     } else {
       this.workingGeometry.options.icon.options.iconUrl = this.iconUrl;
       if (this.workingGeometry._marker) {
