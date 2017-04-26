@@ -384,6 +384,23 @@
           .on('error', function(err) {
             Util.log('Cartodb layer creation error:', err);
           });
+      } else if (config.type && config.type === 'wmts') {
+        layer = L.tileLayer.wmts(config.url, {
+          service: 'WMTS',
+          tilematrixSet: config.tilematrixSet,
+          layers: config.layers,
+          format: config.format,
+          transparent: config.transparent,
+          version: config.version,
+          crs: L.CRS.EPSG3857,
+          // default TileLayer options
+          attribution: config.attribution,
+          opacity: config.opacity,
+          fillColor: config.color,
+          weight: config.weight,
+          fillOpacity: config.fillOpacity
+        });
+        self.layers[config.id] = layer;
       } else if (config.layers) {
         // If "layers" is present, then we assume that the config
         // references a Leaflet WMS layer.
