@@ -69,6 +69,14 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    - id: hydrography
+      type: basemap
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?
+      layers: '0'
+      version: '1.3.0'
+      transparent: 'false'
+      format: 'image/png'
+
     - id: topo
       type: basemap
       url: //{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png
@@ -593,6 +601,9 @@ sidebar:
           visibleDefault: false
         - id: outdoor
           title: _(Outdoor)
+          visibleDefault: false
+        - id: hydrography
+          title: _(Hydrography)
           visibleDefault: false
       groupings:
         - id: grp-human-boundaries
