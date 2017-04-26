@@ -599,12 +599,6 @@
       this.placeFormView.postRender();
 
       this.placeFormView.delegateEvents();
-      // Init the place form's address search bar
-      this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
-        el: '#geocode-address-place-bar',
-        router: this.options.router,
-        mapConfig: this.options.mapConfig
-      })).render();
 
       $(".maximize-btn").show();
       $(".minimize-btn").hide();
