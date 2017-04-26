@@ -4,9 +4,19 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+@font-face {
+  font-family: 'Permanent Marker';
+  src: url('PermanentMarker.ttf');
+}
+
 #site-title a:link,
 #site-title a:visited {
-  width: 251px;
+  color: #99b3cc !important;
+  font-weight: normal;
+  font-family: 'Permanent Marker', cursive !important;
+  display: block;
+  float: left;
+  margin-right: 50px;
 }
 
 /* =Header
@@ -36,46 +46,10 @@
 
 /* =Custom pledge type icons
 -------------------------------------------------------------- */
-#poopscoop + label:before {
+.big-btn + label:before {
   font-family: FontAwesome;
   text-indent: 0.8em;
-  content: "\f014";
-}
-
-#naturalyard + label:before {
-  font-family: FontAwesome;
-  text-indent: 0.8em;
-  content: "\f06c";
-}
-
-#carwash + label:before {
-  font-family: FontAwesome;
-  text-indent: 0.7em;
-  content: "\f1b9";
-}
-
-#oilleaks + label:before {
-  font-family: FontAwesome;
-  text-indent: 0.8em;
-  content: "\f0ad";
-}
-
-#planttrees + label:before {
-  font-family: FontAwesome;
-  text-indent: 0.8em;
-  content: "\f1bb";
-}
-
-#stormdrains + label:before {
-  font-family: FontAwesome;
-  text-indent: 0.9em;
-  content: "\f043";
-}
-
-#spreadword + label:before {
-  font-family: FontAwesome;
-  text-indent: 0.8em;
-  content: "\f0a1";
+  content: "✔";
 }
 
 /* =Dynamic form big button overrides
