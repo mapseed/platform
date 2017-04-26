@@ -69,6 +69,14 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    - id: hydrography
+      type: basemap
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?
+      layers: '0'
+      version: '1.3.0'
+      transparent: 'false'
+      format: 'image/png'
+
     - id: topo
       type: basemap
       url: //{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png
@@ -333,9 +341,9 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-tree.png      
+          iconUrl: /static/css/images/markers/marker-tree.png
 
-  stormwater-pledge:
+  conserve-water:
     zoomType: teardropZoomStyle
     rules:
       - condition: 'true'
@@ -346,7 +354,7 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-  conservation-pledge:
+  prevent-stormwater:
     zoomType: teardropZoomStyle
     rules:
       - condition: 'true'
@@ -357,12 +365,67 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-  wastewater-pledge:
+  only-flush:
     zoomType: teardropZoomStyle
     rules:
       - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-pledge-5.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  conserve-energy:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  waste-less:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  commute-low-carbon:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  eat-local-organic:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  restore-salmon-habitat:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-3.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
@@ -594,6 +657,9 @@ sidebar:
         - id: outdoor
           title: _(Outdoor)
           visibleDefault: false
+        - id: hydrography
+          title: _(Hydrography)
+          visibleDefault: false
       groupings:
         - id: grp-human-boundaries
           title: _(Human Boundaries)
@@ -728,7 +794,6 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-
     - category: conserve-water
       includeOnForm: true
       name: location_type
@@ -748,22 +813,37 @@ place:
           prompt: _(I pledge to:)
           display_prompt: _(I pledge to:)
           content:
-            - label: _(Scoop the poop)
-              value: poopscoop
-            - label: _(Always use natural yard care)
-              value: naturalyard
-            - label: _(Always use a commercial car wash)
-              value: carwash
-            - label: _(Fix car oil leaks)
-              value: oilleaks
-            - label: _(Plant and maintain trees)
-              value: planttrees
-            - label: _(Clean out storm drains)
-              value: stormdrains
-            - label: _(Spread the word to friends!)
-              value: spreadword
+            - label: _(Conducted a Home Water Audit)
+              value: water-audit
+            - label: _(Calculated my total Water Footprint)
+              value: water-footprint
+            - label: _(Turn off water when brushing my teeth)
+              value: brush-teeth-no-water
+            - label: _(Installed aerators on all faucets)
+              value: installed-aerators
+            - label: _(Installed a water efficient shower head)
+              value: installed-shower-head
+            - label: _(Take shorter showers)
+              value: shorter-showers
+            - label: _(Check for and fix leaking toilets)
+              value: fix-toilets
+            - label: _(Replaced old toilets with water efficient toilets)
+              value: water-efficient-toilets
+            - label: _(Run the dishwasher with full loads)
+              value: diswasher-full-loads
+            - label: _(Wash clothes with full loads)
+              value: wash-clothes-full-loads
+            - label: _(Use "WaterSense" high efficiency appliances)
+              value: use-watersense
+            - label: _(Use efficient irrigation systems for lawn or garden)
+              value: efficient-irrigation
+            - label: _(Use mostly native plants to conserve water)
+              value: native-plants
+            - label: _(Let the lawn go dormant in summer)
+              value: dormant-lawn
+            - label: _(Removed lawn)
+              value: removed-lawn
           optional: true 
-           # NOTE: checkbox_big_button inputs have no validation
         - name: comments
           type: textarea
           prompt: _(Additional comments:)
@@ -785,6 +865,39 @@ place:
           display_prompt: _( )
           placeholder: _(Enter title)
           optional: false
+        - name: pledge_type
+          type: checkbox_big_buttons
+          prompt: _(I pledge to:)
+          display_prompt: _(I pledge to:)
+          content:
+            - label: _(Scoop the poop and put in the trash)
+              value: scoop-poop
+            - label: _(No chemical lawn fertilizer)
+              value: no-chemical-fertilizer
+            - label: _(Practice "Natural Yard Care")
+              value: natural-yard-care
+            - label: _(Certified my yard as "Backyard Wildlife Habitat")
+              value: backyard-wildlife-habitat
+            - label: _(Plant and maintain trees)
+              value: plant-maintain-trees
+            - label: _(Disconnect and redirect downspouts)
+              value: redirect-downspouts
+            - label: _(Install a rain garden)
+              value: install-rain-garden
+            - label: _(Harvest and hold rain with cistern) 
+              value: harvest-rain
+            - label: _(Never dump household chemicals, paint or car oil down storm drain)
+              value: storm-drain-no-dump
+            - label: _(Rake leaves and litter out from my curb and storm drain)
+              value: rake-leaves-letter
+            - label: _(Don't drip and drive (fix oil leaks))
+              value: fix-oil-leaks
+            - label: _(Reduce how much I drive)
+              value: reduce-driving
+            - label: _(Use a commercial car wash)
+              value: use-commercial-carwash
+            - label: _(Inspect and fix home septic system)
+              value: fix-septic-system
         - name: comments
           type: textarea
           prompt: _(Additional comments:)
@@ -792,13 +905,13 @@ place:
           placeholder: _(Enter comments...)
           optional: false
 
-    - category: wastewater-pledge
+    - category: only-flush
       includeOnForm: true
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-pledge-5.png
-      value: wastewater-pledge
-      label: _(Wastewater Pledge)
+      value: only-flush
+      label: _(Only Flush This)
       fields:
         - name: title
           type: text
@@ -806,6 +919,29 @@ place:
           display_prompt: _( )
           placeholder: _(School Initials + District Initials + Year + Custom title)
           optional: false
+        - name: pledge_type
+          type: checkbox_big_buttons
+          prompt: _(I pledge to:)
+          display_prompt: _(I pledge to:)
+          content:
+            - label: _(Only flush the 4 P's - Pee, Poop, Toilet Paper, Puke)
+              value: only-flush-4-ps
+            - label: _(Never flush FOG (fat, oil, grease))
+              value: never-flush-fog
+            - label: _(Never flush old medicines)
+              value: never-flush-medicines
+            - label: _(Never flush hair)
+              value: never-flush-hair
+            - label: _(Never flush household chemicals)
+              value: never-flush-chemicals
+            - label: _(Never flush facial tissues)
+              value: never-flush-tissues
+            - label: _(Never flush wipes, diapers, nursing pads)
+              value: never-flush-wipes
+            - label: _(Never flush tampons or pads)
+              value: never-flush-tampons
+            - label: _(Never flush condoms)
+              value: never-flush-condoms
         - name: comments
           type: textarea
           prompt: _(Additional comments:)
@@ -813,13 +949,13 @@ place:
           placeholder: _(Enter comments...)
           optional: false
 
-    - category: stormwater-pledge
+    - category: conserve-energy
       includeOnForm: true
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-pledge-3.png
-      value: stormwater-pledge
-      label: _(Stormwater Pledge)
+      value: conserve-energy
+      label: _(Conserve Energy)
       fields:
         - name: title
           type: text
@@ -832,22 +968,187 @@ place:
           prompt: _(My stewardship actions:)
           display_prompt: _(My stewardship actions include:)
           content:
-            - label: _(Conducted a Home Water Audit)
-              value: poopscoop
-            - label: _(Always use natural yard care)
-              value: naturalyard
-            - label: _(Always use a commercial car wash)
-              value: carwash
-            - label: _(Fix car oil leaks)
-              value: oilleaks
-            - label: _(Plant and maintain trees)
-              value: planttrees
-            - label: _(Clean out storm drains)
-              value: stormdrains
-            - label: _(Spread the word to friends!)
-              value: spreadword
+            - label: _(Completed a Home Energy Audit)
+              value: home-energy-audit
+            - label: _(Calculated my total Carbon Footprint)
+              value: total-carbon-footprint
+            - label: _(Installed all LED light bulbs)
+              value: led-light-bulbs
+            - label: _(Set the thermostat lower)
+              value: set-thermostat-lower
+            - label: _(Use an auto-timer for thermostat)
+              value: use-thermostat-auto-timer
+            - label: _(Use "Energy Star" high efficiency appliances)
+              value: use-efficient-appliances
+            - label: _(Invest 100% in (Seattle Green Up) or (PSE Green Power))
+              value: invest-seattle-green-up
+            - label: _(Invest in Community Solar)
+              value: invest-community-solar
+            - label: _(Added solar power to my house)
+              value: added-solar-power
           optional: false 
-           # NOTE: checkbox_big_button inputs have no validation
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+
+    - category: waste-less
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-3.png
+      value: waste-less
+      label: _(Waste Less)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
+        - name: pledge_type
+          type: checkbox_big_buttons
+          prompt: _(My stewardship actions:)
+          display_prompt: _(My stewardship actions include:)
+          content:
+            - label: _(Recycle glass, paper, metal, plastic)
+              value: recycle-glass-paper-metal-plastic
+            - label: _(Compost yard waste)
+              value: compost-yard-waste
+            - label: _(Compost food scraps)
+              value: compost-food-scraps
+            - label: _(Avoid products with too much packaging)
+              value: avoid-packaging
+            - label: _(Use reusable shopping bags)
+              value: reusable-shopping-bags
+            - label: _(Use the Food Waste Worksheet)
+              value: food-waste-worksheet
+            - label: _(Use Threadcycle)
+              value: threadcycle
+            - label: _(Recycle styrofoam)
+              value: recycle-styrofoam
+            - label: _(Recycle e-waste)
+              value: recycle-e-waste
+            - label: _(Use the "Take it Back Network")
+              value: use-take-it-back-network
+          optional: false 
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+
+    - category: commute-low-carbon
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-3.png
+      value: commute-low-carbon
+      label: _(Commute Low Carbon)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
+        - name: pledge_type
+          type: checkbox_big_buttons
+          prompt: _(My stewardship actions:)
+          display_prompt: _(My stewardship actions include:)
+          content:
+            - label: _(Mostly walk commute (to school, work, or for errands))
+              value: walk-commute
+            - label: _(Mostly bike commute)
+              value: bike-commute
+            - label: _(Mostly bus commute)
+              value: bus-commute
+            - label: _(Mostly light rail commute)
+              value: light-rail-commute
+            - label: _(Mostly carpool commute)
+              value: carpool-commute
+            - label: _(Mostly use my hybrid car)
+              value: use-hybrid-car
+            - label: _(Mostly use my electric car)
+              value: use-electric-car
+            - label: _(Fly as little as possible)
+              value: fly-rarely
+          optional: false 
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+
+    - category: eat-local-organic
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-3.png
+      value: eat-local-organic
+      label: _(Eat Local Organic)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
+        - name: pledge_type
+          type: checkbox_big_buttons
+          prompt: _(My stewardship actions:)
+          display_prompt: _(My stewardship actions include:)
+          content:
+            - label: _(Grow food to eat in my garden)
+              value: grow-food-garden
+            - label: _(Participate in a Community Garden)
+              value: participate-community-garden
+            - label: _(Subscribe to a CSA - Consumer Supported Agriculture)
+              value: subscribe-csa
+            - label: _(Regularly shop at a local Farmer's Market)
+              value: shop-farmers-marker
+            - label: _(Shop in grocery stores mostly for local and organic foods)
+              value: shop-local-organic
+          optional: false 
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+
+    - category: restore-salmon-habitat
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-3.png
+      value: restore-salmon-habitat
+      label: _(Restore Salmon Habitat)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
+        - name: pledge_type
+          type: checkbox_big_buttons
+          prompt: _(My stewardship actions:)
+          display_prompt: _(My stewardship actions include:)
+          content:
+            - label: _(Regularly volunteer to remove invasive plants from streams and rivers)
+              value: remove-invasive-plants
+            - label: _(Regularly volunteer to plant and maintain native plants in streams and rivers)
+              value: plant-native-plants
+            - label: _(Regularly volunteer to spot and count spawning salmon)
+              value: count-spawning-salmon
+            - label: _(Certified my yard as "Backyard Wildlife Habitat")
+              value: backyard-wildlife-habitat
+          optional: false 
         - name: comments
           type: textarea
           prompt: _(Additional comments:)
@@ -857,6 +1158,21 @@ place:
 
   # define form elements that appear on every form here
   common_form_elements:
+    - name: address
+      type: geocoding
+      prompt: _(Your address:)
+      placeholder: _(Address)
+      optional: true
+    - name: school-name
+      type: dropdown
+      prompt: _(Your school:)
+      content:
+        - label: _(School A)
+          value: school-a
+        - label: _(School B)
+          value: school-b
+        - label: _(School C)
+          value: school-c
     - name: submitter_name
       type: text
       prompt: _(Your name)

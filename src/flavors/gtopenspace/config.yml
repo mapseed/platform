@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Georgetown Open Space
+  title: Georgetown Open Space Vision Framework
   # Header name
-  name: "Georgetown Open Space"
+  name: "Georgetown Open Space Vision Framework"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -296,7 +296,7 @@ place_types:
           opacity: 0.7
           fillOpacity: '{{properties.fill-opacity}}'
           weight: "{{properties.stroke-width}}"
-  
+
 
   danger:
     zoomType: mapboxZoomStyle
@@ -443,39 +443,38 @@ place_types:
           iconUrl: /static/css/images/markers/marker-e1264d.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
+  streetscape:
+    label: _(Streetscape)
+    rules:
+      - condition: '{{layer.focused}} === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+          shadowSize: [60, 60]
+          shadowAnchor: [30, 30]
 
-  # feature:
-  #   label: _(Featured site)
-  #   rules:
-  #     - condition: '{{layer.focused}} === true'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-star-maroon.png
-  #         shadowUrl: /static/css/images/marker-shadow.png
-  #         iconSize: [60, 60]
-  #         iconAnchor: [30, 30]
-  #         shadowSize: [60, 60]
-  #         shadowAnchor: [30, 30]
+      - condition: '{{map.zoom}} < 11'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
+          iconSize: [12, 12]
+          iconAnchor: [6, 6]
 
-  #     - condition: '{{map.zoom}} < 11'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-star-maroon.png
-  #         iconSize: [12, 12]
-  #         iconAnchor: [6, 6]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
+          iconSize: [18, 18]
+          iconAnchor: [9, 9]
 
-  #     - condition: '{{map.zoom}} < 15'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-star-maroon.png
-  #         iconSize: [18, 18]
-  #         iconAnchor: [9, 9]
-
-  #     - condition: '{{map.zoom}} >= 15'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/marker-star-maroon.png
-  #         iconSize: [30, 30]
-  #         iconAnchor: [15, 15]
+      - condition: '{{map.zoom}} >= 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star-green.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   park-improvement:
-    label: _(Park improvement)
+    label: _(Park Improvement)
     rules:
       - condition: '{{layer.focused}} === true'
         icon:
@@ -752,6 +751,48 @@ place:
           placeholder: _(Enter comment...)
           optional: true
 
+    - category: streetscape
+      includeOnForm: false     
+      name: location_type
+      dataset: gtopenspace1
+      icon_url: /static/css/images/markers/marker-star.png
+      value: streetscape
+      label: _(Featured site)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: true
+        - name: comment
+          type: textarea
+          prompt: _(Comment:)
+          display_prompt:
+          placeholder: _(Enter comment...)
+          optional: true
+
+    - category: park-improvement
+      includeOnForm: false     
+      name: location_type
+      dataset: gtopenspace1
+      icon_url: /static/css/images/markers/marker-star.png
+      value: park-improvement
+      label: _(Featured site)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: true
+        - name: comment
+          type: textarea
+          prompt: _(Comment:)
+          display_prompt:
+          placeholder: _(Enter comment...)
+          optional: true
+
   # define form elements that appear on every form here
   common_form_elements:
     # - name: submitter_name
@@ -769,14 +810,14 @@ place:
     #       value: _(Receive email updates on your report)
     #     - key: size
     #       value: 30
-    # - name: my_image
-    #   type: file
-    #   prompt: _(Image)Georgetown Mini Mart City Park
-    #   inputfile_label: _(Add an Image)
-    #   optional: true
-    #   attrs:
-    #     - key: accept
-    #       value: image/*
+    - name: my_image
+      type: file
+      prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
     - type: submit
       label: _(Put it on the map!)
 

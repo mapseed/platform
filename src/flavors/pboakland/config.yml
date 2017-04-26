@@ -81,7 +81,7 @@ map:
           fillOpacity: '{{properties.fill-opacity}}'
           weight: "{{properties.stroke-width}}"
 
-    - id: pboakland
+     - id: pboakland
       type: place
       slug: idea
 
