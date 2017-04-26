@@ -985,10 +985,4 @@ story:
         visible_layers:
           - wria-7-8-9
           - watershed-green
-        spotlight: false     
-      - url: stormwater-facilities
-        zoom: 10
-        basemap: light-nolabels
-        visible_layers:
-          - stormwater-facilities
         spotlight: false
