@@ -16,13 +16,20 @@
 
       _.each(this.options.config.groupings, function(group) {
         _.each(group.layers, function(layer) {
-          $(Shareabouts).trigger('visibility', [layer.id, !!layer.visibleDefault]);
+
+          if (layer.constituentLayers) {
+            layer.constituentLayers.forEach(function(id) {
+              $(Shareabouts).trigger('visibility', [id, !!layer.visibleDefault]);
+            });
+          } else {
+            $(Shareabouts).trigger('visibility', [layer.id, !!layer.visibleDefault]);
+          }
         });
       });
 
       var initialBasemap = _.find(this.options.config.basemaps, function(basemap) {
-                               return !!basemap.visibleDefault;
-                             });
+        return !!basemap.visibleDefault;
+      });
 
       $(Shareabouts).trigger('visibility', [initialBasemap.id, !!initialBasemap.visibleDefault, true]);
 
@@ -33,9 +40,18 @@
     toggleVisibility: function(evt) {
       var $cbox = $(evt.target),
           id = $cbox.attr('data-layerid'),
+          constituentLayers = $cbox.attr('data-constituent-layers'),
           isChecked = !!$cbox.is(':checked');
 
-      $(Shareabouts).trigger('visibility', [id, isChecked]);
+
+      if (constituentLayers) {
+        constituentLayers = constituentLayers.trim().split(" ");        
+        constituentLayers.forEach(function(id) {
+          $(Shareabouts).trigger('visibility', [id, isChecked]);
+        });
+      } else {
+        $(Shareabouts).trigger('visibility', [id, isChecked]);
+      }
     },
 
     toggleBasemap: function(evt) {

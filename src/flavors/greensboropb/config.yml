@@ -55,16 +55,13 @@ map:
       attribution: 'Hello World'
       type: basemap
 
-    # - id: data1
-    #   url: http://{s}.tiles.mapbox.com/v4/poepublic.7858bf1e/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicG9lcHVibGljIiwiYSI6ImNpaDZnaTI1bDBicTl0eGx4ZmYybmEwMnQifQ.j3rCi68rzBMjKh9VhD9FZw
-    #   attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
-
-    # - id: data2
-    #   url: http://{s}.tiles.mapbox.com/v4/openplans.d0214deb/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImNpaDBwMGc4eTB4ZGN4MW0wMmh1eTUxNGsifQ.naovRZ2zfYj7dD704eKXCw
-
     - id: greensboropb
       type: place
       slug: idea
+
+    - id: greensboropb_round1
+      type: place
+      slug: round1
 
 place_types:
 
@@ -668,6 +665,9 @@ sidebar:
             - id: osm2
               title: _(Districts)
               visibleDefault: true  
+            - id: greensboropb_round1
+              title: _(2015 suggestions)
+              visibleDefault: false
     - id: right-sidebar
       title: _(Community ideas:)
       view: LegendView
@@ -726,6 +726,12 @@ place:
           display_prompt: _(Title:)
           placeholder: _(...)
           optional: false
+        # NOTE: this field supports round 1 place data
+        - name: description
+          type: textarea
+          prompt: _( )
+          display_prompt: _( )
+          admin_only: true
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
@@ -752,6 +758,12 @@ place:
           display_prompt: _(Title:)
           placeholder: _(...)
           optional: false
+        # NOTE: this field supports round 1 place data
+        - name: description
+          type: textarea
+          prompt: _( )
+          display_prompt: _( )
+          admin_only: true
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
@@ -778,6 +790,12 @@ place:
           display_prompt: _(Title:)
           placeholder: _(...)
           optional: false
+        # NOTE: this field supports round 1 place data
+        - name: description
+          type: textarea
+          prompt: _( )
+          display_prompt: _( )
+          admin_only: true
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
@@ -804,6 +822,12 @@ place:
           display_prompt: _(Title:)
           placeholder: _(...)
           optional: false
+        # NOTE: this field supports round 1 place data
+        - name: description
+          type: textarea
+          prompt: _( )
+          display_prompt: _( )
+          admin_only: true
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
@@ -830,6 +854,12 @@ place:
           display_prompt: _(Title:)
           placeholder: _(...)
           optional: false
+        # NOTE: this field supports round 1 place data
+        - name: description
+          type: textarea
+          prompt: _( )
+          display_prompt: _( )
+          admin_only: true
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
@@ -856,6 +886,12 @@ place:
           display_prompt: _(Title:)
           placeholder: _(...)
           optional: false
+        # NOTE: this field supports round 1 place data
+        - name: description
+          type: textarea
+          prompt: _( )
+          display_prompt: _( )
+          admin_only: true
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
@@ -913,7 +949,7 @@ place:
         - label: _(White)
           value: white
         - label: _(Other)
-          value: other
+          value: other-ethnicity
       optional: true
     - name: private-income
       autocomplete: true
