@@ -1,4 +1,5 @@
   var Util = require('../utils.js');
+  var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
 
   var TemplateHelpers = require('../template-helpers.js');
 
@@ -66,6 +67,12 @@
       if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
 
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+
+      this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
+        el: '#geocode-address-place-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
 
       return this;
     },
