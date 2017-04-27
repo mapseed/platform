@@ -156,10 +156,7 @@ module.exports = Backbone.View.extend({
       self.geometryType = evt.layerType;
       generateGeometry(evt.layer);
       self.editingLayerGroup.addLayer(evt.layer);
-
-      self.$geometryToolbarEdit.removeClass("hidden");
-      self.$geometryToolbarCreate.addClass("hidden");
-
+      self.swapToolbarVisibility();
       self.displayHelpMessage("modify-geometry-msg");
     });
 
@@ -458,6 +455,15 @@ module.exports = Backbone.View.extend({
   swapToolbarVisibility: function() {
     this.$geometryToolbarEdit.toggleClass("hidden");
     this.$geometryToolbarCreate.toggleClass("hidden");
+
+    if (this.geometryType === "Point" ||
+        this.geometryType === "marker") {
+
+      this.$geometryToolbarEdit.find(".colorpicker").addClass("hidden");
+    } else {
+      this.$geometryToolbarEdit.find(".colorpicker").removeClass("hidden");
+    }
+
     this.resetGeometryToolbarHighlighting();
   },
 
