@@ -403,6 +403,7 @@ module.exports = Backbone.View.extend({
     if (this.workingGeometry) {
       this.workingGeometry.disable();
       this.workingGeometry = null;
+      this.geometry = null;
     }
   },
 
