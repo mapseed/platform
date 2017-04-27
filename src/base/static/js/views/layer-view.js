@@ -119,17 +119,19 @@
       }
     },
     render: function() {
-      // Show if it is within the current map bounds
-      var mapBounds = this.map.getBounds();
-
-      if (this.latLng) {
-        if (mapBounds.contains(this.latLng)) {
-          this.show();
+      if (!this.isEditing) {
+        
+        // Show if it is within the current map bounds
+        var mapBounds = this.map.getBounds();
+        if (this.latLng) {
+          if (mapBounds.contains(this.latLng)) {
+            this.show();
+          } else {
+            this.hide();
+          }
         } else {
-          this.hide();
+          this.show();
         }
-      } else {
-        this.show();
       }
     },
     onMarkerClick: function() {
