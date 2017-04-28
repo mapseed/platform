@@ -273,14 +273,6 @@ place_types:
         iconAnchor: [25, 25]
         shadowSize: [50, 60]
         shadowAnchor: [14, 60]
-    - condition: '{{map.zoom}} < 11'
-      icon:
-        iconSize: [20, 24]
-        iconAnchor: [10, 24]
-    - condition: '{{map.zoom}} >= 11'
-      icon:
-        iconSize: [38, 46]
-        iconAnchor: [19, 46]
 
   mapbox:
     # Mapbox Points
@@ -359,92 +351,148 @@ place_types:
           iconUrl: /static/css/images/markers/marker-tree.png
 
   conserve-water:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-conserve-water.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-conserve-water.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   prevent-stormwater:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-4.png
+          iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-prevent-stormwater-pollution.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   only-flush:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-5.png
+          iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-only-flush-this.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-only-flush-this.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   conserve-energy:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-conserve-energy.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-conserve-energy.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   waste-less:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-waste-less.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-waste-less.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   commute-low-carbon:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   eat-local-organic:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-eat-local-organic.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-eat-local-organic.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   restore-salmon-habitat:
-    zoomType: teardropZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} >= 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
+          iconSize: [38, 46]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 9'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dot-restore-salmon-habitat.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   star-stroked:
     zoomType: roundZoomStyle
@@ -816,7 +864,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-3.png
+      icon_url: /static/css/images/markers/marker-conserve-water.png
       value: conserve-water
       label: _(Conserve Water)
       fields:
@@ -873,7 +921,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-4.png
+      icon_url: /static/css/images/markers/marker-prevent-stormwater-pollution.png
       value: prevent-stormwater
       label: _(Prevent Stormwater Pollution)
       fields:
@@ -927,7 +975,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-5.png
+      icon_url: /static/css/images/markers/marker-only-flush-this.png
       value: only-flush
       label: _(Only Flush This)
       fields:
@@ -971,7 +1019,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-3.png
+      icon_url: /static/css/images/markers/marker-conserve-energy.png
       value: conserve-energy
       label: _(Conserve Energy)
       fields:
@@ -1016,7 +1064,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-3.png
+      icon_url: /static/css/images/markers/marker-waste-less.png
       value: waste-less
       label: _(Waste Less)
       fields:
@@ -1063,7 +1111,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-3.png
+      icon_url: /static/css/images/markers/marker-commute-low-carbon.png
       value: commute-low-carbon
       label: _(Commute Low Carbon)
       fields:
@@ -1106,7 +1154,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-3.png
+      icon_url: /static/css/images/markers/marker-eat-local-organic.png
       value: eat-local-organic
       label: _(Eat Local Organic)
       fields:
@@ -1143,7 +1191,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-3.png
+      icon_url: /static/css/images/markers/marker-restore-salmon-habitat.png
       value: restore-salmon-habitat
       label: _(Restore Salmon Habitat)
       fields:
