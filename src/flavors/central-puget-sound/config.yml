@@ -357,12 +357,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-conserve-water.png
           iconSize: [10, 10]
@@ -375,12 +375,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-prevent-stormwater-pollution.png
           iconSize: [10, 10]
@@ -393,12 +393,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-only-flush-this.png
           iconSize: [10, 10]
@@ -411,12 +411,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-conserve-energy.png
           iconSize: [10, 10]
@@ -429,12 +429,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-waste-less.png
           iconSize: [10, 10]
@@ -447,12 +447,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -465,12 +465,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-eat-local-organic.png
           iconSize: [10, 10]
@@ -483,12 +483,12 @@ place_types:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 9'
+      - condition: '{{map.zoom}} >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 9'
+      - condition: '{{map.zoom}} < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-restore-salmon-habitat.png
           iconSize: [10, 10]
@@ -704,13 +704,13 @@ sidebar:
       basemaps:        
         - id: topo-raw
           title: _(Topography (raw))
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
         - id: topo
           title: _(Topography)
-          visibleDefault: false
+          visibleDefault: true
         - id: light
           title: _(Light)
           visibleDefault: false
