@@ -15,7 +15,8 @@
       'click #update-place-model-btn': 'onUpdateModel',
       'click #hide-place-model-btn': 'onHideModel',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
-      'change input, textarea': 'saveDraftChanges'
+      'change input, textarea': 'saveDraftChanges',
+      'keyup input[name="url-title"]': 'onUpdateUrlTitle'
     },
     initialize: function() {
       var self = this;
@@ -93,6 +94,33 @@
       this.buildFieldListForRender();
     },
 
+    setUrlTitlePrefix: function() {
+      var self = this, 
+      layer = _.find(this.options.mapConfig.layers, function(layer) {
+        return layer.id === self.model.get("datasetId");
+      });
+
+      this.$el.find(".url-prefix")
+        .html(
+          window.location.protocol + "//" + window.location.hostname + "/"
+        );
+
+      this.$el.find(".url-readout")
+        .html(Util.getUrl(this.model));
+    },
+
+    onUpdateUrlTitle: function(evt) {
+      var urlReadout = $(evt.currentTarget)
+        .siblings(".url-readout-container")
+        .find(".url-readout");
+
+      if ($(evt.currentTarget).val() === "") {
+        urlReadout.html(Util.getUrl(this.model));
+      } else {
+        urlReadout.html(Util.prepareCustomUrl($(evt.currentTarget).val()));
+      }
+    },
+
     onAddAttachmentWrapper: function(attachment) {
       this.onAddAttachmentCallback.call(this.onAddAttachmentCallbackContext, attachment);
     },
@@ -130,15 +158,19 @@
       this.buildFieldListForRender();
       this.render();
 
-      if (this.isEditingToggled && this.geometryEnabled) {
-        this.options.appView.hideSpotlightMask();
-        this.geometryEditorView.render({
-          $el: this.$el,
-          style: this.model.get("style"),
-          geometryType: this.model.get("geometry").type,
-          existingLayerView: this.options.layerView,
-          placeDetailView: this
-        });
+      if (this.isEditingToggled) {
+        this.setUrlTitlePrefix();
+
+        if (this.geometryEnabled) {
+          this.options.appView.hideSpotlightMask();
+          this.geometryEditorView.render({
+            $el: this.$el,
+            style: this.model.get("style"),
+            geometryType: this.model.get("geometry").type,
+            existingLayerView: this.options.layerView,
+            placeDetailView: this
+          });
+        }
       }
     },
 
@@ -320,8 +352,12 @@
       richTextAttrs = {};
 
       // attach data from Quill-enabled fields
-      $(".ql-editor").each(function() {
+      this.$el.find(".ql-editor").each(function() {
         richTextAttrs[$(this).data("fieldName")] = $(this).html();
+      });
+
+      this.$el.find("input[name='url-title']").each(function() {
+        $(this).val(Util.prepareCustomUrl($(this).val()));
       });
 
       var attrs = _.extend(Util.getAttrs($("#update-place-model-form")), 
@@ -331,7 +367,7 @@
       // Special handling for binary toggle buttons: we need to remove
       // them completely from the model if they've been unselected in
       // the editor
-      $("#update-place-model-form input[data-input-type='binary_toggle']").each(function(input) {
+      this.$el.find("#update-place-model-form input[data-input-type='binary_toggle']").each(function(input) {
         if (!$(this).is(":checked")) {
           self.model.unset($(this).attr("id"));
         }
@@ -339,7 +375,7 @@
 
       // Special handling for checkbox groups: if all items in a checkbox group
       // have been unselected, remove the group completely from the model
-      $("#update-place-model-form .checkbox-group").each(function(group) {
+      this.$el.find("#update-place-model-form .checkbox-group").each(function(group) {
         if ($(this).find("input:checkbox:checked").length === 0) {
           self.model.unset($(this).find(":first-child").attr("name"));
         }
