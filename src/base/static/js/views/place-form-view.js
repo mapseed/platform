@@ -12,7 +12,8 @@
       'change .category-btn': 'onCategoryChange',
       'click .expansion-icon-container': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
-      'click .btn-geolocate': 'onClickGeolocate'
+      'click .btn-geolocate': 'onClickGeolocate',
+      'keyup input[name="url-title"]': 'onUpdateUrlTitle'
     },
 
     initialize: function() {
@@ -99,6 +100,20 @@
 
       this.initializeDatetimePicker();
       this.initializeRichTextFields();
+      this.setUrlTitlePrefix();
+    },
+
+    setUrlTitlePrefix: function() {
+      var self = this, 
+      layer = _.find(this.options.mapConfig.layers, function(layer) {
+        return layer.id === self.formState.selectedCategoryConfig.dataset;
+      });
+
+      this.$el.find(".url-prefix")
+        .html(
+          window.location.protocol + "//" + window.location.hostname + "/" +
+          (layer.useSlugForCustomUrls ? layer.slug + "/" : "")
+        );
     },
 
     showCategorySeparator: function() {
@@ -318,6 +333,13 @@
       this.renderFormFields();
     },
 
+    onUpdateUrlTitle: function(evt) {
+      $(evt.currentTarget)
+        .siblings(".url-readout-container")
+        .find(".url-readout")
+        .html(Util.prepareCustomUrl($(evt.currentTarget).val()));
+    },
+
     onExpandCategories: function(evt) {
       this.showCategorySeparator();
       this.expandCategorySiblings();
@@ -460,6 +482,10 @@
           $button = this.$('[name="save-place-btn"]');
       
       evt.preventDefault();
+
+      this.$el.find("input[name='url-title']").each(function() {
+        $(this).val(Util.prepareCustomUrl($(this).val()));
+      });
 
       if (this.geometryEnabled) {
         attrs = this.onComplexSubmit();

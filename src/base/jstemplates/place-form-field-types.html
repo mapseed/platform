@@ -142,6 +142,13 @@
 {{/is}}
 
 {{#is type "url-title"}}
+  <div class="url-readout-container">
+    <p class="url-readout-msg">{{#_}}Your post will be accessible at:{{/_}}</p>
+    <p>
+      <span class="url-prefix"></span>
+      <span class="url-readout"></span>
+    </p>
+  </div>
   <input id="place-{{ name }}" 
          name="{{ name }}" 
          type="text" 

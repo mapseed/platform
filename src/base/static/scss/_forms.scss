@@ -164,6 +164,28 @@ select {
     background-color: #ffffe0;
 }
 
+.url-readout-container {
+    background-color: #a3c7d9;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .url-prefix {
+        color: #FFF;
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+
+    .url-readout {
+        color: #FFF;
+        margin-left: -4px;
+    }
+}
+
 /* messaging for admin-only dynamic form category buttons */
 .form-category-admin-msg {
     font-size: 0.7em;

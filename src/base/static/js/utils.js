@@ -300,6 +300,10 @@ var self = module.exports = {
       }
     },
 
+    prepareCustomUrl: function(url) {
+      return url.replace(/[^A-Za-z0-9-_]/g, "-").toLowerCase();
+    },
+
     findPageConfig: function(pagesConfig, properties) {
       // Search the first level for the page config
       var pageConfig = _.findWhere(pagesConfig, properties);
