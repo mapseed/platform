@@ -742,20 +742,13 @@ sidebar:
           title: _(Human Boundaries)
           visibleDefault: false
           layers:
-            - id: bogtobay
-              title: _(Community Reports)
-              visibleDefault: false
-
-            - id: stormwater-facilities
-              title: _(Stormwater Facilities)
-              visibleDefault: false
 
             - id: school-boundaries
               title: _(School Districts)
               visibleDefault: false
 
-            - id: school-sites
-              title: _(School sites)
+            - id: zoning
+              title: _(Zoning)
               visibleDefault: false
 
         - id: grp-natural-boundaries
@@ -778,16 +771,25 @@ sidebar:
               title: _(Lake Sammamish Watershed)
               visibleDefault: false
 
-            - id: stories
-              title: _(Featured Sites)
+        - id: grp-infrastructure
+          title: _(Infrastructure)
+          visibleDefault: false
+          layers:
+
+            - id: school-sites
+              title: _(School sites)
               visibleDefault: false
 
-            - id: restoration
-              title: _(Restoration Sites)
+            - id: stormwater-facilities
+              title: _(Stormwater Facilities)
+              visibleDefault: false
+
+            - id: cso
+              title: _(Sewer Overflow)
               visibleDefault: false
 
         - id: grp-land
-          title: _(Land Data)
+          title: _(Land)
           visibleDefault: false
           layers:
               # Land Use
@@ -804,16 +806,25 @@ sidebar:
               title: _(Noxious Weeds)
               visibleDefault: false
 
-            - id: cso
-              title: _(Sewer Overflow)
+        - id: grp-community
+          title: _(Community)
+          visibleDefault: false
+          layers:
+
+            - id: bogtobay
+              title: _(Community Reports)
               visibleDefault: false
 
-            - id: zoning
-              title: _(Zoning)
+            - id: restoration
+              title: _(Restoration Sites)
+              visibleDefault: false
+
+            - id: stories
+              title: _(Featured Sites)
               visibleDefault: false
 
         - id: grp-history
-          title: _(Historical Data)
+          title: _(History)
           visibleDefault: false
           layers:
 
