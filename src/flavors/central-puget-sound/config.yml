@@ -364,7 +364,7 @@ place_types:
           iconAnchor: [25, 25]
       - condition: '{{map.zoom}} < 13'
         icon:
-          iconUrl: /static/css/images/markers/marker-dot-conserve-water.png
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
 
@@ -382,7 +382,7 @@ place_types:
           iconAnchor: [25, 25]
       - condition: '{{map.zoom}} < 13'
         icon:
-          iconUrl: /static/css/images/markers/marker-dot-prevent-stormwater-pollution.png
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
 
@@ -400,7 +400,7 @@ place_types:
           iconAnchor: [25, 25]
       - condition: '{{map.zoom}} < 13'
         icon:
-          iconUrl: /static/css/images/markers/marker-dot-only-flush-this.png
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
 
@@ -418,7 +418,7 @@ place_types:
           iconAnchor: [25, 25]
       - condition: '{{map.zoom}} < 13'
         icon:
-          iconUrl: /static/css/images/markers/marker-dot-conserve-energy.png
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
 
@@ -436,7 +436,7 @@ place_types:
           iconAnchor: [25, 25]
       - condition: '{{map.zoom}} < 13'
         icon:
-          iconUrl: /static/css/images/markers/marker-dot-waste-less.png
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
 
@@ -472,7 +472,7 @@ place_types:
           iconAnchor: [25, 25]
       - condition: '{{map.zoom}} < 13'
         icon:
-          iconUrl: /static/css/images/markers/marker-dot-eat-local-organic.png
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
 
@@ -490,7 +490,7 @@ place_types:
           iconAnchor: [25, 25]
       - condition: '{{map.zoom}} < 13'
         icon:
-          iconUrl: /static/css/images/markers/marker-dot-restore-salmon-habitat.png
+          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
 
