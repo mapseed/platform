@@ -108,6 +108,10 @@ map:
       transparent: 'true'
       format: 'image/png'
 
+    - id: blank
+      type: basemap
+      url: intentionally-blank
+
   # Legend Layers
     - id: restoration
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -129,6 +133,10 @@ map:
     - id: school-boundaries
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/1f590d18-256d-11e7-aff5-0e3ff518bd15/viz.json"
+
+    - id: school-sites
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/d1c41f32-2cfd-11e7-9efa-0ee66e2c9693/viz.json"
 
     - id: wria-7-8-9
       type: cartodb
@@ -726,6 +734,9 @@ sidebar:
         - id: hydroregions
           title: _(Hydroregions)
           visibleDefault: false
+        - id: blank
+          title: _(No basemap)
+          visibleDefault: false
       groupings:
         - id: grp-human-boundaries
           title: _(Human Boundaries)
@@ -741,6 +752,10 @@ sidebar:
 
             - id: school-boundaries
               title: _(School Districts)
+              visibleDefault: false
+
+            - id: school-sites
+              title: _(School sites)
               visibleDefault: false
 
         - id: grp-natural-boundaries
@@ -872,12 +887,12 @@ place:
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(I pledge to:)
-          display_prompt: _(I pledge to:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Conducted a Home Water Audit)
               value: water-audit
@@ -929,12 +944,12 @@ place:
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(I pledge to:)
-          display_prompt: _(I pledge to:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Scoop the poop and put in the trash)
               value: scoop-poop
@@ -983,12 +998,12 @@ place:
           type: text
           prompt: _(Post title)
           display_prompt: _( )
-          placeholder: _(School Initials + District Initials + Year + Custom title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(I pledge to:)
-          display_prompt: _(I pledge to:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Only flush the 4 P's - Pee, Poop, Toilet Paper, Puke)
               value: only-flush-4-ps
@@ -1027,12 +1042,12 @@ place:
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(My stewardship actions:)
-          display_prompt: _(My stewardship actions include:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Completed a Home Energy Audit)
               value: home-energy-audit
@@ -1072,12 +1087,12 @@ place:
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(My stewardship actions:)
-          display_prompt: _(My stewardship actions include:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Recycle glass, paper, metal, plastic)
               value: recycle-glass-paper-metal-plastic
@@ -1119,12 +1134,12 @@ place:
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(My stewardship actions:)
-          display_prompt: _(My stewardship actions include:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Mostly walk commute (to school, work, or for errands))
               value: walk-commute
@@ -1162,12 +1177,12 @@ place:
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(My stewardship actions:)
-          display_prompt: _(My stewardship actions include:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Grow food to eat in my garden)
               value: grow-food-garden
@@ -1199,12 +1214,12 @@ place:
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(Enter title)
+          placeholder: _(School Initials - District Initials - Year - Custom title)
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
-          prompt: _(My stewardship actions:)
-          display_prompt: _(My stewardship actions include:)
+          prompt: _(My actions:)
+          display_prompt: _(My actions:)
           content:
             - label: _(Regularly volunteer to remove invasive plants from streams and rivers)
               value: remove-invasive-plants
