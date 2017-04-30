@@ -203,7 +203,6 @@ module.exports = Backbone.View.extend({
     evt.preventDefault();
 
     this.saveWorkingGeometry();
-    this.resetWorkingGeometry();
     this.updateColorpicker();
     $(".sp-container")
       .css("left", (evt.pageX - 100) + "px")
