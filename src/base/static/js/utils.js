@@ -328,6 +328,10 @@ var self = module.exports = {
       }
     },
 
+    getShareaboutsUrl: function(model) {
+       return model.get("datasetSlug") + "/" + model.id;
+    },
+
     isSupported: function(userAgent) {
       switch (userAgent.browser.name) {
         case 'Microsoft Internet Explorer':

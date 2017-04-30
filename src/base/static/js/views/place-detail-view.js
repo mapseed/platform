@@ -1,5 +1,6 @@
 
   var Util = require('../utils.js');
+  var Gatekeeper = require('../../libs/gatekeeper.js');
 
   var SurveyView = require('mapseed-survey-view');
   var SupportView = require('mapseed-support-view');
@@ -36,7 +37,7 @@
       })) ? true : false;
 
       if (!Gatekeeper.collectionsSet) {
-        Gatekeeper.collectionsSet = this.options.collectionsSet;      
+        Gatekeeper.registerCollectionsSet(this.options.collectionsSet);
       }
 
       // use the current url as the key under which to store draft changes made
@@ -115,7 +116,7 @@
         .find(".url-readout");
 
       if ($(evt.currentTarget).val() === "") {
-        urlReadout.html(Util.getUrl(this.model));
+        urlReadout.html(Util.getShareaboutsUrl(this.model));
       } else {
         urlReadout.html(Util.prepareCustomUrl($(evt.currentTarget).val()));
       }

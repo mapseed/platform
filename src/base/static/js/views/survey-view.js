@@ -1,4 +1,5 @@
   var Util = require('../utils.js');
+  var Gatekeeper = require('../../libs/gatekeeper.js');
 
   var TemplateHelpers = require('../template-helpers.js');
 
