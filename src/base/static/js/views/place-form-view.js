@@ -1,6 +1,7 @@
 
   var Util = require('../utils.js');
   var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
+  var Gatekeeper = require('../../libs/gatekeeper.js');
 
   var TemplateHelpers = require('../template-helpers.js');
   var RichTextEditorView = require('mapseed-rich-text-editor-view');
@@ -32,7 +33,7 @@
         this.options.defaultPlaceTypeName);
       TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
 
-      Gatekeeper.collectionsSet = this.options.collectionsSet;
+      Gatekeeper.registerCollectionsSet(this.options.collectionsSet);
 
       this.determineRenderabilityForEachCategory();
     },

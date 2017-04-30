@@ -1,11 +1,13 @@
 // 0.1.2
-/*globals $ */
 
-var Gatekeeper = {};
+var Util = require('../js/utils.js');
 
-(function(NS) {
+var self = module.exports = {
+  registerCollectionsSet: function(collectionsSet) {
+    this.collectionsSet = collectionsSet;
+  },
 
-  NS.getInvalidFormEls = function(context) {
+  getInvalidFormEls: function(context) {
     var $form = context.$el,
         invalidEls;
 
@@ -42,7 +44,7 @@ var Gatekeeper = {};
 
         // Does it support the validity object?
         if (this.validity) {
-          // Add it to the array if it's invalide
+          // Add it to the array if it's invalid
           if (!this.validity.valid) {
             restoreRequired();
             return this;
@@ -71,7 +73,7 @@ var Gatekeeper = {};
         // 1. If the supplied url matches any other url in the passed set of collections
         // 2. If the supplied url contains a / character in it
         if ($this.attr("name") === "url-title") {
-          var url = $this.val();
+          var url = Util.prepareCustomUrl($this.val());
 
           if (url.split("/").length > 1) {
             $this.addClass("gatekeeper-invalid");
@@ -82,7 +84,7 @@ var Gatekeeper = {};
 
           var isValid = true;
           if ($this.val() !== "") {
-            _.each(NS.collectionsSet, function(collectionSet) {
+            _.each(self.collectionsSet, function(collectionSet) {
               _.each(collectionSet, function(collection) {
                 var model = collection.findWhere({"url-title": url}),
                     isValidLocal = true;
@@ -113,11 +115,11 @@ var Gatekeeper = {};
     });
 
     return invalidEls;
-  };
+  },
 
-  NS.validate = function(form) {
+  validate: function(form) {
     // Get invalid elements from the form
-    var invalidEls = NS.getInvalidFormEls(form);
+    var invalidEls = this.getInvalidFormEls(form);
 
     // Indicate that this form has been submitted
     $(form).addClass('form-submitted');
@@ -130,13 +132,13 @@ var Gatekeeper = {};
       return false;
     }
     return true;
-  };
+  },
 
-  NS.onValidSubmit = function(success, error) {
+  onValidSubmit: function(success, error) {
     return function(evt) {
       evt.preventDefault();
 
-      if (NS.validate(this)) {
+      if (self.validate(this)) {
         if (success) {
           success.apply(this, arguments);
         }
@@ -146,5 +148,5 @@ var Gatekeeper = {};
         }
       }
     };
-  };
-}(Gatekeeper));
+  }
+}
