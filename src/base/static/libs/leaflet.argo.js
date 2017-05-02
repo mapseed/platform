@@ -183,7 +183,7 @@ L.extend(L.Argo, {
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
       // this is so we don't have to worry about strings vs nums.
-      condition = L.Argo.t(rules[i].condition, properties);
+      condition = L.Argo.t(rules[i].condition, (properties.style ? properties.style : properties));
 
       if (parse.staticParse(condition)) {
         // The new property values (outlined in the config) are added for Leaflet compatibility

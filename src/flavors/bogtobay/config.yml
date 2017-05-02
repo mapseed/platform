@@ -98,11 +98,11 @@ map:
       slug: report
 
       # Land Use
-    - id: stories
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
-      type: landmark
+    # - id: stories
+    #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+    #   sources:
+    #     - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
+    #   type: landmark
 
        # WRIA9 watershed
     - id: watershed
@@ -589,9 +589,9 @@ sidebar:
               title: _(Community Reports)
               visibleDefault: true
 
-            - id: stories
-              title: _(Featured Sites)
-              visibleDefault: true
+            # - id: stories
+            #   title: _(Featured Sites)
+            #   visibleDefault: true
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -1024,13 +1024,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)

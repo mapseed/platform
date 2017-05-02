@@ -52,13 +52,25 @@
       <div id="category-btns">
         {{#each placeConfig.place_detail}}
           {{#if this.includeOnForm}}
-            <input type="radio" id={{ category }} class="category-btn clickable">
-            <table class="category-btn-container">
-              <tr>
-                <td class="category-icon"><img src={{icon_url}} /></td>
-                <td class="category-label">{{ label }}</td>
-              </tr>
-            </table>
+            {{#if this.admin_only}}
+              {{#if this.isAdmin}}
+                <input type="radio" id={{ category }} class="category-btn clickable">
+                <table class="category-btn-container">
+                  <tr>
+                    <td class="category-icon"><img src={{icon_url}} /></td>
+                    <td class="category-label">{{ label }}<span class="form-category-admin-msg">{{this.admin_msg}}</span></td>
+                  </tr>
+                </table>
+              {{/if}}
+            {{else}}
+              <input type="radio" id={{ category }} class="category-btn clickable">
+              <table class="category-btn-container">
+                <tr>
+                  <td class="category-icon"><img src={{icon_url}} /></td>
+                  <td class="category-label">{{ label }}</td>
+                </tr>
+              </table>
+            {{/if}}
           {{/if}}
         {{/each}}
       </div>
@@ -69,7 +81,7 @@
     <!-- generate content for selected category -->
     {{#each selectedCategoryConfig.fields}}
       {{#if admin_only}}
-        {{#if ../../isAdmin}}
+        {{#if ../../selectedCategoryConfig.isAdmin}}
           <div class="{{ type }} form-field is-admin-field">
             {{#if horizontal_rule}}
               <hr />

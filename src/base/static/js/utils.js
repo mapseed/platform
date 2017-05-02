@@ -29,6 +29,31 @@ var self = module.exports = {
       }
     },
 
+    // Determine whether or not the current logged-in user has admin rights
+    // for the passed datasetId. Returns true or false.
+    getAdminStatus: function(datasetId) {
+      var isAdmin = false;
+
+      if (Shareabouts.bootstrapped.currentUser && 
+          Shareabouts.bootstrapped.currentUser.groups) {
+        
+        _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
+          // Get the name of the datasetId from the end of the full url
+          // provided in Shareabouts.bootstrapped.currentUser.groups
+          var url = group.dataset.split("/"),
+          match = url[url.length - 1];
+          if (match && 
+              match === datasetId && 
+              group.name === "administrators") {
+            
+            isAdmin = true;
+          }
+        });
+      }
+
+      return isAdmin;
+    },
+
     // Given the information provided in a url (that is, an id and possibly a slug),
     // attempt to find the corresponding model within all collections on the page.
     // Three conditions are possible:
@@ -144,7 +169,8 @@ var self = module.exports = {
     },
 
     getAttrs: function($form) {
-      var attrs = {},
+      var self = this,
+          attrs = {},
           multivalues = [];
 
       // Get values from the form. Make the item into an array if there are
@@ -163,6 +189,93 @@ var self = module.exports = {
       });
 
       return attrs;
+    },
+
+    // Given a fieldConfig and an existingValue (which might be derived from an
+    // autocomplete value stored in localstorage or from a rendered place detail
+    // view value in editor mode), construct a content object for this field
+    // suitable for consumption by the form field types template.
+    prepField: function(fieldConfig, existingValue) {
+      //var exclusions = ["submitter_name", "name", "location_type", "title"],
+      var content,
+      hasValue = false;
+
+      if (fieldConfig.type === "text" || 
+          fieldConfig.type === "textarea" || 
+          fieldConfig.type === "datetime" || 
+          fieldConfig.type === "richTextarea") {
+        
+        // Plain text
+        content = existingValue || "";
+
+        if (content !== "") {
+          hasValue = true;
+        }
+
+      } else if (fieldConfig.type === "checkbox_big_buttons" || 
+          fieldConfig.type === "radio_big_buttons" || 
+          fieldConfig.type === "dropdown") {
+        
+        // Checkboxes, radio buttons, and dropdowns
+        if (!_.isArray(existingValue)) {
+
+          // If input is not an array, convert to an array of length 1
+          existingValue = [existingValue];
+        }
+
+        content = [];
+
+        _.each(fieldConfig.content, function(option) {
+          var selected = false;
+          if (_.contains(existingValue, option.value)) {
+            selected = true;
+            hasValue = true;
+          }
+          content.push({
+            value: option.value,
+            label: option.label,
+            selected: selected
+          });
+        });
+      } else if (fieldConfig.type === "iconField") {
+
+        // Icon fields
+        content = [];
+
+        _.each(fieldConfig.content, function(option) {
+          var selected = false;
+          if (existingValue === option.url) {
+            selected = true;
+            hasValue = true;
+          }
+          content.push({
+            url: option.url,
+            selected: selected
+          })
+        });
+      } else if (fieldConfig.type === "binary_toggle") {
+        
+        // Binary toggle buttons
+        // NOTE: We assume that the first option listed under content
+        // corresponds to the "on" value of the toggle input
+        content = {
+          selectedValue: fieldConfig.content[0].value,
+          selectedLabel: fieldConfig.content[0].label,
+          unselectedValue: fieldConfig.content[1].value,
+          unselectedLabel: fieldConfig.content[1].label,
+          selected: (existingValue === fieldConfig.content[0].value) ? true : false
+        }
+
+        hasValue = true;
+      }
+
+      return {
+        name: fieldConfig.name,
+        type: fieldConfig.type,
+        content: content,
+        prompt: fieldConfig.display_prompt,
+        hasValue: hasValue
+      };
     },
 
     // attempt to save form autocomplete values in localStorage;
@@ -524,10 +637,19 @@ var self = module.exports = {
           } catch (e) {
             // ignore exceptions
           }
+
           return null;
         }
 
         return item.value;
+      },
+      destroy: function(name) {
+        name = this.LOCALSTORAGE_PREFIX + name;
+        try {
+          localStorage.removeItem(name);
+        } catch (e) {
+          // ignore exceptions
+        }
       }
     },
 

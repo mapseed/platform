@@ -71,6 +71,10 @@
     background-color: #007fbf;
 }
 
+.content-visible #story-btn-container {
+    display: none;
+}
+
 // Center Point (new point icon) - Selectors
 
 #centerpoint {
@@ -192,6 +196,20 @@
     background-color: rgba(242, 206, 206, 0.8);
 }
 
+.no-geometry-warning {
+    background-color: LightYellow;
+    background-color: rgba(240, 240, 0, 0.2);
+    color: #444;
+    font-weight: bold;
+    text-shadow: (-1px) 1px 0 rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin-bottom: 1em;
+    padding: 0.75em 1em 0.875em;
+    border-radius: 0.325em;
+    background-color: LightPink;
+    background-color: rgba(242, 206, 206, 0.8);
+}
+
 // Ajax Error Message - Selectors
 
 #ajax-error-msg {
@@ -281,4 +299,63 @@
 
 .leaflet-control-attribution {
     display: none;
-} 
+}
+
+/* leaflet drawing toolbar */
+.leaflet-draw-edit-edit {
+    background-position: -147px 1px !important;
+}
+
+.leaflet-draw-edit-remove {
+    background-position: -178px 1px !important;
+}
+
+.leaflet-draw-draw-polyline {
+    background-position: 2px 1px !important;
+}
+
+.leaflet-draw-draw-polygon {
+    background-position: -28px 1px !important;
+}
+
+.leaflet-draw-draw-rectangle {
+    background-position: -59px 1px !important;
+}
+
+/* Geometry editor colorpicker */
+.sp-container {
+    position: absolute !important;
+    background-color: white;
+    pointer-events: all;
+}
+
+.leaflet-control-colorpicker-interior {
+    font-family: FontAwesome;
+    width: 33px;
+    height: 33px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: block;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+    cursor: pointer;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+.leaflet-control-colorpicker-interior:before {
+    content: '\f1fb';
+    position: absolute;
+    right: 10px;
+    top: 7px;
+}
+
+.leaflet-control-colorpicker-interior:hover {
+    background-color: #f4f4f4;
+}
+
+.leaflet-draw-tooltip {
+    display: none;
+}

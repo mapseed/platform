@@ -75,6 +75,34 @@ select {
     background-color: $button-color-white;
 }
 
+/* Icon fields */
+.icon-field-container {
+    outline: 0;
+    border-radius: 0;
+    padding: 0.5em;
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    input {
+        display: none;
+        &:checked + label > img {
+            border: 2px solid $button-primary-background-orange;
+        }
+    }
+
+    img {
+        border: 2px solid transparent;
+        border-radius: 4px;
+        padding: 7px;
+        height: 25px;
+        cursor: pointer;
+    }
+}
+
+
 // Old IE does not like this to be combine with :invalid rules.
 // * It will ignore it!
 
@@ -123,8 +151,15 @@ select {
     display: none;
 }
 
-.isAutocomplete {
+.is-autocomplete {
     background-color: #ffffe0;
+}
+
+/* messaging for admin-only dynamic form category buttons */
+.form-category-admin-msg {
+    font-size: 0.7em;
+    text-transform: lowercase;
+    padding-left: 10px;
 }
 
 /* admin-only form fields */
@@ -136,4 +171,32 @@ select {
 
 .place-header-title {
     line-height: 1.2em;
+} 
+
+/* QuillJS rich text editor styles */
+.rich-text-field {
+    min-height: 200px;
+    margin-top: 0px !important;
+    border-bottom: 0.35em solid #a3c7d9 !important;
+    border-left: 0.35em solid #a3c7d9 !important;
+    border-right: 0.35em solid #a3c7d9 !important;
+}
+
+.ql-toolbar {
+    border-top: 0.30em solid #a3c7d9 !important;
+    border-left: 0.30em solid #a3c7d9 !important;
+    border-right: 0.30em solid #a3c7d9 !important;   
+}
+
+/* Editor mode update form */
+#update-place-model-title-form .place-value-title {
+    border-width: 4px;
+    max-width: 60%;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#update-place-model-form textarea {
+    height: 300px;
 }
