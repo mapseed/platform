@@ -121,17 +121,11 @@
 }
 
 /* colorpicker buttons */
-button.sp-selected {
+button.sp-selected, button.sp-selected:hover {
     background-image: -webkit-linear-gradient(top, #888888, #CCCCCC);
     background-image: -moz-linear-gradient(top, #888888, #CCCCCC);
     background-image: -ms-linear-gradient(top, #888888, #CCCCCC);
     background-image: -o-linear-gradient(top, #888888, #CCCCCC);
-    &:hover {
-        background-image: -webkit-linear-gradient(top, #888888, #CCCCCC);
-        background-image: -moz-linear-gradient(top, #888888, #CCCCCC);
-        background-image: -ms-linear-gradient(top, #888888, #CCCCCC);
-        background-image: -o-linear-gradient(top, #888888, #CCCCCC);
-    }
 }
 
 .sp-picker-container button {
@@ -367,7 +361,6 @@ button.sp-selected {
     }
     &:hover {
         box-shadow: -2px 2px 3px #CCCCCC, inset 0 0 0 1px #27496d;
-        //background-image: linear-gradient(top, #e99a00, black);
     }
 }
 

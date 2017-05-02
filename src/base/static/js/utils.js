@@ -169,8 +169,7 @@ var self = module.exports = {
     },
 
     getAttrs: function($form) {
-      var self = this,
-          attrs = {},
+      var attrs = {},
           multivalues = [];
 
       // Get values from the form. Make the item into an array if there are
@@ -196,7 +195,6 @@ var self = module.exports = {
     // view value in editor mode), construct a content object for this field
     // suitable for consumption by the form field types template.
     buildFieldContent: function(fieldConfig, existingValue) {
-      //var exclusions = ["submitter_name", "name", "location_type", "title"],
       var content,
           hasValue = false;
 
@@ -324,7 +322,7 @@ var self = module.exports = {
       if (model.get("url-title")) {
         return model.get("url-title");
       } else {
-        return model.get("datasetSlug") + "/" + model.id;
+        return this.getShareaboutsUrl(model);
       }
     },
 

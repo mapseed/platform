@@ -76,9 +76,6 @@ module.exports = Backbone.View.extend({
             self.colorpickerSettings.opacity = color.getAlpha();
           }
         }
-      },
-      change: function() {
-        //console.log("color change");
       }
     });
 
@@ -93,7 +90,8 @@ module.exports = Backbone.View.extend({
     var generateGeometry = function(layer) {
       var buildCoords = function(layer) {
         var coordinates = [],
-        latLngs = layer.getLatLngs();
+            latLngs = layer.getLatLngs();
+
         for (var i = 0; i < latLngs.length; i++) {
           coordinates.push([latLngs[i].lng, latLngs[i].lat]);
         }
@@ -389,9 +387,10 @@ module.exports = Backbone.View.extend({
       .addClass("sp-selected")
       .siblings()
       .removeClass("sp-selected");
-    $(".leaflet-control-colorpicker").spectrum("set", 
-      tinycolor(this.colorpickerSettings.fillColor)
-        .setAlpha(this.colorpickerSettings.fillOpacity).toRgbString());
+    $(".leaflet-control-colorpicker").spectrum(
+      "set", 
+      tinycolor(this.colorpickerSettings.fillColor).setAlpha(this.colorpickerSettings.fillOpacity).toRgbString()
+    );
   },
 
   hideColorpicker: function() {
@@ -440,7 +439,7 @@ module.exports = Backbone.View.extend({
   },
 
   setGeometryToolbarHighlighting: function(currentTarget) {
-    var target = this.$el.find(currentTarget)
+    var target = this.$el.find(currentTarget);
 
     if (target.hasClass("selected")) {
       target.removeClass("selected");
@@ -565,8 +564,7 @@ module.exports = Backbone.View.extend({
     this.resetWorkingGeometry();
     this.layerType = null;
     if (this.existingLayerView) {
-      this.changeLayerGroup(this.existingLayerView.layer, this.editingLayerGroup,
-        this.existingLayerView.layerGroup);
+      this.changeLayerGroup(this.existingLayerView.layer, this.editingLayerGroup, this.existingLayerView.layerGroup);
       this.existingLayerView.isEditing = false;
       this.existingLayerView.updateLayer();
     }

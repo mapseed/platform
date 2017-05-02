@@ -130,7 +130,7 @@
         } else {
           this.options.router.navigate('/', {trigger: true});
         }
-      }
+      };
     },
 
     // Adds or removes the layer  on Master Layer based on visibility

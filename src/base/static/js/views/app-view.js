@@ -81,11 +81,6 @@
         $('#ajax-error-msg').hide();
       });
 
-      // $('.list-toggle-btn').click(function(evt){
-      //   evt.preventDefault();
-      //   self.toggleListView();
-      // });
-
       if (this.options.activityConfig.show_in_right_panel === true) {
         $("body").addClass("right-sidebar-visible");
         $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
