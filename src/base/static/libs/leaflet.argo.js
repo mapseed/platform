@@ -4,8 +4,6 @@
  * Argo turns any GeoJSON data into a Leaflet layer.
  */
 
-var parse = require('./static-parser.js');
-
 L.Argo = L.GeoJSON.extend({
 
   initialize: function (geojson, options) {
