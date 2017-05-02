@@ -1,9 +1,8 @@
   var Util = require('../utils.js');
-  var Argo = require('../../libs/leaflet.argo.js');
 
   module.exports = Backbone.View.extend({
      // A view responsible for the representation of a place on the map.
-    initialize: function(){
+    initialize: function() {
       this.map = this.options.map;
       this.isFocused = false;
       this.isEditing = false;
@@ -24,16 +23,52 @@
       this.layerIsAdminControlled = Util.getAdminStatus(this.model.get("datasetId"));
 
       // On map move, adjust the visibility of the markers for max efficiency
-      this.map.on('move', this.throttledRender, this);
+      this.map.on('moveend', this.throttledRender, this);
+
+      this.placeType = this.options.placeTypes[this.model.get('location_type')];
+      this.styleRuleContext = {};
+      this.styleRules = [];
+      this.zoomRules = [];
+
+      // Create arrays of functions representing parsed versions of style rules
+      // found in the config. This prevents us from having to re-parse each
+      // style rule on every map zoom for every layer view.
+      _.each(this.placeType.rules, function(rule) {
+        var condition = rule.condition.replace(/\{\{/g, "this.").replace(/\}\}/g, ""),
+            fn = new Function("return " + condition + ";");
+
+        fn.props = {};
+
+        _.each(rule, function(prop, key) {
+          if (prop !== "condition") {
+            fn.props[key] = prop;
+          }
+        }, this);
+
+        this.styleRules.push(fn);
+      }, this);
+
+      if (this.placeType.hasOwnProperty("zoomType")) {
+        _.each(this.options.placeTypes[this.placeType.zoomType], function(rule) {
+          var condition = rule.condition.replace(/\{\{/g, "this.").replace(/\}\}/g, "");
+              fn = new Function("return " + condition + ";");
+
+          fn.props = {};
+
+          _.each(rule, function(prop, key) {
+            if (prop !== "condition") {
+              fn.props[key] = prop;
+            }
+          }, this);
+
+          this.zoomRules.push(fn);
+        }, this);
+      }
 
       this.initLayer();
     },
     initLayer: function() {
-      var geom, context;
 
-      // Handle if an existing place type does not match the list of available
-      // place types.
-      this.placeType = this.options.placeTypes[this.model.get('location_type')];
       if (!this.placeType) {
         console.warn('Place type', this.model.get('location_type'),
           'is not configured so it will not appear on the map.');
@@ -42,21 +77,31 @@
 
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew() && this.isPublishable()) {
+        var geom,
+            styleRule = {},
+            zoomRule = {},
+            styleRuleContext = _.extend({},
+              this.model.toJSON(),
+              {map: {zoom: this.map.getZoom()}},
+              {layer: {focused: this.isFocused}});
 
-        // Determine the style rule to use based on the model data and the map
-        // state.
-        context = _.extend({},
-          this.model.toJSON(),
-          {map: {zoom: this.map.getZoom()}},
-          {layer: {focused: this.isFocused}});
-        // Set the icon here:
-        this.styleRule = L.Argo.getStyleRule(context, this.placeType.rules);
-
-        // Zoom checks here, for overriding the icon size, anchor, and focus icon:
-        if (this.placeType.hasOwnProperty('zoomType')) {
-          var zoomRules = this.options.placeTypes[this.placeType.zoomType];
-          this.styleRule = L.Argo.getZoomRule(this.styleRule, zoomRules);
+        for (var i = 0; i < this.styleRules.length; i++) {
+          if (this.styleRules[i].apply(styleRuleContext)) {
+            styleRule = this.styleRules[i].props;
+            break;
+          }
         }
+
+        for (var i = 0; i < this.zoomRules.length; i++) {
+          if (this.zoomRules[i].apply(styleRuleContext)) {
+            zoomRule = this.zoomRules[i].props;
+            break;
+          }
+        }
+
+        this.styleRule = styleRule;
+        this.zoomRule = zoomRule;
+        _.extend(this.styleRule.icon, this.zoomRule.icon);
 
         // Construct an appropriate layer based on the model geometry and the
         // style rule. If the place is focused, use the 'focus_' portion of
@@ -114,10 +159,13 @@
       this.map.off('zoomend', this.updateLayer, this);
     },
     updateLayer: function() {
-      if (!this.isEditing) {
-        // Update the marker layer if the model changes and the layer exists.
-        // Don't update if the layer is in editing mode, as this interferes 
-        // with the Leaflet draw plugin.
+      // Update the marker layer if the model changes and the layer exists,
+      // if the layer is visible and within the current map bounds, and if we're
+      // not in editing mode
+      if (!this.isEditing &&
+          this.map.hasLayer(this.layer) && 
+          this.map.getBounds().contains(this.layer.getLatLng())) {
+
         this.removeLayer();
         this.initLayer();
       }
