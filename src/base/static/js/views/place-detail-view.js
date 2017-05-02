@@ -27,8 +27,10 @@
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
       this.isModified = false;
-      this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, 
-        {category: this.model.get("location_type")});
+      this.categoryConfig = _.findWhere(
+        this.options.placeConfig.place_detail, 
+        {category: this.model.get("location_type")}
+      );
       this.commonFormElements = this.options.placeConfig.common_form_elements;
       this.geometryEditorView = this.options.geometryEditorView;
       this.onAddAttachmentCallback = null;
@@ -48,7 +50,7 @@
 
       // consider the editor modified if change or keyup events are registered
       // from the following selectors
-      this.watchFields = "#update-place-model-form, #update-place-model-title-form";
+      this.WATCH_FIELDS = "#update-place-model-form, #update-place-model-title-form";
 
       // Make sure the submission collections are set
       this.model.submissionSets[this.surveyType] = this.model.submissionSets[this.surveyType] ||
@@ -128,7 +130,7 @@
 
     saveDraftChanges: function() {
       var attrs = this.scrapeForm();
-      Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30) // save for 30 days
+      Util.localstorage.save(this.LOCALSTORAGE_KEY, attrs, 30); // save for 30 days
     },
 
     clearDraftChanges: function() {
@@ -275,7 +277,7 @@
           .addClass("faded");
 
         // detect changes made to non-Quill form elements
-        $(this.watchFields).on("keyup change", function(e) {
+        $(this.WATCH_FIELDS).on("keyup change", function(e) {
           if (e.type === "change") {
             self.onModified();
           } else if ((e.keyCode >= 48 && e.keyCode <= 57) || // 0-9 (also shift symbols)
@@ -312,7 +314,7 @@
     onModified: function() {
       this.isModified = true;
       $("#update-place-model-btn").addClass("isModified");
-      $(this.watchFields).off("keyup change");
+      $(this.WATCH_FIELDS).off("keyup change");
     },
 
     remove: function() {
@@ -385,7 +387,6 @@
       return attrs;
     },
 
-    // TODO: can we relax any of the validation rules in edit mode?
     onUpdateModel: Gatekeeper.onValidSubmit(function(evt) {
       if (!this.isModified) {
         return;
@@ -407,11 +408,11 @@
             opacity: this.geometryEditorView.colorpickerSettings.opacity,
             fillColor: this.geometryEditorView.colorpickerSettings.fillColor,
             fillOpacity: this.geometryEditorView.colorpickerSettings.fillOpacity
-          }
+          };
         } else if (attrs.geometry.type === "Point") {
           attrs.style = {
             iconUrl: this.geometryEditorView.iconUrl
-          }
+          };
         }
         
         this.geometryEditorView.tearDown();
@@ -430,9 +431,6 @@
           } else {
             self.options.router.navigate(Util.getUrl(self.model), { trigger: true, replace: true });
           }
-        },
-        error: function() {
-          // nothing
         }
       });
     }, null),
@@ -446,9 +444,6 @@
         this.model.save({"visible": false}, {
           success: function() {
             self.model.trigger("userHideModel", self.model);
-          },
-          error: function() {
-            // nothing
           }
         });
       }

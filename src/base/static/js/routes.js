@@ -37,7 +37,7 @@ Shareabouts.Util = Util;
         if (this.appView.activeDetailView &&
           this.appView.activeDetailView.isModified) {
           if (!this.appView.activeDetailView.onCloseWithUnsavedChanges()) {
-            return false 
+            return false;
           } else {
             this.appView.activeDetailView = null;
             callback.apply(router, arguments);

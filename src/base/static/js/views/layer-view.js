@@ -64,8 +64,6 @@
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
 
           // If we've saved an icon url in the model, use that
-          // TODO: this could be refactored into style rule resolution in
-          // L.argo.
           if (this.model.get("style") && this.model.get("style").iconUrl) {
             this.styleRule.icon.iconUrl = this.model.get("style").iconUrl;
           } 

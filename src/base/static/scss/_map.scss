@@ -303,61 +303,6 @@
     display: none;
 }
 
-/* leaflet drawing toolbar */
-.leaflet-draw-edit-edit {
-    background-position: -147px 1px !important;
-}
-
-.leaflet-draw-edit-remove {
-    background-position: -178px 1px !important;
-}
-
-.leaflet-draw-draw-polyline {
-    background-position: 2px 1px !important;
-}
-
-.leaflet-draw-draw-polygon {
-    background-position: -28px 1px !important;
-}
-
-.leaflet-draw-draw-rectangle {
-    background-position: -59px 1px !important;
-}
-
-/* Geometry editor colorpicker */
-.sp-container {
-    position: absolute !important;
-    background-color: white;
-    pointer-events: all;
-}
-
-.leaflet-control-colorpicker-interior {
-    font-family: FontAwesome;
-    width: 33px;
-    height: 33px;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    display: block;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
-    cursor: pointer;
-    text-align: center;
-    background-color: #FFFFFF;
-}
-
-.leaflet-control-colorpicker-interior:before {
-    content: '\f1fb';
-    position: absolute;
-    right: 10px;
-    top: 7px;
-}
-
-.leaflet-control-colorpicker-interior:hover {
-    background-color: #f4f4f4;
-}
-
 .leaflet-draw-tooltip {
     display: none;
 }

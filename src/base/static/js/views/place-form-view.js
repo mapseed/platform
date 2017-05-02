@@ -135,7 +135,7 @@
         },
         attachmentData: [],
         commonFormElements: this.options.placeConfig.common_form_elements || {}
-      }
+      };
     },
 
     determineRenderabilityForEachCategory: function() {
@@ -183,8 +183,7 @@
           self.determineFieldRenderability(self.formState.selectedCategoryConfig, field)
         );
 
-        this.formState.selectedCategoryConfig.fields[i].isAutocomplete = 
-          (field.hasValue && field.autocomplete) ? true : false;
+        this.formState.selectedCategoryConfig.fields[i].isAutocomplete = (field.hasValue && field.autocomplete);
       }, this);
 
       // Prepare common form fields
@@ -283,7 +282,7 @@
         attrs.geometry = {
           type: 'Point',
           coordinates: [this.center.lng, this.center.lat]
-        }
+        };
       }
 
       if (this.location && locationAttr) {
@@ -349,9 +348,9 @@
       evt.preventDefault();
       
       var self = this,
-          ll = this.options.appView.mapView.map.getBounds().toBBoxString();
+          latLng = this.options.appView.mapView.map.getBounds().toBBoxString();
       
-      Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
+      Util.log('USER', 'map', 'geolocate', latLng, this.options.appView.mapView.map.getZoom());
       
       $("#geolocating-msg").removeClass("is-visuallyhidden");
 
@@ -382,7 +381,7 @@
               name: $(evt.target).attr('name'),
               blob: blob,
               file: canvas.toDataURL('image/jpeg')
-            })
+            });
           }, 'image/jpeg');
         }, {
           // TODO: make configurable
@@ -420,8 +419,7 @@
         return false;
       }
 
-      var attrs = this.getAttrs();
-      return attrs;
+      return this.getAttrs();
     },
 
     // This function handles submission of data from geometry-enabled places,

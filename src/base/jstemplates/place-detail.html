@@ -1,5 +1,6 @@
 <!-- Template for managing the place detail view, which might be rendered in
   regular mode or in editor mode. -->
+
 {{> place-detail-edit-bar }}
 
 {{> place-detail-story-bar }}
@@ -78,26 +79,9 @@
           <img src="{{ file }}" 
                class="place-value place-value-{{ name }}" 
                alt="{{ name }}" />
-          <!-- {{#if ../isEditingToggled}}
-            <div class="remove-attachment-btn btn btn-small">{{#_}}Remove this image{{/_}}</div>
-          {{/if}} -->
         </div>           
       {{/each}}
     {{/unless}}
-    {{#unless attachments}}
-      {{#if isEditingToggled}}
-        <div class="place-item place-item-attachment">
-          <!-- <img src="/static/css/images/image-placeholder.png" class="place-value img-placeholder" alt="image placeholder" /> -->
-        </div>
-      {{/if}} 
-    {{/unless}}  
-
-    <!-- {{#if isEditingToggled}}              
-      <span id="editor-fileinput" class="fileinput-container btn btn-small editor-btn">
-        <span>{{#_}}Upload a new image{{/_}}</span>
-        <input id="upload-attachment-btn" name="new_image" type="file" style="display: none"/>
-      </span>
-    {{/if}} -->
 
     {{#each fields}}
       <div class="place-item place-item-{{ name }}">
