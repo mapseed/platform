@@ -11,8 +11,10 @@
 #map {
     background: $button-background-lightblue;
     height: 150px;
+}
 
-    //opacity: 0.5;
+.add-edit-cursor {
+    cursor: crosshair !important;
 }
 
 // Geolocation Button - Selectors
@@ -69,6 +71,10 @@
  
 #nav-stories {
     background-color: #007fbf;
+}
+
+.content-visible #story-btn-container {
+    display: none;
 }
 
 // Center Point (new point icon) - Selectors
@@ -192,6 +198,20 @@
     background-color: rgba(242, 206, 206, 0.8);
 }
 
+.no-geometry-warning {
+    background-color: LightYellow;
+    background-color: rgba(240, 240, 0, 0.2);
+    color: #444;
+    font-weight: bold;
+    text-shadow: (-1px) 1px 0 rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin-bottom: 1em;
+    padding: 0.75em 1em 0.875em;
+    border-radius: 0.325em;
+    background-color: LightPink;
+    background-color: rgba(242, 206, 206, 0.8);
+}
+
 // Ajax Error Message - Selectors
 
 #ajax-error-msg {
@@ -281,4 +301,8 @@
 
 .leaflet-control-attribution {
     display: none;
-} 
+}
+
+.leaflet-draw-tooltip {
+    display: none;
+}

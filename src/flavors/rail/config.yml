@@ -285,7 +285,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: _(Description of this pollution:)
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
@@ -305,7 +305,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
@@ -324,7 +324,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: _(Describe your idea below:)
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
@@ -344,7 +344,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: "_(What's your complaint?)"
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
@@ -360,13 +360,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)

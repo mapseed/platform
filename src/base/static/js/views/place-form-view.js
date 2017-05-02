@@ -1,121 +1,237 @@
+
   var Util = require('../utils.js');
   var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
+  var Gatekeeper = require('../../libs/gatekeeper.js');
 
   var TemplateHelpers = require('../template-helpers.js');
+  var RichTextEditorView = require('mapseed-rich-text-editor-view');
 
   module.exports = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
-      'change input[type="file"]': 'onInputFileChange',
-      'click .category-btn.clickable': 'onCategoryChange',
-      'click .category-menu-hamburger': 'onExpandCategories',
+      'change .shareabouts-file-input': 'onInputFileChange',
+      'change .category-btn': 'onCategoryChange',
+      'click .expansion-icon-container': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
-      'click .btn-geolocate': 'onClickGeolocate'
+      'click .btn-geolocate': 'onClickGeolocate',
+      'keyup input[name="url-title"]': 'onUpdateUrlTitle'
     },
-    initialize: function(){
+
+    initialize: function() {
       var self = this;
+
+      Backbone.Events.on("panel:close", this.closePanel, this);
+      this.options.router.on("route", this.resetFormState, this);
+
       this.resetFormState();
       this.placeDetail = this.options.placeConfig.place_detail;
+      this.map = this.options.appView.mapView.map;
+      this.geometryEditorView = this.options.geometryEditorView;
+      this.geometryEnabled = false;
 
       TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+
+      Gatekeeper.registerCollectionsSet(this.options.collectionsSet);
+
+      this.determineRenderabilityForEachCategory();
     },
+
+    render: function() {
+      this.$el.html(Handlebars.templates['place-form']());
+      this.renderGeometryWarningMessage();
+      
+      var placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
+        return place.includeOnForm; 
+      });
+
+      if (placesToIncludeOnForm.length === 1) {
+
+        // If we only have a single category, skip the category selection phase
+        this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
+        this.renderFormFields();
+      } else {
+        this.renderCategoryButtons();      
+      }
+
+      return this;
+    },
+
+    renderGeometryWarningMessage: function() {
+      this.$el
+        .find(".place-form-geometry-messages")
+        .html(Handlebars.templates["place-form-messages"]());
+    },
+    
+    renderCategoryButtons: function() {
+      this.$el
+        .find(".place-form-category-buttons")
+        .html(Handlebars.templates["place-form-category-buttons"]({
+          placeConfig: this.options.placeConfig
+        }));
+    },
+
+    renderFormFields: function() {
+      var data = _.extend({
+        placeConfig: this.options.placeConfig,
+        selectedCategoryConfig: this.formState.selectedCategoryConfig,
+        user_token: this.options.userToken,
+        current_user: Shareabouts.currentUser
+      }, Shareabouts.stickyFieldValues);
+
+      this.$el
+        .find("#place-form")
+        .html(Handlebars.templates["place-form-fields"](data));
+
+      if (this.geometryEnabled) {
+        this.options.appView.hideCenterPoint();
+        this.options.appView.hideSpotlightMask();
+        this.geometryEditorView.render({
+          $el: this.$el,
+          iconUrl: this.formState.selectedCategoryConfig.icon_url
+        });
+      } else {
+
+        // In case the user switches from a geometry-enabled category
+        // to a geometry non-enabled category
+        this.geometryEditorView.tearDown();
+        this.options.appView.showNewPin();
+      }
+
+      this.initializeDatetimePicker();
+      this.initializeRichTextFields();
+      this.setUrlTitlePrefix();
+    },
+
+    setUrlTitlePrefix: function() {
+      var self = this, 
+      layer = _.find(this.options.mapConfig.layers, function(layer) {
+        return layer.id === self.formState.selectedCategoryConfig.dataset;
+      });
+
+      this.$el.find(".url-prefix")
+        .html(
+          window.location.protocol + "//" + window.location.hostname + "/" +
+          (layer.useSlugForCustomUrls ? layer.slug + "/" : "")
+        );
+    },
+
+    showCategorySeparator: function() {
+      this.$("#category-btns hr").show();
+    },
+
+    hideCategorySeparator: function() {
+      this.$("#category-btns hr").hide();
+    },
+
+    hideSilhouettes: function() {
+      this.$(".place-form-silhouettes").hide();
+    },
+
     resetFormState: function() {
       this.formState = {
         selectedCategoryConfig: {
           fields: []
         },
-        isSingleCategory: false,
-        attachmentData: null,
+        attachmentData: [],
         commonFormElements: this.options.placeConfig.common_form_elements || {}
-      }
+      };
     },
-    render: function(isCategorySelected) {
-      var isAdmin = false,
-      self = this,
-      placesToIncludeOnForm = _.filter(this.placeDetail, function(place) { 
-        return place.includeOnForm; 
-      });
 
-      if (Shareabouts.bootstrapped.currentUser &&
-        _.contains(this.options.placeConfig.administrators, Shareabouts.bootstrapped.currentUser.username)) {
-        isAdmin = true;
-      }
+    determineRenderabilityForEachCategory: function() {
+      _.each(this.options.placeConfig.place_detail, function(place) {
+        _.extend(place, {
+          isAdmin: Util.getAdminStatus(place.dataset),
+          isRenderable: function() {
+            if (!place.includeOnForm) {
+              return false;
+            } else if (place.admin_only && !Util.getAdminStatus(place.dataset)) {
+              return false;
+            }
 
-      // if there is only one place to include on form, skip category selection page
-      if (placesToIncludeOnForm.length === 1) {
-        this.formState.isSingleCategory = true;
-        isCategorySelected = true;
-        this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
-      }
-      
-      this.checkAutocomplete();
-
-      var data = _.extend({
-        isCategorySelected: isCategorySelected,
-        isAdmin: isAdmin,
-        placeConfig: this.options.placeConfig,
-        selectedCategoryConfig: this.formState.selectedCategoryConfig,
-        user_token: this.options.userToken,
-        current_user: Shareabouts.currentUser,
-        isSingleCategory: this.formState.isSingleCategory
-      }, Shareabouts.stickyFieldValues);
-
-      this.$el.html(Handlebars.templates['place-form'](data));
-
-      if (this.center) $(".drag-marker-instructions").addClass("is-visuallyhidden");
-
-      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-
-      this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
-        el: '#geocode-address-place-bar',
-        router: this.options.router,
-        mapConfig: this.options.mapConfig
-      })).render();
-
-      return this;
-    },
-    // called from the app view
-    postRender: function() {
-      // NOTE: the extra call to initialize the date-time picker is necessary here,
-      // because on a single-category form the call to initialize in the render() method
-      // above will fail, since the form content will not yet have been inserted into
-      // the DOM by the app view
-      if (this.formState.isSingleCategory) {
-        $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
-      }
-
-      this.bindCategoryListeners();
-    },
-    bindCategoryListeners: function() {
-      $(".category-btn-container").off().on("click", function(evt) {
-        $(this).prev().trigger("click");
+            return true;
+          }()
+        });
       });
     },
-    checkAutocomplete: function() {
-      var self = this,
-      storedValue;
 
-      this.formState.selectedCategoryConfig.fields.forEach(function(field, i) {
-        storedValue = Util.getAutocompleteValue(field.name);
-        self.formState.selectedCategoryConfig.fields[i].autocompleteValue = storedValue || null;
-      });
+    determineFieldRenderability: function(categoryConfig, field) {
+      var renderability = {
+        isRenderable: true
+      }
+
+      if (field.admin_only && !categoryConfig.isAdmin) {
+        renderability.isRenderable = false;
+      }
+
+      return renderability;
+    },
+
+    // Before we render the fields for a given category, do the following:
+    // 1. Build an appropriate content object for each field
+    // 2. Check the autocomplete status of each field
+    // 3. Check the admin-only status of each field
+    prepareFormFieldsForRender: function() {
+      var self = this;
+
+      // Prepare category-specific fields
+      _.each(this.formState.selectedCategoryConfig.fields, function(field, i) { 
+        _.extend(this.formState.selectedCategoryConfig.fields[i],
+          Util.buildFieldContent(field, (field.autocomplete) ? 
+            Util.getAutocompleteValue(field.name) :
+            null),
+          self.determineFieldRenderability(self.formState.selectedCategoryConfig, field)
+        );
+
+        this.formState.selectedCategoryConfig.fields[i].isAutocomplete = (field.hasValue && field.autocomplete);
+      }, this);
+
+      // Prepare common form fields
       this.formState.commonFormElements.forEach(function(field, i) {
-        storedValue = Util.getAutocompleteValue(field.name);
-        self.formState.commonFormElements[i].autocompleteValue = storedValue || null;
+        _.extend(this.formState.commonFormElements[i],
+          Util.buildFieldContent(field, (field.autocomplete) ? 
+            Util.getAutocompleteValue(field.name) :
+            null),
+          self.determineFieldRenderability(self.formState.selectedCategoryConfig, field)
+        );
+
+        this.formState.commonFormElements[i].isAutocomplete = 
+          (field.hasValue && field.autocomplete) ? true : false;
+      }, this);
+    },
+
+    initializeRichTextFields: function() {
+      var self = this;
+
+      this.$(".rich-text-field").each(function() {
+        new RichTextEditorView({
+          el: $(this).get(0),
+          model: this.model,
+          placeFormView: self,
+          fieldName: $(this).attr("name"),
+          fieldId: $(this).attr("id")
+        });
       });
     },
+
+    initializeDatetimePicker: function() {
+      $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
+    },
+
     remove: function() {
       this.unbind();
     },
+
     onError: function(model, res) {
       // TODO handle model errors!
       console.log('oh no errors!!', model, res);
     },
+
     // This is called from the app view
     setLatLng: function(latLng) {
-      // set the form to display at larger size after initial map drag
+      
+      // Set the form to display at larger size after initial map drag
       if (!this.options.appView.hasBodyClass("content-expanded-mid") &&
           this.options.appView.hasBodyClass("place-form-visible")) {      
         this.options.appView.setBodyClass("content-visible", "content-expanded-mid");
@@ -123,21 +239,21 @@
       }
 
       this.center = latLng;
-      this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+      this.clearGeometryWarningMessage();
     },
+
     setLocation: function(location) {
       this.location = location;
     },
+
     getAttrs: function() {
       var self = this,
           attrs = {},
           locationAttr = this.options.placeConfig.location_item_name,
-          $form = this.$('form');
+          $form = this.$('form'),
+          attrs = Util.getAttrs($form); 
 
-      // Get values from the form
-      attrs = Util.getAttrs($form);
-
-      // get values off of binary toggle buttons that have not been toggled
+      // Get values off of binary toggle buttons that have not been toggled
       $.each($("input[data-input-type='binary_toggle']:not(:checked)"), function() {
         attrs[$(this).attr("name")] = $(this).val();
       });
@@ -152,12 +268,23 @@
           Util.saveAutocompleteValue(key, value, 30);
         }
       });
+
+      // Add content that has been modified by Quill rich text fields
+      this.$(".rich-text-field").each(function() {
+        attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
+      });
+      
+      if (this.geometryEnabled) {
+        attrs.geometry = this.geometryEditorView.geometry;
+      } else {
         
-      // Get the location attributes from the map
-      attrs.geometry = {
-        type: 'Point',
-        coordinates: [this.center.lng, this.center.lat]
-      };
+        // If the selected category does not have geometry editing enabled,
+        // assume we're adding point geometry
+        attrs.geometry = {
+          type: 'Point',
+          coordinates: [this.center.lng, this.center.lat]
+        };
+      }
 
       if (this.location && locationAttr) {
         attrs[locationAttr] = this.location;
@@ -165,37 +292,67 @@
 
       return attrs;
     },
-    onCategoryChange: function(evt) {
-      var self = this,
-          animationDelay = 200;
 
-      this.formState.selectedCategoryConfig = _.find(this.placeDetail, function(place) {
-        return place.category == $(evt.target).attr('id');
-      });
-      
-      this.render(true);
-      $("#" + $(evt.target).attr("id"))
+    collapseCategorySiblings: function(target) {
+      $(target)
         .prop("checked", true)
-        .next()
-        .addClass("category-btn-container-selected");
-      $("#selected-category").hide().show(animationDelay);
-      $("#category-btns").animate( { height: "hide" }, animationDelay );
-      if (this.center) {
-        this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+        .parent()
+        .siblings()
+        .animate( { height: "hide" }, 400 );
+    },
+
+    expandCategorySiblings: function() {
+      $(".category-btn")
+        .parent()
+        .animate( { height: "show" }, 400 );
+    },
+
+    onCategoryChange: function(evt) {
+      this.resetFormState();
+      
+      var self = this,
+          categoryConfig = _.find(this.placeDetail, function(place) {
+            return place.category === $(evt.target).attr("id");
+          });
+
+      this.formState.selectedCategoryConfig = 
+        $.extend(true, this.formState.selectedCategoryConfig, categoryConfig);
+
+      if (_.find(this.formState.selectedCategoryConfig.fields, function(field) {
+        return field.type === "geometryToolbar";
+      })) {
+        this.geometryEnabled = true;
+      } else {
+        this.geometryEnabled = false;
       }
+      
+      this.hideSilhouettes();
+      this.hideCategorySeparator();
+      this.prepareFormFieldsForRender();
+      this.collapseCategorySiblings(evt.target);
+      this.renderFormFields();
     },
+
+    onUpdateUrlTitle: function(evt) {
+      $(evt.currentTarget)
+        .siblings(".url-readout-container")
+        .find(".url-readout")
+        .html(Util.prepareCustomUrl($(evt.currentTarget).val()));
+    },
+
     onExpandCategories: function(evt) {
-      var animationDelay = 200;
-      $("#selected-category").hide(animationDelay);
-      $("#category-btns").animate( { height: "show" }, animationDelay ); 
-      this.bindCategoryListeners();
+      this.showCategorySeparator();
+      this.expandCategorySiblings();
     },
+
     onClickGeolocate: function(evt) {
-      var self = this;
       evt.preventDefault();
-      var ll = this.options.appView.mapView.map.getBounds().toBBoxString();
-      Util.log('USER', 'map', 'geolocate', ll, this.options.appView.mapView.map.getZoom());
-      $("#drag-marker-content").addClass("is-visuallyhidden");
+      
+      var self = this,
+          latLng = this.options.appView.mapView.map.getBounds().toBBoxString();
+      
+      Util.log('USER', 'map', 'geolocate', latLng, this.options.appView.mapView.map.getZoom());
+      
       $("#geolocating-msg").removeClass("is-visuallyhidden");
 
       this.options.appView.mapView.map.locate()
@@ -209,22 +366,23 @@
           $("#geolocating-msg").addClass("is-visuallyhidden");
         });
     },
+
     onInputFileChange: function(evt) {
       var self = this,
           file,
           attachment;
 
-      if(evt.target.files && evt.target.files.length) {
+      if (evt.target.files && evt.target.files.length) {
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
         Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
-            self.formState.attachmentData = {
+            self.formState.attachmentData.push({
               name: $(evt.target).attr('name'),
               blob: blob,
               file: canvas.toDataURL('image/jpeg')
-            }
+            });
           }, 'image/jpeg');
         }, {
           // TODO: make configurable
@@ -234,92 +392,151 @@
         });
       }
     },
-    onBinaryToggle: function(evt) {
-      var self = this,
-      targetButton = $(evt.target).attr("id"),
-      oldValue = $(evt.target).val(),
-      altData = _.find(this.formState.selectedCategoryConfig.fields
-        .concat(self.formState.commonFormElements), function(item) { 
-          return item.name === targetButton; 
-        }),
-      altContent = _.find(altData.content, function(item) { return item.value != oldValue; });
 
-      // set new value and label
-      $(evt.target).val(altContent.value);
-      $(evt.target).next("label").html(altContent.label);
+    onBinaryToggle: function(evt) {
+      var oldValue = $(evt.target).val(),
+          newValue = $(evt.target).data("alt-value"),
+          oldLabel = $(evt.target).siblings("label").html(),
+          newLabel = $(evt.target).siblings("label").data("alt-label");
+
+      // swap new and old values and labels
+      $(evt.target).data("alt-value", oldValue);
+      $(evt.target).val(newValue);
+      $(evt.target).siblings("label").html(newLabel);
+      $(evt.target).siblings("label").data("alt-label", oldLabel);
     },
+
     closePanel: function() {
       this.center = null;
       this.resetFormState();
     },
-    onSubmit: Gatekeeper.onValidSubmit(function(evt) {
-      // Make sure that the center point has been set after the form was
-      // rendered. If not, this is a good indication that the user neglected
-      // to move the map to set it in the correct location.
-      if (!this.center) {
-        this.$('.drag-marker-instructions').addClass('is-visuallyhidden');
-        this.$('.drag-marker-warning').removeClass('is-visuallyhidden');
 
-        // Scroll to the top of the panel if desktop
-        this.$el.parent('article').scrollTop(0);
-        // Scroll to the top of the window, if mobile
-        window.scrollTo(0, 0);
-        return;
+    // This function handles submission of data from conventional places with 
+    // map drag-based point geometry only
+    onSimpleSubmit: function() {
+      if (!this.center) {
+        this.setGeometryWarningMessage(".drag-marker-warning-msg");
+
+        return false;
       }
 
-      var self = this,
-          router = this.options.router,
-          collection = this.collection[self.formState.selectedCategoryConfig.dataset],
-          model,
-          // Should not include any files
-          attrs = this.getAttrs(),
-          $button = this.$('[name="save-place-btn"]'),
-          spinner, $fileInputs;
-      evt.preventDefault();
+      return this.getAttrs();
+    },
 
-      collection.add({"location_type": this.formState.selectedCategoryConfig.category});
-      model = collection.at(collection.length - 1);
+    // This function handles submission of data from geometry-enabled places,
+    // which can generate point, polyline, or polygon geometry
+    onComplexSubmit: function() {
+      if (this.geometryEditorView.editingLayerGroup.getLayers().length === 0) {
 
-      model.set("datasetSlug", _.find(this.options.mapConfig.layers, function(layer) { 
-        return self.formState.selectedCategoryConfig.dataset == layer.id;
-      }).slug);
-      model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
-      
-      // if an attachment has been added...
-      if (self.formState.attachmentData) {
-        var attachment = model.attachmentCollection.find(function(attachmentModel) {
-          return attachmentModel.get('name') === self.formState.attachmentData.name;
-        });
+        // If the map has an editingLayerGroup with no layers in it, it means the
+        // user hasn't created any geometry
+        this.setGeometryWarningMessage(".no-geometry-warning-msg");
+        
+        return false;
+      }
 
-        if (_.isUndefined(attachment)) {
-          model.attachmentCollection.add(self.formState.attachmentData);
-        } else {
-          attachment.set(self.formState.attachmentData);
+      // Save any geometry edits made that the use might not have explicitly 
+      // saved herself
+      this.geometryEditorView.saveWorkingGeometry();
+
+      var attrs = this.getAttrs();
+      if (attrs.geometry.type !== "Point") {
+        attrs["style"] = {
+          color: this.geometryEditorView.colorpickerSettings.color,
+          opacity: this.geometryEditorView.colorpickerSettings.opacity,
+          fillColor: this.geometryEditorView.colorpickerSettings.fillColor,
+          fillOpacity: this.geometryEditorView.colorpickerSettings.fillOpacity
+        }
+      } else if (attrs.geometry.type === "Point") {
+        attrs["style"] = {
+          iconUrl: this.geometryEditorView.iconUrl
         }
       }
 
-      $button.attr('disabled', 'disabled');
-      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+      return attrs;
+    },
 
-      Util.log('USER', 'new-place', 'submit-place-btn-click');
+    clearGeometryWarningMessage: function() {
+      this.$(".place-form-geometry-messages p").addClass("hidden");
+    },
 
-      Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
+    setGeometryWarningMessage: function(messageClass) {
+      this.clearGeometryWarningMessage();
+      this.$(".place-form-geometry-messages")
+        .find(messageClass)
+        .removeClass("hidden");
 
-      // Save and redirect
-      model.save(attrs, {
-        success: function() {
-          Util.log('USER', 'new-place', 'successfully-add-place');
-          router.navigate('/'+ model.get('datasetSlug') + '/' + model.id, {trigger: true});
-        },
-        error: function() {
-          Util.log('USER', 'new-place', 'fail-to-add-place');
-        },
-        complete: function() {
-          $button.removeAttr('disabled');
-          spinner.stop();
-          self.resetFormState();
-        },
-        wait: true
+      this.$el.parent("article").scrollTop(0);
+      window.scrollTo(0, 0);
+    },
+
+    onSubmit: Gatekeeper.onValidSubmit(function(evt) {
+      var self = this,
+          attrs,
+          spinner,
+          $fileInputs,
+          model,
+          router = this.options.router,
+          collection = this.options.collectionsSet.places[self.formState.selectedCategoryConfig.dataset],
+          $button = this.$('[name="save-place-btn"]');
+      
+      evt.preventDefault();
+
+      this.$el.find("input[name='url-title']").each(function() {
+        $(this).val(Util.prepareCustomUrl($(this).val()));
       });
-    })
+
+      if (this.geometryEnabled) {
+        attrs = this.onComplexSubmit();
+      } else {
+        attrs = this.onSimpleSubmit();
+      }
+
+      if (attrs) {
+        collection.add({"location_type": this.formState.selectedCategoryConfig.category});
+        model = collection.at(collection.length - 1);
+        model.set("datasetSlug", _.find(this.options.mapConfig.layers, function(layer) { 
+          return self.formState.selectedCategoryConfig.dataset == layer.id;
+        }).slug);
+        model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
+
+        // if an attachment has been added...
+        if (self.formState.attachmentData) {
+          var attachment = model.attachmentCollection.find(function(attachmentModel) {
+            return attachmentModel.get('name') === self.formState.attachmentData.name;
+          });
+
+          if (_.isUndefined(attachment)) {
+            model.attachmentCollection.add(self.formState.attachmentData);
+          } else {
+            attachment.set(self.formState.attachmentData);
+          }
+        }
+
+        $button.attr('disabled', 'disabled');
+        spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+        Util.log('USER', 'new-place', 'submit-place-btn-click');
+        Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
+
+        // Save and redirect
+        model.save(attrs, {
+          success: function() {
+            Util.log('USER', 'new-place', 'successfully-add-place');
+            router.navigate(Util.getUrl(model), { trigger: true });
+          },
+          error: function() {
+            Util.log('USER', 'new-place', 'fail-to-add-place');
+          },
+          complete: function() {
+            if (self.geometryEditorView) {
+              self.geometryEditorView.tearDown();
+            }
+            $button.removeAttr('disabled');
+            spinner.stop();
+            self.resetFormState();
+          },
+          wait: true
+        });
+      }
+    }, null)
   });

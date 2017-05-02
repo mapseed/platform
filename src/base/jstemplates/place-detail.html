@@ -1,133 +1,105 @@
-        {{> place-detail-story-bar }}
+<!-- Template for managing the place detail view, which might be rendered in
+  regular mode or in editor mode. -->
 
-        {{> place-detail-promotion-bar }}
+{{> place-detail-edit-bar }}
 
-        <header class="place-header clearfix">
-          <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
-            {{>location-string location }}
-            {{#if fullTitle}}
-              {{fullTitle}}
-            {{else}}
-              {{#if title}}
-                {{title}}
-              {{else}}
-                {{name}}
-              {{/if}}
-            {{/if}}
-          </h1>
-          <span class="place-submission-details">
-            {{#is_not showMetadata false}}
-              {{#_}}<strong class="point-submitter">
-                {{#if submitter.avatar_url }}
-                  <img src="{{ submitter.avatar_url }}" class="avatar" />
-                {{^}}
-                  <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" />
-                {{/if}}
-                {{#if submitter.name }}
-                  {{ submitter.name }}
-                {{^}}
-                  {{#if submitter_name }}
-                    {{ submitter_name }}
-                  {{^}}
-                    {{ anonymous_name }}
-                  {{/if}}
-                {{/if}}
-              </strong> {{ action_text }} this {{ place_type_label location_type}}
+{{> place-detail-story-bar }}
 
-              {{#if region}}
-                in {{ region }}
-              {{/if}}{{/_}}
+{{> place-detail-promotion-bar }}
 
-              <time datetime="{{ created_datetime }}" class="response-date"><a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a></time>
-
-              <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
-            {{/is_not}}
-
-          {{^if survey_config}}
-            <a rel="internal" href="/{{ datasetSlug }}/{{ id }}" class="view-on-map-btn btn btn-small">{{#_}}View On Map{{/_}}</a>
+<header class="place-header clearfix">
+  {{>location-string location }}
+  <form id="update-place-model-title-form">
+    {{#if isEditingToggled}}
+      <input type="text" 
+             class="place-value place-value-title" 
+             name="title" 
+             value="{{#if fullTitle}}{{fullTitle}}{{else}}{{#if title}}{{title}}{{else}}{{name}}{{/if}}{{/if}}" />
+    {{else}}
+      <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
+        {{#if fullTitle}}
+          {{fullTitle}}
+        {{else}}
+          {{#if title}}
+            {{title}}
+          {{else}}
+            {{name}}
           {{/if}}
-
-          </span>
-        </header>
-
-        <section class="place-items">
-          {{# attachments }}
-            <div class="place-item place-item-attachment place-attachment-{{ name }}">
-              <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}" />
-            </div>
-          {{/ attachments }}
-
-          {{#each_place_item "submitter_name" "name" "location_type" "fullTitle" "title" "name"}}
-            <div class="place-item place-item-{{ name }}">
-              <span class="place-label place-label-{{ name }}">{{ prompt }}</span>
-
-              {{#is type "datetime"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
-              {{/is}}
-              
-              {{#is type "text"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>                
-              {{/is}}
-
-              {{#is type "textarea"}}
-                <p class="place-value place-value-{{ name }}">{{nlToBr content}}</p>
-              {{/is}}
-
-              {{#is type "richTextarea"}}
-                <span class="place-value place-value-{{ name }}">{{{content}}}</span>
-              {{/is}}
-
-              {{#is type "radio_big_buttons"}}
-                <ul>
-                  {{#each content}}
-                    {{#if selected}}
-                      <li class="multi-select-response place-value">{{ label }} </li>
-                    {{/if}}
-                  {{/each}}
-                </ul>
-              {{/is}}
-
-              {{#is type "checkbox_big_buttons"}}
-                <ul>
-                  {{#each content}}
-                    {{#if selected}}
-                      <li class="multi-select-response place-value">{{ label }} </li>
-                    {{/if}}
-                  {{/each}}
-                </ul>
-              {{/is}}
-
-              {{#is type "binary_toggle"}}
-                <ul>
-                  <li class="place-value">
-                    {{#if content.selected}}
-                      {{ content.selectedLabel }}
-                    {{else}}
-                      {{ content.unselectedLabel }}
-                    {{/if}}
-                  </li>
-                </ul>
-              {{/is}}
-
-              {{#is type "dropdown"}}
-                {{#each content}}
-                  {{#if selected}}
-                    <ul>
-                      <li class="place-value">
-                        {{nlToBr label}}
-                      </li>
-                    </ul>
-                  {{/if}}
-                {{/each}}
-              {{/is}}
-            </div>
-          {{/each_place_item }}
-          <div class="clearfix"></div>
-        </section>
-
-        {{#if survey_config}}
-
-        <section class="survey" id="survey"></section>
         {{/if}}
+      </h1>
+    {{/if}}
+  </form>
+  <span class="place-submission-details">
+    {{#is_not showMetadata false}}
+      {{#_}}<strong class="point-submitter">
+        {{#if submitter.avatar_url }}
+          <img src="{{ submitter.avatar_url }}" 
+               class="avatar" />
+        {{^}}
+          <img src="{{ STATIC_URL }}css/images/user-50.png" 
+               class="avatar" />
+        {{/if}}
+        {{#if submitter.name }}
+          {{ submitter.name }}
+        {{^}}
+          {{#if submitter_name }}
+            {{ submitter_name }}
+          {{^}}
+            {{ anonymous_name }}
+          {{/if}}
+        {{/if}}
+      </strong> {{ action_text }} this {{ place_type_label location_type}}
 
-        {{> place-detail-story-bar-tagline }}
+      {{#if region}}
+        in {{ region }}
+      {{/if}}{{/_}}
+
+      <time datetime="{{ created_datetime }}" 
+            class="response-date">
+        <a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a>
+      </time>
+
+      <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
+    {{/is_not}}
+
+  {{^if survey_config}}
+    <a rel="internal" 
+       href="/{{ datasetSlug }}/{{ id }}" 
+       class="view-on-map-btn btn btn-small">View On Map</a>
+  {{/if}}
+
+  </span>
+</header>
+
+<section class="place-items">
+  <form id="update-place-model-form">
+    {{#unless suppressAttachments}}
+      {{#each attachments }}
+        <div class="place-item place-item-attachment place-attachment-{{ name }}">
+          <img src="{{ file }}" 
+               class="place-value place-value-{{ name }}" 
+               alt="{{ name }}" />
+        </div>           
+      {{/each}}
+    {{/unless}}
+
+    {{#each fields}}
+      <div class="place-item place-item-{{ name }}">
+        <div class="place-label place-label-{{ name }}">{{ prompt }}</div>
+        {{#if ../isEditingToggled}}
+          {{> place-form-field-types}}
+        {{else}}
+          {{> place-detail-field-types}}
+        {{/if}}
+        <div style="clear:both"></div>
+      </div>
+    {{/each}}
+  </form>
+</section>
+
+{{#if survey_config}}
+  <section class="survey" 
+           id="survey"></section>
+{{/if}}
+
+{{> place-detail-story-bar-tagline }}

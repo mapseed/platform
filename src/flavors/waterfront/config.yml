@@ -421,13 +421,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)

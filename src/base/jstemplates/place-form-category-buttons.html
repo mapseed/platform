@@ -1,0 +1,29 @@
+<!-- Template for dynamic form category selection buttons -->
+
+<div id="category-btns">
+  {{#each placeConfig.place_detail}}
+    {{#if this.isRenderable}}
+      <div class="category-btn-outer-container">
+				<input type="radio" 
+				       id={{ category }} 
+               name="category-radio-btns"
+				       class="category-btn" />
+				<label for={{ category }}
+				       class="category-btn-container">
+				  <span class="category-icon">
+				    <img src={{ icon_url }} />
+				  </span>
+          <span class="category-label-container">
+				    <span class="category-label">{{ label }}</span>
+            <span class="expansion-icon-container"></span>
+          </span>
+        </label>
+        {{#if horizontal_rule}}
+          <hr />
+        {{/if}}
+      </div>
+    {{/if}}
+  {{/each}}
+</div>
+<div style="clear:both"></div>
+<hr />

@@ -109,9 +109,13 @@ map:
       type: place
       slug: trees
 
-    - id: air
+    - id: vision
       type: place
-      slug: air
+      slug: vision
+
+    - id: restoration
+      type: place
+      slug: restoration
 
        # WRIA9 watershed
     - id: watershed
@@ -274,93 +278,100 @@ place_types:
   #       iconSize: [30, 36]
   #       iconAnchor: [15, 36]
 
+  icon_test:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: ""
+
   wetland:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
 
   park:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
 
   school:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
 
   police:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
 
   rail:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
 
   town-hall:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: '"{{marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_comp.png
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: '"{{marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_prog.png
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: '"{{marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
 
@@ -461,6 +472,14 @@ place_types:
   #     - condition: 'true'
   #       icon:
   #         iconUrl: /static/css/images/markers/dot-0d85e9.png
+
+  featured_place:
+    label: _(Featured Place)
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: ""
 
   observation:
     label: _(Observation)
@@ -597,7 +616,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -605,11 +624,7 @@ sidebar:
 
             - id: dirt-corps
               title: _(Dirt Corps sites)
-              visibleDefault: true
-
-            - id: dvyc
-              title: _(Youth Corps)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: story-markers
               title: _(Stories)
@@ -619,13 +634,9 @@ sidebar:
               title: _(Trees!)
               visibleDefault: false
 
-            - id: air
-              title: _(Air Watch Reports)
-              visibleDefault: false
-
             - id: vision
               title: _(Community Vision)
-              visibleDefault: false
+              visibleDefault: true
 
         - id: grp-land
           title: _(Land Data)
@@ -720,11 +731,14 @@ place:
 
   location_item_name: location
 
-
   #### begin dynamic form config ####
   place_detail:
     - category: mapbox
       includeOnForm: false
+      # NOTE: use this flag to prevent attachments from appearing in their usual
+      # place above place detail values. Useful if attachments have been added as
+      # Quill embeds.
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -745,6 +759,7 @@ place:
           optional: false
     - category: wetland
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -765,6 +780,7 @@ place:
           optional: false
     - category: park
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-parks_comp.png
@@ -785,6 +801,7 @@ place:
           optional: false
     - category: school
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-qual_comp.png
@@ -805,6 +822,7 @@ place:
           optional: false
     - category: police
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-safe_comp.png
@@ -825,6 +843,7 @@ place:
           optional: false
     - category: rail
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-transp_comp.png
@@ -845,6 +864,7 @@ place:
           optional: false
     - category: town-hall
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-hist_comp.png
@@ -865,6 +885,7 @@ place:
           optional: false
     - category: danger
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-construction.png
@@ -885,6 +906,7 @@ place:
           optional: false
     - category: park2
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-heart.png
@@ -905,6 +927,7 @@ place:
           optional: false
     - category: industrial
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-industrial.png
@@ -925,6 +948,7 @@ place:
           optional: false
     - category: bicycle
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-bike.png
@@ -945,6 +969,7 @@ place:
           optional: false
     - category: swimming
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-swimming.png
@@ -965,6 +990,7 @@ place:
           optional: false
     - category: theatre
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-art.png
@@ -985,6 +1011,7 @@ place:
           optional: false
     - category: zoo
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-whale.png
@@ -1003,6 +1030,50 @@ place:
           display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: duwamish
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Place)
+      fields:
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of your question:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _(My question:)
+          placeholder: _(Enter question...)
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
     - category: observation
       includeOnForm: true
       name: location_type
@@ -1013,12 +1084,14 @@ place:
       fields:
         - name: title
           type: text
+          autocomplete: true
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
         - name: pollution_type
           type: checkbox_big_buttons
+          autocomplete: true
           prompt: _(Types of pollution seen:)
           display_prompt: _(I saw the following types of pollution here:)
           content:
@@ -1033,8 +1106,20 @@ place:
             - label: _(Other)
               value: other
           optional: true # NOTE: checkbox_big_button inputs have no validation
+        - name: reside_work_georgetown
+          type: binary_toggle
+          autocomplete: true
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+          display_prompt: _(I reside or work in Georgetown or South Park:)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: true # NOTE: binary_toggle inputs have no validation
         - name: description
           type: textarea
+          autocomplete: true
           prompt: _(Description of this pollution:)
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
@@ -1054,8 +1139,8 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
-          prompt: "_(What's your question?)"
+          type: richTextarea
+          prompt: _(Description:)
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
     - category: idea
@@ -1394,7 +1479,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: false
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1408,7 +1493,7 @@ pages:
   - title: _(Stories)
     slug: stories
     name: stories
-    start_page: false
+    start_page: true
     hide_from_top_bar: true
 
   - title: _(Green Screen)

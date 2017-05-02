@@ -30,14 +30,24 @@ $button-right-arrow: '\f138';
 // Dynamic Form - Variables
 $icon-check-mark: "✔";
 $icon-expansion-hamburger: "";
+$icon-disclosure-triangle-down: "\f0d7";
+$icon-disclosure-triangle-left: "\f0d9";
 $unselected-highlight-light-gray: #D1D3D4;
 $unselected-message-light-gray: #999999;
 $unselected-highlight-medium-gray: #444444;
 $unselected-message-medium-gray: #EEEEEE;
 $selected-highlight-orange: rgb(242, 82, 24);
+$selected-highlight-orange-faded: rgba(242, 82, 24, 0.31);
 $selected-message-dark-gray: #222222;
 
 // Images - Variables
+
+// Content - Variables
+$border-radius-small: 3px;
+$border-radius-medium: 6px;
+$border-radius-large: 10px;
+$background-color-alert: #ffffe0;
+$background-color-warning: #ffb6c1;
 
 // ################################
 // NONSEMANTIC BASE STYLES - VARIABLES
