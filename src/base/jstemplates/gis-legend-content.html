@@ -37,6 +37,9 @@
                      {{#if visibleDefault}}
                      checked="checked"
                      {{/if}}
+                     {{#if constituentLayers}}
+                     data-constituent-layers="{{#each constituentLayers}}{{this}} {{/each}}"
+                     {{/if}}
                      class="map-legend-checkbox" type="checkbox"></input>
               <label for="map-{{ id }}">{{ title }}</label>
             </div>

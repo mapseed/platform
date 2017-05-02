@@ -1,6 +1,7 @@
 
   var Util = require('../utils.js');
   var Gatekeeper = require('../../libs/gatekeeper.js');
+  var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
 
   var TemplateHelpers = require('../template-helpers.js');
   var RichTextEditorView = require('mapseed-rich-text-editor-view');
@@ -97,6 +98,12 @@
         this.geometryEditorView.tearDown();
         this.options.appView.showNewPin();
       }
+      
+      this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
+        el: '#geocode-address-place-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
 
       this.initializeDatetimePicker();
       this.initializeRichTextFields();
