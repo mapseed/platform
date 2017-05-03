@@ -169,7 +169,7 @@
           this.geometryEditorView.render({
             $el: this.$el,
             style: this.model.get("style"),
-            geometryType: this.model.get("geometry").type,
+            layerType: this.model.get("geometry").type,
             existingLayerView: this.options.layerView,
             placeDetailView: this
           });

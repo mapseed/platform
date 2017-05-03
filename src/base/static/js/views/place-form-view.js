@@ -324,13 +324,9 @@
       this.formState.selectedCategoryConfig = 
         $.extend(true, this.formState.selectedCategoryConfig, categoryConfig);
 
-      if (_.find(this.formState.selectedCategoryConfig.fields, function(field) {
+      this.geometryEnabled = (_.find(this.formState.selectedCategoryConfig.fields, function(field) {
         return field.type === "geometryToolbar";
-      })) {
-        this.geometryEnabled = true;
-      } else {
-        this.geometryEnabled = false;
-      }
+      })) ? true : false;
       
       this.hideSilhouettes();
       this.hideCategorySeparator();

@@ -10,6 +10,11 @@ module.exports = Backbone.View.extend({
     "click .colorpicker": "onClickColorpicker",
     "change input[name='geometry']": "onIconSelection"
   },
+  canonicalGeometryNames: {
+    "marker": "Point",
+    "polygon": "Polygon",
+    "polyline": "Polyline"
+  },
   initialize: function() {
     var self = this;
 
@@ -44,7 +49,7 @@ module.exports = Backbone.View.extend({
     };
 
     // Init the colorpicker
-    $("body").append("<div class='toolbar-colorpicker-container'></div>");
+    $("body").append(Handlebars.templates["colorpicker-container"]());
     $(".toolbar-colorpicker-container").spectrum({
       flat: true,
       showButtons: false,
@@ -87,61 +92,21 @@ module.exports = Backbone.View.extend({
       self.onClickColorEditModeChange(evt);
     });
 
-    var generateGeometry = function(layer) {
-      var buildCoords = function(layer) {
-        var coordinates = [],
-            latLngs = layer.getLatLngs();
+    $("#content article").scroll(this.repositionColorpicker);
 
-        for (var i = 0; i < latLngs.length; i++) {
-          coordinates.push([latLngs[i].lng, latLngs[i].lat]);
-        }
-
-        return coordinates;
-      };
-
-      if (self.geometryType === "polygon" ||
-          self.geometryType === "rectangle" ||
-          self.geometryType === "Polygon") {
-        
-        var coordinates = buildCoords(layer),
-        latLngs = layer.getLatLngs();
-        
-        // Make sure the final polygon vertex exactly matches the first. The
-        // database will reject polygonal geometry otherwise.
-        coordinates.push([latLngs[0].lng, latLngs[0].lat]);
-        self.geometry = {
-          "type": "Polygon",
-          "coordinates": [coordinates]
-        }
-      } else if (self.geometryType === "polyline" ||
-          self.geometryType === "LineString") {
-        
-        var coordinates = buildCoords(layer);
-        self.geometry = {
-          "type": "LineString",
-          "coordinates": coordinates
-        }
-      } else if (self.geometryType === "marker" ||
-          self.geometryType === "Point") {
-
-        self.geometry = {
-          "type": "Point",
-          "coordinates": [layer._latlng.lng, layer._latlng.lat]
-        }
-      }
-    }
+    $(window).resize(this.repositionColorpicker);
 
     // ========== Drawing events ==========
     this.map.on("draw:drawvertex", function(evt) {
       self.numVertices++;
 
-      if (self.layerType === "polygon" && self.numVertices <= 2) {
+      if (self.layerType === "Polygon" && self.numVertices <= 2) {
         self.displayHelpMessage("draw-polygon-continue-msg");
-      } else if (self.layerType === "polygon" && self.numVertices > 2) {
+      } else if (self.layerType === "Polygon" && self.numVertices > 2) {
         self.displayHelpMessage("draw-polygon-finish-msg");
-      } else if (self.layerType === "polyline" && self.numVertices === 1) {
+      } else if (self.layerType === "Polyline" && self.numVertices === 1) {
         self.displayHelpMessage("draw-polyline-continue-msg");
-      } else if (self.layerType === "polyline" && self.numVertices > 1) {
+      } else if (self.layerType === "Polyline" && self.numVertices > 1) {
         self.displayHelpMessage("draw-polyline-finish-msg");
       }
     });
@@ -151,8 +116,8 @@ module.exports = Backbone.View.extend({
       self.setColorpicker();
       self.hideIconToolbar();
 
-      self.geometryType = evt.layerType;
-      generateGeometry(evt.layer);
+      self.layerType = self.canonicalGeometryNames[evt.layerType];
+      self.generateGeometry(evt.layer);
       self.editingLayerGroup.addLayer(evt.layer);
       self.swapToolbarVisibility();
       self.displayHelpMessage("modify-geometry-msg");
@@ -174,12 +139,45 @@ module.exports = Backbone.View.extend({
       evt.layers.eachLayer(function(layer) {
         
         // Really there's only one layer to iterate over here, because we have at
-        // most one layer in the editing layer group.
-        generateGeometry(layer);
+        // most one layer in the editing layer group. We enforce this idea by
+        // using _.once().
+        _.once(self.generateGeometry(layer));
       });
     });
 
     return this;
+  },
+
+  buildCoords: function(layer) {
+    var latLngs = layer.getLatLngs();
+
+    return latLngs.map(function(pair) { return [pair.lng, pair.lat]; });
+  },
+
+  generateGeometry: function(layer) {
+    if (this.layerType === "Polygon") {
+      var coordinates = this.buildCoords(layer),
+          latLngs = layer.getLatLngs();
+      
+      // Make sure the final polygon vertex exactly matches the first. The
+      // database will reject polygonal geometry otherwise.
+      coordinates.push([latLngs[0].lng, latLngs[0].lat]);
+      this.geometry = {
+        "type": "Polygon",
+        "coordinates": [coordinates]
+      }
+    } else if (this.layerType === "Polyline") {
+      var coordinates = this.buildCoords(layer);
+      this.geometry = {
+        "type": "LineString",
+        "coordinates": coordinates
+      }
+    } else if (this.layerType === "Point") {
+      this.geometry = {
+        "type": "Point",
+        "coordinates": [layer._latlng.lng, layer._latlng.lat]
+      }
+    }
   },
 
   // ========== Toolbar handlers ==========
@@ -202,20 +200,25 @@ module.exports = Backbone.View.extend({
 
     this.saveWorkingGeometry();
     this.updateColorpicker();
-    $(".sp-container")
-      .css("left", (evt.pageX - 100) + "px")
-      .css("top", (evt.pageY + 30) + "px")
+    $(window).trigger("resize");
     $(".sp-picker-container").toggleClass("hidden");
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.setDefaultCursor();
     this.isEditing = false;
   },
 
+  repositionColorpicker: function() {
+    $(".sp-container").css({
+      "left": ($("button.colorpicker").offset().left - 40) + "px",
+      "top": ($("button.colorpicker").offset().top - 5) + "px"
+    });
+  },
+
   onClickCreateMarker: function(evt) {
     evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
-    if (this.layerType === "marker") return;
+    if (this.layerType === "Point") return;
 
     this.resetWorkingGeometry();
     this.showIconToolbar();
@@ -225,14 +228,15 @@ module.exports = Backbone.View.extend({
       icon: new L.icon({
         iconUrl: this.iconUrl,
         
-        // TODO: these hard-coded values won't work for all icon types...
+        // NOTE: these icon parameters are suitable for round icons
+        // TODO: make this configurable
         iconSize: [25, 25],
         iconAnchor: [12.5, 12.5]
       })
     });
     this.workingGeometry.enable();
 
-    this.layerType = "marker";
+    this.layerType = "Point";
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-marker-geometry-msg");
     this.setEditingCursor();
@@ -244,7 +248,7 @@ module.exports = Backbone.View.extend({
     evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
-    if (this.layerType === "polyline") return;
+    if (this.layerType === "Polyline") return;
 
     this.resetWorkingGeometry();
 
@@ -257,7 +261,7 @@ module.exports = Backbone.View.extend({
     this.workingGeometry.enable();
 
     this.numVertices = 0;
-    this.layerType = "polyline";
+    this.layerType = "Polyline";
     this.hideIconToolbar();
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
@@ -269,7 +273,7 @@ module.exports = Backbone.View.extend({
     evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
-    if (this.layerType === "polygon") return;
+    if (this.layerType === "Polygon") return;
 
     this.resetWorkingGeometry();
 
@@ -284,7 +288,7 @@ module.exports = Backbone.View.extend({
     this.workingGeometry.enable();
     
     this.numVertices = 0;
-    this.layerType = "polygon";
+    this.layerType = "Polygon";
     this.hideIconToolbar();
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
@@ -302,22 +306,21 @@ module.exports = Backbone.View.extend({
       this.workingGeometry.save();
       this.resetWorkingGeometry();
       this.setGeometryToolbarHighlighting(evt.currentTarget);
-      if (this.geometryType === "marker" ||
-          this.geometryType === "Point") {
+      if (this.layerType === "Point") {
         this.displayHelpMessage("edit-marker-geometry-msg");
       } else {        
         this.displayHelpMessage("modify-geometry-msg");
       }
       this.setDefaultCursor();
       this.hideIconToolbar();
+      this.hideColorpicker();
       this.isEditing = false;
     } else {
       this.workingGeometry = new L.EditToolbar.Edit(this.map, {
         featureGroup: this.editingLayerGroup
       });
       this.workingGeometry.enable();
-      if (this.geometryType === "marker" ||
-          this.geometryType === "Point") {
+      if (this.layerType === "Point") {
         this.showIconToolbar();
         this.displayHelpMessage("edit-marker-geometry-msg");
       } else {        
@@ -354,7 +357,8 @@ module.exports = Backbone.View.extend({
     var icon = L.icon({
       iconUrl: this.iconUrl,
       
-      // TODO: these hard-coded values won't work for all icon types...
+      // NOTE: these icon parameters are suitable for round icons
+      // TODO: make this configurable
       iconSize: [25, 25],
       iconAnchor: [12.5, 12.5]
     });
@@ -441,23 +445,16 @@ module.exports = Backbone.View.extend({
   setGeometryToolbarHighlighting: function(currentTarget) {
     var target = this.$el.find(currentTarget);
 
-    if (target.hasClass("selected")) {
-      target.removeClass("selected");
-    } else {
-      target
-        .addClass("selected")
-        .siblings()
-        .removeClass("selected");
-    }
+    target.toggleClass("selected")
+      .siblings()
+      .removeClass("selected");
   },
 
   swapToolbarVisibility: function() {
     this.$geometryToolbarEdit.toggleClass("hidden");
     this.$geometryToolbarCreate.toggleClass("hidden");
 
-    if (this.geometryType === "Point" ||
-        this.geometryType === "marker") {
-
+    if (this.layerType === "Point") {
       this.$geometryToolbarEdit.find(".colorpicker").addClass("hidden");
     } else {
       this.$geometryToolbarEdit.find(".colorpicker").removeClass("hidden");
@@ -497,17 +494,17 @@ module.exports = Backbone.View.extend({
   },
 
   getLayerFromEditingLayerGroup: function() {
-    var returnLayer;
+    var returnLayers = [];
 
     // NOTE: we make an assumption here that our workingGeometry is a layer
     // group with only one layer in it, so the iteration below will return a
-    // single layer. This assumption is enforced by the UI: it's only possible
-    // to create a single piece of geometry before editing tools are displayed.
+    // single layer. In case there are more layers in the editingLayerGroup for
+    // some reason, we only return the first layer found.
     this.editingLayerGroup.eachLayer(function(layer) {
-      returnLayer = layer;
+      returnLayers.push(layer);
     });
 
-    return returnLayer;
+    return returnLayers[0];
   },
 
   // ========== Render and tear down ==========
@@ -532,7 +529,7 @@ module.exports = Backbone.View.extend({
       this.setColorpicker(args.style);
       this.changeLayerGroup(this.existingLayerView.layer, this.existingLayerView.layerGroup,
         this.editingLayerGroup);
-      this.geometryType = args.geometryType;
+      this.layerType = args.layerType;
       this.placeDetailView = args.placeDetailView;
       this.existingLayerView.isEditing = true;
       this.swapToolbarVisibility();
@@ -542,8 +539,7 @@ module.exports = Backbone.View.extend({
       this.$el.find(".delete-geometry").addClass("hidden");
       this.$el.find(".edit-geometry").trigger("click");
 
-      // TODO: reconcile "Point" with "marker"
-      if (this.geometryType === "Point") {
+      if (this.layerType === "Point") {
         this.showIconToolbar();
         this.setIconToolbarIcon();
       }
@@ -556,6 +552,8 @@ module.exports = Backbone.View.extend({
   tearDown: function() {
     var self = this;
     this.options.router.off("route", this.tearDown, this);
+    $(window).off("resize", this.repositionColorpicker);
+    $("#content article").off("scroll", this.repositionColorpicker);
 
     if (this.workingGeometry) {
       this.workingGeometry.revertLayers();

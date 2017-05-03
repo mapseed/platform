@@ -171,6 +171,7 @@
     },
 
     onDeleteResponse: function(evt) {
+      // TODO: this should be localized
       var response = confirm("You are deleting this comment permanently. Are you sure you want to continue?");
       if (response) {
         var cid = $(evt.target).parent().data("cid"),
