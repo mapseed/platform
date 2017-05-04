@@ -91,6 +91,10 @@ map:
       type: place
       slug: report
 
+    - id: andrewtest
+      type: place
+      slug: andrewtest
+
     - id: vision
       type: place
       slug: vision
@@ -634,6 +638,10 @@ sidebar:
               title: _(Community Vision)
               visibleDefault: true
 
+            - id: andrewtest
+              title: _(Featured Places)
+              visibleDefault: true
+
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
@@ -1032,7 +1040,7 @@ place:
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: duwamish
+      dataset: andrewtest
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
       label: _(Featured Place)
@@ -1056,15 +1064,15 @@ place:
             - url: /static/css/images/markers/marker-transp_prog.png
         - name: title
           type: text
-          prompt: _(Title of your question:)
-          display_prompt: _(Title:)
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
           placeholder: _(Enter title...)
           optional: false
         - name: description
           type: richTextarea
           prompt: _(Description:)
-          display_prompt: _(My question:)
-          placeholder: _(Enter question...)
+          display_prompt: _( )
+          placeholder: _( )
         - name: url-title
           type: url-title
           prompt: _(Choose a custom URL for this place:)
