@@ -195,7 +195,7 @@ module.exports = Backbone.View.extend({
     evt.preventDefault();
 
     this.saveWorkingGeometry();
-    this.resetWorkingGeometry();
+    this.disableWorkingGeometry();
     this.updateColorpicker();
     $("#content article")
       .off("srcoll", this.repositionColorpicker)
@@ -368,11 +368,9 @@ module.exports = Backbone.View.extend({
 
     if (this.isEditing) {
       this.workingGeometry.save();
-      this.resetWorkingGeometry();
+      this.disableWorkingGeometry();
       this.getLayerFromEditingLayerGroup().setIcon(icon);
-      this.workingGeometry = new L.EditToolbar.Edit(this.map, {
-        featureGroup: this.editingLayerGroup
-      });
+      this.buildWorkingGeometry();
       this.workingGeometry.enable();
     } else {
       this.workingGeometry.options.icon.options.iconUrl = this.iconUrl;
@@ -412,6 +410,13 @@ module.exports = Backbone.View.extend({
     }
   },
 
+  disableWorkingGeometry: function() {
+    if (this.workingGeometry) {
+      this.workingGeometry.disable();
+      this.workingGeometry = null;
+    }
+  },
+
   updateColorpicker: function() {
     $(".toolbar-colorpicker-container").spectrum("set",
       tinycolor(this.colorpickerSettings[this.DRAWING_DEFAULTS[this.colorpickerSettings.editMode].color])
@@ -421,7 +426,16 @@ module.exports = Backbone.View.extend({
   saveWorkingGeometry: function() {
     if (this.workingGeometry) {
       this.workingGeometry.save();
+    } else {
+      this.buildWorkingGeometry();
+      this.workingGeometry.save();
     }
+  },
+
+  buildWorkingGeometry: function() {
+    this.workingGeometry = new L.EditToolbar.Edit(this.map, {
+      featureGroup: this.editingLayerGroup
+    });
   },
 
   displayHelpMessage: function(msg) {
