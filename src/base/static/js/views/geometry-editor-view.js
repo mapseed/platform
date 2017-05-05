@@ -195,6 +195,7 @@ module.exports = Backbone.View.extend({
     evt.preventDefault();
 
     this.saveWorkingGeometry();
+    this.resetWorkingGeometry();
     this.updateColorpicker();
     $("#content article")
       .off("srcoll", this.repositionColorpicker)
