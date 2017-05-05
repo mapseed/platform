@@ -92,10 +92,6 @@ module.exports = Backbone.View.extend({
       self.onClickColorEditModeChange(evt);
     });
 
-    $("#content article").scroll(this.repositionColorpicker);
-
-    $(window).resize(this.repositionColorpicker);
-
     // ========== Drawing events ==========
     this.map.on("draw:drawvertex", function(evt) {
       self.numVertices++;
@@ -200,7 +196,13 @@ module.exports = Backbone.View.extend({
 
     this.saveWorkingGeometry();
     this.updateColorpicker();
-    $(window).trigger("resize");
+    $("#content article")
+      .off("srcoll", this.repositionColorpicker)
+      .scroll(this.repositionColorpicker);
+    $(window)
+      .off("resize", this.repositionColorpicker)
+      .resize(this.repositionColorpicker)
+      .trigger("resize");
     $(".sp-picker-container").toggleClass("hidden");
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.setDefaultCursor();
