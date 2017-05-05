@@ -403,7 +403,7 @@
         this.geometryEditorView.saveWorkingGeometry();
         attrs.geometry = this.geometryEditorView.geometry || this.model.get("geometry");
         
-        if (attrs.geometry.type === "Polygon" || attrs.geometry.type === "Polyline") {
+        if (attrs.geometry.type === "Polygon" || attrs.geometry.type === "LineString") {
           attrs.style = {
             color: this.geometryEditorView.colorpickerSettings.color,
             opacity: this.geometryEditorView.colorpickerSettings.opacity,

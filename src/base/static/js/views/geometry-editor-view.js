@@ -13,7 +13,7 @@ module.exports = Backbone.View.extend({
   canonicalGeometryNames: {
     "marker": "Point",
     "polygon": "Polygon",
-    "polyline": "Polyline"
+    "polyline": "LineString"
   },
   initialize: function() {
     var self = this;
@@ -100,9 +100,9 @@ module.exports = Backbone.View.extend({
         self.displayHelpMessage("draw-polygon-continue-msg");
       } else if (self.layerType === "Polygon" && self.numVertices > 2) {
         self.displayHelpMessage("draw-polygon-finish-msg");
-      } else if (self.layerType === "Polyline" && self.numVertices === 1) {
+      } else if (self.layerType === "LineString" && self.numVertices === 1) {
         self.displayHelpMessage("draw-polyline-continue-msg");
-      } else if (self.layerType === "Polyline" && self.numVertices > 1) {
+      } else if (self.layerType === "LineString" && self.numVertices > 1) {
         self.displayHelpMessage("draw-polyline-finish-msg");
       }
     });
@@ -162,7 +162,7 @@ module.exports = Backbone.View.extend({
         "type": "Polygon",
         "coordinates": [coordinates]
       }
-    } else if (this.layerType === "Polyline") {
+    } else if (this.layerType === "LineString") {
       var coordinates = this.buildCoords(layer);
       this.geometry = {
         "type": "LineString",
@@ -251,7 +251,7 @@ module.exports = Backbone.View.extend({
     evt.preventDefault();
 
     // Prevent repeat clicks on the same geometry drawing tool
-    if (this.layerType === "Polyline") return;
+    if (this.layerType === "LineString") return;
 
     this.resetWorkingGeometry();
 
@@ -264,7 +264,7 @@ module.exports = Backbone.View.extend({
     this.workingGeometry.enable();
 
     this.numVertices = 0;
-    this.layerType = "Polyline";
+    this.layerType = "LineString";
     this.hideIconToolbar();
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
