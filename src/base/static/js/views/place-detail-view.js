@@ -186,6 +186,7 @@
           (fieldData.name && fieldData.name.indexOf('private-') !== 0) &&
           fieldData.hasValue && 
           fieldData.form_only !== true &&
+          fieldData.name !== "url-title" &&
           fieldData.type !== "submit"
       },
       fieldIsValidForEditor = function(fieldData) {

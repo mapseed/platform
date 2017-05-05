@@ -85,10 +85,10 @@
 
     {{#each fields}}
       <div class="place-item place-item-{{ name }}">
-        <div class="place-label place-label-{{ name }}">{{ prompt }}</div>
         {{#if ../isEditingToggled}}
           {{> place-form-field-types}}
         {{else}}
+          <div class="place-label place-label-{{ name }}">{{ display_prompt }}</div>
           {{> place-detail-field-types}}
         {{/if}}
         <div style="clear:both"></div>
