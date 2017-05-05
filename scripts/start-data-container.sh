@@ -4,7 +4,8 @@ cd /platform
 echo 'starting build...'
 echo 'pwd:'
 pwd
-npm run build
+NODE_ENV=production npm i
+NODE_ENV=production npm run build
 echo 'starting static file collection...'
 python /platform/src/manage.py collectstatic --noinput
 echo 'whoami:'

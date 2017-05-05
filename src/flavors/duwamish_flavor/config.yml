@@ -69,13 +69,6 @@ map:
       attribution: 'Hello World'
       type: basemap
 
-    # Legend Layers
-    - id: restoration
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      type: landmark
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
     - id: dirt-corps
       type: landmark
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks      
@@ -93,6 +86,20 @@ map:
       type: place
       slug: report
 
+    - id: vision
+      type: place
+      slug: vision
+
+    - id: dvyc
+      type: landmark
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks      
+      sources: 
+        - "https://raw.githubusercontent.com/mapseed/data/master/dvyc.geojson"
+
+    - id: restoration
+      type: place
+      slug: restoration
+
     - id: trees
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees
       type: place
@@ -102,12 +109,6 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
       type: place
       slug: air
-
-    - id: vision
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-      type: landmark
 
        # WRIA9 watershed
     - id: watershed
@@ -201,10 +202,6 @@ map:
             fill: false
             stroke: false
 
-    - id: esri-test
-      type: esri-feature
-      url: "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17"
-
 # The keys show up in the dropdown list when you are adding a new place
 
 # The values map the place type to map icons (defined below).
@@ -277,89 +274,90 @@ place_types:
   wetland:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+      - condition: '"{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_comp.png
 
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
+      - condition: '"{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_prog.png
 
-      - condition: '"{{properties.marker-color}}" == "f86767"'
+      - condition: '"{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
+
   park:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+      - condition: '"{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_comp.png
 
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
+      - condition: '"{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_prog.png
 
-      - condition: '"{{properties.marker-color}}" == "f86767"'
+      - condition: '"{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
 
   school:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+      - condition: '"{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_comp.png
 
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
+      - condition: '"{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_prog.png
 
-      - condition: '"{{properties.marker-color}}" == "f86767"'
+      - condition: '"{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
 
   police:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+      - condition: '"{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_comp.png
 
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
+      - condition: '"{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_prog.png
 
-      - condition: '"{{properties.marker-color}}" == "f86767"'
+      - condition: '"{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
 
   rail:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+      - condition: '"{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_comp.png
 
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
+      - condition: '"{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_prog.png
 
-      - condition: '"{{properties.marker-color}}" == "f86767"'
+      - condition: '"{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
 
   town-hall:
     zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{properties.marker-color}}" == "a3e46b"'
+      - condition: '"{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_comp.png
 
-      - condition: '"{{properties.marker-color}}" == "f1f075"'
+      - condition: '"{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_prog.png
 
-      - condition: '"{{properties.marker-color}}" == "f86767"'
+      - condition: '"{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
 
@@ -369,19 +367,19 @@ place_types:
     # LineString
       - condition: '"{{geometry.type}}" == "LineString"'
         style:
-          color: "{{properties.stroke}}"
-          opacity: '{{properties.stroke-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          color: "{{style.color}}"
+          opacity: "{{style.opacity}}"
+          weight: "{{style.weight}}"
     # Polygons
       - condition: '"{{geometry.type}}" == "Polygon"'
         style:
           shapeType: polygon
-          fillColor: "{{properties.fill}}"
+          fillColor: "{{style.fillColor}}"
           fill: 'true'
-          color: "{{properties.stroke}}"
+          color: "{{style.color}}"
           opacity: 0.7
-          fillOpacity: '{{properties.fill-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          fillOpacity: '{{style.fillOpacity}}'
+          weight: "{{style.weight}}"
 
   danger:
     zoomType: mapboxZoomStyle
@@ -445,6 +443,13 @@ place_types:
       - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-dirtcorps.png
+
+  star:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
 
   # # needs a marker
   # farm:
@@ -599,6 +604,10 @@ sidebar:
               title: _(Dirt Corps sites)
               visibleDefault: true
 
+            - id: dvyc
+              title: _(Youth Corps)
+              visibleDefault: true
+
             - id: story-markers
               title: _(Stories)
               visibleDefault: false
@@ -711,6 +720,286 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: mapbox
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-land_comp.png
+      value: mapbox
+      label: _(Mapbox)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: wetland
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-land_comp.png
+      value: wetland
+      label: _(Wetland)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: park
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-parks_comp.png
+      value: park
+      label: _(Park)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: school
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-qual_comp.png
+      value: school
+      label: _(School)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: police
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-safe_comp.png
+      value: police
+      label: _(Police)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: rail
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-transp_comp.png
+      value: rail
+      label: _(Rail)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: town-hall
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-hist_comp.png
+      value: town-hall
+      label: _(Town Hall)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: danger
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-construction.png
+      value: danger
+      label: _(Danger)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: park2
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-heart.png
+      value: park2
+      label: _(Park2)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: industrial
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-industrial.png
+      value: industrial
+      label: _(Industrial)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: bicycle
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-bike.png
+      value: bicycle
+      label: _(Bicycle)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: swimming
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-swimming.png
+      value: swimming
+      label: _(Swimming)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: theatre
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-art.png
+      value: theatre
+      label: _(Theatre)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: zoo
+      includeOnForm: false
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-whale.png
+      value: zoo
+      label: _(Zoo)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your observation:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this pollution:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
     - category: observation
       includeOnForm: true
       name: location_type

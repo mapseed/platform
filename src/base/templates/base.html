@@ -45,7 +45,7 @@
   <!-- jQuery date-time picker plugin -->
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
   {% else %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css?ver=0.7.4.1"></link>
+  <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css?ver=0.7.5.0"></link>
   {% endif %}
 
   <!-- Flavor's Custom Stylesheet -->
@@ -200,6 +200,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/esri-leaflet/1.0.3/esri-leaflet.js"></script>
+  <script src="//cdn.jsdelivr.net/leaflet.esri.renderers/1.0.0/esri-leaflet-renderers.js"></script>
   <script src="//cdn.quilljs.com/1.1.4/quill.js"></script>
   <!-- jQuery date-time picker plugin -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.3/build/jquery.datetimepicker.full.js"></script>
@@ -215,6 +216,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/esri-leaflet/1.0.3/esri-leaflet.js"></script>
+  <script src="//cdn.jsdelivr.net/leaflet.esri.renderers/1.0.0/esri-leaflet-renderers.js"></script>
   <script src="//cdn.quilljs.com/1.1.4/quill.min.js"></script>
   <!-- jQuery date-time picker plugin -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.3/build/jquery.datetimepicker.full.min.js"></script>
@@ -229,7 +231,6 @@
   <script src="{{STATIC_URL}}libs/exif.js"></script>
   <script src="{{STATIC_URL}}libs/gatekeeper.js"></script>
   <script src="{{STATIC_URL}}libs/swag.min.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   
   <script>
@@ -284,8 +285,7 @@
     }
   </script>
 
-  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.4.1"></script>
-  
+  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.5.0"></script>
   <!--
   TODO: How did these work? Need to test
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>

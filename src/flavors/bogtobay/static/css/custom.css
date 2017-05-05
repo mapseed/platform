@@ -4,48 +4,18 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-@font-face {
-  font-family: 'Sigmar One';
-  src: url('SigmarOne.otf');
-}
-
 #site-title a:link,
 #site-title a:visited {
-  color: #c5dea3 !important;
-  font-weight: normal;
-  font-family: 'Sigmar One', 'Arial Black', sans-serif !important;
-  display: block;
-  float: left;
-  width: 350px;
-  height: 50px;
-  overflow: hidden;
-  text-shadow:
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;
+  width: 251px;
 }
-
-.menu-item a {
-  color: white !important;
-  letter-spacing: 0.1em;
-  text-shadow:
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;
-}
-
 
 /* =Header
 -------------------------------------------------------------- */
 @media only screen and (min-width: 60em) {
   #site-header {
-    background: url(images/longfellow_creek1.jpg);
-  }
-
-  #site-title {
-    margin-left: 65px;
+    /*background: url(images/longfellow_creek1.jpg);*/
+    background: none;
+    background-color: #FFF;
   }
 
   .content-visible #main-btns-container {
@@ -64,6 +34,160 @@
   }
 }
 
+/* =Custom pledge type icons
+-------------------------------------------------------------- */
+#poopscoop + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f014";
+}
+
+#naturalyard + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f06c";
+}
+
+#carwash + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.7em;
+  content: "\f1b9";
+}
+
+#oilleaks + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f0ad";
+}
+
+#planttrees + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f1bb";
+}
+
+#stormdrains + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.9em;
+  content: "\f043";
+}
+
+#spreadword + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "\f0a1";
+}
+
+/* =Dynamic form big button overrides
+-------------------------------------------------------------- */
+.big-btn + label {
+  color: #555;
+}
+
+.big-btn:checked + label:before {
+  font-weight: normal !important;
+  color: #FFF !important;
+}
+
+.form-field label {
+  font-size: 1em;
+}
+
+.fileinput-container {
+  width: 150px !important;
+  font-size: 0.9em;
+}
+
+/* =Leaflet sidebar overrides
+-------------------------------------------------------------- */
+.map-legend-grouping-checkbox {
+  -ms-transform: scale(1.4); /* IE */
+  -moz-transform: scale(1.4); /* FF */
+  -webkit-transform: scale(1.4); /* Safari and Chrome */
+  -o-transform: scale(1.4); /* Opera */
+  transform: scale(1.4);
+}
+
+.layer-type-grouping-title, .map-legend-grouping-checkbox + label {
+  font-size: 1.1em;
+  font-weight: bold;
+  vertical-align: middle;
+  padding-left: 8px;
+}
+
+.map-legend-basemap-radio + label, .map-legend-checkbox + label {
+  font-size: 1.1em;
+}
+
+
+/* =Grid-based layout on about page
+Adapted from http://littlesnippets.net/snip1579/
+-------------------------------------------------------------- */
+.snip1579 {
+  font-family: Roboto, sans-serif;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+  width: 45%;
+  background-color: #000000;
+  color: #ffffff;
+  text-align: left;
+  font-size: 14px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+.snip1579 * {
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.snip1579 img {
+  vertical-align: top;
+  min-width: 100%;
+}
+.snip1579 figcaption {
+  position: absolute;
+  height: 30px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  overflow: hidden;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.snip1579 h3 {
+  text-transform: uppercase;
+  font-size: 1em;
+  line-height: 1em;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+.snip1579 h5 {
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+  color: #bbb;
+  letter-spacing: 1px;
+}
+.snip1579 blockquote {
+  padding: 0;
+  margin: 0;
+  font-style: italic;
+  font-size: 1em;
+}
+.snip1579 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.snip1579:hover figcaption,
+.snip1579.hover figcaption {
+  height: calc(80%);
+}
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
@@ -72,15 +196,13 @@
 @media only screen and (max-width: 60em) {
   #site-header {
     background: none;
-    background-color: #605245;
+    background-color: #FFF;
   }
 
   #site-title a:link,
   #site-title a:visited {
-    margin-top: 5px !important;
-    width: 180px;
-    height: 25px;
     background-size: 180px auto;
+    width: 200px;
   }
   #place-form-type-choice {
     padding-bottom: 1em;
@@ -93,15 +215,21 @@
       margin: 0;
       border: 2px solid white;
   }
+
+  .snip1579 {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 70%;
+    margin-bottom: 8px;
+  }
 }
 
 @media only screen and (max-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
-    width: 180px;
-    height: 25px;
     background-size: 180px auto;
-    margin: 10px 0 0 0;
+    margin-top: 5px;
   }
 }
 

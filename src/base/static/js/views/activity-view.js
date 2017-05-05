@@ -196,10 +196,16 @@
         // Get the place that the action is about.
         if (isPlaceAction) {
           placeData = actionModel.get('target');
+          if (placeData.title) {
+            placeData.name = placeData.title;
+          }
           actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
           placeData = placeModel.toJSON();
+          if (placeData.title) {
+            placeData.name = placeData.title; 
+          }
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
@@ -211,9 +217,7 @@
               // skip supports if they're configured not to be shown
               return;
             } 
-            
-            // show associated place model title instead of generic support text 
-            placeData.name = placeData.title;
+
             actionText = this.options.supportConfig.action_text;
             anonSubmitterName = this.options.supportConfig.anonymous_name;
           }

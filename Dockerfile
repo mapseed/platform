@@ -22,7 +22,7 @@ RUN apt-get install -y python-distribute python-pip python-dev
 RUN apt-get install -y postgresql libpq-dev
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout 0.7.4 && cd -
+RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout 0.7.5 && cd -
 
 # local testing:
 # ADD . platform

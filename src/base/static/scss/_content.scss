@@ -183,6 +183,20 @@ a.minimize-btn {
     background: url(images/facebook-32.png) 0 0 no-repeat scroll;
 }
 
+// styles for configuring the promotion bar to appear on one line
+.promotion.single-line {
+    margin-bottom: 0;
+}
+
+.support.single-line {
+    float: right;
+    margin-left: 10px;
+}
+
+.social.single-line {
+    float: left;
+}
+
 // Places - Selectors
 
 .place-header {
@@ -191,6 +205,10 @@ a.minimize-btn {
     a {
         text-decoration: none;
     }
+}
+
+.place-item {
+    margin-bottom: 20px;
 }
 
 .place-items {

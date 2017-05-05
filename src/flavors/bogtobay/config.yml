@@ -305,12 +305,34 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-tree.png      
 
-  pledge:
+  stormwater-pledge:
     zoomType: teardropZoomStyle
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-pledge-2.png
+          iconUrl: /static/css/images/markers/marker-pledge-3.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  conservation-pledge:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-4.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+  wastewater-pledge:
+    zoomType: teardropZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-pledge-5.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
@@ -529,10 +551,10 @@ sidebar:
           visibleDefault: false
         - id: satellite
           title: _(Satellite View)
-          visibleDefault: false
+          visibleDefault: true
         - id: light
           title: _(Light)
-          visibleDefault: true
+          visibleDefault: false
         - id: outdoor
           title: _(Outdoor)
           visibleDefault: false
@@ -648,13 +670,13 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: pledge
+    - category: stormwater-pledge
       includeOnForm: true
       name: location_type
       dataset: bogtobay
-      icon_url: /static/css/images/markers/marker-pledge-2.png
-      value: pledge
-      label: _(Stewardship Pledge)
+      icon_url: /static/css/images/markers/marker-pledge-3.png
+      value: stormwater-pledge
+      label: _(Stormwater Pledge)
       fields:
         - name: title
           type: text
@@ -683,6 +705,46 @@ place:
               value: spreadword
           optional: true 
            # NOTE: checkbox_big_button inputs have no validation
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+    - category: conservation-pledge
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-4.png
+      value: conservation-pledge
+      label: _(Water Conservation Pledge)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
+        - name: comments
+          type: textarea
+          prompt: _(Additional comments:)
+          display_prompt: _( )
+          placeholder: _(Enter comments...)
+          optional: false
+    - category: wastewater-pledge
+      includeOnForm: true
+      name: location_type
+      dataset: bogtobay
+      icon_url: /static/css/images/markers/marker-pledge-5.png
+      value: wastewater-pledge
+      label: _(Wastewater Pledge)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Post title:)
+          display_prompt: _( )
+          placeholder: _(Enter title)
+          optional: false
         - name: comments
           type: textarea
           prompt: _(Additional comments:)
@@ -1025,11 +1087,12 @@ pages:
     hide_from_top_bar: true
 
 story:
-  dirtcorps:
+  bogtobay:
     tagline: _(Next featured site)
-    default_zoom: 17
+    default_zoom: 18
     default_visible_layers:
       - stories
+      - watershed
     order:
       # - url: dirtcorps
       #   zoom: 15
@@ -1040,10 +1103,20 @@ story:
       #   visible_layers:
       #     - dirt-corps
       #   basemap: terrain
+      - url: longfellow
+        zoom: 14
+        basemap: satellite
       - url: greenroof
         zoom: 18
         basemap: satellite
       - url: bioswale
-      - url: longfellow
-        zoom: 14
-        basemap: light
+        zoom: 18
+      - url: barton
+        spotlight: false
+      - url: watershed
+        zoom: 10
+        spotlight: false
+        panTo:
+          lat: 47.28482
+          lng: -121.74225
+        basemap: outdoor

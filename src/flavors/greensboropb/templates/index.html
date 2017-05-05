@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block site-title %}
+<a href="http://www.greensboro-nc.gov/index.aspx?page=4796"><img id="site-logo" src="/static/css/images/pbgreensboro-logobanner.png"></a>
+
+<!--Typekit embed code-->
+<script src="https://use.typekit.net/mon5qsx.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+{% endblock %}
+
+{% block meta %}
+  {% if place %}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ place.properties.name }}">
+    <meta name="twitter:description" content="{{ place.properties.description }}">
+    {% with attachment=place.properties.attachments|first %}
+    <meta name="twitter:image:src" content="{{ attachment.file }}">
+    {% endwith %}
+    {% comment %} TODO: Fill this in when we know if the username is from twitter
+      <meta name="twitter:creator" content="place.submitter.username">
+    {% endcomment %}
+
+    <!-- Facebook -->
+    <meta property="og:site_name" content="{{ config.app.title }}" />
+    <meta property="og:title" content="{{ place.properties.name }}" />
+    <meta property="og:description" content="{{ place.properties.description }}" />
+    {% with attachment=place.properties.attachments|first %}
+    <meta name="og:image" content="{{ attachment.file }}">
+    {% endwith %}
+  {% else %}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ config.app.title }}">
+    <meta name="twitter:description" content="{{ config.app.meta_description }}">
+
+    <!-- Facebook -->
+    <meta property="og:site_name" content="{{ config.app.title }}" />
+    <meta property="og:title" content="{{ config.app.title }}" />
+    <meta property="og:description" content="{{ config.app.meta_description }}" />
+  {% endif%}
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block app_icons %}
+  <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
+  <link rel="icon" href="{{ config.static_url }}css/images/greensboro-logo-small.png">
+  <link rel="shortcut icon" href="{{ config.static_url }}css/images/greensboro-logo-simple.png">
+  <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/greensboro-logo-simple.png">
+{% endblock %}
+
+<!--
+  This will place content at the top of the side bar
+ -->
+{% block sidebar %}
+
+<!-- <ul class="legend">
+  <li class="clearfix"><img src="/static/css/images/markers/new/fountain-small.png" width="25" height="30"> {% trans 'Art &amp; Culture' %}</li>
+  <li class="clearfix"><img src="/static/css/images/markers/new/playground-small.png" width="25" height="30"> {% trans 'Parks &amp; Recreation' %}</li>
+  <li class="clearfix"><img src="/static/css/images/markers/new/street-sidewalk-small.png" width="25" height="30"> {% trans 'Streets &amp; Sidewalks' %}</li>
+  <li class="clearfix"><img src="/static/css/images/markers/new/health-small.png" width="25" height="30"> {% trans 'Public Health' %}</li>
+  <li class="clearfix"><img src="/static/css/images/markers/new/safety-small.png" width="25" height="30"> {% trans 'Safety &amp; Environment' %}</li>
+  <li class="clearfix"><img src="/static/css/images/markers/new/idea-small.png" width="25" height="30"> {% trans 'Other' %}</li>
+</ul> -->
+{% endblock %}
+
+<!--
+  This will place content in the colophon below the map
+ -->
+{% block colophon %}
+<p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a>.</span></p>
+{% endblock %}
+
+<!--
+  Analytics, custom JS, and such go here
+ -->
+{% block includes %}
+<script>
+// var mapbox_geocode = Shareabouts.Util.Mapbox.geocode;
+// Shareabouts.Util.Mapbox.geocode = function(location, bounds, options) {
+//   // Since this is all Chicago-specific, go ahead and specify the city.
+//   if (location.toLowerCase().indexOf('greensboro') === -1 && location.toLowerCase().indexOf(' nc') === -1) {
+//     location += ', Greensboro, NC'
+//   }
+//   return mapbox_geocode.call(this, location, bounds, options);
+// }
+
+// var placeFormView_setLocation = Shareabouts.PlaceFormView.prototype.setLocation;
+// Shareabouts.PlaceFormView.prototype.setLocation = function(locationData) {
+//   placeFormView_setLocation.call(this, locationData);
+
+//   var $placeNameField = this.$('[name="name"]'),
+//       $approxAddress = $placeNameField.next(),
+//       $district;
+
+//   if ($approxAddress.length === 0) {
+//     $approxAddress = $('<p class="approx-address"></p>').insertAfter($placeNameField);
+//   }
+
+//   $approxAddress.html(
+//     '<br/><span class="address-label">{% trans 'Approximate location:' %}</span> ' +
+//     '<div class="district-display"></div>' +
+//     '<div class="address-display">' +
+//       Handlebars.templates['location-string'](locationData) +
+//     '</div>');
+
+//   $district = $approxAddress.find('.district-display');
+
+//   $.ajax({
+//     url: 'https://shareabouts-region-service.herokuapp.com/api/v1/greensboro/districts-2015?ll=' + locationData.latLng.lat + ',' + locationData.latLng.lng,
+//     success: function(data) {
+//       var closedDistricts = []
+
+//       $district.html('{% trans 'District' %} ' + data['DISTRICT'] + ', ' + '{% trans 'Council Member' %} ' + data['MEMBER']);
+
+//       // Let the user know if the district they're trying to leave an idea in
+//       // has already closed its PB period.
+//       if (_(closedDistricts).contains(data['CounDist'])) {
+//         $district.prepend('<span class="closed-district">{% trans 'Please note that the input period for this district is over for 2015.' %}</span> ');
+//         $('#save-place-btn').prop('disabled', true);
+//       } else {
+//         $('#save-place-btn').prop('disabled', false);
+//       }
+//     },
+//     error: function() {
+//       $district.html('{% trans '(Outside of the PB districts)' %}');
+//     }
+//   });
+// }
+</script>
+
+<!-- zoom to marker on click -->
+<script>
+  // (function(NS, $) {
+
+  //   $(Shareabouts).on('panelshow', function(evt, app, path) {
+  //     // $( "<br/><small>{% trans 'Note: Council district staff will review idea categories and make any revisions as needed.' %}</small>" ).insertAfter( "#place-location_type" );
+  //   });
+
+  //   var originalOnMarkerClick = Shareabouts.LayerView.prototype.onMarkerClick;
+  //   NS.LayerView.prototype.onMarkerClick = function(evt) {
+  //     var self = this;
+  //     originalOnMarkerClick.apply(this, arguments);
+  //     if (this.map.getZoom() < this.map.getMaxZoom()-3) {
+  //       _.delay(function() {
+  //         self.map.setView(evt.latlng, self.map.getMaxZoom()-3, {
+  //           animate: true
+  //         });
+
+  //         self.map.invalidateSize({ animate:false, pan:false });
+  //       }, 200);
+  //     }
+  //   }
+
+  // }(Shareabouts, jQuery));
+</script>
+{% endblock %}

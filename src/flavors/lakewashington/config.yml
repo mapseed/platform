@@ -52,7 +52,7 @@ map:
     - id: areas-of-interest
       url: "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks"
       sources:
-        - "https://a.tiles.mapbox.com/v4/lakewashington.p9ccgp63/features.json?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w"
+        - "https://raw.githubusercontent.com/mapseed/data/master/lake-wa-data.geojson"
       type: landmark
       visibleDefault: true
 

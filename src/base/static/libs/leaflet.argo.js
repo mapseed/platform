@@ -1,8 +1,10 @@
 /*globals $ L*/
 
 /*
- * L.Argo turns any GeoJSON data into a Leaflet layer.
+ * Argo turns any GeoJSON data into a Leaflet layer.
  */
+
+var parse = require('./static-parser.js');
 
 L.Argo = L.GeoJSON.extend({
 
@@ -156,10 +158,10 @@ L.extend(L.Argo, {
     // Cycle through rules until we hit a matching condition
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
-      // this is so we don't have to worry about strings vs nums.
+      // this is so we don't have to worry about strings vs nums.      
       condition = L.Argo.t(rules[i].condition, properties.style);
 
-      if (eval(condition)) {
+      if (parse.staticParse(condition)) {
         // The new property values (outlined in the config) are added for Leaflet compatibility
         // Format marker icon features
         if (rules[i].icon) {
@@ -183,7 +185,7 @@ L.extend(L.Argo, {
       // this is so we don't have to worry about strings vs nums.
       condition = L.Argo.t(rules[i].condition, properties);
 
-      if (eval(condition)) {
+      if (parse.staticParse(condition)) {
         // The new property values (outlined in the config) are added for Leaflet compatibility
         for (var key in rules[i].style) {
           if (rules[i].style.hasOwnProperty(key)) {
