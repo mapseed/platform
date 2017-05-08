@@ -54,6 +54,59 @@ var self = module.exports = {
       return isAdmin;
     },
 
+    getPathname: function(model) {
+      if (model.get("url-title")) {
+        return model.get("url-title");
+      } else if (model.get("datasetSlug")) {
+        return model.get("datasetSlug") + "/" + model.get("id");
+      } else {
+        return model.get("id");
+      }
+    },
+
+    onSocialShare: function(model, service) {
+      var appConfig = Shareabouts.Config.app,
+          title = model.get("title") ||
+                  model.get("name") || 
+                  appConfig.title,
+          desc = model.get("description") || 
+                        appConfig.meta_description,
+          protocol = window.location.protocol,
+          host = window.location.host,
+          pathname = this.getPathname(model),
+          img = (model.attachmentCollection.models.length > 0) ?
+                 model.attachmentCollection.models[0].get("file") :
+                 protocol + "//" + host + appConfig.thumbnail,
+          redirectUrl = [protocol, "//", host, "/", pathname].join(""),
+          // shareUrl = "http://social.mapseed.org",
+          // TEMPORARY
+          // shareUrl = "http://52f34701.ngrok.io/" + Date.now(),
+          shareUrl = "http://52f34701.ngrok.io/",
+          queryString = [  
+            "?url=", redirectUrl,
+            "&title=", title,
+            "&img=", img,
+            "&desc=", desc
+          ].join("");
+
+      // if (service === "twitter") {
+      //   shareUrl = ["https://twitter.com/intent/tweet?url=",
+      //               shareUrl].join("");
+      //               // "&text=",
+      //               // title].join("");
+      // } else if (service === "facebook") {
+      //   shareUrl = ["https://www.facebook.com/sharer/sharer.php?u=",
+      //               shareUrl].join("");
+      // }
+
+      if (service === "facebook") {
+        FB.ui({
+          method: 'share',
+          href: shareUrl + queryString
+        }, function(response){});
+      }
+    },
+
     // Given the information provided in a url (that is, an id and possibly a slug),
     // attempt to find the corresponding model within all collections on the page.
     // Three conditions are possible:
