@@ -210,6 +210,23 @@ select {
     font-size: 0.8em;
 }
 
+/* publish control */
+.publish-control-container {
+    text-align: center;
+    
+    label {
+        display: inline-block;
+        float: none;
+        &:before {
+            text-indent: 0 !important;
+        }
+    }
+
+    .helper-messages {
+        margin-top: 5px;
+    }
+}
+
 /* Place form silhouettes */
 .place-form-silhouettes {
     padding: 25px;

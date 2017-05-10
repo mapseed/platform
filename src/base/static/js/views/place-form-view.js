@@ -13,6 +13,7 @@
       'change .category-btn': 'onCategoryChange',
       'click .expansion-icon-container': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
+      'change .publish-control-container input': 'onPublishedStateChange',
       'click .btn-geolocate': 'onClickGeolocate',
       'keyup input[name="url-title"]': 'onUpdateUrlTitle'
     },
@@ -83,6 +84,10 @@
       this.$el
         .find("#place-form")
         .html(Handlebars.templates["place-form-fields"](data));
+
+      this.$el
+        .find(".is-published-msg-editor")
+        .addClass("hidden");
 
       if (this.geometryEnabled) {
         this.options.appView.hideCenterPoint();
@@ -395,17 +400,12 @@
       }
     },
 
-    onBinaryToggle: function(evt) {
-      var oldValue = $(evt.target).val(),
-          newValue = $(evt.target).data("alt-value"),
-          oldLabel = $(evt.target).siblings("label").html(),
-          newLabel = $(evt.target).siblings("label").data("alt-label");
+    onPublishedStateChange: function(evt) {
+      Util.onPublishedStateChange(evt, "form");
+    },
 
-      // swap new and old values and labels
-      $(evt.target).data("alt-value", oldValue);
-      $(evt.target).val(newValue);
-      $(evt.target).siblings("label").html(newLabel);
-      $(evt.target).siblings("label").data("alt-label", oldLabel);
+    onBinaryToggle: function(evt) {
+      Util.onBinaryToggle(evt);
     },
 
     closePanel: function() {
@@ -495,12 +495,14 @@
       }
 
       if (attrs) {
-        collection.add({"location_type": this.formState.selectedCategoryConfig.category});
+        collection.add({
+          "location_type": this.formState.selectedCategoryConfig.category,
+          "datasetSlug": _.find(this.options.mapConfig.layers, function(layer) { 
+            return self.formState.selectedCategoryConfig.dataset == layer.id;
+          }).slug,
+          "datasetId": self.formState.selectedCategoryConfig.dataset
+        });
         model = collection.at(collection.length - 1);
-        model.set("datasetSlug", _.find(this.options.mapConfig.layers, function(layer) { 
-          return self.formState.selectedCategoryConfig.dataset == layer.id;
-        }).slug);
-        model.set("datasetId", self.formState.selectedCategoryConfig.dataset);
 
         // if an attachment has been added...
         if (self.formState.attachmentData) {

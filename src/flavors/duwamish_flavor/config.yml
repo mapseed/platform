@@ -1045,6 +1045,8 @@ place:
       value: featured_place
       label: _(Featured Place)
       fields:
+        - name: published
+          type: publishControl
         - name: geometry
           type: geometryToolbar
           content:

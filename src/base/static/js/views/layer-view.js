@@ -20,7 +20,9 @@
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
       this.model.on('destroy', this.onDestroy, this);
-      
+
+      this.layerIsAdminControlled = Util.getAdminStatus(this.model.get("datasetId"));
+
       // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
 
@@ -39,7 +41,7 @@
       }
 
       // Don't draw new places. They are shown by the centerpoint in the app view
-      if (!this.model.isNew()) {
+      if (!this.model.isNew() && this.isPublishable()) {
 
         // Determine the style rule to use based on the model data and the map
         // state.
@@ -93,6 +95,13 @@
 
         this.render();
       }
+    },
+    isPublishable: function(model) {
+      if (this.model.get("published")) {
+        return this.layerIsAdminControlled || this.model.get("published") === "isPublished";
+      }
+
+      return true;
     },
     onDestroy: function() {
       // NOTE: it's necessary to remove the zoomend event here

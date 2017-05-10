@@ -255,6 +255,13 @@ var self = module.exports = {
             content[0].selected = true;
           }
         });
+      } else if (fieldConfig.type === "publishControl") {
+
+        // Published/Not published radio control
+        content = {
+          selected: existingValue || "isPublished"
+        }
+        hasValue = true;
       } else if (fieldConfig.type === "binary_toggle") {
         
         // Binary toggle buttons
@@ -278,6 +285,29 @@ var self = module.exports = {
         prompt: fieldConfig.prompt,
         hasValue: hasValue
       };
+    },
+
+    onBinaryToggle: function(evt) {
+      var oldValue = $(evt.target).val(),
+          newValue = $(evt.target).data("alt-value"),
+          oldLabel = $(evt.target).siblings("label").html(),
+          newLabel = $(evt.target).siblings("label").data("alt-label");
+
+      // swap new and old values and labels
+      $(evt.target).data("alt-value", oldValue);
+      $(evt.target).val(newValue);
+      $(evt.target).siblings("label").html(newLabel);
+      $(evt.target).siblings("label").data("alt-label", oldLabel);
+    },
+
+    onPublishedStateChange: function(evt, mode) {
+      var msgClass = [".", $(evt.target).data("helper-msg"), "-", mode].join("");
+
+      $(evt.target).siblings(".helper-messages")
+        .find(msgClass)
+        .removeClass("hidden")
+        .siblings()
+        .addClass("hidden");
     },
 
     // attempt to save form autocomplete values in localStorage;

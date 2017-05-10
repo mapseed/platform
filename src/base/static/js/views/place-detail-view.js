@@ -15,7 +15,8 @@
       'click #toggle-editor-btn': 'onToggleEditMode',
       'click #update-place-model-btn': 'onUpdateModel',
       'click #hide-place-model-btn': 'onHideModel',
-      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
+      'click input[data-input-type="binary_toggle"]': 'Util.onBinaryToggle',
+      'change .publish-control-container input': 'onPublishedStateChange',
       'change input, textarea': 'saveDraftChanges',
       'keyup input[name="url-title"]': 'onUpdateUrlTitle'
     },
@@ -145,6 +146,14 @@
       this.options.router.navigate(this.model.attributes.story.next, {trigger: true});
     },
 
+    onPublishedStateChange: function(evt) {
+      Util.onPublishedStateChange(evt, "editor");
+    },
+
+    onBinaryToggle: function(evt) {
+      Util.onBinaryToggle(evt);
+    },
+
     onToggleEditMode: function() {
       if (this.isEditingToggled) {
         this.isModified = false;
@@ -174,6 +183,8 @@
             placeDetailView: this
           });
         }
+
+        this.$el.find(".is-published-msg-form").addClass("hidden");
       }
     },
 
@@ -328,6 +339,8 @@
 
     // called by the router
     onCloseWithUnsavedChanges: function() {
+      // NOTE: draft changes are saved in localstorage, so we allow the user to
+      // close the editor without warning.
       // if (confirm("You have unsaved changes. Proceed?")) {
       //   this.isModified = false;
       //   return true;
@@ -336,19 +349,6 @@
       // return false;
       
       return true;
-    },
-
-    onBinaryToggle: function(evt) {
-      var oldValue = $(evt.target).val(),
-          newValue = $(evt.target).data("alt-value"),
-          oldLabel = $(evt.target).siblings("label").html(),
-          newLabel = $(evt.target).siblings("label").data("alt-label");
-
-      // swap new and old values and labels
-      $(evt.target).data("alt-value", oldValue);
-      $(evt.target).val(newValue);
-      $(evt.target).siblings("label").html(newLabel);
-      $(evt.target).siblings("label").data("alt-label", oldLabel);
     },
 
     scrapeForm: function() {
