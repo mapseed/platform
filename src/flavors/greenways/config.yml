@@ -405,7 +405,7 @@ sidebar:
 
             - id: bikemaster
               title: _(Bicycle Master Plan)
-              visibleDefault: true
+              visibleDefault: false
 
         - id: grp-land
           title: _(Land Data)
