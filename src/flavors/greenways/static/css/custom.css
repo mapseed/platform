@@ -8,6 +8,42 @@
 /* =Header
 -------------------------------------------------------------- */
 
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+
+#site-header {
+  background-color: white !important;
+  background: none;
+  padding-left: 1em;
+  overflow: visible;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#pages-nav-container {
+	float: right;
+}
+
+.list-toggle-nav {
+	display: none;
+}
+
+#site-title {
+  height: 60px;
+}
+
+#site-title h4 {
+	font-family: 'Patua One', cursive;
+	margin-left: 200px;
+	color: #387c43;
+	font-size: 0.8em;
+}
+
+#site-title-image {
+	position: absolute;
+	top: 0;
+  height: 60px;
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */
