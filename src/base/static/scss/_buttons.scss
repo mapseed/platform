@@ -298,14 +298,12 @@ button.sp-selected, button.sp-selected:hover {
         padding-right: 15px;
     
         &:before {
-            content: $icon-disclosure-triangle-left;
+            content: $icon-expansion-hamburger;
         }
 
         &:hover {
-            &:before {
-                content: $icon-disclosure-triangle-down;
-            }
             cursor: pointer;
+            color: #CCC;
         }
     }
 
