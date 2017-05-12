@@ -47,8 +47,6 @@
       // to this place detail view
       this.LOCALSTORAGE_KEY = Backbone.history.getFragment().replace("/", "-");
 
-      this.model.on('change', this.onChange, this);
-
       // consider the editor modified if change or keyup events are registered
       // from the following selectors
       this.WATCH_FIELDS = "#update-place-model-form, #update-place-model-title-form";
@@ -331,10 +329,6 @@
 
     remove: function() {
       // Nothing yet
-    },
-
-    onChange: function() {
-      this.render();
     },
 
     // called by the router
