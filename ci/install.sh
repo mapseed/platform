@@ -2,5 +2,10 @@
 # Initialize the project settings
 cp src/project/local_settings.py.template src/project/local_settings.py
 
-# Install Jasmine dependencies
-bundle install --gemfile="src/base/jasmine/Gemfile"
+# Exporting our $HOME gets us around the 'sudo pip install...' issue
+# Inpiration for this fix found here:
+# https://github.com/travis-ci/travis-ci/issues/3563
+export PATH=$HOME/.local/bin:$PATH
+pip install -r app-requirements.txt
+export DISPLAY=:99.0
+sh -e /etc/init.d/xvfb start
