@@ -15,7 +15,7 @@
       'click #toggle-editor-btn': 'onToggleEditMode',
       'click #update-place-model-btn': 'onUpdateModel',
       'click #hide-place-model-btn': 'onHideModel',
-      'click input[data-input-type="binary_toggle"]': 'Util.onBinaryToggle',
+      'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'change .publish-control-container input': 'onPublishedStateChange',
       'change input, textarea': 'saveDraftChanges',
       'keyup input[name="url-title"]': 'onUpdateUrlTitle'
