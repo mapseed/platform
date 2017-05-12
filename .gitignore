@@ -6,6 +6,7 @@ log/*.log
 tmp/
 .sass-cache/
 npm-debug.log
+npm-debug.log.*
 
 # cover_me generated
 coverage
