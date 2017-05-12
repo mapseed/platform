@@ -572,7 +572,7 @@ module.exports = Backbone.View.extend({
     $(window).off("resize", this.repositionColorpicker);
     $("#content article").off("scroll", this.repositionColorpicker);
 
-    if (this.workingGeometry) {
+    if (this.workingGeometry && this.workingGeometry.revertLayers) {
       this.workingGeometry.revertLayers();
     }
 
