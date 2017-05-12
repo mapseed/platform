@@ -182,6 +182,9 @@
           });
         }
 
+        this.$el.find("#update-place-model-title-form").on("submit", function(evt) {
+          evt.preventDefault();
+        });
         this.$el.find(".is-published-msg-form").addClass("hidden");
       }
     },
