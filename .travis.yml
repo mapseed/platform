@@ -8,9 +8,7 @@ python:
 # make use of Travis CI's container technology.
 sudo: false
 
-install: "ci/install.sh"
-
-script: "ci/script.sh"
+script: "ci/cibuild.sh"
 notifications:
   irc:
     channels:

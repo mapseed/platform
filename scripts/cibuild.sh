@@ -9,3 +9,5 @@ export PATH=$HOME/.local/bin:$PATH
 pip install -r app-requirements.txt
 export DISPLAY=:99.0
 sh -e /etc/init.d/xvfb start
+
+scripts/test.sh
