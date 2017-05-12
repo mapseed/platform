@@ -242,6 +242,7 @@ module.exports = Backbone.View.extend({
     this.layerType = "Point";
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-marker-geometry-msg");
+    this.updateButtonText(this.layerType);
     this.setEditingCursor();
     this.delegateEvents();
     this.isEditing = false;
@@ -268,6 +269,7 @@ module.exports = Backbone.View.extend({
     this.hideIconToolbar();
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
+    this.updateButtonText(this.layerType);
     this.setEditingCursor();
     this.isEditing = false;
   },
@@ -295,6 +297,7 @@ module.exports = Backbone.View.extend({
     this.hideIconToolbar();
     this.setGeometryToolbarHighlighting(evt.currentTarget);
     this.displayHelpMessage("draw-poly-geometry-start-msg");
+    this.updateButtonText(this.layerType);
     this.setEditingCursor();
     this.isEditing = false;
   },
@@ -309,11 +312,8 @@ module.exports = Backbone.View.extend({
       this.workingGeometry.save();
       this.resetWorkingGeometry();
       this.setGeometryToolbarHighlighting(evt.currentTarget);
-      if (this.layerType === "Point") {
-        this.displayHelpMessage("edit-marker-geometry-msg");
-      } else {        
-        this.displayHelpMessage("modify-geometry-msg");
-      }
+      this.displayHelpMessage("modify-geometry-msg");
+      this.updateButtonText(this.layerType);
       this.setDefaultCursor();
       this.hideIconToolbar();
       this.hideColorpicker();
@@ -330,6 +330,7 @@ module.exports = Backbone.View.extend({
         this.displayHelpMessage("edit-poly-geometry-msg");
       }
       this.setGeometryToolbarHighlighting(evt.currentTarget);
+      this.updateButtonText(this.layerType);
       this.hideColorpicker();
       this.isEditing = true;
     }
@@ -442,6 +443,20 @@ module.exports = Backbone.View.extend({
     this.$el.find(".helper-messages ." + msg)
       .removeClass("hidden")
       .siblings()
+      .addClass("hidden");
+  },
+
+  updateButtonText: function(type) {
+    this.$el.find(".delete-geometry-" + type)
+      .removeClass("hidden")
+      .siblings()
+      .not("img")
+      .addClass("hidden");
+
+    this.$el.find(".edit-geometry-" + type)
+      .removeClass("hidden")
+      .siblings()
+      .not("img")
       .addClass("hidden");
   },
 

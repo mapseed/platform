@@ -182,8 +182,16 @@
       <button class="create-polygon"><img src="/static/css/images/create-polygon-icon.svg"><span>{{#_}}Create polygon{{/_}}</span></button>
     </div>
     <div class="geometry-toolbar-edit hidden">
-      <button class="edit-geometry"><img src="/static/css/images/edit-geometry-icon.svg"><span>{{#_}}Edit shape{{/_}}</span></button>
-      <button class="delete-geometry"><img src="/static/css/images/delete-geometry-icon.svg"><span>{{#_}}Delete shape{{/_}}</span></button>
+      <button class="edit-geometry"><img src="/static/css/images/edit-geometry-icon.svg">
+        <span class="edit-geometry-Point hidden">{{#_}}Edit marker{{/_}}</span>
+        <span class="edit-geometry-LineString hidden">{{#_}}Edit polyline{{/_}}</span>
+        <span class="edit-geometry-Polygon hidden">{{#_}}Edit polygon{{/_}}</span>
+      </button>
+      <button class="delete-geometry"><img src="/static/css/images/delete-geometry-icon.svg">
+        <span class="delete-geometry-Point hidden">{{#_}}Delete marker{{/_}}</span>
+        <span class="delete-geometry-LineString hidden">{{#_}}Delete polyline{{/_}}</span>
+        <span class="delete-geometry-Polygon hidden">{{#_}}Delete polygon{{/_}}</span>
+      </button>
       <button class="colorpicker"><img src="/static/css/images/colorpicker-icon.svg"><span>{{#_}}Change colors{{/_}}</span></button>
     </div>
     <div class="clearfix"></div>
