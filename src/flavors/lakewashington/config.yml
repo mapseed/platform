@@ -81,9 +81,28 @@ map:
       type: place
       slug: report
 
+    - id: lakewashingtonfeatured
+      type: place
+      slug: featured
+
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
+
+  mapboxZoomStyle:
+    - condition: '{{layer.focused}} === true'
+      icon:
+        iconSize: [50, 50]
+        iconAnchor: [25, 25]
+    - condition: '{{map.zoom}} < 16'
+      icon:
+        iconSize: [20, 20]
+        iconAnchor: [10, 10]
+    - condition: '{{map.zoom}} >= 16'
+      icon:
+        iconSize: [30, 30]
+        iconAnchor: [15, 15]
+
   observation:
     label: _(Observation)
     rules:
@@ -203,6 +222,14 @@ place_types:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
+
+  featured_place:
+    label: _(Featured Place)
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: ""
 
   mapbox:
     # Mapbox Points
@@ -344,6 +371,40 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: lakewashingtonfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Place)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/marker-heart.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
     - category: observation
       includeOnForm: true
       name: location_type
@@ -434,13 +495,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)

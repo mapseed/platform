@@ -6,18 +6,23 @@
     initialize: function(){
       this.map = this.options.map;
       this.isFocused = false;
+      this.isEditing = false;
+
+      this.layerGroup = this.options.layerGroup;
 
       // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
+
+      this.map.on('zoomend', this.updateLayer, this);
 
       // Bind model events
       this.model.on('change', this.updateLayer, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
+      this.model.on('destroy', this.onDestroy, this);
 
-      this.map.on('zoomend', this.updateLayer, this);
+      this.layerIsAdminControlled = Util.getAdminStatus(this.model.get("datasetId"));
 
-      
       // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
 
@@ -36,7 +41,7 @@
       }
 
       // Don't draw new places. They are shown by the centerpoint in the app view
-      if (!this.model.isNew()) {
+      if (!this.model.isNew() && this.isPublishable()) {
 
         // Determine the style rule to use based on the model data and the map
         // state.
@@ -59,6 +64,12 @@
         geom = this.model.get('geometry');
         if (geom.type === 'Point') {
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
+
+          // If we've saved an icon url in the model, use that
+          if (this.model.get("style") && this.model.get("style").iconUrl) {
+            this.styleRule.icon.iconUrl = this.model.get("style").iconUrl;
+          } 
+
           if (this.hasIcon()) {
             this.layer = (this.isFocused && this.styleRule.focus_icon ?
               L.marker(this.latLng, {icon: L.icon(this.styleRule.focus_icon)}) :
@@ -70,7 +81,11 @@
           }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
-          this.layer.setStyle(this.styleRule.style);
+          if (this.model.get("style")) {
+            this.layer.setStyle(this.model.get("style"));
+          } else {
+            this.layer.setStyle(this.styleRule.style);
+          }
         }
 
         // Focus on the layer onclick
@@ -81,28 +96,49 @@
         this.render();
       }
     },
+    isPublishable: function(model) {
+      if (this.model.get("published")) {
+        return this.layerIsAdminControlled || this.model.get("published") === "isPublished";
+      }
+
+      return true;
+    },
+    onDestroy: function() {
+      // NOTE: it's necessary to remove the zoomend event here
+      // so this view won't try to recreate a marker when the map is
+      // zoomed. Somehow even when a layer view is removed, the
+      // zoomend listener on the map still retains a reference to it
+      // and is capable of calling view methods on a "deleted" view.
+      this.map.off('zoomend', this.updateLayer, this);
+    },
     updateLayer: function() {
-      // Update the marker layer if the model changes and the layer exists
-      this.removeLayer();
-      this.initLayer();
+      if (!this.isEditing) {
+        // Update the marker layer if the model changes and the layer exists.
+        // Don't update if the layer is in editing mode, as this interferes 
+        // with the Leaflet draw plugin.
+        this.removeLayer();
+        this.initLayer();
+      }
     },
     removeLayer: function() {
       if (this.layer) {
-        this.options.layer.removeLayer(this.layer);
+        this.layerGroup.removeLayer(this.layer);
       }
     },
     render: function() {
-      // Show if it is within the current map bounds
-      var mapBounds = this.map.getBounds();
-
-      if (this.latLng) {
-        if (mapBounds.contains(this.latLng)) {
-          this.show();
+      if (!this.isEditing) {
+        
+        // Show if it is within the current map bounds
+        var mapBounds = this.map.getBounds();
+        if (this.latLng) {
+          if (mapBounds.contains(this.latLng)) {
+            this.show();
+          } else {
+            this.hide();
+          }
         } else {
-          this.hide();
+          this.show();
         }
-      } else {
-        this.show();
       }
     },
     onMarkerClick: function() {
@@ -149,7 +185,7 @@
       if (!this.options.mapView.locationTypeFilter ||
         this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
         if (this.layer) {
-          this.options.layer.addLayer(this.layer);
+          this.layerGroup.addLayer(this.layer);
         }
       } else {
         this.hide();

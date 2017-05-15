@@ -803,6 +803,7 @@ place:
     # - name: private-submitter_email
     #   type: text
     #   prompt: _(Your Email)
+    #   placeholder: _(Receive email updates on your report)
     #   optional: true
     #   sticky: true
     #   attrs:

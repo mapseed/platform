@@ -38,7 +38,8 @@
       'click #add-place': 'onClickAddPlaceBtn',
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
-      'click .minimize-btn': 'onClickMinimizeBtn'
+      'click .minimize-btn': 'onClickMinimizeBtn',
+      'click .list-toggle-btn': 'toggleListView',
     },
     initialize: function() {
       var self = this,
@@ -61,6 +62,12 @@
       this.places = this.options.places;
       this.landmarks = this.options.landmarks;
 
+      // Caches of the views (one per place)
+      this.placeFormView = null;
+      this.placeDetailViews = {};
+      this.landmarkDetailViews = {};
+      this.activeDetailView;
+
       // this flag is used to distinguish between user-initiated zooms and
       // zooms initiated by a leaflet method
       this.isProgrammaticZoom = false;
@@ -72,11 +79,6 @@
 
       $('body').ajaxSuccess(function(evt, request, settings){
         $('#ajax-error-msg').hide();
-      });
-
-      $('.list-toggle-btn').click(function(evt){
-        evt.preventDefault();
-        self.toggleListView();
       });
 
       if (this.options.activityConfig.show_in_right_panel === true) {
@@ -136,6 +138,7 @@
       this.pagesNavView = (new PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
+              placeConfig: this.options.placeConfig,
               router: this.options.router
             })).render();
 
@@ -158,7 +161,8 @@
         landmarks: this.landmarks,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
-        cluster: this.options.cluster
+        cluster: this.options.cluster,
+        placeDetailViews: this.placeDetailViews
       });
 
       if (self.options.sidebarConfig.enabled){
@@ -251,7 +255,8 @@
         Shareabouts.Config.flavor.app.list_enabled) {
           this.listView = new PlaceListView({
             el: '#list-container',
-            placeCollections: self.places
+            placeCollections: self.places,
+            placeConfig: this.options.placeConfig
           }).render();
       }
 
@@ -291,11 +296,6 @@
 
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
-      
-      // Caches of the views (one per place)
-      this.placeFormView = null;
-      this.placeDetailViews = {};
-      this.landmarkDetailViews = {};
 
       _.each(this.places, function(value, key) {
         self.placeDetailViews[key] = {};
@@ -441,9 +441,6 @@
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
-      if (this.placeFormView) {
-        this.placeFormView.closePanel();
-      }
 
       $(".maximize-btn").show();
       $(".minimize-btn").hide();
@@ -527,13 +524,15 @@
       }
       return landmarkDetailView;
     },
-    getPlaceDetailView: function(model) {
+    getPlaceDetailView: function(model, layerView) {
       var placeDetailView;
       if (this.placeDetailViews[model.cid]) {
         placeDetailView = this.placeDetailViews[model.cid];
       } else {
         placeDetailView = new PlaceDetailView({
           model: model,
+          appView: this,
+          layerView: layerView,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
@@ -542,10 +541,15 @@
           placeTypes: this.options.placeTypes,
           userToken: this.options.userToken,
           mapView: this.mapView,
+          geometryEditorView: this.mapView.geometryEditorView,
           router: this.options.router,
           datasetId: _.find(this.options.mapConfig.layers, function(layer) { 
             return layer.slug == model.attributes.datasetSlug 
-          }).id
+          }).id,
+          collectionsSet: {
+            places: this.places,
+            landmarks: this.landmarks
+          }
         });
         this.placeDetailViews[model.cid] = placeDetailView;
       }
@@ -589,14 +593,16 @@
           placeConfig: this.options.placeConfig,
           mapConfig: this.options.mapConfig,
           userToken: this.options.userToken,
-          // only need to send place collection, since all data added will be a place of some kind
-          collection: this.places
+          geometryEditorView: this.mapView.geometryEditorView,
+          collectionsSet: {
+            places: this.places,
+            landmarks: this.landmarks
+          }
         });
       }
 
       this.$panel.removeClass().addClass('place-form');
       this.showPanel(this.placeFormView.render(false).$el);
-      this.placeFormView.postRender();
 
       this.placeFormView.delegateEvents();
 
@@ -695,15 +701,15 @@
             layer = self.mapView.layerViews[datasetId][model.cid].layer;
           }
 
-          detailView = self.getPlaceDetailView(model).delegateEvents();
+          detailView = self.getPlaceDetailView(model, self.mapView.layerViews[datasetId][model.cid]).delegateEvents();
           self.showPanel(detailView.render().$el, !!args.responseId);
+          detailView.delegateEvents();
         } else if (type === "landmark") {
           layer = self.mapView.layerViews[datasetId][model.id].layer;
           detailView = self.getLandmarkDetailView(datasetId, model).delegateEvents();
           self.showPanel(detailView.render().$el, false);
         }
-     
-        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
+
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -917,12 +923,9 @@
     },
     toggleListView: function() {
       if (this.listView.isVisible()) {
-        this.viewMap();
-        this.hideListView();
-        this.options.router.navigate('');
+        this.options.router.navigate('/', {"trigger": true});
       } else {
-        this.showListView();
-        this.options.router.navigate('list');
+        this.options.router.navigate('list', {"trigger": true});
       }
       this.mapView.clearFilter();
     }
