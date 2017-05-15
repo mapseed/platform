@@ -505,6 +505,13 @@ p.checkbox + p.select {
   }
 }
 
+@media only screen and (max-width: 60em) {
+  .category-btn-container .category-label {
+    margin-left: 10px !important;
+    font-size: 1em !important;
+    margin-top: -10px !important;
+  }
+}
 
 .closed-district {
   color: red;
