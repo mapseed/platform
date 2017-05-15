@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Our Watersheds
+  title: My Watershed - Central Puget Sound
   # Header name
-  name: "Our Watersheds"
+  name: "My Watershed"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
   # Meta author that will show up in Google search results
@@ -813,7 +813,7 @@ sidebar:
 
             - id: bogtobay
               title: _(Community Reports)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: restoration
               title: _(Restoration Sites)
@@ -1060,14 +1060,18 @@ place:
               value: home-energy-audit
             - label: _(Calculated my total Carbon Footprint)
               value: total-carbon-footprint
-            - label: _(Installed all LED light bulbs)
+            - label: _(Replaced old bulbs with LED bulbs)
               value: led-light-bulbs
             - label: _(Set the thermostat lower)
               value: set-thermostat-lower
             - label: _(Use an auto-timer for thermostat)
               value: use-thermostat-auto-timer
+            - label: _(Don’t stand with the fridge open)
+              value: no-fidge-open
             - label: _(Use "Energy Star" high efficiency appliances)
               value: use-efficient-appliances
+            - label: _(Upgrade weather stripping on windows and doors)
+              value: weather-stripping              
             - label: _(Invest 100% in (Seattle Green Up) or (PSE Green Power))
               value: invest-seattle-green-up
             - label: _(Invest in Community Solar)
