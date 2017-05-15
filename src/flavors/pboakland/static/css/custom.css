@@ -4,26 +4,6 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-label {
-  font-size: 1.15em;
-  margin-right: 0.5em;
-  padding-bottom: 0;
-}
-
-.category-btn + label > span {
-  width: 296px;
-  position: absolute;
-  top: 0px;
-  left: 38px;
-  padding-left: 15px;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-  border-right: 2px solid transparent;
-  border-radius: 0 4px 4px 0;
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
-
 .recent-points {
   background-color: white;
 }

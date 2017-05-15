@@ -15,7 +15,7 @@
 
   <!-- common form elements, included at the bottom of all forms -->
   <div id="common-form-elements">
-    {{#each placeConfig.common_form_elements }}
+    {{#each commonFormElements }}
       {{#if isRenderable}}
         <div class="{{ type }} form-field{{#if is_admin}} is-admin-field{{/if}}">
           {{> place-form-field-types}}

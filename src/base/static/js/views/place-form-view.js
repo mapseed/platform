@@ -76,6 +76,7 @@
     renderFormFields: function() {
       var data = _.extend({
         placeConfig: this.options.placeConfig,
+        commonFormElements: this.formState.commonFormElements,
         selectedCategoryConfig: this.formState.selectedCategoryConfig,
         user_token: this.options.userToken,
         current_user: Shareabouts.currentUser
@@ -146,7 +147,7 @@
           fields: []
         },
         attachmentData: [],
-        commonFormElements: this.options.placeConfig.common_form_elements || {}
+        commonFormElements: []
       };
     },
 
@@ -328,6 +329,9 @@
 
       this.formState.selectedCategoryConfig = 
         $.extend(true, this.formState.selectedCategoryConfig, categoryConfig);
+
+      this.formState.commonFormElements =
+        $.extend(true, this.formState.commonFormElements, this.options.placeConfig.common_form_elements);
 
       this.geometryEnabled = (_.find(this.formState.selectedCategoryConfig.fields, function(field) {
         return field.type === "geometryToolbar";
