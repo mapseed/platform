@@ -19,6 +19,11 @@
     left: 0;
     z-index: 39;
     overflow: auto;
+
+    // Restrict the width of images embedded with the rich text editor
+    .place-value img {
+        max-width: 25%;
+    }
 }
 
 .place-list, .place-list-header {

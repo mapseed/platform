@@ -7,55 +7,19 @@ var SupportView = require('mapseed-support-view');
 module.exports = PlaceDetailView.extend({
 
   buildFieldListForRender: function() {
-    this.fields = [];
-    
-    // NOTE: flavor-specific addition: additional exlcusions
-    var exclusions = ["submitter_name", "name", "location_type", "title", "my_image", "venue", "demographics-header", "demographics-description"],
-    fieldIsValid = function(fieldData) {
-      return _.contains(exclusions, fieldData.name) === false &&
-        (fieldData.name && fieldData.name.indexOf('private-') !== 0) &&
-        fieldData.hasValue && 
-        fieldData.form_only !== true &&
-        fieldData.name !== "url-title" &&
-        fieldData.type !== "submit"
-    },
-    fieldIsValidForEditor = function(fieldData) {
-      return _.contains(exclusions, fieldData.name) === false &&
-        fieldData.type !== "submit"
-    };
-
-    _.each(this.categoryConfig.fields, function(field, i) {
-      var fieldData = _.extend({}, this.categoryConfig.fields[i],
-        Util.buildFieldContent(field, this.model.get(field.name)));
-
-      if (this.isEditingToggled &&
-          fieldIsValidForEditor(fieldData)) {
-        
-        this.fields.push(fieldData);
-      } else if (fieldIsValid(fieldData)) {
-        
-        this.fields.push(fieldData);
-      }
-
-    }, this);
-
-    _.each(this.commonFormElements, function(field, i) {
-      var fieldData = _.extend({}, this.commonFormElements[i],
-        Util.buildFieldContent(field, this.model.get(field.name)));
-
-      if (this.isEditingToggled &&
-          fieldIsValidForEditor(fieldData)) {
-        
-        this.fields.push(fieldData);
-      } else if (fieldIsValid(fieldData)) {
-        
-        this.fields.push(fieldData);
-      }
-
-    }, this);
+    this.fields = Util.buildFieldListForRender({
+      // NOTE: flavor-specific addition: additional exlcusions
+      exclusions: ["submitter_name", "name", "location_type", "title", "my_image", "venue", "demographics-header", "demographics-description"],
+      model: this.model,
+      fields: this.categoryConfig.fields,
+      commonFormElements: this.commonFormElements,
+      isEditingToggled: this.isEditingToggled
+    });
   },
 
   render: function() {
+    this.buildFieldListForRender();
+
     var self = this,
         data = _.extend({
           place_config: this.options.placeConfig,

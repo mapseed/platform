@@ -255,7 +255,8 @@
         Shareabouts.Config.flavor.app.list_enabled) {
           this.listView = new PlaceListView({
             el: '#list-container',
-            placeCollections: self.places
+            placeCollections: self.places,
+            placeConfig: this.options.placeConfig
           }).render();
       }
 

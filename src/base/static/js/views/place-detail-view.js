@@ -92,8 +92,6 @@
 
         Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
-
-      this.buildFieldListForRender();
     },
 
     setUrlTitlePrefix: function() {
@@ -165,7 +163,6 @@
 
       this.isEditingToggled = !this.isEditingToggled;
       this.surveyView.options.isEditingToggled = this.isEditingToggled;
-      this.buildFieldListForRender();
       this.render();
 
       if (this.isEditingToggled) {
@@ -190,54 +187,18 @@
     },
 
     buildFieldListForRender: function() {
-      this.fields = [];
-      
-      var exclusions = ["submitter_name", "name", "location_type", "title", "my_image"],
-      fieldIsValid = function(fieldData) {
-        return _.contains(exclusions, fieldData.name) === false &&
-          (fieldData.name && fieldData.name.indexOf('private-') !== 0) &&
-          fieldData.hasValue && 
-          fieldData.form_only !== true &&
-          fieldData.name !== "url-title" &&
-          fieldData.type !== "submit"
-      },
-      fieldIsValidForEditor = function(fieldData) {
-        return _.contains(exclusions, fieldData.name) === false &&
-          fieldData.type !== "submit"
-      };
-
-      _.each(this.categoryConfig.fields, function(field, i) {
-        var fieldData = _.extend({}, this.categoryConfig.fields[i],
-          Util.buildFieldContent(field, this.model.get(field.name)));
-
-        if (this.isEditingToggled &&
-            fieldIsValidForEditor(fieldData)) {
-          
-          this.fields.push(fieldData);
-        } else if (fieldIsValid(fieldData)) {
-          
-          this.fields.push(fieldData);
-        }
-
-      }, this);
-
-      _.each(this.commonFormElements, function(field, i) {
-        var fieldData = _.extend({}, this.commonFormElements[i],
-          Util.buildFieldContent(field, this.model.get(field.name)));
-
-        if (this.isEditingToggled &&
-            fieldIsValidForEditor(fieldData)) {
-          
-          this.fields.push(fieldData);
-        } else if (fieldIsValid(fieldData)) {
-          
-          this.fields.push(fieldData);
-        }
-
-      }, this);
+      this.fields = Util.buildFieldListForRender({
+        exclusions: ["submitter_name", "name", "location_type", "title", "my_image"],
+        model: this.model,
+        fields: this.categoryConfig.fields,
+        commonFormElements: this.commonFormElements,
+        isEditingToggled: this.isEditingToggled
+      });
     },
 
     render: function() {
+      this.buildFieldListForRender();
+
       var self = this,
           data = _.extend({
             place_config: this.options.placeConfig,
@@ -421,7 +382,6 @@
           self.clearDraftChanges();
           self.isModified = false;
           self.isEditingToggled = false;
-          self.buildFieldListForRender();
           self.render();
 
           if (Backbone.history.fragment === Util.getUrl(self.model)) {

@@ -22,6 +22,29 @@
       'hide': 'hide',
       'change': 'render'
     },
+    serializeData: function() {
+      var categoryConfig = _.findWhere(
+        this.options.placeConfig.place_detail, 
+        {category: this.model.get("location_type")}
+      ),
+      fields = Util.buildFieldListForRender({
+        exclusions: ["submitter_name", "name", "location_type", "title", "my_image", "published"],
+        model: this.model,
+        fields: categoryConfig.fields,
+        commonFormElements: this.options.placeConfig.common_form_elements,
+        isEditingToggled: false
+      }),
+      data = _.extend({
+        place_config: this.options.placeConfig,
+        isEditable: false,
+        isEditingToggled: false,
+        isModified: false,
+        fields: fields,
+        suppressAttachments: categoryConfig.suppressAttachments
+      }, this.model.toJSON());
+
+      return data;
+    },
     initialize: function() {
       var supportType = Shareabouts.Config.support.submission_type;
 
@@ -86,6 +109,10 @@
     initialize: function(options) {
       var self = this;
       options = options || {};
+
+      this.itemViewOptions = {
+        placeConfig: this.options.placeConfig
+      };
 
       // This collection holds references to all place models
       // merged together, for sorting and filtering purposes

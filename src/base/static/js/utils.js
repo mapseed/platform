@@ -287,6 +287,49 @@ var self = module.exports = {
       };
     },
 
+    buildFieldListForRender: function(args) {
+      var self = this,
+      fields = [],
+      fieldIsValid = function(fieldData) {
+        return _.contains(args.exclusions, fieldData.name) === false &&
+          (fieldData.name && fieldData.name.indexOf('private-') !== 0) &&
+          fieldData.hasValue && 
+          fieldData.form_only !== true &&
+          fieldData.name !== "url-title" &&
+          fieldData.type !== "submit";
+      },
+      fieldIsValidForEditor = function(fieldData) {
+        return _.contains(args.exclusions, fieldData.name) === false &&
+          fieldData.type !== "submit";
+      };
+
+      _.each(args.fields, function(field, i) {
+        var fieldData = _.extend({}, args.fields[i],
+          self.buildFieldContent(field, args.model.get(field.name)));
+
+        if (this.isEditingToggled &&
+            fieldIsValidForEditor(fieldData)) {
+          fields.push(fieldData);
+        } else if (fieldIsValid(fieldData)) {
+          fields.push(fieldData);
+        }
+      }, this);
+
+      _.each(args.commonFormElements, function(field, i) {
+        var fieldData = _.extend({}, args.commonFormElements[i],
+          self.buildFieldContent(field, args.model.get(field.name)));
+
+        if (args.isEditingToggled &&
+            fieldIsValidForEditor(fieldData)) {
+          fields.push(fieldData);
+        } else if (fieldIsValid(fieldData)) {
+          fields.push(fieldData);
+        }
+      }, this);
+
+      return fields;
+    },
+
     onBinaryToggle: function(evt) {
       var oldValue = $(evt.target).val(),
           newValue = $(evt.target).data("alt-value"),
