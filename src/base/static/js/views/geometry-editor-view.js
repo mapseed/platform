@@ -573,7 +573,6 @@ module.exports = Backbone.View.extend({
 
       // Disable deleting geometry in edit mode
       this.$el.find(".delete-geometry").addClass("hidden");
-      this.$el.find(".edit-geometry").trigger("click");
 
       if (this.layerType === "Point") {
         this.showIconToolbar();
