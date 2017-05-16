@@ -91,10 +91,6 @@ map:
       type: place
       slug: report
 
-    - id: andrewtest
-      type: place
-      slug: andrewtest
-
     - id: vision
       type: place
       slug: vision
@@ -116,6 +112,10 @@ map:
     - id: vision
       type: place
       slug: vision
+
+    - id: duwamishfeatured
+      type: place
+      slug: featured
 
        # WRIA9 watershed
     - id: watershed
@@ -614,6 +614,10 @@ sidebar:
               title: _(Duwamish Cleanup Reports)
               visibleDefault: true
 
+            - id: duwamishfeatured
+              title: _(Featured Sites)
+              visibleDefault: true
+
             - id: restoration
               title: _(Restoration Sites)
               visibleDefault: true
@@ -637,10 +641,6 @@ sidebar:
             - id: vision
               title: _(Community Vision)
               visibleDefault: false
-
-            - id: andrewtest
-              title: _(Featured Places)
-              visibleDefault: true
 
         - id: grp-land
           title: _(Land Data)
@@ -1041,7 +1041,7 @@ place:
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: andrewtest
+      dataset: duwamishfeatured
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
       label: _(Featured Place)
