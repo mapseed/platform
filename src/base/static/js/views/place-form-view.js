@@ -11,6 +11,7 @@
       'submit form': 'onSubmit',
       'change .shareabouts-file-input': 'onInputFileChange',
       'change .category-btn': 'onCategoryChange',
+      'change input[name="title"]': 'onTitleChange',
       'click .expansion-icon-container': 'onExpandCategories',
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'change .publish-control-container input': 'onPublishedStateChange',
@@ -344,6 +345,16 @@
       this.renderFormFields();
     },
 
+    onTitleChange: function(evt) {
+      var url = Util.prepareCustomUrl(evt.target.value);
+
+      this.$el.find("input[name='url-title']")
+        .val(url);
+
+      this.$el.find(".url-readout")
+        .html(url);
+    },
+
     onUpdateUrlTitle: function(evt) {
       $(evt.currentTarget)
         .siblings(".url-readout-container")
@@ -504,7 +515,8 @@
           "datasetSlug": _.find(this.options.mapConfig.layers, function(layer) { 
             return self.formState.selectedCategoryConfig.dataset == layer.id;
           }).slug,
-          "datasetId": self.formState.selectedCategoryConfig.dataset
+          "datasetId": self.formState.selectedCategoryConfig.dataset,
+          "showMetadata": self.formState.selectedCategoryConfig.showMetadata
         });
         model = collection.at(collection.length - 1);
 

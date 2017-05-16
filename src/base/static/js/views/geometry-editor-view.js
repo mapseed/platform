@@ -27,10 +27,10 @@ module.exports = Backbone.View.extend({
     this.isEditing = false;
     this.editingLayerGroup = new L.FeatureGroup();
     this.DRAWING_DEFAULTS = {
-      color: "#f06eaa",
-      opacity: 0.5,
-      fillColor: "#f06eaa",
-      fillOpacity: 0.2,
+      color: "#f86767",
+      opacity: 0.7,
+      fillColor: "#f1f075",
+      fillOpacity: 0.3,
       fill: {
         color: "fillColor",
         opacity: "fillOpacity"
@@ -493,6 +493,10 @@ module.exports = Backbone.View.extend({
     }
 
     this.resetGeometryToolbarHighlighting();
+
+    if (!this.$geometryToolbarEdit.hasClass("hidden")) {
+      this.$el.find(".edit-geometry").trigger("click");
+    }
   },
 
   resetGeometryToolbarHighlighting: function() {

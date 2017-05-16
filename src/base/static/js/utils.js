@@ -307,7 +307,7 @@ var self = module.exports = {
         var fieldData = _.extend({}, args.fields[i],
           self.buildFieldContent(field, args.model.get(field.name)));
 
-        if (this.isEditingToggled &&
+        if (args.isEditingToggled &&
             fieldIsValidForEditor(fieldData)) {
           fields.push(fieldData);
         } else if (fieldIsValid(fieldData)) {
