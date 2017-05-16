@@ -96,9 +96,11 @@
         this.render();
       }
     },
-    isPublishable: function(model) {
-      if (this.model.get("published")) {
-        return this.layerIsAdminControlled || this.model.get("published") === "isPublished";
+    isPublishable: function() {
+      if (this.layerIsAdminControlled) {
+        return true;
+      } else if (this.model.get("published") && this.model.get("published") === "isNotPublished") {
+        return false;
       }
 
       return true;

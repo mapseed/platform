@@ -616,7 +616,7 @@ sidebar:
 
             - id: restoration
               title: _(Restoration Sites)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -624,7 +624,7 @@ sidebar:
 
             - id: dirt-corps
               title: _(Dirt Corps sites)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: story-markers
               title: _(Stories)
@@ -636,7 +636,7 @@ sidebar:
 
             - id: vision
               title: _(Community Vision)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: andrewtest
               title: _(Featured Places)
@@ -1037,6 +1037,7 @@ place:
     - category: featured_place
       admin_only: true
       includeOnForm: true
+      showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
@@ -1130,6 +1131,29 @@ place:
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: question
       includeOnForm: true
       name: location_type
@@ -1149,6 +1173,29 @@ place:
           prompt: _(Description:)
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: idea
       includeOnForm: true
       name: location_type
@@ -1169,6 +1216,29 @@ place:
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -1189,6 +1259,29 @@ place:
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: air_watch  #defines a top-level form category
       includeOnForm: true
       name: location_type  #needs to be "location_type"
@@ -1331,6 +1424,29 @@ place:
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
           optional: true
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: tree
       includeOnForm: false
       name: location_type
@@ -1351,32 +1467,32 @@ place:
           display_prompt: _(Description of this tree:)
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
-      type: text
-      prompt: _(Your name)
-      placeholder: _(Name)
-      optional: true
-    - name: private-submitter_email
-      type: text
-      prompt: _(Your Email)
-      optional: true
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
-    - name: my_image
-      type: file
-      prompt: _(Image)
-      inputfile_label: _(Add an Image)
-      optional: true
-      attrs:
-        - key: accept
-          value: image/*
     - type: submit
       label: _(Put it on the map!)
 

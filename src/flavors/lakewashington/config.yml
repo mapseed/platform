@@ -291,6 +291,10 @@ sidebar:
           title: _(Land Data)
           visibleDefault: false
           layers:
+            - id: lakewashingtonfeatured
+              title: _(Featured Places)
+              visibleDefault: true
+
             - id: lakewashington
               title: _(Community Reports)
               description: _(Community Reports)
@@ -374,6 +378,7 @@ place:
     - category: featured_place
       admin_only: true
       includeOnForm: true
+      showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
@@ -425,6 +430,25 @@ place:
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          placeholder: _(Receive email updates on your report)
+          optional: true
+          sticky: true
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: question
       includeOnForm: true
       name: location_type
@@ -444,6 +468,25 @@ place:
           prompt: "_(What's your question?)"
           display_prompt: _( )
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          placeholder: _(Receive email updates on your report)
+          optional: true
+          sticky: true
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: idea
       includeOnForm: true
       name: location_type
@@ -464,6 +507,25 @@ place:
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          placeholder: _(Receive email updates on your report)
+          optional: true
+          sticky: true
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -484,28 +546,28 @@ place:
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          placeholder: _(Receive email updates on your report)
+          optional: true
+          sticky: true
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
-      type: text
-      prompt: _(Your name)
-      placeholder: _(Name)
-      optional: true
-    - name: private-submitter_email
-      type: text
-      prompt: _(Your Email)
-      placeholder: _(Receive email updates on your report)
-      optional: true
-      sticky: true
-    - name: my_image
-      type: file
-      prompt: _(Image)
-      inputfile_label: _(Add an Image)
-      optional: true
-      attrs:
-        - key: accept
-          value: image/*
     - type: submit
       label: _(Put it on the map!)
 
