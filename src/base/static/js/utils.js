@@ -393,9 +393,17 @@ var self = module.exports = {
     // field. Otherwise, return the slug/id form of the url.
     getUrl: function(model) {
       if (model.get("url-title")) {
+
+        // Place model with landmark-style url
         return model.get("url-title");
-      } else {
+      } else if (model.get("datasetSlug")) {
+
+        // Place model with Shareabouts-style url
         return this.getShareaboutsUrl(model);
+      } else {
+
+        // Landmark model
+        return model.get("id");
       }
     },
 

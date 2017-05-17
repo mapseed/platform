@@ -80,7 +80,7 @@ module.exports = Backbone.Collection.extend({
       if (onAnyError) { onAnyError.apply(this, arguments); }
     };
 
-    this.fetch(_.defaults({
+    return this.fetch(_.defaults({
       // Note that success gets called before complete, which is imprtant
       // because complete should know whether correct total number of pages.
       // However, if the request for the first page fails, complete will

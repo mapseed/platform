@@ -153,6 +153,25 @@
         //font-size: 0.9em;
         white-space: nowrap;
     }
+
+    #right-sidebar-container {
+        left: 0;
+        width: 100% !important;
+        .sidebar-story-overview-item {
+            h5 {
+                width: 75%;
+                font-size: 1em;
+                float: right;
+                margin: 0;
+            }
+            img {
+                width: 20%
+            }
+        }
+        .right-sidebar-content {
+            width: 100%;
+        }
+    }
 }
 
 // default for other media
@@ -163,7 +182,7 @@
     }
 
     // right sidebar
-    #right-sidebar {
+    #right-sidebar-container {
         height: calc(100% - #{$header-height-fullscreen} - #{$footer-height-fullscreen});
     }
 
@@ -419,33 +438,43 @@
         width: $content-visible-width;
     }
 
-    .content-visible #content {
-        right: 0;
+    .content-visible {
+        #content {
+            left: $content-visible-left-offset;
+            width: $content-visible-width;
+        }
+        #map-container {
+            width: $map-width-when-content-visible;
+        }
     }
 
-    .right-sidebar-visible.content-visible #content {
-        left: $content-visible-with-sidebar-left-offset;
-    }
+    .right-sidebar-active {
+        #map-container {
+            width: 100%;
+        }
+        &.content-visible {
+            #map-container {
+                width: $map-width-when-content-visible;
+            }
+            #content {
+                left: $content-visible-left-offset;
+                width: $content-visible-width;
+            }
+        }
 
-    .activity-enabled #content {
-        left: $content-visible-left-offset;
-        width: $content-visible-width;
-    }
-
-    .content-visible #map-container {
-        width: $map-width-when-content-visible;
-    }
-
-    .activity-enabled.content-visible #map-container {
-        width: $map-width-when-content-visible;
-    }
-
-    .right-sidebar-visible #map-container {
-        width: $map-width-when-sidebar-visible;
-    }
-
-    .right-sidebar-visible.content-visible #map-container {
-        width: $map-width-when-content-and-sidebar-visible;
+        &.right-sidebar-visible {
+            #map-container {
+                width: $map-width-when-sidebar-visible;
+            }
+            &.content-visible { 
+                #map-container {
+                    width: $map-width-when-content-and-sidebar-visible;
+                }
+                #content {
+                    left: $content-visible-with-sidebar-left-offset;
+                }
+            }
+        }
     }
 
     .geocoding-bar-enabled #content {

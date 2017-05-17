@@ -13,6 +13,7 @@
   var PlaceDetailView = require('mapseed-place-detail-view');
   var PlaceFormView = require('mapseed-place-form-view');
   var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
+  var RightSidebarView = require('mapseed-right-sidebar-view');
 
   // Models
   var PlaceModel = require('../models/place-model.js');
@@ -39,9 +40,13 @@
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
       'click .minimize-btn': 'onClickMinimizeBtn',
-      'click .list-toggle-btn': 'toggleListView',
+      'click .collapse-btn': 'onToggleSidebarVisibility',
+      'click .list-toggle-btn': 'toggleListView'
     },
     initialize: function() {
+      // store promises returned from collection fetches
+      Shareabouts.deferredCollections = [];
+
       var self = this,
           // Only include submissions if the list view is enabled (anything but false)
           includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
@@ -80,11 +85,6 @@
       $('body').ajaxSuccess(function(evt, request, settings){
         $('#ajax-error-msg').hide();
       });
-
-      if (this.options.activityConfig.show_in_right_panel === true) {
-        $("body").addClass("right-sidebar-visible");
-        $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
-      }
 
       $(document).on('click', '.activity-item a', function(evt) {
         window.app.clearLocationTypeFilter();
@@ -324,6 +324,21 @@
                              datasetSlug: _.find(self.options.mapConfig.layers, function(layer) { return layer.id == key }).slug }
         });
       });
+
+      if (this.options.rightSidebarConfig.show) {
+        $("body").addClass("right-sidebar-active right-sidebar-visible");
+        new RightSidebarView({
+          el: "#sidebar-story-item-list",
+          router: this.options.router,
+          rightSidebarConfig: this.options.rightSidebarConfig,
+          layers: this.options.mapConfig.layers,
+          storyConfig: this.options.storyConfig,
+          activityConfig: this.options.activityConfig,
+          activityView: this.activityView,
+          appView: this,
+          layerViews: this.mapView.layerViews
+        });
+      }
     },
 
     getListRoutes: function() {
@@ -341,15 +356,16 @@
       // loop through landmark configs
       _.each(_.values(this.options.datasetConfigs.landmarks), function(landmarkConfig) {
         if (landmarkConfig.placeType) {
-          self.landmarks[landmarkConfig.id].fetch({
+          var deferred = self.landmarks[landmarkConfig.id].fetch({
             attributesToAdd: { location_type: landmarkConfig.placeType },
           });
+          Shareabouts.deferredCollections.push(deferred);
         } else {
-          self.landmarks[landmarkConfig.id].fetch();
+          var deferred = self.landmarks[landmarkConfig.id].fetch();
+          Shareabouts.deferredCollections.push(deferred);
         }
       });
     },
-
     loadPlaces: function(placeParams) {
       var self = this,
           $progressContainer = $('#map-progress'),
@@ -360,7 +376,7 @@
 
       // loop over all place collections
       _.each(self.places, function(collection, key) {
-        collection.fetchAllPages({
+        var deferred = collection.fetchAllPages({
           remove: false,
           // Check for a valid location type before adding it to the collection
           validate: true,
@@ -395,6 +411,7 @@
             }
           }
         });
+        Shareabouts.deferredCollections.push(deferred);
       });
     },
 
@@ -468,6 +485,10 @@
       this.setBodyClass("content-visible");
       $(".maximize-btn, .minimize-btn").toggle();
       this.mapView.map.invalidateSize({ animate:true, pan:true });
+    },
+    onToggleSidebarVisibility: function() {
+      $("body").toggleClass("right-sidebar-visible");
+      this.mapView.map.invalidateSize();
     },
     setBodyClass: function(/* newBodyClasses */) {
       var bodyClasses = ['content-visible',

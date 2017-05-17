@@ -359,6 +359,9 @@ activity:
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
 
+right_sidebar:
+  show: true
+
 place:
   adding_supported: true
   add_button_label: _(Put a comment on the map!)
