@@ -332,7 +332,7 @@
       if (this.options.rightSidebarConfig.show) {
         $("body").addClass("right-sidebar-active right-sidebar-visible");
         new RightSidebarView({
-          el: "#right-sidebar-inner",
+          el: "#right-sidebar-content",
           router: this.options.router,
           rightSidebarConfig: this.options.rightSidebarConfig,
           layers: this.options.mapConfig.layers,

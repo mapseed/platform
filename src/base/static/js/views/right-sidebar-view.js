@@ -102,7 +102,11 @@ var SidebarStoryView = Backbone.Marionette.CollectionView.extend({
   },
   
   onBeforeRender: function() {
-    this.$el.html(Handlebars.templates["sidebar-story-detail-container"]());
+    var data = {
+      header: this.options.storyHeader
+    };
+
+    this.$el.html(Handlebars.templates["sidebar-story-detail-container"](data));
   },
 
   onRender: function() {
@@ -147,16 +151,11 @@ var SidebarStoryMenuView = Backbone.View.extend({
     });
   },
 
-  showStory: function(evt) {
-    var storyName = $(evt.currentTarget).data("storyname");
-
-    $(evt.currentTarget)
-      .addClass("selected")
-      .siblings()
-      .removeClass("selected");
+  showStory: function(e) {
+    var storyName = $(e.target).data("storyname");
 
     this.sidebarStoryView = new SidebarStoryView({
-      el: ".right-sidebar-content-detail",
+      el: ".right-sidebar-content",
       collection: this.storyCollections[storyName],
       layerViews: this.options.layerViews,
       router: this.options.router,
@@ -173,8 +172,6 @@ var SidebarStoryMenuView = Backbone.View.extend({
     }
 
     this.$el.html(Handlebars.templates["sidebar-story-overview"](data));
-
-    $(".sidebar-story-overview-item").first().trigger("click");
   },
 
   findModelByUrl: function(url) {
@@ -222,7 +219,9 @@ var SidebarStoryMenuView = Backbone.View.extend({
 module.exports = Backbone.View.extend({
   events: {
     'click .sidebar-tab': 'onClickTab',
+    //'': 'onClickPreviousPane'
     'click .sidebar-story-item': 'onClickStoryItem'
+
   },
   initialize: function() {
     var self = this;
@@ -270,7 +269,7 @@ module.exports = Backbone.View.extend({
 
   initStories: function() {
     this.storyMenuView = new SidebarStoryMenuView({
-      el: ".right-sidebar-content-menu",
+      el: ".right-sidebar-content",
       landmarks: this.landmarks,
       places: this.places,
       layers: this.options.layers,
@@ -283,18 +282,38 @@ module.exports = Backbone.View.extend({
 
   initActivity: function() {
     // TODO: a full view for activity content here?
-    $(".right-sidebar-content-detail").html("<ul class='recent-points unstyled-list'></ul>");
+    $(".right-sidebar-content").html("<ul class='recent-points unstyled-list'></ul>");
     this.options.activityView.$el = $("ul.recent-points");
     this.options.activityView.render();
   },
 
   render: function() {
     data = {
-      tabs: this.tabs,
-      numTabs: this.tabs.length
+      tabs: this.tabs
     };
 
     this.$el.html(Handlebars.templates['right-sidebar'](data));
+  },
+
+  onClickStoryOverview: function(e) {
+    e.stopPropagation();
+    this.storyModels = [];
+
+    var self = this,
+    storyName = $(e.target)
+      .data("storyname"),
+    tabInfo = this.tabInfo[this.currentTab];
+
+    _.each(self.tabsConfig.story[storyName].order, function(val, url) {
+      _.each(self.landmarks, function(landmarkCollection) {
+        model = landmarkCollection.find(function(model) { 
+          return model.get("id") === url; 
+        });
+        if (model) {
+          self.storyModels.push(model);
+        }
+      });
+    });
   },
 
   onClickTab: function(e) {

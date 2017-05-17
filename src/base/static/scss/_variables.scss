@@ -88,7 +88,7 @@ $header-height-fullscreen: 64px;
 // ################################
 // SIDEBAR - VARIABLES
 // ################################
-$sidebar-width: 22%;
+$sidebar-width: 15%;
 
 // ################################
 // TICKER - VARIABLES
@@ -129,8 +129,8 @@ $footer-height-smallscreen: 39px;
 // MEDIA QUERIES - VARIABLES
 // ################################
 $map-width-when-content-visible: 60%;
-$map-width-when-sidebar-visible: 78%;
-$map-width-when-content-and-sidebar-visible: 38%;
+$map-width-when-sidebar-visible: 85%;
+$map-width-when-content-and-sidebar-visible: 45%;
 $map-height-smallscreen-when-sidebar-visible: 65%;
 
 $content-visible-left-offset: $map-width-when-content-visible;
