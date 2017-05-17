@@ -1,13 +1,12 @@
-<a href="/{{#if url-title}}{{url-title}}{{else}}{{#if datasetSlug}}{{datasetSlug}}/{{id}}{{else}}{{id}}{{/if}}{{/if}}"
-	 rel="internal">
-	<li>	
-		<img class="sidebar-story-thumbnail" src={{iconUrl}} />
-		<p class="sidebar-story-title">
-			{{#if fullTitle}}
-				{{fullTitle}}
-			{{else}}
-				{{title}}
-			{{/if}}
-		</p> 
-	</li>
-</a>
+<img class="sidebar-story-item-thumbnail" src={{iconUrl}} />
+<p class="sidebar-story-item-title">
+	{{#if fullTitle}}
+		{{fullTitle}}
+	{{else}}
+		{{#if title}}
+			{{title}}
+		{{else}}
+			{{name}}
+		{{/if}}
+	{{/if}}
+</p> 

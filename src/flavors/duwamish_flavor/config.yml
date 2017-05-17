@@ -75,12 +75,6 @@ map:
       sources: 
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
-    - id: dirt-corps
-      type: landmark
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks      
-      sources: 
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.1pbl473a/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-
     - id: story-markers
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       type: landmark
@@ -688,13 +682,11 @@ sidebar:
               title: _(Original River Path)
               visibleDefault: false
 
-    # NOTE: ticker is commented out here as it appears in the right sidebar.
-    # Uncomment these lines to restore the ticker to the Leaflet sidebar.
-    # - id: ticker
-    #   view: ActivityView
-    #   icon: comments-o
-    #   activity: true
-    #   title: _(Activity Stream:)
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
+      title: _(Activity Stream:)
 
     - id: reports_legend
       title: _(Community Reports:)
@@ -719,26 +711,15 @@ activity:
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
-  # To show the activity stream in the right panel, set this flag to true.
-  # To also remove it from the leaflet controls, comment out the "id: ticker"
-  # entry in the leaflet control config above.
-  show_in_right_panel: true
 
 right_sidebar:
   show: true
-  tabs:
-    - name: story
-      show: true
-      tab_name: _(Stories)
-    - name: activity
-      show: true
-      tab_name: _(Activity)
 
 # Place Types
 place:
   adding_supported: true
   add_button_label: _(Add Report)
-  #story_button_label: _(Explore Stories)
+  story_button_label: _(Explore Stories)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
@@ -1659,7 +1640,7 @@ story:
   community-priorities:
     tagline: _(Next featured site)
     header: _(Explore community restoration projects along the Duwamish)
-    #description: _(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)
+    description: _(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)
     image_url: /static/css/images/community-priorities.png
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different
@@ -1684,12 +1665,8 @@ story:
   pollution:
     tagline: _(Next featured site)
     header: _(Take a tour of polluted sites along the Duwamish)
-    #description: _(The Duwamish River is one of the most polluted waterways in the country. Explore the sites in this map story to learn about the environmental challenges facing the Duwamish.)
+    description: _(The Duwamish River is one of the most polluted waterways in the country. Explore the sites in this map story to learn about the environmental challenges facing the Duwamish.)
     image_url: /static/css/images/pollution.jpg
-    # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different
-    # zoom level and/or visible layers, it will use those wholesale
-    # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
       - restoration
@@ -1715,12 +1692,8 @@ story:
   history:
     tagline: _(Next featured site)
     header: _(Duwamish history)
-    #description: _(Explore the history of the Duwamish River Valley)
+    description: _(Explore the history of the Duwamish River Valley)
     image_url: /static/css/images/history.jpg
-    # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different
-    # zoom level and/or visible layers, it will use those wholesale
-    # (that is, no default settings will be inherited).
     default_zoom: 13
     default_visible_layers:
       - duwamish-original

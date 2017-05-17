@@ -40,7 +40,8 @@
       'click .close-btn': 'onClickClosePanelBtn',
       'click .maximize-btn': 'onClickMaximizeBtn',
       'click .minimize-btn': 'onClickMinimizeBtn',
-      'click .collapse-btn': 'onToggleSidebarVisibility'
+      'click .collapse-btn': 'onToggleSidebarVisibility',
+      'click .list-toggle-btn': 'toggleListView'
     },
     initialize: function() {
       // store promises returned from collection fetches
@@ -84,11 +85,6 @@
       $('body').ajaxSuccess(function(evt, request, settings){
         $('#ajax-error-msg').hide();
       });
-
-      if (this.options.activityConfig.show_in_right_panel === true) {
-        $("body").addClass("right-sidebar-visible");
-        $("#right-sidebar").html("<ul class='recent-points unstyled-list'></ul>");
-      }
 
       $(document).on('click', '.activity-item a', function(evt) {
         window.app.clearLocationTypeFilter();
@@ -332,7 +328,7 @@
       if (this.options.rightSidebarConfig.show) {
         $("body").addClass("right-sidebar-active right-sidebar-visible");
         new RightSidebarView({
-          el: "#right-sidebar-content",
+          el: "#sidebar-story-item-list",
           router: this.options.router,
           rightSidebarConfig: this.options.rightSidebarConfig,
           layers: this.options.mapConfig.layers,
@@ -341,7 +337,6 @@
           activityView: this.activityView,
           appView: this,
           layerViews: this.mapView.layerViews
-
         });
       }
     },

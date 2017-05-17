@@ -142,13 +142,16 @@
       <a href="#" class="minimize-btn"><span>{% blocktrans %}Minimize{% endblocktrans %}</span></a>
       <article></article>
     </div><!-- end #content -->
+
     <!-- right-panel sidebar -->
     <div id="right-sidebar-container">
+      <div id="right-sidebar-spinner"></div>
       <a href="#" class="collapse-btn"></a>
       <div id="right-sidebar-content">
-        <div id="right-sidebar-spinner"></div>
+        <ul id="sidebar-story-item-list"></ul>
       </div>
     </div>
+
   </div><!-- end #main -->
 
  {% if config.sidebar.enabled %}
