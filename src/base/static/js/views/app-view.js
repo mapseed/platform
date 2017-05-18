@@ -333,7 +333,7 @@
       if (this.options.rightSidebarConfig.show) {
         $("body").addClass("right-sidebar-active right-sidebar-visible");
         new RightSidebarView({
-          el: "#sidebar-story-item-list",
+          el: "#right-sidebar-container",
           router: this.options.router,
           rightSidebarConfig: this.options.rightSidebarConfig,
           layers: this.options.mapConfig.layers,
@@ -342,7 +342,7 @@
           activityView: this.activityView,
           appView: this,
           layerViews: this.mapView.layerViews
-        });
+        }).render();
       }
     },
 

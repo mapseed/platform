@@ -70,7 +70,7 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
 });
 
 // A view for managing a collection of story items in a right sidebar panel
-module.exports = Backbone.Marionette.CollectionView.extend({
+var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
   el: ".right-sidebar-content",
   itemView: SidebarStoryItemView,
   initialize: function() {
@@ -195,5 +195,23 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       // landmark model or a place model
       return this.searchLandmarkAndPlaceCollections(url);
     }
+  }
+});
+
+module.exports = Backbone.View.extend({
+  render: function() {
+    this.$el.html(Handlebars.templates["right-sidebar"]());
+
+    new SidebarStoryCollectionView({
+      el: "#sidebar-story-item-list",
+      router: this.options.router,
+      rightSidebarConfig: this.options.rightSidebarConfig,
+      layers: this.options.layers,
+      storyConfig: this.options.storyConfig,
+      activityConfig: this.options.activityConfig,
+      activityView: this.activityView,
+      appView: this.options.appView,
+      layerViews: this.options.layerViews
+    });
   }
 });
