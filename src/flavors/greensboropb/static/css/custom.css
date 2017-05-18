@@ -206,6 +206,17 @@ input.geocode-address-field {
   background-color: #fff;
 }
 
+/* =Right-clinging sidebar legend
+-------------------------------------------------------------- */
+.shareabouts-layer-li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.shareabouts-layer-li span {
+  margin-bottom: 6px;
+}
 
 /* =Footer
 -------------------------------------------------------------- */
@@ -223,6 +234,7 @@ input.geocode-address-field {
 /* =Map
 -------------------------------------------------------------- */
 #map-container {
+  width: 85%;
   background: #ccc;
 }
 
@@ -488,13 +500,17 @@ p.checkbox + p.select {
     top: 125px;
   }
   .activity-enabled #geocode-address-bar {
-    right: 20%;
+    right: 15%;
   }
   #content {
     top: 123px !important;
+    left: 45% !important;
   }
   .activity-enabled.content-visible #map-container {
-    width: 40%;
+    width: 45%;
+  }
+  #right-sidebar-container {
+    overflow: auto;
   }
 }
 

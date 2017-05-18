@@ -668,7 +668,7 @@ sidebar:
             - id: greensboropb_round1
               title: _(2015 suggestions)
               visibleDefault: false
-    - id: right-sidebar
+    - id: right-sidebar-container
       title: _(Community ideas:)
       view: LegendView
       icon: info-circle

@@ -182,7 +182,7 @@ sidebar:
     #   activity: true
     #   title: _(Activity Stream:)
 
-    - id: right-sidebar
+    - id: right-sidebar-container
       title: _(Community ideas:)
       view: LegendView
       icon: info-circle

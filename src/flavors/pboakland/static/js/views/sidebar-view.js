@@ -30,7 +30,7 @@ module.exports = SidebarView.extend({
     var configNoLegend = {} 
     _.extend(configNoLegend, this.options.sidebarConfig);
     configNoLegend.panels = _.filter(configNoLegend.panels, function(panel) {
-      return panel.id !== "right-sidebar";
+      return panel.id !== "right-sidebar-container";
     });
 
     var self = this,
