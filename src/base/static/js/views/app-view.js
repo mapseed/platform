@@ -86,6 +86,11 @@
         $('#ajax-error-msg').hide();
       });
 
+      if (this.options.activityConfig.show_in_right_panel === true) {
+        $("body").addClass("right-sidebar-visible");
+        $("#right-sidebar-container").html("<ul class='recent-points unstyled-list'></ul>");
+      }
+
       $(document).on('click', '.activity-item a', function(evt) {
         window.app.clearLocationTypeFilter();
       });

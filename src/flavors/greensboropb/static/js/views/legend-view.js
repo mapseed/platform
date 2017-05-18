@@ -7,6 +7,8 @@ module.exports = LegendView.extend({
           items: this.options.config.items
         }, Shareabouts.stickyFieldValues);
 
+     console.log("RENDAH!!!!", this.$el);
+
     // use prepend here so as to not overwrite activity stream
     this.$el.prepend(Handlebars.templates['legend'](data));
 
