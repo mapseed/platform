@@ -78,6 +78,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
+        z-index: 1;
     }
     #right-sidebar-content {
         height: calc(100% - #{$header-height-fullscreen});
@@ -111,7 +112,7 @@
             padding-right: 8px;
             min-height: 40px;
             list-style-type: none;
-            border-top: 1px solid #999999;
+            border-left: 2px solid transparent;
             .sidebar-story-item-title {
                 margin-left: 10px;
                 margin-bottom: 0;
@@ -129,6 +130,7 @@
             }
             &:hover {
                 cursor: pointer;
+                border-left: 2px solid $link-hover-color;
                 .sidebar-story-item-title {
                     color: $link-hover-color;                
                 }
