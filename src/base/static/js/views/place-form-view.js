@@ -52,6 +52,9 @@
 
         // If we only have a single category, skip the category selection phase
         this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
+        this.setCommonFormElements();
+        this.setGeometryEnabled();
+        this.prepareFormFieldsForRender();
         this.renderFormFields();
       } else {
         this.renderCategoryButtons();      
@@ -107,7 +110,7 @@
       }
       
       this.geocodeAddressPlaceView = (new GeocodeAddressPlaceView({
-        el: '#geocode-address-place-bar',
+        el: this.$("#geocode-address-place-bar"),
         router: this.options.router,
         mapConfig: this.options.mapConfig
       })).render();
@@ -320,6 +323,17 @@
         .animate( { height: "show" }, 400 );
     },
 
+    setGeometryEnabled: function() {
+      this.geometryEnabled = (_.find(this.formState.selectedCategoryConfig.fields, function(field) {
+        return field.type === "geometryToolbar";
+      })) ? true : false;
+    },
+
+    setCommonFormElements: function() {
+      this.formState.commonFormElements =
+          $.extend(true, this.formState.commonFormElements, this.options.placeConfig.common_form_elements);
+    },
+
     onCategoryChange: function(evt) {
       this.resetFormState();
       
@@ -331,13 +345,8 @@
       this.formState.selectedCategoryConfig = 
         $.extend(true, this.formState.selectedCategoryConfig, categoryConfig);
 
-      this.formState.commonFormElements =
-        $.extend(true, this.formState.commonFormElements, this.options.placeConfig.common_form_elements);
-
-      this.geometryEnabled = (_.find(this.formState.selectedCategoryConfig.fields, function(field) {
-        return field.type === "geometryToolbar";
-      })) ? true : false;
-      
+      this.setCommonFormElements();
+      this.setGeometryEnabled();
       this.hideSilhouettes();
       this.hideCategorySeparator();
       this.prepareFormFieldsForRender();

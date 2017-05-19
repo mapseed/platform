@@ -12,7 +12,6 @@
   var PlaceCounterView = require('mapseed-place-counter-view');
   var PlaceDetailView = require('mapseed-place-detail-view');
   var PlaceFormView = require('mapseed-place-form-view');
-  var GeocodeAddressPlaceView = require('mapseed-geocode-address-place-view');
   var RightSidebarView = require('mapseed-right-sidebar-view');
 
   // Models
@@ -248,7 +247,7 @@
       $(Shareabouts).on('reversegeocode', function(evt, locationData) {
         var locationString = Handlebars.templates['location-string'](locationData);
         self.geocodeAddressView.setAddress($.trim(locationString));
-        self.geocodeAddressPlaceView.setAddress($.trim(locationString));
+        self.placeFormView.geocodeAddressPlaceView.setAddress($.trim(locationString));
         self.placeFormView.setLatLng(locationData.latLng);
         // Don't pass location data into our geolocation's form field
         // self.placeFormView.setLocation(locationData);
