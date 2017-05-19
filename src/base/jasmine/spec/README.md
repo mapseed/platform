@@ -1,1 +1,0 @@
-Edit `javascripts/support/jasmine.yml` to configure your settings.
