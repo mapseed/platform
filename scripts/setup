@@ -13,5 +13,5 @@ echo "Creating a virtualenv..."
 virtualenv env --python=python2.7
 source env/bin/activate
 
-scripts/bootstrap.sh
+scripts/bootstrap
 
