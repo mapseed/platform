@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/mapseed/platform.png)](http://travis-ci.org/mapseed/platform)
 
-> Community powered mapping for environmental health, starting with our most polluted rivers.
+> A simple, beautiful way to collect information and tell geographic stories.
 
 Mapseed is a platform that allows anyone to create community-driven maps on the web. These maps allow users to report issues or submit ideas and respond to the issues & ideas of others. Combine user-generated content with external data overlaid on the same map to allow anyone to see what's going on in the area at a glance.
 
