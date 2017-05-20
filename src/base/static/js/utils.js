@@ -78,15 +78,12 @@ var self = module.exports = {
                  model.attachmentCollection.models[0].get("file") :
                  protocol + "//" + host + appConfig.thumbnail,
           redirectUrl = [protocol, "//", host, "/", pathname].join(""),
-          // shareUrl = "http://social.mapseed.org",
-          // TEMPORARY
-          // shareUrl = "http://52f34701.ngrok.io/" + Date.now(),
-          shareUrl = "http://52f34701.ngrok.io/",
+          shareUrl = "http://social.mapseed.org",
           queryString = [  
-            "?url=", redirectUrl,
-            "&title=", title,
-            "&img=", img,
-            "&desc=", desc
+            "?url=", encodeURIComponent(redirectUrl),
+            "&title=", encodeURIComponent(title),
+            "&img=", encodeURIComponent(img),
+            "&desc=", encodeURIComponent(desc)
           ].join("");
 
       // if (service === "twitter") {
