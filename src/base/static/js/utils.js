@@ -77,13 +77,18 @@ var self = module.exports = {
           img = (model.attachmentCollection.models.length > 0) ?
                  model.attachmentCollection.models[0].get("file") :
                  protocol + "//" + host + appConfig.thumbnail,
+          $img = $("img[src='" + img + "']"),
+          height = $img.height() || 630,
+          width = $img.width() || 1200,
           redirectUrl = [protocol, "//", host, "/", pathname].join(""),
           shareUrl = "http://social.mapseed.org",
           queryString = [  
             "?url=", encodeURIComponent(redirectUrl),
             "&title=", encodeURIComponent(title),
             "&img=", encodeURIComponent(img),
-            "&desc=", encodeURIComponent(desc)
+            "&desc=", encodeURIComponent(desc),
+            "&height=", encodeURIComponent(height),
+            "&width=", encodeURIComponent(width)
           ].join("");
 
       // if (service === "twitter") {
