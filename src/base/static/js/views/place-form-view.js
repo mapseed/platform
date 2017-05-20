@@ -23,7 +23,6 @@
       var self = this;
 
       Backbone.Events.on("panel:close", this.closePanel, this);
-      this.options.router.on("route", this.resetFormState, this);
 
       this.resetFormState();
       this.placeDetail = this.options.placeConfig.place_detail;
