@@ -195,21 +195,21 @@ map:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Overflowed in the last 48 hrs"'
           icon:
-            iconUrl: /static/css/images/markers/dot-dbcf2c.png
+            iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Overflowing now"'
           icon:
-            iconUrl: /static/css/images/markers/dot-f95016.png
+            iconUrl: /static/css/images/markers/dot-e1264d.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Data not available"'
           icon:
-            iconUrl: /static/css/images/markers/dot-5359d7.png
+            iconUrl: /static/css/images/markers/dot-0d85e9.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
@@ -247,35 +247,35 @@ map:
 place_types:
 
   mapboxZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 16'
+    - condition: 'this.map.zoom < 16'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 16'
+    - condition: 'this.map.zoom >= 16'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   roundZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 11'
+    - condition: 'this.map.zoom < 11'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 11'
+    - condition: 'this.map.zoom >= 11'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   teardropZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 60]
         iconAnchor: [25, 25]
@@ -286,21 +286,21 @@ place_types:
     # Mapbox Points
     rules:
     # LineString
-      - condition: '"{{geometry.type}}" == "LineString"'
+      - condition: "this.geometry.type == 'LineString'"
         style:
-          color: "{{properties.stroke}}"
-          opacity: '{{properties.stroke-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          color: "this.properties.stroke"
+          opacity: "this.properties['stroke-opacity']"
+          weight: "this.properties['stroke-width']"
     # Polygons
-      - condition: '"{{geometry.type}}" == "Polygon"'
+      - condition: "this.geometry.type == 'Polygon'"
         style:
           shapeType: polygon
-          fillColor: "{{properties.fill}}"
+          fillColor: "this.properties.fill"
           fill: 'true'
-          color: "{{properties.stroke}}"
+          color: "this.properties.stroke"
           opacity: 0.7
-          fillOpacity: '{{properties.fill-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          fillOpacity: "this.properties['fill-opacity']"
+          weight: "this.properties['stroke-width']"
 
   danger:
     zoomType: mapboxZoomStyle
@@ -360,17 +360,17 @@ place_types:
 
   conserve-water:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -378,17 +378,17 @@ place_types:
 
   prevent-stormwater:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -396,17 +396,17 @@ place_types:
 
   only-flush:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -414,17 +414,17 @@ place_types:
 
   conserve-energy:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -432,17 +432,17 @@ place_types:
 
   waste-less:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -450,17 +450,17 @@ place_types:
 
   commute-low-carbon:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -468,17 +468,17 @@ place_types:
 
   eat-local-organic:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -486,17 +486,17 @@ place_types:
 
   restore-salmon-habitat:
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [50, 60]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} >= 13'
+      - condition: 'this.map.zoom >= 13'
         icon:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [38, 46]
           iconAnchor: [25, 25]
-      - condition: '{{map.zoom}} < 13'
+      - condition: 'this.map.zoom < 13'
         icon:
           iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
           iconSize: [10, 10]
@@ -516,7 +516,7 @@ place_types:
   observation:
     label: _(Observation)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -525,19 +525,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -546,7 +546,7 @@ place_types:
   question:
     label: _(Question)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -555,19 +555,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -576,7 +576,7 @@ place_types:
   idea:
     label: _(Idea)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -585,19 +585,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -606,7 +606,7 @@ place_types:
   complaint:
     label: _(Complaint)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -615,19 +615,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
@@ -636,7 +636,7 @@ place_types:
   # greenwall:
   #   label: _(Green Screen Vote)
   #   rules:
-  #     - condition: '{{layer.focused}} === true'
+  #     - condition: 'this.layer.focused === true'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         shadowUrl: /static/css/images/marker-shadow.png
@@ -645,19 +645,19 @@ place_types:
   #         shadowSize: [50, 60]
   #         shadowAnchor: [14, 60]
 
-  #     - condition: '{{map.zoom}} < 15'
+  #     - condition: 'this.map.zoom < 15'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [10, 12]
   #         iconAnchor: [5, 12]
 
-  #     - condition: '{{map.zoom}} < 18'
+  #     - condition: 'this..zoom < 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [18, 21.75]
   #         iconAnchor: [9, 21.75]
 
-  #     - condition: '{{map.zoom}} >= 18'
+  #     - condition: 'this.map.zoom >= 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [38, 46]
@@ -667,7 +667,7 @@ place_types:
   air_watch:
     label: _(Air Watch)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -676,19 +676,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17'
+      - condition: 'this.map.zoom < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17'
+      - condition: 'this.map.zoom >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]

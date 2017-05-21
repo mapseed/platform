@@ -129,7 +129,7 @@ map:
 place_types:
 
   mapboxZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [45, 64]
         iconAnchor: [23, 64]
@@ -142,21 +142,21 @@ place_types:
     # Mapbox Points
     rules:
     # LineString
-      - condition: '"{{geometry.type}}" == "LineString"'
+      - condition: 'this.geometry.type == "LineString"'
         style:
-          color: "{{properties.stroke}}"
-          opacity: '{{properties.stroke-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          color: "this.style.color"
+          opacity: "this.style.opacity"
+          weight: "this.style.weight"
     # Polygons
-      - condition: '"{{geometry.type}}" == "Polygon"'
+      - condition: 'this.geometry.type == "Polygon"'
         style:
           shapeType: polygon
-          fillColor: "{{properties.fill}}"
+          fillColor: "this.style.fillColor"
           fill: 'true'
-          color: "{{properties.stroke}}"
+          color: "this.style.color"
           opacity: 0.7
-          fillOpacity: '{{properties.fill-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          fillOpacity: "this.style.fillOpacity"
+          weight: "this.style.weight"
 
   danger:
     zoomType: mapboxZoomStyle
@@ -218,7 +218,7 @@ place_types:
   observation:
     label: _(Observation)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -227,19 +227,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -248,7 +248,7 @@ place_types:
   question:
     label: _(Question)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -257,19 +257,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -278,7 +278,7 @@ place_types:
   idea:
     label: _(Idea)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -287,19 +287,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -308,7 +308,7 @@ place_types:
   complaint:
     label: _(Complaint)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -317,19 +317,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
@@ -338,7 +338,7 @@ place_types:
   air_watch:
     label: _(Air Watch)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -347,19 +347,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17'
+      - condition: 'this.map.zoom < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17'
+      - condition: 'this.map.zoom >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
