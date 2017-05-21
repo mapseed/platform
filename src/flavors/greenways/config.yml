@@ -118,15 +118,15 @@ map:
 place_types:
 
   mapboxZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 16'
+    - condition: 'this.map.zoom < 16'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 16'
+    - condition: 'this.map.zoom >= 16'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
@@ -135,26 +135,26 @@ place_types:
     # Mapbox Points
     rules:
     # LineString
-      - condition: '"{{geometry.type}}" == "LineString"'
+      - condition: 'this.geometry.type == "LineString"'
         style:
-          color: "{{properties.stroke}}"
-          opacity: '{{properties.stroke-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          color: "this.style.color"
+          opacity: "this.style.opacity"
+          weight: "this.style.weight"
     # Polygons
-      - condition: '"{{geometry.type}}" == "Polygon"'
+      - condition: 'this.geometry.type == "Polygon"'
         style:
           shapeType: polygon
-          fillColor: "{{properties.fill}}"
+          fillColor: "this.style.fillColor"
           fill: 'true'
-          color: "{{properties.stroke}}"
+          color: "this.style.color"
           opacity: 0.7
-          fillOpacity: '{{properties.fill-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          fillOpacity: "this.style.fillOpacity"
+          weight: "this.style.weight"
 
   vegetation:
     label: _(vegetation report)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-vegetation.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -163,19 +163,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: 'this.map.zoom < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-vegetation.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: 'this.map.zoom >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-vegetation.png
           iconSize: [38, 46]
@@ -184,7 +184,7 @@ place_types:
   signage:
     label: _(signage report)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-signage.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -193,19 +193,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: 'this.map.zoom < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-signage.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: 'this.map.zoom >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-signage.png
           iconSize: [38, 46]
@@ -214,7 +214,7 @@ place_types:
   pavement:
     label: _(pavement report)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-pavement.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -223,19 +223,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: 'this.map.zoom < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-pavement.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: 'this.map.zoom >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-pavement.png
           iconSize: [38, 46]
@@ -244,7 +244,7 @@ place_types:
   walkability:
     label: _(walkability report)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-walkability.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -253,19 +253,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: 'this.map.zoom < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-walkability.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: 'this.map.zoom >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-walkability.png
           iconSize: [38, 46]
@@ -275,7 +275,7 @@ place_types:
   accessibility:
     label: _(accessibility report)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-accessibility.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -284,19 +284,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 14'
+      - condition: 'this.map.zoom < 14'
         icon:
           iconUrl: /static/css/images/markers/marker-accessibility.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 14'
+      - condition: 'this.map.zoom >= 14'
         icon:
           iconUrl: /static/css/images/markers/marker-accessibility.png
           iconSize: [38, 46]
@@ -305,7 +305,7 @@ place_types:
   traffic:
       label: _(traffic report)
       rules:
-        - condition: '{{layer.focused}} === true'
+        - condition: 'this.layer.focused === true'
           icon:
             iconUrl: /static/css/images/markers/marker-traffic.png
             shadowUrl: /static/css/images/marker-shadow.png
@@ -314,19 +314,19 @@ place_types:
             shadowSize: [50, 60]
             shadowAnchor: [14, 60]
 
-        - condition: '{{map.zoom}} < 11'
+        - condition: 'this.map.zoom < 11'
           icon:
             iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [10, 12]
             iconAnchor: [5, 12]
 
-        - condition: '{{map.zoom}} < 14'
+        - condition: 'this.map.zoom < 14'
           icon:
             iconUrl: /static/css/images/markers/marker-traffic.png
             iconSize: [15, 18]
             iconAnchor: [7.5, 18]
 
-        - condition: '{{map.zoom}} >= 14'
+        - condition: 'this.map.zoom >= 14'
           icon:
             iconUrl: /static/css/images/markers/marker-traffic.png
             iconSize: [38, 46]
@@ -335,7 +335,7 @@ place_types:
   design:
       label: _(design suggestion)
       rules:
-        - condition: '{{layer.focused}} === true'
+        - condition: 'this.layer.focused === true'
           icon:
             iconUrl: /static/css/images/markers/marker-design.png
             shadowUrl: /static/css/images/marker-shadow.png
@@ -344,19 +344,19 @@ place_types:
             shadowSize: [50, 60]
             shadowAnchor: [14, 60]
 
-        - condition: '{{map.zoom}} < 11'
+        - condition: 'this.map.zoom < 11'
           icon:
             iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [10, 12]
             iconAnchor: [5, 12]
 
-        - condition: '{{map.zoom}} < 14'
+        - condition: 'this.map.zoom < 14'
           icon:
             iconUrl: /static/css/images/markers/marker-design.png
             iconSize: [15, 18]
             iconAnchor: [7.5, 18]
 
-        - condition: '{{map.zoom}} >= 14'
+        - condition: 'this.map.zoom >= 14'
           icon:
             iconUrl: /static/css/images/markers/marker-design.png
             iconSize: [38, 46]

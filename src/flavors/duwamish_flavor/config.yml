@@ -214,25 +214,25 @@ map:
 place_types:
 
   georgetownZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [60, 60]
         iconAnchor: [30, 30]
-    - condition: '{{map.zoom}} < 15'
+    - condition: 'this.map.zoom < 15'
       icon:
         iconSize: [7.5, 7.5]
         iconAnchor: [4, 4]
-    - condition: '{{map.zoom}} < 17'
+    - condition: 'this.map.zoom < 17'
       icon:
         iconSize: [25, 25]
         iconAnchor: [12.5, 12.5]
-    - condition: '{{map.zoom}} >= 17'
+    - condition: 'this.map.zoom >= 17'
       icon:
         iconSize: [40, 40]
         iconAnchor: [20, 20]
 
   mapboxZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
@@ -246,17 +246,17 @@ place_types:
         iconAnchor: [15, 15]
 
   reportsZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 60]
         iconAnchor: [25, 30]
         shadowSize: [50, 60]
         shadowAnchor: [14, 60]
-    - condition: '{{map.zoom}} < 17'
+    - condition: 'this.map.zoom < 17'
       icon:
         iconSize: [15, 18]
         iconAnchor: [7.5, 9]
-    - condition: '{{map.zoom}} >= 17'
+    - condition: 'this.map.zoom >= 17'
       icon:
         iconSize: [30, 36]
         iconAnchor: [15, 36]
@@ -618,21 +618,21 @@ place_types:
     # Mapbox Points
     rules:
     # LineString
-      - condition: '{{geometry.type}} == "LineString"'
+      - condition: 'this.geometry.type == "LineString"'
         style:
-          color: '"{{style.color}}'
-          opacity: '"{{style.opacity}}'
-          weight: '"{{style.weight}}'
+          color: "this.style.color"
+          opacity: "this.style.opacity"
+          weight: "this.style.weight"
     # Polygons
-      - condition: '{{geometry.type}} == "Polygon"'
+      - condition: 'this.geometry.type == "Polygon"'
         style:
           shapeType: polygon
-          fillColor: '"{{style.fillColor}}'
+          fillColor: "this.style.fillColor"
           fill: 'true'
-          color: '"{{style.color}}'
+          color: "this.style.color"
           opacity: 0.7
-          fillOpacity: '"{{style.fillOpacity}}'
-          weight: '"{{style.weight}}'
+          fillOpacity: "this.style.fillOpacity"
+          weight: "this.style.weight"
 
   danger:
     rules:
@@ -890,7 +890,7 @@ place_types:
   # greenwall:
   #   label: _(Green Screen Vote)
   #   rules:
-  #     - condition: '{{layer.focused}} === true'
+  #     - condition: 'this.layer.focused === true'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         shadowUrl: /static/css/images/marker-shadow.png
@@ -899,19 +899,19 @@ place_types:
   #         shadowSize: [50, 60]
   #         shadowAnchor: [14, 60]
 
-  #     - condition: '{{map.zoom}} < 15'
+  #     - condition: 'this.map.zoom < 15'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [10, 12]
   #         iconAnchor: [5, 12]
 
-  #     - condition: '{{map.zoom}} < 18'
+  #     - condition: 'this.map.zoom < 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [18, 21.75]
   #         iconAnchor: [9, 21.75]
 
-  #     - condition: '{{map.zoom}} >= 18'
+  #     - condition: 'this.map.zoom >= 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [38, 46]
@@ -921,7 +921,7 @@ place_types:
   air_watch:
     label: _(Air Watch)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -930,19 +930,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17'
+      - condition: 'this.map.zoom < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17'
+      - condition: 'this.map.zoom >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
