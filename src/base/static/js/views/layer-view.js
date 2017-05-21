@@ -152,11 +152,10 @@
     isPublishable: function() {
       if (this.layerIsAdminControlled) {
         return true;
-      } else if (this.model.get("published") && this.model.get("published") === "isNotPublished") {
-        return false;
       }
 
-      return true;
+      return !this.model.get("published") ||
+             this.model.get("published") !== "isNotPublished"
     },
     onDestroy: function() {
       // NOTE: it's necessary to remove the zoomend event here
