@@ -27,22 +27,8 @@
       // Create arrays of functions representing parsed versions of style rules
       // found in the config. This prevents us from having to re-parse each
       // style rule on every map zoom for every layer view.
-      _.each(this.placeType.rules, function(rule) {
-        var fn = new Function(["return ", rule.condition, ";"].join(""));
-
-        fn.props = {};
-
-        _.each(rule, function(prop, key) {
-          if (prop !== "condition") {
-            fn.props[key] = prop;
-          }
-        }, this);
-
-        this.styleRules.push(fn);
-      }, this);
-
-      if (this.placeType.hasOwnProperty("zoomType")) {
-        _.each(this.options.placeTypes[this.placeType.zoomType], function(rule) {
+      if (this.placeType) {
+        _.each(this.placeType.rules, function(rule) {
           var fn = new Function(["return ", rule.condition, ";"].join(""));
 
           fn.props = {};
@@ -53,8 +39,24 @@
             }
           }, this);
 
-          this.zoomRules.push(fn);
+          this.styleRules.push(fn);
         }, this);
+
+        if (this.placeType.hasOwnProperty("zoomType")) {
+          _.each(this.options.placeTypes[this.placeType.zoomType], function(rule) {
+            var fn = new Function(["return ", rule.condition, ";"].join(""));
+
+            fn.props = {};
+
+            _.each(rule, function(prop, key) {
+              if (prop !== "condition") {
+                fn.props[key] = prop;
+              }
+            }, this);
+
+            this.zoomRules.push(fn);
+          }, this);
+        }
       }
 
       this.evaluateStyleAndZoomRules();
