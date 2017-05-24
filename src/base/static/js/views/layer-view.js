@@ -29,32 +29,30 @@
       // style rule on every map zoom for every layer view.
       if (this.placeType) {
         _.each(this.placeType.rules, function(rule) {
-          var fn = new Function(["return ", rule.condition, ";"].join(""));
-
-          fn.props = {};
-
-          _.each(rule, function(prop, key) {
-            if (prop !== "condition") {
-              fn.props[key] = prop;
+          var styleRule = { props: {} };
+          _.each(rule, function(value, key) {
+            if (key === "condition") {
+              styleRule.testCondition = new Function(["return ", rule.condition, ";"].join(""));
+            } else {
+              styleRule.props[key] = value;
             }
           }, this);
 
-          this.styleRules.push(fn);
+          this.styleRules.push(styleRule);
         }, this);
 
         if (this.placeType.hasOwnProperty("zoomType")) {
           _.each(this.options.placeTypes[this.placeType.zoomType], function(rule) {
-            var fn = new Function(["return ", rule.condition, ";"].join(""));
-
-            fn.props = {};
-
-            _.each(rule, function(prop, key) {
-              if (prop !== "condition") {
-                fn.props[key] = prop;
+            var zoomRule = { props: {} };
+            _.each(rule, function(value, key) {
+              if (key === "condition") {
+                zoomRule.testCondition = new Function(["return ", rule.condition, ";"].join(""));
+              } else {
+                zoomRule.props[key] = value;
               }
             }, this);
 
-            this.zoomRules.push(fn);
+            this.zoomRules.push(zoomRule);
           }, this);
         }
       }
@@ -80,15 +78,18 @@
             {map: {zoom: this.map.getZoom()}},
             {layer: {focused: this.isFocused}});
 
+      // Determine the style rule to use based on the model data
+      // and the map state:
       for (var i = 0; i < this.styleRules.length; i++) {
-        if (this.styleRules[i].apply(styleRuleContext)) {
+        if (this.styleRules[i].testCondition.apply(styleRuleContext)) {
           styleRule = this.styleRules[i].props;
           break;
         }
       }
 
+      // Zoom checks here, for overriding the icon size, anchor, and focus icon:
       for (var i = 0; i < this.zoomRules.length; i++) {
-        if (this.zoomRules[i].apply(styleRuleContext)) {
+        if (this.zoomRules[i].testCondition.apply(styleRuleContext)) {
           zoomRule = this.zoomRules[i].props;
           break;
         }
