@@ -115,104 +115,104 @@ L.Argo = L.GeoJSON.extend({
   }
 });
 
-L.extend(L.Argo, {   
-   // http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/    
-   t: function t(str, obj){
-     function find(obj, key) {   
-       var parts, partKey;   
-       if (!obj) {   
-         return obj;   
-       }   
-     
-       if (key.indexOf('.') > -1) {    
-         parts = key.split('.');   
-         partKey = parts.shift();    
-         return find(obj[partKey], parts.join('.'));   
-       } else {    
-         return obj[key];    
-       }   
-     }   
-     
-     var regex = /\{\{ *([\w\.-]+) *\}\}/g,    
-       matches = str.match(regex),   
-       val, m, i;    
-     
-     if (matches) {    
-       for (i=0; i<matches.length; i++) {    
-         m = matches[i].replace(/[\{\}]/g, '');    
-         val = find(obj, m);   
-     
-         str=str.replace(new RegExp(matches[i], 'g'), val);    
-       }   
-     }   
-     
-     return str;   
-   },    
-     
-   getZoomRule: function(properties, rules) {    
-     var self = this,    
-       i, condition, len;    
-     
-     // Cycle through rules until we hit a matching condition    
-     for (i=0, len=rules.length; i<len; i++) {   
-       // Replace the template with the property variable, not the value.    
-       // this is so we don't have to worry about strings vs nums.         
-       condition = L.Argo.t(rules[i].condition, properties.style);   
-     
-       if (eval(condition)) {   
-         // The new property values (outlined in the config) are added for Leaflet compatibility   
-         // Format marker icon features    
-         if (rules[i].icon) {    
-           // Icon must be set when evaling zoom rules   
-           _.extend(properties.icon, rules[i].icon);   
-         }   
-     
-         return properties;    
-       }   
-     }   
-     return properties;    
-   },    
-   // Get the style rule for this feature by evaluating the condition option   
-   getStyleRule: function(properties, rules) {   
-     var self = this,    
-       i, condition, len;    
-     
-     // Cycle through rules until we hit a matching condition    
-     for (i=0, len=rules.length; i<len; i++) {   
-       // Replace the template with the property variable, not the value.    
-       // this is so we don't have to worry about strings vs nums.   
-       condition = L.Argo.t(rules[i].condition, ((properties.style) ? properties.style : properties));   
-     
-       if (eval(condition)) {   
-         // The new property values (outlined in the config) are added for Leaflet compatibility   
-         for (var key in rules[i].style) {   
-           if (rules[i].style.hasOwnProperty(key)) {   
-             if (typeof rules[i].style[key] == 'string' || rules[i].style[key] instanceof String) {    
-               value = L.Argo.t(rules[i].style[key], properties);    
-               properties[key] = value;    
-             } else {    
-               properties[key] = rules[i].style[key];    
-             }   
-           } else {    
-             console.log("Non-property key is discovered at: " + key);   
-             console.log("The config rule is incompatible with this feature.");    
-           }   
-         }   
-     
-         properties = {'style' : properties};    
-     
-         // Format marker icon features    
-         if (rules[i].icon) {    
-           properties.focus_icon = rules[i].focus_icon;    
-           properties.icon = rules[i].icon;    
-         }   
-     
-         return properties;    
-       }   
-     }   
-     return null;    
-   }   
- });
+L.extend(L.Argo, {
+  // http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/
+  t: function t(str, obj){
+    function find(obj, key) {
+      var parts, partKey;
+      if (!obj) {
+        return obj;
+      }
+
+      if (key.indexOf('.') > -1) {
+        parts = key.split('.');
+        partKey = parts.shift();
+        return find(obj[partKey], parts.join('.'));
+      } else {
+        return obj[key];
+      }
+    }
+
+    var regex = /\{\{ *([\w\.-]+) *\}\}/g,
+      matches = str.match(regex),
+      val, m, i;
+
+    if (matches) {
+      for (i=0; i<matches.length; i++) {
+        m = matches[i].replace(/[\{\}]/g, '');
+        val = find(obj, m);
+
+        str=str.replace(new RegExp(matches[i], 'g'), val);
+      }
+    }
+
+    return str;
+  },
+
+  getZoomRule: function(properties, rules) {
+    var self = this,
+      i, condition, len;
+
+    // Cycle through rules until we hit a matching condition
+    for (i=0, len=rules.length; i<len; i++) {
+      // Replace the template with the property variable, not the value.
+      // this is so we don't have to worry about strings vs nums.
+      condition = L.Argo.t(rules[i].condition, properties.style);
+
+      if (eval(condition)) {
+        // The new property values (outlined in the config) are added for Leaflet compatibility
+        // Format marker icon features
+        if (rules[i].icon) {
+          // Icon must be set when evaling zoom rules
+          _.extend(properties.icon, rules[i].icon);
+        }
+
+        return properties;
+      }
+    }
+    return properties;
+  },
+  // Get the style rule for this feature by evaluating the condition option
+  getStyleRule: function(properties, rules) {
+    var self = this,
+      i, condition, len;
+
+    // Cycle through rules until we hit a matching condition
+    for (i=0, len=rules.length; i<len; i++) {
+      // Replace the template with the property variable, not the value.
+      // this is so we don't have to worry about strings vs nums.
+      condition = L.Argo.t(rules[i].condition, ((properties.style) ? properties.style : properties));
+
+      if (eval(condition)) {
+        // The new property values (outlined in the config) are added for Leaflet compatibility
+        for (var key in rules[i].style) {
+          if (rules[i].style.hasOwnProperty(key)) {
+            if (typeof rules[i].style[key] == 'string' || rules[i].style[key] instanceof String) {
+              value = L.Argo.t(rules[i].style[key], properties);
+              properties[key] = value;
+            } else {
+              properties[key] = rules[i].style[key];
+            }
+          } else {
+            console.log("Non-property key is discovered at: " + key);
+            console.log("The config rule is incompatible with this feature.");
+          }
+        }
+
+        properties = {'style' : properties};
+
+        // Format marker icon features
+        if (rules[i].icon) {
+          properties.focus_icon = rules[i].focus_icon;
+          properties.icon = rules[i].icon;
+        }
+
+        return properties;
+      }
+    }
+    return null;
+  }
+});
 
 L.argo = function (geojson, options) {
   return new L.Argo(geojson, options);
