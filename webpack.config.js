@@ -2,9 +2,10 @@ require('dotenv').config({path: 'src/.env'});
 var path = require('path');
 var glob = require('glob');
 var fs = require('fs');
+require("babel-polyfill")
 
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
-var entryPoints = ["./src/base/static/js/routes.js", "./src/base/static/js/handlebars-helpers.js"].concat(flavorJsFiles);
+var entryPoints = ["babel-polyfill", "./src/base/static/js/routes.js", "./src/base/static/js/handlebars-helpers.js"].concat(flavorJsFiles);
 
 var baseViewPaths = glob.sync(path.resolve(__dirname, 'src/base/static/js/views/*.js'));
 var alias = {};
@@ -29,5 +30,10 @@ module.exports = {
   },
   resolve: {
     alias: alias
+  },
+  module: {
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+    ]
   }
 };
