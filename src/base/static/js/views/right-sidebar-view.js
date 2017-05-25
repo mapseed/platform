@@ -21,8 +21,6 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
   },
 
   onClickThisItem: function(evt) {
-    console.log(this.model);
-
     this.options.router.navigate(this.url, {trigger: true});
   },
 

@@ -148,28 +148,28 @@ map:
       url: "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson"
       popupContent: '{{description}}'
       rules:
-        - condition: '{{properties.description}} === "No recent overflow"'
+        - condition: '"{{properties.description}}" === "No recent overflow"'
           icon:
             iconUrl: /static/css/images/markers/dot-4ab767.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
-        - condition: '{{properties.description}} === "Overflowed in the last 48 hrs"'
+        - condition: '"{{properties.description}}" === "Overflowed in the last 48 hrs"'
           icon:
             iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
-        - condition: '{{properties.description}} === "Overflowing now"'
+        - condition: '"{{properties.description}}" === "Overflowing now"'
           icon:
             iconUrl: /static/css/images/markers/dot-e1264d.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
-        - condition: '{{properties.description}} === "Data not available"'
+        - condition: '"{{properties.description}}" === "Data not available"'
           icon:
             iconUrl: /static/css/images/markers/dot-0d85e9.png
             iconSize: [20, 20]
