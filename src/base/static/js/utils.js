@@ -66,7 +66,8 @@ var self = module.exports = {
     // data sources and those corresponding to Shareabouts place models) are unique.
     getPlaceFromCollections: function(collectionsSet, args, mapConfig, callbacks) {
       var numCollections = 0,
-      numCollectionsSynced = 0;
+      numCollectionsSynced = 0,
+      found = false;
 
       // If we have a slug, we definitely have a place model
       if (args.datasetSlug) {
@@ -135,8 +136,7 @@ var self = module.exports = {
       };
 
       function bindCollectionsListeners(collections, type) {
-        var searchTerm = {},
-        found = false;
+        var searchTerm = {};
 
         if (type === "place") {
           searchTerm["url-title"] = args.modelId;
@@ -145,8 +145,7 @@ var self = module.exports = {
         }
 
         _.each(collections, function(collection, datasetId) {
-          collection.on("sync", onSync);
-          function onSync(syncedCollection) {
+          var onSync = function(syncedCollection) {
             numCollectionsSynced++;
             var model = syncedCollection.where(searchTerm);
 
@@ -164,6 +163,8 @@ var self = module.exports = {
               collection.off("sync", onSync);
             }
           };
+
+          collection.on("sync", onSync);
         });
       };
     },
