@@ -335,6 +335,7 @@
           el: "#right-sidebar-container",
           router: this.options.router,
           rightSidebarConfig: this.options.rightSidebarConfig,
+          placeConfig: this.options.placeConfig,
           layers: this.options.mapConfig.layers,
           storyConfig: this.options.storyConfig,
           activityConfig: this.options.activityConfig,

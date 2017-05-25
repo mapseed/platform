@@ -31,14 +31,18 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
 
     // Try to find the icon for a landmark layer
     this.layerView = this.options.layerViews[this.model.get("datasetId")][this.model.get("id")];
-    
+
     // Try to find the icon for a place layer
     if (!this.layerView) {
-      this.layerView = this.options.layerViews[this.model.get("datasetId")][this.model.cid]        
+      this.layerView = this.options.layerViews[this.model.get("datasetId")][this.model.cid];
     }
 
-    if (this.layerView && this.layerView.layer instanceof L.Marker) {
-      this.iconUrl = this.layerView.layer.options.icon.options.iconUrl;   
+    var categoryConfig = _.find(this.options.placeConfig.place_detail, function(config) {
+      return config.category === this.model.get("location_type");
+    }, this);
+
+    if (categoryConfig && this.layerView && this.layerView.layer instanceof L.Marker) {
+      this.iconUrl = categoryConfig.icon_url;
     } else {
 
       // Otherwise, supply a default icon (for polygon geometry, etc.)
@@ -78,6 +82,7 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
 
     this.itemViewOptions = {
       layerViews: this.options.layerViews,
+      placeConfig: this.options.placeConfig,
       router: this.options.router,
       sidebarStoryView: this
     }
@@ -206,6 +211,7 @@ module.exports = Backbone.View.extend({
       el: "#sidebar-story-item-list",
       router: this.options.router,
       rightSidebarConfig: this.options.rightSidebarConfig,
+      placeConfig: this.options.placeConfig,
       layers: this.options.layers,
       storyConfig: this.options.storyConfig,
       activityConfig: this.options.activityConfig,
