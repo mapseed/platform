@@ -103,10 +103,6 @@ map:
       type: place
       slug: trees
 
-    - id: vision
-      type: place
-      slug: vision
-
     - id: duwamishfeatured
       type: place
       slug: featured
@@ -152,28 +148,28 @@ map:
       url: "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson"
       popupContent: '{{description}}'
       rules:
-        - condition: '"{{properties.description}}" === "No recent overflow"'
+        - condition: '{{properties.description}} === "No recent overflow"'
           icon:
             iconUrl: /static/css/images/markers/dot-4ab767.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
-        - condition: '"{{properties.description}}" === "Overflowed in the last 48 hrs"'
+        - condition: '{{properties.description}} === "Overflowed in the last 48 hrs"'
           icon:
             iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
-        - condition: '"{{properties.description}}" === "Overflowing now"'
+        - condition: '{{properties.description}} === "Overflowing now"'
           icon:
             iconUrl: /static/css/images/markers/dot-e1264d.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
-        - condition: '"{{properties.description}}" === "Data not available"'
+        - condition: '{{properties.description}} === "Data not available"'
           icon:
             iconUrl: /static/css/images/markers/dot-0d85e9.png
             iconSize: [20, 20]
@@ -186,19 +182,19 @@ map:
       url: "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17"
       popupContent: '{{CLASS_DESC}}'
       rules:
-        - condition: '"{{properties.CLASS_DESC}}" === "Single Family"'
+        - condition: '{{properties.CLASS_DESC}} === "Single Family"'
           style:
             color: '#008000'
             stroke: false
-        - condition: '"{{properties.CLASS_DESC}}" === "Multi-Family"'
+        - condition: '{{properties.CLASS_DESC}} === "Multi-Family"'
           style:
             color: '#008080'
             stroke: false
-        - condition: '"{{properties.CLASS_DESC}}" === "Neighborhood/Commercial"'
+        - condition: '{{properties.CLASS_DESC}} === "Neighborhood/Commercial"'
           style:
             color: '#800080'
             stroke: false
-        - condition: '"{{properties.CLASS_DESC}}" === "Manufacturing/Industrial"'
+        - condition: '{{properties.CLASS_DESC}} === "Manufacturing/Industrial"'
           style:
             color: '#FFA500'
             stroke: false
@@ -235,11 +231,11 @@ place_types:
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 16'
+    - condition: '{{map.zoom}} < 15'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 16'
+    - condition: '{{map.zoom}} >= 15'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
@@ -260,201 +256,540 @@ place_types:
         iconSize: [30, 36]
         iconAnchor: [15, 36]
 
-  # treeZoomStyle:
-  #   - condition: '{{layer.focused}} === true'
-  #     icon:
-  #       iconSize: [50, 60]
-  #       iconAnchor: [25, 30]
-  #       shadowSize: [50, 60]
-  #       shadowAnchor: [14, 60]
-  #   - condition: '{{map.zoom}} < 17'
-  #     icon:
-  #       iconSize: [15, 18]
-  #       iconAnchor: [7.5, 18]
-  #   - condition: '{{map.zoom}} >= 17'
-  #     icon:
-  #       iconSize: [30, 36]
-  #       iconAnchor: [15, 36]
-
-  icon_test:
-    zoomType: mapboxZoomStyle
+  featured_place:
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
-          iconUrl: ""
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   wetland:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   park:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   school:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   police:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   rail:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   town-hall:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{marker-color}}" == "a3e46b"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f1f075"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{marker-color}}" == "f86767"'
+      - condition: '{{layer.focused}} === true && "{{style.marker-color}}" == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 15 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: '{{map.zoom}} < 17 && "{{style.marker-color}}" == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   mapbox:
     # Mapbox Points
     rules:
     # LineString
-      - condition: '"{{geometry.type}}" == "LineString"'
+      - condition: '{{geometry.type}} == "LineString"'
         style:
-          color: "{{style.color}}"
-          opacity: "{{style.opacity}}"
-          weight: "{{style.weight}}"
+          color: '"{{style.color}}'
+          opacity: '"{{style.opacity}}'
+          weight: '"{{style.weight}}'
     # Polygons
-      - condition: '"{{geometry.type}}" == "Polygon"'
+      - condition: '{{geometry.type}} == "Polygon"'
         style:
           shapeType: polygon
-          fillColor: "{{style.fillColor}}"
+          fillColor: '"{{style.fillColor}}'
           fill: 'true'
-          color: "{{style.color}}"
+          color: '"{{style.color}}'
           opacity: 0.7
-          fillOpacity: '{{style.fillOpacity}}'
-          weight: "{{style.weight}}"
+          fillOpacity: '"{{style.fillOpacity}}'
+          weight: '"{{style.weight}}'
 
   danger:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   park2:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-heart.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-heart-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-heart.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   industrial:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-industrial.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   bicycle:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-bike.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bike-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bike.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   swimming:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-swimming.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-swimming-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-swimming.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   theatre:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-art.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   zoo:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-whale.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-whale-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-whale.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   tree:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-tree.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-tree-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-tree.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   star-stroked:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-dirtcorps.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dirtcorps-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dirtcorps.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   star:
     zoomType: mapboxZoomStyle
@@ -463,53 +798,89 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
 
-  # # needs a marker
-  # farm:
-  #   zoomType: mapboxZoomStyle
-  #   rules:
-  #     - condition: 'true'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/dot-0d85e9.png
-
-  featured_place:
-    label: _(Featured Place)
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: ""
-
   observation:
     label: _(Observation)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   question:
     label: _(Question)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-question-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-question.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   idea:
     label: _(Idea)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   complaint:
     label: _(Complaint)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{layer.focused}} === true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: '{{map.zoom}} < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: '{{map.zoom}} <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   # greenwall:
   #   label: _(Green Screen Vote)
