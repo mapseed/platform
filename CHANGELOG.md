@@ -4,7 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - on our `develop` branch (unreleased)
+## [staging] - on our `master` branch (staging)
+
+## [0.8.0] - 2017-05-26
+### Added
+ - Babel ES6 transpiler into our build step
+ - Added "right clinging" sidebar
+ - Scripts to rule them all
+ - Admin editor! (w/ rich text and geometry editor)
+ - Support layers with data from ESRI Map Services
+ - Support multiple datasets per layer
+### Changed
+ - Onboarding/docs updates
+ - Story logic improvements
+### Removed
+ - Deprecated ui tests (jasmine)
 
 ## [0.7.5] - 2017-03-05
 ### Changed
@@ -73,9 +87,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.6.0 - 2016-02-06
 
-[Unreleased]: https://github.com/smartercleanup/platform/compare/0.7.5...develop
-[0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.4...0.7.5
-[0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.3...0.7.4
+[staging]: https://github.com/smartercleanup/platform/compare/0.8.0...master
+[0.8.0]: https://github.com/smartercleanup/platform/compare/0.7.5...0.8.0
+[0.7.5]: https://github.com/smartercleanup/platform/compare/0.7.4...0.7.5
+[0.7.4]: https://github.com/smartercleanup/platform/compare/0.7.3...0.7.4
 [0.7.3]: https://github.com/smartercleanup/platform/compare/0.7.2...0.7.3
 [0.7.2]: https://github.com/smartercleanup/platform/compare/0.7.1...0.7.2
 [0.7.1]: https://github.com/smartercleanup/platform/compare/0.7.0...0.7.1
