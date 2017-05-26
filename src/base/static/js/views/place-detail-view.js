@@ -18,7 +18,7 @@
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'change .publish-control-container input': 'onPublishedStateChange',
       'change input, textarea': 'saveDraftChanges',
-      'keyup input[name="url-title"]': 'onUpdateUrlTitle'
+      'keyup input[name="url-title"]': 'onUpdateUrlTitle',
       'click .share-twitter': 'onShareTwitter',
       'click .share-facebook': 'onShareFacebook'
     },
