@@ -49,13 +49,6 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
-    - id: areas-of-interest
-      url: "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks"
-      sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/lake-wa-data.geojson"
-      type: landmark
-      visibleDefault: true
-
       # Kenmore Land use
     - id: kenmore-land-use
       type: cartodb
@@ -298,12 +291,6 @@ sidebar:
             - id: lakewashington
               title: _(Community Reports)
               description: _(Community Reports)
-              visibleDefault: true
-
-              # Ares of interst
-            - id: areas-of-interest
-              title: _(Areas of interest)
-              description: _(Areas of interest)
               visibleDefault: true
 
               # Noxious Weeds
@@ -708,7 +695,7 @@ story:
     default_zoom: 17
     default_visible_layers:
       - lakewashington
-      - areas-of-interest
+      - lakewashingtonfeatured
       - satellite
     order: 
       - url: lakepointe
