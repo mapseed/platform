@@ -76,17 +76,11 @@ var self = module.exports = {
     },
 
     initiateShare: function(service, shareUrl, queryString) {
-      // if (service === "twitter") {
-      //   shareUrl = ["https://twitter.com/intent/tweet?url=",
-      //               shareUrl].join("");
-      //               // "&text=",
-      //               // title].join("");
-      // } else if (service === "facebook") {
-      //   shareUrl = ["https://www.facebook.com/sharer/sharer.php?u=",
-      //               shareUrl].join("");
-      // }
-
-      if (service === "facebook") {
+      if (service === "twitter") {
+        shareUrl = ["https://twitter.com/intent/tweet?url=",
+                    encodeURIComponent(shareUrl + queryString)].join("");
+        window.open(shareUrl, "Twitter", "height=300, width=600");
+      } else if (service === "facebook") {
         FB.ui({
           method: 'share',
           href: shareUrl + queryString
