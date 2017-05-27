@@ -4,7 +4,7 @@ cd /platform
 echo 'starting build...'
 echo 'pwd:'
 pwd
-NODE_ENV=production npm i
+npm i
 NODE_ENV=production npm run build
 echo 'starting static file collection...'
 python /platform/src/manage.py collectstatic --noinput
