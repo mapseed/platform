@@ -3,7 +3,7 @@
 ############################################################
 
 # Set the base image:
-FROM node:7.4
+FROM node:7.10
 
 # File Author / Maintainer
 MAINTAINER Luke Swart <luke@smartercleanup.org>
@@ -35,6 +35,12 @@ RUN git clone https://github.com/smartercleanup/platform.git && cd platform && g
 
 # Set the default directory where CMD will execute
 WORKDIR /platform
+
+# Install yarn
+RUN apt-get update && apt-get install -y apt-transport-https
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install yarn
 
 # Install our npm dependencies
 RUN cd /platform && npm install && cd -
