@@ -729,7 +729,12 @@ story:
         spotlight: false  
       # - url: ballfield
       #   spotlight: false        
-      - url: sammamish-river 
+      - url: sammamish-river
+        zoom: 12
+        basemap:
+          - light
+        visible_layers:
+          - watershed-sammamish
         spotlight: false
       - url: algae 
         spotlight: false          
