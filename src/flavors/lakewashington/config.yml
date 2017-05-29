@@ -719,16 +719,6 @@ story:
         # visible_layers:
         #   - satellite
         #   - lakewashington
-      - url: toxic-fish
-        spotlight: false
-        zoom: 12
-        visible_layers: 
-          - satellite
-      - url: calportland-cemex
-        spotlight: false
-      - url: portage-bay
-      #   spotlight: false
-      - url: shelton-forest
       - url: toxicfish
         spotlight: false
       - url: calportland-cemex
@@ -737,15 +727,11 @@ story:
         spotlight: false
       - url: shelton-forest
         spotlight: false  
-      - url: ballfield
-        spotlight: false        
+      # - url: ballfield
+      #   spotlight: false        
       - url: sammamish-river 
         spotlight: false
-        zoom: 12
-        visible_layers:
-          - watershed-sammamish
-          - light
       - url: algae 
         spotlight: false          
       # - url: squires-landing 
-      #   spotlight: false          
+      #   spotlight: false         
