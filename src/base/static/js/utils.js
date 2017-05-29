@@ -54,6 +54,78 @@ var self = module.exports = {
       return isAdmin;
     },
 
+    getPathname: function(model) {
+      if (model.get("url-title")) {
+        return model.get("url-title");
+      } else if (model.get("datasetSlug")) {
+        return model.get("datasetSlug") + "/" + model.get("id");
+      } else {
+        return model.get("id");
+      }
+    },
+
+    buildSharingQuerystring: function(components) {
+      return [
+        "?url=", encodeURIComponent(components.redirectUrl),
+        "&title=", encodeURIComponent(components.title),
+        "&img=", encodeURIComponent(components.img),
+        "&desc=", encodeURIComponent(components.desc),
+        "&height=", encodeURIComponent(components.height),
+        "&width=", encodeURIComponent(components.width)
+      ].join("");
+    },
+
+    initiateShare: function(service, shareUrl, queryString) {
+      if (service === "twitter") {
+        shareUrl = ["https://twitter.com/intent/tweet?url=",
+                    encodeURIComponent(shareUrl + queryString)].join("");
+        window.open(shareUrl, "Twitter", "height=300, width=600");
+      } else if (service === "facebook") {
+        FB.ui({
+          method: 'share',
+          href: shareUrl + queryString
+        }, function(response){});
+      }
+    },
+
+    onSocialShare: function(model, service) {
+      var self = this,
+          appConfig = Shareabouts.Config.app,
+          shareUrl = "http://social.mapseed.org",
+          components = {
+            title: model.get("title") ||
+                   model.get("name") ||
+                   appConfig.title,
+            desc: model.get("description") ||
+                  appConfig.meta_description,
+            img: (model.attachmentCollection.models.length > 0) ?
+                 model.attachmentCollection.models[0].get("file") :
+                 [window.location.protocol, "//", window.location.host, appConfig.thumbnail].join(""),
+            redirectUrl: [window.location.protocol, "//", window.location.host, "/", this.getPathname(model)].join("")
+          },
+          $img = $("img[src='" + components.img + "']");
+  
+      components["height"] = $img.height() || 630;
+      components["width"] = $img.width() || 1200;
+
+      if (components.img.startsWith("data:")) {
+
+        // If the image was just created and has a data url, fetch the attachment
+        // collection to obtain the S3 url before contacting the sharing microservice.
+        model.attachmentCollection.fetch({
+          reset: true,
+          success: function(collection) {
+            components.img = collection.first().get("file");
+            var queryString = self.buildSharingQuerystring(components);
+            self.initiateShare(service, shareUrl, queryString);
+          }
+        });
+      } else {
+        var queryString = this.buildSharingQuerystring(components);
+        this.initiateShare(service, shareUrl, queryString);
+      }
+    },
+
     // Given the information provided in a url (that is, an id and possibly a slug),
     // attempt to find the corresponding model within all collections on the page.
     // Three conditions are possible:

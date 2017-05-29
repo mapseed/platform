@@ -12,5 +12,9 @@ module.exports = Backbone.Collection.extend({
         thingUrl = thingModel.url();
 
     return thingUrl + '/attachments';
+  },
+
+  parse: function(response) {
+    return response.results;
   }
 });

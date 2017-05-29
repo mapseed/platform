@@ -18,7 +18,9 @@
       'click input[data-input-type="binary_toggle"]': 'onBinaryToggle',
       'change .publish-control-container input': 'onPublishedStateChange',
       'change input, textarea': 'saveDraftChanges',
-      'keyup input[name="url-title"]': 'onUpdateUrlTitle'
+      'keyup input[name="url-title"]': 'onUpdateUrlTitle',
+      'click .share-twitter': 'onShareTwitter',
+      'click .share-facebook': 'onShareFacebook'
     },
     initialize: function() {
       var self = this;
@@ -132,6 +134,14 @@
 
     clearDraftChanges: function() {
       Util.localstorage.destroy(this.LOCALSTORAGE_KEY);
+    },
+
+    onShareTwitter: function() {
+      Util.onSocialShare(this.model, "twitter");
+    },
+
+    onShareFacebook: function() {
+      Util.onSocialShare(this.model, "facebook");
     },
 
     onClickStoryPrevious: function() {
