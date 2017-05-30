@@ -43,13 +43,15 @@ map:
       url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
+    - id: light
+      url: //a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
+      attribution: 'Hello World'
+      type: basemap
+
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '<a href="/page/terms">Terms and conditions</a>&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-
-    - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      attribution: 'Hello World'
+      type: basemap
 
       # Kenmore Land use
     - id: kenmore-land-use
@@ -79,6 +81,10 @@ map:
     - id: lakewashingtonfeatured
       type: place
       slug: featured
+
+    - id: watershed-sammamish
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/e85f97d4-26af-11e7-af3c-0e3ebc282e83/viz.json"
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -278,9 +284,9 @@ sidebar:
         - id: satellite
           title: _(Satellite View)
           visibleDefault: true
-        - id: dark
-          title: _(Dark)
-          visibleDefault: false
+        - id: light
+          title: _(Light)
+          visibleDefault: false        
       groupings:
         - id: grp-land
           title: _(Land Data)
@@ -289,7 +295,9 @@ sidebar:
             - id: lakewashingtonfeatured
               title: _(Featured Places)
               visibleDefault: true
-
+            - id: watershed-sammamish
+              title: _(Lake Sammamish Watershed)
+              visibleDefault: false          
             - id: lakewashington
               title: _(Community Reports)
               description: _(Community Reports)
@@ -353,9 +361,9 @@ right_sidebar:
 
 place:
   adding_supported: true
-  add_button_label: _(Put a comment on the map!)
+  add_button_label: _(Add a report)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See all comments)
+  show_list_button_label: _(See all reports)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
@@ -561,7 +569,7 @@ place:
   # define form elements that appear on every form here
   common_form_elements:
     - type: submit
-      label: _(Put it on the map!)
+      label: _(Submit)
 
   #### end dynamic form config ####
 
@@ -706,3 +714,29 @@ story:
         spotlight: false        
       - url: kenmore-channel
         spotlight: false
+      - url: swampcreek
+        spotlight: false
+        # visible_layers:
+        #   - satellite
+        #   - lakewashington
+      - url: toxicfish
+        spotlight: false
+      - url: calportland-cemex
+        spotlight: false
+      - url: portage-bay
+        spotlight: false
+      - url: shelton-forest
+        spotlight: false  
+      # - url: ballfield
+      #   spotlight: false        
+      - url: sammamish-river
+        zoom: 12
+        basemap:
+          - light
+        visible_layers:
+          - watershed-sammamish
+        spotlight: false
+      - url: algae 
+        spotlight: false          
+      # - url: squires-landing 
+      #   spotlight: false         
