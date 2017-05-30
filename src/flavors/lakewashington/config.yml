@@ -731,8 +731,7 @@ story:
       #   spotlight: false        
       - url: sammamish-river
         zoom: 12
-        basemap:
-          - light
+        basemap: light
         visible_layers:
           - watershed-sammamish
         spotlight: false
