@@ -764,9 +764,13 @@
               animate: true
             });
           } else {
-            map.fitBounds(layer.getBounds(), {
-              animate: true
-            });
+            if (zoom) {
+              map.setZoom(zoom);
+            } else {
+              map.fitBounds(layer.getBounds(), {
+                animate: true
+              });
+            }
           }
         }
 
