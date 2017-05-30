@@ -768,8 +768,8 @@
 
             // If we've defined a custom zoom for a polygon layer for some reason,
             // don't use fitBounds and instead set the zoom defined
-            if (model.get("story").hasCustomZoom) {
-              map.setView(layer.getBounds().getCenter(), model.get("story").zoom, {
+            if (model.get("story") && model.get("story").hasCustomZoom) {
+              map.setView(center, model.get("story").zoom, {
                 animate: true
               });
             } else {
