@@ -151,7 +151,7 @@
               router: this.options.router
             })).render();
 
-      var basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
+      this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(panel) {
         return "basemaps" in panel;
       }).basemaps;
       // Init the map view to display the places
@@ -159,7 +159,7 @@
         el: '#map',
         mapConfig: this.options.mapConfig,
         sidebarConfig: this.options.sidebarConfig,
-        basemapConfigs: basemapConfigs,
+        basemapConfigs: this.basemapConfigs,
         legend_enabled: !!this.options.sidebarConfig.legend_enabled,
         places: this.places,
         landmarks: this.landmarks,
@@ -287,12 +287,13 @@
         _.each(story.order, function(config, i) {
           storyStructure[config.url] = {
             "zoom": config.zoom || story.default_zoom,
+            "hasCustomZoom": (config.zoom) ? true : false,
             "panTo": config.panTo || null,
             "visibleLayers": config.visible_layers || story.default_visible_layers,
             "previous": story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
             "next": story.order[(i + 1) % totalStoryElements].url,
-            "basemap": config.basemap || null,
-            "spotlight": (config.spotlight === false) ? false : true
+            "basemap": config.basemap || story.default_basemap,
+            "spotlight": (config.spotlight === false) ? false : true,
           }
         });
         story.order = storyStructure;
@@ -764,8 +765,13 @@
               animate: true
             });
           } else {
-            if (zoom) {
-              map.setZoom(zoom);
+
+            // If we've defined a custom zoom for a polygon layer for some reason,
+            // don't use fitBounds and instead set the zoom defined
+            if (model.get("story").hasCustomZoom) {
+              map.setView(layer.getBounds().getCenter(), model.get("story").zoom, {
+                animate: true
+              });
             } else {
               map.fitBounds(layer.getBounds(), {
                 animate: true
