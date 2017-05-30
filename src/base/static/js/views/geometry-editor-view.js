@@ -225,7 +225,9 @@ module.exports = Backbone.View.extend({
     this.showIconToolbar();
     this.iconUrl = this.$el.find(".geometry-toolbar-icon-field input:checked").val();
 
-    this.workingGeometry = new L.Draw.Marker(this.map, {
+    // NOTE: Creation of Markers is handled differently from polygons and polylines.
+    // We place the marker directly on the map and jump immediately into edit mode.
+    L.marker(this.map.getCenter(), {
       icon: new L.icon({
         iconUrl: this.iconUrl,
         
@@ -234,16 +236,15 @@ module.exports = Backbone.View.extend({
         iconSize: [25, 25],
         iconAnchor: [12.5, 12.5]
       })
-    });
-    this.workingGeometry.enable();
+    }).addTo(this.editingLayerGroup);
 
     this.layerType = "Point";
-    this.setGeometryToolbarHighlighting(evt.currentTarget);
-    this.displayHelpMessage("draw-marker-geometry-msg");
-    this.updateButtonText(this.layerType);
-    this.setEditingCursor();
-    this.delegateEvents();
-    this.isEditing = false;
+    this.$el.find(".edit-geometry").trigger("click");
+    this.resetWorkingGeometry();
+    this.setColorpicker();
+    this.hideIconToolbar();
+    this.swapToolbarVisibility();
+    this.displayHelpMessage("edit-marker-geometry-msg");
   },
 
   onClickCreatePolyline: function(evt) {
