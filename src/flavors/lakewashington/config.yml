@@ -703,10 +703,10 @@ story:
     # zoom level and/or visible layers, it will use those wholesale 
     # (that is, no default settings will be inherited).
     default_zoom: 17
+    default_basemap: satellite
     default_visible_layers:
       - lakewashington
       - lakewashingtonfeatured
-      - satellite
     order: 
       - url: lakepointe
         spotlight: false
@@ -731,10 +731,10 @@ story:
       #   spotlight: false        
       - url: sammamish-river
         zoom: 12
-        basemap: light
         visible_layers:
           - watershed-sammamish
         spotlight: false
+        basemap: light
       - url: algae 
         spotlight: false          
       # - url: squires-landing 
