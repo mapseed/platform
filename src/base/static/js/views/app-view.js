@@ -765,8 +765,13 @@
               animate: true
             });
           } else {
-            if (zoom) {
-              map.setZoom(zoom);
+
+            // If we've defined a custom zoom for a polygon layer for some reason,
+            // don't use fitBounds and instead set the zoom defined
+            if (model.get("story").hasCustomZoom) {
+              map.setView(layer.getBounds().getCenter(), model.get("story").zoom, {
+                animate: true
+              });
             } else {
               map.fitBounds(layer.getBounds(), {
                 animate: true
