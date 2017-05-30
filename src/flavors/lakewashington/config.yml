@@ -716,6 +716,7 @@ story:
         spotlight: false
       - url: swampcreek
         spotlight: false
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
         # visible_layers:
         #   - satellite
         #   - lakewashington
@@ -726,16 +727,17 @@ story:
       - url: portage-bay
         spotlight: false
       - url: shelton-forest
-        spotlight: false  
+        spotlight: false
       # - url: ballfield
-      #   spotlight: false        
+      #   spotlight: false
       - url: sammamish-river
         zoom: 12
         visible_layers:
           - watershed-sammamish
         spotlight: false
         basemap: light
-      - url: algae 
-        spotlight: false          
-      # - url: squires-landing 
-      #   spotlight: false         
+      - url: algae
+        spotlight: false
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
+      # - url: squires-landing
+      #   spotlight: false

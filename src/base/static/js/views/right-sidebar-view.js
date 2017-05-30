@@ -27,6 +27,13 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
   onBeforeRender: function() {
     this.url = Util.getUrl(this.model);
 
+    // If the story config for this place declares an explicit sidebar icon url,
+    // use that icon
+    if (this.options.storyConfig[this.options.sidebarStoryView.collectionName].order[this.url].sidebarIconUrl) {
+      this.iconUrl = this.options.storyConfig[this.options.sidebarStoryView.collectionName].order[this.url].sidebarIconUrl;
+      return;
+    }
+
     // Try to find the icon for a landmark layer
     this.layerView = this.options.layerViews[this.model.get("datasetId")][this.model.get("id")];
 
@@ -44,7 +51,6 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
     } else {
 
       // Otherwise, supply a default icon (for polygon geometry, etc.)
-      // TODO: make this configurable?
       this.iconUrl = "/static/css/images/markers/map-pin-marker.png";
     }
   },
@@ -82,7 +88,8 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
       layerViews: this.options.layerViews,
       placeConfig: this.options.placeConfig,
       router: this.options.router,
-      sidebarStoryView: this
+      sidebarStoryView: this,
+      storyConfig: this.options.storyConfig
     }
     this.storyItemSelected = false;
 
@@ -106,10 +113,13 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
 
       // If we're loading the page directly to a place or landmark, check if that
       // url is part of a story. If not, show default story content.
-      var initialCollectionName = self.searchStoryCollections(Backbone.history.getFragment().split("/"));
-      self.collection = (initialCollectionName) ? 
-        self.storyCollections[initialCollectionName] : 
-        self.storyCollections[Object.keys(self.storyCollections)[0]];
+      self.collectionName = self.searchStoryCollections(Backbone.history.getFragment().split("/"));
+      if (self.collectionName) {
+        self.collection = self.storyCollections[self.collectionName];
+      } else {
+        self.collection = self.storyCollections[Object.keys(self.storyCollections)[0]];
+        self.collectionName = Object.keys(self.storyCollections)[0];
+      }
 
       self.render();
       $("#right-sidebar-container #right-sidebar-spinner").remove();
@@ -118,9 +128,9 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
       // part of a story. If so, load the story elements for that story in the
       // sidebar.
       self.options.router.on("route", function(fn, route) {
-        var collectionName = self.searchStoryCollections(route);
-        if (collectionName) {
-          self.collection = self.storyCollections[collectionName];
+        self.collectionName = self.searchStoryCollections(route);
+        if (self.collectionName) {
+          self.collection = self.storyCollections[self.collectionName];
           self.render();
         }
       }); 

@@ -39,7 +39,8 @@ var addStoryObj = function(response, type) {
         visibleLayers: story.order[url].visibleLayers,
         basemap: story.order[url].basemap,
         spotlight: story.order[url].spotlight,
-        hasCustomZoom: story.order[url].hasCustomZoom
+        hasCustomZoom: story.order[url].hasCustomZoom,
+        sidebarIconUrl: story.order[url].sidebarIconUrl
       }
     }
   });
