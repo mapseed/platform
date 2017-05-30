@@ -294,6 +294,7 @@
             "next": story.order[(i + 1) % totalStoryElements].url,
             "basemap": config.basemap || story.default_basemap,
             "spotlight": (config.spotlight === false) ? false : true,
+            "sidebarIconUrl": config.sidebar_icon_url
           }
         });
         story.order = storyStructure;
