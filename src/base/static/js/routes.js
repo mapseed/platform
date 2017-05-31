@@ -232,7 +232,7 @@ Shareabouts.Util = Util;
     },
 
     getFilteredRoutes: function() {
-      return ['filterMap', 'viewPlace', 'showList', 'viewMap'];
+      return ['filterMap', 'viewPlace', 'showList', 'viewMap', 'viewLandmark'];
     },
 
     clearLocationTypeFilter: function() {
