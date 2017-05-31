@@ -1397,3 +1397,10 @@ story:
           - wria-7-8-9
           - watershed-green
         spotlight: false
+
+cluster:
+  threshold: 0
+  showCoverageOnHover: false
+  spiderfyDistanceMultiplier: 1.5
+  spiderLegPolylineOptions:
+    opacity: 0
