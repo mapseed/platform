@@ -185,15 +185,6 @@
         this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
       }
     },
-    infiniteScroll: function() {
-      var totalHeight = this.$('> ul').height();
-      var scrollTop = this.$el.scrollTop() + this.$el.height();
-      // 200 = number of pixels from bottom to load more
-      if (scrollTop + 200 >= totalHeight) {
-        this.numItemsShown += this.itemsPerPage;
-        this.applyFilters(this.collectionFilters, this.searchTerm, this.numItemsShown);
-      }
-    },
     handleSearchInput: function(evt) {
       evt.preventDefault();
       this.numItemsShown = this.itemsPerPage;
