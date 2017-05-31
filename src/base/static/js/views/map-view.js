@@ -402,6 +402,14 @@
       } else if (config.type && config.type === 'cartodb') {
         cartodb.createLayer(self.map, config.url, { legends: false })
           .on('done', function(cartoLayer) {
+
+            // NOTE: this no-op is a monkey patch to make cartodb_noleaflet.js play
+            // nicely with leaflet 1.0. This is so we can have both carto and leaflet's
+            // flyTo method available on the same map, as carto (as of v. 3.15) does
+            // not yet support flyTo.
+            // See here: https://github.com/CartoDB/cartodb.js/issues/1503
+            cartoLayer._adjustTilePoint = function(){};
+
             self.layers[config.id] = cartoLayer;
             // This is only set when the 'visibility' event is fired before
             // our carto layer is loaded:
