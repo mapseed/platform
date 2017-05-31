@@ -262,19 +262,22 @@
     filter: function(locationType) {
       var self = this;
       this.locationTypeFilter = locationType;
-      this.collection.each(function(model) {
-        var modelLocationType = model.get('location_type');
 
-        if (modelLocationType &&
-          modelLocationType.toUpperCase() === locationType.toUpperCase()) {
-          self.layerViews[model.cid].show();
-        } else {
-          self.layerViews[model.cid].hide();
-        }
+      _.each(this.places, function(collection, collectionId) {
+        collection.each(function(model) {
+          var modelLocationType = model.get('location_type');
+
+          if (modelLocationType &&
+            modelLocationType.toUpperCase() === locationType.toUpperCase()) {
+            self.layerViews[collectionId][model.cid].show();
+          } else {
+            self.layerViews[collectionId][model.cid].hide();
+          }
+        });
       });
 
-      _.each(Object.keys(self.landmarks), function(collectionId) {
-        self.landmarks[collectionId].each(function(model) {
+      _.each(this.landmarks, function(collection, collectionId) {
+        collection.each(function(model) {
           var modelLocationType = model.get('location_type');
 
           if (modelLocationType &&
