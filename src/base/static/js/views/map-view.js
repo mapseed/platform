@@ -386,6 +386,8 @@ module.exports = Backbone.View.extend({
         config.sources.forEach(function(source) {
           url += encodeURIComponent(source) + "&";
         });
+
+        return cluster;
       }
       layer = L.argo(url, config);
       self.layers[config.id] = layer;
