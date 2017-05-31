@@ -474,6 +474,7 @@
       this.hideSpotlightMask();
       if (this.mapView.locationTypeFilter) {
         this.options.router.navigate('filter/' + this.mapView.locationTypeFilter, {trigger: true});
+        this.hidePanel();
       } else {
         this.options.router.navigate('/', {trigger: true});
       }
