@@ -295,48 +295,32 @@ module.exports = Backbone.View.extend({
     this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
   },
 
-  filter: function(locationType) {
-    var self = this;
-    this.locationTypeFilter = locationType;
+  filter: function(locationTypeModel) {
+    var self = this,
+        locationType = locationTypeModel.get("locationType"),
+        isVisible = locationTypeModel.get("active");
+
+    this.filters[locationType] = isVisible;
 
     _.each(this.places, function(collection, collectionId) {
-      collection.each(function(model) {
-        var modelLocationType = model.get("location_type");
-
-        if (
-          modelLocationType &&
-          modelLocationType.toUpperCase() === locationType.toUpperCase()
-        ) {
-          self.layerViews[collectionId][model.cid].show();
-        } else {
-          self.layerViews[collectionId][model.cid].hide();
-        }
-      });
+      collection
+        .where({location_type: locationType})
+        .forEach(function(model) {
+          (isVisible) ?
+            self.layerViews[collectionId][model.cid].show() :
+            self.layerViews[collectionId][model.cid].hide();
+        });
     });
 
-    _.each(this.landmarks, function(collection, collectionId) {
-      collection.each(function(model) {
-        var modelLocationType = model.get("location_type");
-
-        if (
-          modelLocationType &&
-          modelLocationType.toUpperCase() === locationType.toUpperCase()
-        ) {
-          self.layerViews[collectionId][model.id].show();
-        } else {
-          self.layerViews[collectionId][model.id].hide();
-        }
-      });
-    });
+    // TODO: filtering for landmarks also?
   },
+
   clearFilter: function(collectionId) {
     var self = this;
     this.locationTypeFilter = null;
     _.each(this.places, function(collection) {
       collection.each(function(model) {
-        if (self.layerViews[model.cid]) {
-          self.layerViews[model.cid].render();
-        }
+        if (self.layerViews[model.cid]) { self.layerViews[model.cid].render(); }
       });
     });
 

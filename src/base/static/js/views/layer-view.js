@@ -297,19 +297,13 @@ module.exports = Backbone.View.extend({
     return this.model.get("location_type");
   },
   show: function() {
-    if (
-      !this.options.mapView.locationTypeFilter ||
-      this.options.mapView.locationTypeFilter.toUpperCase() ===
-        this.model.get("location_type").toUpperCase()
-    ) {
-      if (this.layer) {
-        this.layerGroup.addLayer(this.layer);
-      }
+    if (this.options.mapView.filters[this.model.get('location_type')] && this.layer) {
+      this.layerGroup.addLayer(this.layer);
     } else {
       this.hide();
     }
   },
   hide: function() {
     this.removeLayer();
-  },
+  }
 });

@@ -820,8 +820,12 @@ activity:
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
 
-  # Place Types
+right_sidebar:
+  show: true
+  show_filter_menu: true
+  filter_all_label: _(All pledge types)
 
+# Place Types
 place:
   adding_supported: true
   add_button_label: _(Add a report!)

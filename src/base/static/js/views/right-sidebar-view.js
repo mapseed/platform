@@ -95,7 +95,6 @@ var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
 
 // A view for managing a collection of story items in a right sidebar panel
 var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
-  el: ".right-sidebar-content",
   itemView: SidebarStoryItemView,
   initialize: function() {
     var self = this;
