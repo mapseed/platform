@@ -21,7 +21,9 @@
       this.model.on('unfocus', this.unfocus, this);
       this.model.on('destroy', this.onDestroy, this);
 
-      this.map.on('zoomend', this.render, this);
+      if (!this.options.mapView.options.mapConfig.suppress_zoom_rules) {
+        this.map.on('zoomend', this.render, this);
+      }
 
       // Create arrays of functions representing parsed versions of style rules
       // found in the config. This prevents us from having to re-parse each
