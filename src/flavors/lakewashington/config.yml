@@ -722,6 +722,7 @@ story:
         #   - lakewashington
       - url: toxic-fish
         spotlight: false
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
       - url: calportland-cemex
         spotlight: false
       - url: portage-bay
