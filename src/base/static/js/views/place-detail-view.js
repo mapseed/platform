@@ -323,6 +323,11 @@
       var self = this,
       richTextAttrs = {};
 
+      // wrap quill video embeds in a container so we can enable fluid max dimensions
+      this.$("iframe.ql-video").each(function() {
+        $(this).wrap("<div class='ql-video-container'></div>");
+      });
+
       // attach data from Quill-enabled fields
       this.$el.find(".ql-editor").each(function() {
         richTextAttrs[$(this).data("fieldName")] = $(this).html();

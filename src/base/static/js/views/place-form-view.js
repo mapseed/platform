@@ -284,6 +284,11 @@
         }
       });
 
+      // wrap quill video embeds in a container so we can enable fluid max dimensions
+      this.$("iframe.ql-video").each(function() {
+        $(this).wrap("<div class='ql-video-container'></div>");
+      });
+
       if (this.geometryEnabled) {
         attrs.geometry = this.geometryEditorView.geometry;
       } else {
