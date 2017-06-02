@@ -1,67 +1,125 @@
   var Util = require('../utils.js');
-  var Argo = require('../../libs/leaflet.argo.js');
 
   module.exports = Backbone.View.extend({
-     // A view responsible for the representation of a place on the map.
-    initialize: function(){
+
+    // A view responsible for the representation of a place on the map.
+    initialize: function() {
       this.map = this.options.map;
       this.isFocused = false;
       this.isEditing = false;
-
-      this.layerGroup = this.options.layerGroup;
-
-      // A throttled version of the render function
+      this.layerIsAdminControlled = Util.getAdminStatus(this.model.get("datasetId"));
       this.throttledRender = _.throttle(this.render, 300);
+      this.layerGroup = this.options.layerGroup;
+      this.placeType = this.options.placeTypes[this.model.get('location_type')];
+      this.styleRuleContext = {};
+      this.styleRules = [];
+      this.zoomRules = [];
+      this.layerUpdatedAfterLastMapChange = false;
 
-      this.map.on('zoomend', this.updateLayer, this);
-
-      // Bind model events
-      this.model.on('change', this.updateLayer, this);
+      this.model.on('change', this.render, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
       this.model.on('destroy', this.onDestroy, this);
 
-      this.layerIsAdminControlled = Util.getAdminStatus(this.model.get("datasetId"));
+      if (!this.options.mapView.options.mapConfig.suppress_zoom_rules) {
+        this.map.on('zoomend', this.render, this);
+      }
 
-      // On map move, adjust the visibility of the markers for max efficiency
-      this.map.on('move', this.throttledRender, this);
+      // Create arrays of functions representing parsed versions of style rules
+      // found in the config. This prevents us from having to re-parse each
+      // style rule on every map zoom for every layer view.
+      if (this.placeType) {
+        _.each(this.placeType.rules, function(rule) {
+          var fn = new Function(["return ", rule.condition, ";"].join(""));
 
-      this.initLayer();
+          fn.props = {};
+
+          _.each(rule, function(prop, key) {
+            if (prop !== "condition") {
+              fn.props[key] = prop;
+            }
+          }, this);
+
+          this.styleRules.push(fn);
+        }, this);
+
+        if (this.placeType.hasOwnProperty("zoomType")) {
+          _.each(this.options.placeTypes[this.placeType.zoomType], function(rule) {
+            var fn = new Function(["return ", rule.condition, ";"].join(""));
+
+            fn.props = {};
+
+            _.each(rule, function(prop, key) {
+              if (prop !== "condition") {
+                fn.props[key] = prop;
+              }
+            }, this);
+
+            this.zoomRules.push(fn);
+          }, this);
+        }
+      }
+
+      this.evaluateStyleAndZoomRules();
+      this.createLayer();
+      this.render();
     },
-    initLayer: function() {
-      var geom, context;
+    onZoomEnd: function() {
+      this.layerUpdatedAfterLastMapChange = false;
+      this.render();
+    },
+    onMoveEnd: function() {
+      this.throttledRender();
+    },
+    evaluateStyleAndZoomRules: function() {
+      this.styleRulesWereUpdated = true;
 
-      // Handle if an existing place type does not match the list of available
-      // place types.
-      this.placeType = this.options.placeTypes[this.model.get('location_type')];
+      var styleRule = {},
+          zoomRule = {},
+          styleRuleContext = _.extend({},
+            this.model.toJSON(),
+            {map: {zoom: this.map.getZoom()}},
+            {layer: {focused: this.isFocused}});
+
+      for (var i = 0; i < this.styleRules.length; i++) {
+        if (this.styleRules[i].apply(styleRuleContext)) {
+          styleRule = this.styleRules[i].props;
+          break;
+        }
+      }
+
+      for (var i = 0; i < this.zoomRules.length; i++) {
+        if (this.zoomRules[i].apply(styleRuleContext)) {
+          zoomRule = this.zoomRules[i].props;
+          break;
+        }
+      }
+
+      this.styleRule = styleRule;
+      this.zoomRule = zoomRule;
+
+      if (this.styleRule.icon) {
+        _.extend(this.styleRule.icon, this.zoomRule.icon);
+      }
+    },
+
+    createLayer: function() {
+      this.removeLayer();
+
       if (!this.placeType) {
         console.warn('Place type', this.model.get('location_type'),
           'is not configured so it will not appear on the map.');
+        this.layer = {};
         return;
       }
 
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew() && this.isPublishable()) {
 
-        // Determine the style rule to use based on the model data and the map
-        // state.
-        context = _.extend({},
-          this.model.toJSON(),
-          {map: {zoom: this.map.getZoom()}},
-          {layer: {focused: this.isFocused}});
-        // Set the icon here:
-        this.styleRule = L.Argo.getStyleRule(context, this.placeType.rules);
-
-        // Zoom checks here, for overriding the icon size, anchor, and focus icon:
-        if (this.placeType.hasOwnProperty('zoomType')) {
-          var zoomRules = this.options.placeTypes[this.placeType.zoomType];
-          this.styleRule = L.Argo.getZoomRule(this.styleRule, zoomRules);
-        }
-
         // Construct an appropriate layer based on the model geometry and the
         // style rule. If the place is focused, use the 'focus_' portion of
         // the style rule if it exists.
-        geom = this.model.get('geometry');
+        var geom = this.model.get('geometry');
         if (geom.type === 'Point') {
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
 
@@ -92,18 +150,15 @@
         if (this.layer) {
           this.layer.on('click', this.onMarkerClick, this);
         }
-
-        this.render();
       }
     },
     isPublishable: function() {
       if (this.layerIsAdminControlled) {
         return true;
-      } else if (this.model.get("published") && this.model.get("published") === "isNotPublished") {
-        return false;
       }
 
-      return true;
+      return !this.model.get("published") ||
+             this.model.get("published") !== "isNotPublished"
     },
     onDestroy: function() {
       // NOTE: it's necessary to remove the zoomend event here
@@ -111,16 +166,7 @@
       // zoomed. Somehow even when a layer view is removed, the
       // zoomend listener on the map still retains a reference to it
       // and is capable of calling view methods on a "deleted" view.
-      this.map.off('zoomend', this.updateLayer, this);
-    },
-    updateLayer: function() {
-      if (!this.isEditing) {
-        // Update the marker layer if the model changes and the layer exists.
-        // Don't update if the layer is in editing mode, as this interferes 
-        // with the Leaflet draw plugin.
-        this.removeLayer();
-        this.initLayer();
-      }
+      this.map.off('zoomend', this.throttledRender, this);
     },
     removeLayer: function() {
       if (this.layer) {
@@ -128,20 +174,16 @@
       }
     },
     render: function() {
-      if (!this.isEditing) {
-        
-        // Show if it is within the current map bounds
-        var mapBounds = this.map.getBounds();
-        if (this.latLng) {
-          if (mapBounds.contains(this.latLng)) {
-            this.show();
-          } else {
-            this.hide();
-          }
-        } else {
-          this.show();
-        }
+      if (!this.isEditing && this.layer) {
+        this.updateLayer();
+      } else {
+        this.hide();
       }
+    },
+    updateLayer: function() {
+      this.evaluateStyleAndZoomRules();
+      this.createLayer();
+      this.show();
     },
     onMarkerClick: function() {
       Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
@@ -165,13 +207,13 @@
     focus: function() {
       if (!this.isFocused) {
         this.isFocused = true;
-        this.updateLayer();
+        this.render();
       }
     },
     unfocus: function() {
       if (this.isFocused) {
         this.isFocused = false;
-        this.updateLayer();
+        this.render();
       }
     },
     remove: function() {

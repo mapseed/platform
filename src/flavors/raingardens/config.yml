@@ -32,6 +32,12 @@ map:
   geocoding_bar_enabled: false # add a geocode bar across the map
   geocode_bounding_box: [45.2, -125, 49.3, -116.4] # Including cushion
 
+  # If set to true, suppress_zoom_rules will prevent style rules from being evaluated
+  # on map zooms. For flavors like raingardens which do not make much of zoom rules
+  # in the first place, the performance gains from suppressing them are significant
+  # while the functionality loss is minimal.
+  suppress_zoom_rules: true
+
   counter: true
   counter_min: 0
   counter_max: 12000
@@ -68,7 +74,7 @@ map:
 #      description: <img src="/static/css/images/legend-nlcd2011.png" alt="legend">
 #      title: _(Land covereage data)
 #      visible: false
-      
+
 
   # Report filters
 
@@ -88,25 +94,13 @@ place_types:
   raingarden:
     label: _(rain garden)
     rules:
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 11 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [7, 12]
-          iconAnchor: [5, 12]
-
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: 'this.location_type === "raingarden" && this.layer.focused === false'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "raingarden" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
-        icon:
-          iconUrl: /static/css/images/markers/marker-drop.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-      - condition: '"{{location_type}}" === "raingarden" && {{layer.focused}} === true'
+      - condition: 'this.location_type === "raingarden" && this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -117,25 +111,25 @@ place_types:
   idea:
     label: _(idea)
     rules:
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 11 && {{layer.focused}} === false'
+      - condition: 'this.location_type === "idea" && this.map.zoom < 11 && this.layer.focused === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           iconSize: [7, 12]
           iconAnchor: [5, 12]
 
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: 'this.location_type === "idea" && this.map.zoom < 13 && this.layer.focused === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: 'this.location_type === "idea" && this.map.zoom >= 13 && this.layer.focused === false'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
+      - condition: 'this.location_type === "idea" && this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           shadowUrl: /static/css/images/marker-shadow.png

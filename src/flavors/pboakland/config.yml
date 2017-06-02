@@ -67,21 +67,21 @@ map:
       url: "https://heyduwamishcore.carto.com/api/v2/viz/b852afe8-bc1c-11e6-b3fb-0e05a8b3e3d7/viz.json"
       rules:
     # LineString
-      - condition: '"{{geometry.type}}" == "LineString"'
+      - condition: "this.geometry.type == 'LineString'"
         style:
-          color: "{{properties.stroke}}"
-          opacity: '{{properties.stroke-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          color: "this.properties.stroke"
+          opacity: "this.properties['stroke-opacity']"
+          weight: "this.properties['stroke-width']"
     # Polygons
-      - condition: '"{{geometry.type}}" == "Polygon"'
+      - condition: "this.geometry.type == 'Polygon'"
         style:
           shapeType: polygon
-          fillColor: "{{properties.fill}}"
+          fillColor: "this.properties.fill"
           fill: 'true'
-          color: "{{properties.stroke}}"
+          color: "this.properties.stroke"
           opacity: 0.7
-          fillOpacity: '{{properties.fill-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          fillOpacity: "this.properties['fill-opacity']"
+          weight: "this.properties['stroke-width']"
 
     - id: pboakland
       type: place
@@ -91,19 +91,19 @@ map:
 place_types:
 
   markerZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [75, 90]
         iconAnchor: [38, 90]
-    - condition: '{{map.zoom}} < 14'
+    - condition: 'this.map.zoom < 14'
       icon:
         iconSize: [15, 18]
         iconAnchor: [7.5, 18]
-    - condition: '{{map.zoom}} < 16'
+    - condition: 'this.map.zoom < 16'
       icon:
         iconSize: [30, 36]
         iconAnchor: [15, 36]
-    - condition: '{{map.zoom}} >= 16'
+    - condition: 'this.map.zoom >= 16'
       icon:
         iconSize: [50, 60]
         iconAnchor: [25, 60]
