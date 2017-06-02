@@ -720,7 +720,7 @@ story:
         # visible_layers:
         #   - satellite
         #   - lakewashington
-      - url: toxicfish
+      - url: toxic-fish
         spotlight: false
       - url: calportland-cemex
         spotlight: false
