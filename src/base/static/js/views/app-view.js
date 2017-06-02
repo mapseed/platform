@@ -294,7 +294,8 @@
             "next": story.order[(i + 1) % totalStoryElements].url,
             "basemap": config.basemap || story.default_basemap,
             "spotlight": (config.spotlight === false) ? false : true,
-            "sidebarIconUrl": config.sidebar_icon_url
+            "sidebarIconUrl": config.sidebar_icon_url,
+            "flyTo": config.flyTo || false
           }
         });
         story.order = storyStructure;
@@ -712,7 +713,7 @@
 
       function onFound(model, type, datasetId) {
         var map = self.mapView.map,
-            layer, center, zoom, detailView, $responseToScrollTo;
+            layer, center, zoom, flyTo, detailView, $responseToScrollTo;
 
         if (type === "place") {
 
@@ -760,24 +761,37 @@
             self.setStoryLayerVisibility(model);
             center = model.get("story").panTo || center;
             zoom = model.get("story").zoom;
+            flyTo = model.get("story").flyTo;
           }
 
           if (layer.getLatLng) {
-            map.setView(center, zoom, {
-              animate: true
-            });
+            if (flyTo) {
+              map.flyTo(center, zoom);
+            } else {
+              map.setView(center, zoom, {
+                animate: true
+              }); 
+            }
           } else {
 
             // If we've defined a custom zoom for a polygon layer for some reason,
             // don't use fitBounds and instead set the zoom defined
             if (model.get("story") && model.get("story").hasCustomZoom) {
-              map.setView(center, model.get("story").zoom, {
-                animate: true
-              });
+              if (flyTo) {
+                map.flyTo(center, model.get("story").zoom);
+              } else {
+                map.setView(center, model.get("story").zoom, {
+                  animate: true
+                });
+              }
             } else {
-              map.fitBounds(layer.getBounds(), {
-                animate: true
-              });
+              if (flyTo) {
+                map.flyToBounds(layer.getBounds());
+              } else {
+                map.fitBounds(layer.getBounds(), {
+                  animate: true
+                });
+              }
             }
           }
         }
