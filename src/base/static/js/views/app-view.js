@@ -862,18 +862,7 @@
       }
 
       this.setBodyClass('content-visible');
-
-      // Set a very short timeout here to hopefully avoid a race condition
-      // between the CSS transition that resizes the map container and
-      // invalidateSize(). Otherwise, invalidateSize() may fire before the new
-      // map container dimensions have been set by CSS, resulting in the
-      // infamous off-center bug.
-      // NOTE: the timeout duration in use here was arbitrarily selected.
-      // TODO: this is a hack. Is there a better way to handle this? Can we 
-      // listen for an event from CSS maybe?
-      setTimeout(function() {
-        map.invalidateSize({ animate:true, pan:true });
-      }, 30);
+      map.invalidateSize({ animate:true, pan:true });
 
       $(Shareabouts).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
 
