@@ -21,7 +21,6 @@
       this.model.on('unfocus', this.unfocus, this);
       this.model.on('destroy', this.onDestroy, this);
 
-      this.map.on('moveend', this.throttledRender, this);
       this.map.on('zoomend', this.render, this);
 
       // Create arrays of functions representing parsed versions of style rules
@@ -174,19 +173,9 @@
     },
     render: function() {
       if (!this.isEditing && this.layer) {
-
-        // For point geometry:
-        if (this.layer.getLatLng &&
-            this.map.getBounds().contains(this.layer.getLatLng())) {
-          this.updateLayer();
-        
-        // For polygonal and linestring geometry:
-        } else if (this.layer.getBounds &&
-            this.map.getBounds().intersects(this.layer.getBounds())) {
-          this.updateLayer();
-        } else {
-          this.hide();
-        }
+        this.updateLayer();
+      } else {
+        this.hide();
       }
     },
     updateLayer: function() {
