@@ -46,11 +46,9 @@ module.exports = Backbone.View.extend({
     // Override default image upload behavior; instead, trigger a save to our
     // S3 bucket and embed and img tag with the resulting src.
     this.toolbar.addHandler("image", function() {
+      $("#" + self.options.fieldId + " input[type='file']").remove();
       $("#" + self.options.fieldId)
-        .remove("input[type='file']")
         .append("<input class='is-hidden quill-file-input' type='file' accept='image/png, image/gif, image/jpeg' />");
-
-      self.delegateEvents();
 
       $("#" + self.options.fieldId + " input[type='file']").trigger("click");
     });
