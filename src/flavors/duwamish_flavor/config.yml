@@ -2030,8 +2030,11 @@ story:
     order:
       - url: marra
       - url: flume
+        sidebar_icon_url: /static/css/images/markers/marker-transp_comp.png
       - url: southparklibrarygreenwall
+        sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
       - url: georgetowngreenwall      
+        sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
       - url: skatepark
       - url: concord
       - url: cesar-chavez
