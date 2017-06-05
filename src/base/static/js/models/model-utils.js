@@ -40,7 +40,8 @@ var addStoryObj = function(response, type) {
         basemap: story.order[url].basemap,
         spotlight: story.order[url].spotlight,
         hasCustomZoom: story.order[url].hasCustomZoom,
-        sidebarIconUrl: story.order[url].sidebarIconUrl
+        sidebarIconUrl: story.order[url].sidebarIconUrl,
+        flyTo: story.order[url].flyTo
       }
     }
   });

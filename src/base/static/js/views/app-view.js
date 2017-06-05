@@ -294,7 +294,8 @@
             "next": story.order[(i + 1) % totalStoryElements].url,
             "basemap": config.basemap || story.default_basemap,
             "spotlight": (config.spotlight === false) ? false : true,
-            "sidebarIconUrl": config.sidebar_icon_url
+            "sidebarIconUrl": config.sidebar_icon_url,
+            "flyTo": config.flyTo || false
           }
         });
         story.order = storyStructure;
@@ -712,7 +713,7 @@
 
       function onFound(model, type, datasetId) {
         var map = self.mapView.map,
-            layer, center, zoom, detailView, $responseToScrollTo;
+            layer, center, zoom, flyTo, detailView, $responseToScrollTo;
 
         if (type === "place") {
 
@@ -760,24 +761,37 @@
             self.setStoryLayerVisibility(model);
             center = model.get("story").panTo || center;
             zoom = model.get("story").zoom;
+            flyTo = model.get("story").flyTo;
           }
 
           if (layer.getLatLng) {
-            map.setView(center, zoom, {
-              animate: true
-            });
+            if (flyTo) {
+              map.flyTo(center, zoom);
+            } else {
+              map.setView(center, zoom, {
+                animate: true
+              }); 
+            }
           } else {
 
             // If we've defined a custom zoom for a polygon layer for some reason,
             // don't use fitBounds and instead set the zoom defined
             if (model.get("story") && model.get("story").hasCustomZoom) {
-              map.setView(center, model.get("story").zoom, {
-                animate: true
-              });
+              if (flyTo) {
+                map.flyTo(center, model.get("story").zoom);
+              } else {
+                map.setView(center, model.get("story").zoom, {
+                  animate: true
+                });
+              }
             } else {
-              map.fitBounds(layer.getBounds(), {
-                animate: true
-              });
+              if (flyTo) {
+                map.flyToBounds(layer.getBounds());
+              } else {
+                map.fitBounds(layer.getBounds(), {
+                  animate: true
+                });
+              }
             }
           }
         }
@@ -848,18 +862,7 @@
       }
 
       this.setBodyClass('content-visible');
-
-      // Set a very short timeout here to hopefully avoid a race condition
-      // between the CSS transition that resizes the map container and
-      // invalidateSize(). Otherwise, invalidateSize() may fire before the new
-      // map container dimensions have been set by CSS, resulting in the
-      // infamous off-center bug.
-      // NOTE: the timeout duration in use here was arbitrarily selected.
-      // TODO: this is a hack. Is there a better way to handle this? Can we 
-      // listen for an event from CSS maybe?
-      setTimeout(function() {
-        map.invalidateSize({ animate:true, pan:true });
-      }, 30);
+      map.invalidateSize({ animate:true, pan:true });
 
       $(Shareabouts).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
 

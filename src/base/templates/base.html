@@ -57,13 +57,14 @@
 
   {% if config.map.cartodb_enabled %}
   <link rel="stylesheet" href="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
   {% else %}
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
   {% endif %}
 
   {% if config.cluster %}
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.5/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.5/MarkerCluster.css" />
   {% endif %}
 
   <!--[if lte IE 8]>
@@ -172,12 +173,15 @@
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
 
   {% if config.map.cartodb_enabled %}
-  <script src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+  <!-- NOTE: we're loading both leaflet and cartodb_noleaflet, as standalone cartodb does
+    not yet support all leaflet 1.0 features -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+  <script src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb_noleaflet.js"></script>
   {% else %}
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
   {% endif %}
   {% if config.cluster %}
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.5/leaflet.markercluster.js"></script>
   {% endif %}
 
   {% if settings.MAPBOX_TOKEN %}
@@ -233,7 +237,8 @@
   <script src="{{STATIC_URL}}libs/swag.min.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet-wmts.js"></script>
-  
+  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
+
   <script>
     moment.locale('{{LANGUAGE_CODE}}');
     $(function() {
