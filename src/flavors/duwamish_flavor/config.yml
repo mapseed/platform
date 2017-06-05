@@ -986,7 +986,7 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: duwamishfeatured
               title: _(Featured Sites)

@@ -63,6 +63,14 @@ map:
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
 
+    - id: watershed-cedar
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/a9ea3c0c-26aa-11e7-95f1-0ecd1babdde5/viz.json"
+
+    - id: swamp-creek
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/8d603768-47dd-11e7-af3f-0e3ebc282e83/viz.json"
+
       # Eco Regions
     - id: eco-regions
       type: cartodb
@@ -297,7 +305,10 @@ sidebar:
               visibleDefault: true
             - id: watershed-sammamish
               title: _(Lake Sammamish Watershed)
-              visibleDefault: false          
+              visibleDefault: false
+            - id: watershed-cedar
+              title: _(Cedar River Watershed)
+              visibleDefault: false                         
             - id: lakewashington
               title: _(Community Reports)
               description: _(Community Reports)
@@ -326,29 +337,33 @@ sidebar:
               description: _(Original drainage of the Black river into the old Duwamish before it was removed)
               visibleDefault: false
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
+            - id: swamp-creek
+              title: _(Swamp creek)
+              visibleDefault: false              
 
-    - id: reports_legend
-      view: LegendView
-      icon: info-circle
-      title: _(Legend:)
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
+    # - id: ticker
+    #   view: ActivityView
+    #   icon: comments-o
+    #   activity: true
+    #   title: _(Activity Stream:)
+
+    # - id: reports_legend
+    #   view: LegendView
+    #   icon: info-circle
+    #   title: _(Legend:)
+    #   items:
+    #     - title: _(Observations)
+    #       image: /static/css/images/markers/marker-observation.png
+    #       url: /filter/observation
+    #     - title: _(Ideas)
+    #       image: /static/css/images/markers/marker-idea.png
+    #       url: /filter/idea
+    #     - title: _(Questions)
+    #       image: /static/css/images/markers/marker-question.png
+    #       url: /filter/question
+    #     - title: _(Complaints)
+    #       image: /static/css/images/markers/marker-complaint.png
+    #       url: /filter/complaint
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -715,11 +730,12 @@ story:
       - url: kenmore-channel
         spotlight: false
       - url: swampcreek
+        basemap: light
+        zoom: 13
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
-        # visible_layers:
-        #   - satellite
-        #   - lakewashington
+        visible_layers:
+          - swamp-creek
       - url: toxic-fish
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
@@ -729,8 +745,9 @@ story:
         spotlight: false
       - url: shelton-forest
         spotlight: false
-      # - url: ballfield
-      #   spotlight: false
+      - url: ballfield
+        spotlight: true
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
       - url: sammamish-river
         zoom: 12
         visible_layers:
@@ -740,5 +757,5 @@ story:
       - url: algae
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
-      # - url: squires-landing
-      #   spotlight: false
+      - url: squires-landing
+        spotlight: true
