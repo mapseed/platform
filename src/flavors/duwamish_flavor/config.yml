@@ -2026,8 +2026,12 @@ story:
     default_visible_layers:
       - restoration
       - duwamish
+      - duwamishfeatured
     order:
       - url: marra
+      - url: flume
+      - url: southparklibrarygreenwall
+      - url: georgetowngreenwall      
       - url: skatepark
       - url: concord
       - url: cesar-chavez
@@ -2061,6 +2065,9 @@ story:
         spotlight: false
         basemap: blueprint
       - url: lafarge
+        zoom: 17
+        basemap: transportation
+      - url: burlington-environmental-llc
         zoom: 17
         basemap: transportation
     start_at: cso
