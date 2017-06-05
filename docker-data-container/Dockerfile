@@ -43,7 +43,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update && apt-get install yarn
 
 # Install our npm dependencies
-RUN cd /platform && npm install && cd -
+RUN cd /platform && yarn && cd -
 
 # # Install pip requirements
 RUN pip install -r /platform/app-requirements.txt
