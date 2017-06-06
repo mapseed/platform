@@ -144,17 +144,15 @@ module.exports = Backbone.View.extend({
     return this;
   },
 
-  buildCoords: function(layer) {
-    var latLngs = layer.getLatLngs();
-
+  buildCoords: function(latLngs) {
     return latLngs.map(function(pair) { return [pair.lng, pair.lat]; });
   },
 
   generateGeometry: function(layer) {
     if (this.layerType === "Polygon") {
-      var coordinates = this.buildCoords(layer),
-          latLngs = layer.getLatLngs();
-      
+      var latLngs = layer.getLatLngs()[0],
+          coordinates = this.buildCoords(latLngs);
+
       // Make sure the final polygon vertex exactly matches the first. The
       // database will reject polygonal geometry otherwise.
       coordinates.push([latLngs[0].lng, latLngs[0].lat]);
@@ -163,7 +161,7 @@ module.exports = Backbone.View.extend({
         "coordinates": [coordinates]
       }
     } else if (this.layerType === "LineString") {
-      var coordinates = this.buildCoords(layer);
+      var coordinates = this.buildCoords(layer.getLatLngs());
       this.geometry = {
         "type": "LineString",
         "coordinates": coordinates
