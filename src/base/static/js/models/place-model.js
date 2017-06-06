@@ -60,32 +60,55 @@ module.exports = Backbone.Model.extend({
         args = ModelUtils.normalizeModelArguments(key, val, options),
         attrs = args.attrs;
     options = args.options;
+    realSuccessHandler = options.success || $.noop;
 
     // If this is a new model, then we need to save it first before we can
     // attach anything to it.
     if (this.isNew()) {
-      realSuccessHandler = options.success || $.noop;
 
       // Attach files after the model is succesfully saved
       options.success = function() {
-        self.saveAttachments();
-        realSuccessHandler.apply(this, arguments);
+        self.saveAttachments(realSuccessHandler, self, arguments);
       };
     } else {
       // Model is already saved, attach away!
-      self.saveAttachments();
+      self.saveAttachments(realSuccessHandler, self, arguments);
     }
 
     options.ignoreAttachments = true;
     module.exports.__super__.save.call(this, attrs, options);
   },
 
-  saveAttachments: function() {
-    this.attachmentCollection.each(function(attachment) {
-      if (attachment.isNew()) {
-        attachment.save();
-      }
-    });
+  saveWithoutAttachments: function(key, val, options) {
+    var args = ModelUtils.normalizeModelArguments(key, val, options),
+        attrs = args.attrs,
+        options = args.options;
+
+    module.exports.__super__.save.call(this, attrs, options);
+    options.success.apply(this, arguments);
+  },
+
+  saveAttachments: function(realSuccessHandler, context, args) {
+    var attachmentCount = this.attachmentCollection.length,
+        numSavedAttachments = 0,
+        attachmentSuccessHandler = function() {
+          numSavedAttachments++;
+          if (attachmentCount === numSavedAttachments) {
+            realSuccessHandler.apply(context, args);
+          }
+        };
+
+    if (this.attachmentCollection.length > 0) {
+      this.attachmentCollection.each(function(attachment) {
+        if (attachment.isNew()) {
+          attachment.save(null, {
+            success: attachmentSuccessHandler
+          });
+        }
+      });
+    } else {
+      realSuccessHandler.apply(context, args);
+    }
   },
 
   parse: function(response) {

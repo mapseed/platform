@@ -45,7 +45,7 @@ module.exports = Backbone.Model.extend({
         return myXhr;
       },
       //Ajax events
-      success: function() {
+      success: function(attachmentResponse) {
         var args = Array.prototype.slice.call(arguments);
 
         // Set the save attribute on the incoming data so that we know it's
@@ -56,7 +56,6 @@ module.exports = Backbone.Model.extend({
         if (options.success) {
           options.success.apply(this, args);
         }
-
       },
       error: options.error,
       // Form data
