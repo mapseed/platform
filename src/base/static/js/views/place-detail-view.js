@@ -249,9 +249,7 @@
 
       this.delegateEvents();
       this.surveyView.delegateEvents();
-
-      $("#content article").animate({ scrollTop: 0 }, "fast");
-      
+  
       // initialize datetime picker, if relevant
       $('#datetimepicker').datetimepicker({ formatTime: 'g:i a' });
 
@@ -284,6 +282,24 @@
             fieldId: $(this).attr("id")
           });
         });
+
+        $("#content article")
+            .animate({ scrollTop: 0 }, "fast");
+
+        this.$qlToolbar = this.$(".ql-toolbar");
+
+        // Make sure the Quill toolbar never scrolls out of sight by fixing it to
+        // the top of the content container, right below the edit toolbar.
+        if (this.$qlToolbar.length > 0) {
+          $("#content article")
+            .on("scroll", function() {
+              if (this.scrollTop < 435) {
+                self.$qlToolbar.removeClass("fixed-top");
+              } else if (self.$qlToolbar.offset().top < 115) {
+                self.$qlToolbar.addClass("fixed-top");
+              }
+            });
+        }
       }
 
       return this;
@@ -291,6 +307,7 @@
 
     tearDown: function() {
       this.options.router.off("route", this.tearDown, this);
+      $("#content article").off("scroll");
       this.isEditingToggled = false;
       this.isModified = false;
     },
