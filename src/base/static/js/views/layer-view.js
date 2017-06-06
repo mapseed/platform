@@ -16,7 +16,7 @@
       this.zoomRules = [];
       this.layerUpdatedAfterLastMapChange = false;
 
-      this.model.on('change', this.render, this);
+      this.model.on('change', this.createLayer, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
       this.model.on('destroy', this.onDestroy, this);
