@@ -284,11 +284,6 @@
         }
       });
 
-      // Add content that has been modified by Quill rich text fields
-      this.$(".rich-text-field").each(function() {
-        attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
-      });
-      
       if (this.geometryEnabled) {
         attrs.geometry = this.geometryEditorView.geometry;
       } else {
@@ -528,43 +523,90 @@
         });
         model = collection.at(collection.length - 1);
 
-        // if an attachment has been added...
-        if (self.formState.attachmentData) {
-          var attachment = model.attachmentCollection.find(function(attachmentModel) {
-            return attachmentModel.get('name') === self.formState.attachmentData.name;
+        if (self.formState.attachmentData.length > 0) {
+          self.formState.attachmentData.forEach(function(attachment) {
+            model.attachmentCollection.add(attachment);
           });
-
-          if (_.isUndefined(attachment)) {
-            model.attachmentCollection.add(self.formState.attachmentData);
-          } else {
-            attachment.set(self.formState.attachmentData);
-          }
+        } else {
+          // Add rich text content. If we're on this path, it means no images
+          // have been embedded.
+          self.$(".rich-text-field").each(function() {
+            attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
+          });
         }
+      }
 
-        $button.attr('disabled', 'disabled');
-        spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
-        Util.log('USER', 'new-place', 'submit-place-btn-click');
-        Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
+      $button.attr('disabled', 'disabled');
+      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(self.$('.form-spinner')[0]);
+      Util.log('USER', 'new-place', 'submit-place-btn-click');
+      Util.setStickyFields(attrs, Shareabouts.Config.survey.items, Shareabouts.Config.place.items);
 
-        // Save and redirect
-        model.save(attrs, {
-          success: function() {
+      // Save and redirect
+      model.save(attrs, {
+        success: function(response) {
+          if (self.formState.attachmentData.length > 0 &&
+              self.$(".rich-text-field").length > 0) {
+
+            // If there is rich text image content on the form, add it now and replace
+            // img data urls with their S3 bucket equivalents.
+            // NOTE: this success handler is called when all attachment models have
+            // saved to the server.
+            model.attachmentCollection.fetch({
+              reset: true,
+              success: function(collection) {
+                collection.each(function(attachment) {
+                  self.$("img[name='" + attachment.get("name") + "']")
+                    .attr("src", attachment.get("file"));
+                });
+
+                // Add content that has been modified by Quill rich text fields
+                self.$(".rich-text-field").each(function() {
+                  attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
+                });
+
+                model.saveWithoutAttachments(attrs, {
+                  success: function(response) {
+                    Util.log('USER', 'new-place', 'successfully-add-place');
+                    router.navigate(Util.getUrl(model), { trigger: true });
+                  },
+                  error: function() {
+                    Util.log('USER', 'new-place', 'fail-to-embed-attachments');
+                  },
+                  complete: function() {
+                    if (self.geometryEditorView) {
+                      self.geometryEditorView.tearDown();
+                    }
+                    $button.removeAttr('disabled');
+                    spinner.stop();
+                    self.resetFormState();
+                    collection.each(function(attachment) {
+                      attachment.set({saved: true});
+                    });
+                  }
+                });
+              },
+              error: function() {
+                Util.log('USER', 'new-place', 'fail-to-fetch-embed-urls');
+              }
+            });
+          } else {
+
+            // Otherwise, go ahead and route to the newly-created place.
             Util.log('USER', 'new-place', 'successfully-add-place');
             router.navigate(Util.getUrl(model), { trigger: true });
-          },
-          error: function() {
-            Util.log('USER', 'new-place', 'fail-to-add-place');
-          },
-          complete: function() {
             if (self.geometryEditorView) {
               self.geometryEditorView.tearDown();
             }
             $button.removeAttr('disabled');
             spinner.stop();
             self.resetFormState();
-          },
-          wait: true
-        });
-      }
+          }
+        },
+        error: function() {
+          Util.log('USER', 'new-place', 'fail-to-add-place');
+        },
+        wait: true
+      });
+
     }, null)
   });

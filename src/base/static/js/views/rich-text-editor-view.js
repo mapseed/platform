@@ -77,10 +77,8 @@ module.exports = Backbone.View.extend({
 
       Util.fileToCanvas(file, function(canvas) {
         canvas.toBlob(function(blob) {
-
-          var fieldName = Math.random().toString(36).substring(7),
-          data = {
-            name: fieldName,
+          var data = {
+            name: Math.random().toString(36).substring(7),
             blob: blob,
             file: canvas.toDataURL('image/jpeg')
           }
@@ -97,6 +95,11 @@ module.exports = Backbone.View.extend({
             // Otherwise, store up the added attachments in the place form view
             self.options.placeFormView.formState.attachmentData.push(data);
             self.quill.insertEmbed(self.quill.getSelection().index, "image", data.file, "user");
+            self.$("img").filter(function() {
+              return !$(this).attr("name");
+            })
+              .last()
+              .attr("name", data.name);
           }
 
         }, 'image/jpeg');
