@@ -284,11 +284,6 @@
         }
       });
 
-      // wrap quill video embeds in a container so we can enable fluid max dimensions
-      this.$("iframe.ql-video").each(function() {
-        $(this).wrap("<div class='ql-video-container'></div>");
-      });
-
       if (this.geometryEnabled) {
         attrs.geometry = this.geometryEditorView.geometry;
       } else {
@@ -527,6 +522,11 @@
           "showMetadata": self.formState.selectedCategoryConfig.showMetadata
         });
         model = collection.at(collection.length - 1);
+
+        // wrap quill video embeds in a container so we can enable fluid max dimensions
+        this.$("iframe.ql-video").each(function(a) {
+          $(this).wrap("<div class='ql-video-container'></div>");
+        });
 
         if (self.formState.attachmentData.length > 0) {
           self.formState.attachmentData.forEach(function(attachment) {

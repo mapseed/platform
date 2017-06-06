@@ -221,7 +221,6 @@ module.exports = Backbone.View.extend({
     // Prevent repeat clicks on the same geometry drawing tool
     if (this.layerType === "Point") return;
 
-    this.resetWorkingGeometry();
     this.showIconToolbar();
     this.iconUrl = this.$el.find(".geometry-toolbar-icon-field input:checked").val();
 
@@ -241,6 +240,7 @@ module.exports = Backbone.View.extend({
     this.layerType = "Point";
     this.$el.find(".edit-geometry").trigger("click");
     this.resetWorkingGeometry();
+    this.generateGeometry(this.getLayerFromEditingLayerGroup());
     this.setColorpicker();
     this.hideIconToolbar();
     this.swapToolbarVisibility();
