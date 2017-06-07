@@ -455,3 +455,19 @@ a.auth-inline {
     cursor: auto;
 }
 
+/* rich text embedded video dimensions */
+.ql-video-container {
+    position:relative;
+    padding-bottom:56.25%;
+    padding-top: 0;
+    height: 0;
+    overflow:hidden;
+}
+
+.ql-video-container iframe, .ql-video-container object, .ql-video-container embed {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}

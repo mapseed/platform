@@ -77,13 +77,14 @@
     },
 
     renderFormFields: function() {
-      var data = _.extend({
-        placeConfig: this.options.placeConfig,
-        commonFormElements: this.formState.commonFormElements,
-        selectedCategoryConfig: this.formState.selectedCategoryConfig,
-        user_token: this.options.userToken,
-        current_user: Shareabouts.currentUser
-      }, Shareabouts.stickyFieldValues);
+      var self = this,
+          data = _.extend({
+            placeConfig: this.options.placeConfig,
+            commonFormElements: this.formState.commonFormElements,
+            selectedCategoryConfig: this.formState.selectedCategoryConfig,
+            user_token: this.options.userToken,
+            current_user: Shareabouts.currentUser
+          }, Shareabouts.stickyFieldValues);
 
       this.$el
         .find("#place-form")
@@ -117,6 +118,21 @@
       this.initializeDatetimePicker();
       this.initializeRichTextFields();
       this.setUrlTitlePrefix();
+
+      this.$qlToolbar = this.$(".ql-toolbar");
+
+      // Make sure the Quill toolbar never scrolls out of sight by fixing it to
+      // the top of the content container.
+      if (this.$qlToolbar.length > 0) {
+        $("#content article")
+          .on("scroll", function() {
+            if (this.scrollTop < 520) {
+              self.$qlToolbar.removeClass("fixed-top no-edit-toolbar");
+            } else if (self.$qlToolbar.offset().top < 75) {
+              self.$qlToolbar.addClass("fixed-top no-edit-toolbar");
+            }
+          });
+      }
     },
 
     setUrlTitlePrefix: function() {
@@ -429,6 +445,7 @@
     closePanel: function() {
       this.center = null;
       this.resetFormState();
+      $("#content article").off("scroll");
     },
 
     // This function handles submission of data from conventional places with 
@@ -522,6 +539,11 @@
           "showMetadata": self.formState.selectedCategoryConfig.showMetadata
         });
         model = collection.at(collection.length - 1);
+
+        // wrap quill video embeds in a container so we can enable fluid max dimensions
+        this.$("iframe.ql-video").each(function(a) {
+          $(this).wrap("<div class='ql-video-container'></div>");
+        });
 
         if (self.formState.attachmentData.length > 0) {
           self.formState.attachmentData.forEach(function(attachment) {

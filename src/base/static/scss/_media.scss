@@ -516,12 +516,50 @@
 
     #content > article {
         overflow: auto;
-        padding: 1em 1em 2em;
+        padding-top: 50px;
+        padding-right: 1em;
+        padding-left: 1em;
+        padding-bottom: 2em;
         width: 100%;
         height: 100%;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
+    }
+
+    /* place detail edit bar */
+    .place-detail-edit-bar {
+        position: fixed;
+        background-color: #FFFFFF;
+        z-index: 5;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 8px;
+        padding-bottom: 16px;
+        top: $header-height-fullscreen;
+        width: calc(#{$content-visible-width} - 45px);
+    }
+
+    /* rich text editor toolbar, in fixed-top mode */
+    .ql-toolbar {
+        &.fixed-top {
+            position: fixed;
+            top: $header-height-fullscreen + 47px;
+            background-color: #EFEFEF;
+            border: none;
+            z-index: 400;
+            width: calc(#{$content-visible-width} - 47px);
+            border-bottom-width: 0.30em;
+            border-bottom-style: solid;
+            border-bottom-color: #a3c7d9;
+            border-top-width: 1px !important;
+            border-top-color: #DEDEDE !important;
+            border-left-width: 0 !important;
+            border-right-width: 0 !important;
+        }
+        &.no-edit-toolbar {
+            top: $header-height-fullscreen;
+        }
     }
 
     // Geocoding
