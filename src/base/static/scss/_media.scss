@@ -541,20 +541,25 @@
     }
 
     /* rich text editor toolbar, in fixed-top mode */
-    .ql-toolbar.fixed-top {
-        position: fixed;
-        top: $header-height-fullscreen + 47px;
-        background-color: #EFEFEF;
-        border: none;
-        z-index: 400;
-        width: calc(#{$content-visible-width} - 47px);
-        border-bottom-width: 0.30em;
-        border-bottom-style: solid;
-        border-bottom-color: #a3c7d9;
-        border-top-width: 1px !important;
-        border-top-color: #DEDEDE !important;
-        border-left-width: 0 !important;
-        border-right-width: 0 !important;
+    .ql-toolbar {
+        &.fixed-top {
+            position: fixed;
+            top: $header-height-fullscreen + 47px;
+            background-color: #EFEFEF;
+            border: none;
+            z-index: 400;
+            width: calc(#{$content-visible-width} - 47px);
+            border-bottom-width: 0.30em;
+            border-bottom-style: solid;
+            border-bottom-color: #a3c7d9;
+            border-top-width: 1px !important;
+            border-top-color: #DEDEDE !important;
+            border-left-width: 0 !important;
+            border-right-width: 0 !important;
+        }
+        &.no-edit-toolbar {
+            top: $header-height-fullscreen;
+        }
     }
 
     // Geocoding
