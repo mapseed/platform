@@ -61,7 +61,7 @@
         attribute: 'target'
       },
       meta = {};
-      this.fetching = false;
+      this.fetching = {};
 
       _.each(this.activities, function(collection, key) {
         meta[key] = collection.metadata;
