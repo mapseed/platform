@@ -20,6 +20,7 @@
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
       this.model.on('destroy', this.onDestroy, this);
+      this.model.on('userHideModel', this.onDestroy, this);
 
       if (!this.options.mapView.options.mapConfig.suppress_zoom_rules) {
         this.map.on('zoomend', this.render, this);
@@ -158,7 +159,7 @@
       }
 
       return !this.model.get("published") ||
-             this.model.get("published") !== "isNotPublished"
+             this.model.get("published") !== "isNotPublished";
     },
     onDestroy: function() {
       // NOTE: it's necessary to remove the zoomend event here
@@ -166,7 +167,7 @@
       // zoomed. Somehow even when a layer view is removed, the
       // zoomend listener on the map still retains a reference to it
       // and is capable of calling view methods on a "deleted" view.
-      this.map.off('zoomend', this.throttledRender, this);
+      this.map.off('zoomend', this.render, this);
     },
     removeLayer: function() {
       if (this.layer) {
