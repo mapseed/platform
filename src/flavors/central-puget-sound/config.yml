@@ -364,17 +364,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   prevent-stormwater:
     rules:
@@ -382,17 +377,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   only-flush:
     rules:
@@ -400,17 +390,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   conserve-energy:
     rules:
@@ -418,17 +403,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   waste-less:
     rules:
@@ -436,17 +416,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-waste-less.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   commute-low-carbon:
     rules:
@@ -454,17 +429,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   eat-local-organic:
     rules:
@@ -472,17 +442,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   restore-salmon-habitat:
     rules:
@@ -490,17 +455,12 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [50, 60]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom >= 13'
+          iconAnchor: [25, 60]
+      - condition: 'true'
         icon:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
-          iconSize: [38, 46]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 13'
-        icon:
-          iconUrl: /static/css/images/markers/marker-dot-commute-low-carbon.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   star-stroked:
     zoomType: roundZoomStyle
@@ -890,6 +850,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-conserve-water.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-conserve-water.png
       value: conserve-water
       label: _(Conserve Water)
       fields:
@@ -947,6 +908,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-prevent-stormwater-pollution.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-prevent-stormwater-pollution.png
       value: prevent-stormwater
       label: _(Prevent Stormwater Pollution)
       fields:
@@ -1001,6 +963,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-only-flush-this.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-only-flush-this.png
       value: only-flush
       label: _(Only Flush This)
       fields:
@@ -1045,6 +1008,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-conserve-energy.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-conserve-energy.png
       value: conserve-energy
       label: _(Conserve Energy)
       fields:
@@ -1094,6 +1058,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-waste-less.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-waste-less.png
       value: waste-less
       label: _(Waste Less)
       fields:
@@ -1141,6 +1106,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-commute-low-carbon.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-commute-low-carbon.png
       value: commute-low-carbon
       label: _(Commute Low Carbon)
       fields:
@@ -1184,6 +1150,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-eat-local-organic.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-eat-local-organic.png
       value: eat-local-organic
       label: _(Eat Local Organic)
       fields:
@@ -1221,6 +1188,7 @@ place:
       name: location_type
       dataset: bogtobay
       icon_url: /static/css/images/markers/marker-restore-salmon-habitat.png
+      icon_cluster_url: /static/css/images/markers/marker-cluster-restore-salmon-habitat.png
       value: restore-salmon-habitat
       label: _(Restore Salmon Habitat)
       fields:

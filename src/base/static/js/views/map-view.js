@@ -1,23 +1,36 @@
-var Util = require('../utils.js');
+var Util = require("../utils.js");
 
-var BasicLayerView = require('mapseed-basic-layer-view');
-var LayerView = require('mapseed-layer-view');
-var toGeoJSON = require('togeojson');
-var GeometryEditorView = require('mapseed-geometry-editor-view');
+var BasicLayerView = require("mapseed-basic-layer-view");
+var LayerView = require("mapseed-layer-view");
+var toGeoJSON = require("togeojson");
+var GeometryEditorView = require("mapseed-geometry-editor-view");
 
 module.exports = Backbone.View.extend({
   events: {
-    'click .locate-me': 'onClickGeolocate'
+    "click .locate-me": "onClickGeolocate",
   },
   initialize: function() {
     var self = this,
-        i, layerModel,
-        logUserZoom = function() {
-          Util.log('USER', 'map', 'zoom', self.map.getBounds().toBBoxString(), self.map.getZoom());
-        },
-        logUserPan = function(evt) {
-          Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
-        };
+      i,
+      layerModel,
+      logUserZoom = function() {
+        Util.log(
+          "USER",
+          "map",
+          "zoom",
+          self.map.getBounds().toBBoxString(),
+          self.map.getZoom(),
+        );
+      },
+      logUserPan = function(evt) {
+        Util.log(
+          "USER",
+          "map",
+          "drag",
+          self.map.getBounds().toBBoxString(),
+          self.map.getZoom(),
+        );
+      };
 
     this.map = L.map(self.el, self.options.mapConfig.options);
 
@@ -26,64 +39,13 @@ module.exports = Backbone.View.extend({
     });
     this.layers = {};
     this.layerViews = {};
-
-    // Clustering by location_type
-    if (this.options.cluster) {
-      this.clusterGroups = {};
-      _.pluck(this.options.placeConfig.place_detail, "category").forEach((locationType) => {
-        this.clusterGroups[locationType] = L.markerClusterGroup(this.options.cluster);
-        this.map.addLayer(this.clusterGroups[locationType]);
-      }, this);
-    }
 
     // bootstrapped data from page
     this.places = this.options.places;
     this.landmarks = this.options.landmarks;
 
     // Remove default prefix
-    self.map.attributionControl.setPrefix('');
-
-    // Init geolocation
-    if (self.options.mapConfig.geolocation_enabled) {
-      self.initGeolocation();
-    }
-
-    // TODO: only init if geometry editing is enabled?
-    this.geometryEditorView = new GeometryEditorView({
-      map: this.map,
-      router: this.options.router
-    });
-
-    self.map.on('dragend', logUserPan);
-    $(self.map.zoomControl._zoomInButton).click(logUserZoom);
-    $(self.map.zoomControl._zoomOutButton).click(logUserZoom);
-
-    self.map.on('zoomend', function(evt) {
-      Util.log('APP', 'zoom', self.map.getZoom());
-      $(Shareabouts).trigger('zoomend', [evt]);
-    });
-
-    this.map = L.map(self.el, self.options.mapConfig.options);
-
-    _.each(self.options.mapConfig.layers, function(config) {
-      config.loaded = false;
-    });
-    this.layers = {};
-    this.layerViews = {};
-
-    // bootstrapped data from page
-    this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
-
-    // Bind shareabouts collections event listeners
-    _.each(self.places, function(collection, collectionId) {  
-      self.layers[collectionId] = L.layerGroup();
-      self.layerViews[collectionId] = {};
-      collection.on('reset', self.render, self);
-      collection.on('add', self.addLayerView(collectionId), self);
-      collection.on('remove', self.removeLayerView(collectionId), self);
-      collection.on('userHideModel', self.onUserHideModel(collectionId), self);
-    });
+    self.map.attributionControl.setPrefix("");
 
     // Init geolocation
     if (self.options.mapConfig.geolocation_enabled) {
@@ -165,24 +127,20 @@ module.exports = Backbone.View.extend({
         // ensure they are added to the map when they are eventually loaded:
         config.asyncLayerVisibleDefault = visible;
       }
-    },
-    removeLandmarkLayerView: function(collectionId) {
-      return function(model) {
-        this.layerViews[collectionId][model.id].remove();
-        delete this.layerViews[collectionId][model.id];
-      }
-    },
-    addLayerView: function(collectionId) {
-      return function(model) {
-        this.layerViews[collectionId][model.cid] = new LayerView({
-          model: model,
-          router: this.options.router,
-          map: this.map,
-          layerGroup: this.layers[collectionId],
-          placeTypes: this.options.placeTypes,
-          // to access the filter
-          mapView: this,
-          clusterGroups: this.clusterGroups
+    });
+  }, // end initialize
+
+  onUserHideModel: function(collectionId) {
+    return function(model) {
+      this.options.placeDetailViews[model.cid].remove();
+      delete this.options.placeDetailViews[model.cid];
+      this.places[collectionId].remove(model);
+      Util.log("APP", "panel-state", "closed");
+      // remove map mask if the user closes the side panel
+      $("#spotlight-place-mask").remove();
+      if (this.locationTypeFilter) {
+        this.options.router.navigate("filter/" + this.locationTypeFilter, {
+          trigger: true,
         });
       } else {
         this.options.router.navigate("/", { trigger: true });
@@ -388,15 +346,46 @@ module.exports = Backbone.View.extend({
           self.layerViews[model.cid].render();
         }
       });
-    },
-    getLayerGroups: function() {
-      var clusterOptions = this.options.cluster;
-      if (!clusterOptions) {
-        return L.layerGroup();
-      } else {
-        var cluster = L.markerClusterGroup(clusterOptions);
-
-        return cluster;
+    });
+  },
+  getLayerGroups: function() {
+    var self = this;
+    var clusterOptions = self.options.cluster;
+    if (!clusterOptions) {
+      return L.layerGroup();
+    } else {
+      return L.markerClusterGroup({
+        iconCreateFunction: function(cluster) {
+          var markers = cluster.getAllChildMarkers();
+          var n = markers.length;
+          var small = n < clusterOptions.threshold;
+          var className = small
+            ? clusterOptions.class_small
+            : clusterOptions.class_large;
+          var size = small
+            ? clusterOptions.size_small
+            : clusterOptions.size_large;
+          return L.divIcon({
+            html: n,
+            className: className,
+            iconSize: [size, size],
+          });
+        },
+      });
+    }
+  },
+  createLayerFromConfig: function(config) {
+    var self = this,
+      layer,
+      collectionId,
+      collection;
+    if (config.type && config.type === "json") {
+      var url = config.url;
+      if (config.sources) {
+        url += "?";
+        config.sources.forEach(function(source) {
+          url += encodeURIComponent(source) + "&";
+        });
       }
       layer = L.argo(url, config);
       self.layers[config.id] = layer;
