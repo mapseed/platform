@@ -231,6 +231,8 @@ module.exports = Backbone.View.extend({
         el: "ul.recent-points",
         activities: this.activities,
         places: this.places,
+        landmarks: this.landmarks,
+        placeConfig: this.options.placeConfig,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         surveyConfig: this.options.surveyConfig,
