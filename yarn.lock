@@ -1324,6 +1324,12 @@ escodegen@^1.8.1:
   optionalDependencies:
     source-map "~0.2.0"
 
+eslint-config-prettier@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-2.1.1.tgz#ab3923fb704eebecab6960906b7d0d6e801cde58"
+  dependencies:
+    get-stdin "^5.0.1"
+
 esprima@^2.7.1:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
@@ -1493,6 +1499,10 @@ get-caller-file@^1.0.1:
 get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
+
+get-stdin@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
 
 getpass@^0.1.1:
   version "0.1.7"
