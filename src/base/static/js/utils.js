@@ -53,16 +53,6 @@ var self = (module.exports = {
     return isAdmin;
   },
 
-  getPathname: function(model) {
-    if (model.get("url-title")) {
-      return model.get("url-title");
-    } else if (model.get("datasetSlug")) {
-      return model.get("datasetSlug") + "/" + model.get("id");
-    } else {
-      return model.get("id");
-    }
-  },
-
   buildSharingQuerystring: function(components) {
     return [
       "?url=",
@@ -80,28 +70,19 @@ var self = (module.exports = {
     ].join("");
   },
 
-  initiateShare: function(service, shareUrl, queryString) {
-    if (service === "twitter") {
-      shareUrl = [
-        "https://twitter.com/intent/tweet?url=",
-        encodeURIComponent(shareUrl + queryString),
-      ].join("");
-      window.open(shareUrl, "Twitter", "height=300, width=600");
-    } else if (service === "facebook") {
-      FB.ui(
-        {
-          method: "share",
-          href: shareUrl + queryString,
-        },
-        function(response) {},
-      );
-    }
-  },
-
-  onSocialShare: function(model, service) {
-    var self = this,
-      appConfig = Shareabouts.Config.app,
+  getSocialUrl: function(model, service) {
+    var appConfig = Shareabouts.Config.app,
       shareUrl = "http://social.mapseed.org",
+      getPathname = model => {
+        if (model.get("url-title")) {
+          return model.get("url-title")
+        } else if (model.get("datasetSlug")) {
+          return model.get("datasetSlug") + "/" + model.get("id")
+        } else {
+          return model.get("id")
+        }
+      },
+
       components = {
         title: model.get("title") || model.get("name") || appConfig.title,
         desc: model.get("description") || appConfig.meta_description,
@@ -118,7 +99,7 @@ var self = (module.exports = {
           "//",
           window.location.host,
           "/",
-          this.getPathname(model),
+          getPathname(model),
         ].join(""),
       },
       $img = $("img[src='" + components.img + "']");
@@ -129,18 +110,31 @@ var self = (module.exports = {
     if (components.img.startsWith("data:")) {
       // If the image was just created and has a data url, fetch the attachment
       // collection to obtain the S3 url before contacting the sharing microservice.
-      model.attachmentCollection.fetch({
-        reset: true,
-        success: function(collection) {
-          components.img = collection.first().get("file");
-          var queryString = self.buildSharingQuerystring(components);
-          self.initiateShare(service, shareUrl, queryString);
-        },
-      });
+      return new Promise((resolve, reject) => {
+        model.attachmentCollection.fetch({
+          reset: true,
+          success: collection => {
+            components.img = collection.first().get("file")
+            const queryString = this.buildSharingQuerystring(components)
+            resolve(encodeURIComponent(`${shareUrl}${queryString}`))
+          },
+          error: _ => reject(_),
+        })
+      })
     } else {
-      var queryString = this.buildSharingQuerystring(components);
-      this.initiateShare(service, shareUrl, queryString);
+      // return a promise that immediately resolves to our share url:
+      const queryString = this.buildSharingQuerystring(components)
+      return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`))
     }
+  },
+
+  onSocialShare: function(model, service) {
+    this.getSocialUrl(model).then(shareUrl => {
+      let url = service === 'facebook'
+              ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+              : `https://twitter.com/intent/tweet?url=${shareUrl}`
+      window.open(url, '_blank').focus()
+    })
   },
 
   // Given the information provided in a url (that is, an id and possibly a slug),
