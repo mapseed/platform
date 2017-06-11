@@ -822,7 +822,9 @@ activity:
 
 right_sidebar:
   show: true
-  show_filter_menu: true
+
+filters:
+  enabled: true
   filter_all_label: _(All pledge types)
 
 # Place Types

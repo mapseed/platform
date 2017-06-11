@@ -1,10 +1,12 @@
-<!-- A template for display a menu of location_type filter options -->
+<!-- A template for displaying a menu of location_type filter options -->
 
-<input type="checkbox" id="filter-menu-select-all" name="filter-menu-select-all"{{#if allSelected}} checked{{/if}}/>
-<label for="filter-menu-select-all"><strong>{{filterAllLabel}}</strong></label>
+<div class="filter-header">{{#_}}Filters{{/_}}</div>
+
 {{#each activeFilters}}
-	<div class="filter-menu-item">
-		<input type="checkbox" id="filter-menu-select-{{this.locationType}}" name="filter-menu-select-{{this.locationType}}"{{#if this.active}} checked{{/if}}/>
-		<label for="filter-menu-select-{{this.locationType}}">{{this.label}}</label>
+	<div id="filter-menu-select-{{this.locationType}}" 
+			 class="filter-menu-item">
+		<div class="filter-img{{#if this.active}} selected{{/if}}">
+			<img src={{this.iconUrl}} />
+		</div>
 	</div>
 {{/each}}

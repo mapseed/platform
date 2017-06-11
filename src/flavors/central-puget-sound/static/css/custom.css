@@ -19,6 +19,11 @@
   margin-right: 50px;
 }
 
+#filter-menu-bar .filter-img:before {
+  font-family: "Permanent Marker", cursive !important;
+}
+
+
 /* =Header
 -------------------------------------------------------------- */
 @media only screen and (min-width: 60em) {

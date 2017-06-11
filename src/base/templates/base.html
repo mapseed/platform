@@ -138,6 +138,10 @@
       <div id="layer-info-window-container" class="is-hidden"></div>
     </div>
 
+    {% if config.filters.enabled %}
+      <div id="filter-menu-bar" class="clearfix"></div>
+    {% endif %}
+
     <div id="content"><!-- .place or .page -->
       <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
       <a href="#" class="maximize-btn"><span>{% blocktrans %}Maximize{% endblocktrans %}</span></a>
@@ -312,7 +316,8 @@
       leaflet_sidebar: {{ config.leaflet_sidebar|as_json }},
       pages:           {{ pages_config_json|safe }},
       story:           {{ config.story|as_json }},
-      rightSidebar:    {{ config.right_sidebar|as_json }} 
+      rightSidebar:    {{ config.right_sidebar|as_json }},
+      filters:          {{ config.filters|as_json }}
     };
     $(function() {
       // Ready set go!
@@ -331,7 +336,8 @@
         mapConfig: S.Config.map,
         storyConfig: S.Config.story,
         activityConfig: S.Config.activity,
-        pagesConfig: S.Config.pages
+        pagesConfig: S.Config.pages,
+        filters: S.Config.filters
       });
     });
   }(Shareabouts, jQuery));

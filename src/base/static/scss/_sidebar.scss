@@ -174,30 +174,6 @@
             color: #cd2c67;
         }
     }
-
-    // Location type filter menu
-    #sidebar-filter-menu {
-        .filter-menu-item {
-            margin-left: 10px;
-            margin-bottom: 5px;
-        }
-
-        input {
-            float: left;
-        }
-
-        label {
-            display: block;
-            margin-left: 20px;
-        }
-
-        label, input {
-            &:hover {
-                cursor: pointer;
-                font-weight: bold;
-            }
-        }
-    }
 }
 
 .right-sidebar-visible {

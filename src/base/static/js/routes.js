@@ -161,6 +161,7 @@ Shareabouts.Util = Util;
         activityConfig: options.activityConfig,
         userToken: options.userToken,
         router: this,
+        filters: options.filters
       });
 
       // Start tracking the history
