@@ -1,39 +1,38 @@
-var Util = require('../utils.js');
-var QuillResize = require('../../libs/quill-image-resize.js');
+var Util = require("../utils.js");
+var QuillResize = require("../../libs/quill-image-resize.js");
 
 // a view for converting target textareas to rich text editor boxes
 module.exports = Backbone.View.extend({
   events: {
-    'change .quill-file-input': 'onQuillInputFileChange'
+    "change .quill-file-input": "onQuillInputFileChange",
   },
   initialize: function() {
     var self = this,
-
-    // Quill toolbar configuration
-    toolbarOptions = [
-      ["bold", "italic", "underline", "strike"],
-      [{ "list": "ordered" }, { "list": "bullet" }],
-      [{ "header": [1, 2, 3, 4, 5, 6, false] }],
-      [{ "color": [] }, { "background": [] }],
-      ["link", "image", "video"]
-    ];
+      // Quill toolbar configuration
+      toolbarOptions = [
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ color: [] }, { background: [] }],
+        ["link", "image", "video"],
+      ];
 
     Quill.register("modules/imageResize", QuillResize);
 
     this.quill = new Quill(this.el, {
-      modules: { 
-        "toolbar": toolbarOptions,
+      modules: {
+        toolbar: toolbarOptions,
         imageResize: {
           handleStyles: {
-            zIndex: "100"
-          }
-        }
+            zIndex: "100",
+          },
+        },
       },
       theme: "snow",
-      bounds: "#content"
+      bounds: "#content",
     });
     this.toolbar = this.quill.getModule("toolbar");
-    
+
     var onEditorChange = function() {
       this.quill.off("text-change", onEditorChange);
       if (this.options.placeDetailView) {
@@ -47,8 +46,9 @@ module.exports = Backbone.View.extend({
     // S3 bucket and embed and img tag with the resulting src.
     this.toolbar.addHandler("image", function() {
       $("#" + self.options.fieldId + " input[type='file']").remove();
-      $("#" + self.options.fieldId)
-        .append("<input class='is-hidden quill-file-input' type='file' accept='image/png, image/gif, image/jpeg' />");
+      $("#" + self.options.fieldId).append(
+        "<input class='is-hidden quill-file-input' type='file' accept='image/png, image/gif, image/jpeg' />",
+      );
 
       $("#" + self.options.fieldId + " input[type='file']").trigger("click");
     });
@@ -62,53 +62,67 @@ module.exports = Backbone.View.extend({
 
     attachment.save(null, {
       success: function(obj) {
-        self.quill.insertEmbed(self.quill.getSelection().index, "image", obj.file, "user");
-      }
+        self.quill.insertEmbed(
+          self.quill.getSelection().index,
+          "image",
+          obj.file,
+          "user",
+        );
+      },
     });
   },
 
   onQuillInputFileChange: function(evt) {
     var self = this,
-        file,
-        attachment;
+      file,
+      attachment;
 
     if (evt.target.files && evt.target.files.length) {
       file = evt.target.files[0];
 
-      Util.fileToCanvas(file, function(canvas) {
-        canvas.toBlob(function(blob) {
-          var data = {
-            name: Math.random().toString(36).substring(7),
-            blob: blob,
-            file: canvas.toDataURL('image/jpeg')
-          }
+      Util.fileToCanvas(
+        file,
+        function(canvas) {
+          canvas.toBlob(function(blob) {
+            var data = {
+              name: Math.random().toString(36).substring(7),
+              blob: blob,
+              file: canvas.toDataURL("image/jpeg"),
+            };
 
-          if (self.options.placeDetailView) {
-
-            // If we have a place detail view, we already have a model to which
-            // we can add attachments
-            self.options.placeDetailView.onAddAttachmentCallback = self.onAddAttachment;
-            self.options.placeDetailView.onAddAttachmentCallbackContext = self;
-            self.model.attachmentCollection.add(data);
-          } else if (self.options.placeFormView) {
-
-            // Otherwise, store up the added attachments in the place form view
-            self.options.placeFormView.formState.attachmentData.push(data);
-            self.quill.insertEmbed(self.quill.getSelection().index, "image", data.file, "user");
-            self.$("img").filter(function() {
-              return !$(this).attr("name");
-            })
-              .last()
-              .attr("name", data.name);
-          }
-
-        }, 'image/jpeg');
-      }, {
-        // TODO: make configurable
-        maxWidth: 800,
-        maxHeight: 800,
-        canvas: true
-      });
+            if (self.options.placeDetailView) {
+              // If we have a place detail view, we already have a model to which
+              // we can add attachments
+              self.options.placeDetailView.onAddAttachmentCallback =
+                self.onAddAttachment;
+              self.options.placeDetailView.onAddAttachmentCallbackContext = self;
+              self.model.attachmentCollection.add(data);
+            } else if (self.options.placeFormView) {
+              // Otherwise, store up the added attachments in the place form view
+              self.options.placeFormView.formState.attachmentData.push(data);
+              self.quill.insertEmbed(
+                self.quill.getSelection().index,
+                "image",
+                data.file,
+                "user",
+              );
+              self
+                .$("img")
+                .filter(function() {
+                  return !$(this).attr("name");
+                })
+                .last()
+                .attr("name", data.name);
+            }
+          }, "image/jpeg");
+        },
+        {
+          // TODO: make configurable
+          maxWidth: 800,
+          maxHeight: 800,
+          canvas: true,
+        },
+      );
     }
-  }
+  },
 });

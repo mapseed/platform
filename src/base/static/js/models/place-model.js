@@ -1,54 +1,70 @@
-var SubmissionCollection = require('./submission-collection.js');
-var AttachmentCollection = require('./attachment-collection.js');
+var SubmissionCollection = require("./submission-collection.js");
+var AttachmentCollection = require("./attachment-collection.js");
 
-var ModelUtils = require('./model-utils.js');
+var ModelUtils = require("./model-utils.js");
 
 module.exports = Backbone.Model.extend({
   defaults: {
-    type: "place"
+    type: "place",
   },
   initialize: function() {
     var attachmentData;
 
     this.submissionSets = {};
 
-    _.each(this.get('submission_sets'), function(submissions, name) {
-      var models = [];
+    _.each(
+      this.get("submission_sets"),
+      function(submissions, name) {
+        var models = [];
 
-      // It's a summary if it's not an array of objects
-      if (_.isArray(submissions)) {
-        models = submissions;
-      }
+        // It's a summary if it's not an array of objects
+        if (_.isArray(submissions)) {
+          models = submissions;
+        }
 
-      this.submissionSets[name] = new SubmissionCollection(models, {
-        submissionType: name,
-        placeModel: this
-      });
-    }, this);
+        this.submissionSets[name] = new SubmissionCollection(models, {
+          submissionType: name,
+          placeModel: this,
+        });
+      },
+      this,
+    );
 
-    attachmentData = this.get('attachments') || [];
+    attachmentData = this.get("attachments") || [];
     this.attachmentCollection = new AttachmentCollection(attachmentData, {
-      thingModel: this
+      thingModel: this,
     });
 
     this.attachmentCollection.each(function(attachment) {
-      attachment.set({saved: true});
+      attachment.set({ saved: true });
     });
   },
 
   set: function(key, val, options) {
     var args = ModelUtils.normalizeModelArguments(key, val, options);
 
-    if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachments) {
+    if (
+      _.isArray(args.attrs.attachments) &&
+      this.attachmentCollection &&
+      !args.options.ignoreAttachments
+    ) {
       this.attachmentCollection.reset(args.attrs.attachments);
     }
 
-    _.each(args.attrs.submission_sets, function(submissions, name) {
-      // It's a summary if it's not an array of objects
-      if (this.submissionSets && this.submissionSets[name] && _.isArray(submissions)) {
-        this.submissionSets[name].reset(submissions);
-      }
-    }, this);
+    _.each(
+      args.attrs.submission_sets,
+      function(submissions, name) {
+        // It's a summary if it's not an array of objects
+        if (
+          this.submissionSets &&
+          this.submissionSets[name] &&
+          _.isArray(submissions)
+        ) {
+          this.submissionSets[name].reset(submissions);
+        }
+      },
+      this,
+    );
 
     return module.exports.__super__.set.call(this, args.attrs, args.options);
   },
@@ -56,16 +72,15 @@ module.exports = Backbone.Model.extend({
   save: function(key, val, options) {
     // Overriding save so that we can handle adding attachments
     var self = this,
-        realSuccessHandler,
-        args = ModelUtils.normalizeModelArguments(key, val, options),
-        attrs = args.attrs;
+      realSuccessHandler,
+      args = ModelUtils.normalizeModelArguments(key, val, options),
+      attrs = args.attrs;
     options = args.options;
     realSuccessHandler = options.success || $.noop;
 
     // If this is a new model, then we need to save it first before we can
     // attach anything to it.
     if (this.isNew()) {
-
       // Attach files after the model is succesfully saved
       options.success = function() {
         self.saveAttachments(realSuccessHandler, self, arguments);
@@ -81,8 +96,8 @@ module.exports = Backbone.Model.extend({
 
   saveWithoutAttachments: function(key, val, options) {
     var args = ModelUtils.normalizeModelArguments(key, val, options),
-        attrs = args.attrs,
-        options = args.options;
+      attrs = args.attrs,
+      options = args.options;
 
     module.exports.__super__.save.call(this, attrs, options);
     options.success.apply(this, arguments);
@@ -90,19 +105,19 @@ module.exports = Backbone.Model.extend({
 
   saveAttachments: function(realSuccessHandler, context, args) {
     var attachmentCount = this.attachmentCollection.length,
-        numSavedAttachments = 0,
-        attachmentSuccessHandler = function() {
-          numSavedAttachments++;
-          if (attachmentCount === numSavedAttachments) {
-            realSuccessHandler.apply(context, args);
-          }
-        };
+      numSavedAttachments = 0,
+      attachmentSuccessHandler = function() {
+        numSavedAttachments++;
+        if (attachmentCount === numSavedAttachments) {
+          realSuccessHandler.apply(context, args);
+        }
+      };
 
     if (this.attachmentCollection.length > 0) {
       this.attachmentCollection.each(function(attachment) {
         if (attachment.isNew()) {
           attachment.save(null, {
-            success: attachmentSuccessHandler
+            success: attachmentSuccessHandler,
           });
         }
       });
@@ -123,17 +138,17 @@ module.exports = Backbone.Model.extend({
   sync: function(method, model, options) {
     var attrs;
 
-    if (method === 'create' || method === 'update') {
+    if (method === "create" || method === "update") {
       attrs = {
-        'type': 'Feature',
-        'geometry': model.get('geometry'),
-        'properties': _.omit(model.toJSON(), 'geometry')
+        type: "Feature",
+        geometry: model.get("geometry"),
+        properties: _.omit(model.toJSON(), "geometry"),
       };
 
       options.data = JSON.stringify(attrs);
-      options.contentType = 'application/json';
+      options.contentType = "application/json";
     }
 
     return Backbone.sync(method, model, options);
-  }
+  },
 });
