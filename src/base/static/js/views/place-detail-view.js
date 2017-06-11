@@ -144,10 +144,10 @@ module.exports = Backbone.View.extend({
   },
 
   onShareTwitter: function() {
-    Util.onSocialShare(this.model, 'twitter')
+    Util.onSocialShare(this.model, "twitter");
   },
   onShareFacebook: function() {
-    Util.onSocialShare(this.model, 'facebook')
+    Util.onSocialShare(this.model, "facebook");
   },
 
   onClickStoryPrevious: function() {

@@ -75,14 +75,13 @@ var self = (module.exports = {
       shareUrl = "http://social.mapseed.org",
       getPathname = model => {
         if (model.get("url-title")) {
-          return model.get("url-title")
+          return model.get("url-title");
         } else if (model.get("datasetSlug")) {
-          return model.get("datasetSlug") + "/" + model.get("id")
+          return model.get("datasetSlug") + "/" + model.get("id");
         } else {
-          return model.get("id")
+          return model.get("id");
         }
       },
-
       components = {
         title: model.get("title") || model.get("name") || appConfig.title,
         desc: model.get("description") || appConfig.meta_description,
@@ -114,27 +113,27 @@ var self = (module.exports = {
         model.attachmentCollection.fetch({
           reset: true,
           success: collection => {
-            components.img = collection.first().get("file")
-            const queryString = this.buildSharingQuerystring(components)
-            resolve(encodeURIComponent(`${shareUrl}${queryString}`))
+            components.img = collection.first().get("file");
+            const queryString = this.buildSharingQuerystring(components);
+            resolve(encodeURIComponent(`${shareUrl}${queryString}`));
           },
           error: _ => reject(_),
-        })
-      })
+        });
+      });
     } else {
       // return a promise that immediately resolves to our share url:
-      const queryString = this.buildSharingQuerystring(components)
-      return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`))
+      const queryString = this.buildSharingQuerystring(components);
+      return Promise.resolve(encodeURIComponent(`${shareUrl}${queryString}`));
     }
   },
 
   onSocialShare: function(model, service) {
     this.getSocialUrl(model).then(shareUrl => {
-      let url = service === 'facebook'
-              ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
-              : `https://twitter.com/intent/tweet?url=${shareUrl}`
-      window.open(url, '_blank').focus()
-    })
+      let url = service === "facebook"
+        ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+        : `https://twitter.com/intent/tweet?url=${shareUrl}`;
+      window.open(url, "_blank").focus();
+    });
   },
 
   // Given the information provided in a url (that is, an id and possibly a slug),
