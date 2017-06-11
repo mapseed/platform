@@ -1,4 +1,4 @@
-var AttachmentModel = require('./attachment-model.js');
+var AttachmentModel = require("./attachment-model.js");
 
 module.exports = Backbone.Collection.extend({
   model: AttachmentModel,
@@ -9,12 +9,12 @@ module.exports = Backbone.Collection.extend({
 
   url: function() {
     var thingModel = this.options.thingModel,
-        thingUrl = thingModel.url();
+      thingUrl = thingModel.url();
 
-    return thingUrl + '/attachments';
+    return thingUrl + "/attachments";
   },
 
   parse: function(response) {
     return response.results;
-  }
+  },
 });

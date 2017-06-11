@@ -1,30 +1,30 @@
 /*globals Backbone jQuery _ */
 
-var PlaceModel = require('./models/place-model.js');
-var LandmarkModel = require('./models/landmark-model.js');
-var Util = require('./utils.js');
-var LandmarkCollection = require('./models/landmark-collection.js');
-var PlaceCollection = require('./models/place-collection.js');
-var ActionCollection = require('./models/action-collection.js');
-var AppView = require('mapseed-app-view');
+var PlaceModel = require("./models/place-model.js");
+var LandmarkModel = require("./models/landmark-model.js");
+var Util = require("./utils.js");
+var LandmarkCollection = require("./models/landmark-collection.js");
+var PlaceCollection = require("./models/place-collection.js");
+var ActionCollection = require("./models/action-collection.js");
+var AppView = require("mapseed-app-view");
 
 // Global-namespace Util
 Shareabouts.Util = Util;
 
-(function(S, $, console){
+(function(S, $, console) {
   S.App = Backbone.Router.extend({
     routes: {
-      '': 'viewMap',
-      'filter/:locationtype': 'filterMap',
-      'page/:slug': 'viewPage',
-      ':dataset/:id': 'viewPlace',
-      'new': 'newPlace',
-      ':dataset/:id/response/:response_id': 'viewPlace',
-      ':id/response/:response_id': 'viewLandmark',
-      ':dataset/:id/edit': 'editPlace',
-      'list': 'showList',
-      ':id': 'viewLandmark',
-      ':zoom/:lat/:lng': 'viewMap'
+      "": "viewMap",
+      "filter/:locationtype": "filterMap",
+      "page/:slug": "viewPage",
+      ":dataset/:id": "viewPlace",
+      new: "newPlace",
+      ":dataset/:id/response/:response_id": "viewPlace",
+      ":id/response/:response_id": "viewLandmark",
+      ":dataset/:id/edit": "editPlace",
+      list: "showList",
+      ":id": "viewLandmark",
+      ":zoom/:lat/:lng": "viewMap",
     },
 
     // overwrite route so we can catch route requests that would
@@ -34,8 +34,10 @@ Shareabouts.Util = Util;
       if (!callback) callback = this[handler];
 
       var f = function() {
-        if (this.appView.activeDetailView &&
-          this.appView.activeDetailView.isModified) {
+        if (
+          this.appView.activeDetailView &&
+          this.appView.activeDetailView.isModified
+        ) {
           if (!this.appView.activeDetailView.onCloseWithUnsavedChanges()) {
             return false;
           } else {
@@ -53,10 +55,10 @@ Shareabouts.Util = Util;
 
     initialize: function(options) {
       var self = this,
-          startPageConfig,
-          filteredRoutes,
-          // store config details for places and landmarks
-          configArrays = {};
+        startPageConfig,
+        filteredRoutes,
+        // store config details for places and landmarks
+        configArrays = {};
 
       // store individual place collections for each place type
       this.places = {};
@@ -76,38 +78,44 @@ Shareabouts.Util = Util;
       // prevent invalid places from being added or saved to the collection.
       PlaceModel.prototype.validate = function(attrs, options) {
         var locationType = attrs.location_type,
-            locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
+          locationTypes = _.map(S.Config.placeTypes, function(config, key) {
+            return key;
+          });
 
         if (!_.contains(locationTypes, locationType)) {
-          console.warn(locationType + ' is not supported.');
-          return locationType + ' is not supported.';
+          console.warn(locationType + " is not supported.");
+          return locationType + " is not supported.";
         }
       };
 
       // Global route changes
-      this.bind('route', function(route, router) {
-        Util.log('ROUTE', self.getCurrentPath());
+      this.bind("route", function(route, router) {
+        Util.log("ROUTE", self.getCurrentPath());
       });
 
       filteredRoutes = this.getFilteredRoutes();
-      this.bind('route', function(route) {
-        // If the route shouldn't be filtered, then clear the filter. Otherwise
-        // leave it alone.
-        if (!_.contains(filteredRoutes, route)) {
-          this.clearLocationTypeFilter();
-        }
-      }, this);
+      this.bind(
+        "route",
+        function(route) {
+          // If the route shouldn't be filtered, then clear the filter. Otherwise
+          // leave it alone.
+          if (!_.contains(filteredRoutes, route)) {
+            this.clearLocationTypeFilter();
+          }
+        },
+        this,
+      );
 
       this.loading = true;
 
       // set up landmark configs and instantiate landmark collections
       configArrays.landmarks = options.mapConfig.layers.filter(function(layer) {
-        return layer.type && layer.type === 'landmark';
+        return layer.type && layer.type === "landmark";
       });
       _.each(configArrays.landmarks, function(config) {
-        var url = config.url + "?"
-        config.sources.forEach(function (source) {
-          url += encodeURIComponent(source) + '&'
+        var url = config.url + "?";
+        config.sources.forEach(function(source) {
+          url += encodeURIComponent(source) + "&";
         });
         var collection = new LandmarkCollection([], { url: url });
         self.landmarks[config.id] = collection;
@@ -115,21 +123,25 @@ Shareabouts.Util = Util;
 
       // set up place configs and instantiate place collections
       configArrays.places = options.mapConfig.layers.filter(function(layer) {
-        return layer.type && layer.type === 'place';
+        return layer.type && layer.type === "place";
       });
       _.each(configArrays.places, function(config) {
-        var collection = new PlaceCollection([], { url: "/dataset/" + config.id + "/places" });
+        var collection = new PlaceCollection([], {
+          url: "/dataset/" + config.id + "/places",
+        });
         self.places[config.id] = collection;
       });
 
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
-        var collection = new ActionCollection([], { url: "/dataset/" + config.id + "/actions" });
+        var collection = new ActionCollection([], {
+          url: "/dataset/" + config.id + "/actions",
+        });
         self.activities[config.id] = collection;
       });
 
       this.appView = new AppView({
-        el: 'body',
+        el: "body",
         activities: this.activities,
         places: this.places,
         landmarks: this.landmarks,
@@ -148,26 +160,30 @@ Shareabouts.Util = Util;
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
         userToken: options.userToken,
-        router: this
+        router: this,
       });
 
       // Start tracking the history
-      var historyOptions = {pushState: true};
+      var historyOptions = { pushState: true };
       if (options.defaultPlaceTypeName) {
-        historyOptions.root = '/' + options.defaultPlaceTypeName + '/';
+        historyOptions.root = "/" + options.defaultPlaceTypeName + "/";
       }
 
       Backbone.history.start(historyOptions);
 
       // Load the default page when there is no page already in the url
-      if (Backbone.history.getFragment() === '') {
-        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
+      if (Backbone.history.getFragment() === "") {
+        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {
+          start_page: true,
+        });
 
-        if (startPageConfig 
-          && startPageConfig.slug
+        if (
+          startPageConfig &&
+          startPageConfig.slug &&
           // don't route to the start page on small screens
-          && $(window).width() > (startPageConfig.show_above_width || 960)) {
-          this.navigate('page/' + startPageConfig.slug, {trigger: true});
+          $(window).width() > (startPageConfig.show_above_width || 960)
+        ) {
+          this.navigate("page/" + startPageConfig.slug, { trigger: true });
         }
       }
 
@@ -176,14 +192,16 @@ Shareabouts.Util = Util;
 
     getCurrentPath: function() {
       var root = Backbone.history.root,
-          fragment = Backbone.history.fragment;
+        fragment = Backbone.history.fragment;
       return root + fragment;
     },
 
     viewMap: function(zoom, lat, lng) {
       if (this.appView.mapView.locationTypeFilter) {
         // If there's a filter applied, actually go to that filtered route.
-        this.navigate('/filter/' + this.appView.mapView.locationTypeFilter, {trigger: false});
+        this.navigate("/filter/" + this.appView.mapView.locationTypeFilter, {
+          trigger: false,
+        });
       }
 
       this.appView.viewMap(zoom, lat, lng);
@@ -198,20 +216,20 @@ Shareabouts.Util = Util;
       this.appView.viewPlaceOrLandmark({
         modelId: modelId,
         responseId: responseId,
-        loading: this.loading
+        loading: this.loading,
       });
     },
 
-    viewPlace: function(datasetSlug, modelId, responseId) {      
+    viewPlace: function(datasetSlug, modelId, responseId) {
       this.appView.viewPlaceOrLandmark({
         datasetSlug: datasetSlug,
         modelId: modelId,
         responseId: responseId,
-        loading: this.loading
+        loading: this.loading,
       });
     },
 
-    editPlace: function(){},
+    editPlace: function() {},
 
     viewPage: function(slug) {
       this.appView.viewPage(slug);
@@ -226,40 +244,46 @@ Shareabouts.Util = Util;
       // but there is currently no way to map the route, at this point
       // transformed into a regex, back to the route name. This may change
       // in the future.
-      return (fragment === '' || (fragment.indexOf('place') === -1 &&
-                                  fragment.indexOf('page') === -1 &&
-                                  fragment.indexOf('list') === -1));
+      return (
+        fragment === "" ||
+        (fragment.indexOf("place") === -1 &&
+          fragment.indexOf("page") === -1 &&
+          fragment.indexOf("list") === -1)
+      );
     },
 
     getFilteredRoutes: function() {
-      return ['filterMap', 'viewPlace', 'showList', 'viewMap', 'viewLandmark'];
+      return ["filterMap", "viewPlace", "showList", "viewMap", "viewLandmark"];
     },
 
     clearLocationTypeFilter: function() {
-      this.setLocationTypeFilter('all');
+      this.setLocationTypeFilter("all");
     },
 
     setLocationTypeFilter: function(locationType) {
       // TODO: This functionality should be moved in to the app-view
-      var $filterIndicator = $('#current-filter-type');
+      var $filterIndicator = $("#current-filter-type");
       if ($filterIndicator.length === 0) {
-        $filterIndicator = $('<div id="current-filter-type"/>')
-          .insertAfter($('.menu-item-filter-type > a:first-child'));
+        $filterIndicator = $('<div id="current-filter-type"/>').insertAfter(
+          $(".menu-item-filter-type > a:first-child"),
+        );
       }
 
       // Get the menu information for the current location type
       var filterMenu, menuItem;
       if (S.Config.pages) {
-        filterMenu = _.findWhere(S.Config.pages, {'slug': 'filter-type'});
+        filterMenu = _.findWhere(S.Config.pages, { slug: "filter-type" });
       }
       if (filterMenu) {
-        menuItem = _.findWhere(filterMenu.pages, {'url': '/filter/' + locationType});
+        menuItem = _.findWhere(filterMenu.pages, {
+          url: "/filter/" + locationType,
+        });
       }
 
-      if (locationType !== 'all') {
+      if (locationType !== "all") {
         this.appView.mapView.filter(locationType);
         if (this.appView.listView) {
-          this.appView.listView.filter({'location_type': locationType});
+          this.appView.listView.filter({ location_type: locationType });
         }
 
         // Show the menu item title with the coresponding style
@@ -269,7 +293,6 @@ Shareabouts.Util = Util;
             .addClass(locationType)
             .html(menuItem.title);
         }
-
       } else {
         // If the filter is 'all', we're unsetting the filter.
         this.appView.mapView.clearFilter();
@@ -277,26 +300,22 @@ Shareabouts.Util = Util;
           this.appView.listView.clearFilters();
         }
 
-        $filterIndicator
-          .removeClass()
-          .addClass('unfiltered')
-          .empty();
+        $filterIndicator.removeClass().addClass("unfiltered").empty();
       }
     },
 
     filterMap: function(locationType) {
       this.setLocationTypeFilter(locationType);
-      if (locationType === 'all') {
+      if (locationType === "all") {
         if (this.appView.listView && this.appView.listView.isVisible()) {
-          this.navigate('/list', {trigger: false});
+          this.navigate("/list", { trigger: false });
         } else {
-          this.navigate('/', {trigger: false});
+          this.navigate("/", { trigger: false });
         }
       }
-    }
+    },
   });
-
-}(Shareabouts, jQuery, Util.console));
+})(Shareabouts, jQuery, Util.console);
 
 /*****************************************************************************
 
@@ -317,48 +336,50 @@ Shareabouts.Util = Util;
 
   */
 
-  jQuery(document).ajaxSend(function(event, xhr, settings) {
-      function getCookie(name) {
-          var cookieValue = null;
-          if (document.cookie && document.cookie !== '') {
-              var cookies = document.cookie.split(';');
-              for (var i = 0; i < cookies.length; i++) {
-                  var cookie = jQuery.trim(cookies[i]);
-                  // Does this cookie string begin with the name we want?
-                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                      break;
-                  }
-              }
-          }
-          return cookieValue;
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = jQuery.trim(cookies[i]);
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
       }
-      function sameOrigin(url) {
-          // url could be relative or scheme relative or absolute
-          var host = document.location.host; // host + port
-          var protocol = document.location.protocol;
-          var sr_origin = '//' + host;
-          var origin = protocol + sr_origin;
-          // Allow absolute or scheme relative URLs to same origin
-          return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-              (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-              // or any other URL that isn't scheme relative or absolute i.e relative.
-              !(/^(\/\/|http:|https:).*/.test(url));
-      }
-      function safeMethod(method) {
-          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-      }
+    }
+    return cookieValue;
+  }
+  function sameOrigin(url) {
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = "//" + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (
+      url == origin ||
+      url.slice(0, origin.length + 1) == origin + "/" ||
+      (url == sr_origin ||
+        url.slice(0, sr_origin.length + 1) == sr_origin + "/") ||
+      // or any other URL that isn't scheme relative or absolute i.e relative.
+      !/^(\/\/|http:|https:).*/.test(url)
+    );
+  }
+  function safeMethod(method) {
+    return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
+  }
 
-      if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-      }
+  if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+  }
 
-      // If this is a DELETE request, explicitly set the data to be sent so that
-      // the browser will calculate a value for the Content-Length header.
-      if (settings.type === 'DELETE') {
-          xhr.setRequestHeader("Content-Type", "application/json");
-          settings.data = '{}';
-      }
-  });
-
-
+  // If this is a DELETE request, explicitly set the data to be sent so that
+  // the browser will calculate a value for the Content-Length header.
+  if (settings.type === "DELETE") {
+    xhr.setRequestHeader("Content-Type", "application/json");
+    settings.data = "{}";
+  }
+});
