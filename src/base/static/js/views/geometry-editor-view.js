@@ -151,7 +151,7 @@ module.exports = Backbone.View.extend({
 
   generateGeometry: function(layer) {
     if (this.layerType === "Polygon") {
-      var latLngs = layer.getLatLngs()[0],
+      var latLngs = layer.getLatLngs(),
         coordinates = this.buildCoords(latLngs);
 
       // Make sure the final polygon vertex exactly matches the first. The
