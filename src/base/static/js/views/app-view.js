@@ -215,6 +215,16 @@ module.exports = Backbone.View.extend({
       }).render();
     }
 
+    if (this.options.filters && this.options.filters.enabled) {
+      this.filterMenuView = new FilterMenuView({
+        el: "#filter-menu-bar",
+        mapView: this.mapView,
+        placeConfig: this.options.placeConfig,
+        filtersConfig: this.options.filters,
+        mapView: this.mapView
+      });
+    }
+
     // Activity is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.
     if (

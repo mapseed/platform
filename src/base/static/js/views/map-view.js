@@ -295,22 +295,35 @@ module.exports = Backbone.View.extend({
     this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
   },
 
-  filter: function(locationTypeModel) {
-    var self = this,
-        locationType = locationTypeModel.get("locationType"),
-        isVisible = locationTypeModel.get("active");
+  filter: function(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
+    let locationType = locationTypeModel.get("locationType"),
+        isActive = locationTypeModel.get("active");
 
-    this.filters[locationType] = isVisible;
-
-    _.each(this.places, function(collection, collectionId) {
-      collection
-        .where({location_type: locationType})
-        .forEach(function(model) {
-          (isVisible) ?
-            self.layerViews[collectionId][model.cid].show() :
-            self.layerViews[collectionId][model.cid].hide();
-        });
-    });
+    if (mapWasUnfiltered || mapWillBeUnfiltered) {
+      for (let collectionId in this.places) {
+        this.places[collectionId]
+          .filter((model) => {
+            return model.get("location_type") !== locationType;
+          })
+          .forEach((model) => {
+            if (mapWasUnfiltered) {
+              this.layerViews[collectionId][model.cid].filter();
+            } else if (mapWillBeUnfiltered) {
+              this.layerViews[collectionId][model.cid].unfilter();
+            }
+          });
+      }
+    } else {
+      for (let collectionId in this.places) {
+        this.places[collectionId]
+          .where({location_type: locationType})
+          .forEach((model) => {
+            (isActive) ?
+              this.layerViews[collectionId][model.cid].unfilter() :
+              this.layerViews[collectionId][model.cid].filter();
+          });
+      }
+    }
 
     // TODO: filtering for landmarks also?
   },

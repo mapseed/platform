@@ -11,23 +11,20 @@ module.exports = Backbone.View.extend({
           defaults: {
             locationType: "",
             iconUrl: "",
-            active: true,
+            active: false,
             label: ""
           }
         });
 
+    this.numActiveFilters = 0;
     this.state = new Backbone.Model({
-      allSelected: true,
       filters: new Backbone.Collection([])
     });
 
-    // We initialize all filters to be set to false, so all location_types will
-    // be displayed on the map on page load
     this.options.placeConfig.place_detail.forEach((item) => {
       let model = new locationTypeModel({
         locationType: item.category,
         iconUrl: item.icon_url,
-        active: false,
         label: item.label
       });
       model.on("change", this.onFilterStateChange, this);
@@ -40,10 +37,9 @@ module.exports = Backbone.View.extend({
   onFilterChange (evt) {
     let locationType = evt.currentTarget.id.replace(/^filter-menu-select-/, "");
 
-    if (locationType === "all") {
-      this.state.set("allSelected", !this.state.get("allSelected"));
+    if (locationType === "reset") {
       this.state.get("filters").each((model) => {
-        model.set("active", this.state.get("allSelected"));
+        model.set("active", false);
       });
 
       this.render();
@@ -55,27 +51,22 @@ module.exports = Backbone.View.extend({
       model.set({
         active: !model.get("active")
       });
-
-      // if (!model.get("active")) {
-
-      //   // Make sure to uncheck the "all" option if we've unchecked one of the
-      //   // constituent elements
-      //   this.state.set("allSelected", false);
-      //   this.render();
-      // }
     }
   },
 
   onFilterStateChange (locationTypeModel) {
-    this.options.mapView.filter(locationTypeModel);
+    let mapWasUnfiltered = (this.numActiveFilters === 0) ? true : false;
+    this.numActiveFilters += (locationTypeModel.get("active")) ? 1 : -1;
+    let mapWillBeUnfiltered = (this.numActiveFilters === 0) ? true : false;
+
+    this.options.mapView.filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered);
     this.render();
   },
 
   render () {
     let data = {
       filterAllLabel: this.options.filtersConfig.filter_all_label,
-      activeFilters: this.state.get("filters").toJSON(),
-      allSelected: this.state.get("allSelected")
+      activeFilters: this.state.get("filters").toJSON()
     };
 
     this.$el.html(Handlebars.templates["filter-menu"](data));
