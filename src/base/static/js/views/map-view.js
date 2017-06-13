@@ -34,6 +34,33 @@ module.exports = Backbone.View.extend({
 
     this.map = L.map(self.el, self.options.mapConfig.options);
 
+    // Clustering by location_type
+    // if (this.options.cluster) {
+    //   this.clusterSubGroupCounts = {};
+    //   _.each(this.options.placeConfig.place_detail, (placeConfig) => {
+    //     this.clusterSubGroupCounts[placeConfig.category] = 0;
+    //     _.extend(this.options.cluster, {
+    //       iconCreateFunction: (cluster) => {
+    //         var clusterSubGroupCounts = _.extend({}, this.clusterSubGroupCounts);
+    //         console.log("clusterSubGroupCounts", clusterSubGroupCounts);   
+
+    //         cluster.getAllChildMarkers().forEach((child) => {
+    //           this.clusterSubGroupCounts[child.getLocationType()]++;
+
+    //           console.log(this.clusterSubGroupCounts[child.getLocationType()]);
+    //         });
+
+    //         return L.divIcon({
+    //           html: ["<img class='custom-cluster-icon' src='", placeConfig.icon_cluster_url, "' /><div class='cluster-child-counter'>", cluster.getChildCount(), "</div>"].join("")
+    //         });
+    //       }
+    //     });
+
+    //     // this.clusterGroups[placeConfig.category] = L.markerClusterGroup(this.options.cluster);
+    //     // this.map.addLayer(this.clusterGroups[placeConfig.category]);
+    //   }, this);
+    // }
+
     _.each(self.options.mapConfig.layers, function(config) {
       config.loaded = false;
     });
@@ -348,32 +375,56 @@ module.exports = Backbone.View.extend({
       });
     });
   },
+
   getLayerGroups: function() {
-    var self = this;
-    var clusterOptions = self.options.cluster;
-    if (!clusterOptions) {
+    if (!this.options.cluster) {
       return L.layerGroup();
     } else {
-      return L.markerClusterGroup({
-        iconCreateFunction: function(cluster) {
-          var markers = cluster.getAllChildMarkers();
-          var n = markers.length;
-          var small = n < clusterOptions.threshold;
-          var className = small
-            ? clusterOptions.class_small
-            : clusterOptions.class_large;
-          var size = small
-            ? clusterOptions.size_small
-            : clusterOptions.size_large;
-          return L.divIcon({
-            html: n,
-            className: className,
-            iconSize: [size, size],
+      _.extend(this.options.cluster, {
+        iconCreateFunction: (cluster) => {
+          let clusterSubGroups = {},
+              html,
+              i = 0;
+
+          this.options.placeConfig.place_detail.forEach((placeConfig) => {
+            clusterSubGroups[placeConfig.category] = {
+              count: 0,
+              iconClusterUrl: placeConfig.icon_cluster_url
+            };
           });
-        },
+
+          cluster.getAllChildMarkers().forEach((child) => {
+            clusterSubGroups[child.getLocationType()].count++; 
+          });
+
+          for (let x in clusterSubGroups) {
+            html += [
+              "<div class='cluster-subgroup-container ",
+              ((clusterSubGroups[x].count === 0) ? "faded'" : "'"),
+              "style='left: ",
+              Math.sin(i*(Math.PI/4)) * 40, 
+              "px; top: ", 
+              Math.cos(i*(Math.PI/4)) * 40,
+              "px'><img class='custom-cluster-icon' src='",
+              clusterSubGroups[x].iconClusterUrl,
+              "' /><div class='cluster-child-counter'>", 
+              clusterSubGroups[x].count, 
+              "</div></div>"
+            ].join("");
+
+            i++;
+          }
+
+          return L.divIcon({
+            html: html
+          });
+        }
       });
+
+      return L.markerClusterGroup(this.options.cluster);
     }
   },
+
   createLayerFromConfig: function(config) {
     var self = this,
       layer,

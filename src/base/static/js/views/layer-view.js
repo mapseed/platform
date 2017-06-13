@@ -33,6 +33,12 @@ module.exports = Backbone.View.extend({
       this.map.on("zoomend", this.render, this);
     }
 
+    // If clustering is enabled, replace this.layerGroup with a MarkerClusterGroup
+    // for this model's location_type.
+    // if (this.options.clusterGroups) {
+    //   this.layerGroup = this.options.clusterGroups[this.model.get("location_type")];
+    // }
+
     // Create arrays of functions representing parsed versions of style rules
     // found in the config. This prevents us from having to re-parse each
     // style rule on every map zoom for every layer view.

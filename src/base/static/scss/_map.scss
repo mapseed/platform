@@ -309,11 +309,19 @@
 }
 
 /* Custom cluster icons */
+.cluster-subgroup-container {
+    position: absolute;
+    &.faded {
+        opacity: 0.3;
+    }
+}
+
 .custom-cluster-icon {
-    width: 30px !important;
+    width: 25px !important;
 }
 
 .cluster-child-counter {
+    z-index: 400;
     position: absolute;
     line-height: 1.7em;
     text-align: center;

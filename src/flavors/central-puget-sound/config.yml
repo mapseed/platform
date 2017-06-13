@@ -1367,8 +1367,11 @@ story:
         spotlight: false
 
 cluster:
-  threshold: 0
+  maxClusterRadius: 120
+  animate: true
+  animateAddingMarkers: false
   showCoverageOnHover: false
+  spiderfyOnMaxZoom: true
   spiderfyDistanceMultiplier: 1.5
   spiderLegPolylineOptions:
     opacity: 0
