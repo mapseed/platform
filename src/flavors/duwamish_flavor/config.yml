@@ -2024,7 +2024,6 @@ story:
     default_zoom: 17
     default_visible_layers:
       - restoration
-      - duwamish
       - duwamishfeatured
     order:
       - url: marra
