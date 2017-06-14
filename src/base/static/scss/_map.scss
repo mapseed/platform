@@ -327,8 +327,8 @@
     text-align: center;
     color: white;
     font-weight: bold;
-    top: -10px;
-    left: 15px;
+    top: -15px;
+    left: -15px;
     width: 20px;
     height: 20px;
     -moz-border-radius:    11px;
@@ -338,8 +338,12 @@
     -moz-box-shadow:    -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
     box-shadow:         -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
     background-color: #f95858 !important;
-}
-/* layer info popup windows */
+
+    &.top-right {
+        top: -10px;
+        left: 12px;
+    }
+}/* layer info popup windows */
 #layer-info-window-container {
     position: absolute;
     padding: 10px;

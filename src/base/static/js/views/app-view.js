@@ -210,6 +210,7 @@ module.exports = Backbone.View.extend({
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
       placeDetailViews: this.placeDetailViews,
+      placeConfig: this.options.placeConfig
     });
 
     if (self.options.sidebarConfig.enabled) {

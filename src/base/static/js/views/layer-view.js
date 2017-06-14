@@ -33,12 +33,6 @@ module.exports = Backbone.View.extend({
       this.map.on("zoomend", this.render, this);
     }
 
-    // If clustering is enabled, replace this.layerGroup with a MarkerClusterGroup
-    // for this model's location_type.
-    // if (this.options.clusterGroups) {
-    //   this.layerGroup = this.options.clusterGroups[this.model.get("location_type")];
-    // }
-
     // Create arrays of functions representing parsed versions of style rules
     // found in the config. This prevents us from having to re-parse each
     // style rule on every map zoom for every layer view.
@@ -209,6 +203,7 @@ module.exports = Backbone.View.extend({
 
       // Focus on the layer onclick
       if (this.layer) {
+        this.layer.getLocationType = this.getLocationType.bind(this);
         this.layer.on("click", this.onMarkerClick, this);
       }
     }
@@ -297,6 +292,9 @@ module.exports = Backbone.View.extend({
     if (this.layer) {
       this.layer.setIcon(icon);
     }
+  },
+  getLocationType: function() {
+    return this.model.get("location_type");
   },
   show: function() {
     if (
