@@ -699,7 +699,7 @@ activity:
   show_in_right_panel: true
 
 place:
-  adding_supported: true
+  adding_supported: false
   add_button_label: _(Submit an idea)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)
