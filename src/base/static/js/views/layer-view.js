@@ -15,7 +15,6 @@ module.exports = Backbone.View.extend({
     this.styleRuleContext = {};
     this.styleRules = [];
     this.zoomRules = [];
-    this.layerUpdatedAfterLastMapChange = false;
 
     this.model.on(
       "change",
@@ -48,7 +47,21 @@ module.exports = Backbone.View.extend({
           _.each(
             rule,
             function(prop, key) {
-              if (prop !== "condition") {
+              if (key === "style") {
+
+                // If we have a style rule with a dedicated "style" object, (i.e.
+                // for third-party GeoJSON polygon/linestring geometry), make sure
+                // to build functions for each sub-rule in the style object.
+                _.each(prop, function(styleProp, stylePropKey) {
+                  if (_.isString(styleProp) && styleProp.startsWith("this.")) {
+                    prop[stylePropKey] = new Function(["return ", styleProp, ";"].join(""));
+                  } else {
+                    prop[stylePropKey] = styleProp;
+                  }
+                });
+
+                fn.props[key] = prop;
+              } else if (key !== "condition") {
                 fn.props[key] = prop;
               }
             },
@@ -71,7 +84,7 @@ module.exports = Backbone.View.extend({
             _.each(
               rule,
               function(prop, key) {
-                if (prop !== "condition") {
+                if (key !== "condition") {
                   fn.props[key] = prop;
                 }
               },
@@ -111,6 +124,16 @@ module.exports = Backbone.View.extend({
     for (var i = 0; i < this.styleRules.length; i++) {
       if (this.styleRules[i].apply(styleRuleContext)) {
         styleRule = this.styleRules[i].props;
+
+        if (styleRule.style) {
+
+          // Apply nested style object sub-rules if necessary
+          styleRule.style = _.extend({}, styleRule.style);
+          _.each(styleRule.style, function(rule, key) {
+            styleRule.style[key] = (_.isFunction(rule)) ? rule.apply(styleRuleContext) : rule;
+          }, this);
+        }
+
         break;
       }
     }
@@ -139,7 +162,6 @@ module.exports = Backbone.View.extend({
         this.model.get("location_type"),
         "is not configured so it will not appear on the map.",
       );
-      this.layer = {};
       return;
     }
 
