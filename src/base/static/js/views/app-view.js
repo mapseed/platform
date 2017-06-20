@@ -212,17 +212,8 @@ module.exports = Backbone.View.extend({
         el: "#sidebar-container",
         mapView: this.mapView,
         sidebarConfig: this.options.sidebarConfig,
+        placeConfig: this.options.placeConfig
       }).render();
-    }
-
-    if (this.options.filters && this.options.filters.enabled) {
-      this.filterMenuView = new FilterMenuView({
-        el: "#filter-menu-bar",
-        mapView: this.mapView,
-        placeConfig: this.options.placeConfig,
-        filtersConfig: this.options.filters,
-        mapView: this.mapView
-      });
     }
 
     // Activity is enabled by default (undefined) or by enabling it

@@ -3,6 +3,7 @@ var views = {
   AppView: require("mapseed-app-view"),
   AuthNavView: require("mapseed-auth-nav-view"),
   BasicLayerView: require("mapseed-basic-layer-view"),
+  FilterMenuView: require("mapseed-filter-menu-view"),
   GeocodeAddressPlaceView: require("mapseed-geocode-address-place-view"),
   GeocodeAddressView: require("mapseed-geocode-address-view"),
   GISLegendView: require("mapseed-gis-legend-view"),
@@ -45,10 +46,11 @@ module.exports = Backbone.View.extend({
           el: "#" + panelConfig.id,
           mapView: self.options.mapView,
           config: panelConfig,
-          sidebar: self.sidebar
+          sidebar: self.sidebar,
+          placeConfig: this.options.placeConfig
         }).render();
       }
-    });
+    }, this);
 
     self.sidebar.addTo(this.options.mapView);
   },

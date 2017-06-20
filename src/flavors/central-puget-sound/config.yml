@@ -796,23 +796,10 @@ sidebar:
               title: _(Original River Path)
               visibleDefault: false
 
-    - id: reports_legend
-      title: _(Citizen Reports:)
-      view: LegendView
-      icon: info-circle
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
+    - id: filters
+      title: _(Report Filters)
+      view: FilterMenuView
+      icon: filter
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.

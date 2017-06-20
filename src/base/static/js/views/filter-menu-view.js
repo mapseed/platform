@@ -65,7 +65,6 @@ module.exports = Backbone.View.extend({
 
   render () {
     let data = {
-      filterAllLabel: this.options.filtersConfig.filter_all_label,
       activeFilters: this.state.get("filters").toJSON()
     };
 
