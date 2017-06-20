@@ -82,7 +82,7 @@ module.exports = Backbone.View.extend({
         return group.id === groupid;
       });
 
-    for (i = 0; i < group.layers.length; i++) {
+    for (var i = 0; i < group.layers.length; i++) {
       var layer = group.layers[i];
       $(Shareabouts).trigger("visibility", [layer.id, isChecked]);
       $("#map-" + layer.id).prop("checked", isChecked);
