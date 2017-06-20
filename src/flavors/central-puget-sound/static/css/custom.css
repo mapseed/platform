@@ -44,6 +44,41 @@
   }
 }
 
+/* =Header bar add report button
+-------------------------------------------------------------- */
+#pages-nav-container {
+  width: calc(100% - 425px);
+}
+
+#pages-nav-right-container {
+  height: 100%;
+  float: right;
+}
+
+.add-place-nav {
+  float: left;
+  font-size: 0.875em;
+}
+
+#add-place:hover {
+  background-color: rgba(208, 71, 22, 0.89);
+}
+
+#main-btns-container {
+  display: none;
+}
+
+.list-toggle-nav {
+  padding: 0.2em 0.75em;
+  float: right;
+}
+
+/* =Language picker
+-------------------------------------------------------------- */
+#language-picker {
+  display: none;
+}
+
 /* =Custom pledge type icons
 -------------------------------------------------------------- */
 .big-btn + label:before {
@@ -70,6 +105,13 @@
 .fileinput-container {
   width: 150px !important;
   font-size: 0.9em;
+}
+
+
+/* =Map
+-------------------------------------------------------------- */
+#map {
+  background: #777;
 }
 
 /* =Grid-based layout on about page
@@ -145,6 +187,12 @@ Adapted from http://littlesnippets.net/snip1579/
 -------------------------------------------------------------- */
 /* iphone 4 (320 x 480)*/
 
+@media only screen and (min-width: 60em) {
+  #main-btns-container {
+    display: none !important;
+  }
+}
+
 @media only screen and (max-width: 60em) {
   #site-header {
     background: none;
@@ -182,6 +230,26 @@ Adapted from http://littlesnippets.net/snip1579/
   #site-title a:visited {
     background-size: 180px auto;
     margin-top: 5px;
+  }
+
+  #pages-nav-container {
+    width: 100%;
+  }
+
+  #pages-nav-right-container {
+    width: 100%;
+  }
+
+  .menu-item {
+    padding-bottom: 0 !important;
+  }
+
+  .add-place-nav {
+    display: none;
+  }
+
+  #main-btns-container {
+    display: table;
   }
 }
 
