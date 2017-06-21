@@ -87,14 +87,14 @@ map:
       transparent: false
       format: image/png
 
-    - id: hydroregions
-      type: wmts
-      url: https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroNHD/MapServer/WMTS?
-      layers: 0
-      tilematrixSet: default028mm
-      version: 1.0.0
-      transparent: false
-      format: image/png
+    # - id: hydroregions
+    #   type: wmts
+    #   url: https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroNHD/MapServer/WMTS?
+    #   layers: 0
+    #   tilematrixSet: default028mm
+    #   version: 1.0.0
+    #   transparent: false
+    #   format: image/png
 
     - id: topo
       type: basemap
@@ -111,13 +111,6 @@ map:
     - id: blank
       type: basemap
       url: intentionally-blank
-
-  # Legend Layers
-    - id: restoration
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      type: landmark
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: bogtobay
       type: place
@@ -532,11 +525,11 @@ sidebar:
         - id: hydrography
           title: _(Hydrography)
           visibleDefault: false
-        - id: hydroregions
-          title: _(Hydroregions)
-          visibleDefault: false
+        # - id: hydroregions
+        #   title: _(Hydroregions)
+        #   visibleDefault: false
         - id: blank
-          title: _(No basemap)
+          title: _(Blank canvas)
           visibleDefault: false
       groupings:
         - id: grp-human-boundaries
