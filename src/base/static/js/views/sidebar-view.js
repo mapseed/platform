@@ -33,6 +33,10 @@ module.exports = Backbone.View.extend({
 
     this.$el.html(Handlebars.templates["sidebar"](data));
 
+    this.sidebar = L.control.sidebar("sidebar", {
+      position: "left",
+    });
+
     _.each(this.options.sidebarConfig.panels, function(panelConfig) {
       // TODO: Generalize this for views rendered outside of the sidebar:
       // (or for views with more complicated dependencies like ActivityView)
@@ -41,13 +45,11 @@ module.exports = Backbone.View.extend({
           el: "#" + panelConfig.id,
           mapView: self.options.mapView,
           config: panelConfig,
+          sidebar: self.sidebar
         }).render();
       }
     });
 
-    self.sidebar = L.control.sidebar("sidebar", {
-      position: "left",
-    });
     self.sidebar.addTo(this.options.mapView);
   },
 });

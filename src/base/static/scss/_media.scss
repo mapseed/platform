@@ -56,9 +56,7 @@
 
 @media only screen and (min-height: 768px) and (max-width: 60em) {}
 
-// Catchall media query for screen widths below 60em. Calculated screen heights
-// mean we don't need several media queries as above, and in general don't need
-// to worry about querying heights.
+// Catchall media query for screen widths below 60em.
 @media only screen and (max-width: 60em) {
     html, body, #map {
         height: 100%;
@@ -171,6 +169,10 @@
         .right-sidebar-content {
             width: 100%;
         }
+    }
+
+    .info-icon {
+        display: none;
     }
 }
 

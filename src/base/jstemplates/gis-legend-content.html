@@ -11,7 +11,7 @@
                      {{#if visibleDefault}}
                      checked="checked"
                      {{/if}}
-                     class="map-legend-basemap-radio" type="radio" name="basemap"></input>
+                     class="map-legend-basemap-radio is-visuallyhidden" type="radio" name="basemap"></input>
               <label for="map-{{ id }}">{{ title }}</label>
             </div>
           </li>
@@ -21,7 +21,7 @@
   {{# groupings}}
     <li class="layer-type-grouping">
       <div class="layer-type-grouping-title">
-        <input id="{{ id }}" class="map-legend-grouping-checkbox"
+        <input id="{{ id }}" class="map-legend-grouping-checkbox is-visuallyhidden"
                type="checkbox"
                {{#if visibleDefault}}
                checked="checked"
@@ -40,8 +40,14 @@
                      {{#if constituentLayers}}
                      data-constituent-layers="{{#each constituentLayers}}{{this}} {{/each}}"
                      {{/if}}
-                     class="map-legend-checkbox" type="checkbox"></input>
+                     class="map-legend-checkbox is-visuallyhidden" type="checkbox"></input>
               <label for="map-{{ id }}">{{ title }}</label>
+              {{#if info}}
+                <span class="info-icon" 
+                      data-info-content="{{info}}"
+                      data-info-title="{{title}}">
+                </span>
+              {{/if}}
             </div>
           </li>
         {{/layers}}
