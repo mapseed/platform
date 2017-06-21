@@ -390,7 +390,11 @@ module.exports = Backbone.View.extend({
     });
 
     if (this.options.rightSidebarConfig.show) {
-      $("body").addClass("right-sidebar-active right-sidebar-visible");
+      $("body").addClass("right-sidebar-active");
+      if (this.options.rightSidebarConfig.visibleDefault) {
+        $("body").addClass("right-sidebar-visible");
+      }
+
       new RightSidebarView({
         el: "#right-sidebar-container",
         router: this.options.router,
