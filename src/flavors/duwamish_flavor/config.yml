@@ -1088,6 +1088,7 @@ activity:
 
 right_sidebar:
   show: true
+  visibleDefault: true
 
 # Place Types
 place:

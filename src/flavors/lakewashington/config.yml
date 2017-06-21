@@ -370,6 +370,7 @@ activity:
 
 right_sidebar:
   show: true
+  visibleDefault: true
 
 place:
   adding_supported: true
