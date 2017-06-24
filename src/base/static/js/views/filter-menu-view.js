@@ -2,7 +2,8 @@
 
 module.exports = Backbone.View.extend({
   events: {
-    "click .filter-menu-item": "onFilterChange"
+    "change .filter-menu-item": "onFilterChange",
+    "click #filter-menu-select-reset": "onFilterChange"
   },
 
   initialize () {
@@ -35,7 +36,7 @@ module.exports = Backbone.View.extend({
   },
 
   onFilterChange (evt) {
-    let locationType = evt.currentTarget.id.replace(/^filter-menu-select-/, "");
+    let locationType = evt.currentTarget.dataset.locationtype;
 
     if (locationType === "reset") {
       this.state.get("filters").each((model) => {
@@ -60,7 +61,6 @@ module.exports = Backbone.View.extend({
     let mapWillBeUnfiltered = (this.numActiveFilters === 0) ? true : false;
 
     this.options.mapView.filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered);
-    this.render();
   },
 
   render () {
