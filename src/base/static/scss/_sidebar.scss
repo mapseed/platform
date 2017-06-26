@@ -35,6 +35,65 @@
     box-sizing: border-box;
 }
 
+/* Leaflet sidebar filter menu */
+#filters-pane {
+    hr {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    .filter-menu-item {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        margin-top: 5px;
+        font-size: 1.0em !important;
+
+        .filter-menu-check-icon {
+            display: none;
+            float: right;
+            margin-top: 2px;
+            color: #22c722;
+
+            &:before {
+                font-family: "FontAwesome";
+                content: $icon-checkmark;
+                font-size: 0.7em;
+            }
+        }
+
+        img {
+            width: 25px;
+        }
+
+        input {
+            display: none;
+
+            &:checked {
+                & + .filter-menu-item-label {
+                    background-color: yellow;
+                }
+
+                & ~ .filter-menu-check-icon {
+                    display: block;
+                }
+            }
+        }
+        
+        .filter-menu-item-label {
+            text-transform: uppercase;
+            font-size: 0.65em;
+            position: absolute;
+            top: 0.8em;
+            left: 35px;
+        }
+
+        &:hover .filter-menu-item-label {
+            background-color: lightyellow;
+        }
+    }
+}
+
 /*---- leaflet side bar overrides ----*/
 
 .sidebar-header {

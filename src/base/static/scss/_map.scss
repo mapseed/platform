@@ -343,7 +343,9 @@
         top: -10px;
         left: 18px;
     }
-}/* layer info popup windows */
+}
+
+/* layer info popup windows */
 #layer-info-window-container {
     position: absolute;
     padding: 10px;
@@ -406,6 +408,65 @@
             top: 6px;
             left: 18px;
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+        }
+    }
+}
+
+/* Bottom-clinging filter menu bar */
+#filter-menu-bar {
+    position: absolute;
+    bottom: 10px;
+    z-index: 400;
+    padding-top: 10px;
+    padding-right: 10px;
+    background-color: #FFF;
+    opacity: 0.9;
+    margin-left: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    border-radius: 3px;
+
+    .filter-header {
+        font-family: Roboto, sans-serif;
+        text-transform: uppercase;
+        border-bottom: 1px solid #000;
+        margin-left: 10px;
+        margin-bottom: 7px;
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+
+    .filter-menu-item {
+        float: left;
+        cursor: pointer;
+        margin-left: 10px;
+        margin-bottom: 5px;
+
+        .filter-img {
+            position: relative;
+            padding-top: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border: 1px solid transparent;
+
+            img {
+                width: 25px;
+                opacity: 0.5;
+            }
+
+            &.selected, &:hover {
+                border: 1px solid #999;
+                border-radius: 4px;
+            }
+
+            &.selected {
+                background-color: #CCC;
+                border: 1px solid #CCC;
+
+                img {
+                    opacity: 1.0;
+                }
+            }
         }
     }
 }

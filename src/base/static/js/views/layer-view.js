@@ -15,6 +15,7 @@ module.exports = Backbone.View.extend({
     this.styleRuleContext = {};
     this.styleRules = [];
     this.zoomRules = [];
+    this.isHiddenByFilters = false;
 
     this.model.on(
       "change",
@@ -103,7 +104,6 @@ module.exports = Backbone.View.extend({
     this.render();
   },
   onZoomEnd: function() {
-    this.layerUpdatedAfterLastMapChange = false;
     this.render();
   },
   onMoveEnd: function() {
@@ -296,20 +296,22 @@ module.exports = Backbone.View.extend({
   getLocationType: function() {
     return this.model.get("location_type");
   },
+  filter: function() {
+    this.isHiddenByFilters = true;
+    this.hide();
+  },
+  unfilter: function() {
+    this.isHiddenByFilters = false;
+    this.show();
+  },
   show: function() {
-    if (
-      !this.options.mapView.locationTypeFilter ||
-      this.options.mapView.locationTypeFilter.toUpperCase() ===
-        this.model.get("location_type").toUpperCase()
-    ) {
-      if (this.layer) {
-        this.layerGroup.addLayer(this.layer);
-      }
+    if (!this.isHiddenByFilters && this.layer) {
+      this.layerGroup.addLayer(this.layer);
     } else {
       this.hide();
     }
   },
   hide: function() {
     this.removeLayer();
-  },
+  }
 });

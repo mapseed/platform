@@ -312,7 +312,8 @@
       leaflet_sidebar: {{ config.leaflet_sidebar|as_json }},
       pages:           {{ pages_config_json|safe }},
       story:           {{ config.story|as_json }},
-      rightSidebar:    {{ config.right_sidebar|as_json }} 
+      rightSidebar:    {{ config.right_sidebar|as_json }},
+      filters:          {{ config.filters|as_json }}
     };
     $(function() {
       // Ready set go!
@@ -331,7 +332,8 @@
         mapConfig: S.Config.map,
         storyConfig: S.Config.story,
         activityConfig: S.Config.activity,
-        pagesConfig: S.Config.pages
+        pagesConfig: S.Config.pages,
+        filters: S.Config.filters
       });
     });
   }(Shareabouts, jQuery));
