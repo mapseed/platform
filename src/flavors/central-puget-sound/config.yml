@@ -1300,6 +1300,11 @@ pages:
     name: about
     pull_right: true
 
+  - title: _(Sponsors)
+    slug: sponsors
+    name: sponsors
+    hide_from_top_bar: true
+
 story:
   watersheds:
     tagline: _(Next featured site)
