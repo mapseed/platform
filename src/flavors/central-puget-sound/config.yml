@@ -746,10 +746,12 @@ sidebar:
             - id: school-boundaries
               title: _(School Districts)
               visibleDefault: false
+              info: _(This is some great information about the school boundaries layer. People LOVE it.)
 
             - id: zoning
               title: _(Zoning)
               visibleDefault: false
+              info: _(This is a tiny window.)
 
         - id: grp-natural-boundaries
           title: _(Natural Boundaries)
@@ -758,6 +760,7 @@ sidebar:
             - id: wria-7-8-9
               title: _(WRIA boundaries)
               visibleDefault: false
+              info: _(WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its ridgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 "Water Resource Inventory Areas" across the state.)
 
             - id: watershed-cedar
               title: _(Cedar River - Lake Washington Watershed)

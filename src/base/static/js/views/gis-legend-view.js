@@ -1,8 +1,13 @@
+var LayerInfoWindowView = require("./layer-info-window-view.js");
+const INFO_WINDOW_LEFT_OFFSET_ADJUST = 30;
+const INFO_WINDOW_TOP_OFFSET_ADJUST = -67;
+
 module.exports = Backbone.View.extend({
   events: {
     "change .map-legend-basemap-radio": "toggleBasemap",
     "change .map-legend-checkbox": "toggleVisibility",
     "change .map-legend-grouping-checkbox": "toggleHeaderVisibility",
+    "click .info-icon": "onClickInfoIcon"
   },
 
   render: function() {
@@ -88,4 +93,22 @@ module.exports = Backbone.View.extend({
       $("#map-" + layer.id).prop("checked", isChecked);
     }
   },
+
+  onClickInfoIcon: function(evt) {
+    let $currentTarget = $(evt.currentTarget);
+
+    if (!this.layerInfoWindowView) {
+      this.layerInfoWindowView = new LayerInfoWindowView({
+        el: "#layer-info-window-container",
+        sidebar: this.options.sidebar
+      });
+    }
+
+    this.layerInfoWindowView.setState({
+      title: $currentTarget.data("info-title"),
+      body: $currentTarget.data("info-content"),
+      left: $currentTarget.parent().offset().left + evt.currentTarget.offsetLeft + INFO_WINDOW_LEFT_OFFSET_ADJUST,
+      top: $currentTarget.parent().offset().top + evt.currentTarget.offsetTop + INFO_WINDOW_TOP_OFFSET_ADJUST
+    });
+  }
 });
