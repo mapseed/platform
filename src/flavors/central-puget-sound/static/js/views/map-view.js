@@ -69,7 +69,9 @@ module.exports = MapView.extend({
                 Math.cos(i*(TWO_PI/(numClusterSubGroups))) * (jitters[i][1]),
                 "px'><img class='custom-cluster-icon' src='",
                 clusterSubGroups[x].iconUrl,
-                "' /><div class='cluster-child-counter top-right'>", 
+                "' /><div class='cluster-child-counter top-right",
+                ((clusterSubGroups[x].count === 1) ? " is-hidden" : "" ),
+                "'>", 
                 clusterSubGroups[x].count, 
                 "</div></div>"
               ].join("");
