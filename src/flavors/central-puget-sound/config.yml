@@ -796,12 +796,6 @@ sidebar:
               title: _(Original River Path)
               visibleDefault: false
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
-
     - id: reports_legend
       title: _(Citizen Reports:)
       view: LegendView
@@ -830,10 +824,10 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Add a report!)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
-  show_map_button_label: _(Show the Map)
+  show_list_button_label: _(Show List)
+  show_map_button_label: _(Show Map)
   action_text: _(added)
   title: _(New post)
   action_text: _(created)
@@ -1293,8 +1287,8 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(About)
-    slug: about
+  - title: _(Impact Projects)
+    slug: impact
     name: overview
     start_page: true
 
@@ -1306,19 +1300,12 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
-
-  - title: _(Green Screen)
-    slug: greenscreen
-    name: greenscreen
     hide_from_top_bar: true
 
-  - slug: sponsors
-    name: sponsors
-    hide_from_top_bar: true
-
-  - slug: youthcorps2015
-    name: youthcorps2015
-    hide_from_top_bar: true
+  - title: _(About)
+    slug: about
+    name: about
+    pull_right: true
 
 story:
   watersheds:
