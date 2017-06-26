@@ -3,24 +3,14 @@
 {{/ has_pages }}
 
 <!-- Begin flavor-specific code -->
-<nav class="add-place-nav">
+<!-- <nav class="add-place-nav">
   <span id="add-place-btn-container">
     <a href="#" id="add-place" class="btn btn-block btn-primary">
       <span>{{ add_button_label }}</span>
     </a>
   </span>
-</nav>
+</nav> -->
 <!-- End flavor-specific code -->
-
-<nav class="access" role="article">
-  <ul class="menu">
-    {{# pages }}
-
-      {{> pages-nav-item }}
-
-    {{/ pages }}
-  </ul>
-</nav>
 
 <nav class="list-toggle-nav">
   <!-- Begin flavor-specific code -->
@@ -30,6 +20,16 @@
     <span class="is-screen-reader-text">/</span>
     <span class="show-the-list">{{ show_list_button_label }}</span>
   </a>
+</nav>
+
+<nav class="access" role="article">
+  <ul class="menu">
+    {{# pages }}
+
+      {{> pages-nav-item }}
+
+    {{/ pages }}
+  </ul>
 </nav>
 
 <!-- Begin flavor-specific code -->

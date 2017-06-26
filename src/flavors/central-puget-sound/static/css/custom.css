@@ -33,12 +33,6 @@
     background-color: #FFF;
   }
 
-  .content-visible #main-btns-container {
-    top: calc(100% - 85px);
-    left: 15px;
-    display: block;
-  }
-
   /* reorient add a report button to bottom left when content panel is open */
   .place-form-visible #main-btns-container {
     display: none !important;
@@ -69,13 +63,8 @@
   background-color: rgba(208, 71, 22, 0.89);
 }
 
-#main-btns-container {
-  display: none;
-}
-
 .list-toggle-nav {
   padding: 0.2em 0.75em;
-  float: right;
 }
 
 /* =Language picker
@@ -193,9 +182,6 @@ Adapted from http://littlesnippets.net/snip1579/
 /* iphone 4 (320 x 480)*/
 
 @media only screen and (min-width: 60em) {
-  #main-btns-container {
-    display: none !important;
-  }
 }
 
 @media only screen and (max-width: 60em) {
