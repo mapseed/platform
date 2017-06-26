@@ -348,32 +348,15 @@ module.exports = Backbone.View.extend({
       });
     });
   },
+
   getLayerGroups: function() {
-    var self = this;
-    var clusterOptions = self.options.cluster;
-    if (!clusterOptions) {
+    if (!this.options.cluster) {
       return L.layerGroup();
     } else {
-      return L.markerClusterGroup({
-        iconCreateFunction: function(cluster) {
-          var markers = cluster.getAllChildMarkers();
-          var n = markers.length;
-          var small = n < clusterOptions.threshold;
-          var className = small
-            ? clusterOptions.class_small
-            : clusterOptions.class_large;
-          var size = small
-            ? clusterOptions.size_small
-            : clusterOptions.size_large;
-          return L.divIcon({
-            html: n,
-            className: className,
-            iconSize: [size, size],
-          });
-        },
-      });
+      return L.markerClusterGroup(this.options.cluster);
     }
   },
+
   createLayerFromConfig: function(config) {
     var self = this,
       layer,

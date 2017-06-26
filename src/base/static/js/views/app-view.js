@@ -210,6 +210,7 @@ module.exports = Backbone.View.extend({
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
       placeDetailViews: this.placeDetailViews,
+      placeConfig: this.options.placeConfig
     });
 
     if (self.options.sidebarConfig.enabled) {
@@ -231,6 +232,8 @@ module.exports = Backbone.View.extend({
         el: "ul.recent-points",
         activities: this.activities,
         places: this.places,
+        landmarks: this.landmarks,
+        placeConfig: this.options.placeConfig,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         surveyConfig: this.options.surveyConfig,

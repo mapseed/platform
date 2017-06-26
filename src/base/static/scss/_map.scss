@@ -308,7 +308,42 @@
     display: none;
 }
 
-/* layer info popup windows */
+/* Custom cluster icons */
+.cluster-subgroup-container {
+    position: absolute;
+    &.faded {
+        opacity: 0.3;
+    }
+}
+
+.custom-cluster-icon {
+    width: 30px !important;
+}
+
+.cluster-child-counter {
+    z-index: 400;
+    position: absolute;
+    line-height: 1.7em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    top: -10px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    -moz-border-radius:    11px;
+    -webkit-border-radius: 11px;
+    border-radius:         11px;
+    -webkit-box-shadow: -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
+    -moz-box-shadow:    -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
+    box-shadow:         -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
+    background-color: #f95858 !important;
+
+    &.top-right {
+        top: -10px;
+        left: 18px;
+    }
+}/* layer info popup windows */
 #layer-info-window-container {
     position: absolute;
     padding: 10px;

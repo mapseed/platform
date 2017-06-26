@@ -156,6 +156,10 @@ module.exports = Backbone.View.extend({
   createLayer: function() {
     this.removeLayer();
 
+    // Handle if an existing place type does not match the list of available
+    // place types.
+    this.placeType = this.options.placeTypes[this.model.get('location_type')];
+
     if (!this.placeType) {
       console.warn(
         "Place type",
@@ -199,6 +203,7 @@ module.exports = Backbone.View.extend({
 
       // Focus on the layer onclick
       if (this.layer) {
+        this.layer.getLocationType = this.getLocationType.bind(this);
         this.layer.on("click", this.onMarkerClick, this);
       }
     }
@@ -287,6 +292,9 @@ module.exports = Backbone.View.extend({
     if (this.layer) {
       this.layer.setIcon(icon);
     }
+  },
+  getLocationType: function() {
+    return this.model.get("location_type");
   },
   show: function() {
     if (
