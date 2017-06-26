@@ -43,7 +43,7 @@ module.exports = MapView.extend({
           } else {
             let clusterSubGroups = {},
                 numClusterSubGroups,
-                html,
+                html = "",
                 i = 0;
 
             cluster.getAllChildMarkers().forEach((child) => {
