@@ -819,7 +819,7 @@ place:
   adding_supported: true
   add_button_label: _(Add a report!)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(Show List)
+  show_list_button_label: _(Reports)
   show_map_button_label: _(Show Map)
   action_text: _(added)
   title: _(New post)
@@ -1280,7 +1280,7 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(Impact Projects)
+  - title: _(Projects)
     slug: impact
     name: overview
     start_page: true
@@ -1298,7 +1298,7 @@ pages:
   - title: _(About)
     slug: about
     name: about
-    pull_right: true
+    hide_from_top_bar: true
 
   - title: _(Sponsors)
     slug: sponsors
