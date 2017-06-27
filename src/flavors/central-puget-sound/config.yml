@@ -116,14 +116,15 @@ map:
       type: place
       slug: report
 
-    - id: mwfeatured
-      type: place
-      slug: featured
+    # - id: mwfeatured
+    #   type: place
+    #   slug: featured
 
     - id: stories
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       sources:
         - "https://raw.githubusercontent.com/mapseed/data/master/central-puget-sound.geojson"
+        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
       type: landmark
 
        # WRIA9 watershed
@@ -612,13 +613,9 @@ sidebar:
               title: _(Community Reports)
               visibleDefault: true
 
-            - id: mwfeatured
-              title: _(Featured Sites)
-              visibleDefault: true
-
-            - id: restoration
-              title: _(Restoration Sites)
-              visibleDefault: false
+            # - id: mwfeatured
+            #   title: _(Featured Sites)
+            #   visibleDefault: true
 
             - id: stories
               title: _(Featured Sites)
@@ -687,6 +684,7 @@ place:
         - name: geometry
           type: geometryToolbar
           content:
+            - url: /static/css/images/markers/marker-star.png
             - url: /static/css/images/markers/marker-bike.png
             - url: /static/css/images/markers/marker-construction.png
             - url: /static/css/images/markers/marker-foodforest.png
@@ -1206,6 +1204,15 @@ story:
       #   visible_layers:
       #     - dirt-corps
       #   basemap: terrain
+      - url: greenroof
+        zoom: 18
+        basemap: satellite
+      - url: bioswale
+        zoom: 18
+      - url: barton
+      - url: longfellow
+        zoom: 14
+        basemap: satellite
       - url: sammamish
         zoom: 10
         basemap: light-nolabels
