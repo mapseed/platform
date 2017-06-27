@@ -151,6 +151,7 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
         self.options.router.on("route", function(fn, route) {
           self.collectionName = self.searchStoryCollections(route);
           if (self.collectionName) {
+            $("body").addClass("right-sidebar-visible");
             self.collection = self.storyCollections[self.collectionName];
             self.render();
           }
