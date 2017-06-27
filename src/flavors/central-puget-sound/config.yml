@@ -1173,8 +1173,7 @@ support:
 
 pages:
   - title: _(Projects)
-    slug: impact
-    name: overview
+    name: greenroof
     start_page: true
 
   - title: _(Background)
