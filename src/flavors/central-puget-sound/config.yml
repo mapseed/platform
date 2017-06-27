@@ -99,6 +99,7 @@ map:
       type: basemap
       url: intentionally-blank
 
+<<<<<<< HEAD
     - id: sub-basins
       type: basemap
       url: intentionally-blank
@@ -151,6 +152,8 @@ map:
       type: basemap
       url: intentionally-blank
 
+=======
+>>>>>>> 228058fa24cade19aaa8fed3e81d9979b0a83268
     - id: bogtobay
       type: place
       slug: report
@@ -485,9 +488,12 @@ sidebar:
         - id: hydrography
           title: _(Hydrography)
           visibleDefault: false
+<<<<<<< HEAD
         - id: light-nolabels
           title: _(Simple)
           visibleDefault: false
+=======
+>>>>>>> 228058fa24cade19aaa8fed3e81d9979b0a83268
         # - id: hydroregions
         #   title: _(Hydroregions)
         #   visibleDefault: false
@@ -573,6 +579,7 @@ sidebar:
               title: _(School sites)
               visibleDefault: false
 
+<<<<<<< HEAD
             - id: college
               title: _(College and Career)
               visibleDefault: false
@@ -581,6 +588,11 @@ sidebar:
               title: _(Community Food Systems)
               visibleDefault: false
               info: _(This is some information and a legend)
+=======
+            # - id: mwfeatured
+            #   title: _(Featured Sites)
+            #   visibleDefault: true
+>>>>>>> 228058fa24cade19aaa8fed3e81d9979b0a83268
 
             - id: life-expectancy
               title: _(Life Expectancy)
