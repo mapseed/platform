@@ -179,8 +179,12 @@
 // default for other media
 @media only screen and (min-width: 60em) {
     // A helper to let the JS know what kind of layout we're using
-    body:after {
-        content: "desktop";
+    body {
+        overflow: hidden;
+
+        &:after {
+            content: "desktop";
+        }
     }
 
     // right sidebar
