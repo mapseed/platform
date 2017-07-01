@@ -48,10 +48,6 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
-    - id: contour
-      type: basemap
-      url: intentionally-blank
-
     - id: light-nolabels
       url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
@@ -94,6 +90,24 @@ map:
       version: '1.3.0'
       transparent: 'true'
       format: 'image/png'
+
+    - id: 1936aerial
+      type: wmts
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?
+      layers: BaseMaps_KingCo_Aerial_1936
+      tilematrixSet: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/jpg
+
+    - id: contour
+      type: wmts
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer?
+      layers: 0
+      tilematrixSet: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/png
 
     - id: blank
       type: basemap
@@ -491,6 +505,10 @@ sidebar:
         # - id: hydroregions
         #   title: _(Hydroregions)
         #   visibleDefault: false
+        - id: 1936aerial
+          title: _(1936 Aerial)
+          visibleDefault: false
+          info: _(This is some information and a legend)
         - id: blank
           title: _(Blank canvas)
           visibleDefault: false
@@ -604,10 +622,6 @@ sidebar:
               title: _(Historical Duwamish River)
               visibleDefault: false
 
-            - id: 1936
-              title: _(1936)
-              visibleDefault: false
-              info: _(This is some information and a legend)
 
             - id: 1970
               title: _(1970)
