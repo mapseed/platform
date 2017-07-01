@@ -16,10 +16,10 @@ L.Argo = L.GeoJSON.extend({
 
     var successHandler = L.Util.bind(function(geojson) {
           this.addData(geojson);
-//          this.fire('loaded', {layer: this});
+          this.map.fire('layer:loaded', {layer: this});
         }, this),
         errorHandler = L.Util.bind(function() {
-          this.fire('error', {layer: this});
+          this.map.fire('layer:error', {layer: this});
         }, this);
 
     // Init layers

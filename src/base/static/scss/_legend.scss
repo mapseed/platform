@@ -32,6 +32,7 @@
 .layer-type-list {
     li {
         position: relative;
+        clear: both;
     }
 
     img {
@@ -94,15 +95,12 @@
 }
 
 .layer-type-title {
-    border: 1px solid transparent;
-    border-radius: 3px;
-
     .info-icon {
         float: right;
         font-family: "FontAwesome";
 
         &:before {
-            content: "\f05a";
+            content: $icon-info;
         }
 
         &:hover {
@@ -111,10 +109,31 @@
         }
     }
 
+    .info-icon-placeholder {
+        float: right;
+        font-family: "FontAwesome";
+        visibility: hidden;
+
+        &:before {
+            content: $icon-info;
+        }
+    }
+
+    .status-icon {
+        float: right;
+        font-family: "FontAwesome";
+        margin-right: 10px;
+        visibility: hidden;
+    }
+
     label {
+        display: block;
         vertical-align: middle;
-        margin-right: 8px;
         font-size: 1em;
+        max-width: 75%;
+        float: left;
+        margin-top: 2px;
+        margin-bottom: 2px;
 
         &:hover {
             background-color: lightyellow;
@@ -126,10 +145,32 @@
         margin-right: 8px;
         font-size: 1em;
 
-        &:checked+label {
-            background-color: yellow;
+        &:checked {
+
+            &+label {
+                background-color: yellow;
+            }
+
+            &~.status-icon {
+                visibility: visible;
+
+                &.loaded {
+                    &:before {
+                        color: #22c722;
+                        content: $icon-checkmark;
+                    }
+                }
+
+                &.error {
+                    &:before {
+                        color: #ff0000;
+                        content: $icon-exclamation;
+                        padding-right: 5px;
+                    }
+                }
+            }
         }
-    }    
+    }
 }
 
 .layer-type-title:active label:hover, .shareabouts-layer-li:active a {
