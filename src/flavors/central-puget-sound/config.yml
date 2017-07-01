@@ -5,7 +5,7 @@ app:
   # Header name
   name: "My Watershed"
   # Meta description that will show up in Google search results
-  meta_description: "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)"
+  meta_description: "_(Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.)"
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
