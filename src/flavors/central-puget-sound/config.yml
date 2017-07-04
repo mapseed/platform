@@ -619,6 +619,24 @@ sidebar:
       view: FilterMenuView
       icon: filter
 
+    - id: tools
+      title: _(Map Tools)
+      view: MapToolsView
+      icon: wrench
+      tools:
+        - name: layer-swipe
+          view: LayerSwipeView
+          title: _(Compare map layers)
+          icon: map
+          # If not using a FontAwesome icon, supply a relative path to an icon 
+          # image here:
+          #icon_url:
+          # alt_basemap should be the name of a basemap layer to initially show 
+          # on the right side of the layer swipe tool. If alt_basemap is already
+          # visible on the left side, then the visibleDefault basemap will be 
+          # shown on the right side.
+          alt_basemap: satellite
+
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true

@@ -94,6 +94,65 @@
     }
 }
 
+/* Leaflet sidebar tools menu */
+#tools-pane {
+    .tools-menu-item {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        margin-top: 5px;
+        font-size: 1.0em !important;
+
+        .tools-menu-check-icon {
+            display: none;
+            float: right;
+            margin-top: 9px;
+            color: #22c722;
+
+            &:before {
+                font-family: "FontAwesome";
+                content: $icon-checkmark;
+                font-size: 0.7em;
+            }
+        }
+
+        img {
+            width: 25px;
+        }
+
+        i {
+            margin-top: 12px;
+            margin-left: 5px;
+        }
+
+        input {
+            display: none;
+
+            &:checked {
+                & + .tools-menu-item-label {
+                    background-color: yellow;
+                }
+
+                & ~ .tools-menu-check-icon {
+                    display: block;
+                }
+            }
+        }
+        
+        .tools-menu-item-label {
+            font-size: 0.9em;
+            position: absolute;
+            top: 0.8em;
+            left: 35px;
+        }
+
+        &:hover .tools-menu-item-label {
+            background-color: lightyellow;
+        }
+    }
+}
+
+
 /*---- leaflet side bar overrides ----*/
 
 .sidebar-header {
@@ -251,6 +310,3 @@
         content: "\276F" !important;
     }
 }
-
-
-

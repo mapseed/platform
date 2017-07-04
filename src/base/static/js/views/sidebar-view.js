@@ -19,6 +19,7 @@ var views = {
   PlaceListView: require("mapseed-place-list-view"),
   SupportView: require("mapseed-support-view"),
   SurveyView: require("mapseed-survey-view"),
+  MapToolsView: require("mapseed-map-tools-view")
 };
 
 module.exports = Backbone.View.extend({
@@ -47,7 +48,9 @@ module.exports = Backbone.View.extend({
           mapView: self.options.mapView,
           config: panelConfig,
           sidebar: self.sidebar,
-          placeConfig: this.options.placeConfig
+          placeConfig: this.options.placeConfig,
+          panelConfig: panelConfig,
+          sidebarConfig: this.options.sidebarConfig
         }).render();
       }
     }, this);

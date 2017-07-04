@@ -1,0 +1,21 @@
+<!-- A template for rendering the map tools sidebar menu -->
+
+{{#each tools}}
+	<label data-toolview="{{this.view}}" 
+				 class="tools-menu-item" 
+				 for="tools-menu-select-{{this.name}}">
+		{{#if this.icon}}
+			<i class="fa fa-{{ this.icon }}"></i>
+		{{/if}}
+		{{#if this.icon_url}}
+			<img src={{this.icon_url}} />
+		{{/if}}
+		<input id="tools-menu-select-{{this.name}}" 
+					 type="checkbox" 
+					 name="tools-menu-select-{{this.name}}">
+		<span class="tools-menu-item-label">
+			{{this.title}}
+		</span>
+		<span class="tools-menu-check-icon"></span>
+	</label>
+{{/each}}

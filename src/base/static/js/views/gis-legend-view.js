@@ -10,44 +10,95 @@ module.exports = Backbone.View.extend({
     "click .info-icon": "onClickInfoIcon"
   },
 
+  initialize: function() {
+    this.position = this.options.position || "left";
+
+    $(Shareabouts).on("visibility", (evt, id, visible, isBasemap, swipePosition = "left") => {
+      let uniqueId = this.options.uniqueId || "";
+
+      if (swipePosition !== this.position) {
+        $("#map-" + id + uniqueId)
+          .prop("disabled", visible);
+
+        if (isBasemap) {
+          $("input[name='basemap" + uniqueId + "']")
+            .not("#map-" + id + uniqueId)
+            .prop("disabled", false);
+        }
+      }
+    });
+
+    if (!this.options.uniqueId) {
+
+      // Only set up initial visibility for the main layers panel; in layer swipe
+      // mode, we don't want the righthand side layer panel to reflect initial
+      // visibility settings.
+      _.each(this.options.config.groupings, function(group) {
+        _.each(group.layers, function(layer) {
+          if (layer.constituentLayers) {  
+            layer.constituentLayers.forEach(function(id) {
+              $(Shareabouts).trigger("visibility", [
+                id, 
+                !!layer.visibleDefault, 
+                false, 
+                this.position
+              ]);
+            });
+          } else {
+            $(Shareabouts).trigger("visibility", [
+              layer.id,
+              !!layer.visibleDefault,
+              false,
+              this.position
+            ]);
+          }
+        }, this);
+      }, this);
+
+      var initialBasemap = _.find(this.options.config.basemaps, function(
+        basemap,
+      ) {
+        return !!basemap.visibleDefault;
+      });
+
+      $(Shareabouts).trigger("visibility", [
+        initialBasemap.id,
+        !!initialBasemap.visibleDefault,
+        true,
+        this.position
+      ]);
+    }
+  },
+
   render: function() {
     var self = this,
       data = _.extend(
         {
           basemaps: this.options.config.basemaps,
           groupings: this.options.config.groupings,
+
+          // NOTE: uniqueId distinguishes righthand side layer panel input 
+          // controls from the lefthand side controls
+          uniqueId: this.options.uniqueId
         },
         Shareabouts.stickyFieldValues,
       );
 
     this.$el.html(Handlebars.templates["gis-legend-content"](data));
 
-    _.each(this.options.config.groupings, function(group) {
-      _.each(group.layers, function(layer) {
-        if (layer.constituentLayers) {
-          layer.constituentLayers.forEach(function(id) {
-            $(Shareabouts).trigger("visibility", [id, !!layer.visibleDefault]);
-          });
-        } else {
-          $(Shareabouts).trigger("visibility", [
-            layer.id,
-            !!layer.visibleDefault,
-          ]);
+    if (this.options.uniqueId) {
+
+      // If this layer panel appears on the right side of the layer swipe feature,
+      // disable options for layers that are already visible on the left side of
+      // the swipe.
+      $("#gis-layers input").each(function() {
+        if ($(this).prop("checked")) {
+          $("#" + $(this).prop("id") + self.options.uniqueId).prop("disabled", true);
         }
       });
-    });
 
-    var initialBasemap = _.find(this.options.config.basemaps, function(
-      basemap,
-    ) {
-      return !!basemap.visibleDefault;
-    });
-
-    $(Shareabouts).trigger("visibility", [
-      initialBasemap.id,
-      !!initialBasemap.visibleDefault,
-      true,
-    ]);
+      $("#map-" + this.options.rightBasemapId + this.options.uniqueId).prop("checked", true);
+    }
 
     return this;
   },
@@ -62,20 +113,19 @@ module.exports = Backbone.View.extend({
     if (constituentLayers) {
       constituentLayers = constituentLayers.trim().split(" ");
       constituentLayers.forEach(function(id) {
-        $(Shareabouts).trigger("visibility", [id, isChecked]);
+        $(Shareabouts).trigger("visibility", [id, isChecked, false, this.position]);
       });
     } else {
-      $(Shareabouts).trigger("visibility", [id, isChecked]);
+      $(Shareabouts).trigger("visibility", [id, isChecked, false, this.position]);
     }
   },
 
   toggleBasemap: function(evt) {
     var radio = $(evt.target),
       id = radio.attr("data-layerid"),
-      isChecked = !!radio.is(":checked"),
-      basemaps = this.options.config.basemaps;
+      isChecked = !!radio.is(":checked");
 
-    $(Shareabouts).trigger("visibility", [id, isChecked, true]);
+    $(Shareabouts).trigger("visibility", [id, isChecked, true, this.position]);
   },
 
   // Toggles visibility of layers based on header checkbox

@@ -1,0 +1,24 @@
+<div id="sidebar-right" class="sidebar collapsed">
+  <!-- TODO: Refactor these tabs/panes into a single view -->
+  <!-- Nav tabs -->
+  <div class="sidebar-tabs">
+    <ul role="tablist">
+      {{# config }}
+        <li><a href="#{{ id }}-pane-right" role="tab"><i class="fa fa-{{ icon }}"></i></a></li>
+      {{/ config }}
+    </ul>
+  </div>
+
+  <!-- Tab panes -->
+  <div class="sidebar-content">
+
+    {{# config }}
+      <div class="sidebar-pane" id="{{ id }}-pane-right">
+        <h1 class="sidebar-header">{{ title }}<span class="sidebar-close"><i class="fa fa-chevron-left"></i></span></h1>
+        <div id="{{ id }}-right"></div>
+      </div>
+    {{/ config }}
+
+  </div>
+
+</div>
