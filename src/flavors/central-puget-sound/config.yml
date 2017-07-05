@@ -102,8 +102,8 @@ map:
 
     - id: contour
       type: wmts
-      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer?
-      layers: 0
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS?
+      layers: 5
       tilematrixSet: default028mm
       version: 1.0.0
       transparent: false
@@ -493,9 +493,6 @@ sidebar:
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
-        - id: contour
-          title: _(Contour lines)
-          visibleDefault: false
         - id: hydrography
           title: _(Hydrography)
           visibleDefault: false
@@ -548,6 +545,10 @@ sidebar:
 
             - id: sub-basins
               title: _(Stream Sub-basins)
+              visibleDefault: false
+
+            - id: contour
+              title: _(Contour lines)
               visibleDefault: false
 
             - id: landuse
