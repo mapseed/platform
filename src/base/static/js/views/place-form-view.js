@@ -176,11 +176,11 @@ module.exports = Backbone.View.extend({
   determineRenderabilityForEachCategory: function() {
     _.each(this.options.placeConfig.place_detail, function(place) {
       _.extend(place, {
-        isAdmin: Util.getAdminStatus(place.dataset),
+        isAdmin: Util.getAdminStatus(place.dataset, place.admin_groups),
         isRenderable: (function() {
           if (!place.includeOnForm) {
             return false;
-          } else if (place.admin_only && !Util.getAdminStatus(place.dataset)) {
+          } else if (place.admin_only && !Util.getAdminStatus(place.dataset, place.admin_groups)) {
             return false;
           }
 
