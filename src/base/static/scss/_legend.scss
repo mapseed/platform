@@ -13,12 +13,6 @@
 } */
 
 // All layers in the Master Legend list
-
-.layer-type-list {
-    font-size: 1.4em;
-    font-weight: normal;
-}
-
 .layer-type-grouping-list {
     margin-left: 10px;
 
@@ -30,6 +24,9 @@
 // allows hover to be positioned on the 'layer-type-description'
 
 .layer-type-list {
+    font-size: 1.4em;
+    font-weight: normal;
+
     li {
         position: relative;
     }
@@ -67,6 +64,32 @@
     -moz-transition: opacity 0.25s ease-in-out;
     transition: opacity 0.25s ease-in-out;
     pointer-events: none;
+}
+
+.layer-type-li {
+    input {
+        &:disabled {
+            &+label {
+                color: #CCC;
+                text-decoration: line-through;
+
+                &:hover {
+                    cursor: default;
+                    background-color: #FFF;
+                }
+            }
+        }
+    }
+}
+
+.layer-type-li label, .shareabouts-layer-li a {
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+    font-family: $default-font-family;
 }
 
 .layer-type-li:hover .layer-type-description {
@@ -154,16 +177,6 @@
 .map-layer-list {
     margin-bottom: 0.5em;
     font-size: 0.75em;
-}
-
-.layer-type-li label, .shareabouts-layer-li a {
-    cursor: pointer;
-    position: relative;
-    z-index: 20;
-    font-weight: normal;
-    text-decoration: none;
-    text-transform: none;
-    font-family: $default-font-family;
 }
 
 

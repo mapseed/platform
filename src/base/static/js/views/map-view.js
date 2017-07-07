@@ -97,7 +97,7 @@ module.exports = Backbone.View.extend({
     });
 
     // Bind visiblity event for custom layers
-    $(Shareabouts).on("visibility", function(evt, id, visible, isBasemap) {
+    $(Shareabouts).on("visibility", function(evt, id, visible, isBasemap, swipePosition = "left") {
       var layer = self.layers[id],
         config = _.find(self.options.mapConfig.layers, function(c) {
           return c.id === id;
@@ -113,19 +113,36 @@ module.exports = Backbone.View.extend({
         _.each(self.options.basemapConfigs, function(basemap) {
           if (basemap.id === id) {
             self.map.addLayer(layer);
+            self.addLayerToSwipe(layer, swipePosition, basemap.id);
             layer.bringToBack();
           } else if (self.layers[basemap.id]) {
-            self.map.removeLayer(self.layers[basemap.id]);
+            if (self.isComparingLayers) {
+
+              // Make sure not to switch off the basemap on the opposite side of
+              // the swipe
+              if (swipePosition === "left" && basemap.id !== self.layerSwipeView.basemapIds.right) {
+                self.map.removeLayer(self.layers[basemap.id]);
+                self.removeLayerFromSwipe(self.layers[basemap.id], swipePosition);
+              } else if (swipePosition === "right" && basemap.id !== self.layerSwipeView.basemapIds.left) {
+                self.map.removeLayer(self.layers[basemap.id]);
+                self.removeLayerFromSwipe(self.layers[basemap.id], swipePosition);
+              }
+            } else {
+              self.map.removeLayer(self.layers[basemap.id]);
+            }
           }
         });
+
+        self.updateLayerSwipe(swipePosition);
       } else if (layer) {
-        self.setLayerVisibility(layer, visible);
+        self.setLayerVisibility(layer, visible, swipePosition);
       } else {
         // Handles cases when we fire events for layers that are not yet
         // loaded (ie cartodb layers, which are loaded asynchronously)
         // We are setting the asynch layer config's default visibility here to
         // ensure they are added to the map when they are eventually loaded:
         config.asyncLayerVisibleDefault = visible;
+        config.swipePosition = swipePosition;
       }
     });
   }, // end initialize
@@ -149,15 +166,49 @@ module.exports = Backbone.View.extend({
   },
 
   // Adds or removes the layer  on Master Layer based on visibility
-  setLayerVisibility: function(layer, visible) {
+  setLayerVisibility: function(layer, visible, swipePosition) {
     this.map.closePopup();
     if (visible && !this.map.hasLayer(layer)) {
       this.map.addLayer(layer);
+      this.addLayerToSwipe(layer, swipePosition, false);
     }
     if (!visible && this.map.hasLayer(layer)) {
       this.map.removeLayer(layer);
+      this.removeLayerFromSwipe(layer, swipePosition);
+    }
+
+    this.updateLayerSwipe(swipePosition);
+  },
+
+  // In layer swipe mode, positions layers on either the right or left side,
+  // as appropriate
+  addLayerToSwipe: function(layer, swipePosition, basemapId) {
+    if (this.isComparingLayers) {
+      if (basemapId) {
+        this.layerSwipeView.basemapIds[swipePosition] = basemapId;
+      }
+
+      this.layerSwipeView.layers[swipePosition].push(layer);
     }
   },
+
+  removeLayerFromSwipe: function(layer, swipePosition) {
+    if (this.isComparingLayers) {
+      let i = _.indexOf(_.pluck(this.layerSwipeView.layers[swipePosition], "_leaflet_id"), layer._leaflet_id);
+      this.layerSwipeView.layers[swipePosition].splice(i, 1);
+    }
+  },
+
+  updateLayerSwipe: function(swipePosition) {
+    if (this.isComparingLayers) {
+      if (swipePosition === "right") {
+        this.layerSwipeView.sbs.setRightLayers(this.layerSwipeView.layers.right);
+      } else if (swipePosition === "left") {
+        this.layerSwipeView.sbs.setLeftLayers(this.layerSwipeView.layers.left);
+      }
+    }
+  },
+
   reverseGeocodeMapCenter: _.debounce(function() {
     var center = this.map.getCenter();
     Util.MapQuest.reverseGeocode(center, {
@@ -374,7 +425,8 @@ module.exports = Backbone.View.extend({
         layer = L.argo(toGeoJSON.kml(xml), config);
         self.layers[config.id] = layer;
         if (config.asyncLayerVisibleDefault) {
-          layer.addTo(self.map);
+          self.setLayerVisibility(self.layers[config.id], true, config.swipePosition);
+          //layer.addTo(self.map);
         }
       });
     } else if (config.type && config.type === "esri-feature") {
@@ -445,7 +497,7 @@ module.exports = Backbone.View.extend({
           // This is only set when the 'visibility' event is fired before
           // our carto layer is loaded:
           if (config.asyncLayerVisibleDefault) {
-            cartoLayer.addTo(self.map);
+            self.setLayerVisibility(self.layers[config.id], true, config.swipePosition);
           }
         })
         .on("error", function(err) {

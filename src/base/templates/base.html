@@ -133,6 +133,7 @@
 
       {% if config.sidebar.enabled %}
         <div id="sidebar-container"></div>
+        <div id="sidebar-container-right"></div>
       {% endif %}
 
       <div id="layer-info-window-container" class="is-hidden"></div>
@@ -237,6 +238,7 @@
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet-wmts.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet-side-by-side.js"></script>
 
   <script>
     moment.locale('{{LANGUAGE_CODE}}');
