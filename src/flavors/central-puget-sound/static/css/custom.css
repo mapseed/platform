@@ -4,6 +4,37 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+/* zoom and fade animations */
+.leaflet-fade-anim .leaflet-tile,
+.leaflet-fade-anim .leaflet-popup {
+  opacity: 0;
+  -webkit-transition: opacity .8s linear !important;
+     -moz-transition: opacity .8s linear !important;
+       -o-transition: opacity .8s linear !important;
+          transition: opacity .8s linear !important;
+  }
+.leaflet-fade-anim .leaflet-tile-loaded,
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+  opacity: 1;
+  }
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  -webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1) !important;
+     -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1) !important;
+       -o-transition:      -o-transform 0.25s cubic-bezier(0,0,0.25,1) !important;
+          transition:         transform 0.25s cubic-bezier(0,0,0.25,1) !important;
+  }
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile,
+.leaflet-touching .leaflet-zoom-animated {
+  -webkit-transition: none !important;
+     -moz-transition: none !important;
+       -o-transition: none !important;
+          transition: none !important;
+  }
+
+
+
 @font-face {
   font-family: 'Permanent Marker';
   src: url('PermanentMarker.ttf');
