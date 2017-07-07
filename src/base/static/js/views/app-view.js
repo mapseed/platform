@@ -424,13 +424,27 @@ module.exports = Backbone.View.extend({
     _.each(_.values(this.options.datasetConfigs.landmarks), function(
       landmarkConfig,
     ) {
+      self.mapView.map.fire("layer:loading", {id: landmarkConfig.id});
       if (landmarkConfig.placeType) {
         var deferred = self.landmarks[landmarkConfig.id].fetch({
           attributesToAdd: { location_type: landmarkConfig.placeType },
+          success: function() {
+            self.mapView.map.fire("layer:loaded", {id: landmarkConfig.id});
+          },
+          error: function() {
+            self.mapView.map.fire("layer:error", {id: landmarkConfig.id});
+          }
         });
         Shareabouts.deferredCollections.push(deferred);
       } else {
-        var deferred = self.landmarks[landmarkConfig.id].fetch();
+        var deferred = self.landmarks[landmarkConfig.id].fetch({
+          success: function() {
+            self.mapView.map.fire("layer:loaded", {id: landmarkConfig.id});
+          },
+          error: function() {
+            self.mapView.map.fire("layer:error", {id: landmarkConfig.id});
+          }
+        });
         Shareabouts.deferredCollections.push(deferred);
       }
     });
@@ -445,6 +459,7 @@ module.exports = Backbone.View.extend({
 
     // loop over all place collections
     _.each(self.places, function(collection, key) {
+      self.mapView.map.fire("layer:loading", {id: key});
       var deferred = collection.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
@@ -480,11 +495,16 @@ module.exports = Backbone.View.extend({
           $currentProgress.width(percent + "%");
 
           if (pagesComplete === totalPages) {
+            self.mapView.map.fire("layer:loaded", {id: key});
             _.delay(function() {
               $progressContainer.hide();
             }, 2000);
           }
         },
+
+        error: function() {
+          self.mapView.map.fire("layer:error", {id: key});
+        }
       });
       Shareabouts.deferredCollections.push(deferred);
     });

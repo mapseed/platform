@@ -10,6 +10,40 @@ module.exports = Backbone.View.extend({
     "click .info-icon": "onClickInfoIcon"
   },
 
+  initialize: function() {
+    this.options.mapView.map.on("layer:loading", this.onLayerLoading.bind(this));
+    this.options.mapView.map.on("layer:loaded", this.onLayerLoaded.bind(this));
+    this.options.mapView.map.on("layer:error", this.onLayerError.bind(this));
+  },
+
+  onLayerLoading: function(data) {
+    this
+      .$("#map-" + data.id + "~.status-icon")
+      .empty()
+      .removeClass("error loaded");
+
+    new Spinner({
+      lines: 8, length: 0, width: 2, radius: 4, corners: 1, rotate: 0,
+      direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
+      hwaccel: false, className: 'spinner', zIndex: 2e9, top: '2px',
+      left: '-13px'
+    }).spin(this.$("#map-" + data.id + "~.status-icon")[0]);
+  },
+
+  onLayerLoaded: function(data) {
+    this
+      .$("#map-" + data.id + "~.status-icon")
+      .empty()
+      .addClass("loaded");
+  },
+
+  onLayerError: function(data) {
+    this
+      .$("#map-" + data.id + "~.status-icon")
+      .empty()
+      .addClass("error");
+  },
+
   render: function() {
     var self = this,
       data = _.extend(

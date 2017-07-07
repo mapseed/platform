@@ -359,6 +359,7 @@ module.exports = Backbone.View.extend({
       layer,
       collectionId,
       collection;
+
     if (config.type && config.type === "json") {
       var url = config.url;
       if (config.sources) {
@@ -438,10 +439,12 @@ module.exports = Backbone.View.extend({
       // into our map is handled in our Backbone router.
       // nothing to do
     } else if (config.type && config.type === "cartodb") {
+      this.map.fire("layer:loading", {id: config.id});  
       cartodb
         .createLayer(self.map, config.url, { legends: false })
         .on("done", function(cartoLayer) {
           self.layers[config.id] = cartoLayer;
+          self.map.fire("layer:loaded", {id: config.id});
           // This is only set when the 'visibility' event is fired before
           // our carto layer is loaded:
           if (config.asyncLayerVisibleDefault) {
@@ -449,6 +452,7 @@ module.exports = Backbone.View.extend({
           }
         })
         .on("error", function(err) {
+          self.map.fire("layer:error", {id: config.id});
           Util.log("Cartodb layer creation error:", err);
         });
     } else if (config.type && config.type === "wmts") {
@@ -466,6 +470,15 @@ module.exports = Backbone.View.extend({
         fillColor: config.color,
         weight: config.weight,
         fillOpacity: config.fillOpacity,
+      })
+      .on("loading", function() {
+        self.map.fire("layer:loading", {id: config.id});
+      })
+      .on("load", function() {
+        self.map.fire("layer:loaded", {id: config.id});
+      })
+      .on("tileerror", function() {
+        self.map.fire("layer:error", {id: config.id});
       });
       self.layers[config.id] = layer;
     } else if (config.layers) {
@@ -484,12 +497,32 @@ module.exports = Backbone.View.extend({
         fillColor: config.color,
         weight: config.weight,
         fillOpacity: config.fillOpacity,
+      })
+      .on("loading", function() {
+        self.map.fire("layer:loading", {id: config.id});
+      })
+      .on("load", function() {
+        self.map.fire("layer:loaded", {id: config.id});
+      })
+      .on("tileerror", function() {
+        self.map.fire("layer:error", {id: config.id});
       });
       self.layers[config.id] = layer;
     } else {
       // Assume a tile layer
       // TODO: Isn't type=tile for back compatibility
-      layer = L.tileLayer(config.url, config);
+      layer = L.tileLayer(
+        config.url, config
+      )
+      .on("loading", function() {
+        self.map.fire("layer:loading", {id: config.id});
+      })
+      .on("load", function() {
+        self.map.fire("layer:loaded", {id: config.id});
+      })
+      .on("tileerror", function() {
+        self.map.fire("layer:error", {id: config.id});
+      });
       self.layers[config.id] = layer;
     }
   },

@@ -13,6 +13,15 @@
                      {{/if}}
                      class="map-legend-basemap-radio is-visuallyhidden" type="radio" name="basemap"></input>
               <label for="map-{{ id }}">{{ title }}</label>
+              {{#if info}}
+                <span class="info-icon" 
+                      data-info-content="{{info}}"
+                      data-info-title="{{title}}">
+                </span>
+              {{else}}
+                <span class="info-icon-placeholder"></span>
+              {{/if}}
+              <span class="status-icon"></span>
             </div>
           </li>
         {{/basemaps}}
@@ -47,7 +56,10 @@
                       data-info-content="{{info}}"
                       data-info-title="{{title}}">
                 </span>
+              {{else}}
+                <span class="info-icon-placeholder"></span>
               {{/if}}
+              <span class="status-icon"></span>
             </div>
           </li>
         {{/layers}}
