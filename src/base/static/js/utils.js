@@ -32,7 +32,7 @@ var self = (module.exports = {
 
   // Determine whether or not the current logged-in user has admin rights
   // for the passed datasetId. Returns true or false.
-  getAdminStatus: function(datasetId) {
+  getAdminStatus: function(datasetId, adminGroups = []) {
     var isAdmin = false;
 
     if (
@@ -40,11 +40,15 @@ var self = (module.exports = {
       Shareabouts.bootstrapped.currentUser.groups
     ) {
       _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
+
         // Get the name of the datasetId from the end of the full url
         // provided in Shareabouts.bootstrapped.currentUser.groups
         var url = group.dataset.split("/"),
           match = url[url.length - 1];
-        if (match && match === datasetId && group.name === "administrators") {
+
+        if (match && 
+            match === datasetId && 
+            (group.name === "administrators" || adminGroups.indexOf(group.name) > -1)) {
           isAdmin = true;
         }
       });

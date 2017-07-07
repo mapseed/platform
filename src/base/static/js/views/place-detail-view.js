@@ -24,14 +24,14 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     var self = this;
 
-    this.isEditable = Util.getAdminStatus(this.options.datasetId);
+    this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, {
+      category: this.model.get("location_type"),
+    });
+    this.isEditable = Util.getAdminStatus(this.options.datasetId, this.categoryConfig.admin_groups);
     this.isEditingToggled = false;
     this.surveyType = this.options.surveyConfig.submission_type;
     this.supportType = this.options.supportConfig.submission_type;
     this.isModified = false;
-    this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, {
-      category: this.model.get("location_type"),
-    });
     this.commonFormElements = this.options.placeConfig.common_form_elements;
     this.geometryEditorView = this.options.geometryEditorView;
     this.onAddAttachmentCallback = null;
