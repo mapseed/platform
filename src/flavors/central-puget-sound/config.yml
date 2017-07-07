@@ -1202,7 +1202,6 @@ support:
 pages:
   - title: _(Projects)
     name: greenroof
-    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1217,7 +1216,8 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    hide_from_top_bar: true
+    hide_from_top_bar: false
+    start_page: true
 
   - title: _(Sponsors)
     slug: sponsors
