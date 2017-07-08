@@ -495,11 +495,14 @@ module.exports = Backbone.View.extend({
           $currentProgress.width(percent + "%");
 
           if (pagesComplete === totalPages) {
-            self.mapView.map.fire("layer:loaded", {id: key});
             _.delay(function() {
               $progressContainer.hide();
             }, 2000);
           }
+        },
+
+        success: function() {
+          self.mapView.map.fire("layer:loaded", {id: key});
         },
 
         error: function() {
