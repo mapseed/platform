@@ -13,7 +13,7 @@ Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(
 };
 
 var PlaceListItemView = Backbone.Marionette.Layout.extend({
-  template: "#place-detail",
+  template: Handlebars.templates["place-detail"],
   tagName: "li",
   className: "clearfix",
   regions: {
@@ -113,7 +113,7 @@ var PlaceListItemView = Backbone.Marionette.Layout.extend({
 });
 
 module.exports = Backbone.Marionette.CompositeView.extend({
-  template: "#place-list",
+  template: Handlebars.templates["place-list"],
   itemView: PlaceListItemView,
   itemViewContainer: ".place-list",
   ui: {
@@ -149,6 +149,8 @@ module.exports = Backbone.Marionette.CompositeView.extend({
     _.each(this.options.placeCollections, function(collection) {
       collection.on("add", self.addModel, self);
     });
+
+    console.log("!!!!", this.collection);
 
     this.itemsPerPage = 10;
     this.numItemsShown = this.itemsPerPage;

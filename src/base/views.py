@@ -121,8 +121,7 @@ def index(request, place_id=None):
                'DATASET_ROOT': api.dataset_root,
                }
 
-    return render(request, 'index.html', context)
-
+    return render(request, 'index-en_US.html', context)
 
 def place_was_created(request, path, response):
     path = path.strip('/')

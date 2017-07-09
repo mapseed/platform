@@ -127,7 +127,8 @@ Shareabouts.Util = Util;
       });
       _.each(configArrays.places, function(config) {
         var collection = new PlaceCollection([], {
-          url: "/dataset/" + config.id + "/places",
+          //url: "/dataset/" + config.id + "/places",
+          url: options.datasetsConfig[config.id.toUpperCase() + "_SITE_URL"] + "/places"
         });
         self.places[config.id] = collection;
       });
@@ -150,6 +151,7 @@ Shareabouts.Util = Util;
         defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
         cluster: options.cluster,
+        appConfig: options.appConfig,
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
         pagesConfig: options.pagesConfig,
