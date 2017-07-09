@@ -150,6 +150,8 @@ module.exports = Backbone.Marionette.CompositeView.extend({
       collection.on("add", self.addModel, self);
     });
 
+    console.log("!!!!", this.collection);
+
     this.itemsPerPage = 10;
     this.numItemsShown = this.itemsPerPage;
 
