@@ -59,6 +59,7 @@ var outputBasePath = path.resolve(__dirname, "www");
 const extractSCSS = new ExtractTextPlugin((process.env.NODE_ENV === "production") ? "[contenthash].bundle.css" : "bundle.css");
 const extractYML = new ExtractTextPlugin("config-en_US.js");
 
+
 module.exports = {
   entry: entryPoints,
   output: {
