@@ -5,12 +5,55 @@
  */
 
 
+@font-face {
+  font-family: "AlfaSlabOne-Regular";
+  src: url("AlfaSlabOne-Regular.ttf");
+}
+
+#site-title a:link,
+#site-title a:visited {
+  color: #FFF !important;
+  font-weight: normal;
+  font-family: "AlfaSlabOne-Regular", sans-serif !important;
+  display: block;
+  float: left;
+  margin-right: 50px;
+}
+
+#site-header {
+	background: none;
+	background-color: #0f0f3d;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
-
 /* =Media Queries
 -------------------------------------------------------------- */
+@media only screen and (min-width: 60em) {
+
+	#site-title {
+		margin-left: 70px;
+	}
+
+	#site-title a:before {
+		content: url("images/soundkeeper-logo-transparent-small.png");
+		position: absolute;
+		top: 5px;
+		left: 10px;
+	}
+
+  	.btn-secondary {
+  		color: #FFF !important;
+  	}
+}
+
+@media only screen and (max-width: 60em) {
+
+	#site-title {
+		margin-top: 7px;
+	}
+}
 
 @media only screen and (min-width: 768px) {
 }
