@@ -2117,9 +2117,9 @@ notifications:
   on_new_place: true
   submitter_email_field: private-submitter_email
 
-cluster:
-  threshold: 20
-  size_large: 45
-  class_large: cluster-large
-  size_small: 35
-  class_small: cluster-small
+# cluster:
+#   threshold: 20
+#   size_large: 45
+#   class_large: cluster-large
+#   size_small: 35
+#   class_small: cluster-small
