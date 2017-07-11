@@ -58,7 +58,7 @@ $background-color-warning: #ffb6c1;
 // HEADER - VARIABLES
 // ################################
 $header-height-fullscreen: 64px;
-//$header-height-smallscreen: 50px; ??????
+$header-height-smallscreen: 58px;
 // Navigation Button - Variables
 // Navigation Menu - Variables
 // User Menu - Variables
@@ -124,7 +124,7 @@ $sidebar-width: 15%;
 // FOOTER - VARIABLES
 // ################################
 $footer-height-fullscreen: 0px;
-$footer-height-smallscreen: 39px;
+$footer-height-smallscreen: 64px;
 // Powered By - Variables
 // Mapquest Attribution - Variables
 
@@ -138,7 +138,6 @@ $footer-height-smallscreen: 39px;
 $map-width-when-content-visible: 60%;
 $map-width-when-sidebar-visible: 85%;
 $map-width-when-content-and-sidebar-visible: 45%;
-$map-height-smallscreen-when-sidebar-visible: 65%;
 
 $content-visible-left-offset: $map-width-when-content-visible;
 $content-visible-with-sidebar-left-offset: $map-width-when-content-and-sidebar-visible;

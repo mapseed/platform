@@ -68,29 +68,19 @@
 
     #main {
         // calculated as 100% of viewport height, minus the height of the header
-        height: calc(100% - #{$header-height-fullscreen});
+        height: calc(100% - #{$header-height-smallscreen + $footer-height-smallscreen});
     }
 
     #map-container {
-        // calculated as 100% of #main height minus the fixed pixel height of the footer
-        height: calc(100% - #{$footer-height-smallscreen});
-    }
-
-    .right-sidebar-visible #map-container {
-        height: $map-height-smallscreen-when-sidebar-visible;
+        height: 100%;
     }
 
     .content-visible #map-container {
         height: 60%
     }
 
-    .right-sidebar-visible #right-sidebar {
-        width: 100%;
-        display: block;
-        left: 0;
-//        top: calc(#{$map-height-smallscreen-when-sidebar-visible} + #{$footer-height-smallscreen});
-        height: 400px;
-        margin-top: 0;
+    #right-sidebar-container {
+        display: none;
     }
 
     .content-visible.content-expanded {
@@ -109,10 +99,6 @@
         #content {
             min-height: 90% !important;
         }
-    }
-
-    .content-visible.right-sidebar-visible #right-sidebar {
-        display: none;
     }
 
     .content-visible.place-form-visible {
@@ -144,31 +130,12 @@
     #content {
         // bump up the bottom margin here so content at the very bottom
         // of a page is not obscured by bottom-clinging buttons
-        margin-bottom: $footer-height-smallscreen + 20px;
+        margin-bottom: $footer-height-smallscreen;
     }
 
     #nav-stories, #add-place {
         //font-size: 0.9em;
         white-space: nowrap;
-    }
-
-    #right-sidebar-container {
-        left: 0;
-        width: 100% !important;
-        .sidebar-story-overview-item {
-            h5 {
-                width: 75%;
-                font-size: 1em;
-                float: right;
-                margin: 0;
-            }
-            img {
-                width: 20%
-            }
-        }
-        .right-sidebar-content {
-            width: 100%;
-        }
     }
 
     .info-icon {
