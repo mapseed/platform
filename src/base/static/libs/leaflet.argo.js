@@ -15,12 +15,12 @@ L.Argo = L.GeoJSON.extend({
     });
 
     var successHandler = L.Util.bind(function(geojson) {
-          this.addData(geojson);
-          this.map.fire('layer:loaded', {layer: this});
-        }, this),
-        errorHandler = L.Util.bind(function() {
-          this.map.fire('layer:error', {layer: this});
-        }, this);
+      this.addData(geojson);
+      this._map.fire('layer:loaded', {id: options.id});
+    }, this),
+    errorHandler = L.Util.bind(function() {
+      this._map.fire('layer:error', {id: options.id});
+    }, this);
 
     // Init layers
     this._layers = {};
