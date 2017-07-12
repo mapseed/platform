@@ -387,7 +387,7 @@ place:
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
             - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industria.png
+            - url: /static/css/images/markers/marker-industrial.png
         - name: title
           type: text
           prompt: _(Title of this featured site:)
