@@ -966,7 +966,7 @@ module.exports = Backbone.View.extend({
     this.unfocusAllPlaces();
     this.$panelContent.html(markup);
     this.$panel.show();
-    detailView.delegateEvents();
+    detailView && detailView.delegateEvents();
 
     if (!preventScrollToTop) {
       // will be "mobile" or "desktop", as defined in default.css
