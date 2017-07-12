@@ -62,24 +62,7 @@ module.exports = Backbone.View.extend({
       placeParams.page_size = Shareabouts.Config.flavor.app.places_page_size;
     }
 
-    // Boodstrapped data from the page
-    this.activities = this.options.activities;
-    this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
-
-    // Caches of the views (one per place)
-    this.placeFormView = null;
-    this.placeDetailViews = {};
-    this.landmarkDetailViews = {};
-    this.activeDetailView;
-
-    // Use the page size as dictated by the server by default, unless
-    // directed to do otherwise in the configuration.
-    if (Shareabouts.Config.flavor.app.places_page_size) {
-      placeParams.page_size = Shareabouts.Config.flavor.app.places_page_size;
-    }
-
-    // Boodstrapped data from the page
+    // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
     this.landmarks = this.options.landmarks;
@@ -871,16 +854,16 @@ module.exports = Backbone.View.extend({
           .getPlaceDetailView(
             model,
             self.mapView.layerViews[datasetId][model.cid],
-          )
-          .delegateEvents();
-        self.showPanel(detailView.render().$el, !!args.responseId);
+          );
+
+        self.showPanel(detailView.render().$el, !!args.responseId, detailView);
         detailView.delegateEvents();
       } else if (type === "landmark") {
         layer = self.mapView.layerViews[datasetId][model.id].layer;
         detailView = self
-          .getLandmarkDetailView(datasetId, model)
-          .delegateEvents();
-        self.showPanel(detailView.render().$el, false);
+          .getLandmarkDetailView(datasetId, model);
+
+        self.showPanel(detailView.render().$el, false, detailView);
       }
 
       self.hideNewPin();
@@ -977,13 +960,13 @@ module.exports = Backbone.View.extend({
     this.setBodyClass("content-visible", "content-expanded");
   },
 
-  showPanel: function(markup, preventScrollToTop) {
+  showPanel: function(markup, preventScrollToTop, detailView) {
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
-
     this.$panelContent.html(markup);
     this.$panel.show();
+    detailView.delegateEvents();
 
     if (!preventScrollToTop) {
       // will be "mobile" or "desktop", as defined in default.css
