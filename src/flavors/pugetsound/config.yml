@@ -44,18 +44,22 @@ map:
     maxZoom: 18
 
   layers:
-    - id: osm
-      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
-      attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+    # - id: osm
+    #   url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+    #   attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+    #   type: basemap
+
+    - id: topo
       type: basemap
+      url: //{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
-    - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    - id: light-nolabels
+      url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
 
@@ -72,6 +76,10 @@ map:
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
       sources:
         - "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/pugetsound-landmarks.geojson"
+
+    - id: pugetsoundfeatured
+      type: place
+      slug: featured
 
     - id: cso
       type: json
@@ -251,36 +259,16 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  greenwall:
-    label: _(Green Screen Vote)
+  featured_place:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 15'
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom <= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
-
-      - condition: 'this.map.zoom >= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
@@ -298,14 +286,14 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: osm
-          title: _(OpenStreetMap)
+        - id: topo
+          title: _(Topography)
           visibleDefault: true
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
-        - id: dark
-          title: _(Dark)
+        - id: light-nolabels
+          title: _(Simple)
           visibleDefault: false
       groupings:
         - id: grp-community
@@ -314,6 +302,9 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Community Reports)
+              visibleDefault: true
+            - id: pugetsoundfeatured
+              title: _(Featured Sites)
               visibleDefault: true
             - id: violators
               title: _(Pollution violations)
@@ -355,7 +346,9 @@ activity:
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
 
-  # Place Types
+right_sidebar:
+  show: true
+  visibleDefault: true
 
 place:
   adding_supported: true
@@ -374,6 +367,43 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: pugetsoundfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Place)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
     - category: observation
       includeOnForm: true
       name: location_type
