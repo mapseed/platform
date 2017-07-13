@@ -141,6 +141,16 @@
     .info-icon {
         display: none;
     }
+
+    .place-header.editing-toggled, .place-header.editing-toggled {
+        padding-top: 20px;
+    }
+
+    .place-detail-spacer {
+        &.editing-toggled {
+            padding-top: 15px;
+        }
+    }
 }
 
 // default for other media
@@ -503,7 +513,7 @@
         padding-top: 16px;
         padding-bottom: 16px;
         top: $header-height-fullscreen;
-        width: calc(#{$content-visible-width} - 46px);
+        width: calc(#{$content-visible-width} - 31px);
     }
 
     /* rich text editor toolbar, in fixed-top mode */
@@ -514,7 +524,7 @@
             background-color: #EFEFEF;
             border: none;
             z-index: 400;
-            width: calc(#{$content-visible-width} - 47px);
+            width: calc(#{$content-visible-width} - 32px);
             border-bottom-width: 0.30em;
             border-bottom-style: solid;
             border-bottom-color: #a3c7d9;
@@ -710,6 +720,10 @@
     //}
     #powered-by {
         margin-bottom: 0;
+    }
+
+    .btn-story-nav {
+        display: none;
     }
 }
 
