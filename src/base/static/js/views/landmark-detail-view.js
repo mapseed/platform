@@ -28,11 +28,6 @@ module.exports = PlaceDetailView.extend({
     // Render the view as-is (collection may have content already)
     this.$(".survey").html(this.landmarkSurveyView.render().$el);
 
-    // add the story navigation bar again, at the bottom of the view
-    this.$el.append(
-      Handlebars.templates["place-detail-story-bar-tagline"](data),
-    );
-
     this.delegateEvents();
 
     $("#content article").animate({ scrollTop: 0 }, "fast");

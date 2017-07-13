@@ -3,11 +3,13 @@
 
 {{> place-detail-edit-bar }}
 
+<div class="place-detail-spacer{{#if isEditable}} editing-toggled{{/if}}"></div>
+
 {{> place-detail-story-bar }}
 
 {{> place-detail-promotion-bar }}
 
-<header class="place-header clearfix{{#if isEditable}} editing-toggled{{/if}}">
+<header class="place-header clearfix">
   {{>location-string location }}
   <form id="update-place-model-title-form">
     {{#if isEditingToggled}}
@@ -101,5 +103,3 @@
   <section class="survey" 
            id="survey"></section>
 {{/if}}
-
-{{> place-detail-story-bar-tagline }}

@@ -312,39 +312,35 @@ button.sp-selected, button.sp-selected:hover {
     }
 }
 
-/* Story bar styles */
-.btn-previous-story-nav {
+/* Story bar prev/next buttons */
+.btn-story-nav {
     vertical-align: top;
     width: 10%;
     color: $button-background-red;
     cursor: pointer;
-    &:before {
-        font-size: 3.3em;
-        content: $button-left-arrow;
-    }
+    font-size: 3.3em;
 
     &:hover {
         color: $button-background-hover-red;
     }
-}
-  
-.btn-next-story-nav {
-    vertical-align: top;
-    width: 10%;
-    color: $button-background-red;
-    cursor: pointer;
-    &:before {
-        font-size: 3.3em;
-        content: $button-right-arrow;
+
+    &.btn-previous-story-nav {
+
+        &:before {
+            content: $button-left-arrow;
+        }
     }
 
-    &:hover {
-        color: $button-background-hover-red;
-    }
-}
+    &.btn-next-story-nav {
 
-.story-nav-disabled {
-    visibility: hidden;
+        &:before {
+            content: $button-right-arrow;
+        }
+    }
+
+    &.story-nav-disabled {
+        visibility: hidden;
+    }
 }
 
 /* Place detail editor */
