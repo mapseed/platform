@@ -30,10 +30,14 @@ module.exports = Backbone.View.extend({
     this.render();
   },
 
+  hide: function() {
+    this.state.set("isVisible", false);
+  },
+
   onVisibilityChange: function() {
     (this.state.get("isVisible"))
-      ? this.$el.removeClass("is-hidden")
-      : this.$el.addClass("is-hidden");
+      ? this.$el.removeClass("is-hidden-fadeout")
+      : this.$el.addClass("is-hidden-fadeout");
   },
 
   onClickCloseWindowBtn: function() {

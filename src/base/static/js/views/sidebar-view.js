@@ -47,7 +47,8 @@ module.exports = Backbone.View.extend({
           mapView: self.options.mapView,
           config: panelConfig,
           sidebar: self.sidebar,
-          placeConfig: this.options.placeConfig
+          placeConfig: this.options.placeConfig,
+          sidebarView: this
         }).render();
       }
     }, this);
