@@ -38,8 +38,6 @@ module.exports = Backbone.View.extend({
   events: {
     'click #add-place': 'onClickAddPlaceBtn',
     'click .close-btn': 'onClickClosePanelBtn',
-    'click .maximize-btn': 'onClickMaximizeBtn',
-    'click .minimize-btn': 'onClickMinimizeBtn',
     'click .collapse-btn': 'onToggleSidebarVisibility',
     'click .list-toggle-btn': 'toggleListView'
   },
@@ -543,9 +541,6 @@ module.exports = Backbone.View.extend({
   onClickClosePanelBtn: function(evt) {
     evt.preventDefault();
 
-    $(".maximize-btn").show();
-    $(".minimize-btn").hide();
-
     Util.log("USER", "panel", "close-btn-click");
     // remove map mask if the user closes the side panel
     this.hideSpotlightMask();
@@ -563,16 +558,6 @@ module.exports = Backbone.View.extend({
       this.isStoryActive = false;
       this.restoreDefaultLayerVisibility();
     }
-  },
-  onClickMaximizeBtn: function(evt) {
-    this.setBodyClass("content-expanded", "content-visible");
-    $(".maximize-btn, .minimize-btn").toggle();
-    this.mapView.map.invalidateSize({ animate: true, pan: true });
-  },
-  onClickMinimizeBtn: function(evt) {
-    this.setBodyClass("content-visible");
-    $(".maximize-btn, .minimize-btn").toggle();
-    this.mapView.map.invalidateSize({ animate: true, pan: true });
   },
   onToggleSidebarVisibility: function() {
     $("body").toggleClass("right-sidebar-visible");
@@ -726,12 +711,7 @@ module.exports = Backbone.View.extend({
 
     this.$panel.removeClass().addClass("place-form");
     this.showPanel(this.placeFormView.render(false).$el);
-
     this.placeFormView.delegateEvents();
-
-    $(".maximize-btn").show();
-    $(".minimize-btn").hide();
-
     this.showNewPin();
     this.setBodyClass("content-visible", "place-form-visible");
   },
@@ -948,12 +928,8 @@ module.exports = Backbone.View.extend({
         config: this.options.config,
       });
 
-    $(".maximize-btn").hide();
-    $(".minimize-btn").show();
-
     this.$panel.removeClass().addClass("page page-" + slug);
     this.showPanel(pageHtml);
-
     this.hideNewPin();
     this.destroyNewModels();
     this.hideCenterPoint();

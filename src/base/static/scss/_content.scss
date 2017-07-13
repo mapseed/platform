@@ -43,51 +43,6 @@ a.close-btn {
     }
 }
 
-a.maximize-btn, a.minimize-btn {
-    background: #fff;
-    color: #ff5e99;
-    font-size: 1.25em;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 1.125em;
-    display: block;
-    position: absolute;
-    top: -1.325em;
-    right: 0.5em;
-    padding: 0.325em 0.625em;
-    z-index: 2;
-    box-shadow: 0 -0.325em 0 rgba(0, 0, 0, 0.1);
-    border-radius: 0.325em 0.325em 0 0;
-
-    &:hover {
-        color: #cd2c67;
-    }
-
-    span {
-        font-size: 0.625em;
-        text-transform: uppercase;
-        margin-left: 0.625em;
-        position: relative;
-        top: -0.2em;
-    }
-}
-
-a.maximize-btn:after {
-    font-size: 1.0em;
-    font-family: FontAwesome;
-    content: "\f106";
-    padding-left: 7px;
-}
-
-a.minimize-btn {
-    display: none;
-    &:after {
-        font-size: 1.0em;
-        font-family: FontAwesome;
-        content: "\f107";
-        padding-left: 7px;
-    }
-}
 
 // Contains embeded video player size
 
