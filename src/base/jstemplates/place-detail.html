@@ -7,7 +7,7 @@
 
 {{> place-detail-promotion-bar }}
 
-<header class="place-header clearfix">
+<header class="place-header clearfix{{#if isEditable}} editing-toggled{{/if}}">
   {{>location-string location }}
   <form id="update-place-model-title-form">
     {{#if isEditingToggled}}

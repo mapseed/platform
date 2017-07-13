@@ -483,7 +483,7 @@
 
     #content > article {
         overflow: auto;
-        padding-top: 50px;
+        padding-top: 1em;
         padding-right: 1em;
         padding-left: 1em;
         padding-bottom: 2em;
@@ -497,14 +497,13 @@
     /* place detail edit bar */
     .place-detail-edit-bar {
         position: fixed;
-        background-color: #FFFFFF;
+        background-color: #FFF;
+        border-bottom: 2px solid #DDD;
         z-index: 5;
-        padding-left: 8px;
-        padding-right: 8px;
-        padding-top: 8px;
+        padding-top: 16px;
         padding-bottom: 16px;
         top: $header-height-fullscreen;
-        width: calc(#{$content-visible-width} - 45px);
+        width: calc(#{$content-visible-width} - 46px);
     }
 
     /* rich text editor toolbar, in fixed-top mode */
