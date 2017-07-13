@@ -1,5 +1,5 @@
 var LayerInfoWindowView = require("./layer-info-window-view.js");
-const INFO_WINDOW_LEFT_OFFSET_ADJUST = 30;
+const INFO_WINDOW_LEFT_OFFSET_ADJUST = 36;
 const INFO_WINDOW_TOP_OFFSET_ADJUST = -67;
 
 module.exports = Backbone.View.extend({

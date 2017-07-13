@@ -10,11 +10,13 @@ module.exports = Backbone.View.extend({
       body: "",
       title: "",
       top: 0,
-      left: 0
+      left: 0,
+      isVisible: false
     });
 
     this.options.sidebar.on("closing", this.onClickCloseWindowBtn, this);
     this.options.sidebar.on("content", this.onClickCloseWindowBtn, this);
+    this.state.on("change:isVisible", this.onVisibilityChange, this);
 
     return this;
   },
@@ -23,12 +25,19 @@ module.exports = Backbone.View.extend({
     for (let prop in content) {
       this.state.set(prop, content[prop]);
     }
+    this.state.set("isVisible", !this.state.get("isVisible"));
 
     this.render();
   },
 
+  onVisibilityChange: function() {
+    (this.state.get("isVisible"))
+      ? this.$el.removeClass("is-hidden")
+      : this.$el.addClass("is-hidden");
+  },
+
   onClickCloseWindowBtn: function() {
-    this.$el.addClass("is-hidden");
+    this.state.set("isVisible", false);
   },
 
   render: function() {
@@ -38,7 +47,6 @@ module.exports = Backbone.View.extend({
     };
 
     this.$el
-      .removeClass("is-hidden")
       .html(Handlebars.templates["layer-info-window"](data))
       .css({
         top: this.state.get("top") - (this.$el.height() / 2),
