@@ -61,6 +61,10 @@ a.close-btn {
 .promotion {
     float: right;
     margin: 0 0 1em 0.5em;
+
+    &.editing-toggled {
+        padding-top: 55px;
+    }
 }
 
 .support {
@@ -157,6 +161,11 @@ a.close-btn {
 
     a {
         text-decoration: none;
+    }
+
+    &.editing-toggled {
+        padding-left: 2px;
+        padding-top: 55px;
     }
 }
 
@@ -388,11 +397,6 @@ a.auth-inline {
             background-color: $background-color-warning;        
         }
     }
-}
-
-/* place detail editor */
-.place-detail-edit-bar {
-    margin-bottom: 15px;
 }
 
 .img-placeholder {
