@@ -1,0 +1,20 @@
+{{# has_pages }}
+<a href="#" id="nav-btn">&equiv;</a>
+{{/ has_pages }}
+<nav class="access" role="article">
+  <ul class="menu">
+    {{# pages }}
+
+      {{> pages-nav-item }}
+
+    {{/ pages }}
+  </ul>
+</nav>
+
+<!-- <nav class="list-toggle-nav">
+  <a class="list-toggle-btn btn btn-block">
+  	<span class="show-the-map is-visuallyhidden">{{ show_map_button_label }}</span>
+  	<span class="is-screen-reader-text">/</span>
+  	<span class="show-the-list">{{ show_list_button_label }}</span>
+  </a>
+</nav> -->
