@@ -1,73 +1,19 @@
+<!-- Template for the dynamic form container, with sections for alert/warning
+  messages, category selection buttons, and form fields. -->
+
+<!-- NOTE: flavor-specific override -->
 <!-- <h4 class="">{{ placeConfig.title }}</h4> -->
 <p>Are you registering more than 3 rain gardens?
   <a href="http://www.stewardshippartners.org/contact-us/">Click here</a>
   and we will help you.
 </p>
+<!-- End flavor-specific override -->
 
-<p class="form-field">{{ placeConfig.help_text }}</p>
+<!-- alert/warning messages -->
+<div class="place-form-geometry-messages"></div>
 
-<form id="place-form" class="place-form clearfix">
+<!-- category selection buttons -->
+<div class="place-form-category-buttons"></div>
 
-  <fieldset>
-    <input type="hidden" name="visible" value="on">
-    <input type="hidden" name="user_token" value="{{{ user_token }}}">
-
-    <!-- TODO We need user data in the template to know whether a user
-         is already logged in.
-       -->
-
-    <!-- container for selected category -->
-    {{#if isCategorySelected}}
-      {{#unless isSingleCategory}}
-        <div id="selected-category">
-          <input type="radio" id="selected-category-placeholder" class="category-btn" name={{ selectedCategoryConfig.name }} value={{ selectedCategoryConfig.value }} checked>
-          <label for="selected-category-palceholder">
-            <img src={{ selectedCategoryConfig.icon_url }} />
-            <span>{{ selectedCategoryConfig.label }}</span>
-          </label>
-          <span class="category-menu-hamburger"></span>
-        </div>
-      {{/unless}}
-    {{/if}}
-
-    <!-- place buttons for dynamic form categories -->
-    {{#unless isSingleCategory}}
-      <div id="category-btns">
-        {{#each placeConfig.place_detail}}
-          {{#if this.includeOnForm}}
-            <input type="radio" id={{ category }} class="category-btn clickable">
-            <label for={{ category }}>
-              <img src={{icon_url}} />
-              <span>{{ label }}</span>
-            </label>
-          {{/if}}
-        {{/each}}
-      </div>
-      <div style="clear:both"></div>
-      <br>
-    {{/unless}}
-
-    <!-- generate content for selected category -->
-    {{#each selectedCategoryConfig.fields}}
-      <div class="{{ type }} form-field">
-        <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
-        {{> place-form-field-types }}
-      </div>
-    {{/each}}
-
-    <!-- begin fields that are included in every form type by default -->
-    {{#if isCategorySelected}}
-      <div id="common-form-elements">
-        {{#each placeConfig.common_form_elements }}
-          <div class="{{ this.type }} form-field">
-            <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>          
-            {{> place-form-field-types }}
-          </div>
-        {{/each}}
-      </div>
-    {{/if}}
-    <!-- end common field types -->
-
-    <div class="form-spinner"></div>
-</form>
-  
+<!-- form fields -->
+<form id="place-form" class="place-form clearfix"></form>

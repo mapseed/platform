@@ -1,0 +1,47 @@
+{{# has_pages }}
+<a href="#" id="nav-btn">&equiv;</a>
+{{/ has_pages }}
+
+<!-- Begin flavor-specific code -->
+<!-- <nav class="add-place-nav">
+  <span id="add-place-btn-container">
+    <a href="#" id="add-place" class="btn btn-block btn-primary">
+      <span>{{ add_button_label }}</span>
+    </a>
+  </span>
+</nav> -->
+<!-- End flavor-specific code -->
+
+<nav class="list-toggle-nav">
+  <!-- Begin flavor-specific code -->
+  <a class="list-toggle-btn btn btn-block btn-secondary">
+  <!-- End flavor-specific code -->
+    <span class="show-the-map is-visuallyhidden">{{ show_map_button_label }}</span>
+    <span class="is-screen-reader-text">/</span>
+    <span class="show-the-list">{{ show_list_button_label }}</span>
+  </a>
+</nav>
+
+<nav class="access" role="article">
+  <ul class="menu">
+    {{# pages }}
+
+      {{> pages-nav-item }}
+
+    {{/ pages }}
+  </ul>
+</nav>
+
+<!-- Begin flavor-specific code -->
+<div id="pages-nav-right-container">
+  <nav class="access" role="article">
+    <ul class="menu">
+      {{# pagesRight }}
+
+        {{> pages-nav-item }}
+
+      {{/ pagesRight }}
+    </ul>
+  </nav>
+</div>
+<!-- End flavor-specific code -->

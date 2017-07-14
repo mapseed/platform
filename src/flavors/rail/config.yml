@@ -77,7 +77,7 @@ place_types:
   observation:
     label: _(Observation)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -86,7 +86,7 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           # iconSize: [15, 18]
@@ -94,7 +94,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -103,7 +103,7 @@ place_types:
   question:
     label: _(Question)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -112,7 +112,7 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           # iconSize: [15, 18]
@@ -120,7 +120,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -129,7 +129,7 @@ place_types:
   idea:
     label: _(Idea)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -138,7 +138,7 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           # iconSize: [15, 18]
@@ -146,7 +146,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -155,7 +155,7 @@ place_types:
   complaint:
     label: _(Complaint)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -164,15 +164,15 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           # iconSize: [15, 18]
           # iconAnchor: [7.5, 18]
           iconSize: [38, 46]
           iconAnchor: [19, 46]
-          
-      - condition: '{{map.zoom}} >= 16'
+
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
@@ -285,7 +285,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: _(Description of this pollution:)
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
@@ -305,7 +305,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
@@ -324,7 +324,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: _(Describe your idea below:)
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
@@ -344,7 +344,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: description
-          type: textarea
+          type: richTextarea
           prompt: "_(What's your complaint?)"
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
@@ -360,13 +360,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)

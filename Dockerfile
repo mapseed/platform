@@ -4,7 +4,7 @@
 ############################################################
 
 # Set the base image to Ubuntu
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 # File Author / Maintainer
 MAINTAINER Luke Swart <luke@smartercleanup.org>
@@ -22,7 +22,7 @@ RUN apt-get install -y python-distribute python-pip python-dev
 RUN apt-get install -y postgresql libpq-dev
 
 # Deploy from our git repository
-RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout 0.7.5 && cd -
+RUN git clone https://github.com/smartercleanup/platform.git && cd platform && git checkout 0.8.1 && cd -
 
 # local testing:
 # ADD . platform

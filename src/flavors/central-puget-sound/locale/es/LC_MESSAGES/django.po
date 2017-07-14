@@ -1,0 +1,925 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-04 01:31-0700\n"
+"PO-Revision-Date: 2016-10-04 01:18-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: _config.translations.py:1
+msgid ""
+"Welcome! We are a community of residents and stakeholders who are monitoring "
+"the cleanup of toxic waste in Seattle's Duwamish River."
+msgstr ""
+"¡Biénvenido! Somos una comunidad de los residentes y los interesados quienes "
+"están controlandola operación de limpieza de desechos tóxicos en el Duwamish "
+"River de Seattle"
+
+#: _config.translations.py:2 _config.translations.py:15
+#: _config.translations.py:141
+msgid "Someone"
+msgstr "Alguien"
+
+#: _config.translations.py:3
+msgid "support"
+msgstr "apoyo"
+
+#: _config.translations.py:4
+msgid "Support"
+msgstr "Apoyo"
+
+#: _config.translations.py:5
+msgid "supports"
+msgstr "apoya"
+
+#: _config.translations.py:6
+msgid "comments"
+msgstr "comentarios"
+
+#: _config.translations.py:7
+msgid "commented on"
+msgstr "hizo un comentario de"
+
+#: _config.translations.py:8 _config.translations.py:14
+msgid "Leave a Comment"
+msgstr "Dejar un comentario"
+
+#: _config.translations.py:9 _config.translations.py:10
+#: _config.translations.py:12
+msgid "Comment"
+msgstr "Comentar"
+
+#: _config.translations.py:11
+msgid "Your Name"
+msgstr "Su nombre"
+
+#: _config.translations.py:13
+msgid "comment"
+msgstr "comenta"
+
+#: _config.translations.py:16
+msgid "Show the Map"
+msgstr "Mostrar el mapa"
+
+#: _config.translations.py:17 _config.translations.py:139
+msgid "Put it on the map!"
+msgstr "¡Póngalo en el mapa!"
+
+#: _config.translations.py:18
+msgid "New post"
+msgstr ""
+
+#: _config.translations.py:19
+msgid "The title of my post is:"
+msgstr "Tipo de informe:"
+
+#: _config.translations.py:20
+msgid "Enter title"
+msgstr ""
+
+#: _config.translations.py:21 _config.translations.py:33
+#: _config.translations.py:48
+msgid " "
+msgstr ""
+
+#: _config.translations.py:22
+msgid "Scoop the poop"
+msgstr "Sacar la caca"
+
+#: _config.translations.py:23
+msgid "Always use natural yard care"
+msgstr "Siempre cuidar los céspedes de modas naturalezas"
+
+#: _config.translations.py:24
+msgid "Always use a commercial car wash"
+msgstr "Siempre utilizar un lavadero de coches comercial"
+
+#: _config.translations.py:25
+msgid "Fix car oil leaks"
+msgstr ""
+
+#: _config.translations.py:26
+msgid "Plant and maintain trees"
+msgstr ""
+
+#: _config.translations.py:27
+msgid "Clean out storm drains"
+msgstr ""
+
+#: _config.translations.py:28
+msgid "Spread the word to friends!"
+msgstr ""
+
+#: _config.translations.py:29 _config.translations.py:30
+msgid "I pledge to:"
+msgstr ""
+
+#: _config.translations.py:31 _config.translations.py:46
+#: _config.translations.py:130
+msgid "Additional comments:"
+msgstr ""
+
+#: _config.translations.py:32
+msgid "Enter comments..."
+msgstr "comentarios"
+
+#: _config.translations.py:34
+msgid "Stewardship Pledge"
+msgstr ""
+
+#: _config.translations.py:35 _config.translations.py:37
+#: _config.translations.py:52 _config.translations.py:58
+#: _config.translations.py:65
+msgid "Title:"
+msgstr "Título"
+
+#: _config.translations.py:36 _config.translations.py:51
+#: _config.translations.py:59 _config.translations.py:66
+msgid "Enter title..."
+msgstr "Introducir título..."
+
+#: _config.translations.py:38
+msgid "Neighborhood Dog Poop Bag dispensers"
+msgstr ""
+
+#: _config.translations.py:39
+msgid "Rain Gardens Nearby"
+msgstr ""
+
+#: _config.translations.py:40
+msgid "Cisterns Nearby"
+msgstr ""
+
+#: _config.translations.py:41
+msgid "Pervious Concrete Nearby"
+msgstr ""
+
+#: _config.translations.py:42
+msgid "Pavers Nearby"
+msgstr ""
+
+#: _config.translations.py:43
+msgid "Green Roofs Nearby"
+msgstr ""
+
+#: _config.translations.py:44 _config.translations.py:45
+msgid "I see:"
+msgstr ""
+
+#: _config.translations.py:47
+msgid "Enter description..."
+msgstr "Descripción..."
+
+#: _config.translations.py:49 _config.translations.py:145
+msgid "Observation"
+msgstr "Observación"
+
+#: _config.translations.py:50
+msgid "Title of your question:"
+msgstr "Título del informe"
+
+#: _config.translations.py:53
+msgid "My question:"
+msgstr "Mi pregunta:"
+
+#: _config.translations.py:54
+msgid "What's your question?"
+msgstr ""
+
+#: _config.translations.py:55
+msgid "Enter question..."
+msgstr "Introducir una dirección"
+
+#: _config.translations.py:56 _config.translations.py:146
+msgid "Question"
+msgstr "Pregunta"
+
+#: _config.translations.py:57
+msgid "Title of your idea:"
+msgstr "Título de su idea:"
+
+#: _config.translations.py:60
+msgid "Describe your idea below:"
+msgstr ""
+
+#: _config.translations.py:61 _config.translations.py:68
+msgid "Description..."
+msgstr "Descripción..."
+
+#: _config.translations.py:62
+msgid "Here's my idea:"
+msgstr ""
+
+#: _config.translations.py:63 _config.translations.py:144
+msgid "Idea"
+msgstr "Idea"
+
+#: _config.translations.py:64
+msgid "Title of your complaint:"
+msgstr "Título de su queja:"
+
+#: _config.translations.py:67
+msgid "What's your complaint?"
+msgstr ""
+
+#: _config.translations.py:69
+msgid "I have the following complaint:"
+msgstr ""
+
+#: _config.translations.py:70 _config.translations.py:143
+msgid "Complaint"
+msgstr "Queja"
+
+#: _config.translations.py:71
+msgid "When did you observe these conditions?"
+msgstr ""
+
+#: _config.translations.py:72
+msgid "I observed these conditions on:"
+msgstr ""
+
+#: _config.translations.py:73 _config.translations.py:77
+#: _config.translations.py:82 _config.translations.py:87
+#: _config.translations.py:92
+msgid "Yes"
+msgstr "Sí"
+
+#: _config.translations.py:74 _config.translations.py:78
+#: _config.translations.py:83 _config.translations.py:88
+#: _config.translations.py:93
+msgid "No"
+msgstr "No"
+
+#: _config.translations.py:75
+msgid "Do you reside and/or work in the Georgetown or South Park Neighborhood?"
+msgstr ""
+
+#: _config.translations.py:76
+msgid "I reside or work in Georgetown or South Park:"
+msgstr ""
+
+#: _config.translations.py:79
+msgid "I observe an odd smell"
+msgstr ""
+
+#: _config.translations.py:80 _config.translations.py:85
+#: _config.translations.py:90 _config.translations.py:95
+#: _config.translations.py:98
+msgid "Please be sure to seek medical attention if needed."
+msgstr ""
+
+#: _config.translations.py:81
+msgid "I observed an odd smell:"
+msgstr ""
+
+#: _config.translations.py:84
+msgid "I have burning or itching eyes/nose/skin"
+msgstr ""
+
+#: _config.translations.py:86
+msgid "I have burning or itching eyes/nose/skin:"
+msgstr ""
+
+#: _config.translations.py:89
+msgid "I am having difficulty breathing"
+msgstr ""
+
+#: _config.translations.py:91
+msgid "I am having difficulty breathing:"
+msgstr ""
+
+#: _config.translations.py:94
+msgid "I am experiencing a headache"
+msgstr ""
+
+#: _config.translations.py:96
+msgid "I am experiencing a headache:"
+msgstr ""
+
+#: _config.translations.py:97
+msgid "Please note other physical effects you are experiencing"
+msgstr ""
+
+#: _config.translations.py:99
+msgid "Other physical effects I experienced:"
+msgstr ""
+
+#: _config.translations.py:100
+msgid "Asbestos"
+msgstr ""
+
+#: _config.translations.py:101
+msgid "Burning during burn ban"
+msgstr ""
+
+#: _config.translations.py:102
+msgid "Chimney smoke"
+msgstr ""
+
+#: _config.translations.py:103
+msgid "Gas station"
+msgstr ""
+
+#: _config.translations.py:104
+msgid "Mobile coater"
+msgstr ""
+
+#: _config.translations.py:105
+msgid "Odor"
+msgstr ""
+
+#: _config.translations.py:106
+msgid "Outdoor fire"
+msgstr ""
+
+#: _config.translations.py:107
+msgid "Vehicle pollution"
+msgstr ""
+
+#: _config.translations.py:108
+msgid "Visible emission"
+msgstr ""
+
+#: _config.translations.py:109
+msgid "Specific business or industry"
+msgstr ""
+
+#: _config.translations.py:110
+msgid "Don't know/unsure"
+msgstr ""
+
+#: _config.translations.py:111
+msgid "Other (please describe in comments)"
+msgstr ""
+
+#: _config.translations.py:112
+msgid ""
+"Select one of the following to identify the source of the bad air quality."
+msgstr ""
+
+#: _config.translations.py:113
+msgid "Pollution source observed:"
+msgstr ""
+
+#: _config.translations.py:114
+msgid "Strongly agree"
+msgstr ""
+
+#: _config.translations.py:115
+msgid "Agree"
+msgstr ""
+
+#: _config.translations.py:116
+msgid "Neutral"
+msgstr ""
+
+#: _config.translations.py:117
+msgid "Disagree"
+msgstr ""
+
+#: _config.translations.py:118
+msgid "Strongly disagree"
+msgstr ""
+
+#: _config.translations.py:119
+msgid ""
+"Please indicate your agreement with the following statement: My normal "
+"activities are affected by the air quality in my neighborhood."
+msgstr ""
+
+#: _config.translations.py:120
+msgid ""
+"My normal activities are affected by the air quality in my neighborhood:"
+msgstr ""
+
+#: _config.translations.py:121
+msgid "I choose to stay indoors to avoid the source of pollution"
+msgstr ""
+
+#: _config.translations.py:122
+msgid "I close the windows, limiting circulation"
+msgstr ""
+
+#: _config.translations.py:123
+msgid "I open all windows to circulate air"
+msgstr ""
+
+#: _config.translations.py:124
+msgid "I avoid outdoor physical activities"
+msgstr ""
+
+#: _config.translations.py:125
+msgid "I need to constantly clean surfaces, as they are often greasy or dusty"
+msgstr ""
+
+#: _config.translations.py:126
+msgid "Other (please specify in comments)"
+msgstr ""
+
+#: _config.translations.py:127
+msgid ""
+"Select one of the following to indicate how your normal activities are "
+"impacted."
+msgstr ""
+
+#: _config.translations.py:128
+msgid "My normal activities were impacted in the following way:"
+msgstr ""
+
+#: _config.translations.py:129
+msgid "Provide any additional comments"
+msgstr ""
+
+#: _config.translations.py:131
+msgid "Air watch"
+msgstr ""
+
+#: _config.translations.py:132
+msgid "created"
+msgstr "creó"
+
+#: _config.translations.py:133
+msgid "Your name"
+msgstr "Su nombre"
+
+#: _config.translations.py:134
+msgid "Name"
+msgstr "Nombre"
+
+#: _config.translations.py:135
+msgid "Receive email updates on your report"
+msgstr ""
+
+#: _config.translations.py:136
+msgid "Your Email"
+msgstr "Su correo electrónico"
+
+#: _config.translations.py:137
+msgid "Image"
+msgstr "Imagen"
+
+#: _config.translations.py:138
+msgid "Add an Image"
+msgstr "Añadir una Imagen"
+
+#: _config.translations.py:140
+msgid "See All Reports"
+msgstr "Ver todos los informes"
+
+#: _config.translations.py:142
+msgid "Add a report to the map!"
+msgstr "¡Añadir un informe al mapa!"
+
+#: _config.translations.py:147
+msgid "Air Watch"
+msgstr ""
+
+#: _config.translations.py:148
+msgid "Community Reports"
+msgstr "Informes de la comunidad"
+
+#: _config.translations.py:149
+msgid "River Cleanup Plan"
+msgstr ""
+
+#: _config.translations.py:150
+msgid "Community Vision"
+msgstr ""
+
+#: _config.translations.py:151
+msgid "Restoration Sites"
+msgstr ""
+
+#: _config.translations.py:152
+msgid "Community Data"
+msgstr ""
+
+#: _config.translations.py:153
+msgid "Land use"
+msgstr "Datos de uso de la tierra"
+
+#: _config.translations.py:154
+msgid "Green Seattle partnership"
+msgstr ""
+
+#: _config.translations.py:155
+msgid "Noxious Weeds"
+msgstr ""
+
+#: _config.translations.py:156
+msgid "Sewer Overflow"
+msgstr ""
+
+#: _config.translations.py:157
+msgid "Watershed"
+msgstr ""
+
+#: _config.translations.py:158
+msgid "Zoning"
+msgstr ""
+
+#: _config.translations.py:159
+msgid "Land Data"
+msgstr "Datos de uso de la tierra"
+
+#: _config.translations.py:160
+msgid "Original River Path"
+msgstr "El sendero original del Duwamish"
+
+#: _config.translations.py:161
+msgid "Historical Data"
+msgstr "Sendero Histórico"
+
+#: _config.translations.py:162
+msgid "Map Layers:"
+msgstr ""
+
+#: _config.translations.py:163
+msgid "OpenStreetMap"
+msgstr ""
+
+#: _config.translations.py:164
+msgid "Satellite View"
+msgstr ""
+
+#: _config.translations.py:165
+msgid "Dark"
+msgstr ""
+
+#: _config.translations.py:166
+msgid "Activity Stream:"
+msgstr ""
+
+#: _config.translations.py:167
+msgid "Observations"
+msgstr "Observaciones"
+
+#: _config.translations.py:168
+msgid "Ideas"
+msgstr "Ideas"
+
+#: _config.translations.py:169
+msgid "Questions"
+msgstr "Preguntas"
+
+#: _config.translations.py:170
+msgid "Complaints"
+msgstr "Quejas"
+
+#: _config.translations.py:171
+msgid "Citizen Reports:"
+msgstr "Informes de los ciudadanos"
+
+#: _config.translations.py:172
+msgid "About"
+msgstr "Sobre"
+
+#: _config.translations.py:173 jstemplates/pages/background.html:1
+msgid "Background"
+msgstr "Trasfondo"
+
+#: _config.translations.py:174 jstemplates/pages/contribute.html:2
+msgid "Get involved"
+msgstr "Participar"
+
+#: _config.translations.py:175
+msgid "Green Screen"
+msgstr ""
+
+#: jstemplates/pages/background.html:2
+msgid ""
+"In 2001, the US Environmental Protection Agency declared the lower 5 miles "
+"of the Duwamish to be a superfund site, which mandates a cleanup paid by "
+"those responsible for the pollution. After more than a decade of public "
+"deliberation, the EPA came to a final decision in December 2014, and ordered "
+"a $342 million cleanup to take place over the next 17 years."
+msgstr ""
+"En 2001, la Agencia de Protección del Medio Ambiente de Estados Unidos (EPA) "
+"declaró los cinco miles inferiores del Duwamish un sitio de Superfondo, que "
+"require una limpieza pagado por los responsables por la contaminación. Tras "
+"más de un decenio de debates públicos, la EPA tomó la decisión en deciembre "
+"de 2014, y ordenó una limpieza de 342 millions de dólares llevarse a cabo en "
+"los próximos 17 años."
+
+#: jstemplates/pages/background.html:3
+msgid "Take me to the map!"
+msgstr "¡Navigar hacia el mapa!"
+
+#: jstemplates/pages/background.html:4
+msgid ""
+"The Duwamish River is Seattle's only river, and is one of the most polluted "
+"waterways in the US. After 100 years of urban industrialization, it contains "
+"more than 40 toxic chemicals above safe limits for humans and the "
+"environment, including PCBs, dioxins, carcinogenic PAHs, and arsenic. "
+"Studies show that the low income communities living along the river have "
+"higher rates of heart disease, asthma, and other illnesses than other "
+"Seattle areas. It is also home to salmon, osprey, sea lions, and other "
+"creatures who face unsafe levels of contamination."
+msgstr ""
+"El Duwamish River es el río único de Seattle, y es uno de los ríos más "
+"contaminada en los Estados Unidos. Tras más de 100 años de la "
+"industrialización, contiene más de 40 químicos tóxicos encima de los limites "
+"para el ser humano y el medio ambiente, incluyendo los PCB's, la dioxina, "
+"PAH's carcinógenas, y el arsénico. Los estudios demuestran que las "
+"comunidades de bajo ingreso que viven junto al río tienen mayores índices de "
+"enfermedad coronaria, asma, y otros enfermedades que los otros áreas de "
+"Seattle. También es hogar para salmón, águilas pescadoras, leones marinos, y "
+"otros animales que están expuestos a niveles peligrosos de contaminación."
+
+#: jstemplates/pages/background.html:5
+msgid ""
+"The history here is rich. The Duwamish Tribe lived along the shores of this "
+"river for over 10,000 years, since the last ice age, until they were removed "
+"by incoming settlers who came about a century and a half ago."
+msgstr ""
+"La historia aquí is muy rica. La Tribu Duwamish vivía a lo largo de las "
+"orillas de este río por más de 10,000 años, desde la última edad de hielo, "
+"hasta que hace alrededor de un siglo y media cuando los colonos entrantes "
+"los desalojaron."
+
+#: jstemplates/pages/background.html:6
+msgid ""
+"The responsible parties named so far are Boeing, King County, the City of "
+"Seattle, and the Port of Seattle, with several more expected to be named "
+"over the coming years."
+msgstr ""
+"Boeing Manufacturing, King County, City of Seattle, y el Port of Seattle son "
+"los partes responsables indentificados en este momento, y se espera que se "
+"identificará más partes responsables en los próximos años."
+
+#: jstemplates/pages/background.html:7
+msgid ""
+"We hope that 'Hey Duwamish' can be used as a community monitoring system to "
+"help ensure that the $342 million is well spent. We want to restore the "
+"health of our watershed to its maximum potential and highlight the progress "
+"being made through initiatives such as the <a href=\"http://murray.seattle."
+"gov/murray-announces-funding-for-duwamish-river-community-projects"
+"\">Duwamish Opportunity Fund</a>."
+msgstr ""
+"Esperamos que se usará 'Hey Duwamish' como un sistema de vigilencia para "
+"asegurar que se empleareán correctamente el 342 millones de dólares. "
+"Quiremos restaurar la cuenca hasta el potencial máximo y subrayar el "
+"progreso de los iniciativos como el <a href=/'http://murray.seattle.gov/"
+"murray-announces-funding-for-duwamish-river-community-projects\">Duwamish "
+"Opportunity Fund (Ayuda Financiera para el Duwamish)</a>."
+
+#: jstemplates/pages/contribute.html:1
+msgid ""
+"<a href=\"http://eepurl.com/6IfA5\">Send us a message</a> and we'll be in "
+"touch ;)"
+msgstr ""
+"<a href=\"http://eepurl.com/6IfA5\">Dejarnos un mensage</a> y nosotros vamos "
+"a contactar con usted ;7"
+
+#: jstemplates/pages/contribute.html:3
+msgid "If you want to see a project like this in your community, let us know!"
+msgstr "Si quiere ver un proyecto como este en su comunidad, ¡háganoslo saber!"
+
+#: jstemplates/pages/contribute.html:4
+msgid ""
+"The best way to get involved is to <a href=\"/new\">submit a report</a> on "
+"the map, or comment on someone else's report."
+msgstr ""
+"La mejor forma de ayudarnos es <a href=\"/new\">submitir un informe</a> en "
+"el mapa, o hacer un comentario sobre un informe de otro."
+
+#: jstemplates/pages/contribute.html:5
+msgid "Want to help out? Awesome!"
+msgstr "¿Queire ayudarnos? ¡Excelente!"
+
+#: jstemplates/pages/contribute.html:6
+msgid ""
+"We could also use help writing code, designing a better interface, and "
+"promoting the project. <a href=\"http://github.com/smartercleanup/platform"
+"\">Contribute to our repository on GitHub!</a>"
+msgstr ""
+"También necessitamos ayudar con traducir, escribir el código del software,y "
+"promover este proyecto. <a href=\"http://github.com/smartercleanup/platform"
+"\">¡Contribuir al repositorio del código en GitHub!</a>"
+
+#: jstemplates/pages/features.html:1
+msgid "Features"
+msgstr "Características"
+
+#: jstemplates/pages/features.html:2
+msgid "For designers and developers,"
+msgstr "Para diseñadores y desarolladores,"
+
+#: jstemplates/pages/features.html:3
+msgid "For project managers during a project,"
+msgstr "Para los gestores de proyectos durante la ejecución de un proyecto,"
+
+#: jstemplates/pages/features.html:4
+msgid "For users,"
+msgstr "Para los usarios,"
+
+#: jstemplates/pages/features.html:5
+msgid "a simple map interface, to explore submitted locations and add your own"
+msgstr ""
+"una interfaz sencilla del mapa, explorar informes submitidos y añadir sus "
+"propios informes"
+
+#: jstemplates/pages/features.html:6
+msgid "blogging tools to create pages or blog posts"
+msgstr "buenas herramientas para el blogging a crear páginas o bitácoras"
+
+#: jstemplates/pages/features.html:7
+msgid "export to GIS"
+msgstr "exportar a GIS"
+
+#: jstemplates/pages/features.html:8
+msgid ""
+"flexible text and layout, making it easy to translate the user interface "
+"text or customize the sentences used"
+msgstr ""
+
+#: jstemplates/pages/features.html:9
+msgid ""
+"geospatial database, so you can limit contributions to within boundaries, or "
+"asiggn neighborhood names"
+msgstr ""
+
+#: jstemplates/pages/features.html:10
+msgid "map and location configuration"
+msgstr ""
+
+#: jstemplates/pages/features.html:11
+msgid "simple admin interface"
+msgstr ""
+
+#: jstemplates/pages/features.html:12
+msgid "simple status dashboard"
+msgstr ""
+
+#: jstemplates/pages/features.html:13
+msgid "site design that works well on small screens"
+msgstr ""
+
+#: jstemplates/pages/instructions.html:1
+msgid "Detailed instructions"
+msgstr ""
+
+#: jstemplates/pages/overview.html:1
+msgid "Help us out and <a href=\"/place/new\">submit a report</a> on the map!"
+msgstr ""
+"¡Ayudarnos y <a href=\"/place/new\">submitir un informe</a> en el mapa!"
+
+#: jstemplates/pages/overview.html:2
+msgid ""
+"Here's a little <a href=\"/page/background\">background</a> on the lower "
+"Duwamish superfund site and the cleanup of toxic waste in the river."
+msgstr ""
+"Aquí está un poco de <a href=\"/page/background\">trasfondo</a> sobre la "
+"parte inferior del Duwamish sitio de Superfund"
+
+#: jstemplates/pages/overview.html:3
+msgid "Start Mapping!"
+msgstr "¡Usar el Mapa!"
+
+#: jstemplates/pages/overview.html:4
+msgid ""
+"This project made possible by our generous <a href=\"/page/sponsors"
+"\">sponsors"
+msgstr ""
+"Éste proyecto ha side posible por nuestros generosos <a href=\"/page/sponsors"
+"\">patrocinadores"
+
+#: jstemplates/pages/overview.html:5
+msgid ""
+"We are a community of residents and stakeholders who are monitoring "
+"environmental health issues in Seattle's Duwamish Valley."
+msgstr ""
+"¡Biénvenido! Somos una comunidad de los residentes y los interesados quienes "
+"están controlandola operación de limpieza de desechos tóxicos en el Duwamish "
+"River de Seattle"
+
+#: jstemplates/pages/overview.html:6
+msgid "Welcome"
+msgstr "Bíenvenido"
+
+#: jstemplates/pages/sponsors.html:1
+msgid "Back to the map"
+msgstr "¡Navigar hacia el mapa!"
+
+#: jstemplates/pages/sponsors.html:2
+msgid ""
+"Seed funding provided by the Puget Sound Stewardship and Mitigation Fund, a "
+"community grantmaking fund created by Puget Soundkeeper Alliance and "
+"administered by the Rose Foundation for Communities and the Environment."
+msgstr ""
+
+#: jstemplates/pages/sponsors.html:3
+msgid "Sponsors"
+msgstr ""
+
+#: jstemplates/pages/youthcorps2015.html:1
+msgid "Duwamish Valley Youth Corps 2015"
+msgstr ""
+
+#: jstemplates/pages/youthcorps2015.html:2
+msgid ""
+"We had a lot of fun and got a LOT of work done. Check out this highlight "
+"video!"
+msgstr ""
+
+#: templates/index.html:58
+msgid "Powered by"
+msgstr "Impulsado por"
+
+#~ msgid "legend coming soon!"
+#~ msgstr "próximamente la leyenda..."
+
+#~ msgid "Land coverage data"
+#~ msgstr "Datos de cobertura de la tierra"
+
+#, fuzzy
+#~| msgid "The orginal Duwamish River path"
+#~ msgid "The original Duwamish River path"
+#~ msgstr "El sendero original del Duwamish"
+
+#~ msgid "Tell us more..."
+#~ msgstr "Decirnos más"
+
+#~ msgid "Type of report"
+#~ msgstr "Tipo de informe"
+
+#~ msgid "Description"
+#~ msgstr "Descripción"
+
+#~ msgid ""
+#~ "We can also use help writing <a href=\"http://github.com/smartercleanup/"
+#~ "duwamish\">code</a>, designing a better interface, and promoting the "
+#~ "project."
+#~ msgstr ""
+#~ "También deseamos obtener apoyo en <a href=\"http://github.com/"
+#~ "smartercleanup/duwamish\">escribir el código</a>, diseñar una interfaz "
+#~ "mejor, y promoter este proyecto."
+
+#~ msgid "Email address"
+#~ msgstr "Dirección de correo electrónico"
+
+#~ msgid "Show Reports"
+#~ msgstr "Mostrar los informes"
+
+#~ msgid "Contribute"
+#~ msgstr "Contribuir"
+
+#~ msgid "Get started!"
+#~ msgstr "¡Empecemos!"
+
+#~ msgid "Duwamish area buildings"
+#~ msgstr "Datos de los edificios"
+
+#~ msgid "The impacted areas of the Duwamish River cleanup"
+#~ msgstr "Área impactadas por el limpio"
+
+#~ msgid "Region of interest"
+#~ msgstr "Región de interés del Duwamish"
+
+#~ msgid "Early action cleanup sites"
+#~ msgstr "Sitios de medidas tempranas"
+
+#~ msgid "Project management info"
+#~ msgstr "Dibujos de gestión de proyectos"
+
+#~ msgid "Show All"
+#~ msgstr "Mostrar todos"
+
+#~ msgid "Show None"
+#~ msgstr "Ocultar todo"
+
+#~ msgid "Location Name"
+#~ msgstr "Nombre to ubicación"
+
+#~ msgid "Choose One"
+#~ msgstr "Elegir Uno"
+
+#~ msgid "Submit a report"
+#~ msgstr "Presentar un informe"
+
+#~ msgid "Submit"
+#~ msgstr "Presentar"
+
+#~ msgid "Location Type"
+#~ msgstr "Tipo to ubicación"
+
+#~ msgid "Landmark"
+#~ msgstr "Lugar destacado"
+
+#~ msgid "Park"
+#~ msgstr "Parque"
+
+#~ msgid "School"
+#~ msgstr "Escuela"

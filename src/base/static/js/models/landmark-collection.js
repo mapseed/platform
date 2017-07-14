@@ -1,4 +1,4 @@
-var LandmarkModel = require('./landmark-model.js');
+var LandmarkModel = require("./landmark-model.js");
 
 module.exports = Backbone.Collection.extend({
   model: LandmarkModel,
@@ -12,5 +12,5 @@ module.exports = Backbone.Collection.extend({
         _.extend(resp.features[i], options.attributesToAdd);
     }
     return resp.features;
-  }
+  },
 });

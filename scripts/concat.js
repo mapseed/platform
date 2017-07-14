@@ -15,6 +15,9 @@ shell.mkdir('-p', 'src/base/static/dist/images')
 
 shell.cat([
   'src/base/static/css/leaflet-sidebar.css',
+  'src/base/static/css/leaflet.draw.css',
+  'src/base/static/css/spectrum.css',
+  'src/base/static/css/quill.snow.css',
   'src/base/static/css/default.css',
   'src/base/static/css/jquery.datetimepicker.css',
   'src/flavors/' + flavor + '/static/css/custom.css'

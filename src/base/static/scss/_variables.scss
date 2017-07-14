@@ -9,6 +9,7 @@ $hover-highlight-blue: #36454f;
 $default-font-color: #36454f;
 $default-font-family: "Roboto", sans-serif;
 $border-color-lightgrey: #eeeeee;
+$link-hover-color: #00aaff;
 
 // Buttons - Variables
 $button-background-blue: #007fbf;
@@ -30,14 +31,24 @@ $button-right-arrow: '\f138';
 // Dynamic Form - Variables
 $icon-check-mark: "✔";
 $icon-expansion-hamburger: "";
+$icon-disclosure-triangle-down: "\f0d7";
+$icon-disclosure-triangle-left: "\f0d9";
 $unselected-highlight-light-gray: #D1D3D4;
 $unselected-message-light-gray: #999999;
 $unselected-highlight-medium-gray: #444444;
 $unselected-message-medium-gray: #EEEEEE;
 $selected-highlight-orange: rgb(242, 82, 24);
+$selected-highlight-orange-faded: rgba(242, 82, 24, 0.31);
 $selected-message-dark-gray: #222222;
 
 // Images - Variables
+
+// Content - Variables
+$border-radius-small: 3px;
+$border-radius-medium: 6px;
+$border-radius-large: 10px;
+$background-color-alert: #ffffe0;
+$background-color-warning: #ffb6c1;
 
 // ################################
 // NONSEMANTIC BASE STYLES - VARIABLES
@@ -47,7 +58,7 @@ $selected-message-dark-gray: #222222;
 // HEADER - VARIABLES
 // ################################
 $header-height-fullscreen: 64px;
-//$header-height-smallscreen: 50px; ??????
+$header-height-smallscreen: 58px;
 // Navigation Button - Variables
 // Navigation Menu - Variables
 // User Menu - Variables
@@ -75,9 +86,16 @@ $header-height-fullscreen: 64px;
 // Surveys - Variables
 
 // ################################
-// SIDEBAR - VARIABLES
+// LEAFLET SIDEBAR - VARIABLES
 // ################################
-$sidebar-width: 20%;
+$icon-checkmark: "\f00c";
+$icon-exclamation: "\f12a";
+$icon-info: "\f05a";
+
+// ################################
+// RIGHT SIDEBAR - VARIABLES
+// ################################
+$sidebar-width: 15%;
 
 // ################################
 // TICKER - VARIABLES
@@ -106,7 +124,7 @@ $sidebar-width: 20%;
 // FOOTER - VARIABLES
 // ################################
 $footer-height-fullscreen: 0px;
-$footer-height-smallscreen: 39px;
+$footer-height-smallscreen: 64px;
 // Powered By - Variables
 // Mapquest Attribution - Variables
 
@@ -118,9 +136,8 @@ $footer-height-smallscreen: 39px;
 // MEDIA QUERIES - VARIABLES
 // ################################
 $map-width-when-content-visible: 60%;
-$map-width-when-sidebar-visible: 80%;
-$map-width-when-content-and-sidebar-visible: 40%;
-$map-height-smallscreen-when-sidebar-visible: 65%;
+$map-width-when-sidebar-visible: 85%;
+$map-width-when-content-and-sidebar-visible: 45%;
 
 $content-visible-left-offset: $map-width-when-content-visible;
 $content-visible-with-sidebar-left-offset: $map-width-when-content-and-sidebar-visible;

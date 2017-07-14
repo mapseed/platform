@@ -16,7 +16,7 @@
       {{#if slug }}
         <a class="btn btn-block btn-secondary" href="/page/{{ slug }}">{{ title }}</a>
       {{else }}
-        <a class="btn btn-block btn-secondary">{{ title }}</a>
+        <a class="btn btn-block btn-secondary" href="/{{ name }}" rel="internal">{{ title }}</a>
       {{/if }}
     {{/if }}
 

@@ -56,9 +56,7 @@
 
 @media only screen and (min-height: 768px) and (max-width: 60em) {}
 
-// Catchall media query for screen widths below 60em. Calculated screen heights
-// mean we don't need several media queries as above, and in general don't need
-// to worry about querying heights.
+// Catchall media query for screen widths below 60em.
 @media only screen and (max-width: 60em) {
     html, body, #map {
         height: 100%;
@@ -70,29 +68,19 @@
 
     #main {
         // calculated as 100% of viewport height, minus the height of the header
-        height: calc(100% - #{$header-height-fullscreen});
+        height: calc(100% - #{$header-height-smallscreen + $footer-height-smallscreen});
     }
 
     #map-container {
-        // calculated as 100% of #main height minus the fixed pixel height of the footer
-        height: calc(100% - #{$footer-height-smallscreen});
-    }
-
-    .right-sidebar-visible #map-container {
-        height: $map-height-smallscreen-when-sidebar-visible;
+        height: 100%;
     }
 
     .content-visible #map-container {
         height: 60%
     }
 
-    .right-sidebar-visible #right-sidebar {
-        width: 100%;
-        display: block;
-        left: 0;
-//        top: calc(#{$map-height-smallscreen-when-sidebar-visible} + #{$footer-height-smallscreen});
-        height: 400px;
-        margin-top: 0;
+    #right-sidebar-container {
+        display: none;
     }
 
     .content-visible.content-expanded {
@@ -111,10 +99,6 @@
         #content {
             min-height: 90% !important;
         }
-    }
-
-    .content-visible.right-sidebar-visible #right-sidebar {
-        display: none;
     }
 
     .content-visible.place-form-visible {
@@ -146,24 +130,32 @@
     #content {
         // bump up the bottom margin here so content at the very bottom
         // of a page is not obscured by bottom-clinging buttons
-        margin-bottom: $footer-height-smallscreen + 20px;
+        margin-bottom: $footer-height-smallscreen;
     }
 
     #nav-stories, #add-place {
         //font-size: 0.9em;
         white-space: nowrap;
     }
+
+    .info-icon {
+        display: none;
+    }
 }
 
 // default for other media
 @media only screen and (min-width: 60em) {
     // A helper to let the JS know what kind of layout we're using
-    body:after {
-        content: "desktop";
+    body {
+        overflow: hidden;
+
+        &:after {
+            content: "desktop";
+        }
     }
 
     // right sidebar
-    #right-sidebar {
+    #right-sidebar-container {
         height: calc(100% - #{$header-height-fullscreen} - #{$footer-height-fullscreen});
     }
 
@@ -394,12 +386,6 @@
         }
     }
 
-    .content-visible #main-btns-container {
-        top: calc(100% - 85px);
-        left: 15px;
-        display: block;
-    }
-
     .place-form-visible #main-btns-container {
         display: none;
     }
@@ -419,33 +405,43 @@
         width: $content-visible-width;
     }
 
-    .content-visible #content {
-        right: 0;
+    .content-visible {
+        #content {
+            left: $content-visible-left-offset;
+            width: $content-visible-width;
+        }
+        #map-container {
+            width: $map-width-when-content-visible;
+        }
     }
 
-    .right-sidebar-visible.content-visible #content {
-        left: $content-visible-with-sidebar-left-offset;
-    }
+    .right-sidebar-active {
+        #map-container {
+            width: 100%;
+        }
+        &.content-visible {
+            #map-container {
+                width: $map-width-when-content-visible;
+            }
+            #content {
+                left: $content-visible-left-offset;
+                width: $content-visible-width;
+            }
+        }
 
-    .activity-enabled #content {
-        left: $content-visible-left-offset;
-        width: $content-visible-width;
-    }
-
-    .content-visible #map-container {
-        width: $map-width-when-content-visible;
-    }
-
-    .activity-enabled.content-visible #map-container {
-        width: $map-width-when-content-visible;
-    }
-
-    .right-sidebar-visible #map-container {
-        width: $map-width-when-sidebar-visible;
-    }
-
-    .right-sidebar-visible.content-visible #map-container {
-        width: $map-width-when-content-and-sidebar-visible;
+        &.right-sidebar-visible {
+            #map-container {
+                width: $map-width-when-sidebar-visible;
+            }
+            &.content-visible { 
+                #map-container {
+                    width: $map-width-when-content-and-sidebar-visible;
+                }
+                #content {
+                    left: $content-visible-with-sidebar-left-offset;
+                }
+            }
+        }
     }
 
     .geocoding-bar-enabled #content {
@@ -487,12 +483,50 @@
 
     #content > article {
         overflow: auto;
-        padding: 1em 1em 2em;
+        padding-top: 50px;
+        padding-right: 1em;
+        padding-left: 1em;
+        padding-bottom: 2em;
         width: 100%;
         height: 100%;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
+    }
+
+    /* place detail edit bar */
+    .place-detail-edit-bar {
+        position: fixed;
+        background-color: #FFFFFF;
+        z-index: 5;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 8px;
+        padding-bottom: 16px;
+        top: $header-height-fullscreen;
+        width: calc(#{$content-visible-width} - 45px);
+    }
+
+    /* rich text editor toolbar, in fixed-top mode */
+    .ql-toolbar {
+        &.fixed-top {
+            position: fixed;
+            top: $header-height-fullscreen + 47px;
+            background-color: #EFEFEF;
+            border: none;
+            z-index: 400;
+            width: calc(#{$content-visible-width} - 47px);
+            border-bottom-width: 0.30em;
+            border-bottom-style: solid;
+            border-bottom-color: #a3c7d9;
+            border-top-width: 1px !important;
+            border-top-color: #DEDEDE !important;
+            border-left-width: 0 !important;
+            border-right-width: 0 !important;
+        }
+        &.no-edit-toolbar {
+            top: $header-height-fullscreen;
+        }
     }
 
     // Geocoding

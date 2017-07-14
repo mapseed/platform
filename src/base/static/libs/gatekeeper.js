@@ -1,13 +1,17 @@
 // 0.1.2
-/*globals $ */
 
-var Gatekeeper = {};
+var Util = require('../js/utils.js');
 
-(function(NS) {
+var self = module.exports = {
+  registerCollectionsSet: function(collectionsSet) {
+    this.collectionsSet = collectionsSet;
+  },
 
-  NS.getInvalidFormEls = function(form) {
-    var $form = $(form),
+  getInvalidFormEls: function(context) {
+    var $form = context.$el,
         invalidEls;
+
+    $form.find(".invalid-msg").addClass("hidden");
 
     invalidEls = $form.find('input, select, textarea').map(function() {
       var $this = $(this),
@@ -16,6 +20,8 @@ var Gatekeeper = {};
           isCheckbox,
           restoreRequired,
           hasValue;
+
+      $this.removeClass("gatekeeper-invalid");
 
       // Only validate visible elements
       if ($this.is(':visible')) {
@@ -38,7 +44,7 @@ var Gatekeeper = {};
 
         // Does it support the validity object?
         if (this.validity) {
-          // Add it to the array if it's invalide
+          // Add it to the array if it's invalid
           if (!this.validity.valid) {
             restoreRequired();
             return this;
@@ -61,15 +67,59 @@ var Gatekeeper = {};
             return this;
           }
         }
+
+        // Validate a user-supplied landmark-style url. Validation fails under two
+        // conditions:
+        // 1. If the supplied url matches any other url in the passed set of collections
+        // 2. If the supplied url contains a / character in it
+        if ($this.attr("name") === "url-title") {
+          var url = Util.prepareCustomUrl($this.val());
+
+          if (url.split("/").length > 1) {
+            $this.addClass("gatekeeper-invalid");
+            $form.find(".invalid-msg.forward-slash")
+              .removeClass("hidden");
+            return this; 
+          }
+
+          var isValid = true;
+          if ($this.val() !== "") {
+            _.each(self.collectionsSet, function(collectionSet) {
+              _.each(collectionSet, function(collection) {
+                var model = collection.findWhere({"url-title": url}),
+                    isValidLocal = true;
+                
+                // NOTE: in edit mode, we want to prevent validation of a model's
+                // url-title against itself.
+                if (context.model && model && model.cid !== context.model.cid) {
+                  isValidLocal = false;
+                } else if (!context.model && model) {
+                  isValidLocal = false;
+                }
+
+                if (!isValidLocal) {
+                  $this.addClass("gatekeeper-invalid");
+                  isValid = false;
+                  $form.find(".invalid-msg.duplicate-url")
+                    .removeClass("hidden");
+                }
+              });
+            });
+          }
+
+          if (!isValid) {
+            return this;
+          }
+        }
       }
     });
 
     return invalidEls;
-  };
+  },
 
-  NS.validate = function(form) {
+  validate: function(form) {
     // Get invalid elements from the form
-    var invalidEls = NS.getInvalidFormEls(form);
+    var invalidEls = this.getInvalidFormEls(form);
 
     // Indicate that this form has been submitted
     $(form).addClass('form-submitted');
@@ -82,13 +132,13 @@ var Gatekeeper = {};
       return false;
     }
     return true;
-  };
+  },
 
-  NS.onValidSubmit = function(success, error) {
+  onValidSubmit: function(success, error) {
     return function(evt) {
       evt.preventDefault();
 
-      if (NS.validate(evt.target)) {
+      if (self.validate(this)) {
         if (success) {
           success.apply(this, arguments);
         }
@@ -98,5 +148,5 @@ var Gatekeeper = {};
         }
       }
     };
-  };
-}(Gatekeeper));
+  }
+}

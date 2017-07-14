@@ -4,26 +4,6 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-label {
-  font-size: 1.15em;
-  margin-right: 0.5em;
-  padding-bottom: 0;
-}
-
-.category-btn + label > span {
-  width: 296px;
-  position: absolute;
-  top: 0px;
-  left: 38px;
-  padding-left: 15px;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-  border-right: 2px solid transparent;
-  border-radius: 0 4px 4px 0;
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
-
 .recent-points {
   background-color: white;
 }
@@ -64,14 +44,35 @@ label {
   display: none;
 }
 
+#right-sidebar-container {
+  overflow: auto;
+}
 
 
 /* =Media Queries
 -------------------------------------------------------------- */
 
+@media only screen and (min-width: 60em) {  
+  #map-container {
+    width: 85%;
+  }
+
+  .content-visible #map-container {
+    width: 45%;
+  }
+
+  #content {
+    left: 45% !important;
+  }
+}
+
 @media only screen and (max-width: 60em) {
     html, body, #map {
         height: 100%;
+    }
+
+    #content {
+      left: 0;
     }
 
     #main {
@@ -82,6 +83,7 @@ label {
     #map-container {
         // calculated as 100% of #main height minus the fixed pixel height of the footer
         height: calc(100% - 72px);
+        width: 100%;
     }
 
     .activity-enabled.content-visible #map-container {
@@ -100,6 +102,10 @@ label {
     .list-toggle-nav {
       display: none !important;
     }
+
+    #site-title-image {
+      content:url("images/pblogo_small.png");
+    }
 }
 
 
@@ -110,13 +116,6 @@ label {
 }
 
 @media only screen and (min-width: 1300px) {
-}
-
-/* smaller logo for smaller screens */
-@media only screen and (max-width: 60em) {
-  #site-title-image {
-    content:url("images/pblogo_small.png");
-  }
 }
 
 /* bottom-clinging sidebar override */
@@ -195,7 +194,18 @@ label {
     .master-layer-list {
       display: none;
     }
+}
 
+/* Right-clinging sidebar legend */
+.shareabouts-layer-li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.shareabouts-layer-li span {
+  margin-bottom: 6px;
+  line-height: 1.2em;
 }
 
 /* admin-only form fields */

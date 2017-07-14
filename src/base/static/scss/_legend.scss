@@ -17,7 +17,6 @@
 .layer-type-list {
     font-size: 1.4em;
     font-weight: normal;
-    letter-spacing: 1px;
 }
 
 .layer-type-grouping-list {
@@ -33,6 +32,7 @@
 .layer-type-list {
     li {
         position: relative;
+        clear: both;
     }
 
     img {
@@ -90,28 +90,106 @@
     }
 }
 
-
 .layer-type-list {
     font-size: 0.875em;
 }
 
-.layer-type-title label {
-    vertical-align: middle;
-    margin-right: 8px;
-    font-size: 1.33em;
-    letter-spacing: 1px;
-}
+.layer-type-title {
+    .info-icon {
+        float: right;
+        font-family: "FontAwesome";
 
-.layer-type-title input {
-    vertical-align: middle;
-    margin-right: 8px;
-    font-size: 1.33em;
-    letter-spacing: 1px;
-}
+        &:before {
+            content: $icon-info;
+        }
 
+        &:hover {
+            cursor: pointer;
+            color: #777;
+        }
+    }
+
+    .info-icon-placeholder {
+        float: right;
+        font-family: "FontAwesome";
+        visibility: hidden;
+
+        &:before {
+            content: $icon-info;
+        }
+    }
+
+    .status-icon {
+        float: right;
+        font-family: "FontAwesome";
+        margin-right: 10px;
+        visibility: hidden;
+    }
+
+    label {
+        display: block;
+        vertical-align: middle;
+        font-size: 1em;
+        max-width: 75%;
+        float: left;
+        margin-top: 2px;
+        margin-bottom: 2px;
+
+        &:hover {
+            background-color: lightyellow;
+        }
+    }
+
+    input {
+        vertical-align: middle;
+        margin-right: 8px;
+        font-size: 1em;
+
+        &:checked {
+
+            &+label {
+                background-color: yellow;
+            }
+
+            &~.status-icon {
+                visibility: visible;
+
+                &.loaded {
+                    &:before {
+                        color: #22c722;
+                        content: $icon-checkmark;
+                    }
+                }
+
+                &.error {
+                    &:before {
+                        color: #ff0000;
+                        content: $icon-exclamation;
+                        padding-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+}
 
 .layer-type-title:active label:hover, .shareabouts-layer-li:active a {
     color: $hover-highlight-blue;
+}
+
+.layer-type-grouping-title {
+    margin-top: 8px;
+    font-size: 15px;
+    font-weight: bold;
+
+    label {
+        font-size: 15px;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 .map-layer-list {
@@ -177,8 +255,7 @@
     margin-bottom: 0;
 
     .shareabouts-layer-li {
-        font-size: 16px;
-        letter-spacing: 1.4px;
+        font-size: 14px;
     }
     .unstyled-list {
         overflow: visible;

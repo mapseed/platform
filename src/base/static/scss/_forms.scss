@@ -75,6 +75,43 @@ select {
     background-color: $button-color-white;
 }
 
+/* Icon selection submenu for the geometry toolbar */
+.geometry-toolbar-icon-field {
+    margin-top: 15px;
+    outline: 0;
+    border-radius: 0;
+    padding: 0.5em;
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    input {
+        display: none;
+        + label > img:hover {
+            border: 2px solid #FFF;
+        }
+        &:checked + label > img {
+            border: 2px solid #FFF;
+            background-color: #FFF;
+        }
+    }
+
+    img {
+        border: 2px solid transparent;
+        border-radius: 4px;
+        padding: 7px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+
 // Old IE does not like this to be combine with :invalid rules.
 // * It will ignore it!
 
@@ -123,8 +160,44 @@ select {
     display: none;
 }
 
-.isAutocomplete {
+.is-autocomplete {
     background-color: #ffffe0;
+}
+
+.url-readout-container {
+    background-color: #888888;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .url-prefix {
+        color: #FFF;
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+
+    .url-readout {
+        color: #FFF;
+        margin-left: -4px;
+    }
+}
+
+/* messaging for admin-only dynamic form category buttons */
+.form-category-admin-msg {
+    font-size: 0.7em;
+    text-transform: lowercase;
+    padding-left: 10px;
+}
+
+.place-form-category-buttons {
+    hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
 }
 
 /* admin-only form fields */
@@ -136,4 +209,59 @@ select {
 
 .place-header-title {
     line-height: 1.2em;
+}
+
+.invalid-msg {
+    margin-top: 5px;
+    color: #b2182b;
+    font-size: 0.8em;
+}
+
+/* publish control */
+.publish-control-container {
+    text-align: center;
+    
+    label {
+        display: inline-block;
+        float: none;
+        &:before {
+            text-indent: 0 !important;
+        }
+    }
+
+    .helper-messages {
+        margin-top: 5px;
+    }
+}
+
+/* QuillJS rich text editor styles */
+.rich-text-field {
+    min-height: 200px;
+    margin-top: 0px !important;
+    border-bottom: 0.35em solid #a3c7d9 !important;
+    border-left: 0.35em solid #a3c7d9 !important;
+    border-right: 0.35em solid #a3c7d9 !important;
+}
+
+.ql-toolbar {
+    border-top: 0.30em solid #a3c7d9 !important;
+    border-left: 0.30em solid #a3c7d9 !important;
+    border-right: 0.30em solid #a3c7d9 !important;   
+}
+
+.ql-out-bottom {
+    visibility: visible !important;
+}
+
+/* Editor mode update form */
+#update-place-model-title-form .place-value-title {
+    border-width: 4px;
+    max-width: 60%;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#update-place-model-form textarea {
+    height: 300px;
 }

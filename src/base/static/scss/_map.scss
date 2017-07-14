@@ -11,8 +11,10 @@
 #map {
     background: $button-background-lightblue;
     height: 150px;
+}
 
-    //opacity: 0.5;
+.add-edit-cursor {
+    cursor: crosshair !important;
 }
 
 // Geolocation Button - Selectors
@@ -71,6 +73,10 @@
     background-color: #007fbf;
 }
 
+.content-visible #story-btn-container {
+    display: none;
+}
+
 // Center Point (new point icon) - Selectors
 
 #centerpoint {
@@ -82,7 +88,7 @@
         top: 50%;
         left: 50%;
         pointer-events: none;
-        z-index: 11;
+        z-index: 400;
         width: 100px;
         height: 100px;
         margin: (-44px) 0 0 -12px;
@@ -162,6 +168,7 @@
     height: 200px;
     border-radius: 50%;
     box-shadow: 0px 0px 0px 800px rgba(0,0,0,0.4), inset 0px 0px 20px 30px rgba(0,0,0,0.4);
+    z-index: 400;
 }
 
 // Drag Marker Instructions (for adding a new place) - Selectors
@@ -179,6 +186,20 @@
 }
 
 .drag-marker-warning {
+    background-color: LightYellow;
+    background-color: rgba(240, 240, 0, 0.2);
+    color: #444;
+    font-weight: bold;
+    text-shadow: (-1px) 1px 0 rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin-bottom: 1em;
+    padding: 0.75em 1em 0.875em;
+    border-radius: 0.325em;
+    background-color: LightPink;
+    background-color: rgba(242, 206, 206, 0.8);
+}
+
+.no-geometry-warning {
     background-color: LightYellow;
     background-color: rgba(240, 240, 0, 0.2);
     color: #444;
@@ -281,4 +302,144 @@
 
 .leaflet-control-attribution {
     display: none;
-} 
+}
+
+.leaflet-draw-tooltip {
+    display: none;
+}
+
+/* layer info popup windows */
+#layer-info-window-container {
+    opacity: 1.0;
+    position: absolute;
+    padding: 10px;
+    font-size: 0.8em;
+    max-height: 200px;
+    width: 200px;
+    background-color: #FFF;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+    border-radius: 3px;
+    z-index: 3000;
+
+    .layer-info-window-content {
+
+        .info-window-header {
+            background-color: #FFF;
+            width: 200px;
+
+            .info-window-close-btn {
+                float: right;
+                color: #ff5e99;
+
+                &:hover {
+                    cursor: pointer;
+                    color: #cd2c67;                
+                }
+            }
+
+            .info-window-title {
+                font-weight: 800;
+            }
+
+            hr {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+
+        .info-window-body-container {
+            max-height: 175px;
+            overflow: auto;
+        }
+    }
+
+    .caret-left {
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        overflow: hidden;
+        box-shadow: 0 16px 10px -17px rgba(0, 0, 0, 0.5);
+        left: -24px;
+        top: calc(50% - 12px);
+
+        &:after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #FFF;
+            transform: rotate(45deg);
+            top: 6px;
+            left: 18px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+        }
+    }
+
+    &.is-hidden-fadeout {
+        opacity: 0;
+        -webkit-transition: opacity 0.1s ease-in;
+        -moz-transition: opacity 0.1s ease-in;
+        -ms-transition: opacity 0.1s ease-in;
+        -o-transition: opacity 0.1s ease-in;
+        transition: opacity 0.1s ease-in;
+    }
+}
+
+/* Bottom-clinging filter menu bar */
+#filter-menu-bar {
+    position: absolute;
+    bottom: 10px;
+    z-index: 400;
+    padding-top: 10px;
+    padding-right: 10px;
+    background-color: #FFF;
+    opacity: 0.9;
+    margin-left: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    border-radius: 3px;
+
+    .filter-header {
+        font-family: Roboto, sans-serif;
+        text-transform: uppercase;
+        border-bottom: 1px solid #000;
+        margin-left: 10px;
+        margin-bottom: 7px;
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+
+    .filter-menu-item {
+        float: left;
+        cursor: pointer;
+        margin-left: 10px;
+        margin-bottom: 5px;
+
+        .filter-img {
+            position: relative;
+            padding-top: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border: 1px solid transparent;
+
+            img {
+                width: 25px;
+                opacity: 0.5;
+            }
+
+            &.selected, &:hover {
+                border: 1px solid #999;
+                border-radius: 4px;
+            }
+
+            &.selected {
+                background-color: #CCC;
+                border: 1px solid #CCC;
+
+                img {
+                    opacity: 1.0;
+                }
+            }
+        }
+    }
+}

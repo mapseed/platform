@@ -1,11 +1,14 @@
 module.exports = Backbone.Collection.extend({
-  resultsAttr: 'results',
+  resultsAttr: "results",
 
   parse: function(response, options) {
     if (options.attributesToAdd) {
       var self = this;
-      for (var i=0; i<response[this.resultsAttr].length; i++)
-        _.extend(response[this.resultsAttr][i][options.attribute], options.attributesToAdd);
+      for (var i = 0; i < response[this.resultsAttr].length; i++)
+        _.extend(
+          response[this.resultsAttr][i][options.attribute],
+          options.attributesToAdd,
+        );
     }
     this.metadata = response.metadata;
     return response[this.resultsAttr];
@@ -19,17 +22,21 @@ module.exports = Backbone.Collection.extend({
         remove: false,
         url: collection.metadata.next,
         success: success,
-        error: error
+        error: error,
       });
     }
   },
 
   fetchAllPages: function(options) {
     var self = this,
-        onFirstPageSuccess, onPageComplete,
-        onPageSuccess, onPageError,
-        onAllSuccess, onAnyError,
-        attemptedPages = 0, totalPages = 1;
+      onFirstPageSuccess,
+      onPageComplete,
+      onPageSuccess,
+      onPageError,
+      onAllSuccess,
+      onAnyError,
+      attemptedPages = 0,
+      totalPages = 1;
 
     options = options || {};
     options.data = options.data || {};
@@ -41,7 +48,8 @@ module.exports = Backbone.Collection.extend({
     onFirstPageSuccess = function(obj, data) {
       // Calculate the total number of pages based on the size of the rist
       // page, assuming all pages except the last will be the same size.
-      var pageSize = data[self.resultsAttr].length, i;
+      var pageSize = data[self.resultsAttr].length,
+        i;
       totalPages = Math.ceil(data.metadata.length / pageSize);
 
       if (options.success) {
@@ -51,13 +59,18 @@ module.exports = Backbone.Collection.extend({
       // Fetch all the rest of the pages in parallel.
       if (data.metadata.next) {
         for (i = 2; i <= totalPages; i++) {
-          self.fetch(_.defaults({
-            remove: false,
-            data: _.defaults({ page: i }, options.data),
-            complete: onPageComplete,
-            success: onPageSuccess,
-            error: onPageError
-          }, options));
+          self.fetch(
+            _.defaults(
+              {
+                remove: false,
+                data: _.defaults({ page: i }, options.data),
+                complete: onPageComplete,
+                success: onPageSuccess,
+                error: onPageError,
+              },
+              options,
+            ),
+          );
         }
       }
 
@@ -66,28 +79,45 @@ module.exports = Backbone.Collection.extend({
 
     onPageComplete = function() {
       attemptedPages++;
-      if (options.pageComplete) { options.pageComplete.apply(this, arguments); }
-      if (attemptedPages === totalPages && options.complete) { options.complete.apply(this, arguments); }
+      if (options.pageComplete) {
+        options.pageComplete.apply(this, arguments);
+      }
+      if (attemptedPages === totalPages && options.complete) {
+        options.complete.apply(this, arguments);
+      }
     };
 
     onPageSuccess = function() {
-      if (options.pageSuccess) { options.pageSuccess.apply(this, arguments); }
-      if (onAllSuccess) { onAllSuccess.apply(this, arguments); }
+      if (options.pageSuccess) {
+        options.pageSuccess.apply(this, arguments);
+      }
+      if (onAllSuccess) {
+        onAllSuccess.apply(this, arguments);
+      }
     };
 
     onPageError = function() {
-      if (options.pageError) { options.pageError.apply(this, arguments); }
-      if (onAnyError) { onAnyError.apply(this, arguments); }
+      if (options.pageError) {
+        options.pageError.apply(this, arguments);
+      }
+      if (onAnyError) {
+        onAnyError.apply(this, arguments);
+      }
     };
 
-    this.fetch(_.defaults({
-      // Note that success gets called before complete, which is imprtant
-      // because complete should know whether correct total number of pages.
-      // However, if the request for the first page fails, complete will
-      // assume one page.
-      success: onFirstPageSuccess,
-      error: onPageError,
-      complete: onPageComplete
-    }, options));
-  }
+    return this.fetch(
+      _.defaults(
+        {
+          // Note that success gets called before complete, which is imprtant
+          // because complete should know whether correct total number of pages.
+          // However, if the request for the first page fails, complete will
+          // assume one page.
+          success: onFirstPageSuccess,
+          error: onPageError,
+          complete: onPageComplete,
+        },
+        options,
+      ),
+    );
+  },
 });

@@ -9,6 +9,9 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # Fallback image to use for sharing on social services if no model image is present
+  thumbnail: /static/css/images/fb-thumbnail.png
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -105,6 +108,10 @@ map:
       type: place
       slug: trees
 
+    - id: duwamishfeatured
+      type: place
+      slug: featured
+
     - id: air
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
       type: place
@@ -181,19 +188,19 @@ map:
       url: "https://gisrevprxy.seattle.gov/ArcGIS/rest/services/ext/WM_CityGISLayers/MapServer/17"
       popupContent: '{{CLASS_DESC}}'
       rules:
-        - condition: '"{{properties.CLASS_DESC}}" === "Single Family"'
+        - condition: '{{properties.CLASS_DESC}} === "Single Family"'
           style:
             color: '#008000'
             stroke: false
-        - condition: '"{{properties.CLASS_DESC}}" === "Multi-Family"'
+        - condition: '{{properties.CLASS_DESC}} === "Multi-Family"'
           style:
             color: '#008080'
             stroke: false
-        - condition: '"{{properties.CLASS_DESC}}" === "Neighborhood/Commercial"'
+        - condition: '{{properties.CLASS_DESC}} === "Neighborhood/Commercial"'
           style:
             color: '#800080'
             stroke: false
-        - condition: '"{{properties.CLASS_DESC}}" === "Manufacturing/Industrial"'
+        - condition: '{{properties.CLASS_DESC}} === "Manufacturing/Industrial"'
           style:
             color: '#FFA500'
             stroke: false
@@ -208,241 +215,587 @@ map:
 place_types:
 
   georgetownZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [60, 60]
         iconAnchor: [30, 30]
-    - condition: '{{map.zoom}} < 15'
+    - condition: 'this.map.zoom < 15'
       icon:
         iconSize: [7.5, 7.5]
         iconAnchor: [4, 4]
-    - condition: '{{map.zoom}} < 17'
+    - condition: 'this.map.zoom < 17'
       icon:
         iconSize: [25, 25]
         iconAnchor: [12.5, 12.5]
-    - condition: '{{map.zoom}} >= 17'
+    - condition: 'this.map.zoom >= 17'
       icon:
         iconSize: [40, 40]
         iconAnchor: [20, 20]
 
   mapboxZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 16'
+    - condition: 'this.map.zoom < 15'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 16'
+    - condition: 'this.map.zoom >= 15'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   reportsZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 60]
         iconAnchor: [25, 30]
         shadowSize: [50, 60]
         shadowAnchor: [14, 60]
-    - condition: '{{map.zoom}} < 17'
+    - condition: 'this.map.zoom < 17'
       icon:
         iconSize: [15, 18]
         iconAnchor: [7.5, 9]
-    - condition: '{{map.zoom}} >= 17'
+    - condition: 'this.map.zoom >= 17'
       icon:
         iconSize: [30, 36]
         iconAnchor: [15, 36]
 
-  # treeZoomStyle:
-  #   - condition: '{{layer.focused}} === true'
-  #     icon:
-  #       iconSize: [50, 60]
-  #       iconAnchor: [25, 30]
-  #       shadowSize: [50, 60]
-  #       shadowAnchor: [14, 60]
-  #   - condition: '{{map.zoom}} < 17'
-  #     icon:
-  #       iconSize: [15, 18]
-  #       iconAnchor: [7.5, 18]
-  #   - condition: '{{map.zoom}} >= 17'
-  #     icon:
-  #       iconSize: [30, 36]
-  #       iconAnchor: [15, 36]
+  featured_place:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   wetland:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   park:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   school:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   police:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   rail:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   town-hall:
-    zoomType: georgetownZoomStyle
     rules:
-      - condition: '"{{style.marker-color}}" == "a3e46b"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "a3e46b"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_comp.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f1f075"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f1f075"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_prog.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
 
-      - condition: '"{{style.marker-color}}" == "f86767"'
+      - condition: 'this.layer.focused === true && this.style["marker-color"] == "f86767"'
         icon:
           iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+          iconSize: [60, 60]
+          iconAnchor: [30, 30]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-comp-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-prog-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom < 15 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-no-prog-or-dead-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "a3e46b"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_comp.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f1f075"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_prog.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
+
+      - condition: 'this.map.zoom <= 18 && this.style["marker-color"] == "f86767"'
+        icon:
+          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+          iconSize: [25, 25]
+          iconAnchor: [12.5, 12.5]
 
   mapbox:
     # Mapbox Points
     rules:
     # LineString
-      - condition: '"{{geometry.type}}" == "LineString"'
+      - condition: 'this.geometry.type == "LineString"'
         style:
-          color: "{{style.color}}"
-          opacity: "{{style.opacity}}"
-          weight: "{{style.weight}}"
+          color: "this.style.color"
+          opacity: "this.style.opacity"
+          weight: "this.style.weight"
     # Polygons
-      - condition: '"{{geometry.type}}" == "Polygon"'
+      - condition: 'this.geometry.type == "Polygon"'
         style:
           shapeType: polygon
-          fillColor: "{{style.fillColor}}"
+          fillColor: "this.style.fillColor"
           fill: 'true'
-          color: "{{style.color}}"
+          color: "this.style.color"
           opacity: 0.7
-          fillOpacity: '{{style.fillOpacity}}'
-          weight: "{{style.weight}}"
+          fillOpacity: "this.style.fillOpacity"
+          weight: "this.style.weight"
 
   danger:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   park2:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-heart.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-heart-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-heart.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   industrial:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-industrial.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-industrial.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   bicycle:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-bike.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bike-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-bike.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   swimming:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-swimming.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-swimming-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-swimming.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   theatre:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-art.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-art.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   zoo:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-whale.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-whale-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-whale.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   tree:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-tree.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-tree-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-tree.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   star-stroked:
-    zoomType: mapboxZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-dirtcorps.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dirtcorps-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-dirtcorps.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   star:
     zoomType: mapboxZoomStyle
@@ -451,50 +804,94 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-star.png
 
-  # # needs a marker
-  # farm:
-  #   zoomType: mapboxZoomStyle
-  #   rules:
-  #     - condition: 'true'
-  #       icon:
-  #         iconUrl: /static/css/images/markers/dot-0d85e9.png
-
   observation:
     label: _(Observation)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   question:
     label: _(Question)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-question-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-question.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   idea:
     label: _(Idea)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   complaint:
     label: _(Complaint)
-    zoomType: reportsZoomStyle
     rules:
-      - condition: 'true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 30]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   # greenwall:
   #   label: _(Green Screen Vote)
   #   rules:
-  #     - condition: '{{layer.focused}} === true'
+  #     - condition: 'this.layer.focused === true'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         shadowUrl: /static/css/images/marker-shadow.png
@@ -503,19 +900,19 @@ place_types:
   #         shadowSize: [50, 60]
   #         shadowAnchor: [14, 60]
 
-  #     - condition: '{{map.zoom}} < 15'
+  #     - condition: 'this.map.zoom < 15'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [10, 12]
   #         iconAnchor: [5, 12]
 
-  #     - condition: '{{map.zoom}} < 18'
+  #     - condition: 'this.map.zoom < 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [18, 21.75]
   #         iconAnchor: [9, 21.75]
 
-  #     - condition: '{{map.zoom}} >= 18'
+  #     - condition: 'this.map.zoom >= 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [38, 46]
@@ -525,7 +922,7 @@ place_types:
   air_watch:
     label: _(Air Watch)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -534,19 +931,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17'
+      - condition: 'this.map.zoom < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17'
+      - condition: 'this.map.zoom >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
@@ -590,6 +987,10 @@ sidebar:
           layers:
             - id: duwamish
               title: _(Duwamish Cleanup Reports)
+              visibleDefault: false
+
+            - id: duwamishfeatured
+              title: _(Featured Sites)
               visibleDefault: true
 
             - id: restoration
@@ -604,21 +1005,13 @@ sidebar:
               title: _(Dirt Corps sites)
               visibleDefault: true
 
-            - id: dvyc
-              title: _(Youth Corps)
-              visibleDefault: true
-
             - id: story-markers
               title: _(Stories)
               visibleDefault: false
 
             - id: trees
               title: _(Trees!)
-              visibleDefault: false
-
-            - id: air
-              title: _(Air Watch Reports)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: vision
               title: _(Community Vision)
@@ -695,13 +1088,12 @@ activity:
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
-  # To show the activity stream in the right panel, set this flag to true.
-  # To also remove it from the leaflet controls, comment out the "id: ticker"
-  # entry in the leaflet control config above.
-  show_in_right_panel: false
 
-  # Place Types
+right_sidebar:
+  show: true
+  visibleDefault: true
 
+# Place Types
 place:
   adding_supported: true
   add_button_label: _(Add Report)
@@ -717,11 +1109,14 @@ place:
 
   location_item_name: location
 
-
   #### begin dynamic form config ####
   place_detail:
     - category: mapbox
       includeOnForm: false
+      # NOTE: use this flag to prevent attachments from appearing in their usual
+      # place above place detail values. Useful if attachments have been added as
+      # Quill embeds.
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -742,6 +1137,7 @@ place:
           optional: false
     - category: wetland
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-land_comp.png
@@ -762,6 +1158,7 @@ place:
           optional: false
     - category: park
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-parks_comp.png
@@ -782,6 +1179,7 @@ place:
           optional: false
     - category: school
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-qual_comp.png
@@ -802,6 +1200,7 @@ place:
           optional: false
     - category: police
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-safe_comp.png
@@ -822,6 +1221,7 @@ place:
           optional: false
     - category: rail
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-transp_comp.png
@@ -842,6 +1242,7 @@ place:
           optional: false
     - category: town-hall
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-hist_comp.png
@@ -862,6 +1263,7 @@ place:
           optional: false
     - category: danger
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-construction.png
@@ -882,6 +1284,7 @@ place:
           optional: false
     - category: park2
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-heart.png
@@ -902,6 +1305,7 @@ place:
           optional: false
     - category: industrial
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-industrial.png
@@ -922,6 +1326,7 @@ place:
           optional: false
     - category: bicycle
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-bike.png
@@ -942,6 +1347,7 @@ place:
           optional: false
     - category: swimming
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-swimming.png
@@ -962,6 +1368,7 @@ place:
           optional: false
     - category: theatre
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-art.png
@@ -982,6 +1389,7 @@ place:
           optional: false
     - category: zoo
       includeOnForm: false
+      suppressAttachments: true
       name: location_type
       dataset: restoration
       icon_url: /static/css/images/markers/marker-whale.png
@@ -1000,6 +1408,53 @@ place:
           display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: duwamishfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Place)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
     - category: observation
       includeOnForm: true
       name: location_type
@@ -1010,12 +1465,14 @@ place:
       fields:
         - name: title
           type: text
+          autocomplete: true
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
         - name: pollution_type
           type: checkbox_big_buttons
+          autocomplete: true
           prompt: _(Types of pollution seen:)
           display_prompt: _(I saw the following types of pollution here:)
           content:
@@ -1030,12 +1487,47 @@ place:
             - label: _(Other)
               value: other
           optional: true # NOTE: checkbox_big_button inputs have no validation
+        - name: reside_work_georgetown
+          type: binary_toggle
+          autocomplete: true
+          prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
+          display_prompt: _(I reside or work in Georgetown or South Park:)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: true # NOTE: binary_toggle inputs have no validation
         - name: description
           type: textarea
+          autocomplete: true
           prompt: _(Description of this pollution:)
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: question
       includeOnForm: true
       name: location_type
@@ -1051,10 +1543,33 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
-          prompt: "_(What's your question?)"
+          type: richTextarea
+          prompt: _(Description:)
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: idea
       includeOnForm: true
       name: location_type
@@ -1075,6 +1590,29 @@ place:
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -1095,6 +1633,29 @@ place:
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: air_watch  #defines a top-level form category
       includeOnForm: true
       name: location_type  #needs to be "location_type"
@@ -1237,6 +1798,29 @@ place:
           prompt: _(Provide any additional comments)
           display_prompt: _(Additional comments:)
           optional: true
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
     - category: tree
       includeOnForm: false
       name: location_type
@@ -1257,32 +1841,32 @@ place:
           display_prompt: _(Description of this tree:)
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: text
+          prompt: _(Your name)
+          placeholder: _(Name)
+          optional: true
+        - name: private-submitter_email
+          type: text
+          prompt: _(Your Email)
+          optional: true
+          sticky: true
+          attrs:
+            - key: placeholder
+              value: _(Receive email updates on your report)
+            - key: size
+              value: 30
+        - name: my_image
+          type: file
+          prompt: _(Image)
+          inputfile_label: _(Add an Image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
-      type: text
-      prompt: _(Your name)
-      placeholder: _(Name)
-      optional: true
-    - name: private-submitter_email
-      type: text
-      prompt: _(Your Email)
-      optional: true
-      sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
-    - name: my_image
-      type: file
-      prompt: _(Image)
-      inputfile_label: _(Add an Image)
-      optional: true
-      attrs:
-        - key: accept
-          value: image/*
     - type: submit
       label: _(Put it on the map!)
 
@@ -1391,7 +1975,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: false
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -1405,7 +1989,7 @@ pages:
   - title: _(Stories)
     slug: stories
     name: stories
-    start_page: false
+    start_page: true
     hide_from_top_bar: true
 
   - title: _(Green Screen)
@@ -1433,6 +2017,9 @@ pages:
 story:
   community-priorities:
     tagline: _(Next featured site)
+    header: _(Explore community restoration projects along the Duwamish)
+    description: _(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)
+    image_url: /static/css/images/community-priorities.png
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different
     # zoom level and/or visible layers, it will use those wholesale
@@ -1440,8 +2027,15 @@ story:
     default_zoom: 17
     default_visible_layers:
       - restoration
+      - duwamishfeatured
     order:
       - url: marra
+      - url: flume
+        sidebar_icon_url: /static/css/images/markers/marker-transp_comp.png
+      - url: southparklibrarygreenwall
+        sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
+      - url: georgetowngreenwall      
+        sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
       - url: skatepark
       - url: concord
       - url: cesar-chavez
@@ -1450,13 +2044,13 @@ story:
       - url: rowing
       - url: south-park-neighborhood-center
       - url: south-park-community-center
+    start_at: marra
 
   pollution:
     tagline: _(Next featured site)
-    # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different
-    # zoom level and/or visible layers, it will use those wholesale
-    # (that is, no default settings will be inherited).
+    header: _(Take a tour of polluted sites along the Duwamish)
+    description: _(The Duwamish River is one of the most polluted waterways in the country. Explore the sites in this map story to learn about the environmental challenges facing the Duwamish.)
+    image_url: /static/css/images/pollution.jpg
     default_zoom: 13
     default_visible_layers:
       - restoration
@@ -1477,13 +2071,16 @@ story:
       - url: lafarge
         zoom: 17
         basemap: transportation
+      - url: burlington-environmental-llc
+        zoom: 17
+        basemap: transportation
+    start_at: cso
 
   history:
     tagline: _(Next featured site)
-    # every story item will default to the zoom level and visible
-    # layers defined below. If a story element defines a different
-    # zoom level and/or visible layers, it will use those wholesale
-    # (that is, no default settings will be inherited).
+    header: _(Duwamish history)
+    description: _(Explore the history of the Duwamish River Valley)
+    image_url: /static/css/images/history.jpg
     default_zoom: 13
     default_visible_layers:
       - duwamish-original
@@ -1495,35 +2092,37 @@ story:
         spotlight: false
         zoom: 14
         basemap: satellite
+    start_at: history
 
   dirtcorps:
     tagline: _(Next featured site)
+    header: _(DIRT Corps)
+    image_url: /static/css/images/dirt-corps.jpg
     default_zoom: 17
     default_visible_layers:
-      - dirt-corps
       - restoration
+      - dirt-corps
     order:
       - url: dirtcorps
-        zoom: 15
-        panTo:
-          lat: 47.53420
-          lng: -122.32165
         spotlight: false
-        visible_layers:
-          - dirt-corps
-        basemap: terrain
-      - url: carleton-grocery-gsi
-      - url: s-orcas-greenstreet
-      - url: southern-greenstreet
       - url: rose-greenstreet
       - url: markey
       - url: elmgrove-rain-garden
+      - url: southern-greenstreet
       - url: dirt-corps-classroom
       - url: point-rediscovery
       - url: green-screen
       - url: rain-wise-home
       - url: rainwise-home-rose-st
+      - url: carleton-grocery-gsi
 
 notifications:
   on_new_place: true
   submitter_email_field: private-submitter_email
+
+# cluster:
+#   threshold: 20
+#   size_large: 45
+#   class_large: cluster-large
+#   size_small: 35
+#   class_small: cluster-small

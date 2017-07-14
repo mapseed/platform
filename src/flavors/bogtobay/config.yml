@@ -44,13 +44,17 @@ map:
     minZoom: 1
     maxZoom: 18
   layers:
-    # SmarterCleanup Mapbox base layer:
+
+# map layer loading
+
     - id: osm
+      type: basemap
       url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
     - id: satellite
+      type: basemap
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
@@ -59,6 +63,15 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cizhuxpgi00042so2kw8c1lfl/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
+
+    - id: topo-raw
+      url: //{s}.tile.stamen.com/terrain-background/{z}/{x}/{y}.png
+      attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: basemap
+
+    - id: topo
+      type: basemap
+      url: //{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png
 
     - id: outdoor
       url: //api.mapbox.com/styles/v1/smartercleanup/cir0yq1nl001lbsnh22c6747c/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
@@ -82,11 +95,11 @@ map:
       slug: report
 
       # Land Use
-    - id: stories
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
-      type: landmark
+    # - id: stories
+    #   url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+    #   sources:
+    #     - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
+    #   type: landmark
 
        # WRIA9 watershed
     - id: watershed
@@ -134,21 +147,21 @@ map:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Overflowed in the last 48 hrs"'
           icon:
-            iconUrl: /static/css/images/markers/dot-dbcf2c.png
+            iconUrl: /static/css/images/markers/dot-f95016.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Overflowing now"'
           icon:
-            iconUrl: /static/css/images/markers/dot-f95016.png
+            iconUrl: /static/css/images/markers/dot-e1264d.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
             opacity: 0.9
         - condition: '"{{properties.description}}" === "Data not available"'
           icon:
-            iconUrl: /static/css/images/markers/dot-5359d7.png
+            iconUrl: /static/css/images/markers/dot-0d85e9.png
             iconSize: [20, 20]
             iconAnchor: [10, 10]
           style:
@@ -186,45 +199,45 @@ map:
 place_types:
 
   mapboxZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 16'
+    - condition: 'this.map.zoom < 16'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 16'
+    - condition: 'this.map.zoom >= 16'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   roundZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: '{{map.zoom}} < 11'
+    - condition: 'this.map.zoom < 11'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: '{{map.zoom}} >= 11'
+    - condition: 'this.map.zoom >= 11'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   teardropZoomStyle:
-    - condition: '{{layer.focused}} === true'
+    - condition: 'this.layer.focused === true'
       icon:
         iconSize: [50, 60]
         iconAnchor: [25, 25]
         shadowSize: [50, 60]
         shadowAnchor: [14, 60]
-    - condition: '{{map.zoom}} < 11'
+    - condition: 'this.map.zoom < 11'
       icon:
         iconSize: [20, 24]
         iconAnchor: [10, 24]
-    - condition: '{{map.zoom}} >= 11'
+    - condition: 'this.map.zoom >= 11'
       icon:
         iconSize: [38, 46]
         iconAnchor: [19, 46]
@@ -233,21 +246,21 @@ place_types:
     # Mapbox Points
     rules:
     # LineString
-      - condition: '"{{geometry.type}}" == "LineString"'
+      - condition: "this.geometry.type == 'LineString'"
         style:
-          color: "{{properties.stroke}}"
-          opacity: '{{properties.stroke-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          color: "this.properties.stroke"
+          opacity: "this.properties['stroke-opacity']"
+          weight: "this.properties['stroke-width']"
     # Polygons
-      - condition: '"{{geometry.type}}" == "Polygon"'
+      - condition: "this.geometry.type == 'Polygon'"
         style:
           shapeType: polygon
-          fillColor: "{{properties.fill}}"
+          fillColor: "this.properties.fill"
           fill: 'true'
-          color: "{{properties.stroke}}"
+          color: "this.properties.stroke"
           opacity: 0.7
-          fillOpacity: '{{properties.fill-opacity}}'
-          weight: "{{properties.stroke-width}}"
+          fillOpacity: "this.properties['fill-opacity']"
+          weight: "this.properties['stroke-width']"
 
   danger:
     zoomType: mapboxZoomStyle
@@ -352,7 +365,7 @@ place_types:
   observation:
     label: _(Observation)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -361,19 +374,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
           iconSize: [38, 46]
@@ -382,7 +395,7 @@ place_types:
   question:
     label: _(Question)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -391,19 +404,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-dbcf2c.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [38, 46]
@@ -412,7 +425,7 @@ place_types:
   idea:
     label: _(Idea)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -421,19 +434,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-f95016.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-idea.png
           iconSize: [38, 46]
@@ -442,7 +455,7 @@ place_types:
   complaint:
     label: _(Complaint)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -451,19 +464,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 16'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
-      - condition: '{{map.zoom}} >= 16'
+      - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
@@ -472,7 +485,7 @@ place_types:
   # greenwall:
   #   label: _(Green Screen Vote)
   #   rules:
-  #     - condition: '{{layer.focused}} === true'
+  #     - condition: 'this.layer.focused === true'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         shadowUrl: /static/css/images/marker-shadow.png
@@ -481,19 +494,19 @@ place_types:
   #         shadowSize: [50, 60]
   #         shadowAnchor: [14, 60]
 
-  #     - condition: '{{map.zoom}} < 15'
+  #     - condition: 'this.map.zoom < 15'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [10, 12]
   #         iconAnchor: [5, 12]
 
-  #     - condition: '{{map.zoom}} < 18'
+  #     - condition: 'this.map.zoom < 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [18, 21.75]
   #         iconAnchor: [9, 21.75]
 
-  #     - condition: '{{map.zoom}} >= 18'
+  #     - condition: 'this.map.zoom >= 18'
   #       icon:
   #         iconUrl: /static/css/images/markers/marker-greenwall.png
   #         iconSize: [38, 46]
@@ -503,7 +516,7 @@ place_types:
   air_watch:
     label: _(Air Watch)
     rules:
-      - condition: '{{layer.focused}} === true'
+      - condition: 'this.layer.focused === true'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -512,19 +525,19 @@ place_types:
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: '{{map.zoom}} < 11'
+      - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
-      - condition: '{{map.zoom}} < 17'
+      - condition: 'this.map.zoom < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [18, 21.75]
           iconAnchor: [9, 21.75]
 
-      - condition: '{{map.zoom}} >= 17'
+      - condition: 'this.map.zoom >= 17'
         icon:
           iconUrl: /static/css/images/markers/marker-greenwall.png
           iconSize: [38, 46]
@@ -551,9 +564,15 @@ sidebar:
           visibleDefault: false
         - id: satellite
           title: _(Satellite View)
-          visibleDefault: true
+          visibleDefault: false
         - id: light
           title: _(Light)
+          visibleDefault: false
+        - id: topo
+          title: _(Outdoor)
+          visibleDefault: true
+        - id: topo-raw
+          title: _(Outdoor)
           visibleDefault: false
         - id: outdoor
           title: _(Outdoor)
@@ -567,9 +586,9 @@ sidebar:
               title: _(Community Reports)
               visibleDefault: true
 
-            - id: stories
-              title: _(Featured Sites)
-              visibleDefault: true
+            # - id: stories
+            #   title: _(Featured Sites)
+            #   visibleDefault: true
 
             - id: cleanup
               title: _(River Cleanup Plan)
@@ -1002,13 +1021,9 @@ place:
     - name: private-submitter_email
       type: text
       prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-      attrs:
-        - key: placeholder
-          value: _(Receive email updates on your report)
-        - key: size
-          value: 30
     - name: my_image
       type: file
       prompt: _(Image)

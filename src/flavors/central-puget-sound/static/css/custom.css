@@ -1,0 +1,305 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+@font-face {
+  font-family: 'Permanent Marker';
+  src: url('PermanentMarker.ttf');
+}
+
+#site-title a:link,
+#site-title a:visited {
+  color: #127de4 !important;
+  font-weight: normal;
+  font-family: 'Permanent Marker', cursive !important;
+  display: block;
+  float: left;
+  margin-right: 50px;
+}
+
+#filter-menu-bar .filter-img:before {
+  font-family: "Permanent Marker", cursive !important;
+}
+
+
+/* =Header
+-------------------------------------------------------------- */
+@media only screen and (min-width: 60em) {
+  #site-header {
+    /*background: url(images/longfellow_creek1.jpg);*/
+    background: none;
+    background-color: #FFF;
+  }
+
+  /* reorient add a report button to bottom left when content panel is open */
+  .place-form-visible #main-btns-container {
+    display: none !important;
+  }
+
+  .content-expanded-mid #main-btns-container {
+    display: none !important;
+  }
+}
+
+/* =Header bar add report button
+-------------------------------------------------------------- */
+#pages-nav-container {
+  width: calc(100% - 425px);
+}
+
+#pages-nav-right-container {
+  height: 100%;
+  float: right;
+}
+
+.add-place-nav {
+  float: left;
+  font-size: 0.875em;
+}
+
+#add-place:hover {
+  background-color: rgba(208, 71, 22, 0.89);
+}
+
+.list-toggle-nav {
+  padding: 0.2em 0.75em;
+}
+
+/* =Language picker
+-------------------------------------------------------------- */
+#language-picker {
+  display: none;
+}
+
+/* =Custom pledge type icons
+-------------------------------------------------------------- */
+.big-btn + label:before {
+  font-family: FontAwesome;
+  text-indent: 0.8em;
+  content: "✔";
+}
+
+/* =Dynamic form big button overrides
+-------------------------------------------------------------- */
+.big-btn + label {
+  color: #555;
+}
+
+.big-btn:checked + label:before {
+  font-weight: normal !important;
+  color: #FFF !important;
+}
+
+.form-field label {
+  font-size: 1em;
+}
+
+.fileinput-container {
+  width: 150px !important;
+  font-size: 0.9em;
+}
+
+
+/* =Map
+-------------------------------------------------------------- */
+#map {
+  background: #777;
+}
+
+/* Custom cluster icons */
+.cluster-subgroup-container {
+    position: absolute;
+}
+
+.cluster-subgroup-container.faded {
+    opacity: 0.3;
+}
+
+.custom-cluster-icon {
+    width: 30px !important;
+}
+
+.cluster-child-counter {
+    z-index: 400;
+    position: absolute;
+    line-height: 2.3em;
+    text-shadow: #000 0px 0px 1px;
+    text-align: center;
+    color: #FFF;
+    font-size: 1.4em;
+    font-weight: bold;
+    top: -10px;
+    left: -10px;
+    width: 40px;
+    height: 40px;
+    -moz-border-radius:    11px;
+    -webkit-border-radius: 11px;
+    border-radius:         11px;
+    -webkit-box-shadow: -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
+    -moz-box-shadow:    -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
+    box-shadow:         -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
+    background-color: #c7a935 !important;
+}
+
+.cluster-child-counter.cluster-group {
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 5px rgba(240, 204, 64, 0.7);
+}
+
+.cluster-child-counter.cluster-group.top-right {
+    top: -10px;
+    left: 18px;
+}
+
+/* =Grid-based layout on about page
+Adapted from http://littlesnippets.net/snip1579/
+-------------------------------------------------------------- */
+.snip1579 {
+  font-family: Roboto, sans-serif;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+  width: 45%;
+  background-color: #000000;
+  color: #ffffff;
+  text-align: left;
+  font-size: 14px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+.snip1579 * {
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.snip1579 img {
+  vertical-align: top;
+  min-width: 100%;
+}
+.snip1579 figcaption {
+  position: absolute;
+  height: 44px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  overflow: hidden;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.snip1579 h3 {
+  text-transform: uppercase;
+  font-size: 1em;
+  line-height: 1em;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+.snip1579 h5 {
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+  color: #bbb;
+  letter-spacing: 1px;
+}
+.snip1579 blockquote {
+  padding: 0;
+  margin: 0;
+  font-style: italic;
+  font-size: 1em;
+}
+.snip1579 a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.snip1579:hover figcaption,
+.snip1579.hover figcaption {
+  height: calc(80%);
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+/* iphone 4 (320 x 480)*/
+
+@media only screen and (min-width: 60em) {
+}
+
+@media only screen and (max-width: 60em) {
+  #site-header {
+    background: none;
+    background-color: #FFF;
+  }
+
+  #site-title a:link,
+  #site-title a:visited {
+    background-size: 180px auto;
+    width: 200px;
+  }
+  #place-form-type-choice {
+    padding-bottom: 1em;
+  }
+  #place-form-type-choice a.button {
+      display: block;
+      float: left;
+      width: 40%;
+      padding: .5em .5em;
+      margin: 0;
+      border: 2px solid white;
+  }
+
+  .snip1579 {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 70%;
+    margin-bottom: 8px;
+  }
+}
+
+@media only screen and (max-width: 60em) {
+  #site-title a:link,
+  #site-title a:visited {
+    background-size: 180px auto;
+    margin-top: 5px;
+  }
+
+  #pages-nav-container {
+    width: 100%;
+  }
+
+  #pages-nav-right-container {
+    width: 100%;
+  }
+
+  .menu-item {
+    padding-bottom: 0 !important;
+  }
+
+  .add-place-nav {
+    display: none;
+  }
+
+  #main-btns-container {
+    display: table;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #place-form-type-choice a.button {
+    width: 40%;
+    font-size: 100%;
+    padding: 1em 1em;
+    margin: 0 2% 2% 0;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}

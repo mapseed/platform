@@ -1,0 +1,25 @@
+<!-- A template for displaying a menu of location_type filter options -->
+
+<div id="filter-menu-select-reset"
+		 data-locationtype="reset" 
+		 class="filter-menu-item">
+	<img src="/static/css/images/markers/reset-filter-icon.png" />
+	<span class="filter-menu-item-label">{{#_}}Reset filters{{/_}}</span>
+</div>
+
+<hr />
+
+{{#each activeFilters}}
+	<label data-locationtype="{{this.locationType}}" 
+				 class="filter-menu-item" 
+				 for="filter-menu-select-{{this.locationType}}">
+		<img src={{this.iconUrl}} />
+		<input id="filter-menu-select-{{this.locationType}}" 
+					 type="checkbox" 
+					 name="filter-menu-select-{{this.locationType}}">
+		<span class="filter-menu-item-label">
+			{{this.label}}
+		</span>
+		<span class="filter-menu-check-icon"></span>
+	</label>
+{{/each}}
