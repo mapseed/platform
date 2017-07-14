@@ -70,12 +70,10 @@ map:
       transparent: false
       format: image/png
 
-    - id: water-boundary
-      url: https://services.nationalmap.gov/arcgis/services/wbd/MapServer/WMSServer?
-      layers: '1'
-      version: 1.3.0
-      transparent: false
-      format: image/png
+    - id: sub-basins
+      url: //api.mapbox.com/styles/v1/heyduwamishcore/cj539xhft04y82sqzh7hsehkg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      attribution: 'Hello World'
+      type: basemap
 
     # - id: hydroregions
     #   type: wmts
@@ -582,10 +580,6 @@ sidebar:
 
             - id: watershed-sammamish
               title: _(Lake Sammamish Watershed)
-              visibleDefault: false
-
-            - id: water-boundary
-              title: _(Water boudary test)
               visibleDefault: false
 
             - id: sub-basins
