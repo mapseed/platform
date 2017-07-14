@@ -9,6 +9,11 @@
   src: url('PermanentMarker.ttf');
 }
 
+@font-face {
+  font-family: 'WorkSans-ExtraBold';
+  src: url('WorkSans-ExtraBold.ttf');
+}
+
 #site-title a:link,
 #site-title a:visited {
   color: #127de4 !important;
@@ -21,6 +26,19 @@
 
 #filter-menu-bar .filter-img:before {
   font-family: "Permanent Marker", cursive !important;
+}
+
+.place-story-bar h1 {
+  font-family: "WorkSans-ExtraBold", sans-serif !important;
+}
+
+#content h1,h2,h3,h4 {
+  font-family: "WorkSans-ExtraBold", sans-serif !important;
+  line-height: 1em;
+}
+
+.story-tagline {
+  font-family: "ArchivoBlack", sans-serif !important;
 }
 
 
