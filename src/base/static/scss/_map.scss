@@ -310,6 +310,7 @@
 
 /* layer info popup windows */
 #layer-info-window-container {
+    opacity: 1.0;
     position: absolute;
     padding: 10px;
     font-size: 0.8em;
@@ -372,6 +373,15 @@
             left: 18px;
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
         }
+    }
+
+    &.is-hidden-fadeout {
+        opacity: 0;
+        -webkit-transition: opacity 0.1s ease-in;
+        -moz-transition: opacity 0.1s ease-in;
+        -ms-transition: opacity 0.1s ease-in;
+        -o-transition: opacity 0.1s ease-in;
+        transition: opacity 0.1s ease-in;
     }
 }
 

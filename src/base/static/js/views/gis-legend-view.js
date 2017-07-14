@@ -1,6 +1,7 @@
 var LayerInfoWindowView = require("./layer-info-window-view.js");
-const INFO_WINDOW_LEFT_OFFSET_ADJUST = 30;
+const INFO_WINDOW_LEFT_OFFSET_ADJUST = 36;
 const INFO_WINDOW_TOP_OFFSET_ADJUST = -67;
+const INFO_WINDOW_SCROLL_HIDE_THRESHOLD = 25;
 
 module.exports = Backbone.View.extend({
   events: {
@@ -14,6 +15,12 @@ module.exports = Backbone.View.extend({
     this.options.mapView.map.on("layer:loading", this.onLayerLoading.bind(this));
     this.options.mapView.map.on("layer:loaded", this.onLayerLoaded.bind(this));
     this.options.mapView.map.on("layer:error", this.onLayerError.bind(this));
+
+    this.hasScrolled = false;
+    this.initialScrollPoint;
+    this.options.sidebarView.$("#gis-layers-pane")
+      .off("scroll")
+      .on("scroll", this.onLayersPaneScroll.bind(this));
   },
 
   onLayerLoading: function(data) {
@@ -42,6 +49,15 @@ module.exports = Backbone.View.extend({
       .$("#map-" + data.id + "~.status-icon")
       .empty()
       .addClass("error");
+  },
+
+  onLayersPaneScroll: function(evt) {
+    if (!this.hasScrolled) {
+      this.hasScrolled = true;
+      this.initialScrollPoint = evt.currentTarget.scrollTop;
+    } else if (Math.abs(this.initialScrollPoint - evt.currentTarget.scrollTop) > INFO_WINDOW_SCROLL_HIDE_THRESHOLD) {
+      this.layerInfoWindowView && this.layerInfoWindowView.hide();
+    }
   },
 
   render: function() {
@@ -130,6 +146,7 @@ module.exports = Backbone.View.extend({
 
   onClickInfoIcon: function(evt) {
     let $currentTarget = $(evt.currentTarget);
+    this.hasScrolled = false;
 
     if (!this.layerInfoWindowView) {
       this.layerInfoWindowView = new LayerInfoWindowView({
