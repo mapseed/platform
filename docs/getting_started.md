@@ -1,7 +1,12 @@
-# From 0 to Shareabouts in about an hour
-
-
-## What's here
+---
+layout: page
+title: From 0 to Shareabouts in about an hour
+# icon: fa-paper-plane
+last_updated: December 1st, 2015
+permalink: /getting-started/
+---
+{% capture main %}
+# What's here
 
 This package contains the Shareabouts web map application,
 which consists of JavaScript, some configuration files that you use to
@@ -12,9 +17,9 @@ The Shareabouts API is *not* part of this package. The easiesy way to get up and
 to use the beta hosted API, managed by OpenPlans.
 Go to [api.shareabouts.org](http://api.shareabouts.org) and request access.
 
-Here's a short, optional [primer on the architecture of Shareabouts](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md#shareabouts-architecture).
+Here's a short, optional [primer on the architecture of Shareabouts](/architecture/)).
 
-## Local Setup
+# Local Setup
 
 Running a local version of Shareabouts is much easier on a Mac or Linux computer.
 If you are using Windows, consider setting up a virtual machine (e.g. [VirtualBox](https://www.virtualbox.org/)) running a Linux distribution
@@ -22,11 +27,11 @@ If you are using Windows, consider setting up a virtual machine (e.g. [VirtualBo
 
 Shareabouts requires python2.6 or greater.
 
-### Install `git`
+## Install `git`
 
 Install `git`, if not already installed, from [http://git-scm.com/downloads](http;//git-scm.com/downloads).
 
-### Install `pip` and `virtualenv`
+## Install `pip` and `virtualenv`
 
 Install `pip` and `virtualenv`, if not already installed.  These will keep your
 python code isolated from the rest of your machine and ensure you have
@@ -40,7 +45,7 @@ You may need to use `sudo` to install these tools.
     sudo easy_install pip
     sudo pip install virtualenv
 
-### Install Shareabouts locally
+## Install Shareabouts locally
 
 Use git to download the latest code from Github to your computer:
 
@@ -57,7 +62,7 @@ app, replace *requirements.txt* below with *app-requirements.txt*)**, run
 
     pip install -r requirements.txt
 
-### Troubleshooting your local install
+## Troubleshooting your local install
 
 If you run into trouble with gevent, you can safely comment it out of
 the requirements.txt file.  It is not needed for local development.  To comment
@@ -72,9 +77,9 @@ Mac OS X users need a command line C/C++ compiler in place for the above steps t
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
 via Xcode's Preferences > Downloads area.
 
-## Starting and stopping your local map instance
+# Starting and stopping your local map instance
 
-If you've completed the steps above, you should be ready to run your map locally. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error.
+If you've completed the steps above, you should be ready to run your map locally. But until [you configure your `local_settings.py`](/config/#step-2-set-up-your-local-settings), you'll see an error.
 
 To run the development server:
 
@@ -93,7 +98,7 @@ To close out your virtual environment, run
 
     deactivate
 
-## Running the Shareabouts API Service
+# Running the Shareabouts API Service
 
 For local development, your best bet is to use OpenPlans' hosted API, data.shareabouts.org.
 [Contact us](http://openplans.org/about/) and request a dataset key. We'll happily provide
@@ -103,17 +108,18 @@ Alternatively, install and run the
 back-end API service yourself.  To do so, you will want clone the
 [Shareabouts API](https://github.com/openplans/shareabouts-api).
 
-## Configuration
+# Configuration
 
 Next you need to configure the Shareabouts web app.
-See [the config docs](CONFIG.md).
+See [the config docs](/config/).
+{% endcapture %}
 
 
-## Deployment
+{% capture toc %}
+* TOC
+{:toc}
+{: #doc-menu .nav .doc-menu}
+{% endcapture %}
 
-See [the deployment docs](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md).
 
-
-## Testing
-
-To run the tests, see [the testing docs](TESTING.md).
+{% include toc-template.html %}

@@ -1,5 +1,12 @@
-Shareabouts Architecture
-========================
+---
+layout: page
+title: Architecture
+icon: fa-paper-plane
+last_updated: January 7th, 2017
+permalink: /architecture/
+---
+{% capture main %}
+# Shareabouts Architecture
 
 Shareabouts (SA) is composed primarily of two parts:
 the [Shareabouts API](https://github.com/openplans/shareabouts-api)
@@ -8,8 +15,7 @@ front-end application.
 
 ![Shareabouts Architecture](https://docs.google.com/drawings/d/10KdhBgw7lYlpEda77W9ry4ZIxbkGAt84uIRS5JH-2_c/pub?w=960&h=720)
 
-The Shareabouts Web Application
--------------------------------
+## The Shareabouts Web Application
 
 The web application is mostly client-side JavaScript, using Backbone
 and Mustache templates.
@@ -21,7 +27,7 @@ few purposes:
 
 * Configuration - there is a config file that allows various
   customizations, notably the forms that the client displays for user
-  input. See [the config documentation](CONFIG.md).
+  input. See [the config documentation](/config/).
 
 * Proxy - In order to ensure that the JavaScript layer can make AJAX
   requests to the back-end API even if it's running on a different
@@ -32,8 +38,7 @@ uses so few features that it could fairly easily be re-implemented
 with nearly any web development platform.
 
 
-The Shareabouts API
--------------------
+## The Shareabouts API
 
 This is a separate web service. It provides a RESTful API for
 creating and retrieving geographic points and metadata about them.
@@ -42,8 +47,7 @@ inspecting the raw data stored by the back end.
 
 For more about this, see [the Shareabouts API docs](https://github.com/openplans/shareabouts-api/tree/master/doc).
 
-Shareabouts Data Model
------------------------
+## Shareabouts Data Model
 
 The data served by the Shareabouts API and used by the web app is
 composed of just a few kinds of flexible objects:
@@ -93,3 +97,14 @@ generated, identifying who did it, what happened, and when.
 
 These are used for the "activity stream" that appears on the right
 sidebar on the default Shareabouts design.
+{% endcapture %}
+
+
+{% capture toc %}
+* TOC
+{:toc}
+{: #doc-menu .nav .doc-menu}
+{% endcapture %}
+
+
+{% include toc-template.html %}

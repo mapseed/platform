@@ -50,3 +50,6 @@ node_modules/
 
 # sqlite database
 *.db
+
+# Docs website build path
+docs/_site

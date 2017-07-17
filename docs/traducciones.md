@@ -1,7 +1,15 @@
-Guía para contribuir traducciones para Hey Duwamish
-===================================================
+---
+layout: page
+title: Traducciones
+# icon: fa-paper-plane
+last_updated: October 5th, 2015
+permalink: /traducciones/
+---
 
-[Guide for Contributing Translations for Hey Duwamish](/doc/TRANSLATIONS.md)
+{% capture main %}
+# Guía para contribuir traducciones para Hey Duwamish
+
+[Guide for Contributing Translations for Hey Duwamish](/translations/)
 
 Si eres un@ traductor@, y no estás segur@ cómo contribuir a Hey Duwamish, ¡esta guía es para tí!
 
@@ -39,3 +47,13 @@ Si eres un@ traductor@, y no estás segur@ cómo contribuir a Hey Duwamish, ¡es
   ¡Es todo!
 
   Para obtener más información sobre los archivos de PO, [consulte la documentación oficial](https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html)
+{% endcapture %}
+
+{% capture toc %}
+* TOC
+{:toc}
+{: #doc-menu .nav .doc-menu}
+{% endcapture %}
+
+
+{% include toc-template.html %}

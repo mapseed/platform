@@ -1,6 +1,12 @@
-# Configuring your Shareabouts web instance
-
-## Step 0: Create local_settings.py
+---
+layout: page
+title: Configuring Your Shareabouts Web Instance
+# icon: fa-paper-plane
+last_updated: July 14th, 2016
+permalink: /config/
+---
+{% capture main %}
+# Step 0: Create local_settings.py
 
 Your `local_settings.py` tells Shareabouts where your map's data is stored, what flavor to use,
 and some other settings. Until this file exists, your map won't run.
@@ -14,12 +20,12 @@ on running a local API server too.
 
 At this point, you can [start your map](https://github.com/openplans/shareabouts/tree/master/doc#starting-and-stopping-your-server) - it will have the default settings.
 
-### Keep local_settings out of version control!
+## Keep local_settings out of version control!
 You don't want to check the API key information in to your
 repository, as anyone would be able to write to your data using your
 API key.
 
-## Step 1: Get one or more datasets
+# Step 1: Get one or more datasets
 
 You'll need an account on a Shareabouts API server.
 
@@ -28,12 +34,12 @@ There is a standard format for doing this: In all caps, create a line with the t
 of your dataset and *xyz* is the url to the dataset. Next, create a line with the text ID_DATASET_KEY=abc, where *ID* is the name
 of your dataset and *abc* is the key provided by the server.
 
-### Troubleshooting dataset problems
+## Troubleshooting dataset problems
 
 If after completing setup you see [a screen like this](https://f.cloud.github.com/assets/146749/1627911/d5e82492-56fe-11e3-89d7-9d6b35f10c6b.png) when saving or supporting a place or submitting a reply, then you probably have you dataset key set incorrectly in your settings.
 
 
-## Step 2: Create a flavor
+# Step 2: Create a flavor
 
 A "flavor" is a particular configuration of Shareabouts.
 
@@ -43,13 +49,12 @@ of *flavors/*.  Name it whatever you want.
 Edit your `local_setting.py` file, changing `SHAREABOUTS_FLAVOR` to the name of the flavor directory you just
 created.
 
-## Step 3: Edit your flavor
+# Step 3: Edit your flavor
 
 Your flavor directory contains a *config.yml* file that you will be
-editing throughout the rest of these instructions. Once you're done with config and local testing,
-[deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md).
+editing throughout the rest of these instructions.
 
-### The Map
+## The Map
 
 The map options are for initial map setup and match the [Leaflet Map
 options](http://leafletjs.com/reference.html#map-options).
@@ -62,8 +67,9 @@ Option       |Type      |Default   |Description
 `minZoom`    |Integer   |None      |The minimum zoom level supported.
 `maxZoom`    |Integer   |None      |The maximum zoom level supported.
 `maxBounds`  |Array     |None      |Restricts the map area to this bounding box, an array of arrays defining the southwest corner and the northeast corner. ie. `[ [swLat, swLng], [neLat, neLng] ]` or `[ [39.786, -75.463], [40.118, -74.864] ]`
+{: .table}
 
-### Base Layer Options
+## Base Layer Options
 
 The base_layer value configures a single
 [TileLayer](http://leafletjs.com/reference.html#tilelayer) as the base
@@ -76,10 +82,11 @@ Option         |Type      |Default   |Description
 ---------------|----------|----------|-----------
 `url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leafletjs.com/reference.html#url-template) description for details.
 `attribution`  |String    |None      |The string used to describe the layer data.
+{: .table}
 
 You may alternatively use a MapboxGL layer as your base layer. Use `style` and `accessToken` parameters to configure access to your layer, and set the layer's `type` to `"mapbox"`. If you do not specify an `accessToken` in the configuration, your Mapbox access token will default to the `MAPBOX_TOKEN` environment variable value.
 
-### Extra Layer Options
+## Extra Layer Options
 
 You can add additional overlays on top of your base layer. To do so,
 add to the "layers" array.  This array should match the configuration format
@@ -107,10 +114,11 @@ Option               | Type    | Description
 id                   | string  | The name of the dataset associated with this layer. Note that this name needs to match the `dataset` parameter on the dynamic form's configuration
 type                 | string  | The layer type. This needs to be set to `place`, as we currently only support place data on the dynamic form
 slug                 | string  | The name to use in urls associated with this dataset. For example, place number 43 created in the `water` dataset would be accssible at the url `/waterreport/43`
+{: .table}
 
 Note that each dataset can have only one slug associated with it, and that all slugs must be unique.
 
-### Geocoding
+## Geocoding
 
 You can enable address/point-of-interest search in your config file by specifying
 `geocoding_enabled: true` in the `map` config section. By default Shareabouts uses
@@ -129,7 +137,7 @@ The geocoding configuration has a few other options:
 
 
 
-### Place Types
+## Place Types
 
 Shareabouts can handle multiple types of Place. To set up the types
 syou're interested in, edit config.yml and add items to the `place_types`
@@ -148,7 +156,7 @@ markers that look best sticking up from the point rather than centered
 on it.
 
 
-### Input forms
+## Input forms
 
 Users can do basically three things with places:
 
@@ -158,7 +166,7 @@ Users can do basically three things with places:
 
 All of this happens in the 'place' section of the config.yml file.
 
-#### Creating places
+### Creating places
 
 The 'place' section of the config file starts like this:
 
@@ -177,7 +185,7 @@ the map. The result of that reverse-geocoding will be a string saved to the
 model in the `location_item_name` attribute. E.g., in the above example, the
 string will be saved in the `address` field of a place.
 
-##### Choosing a place type
+#### Choosing a place type
 
 If you have only one *place type* (see above), you'll want to specify
 it as a hidden input named *location_type*, like so:
@@ -203,7 +211,7 @@ add more information. There are two parts to this: a simple Support
 section, and a section with one or more inputs to add more info.  Both
 parts are configurable, see below.
 
-#### Survey Form Configuration
+### Survey Form Configuration
 
 The survey form is configured in the *survey* section.
 First you can configure display of existing submissions.
@@ -216,8 +224,7 @@ show_responses       | boolean | Whether previous submissions should be shown wi
 response_name        | string  | Label to use when displaying previous submissions.
 response_plural_name | string  | Plural label for displaying previous submissions.
  action_text         | string  | For example, "commented on"
-
-
+{: .table}
 
 Next is the survey form itself.  This is much like the Place creation
 form described above.  You can supply an arbitrary number of form items.
@@ -239,7 +246,7 @@ Here's an example:
         type: text
         name: private-submitter_email
 
-##### Collecting Private Data
+#### Collecting Private Data
 
 Sometimes you'll want to collect data from users that you don't want to make
 available to the world (e.g., users' email addresses). You can mark data that
@@ -248,10 +255,10 @@ to you through the Shareabouts admin interface, but will not be shown through
 in your map. See the section on [survey form configuration](#survey-form-configuration)
 for an example.
 
-#### Dynamic Form Configuration
+### Dynamic Form Configuration
 
 The dynamic form is configured in the *place_detail* section, found within the
-*place* section. The dynamic form gives you the ability to create any number of 
+*place* section. The dynamic form gives you the ability to create any number of
 customized input forms, and link them to independent datasets. Create a new
 dynamic form category by creating a new entry under the `place_detail` section:
 
@@ -261,7 +268,7 @@ dynamic form category by creating a new entry under the `place_detail` section:
       dataset: waterData
       icon_url: /static/css/images/markers/marker-water.png
       value: water
-      label: _(Water survey)
+      label: \_(Water survey)
 
 This entry will create a dynamic form category called `water`, which will write to
 a dataset called `waterData`. The options for this section are as follows:
@@ -269,11 +276,12 @@ a dataset called `waterData`. The options for this section are as follows:
 Option               | Type    | Description
 ---------------------|---------|----------------
 includeOnForm        | boolean | Whether to display this category on the dynamic form menu
-name                 | string  | 
+name                 | string  |
 dataset              | string  | The name of the dataset this category will write to
 icon_url             | string  | The file path to the icon you want to associate with this category
 value                | string  | The internal value to associate with this category
 label                | string  | The text to display for this category on the dynamic form menu
+{: .table}
 
 Use the `fields` section to create individual input fields. To create a field of
 radio buttons, for example, add an entry to the `fields` section as follows:
@@ -284,21 +292,21 @@ radio buttons, for example, add an entry to the `fields` section as follows:
       dataset: waterData
       icon_url: /static/css/images/markers/marker-water.png
       value: water
-      label: _(Water survey)
+      label: \_(Water survey)
       fields:
         - name: pollution_type
           type: radio_big_buttons
-          prompt: _(Type of pollutions seen:)
-          display_prompt: _(I saw the following type of pollution here:)
-          annotation: _(Please do not handle any pollution yourself)
+          prompt: \_(Type of pollutions seen:)
+          display_prompt: \_(I saw the following type of pollution here:)
+          annotation: \_(Please do not handle any pollution yourself)
           content:
-            - label: _(Sewage)
+            - label: \_(Sewage)
               value: sewage
-            - label: _(Tires)
+            - label: \_(Tires)
               value: tires
-            - label: _(Litter)
+            - label: \_(Litter)
               value: litter
-            - label: _(Other)
+            - label: \_(Other)
               value: other
           optional: false
 
@@ -314,8 +322,9 @@ display_prompt       | string  | The text to display when this question's respon
 annotation           | string  | An optional message to display below a question
 content              | array   | If applicable, an array of label/value pairs to associate with the given input type. Releveant for `dropdown`, `radio-big-buttons`, `checkbox-big-buttons`, and `binary-toggle`
 optional             | boolean | Whether or not to require a response for this question
+{: .table}
 
-##### Common Form Elements
+#### Common Form Elements
 
 If you are configuring a dynamic form with multiple categories that share common input elements, use
 the `common_form_elements` section to configure these input types. At the very least you'll want a
@@ -323,9 +332,9 @@ submit button:
 
     common_form_elemets:
       - type: submit
-        label: _(Put it on the map!)
+        label: \_(Put it on the map!)
 
-###### Here are some other common form elements you might want to include:
+##### Here are some other common form elements you might want to include:
 
 **Images:**
 
@@ -341,7 +350,7 @@ This will generate markup that looks similar to this:
     <label for="place-my_image"></label>
     <span class="fileinput-container ">
       <span>Add an Image</span>
-      <input id="place-my_image" name="my_image" type="file" accept="image/*">
+      <input id="place-my_image" name="my_image" type="file" accept="image/\*">
     </span>
 
 You can restyle the image input by overriding the `.fileinput-container` class
@@ -357,25 +366,25 @@ converted to JPEGs.
 
     - name: submitter_name
         type: text
-        prompt: _(Your name)
-        placeholder: _(Name)
+        prompt: \_(Your name)
+        placeholder: \_(Name)
         optional: true
 
-**Submitter Email Address** 
+**Submitter Email Address**
 
     - name: private-submitter_email
       type: text
-      prompt: _(Your Email)
+      prompt: \_(Your Email)
       optional: true
       sticky: true
       attrs:
         - key: placeholder
-          value: _(Receive email updates on your report)
+          value: \_(Receive email updates on your report)
         - key: size
           value: 30
 
 
-#### Support Form Configuration
+### Support Form Configuration
 
 This is a simple form with a single button, in the *support* section.
 The options you can set are:
@@ -385,9 +394,9 @@ Option               | Type    | Description
 submission_type      | string  | Name for a type of submission a "support" is saved as, eg. "support"
 submit_btn_txt       | string  | Text on the submit button itself.
 action_text          | string  | Past-tense verb for display in the activity view, eg. "supported"
+{: .table}
 
-
-### Translating Interface Text
+## Translating Interface Text
 
 The text in Shareabouts can be translated via the Django
 localization (translation) machinery.
@@ -397,13 +406,13 @@ translated, wrap the text in `_(` and `)`.  For example, in the following
 snippet, `Button Label` will be available for translation, but `survey_type`
 will not:
 
-    label: _(Button Label)
+    label: \_(Button Label)
     type_name: survey_type
 
 You can also translate the content in your pages. Surround any text that you
-would like to be translatable with `{{#_}}` and `{{/_}}`. For example:
+would like to be translatable with `\{\{#_\}\}` and `\{\{/_\}\}`. For example:
 
-    <h2>{{#_}}About{{/_}}</h2>
+    <h2>\{\{#\_\}\}About\{\{/\_\}\}</h2>
 
 To generate a translation template, run the following from your flavor
 directory:
@@ -425,7 +434,7 @@ That's it! The compilemessages task is run automatically for the DotCloud
 deployments. For Heroku, you'll have to check the resulting *.mo* files in to
 your repository.
 
-### Choosing a Language
+## Choosing a Language
 
 By default, Shareabouts will try to infer the target user's language from their
 browser settings. If you would like them to be able to explicitly select the
@@ -454,7 +463,7 @@ into each of your desired target languages.
 
 For more information on language codes, see the [Django documentation](https://docs.djangoproject.com/en/1.3/topics/i18n/#term-language-code).
 
-### Pages and Links
+## Pages and Links
 
 Shareabouts allows you to create multiple static pages, linked from
 the top navigation bar. To create a page:
@@ -493,7 +502,7 @@ set the "external" property to "true".  For example:
   scripting from within your flavor, add your scripts to the includes template
   (_templates/includes.html_).
 
-### Email Notifications
+## Email Notifications
 
 You can turn on the ability for users to receive notifications after adding a place. In your configuration file, add the following:
 
@@ -520,7 +529,14 @@ Refer to your email provider's instructions on configuring a client for sending 
     EMAIL_NOTIFICATIONS_BCC
 
 To change the subject or body of the email that is sent to users, create templates called *new_place_email_subject.txt* and *new_place_email_body.txt* respectively in your flavor's *templates/* folder. These should templates have the variables `request`, `config`, and `place` in the context. See the file *src/base/templates/new_place_email_body.txt* for an example.
+{% endcapture %}
 
-### Styling
 
-See [Customizing the Theme](CUSTOM_THEME.md)
+{% capture toc %}
+* TOC
+{:toc}
+{: #doc-menu .nav .doc-menu}
+{% endcapture %}
+
+
+{% include toc-template.html %}
