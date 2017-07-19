@@ -1242,8 +1242,9 @@ place:
       placeholder: _(Address)
       optional: true
     - name: school-name
-      type: dropdown
       hideFromDetailView: true
+      optional: false
+      type: dropdown-autocomplete
       prompt: _(Your school:)
       content:
         - label: _(Alcott Elementary School)
