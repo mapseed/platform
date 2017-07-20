@@ -58,7 +58,7 @@
 
       <time datetime="{{ created_datetime }}" 
             class="response-date">
-        <a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a>
+        <a class="response-date-link" href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a>
       </time>
 
       <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>

@@ -9,7 +9,6 @@
     z-index: 10;
     box-shadow: 0 -0.325em 0 $opacity-very-low-black;
     display: none;
-    line-height: 1em;
 }
 
 // Close Button - Selectors
@@ -56,8 +55,20 @@ a.close-btn {
         /* height: auto !important */
     }
 
-    article h1,h2,h3,h4,h5 {
-        line-height: 1em !important;
+    article {
+        a:not(.response-date-link):not(.reply-link) {
+            text-decoration: none;
+            // color: #6767FF;
+            color: #007fbf;
+
+            &:hover {
+                color: #509dc3;
+            }
+
+            &:visited {
+                color: #509dc3;
+            }
+        }
     }
 }
 
