@@ -256,28 +256,36 @@ Adapted from http://littlesnippets.net/snip1579/
   opacity: 0.7;
 }
 
-.flow-layout figcaption {
-  font-family: "Permanent Marker", Roboto, sans-serif;
+.flow-layout-title {
   background-color: #FFF;
   position: absolute;
   padding: 5px;
   text-transform: uppercase;
   font-size: 0.5em;
-  max-width: 50%;
+  width: 75%;
+  max-width: 75%;
   text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   opacity: 0.9;
   color: #000;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flow-layout-title.flow-layout-title-middle {
+  top: 50%;
+}
+
+.flow-layout-title.flow-layout-title-bottom {
+  top: 75%;
 }
 
 .flow-vert {
-  width: 49.5%;
+  width: calc(50% - 2px);
 }
 
 .flow-vert img {
   position: relative;
+  width: 100%;
 }
 
 .flow-vert-right {
@@ -289,7 +297,7 @@ Adapted from http://littlesnippets.net/snip1579/
 }
 
 .flow-sq {
-  width: 49.5%;
+  width: calc(50% - 2px);
 }
 
 .flow-sq-left {

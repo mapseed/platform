@@ -1218,6 +1218,7 @@ pages:
     name: overview
     hide_from_top_bar: false
     start_page: true
+    pull_right: true
 
   - title: _(Sponsors)
     slug: sponsors
