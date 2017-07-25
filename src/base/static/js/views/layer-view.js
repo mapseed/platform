@@ -1,5 +1,7 @@
 var Util = require("../utils.js");
 
+const EVAL_REGEX = /^{{.*}}$/;
+
 module.exports = Backbone.View.extend({
   // A view responsible for the representation of a place on the map.
   initialize: function() {
@@ -38,64 +40,18 @@ module.exports = Backbone.View.extend({
     // found in the config. This prevents us from having to re-parse each
     // style rule on every map zoom for every layer view.
     if (this.placeType) {
-      _.each(
-        this.placeType.rules,
-        function(rule) {
-          var fn = new Function(["return ", rule.condition, ";"].join(""));
-
-          fn.props = {};
-
-          _.each(
-            rule,
-            function(prop, key) {
-              if (key === "style") {
-
-                // If we have a style rule with a dedicated "style" object, (i.e.
-                // for third-party GeoJSON polygon/linestring geometry), make sure
-                // to build functions for each sub-rule in the style object.
-                _.each(prop, function(styleProp, stylePropKey) {
-                  if (_.isString(styleProp) && styleProp.startsWith("this.")) {
-                    prop[stylePropKey] = new Function(["return ", styleProp, ";"].join(""));
-                  } else {
-                    prop[stylePropKey] = styleProp;
-                  }
-                });
-
-                fn.props[key] = prop;
-              } else if (key !== "condition") {
-                fn.props[key] = prop;
-              }
-            },
-            this,
-          );
-
-          this.styleRules.push(fn);
-        },
-        this,
-      );
+      this.placeType.rules.forEach(function(rule) {
+        let fn = new Function(["return ", this.pruneStyleRule(rule.condition), ";"].join(""));
+        fn.props = this.parseStyleRuleObject(rule);
+        this.styleRules.push(fn);
+      }, this);
 
       if (this.placeType.hasOwnProperty("zoomType")) {
-        _.each(
-          this.options.placeTypes[this.placeType.zoomType],
-          function(rule) {
-            var fn = new Function(["return ", rule.condition, ";"].join(""));
-
-            fn.props = {};
-
-            _.each(
-              rule,
-              function(prop, key) {
-                if (key !== "condition") {
-                  fn.props[key] = prop;
-                }
-              },
-              this,
-            );
-
-            this.zoomRules.push(fn);
-          },
-          this,
-        );
+        this.options.placeTypes[this.placeType.zoomType].forEach(function(rule) {
+          let fn = new Function(["return ", this.pruneStyleRule(rule.condition), ";"].join(""));
+          fn.props = this.parseStyleRuleObject(rule);
+          this.zoomRules.push(fn);
+        }, this);
       }
     }
 
@@ -103,6 +59,66 @@ module.exports = Backbone.View.extend({
     this.createLayer();
     this.render();
   },
+
+  pruneStyleRule: function(rule) {
+    return rule.replace("{{", "").replace("}}", "");
+  },
+
+  // Recursively parse a style rule object in place, replacing serialized code
+  // with functions that can be executed later to evaluate style rules.
+  parseStyleRuleObject: function(obj) {
+    for (let prop in obj) {
+      if (prop === "condition" || !obj.hasOwnProperty(prop)) {
+        continue;
+      }
+
+      if (typeof obj[prop] === "object" && obj[prop] !== null && !Array.isArray(obj[prop])) {
+        this.parseStyleRuleObject(obj[prop]);
+      } else if (typeof obj[prop] === "string" && obj[prop].match(EVAL_REGEX)) {
+        obj[prop] = new Function(["return ", this.pruneStyleRule(obj[prop]), ";"].join(""));
+      } 
+    }
+
+    return obj;
+  },
+
+  // Recursively evaluate parsed style rule functions in the current context.
+  evaluateStyleRuleObject: function(obj, rule, context) {
+    for (let prop in obj) {
+      if (prop === "condition" || !obj.hasOwnProperty(prop)) {
+        continue;
+      }
+
+      if (typeof obj[prop] === "object" && obj[prop] !== null && !Array.isArray(obj[prop])) {
+        rule[prop] = {};
+        this.evaluateStyleRuleObject(obj[prop], rule[prop], context);
+      } else if (typeof obj[prop] === "function") {
+        try {
+          rule[prop] = obj[prop].apply(context);
+        } catch (e) {}
+      } else {
+        rule[prop] = obj[prop];
+      }
+    }
+  },
+
+  // Deep merge a style rule object with a zoom rule object, preferencing properties
+  // in the style rule object.
+  deepMergeStyleAndZoomRule: function(styleRule, zoomRule) {
+    for (let prop in styleRule) {
+      if (typeof styleRule[prop] === "object") {
+        if (!zoomRule[prop]) {
+          Object.assign(zoomRule, { [prop]: {} });
+        }
+        this.deepMergeStyleAndZoomRule(styleRule[prop], zoomRule[prop]);
+      } else {
+        Object.assign(zoomRule, { [prop]: styleRule[prop] });
+      }
+    }
+
+    return zoomRule;
+  },
+
   onZoomEnd: function() {
     this.render();
   },
@@ -110,46 +126,43 @@ module.exports = Backbone.View.extend({
     this.throttledRender();
   },
   evaluateStyleAndZoomRules: function() {
-    this.styleRulesWereUpdated = true;
+    let styleRuleContext = _.extend(
+          {},
+          this.model.toJSON(),
+          { map: { zoom: this.map.getZoom() } },
+          { layer: { focused: this.isFocused } },
+        );
+      this.styleRule = {};
+      this.zoomRule = {};
 
-    var styleRule = {},
-      zoomRule = {},
-      styleRuleContext = _.extend(
-        {},
-        this.model.toJSON(),
-        { map: { zoom: this.map.getZoom() } },
-        { layer: { focused: this.isFocused } },
-      );
-
-    for (var i = 0; i < this.styleRules.length; i++) {
-      if (this.styleRules[i].apply(styleRuleContext)) {
-        styleRule = this.styleRules[i].props;
-
-        if (styleRule.style) {
-
-          // Apply nested style object sub-rules if necessary
-          styleRule.style = _.extend({}, styleRule.style);
-          _.each(styleRule.style, function(rule, key) {
-            styleRule.style[key] = (_.isFunction(rule)) ? rule.apply(styleRuleContext) : rule;
-          }, this);
-        }
-
-        break;
+    this.styleRules.some(function(rule) {
+      if (rule.apply(styleRuleContext)) {
+        this.evaluateStyleRuleObject(rule.props, this.styleRule, styleRuleContext);
+        return true;
       }
+    }, this);
+
+    this.zoomRules.some(function(rule) {
+      if (rule.apply(styleRuleContext)) {
+        this.evaluateStyleRuleObject(rule.props, this.zoomRule, styleRuleContext);
+        return true;
+      }
+    }, this);
+
+    if (Object.keys(this.zoomRule).length > 0) {
+
+      // If a zoom rule is defined, merge it with the style rule
+      this.styleRule = this.deepMergeStyleAndZoomRule(this.styleRule, this.zoomRule);
     }
 
-    for (var i = 0; i < this.zoomRules.length; i++) {
-      if (this.zoomRules[i].apply(styleRuleContext)) {
-        zoomRule = this.zoomRules[i].props;
-        break;
-      }
-    }
+    if (this.model.get("geometry") 
+        && this.model.get("geometry").type === "Point" 
+        && this.styleRule.icon
+        && !this.styleRule.icon.iconUrl) {
 
-    this.styleRule = styleRule;
-    this.zoomRule = zoomRule;
-
-    if (this.styleRule.icon) {
-      _.extend(this.styleRule.icon, this.zoomRule.icon);
+      // Guard against crashes caused by models which for any reason don't 
+      // declare an iconUrl in their style property.
+      this.styleRule.icon.iconUrl = "/static/css/images/markers/marker-blank.png";
     }
   },
 
@@ -178,16 +191,11 @@ module.exports = Backbone.View.extend({
       if (geom.type === "Point") {
         this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
 
-        // If we've saved an icon url in the model, use that
-        if (this.model.get("style") && this.model.get("style").iconUrl) {
-          this.styleRule.icon.iconUrl = this.model.get("style").iconUrl;
-        }
-
         if (this.hasIcon()) {
           this.layer = this.isFocused && this.styleRule.focus_icon
             ? L.marker(this.latLng, { icon: L.icon(this.styleRule.focus_icon) })
             : L.marker(this.latLng, { icon: L.icon(this.styleRule.icon) });
-        } else if (this.hasStyle()) {
+        } else if (this.hasStyle()) {          
           this.layer = this.isFocused && this.styleRule.focus_style
             ? L.circleMarker(this.latLng, this.styleRule.focus_style)
             : L.circleMarker(this.latLng, this.styleRule.style);
