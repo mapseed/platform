@@ -69,6 +69,11 @@ a.close-btn {
                 color: #509dc3;
             }
         }
+
+        img:not(.avatar) {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
     }
 }
 
