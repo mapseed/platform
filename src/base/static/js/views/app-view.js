@@ -1003,7 +1003,7 @@ module.exports = Backbone.View.extend({
     this.setBodyClass();
     map.invalidateSize({ animate: true, pan: true });
 
-    $("#main-btns-container").attr("class", "pos-top-right");
+    $("#main-btns-container").attr("class", "pos-top-left");
 
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();
