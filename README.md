@@ -100,6 +100,19 @@ By default, this will serve your map at [http://localhost:8000](http://localhost
 source env/bin/activate
 ```
 
+### Use the Dev API
+
+If you want to develop without setting up your own [Mapseed API backend](https://github.com/mapseed/api), we've got you covered! Copy and paste this into `src/.env` to connect your local install to the Dev API (full of dummy Duwamish data):
+
+```
+FLAVOR=duwamish_flavor
+SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
+SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+
+DUWAMISH_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
+DUWAMISH_DATASET_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
+```
+
 ### Using the in-app editor
 
 The platform includes an in-app editor that you can use to update and hide places and comments on a per-dataset basis. Only authenticated administrators are allowed to make edits. Authentication is performed via third-party social media services (Twitter and Facebook are currently supported), so administrators will need an account on either of these services to use the editor.
@@ -135,19 +148,6 @@ Follow these instructions to grant administrator privileges to one or more users
 Questions and issues should be filed [right here on GitHub](https://github.com/mapseed/platform/issues).
 
 If you'd like to contribute code, we'd love to have it! Fork and submit a PR (base your branch off `master`). No change is too small!
-
-### Use the Dev API
-
-If you want to develop without setting up your own [Mapseed API backend](https://github.com/mapseed/api), we've got you covered! Copy and paste this into `src/.env` to connect your local install to the Dev API (full of dummy Duwamish data):
-
-```
-FLAVOR=duwamish_flavor
-SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
-SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
-
-DUWAMISH_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
-DUWAMISH_DATASET_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
-```
 
 Credits
 -------------
