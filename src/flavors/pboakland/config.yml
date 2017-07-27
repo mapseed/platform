@@ -65,21 +65,21 @@ map:
       url: "https://heyduwamishcore.carto.com/api/v2/viz/b852afe8-bc1c-11e6-b3fb-0e05a8b3e3d7/viz.json"
       rules:
     # LineString
-      - condition: "this.geometry.type == 'LineString'"
+      - condition: "{{this.geometry.type == 'LineString'}}"
         style:
-          color: "this.properties.stroke"
-          opacity: "this.properties['stroke-opacity']"
-          weight: "this.properties['stroke-width']"
+          color: "{{this.properties.stroke}}"
+          opacity: "{{this.properties['stroke-opacity']}}"
+          weight: "{{this.properties['stroke-width']}}"
     # Polygons
-      - condition: "this.geometry.type == 'Polygon'"
+      - condition: "{{this.geometry.type == 'Polygon'}}"
         style:
           shapeType: polygon
-          fillColor: "this.properties.fill"
-          fill: 'true'
-          color: "this.properties.stroke"
+          fillColor: "{{this.properties.fill}}"
+          fill: '{{true}}'
+          color: "{{this.properties.stroke}}"
           opacity: 0.7
-          fillOpacity: "this.properties['fill-opacity']"
-          weight: "this.properties['stroke-width']"
+          fillOpacity: "{{this.properties['fill-opacity']}}"
+          weight: "{{this.properties['stroke-width']}}"
 
     - id: pboakland
       type: place
@@ -89,19 +89,19 @@ map:
 place_types:
 
   markerZoomStyle:
-    - condition: 'this.layer.focused === true'
+    - condition: '{{this.layer.focused === true}}'
       icon:
         iconSize: [75, 90]
         iconAnchor: [38, 90]
-    - condition: 'this.map.zoom < 14'
+    - condition: '{{this.map.zoom < 14}}'
       icon:
         iconSize: [15, 18]
         iconAnchor: [7.5, 18]
-    - condition: 'this.map.zoom < 16'
+    - condition: '{{this.map.zoom < 16}}'
       icon:
         iconSize: [30, 36]
         iconAnchor: [15, 36]
-    - condition: 'this.map.zoom >= 16'
+    - condition: '{{this.map.zoom >= 16}}'
       icon:
         iconSize: [50, 60]
         iconAnchor: [25, 60]
@@ -110,7 +110,7 @@ place_types:
     label: _(idea for community programs and services)
     zoomType: markerZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-youth.png
 
@@ -118,7 +118,7 @@ place_types:
     label: _(idea for parks and recreation)
     zoomType: markerZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-parks.png
 
@@ -126,7 +126,7 @@ place_types:
     label: _(idea for streets and sidewalks)
     zoomType: markerZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-streets.png
 
@@ -134,7 +134,7 @@ place_types:
     label: _(idea for housing and jobs)
     zoomType: markerZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-housing.png
 

@@ -91,13 +91,13 @@ place_types:
   raingarden:
     label: _(rain garden)
     rules:
-      - condition: 'this.location_type === "raingarden" && this.layer.focused === false'
+      - condition: '{{this.location_type === "raingarden" && this.layer.focused === false}}'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: 'this.location_type === "raingarden" && this.layer.focused === true'
+      - condition: '{{this.location_type === "raingarden" && this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-drop.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -108,25 +108,25 @@ place_types:
   idea:
     label: _(idea)
     rules:
-      - condition: 'this.location_type === "idea" && this.map.zoom < 11 && this.layer.focused === false'
+      - condition: '{{this.location_type === "idea" && this.map.zoom < 11 && this.layer.focused === false}}'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           iconSize: [7, 12]
           iconAnchor: [5, 12]
 
-      - condition: 'this.location_type === "idea" && this.map.zoom < 13 && this.layer.focused === false'
+      - condition: '{{this.location_type === "idea" && this.map.zoom < 13 && this.layer.focused === false}}'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           iconSize: [24, 29]
           iconAnchor: [12, 29]
 
-      - condition: 'this.location_type === "idea" && this.map.zoom >= 13 && this.layer.focused === false'
+      - condition: '{{this.location_type === "idea" && this.map.zoom >= 13 && this.layer.focused === false}}'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-      - condition: 'this.location_type === "idea" && this.layer.focused === true'
+      - condition: '{{this.location_type === "idea" && this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-idea-trans.png
           shadowUrl: /static/css/images/marker-shadow.png

@@ -257,49 +257,71 @@ map:
 place_types:
 
   mapboxZoomStyle:
-    - condition: 'this.layer.focused === true'
+    - condition: '{{this.layer.focused === true}}'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: 'this.map.zoom < 16'
+    - condition: '{{this.map.zoom < 16}}'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: 'this.map.zoom >= 16'
+    - condition: '{{this.map.zoom >= 16}}'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   roundZoomStyle:
-    - condition: 'this.layer.focused === true'
+    - condition: '{{this.layer.focused === true}}'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: 'this.map.zoom < 11'
+    - condition: '{{this.map.zoom < 11}}'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: 'this.map.zoom >= 11'
+    - condition: '{{this.map.zoom >= 11}}'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   teardropZoomStyle:
-    - condition: 'this.layer.focused === true'
+    - condition: '{{this.layer.focused === true}}'
       icon:
         iconSize: [50, 60]
         iconAnchor: [25, 25]
         shadowSize: [50, 60]
         shadowAnchor: [14, 60]
 
+  # NOTE: the landmark serverless endpoint adds location_types of type mapbox,
+  # so this style rule is necessary for the time being.
+  mapbox:
+    # Mapbox Points
+    rules:
+    # LineString
+      - condition: "{{this.geometry.type == 'LineString'}}"
+        style:
+          color: "{{this.properties.stroke}}"
+          opacity: "{{this.properties['stroke-opacity']}}"
+          weight: "{{this.properties['stroke-width']}}"
+    # Polygons
+      - condition: "{{this.geometry.type == 'Polygon'}}"
+        style:
+          shapeType: polygon
+          fillColor: "{{this.properties.fill}}"
+          fill: '{{true}}'
+          color: "{{this.properties.stroke}}"
+          opacity: 0.7
+          fillOpacity: "{{this.properties['fill-opacity']}}"
+          weight: "{{this.properties['stroke-width']}}"
+
   conserve-water:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-water.png
           iconSize: [30, 35]
@@ -307,12 +329,12 @@ place_types:
 
   prevent-stormwater:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
           iconSize: [30, 35]
@@ -320,12 +342,12 @@ place_types:
 
   only-flush:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-only-flush-this.png
           iconSize: [30, 35]
@@ -333,12 +355,12 @@ place_types:
 
   conserve-energy:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-conserve-energy.png
           iconSize: [30, 35]
@@ -346,12 +368,12 @@ place_types:
 
   waste-less:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-waste-less.png
           iconSize: [30, 35]
@@ -359,12 +381,12 @@ place_types:
 
   commute-low-carbon:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
           iconSize: [30, 35]
@@ -372,12 +394,12 @@ place_types:
 
   eat-local-organic:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-eat-local-organic.png
           iconSize: [30, 35]
@@ -385,12 +407,12 @@ place_types:
 
   restore-salmon-habitat:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
           iconSize: [30, 35]
@@ -399,7 +421,7 @@ place_types:
   star-stroked:
     zoomType: roundZoomStyle
     rules:
-      - condition: 'true'
+      - condition: '{{true}}'
         icon:
           iconUrl: /static/css/images/markers/marker-star-maroon.png
           iconSize: [50, 60]
@@ -409,16 +431,16 @@ place_types:
 
   featured_place:
     rules:
-      - condition: 'this.layer.focused === true'
+      - condition: '{{this.layer.focused === true}}'
         icon:
           iconSize: [50, 50]
           iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
+      - condition: '{{this.map.zoom < 15}}'
         icon:
           iconUrl: /static/css/images/markers/marker-construction-dot.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
-      - condition: 'this.map.zoom <= 18'
+      - condition: '{{this.map.zoom <= 18}}'
         icon:
           iconUrl: /static/css/images/markers/marker-construction.png
           iconSize: [30, 30]

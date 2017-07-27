@@ -50,16 +50,12 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: restoration
-      url: "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks"
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-      type: landmark
+      type: place
+      slug: restoration
 
     - id: vision
-      url: "https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks"
-      sources:
-        - "http://a.tiles.mapbox.com/v4/smartercleanup.mfigd1mf/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-      type: landmark
+      type: place
+      slug: vision
 
     - id: cleanup
       type: cartodb
@@ -103,205 +99,47 @@ map:
 place_types:
 
   georgetownZoomStyle:
-    - condition: 'this.layer.focused === true'
+    - condition: '{{this.layer.focused === true}}'
       icon:
         iconSize: [60, 60]
         iconAnchor: [30, 30]
-    - condition: 'this.map.zoom < 14'
+    - condition: '{{this.map.zoom < 14}}'
       icon:
         iconSize: [7.5, 7.5]
         iconAnchor: [4, 4]
-    - condition: 'this.map.zoom < 16'
+    - condition: '{{this.map.zoom < 16}}'
       icon:
         iconSize: [15, 15]
         iconAnchor: [8, 8]
-    - condition: 'this.map.zoom >= 16'
+    - condition: '{{this.map.zoom >= 16}}'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
   mapboxZoomStyle:
-    - condition: 'this.layer.focused === true'
+    - condition: '{{this.layer.focused === true}}'
       icon:
         iconSize: [50, 50]
         iconAnchor: [25, 25]
-    - condition: 'this.map.zoom < 16'
+    - condition: '{{this.map.zoom < 16}}'
       icon:
         iconSize: [20, 20]
         iconAnchor: [10, 10]
-    - condition: 'this.map.zoom >= 16'
+    - condition: '{{this.map.zoom >= 16}}'
       icon:
         iconSize: [30, 30]
         iconAnchor: [15, 15]
 
-  wetland:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: 'this.properties["marker-color"] == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_comp.png
-
-      - condition: 'this.properties["marker-color"] == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_prog.png
-
-      - condition: 'this.properties["marker-color"] == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-land_no-prog-or-dead.png
-  park:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: 'this.properties["marker-color"] == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_comp.png
-
-      - condition: 'this.properties["marker-color"] == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_prog.png
-
-      - condition: 'this.properties["marker-color"] == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-parks_no-prog-or-dead.png
-
-  school:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: 'this.properties["marker-color"] == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_comp.png
-
-      - condition: 'this.properties["marker-color"] == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_prog.png
-
-      - condition: 'this.properties["marker-color"] == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-qual_no-prog-or-dead.png
-
-  police:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: 'this.properties["marker-color"] == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_comp.png
-
-      - condition: 'this.properties["marker-color"] == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_prog.png
-
-      - condition: 'this.properties["marker-color"] == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-safe_no-prog-or-dead.png
-
-  rail:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: 'this.properties["marker-color"] == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_comp.png
-
-      - condition: 'this.properties["marker-color"] == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_prog.png
-
-      - condition: 'this.properties["marker-color"] == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-
-  town-hall:
-    zoomType: georgetownZoomStyle
-    rules:
-      - condition: 'this.properties["marker-color"] == "a3e46b"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_comp.png
-
-      - condition: 'this.properties["marker-color"] == "f1f075"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_prog.png
-
-      - condition: 'this.properties["marker-color"] == "f86767"'
-        icon:
-          iconUrl: /static/css/images/markers/marker-hist_no-prog-or-dead.png
-
-  mapbox:
-    # Mapbox Points
-    rules:
-    # LineString
-      - condition: 'this.geometry.type == "LineString"'
-        style:
-          color: "this.style.color"
-          opacity: "this.style.opacity"
-          weight: "this.style.weight"
-    # Polygons
-      - condition: 'this.geometry.type == "Polygon"'
-        style:
-          shapeType: polygon
-          fillColor: "this.style.fillColor"
-          fill: 'true'
-          color: "this.style.color"
-          opacity: 0.7
-          fillOpacity: "this.style.fillOpacity"
-          weight: "this.style.weight"
-
-  danger:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
-
-  park2:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-heart.png
-
-  industrial:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-industrial.png
-
-  bicycle:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-bike.png
-
-  swimming:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-swimming.png
-
-  theatre:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-art.png
-
-  zoo:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-whale.png
-
   tree:
     label: _(tree)
     rules:
-      - condition: 'this.location_type === "tree" && this.layer.focused === false'
+      - condition: '{{this.location_type === "tree" && this.layer.focused === false}}'
         icon:
           iconUrl: /static/css/images/markers/tree.png
           iconSize: [18, 25]
           iconAnchor: [9, 25]
 
-      - condition: 'this.location_type === "tree" && this.layer.focused === true'
+      - condition: '{{this.location_type === "tree" && this.layer.focused === true}}'
         icon:
           iconUrl: /static/css/images/markers/tree.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -426,6 +264,48 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: vision
+      includeOnForm: false
+      suppressAttachments: true
+      name: location_type
+      dataset: vision
+      icon_url: /static/css/images/markers/marker-star.png
+      value: vision
+      label: _(Georgetown Community Vision Site)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of this community vision project:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this community vision project:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
+    - category: restoration
+      includeOnForm: false
+      suppressAttachments: true
+      name: location_type
+      dataset: restoration
+      icon_url: /static/css/images/markers/marker-star.png
+      value: restoration
+      label: _(Restoration Site)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of this restoration site:)
+          display_prompt: _(Title:)
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description of this restoration site:)
+          display_prompt: _( )
+          placeholder: _(Enter description...)
+          optional: false
     - category: tree
       includeOnForm: true
       name: location_type
