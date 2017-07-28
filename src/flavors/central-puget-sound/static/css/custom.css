@@ -247,6 +247,11 @@ Adapted from http://littlesnippets.net/snip1579/
   position: relative;
 }
 
+.flow-layout img {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 .flow-layout:hover figcaption {
   opacity: 1.0;
   color: #127de4;
