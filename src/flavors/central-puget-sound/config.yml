@@ -235,6 +235,10 @@ map:
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/e85f97d4-26af-11e7-af3c-0e3ebc282e83/viz.json"
 
+    - id: watershed-puyallup
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/aea1ff97-2c79-48a1-a3a7-040e4d7aadd1/viz.json"
+
     - id: stormwater-facilities
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/256fb630-26b1-11e7-8650-0e233c30368f/viz.json"
@@ -580,6 +584,10 @@ sidebar:
 
             - id: watershed-sammamish
               title: _(Lake Sammamish Watershed)
+              visibleDefault: false
+
+            - id: watershed-puyallup
+              title: _(Puyallup / White Watershed)
               visibleDefault: false
 
             - id: sub-basins
@@ -1270,6 +1278,13 @@ story:
         visible_layers:
           - wria-7-8-9
           - watershed-green
+        spotlight: false
+      - url: puyallup-white
+        zoom: 10
+        basemap: light-nolabels
+        visible_layers:
+          - wria-7-8-9
+          - watershed-puyallup
         spotlight: false
 
 cluster:
