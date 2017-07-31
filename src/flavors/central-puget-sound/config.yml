@@ -707,6 +707,7 @@ sidebar:
             - id: watershed-puyallup
               title: _(Puyallup / White Watershed)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: sub-basins
               title: _(Stream Sub-basins)
