@@ -164,8 +164,8 @@ map:
       url: intentionally-blank
 
     - id: cities
-      type: basemap
-      url: intentionally-blank
+      type: esri-feature
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Administration/KingCo_AdministrativeAreas/MapServer/2
 
     - id: college
       type: basemap
@@ -216,8 +216,10 @@ map:
       url: "https://smartercleanup.carto.com/api/v2/viz/1f590d18-256d-11e7-aff5-0e3ff518bd15/viz.json"
 
     - id: school-sites
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/d1c41f32-2cfd-11e7-9efa-0ee66e2c9693/viz.json"
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      type: landmark
+      sources:
+        - "https://raw.githubusercontent.com/mapseed/data/master/schools.geojson"
 
     - id: wria-7-8-9
       type: cartodb
@@ -524,34 +526,42 @@ sidebar:
         - id: topo
           title: _(Topography)
           visibleDefault: true
+          info: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
+          info: _(A bird’s eye view of the world)
         - id: hydrography
           title: _(Hydrography)
           visibleDefault: false
+          info: _(Explore our connection through waterways and watch the magic as political boundaries disappear)
         - id: hillshade
           title: _(Hillshade)
           visibleDefault: false
+          info: _(Shaded terrain that pops with clarity. A bold grey color, great for layering)
         - id: bath
           title: _(Bathymetry)
           visibleDefault: false
+          info: _(The shape and depth of the ocean floor. What does it tell us about the history of this place?)
         - id: colorshade
           title: _(Colored elevation)
           visibleDefault: false
+          info: _(A gorgeous rendition of all depths and heights, from the ocean floor to mountain peaks.)
         - id: light-nolabels
           title: _(Simple)
           visibleDefault: false
         # - id: hydroregions
         #   title: _(Hydroregions)
         #   visibleDefault: false
+          info: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
         - id: 1936aerial
           title: _(1936 Aerial)
           visibleDefault: false
-          info: _(This is some information and a legend)
+          info: _(Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936.)
         - id: blank
           title: _(Blank canvas)
           visibleDefault: false
+          info: _(Completely blank. Ideal for exploring spatial patterns that emerge from other layers without seeing the actual location. <br><br><em>Can you guess where things are based on the shape? What causes them to be arranged in such a way?</em>)
       groupings:
         - id: grp-map-layers
           title: _(Map Layers)
@@ -561,6 +571,7 @@ sidebar:
             - id: stories
               title: _(Impact Projects)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             # - id: mwfeatured
             #   title: _(Featured Sites)
@@ -568,6 +579,7 @@ sidebar:
             - id: bogtobay
               title: _(Community Reports)
               visibleDefault: true
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: wria-7-8-9
               title: _(WRIA boundaries)
@@ -577,58 +589,72 @@ sidebar:
             - id: watershed-cedar
               title: _(Cedar River - Lake Washington Watershed)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: watershed-green
               title: _(Green / Duwamish Watershed)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: watershed-sammamish
               title: _(Lake Sammamish Watershed)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: watershed-puyallup
               title: _(Puyallup / White Watershed)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: sub-basins
               title: _(Stream Sub-basins)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: contour
               title: _(Contour lines)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: landuse
               title: _(Land use)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: landcover
               title: _(Land cover)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: impervious
               title: _(Impervious Surface Area)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: stormwater-facilities
               title: _(Stormwater Facilities)
               visibleDefault: false
-
+              info: _(This is an example of an info window. Layer info will be added soon.)
+              
             - id: outfalls
               title: _(Outfalls)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: sewer
               title: _(Sewer lines)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: tree-canopy
               title: _(Tree Canopy)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: cities
               title: _(Cities)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: school-boundaries
               title: _(School Districts)
@@ -638,10 +664,12 @@ sidebar:
             - id: school-sites
               title: _(School sites)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: college
               title: _(College and Career)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: commfood
               title: _(Community Food Systems)
@@ -669,12 +697,7 @@ sidebar:
             - id: duwamish-original
               title: _(Historical Duwamish River)
               visibleDefault: false
-
-
-            - id: 1970
-              title: _(1970)
-              visibleDefault: false
-              info: _(This is some information and a legend)
+              info: _(This is an example of an info window. Layer info will be added soon.)
 
     - id: filters
       title: _(Report Filters)
