@@ -2,7 +2,7 @@
 
 module.exports = Backbone.View.extend({
   events: {
-    "click .info-window-close-btn": "onClickCloseWindowBtn",
+    "click .info-window-close-btn": "hide",
   },
 
   initialize: function() {
@@ -11,37 +11,41 @@ module.exports = Backbone.View.extend({
       title: "",
       top: 0,
       left: 0,
-      isVisible: false
+      isVisible: false,
+      lastActiveInfoWindowId: null
     });
 
-    this.options.sidebar.on("closing", this.onClickCloseWindowBtn, this);
-    this.options.sidebar.on("content", this.onClickCloseWindowBtn, this);
+    this.options.sidebar.on("closing", this.hide, this);
+    this.options.sidebar.on("content", this.hide, this);
     this.state.on("change:isVisible", this.onVisibilityChange, this);
 
     return this;
   },
 
   setState: function(content = {}) {
+    if (!content.lastActiveInfoWindowId
+        || content.lastActiveInfoWindowId !== this.state.get("lastActiveInfoWindowId")) {
+      this.state.set("isVisible", true);
+    } else {
+      this.state.set("isVisible", !this.state.get("isVisible"));
+    }
+
     for (let prop in content) {
       this.state.set(prop, content[prop]);
     }
-    this.state.set("isVisible", !this.state.get("isVisible"));
 
     this.render();
   },
 
   hide: function() {
     this.state.set("isVisible", false);
+    this.state.set("lastActiveInfoWindowId", null);
   },
 
   onVisibilityChange: function() {
     (this.state.get("isVisible"))
       ? this.$el.removeClass("is-hidden-fadeout")
       : this.$el.addClass("is-hidden-fadeout");
-  },
-
-  onClickCloseWindowBtn: function() {
-    this.state.set("isVisible", false);
   },
 
   render: function() {

@@ -53,6 +53,7 @@
               <label for="map-{{ id }}">{{ title }}</label>
               {{#if info}}
                 <span class="info-icon" 
+                      data-layerid="{{id}}"
                       data-info-content="{{info}}"
                       data-info-title="{{title}}">
                 </span>

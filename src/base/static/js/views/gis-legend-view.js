@@ -159,7 +159,8 @@ module.exports = Backbone.View.extend({
       title: $currentTarget.data("info-title"),
       body: $currentTarget.data("info-content"),
       left: $currentTarget.parent().offset().left + evt.currentTarget.offsetLeft + INFO_WINDOW_LEFT_OFFSET_ADJUST,
-      top: $currentTarget.parent().offset().top + evt.currentTarget.offsetTop + INFO_WINDOW_TOP_OFFSET_ADJUST
+      top: $currentTarget.parent().offset().top + evt.currentTarget.offsetTop + INFO_WINDOW_TOP_OFFSET_ADJUST,
+      lastActiveInfoWindowId: $currentTarget.data("layerid")
     });
   }
 });
