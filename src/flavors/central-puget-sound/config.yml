@@ -199,16 +199,9 @@ map:
       type: place
       slug: report
 
-    # - id: mwfeatured
-    #   type: place
-    #   slug: featured
-
-    - id: stories
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/central-puget-sound.geojson"
-        - "https://raw.githubusercontent.com/mapseed/data/master/b2b.geojson"
-      type: landmark
+    - id: mwfeatured
+      type: place
+      slug: featured
 
        # WRIA9 watershed
     - id: school-boundaries
@@ -554,13 +547,10 @@ sidebar:
           visibleDefault: false
           layers:
 
-            - id: stories
+            - id: mwfeatured
               title: _(Impact Projects)
               visibleDefault: false
 
-            # - id: mwfeatured
-            #   title: _(Featured Sites)
-            #   visibleDefault: true
             - id: bogtobay
               title: _(Community Reports)
               visibleDefault: true
@@ -1230,7 +1220,7 @@ story:
     tagline: _(Next featured site)
     default_zoom: 18
     default_visible_layers:
-      - stories
+      - mwfeatured
     order:
       # - url: dirtcorps
       #   zoom: 15
