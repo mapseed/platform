@@ -133,10 +133,7 @@ module.exports = Backbone.View.extend({
 
     this.map.on("draw:edited", function(evt) {
       evt.layers.eachLayer(function(layer) {
-        // Really there's only one layer to iterate over here, because we have at
-        // most one layer in the editing layer group. We enforce this idea by
-        // using _.once().
-        _.once(self.generateGeometry(layer));
+        self.generateGeometry(layer);
       });
     });
 
