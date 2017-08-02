@@ -972,7 +972,7 @@ place:
             - label: _(Use "Energy Star" high efficiency appliances)
               value: use-efficient-appliances
             - label: _(Upgrade weather stripping on windows and doors)
-              value: weather-stripping              
+              value: weather-stripping
             - label: _(Invest 100% in (Seattle Green Up) or (PSE Green Power))
               value: invest-seattle-green-up
             - label: _(Invest in Community Solar)
@@ -1160,12 +1160,344 @@ place:
       type: dropdown
       prompt: _(Your school:)
       content:
-        - label: _(School A)
-          value: school-a
-        - label: _(School B)
-          value: school-b
-        - label: _(School C)
-          value: school-c
+        - label: _(Alcott Elementary School)
+          value: "Alcott-Elementary-School"
+        - label: _(Audubon Elementary School)
+          value: "Audubon-Elementary-School"
+        - label: _(Bell Elementary School)
+          value: "Bell-Elementary-School"
+        - label: _(Blackwell Elementary School)
+          value: "Blackwell-Elementary-School"
+        - label: _(Carson Elementary School)
+          value: "Carson-Elementary-School"
+        - label: _(Community School)
+          value: "Community-School"
+        - label: _(Dickinson Elementary School)
+          value: "Dickinson-Elementary-School"
+        - label: _(Discovery Elementary School)
+          value: "Discovery-Elementary-School"
+        - label: _(Eastlake High School)
+          value: "Eastlake-High-School"
+        - label: _(Einstein Elementary School)
+          value: "Einstein-Elementary-School"
+        - label: _(Emerson High School)
+          value: "Emerson-High-School"
+        - label: _(Emerson K-12)
+          value: "Emerson-K-12"
+        - label: _(Environmental & Adventure School)
+          value: "Environmental-And-Adventure-School"
+        - label: _(Evergreen Middle School)
+          value: "Evergreen-Middle-School"
+        - label: _(Explorer Community School)
+          value: "Explorer-Community-School"
+        - label: _(Finn Hill Middle School)
+          value: "Finn-Hill-Middle-School"
+        - label: _(Franklin Elementary School)
+          value: "Franklin-Elementary-School"
+        - label: _(Frost Elementary School)
+          value: "Frost-Elementary-School"
+        - label: _(Futures School)
+          value: "Futures-School"
+        - label: _(Inglewood Middle School)
+          value: "Inglewood-Middle-School"
+        - label: _(International Community School)
+          value: "International-Community-School"
+        - label: _(Juanita Elementary School)
+          value: "Juanita-Elementary-School"
+        - label: _(Juanita High School)
+          value: "Juanita-High-School"
+        - label: _(Kamiakin Middle School)
+          value: "Kamiakin-Middle-School"
+        - label: _(Keller Elementary School)
+          value: "Keller-Elementary-School"
+        - label: _(Kirk Elementary School)
+          value: "Kirk-Elementary-School"
+        - label: _(Kirkland Middle School)
+          value: "Kirkland-Middle-School"
+        - label: _(Lake Washington High School)
+          value: "Lake-Washington-High-School"
+        - label: _(Lakeview Elementary School)
+          value: "Lakeview-Elementary-School"
+        - label: _(Mann Elementary School)
+          value: "Mann-Elementary-School"
+        - label: _(McAuliffe Elementary School)
+          value: "McAuliffe-Elementary-School"
+        - label: _(Mead Elementary School)
+          value: "Mead-Elementary-School"
+        - label: _(Muir Elementary School)
+          value: "Muir-Elementary-School"
+        - label: _(Northstar Middle School)
+          value: "Northstar-Middle-School"
+        - label: _(Redmond Elementary School)
+          value: "Redmond-Elementary-School"
+        - label: _(Redmond Middle School)
+          value: "Redmond-Middle-School"
+        - label: _(Redmond High School)
+          value: "Redmond-High-School"
+        - label: _(Renaissance School of Art & Reasoning)
+          value: "Renaissance-School-of-Art-And-Reasoning"
+        - label: _(Rockwell Elementary School)
+          value: "Rockwell-Elementary-School"
+        - label: _(Rosa Parks Elementary School)
+          value: "Rosa-Parks-Elementary-School"
+        - label: _(Rose Hill Elementary School)
+          value: "Rose-Hill-Elementary-School"
+        - label: _(Rush Elementary School)
+          value: "Rush-Elementary-School"
+        - label: _(Sandburg Elementary School)
+          value: "Sandburg-Elementary-School"
+        - label: _(Smith Elementary School)
+          value: "Smith-Elementary-School"
+        - label: _(Stella Schola Middle School)
+          value: "Stella-Schola-Middle-School"
+        - label: _(TESLA STEM High School)
+          value: "TESLA-STEM-High-School"
+        - label: _(Thoreau Elementary School)
+          value: "Thoreau-Elementary-School"
+        - label: _(Twain Elementary School)
+          value: "Twain-Elementary-School"
+        - label: _(Wilder Elementary School)
+          value: "Wilder-Elementary-School"
+        - label: _(Ardmore Elementary School)
+          value: "Ardmore-Elementary-School"
+        - label: _(Bennett Elementary School)
+          value: "Bennett-Elementary-School"
+        - label: _(Cherry Crest Elementary School)
+          value: "Cherry-Crest-Elementary-School"
+        - label: _(Clyde Hill Elementary School)
+          value: "Clyde-Hill-Elementary-School"
+        - label: _(Eastgate Elementary School)
+          value: "Eastgate-Elementary-School"
+        - label: _(Enatai Elementary School)
+          value: "Enatai-Elementary-School"
+        - label: _(Lake Hills Elementary School)
+          value: "Lake-Hills-Elementary-School"
+        - label: _(Medina Elementary School)
+          value: "Medina-Elementary-School"
+        - label: _(Newport Heights Elementary School)
+          value: "Newport-Heights-Elementary-School"
+        - label: _(Phantom Lake Elementary School)
+          value: "Phantom-Lake-Elementary-School"
+        - label: _(Sherwood Forest Elementary School)
+          value: "Sherwood-Forest-Elementary-School"
+        - label: _(Somerset Elementary School)
+          value: "Somerset-Elementary-School"
+        - label: _(Spiritridge Elementary School)
+          value: "Spiritridge-Elementary-School"
+        - label: _(Stevenson Elementary School)
+          value: "Stevenson-Elementary-School"
+        - label: _(Wilburton Elementary School)
+          value: "Wilburton-Elementary-School"
+        - label: _(Woodridge Elementary School)
+          value: "Woodridge-Elementary-School"
+        - label: _(Chinook Middle School)
+          value: "Chinook-Middle-School"
+        - label: _(Highland Middle School)
+          value: "Highland-Middle-School"
+        - label: _(Odle Middle School)
+          value: "Odle-Middle-School"
+        - label: _(Tillicum Middle School)
+          value: "Tillicum-Middle-School"
+        - label: _(Tyee Middle School)
+          value: "Tyee-Middle-School-"
+        - label: _(Bellevue High School)
+          value: "Bellevue-High-School"
+        - label: _(Interlake High School)
+          value: "Interlake-High-School"
+        - label: _(Newport High School)
+          value: "Newport-High-School"
+        - label: _(Sammamish High School)
+          value: "Sammamish-High-School"
+        - label: _(Bellevue Big Picture School)
+          value: "Bellevue-Big-Picture-School"
+        - label: _(International School)
+          value: "International-School"
+        - label: _(Jing Mei Elementary School)
+          value: "Jing-Mei-Elementary-School"
+        - label: _(Puesta Del Sol Elementary School)
+          value: "Puesta-Del-Sol-Elementary-School"
+        - label: _(Apollo Elementary School)
+          value: "Apollo-Elementary-School"
+        - label: _(Beaver Lake Middle School)
+          value: "Beaver-Lake-Middle-School"
+        - label: _(Briarwood Elementary School)
+          value: "Briarwood-Elementary-School"
+        - label: _(Cascade Ridge Elementary School)
+          value: "Cascade-Ridge-Elementary-School"
+        - label: _(Challenger Elementary School)
+          value: "Challenger-Elementary-School"
+        - label: _(Clark Elementary School)
+          value: "Clark-Elementary-School"
+        - label: _(Cougar Ridge Elementary School)
+          value: "Cougar-Ridge-Elementary-School"
+        - label: _(Creekside Elementary School)
+          value: "Creekside-Elementary-School"
+        - label: _(Discovery Elementary School)
+          value: "Discovery-Elementary-School"
+        - label: _(Endeavour Elementary School)
+          value: "Endeavour-Elementary-School"
+        - label: _(Gibson Ek High School)
+          value: "Gibson-Ek-High-School"
+        - label: _(Grand Ridge Elementary School)
+          value: "Grand-Ridge-Elementary-School"
+        - label: _(Issaquah High School)
+          value: "Issaquah-High-School"
+        - label: _(Issaquah Middle School)
+          value: "Issaquah-Middle-School"
+        - label: _(Issaquah Valley Elementary School)
+          value: "Issaquah-Valley-Elementary-School"
+        - label: _(Liberty High School)
+          value: "Liberty-High-School"
+        - label: _(Maple Hills Elementary School)
+          value: "Maple-Hills-Elementary-School"
+        - label: _(Maywood Middle School)
+          value: "Maywood-Middle-School"
+        - label: _(Newcastle Elementary School)
+          value: "Newcastle-Elementary-School"
+        - label: _(Pacific Cascade Middle School)
+          value: "Pacific-Cascade-Middle-School"
+        - label: _(Pine Lake Middle School)
+          value: "Pine-Lake-Middle-School"
+        - label: _(Skyline High School)
+          value: "Skyline-High-School"
+        - label: _(Sunny Hills Elementary School)
+          value: "Sunny-Hills-Elementary-School"
+        - label: _(Sunset Elementary School)
+          value: "Sunset-Elementary-School"
+        - label: _(Carriage Crest Elementary School)
+          value: "Carriage-Crest-Elementary-School"
+        - label: _(Cedar Heights Middle School)
+          value: "Cedar-Heights-Middle-School"
+        - label: _(Cedar Valley Elementary School)
+          value: "Cedar-Valley-Elementary-School"
+        - label: _(Covington Elementary School)
+          value: "Covington-Elementary-School"
+        - label: _(Crestwood Elementary School)
+          value: "Crestwood-Elementary-School"
+        - label: _(East Hill Elementary School)
+          value: "East-Hill-Elementary-School"
+        - label: _(Emerald Park Elementary School)
+          value: "Emerald-Park-Elementary-School"
+        - label: _(Fairwood Elementary School)
+          value: "Fairwood-Elementary-School"
+        - label: _(George T. Daniel Elementary School)
+          value: "George-T-Daniel-Elementary-School"
+        - label: _(Glenridge Elementary School)
+          value: "Glenridge-Elementary-School"
+        - label: _(Grass Lake Elementary School)
+          value: "Grass-Lake-Elementary-School"
+        - label: _(Horizon Elementary School)
+          value: "Horizon-Elementary-School"
+        - label: _(iGrad)
+          value: "iGrad"
+        - label: _(Jenkins Creek Elementary School)
+          value: "Jenkins-Creek-Elementary-School"
+        - label: _(Kent Elementary School)
+          value: "Kent-Elementary-School"
+        - label: _(Kent Mountain View Academy)
+          value: "Kent-Mountain-View-Academy"
+        - label: _(Kent Phoenix Academy)
+          value: "Kent-Phoenix-Academy"
+        - label: _(Kent Valley Early Learning Center)
+          value: "Kent-Valley-Early-Learning-Center"
+        - label: _(Kentlake High School)
+          value: "Kentlake-High-School"
+        - label: _(Kent-Meridian High School)
+          value: "Kent-Meridian-High-School"
+        - label: _(Kentridge High School)
+          value: "Kentridge-High-School"
+        - label: _(Kentwood High School)
+          value: "Kentwood-High-School"
+        - label: _(Lake Youngs Elementary School)
+          value: "Lake-Youngs-Elementary-School"
+        - label: _(Martin Sortun Elementary School)
+          value: "Martin-Sortun-Elementary-School"
+        - label: _(Mattson Middle School)
+          value: "Mattson-Middle-School"
+        - label: _(Meadow Ridge Elementary School)
+          value: "Meadow-Ridge-Elementary-School"
+        - label: _(Meeker Middle School)
+          value: "Meeker-Middle-School"
+        - label: _(Meridian Elementary School)
+          value: "Meridian-Elementary-School"
+        - label: _(Meridian Middle School)
+          value: "Meridian-Middle-School"
+        - label: _(Mill Creek Middle School)
+          value: "Mill-Creek-Middle-School"
+        - label: _(Millennium Elementary School)
+          value: "Millennium-Elementary-School"
+        - label: _(Neely-O'Brien Elementary School)
+          value: "Neely-OBrien-Elementary-School"
+        - label: _(Northwood Middle School)
+          value: "Northwood-Middle-School"
+        - label: _(Panther Lake Elementary School)
+          value: "Panther-Lake-Elementary-School"
+        - label: _(Park Orchard Elementary School)
+          value: "Park-Orchard-Elementary-School"
+        - label: _(Pine Tree Elementary School)
+          value: "Pine-Tree-Elementary-School"
+        - label: _(Ridgewood Elementary School)
+          value: "Ridgewood-Elementary-School"
+        - label: _(Sawyer Woods Elementary School)
+          value: "Sawyer-Woods-Elementary-School"
+        - label: _(Scenic Hill Elementary School)
+          value: "Scenic-Hill-Elementary-School"
+        - label: _(Soos Creek Elementary School)
+          value: "Soos-Creek-Elementary-School"
+        - label: _(Springbrook Elementary School)
+          value: "Springbrook-Elementary-School"
+        - label: _(Sunrise Elementary School)
+          value: "Sunrise-Elementary-School"
+        - label: _(Alpac Elementary School)
+          value: "Alpac-Elementary-School"
+        - label: _(Arthur Jacobsen Elementary School)
+          value: "Arthur-Jacobsen-Elementary-School"
+        - label: _(Auburn High School)
+          value: "Auburn-High-School"
+        - label: _(Auburn Mountainview High School)
+          value: "Auburn-Mountainview-High-School"
+        - label: _(Auburn Riverside High School)
+          value: "Auburn-Riverside-High-School"
+        - label: _(Cascade Middle School)
+          value: "Cascade-Middle-School"
+        - label: _(Chinook Elementary School)
+          value: "Chinook-Elementary-School"
+        - label: _(Dick Scobee Elementary School)
+          value: "Dick-Scobee-Elementary-School"
+        - label: _(Evergreen Heights Elementary School)
+          value: "Evergreen-Heights-Elementary-School"
+        - label: _(Gildo Rey Elementary School)
+          value: "Gildo-Rey-Elementary-School"
+        - label: _(Hazelwood Elementary School)
+          value: "Hazelwood-Elementary-School"
+        - label: _(Ilalko Elementary School)
+          value: "Ilalko-Elementary-School"
+        - label: _(Lake View Elementary School)
+          value: "Lake-View-Elementary-School"
+        - label: _(Lakeland Hills Elementary School)
+          value: "Lakeland-Hills-Elementary-School"
+        - label: _(Lea Hill Elementary School)
+          value: "Lea-Hill-Elementary-School"
+        - label: _(Mt. Baker Middle School)
+          value: "Mt-Baker-Middle-School"
+        - label: _(Olympic Middle School)
+          value: "Olympic-Middle-School"
+        - label: _(Pioneer Elementary School)
+          value: "Pioneer-Elementary-School"
+        - label: _(Rainier Middle School)
+          value: "Rainier-Middle-School"
+        - label: _(Terminal Park Elementary School)
+          value: "Terminal-Park-Elementary-School"
+        - label: _(Washington Elementary School)
+          value: "Washington-Elementary-School"
+        - label: _(West Auburn High School)
+          value: "West-Auburn-High-School"
+        - label: _(Cleveland High School)
+          value: "Cleveland-High-School"
+        - label: _(Chief Sealth High District)
+          value: "Chief-Sealth-High-District"
+        - label: _(Denny Middle School)
+          value: "Denny-Middle-School"
     - name: submitter_name
       type: text
       prompt: _(Your name)
