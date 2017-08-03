@@ -148,8 +148,103 @@ map:
       url: intentionally-blank
 
     - id: impervious
-      type: basemap
-      url: intentionally-blank
+      type: wms
+      url: https://geonode.mapseed.org/geoserver/impervious_surfaces_2009/wms?
+      layers:
+        - t19r06_09i002
+        - t19r07_09i002
+        - t19r08_09i002
+        - t19r09_09i002
+        - t19r10_09i002
+        - t19r11_09i002
+        - t19r12_09i002
+        - t20r03_09i002
+        - t20r04_09i002
+        - t20r05_09i002
+        - t20r06_09i002
+        - t20r07_09i002
+        - t20r08_09i002
+        - t20r09_09i002
+        - t20r10_09i002
+        - t20r11_09i002
+        - t20r12_09i002
+        - t21r02_09i002
+        - t21r03_09i002
+        - t21r04_09i002
+        - t21r05_09i002
+        - t21r06_09i002
+        - t21r07_09i002
+        - t21r08_09i002
+        - t21r09_09i002
+        - t21r10_09i002
+        - t21r11_09i002
+        - t21r12_09i002
+        - t22r02_09i002
+        - t22r03_09i002
+        - t22r04_09i002
+        - t22r05_09i002
+        - t22r06_09i002
+        - t22r07_09i002
+        - t22r08_09i002
+        - t22r09_09i002
+        - t22r10_09i002
+        - t22r11_09i002
+        - t23r02_09i002
+        - t23r03_09i002
+        - t23r04_09i002
+        - t23r05_09i002
+        - t23r06_09i002
+        - t23r07_09i002
+        - t23r08_09i002
+        - t23r09_09i002
+        - t23r10_09i002
+        - t23r11_09i002
+        - t24r03_09i002
+        - t24r04_09i002
+        - t24r05_09i002
+        - t24r06_09i002
+        - t24r07_09i002
+        - t24r08_09i002
+        - t24r09_09i002
+        - t24r10_09i002
+        - t24r11_09i002
+        - t25r03_09i002
+        - t25r04_09i002
+        - t25r05_09i002
+        - t25r06_09i002
+        - t25r07_09i002
+        - t25r08_09i002
+        - t25r09_09i002
+        - t25r10_09i002
+        - t25r11_09i002
+        - t25r12_09i002
+        - t25r13_09i002
+        - t26r03_09i002
+        - t26r04_09i002
+        - t26r05_09i002
+        - t26r06_09i002
+
+        # NOTE: the following additional layers will be added when the server
+        # is upgraded with more space. For now these layers don't exist.
+        # - t26r07_09i002
+        # - t26r08_09i002
+        # - t26r09_09i002
+        # - t26r10_09i002
+        # - t26r11_09i002
+        # - t26r12_09i002
+        # - t26r13_09i002
+        # - t27r03_09i002
+        # - t27r04_09i002
+        # - t27r05_09i002
+        # - t27r06_09i002
+        # - t27r07_09i002
+        # - t27r08_09i002
+        # - t27r09_09i002
+        # - t28r04_09i002
+        # - t28r05_09i002
+      version: 1.3.0
+      format: image/png
+      transparent: true
 
     - id: outfalls
       type: basemap
