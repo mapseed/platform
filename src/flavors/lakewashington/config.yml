@@ -45,6 +45,24 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    - id: contour
+      type: wmts
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS?
+      layers: 5
+      tilematrixSet: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/png
+
+    - id: parcels
+      type: wmts
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Property/KingCo_Parcels/MapServer/WMTS?
+      layers: 0
+      tilematrixSet: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/png
+
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '<a href="/page/terms">Terms and conditions</a>&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -310,6 +328,14 @@ sidebar:
               title: _(Community Reports)
               description: _(Community Reports)
               visibleDefault: true
+
+            - id: contour
+              title: _(Contour lines)
+              visibleDefault: false
+
+            - id: parcels
+              title: _(Parcels)
+              visibleDefault: false
 
               # Noxious Weeds
             - id: noxious-weeds

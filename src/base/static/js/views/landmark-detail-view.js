@@ -23,15 +23,12 @@ module.exports = PlaceDetailView.extend({
     // add the story navigation bar
     this.$el.html(Handlebars.templates["place-detail-story-bar"](data));
     this.$el.append(
-      this.model.attributes.story ? this.description : this.originalDescription,
+      "<div class='landmark-detail-content'>" +
+      (this.model.attributes.story ? this.description : this.originalDescription) +
+      "</div>"
     );
     // Render the view as-is (collection may have content already)
     this.$(".survey").html(this.landmarkSurveyView.render().$el);
-
-    // add the story navigation bar again, at the bottom of the view
-    this.$el.append(
-      Handlebars.templates["place-detail-story-bar-tagline"](data),
-    );
 
     this.delegateEvents();
 

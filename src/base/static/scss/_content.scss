@@ -43,51 +43,6 @@ a.close-btn {
     }
 }
 
-a.maximize-btn, a.minimize-btn {
-    background: #fff;
-    color: #ff5e99;
-    font-size: 1.25em;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 1.125em;
-    display: block;
-    position: absolute;
-    top: -1.325em;
-    right: 0.5em;
-    padding: 0.325em 0.625em;
-    z-index: 2;
-    box-shadow: 0 -0.325em 0 rgba(0, 0, 0, 0.1);
-    border-radius: 0.325em 0.325em 0 0;
-
-    &:hover {
-        color: #cd2c67;
-    }
-
-    span {
-        font-size: 0.625em;
-        text-transform: uppercase;
-        margin-left: 0.625em;
-        position: relative;
-        top: -0.2em;
-    }
-}
-
-a.maximize-btn:after {
-    font-size: 1.0em;
-    font-family: FontAwesome;
-    content: "\f106";
-    padding-left: 7px;
-}
-
-a.minimize-btn {
-    display: none;
-    &:after {
-        font-size: 1.0em;
-        font-family: FontAwesome;
-        content: "\f107";
-        padding-left: 7px;
-    }
-}
 
 // Contains embeded video player size
 
@@ -98,6 +53,27 @@ a.minimize-btn {
         width: 100% !important;
 
         /* height: auto !important */
+    }
+
+    article {
+        a:not(.response-date-link):not(.reply-link) {
+            text-decoration: none;
+            // color: #6767FF;
+            color: #007fbf;
+
+            &:hover {
+                color: #509dc3;
+            }
+
+            &:visited {
+                color: #509dc3;
+            }
+        }
+
+        .landmark-detail-content img, .place-value img {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
     }
 }
 
@@ -196,6 +172,12 @@ a.minimize-btn {
 }
 
 // Places - Selectors
+
+.place-detail-spacer {
+    &.editing-toggled {
+        padding-top: 55px;
+    }
+}
 
 .place-header {
     margin-bottom: 1em;
@@ -395,22 +377,25 @@ a.auth-inline {
 
 /* place detail view story bar */
 .place-story-bar {
-    background-color: #EEEEEE;
-    padding: 8px;
-    border-radius: 3px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    background-color: #FFF;
+    color: #333;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
     font-family: FontAwesome;
     overflow: hidden;
+    border-bottom: 1px solid #999;
     h1 {
         line-height: 1em;
-        font-size: 1.35em;
+        font-size: 2.1em;
         text-align: center;
     }
+    h3 {
+        line-height: 2.2em;
+    }
     .story-tagline {
+        text-align: center;
         width: 100%;
-        padding-left: 5px;
-        padding-right: 5px;
         font-family: $default-font-family;
         margin-bottom: 0;
     }
@@ -433,11 +418,6 @@ a.auth-inline {
             background-color: $background-color-warning;        
         }
     }
-}
-
-/* place detail editor */
-.place-detail-edit-bar {
-    margin-bottom: 15px;
 }
 
 .img-placeholder {

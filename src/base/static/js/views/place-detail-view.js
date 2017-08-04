@@ -7,6 +7,8 @@ var RichTextEditorView = require("mapseed-rich-text-editor-view");
 
 var SubmissionCollection = require("../models/submission-collection.js");
 
+const TOOLBAR_FIXED_TOP_THRESHOLD = 235;
+
 module.exports = Backbone.View.extend({
   events: {
     "click .place-story-bar .btn-previous-story-nav": "onClickStoryPrevious",
@@ -315,7 +317,7 @@ module.exports = Backbone.View.extend({
       // the top of the content container, right below the edit toolbar.
       if (this.$qlToolbar.length > 0) {
         $("#content article").on("scroll", function() {
-          if (this.scrollTop < 435) {
+          if (this.scrollTop < TOOLBAR_FIXED_TOP_THRESHOLD) {
             self.$qlToolbar.removeClass("fixed-top");
           } else if (self.$qlToolbar.offset().top < 115) {
             self.$qlToolbar.addClass("fixed-top");

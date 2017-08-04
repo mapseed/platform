@@ -1,11 +1,7 @@
 {{#if story}}
 	<section class="place-story-bar">
-		<table>
-			<tr>
-				<td class="btn-previous-story-nav {{#unless story.previous}}story-nav-disabled{{/unless}}"></td>
-				<td class="story-tagline"><h5>{{story.tagline}}</h5></td>
-				<td class="btn-next-story-nav {{#unless story.next}}story-nav-disabled{{/unless}}"></td>
-			</tr>
-		</table>
+		<span class="btn-story-nav btn-previous-story-nav {{#unless story.previous}}story-nav-disabled{{/unless}}"></span>
+		<span class="story-tagline"><h3>{{story.tagline}}</h3></span>
+		<span class="btn-story-nav btn-next-story-nav {{#unless story.next}}story-nav-disabled{{/unless}}"></span>
 	</section>
 {{/if}}

@@ -3,6 +3,8 @@
 
 {{> place-detail-edit-bar }}
 
+<div class="place-detail-spacer{{#if isEditable}} editing-toggled{{/if}}"></div>
+
 {{> place-detail-story-bar }}
 
 {{> place-detail-promotion-bar }}
@@ -56,7 +58,7 @@
 
       <time datetime="{{ created_datetime }}" 
             class="response-date">
-        <a href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a>
+        <a class="response-date-link" href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a>
       </time>
 
       <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
@@ -88,8 +90,10 @@
         {{#if ../isEditingToggled}}
           {{> place-form-field-types}}
         {{else}}
-          <div class="place-label place-label-{{ name }}">{{ display_prompt }}</div>
-          {{> place-detail-field-types}}
+          {{#unless hideFromDetailView}}
+            <div class="place-label place-label-{{ name }}">{{ display_prompt }}</div>
+            {{> place-detail-field-types}}
+          {{/unless}}
         {{/if}}
         <div style="clear:both"></div>
       </div>
@@ -101,5 +105,3 @@
   <section class="survey" 
            id="survey"></section>
 {{/if}}
-
-{{> place-detail-story-bar-tagline }}

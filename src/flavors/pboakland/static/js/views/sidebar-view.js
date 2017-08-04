@@ -47,6 +47,9 @@ module.exports = SidebarView.extend({
           el: "#" + panelConfig.id,
           mapView: self.options.mapView,
           config: panelConfig,
+          sidebar: self.sidebar,
+          placeConfig: self.options.placeConfig,
+          sidebarView: self
         }).render();
       }
     });

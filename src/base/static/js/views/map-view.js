@@ -383,6 +383,7 @@ module.exports = Backbone.View.extend({
         // IDs can be returned all at once, while actual geometries are
         // capped at 1000 per request. Gets an array of all IDs then
         // requests their geometry 1000 at a time.
+        self.map.fire("layer:loading", {id: config.id});
         L.esri.Tasks
           .query({
             url: config.url,
@@ -408,6 +409,7 @@ module.exports = Backbone.View.extend({
                   if (esriLayers.length === Math.floor(ids.length / 1000) + 1) {
                     // All requests have completed
                     self.layers[config.id] = L.layerGroup(esriLayers);
+                    self.map.fire("layer:loaded", {id: config.id});
                   }
                 });
             }
@@ -420,7 +422,13 @@ module.exports = Backbone.View.extend({
             return L.Argo.getStyleRule(feature, config.rules)["style"];
           };
         }
-        layer = L.esri.featureLayer(esriOptions);
+        layer = L.esri.featureLayer(esriOptions)
+          .on("loading", function() {
+            self.map.fire("layer:loading", {id: config.id});
+          })
+          .on("load", function() {
+            self.map.fire("layer:loaded", {id: config.id});
+          });
 
         if (config.popupContent) {
           layer.bindPopup(function(feature) {
