@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>{{page.title}} - {{site.title}}</title>
+    <title>{{site.title}}</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,13 +63,8 @@
     <div class="page-wrapper">
         <div class="doc-wrapper">
             <div class="container">
-                <ol class="breadcrumb">
-                    <li><a href="/">Docs</a></li>
-                    <li class="active">{{page.title}}</li>
-                </ol>
-                <div id="doc-header" class="doc-header text-center">
-                    <h1 class="doc-title">{% if page.icon %}<i class="icon fa {{page.icon}}"></i>{% endif %} {{page.title}}</h1>
-                    <div class="meta"><i class="fa fa-clock-o"></i> Last updated: {{page.last_updated}}</div>
+                <div class="text-center">
+                    <h1>{{page.title}}</h1>
                 </div><!--//doc-header-->
                 <div class="doc-body">
                     {{ content }}

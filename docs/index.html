@@ -1,0 +1,21 @@
+---
+layout: index
+title: Mapseed Documentation
+last_updated: July 16th, 2017
+permalink: /
+---
+
+<section class="cards-section text-center">
+  <div class="container">
+    {% for p in site.pages %}
+    {% if p.title != page.title %}
+    <div class="item item-green item-2 col-md-4 col-sm-6 col-xs-6">
+      <div class="item-inner" style="height: 100px;">
+        <h3 class="title">{{p.title}}</h3>
+        <a class="link" href="{{p.url}}"></a>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
