@@ -149,7 +149,7 @@ map:
 
     - id: impervious
       type: wms
-      url: https://geonode.mapseed.org/geoserver/impervious_surfaces_2009/wms?
+      url: https://geoserver.mapseed.org/geoserver/impervious_surfaces_2009/wms?
       layers:
         - t19r06_09i002
         - t19r07_09i002
