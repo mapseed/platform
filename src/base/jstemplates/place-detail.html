@@ -13,9 +13,9 @@
   {{>location-string location }}
   <form id="update-place-model-title-form">
     {{#if isEditingToggled}}
-      <input type="text" 
-             class="place-value place-value-title" 
-             name="title" 
+      <input type="text"
+             class="place-value place-value-title"
+             name="title"
              value="{{#if fullTitle}}{{fullTitle}}{{else}}{{#if title}}{{title}}{{else}}{{name}}{{/if}}{{/if}}" />
     {{else}}
       <h1 class="place-header-title {{#if story}}is-visuallyhidden{{/if}}">
@@ -33,12 +33,12 @@
   </form>
   <span class="place-submission-details">
     {{#is_not showMetadata false}}
-      {{#_}}<strong class="point-submitter">
+      <strong class="point-submitter">
         {{#if submitter.avatar_url }}
-          <img src="{{ submitter.avatar_url }}" 
+          <img src="{{ submitter.avatar_url }}"
                class="avatar" />
         {{^}}
-          <img src="{{ STATIC_URL }}css/images/user-50.png" 
+          <img src="{{ STATIC_URL }}css/images/user-50.png"
                class="avatar" />
         {{/if}}
         {{#if submitter.name }}
@@ -50,13 +50,13 @@
             {{ anonymous_name }}
           {{/if}}
         {{/if}}
-      </strong> {{ action_text }} this {{ place_type_label location_type}}
+      </strong> {{ action_text }} {{#_}}this{{/_}} {{ place_type_label location_type}}
 
       {{#if region}}
-        in {{ region }}
-      {{/if}}{{/_}}
+        {{#_}}in{{/_}} {{ region }}
+      {{/if}}
 
-      <time datetime="{{ created_datetime }}" 
+      <time datetime="{{ created_datetime }}"
             class="response-date">
         <a class="response-date-link" href="/{{ datasetSlug }}/{{ id }}">{{ fromnow created_datetime }}</a>
       </time>
@@ -65,8 +65,8 @@
     {{/is_not}}
 
   {{^if survey_config}}
-    <a rel="internal" 
-       href="/{{#if url-title}}{{url-title}}{{else}}{{ datasetSlug }}/{{ id }}{{/if}}" 
+    <a rel="internal"
+       href="/{{#if url-title}}{{url-title}}{{else}}{{ datasetSlug }}/{{ id }}{{/if}}"
        class="view-on-map-btn btn btn-small">{{#_}}View On Map{{/_}}</a>
   {{/if}}
 
@@ -78,10 +78,10 @@
     {{#unless suppressAttachments}}
       {{#each attachments }}
         <div class="place-item place-item-attachment place-attachment-{{ name }}">
-          <img src="{{ file }}" 
-               class="place-value place-value-{{ name }}" 
+          <img src="{{ file }}"
+               class="place-value place-value-{{ name }}"
                alt="{{ name }}" />
-        </div>           
+        </div>
       {{/each}}
     {{/unless}}
 
@@ -102,6 +102,6 @@
 </section>
 
 {{#if survey_config}}
-  <section class="survey" 
+  <section class="survey"
            id="survey"></section>
 {{/if}}

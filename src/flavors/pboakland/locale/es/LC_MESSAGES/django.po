@@ -15,21 +15,21 @@ msgstr ""
 "X-Loco-Parser: loco_parse_po\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: flavors/pboakland/_config.translations.py:20 
-#: flavors/pboakland/_config.translations.py:24 
-#: flavors/pboakland/_config.translations.py:26 
-#: flavors/pboakland/_config.translations.py:27 
-#: flavors/pboakland/_config.translations.py:30 
-#: flavors/pboakland/_config.translations.py:34 
-#: flavors/pboakland/_config.translations.py:36 
-#: flavors/pboakland/_config.translations.py:37 
-#: flavors/pboakland/_config.translations.py:40 
-#: flavors/pboakland/_config.translations.py:44 
-#: flavors/pboakland/_config.translations.py:46 
-#: flavors/pboakland/_config.translations.py:47 
-#: flavors/pboakland/_config.translations.py:50 
-#: flavors/pboakland/_config.translations.py:54 
-#: flavors/pboakland/_config.translations.py:56 
+#: flavors/pboakland/_config.translations.py:20
+#: flavors/pboakland/_config.translations.py:24
+#: flavors/pboakland/_config.translations.py:26
+#: flavors/pboakland/_config.translations.py:27
+#: flavors/pboakland/_config.translations.py:30
+#: flavors/pboakland/_config.translations.py:34
+#: flavors/pboakland/_config.translations.py:36
+#: flavors/pboakland/_config.translations.py:37
+#: flavors/pboakland/_config.translations.py:40
+#: flavors/pboakland/_config.translations.py:44
+#: flavors/pboakland/_config.translations.py:46
+#: flavors/pboakland/_config.translations.py:47
+#: flavors/pboakland/_config.translations.py:50
+#: flavors/pboakland/_config.translations.py:54
+#: flavors/pboakland/_config.translations.py:56
 #: flavors/pboakland/_config.translations.py:57
 msgid " "
 msgstr ""
@@ -166,31 +166,6 @@ msgstr ""
 "personal de la oficina del Concejo a fin de estudiarlas en el futuro. \n"
 "</p>"
 "\n"
-#: flavors/pboakland/jstemplates/place-detail.html:1
-msgid ""
-"<strong class=\"point-submitter\">\n"
-"              {{#if submitter.avatar_url }}\n"
-"                <img src=\"{{ submitter.avatar_url }}\" class=\"avatar\" />\n"
-"              {{^}}\n"
-"                <img src=\"{{ STATIC_URL }}css/images/user-50.png\" "
-"class=\"avatar\" />\n"
-"              {{/if}}\n"
-"              {{#if submitter.name }}\n"
-"                {{ submitter.name }}\n"
-"              {{^}}\n"
-"                {{#if submitter_name }}\n"
-"                  {{ submitter_name }}\n"
-"                {{^}}\n"
-"                  {{ anonymous_name }}\n"
-"                {{/if}}\n"
-"              {{/if}}\n"
-"            </strong> {{ action_text }} this {{ place_type_label "
-"location_type}}{{#if venueLabel}} at <strong>{{venueLabel}}</strong>{{/if}}\n"
-"\n"
-"            {{#if region}}\n"
-"              in {{ region }}\n"
-"            {{/if}}"
-msgstr ""
 
 #: flavors/pboakland/jstemplates/place-detail.html:21
 msgid "View On Map"
@@ -228,8 +203,8 @@ msgstr ""
 "del Concejo Municipal el poder de decidir cómo invertir una serie de fondos "
 "municipales en su distrito. ¡Ayúdanos a votar hoy mismo!"
 
-#: flavors/pboakland/_config.translations.py:2 
-#: flavors/pboakland/_config.translations.py:15 
+#: flavors/pboakland/_config.translations.py:2
+#: flavors/pboakland/_config.translations.py:15
 #: flavors/pboakland/_config.translations.py:109
 msgid "Someone"
 msgstr "Alguien"
@@ -254,13 +229,13 @@ msgstr "comentarios"
 msgid "commented on"
 msgstr "comentó en"
 
-#: flavors/pboakland/_config.translations.py:8 
+#: flavors/pboakland/_config.translations.py:8
 #: flavors/pboakland/_config.translations.py:14
 msgid "Leave a Comment"
 msgstr "Dejar un comentario"
 
-#: flavors/pboakland/_config.translations.py:9 
-#: flavors/pboakland/_config.translations.py:10 
+#: flavors/pboakland/_config.translations.py:9
+#: flavors/pboakland/_config.translations.py:10
 #: flavors/pboakland/_config.translations.py:12
 msgid "Comment"
 msgstr "Comentario"
@@ -285,30 +260,30 @@ msgstr "¡Enviar!"
 msgid "Tell us more..."
 msgstr "Cuéntanos más..."
 
-#: flavors/pboakland/_config.translations.py:19 
-#: flavors/pboakland/_config.translations.py:29 
-#: flavors/pboakland/_config.translations.py:39 
+#: flavors/pboakland/_config.translations.py:19
+#: flavors/pboakland/_config.translations.py:29
+#: flavors/pboakland/_config.translations.py:39
 #: flavors/pboakland/_config.translations.py:49
 msgid "Title of your idea:"
 msgstr "Título de tu idea:"
 
-#: flavors/pboakland/_config.translations.py:21 
-#: flavors/pboakland/_config.translations.py:31 
-#: flavors/pboakland/_config.translations.py:41 
+#: flavors/pboakland/_config.translations.py:21
+#: flavors/pboakland/_config.translations.py:31
+#: flavors/pboakland/_config.translations.py:41
 #: flavors/pboakland/_config.translations.py:51
 msgid "Title:"
 msgstr "Título:"
 
-#: flavors/pboakland/_config.translations.py:22 
-#: flavors/pboakland/_config.translations.py:32 
-#: flavors/pboakland/_config.translations.py:42 
+#: flavors/pboakland/_config.translations.py:22
+#: flavors/pboakland/_config.translations.py:32
+#: flavors/pboakland/_config.translations.py:42
 #: flavors/pboakland/_config.translations.py:52
 msgid "Tell us more about your idea to improve our neighborhood?:"
 msgstr "Cuéntanos más detalles sobre tu idea para mejorar nuestra comunidad:"
 
-#: flavors/pboakland/_config.translations.py:23 
-#: flavors/pboakland/_config.translations.py:33 
-#: flavors/pboakland/_config.translations.py:43 
+#: flavors/pboakland/_config.translations.py:23
+#: flavors/pboakland/_config.translations.py:33
+#: flavors/pboakland/_config.translations.py:43
 #: flavors/pboakland/_config.translations.py:53
 msgid ""
 "Ideas must be for a program, service, or infrastructure improvement "
@@ -318,15 +293,15 @@ msgstr ""
 "infraestructural que beneficie a comunidades de ingresos escasos a moderados "
 "dentro del distrito."
 
-#: flavors/pboakland/_config.translations.py:25 
-#: flavors/pboakland/_config.translations.py:35 
-#: flavors/pboakland/_config.translations.py:45 
+#: flavors/pboakland/_config.translations.py:25
+#: flavors/pboakland/_config.translations.py:35
+#: flavors/pboakland/_config.translations.py:45
 #: flavors/pboakland/_config.translations.py:55
 msgid "Why is this important? What need in the community does this serve?:"
 msgstr ""
 "¿Por qué es importante? ¿Qué necesidad de la comunidad atiende tu idea?"
 
-#: flavors/pboakland/_config.translations.py:28 
+#: flavors/pboakland/_config.translations.py:28
 #: flavors/pboakland/_config.translations.py:122
 msgid "Community Programs and Services"
 msgstr "Programas y Servicios Comunitarios"
@@ -339,7 +314,7 @@ msgstr "Parques y recreación"
 msgid "Streets and Sidewalk"
 msgstr "Calles y aceras "
 
-#: flavors/pboakland/_config.translations.py:58 
+#: flavors/pboakland/_config.translations.py:58
 #: flavors/pboakland/_config.translations.py:125
 msgid "Housing and Jobs"
 msgstr "Vivienda y empleos"
@@ -348,7 +323,7 @@ msgstr "Vivienda y empleos"
 msgid "suggested"
 msgstr "sugerido"
 
-#: flavors/pboakland/_config.translations.py:64 
+#: flavors/pboakland/_config.translations.py:64
 #: flavors/pboakland/_config.translations.py:83
 msgid "Other"
 msgstr "Otro"
@@ -470,7 +445,7 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: flavors/pboakland/_config.translations.py:98 
+#: flavors/pboakland/_config.translations.py:98
 #: flavors/pboakland/_config.translations.py:99
 msgid "I want to volunteer:"
 msgstr "Me gustaría ser voluntario:"
@@ -575,7 +550,7 @@ msgstr "Información"
 msgid "Guidelines"
 msgstr "Pautas"
 
-#: flavors/pboakland/_config.translations.py:129 
+#: flavors/pboakland/_config.translations.py:129
 #: flavors/pboakland/jstemplates/pages/getinvolved.html:4
 msgid "Get more involved"
 msgstr "Otras maneras de participar"
