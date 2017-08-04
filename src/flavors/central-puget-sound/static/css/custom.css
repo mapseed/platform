@@ -9,10 +9,10 @@
   src: url('PermanentMarker.ttf');
 }
 
-@font-face {
+/*@font-face {
   font-family: 'WorkSans-ExtraBold';
   src: url('WorkSans-ExtraBold.ttf');
-}
+}*/
 
 #site-title a:link,
 #site-title a:visited {
@@ -25,15 +25,15 @@
 }
 
 #filter-menu-bar .filter-img:before {
-  font-family: "Permanent Marker", cursive !important;
+  font-family: Roboto, sans-serif !important;
 }
 
 .place-story-bar h1 {
-  font-family: "WorkSans-ExtraBold", sans-serif !important;
+  font-family: Roboto, sans-serif !important;
 }
 
 #content h1,h2,h3,h4 {
-  font-family: "WorkSans-ExtraBold", sans-serif !important;
+  font-family: Roboto, sans-serif !important;
   line-height: 1em;
 }
 
