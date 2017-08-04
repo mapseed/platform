@@ -1117,6 +1117,7 @@ place:
       optional: true
     - name: school-name
       type: dropdown
+      hideFromDetailView: true
       prompt: _(Your school:)
       content:
         - label: _(School A)

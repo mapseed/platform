@@ -90,8 +90,10 @@
         {{#if ../isEditingToggled}}
           {{> place-form-field-types}}
         {{else}}
-          <div class="place-label place-label-{{ name }}">{{ display_prompt }}</div>
-          {{> place-detail-field-types}}
+          {{#unless hideFromDetailView}}
+            <div class="place-label place-label-{{ name }}">{{ display_prompt }}</div>
+            {{> place-detail-field-types}}
+          {{/unless}}
         {{/if}}
         <div style="clear:both"></div>
       </div>
