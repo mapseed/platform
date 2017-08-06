@@ -1244,6 +1244,7 @@ place:
     - name: school-name
       hideFromDetailView: true
       optional: false
+      placeholder: _(Type or select a school name...)
       type: dropdown-autocomplete
       prompt: _(Your school:)
       content:
