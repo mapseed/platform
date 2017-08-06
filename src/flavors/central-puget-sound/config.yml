@@ -886,11 +886,16 @@ place:
       value: conserve-water
       label: _(Conserve Water)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -943,11 +948,16 @@ place:
       value: prevent-stormwater
       label: _(Prevent Stormwater Pollution)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -997,11 +1007,16 @@ place:
       value: only-flush
       label: _(Only Flush This)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1041,11 +1056,16 @@ place:
       value: conserve-energy
       label: _(Conserve Energy)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1090,11 +1110,16 @@ place:
       value: waste-less
       label: _(Waste Less)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1137,11 +1162,16 @@ place:
       value: commute-low-carbon
       label: _(Commute Low Carbon)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1180,11 +1210,16 @@ place:
       value: eat-local-organic
       label: _(Eat Local Organic)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1217,11 +1252,16 @@ place:
       value: restore-salmon-habitat
       label: _(Restore Salmon Habitat)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1246,11 +1286,6 @@ place:
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: address
-      type: geocoding
-      prompt: _(Your address:)
-      placeholder: _(Address)
-      optional: true
     - name: school-name
       type: dropdown
       prompt: _(Your school:)
