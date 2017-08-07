@@ -141,23 +141,6 @@
   <div style="clear:both"></div>
 {{/is}}
 
-{{#is type "dropdown-autocomplete"}}
-  <div>
-    <select id="dropdown-autocomplete-container-{{../name}}"
-            class="dropdown-autocomplete-container"
-            name={{ ../name }} 
-            data-placeholder="{{ ../placeholder }}"
-            {{^optional}}required{{/optional}}
-            {{#if isAutocomplete}}class="is-autocomplete"{{/if}}>
-      <option value="" name="no_response"></option>
-      {{#each content}}
-          <option value={{value}} {{#is value ../existingContent}}selected{{/is}}>{{label}}</option>
-      {{/each}}
-    </select>
-  </div>
-  <div style="clear:both"></div>
-{{/is}}
-
 {{#is type "url-title"}}
   <div class="url-readout-container">
     <p class="url-readout-msg">{{#_}}Your post will be accessible at:{{/_}}</p>
