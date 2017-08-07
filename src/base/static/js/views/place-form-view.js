@@ -1,5 +1,3 @@
-import accessibleAutocomplete from 'accessible-autocomplete';
-
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
 var GeocodeAddressPlaceView = require("mapseed-geocode-address-place-view");
@@ -134,41 +132,6 @@ module.exports = Backbone.View.extend({
         }
       });
     }
-
-    // Set up autocomplete comboboxes
-    Array.prototype.forEach.call(
-      document.getElementsByClassName("dropdown-autocomplete-container"),
-      (elt) => {
-        let node = document.getElementsByName(elt.name)[0],
-            optionsArray = Array.prototype.map.call(
-              node.options,
-              (opt) => {
-                return opt.textContent
-              }
-            );
-
-        accessibleAutocomplete.enhanceSelectElement({
-          id: node.id,
-          selectElement: node,
-          displayMenu: "overlay",
-          showAllValues: true,
-          required: node.required,
-          placeholder: node.dataset.placeholder,
-          onConfirm: function(confirmed) {
-            if (confirmed) {
-
-              // Set the value of the underlying select element
-              document.getElementById(this.id + "-select").selectedIndex = 
-                optionsArray.indexOf(confirmed);
-            }
-          }
-        });
-
-        // Remove a required attribute on the underlying select element, to 
-        // prevent problems with validating a hidden element
-        node.required = false;
-      }
-    );
   },
 
   setUrlTitlePrefix: function() {
