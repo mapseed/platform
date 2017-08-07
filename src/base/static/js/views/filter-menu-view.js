@@ -22,7 +22,7 @@ module.exports = Backbone.View.extend({
       filters: new Backbone.Collection([])
     });
 
-    this.options.placeConfig.place_detail.forEach((item) => {
+    this.getFilters().forEach((item) => {
       let model = new locationTypeModel({
         locationType: item.category,
         iconUrl: item.icon_url,
@@ -33,6 +33,12 @@ module.exports = Backbone.View.extend({
     }, this);
 
     this.render();
+  },
+
+  getFilters () {
+    return (this.options.panelConfig.active_filters)
+      ? this.options.panelConfig.active_filters
+      : this.options.placeConfig.place_detail
   },
 
   onFilterChange (evt) {
