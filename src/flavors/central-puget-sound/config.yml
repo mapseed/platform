@@ -901,11 +901,16 @@ place:
       value: conserve-water
       label: _(Conserve Water)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -958,11 +963,16 @@ place:
       value: prevent-stormwater
       label: _(Prevent Stormwater Pollution)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1012,11 +1022,16 @@ place:
       value: only-flush
       label: _(Only Flush This)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1056,11 +1071,16 @@ place:
       value: conserve-energy
       label: _(Conserve Energy)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1105,11 +1125,16 @@ place:
       value: waste-less
       label: _(Waste Less)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1152,11 +1177,16 @@ place:
       value: commute-low-carbon
       label: _(Commute Low Carbon)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1195,11 +1225,16 @@ place:
       value: eat-local-organic
       label: _(Eat Local Organic)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1232,11 +1267,16 @@ place:
       value: restore-salmon-habitat
       label: _(Restore Salmon Habitat)
       fields:
+        - name: address
+          type: geocoding
+          prompt: _(Your address:)
+          placeholder: _(Address)
+          optional: true
         - name: title
           type: text
           prompt: _(Post title:)
           display_prompt: _( )
-          placeholder: _(School Initials - District Initials - Year - Custom title)
+          placeholder: _( )
           optional: false
         - name: pledge_type
           type: checkbox_big_buttons
@@ -1261,11 +1301,6 @@ place:
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: address
-      type: geocoding
-      prompt: _(Your address:)
-      placeholder: _(Address)
-      optional: true
     - name: school-name
       type: dropdown
       hideFromDetailView: true
@@ -1718,12 +1753,16 @@ story:
       - url: greenroof
         zoom: 18
         basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: bioswale
         zoom: 18
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: barton
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: longfellow
         zoom: 14
         basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: sammamish
         zoom: 10
         basemap: light-nolabels
@@ -1731,6 +1770,7 @@ story:
           - wria-7-8-9
           - watershed-sammamish
         spotlight: false
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: cedar
         zoom: 10
         basemap: light-nolabels
@@ -1738,6 +1778,7 @@ story:
           - wria-7-8-9
           - watershed-cedar
         spotlight: false
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: green-duwamish
         zoom: 10
         basemap: light-nolabels
@@ -1745,6 +1786,7 @@ story:
           - wria-7-8-9
           - watershed-green
         spotlight: false
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: puyallup-white
         zoom: 10
         basemap: light-nolabels
@@ -1752,6 +1794,7 @@ story:
           - wria-7-8-9
           - watershed-puyallup
         spotlight: false
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
 
 cluster:
   animate: true
