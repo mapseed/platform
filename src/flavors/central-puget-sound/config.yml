@@ -290,7 +290,7 @@ map:
       type: basemap
       url: intentionally-blank
 
-    - id: bogtobay
+    - id: mw
       type: place
       slug: report
 
@@ -661,7 +661,7 @@ sidebar:
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
-            - id: bogtobay
+            - id: mw
               title: _(Community Reports)
               visibleDefault: true
               info: _(This is an example of an info window. Layer info will be added soon.)
@@ -896,7 +896,7 @@ place:
     - category: conserve-water
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-conserve-water.png
       value: conserve-water
       label: _(Conserve Water)
@@ -953,7 +953,7 @@ place:
     - category: prevent-stormwater
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-prevent-stormwater-pollution.png
       value: prevent-stormwater
       label: _(Prevent Stormwater Pollution)
@@ -1007,7 +1007,7 @@ place:
     - category: only-flush
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-only-flush-this.png
       value: only-flush
       label: _(Only Flush This)
@@ -1051,7 +1051,7 @@ place:
     - category: conserve-energy
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-conserve-energy.png
       value: conserve-energy
       label: _(Conserve Energy)
@@ -1100,7 +1100,7 @@ place:
     - category: waste-less
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-waste-less.png
       value: waste-less
       label: _(Waste Less)
@@ -1147,7 +1147,7 @@ place:
     - category: commute-low-carbon
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-commute-low-carbon.png
       value: commute-low-carbon
       label: _(Commute Low Carbon)
@@ -1190,7 +1190,7 @@ place:
     - category: eat-local-organic
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-eat-local-organic.png
       value: eat-local-organic
       label: _(Eat Local Organic)
@@ -1227,7 +1227,7 @@ place:
     - category: restore-salmon-habitat
       includeOnForm: true
       name: location_type
-      dataset: bogtobay
+      dataset: mw
       icon_url: /static/css/images/markers/marker-restore-salmon-habitat.png
       value: restore-salmon-habitat
       label: _(Restore Salmon Habitat)
