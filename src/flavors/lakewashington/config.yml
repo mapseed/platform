@@ -248,7 +248,7 @@ place_types:
           iconAnchor: [19, 46]
 
   featured_place:
-    label: _(Featured Place)
+    label: _(Featured Site)
     zoomType: mapboxZoomStyle
     rules:
       - condition: 'true'
@@ -316,7 +316,7 @@ sidebar:
           visibleDefault: false
           layers:
             - id: lakewashingtonfeatured
-              title: _(Featured Places)
+              title: _(Featured Sites)
               visibleDefault: true
             - id: watershed-sammamish
               title: _(Lake Sammamish Watershed)

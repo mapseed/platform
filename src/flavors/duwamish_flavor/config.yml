@@ -1415,7 +1415,7 @@ place:
       dataset: duwamishfeatured
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
-      label: _(Featured Place)
+      label: _(Featured Site)
       fields:
         - name: published
           type: publishControl

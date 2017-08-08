@@ -657,7 +657,7 @@ sidebar:
           layers:
 
             - id: mwfeatured
-              title: _(Impact Projects)
+              title: _(Featured Sites)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
@@ -760,9 +760,6 @@ sidebar:
               title: _(Community Food Systems)
               visibleDefault: false
               info: _(This is some information and a legend)
-            # - id: mwfeatured
-            #   title: _(Featured Sites)
-            #   visibleDefault: true
 
             - id: life-expectancy
               title: _(Life Expectancy)
@@ -855,7 +852,7 @@ place:
       dataset: mwfeatured
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
-      label: _(Featured Place)
+      label: _(Featured Site)
       fields:
         - name: published
           type: publishControl
