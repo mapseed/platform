@@ -1312,8 +1312,10 @@ place:
   # define form elements that appear on every form here
   common_form_elements:
     - name: school-name
-      type: dropdown
       hideFromDetailView: true
+      optional: false
+      placeholder: _(Type or select a school name...)
+      type: dropdown-autocomplete
       prompt: _(Your school:)
       content:
         - label: _(Alcott Elementary School)

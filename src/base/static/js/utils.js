@@ -306,7 +306,8 @@ var self = (module.exports = {
     } else if (
       fieldConfig.type === "checkbox_big_buttons" ||
       fieldConfig.type === "radio_big_buttons" ||
-      fieldConfig.type === "dropdown"
+      fieldConfig.type === "dropdown" ||
+      fieldConfig.type === "dropdown-autocomplete"
     ) {
       // Checkboxes, radio buttons, and dropdowns
       if (!_.isArray(existingValue)) {
