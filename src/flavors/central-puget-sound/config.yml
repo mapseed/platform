@@ -143,10 +143,6 @@ map:
       type: basemap
       url: intentionally-blank
 
-    - id: sub-basins
-      type: basemap
-      url: intentionally-blank
-
     - id: impervious
       type: wms
       url: https://geoserver.mapseed.org/geoserver/impervious_surfaces_2009/wms?
@@ -246,9 +242,9 @@ map:
       format: image/png
       transparent: true
 
-    - id: outfalls
-      type: basemap
-      url: intentionally-blank
+    # - id: outfalls
+    #   type: basemap
+    #   url: intentionally-blank
 
     - id: sewer
       type: wms
@@ -258,9 +254,9 @@ map:
       transparent: true
       layers: sewer
 
-    - id: tree-canopy
-      type: basemap
-      url: intentionally-blank
+    # - id: tree-canopy
+    #   type: basemap
+    #   url: intentionally-blank
 
     - id: cities
       type: wms
@@ -270,23 +266,11 @@ map:
       transparent: true
       layers: city_kc
 
-    - id: college
-      type: basemap
-      url: intentionally-blank
+    # - id: college
+    #   type: basemap
+    #   url: intentionally-blank
 
     - id: commfood
-      type: basemap
-      url: intentionally-blank
-
-    - id: life-expectancy
-      type: basemap
-      url: intentionally-blank
-
-    - id: openspace
-      type: basemap
-      url: intentionally-blank
-
-    - id: healthyfood
       type: json
       url: http://geo.wa.gov/datasets/a6eab5a8615340f1aacbd65320c2c4c9_0.geojson
       popupContent: '{{MarketName}}'
@@ -299,13 +283,21 @@ map:
           style:
             opacity: 0.9
 
-    - id: 1936
-      type: basemap
-      url: intentionally-blank
+    # - id: life-expectancy
+    #   type: basemap
+    #   url: intentionally-blank
 
-    - id: 1970
-      type: basemap
-      url: intentionally-blank
+    # - id: openspace
+    #   type: basemap
+    #   url: intentionally-blank
+
+    # - id: healthyfood
+    #   type: json
+    #   url: intentionally-blank
+
+    # - id: 1970
+    #   type: basemap
+    #   url: intentionally-blank
 
     - id: mw
       type: place
