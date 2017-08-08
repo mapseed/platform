@@ -279,8 +279,17 @@ map:
       url: intentionally-blank
 
     - id: healthyfood
-      type: basemap
-      url: intentionally-blank
+      type: json
+      url: http://geo.wa.gov/datasets/a6eab5a8615340f1aacbd65320c2c4c9_0.geojson
+      popupContent: '{{MarketName}}'
+      rules:
+        - condition: '"{{true}}"'
+          icon:
+            iconUrl: /static/css/images/markers/marker-dot-conserve-water.png
+            iconSize: [15, 15]
+            iconAnchor: [7.5, 7.5]
+          style:
+            opacity: 0.9
 
     - id: 1936
       type: basemap
