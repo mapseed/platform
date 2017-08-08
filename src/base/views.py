@@ -22,54 +22,11 @@ from proxy.views import proxy_view as remote_proxy_view
 
 log = logging.getLogger(__name__)
 
-
-def make_api_root(dataset_root):
-    components = dataset_root.split('/')
-    if dataset_root.endswith('/'):
-        return '/'.join(components[:-4]) + '/'
-    else:
-        return '/'.join(components[:-3]) + '/'
-
-def make_auth_root(dataset_root):
-    return make_api_root(dataset_root) + 'users/'
-
-def make_resource_uri(resource, root):
-    resource = resource.strip('/')
-    root = root.rstrip('/')
-    uri = '%s/%s' % (root, resource)
-    return uri
-
-
-class ShareaboutsApi (object):
-    def __init__(self, dataset_root):
-        self.dataset_root = dataset_root
-        self.auth_root = make_auth_root(dataset_root)
-        self.root = make_api_root(dataset_root)
-
-    def get(self, resource, default=None, **kwargs):
-        uri = make_resource_uri(resource, root=self.dataset_root)
-        res = requests.get(uri, params=kwargs,
-                           headers={'Accept': 'application/json'})
-        return (res.text if res.status_code == 200 else default)
-
-    def current_user(self, default=u'null', **kwargs):
-        uri = make_resource_uri('current', root=self.auth_root)
-        res = requests.get(uri, headers={'Accept': 'application/json'}, **kwargs)
-
-        return (res.text if res.status_code == 200 else default)
-
-
 @ensure_csrf_cookie
 def index(request, place_id=None):
     # Load app config settings
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
-
-    # Get initial data for bootstrapping into the page.
-    dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
-    if (dataset_root.startswith('file:')):
-        dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
-    api = ShareaboutsApi(dataset_root=dataset_root)
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -101,24 +58,20 @@ def index(request, place_id=None):
             "browser": {"name": "", "version": None},
             "platform": {"name": "", "version": None}
         })
-
-    place = None
-    if place_id and place_id != 'new':
-        place = api.get('places/' + place_id)
-        if place:
-            place = json.loads(place)
+    
+    # Get initial data for bootstrapping into the page.
+    dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    if (dataset_root.startswith('file:')):
+        dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
 
     context = {'config': config,
-
                'user_token_json': user_token_json,
                'pages_config': pages_config,
                'pages_config_json': pages_config_json,
                'user_agent_json': user_agent_json,
                # Useful for customized meta tags
-               'place': place,
-
-               'API_ROOT': api.root,
-               'DATASET_ROOT': api.dataset_root,
+               'API_ROOT': dataset_root,
+               'DATASET_ROOT': dataset_root
                }
 
     return render(request, 'index.html', context)
@@ -362,106 +315,3 @@ def readonly_file_api(request, path, datafilename='data.json'):
                 return readonly_response(request, feature)
         else:
             raise Http404
-
-
-def api(request, path, **kwargs):
-    """
-    A small proxy for a Shareabouts API server, exposing only
-    one configured dataset.
-    """
-
-    if 'dataset_id' in kwargs:
-        dataset_id = kwargs['dataset_id']
-    else:
-        raise AttributeError("No dataset_id! kwargs, path:", kwargs, path)
-
-    root = settings.SHAREABOUTS.get(dataset_id.upper() + '_SITE_URL')
-
-    if root.startswith('file://'):
-        return readonly_file_api(request, path, datafilename=root[7:])
-
-    api_key = settings.SHAREABOUTS.get(dataset_id.upper() + '_DATASET_KEY')
-    api_session_cookie = request.COOKIES.get('sa-api-sessionid')
-
-    # It doesn't matter what the CSRF token value is, as long as the cookie and
-    # header value match.
-    api_csrf_token = '1234csrf567token'
-
-    url = make_resource_uri(path, root)
-
-    headers = {'X-CSRFTOKEN': api_csrf_token}
-
-    if request.method != 'PUT' and request.method != 'DELETE':
-        headers['X-SHAREABOUTS-KEY'] = api_key
-
-    cookies = {'sessionid': api_session_cookie,
-               'csrftoken': api_csrf_token} \
-              if api_session_cookie else {'csrftoken': api_csrf_token}
-
-    # Clear cookies from the current domain, so that they don't interfere with
-    # our settings here.
-    request.META.pop('HTTP_COOKIE', None)
-    response = proxy_view(request, url, requests_args={
-        'headers': headers,
-        'cookies': cookies
-    })
-
-    if place_was_created(request, path, response):
-        send_place_created_notifications(request, response)
-
-    return response
-
-
-def users(request, path):
-    """
-    A small proxy for a Shareabouts API server, exposing only
-    user authentication.
-    """
-    if settings.SHAREABOUTS.get('DATASET_ROOT').startswith('file://'):
-        return readonly_response(request, None)
-
-    root = make_auth_root(settings.SHAREABOUTS.get('DATASET_ROOT'))
-    api_key = settings.SHAREABOUTS.get('DATASET_KEY')
-    api_session_cookie = request.COOKIES.get('sa-api-session')
-
-    url = make_resource_uri(path, root)
-    headers = {'X-Shareabouts-Key': api_key} if api_key else {}
-    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
-    return proxy_view(request, url, requests_args={
-        'headers': headers,
-        'allow_redirects': False,
-        'cookies': cookies
-    })
-
-
-def csv_download(request, path):
-    """
-    A small proxy for a Shareabouts API server, exposing only
-    one configured dataset.
-    """
-    root = settings.SHAREABOUTS.get('DATASET_ROOT')
-
-    if root.startswith('file://'):
-        return readonly_file_api(request, path, datafilename=root[7:])
-
-    api_key = settings.SHAREABOUTS.get('DATASET_KEY')
-    api_session_cookie = request.COOKIES.get('sa-api-session')
-
-    url = make_resource_uri(path, root)
-    headers = {
-        'X-Shareabouts-Key': api_key,
-        'ACCEPT': 'text/csv'
-    }
-    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
-    return proxy_view(request, url, requests_args={
-        'headers': headers,
-        'cookies': cookies
-    })
-
-    # Send the csv as a timestamped download
-    filename = '.'.join([os.path.split(path)[1],
-                        now().strftime('%Y%m%d%H%M%S'),
-                        'csv'])
-    response['Content-disposition'] = 'attachment; filename=' + filename
-
-    return response
