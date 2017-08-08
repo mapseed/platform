@@ -263,8 +263,12 @@ map:
       url: intentionally-blank
 
     - id: cities
-      type: esri-feature
-      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Administration/KingCo_AdministrativeAreas/MapServer/2
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/king_county_cities/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers: city_kc
 
     - id: college
       type: basemap
@@ -704,6 +708,11 @@ sidebar:
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
+            - id: watershed-puyallup
+              title: _(Puyallup / White Watershed)
+              visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
+
             - id: sub-basins
               title: _(Stream Sub-basins)
               visibleDefault: false
@@ -734,23 +743,23 @@ sidebar:
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
               
-            - id: outfalls
-              title: _(Outfalls)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
+            # - id: outfalls
+            #   title: _(Outfalls)
+            #   visibleDefault: false
+            #   info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: sewer
               title: _(Sewer lines)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
-            - id: tree-canopy
-              title: _(Tree Canopy)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
+            # - id: tree-canopy
+            #   title: _(Tree Canopy)
+            #   visibleDefault: false
+            #   info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: cities
-              title: _(Cities)
+              title: _(City boundaries)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
@@ -760,34 +769,34 @@ sidebar:
               info: _(This is some information about the school boundaries layer.)
 
             - id: school-sites
-              title: _(School sites)
+              title: _(Schools and colleges)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
-            - id: college
-              title: _(College and Career)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
+            # - id: college
+            #   title: _(College and Career)
+            #   visibleDefault: false
+            #   info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: commfood
               title: _(Community Food Systems)
               visibleDefault: false
               info: _(This is some information and a legend)
 
-            - id: life-expectancy
-              title: _(Life Expectancy)
-              visibleDefault: false
-              info: _(This is some information and a legend)
+            # - id: life-expectancy
+            #   title: _(Life Expectancy)
+            #   visibleDefault: false
+            #   info: _(This is some information and a legend)
 
-            - id: openspace
-              title: _(Access to Open Space)
-              visibleDefault: false
-              info: _(This is some information and a legend)
+            # - id: openspace
+            #   title: _(Access to Open Space)
+            #   visibleDefault: false
+            #   info: _(This is some information and a legend)
 
-            - id: healthyfood
-              title: _(Access to Healthy Food)
-              visibleDefault: false
-              info: _(This is some information and a legend)
+            # - id: healthyfood
+            #   title: _(Access to Healthy Food)
+            #   visibleDefault: false
+            #   info: _(This is some information and a legend)
 
             - id: duwamish-original
               title: _(Historical Duwamish River)
