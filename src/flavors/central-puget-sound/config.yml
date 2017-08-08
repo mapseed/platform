@@ -739,23 +739,23 @@ sidebar:
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
               
-            - id: outfalls
-              title: _(Outfalls)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
+            # - id: outfalls
+            #   title: _(Outfalls)
+            #   visibleDefault: false
+            #   info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: sewer
               title: _(Sewer lines)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
-            - id: tree-canopy
-              title: _(Tree Canopy)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
+            # - id: tree-canopy
+            #   title: _(Tree Canopy)
+            #   visibleDefault: false
+            #   info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: cities
-              title: _(Cities)
+              title: _(City boundaries)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
@@ -765,34 +765,34 @@ sidebar:
               info: _(This is some information about the school boundaries layer.)
 
             - id: school-sites
-              title: _(School sites)
+              title: _(Schools and colleges)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
-            - id: college
-              title: _(College and Career)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
+            # - id: college
+            #   title: _(College and Career)
+            #   visibleDefault: false
+            #   info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: commfood
               title: _(Community Food Systems)
               visibleDefault: false
               info: _(This is some information and a legend)
 
-            - id: life-expectancy
-              title: _(Life Expectancy)
-              visibleDefault: false
-              info: _(This is some information and a legend)
+            # - id: life-expectancy
+            #   title: _(Life Expectancy)
+            #   visibleDefault: false
+            #   info: _(This is some information and a legend)
 
-            - id: openspace
-              title: _(Access to Open Space)
-              visibleDefault: false
-              info: _(This is some information and a legend)
+            # - id: openspace
+            #   title: _(Access to Open Space)
+            #   visibleDefault: false
+            #   info: _(This is some information and a legend)
 
-            - id: healthyfood
-              title: _(Access to Healthy Food)
-              visibleDefault: false
-              info: _(This is some information and a legend)
+            # - id: healthyfood
+            #   title: _(Access to Healthy Food)
+            #   visibleDefault: false
+            #   info: _(This is some information and a legend)
 
             - id: duwamish-original
               title: _(Historical Duwamish River)
