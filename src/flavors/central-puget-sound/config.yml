@@ -263,8 +263,12 @@ map:
       url: intentionally-blank
 
     - id: cities
-      type: esri-feature
-      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Administration/KingCo_AdministrativeAreas/MapServer/2
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/king_county_cities/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers: city_kc
 
     - id: college
       type: basemap
