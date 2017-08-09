@@ -23,6 +23,15 @@ shell.cat([
   'src/flavors/' + flavor + '/static/css/custom.css'
 ]).to('src/base/static/dist/cat-bundle.css')
 
+shell.cat([
+  'src/base/static/libs/binaryajax.js',
+  'src/base/static/libs/exif.js',
+  'src/base/static/libs/swag.min.js',
+  'src/base/static/libs/leaflet.sidebar.js',
+  'src/base/static/libs/leaflet-wmts.js',
+  'src/base/static/libs/leaflet.argo.js'
+]).to('src/base/static/dist/cat-lib-bundle.js')
+
 shell.cp('-R', [
   'src/base/static/css/images/*',
   'src/flavors/' + flavor + '/static/css/images/*'

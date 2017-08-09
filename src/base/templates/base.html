@@ -229,12 +229,16 @@
   {% endif %}
   
   <!-- These are obscure or customized, self-hosted. -->
+  {% if settings.DEBUG %}
   <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
   <script src="{{STATIC_URL}}libs/exif.js"></script>
   <script src="{{STATIC_URL}}libs/swag.min.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet-wmts.js"></script>
   <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
+  {% else %}
+  <script src="{{STATIC_URL}}dist/lib-bundle.js?ver=0.7.6.0"></script>
+  {% endif %}
 
   <script>
     moment.locale('{{LANGUAGE_CODE}}');
