@@ -2,6 +2,7 @@
   "name": "smartercleanup-django-client",
   "version": "3.19.1",
   "description": "Standalone Shareabouts client and server package",
+  "engines" : { "node" : ">=8.0" },
   "main": "index.js",
   "repository": {
     "type": "git",

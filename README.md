@@ -30,7 +30,7 @@ The Mapseed platform is a fork of [Shareabouts](https://github.com/openplans/sha
 
 ## Install
 
-Hey Duwamish! requires Python 2.7 ([Instructions for Windows](/doc/WINDOWS_SETUP.md)) and [Node + and the latest npm](https://nodejs.org/en/download/package-manager/).
+Hey Duwamish! requires Python 2.7 ([Instructions for Windows](/doc/WINDOWS_SETUP.md)) and [Node + and the latest npm](https://nodejs.org/en/download/package-manager/). We recommend managing node/npm versions using [nvm](https://github.com/creationix/nvm).
 
 Install `pip` and `virtualenv`, if not already installed. These will keep your python code isolated from the rest of your machine and ensure you have the correct versions.
 
