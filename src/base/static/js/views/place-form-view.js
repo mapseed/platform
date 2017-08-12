@@ -1,4 +1,4 @@
-import accessibleAutocomplete from 'accessible-autocomplete';
+import accessibleAutocomplete from '@mapseed/accessible-autocomplete';
 
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
