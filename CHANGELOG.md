@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [staging] - on our `master` branch (staging)
 
+## [0.8.1] - 2017-06-04
+### Added
+ - Using social sharing service for social bot metatags
+### Changed
+ - Leaflet marker cluster update
+ - Favicon fixes
+
 ## [0.8.0] - 2017-05-26
 ### Added
  - Babel ES6 transpiler into our build step
@@ -88,6 +95,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.6.0 - 2016-02-06
 
 [staging]: https://github.com/smartercleanup/platform/compare/0.8.0...master
+[0.8.1]: https://github.com/smartercleanup/platform/compare/0.8.0...0.8.1
 [0.8.0]: https://github.com/smartercleanup/platform/compare/0.7.5...0.8.0
 [0.7.5]: https://github.com/smartercleanup/platform/compare/0.7.4...0.7.5
 [0.7.4]: https://github.com/smartercleanup/platform/compare/0.7.3...0.7.4
