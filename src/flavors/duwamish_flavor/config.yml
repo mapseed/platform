@@ -267,9 +267,12 @@ place_types:
           iconAnchor: [25, 25]
       - condition: 'this.map.zoom < 15'
         icon:
-          iconUrl: /static/css/images/markers/marker-construction-dot.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   port_of_seattle_featured_place:
     rules:
@@ -283,7 +286,6 @@ place_types:
           iconAnchor: [10, 10]
       - condition: 'this.map.zoom <= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
