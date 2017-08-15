@@ -151,7 +151,7 @@
             {{#if isAutocomplete}}class="is-autocomplete"{{/if}}>
       <option value="" name="no_response"></option>
       {{#each content}}
-          <option value={{value}} {{#is value ../existingContent}}selected{{/is}}>{{label}}</option>
+          <option value={{value}} {{#if selected}}selected{{/if}}>{{label}}</option>
       {{/each}}
     </select>
   </div>
