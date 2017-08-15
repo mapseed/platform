@@ -270,6 +270,17 @@ place_types:
           iconUrl: /static/css/images/markers/marker-construction-dot.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
+
+  port_of_seattle_featured_place:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
       - condition: 'this.map.zoom <= 18'
         icon:
           iconUrl: /static/css/images/markers/marker-construction.png
@@ -1416,6 +1427,53 @@ place:
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
       label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+    - category: port_of_seattle_featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: duwamishfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: port_of_seattle_ffeatured_place
+      label: _(Port of Seattle Featured Site)
       fields:
         - name: published
           type: publishControl
