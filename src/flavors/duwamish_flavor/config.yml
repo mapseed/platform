@@ -1467,6 +1467,8 @@ place:
           optional: true
     - category: port_of_seattle_featured_place
       admin_only: true
+      admin_groups:
+        - port_of_seattle
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
@@ -1474,7 +1476,7 @@ place:
       name: location_type
       dataset: duwamishfeatured
       icon_url: /static/css/images/markers/marker-star.png
-      value: port_of_seattle_ffeatured_place
+      value: port_of_seattle_featured_place
       label: _(Port of Seattle Featured Site)
       fields:
         - name: published
