@@ -1540,7 +1540,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: textarea
           prompt: _(Description:)
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
