@@ -400,27 +400,13 @@ var self = (module.exports = {
     _.each(
       args.fields,
       function(field, i) {
+        if (field.type === "commonFormElement") {
+          Object.assign(args.fields[i], args.commonFormElements[args.fields[i].name]);
+        }
+
         var fieldData = _.extend(
           {},
           args.fields[i],
-          self.buildFieldContent(field, args.model.get(field.name)),
-        );
-
-        if (args.isEditingToggled && fieldIsValidForEditor(fieldData)) {
-          fields.push(fieldData);
-        } else if (fieldIsValid(fieldData)) {
-          fields.push(fieldData);
-        }
-      },
-      this,
-    );
-
-    _.each(
-      args.commonFormElements,
-      function(field, i) {
-        var fieldData = _.extend(
-          {},
-          args.commonFormElements[i],
           self.buildFieldContent(field, args.model.get(field.name)),
         );
 

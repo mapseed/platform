@@ -284,10 +284,14 @@ place:
           size: 30
           optional: false
           sticky: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -295,7 +299,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####

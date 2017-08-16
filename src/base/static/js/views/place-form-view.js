@@ -240,38 +240,24 @@ module.exports = Backbone.View.extend({
   },
 
   // Before we render the fields for a given category, do the following:
-  // 1. Build an appropriate content object for each field
-  // 2. Check the autocomplete status of each field
-  // 3. Check the admin-only status of each field
+  // 1. Resolve common_form_elements
+  // 2. Build an appropriate content object for each field
+  // 3. Check the autocomplete status of each field
+  // 4. Check the admin-only status of each field
   prepareFormFieldsForRender: function() {
     var self = this;
 
-    // Prepare category-specific fields
-    _.each(
-      this.formState.selectedCategoryConfig.fields,
-      function(field, i) {
-        _.extend(
-          this.formState.selectedCategoryConfig.fields[i],
-          Util.buildFieldContent(
-            field,
-            field.autocomplete ? Util.getAutocompleteValue(field.name) : null,
-          ),
-          self.determineFieldRenderability(
-            self.formState.selectedCategoryConfig,
-            field,
-          ),
-        );
+    // Prepare form fields
+    this.formState.selectedCategoryConfig.fields.forEach((field, i) => {
 
-        this.formState.selectedCategoryConfig.fields[i].isAutocomplete =
-          field.hasValue && field.autocomplete;
-      },
-      this,
-    );
+      if (this.formState.selectedCategoryConfig.fields[i].type === "commonFormElement") {
+        let name = this.formState.selectedCategoryConfig.fields[i].name;
+        Object.assign(this.formState.selectedCategoryConfig.fields[i], 
+          this.formState.commonFormElements[name]);
+      }
 
-    // Prepare common form fields
-    this.formState.commonFormElements.forEach(function(field, i) {
-      _.extend(
-        this.formState.commonFormElements[i],
+      Object.assign(
+        this.formState.selectedCategoryConfig.fields[i],
         Util.buildFieldContent(
           field,
           field.autocomplete ? Util.getAutocompleteValue(field.name) : null,
@@ -282,10 +268,8 @@ module.exports = Backbone.View.extend({
         ),
       );
 
-      this.formState.commonFormElements[i].isAutocomplete = field.hasValue &&
-        field.autocomplete
-        ? true
-        : false;
+      this.formState.selectedCategoryConfig.fields[i].isAutocomplete =
+        field.hasValue && field.autocomplete;
     }, this);
   },
 

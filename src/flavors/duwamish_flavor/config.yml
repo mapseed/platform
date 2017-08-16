@@ -1514,6 +1514,9 @@ place:
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
+        - name: submit
+          type: commonFormElement
+
     - category: observation
       includeOnForm: true
       name: location_type
@@ -1587,6 +1590,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: question
       includeOnForm: true
       name: location_type
@@ -1629,6 +1635,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: idea
       includeOnForm: true
       name: location_type
@@ -1672,6 +1681,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -1715,6 +1727,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: air_watch  #defines a top-level form category
       includeOnForm: true
       name: location_type  #needs to be "location_type"
@@ -1880,6 +1895,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: tree
       includeOnForm: false
       name: location_type
@@ -1923,10 +1941,13 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
