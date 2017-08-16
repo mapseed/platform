@@ -899,6 +899,11 @@ place:
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+
     - category: conserve-water
       includeOnForm: true
       name: location_type
@@ -908,16 +913,9 @@ place:
       label: _(Conserve Water)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title:)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -955,11 +953,17 @@ place:
               value: removed-lawn
           optional: true 
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: prevent-stormwater
       includeOnForm: true
@@ -970,16 +974,9 @@ place:
       label: _(Prevent Stormwater Pollution)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title:)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -1014,11 +1011,17 @@ place:
             - label: _(Inspect and fix home septic system)
               value: fix-septic-system
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: only-flush
       includeOnForm: true
@@ -1029,16 +1032,9 @@ place:
       label: _(Only Flush This)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -1063,11 +1059,17 @@ place:
             - label: _(Never flush condoms)
               value: never-flush-condoms
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: conserve-energy
       includeOnForm: true
@@ -1078,16 +1080,9 @@ place:
       label: _(Conserve Energy)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title:)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -1117,11 +1112,17 @@ place:
               value: added-solar-power
           optional: false 
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: waste-less
       includeOnForm: true
@@ -1132,16 +1133,9 @@ place:
       label: _(Waste Less)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title:)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -1169,11 +1163,17 @@ place:
               value: use-take-it-back-network
           optional: false 
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: commute-low-carbon
       includeOnForm: true
@@ -1184,16 +1184,9 @@ place:
       label: _(Commute Low Carbon)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title:)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -1217,11 +1210,17 @@ place:
               value: fly-rarely
           optional: false 
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: eat-local-organic
       includeOnForm: true
@@ -1232,16 +1231,9 @@ place:
       label: _(Eat Local Organic)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title:)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -1259,11 +1251,17 @@ place:
               value: shop-local-organic
           optional: false 
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: restore-salmon-habitat
       includeOnForm: true
@@ -1274,16 +1272,9 @@ place:
       label: _(Restore Salmon Habitat)
       fields:
         - name: address
-          type: geocoding
-          prompt: _(Your address:)
-          placeholder: _(Address)
-          optional: true
+          type: commonFormElement
         - name: title
-          type: text
-          prompt: _(Post title:)
-          display_prompt: _( )
-          placeholder: _( )
-          optional: false
+          type: commonFormElement
         - name: pledge_type
           type: checkbox_big_buttons
           prompt: _(My actions:)
@@ -1299,15 +1290,40 @@ place:
               value: backyard-wildlife-habitat
           optional: false 
         - name: comments
-          type: textarea
-          prompt: _(Additional comments:)
-          display_prompt: _( )
-          placeholder: _(Enter comments...)
-          optional: false
+          type: commonFormElement
+        - name: school-name
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
-  # define form elements that appear on every form here
+  # Define form elements that appear on every form here.
+  # The key of each common_form_element should match the "name" property
+  # of the referencing element in the form config above.
   common_form_elements:
-    - name: school-name
+    address:
+      type: geocoding
+      prompt: _(Your address:)
+      placeholder: _(Address)
+      optional: true
+    title:
+      type: text
+      prompt: _(Post title:)
+      display_prompt: _( )
+      placeholder: _( )
+      optional: false
+    comments:
+      type: textarea
+      prompt: _(Additional comments:)
+      display_prompt: _( )
+      placeholder: _(Enter comments...)
+      optional: false
+    school-name:
       hideFromDetailView: true
       optional: false
       placeholder: _(Type or select a school name...)
@@ -1652,12 +1668,12 @@ place:
           value: "Chief-Sealth-High-District"
         - label: _(Denny Middle School)
           value: "Denny-Middle-School"
-    - name: submitter_name
+    submitter_name:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       type: text
       prompt: _(Your Email)
       optional: true
@@ -1667,7 +1683,7 @@ place:
           value: _(Receive email updates on your report)
         - key: size
           value: 30
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -1675,7 +1691,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####

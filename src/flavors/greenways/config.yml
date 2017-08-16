@@ -493,6 +493,14 @@ place:
           display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: signage
       includeOnForm: true
       name: location_type
@@ -512,6 +520,14 @@ place:
           prompt: "_(Description:)"
           display_prompt: _( )
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: pavement
       includeOnForm: true
       name: location_type
@@ -532,6 +548,14 @@ place:
           display_prompt: "_( )"
           placeholder: _(Description...) 
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: walkability
       includeOnForm: true
       name: location_type
@@ -567,6 +591,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: accessibility
       includeOnForm: true
       name: location_type
@@ -587,6 +619,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: traffic
       includeOnForm: true
       name: location_type
@@ -607,6 +647,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: design
       includeOnForm: true
       name: location_type
@@ -627,6 +675,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     # - category: accessibility  #defines a top-level form category
     #   includeOnForm: true
     #   name: location_type  #needs to be "location_type"
@@ -772,18 +828,18 @@ place:
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
+    submitter_name:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -791,7 +847,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####

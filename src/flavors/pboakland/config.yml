@@ -253,6 +253,30 @@ place:
           display_prompt: _( )
           placeholder: _( )
           optional: true
+        - name: venue
+          type: commmonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: demographics-header
+          type: commonFormElement
+        - name: demographics-description
+          type: commonFormElement
+        - name: private-age
+          type: commonFormElement
+        - name: private-ethnicity
+          type: commonFormElement
+        - name: private-income
+          type: commonFormElement
+        - name: private-volunteer
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: private-phone
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: parks
       includeOnForm: true
       name: location_type
@@ -279,6 +303,30 @@ place:
           display_prompt: _( )
           placeholder: _( )
           optional: true
+        - name: venue
+          type: commmonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: demographics-header
+          type: commonFormElement
+        - name: demographics-description
+          type: commonFormElement
+        - name: private-age
+          type: commonFormElement
+        - name: private-ethnicity
+          type: commonFormElement
+        - name: private-income
+          type: commonFormElement
+        - name: private-volunteer
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: private-phone
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: streets
       includeOnForm: true
       name: location_type
@@ -304,7 +352,31 @@ place:
           prompt: _(Why is this important? What need in the community does this serve?:)
           display_prompt: _( )
           placeholder: _( )
-          optional: true    
+          optional: true
+        - name: venue
+          type: commmonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: demographics-header
+          type: commonFormElement
+        - name: demographics-description
+          type: commonFormElement
+        - name: private-age
+          type: commonFormElement
+        - name: private-ethnicity
+          type: commonFormElement
+        - name: private-income
+          type: commonFormElement
+        - name: private-volunteer
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: private-phone
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: housing
       includeOnForm: true
       name: location_type
@@ -331,10 +403,34 @@ place:
           display_prompt: _( )
           placeholder: _( )
           optional: true
+        - name: venue
+          type: commmonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: demographics-header
+          type: commonFormElement
+        - name: demographics-description
+          type: commonFormElement
+        - name: private-age
+          type: commonFormElement
+        - name: private-ethnicity
+          type: commonFormElement
+        - name: private-income
+          type: commonFormElement
+        - name: private-volunteer
+          type: commonFormElement
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: private-phone
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: venue
+    venue:
       type: dropdown
       optional: true
       admin_only: true
@@ -352,7 +448,7 @@ place:
           value: bella_vista
         - label: _(Other)
           value: other
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -360,21 +456,21 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - name: demographics-header
+    demographics-header:
       type: section_header
       horizontal_rule: false
       content: _(Demographic information)
-    - name: demographics-description
+    demographics-description:
       type: section_description
       content: _(This info is kept private, and is to ensure we are serving a diversity of people who best represent the needs of the community.)
-    - name: private-age
+    private-age:
       autocomplete: true
       type: text
       prompt: _(Your age:)
       display_prompt: _()
       placeholder: _(Your age will not appear on the map)
       optional: true
-    - name: private-ethnicity
+    private-ethnicity:
       autocomplete: true
       type: radio_big_buttons
       annotation: _(Your ethnicity will not appear on the map)
@@ -396,7 +492,7 @@ place:
         - label: _(Other)
           value: other
       optional: true
-    - name: private-income
+    private-income:
       autocomplete: true
       type: dropdown
       prompt: _(Your income:)
@@ -421,7 +517,7 @@ place:
         - label: _($150,000 or more)
           value: 150k-or-more
       optional: true
-    - name: private-volunteer
+    private-volunteer:
       autocomplete: true
       type: binary_toggle
       prompt: _(I want to volunteer:)
@@ -432,27 +528,28 @@ place:
         - label: _(No)
           value: "no"
       optional: true
-    - name: submitter_name
+    submitter_name:
       autocomplete: true
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       autocomplete: true
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your idea)
       optional: true
       sticky: true
-    - name: private-phone
+    private-phone:
       autocomplete: true
       type: text
       prompt: _(Your phone number:)
       display_prompt: _()
       placeholder: _(Your phone number will not appear on the map)
       optional: true
-    - type: submit
+    submit:
+      type: submit
       label: _(Submit!)
 
   #### end dynamic form config ####

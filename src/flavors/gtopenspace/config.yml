@@ -670,6 +670,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: medium
       includeOnForm: true
       name: location_type
@@ -690,6 +694,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: low
       includeOnForm: true
       name: location_type
@@ -710,6 +718,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: streetscape
       includeOnForm: false
       name: location_type
@@ -730,6 +742,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: park-improvement
       includeOnForm: false
       name: location_type
@@ -750,6 +766,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: streetscape
       includeOnForm: false     
@@ -771,6 +791,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: park-improvement
       includeOnForm: false     
@@ -792,26 +816,14 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    # - name: submitter_name
-    #   type: text
-    #   prompt: _(Your name)
-    #   placeholder: _(Name)
-    #   optional: true
-    # - name: private-submitter_email
-    #   type: text
-    #   prompt: _(Your Email)
-    #   placeholder: _(Receive email updates on your report)
-    #   optional: true
-    #   sticky: true
-    #   attrs:
-    #     - key: placeholder
-    #       value: _(Receive email updates on your report)
-    #     - key: size
-    #       value: 30
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -819,7 +831,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
