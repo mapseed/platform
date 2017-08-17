@@ -889,10 +889,46 @@ place:
           display_prompt: _( )
           placeholder: _(Enter title...)
           optional: false
+        - name: project-lead
+          type: text
+          prompt: _(Project lead:)
+          display_prompt: _(Project lead)
+          placeholder: _(Enter project lead...)
+          optional: true
+        - name: partners
+          type: text
+          prompt: _(Partners:)
+          display_prompt: _(Partners)
+          placeholder: _(Enter partners...)
+          optional: true
+        - name: problem-statement
+          type: textarea
+          prompt: _(Problem statement:)
+          display_prompt: _(Problem statement)
+          placeholder: _(Enter problem statement...)
+          optional: true
+        - name: goal
+          type: textarea
+          prompt: _(Goal:)
+          display_prompt: _(Goal)
+          placeholder: _(Enter goal...)
+          optional: true
+        - name: address
+          type: text
+          prompt: _(Location:)
+          display_prompt: _(Address)
+          placeholder: _(Enter address...)
+          optional: true
+        - name: size
+          type: text
+          prompt: _(Size:)
+          display_prompt: _(Size)
+          placeholder: _(Enter size...)
+          optional: true
         - name: description
           type: richTextarea
-          prompt: _(Description:)
-          display_prompt: _( )
+          prompt: _(Background, timeline, and data:)
+          display_prompt: _(Background, timeline, and data)
           placeholder: _( )
         - name: url-title
           type: url-title
