@@ -469,6 +469,7 @@ module.exports = Backbone.View.extend({
       )
     ) {
       if (this.geometryEnabled) {
+        this.geometryEditorView.existingLayerView = null;
         this.geometryEditorView.tearDown();
       }
       this.model.save(
