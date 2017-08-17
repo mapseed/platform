@@ -46,7 +46,7 @@
   <link rel="stylesheet" href="https://cdn.quilljs.com/1.1.4/quill.snow.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
   {% else %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css?ver=0.7.6.4"></link>
+  <link rel="stylesheet" href="{{ STATIC_URL }}dist/bundle.css?ver=0.7.6.5"></link>
   {% endif %}
 
   <!-- Flavor's Custom Stylesheet -->
@@ -281,7 +281,7 @@
     }
   </script>
 
-  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.6.4"></script>
+  <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.6.5"></script>
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
 

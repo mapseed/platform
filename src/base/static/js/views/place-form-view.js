@@ -127,7 +127,7 @@ module.exports = Backbone.View.extend({
     // the top of the content container.
     if (this.$qlToolbar.length > 0) {
       $("#content article").on("scroll", function() {
-        if (this.scrollTop < 520) {
+        if (this.scrollTop < 1060) {
           self.$qlToolbar.removeClass("fixed-top no-edit-toolbar");
         } else if (self.$qlToolbar.offset().top < 75) {
           self.$qlToolbar.addClass("fixed-top no-edit-toolbar");
