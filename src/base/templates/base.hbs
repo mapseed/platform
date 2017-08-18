@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 
 {{!-- 
-{{# load jstemplate }}
-{{# load i18n }}
 {{# load shareabouts_utils }}
 
 {{# load url from future }}
@@ -21,9 +19,6 @@
   <title>{{ config.app.title }}</title>
   <meta name="description" content="{{ config.app.meta_description }}">
   <meta name="author" content="{{ config.app.meta_author }}">
-
-  <!-- Social Media meta tags and such -->
-  {{#block meta}}{{/block}}
 
   <!-- Mobile Viewport Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
@@ -54,12 +49,7 @@
   {{/if}}
 
   <!-- Flavor's Custom Stylesheet -->
-  {{!--
-  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
-  --}}
-
   <link rel="stylesheet" href="{{ config.static_url }}css/custom.css?deployed_at={{ settings.LAST_DEPLOY_DATE }}">
-
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
@@ -325,7 +315,7 @@
       activity:   {{#serialize config.activity}}{{/serialize}},
       sidebar:    {{#serialize config.sidebar}}{{/serialize}},
       leaflet_sidebar: {{#serialize config.leaflet_sidebar}}{{/serialize}},
-      pages:           {{#serialize pages_config_json}}{{/serialize}}, // NOTE: lost |safe filter
+      pages:           {{#serialize config.pages}}{{/serialize}}, // NOTE: lost |safe filter
       story:           {{#serialize config.story}}{{/serialize}},
       rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
       filters:         {{#serialize config.filters}}{{/serialize}},
