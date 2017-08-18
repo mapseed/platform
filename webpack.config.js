@@ -43,8 +43,9 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 // (2) Set up Handlebars helpers and resolve template inheritances
 // (3) Convert config yaml to JSON object
 // (4) Compile base Handlebars templates
-// (5) Localize config and jstemplates, and build index file
-// (6) Copy static assets to the dist/ folder
+// (5) Resolve jstemplates flavor overrides and handles pages/ templates
+// (6) Localize config and jstemplates, and build index file
+// (7) Copy static assets to the dist/ folder
 //
 //
 // NOTES 
@@ -53,33 +54,64 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 // TODOS
 //   - Asynchronous processing!
 //   - Replace Django template filters with Handlebars helpers
-//   - jstemplates/ flavor override behavior
-//   - pages templates handling
 //   - A dev build option that skips all localization, to save time
 //   - In development, use gulp to watch changes to classes of files, and build
 //     components (jstemplates, config blob, etc.) separately as needed. Only
 //     build the final index files for production.
+//   - Some fonts not being resolved correctly? FA seems broken...
 // =============================================================================
 
 
 // (1) Set up paths to files and directories needed for the build, as well as
-// constants and utilities
+//     constants and utilities
 // -----------------------------------------------------------------------------
 
 const VERBOSE = true; // Controls logging output
 const PORT = 8000;
 
+// Flavor base
 var flavorBasePath = path.resolve(
   __dirname, 
-  "src/flavors", 
+  "src/flavors",
   process.env.FLAVOR
 );
 var flavorConfigPath = path.resolve(
-  flavorBasePath, 
+  flavorBasePath,
   "config.yml"
 );
+
+// Handlebars templates
+var baseJSTemplatesPath = path.resolve(
+  __dirname,
+  "src/base/jstemplates"
+);
+var flavorJSTemplatesPath = path.resolve(
+  flavorBasePath,
+  "jstemplates"
+);
+var flavorPagesPath = path.resolve(  // NOTE: pages are a flavor-only concept,
+                                     // so there's no basePagesPath
+  flavorBasePath,
+  "jstemplates/pages"
+);
+var outputJSTemplatesPath = path.resolve(
+  __dirname,
+  "src/base/static/dist/jstemplates"
+);
+var compiledTemplatesOutputPath = path.resolve(
+  __dirname,
+  "src/base/jstemplates/templates.js" // TODO: is this the right place for this?
+);
+
+// Handlebars executable
+var handlebarsExec = path.resolve(
+  __dirname,
+  "node_modules/handlebars/bin/handlebars"
+);
+
+// Images and markers
 var baseImageAssetsPath = path.resolve(
-  __dirname, 
+  __dirname,
   "src/base/static/css/images"
 );
 var flavorImageAssetsPath = path.resolve(
@@ -87,28 +119,14 @@ var flavorImageAssetsPath = path.resolve(
   "static/css/images"
 );
 var outputImageAssetsPath = path.resolve(
-  __dirname, 
+  __dirname,
   "src/base/static/dist/images"
 );
+
+// Localization
 var localeDir = path.resolve(
-  flavorBasePath, 
+  flavorBasePath,
   "locale"
-);
-var baseJSTemplatesPath = path.resolve(
-  __dirname, 
-  "src/base/jstemplates"
-);
-var flavorJSTemplatesPath = path.resolve(
-  flavorBasePath, 
-  "jstemplates"
-);
-var handlebarsExec = path.resolve(
-  __dirname, 
-  "node_modules/handlebars/bin/handlebars"
-);
-var compiledTemplatesOutputPath = path.resolve(
-  __dirname, 
-  "src/base/jstemplates/templates.js"
 );
 
 const PO_FILE_NAME = "django.po"; // Assumes all flavors will have a .po file
@@ -152,7 +170,7 @@ var log = function(msg, time) {
   }
 };
 
-// Synchronous timing
+// Timing
 var time = function(fn) {
   var start = new Date().getTime();
   fn();
@@ -220,21 +238,37 @@ var d = time(
   }
 );
 
-// Override flavor jstemplates
-copy(
-  path.resolve(
-    flavorBasePath, 
-    "static/css/custom.css"
-  ), 
-  path.resolve(
-    __dirname, 
-    "src/base/static/dist/custom.css"
-  ), 
-  { overwrite: true }
+
+// (5) Copy all jstemplates and flavor pages to a working directory from which 
+//     the templates can be localized and precompiled. Also resolve flavor 
+//     jstemplates overrides at this step
+// -----------------------------------------------------------------------------
+
+var d = time(
+  () => {
+    copy(
+      baseJSTemplatesPath,
+      outputJSTemplatesPath,
+      { overwrite: true }
+    );
+
+    copy(
+      flavorJSTemplatesPath,
+      outputJSTemplatesPath,
+      { overwrite: true }
+    );
+
+    copy(
+      flavorPagesPath,
+      outputJSTemplatesPath,
+      { overwrite: true }
+    );
+  }
 );
+log("Finished copying jstemplates assets", d);
 
 
-// (5) Localize the config for each language for the current flavor, precompile
+// (6) Localize the config for each language for the current flavor, precompile
 //     localized jstemplates Handlebars templates, and inject all localized
 //     content into the index-xx.html file
 // -----------------------------------------------------------------------------
@@ -283,14 +317,14 @@ fs.readdirSync(localeDir).forEach((langDir) => {
     () => {
       execSync(
         handlebarsExec + 
-        " -e 'html' -m " + baseJSTemplatesPath + 
+        " -e 'html' -m " + outputJSTemplatesPath + 
         " -f " + compiledTemplatesOutputPath
       );
     }
   );
   log("Finished jstemplates compilation for " + langDir, d);
 
-  // Build the index.html file for this language
+  // Build the index-xx.html file for this language
   var result = template({
     config: thisConfig,
     settings: {
@@ -322,8 +356,8 @@ fs.readdirSync(localeDir).forEach((langDir) => {
 });
 
 
-// (6) Move static image assets to the dist/ folder. Copy base project assets
-//     first, then copy flavor images, overriding base assets as needed
+// (7) Move static image assets to the dist/ folder. Copy base project assets
+//     first, then copy flavor assets, overriding base assets as needed
 // -----------------------------------------------------------------------------
 
 // Copy base project static image assets to src/base/static/dist/images 
@@ -360,7 +394,7 @@ copy(
 copy(
   path.resolve(
     flavorBasePath, 
-    "templates/index-en_US.html"
+    "templates/index-es.html"
   ), 
   path.resolve(
     __dirname, 
@@ -368,7 +402,6 @@ copy(
   ), 
   { overwrite: true }
 );
-
 
 // =============================================================================
 // END STATIC SITE BUILD
