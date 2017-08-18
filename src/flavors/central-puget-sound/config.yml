@@ -313,10 +313,8 @@ map:
       url: "https://smartercleanup.carto.com/api/v2/viz/1f590d18-256d-11e7-aff5-0e3ff518bd15/viz.json"
 
     - id: school-sites
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      type: landmark
-      sources:
-        - "https://raw.githubusercontent.com/mapseed/data/master/schools.geojson"
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/d1c41f32-2cfd-11e7-9efa-0ee66e2c9693/viz.json"
 
     - id: wria-7-8-9
       type: cartodb
@@ -1811,6 +1809,18 @@ story:
       #   visible_layers:
       #     - dirt-corps
       #   basemap: terrain
+      - url: mill-creek-school-flooding
+        zoom: 18
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
+      - url: paradise-parking-hillside-church
+        zoom: 18
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
+      - url: wdfw-boat-launch
+        zoom: 18
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: greenroof
         zoom: 18
         basemap: satellite
