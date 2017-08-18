@@ -1,5 +1,5 @@
 // Forms - Selectors
-@import "../../../../node_modules/@mapseed/accessible-autocomplete/dist/accessible-autocomplete.min";
+@import "../../../../node_modules/accessible-autocomplete/dist/accessible-autocomplete.min";
 
 form {}
 
@@ -87,7 +87,7 @@ select {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    
+
     input {
         display: none;
         + label > img:hover {
@@ -221,7 +221,7 @@ select {
 /* publish control */
 .publish-control-container {
     text-align: center;
-    
+
     label {
         display: inline-block;
         float: none;
@@ -247,7 +247,7 @@ select {
 .ql-toolbar {
     border-top: 0.30em solid #a3c7d9 !important;
     border-left: 0.30em solid #a3c7d9 !important;
-    border-right: 0.30em solid #a3c7d9 !important;   
+    border-right: 0.30em solid #a3c7d9 !important;
 }
 
 .ql-out-bottom {

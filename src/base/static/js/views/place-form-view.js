@@ -1,4 +1,4 @@
-import accessibleAutocomplete from '@mapseed/accessible-autocomplete';
+import accessibleAutocomplete from 'accessible-autocomplete';
 
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
@@ -158,13 +158,13 @@ module.exports = Backbone.View.extend({
             if (confirmed) {
 
               // Set the value of the underlying select element
-              document.getElementById(this.id + "-select").selectedIndex = 
+              document.getElementById(this.id + "-select").selectedIndex =
                 optionsArray.indexOf(confirmed);
             }
           }
         });
 
-        // Remove a required attribute on the underlying select element, to 
+        // Remove a required attribute on the underlying select element, to
         // prevent problems with validating a hidden element
         node.required = false;
       }
@@ -252,7 +252,7 @@ module.exports = Backbone.View.extend({
 
       if (this.formState.selectedCategoryConfig.fields[i].type === "commonFormElement") {
         let name = this.formState.selectedCategoryConfig.fields[i].name;
-        Object.assign(this.formState.selectedCategoryConfig.fields[i], 
+        Object.assign(this.formState.selectedCategoryConfig.fields[i],
           this.formState.commonFormElements[name]);
       }
 

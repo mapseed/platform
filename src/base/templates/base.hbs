@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-{{!-- 
+{{!--
 {{# load jstemplate }}
 {{# load i18n }}
 {{# load shareabouts_utils }}
@@ -146,7 +146,7 @@
       {{/if}}
 
       <div id="layer-info-window-container" class="is-hidden-fadeout"></div>
-    
+
     </div>
 
     <div id="content"><!-- .place or .page -->
@@ -238,7 +238,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw-src.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.js"></script>
   {{/if}}
-  
+
   <!-- These are obscure or customized, self-hosted. -->
   <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
   <script src="{{STATIC_URL}}libs/exif.js"></script>
@@ -273,7 +273,7 @@
   <!-- Bootstrap site and user information -->
   <script>
     var Shareabouts = Shareabouts || {};
-    
+
     Shareabouts.bootstrapped = {
       staticUrl: '{{ STATIC_URL }}',
       mapQuestKey: '{{ settings.MAPQUEST_KEY }}',
