@@ -56,6 +56,9 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 //   - jstemplates/ flavor override behavior
 //   - pages templates handling
 //   - A dev build option that skips all localization, to save time
+//   - In development, use gulp to watch changes to classes of files, and build
+//     components (jstemplates, config blob, etc.) separately as needed. Only
+//     build the final index files for production.
 // =============================================================================
 
 
@@ -191,7 +194,6 @@ wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
 // (3) Convert the config yaml to json
 // -----------------------------------------------------------------------------
 
-log("Starting YAML parse");
 var config;
 var d = time(
   () => { 
@@ -204,7 +206,6 @@ log("Finished YAML parse", d);
 // (4) Compile base.hbs and index.html templates for the current flavor
 // -----------------------------------------------------------------------------
 
-log("Starting base Handlebars compilation")
 var source, template;
 var d = time(
   () => {
@@ -218,21 +219,32 @@ var d = time(
     template = Handlebars.compile(source);
   }
 );
-log("Finished base Handlebars compilation", d);
+
+// Override flavor jstemplates
+copy(
+  path.resolve(
+    flavorBasePath, 
+    "static/css/custom.css"
+  ), 
+  path.resolve(
+    __dirname, 
+    "src/base/static/dist/custom.css"
+  ), 
+  { overwrite: true }
+);
 
 
 // (5) Localize the config for each language for the current flavor, precompile
-//     localize jstemplates Handlebars templates, and inject all localized
+//     localized jstemplates Handlebars templates, and inject all localized
 //     content into the index-xx.html file
 // -----------------------------------------------------------------------------
 
 fs.readdirSync(localeDir).forEach((langDir) => {
 
-  // Quick and dirty config clone:
+  // Quick and dirty config clone
   var thisConfig =  JSON.parse(JSON.stringify(config));
 
   // Localize the config for the current language
-  log("Localizing config for " + langDir);
   var input = fs.readFileSync(
     path.resolve(
       localeDir, 
@@ -267,7 +279,6 @@ fs.readdirSync(localeDir).forEach((langDir) => {
   thisConfig["datasets"] = datasetSiteUrls;
 
   // Precompile (and localize) Handlebars jstemplates
-  log("Starting jstemplates compilation for " + langDir);
   var d = time(
     () => {
       execSync(
@@ -382,23 +393,36 @@ module.exports = {
     contentBase: path.join(__dirname, "src/base/static"),
     historyApiFallback: {
       rewrites: [
+        // Handle requests when the site is loaded with a path other than the
+        // root. 
         {
           from: /custom\.css/,
           to: "/dist/custom.css"
         },
         {
-          from: /\/images\/.*$/,
+          from: /bundle\.css/,
+          to: "/dist/bundle.css"
+        },
+        {
+          from: /bundle\.js/,
+          to: "/dist/bundle.js"
+        },
+        { 
+          from: /libs\/.*\.js$/,
           to: function(context) {
-            return "/dist" + context.match[0];
+            return context.match[0];
           }
         },
         {
-          // Handle direct requests to routes other than the index route. Since 
-          // all non-index routes are handled client-side, we rewrite any such
-          // inital requests to index.html.
+          from: /\/images\/.*$/,
+          to: function(context) {
+            return "dist" + context.match[0];
+          }
+        },
+        {
           from: /^.*$/,
           to: "/index.html"
-        },
+        }
       ]
     },
     compress: true,
