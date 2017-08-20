@@ -335,7 +335,7 @@ fs.readdirSync(flavorLocaleDir).forEach((langDir) => {
     () => {
       execSync(
         handlebarsExec + 
-        " -e 'html' " + outputJSTemplatesPath + 
+        " -m -e 'html' " + outputJSTemplatesPath + 
         " -f " + compiledTemplatesOutputPath
       );
     }
