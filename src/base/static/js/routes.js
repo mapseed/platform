@@ -127,7 +127,7 @@ Shareabouts.Util = Util;
       });
       _.each(configArrays.places, function(config) {
         var collection = new PlaceCollection([], {
-          url: config.url + "/places"
+          url: options.datasetsConfig[config.id.toUpperCase() + "_SITE_URL"] + "/places"
         });
         self.places[config.id] = collection;
       });

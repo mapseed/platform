@@ -2,8 +2,7 @@ require('dotenv').config({path: 'src/.env'});
 require("babel-polyfill");
 var path = require('path');
 var glob = require('glob');
-var fs = require('fs');
-var copy = require('recursive-copy');
+var fs = require('fs-extra');
 var yaml = require('js-yaml');
 var Gettext = require("node-gettext");
 var gettextParser = require("gettext-parser");
@@ -43,9 +42,9 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 // (2) Set up Handlebars helpers and resolve template inheritances
 // (3) Convert config yaml to JSON object
 // (4) Compile base Handlebars templates
-// (5) Resolve jstemplates flavor overrides and handles pages/ templates
-// (6) Localize config and jstemplates, and build index file
-// (7) Copy static assets to the dist/ folder
+// (5) Localize config and jstemplates, and build index file
+// (5a) Resolve jstemplates flavor overrides and handle pages/ templates
+// (6) Copy static assets to the dist/ folder
 //
 //
 // NOTES 
@@ -59,6 +58,7 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 //     components (jstemplates, config blob, etc.) separately as needed. Only
 //     build the final index files for production.
 //   - Some fonts not being resolved correctly? FA seems broken...
+//   - Include base project .po files
 // =============================================================================
 
 
@@ -124,16 +124,19 @@ var outputImageAssetsPath = path.resolve(
 );
 
 // Localization
-var localeDir = path.resolve(
+var baseLocaleDir = path.resolve(
+  __dirname,
+  "src/base/locale"
+);
+var flavorLocaleDir = path.resolve(
   flavorBasePath,
   "locale"
 );
 
-const PO_FILE_NAME = "django.po"; // Assumes all flavors will have a .po file
-                                  // matching this name
-const GETTEXT_REGEX = /^_\(/;     // Use this to parse config gettext strings of 
-                                  // the form _(xyz xyz) when we traverse the 
-                                  // config
+const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po 
+                                      // file matching this name
+const CONFIG_GETTEXT_REGEX = /^_\(/;
+const JSTEMPLATES_GETTEXT_REGEX = /{{#_}}(.*?){{\/_}}/g;
 const BASE_STATIC_URL = "/static/";
 const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 
@@ -193,11 +196,6 @@ Handlebars.registerHelper("serialize", function(json) {
   return JSON.stringify(json);
 });
 
-// Gettext helper
-Handlebars.registerHelper("_", function(msg) {
-  return gt.gettext(msg);
-});
-
 // Helper for injecting precompiled templates to the index.html file
 var compiledTemplatesOutputPath;
 Handlebars.registerHelper("precompile_jstemplates", function() {
@@ -239,54 +237,28 @@ var d = time(
 );
 
 
-// (5) Copy all jstemplates and flavor pages to a working directory from which 
-//     the templates can be localized and precompiled. Also resolve flavor 
-//     jstemplates overrides at this step
-// -----------------------------------------------------------------------------
-
-var d = time(
-  () => {
-    copy(
-      baseJSTemplatesPath,
-      outputJSTemplatesPath,
-      { overwrite: true }
-    );
-
-    copy(
-      flavorJSTemplatesPath,
-      outputJSTemplatesPath,
-      { overwrite: true }
-    );
-
-    copy(
-      flavorPagesPath,
-      outputJSTemplatesPath,
-      { overwrite: true }
-    );
-  }
-);
-log("Finished copying jstemplates assets", d);
-
-
-// (6) Localize the config for each language for the current flavor, precompile
+// (5) Localize the config for each language for the current flavor, precompile
 //     localized jstemplates Handlebars templates, and inject all localized
 //     content into the index-xx.html file
 // -----------------------------------------------------------------------------
 
-fs.readdirSync(localeDir).forEach((langDir) => {
+fs.readdirSync(flavorLocaleDir).forEach((langDir) => {
 
   // Quick and dirty config clone
   var thisConfig =  JSON.parse(JSON.stringify(config));
 
   // Localize the config for the current language
+  // TODO: catenate flavor .po with base project .po!
   var input = fs.readFileSync(
     path.resolve(
-      localeDir, 
+      flavorLocaleDir, 
       langDir, 
       "LC_MESSAGES", 
       PO_FILE_NAME
     )
   );
+
+
   var po = gettextParser.po.parse(input);
   gt.addTranslations(langDir, "messages", po);
   gt.setTextDomain("messages");
@@ -296,9 +268,9 @@ fs.readdirSync(localeDir).forEach((langDir) => {
     () => {
       walk(thisConfig, (val, prop, obj) => {
         if (typeof val === "string") {
-          if (GETTEXT_REGEX.test(val)) {
+          if (CONFIG_GETTEXT_REGEX.test(val)) {
             val = val
-              .replace(GETTEXT_REGEX, "")
+              .replace(CONFIG_GETTEXT_REGEX, "")
               .replace(/\)$/, "");
           }
 
@@ -312,12 +284,58 @@ fs.readdirSync(localeDir).forEach((langDir) => {
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
 
-  // Precompile (and localize) Handlebars jstemplates
+
+  // (5a) Copy all jstemplates and flavor pages to a working directory from 
+  //      which the templates can be localized and precompiled. Also resolve 
+  //      flavor jstemplates overrides at this step
+  // ---------------------------------------------------------------------------
+
+  var d = time(
+    () => {
+      fs.copySync(
+        baseJSTemplatesPath,
+        outputJSTemplatesPath
+      );
+
+      fs.copySync(
+        flavorJSTemplatesPath,
+        outputJSTemplatesPath
+      );
+
+      fs.copySync(
+        flavorPagesPath,
+        outputJSTemplatesPath
+      );
+    }
+  );
+  log("Finished copying jstemplates assets", d);
+
+  // Localize jstemplates
+  fs.readdirSync(outputJSTemplatesPath).forEach((template) => {
+    if (template.endsWith("html")) {
+      var templ = path.resolve(outputJSTemplatesPath, template);
+      var result = fs.readFileSync(
+        templ,
+        "utf8"
+      ).replace(
+        JSTEMPLATES_GETTEXT_REGEX,
+        gt.gettext("$1")
+      );
+
+      fs.writeFileSync(
+        templ,
+        result,
+        "utf8"
+      );
+    }
+  });
+
+  // Precompile jstemplates and pages Handlebars templates
   var d = time(
     () => {
       execSync(
         handlebarsExec + 
-        " -e 'html' -m " + outputJSTemplatesPath + 
+        " -e 'html' " + outputJSTemplatesPath + 
         " -f " + compiledTemplatesOutputPath
       );
     }
@@ -356,27 +374,25 @@ fs.readdirSync(localeDir).forEach((langDir) => {
 });
 
 
-// (7) Move static image assets to the dist/ folder. Copy base project assets
+// (6) Move static image assets to the dist/ folder. Copy base project assets
 //     first, then copy flavor assets, overriding base assets as needed
 // -----------------------------------------------------------------------------
 
 // Copy base project static image assets to src/base/static/dist/images 
-copy(
+fs.copySync(
   baseImageAssetsPath, 
-  outputImageAssetsPath, 
-  { overwrite: true }
+  outputImageAssetsPath
 );
 
 // Copy flavor static image assets to src/base/static/dist/images, replacing
 // base assets as necessary
-copy(
+fs.copySync(
   flavorImageAssetsPath, 
-  outputImageAssetsPath, 
-  { overwrite: true }
+  outputImageAssetsPath
 );
 
 // Copy flavor custom.css
-copy(
+fs.copySync(
   path.resolve(
     flavorBasePath, 
     "static/css/custom.css"
@@ -384,14 +400,13 @@ copy(
   path.resolve(
     __dirname, 
     "src/base/static/dist/custom.css"
-  ), 
-  { overwrite: true }
+  )
 );
 
 // TEMPORARY: copy the English version of the index file (index-en_US.html) 
 // to the dist/ folder and rename it to index.html.
 // TODO: handle language switching
-copy(
+fs.copySync(
   path.resolve(
     flavorBasePath, 
     "templates/index-es.html"
@@ -399,8 +414,7 @@ copy(
   path.resolve(
     __dirname, 
     "src/base/static/index.html"
-  ), 
-  { overwrite: true }
+  )
 );
 
 // =============================================================================
