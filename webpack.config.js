@@ -6,7 +6,6 @@ require('dotenv').config({path: 'src/.env'});
 require("babel-polyfill");
 var path = require('path');
 var glob = require('glob');
-<<<<<<< 21425b24eb885b9f9ede8bda6f440371ba76219c
 var fs = require('fs');
 const shell = require('shelljs');
 
@@ -16,16 +15,6 @@ if (!process.env.FLAVOR) {
   process.exitCode = 1;
   process.exit();
 }
-=======
-var fs = require('fs-extra');
-var yaml = require('js-yaml');
-var Gettext = require("node-gettext");
-var gettextParser = require("gettext-parser");
-var walk = require("object-walk"); // object-walk supports traversal of JS objects
-var Handlebars = require("handlebars");
-var wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
-var execSync = require("child_process").execSync;
->>>>>>> (chore) fix jstemplates localization for static site build
 
 const distPath = path.resolve(
   __dirname,
