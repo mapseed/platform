@@ -317,7 +317,7 @@ fs.readdirSync(localeDir).forEach((langDir) => {
     () => {
       execSync(
         handlebarsExec + 
-        " -e 'html' -m " + outputJSTemplatesPath + 
+        " -m -e 'html' " + outputJSTemplatesPath + 
         " -f " + compiledTemplatesOutputPath
       );
     }
