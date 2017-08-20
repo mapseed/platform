@@ -135,7 +135,7 @@ Shareabouts.Util = Util;
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
         var collection = new ActionCollection([], {
-          url: config.url + "/actions"
+          url: options.datasetsConfig[config.id.toUpperCase() + "_SITE_URL"] + "/actions"
         });
         self.activities[config.id] = collection;
       });
