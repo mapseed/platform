@@ -443,35 +443,6 @@ place_types:
           iconUrl: /static/css/images/markers/marker-e1264d.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
-  streetscape:
-    label: _(Streetscape)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 30]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 30]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          iconSize: [12, 12]
-          iconAnchor: [6, 6]
-
-      - condition: 'this.map.zoom < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          iconSize: [18, 18]
-          iconAnchor: [9, 9]
-
-      - condition: 'this.map.zoom >= 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
 
   park-improvement:
     label: _(Park Improvement)
@@ -638,7 +609,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show list of ideas)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)

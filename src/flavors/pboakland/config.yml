@@ -25,7 +25,7 @@ languages:
   - code: zh-hant
     label: 我讲中文
 
-  - code: en
+  - code: en-us
     label: I Speak English
 
 #   - code: vi

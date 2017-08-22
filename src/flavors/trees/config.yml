@@ -416,7 +416,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)
   show_map_button_label: _(Back to the Map)
-  action_text: _(added)
   title: _(Register your tree)
   action_text: _(added)
   anonymous_name: _(Anonymous)
