@@ -129,18 +129,23 @@ a {
         display: block;
         padding: 0.5em;
         box-shadow: (-0.25em) 0.25em 0 $opacity-very-low-black;
+        margin-right: 0.25em;
+        margin-bottom: 0.25em;
     }
 
     &.twitter-btn {
         background-color: #4099FF;
         color: $button-color-white !important;
-        margin-right: 0.25em;
     }
 
     &.facebook-btn {
         background-color: #3b5998;
         color: $button-color-white !important;
-        margin-left: 0.25em;
+    }
+
+    &.google-btn {
+        background-color: #e8433a;
+        color: $button-color-white !important;
     }
 }
 
