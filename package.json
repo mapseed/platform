@@ -66,6 +66,7 @@
     "gettext-parser": "^1.2.2",
     "handlebars": "^4.0.10",
     "js-yaml": "^3.9.0",
+    "mv": "^2.1.1",
     "node-gettext": "^2.0.0",
     "object-walk": "^0.1.1",
     "prettier": "^1.4.4",
