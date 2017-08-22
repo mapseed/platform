@@ -4,9 +4,7 @@
 {{# load jstemplate }}
 {{# load i18n }}
 {{# load shareabouts_utils }}
-
 {{# load url from future }}
-{{# get_current_language as LANGUAGE_CODE }}
 --}}
 
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -94,11 +92,26 @@
       <div id="place-counter" class="list-toggle-nav"></div>
     {{/if}}
 
-  {{!--
     {{#if config.languages}}
-      {{> language_picker.html}}
+      {{#block "language_picker"}}
+        <div id="language-picker">
+          <nav class="access" role="article">
+            <ul class="menu">
+              <li class="menu-item">
+                <a class="current-language {{ LANGUAGE_CODE }} btn btn-block">Español / tiếng Việt ⌄</a>
+                <ul class="menu">
+                  {{#each config.languages}}
+                    <li class="menu-item">
+                      <a href="/{{this.code}}/index.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      {{/block}}
     {{/if}}
-  --}}
 
   </header>
 
