@@ -278,7 +278,13 @@ log("Finished copying jstemplates assets", d);
 //     content into the index-xx.html file
 // -----------------------------------------------------------------------------
 
-fs.readdirSync(localeDir).forEach((langDir) => {
+fs.readdirSync(flavorLocaleDir)
+  .filter((item) => {
+
+    // Filter out hidden files in the locale directory (like .DS_Store on OSX)
+    return !(/(^|\/)\.[^\/\.]/g).test(item);
+  })
+  .forEach((langDir) => {
 
   // Quick and dirty config clone
   var thisConfig =  JSON.parse(JSON.stringify(config));
