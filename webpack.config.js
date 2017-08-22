@@ -11,6 +11,7 @@ var walk = require("object-walk"); // object-walk supports traversal of JS objec
 var Handlebars = require("handlebars");
 var wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 var execSync = require("child_process").execSync;
+var mv = require("mv");
 
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
 var entryPoints = [
@@ -78,6 +79,10 @@ var flavorBasePath = path.resolve(
 var flavorConfigPath = path.resolve(
   flavorBasePath,
   "config.yml"
+);
+var indexFilesPath = path.resolve(
+  flavorBasePath,
+  "templates"
 );
 
 // Handlebars templates
@@ -388,20 +393,37 @@ copy(
   { overwrite: true }
 );
 
-// TEMPORARY: copy the English version of the index file (index-en_US.html) 
-// to the dist/ folder and rename it to index.html.
-// TODO: handle language switching
-copy(
-  path.resolve(
-    flavorBasePath, 
-    "templates/index-es.html"
-  ), 
-  path.resolve(
-    __dirname, 
-    "src/base/static/index.html"
-  ), 
-  { overwrite: true }
-);
+// Copy localized index-xx.html files to directories, namespaced by the locale
+// code. Convert file names to index.html. Convert the namespace to xx[-xx[xx]]
+// format, replacing uppercase characters with lowercase and underscores with
+// dashes. That way, we match the locale code format used in configs.
+fs.readdirSync(indexFilesPath).forEach((template) => {
+  if (template.startsWith("index-")) {
+    var langCode = template.split("-")[1].split(".")[0];
+    var source = path.resolve(
+      indexFilesPath,
+      template
+    );
+    var dest = path.resolve(
+      __dirname,
+      "src/base/static/dist",
+      langCode.toLowerCase().replace("_", "-"),
+      "index.html"
+    );
+
+    try {
+      mv(
+        source,
+        dest,
+        {mkdirp: true},
+        function(err) {}
+      );
+    } catch (e) {
+      // nothing
+    }
+  }
+});
+
 
 // =============================================================================
 // END STATIC SITE BUILD
@@ -452,9 +474,17 @@ module.exports = {
             return "dist" + context.match[0];
           }
         },
+
+        // Redirects for localized versions of the site
+        {
+          from: /^.*\/index.html$/,
+          to: function(context) {
+            return "dist" + context.match[0];
+          }
+        },
         {
           from: /^.*$/,
-          to: "/index.html"
+          to: "/dist/en-us/index.html"
         }
       ]
     },

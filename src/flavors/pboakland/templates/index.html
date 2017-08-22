@@ -12,6 +12,25 @@
 {{#block "sidebar"}}
 {{/block}}
 
+{{#block "language_picker"}}
+	<div id="language-picker">
+		<nav class="access" role="article">
+			<ul class="menu">
+			  <li class="menu-item">
+			    <a class="current-language {{ LANGUAGE_CODE }} btn btn-block">Español / 我讲中文 ⌄</a>
+		      <ul class="menu">
+		        {{#each config.languages}}
+	            <li class="menu-item">
+	              <a href="/{{this.code}}/index.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
+	            </li>
+		        {{/each}}
+		      </ul>
+			  </li>
+			</ul>
+		</nav>
+	</div>
+{{/block}}
+
 <!--
   This will place content in the colophon below the map
  -->
