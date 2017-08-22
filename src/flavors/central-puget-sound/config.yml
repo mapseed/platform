@@ -21,7 +21,7 @@ languages:
   - code: es
     label: Hablo Español
 
-  - code: en
+  - code: en-us
     label: I Speak English
 
 #   - code: vi

@@ -1,21 +1,32 @@
-{{#extends "../../../base/templates/base.hbs"}}
-<!-- 
-{{#load i18n }}
- -->
-{{#block site-title}}
+{{#extends "../../../base/templates/base"}}
+
+{{#block "site-title"}}
 <a href="/page/about" rel="internal">{{ config.app.name }}</a>
 {{/block}}
 
-<!--
-  This will place content at the top of the side bar
- -->
-{{#block sidebar}}
+{{#block "language_picker"}}
+	<div id="language-picker">
+	  <nav class="access" role="article">
+	    <ul class="menu">
+	      <li class="menu-item">
+	        <a class="current-language {{ LANGUAGE_CODE }} btn btn-block">Español</a>
+	        <ul class="menu">
+	          {{#each config.languages}}
+		          <li class="menu-item">
+		            <a href="/{{this.code}}/index.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
+		          </li>
+	          {{/each}}
+	        </ul>
+	      </li>
+	    </ul>
+	  </nav>
+	</div>
 {{/block}}
 
 <!--
   This will place content in the colophon below the map
  -->
-{{#block colophon}}
+{{#block "colophon"}}
 <p id="powered-by">{{#_}}Powered by{{/_}} <a href="//shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="//openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a></span></p>
 {{/block}}
 
@@ -23,8 +34,7 @@
   Analytics, custom JS, and such go here
  -->
 
-{{#block includes}}
-<!--<script src="{{STATIC_URL}}js/views/commitment-view.js"></script>-->
+{{#block "includes"}}
 <script>
   (function(S) {
 // ========================================
