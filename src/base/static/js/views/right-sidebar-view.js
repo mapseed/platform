@@ -4,7 +4,7 @@ var StoryCollection = require("../models/story-collection.js");
 
 // A view for managing individual story items
 var SidebarStoryItemView = Backbone.Marionette.ItemView.extend({
-  template: "#sidebar-story-detail",
+  template: Handlebars.templates["sidebar-story-detail"],
   tagName: "li",
   className: "sidebar-story-item",
   events: {
