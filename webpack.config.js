@@ -164,27 +164,10 @@ Object.keys(process.env).forEach(function(key) {
 });
 
 // Logging
-var log = function(msg, time) {
+var log = function(msg) {
   if (VERBOSE) {
-    console.log(
-      "(STATIC SITE BUILD) ", 
-      msg, 
-      (
-        (time)
-          ? "in " + time + " ms" 
-          : ""
-      )
-    );
+    console.log("(STATIC SITE BUILD) ", msg);
   }
-};
-
-// Timing
-var time = function(fn) {
-  var start = new Date().getTime();
-  fn();
-  var end = new Date().getTime();
-
-  return end - start;
 };
 
 // Gettext object
@@ -215,31 +198,21 @@ wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
 // (3) Convert the config yaml to json
 // -----------------------------------------------------------------------------
 
-var config;
-var d = time(
-  () => { 
-    config = yaml.safeLoad(fs.readFileSync(flavorConfigPath)); 
-  }
-);
-log("Finished YAML parse", d);
+var config = yaml.safeLoad(fs.readFileSync(flavorConfigPath)); 
+log("Finished YAML parse");
 
 
 // (4) Compile base.hbs and index.html templates for the current flavor
 // -----------------------------------------------------------------------------
 
-var source, template;
-var d = time(
-  () => {
-    source = fs.readFileSync(
-      path.resolve(
-        flavorBasePath, 
-        "templates/index.html"
-      ), 
-      "utf8"
-    );
-    template = Handlebars.compile(source);
-  }
+var source = fs.readFileSync(
+  path.resolve(
+    flavorBasePath, 
+    "templates/index.html"
+  ), 
+  "utf8"
 );
+var template = Handlebars.compile(source);
 
 
 // (5) Localize the config for each language for the current flavor, precompile
@@ -275,22 +248,18 @@ fs.readdirSync(flavorLocaleDir)
   gt.setTextDomain("messages");
   gt.setLocale(langDir);
 
-  var d = time(
-    () => {
-      walk(thisConfig, (val, prop, obj) => {
-        if (typeof val === "string") {
-          if (CONFIG_GETTEXT_REGEX.test(val)) {
-            val = val
-              .replace(CONFIG_GETTEXT_REGEX, "")
-              .replace(/\)$/, "");
-          }
+  walk(thisConfig, (val, prop, obj) => {
+    if (typeof val === "string") {
+      if (CONFIG_GETTEXT_REGEX.test(val)) {
+        val = val
+          .replace(CONFIG_GETTEXT_REGEX, "")
+          .replace(/\)$/, "");
+      }
 
-          obj[prop] = gt.gettext(val);
-        }
-      });
+      obj[prop] = gt.gettext(val);
     }
-  );
-  log("Finished localizing config for " + langDir, d);
+  });
+  log("Finished localizing config for " + langDir);
 
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
@@ -301,25 +270,21 @@ fs.readdirSync(flavorLocaleDir)
   //      flavor jstemplates overrides at this step
   // ---------------------------------------------------------------------------
 
-  var d = time(
-    () => {
-      fs.copySync(
-        baseJSTemplatesPath,
-        outputJSTemplatesPath
-      );
-
-      fs.copySync(
-        flavorJSTemplatesPath,
-        outputJSTemplatesPath
-      );
-
-      fs.copySync(
-        flavorPagesPath,
-        outputJSTemplatesPath
-      );
-    }
+  fs.copySync(
+    baseJSTemplatesPath,
+    outputJSTemplatesPath
   );
-  log("Finished copying jstemplates assets", d);
+
+  fs.copySync(
+    flavorJSTemplatesPath,
+    outputJSTemplatesPath
+  );
+
+  fs.copySync(
+    flavorPagesPath,
+    outputJSTemplatesPath
+  );
+  log("Finished copying jstemplates assets");
 
   // Localize jstemplates
   fs.readdirSync(outputJSTemplatesPath).forEach((template) => {
@@ -342,16 +307,12 @@ fs.readdirSync(flavorLocaleDir)
   });
 
   // Precompile jstemplates and pages Handlebars templates
-  var d = time(
-    () => {
-      execSync(
-        handlebarsExec + 
-        " -m -e 'html' " + outputJSTemplatesPath + 
-        " -f " + compiledTemplatesOutputPath
-      );
-    }
+  execSync(
+    handlebarsExec + 
+    " -m -e 'html' " + outputJSTemplatesPath + 
+    " -f " + compiledTemplatesOutputPath
   );
-  log("Finished jstemplates compilation for " + langDir, d);
+  log("Finished jstemplates compilation for " + langDir);
 
   // Build the index-xx.html file for this language
   var result = template({
