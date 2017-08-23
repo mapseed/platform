@@ -52,4 +52,4 @@ node_modules/
 *.db
 
 # static site build process output
-src/flavors/*/templates/index-*.html
+www/

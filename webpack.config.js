@@ -14,8 +14,8 @@ var execSync = require("child_process").execSync;
 
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
 var entryPoints = [
-  "babel-polyfill", 
-  "./src/base/static/js/routes.js", 
+  "babel-polyfill",
+  "./src/base/static/js/routes.js",
   "./src/base/static/js/handlebars-helpers.js"
 ].concat(flavorJsFiles);
 
@@ -37,7 +37,7 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
-// 
+//
 // Overview:
 // (1) Configure paths, variables, and utilities
 // (2) Set up Handlebars helpers and resolve template inheritances
@@ -47,7 +47,7 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 // (6) Copy static assets to the dist/ folder
 //
 //
-// NOTES 
+// NOTES
 //   - This build still depends on a .env file with dataset urls
 //
 // TODOS
@@ -70,51 +70,47 @@ const VERBOSE = true; // Controls logging output
 const PORT = 8000;
 
 var flavorBasePath = path.resolve(
-  __dirname, 
-  "src/flavors", 
+  __dirname,
+  "src/flavors",
   process.env.FLAVOR
 );
 var flavorConfigPath = path.resolve(
-  flavorBasePath, 
+  flavorBasePath,
   "config.yml"
 );
 var baseImageAssetsPath = path.resolve(
-  __dirname, 
+  __dirname,
   "src/base/static/css/images"
 );
 var flavorImageAssetsPath = path.resolve(
   flavorBasePath,
   "static/css/images"
 );
-var outputImageAssetsPath = path.resolve(
-  __dirname, 
-  "src/base/static/dist/images"
-);
 var localeDir = path.resolve(
-  flavorBasePath, 
+  flavorBasePath,
   "locale"
 );
 var baseJSTemplatesPath = path.resolve(
-  __dirname, 
+  __dirname,
   "src/base/jstemplates"
 );
 var flavorJSTemplatesPath = path.resolve(
-  flavorBasePath, 
+  flavorBasePath,
   "jstemplates"
 );
 var handlebarsExec = path.resolve(
-  __dirname, 
+  __dirname,
   "node_modules/handlebars/bin/handlebars"
 );
-var compiledTemplatesOutputPath = path.resolve(
-  __dirname, 
-  "src/base/jstemplates/templates.js"
-);
+
+var outputBasePath = path.resolve(__dirname, "www")
+var compiledTemplatesOutputPath = path.resolve(outputBasePath, "templates.js");
+var outputImageAssetsPath = path.resolve(outputBasePath, "css/images");
 
 const PO_FILE_NAME = "django.po"; // Assumes all flavors will have a .po file
                                   // matching this name
-const GETTEXT_REGEX = /^_\(/;     // Use this to parse config gettext strings of 
-                                  // the form _(xyz xyz) when we traverse the 
+const GETTEXT_REGEX = /^_\(/;     // Use this to parse config gettext strings of
+                                  // the form _(xyz xyz) when we traverse the
                                   // config
 const BASE_STATIC_URL = "/static/";
 const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
@@ -141,11 +137,11 @@ Object.keys(process.env).forEach(function(key) {
 var log = function(msg, time) {
   if (VERBOSE) {
     console.log(
-      "(STATIC SITE BUILD) ", 
-      msg, 
+      "(STATIC SITE BUILD) ",
+      msg,
       (
         (time)
-          ? "in " + time + " ms" 
+          ? "in " + time + " ms"
           : ""
       )
     );
@@ -181,7 +177,6 @@ Handlebars.registerHelper("_", function(msg) {
 });
 
 // Helper for injecting precompiled templates to the index.html file
-var compiledTemplatesOutputPath;
 Handlebars.registerHelper("precompile_jstemplates", function() {
   return fs.readFileSync(compiledTemplatesOutputPath);
 });
@@ -196,8 +191,8 @@ wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
 
 var config;
 var d = time(
-  () => { 
-    config = yaml.safeLoad(fs.readFileSync(flavorConfigPath)); 
+  () => {
+    config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
   }
 );
 log("Finished YAML parse", d);
@@ -211,9 +206,9 @@ var d = time(
   () => {
     source = fs.readFileSync(
       path.resolve(
-        flavorBasePath, 
+        flavorBasePath,
         "templates/index.html"
-      ), 
+      ),
       "utf8"
     );
     template = Handlebars.compile(source);
@@ -223,13 +218,10 @@ var d = time(
 // Override flavor jstemplates
 copy(
   path.resolve(
-    flavorBasePath, 
+    flavorBasePath,
     "static/css/custom.css"
-  ), 
-  path.resolve(
-    __dirname, 
-    "src/base/static/dist/custom.css"
-  ), 
+  ),
+  path.resolve(outputBasePath, "css/custom.css"),
   { overwrite: true }
 );
 
@@ -247,9 +239,9 @@ fs.readdirSync(localeDir).forEach((langDir) => {
   // Localize the config for the current language
   var input = fs.readFileSync(
     path.resolve(
-      localeDir, 
-      langDir, 
-      "LC_MESSAGES", 
+      localeDir,
+      langDir,
+      "LC_MESSAGES",
       PO_FILE_NAME
     )
   );
@@ -282,8 +274,8 @@ fs.readdirSync(localeDir).forEach((langDir) => {
   var d = time(
     () => {
       execSync(
-        handlebarsExec + 
-        " -e 'html' -m " + baseJSTemplatesPath + 
+        handlebarsExec +
+        " -e 'html' -m " + baseJSTemplatesPath +
         " -f " + compiledTemplatesOutputPath
       );
     }
@@ -314,9 +306,8 @@ fs.readdirSync(localeDir).forEach((langDir) => {
 
   // Write out final index.html file
   var filename = path.resolve(
-    flavorBasePath, 
-    "templates", 
-    "index-" + langDir + ".html"
+    outputBasePath,
+    (langDir == 'en_US' ? 'index' : langDir) + ".html"
   );
   fs.writeFileSync(filename, result);
 });
@@ -326,47 +317,42 @@ fs.readdirSync(localeDir).forEach((langDir) => {
 //     first, then copy flavor images, overriding base assets as needed
 // -----------------------------------------------------------------------------
 
-// Copy base project static image assets to src/base/static/dist/images 
+// Copy base project static image assets to www/images
 copy(
-  baseImageAssetsPath, 
-  outputImageAssetsPath, 
+  baseImageAssetsPath,
+  outputImageAssetsPath,
   { overwrite: true }
 );
 
-// Copy flavor static image assets to src/base/static/dist/images, replacing
+// Copy flavor static image assets to www/images, replacing
 // base assets as necessary
 copy(
-  flavorImageAssetsPath, 
-  outputImageAssetsPath, 
+  flavorImageAssetsPath,
+  outputImageAssetsPath,
   { overwrite: true }
 );
 
 // Copy flavor custom.css
 copy(
   path.resolve(
-    flavorBasePath, 
+    flavorBasePath,
     "static/css/custom.css"
-  ), 
+  ),
   path.resolve(
-    __dirname, 
-    "src/base/static/dist/custom.css"
-  ), 
+    outputBasePath,
+    "custom.css"
+  ),
   { overwrite: true }
 );
 
-// TEMPORARY: copy the English version of the index file (index-en_US.html) 
-// to the dist/ folder and rename it to index.html.
-// TODO: handle language switching
 copy(
   path.resolve(
-    flavorBasePath, 
-    "templates/index-en_US.html"
-  ), 
+    __dirname, "src/base/static/libs"
+  ),
   path.resolve(
-    __dirname, 
-    "src/base/static/index.html"
-  ), 
-  { overwrite: true }
+    outputBasePath, "libs"
+  ),
+  {overwrite: true}
 );
 
 
@@ -378,7 +364,7 @@ copy(
 module.exports = {
   entry: entryPoints,
   output: {
-    path: path.join(__dirname, "src/base/static/dist/"),
+    path: path.join(outputBasePath, "dist"),
     filename: "bundle.js"
   },
   resolve: {
@@ -390,33 +376,15 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: path.join(__dirname, "src/base/static"),
+    contentBase: outputBasePath,
     historyApiFallback: {
       rewrites: [
         // Handle requests when the site is loaded with a path other than the
-        // root. 
+        // root.
         {
-          from: /custom\.css/,
-          to: "/dist/custom.css"
-        },
-        {
-          from: /bundle\.css/,
-          to: "/dist/bundle.css"
-        },
-        {
-          from: /bundle\.js/,
-          to: "/dist/bundle.js"
-        },
-        { 
           from: /libs\/.*\.js$/,
           to: function(context) {
             return context.match[0];
-          }
-        },
-        {
-          from: /\/images\/.*$/,
-          to: function(context) {
-            return "dist" + context.match[0];
           }
         },
         {
