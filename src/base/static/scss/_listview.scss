@@ -31,6 +31,10 @@
     margin: 0 auto;
 }
 
+.place-list-fade-out-mask {
+    display: none;
+}
+
 // Search - Selectors
 
 .list-search-form input {
@@ -74,8 +78,9 @@
     }
 
     > li {
+        position: relative;
         max-height: 250px;
-        overflow: auto;
+        overflow: hidden;
         margin: 0;
         padding: 0.75em 0 1.25em 0;
         border-top: 1px solid $border-color-lightgrey;
@@ -130,6 +135,15 @@
 
     .place-label:empty, .place-value:empty {
         display: none;
+    }
+
+    .place-list-fade-out-mask {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        height: 40px;
+        width: 100%;
+        background-image: linear-gradient(to bottom, transparent, white 90%);
     }
 
     .ql-video-container {
