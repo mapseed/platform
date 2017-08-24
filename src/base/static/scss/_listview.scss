@@ -131,6 +131,17 @@
     .place-label:empty, .place-value:empty {
         display: none;
     }
+
+    .ql-video-container {
+        width: 200px;
+        float: left;
+        margin-right: 1em;
+
+        iframe {
+            max-width: initial;
+            height: initial;
+        }
+    }
 }
 
 .place-item-attachment .place-value:empty {
