@@ -35,6 +35,19 @@ for (var i = 0; i < baseViewPaths.length; i++) {
   }
 }
 
+if (process.env.NODE_ENV !== 'production') {
+  shell.mkdir('-p', 'www/dist');
+
+  shell.cat([
+    'src/base/static/css/leaflet-sidebar.css',
+    'src/base/static/css/leaflet.draw.css',
+    'src/base/static/css/spectrum.css',
+    'src/base/static/css/quill.snow.css',
+    'src/base/static/css/default.css',
+    'src/base/static/css/jquery.datetimepicker.css',
+    'src/flavors/' + process.env.FLAVOR + '/static/css/custom.css'
+  ]).to('www/dist/bundle.css');
+}
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
