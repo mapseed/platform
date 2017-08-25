@@ -292,20 +292,33 @@ fs.readdirSync(flavorLocaleDir)
   //      flavor jstemplates overrides at this step
   // ---------------------------------------------------------------------------
 
-  fs.copySync(
-    baseJSTemplatesPath,
-    outputJSTemplatesPath
-  );
+  try {
+    fs.copySync(
+      baseJSTemplatesPath,
+      outputJSTemplatesPath
+    );
+  } catch (e) {
+    log("(ERROR!) Error copying base jstemplates assets: " + e);
+  }
 
-  fs.copySync(
-    flavorJSTemplatesPath,
-    outputJSTemplatesPath
-  );
+  try {
+    fs.copySync(
+      flavorJSTemplatesPath,
+      outputJSTemplatesPath
+    );
+  } catch (e) {
+    log("(ERROR!) Error copying flavor jstemplates assets: " + e);
+  }
 
-  fs.copySync(
-    flavorPagesPath,
-    outputJSTemplatesPath
-  );
+  try {
+    fs.copySync(
+      flavorPagesPath,
+      outputJSTemplatesPath
+    );
+  } catch (e) {
+    log("(ERROR!) Error copying flavor pages assets: " + e);
+  }
+
   log("Finished copying jstemplates assets");
 
   // Localize jstemplates
@@ -375,29 +388,42 @@ fs.readdirSync(flavorLocaleDir)
 // -----------------------------------------------------------------------------
 
 // Copy base project static image assets to src/base/static/dist/images 
-fs.copySync(
-  baseImageAssetsPath, 
-  outputImageAssetsPath
-);
+try {
+  fs.copySync(
+    baseImageAssetsPath, 
+    outputImageAssetsPath
+  );
+} catch (e) {
+  log("(ERROR!) Error copying base image assets: " + e);
+}
 
 // Copy flavor static image assets to src/base/static/dist/images, replacing
 // base assets as necessary
-fs.copySync(
-  flavorImageAssetsPath, 
-  outputImageAssetsPath
-);
+try {
+  fs.copySync(
+    flavorImageAssetsPath, 
+    outputImageAssetsPath
+  );
+} catch (e) {
+  log("(ERROR!) Error copying flavor image assets: " + e);
+}
 
 // Copy flavor custom.css
-fs.copySync(
-  path.resolve(
-    flavorBasePath, 
-    "static/css/custom.css"
-  ), 
-  path.resolve(
-    __dirname, 
-    "src/base/static/dist/custom.css"
-  )
-);
+try {
+  fs.copySync(
+    path.resolve(
+      flavorBasePath, 
+      "static/css/custom.css"
+    ), 
+    path.resolve(
+      __dirname, 
+      "src/base/static/dist/custom.css"
+    )
+  );
+} catch (e) {
+  log("(ERROR!) Error copying flavor custom.css: " + e);
+}
+
 
 // Copy localized index-xx.html files to directories, namespaced by the locale
 // code. Convert file names to index.html. Convert the namespace to xx[-xx[xx]]
@@ -425,7 +451,7 @@ fs.readdirSync(indexFilesPath).forEach((template) => {
         function(err) {}
       );
     } catch (e) {
-      // nothing
+      log("(ERROR!) Error copying localized index-xx.html file for " + langCode + ": " + e);
     }
   }
 });
