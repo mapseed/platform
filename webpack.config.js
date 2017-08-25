@@ -295,7 +295,9 @@ fs.readdirSync(flavorLocaleDir)
         "utf8"
       ).replace(
         JSTEMPLATES_GETTEXT_REGEX,
-        gt.gettext("$1")
+        (match, capture) => {
+          return gt.gettext(capture);
+        }
       );
 
       fs.writeFileSync(
