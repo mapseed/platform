@@ -139,6 +139,10 @@ var handlebarsExec = path.resolve(
   __dirname,
   "node_modules/handlebars/bin/handlebars"
 );
+var mergedPOFileOutputPath = path.resolve(
+  __dirname,
+  "src/base/static/dist/django.po"
+)
 
 var outputBasePath = path.resolve(__dirname, "www")
 var compiledTemplatesOutputPath = path.resolve(outputBasePath, "templates.js");
@@ -281,21 +285,43 @@ fs.readdirSync(flavorLocaleDir)
 
   // Quick and dirty config clone
   var thisConfig =  JSON.parse(JSON.stringify(config));
-
-  // Localize the config for the current language
-  var input = fs.readFileSync(
-    path.resolve(
-      localeDir,
-      langDir,
-      "LC_MESSAGES",
-      PO_FILE_NAME
-    )
+  var flavorPOPath = path.resolve(
+    flavorLocaleDir,
+    langDir,
+    "LC_MESSAGES",
+    PO_FILE_NAME
   );
+
+  // Merge the current language .po with the base project .po of the same
+  // language, if it exists.
+  var input;
+  try {
+    execSync(
+      "msgcat" + // NOTE: msgcat is a gettext command line program that merges
+                 // two .po files.
+      " --no-location " +
+      " -o " + mergedPOFileOutputPath + " " +
+      flavorPOPath + " " +
+      path.resolve(
+        baseLocaleDir,
+        langDir,
+        "LC_MESSAGES",
+        PO_FILE_NAME
+      )
+    );
+    input = fs.readFileSync(mergedPOFileOutputPath);
+    log("Finsihed merging .po file for " + langDir);
+  } catch(e) {
+    log("Skipping .po file merge for " + langDir + ": no base .po file found");
+    input = fs.readFileSync(flavorPOPath);
+  }
+
   var po = gettextParser.po.parse(input);
   gt.addTranslations(langDir, "messages", po);
   gt.setTextDomain("messages");
   gt.setLocale(langDir);
 
+  // Localize the config for the current language.
   walk(thisConfig, (val, prop, obj) => {
     if (typeof val === "string") {
       if (CONFIG_GETTEXT_REGEX.test(val)) {
