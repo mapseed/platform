@@ -312,13 +312,45 @@ fs.readdirSync(flavorLocaleDir)
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
 
-  // Precompile (and localize) Handlebars jstemplates
-  var d = time(
-    () => {
-      execSync(
-        handlebarsExec +
-        " -e 'html' -m " + baseJSTemplatesPath +
-        " -f " + compiledTemplatesOutputPath
+  // (5a) Copy all jstemplates and flavor pages to a working directory from 
+  //      which the templates can be localized and precompiled. Also resolve 
+  //      flavor jstemplates overrides at this step
+  // ---------------------------------------------------------------------------
+
+  fs.copySync(
+    baseJSTemplatesPath,
+    outputJSTemplatesPath
+  );
+
+  fs.copySync(
+    flavorJSTemplatesPath,
+    outputJSTemplatesPath
+  );
+
+  fs.copySync(
+    flavorPagesPath,
+    outputJSTemplatesPath
+  );
+  log("Finished copying jstemplates assets");
+
+  // Localize jstemplates
+  fs.readdirSync(outputJSTemplatesPath).forEach((template) => {
+    if (template.endsWith("html")) {
+      var templ = path.resolve(outputJSTemplatesPath, template);
+      var result = fs.readFileSync(
+        templ,
+        "utf8"
+      ).replace(
+        JSTEMPLATES_GETTEXT_REGEX,
+        (match, capture) => {
+          return gt.gettext(capture);
+        }
+      );
+
+      fs.writeFileSync(
+        templ,
+        result,
+        "utf8"
       );
     }
   });
