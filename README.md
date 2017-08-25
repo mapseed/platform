@@ -115,15 +115,15 @@ DUWAMISH_DATASET_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
 
 ### Using the in-app editor
 
-The platform includes an in-app editor that you can use to update and hide places and comments on a per-dataset basis. Only authenticated administrators are allowed to make edits. Authentication is performed via third-party social media services (Twitter and Facebook are currently supported), so administrators will need an account on either of these services to use the editor.
+The platform includes an in-app editor that you can use to update and hide places and comments on a per-dataset basis. Only authenticated administrators are allowed to make edits. Authentication is performed via third-party social media services (Twitter, Facebook, and Google+ are currently supported), so administrators will need an account on one of these services to use the editor.
 
 Follow these instructions to grant administrator privileges to one or more users:
 
 1. If the user to whom you'd like to grant administrator privileges has previously logged into your app via a social media service, skip to the next step. Otherwise, you'll need to manually add the user before granting privileges. Follow these steps:
 
-    * In the admin panel, click `Users`, then `Add user +`, then create a new user. The username you enter here must match the social media username of the person to whom you'd like to grant administrator privileges. 
+    * In the admin panel, click `Users`, then `Add user +`, then create a new User. The username you enter here is arbitrary, although for convenience it may match the social media username of the person to whom you'd like to grant administrator privileges. Note that you may add several user social auths under a single User.
 
-    * Next, in the `User social auths` panel, click `Add user social auth +`, select the user you just created under `User`, enter the name of the social service provider (`twitter` or `facebook`), then enter the social user's `Uid`. The `Uid` can be looked up online: [here](https://tweeterid.com/) for Twitter, and [here](https://lookup-id.com/) for Facebook.
+    * Next, in the `User social auths` panel, click `Add user social auth +`, select the User you just created under `User` (or choose an existing User), enter the name of the social service provider (`twitter`, `facebook`, or `google-oauth2`), then enter the social user's `Uid`. The `Uid` can be looked up online: [here](https://tweeterid.com/) for Twitter, and [here](https://lookup-id.com/) for Facebook. For Google, the `Uid` is the user's Gmail address.
 
 2. In the Django admin panel, click on `Data sets` and then the name of the dataset you'd like to grant administrator privileges for.
 
