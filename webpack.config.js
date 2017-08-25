@@ -59,7 +59,6 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 //     components (jstemplates, config blob, etc.) separately as needed. Only
 //     build the final index files for production.
 //   - Some fonts not being resolved correctly? FA seems broken...
-//   - Include base project .po files
 // =============================================================================
 
 
@@ -137,6 +136,10 @@ var flavorLocaleDir = path.resolve(
   flavorBasePath,
   "locale"
 );
+var mergedPOFileOutputPath = path.resolve(
+  __dirname,
+  "src/base/static/dist/django.po"
+)
 
 const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po 
                                       // file matching this name
@@ -230,24 +233,43 @@ fs.readdirSync(flavorLocaleDir)
 
   // Quick and dirty config clone
   var thisConfig =  JSON.parse(JSON.stringify(config));
-
-  // Localize the config for the current language
-  // TODO: catenate flavor .po with base project .po!
-  var input = fs.readFileSync(
-    path.resolve(
-      flavorLocaleDir, 
-      langDir, 
-      "LC_MESSAGES", 
-      PO_FILE_NAME
-    )
+  var flavorPOPath = path.resolve(
+    flavorLocaleDir,
+    langDir,
+    "LC_MESSAGES",
+    PO_FILE_NAME
   );
 
+  // Merge the current language .po with the base project .po of the same
+  // language, if it exists.
+  var input;
+  try {
+    execSync(
+      "msgcat" + // NOTE: msgcat is a gettext command line program that merges
+                 // two .po files.
+      " --no-location " +
+      " -o " + mergedPOFileOutputPath + " " +
+      flavorPOPath + " " +
+      path.resolve(
+        baseLocaleDir,
+        langDir,
+        "LC_MESSAGES",
+        PO_FILE_NAME
+      )
+    );
+    input = fs.readFileSync(mergedPOFileOutputPath);
+    log("Finsihed merging .po file for " + langDir);
+  } catch(e) {
+    log("Skipping .po file merge for " + langDir + ": no base .po file found");
+    input = fs.readFileSync(flavorPOPath);
+  }
 
   var po = gettextParser.po.parse(input);
   gt.addTranslations(langDir, "messages", po);
   gt.setTextDomain("messages");
   gt.setLocale(langDir);
 
+  // Localize the config for the current language.
   walk(thisConfig, (val, prop, obj) => {
     if (typeof val === "string") {
       if (CONFIG_GETTEXT_REGEX.test(val)) {
