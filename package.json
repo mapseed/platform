@@ -27,7 +27,7 @@
     "build-scss-production": "./scripts/run-node-sass.sh -p",
     "start": "npm run build-scss && npm run watch-scss & npm run watch-js & webpack-dev-server",
     "build-js": "webpack -d",
-    "build-js-production": "webpack -p && cat src/base/static/dist/bundle.js | gzip > src/base/static/dist/bundle.js.gz",
+    "build-js-production": "NODE_ENV=production webpack -p && cat www/bundle.js | gzip > www/bundle.js.gz",
     "watch-js": "webpack -d --watch",
     "build-css": "cat src/base/static/dist/cat-bundle.css | tee www/dist/bundle.css | gzip > www/dist/bundle.css.gz",
     "build-concat": "node scripts/concat.js",

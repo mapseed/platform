@@ -11,6 +11,7 @@ var walk = require("object-walk"); // object-walk supports traversal of JS objec
 var Handlebars = require("handlebars");
 var wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 var execSync = require("child_process").execSync;
+var shell = require('shelljs');
 
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
 var entryPoints = [
@@ -34,6 +35,19 @@ for (var i = 0; i < baseViewPaths.length; i++) {
   }
 }
 
+if (process.env.NODE_ENV !== 'production') {
+  shell.mkdir('-p', 'www/dist');
+
+  shell.cat([
+    'src/base/static/css/leaflet-sidebar.css',
+    'src/base/static/css/leaflet.draw.css',
+    'src/base/static/css/spectrum.css',
+    'src/base/static/css/quill.snow.css',
+    'src/base/static/css/default.css',
+    'src/base/static/css/jquery.datetimepicker.css',
+    'src/flavors/' + process.env.FLAVOR + '/static/css/custom.css'
+  ]).to('www/dist/bundle.css');
+}
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
@@ -224,7 +238,6 @@ copy(
   path.resolve(outputBasePath, "css/custom.css"),
   { overwrite: true }
 );
-
 
 // (5) Localize the config for each language for the current flavor, precompile
 //     localized jstemplates Handlebars templates, and inject all localized
