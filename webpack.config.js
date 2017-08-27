@@ -180,7 +180,7 @@ const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 // longer needed.
 var datasetSiteUrls = {};
 Object.keys(process.env).forEach(function(key) {
-  if (key.endsWith("_SITE_URL")) {
+  if (key.endsWith("SITE_URL")) {
     datasetSiteUrls[key] = process.env[key];
   }
 });
@@ -348,6 +348,7 @@ fs.readdirSync(flavorLocaleDir)
 
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
+
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from 
   //      which the templates can be localized and precompiled. Also resolve 
