@@ -24,20 +24,20 @@
           {{#is_input}}
             {{#is_submitter_name}}
               {{^is_authenticated}}
-                <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}">
+                <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value this name}}">
               {{/is_authenticated}}
             {{^}}
-              <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
+              <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value this name}}">
             {{/is_submitter_name}}
           {{/is_input}}
 
           {{#is_textarea}}
-          <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
+          <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value this name}}</textarea>
           {{/is_textarea}}
 
           {{#is_select}}
           <select id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-          {{#select_item_value ../.. name}}
+          {{#select_item_value this name}}
           {{# options }}
             {{#if label}}
             <option value="{{value}}">{{label}}</option>
