@@ -300,25 +300,18 @@
     Handlebars.partials = Handlebars.templates;
   </script>
   <script src="{{STATIC_URL}}dist/bundle.js?ver=0.7.5.4"></script>
-  <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
-  <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
-
-{{!--
-  {{# handlebarsjs '(.*)' precompile register_partials }}
-  {{# handlebarsjs 'pages/*' precompile }}
---}}
+  <script src="{{config.datasets.API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
+  <script src="{{config.datasets.API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
 
   <script type="text/javascript">
   (function(S, $){
-    // Boostrapping the place types and their icons
     S.Config = {
       defaultPlaceTypeName: '{{ default_place_type }}',
       userToken: (
         S.bootstrapped.currentUser ?
         'user:' + S.bootstrapped.currentUser.id :
-        "{{ user_token_json }}"), // NOTE: lost |safe filter
+        "{{ user_token_json }}"),
       app:        {{#serialize config.app}}{{/serialize}},
-      //flavor:     {{#serialize config.data}}{{/serialize}}, // NOTE: this seems superfluous
       place:      {{#serialize config.place}}{{/serialize}},
       placeTypes: {{#serialize config.place_types}}{{/serialize}},
       cluster:    {{#serialize config.cluster}}{{/serialize}},
@@ -328,7 +321,7 @@
       activity:   {{#serialize config.activity}}{{/serialize}},
       sidebar:    {{#serialize config.sidebar}}{{/serialize}},
       leaflet_sidebar: {{#serialize config.leaflet_sidebar}}{{/serialize}},
-      pages:           {{#serialize config.pages}}{{/serialize}}, // NOTE: lost |safe filter
+      pages:           {{#serialize config.pages}}{{/serialize}},
       story:           {{#serialize config.story}}{{/serialize}},
       rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
       filters:         {{#serialize config.filters}}{{/serialize}},

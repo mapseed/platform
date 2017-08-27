@@ -164,7 +164,7 @@ const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 // longer needed.
 var datasetSiteUrls = {};
 Object.keys(process.env).forEach(function(key) {
-  if (key.endsWith("_SITE_URL")) {
+  if (key.endsWith("SITE_URL")) {
     datasetSiteUrls[key] = process.env[key];
   }
 });
@@ -288,6 +288,21 @@ fs.readdirSync(flavorLocaleDir)
 
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
+
+  // Make the API root path, replacing the old proxy server make_api_root method
+  let rootComponents = thisConfig.datasets.SITE_URL.split("/");
+  let protocol = rootComponents[0];
+  if (thisConfig.datasets.SITE_URL.endsWith("/")) {
+    rootComponents = rootComponents.slice(2, -4).join("/");
+  } else {
+    rootComponents = rootComponents.slice(2, -3).join("/");
+  }
+  thisConfig.datasets.API_ROOT = [
+    protocol,
+    "//",
+    rootComponents,
+    "/"
+  ].join("");
 
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from 

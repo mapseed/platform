@@ -164,6 +164,7 @@ module.exports = Backbone.View.extend({
 
     this.authNavView = new AuthNavView({
       el: "#auth-nav-container",
+      apiRoot: this.options.apiRoot,
       router: this.options.router,
     }).render();
 
