@@ -18,7 +18,7 @@ app:
   list_enabled: false
 
 languages:
-  - code: en
+  - code: en-us
     label: I Speak English
 
   - code: es
@@ -575,7 +575,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)

@@ -127,7 +127,7 @@ Shareabouts.Util = Util;
       });
       _.each(configArrays.places, function(config) {
         var collection = new PlaceCollection([], {
-          url: config.url + "/places"
+          url: options.datasetsConfig[config.id.toUpperCase() + "_SITE_URL"] + "/places"
         });
         self.places[config.id] = collection;
       });
@@ -135,7 +135,7 @@ Shareabouts.Util = Util;
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
         var collection = new ActionCollection([], {
-          url: config.url + "/actions"
+          url: options.datasetsConfig[config.id.toUpperCase() + "_SITE_URL"] + "/actions"
         });
         self.activities[config.id] = collection;
       });

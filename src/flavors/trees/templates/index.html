@@ -1,27 +1,14 @@
-{% extends 'base.html' %}
-{% load i18n %}
+{{#extends "../../../base/templates/base"}}
 
-{% block site-title %}
+{{#block "site-title"}}
 <a href="{{ config.app.link }}">{{ config.app.title }}</a>
-{% endblock %}
-
-<!--
-  This will place content at the top of the side bar
- -->
-{% block sidebar %}
-{% endblock %}
-
-<!--
-  This will place content in the colophon below the map
- -->
-{#{% block colophon %}#}
-{#{% endblock %}#}
+{{/block}}
 
 <!--
   Analytics, custom JS, and such go here
  -->
 
-{% block includes %}
+{{#block "includes"}}
 <link rel="shortcut icon" href="{{ config.static_url }}css/images/markers/tree.png">
 <script>
   (function(S) {
@@ -32,4 +19,6 @@
     })
   }(Shareabouts));
 </script>
-{% endblock %}
+{{/block}}
+
+{{/extends}}

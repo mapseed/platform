@@ -287,11 +287,11 @@ module.exports = Backbone.View.extend({
       _.isUndefined(this.options.appConfig.list_enabled) ||
       this.options.appConfig.list_enabled
     ) {
-      // this.listView = new PlaceListView({
-      //   el: "#list-container",
-      //   placeCollections: self.places,
-      //   placeConfig: this.options.placeConfig,
-      // }).render();
+      this.listView = new PlaceListView({
+        el: "#list-container",
+        placeCollections: self.places,
+        placeConfig: this.options.placeConfig,
+      }).render();
     }
 
     // Cache panel elements that we use a lot
