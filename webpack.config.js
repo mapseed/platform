@@ -73,6 +73,7 @@ if (process.env.NODE_ENV !== 'production') {
 //     components (jstemplates, config blob, etc.) separately as needed. Only
 //     build the final index files for production.
 //   - Some fonts not being resolved correctly? FA seems broken...
+//   - Error checking on fs.readFileSync calls
 // =============================================================================
 
 
@@ -157,15 +158,12 @@ var mergedPOFileOutputPath = path.resolve(
   "src/base/static/dist/django.po"
 )
 
-var outputBasePath = path.resolve(__dirname, "www")
-var compiledTemplatesOutputPath = path.resolve(outputBasePath, "templates.js");
-var outputImageAssetsPath = path.resolve(outputBasePath, "css/images");
+const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po 
+                                      // file matching this name
+const CONFIG_GETTEXT_REGEX = /^_\(/;
 
-const PO_FILE_NAME = "django.po"; // Assumes all flavors will have a .po file
-                                  // matching this name
-const GETTEXT_REGEX = /^_\(/;     // Use this to parse config gettext strings of
-                                  // the form _(xyz xyz) when we traverse the
-                                  // config
+// NOTE: We use [\s\S] here instead of . so we can match newlines.
+const JSTEMPLATES_GETTEXT_REGEX = /{{#_}}([\s\S]*?){{\/_}}/g;
 const BASE_STATIC_URL = "/static/";
 const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 
