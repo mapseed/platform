@@ -59,6 +59,7 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 //     components (jstemplates, config blob, etc.) separately as needed. Only
 //     build the final index files for production.
 //   - Some fonts not being resolved correctly? FA seems broken...
+//   - Error checking on fs.readFileSync calls
 // =============================================================================
 
 
@@ -144,7 +145,9 @@ var mergedPOFileOutputPath = path.resolve(
 const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po 
                                       // file matching this name
 const CONFIG_GETTEXT_REGEX = /^_\(/;
-const JSTEMPLATES_GETTEXT_REGEX = /{{#_}}(.*?){{\/_}}/g;
+
+// NOTE: We use [\s\S] here instead of . so we can match newlines.
+const JSTEMPLATES_GETTEXT_REGEX = /{{#_}}([\s\S]*?){{\/_}}/g;
 const BASE_STATIC_URL = "/static/";
 const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 
