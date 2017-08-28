@@ -365,7 +365,41 @@ fs.readdirSync(flavorLocaleDir)
   execSync(
     handlebarsExec + 
     " -m -e 'html' " + outputJSTemplatesPath + 
-    " -f " + compiledTemplatesOutputPath
+    " -f " + compiledTemplatesOutputPath +
+    // List known template helpers. This is a precompilation optimization.
+    " -k current_url" +
+    " -k permalink" +
+    " -k is" +
+    " -k is_not" +
+    " -k if_fileinput_not_supported" +
+    " -k if_not_authenticated" +
+    " -k property" +
+    " -k is_authenticated" +
+    " -k current_user" +
+    " -k formatdatetime" +
+    " -k fromnow" +
+    " -k truncatechars" +
+    " -k is_submitter_name" +
+    " -k action_text" +
+    " -k place_type_label" +
+    " -k survey_label_by_count" +
+    " -k survey_label" +
+    " -k survey_label_plural" +
+    " -k support_label" +
+    " -k support_label_plural" +
+    " -k survey_count" +
+    " -k get_value" +
+    " -k select_item_value" +
+    " -k contains" +
+    " -k place_url" +
+    " -k windowLocation" +
+    " -k nlToBr" +
+    " -k formatDateTime" +
+    " -k fromNow" +
+    " -k times" +
+    " -k range" +
+    " -k select" +
+    " -k ifAnd"
   );
   log("Finished jstemplates compilation for " + langDir);
 
