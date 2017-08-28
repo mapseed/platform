@@ -164,6 +164,7 @@ module.exports = Backbone.View.extend({
 
     this.authNavView = new AuthNavView({
       el: "#auth-nav-container",
+      apiRoot: this.options.apiRoot,
       router: this.options.router,
     }).render();
 
@@ -923,7 +924,7 @@ module.exports = Backbone.View.extend({
     var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
       slug: slug,
     }),
-      pageTemplateName = "pages/" + (pageConfig.name || pageConfig.slug),
+      pageTemplateName = (pageConfig.name || pageConfig.slug),
       pageHtml = Handlebars.templates[pageTemplateName]({
         config: this.options.config,
       });

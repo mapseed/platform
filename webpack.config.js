@@ -73,6 +73,7 @@ if (process.env.NODE_ENV !== 'production') {
 //     components (jstemplates, config blob, etc.) separately as needed. Only
 //     build the final index files for production.
 //   - Some fonts not being resolved correctly? FA seems broken...
+//   - Error checking on fs.readFileSync calls
 // =============================================================================
 
 
@@ -158,7 +159,9 @@ var mergedPOFileOutputPath = path.resolve(
 const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po
                                       // file matching this name
 const CONFIG_GETTEXT_REGEX = /^_\(/;
-const JSTEMPLATES_GETTEXT_REGEX = /{{#_}}(.*?){{\/_}}/g;
+
+// NOTE: We use [\s\S] here instead of . so we can match newlines.
+const JSTEMPLATES_GETTEXT_REGEX = /{{#_}}([\s\S]*?){{\/_}}/g;
 const BASE_STATIC_URL = "/static/";
 const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 
@@ -175,7 +178,7 @@ const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 // longer needed.
 var datasetSiteUrls = {};
 Object.keys(process.env).forEach(function(key) {
-  if (key.endsWith("_SITE_URL")) {
+  if (key.endsWith("SITE_URL")) {
     datasetSiteUrls[key] = process.env[key];
   }
 });
@@ -297,8 +300,24 @@ fs.readdirSync(flavorLocaleDir)
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
 
-  // (5a) Copy all jstemplates and flavor pages to a working directory from
-  //      which the templates can be localized and precompiled. Also resolve
+  // Make the API root path, replacing the old proxy server make_api_root method
+  let rootComponents = thisConfig.datasets.SITE_URL.split("/");
+  let protocol = rootComponents[0];
+  if (thisConfig.datasets.SITE_URL.endsWith("/")) {
+    rootComponents = rootComponents.slice(2, -4).join("/");
+  } else {
+    rootComponents = rootComponents.slice(2, -3).join("/");
+  }
+  thisConfig.datasets.API_ROOT = [
+    protocol,
+    "//",
+    rootComponents,
+    "/"
+  ].join("");
+
+
+  // (5a) Copy all jstemplates and flavor pages to a working directory from 
+  //      which the templates can be localized and precompiled. Also resolve 
   //      flavor jstemplates overrides at this step
   // ---------------------------------------------------------------------------
 
@@ -355,9 +374,43 @@ fs.readdirSync(flavorLocaleDir)
 
   // Precompile jstemplates and pages Handlebars templates
   execSync(
-    handlebarsExec +
-    " -m -e 'html' " + outputJSTemplatesPath +
-    " -f " + compiledTemplatesOutputPath
+    handlebarsExec + 
+    " -m -e 'html' " + outputJSTemplatesPath + 
+    " -f " + compiledTemplatesOutputPath +
+    // List known template helpers. This is a precompilation optimization.
+    " -k current_url" +
+    " -k permalink" +
+    " -k is" +
+    " -k is_not" +
+    " -k if_fileinput_not_supported" +
+    " -k if_not_authenticated" +
+    " -k property" +
+    " -k is_authenticated" +
+    " -k current_user" +
+    " -k formatdatetime" +
+    " -k fromnow" +
+    " -k truncatechars" +
+    " -k is_submitter_name" +
+    " -k action_text" +
+    " -k place_type_label" +
+    " -k survey_label_by_count" +
+    " -k survey_label" +
+    " -k survey_label_plural" +
+    " -k support_label" +
+    " -k support_label_plural" +
+    " -k survey_count" +
+    " -k get_value" +
+    " -k select_item_value" +
+    " -k contains" +
+    " -k place_url" +
+    " -k windowLocation" +
+    " -k nlToBr" +
+    " -k formatDateTime" +
+    " -k fromNow" +
+    " -k times" +
+    " -k range" +
+    " -k select" +
+    " -k ifAnd"
   );
   log("Finished jstemplates compilation for " + langDir);
 
