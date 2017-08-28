@@ -1,9 +1,6 @@
 require('dotenv').config({path: 'src/.env'});
-require("babel-polyfill");
 var path = require('path');
-var glob = require('glob');
-var fs = require('fs');
-var copy = require('recursive-copy');
+var fs = require('fs-extra');
 var yaml = require('js-yaml');
 var Gettext = require("node-gettext");
 var gettextParser = require("gettext-parser");
@@ -12,29 +9,8 @@ var Handlebars = require("handlebars");
 var wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 var execSync = require("child_process").execSync;
 var mv = require("mv");
+var shell = require('shelljs');
 
-
-var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
-var entryPoints = [
-  "babel-polyfill",
-  "./src/base/static/js/routes.js",
-  "./src/base/static/js/handlebars-helpers.js"
-].concat(flavorJsFiles);
-
-var baseViewPaths = glob.sync(path.resolve(__dirname, 'src/base/static/js/views/*.js'));
-var alias = {};
-
-for (var i = 0; i < baseViewPaths.length; i++) {
-  var baseViewPath = baseViewPaths[i];
-  var viewName = baseViewPath.match(/\/([^\/]*)\.js$/)[1];
-  var aliasName = 'mapseed-' + viewName + '$';
-  var flavorViewPath = path.resolve(__dirname, 'src/flavors', process.env.FLAVOR, 'static/js/views/', viewName + '.js');
-  if (fs.existsSync(flavorViewPath)) {
-    alias[aliasName] = flavorViewPath;
-  } else {
-    alias[aliasName] = baseViewPath;
-  }
-}
 
 if (process.env.NODE_ENV !== 'production') {
   shell.mkdir('-p', 'www/dist');
@@ -58,9 +34,9 @@ if (process.env.NODE_ENV !== 'production') {
 // (2) Set up Handlebars helpers and resolve template inheritances
 // (3) Convert config yaml to JSON object
 // (4) Compile base Handlebars templates
-// (5) Resolve jstemplates flavor overrides and handles pages/ templates
-// (6) Localize config and jstemplates, and build index file
-// (7) Copy static assets to the dist/ folder
+// (5) Localize config and jstemplates, and build index file
+// (5a) Resolve jstemplates flavor overrides and handle pages/ templates
+// (6) Copy static assets to the dist/ folder
 //
 //
 // NOTES
@@ -142,28 +118,22 @@ var flavorImageAssetsPath = path.resolve(
   flavorBasePath,
   "static/css/images"
 );
-var localeDir = path.resolve(
+
+// Localization
+var baseLocaleDir = path.resolve(
+  __dirname,
+  "src/base/locale"
+);
+var flavorLocaleDir = path.resolve(
   flavorBasePath,
   "locale"
-);
-var baseJSTemplatesPath = path.resolve(
-  __dirname,
-  "src/base/jstemplates"
-);
-var flavorJSTemplatesPath = path.resolve(
-  flavorBasePath,
-  "jstemplates"
-);
-var handlebarsExec = path.resolve(
-  __dirname,
-  "node_modules/handlebars/bin/handlebars"
 );
 var mergedPOFileOutputPath = path.resolve(
   __dirname,
   "src/base/static/dist/django.po"
 )
 
-const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po 
+const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po
                                       // file matching this name
 const CONFIG_GETTEXT_REGEX = /^_\(/;
 
@@ -193,15 +163,7 @@ Object.keys(process.env).forEach(function(key) {
 // Logging
 var log = function(msg) {
   if (VERBOSE) {
-    console.log(
-      "(STATIC SITE BUILD) ",
-      msg,
-      (
-        (time)
-          ? "in " + time + " ms"
-          : ""
-      )
-    );
+    console.log("(STATIC SITE BUILD) ", msg);
   }
 };
 
@@ -219,11 +181,6 @@ Handlebars.registerHelper("serialize", function(json) {
   return JSON.stringify(json);
 });
 
-// Gettext helper
-Handlebars.registerHelper("_", function(msg) {
-  return gt.gettext(msg);
-});
-
 // Helper for injecting precompiled templates to the index.html file
 Handlebars.registerHelper("precompile_jstemplates", function() {
   return fs.readFileSync(compiledTemplatesOutputPath);
@@ -237,56 +194,22 @@ wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
 // (3) Convert the config yaml to json
 // -----------------------------------------------------------------------------
 
-var config;
-var d = time(
-  () => {
-    config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
-  }
-);
-log("Finished YAML parse", d);
-
+var config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
+log("Finished YAML parse");
 
 // (4) Compile base.hbs and index.html templates for the current flavor
 // -----------------------------------------------------------------------------
 
 var source = fs.readFileSync(
   path.resolve(
-    flavorBasePath, 
+    flavorBasePath,
     "templates/index.html"
-  ), 
+  ),
   "utf8"
 );
 var template = Handlebars.compile(source);
 
-
-// (5) Copy all jstemplates and flavor pages to a working directory from which 
-//     the templates can be localized and precompiled. Also resolve flavor 
-//     jstemplates overrides at this step
-// -----------------------------------------------------------------------------
-
-var d = time(
-  () => {
-    source = fs.readFileSync(
-      path.resolve(
-        flavorBasePath,
-        "templates/index.html"
-      ),
-      "utf8"
-    );
-
-// Override flavor jstemplates
-copy(
-  path.resolve(
-    flavorBasePath,
-    "static/css/custom.css"
-  ),
-  path.resolve(outputBasePath, "css/custom.css"),
-  { overwrite: true }
-);
-log("Finished copying jstemplates assets", d);
-
-
-// (6) Localize the config for each language for the current flavor, precompile
+// (5) Localize the config for each language for the current flavor, precompile
 //     localized jstemplates Handlebars templates, and inject all localized
 //     content into the index-xx.html file
 // -----------------------------------------------------------------------------
@@ -353,6 +276,21 @@ fs.readdirSync(flavorLocaleDir)
 
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
+
+  // Make the API root path, replacing the old proxy server make_api_root method
+  let rootComponents = thisConfig.datasets.SITE_URL.split("/");
+  let protocol = rootComponents[0];
+  if (thisConfig.datasets.SITE_URL.endsWith("/")) {
+    rootComponents = rootComponents.slice(2, -4).join("/");
+  } else {
+    rootComponents = rootComponents.slice(2, -3).join("/");
+  }
+  thisConfig.datasets.API_ROOT = [
+    protocol,
+    "//",
+    rootComponents,
+    "/"
+  ].join("");
 
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from 
@@ -484,14 +422,14 @@ fs.readdirSync(flavorLocaleDir)
 });
 
 
-// (7) Move static image assets to the dist/ folder. Copy base project assets
+// (6) Move static image assets to the dist/ folder. Copy base project assets
 //     first, then copy flavor assets, overriding base assets as needed
 // -----------------------------------------------------------------------------
 
-// Copy base project static image assets to src/base/static/dist/images 
+// Copy base project static image assets to src/base/static/dist/images
 try {
   fs.copySync(
-    baseImageAssetsPath, 
+    baseImageAssetsPath,
     outputImageAssetsPath
   );
 } catch (e) {
@@ -502,7 +440,7 @@ try {
 // base assets as necessary
 try {
   fs.copySync(
-    flavorImageAssetsPath, 
+    flavorImageAssetsPath,
     outputImageAssetsPath
   );
 } catch (e) {
@@ -513,51 +451,35 @@ try {
 try {
   fs.copySync(
     path.resolve(
-      flavorBasePath, 
+      flavorBasePath,
       "static/css/custom.css"
-    ), 
+    ),
     path.resolve(
-      __dirname, 
-      "src/base/static/dist/custom.css"
+      outputBasePath,
+      "custom.css"
     )
   );
 } catch (e) {
   log("(ERROR!) Error copying flavor custom.css: " + e);
 }
 
+try {
+  fs.copySync(
+    path.resolve(
+      __dirname,
+      "src/base/static/libs"
+    ),
+    path.resolve(
+      outputBasePath,
+      "libs"
+    )
+  );
+} catch (e) {
+  log("(ERROR!) Error copying flavor libs files: " + e);
+}
+
+log("BUILD FINISHED");
 
 // =============================================================================
 // END STATIC SITE BUILD
 // =============================================================================
-
-
-module.exports = {
-  entry: entryPoints,
-  output: {
-    path: path.join(outputBasePath, "dist"),
-    filename: "bundle.js"
-  },
-  resolve: {
-    alias: alias
-  },
-  module: {
-    rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
-    ]
-  },
-  devServer: {
-    contentBase: outputBasePath,
-    historyApiFallback: {
-      rewrites: [
-        // Handle requests when the site is loaded with a path other than the
-        // root.
-        // {
-        //   from: /^.*(?!html)$/,
-        //   to: "/index.html"
-        // }
-      ]
-    },
-    compress: true,
-    port: PORT
-  }
-};
