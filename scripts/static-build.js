@@ -97,7 +97,6 @@ Object.keys(process.env).forEach(function(key) {
   }
 });
 
-
 // (2) Register Handlebars helpers and resolve template inheritances
 // -----------------------------------------------------------------------------
 
@@ -422,6 +421,7 @@ const outputImageAssetsPath = path.resolve(
   outputBasePath,
   "static/css/images"
 );
+
 try {
   fs.copySync(
     baseImageAssetsPath,
@@ -437,6 +437,7 @@ const flavorImageAssetsPath = path.resolve(
   flavorBasePath,
   "static/css/images"
 );
+
 try {
   fs.copySync(
     flavorImageAssetsPath,
