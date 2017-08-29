@@ -128,9 +128,9 @@ var handlebarsExec = path.resolve(
   "node_modules/handlebars/bin/handlebars"
 );
 
-var outputBasePath = path.resolve(__dirname, "www")
+var outputBasePath = path.resolve(__dirname, "www");
 var compiledTemplatesOutputPath = path.resolve(outputBasePath, "templates.js");
-var outputImageAssetsPath = path.resolve(outputBasePath, "css/images");
+var outputImageAssetsPath = path.resolve(outputBasePath, "static/css/images");
 
 // Images and markers
 var baseImageAssetsPath = path.resolve(
@@ -439,7 +439,7 @@ fs.readdirSync(flavorLocaleDir)
   // Write out final index.html file
   var filename = path.resolve(
     outputBasePath,
-    (langDir == 'en_US' ? 'index' : langDir) + ".html"
+    (langDir == 'en_US' ? 'index' : langDir.toLowerCase().replace("_", "-")) + ".html"
   );
   fs.writeFileSync(filename, result);
 });
@@ -501,36 +501,6 @@ try {
   log("(ERROR!) Error copying flavor libs files: " + e);
 }
 
-// Copy localized index-xx.html files to directories, namespaced by the locale
-// code. Convert file names to index.html. Convert the namespace to xx[-xx[xx]]
-// format, replacing uppercase characters with lowercase and underscores with
-// dashes. That way, we match the locale code format used in configs.
-fs.readdirSync(indexFilesPath).forEach((template) => {
-  if (template.startsWith("index-")) {
-    var langCode = template.split("-")[1].split(".")[0];
-    var source = path.resolve(
-      indexFilesPath,
-      template
-    );
-    var dest = path.resolve(
-      outputBasePath,
-      langCode.toLowerCase().replace("_", "-"),
-      "index.html"
-    );
-
-    try {
-      mv(
-        source,
-        dest,
-        {mkdirp: true},
-        function(err) {}
-      );
-    } catch (e) {
-      log("(ERROR!) Error copying localized index-xx.html file for " + langCode + ": " + e);
-    }
-  }
-});
-
 
 // =============================================================================
 // END STATIC SITE BUILD
@@ -557,16 +527,10 @@ module.exports = {
       rewrites: [
         // Handle requests when the site is loaded with a path other than the
         // root.
-        {
-          from: /libs\/.*\.js$/,
-          to: function(context) {
-            return context.match[0];
-          }
-        },
-        {
-          from: /^.*$/,
-          to: "/index.html"
-        }
+        // {
+        //   from: /^.*(?!html)$/,
+        //   to: "/index.html"
+        // }
       ]
     },
     compress: true,
