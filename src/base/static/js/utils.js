@@ -204,7 +204,7 @@ var self = (module.exports = {
           },
           data: {
             include_submissions:
-              Shareabouts.Config.flavor.app.list_enabled !== false,
+              Shareabouts.Config.app.list_enabled !== false,
           },
         });
       }
