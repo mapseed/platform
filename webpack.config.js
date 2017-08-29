@@ -548,6 +548,7 @@ module.exports = {
   devServer: {
     contentBase: outputBasePath,
     historyApiFallback: {
+      disableDotRule: true,
       rewrites: [
         // Handle requests when the site is loaded with a path other than the
         // root.
