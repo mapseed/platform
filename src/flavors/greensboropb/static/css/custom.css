@@ -378,37 +378,37 @@ input.geocode-address-field {
   background-repeat: no-repeat;
 }
 .culture .approved-location-icon {
-  background-image: url(images/markers/new/facilities-small.png);
+  background-image: url(/static/css/images/markers/new/facilities-small.png);
 }
 .education .approved-location-icon {
-  background-image: url(images/markers/new/education-small.png);
+  background-image: url(/static/css/images/markers/new/education-small.png);
 }
 .environment .approved-location-icon {
-  background-image: url(images/markers/new/tree-small.png);
+  background-image: url(/static/css/images/markers/new/tree-small.png);
 }
 .housing .approved-location-icon {
-  background-image: url(images/markers/new/housing-small.png);
+  background-image: url(/static/css/images/markers/new/housing-small.png);
 }
 .parks .approved-location-icon {
-  background-image: url(images/markers/new/playground-small.png);
+  background-image: url(/static/css/images/markers/new/playground-small.png);
 }
 .health .approved-location-icon {
-  background-image: url(images/markers/new/health-small.png);
+  background-image: url(/static/css/images/markers/new/health-small.png);
 }
 .safety .approved-location-icon {
-  background-image: url(images/markers/new/safety-small.png);
+  background-image: url(/static/css/images/markers/new/safety-small.png);
 }
 .seniors .approved-location-icon {
-  background-image: url(images/markers/new/seniors-small.png);
+  background-image: url(/static/css/images/markers/new/seniors-small.png);
 }
 .streets .approved-location-icon {
-  background-image: url(images/markers/new/street-sidewalk-small.png);
+  background-image: url(/static/css/images/markers/new/street-sidewalk-small.png);
 }
 .transit .approved-location-icon {
-  background-image: url(images/markers/new/transit-small.png);
+  background-image: url(/static/css/images/markers/new/transit-small.png);
 }
 .youth .approved-location-icon {
-  background-image: url(images/markers/new/youth-small.png);
+  background-image: url(/static/css/images/markers/new/youth-small.png);
 }
 
 /* Promotion: Voting & Sharing */
