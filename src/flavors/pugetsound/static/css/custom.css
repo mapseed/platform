@@ -48,7 +48,7 @@
 	}
 
 	#site-title a:before {
-		content: url("images/soundkeeper-logo-high-res-small.png");
+		content: url("/static/css/images/soundkeeper-logo-high-res-small.png");
 		position: absolute;
 		top: 5px;
 		left: 10px;

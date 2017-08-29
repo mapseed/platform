@@ -28,7 +28,7 @@
 
 @media only screen and (min-width: 60em) {
   #site-header {
-    background: url(images/lake-washington-banner.png) !important;
+    background: url(/static/css/images/lake-washington-banner.png) !important;
   }
 }
 
