@@ -25,6 +25,17 @@
 	background-color: #0f0f3d;
 }
 
+.rose-grants-title {
+	text-align: center;
+	line-height: 1.1em;
+}
+
+.rose-grants-img {
+	margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
