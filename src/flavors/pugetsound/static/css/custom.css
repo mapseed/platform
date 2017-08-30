@@ -25,12 +25,12 @@
 	background-color: #0f0f3d;
 }
 
-.rose-grants-title {
+.soundkeeper-landmark-title {
 	text-align: center;
 	line-height: 1.1em;
 }
 
-.rose-grants-img {
+.rose-grants-img, .settled-cases-img {
 	margin-left: auto;
     margin-right: auto;
     display: block;

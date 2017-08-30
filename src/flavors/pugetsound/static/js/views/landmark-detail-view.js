@@ -18,7 +18,7 @@ module.exports = LandmarkDetailView.extend({
       // Overwriting here to handle the custom "original-title" field, since the
       // landmark serverless endpoint converts the "title" field to url-friendly
       // format
-      "<h1 class='rose-grants-title'>" + this.model.get("properties")["original-title"] + "</h1>" +
+      "<h1 class='soundkeeper-landmark-title'>" + this.model.get("properties")["original-title"] + "</h1>" +
       // END FLAVOR-SPECIFIC CODE
       (this.model.attributes.story ? this.description : this.originalDescription) +
       "</div>"

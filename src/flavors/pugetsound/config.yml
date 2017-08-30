@@ -83,6 +83,12 @@ map:
       sources:
         - "https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson"
 
+    - id: settled-cases
+      type: landmark
+      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
+      sources:
+        - "https://raw.githubusercontent.com/mapseed/data/master/Settled-Cases-csv-Geocoded-File.geojson"
+
     - id: pugetsoundfeatured
       type: place
       slug: featured
@@ -155,7 +161,14 @@ place_types:
     rules:
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-star.png
+          iconUrl: /static/css/images/markers/marker-rose-fdn.png
+
+  settled-cases:
+    zoomType: mapboxZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-gavel.png
 
   observation:
     label: _(Observation)
@@ -332,6 +345,9 @@ sidebar:
               visibleDefault: true
             - id: rose-grants
               title: _(Rose Foundation Awardees)
+              visibleDefault: false
+            - id: settled-cases
+              title: _(Settled Cases)
               visibleDefault: false
             - id: cso
               title: _(Sewer overflow)
