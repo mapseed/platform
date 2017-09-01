@@ -393,6 +393,7 @@ fs.readdirSync(flavorLocaleDir)
 
   // Build the index-xx.html file for this language
   var result = template({
+    PRODUCTION: (process.env.NODE_ENV === "production" ? true : false),
     config: thisConfig,
     settings: {
       MAPBOX_TOKEN: MAPBOX_TOKEN,
