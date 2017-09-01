@@ -31,8 +31,7 @@
     "watch-js": "webpack -d --watch",
     "build-css": "cat src/base/static/dist/cat-bundle.css | tee www/dist/bundle.css | gzip > www/dist/bundle.css.gz",
     "build-concat": "node scripts/concat.js",
-    "build-dev": "node static-build.js",
-    "build": "NODE_ENV=production npm run build-scss-production && npm run build-concat && npm run build-js-production && npm run build-css",
+    "build": "NODE_ENV=production node static-build.js && npm run build-scss-production && npm run build-concat && npm run build-js-production && npm run build-css",
     "prettier": "prettier --write --trailing-comma all \"{src,blah}/**/*.{js,jsx}\""
   },
   "dependencies": {
