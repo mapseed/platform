@@ -61,6 +61,10 @@ if (process.env.NODE_ENV !== 'production') {
 const VERBOSE = true; // Controls logging output
 const PORT = 8000;
 
+// This version number is only used for cache-busting on our bundle.js,
+// bundle.css, and custom.css files.
+const BUNDLE_VERSION = "0.7.5.5"
+
 // Flavor base
 var flavorBasePath = path.resolve(
   __dirname,
@@ -394,6 +398,7 @@ fs.readdirSync(flavorLocaleDir)
   // Build the index-xx.html file for this language
   var result = template({
     PRODUCTION: (process.env.NODE_ENV === "production" ? true : false),
+    BUNDLE_VERSION: BUNDLE_VERSION,
     config: thisConfig,
     settings: {
       MAPBOX_TOKEN: MAPBOX_TOKEN,
