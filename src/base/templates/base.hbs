@@ -29,20 +29,7 @@
   <!-- Google WebFonts -->
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
-
-  {{#if settings.DEBUG}}
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet-sidebar.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw-src.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.datetimepicker.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
-  <link rel="stylesheet" href="https://cdn.quilljs.com/1.1.4/quill.snow.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css">
-  {{else}}
-  <link rel="stylesheet" href="/dist/bundle.css?ver=0.7.5.4">
-  {{/if}}
-
-  <!-- Flavor's Custom Stylesheet -->
-  <link rel="stylesheet" href="/custom.css?ver=0.7.5.4">
+  <link rel="stylesheet" href="/dist/bundle.css?ver={{BUNDLE_VERSION}}">
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
