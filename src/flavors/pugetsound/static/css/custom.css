@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "AlfaSlabOne-Regular";
-  src: url("AlfaSlabOne-Regular.ttf");
+  src: url("/static/css/AlfaSlabOne-Regular.ttf");
 }
 
 #site-title a:link,

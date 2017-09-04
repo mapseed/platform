@@ -10,6 +10,7 @@ var wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 var execSync = require("child_process").execSync;
 var mv = require("mv");
 var shell = require('shelljs');
+var glob = require('glob');
 
 
 if (process.env.NODE_ENV !== 'production') {
@@ -468,6 +469,27 @@ try {
 } catch (e) {
   log("(ERROR!) Error copying flavor custom.css: " + e);
 }
+
+// Copy font files
+let fontPaths = glob.sync(flavorBasePath + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)");
+
+fontPaths.forEach((fontPath) => {
+  try {
+    fs.copySync(
+      path.resolve(
+        flavorBasePath,
+        fontPath
+      ),
+      path.resolve(
+        outputBasePath,
+        "static/css",
+        fontPath.split("/").slice(-1)[0]
+      )
+    );
+  } catch (e) {
+    log("(ERROR!) Error copying font file: " + e);
+  }
+});
 
 try {
   fs.copySync(

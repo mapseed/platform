@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: 'Permanent Marker';
-  src: url('PermanentMarker.ttf');
+  src: url('/static/css/PermanentMarker.ttf');
 }
 
 /* =Header
