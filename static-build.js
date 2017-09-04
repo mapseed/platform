@@ -461,6 +461,27 @@ fontPaths.forEach((fontPath) => {
   }
 });
 
+// Copy font files
+let fontPaths = glob.sync(flavorBasePath + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)");
+
+fontPaths.forEach((fontPath) => {
+  try {
+    fs.copySync(
+      path.resolve(
+        flavorBasePath,
+        fontPath
+      ),
+      path.resolve(
+        outputBasePath,
+        "static/css",
+        fontPath.split("/").slice(-1)[0]
+      )
+    );
+  } catch (e) {
+    log("(ERROR!) Error copying font file: " + e);
+  }
+});
+
 try {
   fs.copySync(
     path.resolve(
