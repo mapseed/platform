@@ -22,10 +22,10 @@ languages:
   - code: es
     label: Hablo Español
 
-  - code: zh-hant
+  - code: zh_Hant
     label: 我讲中文
 
-  - code: en-us
+  - code: en_US
     label: I Speak English
 
 #   - code: vi
