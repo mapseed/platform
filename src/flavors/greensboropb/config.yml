@@ -10,7 +10,7 @@ app:
   tagline: _(How would YOU spend $100K?)
 
 # languages:
-#   - code: en-us
+#   - code: en_US
 #     label: English
 
 #   - code: es

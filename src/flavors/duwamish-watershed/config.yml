@@ -18,7 +18,7 @@ app:
   list_enabled: false
 
 languages:
-  - code: en-us
+  - code: en_US
     label: I Speak English
 
   - code: es

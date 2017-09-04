@@ -219,19 +219,18 @@ var template = Handlebars.compile(source);
 //     content into the index-xx.html file
 // -----------------------------------------------------------------------------
 
-fs.readdirSync(flavorLocaleDir)
-  .filter((item) => {
 
-    // Filter out hidden files in the locale directory (like .DS_Store on OSX)
-    return !(/(^|\/)\.[^\/\.]/g).test(item);
-  })
-  .forEach((langDir) => {
+let activeLanguages = (config.languages)
+  ? config.languages
+  : [{ code: "en_US" }];
+
+activeLanguages.forEach((language) => {
 
   // Quick and dirty config clone
   var thisConfig =  JSON.parse(JSON.stringify(config));
   var flavorPOPath = path.resolve(
     flavorLocaleDir,
-    langDir,
+    language.code,
     "LC_MESSAGES",
     PO_FILE_NAME
   );
@@ -248,22 +247,21 @@ fs.readdirSync(flavorLocaleDir)
       flavorPOPath + " " +
       path.resolve(
         baseLocaleDir,
-        langDir,
+        language.code,
         "LC_MESSAGES",
         PO_FILE_NAME
       )
     );
     input = fs.readFileSync(mergedPOFileOutputPath);
-    log("Finsihed merging .po file for " + langDir);
+    log("Finsihed merging .po file for " + language.code);
   } catch(e) {
-    log("Skipping .po file merge for " + langDir + ": no base .po file found");
-    input = fs.readFileSync(flavorPOPath);
+    log("(ERROR!) Error merging .po file for " + language.code);
   }
 
   var po = gettextParser.po.parse(input);
-  gt.addTranslations(langDir, "messages", po);
+  gt.addTranslations(language.code, "messages", po);
   gt.setTextDomain("messages");
-  gt.setLocale(langDir);
+  gt.setLocale(language.code);
 
   // Localize the config for the current language.
   walk(thisConfig, (val, prop, obj) => {
@@ -277,7 +275,7 @@ fs.readdirSync(flavorLocaleDir)
       obj[prop] = gt.gettext(val);
     }
   });
-  log("Finished localizing config for " + langDir);
+  log("Finished localizing config for " + language.code);
 
   // Add dataset site urls
   thisConfig["datasets"] = datasetSiteUrls;
@@ -394,7 +392,7 @@ fs.readdirSync(flavorLocaleDir)
     " -k select" +
     " -k ifAnd"
   );
-  log("Finished jstemplates compilation for " + langDir);
+  log("Finished jstemplates compilation for " + language.code);
 
   // Build the index-xx.html file for this language
   var result = template({
@@ -407,7 +405,7 @@ fs.readdirSync(flavorLocaleDir)
       MAPQUEST_KEY: MAPBOX_TOKEN,
       GOOGLE_ANALYTICS_ID: GOOGLE_ANALYTICS_ID,
     },
-    LANGUAGE_CODE: langDir,
+    LANGUAGE_CODE: language.code,
 
     // TODO: what are we going to do about session management?
     user_token_json: "",
@@ -423,7 +421,7 @@ fs.readdirSync(flavorLocaleDir)
   // Write out final index.html file
   var filename = path.resolve(
     outputBasePath,
-    (langDir == 'en_US' ? 'index' : langDir.toLowerCase().replace("_", "-")) + ".html"
+    (language.code == 'en_US' ? 'index' : language.code) + ".html"
   );
   fs.writeFileSync(filename, result);
 });
