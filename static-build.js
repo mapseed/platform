@@ -12,7 +12,7 @@ var mv = require("mv");
 var shell = require('shelljs');
 var glob = require('glob');
 
-
+shell.mkdir("-p", "www");
 if (process.env.NODE_ENV !== 'production') {
   shell.mkdir('-p', 'www/dist');
 
@@ -55,110 +55,30 @@ if (process.env.NODE_ENV !== 'production') {
 // =============================================================================
 
 
-// (1) Set up paths to files and directories needed for the build, as well as
-//     constants and utilities
+// (1) Set up paths to certain files and directories needed for the build, as 
+//     well as utilities
 // -----------------------------------------------------------------------------
 
-const VERBOSE = true; // Controls logging output
-const PORT = 8000;
+// Control logging output
+const verbose = true; 
 
 // This version number is only used for cache-busting on our bundle.js,
 // bundle.css, and custom.css files.
-const BUNDLE_VERSION = "0.7.5.5"
+const bundleVersion = "0.7.5.5";
 
-// Flavor base
-var flavorBasePath = path.resolve(
+const flavorBasePath = path.resolve(
   __dirname,
   "src/flavors",
   process.env.FLAVOR
 );
-var flavorConfigPath = path.resolve(
-  flavorBasePath,
-  "config.yml"
+const outputBasePath = path.resolve(
+  __dirname, 
+  "www"
 );
-var indexFilesPath = path.resolve(
-  flavorBasePath,
-  "templates"
-);
-
-// Handlebars templates
-var baseJSTemplatesPath = path.resolve(
-  __dirname,
-  "src/base/jstemplates"
-);
-var flavorJSTemplatesPath = path.resolve(
-  flavorBasePath,
-  "jstemplates"
-);
-var flavorPagesPath = path.resolve(  // NOTE: pages are a flavor-only concept,
-                                     // so there's no basePagesPath
-  flavorBasePath,
-  "jstemplates/pages"
-);
-var outputJSTemplatesPath = path.resolve(
-  __dirname,
-  "src/base/static/dist/jstemplates"
-);
-var compiledTemplatesOutputPath = path.resolve(
-  __dirname,
-  "src/base/jstemplates/templates.js" // TODO: is this the right place for this?
-);
-
-// Handlebars executable
-var handlebarsExec = path.resolve(
-  __dirname,
-  "node_modules/handlebars/bin/handlebars"
-);
-
-var outputBasePath = path.resolve(__dirname, "www");
-var compiledTemplatesOutputPath = path.resolve(outputBasePath, "templates.js");
-var outputImageAssetsPath = path.resolve(outputBasePath, "static/css/images");
-
-// Images and markers
-var baseImageAssetsPath = path.resolve(
-  __dirname,
-  "src/base/static/css/images"
-);
-var flavorImageAssetsPath = path.resolve(
-  flavorBasePath,
-  "static/css/images"
-);
-
-// Localization
-var baseLocaleDir = path.resolve(
-  __dirname,
-  "src/base/locale"
-);
-var flavorLocaleDir = path.resolve(
-  flavorBasePath,
-  "locale"
-);
-var mergedPOFileOutputPath = path.resolve(
-  __dirname,
-  "src/base/static/dist/django.po"
-)
-
-const PO_FILE_NAME = "django.po";     // Assumes all flavors will have a .po
-                                      // file matching this name
-const CONFIG_GETTEXT_REGEX = /^_\(/;
-
-// NOTE: We use [\s\S] here instead of . so we can match newlines.
-const JSTEMPLATES_GETTEXT_REGEX = /{{#_}}([\s\S]*?){{\/_}}/g;
-const BASE_STATIC_URL = "/static/";
-const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
-
-// TODO: add this to .env
-const CLICKY_ANALYTICS_ID = process.env.CLICKY_ANALYTICS_ID || "";
-
-// TODO: add this to .env
-const MAPQUEST_KEY = process.env.MAPQUEST_KEY || "";
-
-// TODO: add this to .env
-const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 
 // Pull out dataset urls from the .env file. We ignore the keys, as they're no
 // longer needed.
-var datasetSiteUrls = {};
+let datasetSiteUrls = {};
 Object.keys(process.env).forEach(function(key) {
   if (key.endsWith("SITE_URL")) {
     datasetSiteUrls[key] = process.env[key];
@@ -166,14 +86,11 @@ Object.keys(process.env).forEach(function(key) {
 });
 
 // Logging
-var log = function(msg) {
-  if (VERBOSE) {
+const log = (msg) => {
+  if (verbose) {
     console.log("(STATIC SITE BUILD) ", msg);
   }
 };
-
-// Gettext object
-var gt = new Gettext();
 
 
 // (2) Register Handlebars helpers and resolve template inheritances
@@ -187,6 +104,10 @@ Handlebars.registerHelper("serialize", function(json) {
 });
 
 // Helper for injecting precompiled templates to the index.html file
+const compiledTemplatesOutputPath = path.resolve(
+  outputBasePath, 
+  "templates.js"
+);
 Handlebars.registerHelper("precompile_jstemplates", function() {
   return fs.readFileSync(compiledTemplatesOutputPath);
 });
@@ -199,45 +120,96 @@ wax.setLayoutPath(path.resolve(flavorBasePath, "templates"));
 // (3) Convert the config yaml to json
 // -----------------------------------------------------------------------------
 
-var config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
-log("Finished YAML parse");
+const flavorConfigPath = path.resolve(
+  flavorBasePath,
+  "config.yml"
+);
+const config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
+
 
 // (4) Compile base.hbs and index.html templates for the current flavor
 // -----------------------------------------------------------------------------
 
-var source = fs.readFileSync(
+const source = fs.readFileSync(
   path.resolve(
     flavorBasePath,
     "templates/index.html"
   ),
   "utf8"
 );
-var template = Handlebars.compile(source);
+const indexTemplate = Handlebars.compile(source);
+
 
 // (5) Localize the config for each language for the current flavor, precompile
 //     localized jstemplates Handlebars templates, and inject all localized
 //     content into the index-xx.html file
 // -----------------------------------------------------------------------------
 
-
-let activeLanguages = (config.languages)
+// Constants and variables to use inside the localization loop below
+const handlebarsExec = path.resolve(
+  __dirname,
+  "node_modules/handlebars/bin/handlebars"
+);
+const baseJSTemplatesPath = path.resolve(
+  __dirname,
+  "src/base/jstemplates"
+);
+const flavorJSTemplatesPath = path.resolve(
+  flavorBasePath,
+  "jstemplates"
+);
+const flavorPagesPath = path.resolve(  // NOTE: pages are a flavor-only concept,
+                                       // so there's no basePagesPath
+  flavorBasePath,
+  "jstemplates/pages"
+);
+const outputJSTemplatesPath = path.resolve(
+  __dirname,
+  "src/base/static/dist/jstemplates"
+);
+const baseLocaleDir = path.resolve(
+  __dirname,
+  "src/base/locale"
+);
+const flavorLocaleDir = path.resolve(
+  flavorBasePath,
+  "locale"
+);
+const mergedPOFileOutputPath = path.resolve(
+  __dirname,
+  "src/base/static/dist/django.po"
+);
+const activeLanguages = (config.languages)
   ? config.languages
   : [{ code: "en_US" }];
 
+// NOTE: We use [\s\S] here instead of . so we can match newlines.
+const jsTemplatesGettextRegex = /{{#_}}([\s\S]*?){{\/_}}/g;
+const configGettextRegex = /^_\(/;
+
+// Gettext object
+const gt = new Gettext();
+let thisConfig,
+    flavorPOPath,
+    mergedPOFile,
+    rootComponents,
+    protocol,
+    outputIndexFilename;
+
+// Loop over all languages defined in a given flavor's config file and
+// generate fully localized output.
 activeLanguages.forEach((language) => {
 
   // Quick and dirty config clone
-  var thisConfig =  JSON.parse(JSON.stringify(config));
-  var flavorPOPath = path.resolve(
+  thisConfig =  JSON.parse(JSON.stringify(config));
+  flavorPOPath = path.resolve(
     flavorLocaleDir,
     language.code,
-    "LC_MESSAGES",
-    PO_FILE_NAME
+    "LC_MESSAGES/django.po"
   );
 
   // Merge the current language .po with the base project .po of the same
   // language, if it exists.
-  var input;
   try {
     execSync(
       "msgcat" + // NOTE: msgcat is a gettext command line program that merges
@@ -248,27 +220,29 @@ activeLanguages.forEach((language) => {
       path.resolve(
         baseLocaleDir,
         language.code,
-        "LC_MESSAGES",
-        PO_FILE_NAME
+        "LC_MESSAGES/django.po"
       )
     );
-    input = fs.readFileSync(mergedPOFileOutputPath);
+    mergedPOFile = fs.readFileSync(mergedPOFileOutputPath);
     log("Finsihed merging .po file for " + language.code);
   } catch(e) {
     log("(ERROR!) Error merging .po file for " + language.code);
   }
 
-  var po = gettextParser.po.parse(input);
-  gt.addTranslations(language.code, "messages", po);
+  gt.addTranslations(
+    language.code, 
+    "messages", 
+    gettextParser.po.parse(mergedPOFile)
+  );
   gt.setTextDomain("messages");
   gt.setLocale(language.code);
 
   // Localize the config for the current language.
   walk(thisConfig, (val, prop, obj) => {
     if (typeof val === "string") {
-      if (CONFIG_GETTEXT_REGEX.test(val)) {
+      if (configGettextRegex.test(val)) {
         val = val
-          .replace(CONFIG_GETTEXT_REGEX, "")
+          .replace(configGettextRegex, "")
           .replace(/\)$/, "");
       }
 
@@ -281,8 +255,8 @@ activeLanguages.forEach((language) => {
   thisConfig["datasets"] = datasetSiteUrls;
 
   // Make the API root path, replacing the old proxy server make_api_root method
-  let rootComponents = thisConfig.datasets.SITE_URL.split("/");
-  let protocol = rootComponents[0];
+  rootComponents = thisConfig.datasets.SITE_URL.split("/");
+  protocol = rootComponents[0];
   if (thisConfig.datasets.SITE_URL.endsWith("/")) {
     rootComponents = rootComponents.slice(2, -4).join("/");
   } else {
@@ -331,22 +305,24 @@ activeLanguages.forEach((language) => {
   log("Finished copying jstemplates assets");
 
   // Localize jstemplates
-  fs.readdirSync(outputJSTemplatesPath).forEach((template) => {
-    if (template.endsWith("html")) {
-      var templ = path.resolve(outputJSTemplatesPath, template);
-      var result = fs.readFileSync(
-        templ,
+  let templatePath,
+      localizedTemplate;
+  fs.readdirSync(outputJSTemplatesPath).forEach((jsTemplate) => {
+    if (jsTemplate.endsWith("html")) {
+      templatePath = path.resolve(outputJSTemplatesPath, jsTemplate);
+      localizedTemplate = fs.readFileSync(
+        templatePath,
         "utf8"
       ).replace(
-        JSTEMPLATES_GETTEXT_REGEX,
+        jsTemplatesGettextRegex,
         (match, capture) => {
           return gt.gettext(capture);
         }
       );
 
       fs.writeFileSync(
-        templ,
-        result,
+        templatePath,
+        localizedTemplate,
         "utf8"
       );
     }
@@ -395,35 +371,36 @@ activeLanguages.forEach((language) => {
   log("Finished jstemplates compilation for " + language.code);
 
   // Build the index-xx.html file for this language
-  var result = template({
-    PRODUCTION: (process.env.NODE_ENV === "production" ? true : false),
-    BUNDLE_VERSION: BUNDLE_VERSION,
+  var result = indexTemplate({
+    production: (process.env.NODE_ENV === "production" ? true : false),
+    bundleVersion: bundleVersion,
     config: thisConfig,
     settings: {
-      MAPBOX_TOKEN: MAPBOX_TOKEN,
-      CLICKY_ANALYTICS_ID: CLICKY_ANALYTICS_ID,
-      MAPQUEST_KEY: MAPBOX_TOKEN,
-      GOOGLE_ANALYTICS_ID: GOOGLE_ANALYTICS_ID,
+      mapboxToken: process.env.MAPBOX_TOKEN || "",
+      clickyAnalyticsId: process.env.CLICKY_ANALYTICS_ID || "",
+      mapQuestKey: process.env.MAPQUEST_KEY || "",
+      googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || "",
+      googleAnalyticsDomain: process.env.GOOGLE_ANALYTICS_DOMAIN || "auto"
     },
-    LANGUAGE_CODE: language.code,
+    languageCode: language.code,
 
-    // TODO: what are we going to do about session management?
-    user_token_json: "",
+    // TODO: fix this...
+    userTokenJson: "",
 
     // TODO: user agent identification needs to be moved client-side
-    user_agent_json: {
+    userAgentJson: {
       browser: {
         name: "some browser name"
       }
     }
   });
 
-  // Write out final index.html file
-  var filename = path.resolve(
+  // Write out final index-xx.html file
+  outputIndexFilename = path.resolve(
     outputBasePath,
-    (language.code == 'en_US' ? 'index' : language.code) + ".html"
+    (language.code == "en_US" ? "index" : language.code) + ".html"
   );
-  fs.writeFileSync(filename, result);
+  fs.writeFileSync(outputIndexFilename, result);
 });
 
 
@@ -432,6 +409,14 @@ activeLanguages.forEach((language) => {
 // -----------------------------------------------------------------------------
 
 // Copy base project static image assets to src/base/static/dist/images
+const baseImageAssetsPath = path.resolve(
+  __dirname,
+  "src/base/static/css/images"
+);
+const outputImageAssetsPath = path.resolve(
+  outputBasePath, 
+  "static/css/images"
+);
 try {
   fs.copySync(
     baseImageAssetsPath,
@@ -441,8 +426,12 @@ try {
   log("(ERROR!) Error copying base image assets: " + e);
 }
 
-// Copy flavor static image assets to www/images, replacing
-// base assets as necessary
+// Copy flavor static image assets to www/images, replacing base assets as 
+// necessary
+const flavorImageAssetsPath = path.resolve(
+  flavorBasePath,
+  "static/css/images"
+);
 try {
   fs.copySync(
     flavorImageAssetsPath,
@@ -469,8 +458,10 @@ try {
 }
 
 // Copy font files
-let fontPaths = glob.sync(flavorBasePath + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)");
-
+const fontPaths = glob.sync(
+  flavorBasePath + 
+  "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"
+);
 fontPaths.forEach((fontPath) => {
   try {
     fs.copySync(
