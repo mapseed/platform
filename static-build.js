@@ -462,8 +462,10 @@ fontPaths.forEach((fontPath) => {
 });
 
 // Copy font files
-let fontPaths = glob.sync(flavorBasePath + "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)");
-
+const fontPaths = glob.sync(
+  flavorBasePath + 
+  "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"
+);
 fontPaths.forEach((fontPath) => {
   try {
     fs.copySync(
