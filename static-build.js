@@ -1,16 +1,16 @@
 require('dotenv').config({path: 'src/.env'});
-var path = require('path');
-var fs = require('fs-extra');
-var yaml = require('js-yaml');
-var Gettext = require("node-gettext");
-var gettextParser = require("gettext-parser");
-var walk = require("object-walk"); // object-walk supports traversal of JS objects
-var Handlebars = require("handlebars");
-var wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
-var execSync = require("child_process").execSync;
-var mv = require("mv");
-var shell = require('shelljs');
-var glob = require('glob');
+const path = require('path');
+const fs = require('fs-extra');
+const yaml = require('js-yaml');
+const Gettext = require("node-gettext");
+const gettextParser = require("gettext-parser");
+const walk = require("object-walk"); // object-walk supports traversal of JS objects
+const Handlebars = require("handlebars");
+const wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
+const execSync = require("child_process").execSync;
+const mv = require("mv");
+const shell = require('shelljs');
+const glob = require('glob');
 
 shell.mkdir("-p", "www");
 if (process.env.NODE_ENV !== 'production') {
@@ -371,7 +371,7 @@ activeLanguages.forEach((language) => {
   log("Finished jstemplates compilation for " + language.code);
 
   // Build the index-xx.html file for this language
-  var result = indexTemplate({
+  outputIndexFile = indexTemplate({
     production: (process.env.NODE_ENV === "production" ? true : false),
     bundleVersion: bundleVersion,
     config: thisConfig,
@@ -400,7 +400,7 @@ activeLanguages.forEach((language) => {
     outputBasePath,
     (language.code == "en_US" ? "index" : language.code) + ".html"
   );
-  fs.writeFileSync(outputIndexFilename, result);
+  fs.writeFileSync(outputIndexFilename, outputIndexFile);
 });
 
 
