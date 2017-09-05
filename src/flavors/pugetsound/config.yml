@@ -71,6 +71,10 @@ map:
       type: place
       slug: report
 
+    - id: pugetsound
+      type: place
+      slug: pugetsound-report
+
     - id: violators
       type: landmark
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -334,6 +338,9 @@ sidebar:
             - id: duwamish
               title: _(Community Reports)
               visibleDefault: true
+              constituentLayers:
+                - duwamish
+                - pugetsound
             - id: pugetsoundfeatured
               title: _(Featured Sites)
               visibleDefault: true
@@ -455,7 +462,7 @@ place:
     - category: observation
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pugetsound
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -499,7 +506,7 @@ place:
     - category: question
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pugetsound
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -526,7 +533,7 @@ place:
     - category: idea
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pugetsound
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -554,7 +561,7 @@ place:
     - category: complaint
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pugetsound
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
