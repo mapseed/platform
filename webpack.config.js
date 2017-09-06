@@ -14,6 +14,11 @@ var execSync = require("child_process").execSync;
 var mv = require("mv");
 
 
+if (!process.env.FLAVOR) {
+  process.exitCode = 1;
+  process.exit();
+}
+
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
 var entryPoints = [
   "babel-polyfill",
