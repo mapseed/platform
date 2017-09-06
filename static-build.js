@@ -276,23 +276,17 @@ activeLanguages.forEach((language) => {
   });
   log("Finished localizing config for " + language.code);
 
-  // Add dataset site urls
-  thisConfig["datasets"] = datasetSiteUrls;
-
-  // Make the API root path, replacing the old proxy server make_api_root method
-  rootComponents = thisConfig.datasets.SITE_URL.split("/");
-  protocol = rootComponents[0];
-  if (thisConfig.datasets.SITE_URL.endsWith("/")) {
-    rootComponents = rootComponents.slice(2, -4).join("/");
-  } else {
-    rootComponents = rootComponents.slice(2, -3).join("/");
-  }
-  thisConfig.datasets.API_ROOT = [
-    protocol,
-    "//",
-    rootComponents,
-    "/"
-  ].join("");
+  // Dataset urls are defined in the config. In most cases urls listed in the
+  // config will be dev-api urls. If the .env defines a different dataset url
+  // for a given dataset, use that value here.
+  // Note that we retain the <DATASET>_SITE_URL environment variable format,
+  // where dataset names map to the uppercase name with _SITE_URL appended.
+  thisConfig.map.layers.forEach((layer, i) => {
+    if (datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"]) {
+      thisConfig.map.layers[i].url = 
+        datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"];
+    }
+  });
 
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from 
@@ -520,7 +514,7 @@ try {
   log("(ERROR!) Error copying flavor libs files: " + e);
 }
 
-log("BUILD FINISHED");
+log("BUILD FINISHED for " + flavor);
 
 // =============================================================================
 // END STATIC SITE BUILD

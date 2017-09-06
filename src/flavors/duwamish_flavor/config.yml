@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the SITE_KEY environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # Fallback image to use for sharing on social services if no model image is present
   thumbnail: /static/css/images/fb-thumbnail.png
 
@@ -90,6 +95,7 @@ map:
       slug: report
 
     - id: vision
+      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/vision
       type: place
       slug: vision
 
@@ -100,6 +106,7 @@ map:
         - "https://raw.githubusercontent.com/mapseed/data/master/dvyc.geojson"
 
     - id: restoration
+      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/restoration
       type: place
       slug: restoration
 

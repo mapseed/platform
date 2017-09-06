@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: HaxGeo.com
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the SITE_KEY environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -69,6 +74,7 @@ map:
       url: "https://hdbig.carto.com/api/v2/viz/16801b48-76d4-11e6-82e9-0ecd1babdde5/viz.json"
 
     - id: rail
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/rail
       type: place
       slug: report
 
