@@ -12,20 +12,6 @@ const mv = require("mv");
 const shell = require('shelljs');
 const glob = require('glob');
 
-shell.mkdir("-p", "www");
-if (process.env.NODE_ENV !== 'production') {
-  shell.mkdir('-p', 'www/dist');
-
-  shell.cat([
-    'src/base/static/css/leaflet-sidebar.css',
-    'src/base/static/css/leaflet.draw.css',
-    'src/base/static/css/spectrum.css',
-    'src/base/static/css/quill.snow.css',
-    'src/base/static/css/default.css',
-    'src/base/static/css/jquery.datetimepicker.css',
-    'src/flavors/' + process.env.FLAVOR + '/static/css/custom.css'
-  ]).to('www/dist/bundle.css');
-}
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
@@ -60,7 +46,36 @@ if (process.env.NODE_ENV !== 'production') {
 // -----------------------------------------------------------------------------
 
 // Control logging output
-const verbose = true; 
+const verbose = true;
+
+const outputBasePath = path.resolve(
+  __dirname,
+  "www"
+);
+const distPath = path.resolve(
+  outputBasePath,
+  "dist"
+);
+
+// Make sure the output directory exists.
+shell.mkdir('-p', distPath);
+
+// Bundle the CSS.
+// TODO: replace this concat script with something better.
+shell.cat([
+  'src/base/static/css/leaflet-sidebar.css',
+  'src/base/static/css/leaflet.draw.css',
+  'src/base/static/css/spectrum.css',
+  'src/base/static/css/quill.snow.css',
+  'src/base/static/css/default.css',
+  'src/base/static/css/jquery.datetimepicker.css',
+  'src/flavors/' + process.env.FLAVOR + '/static/css/custom.css'
+]).to(
+  path.resolve(
+    distPath,
+    'bundle.css'
+  )
+);
 
 // This version number is only used for cache-busting on our bundle.js,
 // bundle.css, and custom.css files.
@@ -70,10 +85,6 @@ const flavorBasePath = path.resolve(
   __dirname,
   "src/flavors",
   process.env.FLAVOR
-);
-const outputBasePath = path.resolve(
-  __dirname, 
-  "www"
 );
 
 // Pull out dataset urls from the .env file. We ignore the keys, as they're no
