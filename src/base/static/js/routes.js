@@ -127,7 +127,7 @@ Shareabouts.Util = Util;
       });
       _.each(configArrays.places, function(config) {
         var collection = new PlaceCollection([], {
-          url: options.datasetsConfig[config.id.toUpperCase() + "_SITE_URL"] + "/places"
+          url: config.url + "/places"
         });
         self.places[config.id] = collection;
       });
@@ -135,7 +135,7 @@ Shareabouts.Util = Util;
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
         var collection = new ActionCollection([], {
-          url: options.datasetsConfig[config.id.toUpperCase() + "_SITE_URL"] + "/actions"
+          url: config.url + "/actions"
         });
         self.activities[config.id] = collection;
       });
@@ -146,7 +146,7 @@ Shareabouts.Util = Util;
         places: this.places,
         landmarks: this.landmarks,
         datasetConfigs: configArrays,
-        apiRoot: options.datasetsConfig.API_ROOT,
+        apiRoot: options.appConfig.api_root,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
