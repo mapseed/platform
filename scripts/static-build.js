@@ -97,6 +97,7 @@ Object.keys(process.env).forEach(function(key) {
   }
 });
 
+
 // (2) Register Handlebars helpers and resolve template inheritances
 // -----------------------------------------------------------------------------
 
