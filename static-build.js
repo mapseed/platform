@@ -11,6 +11,7 @@ const execSync = require("child_process").execSync;
 const mv = require("mv");
 const shell = require('shelljs');
 const glob = require('glob');
+const colors = require('colors');
 
 
 // =============================================================================
@@ -36,7 +37,6 @@ const glob = require('glob');
 //   - In development, use gulp to watch changes to classes of files, and build
 //     components (jstemplates, config blob, etc.) separately as needed. Only
 //     build the final index files for production.
-//   - Some fonts not being resolved correctly? FA seems broken...
 //   - Error checking on fs.readFileSync calls
 // =============================================================================
 
@@ -60,6 +60,27 @@ const distPath = path.resolve(
 // Make sure the output directory exists.
 shell.mkdir('-p', distPath);
 
+// Logging
+const log = (msg) => {
+  if (verbose) {
+    console.log("(STATIC SITE BUILD) ", colors.green("(SUCCESS) "), msg);
+  }
+};
+const logError = (msg) => {
+  console.error("(STATIC SITE BUILD) ", colors.red("(ERROR!) "), msg);
+};
+
+const flavor = process.env.FLAVOR;
+if (!flavor) {
+  logError("No flavor specified");
+  logError("Please pass a flavor name using:");
+  logError("FLAVOR=<flavor_name> npm start");
+  logError("Aborting");
+
+  process.exitCode = 1;
+  process.exit();
+}
+
 // Bundle the CSS.
 // TODO: replace this concat script with something better.
 shell.cat([
@@ -69,7 +90,7 @@ shell.cat([
   'src/base/static/css/quill.snow.css',
   'src/base/static/css/default.css',
   'src/base/static/css/jquery.datetimepicker.css',
-  'src/flavors/' + process.env.FLAVOR + '/static/css/custom.css'
+  'src/flavors/' + flavor + '/static/css/custom.css'
 ]).to(
   path.resolve(
     distPath,
@@ -84,7 +105,7 @@ const bundleVersion = "0.7.5.5";
 const flavorBasePath = path.resolve(
   __dirname,
   "src/flavors",
-  process.env.FLAVOR
+  flavor
 );
 
 // Pull out dataset urls from the .env file. We ignore the keys, as they're no
@@ -95,13 +116,6 @@ Object.keys(process.env).forEach(function(key) {
     datasetSiteUrls[key] = process.env[key];
   }
 });
-
-// Logging
-const log = (msg) => {
-  if (verbose) {
-    console.log("(STATIC SITE BUILD) ", msg);
-  }
-};
 
 
 // (2) Register Handlebars helpers and resolve template inheritances

@@ -6,6 +6,11 @@ var fs = require('fs');
 
 const PORT = 8000;
 
+if (!process.env.FLAVOR) {
+  process.exitCode = 1;
+  process.exit();
+}
+
 var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/js/*.js");
 var entryPoints = [
   "babel-polyfill",
