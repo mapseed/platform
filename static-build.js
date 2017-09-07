@@ -209,7 +209,7 @@ activeLanguages.forEach((language) => {
   flavorPOPath = path.resolve(
     flavorLocaleDir,
     language.code,
-    "LC_MESSAGES/django.po"
+    "LC_MESSAGES/messages.po"
   );
 
   // Merge the current language .po with the base project .po of the same
