@@ -6,29 +6,39 @@ const exec = require("child_process").exec;
 const yaml = require('js-yaml');
 const shell = require('shelljs');
 const colors = require('colors');
+const args = require("optimist").argv;
+
+const help = "Usage:\n" +
+						 "Update all existing flavor locale po files for flavor the flavor set in the FLAVOR environment variable: node make-flavor-messages.js\n" +
+						 "Add a new flavor locale: node make-flavor-messages.js --set-new-locale=<locale_code>";
+
+if (args.h || args.help) {
+	console.log(help);
+	process.exit(0);
+}
 
 const flavor = process.env.FLAVOR;
 
 // Logging
 const logError = (msg) => {
-  console.error("(MAKEMESSAGES) ", colors.red("(ERROR!) "), msg);
+	console.error("(MAKEMESSAGES) ", colors.red("(ERROR!) "), msg);
 };
 
 // Generate message catalog for the given flavor's config.yml file.
 const flavorBasePath = path.resolve(
-  __dirname,
-  "src/flavors",
-  flavor
+	__dirname,
+	"src/flavors",
+	flavor
 );
 const messagesCatalogTempPath = path.resolve(
-  __dirname,
-  "src/flavors",
-  flavor,
-  "temp-messages"
+	__dirname,
+	"src/flavors",
+	flavor,
+	"temp-messages"
 );
 const flavorConfigPath = path.resolve(
-  flavorBasePath,
-  "config.yml"
+	flavorBasePath,
+	"config.yml"
 );
 const config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
 shell.mkdir('-p', messagesCatalogTempPath);
@@ -36,12 +46,7 @@ shell.mkdir('-p', messagesCatalogTempPath);
 // NOTE: we save these temp files as python files, so we can take advantage of
 // Python's multiline string quoting capabilities. The JS equivalent (backticks)
 // causes problems for xgettext.
-let configMessagesOutput = fs.createWriteStream(
-	path.resolve(
-		messagesCatalogTempPath,
-		"config-messages.temp.py"
-	)
-);
+
 
 const configGettextRegex = /^_\(([\s\S]*?)\)$/g;
 const escapeQuotes = (message) => {
@@ -52,67 +57,47 @@ const escapeQuotes = (message) => {
 		.join("\\'");
 };
 
-let foundMessage;
-walk(config, (val, prop, obj) => {
-  if (typeof val === "string") {
-  	foundMessage = configGettextRegex.exec(val);
-    foundMessage && configMessagesOutput.write('_("""' + escapeQuotes(foundMessage[1]) + '""");\n');
-  }
-});
-configMessagesOutput.end();
+
 
 const jsTemplatesRegexObj = new RegExp(/{{#_}}([\s\S]*?){{\/_}}/, "g");
 let templatePath,
 		foundMessages,
-		jsTemplatesMessagesOutput,
-		extractTemplateMessages = (jsTemplate, outputPath) => {
-		  if (jsTemplate.endsWith("html")) {
-		    foundMessages = [];
+		jsTemplatesMessagesOutput;
+const extractTemplateMessages = (jsTemplate, outputPath) => {
+	if (jsTemplate.endsWith("html")) {
+		foundMessages = [];
 
-		    // NOTE: we save these temp files as python files, so we can take 
-		    // advantage of Python's multiline string quoting capabilities. The JS 
-		    // equivalent (backticks) causes problems for xgettext.
-		    jsTemplatesMessagesOutput = fs.createWriteStream(
-					path.resolve(
-						messagesCatalogTempPath,
-						jsTemplate + "-messages.temp.py"
-					)
-				);
-		    templateString = fs.readFileSync(
-			    path.resolve(outputPath, jsTemplate),
-			    "utf8"
-			  );
-		    while (foundMessage = jsTemplatesRegexObj.exec(templateString)) {
+		// NOTE: we save these temp files as python files, so we can take 
+		// advantage of Python's multiline string quoting capabilities. The JS 
+		// equivalent (backticks) causes problems for xgettext.
+		jsTemplatesMessagesOutput = fs.createWriteStream(
+			path.resolve(
+				messagesCatalogTempPath,
+				jsTemplate + "-messages.temp.py"
+			)
+		);
+		templateString = fs.readFileSync(
+			path.resolve(outputPath, jsTemplate),
+			"utf8"
+		);
+		while (foundMessage = jsTemplatesRegexObj.exec(templateString)) {
 
-			  	// The second item in foundMessage represents the capture group
-			  	foundMessages.push(foundMessage[1]);
-			  }
+			// The second item in foundMessage represents the capture group
+			foundMessages.push(foundMessage[1]);
+		}
 
-			  foundMessages.forEach((message) => {
-			  	jsTemplatesMessagesOutput.write('_("""' + escapeQuotes(message) + '""");\n');
-			  });
+		foundMessages.forEach((message) => {
+			jsTemplatesMessagesOutput.write('_("""' + escapeQuotes(message) + '""");\n');
+		});
 
-			  jsTemplatesMessagesOutput.end();
-		  }			
-		};
+		jsTemplatesMessagesOutput.end();
+	}			
+};
 
-// Generate message catalog for flavor-defined jstemplates
-const flavorJSTemplatesPath = path.resolve(
-  flavorBasePath,
-  "jstemplates"
-);
-fs.readdirSync(flavorJSTemplatesPath).forEach((jsTemplate) => {
-	extractTemplateMessages(jsTemplate, flavorJSTemplatesPath);
-});
-
-// Generate message catalog for flavor pages
-const flavorPagesPath = path.resolve(
-  flavorBasePath,
-  "jstemplates/pages"
-);
-fs.readdirSync(flavorPagesPath).forEach((jsTemplate) => {
-	extractTemplateMessages(jsTemplate, flavorPagesPath);
-});
+const cleanup = () => {
+	shell.rm('-rf', messagesCatalogTempPath);
+	fs.existsSync(potFilePath) && shell.rm(potFilePath);
+};
 
 const flavorLocalePath = path.resolve(
 	flavorBasePath,
@@ -121,8 +106,13 @@ const flavorLocalePath = path.resolve(
 let flavorPOPath,
 		mergedFlavorPOPath;
 const mergeExistingLocales = () => {
-	const locales = fs.readdirSync(flavorLocalePath);
-	let finishedLocales = 0;
+	const locales = fs.readdirSync(flavorLocalePath)
+		.filter((locale) => {
+
+			// filter out any hidden system files, like .DS_Store
+			return !locale.startsWith("\.");
+		});
+	let numFinishedLocales = 0;
 	locales.forEach((locale) => {
 		flavorPOPath = path.resolve(
 			flavorLocalePath,
@@ -131,55 +121,105 @@ const mergeExistingLocales = () => {
 		);
 
 		exec(
-      "msgmerge" + 
-      " --no-location" +
-      " --no-fuzzy-matching" +
-      " --update " +
-      flavorPOPath + " " +
-      potFilePath,
-      (e) => {
-      	if (e) {
-      		logError("Error merging po files for " + locale + ":" + e);
+			"msgmerge" + 
+			" --no-location" +
+			" --no-fuzzy-matching" +
+			" --update " +
+			flavorPOPath + " " +
+			potFilePath,
+			(e) => {
+				if (e) {
+					logError("Error merging po files for " + locale + ":" + e);
 					logError("Aborting");
 
-					process.exitCode = 1;
-				  process.exit();
+					process.exit(1);
       	}
-      	finishedLocales++;
+				numFinishedLocales++;
 
-      	// If we're all done, remove temporary files.
-      	if (finishedLocales === locales.length) {
-					shell.rm('-rf', messagesCatalogTempPath);
-					shell.rm(path.resolve(
-						flavorBasePath,
-						"messages.pot"
-					));
-      	}
-      }
-    );
+				// If we're all done, remove temporary files.
+				if (numFinishedLocales === locales.length) {
+					cleanup();
+				}
+			}
+		);
 	});
 };
 
-// Generate .pot (po template) file
+const generateCatalog = (merge, outputPath) => {
+	exec(
+		"xgettext" + 
+		" --from-code=UTF-8" +
+		" --no-location" +
+		" -o " + outputPath + " " +
+		messagesCatalogTempPath + "/*",
+		(err) => {
+			if (err) {
+				logError("Error generating po template file: " + err);
+				logError("Aborting");
+
+				process.exit(1);
+			}
+
+			(merge)
+				? mergeExistingLocales()
+				: cleanup();
+		}
+	);
+}
+
+// Extract translatable messages for the config
+let configMessagesOutput = fs.createWriteStream(
+	path.resolve(
+		messagesCatalogTempPath,
+		"config-messages.temp.py"
+	)
+);
+let foundMessage;
+walk(config, (val, prop, obj) => {
+	if (typeof val === "string") {
+		foundMessage = configGettextRegex.exec(val);
+ 		foundMessage && configMessagesOutput.write('_("""' + escapeQuotes(foundMessage[1]) + '""");\n');
+	}
+});
+configMessagesOutput.end();
+
+// Extract translatable messages for flavor-defined jstemplates
+const flavorJSTemplatesPath = path.resolve(
+	flavorBasePath,
+	"jstemplates"
+);
+fs.readdirSync(flavorJSTemplatesPath).forEach((jsTemplate) => {
+	extractTemplateMessages(jsTemplate, flavorJSTemplatesPath);
+});
+
+// Extract translatable messages for flavor pages
+const flavorPagesPath = path.resolve(
+	flavorBasePath,
+	"jstemplates/pages"
+);
+fs.readdirSync(flavorPagesPath).forEach((jsTemplate) => {
+	extractTemplateMessages(jsTemplate, flavorPagesPath);
+});
+
+
 const potFilePath = path.resolve(
 	flavorBasePath,
 	"messages.pot"
 );
-exec(
-  "xgettext" + 
-  " --from-code=UTF-8" +
-  " -o " + potFilePath + " " +
-  messagesCatalogTempPath + "/*",
-  (e) => {
-  	if (e) {
-			logError("Error generating po template file: " + e);
-			logError("Aborting");
+if (args["set-new-locale"]) {
 
-			process.exitCode = 1;
-		  process.exit();
-  	}
+	// Create a new locale
+	let locale = args["set-new-locale"],
+			localePath = path.resolve(
+				flavorLocalePath,
+				locale,
+				"LC_MESSAGES"
+			);
+	shell.mkdir("-p", localePath);
+	generateCatalog(false, localePath + "/messages.po");	
+} else {
 
-  	mergeExistingLocales();
-  }
-);
+	// Update existing locales
+	generateCatalog(true, potFilePath);
+}
 
