@@ -9,8 +9,8 @@ const colors = require('colors');
 const args = require("optimist").argv;
 
 const help = "Usage:\n" +
-						 "Update all existing flavor locale po files for flavor the flavor set in the FLAVOR environment variable: node make-flavor-messages.js\n" +
-						 "Add a new flavor locale: node make-flavor-messages.js --set-new-locale=<locale_code>";
+			 "Update all existing flavor locale po files for flavor the flavor set in the FLAVOR environment variable: node make-flavor-messages.js\n" +
+			 "Add a new flavor locale: node make-flavor-messages.js --set-new-locale=<locale_code>";
 
 if (args.h || args.help) {
 	console.log(help);
@@ -43,11 +43,6 @@ const flavorConfigPath = path.resolve(
 const config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
 shell.mkdir('-p', messagesCatalogTempPath);
 
-// NOTE: we save these temp files as python files, so we can take advantage of
-// Python's multiline string quoting capabilities. The JS equivalent (backticks)
-// causes problems for xgettext.
-
-
 const configGettextRegex = /^_\(([\s\S]*?)\)$/g;
 const escapeQuotes = (message) => {
 	return message
@@ -57,41 +52,37 @@ const escapeQuotes = (message) => {
 		.join("\\'");
 };
 
-
-
 const jsTemplatesRegexObj = new RegExp(/{{#_}}([\s\S]*?){{\/_}}/, "g");
 let templatePath,
-		foundMessages,
-		jsTemplatesMessagesOutput;
+	foundMessages,
+	jsTemplatesMessagesOutput;
 const extractTemplateMessages = (jsTemplate, outputPath) => {
-	if (jsTemplate.endsWith("html")) {
-		foundMessages = [];
+	foundMessages = [];
 
-		// NOTE: we save these temp files as python files, so we can take 
-		// advantage of Python's multiline string quoting capabilities. The JS 
-		// equivalent (backticks) causes problems for xgettext.
-		jsTemplatesMessagesOutput = fs.createWriteStream(
-			path.resolve(
-				messagesCatalogTempPath,
-				jsTemplate + "-messages.temp.py"
-			)
-		);
-		templateString = fs.readFileSync(
-			path.resolve(outputPath, jsTemplate),
-			"utf8"
-		);
-		while (foundMessage = jsTemplatesRegexObj.exec(templateString)) {
+	// NOTE: we save these temp files as python files, so we can take 
+	// advantage of Python's multiline string quoting capabilities. The JS 
+	// equivalent (backticks) causes problems for xgettext.
+	jsTemplatesMessagesOutput = fs.createWriteStream(
+		path.resolve(
+			messagesCatalogTempPath,
+			jsTemplate + "-messages.temp.py"
+		)
+	);
+	templateString = fs.readFileSync(
+		path.resolve(outputPath, jsTemplate),
+		"utf8"
+	);
+	while (foundMessage = jsTemplatesRegexObj.exec(templateString)) {
 
-			// The second item in foundMessage represents the capture group
-			foundMessages.push(foundMessage[1]);
-		}
+		// The second item in foundMessage represents the capture group
+		foundMessages.push(foundMessage[1]);
+	}
 
-		foundMessages.forEach((message) => {
-			jsTemplatesMessagesOutput.write('_("""' + escapeQuotes(message) + '""");\n');
-		});
+	foundMessages.forEach((message) => {
+		jsTemplatesMessagesOutput.write('_("""' + escapeQuotes(message) + '""");\n');
+	});
 
-		jsTemplatesMessagesOutput.end();
-	}			
+	jsTemplatesMessagesOutput.end();
 };
 
 const cleanup = () => {
@@ -104,7 +95,7 @@ const flavorLocalePath = path.resolve(
 	"locale"
 );
 let flavorPOPath,
-		mergedFlavorPOPath;
+	mergedFlavorPOPath;
 const mergeExistingLocales = () => {
 	const locales = fs.readdirSync(flavorLocalePath)
 		.filter((locale) => {
@@ -133,7 +124,7 @@ const mergeExistingLocales = () => {
 					logError("Aborting");
 
 					process.exit(1);
-      	}
+      			}
 				numFinishedLocales++;
 
 				// If we're all done, remove temporary files.
@@ -189,7 +180,9 @@ const flavorJSTemplatesPath = path.resolve(
 	"jstemplates"
 );
 fs.readdirSync(flavorJSTemplatesPath).forEach((jsTemplate) => {
-	extractTemplateMessages(jsTemplate, flavorJSTemplatesPath);
+	if (jsTemplate.endsWith("html")) {
+		extractTemplateMessages(jsTemplate, flavorJSTemplatesPath);
+	}
 });
 
 // Extract translatable messages for flavor pages
@@ -198,9 +191,21 @@ const flavorPagesPath = path.resolve(
 	"jstemplates/pages"
 );
 fs.readdirSync(flavorPagesPath).forEach((jsTemplate) => {
-	extractTemplateMessages(jsTemplate, flavorPagesPath);
+	if (jsTemplate.endsWith("html")) {
+		extractTemplateMessages(jsTemplate, flavorPagesPath);
+	}
 });
 
+// Extract translatable messages for email templates
+const emailTemplatesPath = path.resolve(
+	flavorBasePath,
+	"templates"
+);
+fs.readdirSync(emailTemplatesPath).forEach((emailTemplate) => {
+	if (emailTemplate.endsWith("txt")) {
+		extractTemplateMessages(emailTemplate, emailTemplatesPath);
+	}
+});
 
 const potFilePath = path.resolve(
 	flavorBasePath,
@@ -222,4 +227,3 @@ if (args["set-new-locale"]) {
 	// Update existing locales
 	generateCatalog(true, potFilePath);
 }
-

@@ -181,9 +181,3 @@ if (args["set-new-locale"]) {
 	// Update existing locales
 	generateCatalog(true, potFilePath);
 }
-
-
-
-
-
-
