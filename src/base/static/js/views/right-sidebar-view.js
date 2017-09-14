@@ -142,6 +142,7 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
           self.collectionName = Object.keys(self.storyCollections)[0];
         }
 
+        $("#right-sidebar-header").text(self.options.storyConfig[self.collectionName].header);
         self.render();
         $("#right-sidebar-container #right-sidebar-spinner").remove();
 
@@ -155,6 +156,7 @@ var SidebarStoryCollectionView = Backbone.Marionette.CollectionView.extend({
               $("body").addClass("right-sidebar-visible");
             }
             self.collection = self.storyCollections[self.collectionName];
+            $("#right-sidebar-header").text(self.options.storyConfig[self.collectionName].header);
             self.render();
           }
         });

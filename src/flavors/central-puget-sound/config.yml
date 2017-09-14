@@ -1797,6 +1797,7 @@ pages:
 story:
   watersheds:
     tagline: _(Next featured site)
+    header: _(Explore cleanup and restoration projects around the Puget Sound area!)
     default_zoom: 18
     default_visible_layers:
       - mwfeatured

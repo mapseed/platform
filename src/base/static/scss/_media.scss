@@ -182,6 +182,7 @@
 
             .collapse-btn {
                 display: block;
+                background-color: #DDDDDD;
                 position: absolute;
                 top: 5px;
                 right: 25px;
@@ -195,6 +196,18 @@
                 &:hover {
                     color: #cd2c67;
                 }
+            }
+
+            #right-sidebar-content {
+                background-color: #EFEFEF;
+            }
+
+            #right-sidebar-header {
+                font-size: 1.1em;
+                min-height: 42px;
+                font-weight: 800;
+                background-color: #DDDDDD;
+                padding-right: 55px;
             }
         }
 
