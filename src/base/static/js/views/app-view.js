@@ -37,6 +37,7 @@ Shareabouts.smallSpinnerOptions = {
 module.exports = Backbone.View.extend({
   events: {
     'click #add-place': 'onClickAddPlaceBtn',
+    'click #nav-stories': 'onClickNavStories',
     'click .close-btn': 'onClickClosePanelBtn',
     'click .collapse-btn': 'onToggleSidebarVisibility',
     'click .list-toggle-btn': 'toggleListView'
@@ -538,6 +539,11 @@ module.exports = Backbone.View.extend({
     Util.log("USER", "map", "new-place-btn-click");
     this.options.router.navigate("/new", { trigger: true });
   },
+  onClickNavStories: function(evt) {
+    evt.preventDefault();
+    Util.log("USER", "map", "nav-stories-btn-click");
+    $("body").addClass("right-sidebar-visible");
+  },
   onClickClosePanelBtn: function(evt) {
     evt.preventDefault();
 
@@ -569,7 +575,7 @@ module.exports = Backbone.View.extend({
       "place-form-visible",
       "page-visible",
       "content-expanded",
-      "content-expanded-mid",
+      "content-expanded-mid"
     ],
       newBodyClasses = Array.prototype.slice.call(arguments, 0),
       i,
@@ -587,6 +593,7 @@ module.exports = Backbone.View.extend({
           "Setting an unrecognized body class.\nYou should probably just use jQuery directly.",
         );
       }
+
       $body.addClass(newBodyClasses[i]);
     }
   },
@@ -937,7 +944,13 @@ module.exports = Backbone.View.extend({
   },
 
   showPanel: function(markup, preventScrollToTop, detailView) {
-    var map = this.mapView.map;
+    var map = this.mapView.map,
+        // will be "mobile" or "desktop", as defined in default.css
+        layout = Util.getPageLayout();
+
+    if (layout === '"mobile"') {
+        $("body").removeClass("right-sidebar-visible");
+    }
 
     this.unfocusAllPlaces();
     this.$panelContent.html(markup);
@@ -945,9 +958,7 @@ module.exports = Backbone.View.extend({
     detailView && detailView.delegateEvents();
 
     if (!preventScrollToTop) {
-      // will be "mobile" or "desktop", as defined in default.css
-      var layout = Util.getPageLayout();
-      if (layout === "desktop") {
+      if (layout === '"desktop"') {
         // For desktop, the panel content is scrollable
         this.$panelContent.scrollTo(0, 0);
       } else {

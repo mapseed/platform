@@ -79,10 +79,6 @@
         height: 60%
     }
 
-    #right-sidebar-container {
-        display: none;
-    }
-
     .content-visible.content-expanded {
         #map-container {
             height: 10% !important;
@@ -149,6 +145,42 @@
     .place-detail-spacer {
         &.editing-toggled {
             padding-top: 15px;
+        }
+    }
+
+    #right-sidebar-container {
+        display: none;
+
+        .collapse-btn {
+            display: none;
+        }
+    }
+
+    .right-sidebar-visible {
+        #right-sidebar-container {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: $header-height-smallscreen;
+            width: 100%;
+            height: calc(100% - #{$header-height-smallscreen} - #{$footer-height-smallscreen});
+
+            .collapse-btn {
+                display: block;
+                position: absolute;
+                top: 5px;
+                right: 25px;
+                left: initial;
+                border-radius: unset;
+                box-shadow: none;
+                &:before {
+                    font-family: FontAwesome;
+                    content: "\f00d" !important;
+                }
+                &:hover {
+                    color: #cd2c67;
+                }
+            }
         }
     }
 }
