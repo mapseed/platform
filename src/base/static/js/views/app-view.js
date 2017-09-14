@@ -536,11 +536,13 @@ module.exports = Backbone.View.extend({
   },
   onClickAddPlaceBtn: function(evt) {
     evt.preventDefault();
+    this.ensureMobileLayout();
     Util.log("USER", "map", "new-place-btn-click");
     this.options.router.navigate("/new", { trigger: true });
   },
   onClickNavStories: function(evt) {
     evt.preventDefault();
+    this.hidePanel();
     Util.log("USER", "map", "nav-stories-btn-click");
     $("body").addClass("right-sidebar-visible");
   },
@@ -944,21 +946,16 @@ module.exports = Backbone.View.extend({
   },
 
   showPanel: function(markup, preventScrollToTop, detailView) {
-    var map = this.mapView.map,
-        // will be "mobile" or "desktop", as defined in default.css
-        layout = Util.getPageLayout();
+    var map = this.mapView.map;
 
-    if (layout === '"mobile"') {
-        $("body").removeClass("right-sidebar-visible");
-    }
-
+    this.ensureMobileLayout();
     this.unfocusAllPlaces();
     this.$panelContent.html(markup);
     this.$panel.show();
     detailView && detailView.delegateEvents();
 
     if (!preventScrollToTop) {
-      if (layout === '"desktop"') {
+      if (Util.getPageLayout() === '"desktop"') {
         // For desktop, the panel content is scrollable
         this.$panelContent.scrollTo(0, 0);
       } else {
@@ -1049,7 +1046,7 @@ module.exports = Backbone.View.extend({
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
-      collection.each(function(model) {
+      collection.each(function(model) { 
         if (model && model.isNew()) {
           model.destroy();
         }
@@ -1063,6 +1060,11 @@ module.exports = Backbone.View.extend({
         }
       });
     });
+  },
+  ensureMobileLayout: function() {
+    if (Util.getPageLayout() === '"mobile"') {
+      $("body").removeClass("right-sidebar-visible");
+    }
   },
 
   render: function() {

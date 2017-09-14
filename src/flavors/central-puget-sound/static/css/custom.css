@@ -375,10 +375,6 @@ Adapted from http://littlesnippets.net/snip1579/
   .add-place-nav {
     display: none;
   }
-
-  #main-btns-container {
-    display: table;
-  }
 }
 
 @media only screen and (min-width: 768px) {

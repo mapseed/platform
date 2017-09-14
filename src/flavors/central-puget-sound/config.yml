@@ -835,6 +835,7 @@ filters:
 place:
   adding_supported: true
   add_button_label: _(Add a report)
+  story_button_label: _(Explore Stories)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Reports)
   show_map_button_label: _(Show Map)
