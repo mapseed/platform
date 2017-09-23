@@ -49,6 +49,8 @@
     "react-dom": "^16.2.0",
     "react-quill": "^1.1.0",
     "s3-website": "^3.2.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "shelljs": "^0.5.3",
     "static-eval": "^1.1.1",
     "togeojson": "^0.16.0",
