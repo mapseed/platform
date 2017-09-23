@@ -41,7 +41,7 @@ const colors = require('colors');
 // =============================================================================
 
 
-// (1) Set up paths to certain files and directories needed for the build, as 
+// (1) Set up paths to certain files and directories needed for the build, as
 //     well as utilities
 // -----------------------------------------------------------------------------
 
@@ -81,25 +81,8 @@ if (!flavor) {
   process.exit();
 }
 
-// Bundle the CSS.
-// TODO: replace this concat script with something better.
-shell.cat([
-  'src/base/static/css/leaflet-sidebar.css',
-  'src/base/static/css/leaflet.draw.css',
-  'src/base/static/css/spectrum.css',
-  'src/base/static/css/quill.snow.css',
-  'src/base/static/css/default.css',
-  'src/base/static/css/jquery.datetimepicker.css',
-  'src/flavors/' + flavor + '/static/css/custom.css'
-]).to(
-  path.resolve(
-    distPath,
-    'bundle.css'
-  )
-);
-
-// This version number is only used for cache-busting on our bundle.js,
-// bundle.css, and custom.css files.
+// This version number is only used for cache-busting on our bundle.js
+// and bundle.css files.
 const bundleVersion = "0.7.5.5";
 
 const flavorBasePath = path.resolve(
@@ -130,7 +113,7 @@ Handlebars.registerHelper("serialize", function(json) {
 
 // Helper for injecting precompiled templates to the index.html file
 const compiledTemplatesOutputPath = path.resolve(
-  outputBasePath, 
+  outputBasePath,
   "templates.js"
 );
 Handlebars.registerHelper("precompile_jstemplates", function() {
@@ -255,8 +238,8 @@ activeLanguages.forEach((language) => {
   }
 
   gt.addTranslations(
-    language.code, 
-    "messages", 
+    language.code,
+    "messages",
     gettextParser.po.parse(mergedPOFile)
   );
   gt.setTextDomain("messages");
@@ -283,14 +266,14 @@ activeLanguages.forEach((language) => {
   // where dataset names map to the uppercase name with _SITE_URL appended.
   thisConfig.map.layers.forEach((layer, i) => {
     if (datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"]) {
-      thisConfig.map.layers[i].url = 
+      thisConfig.map.layers[i].url =
         datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"];
     }
   });
 
 
-  // (5a) Copy all jstemplates and flavor pages to a working directory from 
-  //      which the templates can be localized and precompiled. Also resolve 
+  // (5a) Copy all jstemplates and flavor pages to a working directory from
+  //      which the templates can be localized and precompiled. Also resolve
   //      flavor jstemplates overrides at this step
   // ---------------------------------------------------------------------------
 
@@ -349,8 +332,8 @@ activeLanguages.forEach((language) => {
 
   // Precompile jstemplates and pages Handlebars templates
   execSync(
-    handlebarsExec + 
-    " -m -e 'html' " + outputJSTemplatesPath + 
+    handlebarsExec +
+    " -m -e 'html' " + outputJSTemplatesPath +
     " -f " + compiledTemplatesOutputPath +
     // List known template helpers. This is a precompilation optimization.
     " -k current_url" +
@@ -433,7 +416,7 @@ const baseImageAssetsPath = path.resolve(
   "src/base/static/css/images"
 );
 const outputImageAssetsPath = path.resolve(
-  outputBasePath, 
+  outputBasePath,
   "static/css/images"
 );
 try {
@@ -445,7 +428,7 @@ try {
   log("(ERROR!) Error copying base image assets: " + e);
 }
 
-// Copy flavor static image assets to www/images, replacing base assets as 
+// Copy flavor static image assets to www/images, replacing base assets as
 // necessary
 const flavorImageAssetsPath = path.resolve(
   flavorBasePath,
@@ -460,25 +443,9 @@ try {
   log("(ERROR!) Error copying flavor image assets: " + e);
 }
 
-// Copy flavor custom.css
-try {
-  fs.copySync(
-    path.resolve(
-      flavorBasePath,
-      "static/css/custom.css"
-    ),
-    path.resolve(
-      outputBasePath,
-      "custom.css"
-    )
-  );
-} catch (e) {
-  log("(ERROR!) Error copying flavor custom.css: " + e);
-}
-
 // Copy font files
 const fontPaths = glob.sync(
-  flavorBasePath + 
+  flavorBasePath +
   "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"
 );
 fontPaths.forEach((fontPath) => {
