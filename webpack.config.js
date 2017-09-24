@@ -1,3 +1,6 @@
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
+
 require('dotenv').config({path: 'src/.env'});
 require("babel-polyfill");
 var path = require('path');
@@ -15,7 +18,9 @@ var flavorJsFiles = glob.sync("./src/flavors/" + process.env.FLAVOR + "/static/j
 var entryPoints = [
   "babel-polyfill",
   "./src/base/static/js/routes.js",
-  "./src/base/static/js/handlebars-helpers.js"
+  "./src/base/static/js/handlebars-helpers.js",
+  "./src/base/static/scss/default.scss",
+  "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css"
 ].concat(flavorJsFiles);
 
 var baseViewPaths = glob.sync(path.resolve(__dirname, 'src/base/static/js/views/*.js'));
@@ -46,9 +51,23 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+      {
+        test: /\.s?css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader?url=false!sass-loader?includePaths[]=" + path.resolve(__dirname, "./node_modules/compass-mixins/lib")
+        }),
+      }
     ]
   },
+  plugins: [
+    new ExtractTextPlugin("bundle.css"),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      test:  /\.css$/
+    })
+  ],
   devServer: {
     contentBase: outputBasePath,
     historyApiFallback: {
