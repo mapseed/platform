@@ -67,13 +67,9 @@ map:
       type: cartodb
       url: "https://heyduwamishcore.carto.com/api/v2/viz/d92493be-8b69-11e6-9075-0e05a8b3e3d7/viz.json"
 
-    - id: duwamish
-      type: place
-      slug: report
-
     - id: pugetsound
       type: place
-      slug: pugetsound-report
+      slug: report
 
     - id: violators
       type: landmark
@@ -343,12 +339,9 @@ sidebar:
           title: _(Map layers)
           visibleDefault: true
           layers:
-            - id: duwamish
+            - id: pugetsound
               title: _(Community Reports)
               visibleDefault: true
-              constituentLayers:
-                - duwamish
-                - pugetsound
             - id: pugetsoundfeatured
               title: _(Featured Sites)
               visibleDefault: true
