@@ -865,6 +865,11 @@ var self = (module.exports = {
       var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
 
       if (!mapQuestKey)
+        // REACT PORT SECTION //////////////////////////////////////////////////
+        
+        // call the error handler here to provide better user feedback
+        options.error();
+        // END REACT PORT SECTION //////////////////////////////////////////////
         throw "You must provide a MapQuest key for geocoding to work.";
 
       options = options || {};

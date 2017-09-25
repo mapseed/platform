@@ -1,3 +1,12 @@
+
+// REACT PORT SECTION //////////////////////////////////////////////////////////
+import React from "react";
+import ReactDOM from "react-dom";
+import InputForm from "../../components/input-form";
+import { EventEmitter } from "fbemitter";
+let emitter = new EventEmitter();
+// END REACT PORT SECTION //////////////////////////////////////////////////////
+
 var Util = require('../utils.js');
 
 // Views
@@ -240,15 +249,27 @@ module.exports = Backbone.View.extend({
     // When the user chooses a geocoded address, the address view will fire
     // a geocode event on the namespace. At that point we center the map on
     // the geocoded location.
-    $(Shareabouts).on("geocode", function(evt, locationData) {
-      self.mapView.zoomInOn(locationData.latLng);
 
-      if (self.isAddingPlace()) {
-        self.placeFormView.setLatLng(locationData.latLng);
-        // Don't pass location data into our geolocation's form field
-        // self.placeFormView.setLocation(locationData);
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("geocode", (locationData) => {
+      console.log("on geocode", locationData);
+
+      this.mapView.zoomInOn(locationData.latLng);
+      if (this.isAddingPlace()) {
+        this.placeFormView.setLatLng(locationData.latLng);
       }
     });
+
+    // $(Shareabouts).on("geocode", function(evt, locationData) {
+    //   self.mapView.zoomInOn(locationData.latLng);
+
+    //   if (self.isAddingPlace()) {
+    //     self.placeFormView.setLatLng(locationData.latLng);
+    //     // Don't pass location data into our geolocation's form field
+    //     // self.placeFormView.setLocation(locationData);
+    //   }
+    // });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // When the map center moves, the map view will fire a mapmoveend event
     // on the namespace. If the move was the result of the user dragging, a
@@ -695,24 +716,36 @@ module.exports = Backbone.View.extend({
   newPlace: function() {
     var self = this;
 
+    // REACT PORT SECTION //////////////////////////////////////////////////////
     if (!this.placeFormView) {
-      this.placeFormView = new PlaceFormView({
-        appView: this,
-        router: this.options.router,
-        placeConfig: this.options.placeConfig,
-        mapConfig: this.options.mapConfig,
-        userToken: this.options.userToken,
-        geometryEditorView: this.mapView.geometryEditorView,
-        collectionsSet: {
-          places: this.places,
-          landmarks: this.landmarks,
-        },
-      });
+      // this.placeFormView = new PlaceFormView({
+      //   appView: this,
+      //   router: this.options.router,
+      //   placeConfig: this.options.placeConfig,
+      //   mapConfig: this.options.mapConfig,
+      //   userToken: this.options.userToken,
+      //   geometryEditorView: this.mapView.geometryEditorView,
+      //   collectionsSet: {
+      //     places: this.places,
+      //     landmarks: this.landmarks,
+      //   },
+      // });
     }
 
+    ReactDOM.render(
+      <InputForm placeConfig={this.options.placeConfig} 
+                 mapConfig={this.options.mapConfig}
+                 emitter={emitter} />,
+      document.querySelector("#content article")
+    );
+
     this.$panel.removeClass().addClass("place-form");
-    this.showPanel(this.placeFormView.render(false).$el);
-    this.placeFormView.delegateEvents();
+    this.$panel.show();
+    // this.showPanel(this.placeFormView.render(false).$el);
+
+    // this.placeFormView.delegateEvents();
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
     this.showNewPin();
     this.setBodyClass("content-visible", "place-form-visible");
 

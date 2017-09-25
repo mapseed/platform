@@ -1,0 +1,172 @@
+// All SASS variables for the default theme are defined here
+
+// -----------------------------------------------------------------------------
+// COLORS
+// -----------------------------------------------------------------------------
+$body-text-color: #000000;
+
+$primary-color: #007FBF;
+$secondary-color: #A3C7D9;
+
+$accent-color-1: rgba(242, 82, 24, 0.89);
+$accent-color-1-tint: rgba(242, 82, 24, 0.31);
+
+
+// -----------------------------------------------------------------------------
+// FONT AWESOME ICONS
+// -----------------------------------------------------------------------------
+$icon-search: "\F002";
+
+
+// -----------------------------------------------------------------------------
+// TYPOGRAPHY
+// -----------------------------------------------------------------------------
+$primary-font: "";
+$secondary-font: "";
+
+
+// -----------------------------------------------------------------------------
+// BUTTONS
+// -----------------------------------------------------------------------------
+
+/*
+	BasicButton.js
+	No-frills button
+*/
+$basic-button-background-width: 100%;
+$basic-button-background-color: #FFFFFF;
+$basic-button-border: none;
+$basic-button-border-radius: 4px;
+$basic-button-hover-cursor: pointer;
+$basic-button-hover-background-color: #DDDDDD;
+$basic-button-text-align: center;
+$basic-button-text-transform: uppercase;
+$basic-button-padding-left: 0;
+$basic-button-padding-right: 0;
+$basic-button-padding-top: 0;
+$basic-button-padding-bottom: 0;
+
+/*
+	LabelWithInlineImage.js
+	Label with text and left-aligned or right-aligned image/icon
+*/
+$label-inline-image-img-width: 36px;
+$label-inline-image-img-margin: 0 0 0 0;
+$label-inline-image-img-padding: 3px 3px 3px 3px;
+$label-inline-image-label-padding: 5px 5px 5px 5px;
+$label-inline-image-text-transform: uppercase;
+$label-inline-image-font-size: 1em;
+$label-inline-image-hover-cursor: pointer;
+
+
+/*
+	PrimaryButton.js
+	Primary button component
+*/
+$button-primary-padding-left: 0.625em;
+$buttom-primary-padding-right: 0.625em;
+$button-primary-padding-top: 0.325em;
+$button-primary-padding-bottom: 0.325em;
+
+/*
+	SecondaryButton.js
+	Secondary button component
+*/
+
+
+/*
+	TertiaryButton.js
+	Tertiary button component
+*/
+
+
+/*
+	InputFormCategoryButton.js
+	Map input form category selection button
+*/
+$input-form-category-button-height: 55px;
+$input-form-category-button-background-color: #FFFFFF;
+$input-form-category-button-text-color: #000000;
+$input-form-category-button-margin: 0 0 10px 0;
+$input-form-category-button-hover-border: 2px solid $accent-color-1;
+$input-form-category-button-border: 2px solid transparent;
+$input-form-category-button-border-radius: 8px;
+$input-form-category-button-padding: 3px 3px 3px 3px;
+$input-form-category-button-label-margin: 0 0 0 0;
+$input-form-category-button-label-padding: 0 0 0 20px;
+$input-form-category-button-image-margin: 0 20px 0 20px;
+$input-form-category-button-image-border-radius: 7px 0 0 7px;
+$input-form-category-button-label-border-radius: 0 7px 7px 0;
+
+$input-form-selected-category-button-label-background-color: $accent-color-1;
+$input-form-selected-category-button-image-background-color: $accent-color-1-tint;
+$input-form-selected-category-button-text-color: #FFFFFF;
+
+
+// -----------------------------------------------------------------------------
+// FORMS
+// -----------------------------------------------------------------------------
+
+/*
+	TextField.js
+	Basic text field
+*/
+$text-field-border: 0.25em solid $secondary-color;
+$text-field-border-radius: 0 0 0 0;
+$text-field-padding: 0.5em 0.5em 0.5em 0.5em;
+$text-field-margin: 0 0 0 0;
+$text-field-width: 100%;
+
+/*
+	TextareaField.js
+	Basic textarea field
+*/
+$textarea-field-border: 0.25em solid $secondary-color;
+$textarea-field-border-radius: 0 0 0 0;
+$textarea-field-padding: 0.5em 0.5em 0.5em 0.5em;
+$textarea-field-margin: 0 0 0 0;
+$textarea-field-width: 100%;
+$textarea-field-height: 6.5em;
+
+/*
+	DropdownField.js
+	Basic dropdown field
+*/
+$dropdown-field-border: 0.25em solid $secondary-color;
+$dropdown-field-width: 100%;
+
+/*
+	CheckboxField.js
+	Basic checkbox field
+*/
+
+/*
+	RadioField.js
+	Basic radio field
+*/
+
+/*
+	DatetimeField.js
+	Date/time picker
+*/
+$datetime-field-width: 100%;
+$datetime-field-border: 0.25em solid $secondary-color;
+$datetime-field-padding: 0.5em 0.5em 0.5em 0.5em;
+
+/*
+	GeocodingField.js
+	Geocoder
+*/
+$geocoding-field-width: 100%;
+$geocoding-field-border: 0.25em solid $secondary-color;
+$geocoding-field-padding: 0.5em 0.5em 0.5em 2.5em;
+$geocoding-field-search-icon: $icon-search;
+$geocoding-field-search-icon-color: $secondary-color;
+$geocoding-field-search-icon-font-size: 1.5em;
+$geocoding-field-spinner-icon-color: #000000;
+$geocoding-field-spinner-icon-background-color: $secondary-color;
+$geocoding-field-error-background-color: #BF6083;
+$geocoding-field-error-text-color: #FFFFFF;
+$geocoding-field-error-box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+$geocoding-field-error-padding: 0.25em 0.5em;
+

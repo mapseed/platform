@@ -1,5 +1,3 @@
-import accessibleAutocomplete from 'accessible-autocomplete';
-
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
 var GeocodeAddressPlaceView = require("mapseed-geocode-address-place-view");
