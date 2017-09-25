@@ -1,0 +1,72 @@
+
+.mapseed-geocoding-field {
+	position: relative;
+
+	.mapseed-geocoding-field__geocoding-spinner {
+		position: absolute;
+		z-index: 100000;
+		background-color: $geocoding-field-spinner-icon-background-color;
+		
+		// TODO: fix these hard-coded values...
+		// They're appropriate for the default theme's input field height, but won't
+		// adapt to changes in the field height.
+		width: 36px;
+		height: 40px;
+
+		.spinner {
+			top: 50% !important;
+			left: 50% !important;
+			color: $geocoding-field-spinner-icon-color;
+		}
+	}
+
+	.mapseed-geocoding-field__geocoding-spinner--hidden {
+		display: none;
+	}
+
+	.mapseed-geocoding-field__geocoding-spinner--visible {
+		display: block;
+	}
+
+	.mapseed-geocoding-field__geocoding-error {
+    position: absolute;
+    top: 3em;
+    right: 0.5em;
+    bottom: auto;
+    left: 0.5em;
+		background-color: $geocoding-field-error-background-color;
+    color: $geocoding-field-error-text-color;
+    margin: 0;
+    padding: $geocoding-field-error-padding;
+    box-shadow: $geocoding-field-error-box-shadow;
+	}
+
+	.mapseed-geocoding-field__geocoding-error--hidden {
+		display: none;
+	}
+
+	.mapseed-geocoding-field__geocoding-error--visible {
+		display: block;
+	}
+
+	input {
+		width: $geocoding-field-width;
+		border: $geocoding-field-border;
+		padding: $geocoding-field-padding;
+		box-sizing: border-box;
+	}
+
+	.mapseed-geocoding-field__do-geocode-icon {
+		position: absolute;
+		cursor: pointer;
+		left: 12px;
+		top: 5px;
+		font-size: $geocoding-field-search-icon-font-size;
+
+		&:before {
+			font-family: FontAwesome;
+			color: $geocoding-field-search-icon-color;
+			content: $geocoding-field-search-icon;
+		}
+	}
+}
