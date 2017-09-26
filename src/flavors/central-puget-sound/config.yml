@@ -845,6 +845,7 @@ place:
   submit_button_label: _(Put it on the map!)
 
   location_item_name: location
+  default_basemap: satellite
 
 
   #### begin dynamic form config ####
