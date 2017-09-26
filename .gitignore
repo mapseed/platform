@@ -50,3 +50,6 @@ node_modules/
 
 # sqlite database
 *.db
+
+# static site build output
+www/
