@@ -1755,8 +1755,10 @@ place:
           value: Hollywood-Hill
         - label: _(Inglemoor)
           value: Inglemoor
-        - label: _(Kenmore)
-          value: Kenmore
+        - label: _(Kenmore Elementary School)
+          value: Kenmore-Elementary-School
+        - label: _(Kenmore Middle School)
+          value: Kenmore-Middle-School
         - label: _(Kokanee)
           value: Kokanee
         - label: _(Leota)
@@ -1903,8 +1905,14 @@ place:
           value: Blossoming-Hill-Montessori
         - label: _(Bright Water School)
           value: Bright-Water-School
-        - label: _(Brightmont Academy)
-          value: Brightmont-Academy
+        - label: _(Brightmont Academy, Seattle)
+          value: Brightmont-Academy-Seattle
+        - label: _(Brightmont Academy, Sammamish)
+          value: Brightmont-Academy-Sammamish
+        - label: _(Brightmont Academy, Woodinville)
+          value: Brightmont-Academy-Woodinville
+        - label: _(Brightmont Academy, Redmond)
+          value: Brightmont-Academy-Redmond
         - label: _(Brock's Academy)
           value: Brocks-Academy
         - label: _(Brooklake Christian School)
@@ -1941,12 +1949,14 @@ place:
           value: Cougar-Mountain-Academy
         - label: _(Countryside Montessori School)
           value: Countryside-Montessori-School
-        - label: _(Dartmoor School)
-          value: Dartmoor-School
-        - label: _(Dartmoor School—Issaquah)
+        - label: _(Dartmoor School, Bellevue)
+          value: Dartmoor-School-Bellevue
+        - label: _(Dartmoor School, Issaquah)
           value: Dartmoor-School—Issaquah
-        - label: _(Dartmoor School—Seattle)
+        - label: _(Dartmoor School, Seattle)
           value: Dartmoor-School—Seattle
+        - label: _(Dartmoor School, Bothell)
+          value: Dartmoor-School—Bothell
         - label: _(Dolan Academy & Learning Center)
           value: Dolan-Academy-Learning-Center
         - label: _(Eastside Academy)
@@ -2007,8 +2017,8 @@ place:
           value: Hillside-Student-Community-School
         - label: _(Holy Family Parish School)
           value: Holy-Family-Parish-School
-        - label: _(Holy Family School)
-          value: Holy-Family-School
+        - label: _(Holy Family Bilingual Catholic School)
+          value: Holy-Family-Bilingual-Catholic-School
         - label: _(Holy Innocents School of NW)
           value: Holy-Innocents-School-of-NW
         - label: _(Holy Names Academy)
