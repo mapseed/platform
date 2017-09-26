@@ -714,6 +714,10 @@ module.exports = Backbone.View.extend({
     this.placeFormView.delegateEvents();
     this.showNewPin();
     this.setBodyClass("content-visible", "place-form-visible");
+
+    if (this.options.placeConfig.default_basemap) {
+      this.setLayerVisibility(this.options.placeConfig.default_basemap, true, true);
+    }
   },
 
   // If a model has a story object, set the appropriate layer
