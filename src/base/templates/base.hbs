@@ -57,7 +57,7 @@
 </head>
   <body class="{{#if config.map.geocoding_bar_enabled}} geocoding-bar-enabled{{/if}}">
 
-  <header id="site-header" class="clearfix{{#if pages_config}} has-pages{{/if}}">
+  <header id="site-header" class="clearfix{{#if config.pages}} has-pages{{/if}}">
     <h1 id="site-title">{{#block "site-title"}}{{/block}}</h1>
 
     {{#block "pre_auth_nav"}}{{/block}}
