@@ -260,26 +260,24 @@
 
   <script>
     moment.locale('{{languageCode}}');
+  </script>
+
+  <!--[if IE LTE 7]>
+  <script>
     $(function() {
-      // Check official browser support.
-      var userAgent = {{#serialize userAgentJson}}{{/serialize}};
-      if (!Shareabouts.Util.isSupported(userAgent)) {
-        var userAgentData = userAgent,
-            $unsupportedEl = $('.unsupported-overlay'),
-            unsupportedHtml;
-        userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
-        unsupportedHtml = Handlebars.templates['unsupported-overlay'](userAgentData);
-        $unsupportedEl.hide();
-        $unsupportedEl.html(unsupportedHtml);
-        $unsupportedEl.slideDown();
-        $unsupportedEl.find('.close-btn').click(function(evt) {
-          evt.preventDefault();
-          $unsupportedEl.slideUp();
-          return false;
-        });
-      }
+      var $unsupportedEl = $('.unsupported-overlay');
+      var unsupportedHtml = Handlebars.templates['unsupported-overlay']();
+      $unsupportedEl.hide();
+      $unsupportedEl.html(unsupportedHtml);
+      $unsupportedEl.slideDown();
+      $unsupportedEl.find('.close-btn').click(function(evt) {
+        evt.preventDefault();
+        $unsupportedEl.slideUp();
+        return false;
+      });
     });
   </script>
+  <![endif]-->
 
   <script type="text/javascript">
   (function(S, $){

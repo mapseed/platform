@@ -46,8 +46,8 @@ var self = (module.exports = {
         var url = group.dataset.split("/"),
           match = url[url.length - 1];
 
-        if (match && 
-            match === datasetId && 
+        if (match &&
+            match === datasetId &&
             (group.name === "administrators" || adminGroups.indexOf(group.name) > -1)) {
           isAdmin = true;
         }
@@ -499,22 +499,6 @@ var self = (module.exports = {
 
   getShareaboutsUrl: function(model) {
     return model.get("datasetSlug") + "/" + model.id;
-  },
-
-  isSupported: function(userAgent) {
-    switch (userAgent.browser.name) {
-      case "Microsoft Internet Explorer":
-        var firstDot = userAgent.browser.version.indexOf("."),
-          major = parseInt(userAgent.browser.version.substr(0, firstDot), 10);
-
-        if (major > 7) {
-          return true;
-        }
-      default:
-        return true;
-    }
-
-    return false;
   },
 
   // NOTE this is not in Shareabouts.js
