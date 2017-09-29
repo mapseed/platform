@@ -7,6 +7,8 @@ var path = require('path');
 var glob = require('glob');
 var fs = require('fs');
 
+// const isProd = process.env.
+
 const PORT = 8000;
 
 if (!process.env.FLAVOR) {
@@ -66,7 +68,33 @@ module.exports = {
     new CompressionPlugin({
       asset: "[path].gz[query]",
       test:  /\.css$/
-    })
+    }),
+    function () {
+      console.log("inside our custom plugin!")
+      const isProd = process.env.NODE_ENV === 'production'
+      //       if (isProd) {
+      if (true) { // if in production:
+        this.plugin('done', statsData => {
+          const stats = statsData.toJson()
+          console.log("stats:", stats)
+
+          if (!stats.errors.length) {
+            const htmlFile = path.join(__dirname, 'www', 'index.html')
+            // TODO: Do this for all files ending in .html to account for all of our locales
+            const html = fs.readFileSync(htmlFile, 'utf8')
+
+            const htmlOutput = html.replace(
+              /bundle\.js/g,
+              'bundle.' + stats.hash + '.js')
+
+            fs.writeFileSync(
+              htmlFile,
+              htmlOutput)
+          }
+        })
+      }
+    }
+
   ],
   devServer: {
     contentBase: outputBasePath,
