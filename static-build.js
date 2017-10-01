@@ -13,7 +13,6 @@ const shell = require('shelljs');
 const glob = require('glob');
 const colors = require('colors');
 
-
 // =============================================================================
 // BEGIN STATIC SITE BUILD
 //
@@ -27,17 +26,8 @@ const colors = require('colors');
 // (6) Copy static assets to the dist/ folder
 //
 //
-// NOTES
-//   - This build still depends on a .env file with dataset urls
-//
 // TODOS
 //   - Asynchronous processing!
-//   - Replace Django template filters with Handlebars helpers
-//   - A dev build option that skips all localization, to save time
-//   - In development, use gulp to watch changes to classes of files, and build
-//     components (jstemplates, config blob, etc.) separately as needed. Only
-//     build the final index files for production.
-//   - Error checking on fs.readFileSync calls
 // =============================================================================
 
 
@@ -187,9 +177,15 @@ const mergedPOFileOutputPath = path.resolve(
   __dirname,
   "src/base/static/dist/django.po"
 );
-const activeLanguages = (config.languages)
-  ? config.languages
-  : [{ code: "en_US" }];
+
+let activeLanguages;
+if (process.env.NODE_ENV == "production") {
+  activeLanguages = (config.languages)
+    ? config.languages
+    : [{ code: "en_US" }];
+} else {
+  activeLanguages = [{ code: "en_US" }];
+}
 
 // NOTE: We use [\s\S] here instead of . so we can match newlines.
 const jsTemplatesGettextRegex = /{{#_}}([\s\S]*?){{\/_}}/g;
