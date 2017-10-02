@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import cx from "bem-classnames";
 
 import { InputFormCategoryButton } from "./input-form-category-button";
 import { TextField } from "../form-fields/text-field";
@@ -8,7 +9,9 @@ import { CheckboxField } from "../form-fields/checkbox-field";
 import { RadioField } from "../form-fields/radio-field";
 import { DatetimeField } from "../form-fields/datetime-field";
 import { GeocodingField } from "../form-fields/geocoding-field";
-
+import { PrimaryButton } from "../ui-elements/primary-button";
+import { SecondaryButton } from "../ui-elements/secondary-button";
+import { AddAttachmentButton } from "../form-fields/add-attachment-button";
 
 
 const baseClass = "input-form";
@@ -56,6 +59,11 @@ class InputForm extends Component {
 	}
 
   render() {
+
+  	let fileFieldContainerClass = {
+					name: baseClass + "__file-field-container"
+				};
+
     return (
     	<div className={baseClass}>
     		{this.state.visibleCategories.map((category) =>
@@ -105,6 +113,10 @@ class InputForm extends Component {
 	    		mapConfig={this.props.mapConfig}
 	    		emitter={this.props.emitter}>
 	    	</GeocodingField>
+	    	<PrimaryButton>
+	    		Put it on the map!
+	    	</PrimaryButton>
+	    	<AddAttachmentButton name="my_image" />
     	</div>
     );
   }

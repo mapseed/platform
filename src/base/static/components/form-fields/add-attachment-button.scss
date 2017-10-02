@@ -1,0 +1,27 @@
+.add-attachment-button {
+	position: relative;
+	display: block;
+
+	.mapseed-file-field {
+		position: absolute;
+		width: 100%;
+		left: 0;
+		opacity: 0;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+.add-attachment-button__filename {
+	margin-left: 8px;
+}
+
+.add-attachment-button__filename--visible {
+	display: inline;
+}
+
+.add-attachment-button__filename--hidden {
+	display: none;
+}

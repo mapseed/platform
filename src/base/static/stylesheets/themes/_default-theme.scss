@@ -4,12 +4,11 @@
 // COLORS
 // -----------------------------------------------------------------------------
 $body-text-color: #000000;
-
 $primary-color: #007FBF;
 $secondary-color: #A3C7D9;
-
 $accent-color-1: rgba(242, 82, 24, 0.89);
 $accent-color-1-tint: rgba(242, 82, 24, 0.31);
+$accent-color-2: #00AAFF;
 
 
 // -----------------------------------------------------------------------------
@@ -63,15 +62,32 @@ $label-inline-image-hover-cursor: pointer;
 	PrimaryButton.js
 	Primary button component
 */
-$button-primary-padding-left: 0.625em;
-$buttom-primary-padding-right: 0.625em;
-$button-primary-padding-top: 0.325em;
-$button-primary-padding-bottom: 0.325em;
+$primary-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$primary-button-background-color: $accent-color-1;
+$primary-button-background-hover-color: $primary-color;
+$primary-button-border: 3px solid rgba(0, 0, 0, 0.05);
+$primary-button-text-color: #FFFFFF;
+$primary-button-box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+$primary-button-border-radius: 3px;
+$primary-button-text-transform: uppercase;
+$primary-button-font-size: 1em;
+$primary-button-hover-cursor: pointer;
+
 
 /*
 	SecondaryButton.js
 	Secondary button component
 */
+$secondary-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$secondary-button-background-color: $secondary-color;
+$secondary-button-background-hover-color: #93B7C9;
+$secondary-button-border: 3px solid rgba(0, 0, 0, 0.05);
+$secondary-button-text-color: $primary-color;
+$secondary-button-box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+$secondary-button-border-radius: 3px;
+$secondary-button-text-transform: uppercase;
+$secondary-button-font-size: 0.75em;
+$secondary-button-hover-cursor: pointer;
 
 
 /*
