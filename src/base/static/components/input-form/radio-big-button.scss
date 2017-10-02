@@ -1,0 +1,61 @@
+.radio-big-button {
+	
+	label {
+		font-size: 1.15em;
+		min-height: 2.1em;
+		line-height: 2.1em;
+		padding-right: 10px;
+		padding-left: 60px;
+		text-indent: 0;
+		position: relative;
+		float: left;
+		margin-top: 5px;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		color: #D1D3D4;
+		border: $radio-big-button-border;
+		border-radius: 4px;
+
+		&:before {
+			position: absolute;
+      display: block;
+      top: 0;
+			bottom: 0;
+			left: 0;
+			content: "";
+			width: 2.5em;
+			background-color: $radio-big-button-hover-icon-background-color;
+		}
+
+		&:hover {
+			color: $radio-big-button-hover-label-color;
+
+			&:before {
+				content: $radio-big-button-icon;
+				text-indent: 0.9em;
+				color: $radio-big-button-hover-icon-color;
+      }
+		}
+	}
+
+	.mapseed-radio-field {
+		display: none;
+
+		&:checked {
+			+ label {
+				border: $radio-big-button-selected-border;
+				color: $radio-big-button-selected-label-color;
+
+				&:before {
+					content: $radio-big-button-icon;
+					background-color: $radio-big-button-selected-icon-background-color;
+					text-indent: 0.9em;
+					color: $radio-big-button-selected-icon-color;
+				}
+			}
+		}
+	}
+}

@@ -10,11 +10,17 @@ $accent-color-1: rgba(242, 82, 24, 0.89);
 $accent-color-1-tint: rgba(242, 82, 24, 0.31);
 $accent-color-2: #00AAFF;
 
+$very-light-gray: #EEEEEE;
+$light-gray: #D1D3D4;
+$very-dark-gray: #36454F;
+$extremely-dark-gray: #222222;
+
 
 // -----------------------------------------------------------------------------
-// FONT AWESOME ICONS
+// ICONS
 // -----------------------------------------------------------------------------
 $icon-search: "\F002";
+$icon-check-mark: "✔";
 
 
 // -----------------------------------------------------------------------------
@@ -186,3 +192,32 @@ $geocoding-field-error-text-color: #FFFFFF;
 $geocoding-field-error-box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
 $geocoding-field-error-padding: 0.25em 0.5em;
 
+/*
+	RadioBigButton.js
+	Large radio button with label with left-aligned icon inside
+*/
+$radio-big-button-icon: $icon-check-mark;
+$radio-big-button-hover-icon-color: $very-light-gray;
+$radio-big-button-hover-icon-background-color: $light-gray;
+$radio-big-button-hover-label-color: $very-dark-gray;
+$radio-big-button-selected-icon-color: #FFFFFF;
+$radio-big-button-border: 2px solid $light-gray;
+$radio-big-button-selected-border: 2px solid $accent-color-1;
+$radio-big-button-selected-label-color: $extremely-dark-gray;
+$radio-big-button-selected-icon-background-color: $accent-color-1;
+$radio-big-button-selected-border: 2px solid $accent-color-1;
+
+/*
+	CheckboxBigButton.js
+	Large checkbox button with label with left-aligned icon inside
+*/
+$checkbox-big-button-icon: $icon-check-mark;
+$checkbox-big-button-hover-icon-color: $very-light-gray;
+$checkbox-big-button-hover-icon-background-color: $light-gray;
+$checkbox-big-button-hover-label-color: $very-dark-gray;
+$checkbox-big-button-selected-icon-color: #FFFFFF;
+$checkbox-big-button-border: 2px solid $light-gray;
+$checkbox-big-button-selected-border: 2px solid $accent-color-1;
+$checkbox-big-button-selected-label-color: $extremely-dark-gray;
+$checkbox-big-button-selected-icon-background-color: $accent-color-1;
+$checkbox-big-button-selected-border: 2px solid $accent-color-1;

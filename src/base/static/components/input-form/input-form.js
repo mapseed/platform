@@ -12,6 +12,8 @@ import { GeocodingField } from "../form-fields/geocoding-field";
 import { PrimaryButton } from "../ui-elements/primary-button";
 import { SecondaryButton } from "../ui-elements/secondary-button";
 import { AddAttachmentButton } from "../form-fields/add-attachment-button";
+import { RadioBigButton } from "../input-form/radio-big-button";
+import { CheckboxBigButton } from "../input-form/checkbox-big-button";
 
 
 const baseClass = "input-form";
@@ -117,6 +119,19 @@ class InputForm extends Component {
 	    		Put it on the map!
 	    	</PrimaryButton>
 	    	<AddAttachmentButton name="my_image" />
+
+	    	<RadioBigButton
+	    		label="blah"
+	    		id="blahblah"
+	    		name="some-name" />
+	    	<CheckboxBigButton
+	    		label="waaaaa"
+	    		id="blahblah2"
+	    		name="some-name2" />
+	    	<CheckboxBigButton
+	    		label="blah2"
+	    		id="blahblah3"
+	    		name="some-name2" />
     	</div>
     );
   }
