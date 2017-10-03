@@ -1114,6 +1114,106 @@ story:
       - url: ace-galvanizing-inc
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
 
+  rose-grants:
+    tagline: _(Next grant)
+    default_zoom: 15
+    default_visible_layers:
+      - pugetsoundrose
+    order:
+      - url: puget-sound-stewards---duwamish-and-beyond
+      - url: green-duwamish-water-quality-improvement-youth-exchange
+      - url: tales-of-puget-sound--training-the-next-generation-of-researchers
+      - url: improving-environmental-restoration-with-unmanned-aerial-vehicle-technology
+      - url: killer-whale-tales--kids-making-a-difference-now-stormwater-busters--deep-dive
+      - url: duwamish-alive---watershed-habitat-restoration--water-quality-improvement-and-community-stewardship
+      - url: wfc-strategic-initiative--puget-sound-net-pens-pollution-reduction
+      - url: new-arrival-environmental-orientation
+      - url: squires-landing-park-restoration
+      - url: matching-grant-for-60--design--olympic-hills-pocket-park
+      - url: phthalates-research-and-education-for-source-control--duwamish-river-and-commencement-bay
+      - url: general-support--hire-a-part-time-staff-person
+      - url: depave-the-duwamish
+      - url: yahowt-native-women-s-circle
+      - url: channeling-interest-in-land-based-whale-watching-into-saving-puget-sound-drop-by-drop
+      - url: shadow-lake-nature-preserve--extend-the-bog-tour
+      - url: be-a-toxic-free-zone-workshops
+      - url: normalizing-green-infrastructure
+      - url: protecting-washington-s-waterways-and-delicate-ecosystems-from-dirty-fossil-fuels
+      - url: a-watershed-stewards-program-for-king-county
+      - url: edmonds-watershed-stewards
+      - url: puget-sound-stormwater-language--messaging-and-outreach-material-development-project
+      - url: tacoma-mall-neighborhood-depave-project
+      - url: burien-residential-rain-garden-pilot-project
+      - url: strengthening-puget-sound-hands-on-stewardship-and-intertidal-monitoring-project
+      - url: hey-duwamish----open-technology-and-community-engagement-for-the-green-duwamish-watershed
+      - url: delridge-wetlands-restoration-and-stewardship-project
+      - url: an-agricultural-pollution-prevention-strategy-to-save-salmon-and-shellfish-in-puget-sound
+      - url: student-stewardship-conservation-project
+      - url: duwamish-river-cleanup-coalition-tag-general-support-2016
+      - url: protecting-the-north-creek-watershed-and-beyond
+      - url: lakewashington-us---a-community-map-uniting-all-to-protect-and-restore-lake-washington
+      - url: carpenter-creek-estuary-restoration--monitoring---internship-program
+      - url: bainbridge-island-beach-cleanup
+      - url: bog-to-bay---stormwater-pollution-solutions-in-my-neighborhood
+      - url: science-connects--discovering-our-role-in-a-healthy-puget-sound
+      - url: sound-horsekeeping-to-protect-puget-sound
+      - url: hylebos-watershed-community-based-restoration
+      - url: aquatic-reserve-program
+      - url: community-involvement-in-the-restoration-of-the-sammamish-river-at-wayne-golf-course
+      - url: kids-making-a-difference-now-whale-scouts
+      - url: save-habitat-and-diversity-of-wetlands-org-general-support
+      - url: 2015-16-regional-stormwater-monitoring-program--rsmp
+      - url: langley-middle-school-oceanography--smith---minor-islands-aquatic-reserve-citizen-science-outreach
+      - url: ecosystem-and-water-quality-advocacy-through-watershed-restoration-in-olympia
+      - url: soundside-marinelife-rescue-center-general-support
+      - url: washington-toxics-coalition-general-support
+      - url: legacy-watersheds--public-private-low-impact-development-solutions-for-puget-sound
+      - url: duwamish-alive--watershed-habitat-restoration---community-stewardship
+      - url: nisqually-land-trust-riparian-forest-restoration-initiative
+      - url: duwamish-river-cleanup-coalition-tag-general-support-2014
+      - url: citizen-stewardship-for-clean-water
+      - url: washington-sustainable-agriculture-campaign
+      - url: puget-sound-stewards---duwamish
+      - url: long-term-fish-use-of-the-elwha-river-nearshore
+      - url: bog-to-bay--stormwater-pollution-solutions-in-my-neighborhood
+      - url: hylebos-watershed-scale-restoration-planning
+      - url: mountains-to-sound-greenway-trust-general-support
+      - url: puget-sound-spill-kit-program
+      - url: clean-water-and-green-infrastructure
+      - url: heyduwamish-org
+      - url: fidalgo-bay-science-and-stewardship-project
+      - url: cherry-point-stewardship-project
+      - url: carpenter-creek-estuary-restoration
+      - url: watershed-health-and-youth
+      - url: water-watchers
+      - url: shinglemill-creek-stormwater-project--community-science-for-clean-waters-and-healthy-salmon
+      - url: nisqually-reach-aquatic-reserve
+      - url: hazel-valley-rain-gardens
+      - url: building-grassroots-help-to-restore-the-north-creek-watershed
+      - url: down-on-the-farm--least-toxic-solutions-for-snohomish-county
+      - url: whale-scout
+      - url: killer-whale-tales--kids-making-a-difference-now--stormbusters
+      - url: art-for-learning-watershed-science---connecting-with-teens
+      - url: boise-creek-treat-riparian-restoration
+      - url: whidbey-island-impaired-waters
+      - url: experiential-learning-in-environmental-science
+      - url: carpenter-creek-estuary-restoration-and-monitoring-program
+      - url: phase-2-launch-rodney-goes-green
+      - url: volunteer-program-implementation
+      - url: inspire-stewardship-of-puget-sound-waters
+      - url: south-king-county-group-soos-creek-park-restoration-project
+      - url: clear-to-the-sound
+      - url: water-mapping-project
+      - url: art-for-learning-watershed-science
+      - url: stillaguamish-river-clean-water-project
+      - url: lower-soos-creek--green-river-watershed-project
+      - url: kids-making-a-difference-now
+      - url: connecting-people-to-our-marine---estuary-waters-project
+      - url: friends-of-north-creek-forest-phase-2
+      - url: kilbourne-ravine-riparian-and-buffer-project
+      - url: nisqually-reach-aquatic-reserve-project
+      - url: biofiltration-swale-and-ngpa-restoration-project
+
 # cluster:
 #   animate: true
 #   animateAddingMarkers: false
