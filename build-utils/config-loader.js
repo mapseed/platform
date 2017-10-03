@@ -21,28 +21,28 @@ Handlebars.registerHelper("serialize", function(json) {
 
 module.exports = function(source) {
 
-	source = source.substring(17);
+  source = source.substring(17);
 
   let datasetSiteUrls = {}
-      config = JSON.parse(source);
+    config = JSON.parse(source);
 
-	Object.keys(process.env).forEach(function(key) {
-	  if (key.endsWith("SITE_URL")) {
-	    datasetSiteUrls[key] = process.env[key];
-	  }
-	});
+  Object.keys(process.env).forEach(function(key) {
+    if (key.endsWith("SITE_URL")) {
+      datasetSiteUrls[key] = process.env[key];
+    }
+  });
 
-	// If we have dataset urls defined in the .env file, overwrite the default
-	// urls found in the config here.
-	config.map.layers.forEach((layer, i) => {
+  // If we have dataset urls defined in the .env file, overwrite the default
+  // urls found in the config here.
+  config.map.layers.forEach((layer, i) => {
     if (datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"]) {
       config.map.layers[i].url =
         datasetSiteUrls[layer.id.toUpperCase() + "_SITE_URL"];
     }
   });
 
-	// Strip out gettext syntax; we don't perform any localization of the config
-	// in this loader. Full localization is performed by the production build.
+  // Strip out gettext syntax; we don't perform any localization of the config
+  // in this loader. Full localization is performed by the production build.
   walk(config, (val, prop, obj) => {
     if (typeof val === "string") {
       if (configGettextRegex.test(val)) {
@@ -55,15 +55,15 @@ module.exports = function(source) {
     obj[prop] = val;
   });
 
-	const templateSource = fs.readFileSync(
-	  path.resolve(
-	  	__dirname,
-	    "config-template.hbs"
-	  ),
-	  "utf8"
-	);
-	const template = Handlebars.compile(templateSource);
-	outputFile = template({
+  const templateSource = fs.readFileSync(
+    path.resolve(
+      __dirname,
+      "config-template.hbs"
+    ),
+    "utf8"
+  );
+  const template = Handlebars.compile(templateSource);
+  outputFile = template({
     config: config,
   });
 
@@ -73,5 +73,5 @@ module.exports = function(source) {
   );
   fs.writeFileSync(outputPath, outputFile);
 
-	return source;
+  return source;
 }
