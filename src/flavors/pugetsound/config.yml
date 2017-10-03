@@ -120,6 +120,7 @@ map:
           style:
             opacity: 0.0
 
+<<<<<<< 373307c0ea48a935d7e125466d29dffc8e98b4e2
     - id: shellfish-harvesting
       type: wms
       url: https://geoserver.mapseed.org/geoserver/shellfish-harvesting/wms?
@@ -129,6 +130,8 @@ map:
       layers:
         - shellfish-harvesting
 
+=======
+>>>>>>> refactor(pugetsound) add cases and rose grants place layers
     - id: pugetsoundrose
       type: place
       slug: rose
