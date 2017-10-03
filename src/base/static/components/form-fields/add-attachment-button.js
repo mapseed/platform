@@ -18,9 +18,9 @@ class AddAttachmentButton extends Component {
     this.attachments = [];
   }
 
-	onChange(evt) {
-		if (evt.target.files && evt.target.files.length) {
-			let file = evt.target.files[0];
+  onChange(evt) {
+    if (evt.target.files && evt.target.files.length) {
+      let file = evt.target.files[0];
       this.setState({ displayFilename: file.name });
 
       Util.fileToCanvas(
@@ -33,8 +33,6 @@ class AddAttachmentButton extends Component {
               file: canvas.toDataURL("image/jpeg"),
             });
           }, "image/jpeg");
-
-          console.log(this.attachments);
         },
         {
           // TODO: make configurable
@@ -43,10 +41,8 @@ class AddAttachmentButton extends Component {
           canvas: true,
         },
       );
-
     }
-
-	}
+  }
 
   render() {
     let addAttachmentFilenameClass = {
@@ -70,4 +66,3 @@ class AddAttachmentButton extends Component {
 };
 
 export { AddAttachmentButton };
-
