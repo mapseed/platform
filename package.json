@@ -67,6 +67,7 @@
     "gettext-parser": "^1.2.2",
     "handlebars": "^4.0.10",
     "js-yaml": "^3.9.0",
+    "json-loader": "^0.5.7",
     "mv": "^2.1.1",
     "node-gettext": "^2.0.0",
     "object-walk": "^0.1.1",
@@ -75,6 +76,7 @@
     "style-loader": "^0.18.2",
     "watchify": "^3.4.0",
     "wax-on": "^1.2.0",
-    "webpack-dev-server": "^2.6.1"
+    "webpack-dev-server": "^2.6.1",
+    "yaml-loader": "^0.5.0"
   }
 }

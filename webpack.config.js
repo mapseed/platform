@@ -20,7 +20,8 @@ var entryPoints = [
   "./src/base/static/js/routes.js",
   "./src/base/static/js/handlebars-helpers.js",
   "./src/base/static/scss/default.scss",
-  "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css"
+  "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
+  "./src/flavors/" + process.env.FLAVOR + "/config.yml"
 ].concat(flavorJsFiles);
 
 var baseViewPaths = glob.sync(path.resolve(__dirname, 'src/base/static/js/views/*.js'));
@@ -39,6 +40,8 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 }
 
 var outputBasePath = path.resolve(__dirname, "www");
+const extractSCSS = new ExtractTextPlugin("bundle.css");
+const extractYML = new ExtractTextPlugin("config-en_US.js");
 
 module.exports = {
   entry: entryPoints,
@@ -49,24 +52,37 @@ module.exports = {
   resolve: {
     alias: alias
   },
+  resolveLoader: {
+    modules: ["node_modules", path.resolve(__dirname, "build-utils")]
+  },
   module: {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
       {
         test: /\.s?css$/,
-        loader: ExtractTextPlugin.extract({
+        loader: extractSCSS.extract({
           fallback: "style-loader",
           use: "css-loader?url=false!sass-loader?includePaths[]=" + path.resolve(__dirname, "./node_modules/compass-mixins/lib")
         }),
+      },
+      {
+        test: /config\.yml$/,
+        use: [
+          "json-loader",
+          "config-loader",
+          "json-loader",
+          "yaml-loader"
+        ]
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin("bundle.css"),
+    extractSCSS,
     new CompressionPlugin({
       asset: "[path].gz[query]",
       test:  /\.css$/
-    })
+    }),
+    extractYML
   ],
   devServer: {
     contentBase: outputBasePath,

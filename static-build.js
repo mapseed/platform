@@ -383,14 +383,7 @@ activeLanguages.forEach((language) => {
     languageCode: language.code,
 
     // TODO: fix this...
-    userTokenJson: "",
-
-    // TODO: user agent identification needs to be moved client-side
-    userAgentJson: {
-      browser: {
-        name: "some browser name"
-      }
-    }
+    userTokenJson: ""
   });
 
   // Write out final index-xx.html file
