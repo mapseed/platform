@@ -87,6 +87,14 @@ map:
       sources:
         - "https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson"
 
+    - id: pugetsoundrose
+      type: place
+      slug: rose
+
+    - id: pugetsoundcases
+      type: place
+      slug: cases
+
     - id: settled-cases
       type: landmark
       url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
@@ -160,19 +168,31 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-industrial.png
 
-  mapbox:
-    zoomType: mapboxZoomStyle
+  rose-grants:
     rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-rose-fdn.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   settled-cases:
-    zoomType: mapboxZoomStyle
     rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
       - condition: 'true'
         icon:
-          iconUrl: /static/css/images/markers/marker-gavel.png
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
 
   observation:
     label: _(Observation)
@@ -350,10 +370,10 @@ sidebar:
             - id: violators
               title: _(Pollution violations)
               visibleDefault: true
-            - id: rose-grants
+            - id: pugetsoundrose
               title: _(Rose Foundation Awardees)
               visibleDefault: false
-            - id: settled-cases
+            - id: pugetsoundcases
               title: _(Settled Cases)
               visibleDefault: false
             - id: cso
@@ -422,6 +442,96 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: pugetsoundfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+    - category: rose-grants
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: pugetsoundrose
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+    - category: settled-cases
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: pugetsoundcases
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
       label: _(Featured Site)
@@ -676,12 +786,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    hide_from_top_bar: true
-
-  - title: _(Background)
-    slug: background
-    name: background
-    hide_from_top_bar: true
+    hide_from_top_bar: false
 
   - title: _(Get involved)
     slug: getinvolved
@@ -702,11 +807,11 @@ story:
       - url: rainier-petroleum
       - url: ssa-terminals
 
-cluster:
-  animate: true
-  animateAddingMarkers: false
-  showCoverageOnHover: true
-  spiderfyOnMaxZoom: true
-  spiderfyDistanceMultiplier: 1.5
-  spiderLegPolylineOptions:
-    opacity: 0
+# cluster:
+#   animate: true
+#   animateAddingMarkers: false
+#   showCoverageOnHover: true
+#   spiderfyOnMaxZoom: true
+#   spiderfyDistanceMultiplier: 1.5
+#   spiderLegPolylineOptions:
+#     opacity: 0
