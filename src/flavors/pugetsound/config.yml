@@ -807,11 +807,11 @@ story:
       - url: rainier-petroleum
       - url: ssa-terminals
 
-cluster:
-  animate: true
-  animateAddingMarkers: false
-  showCoverageOnHover: true
-  spiderfyOnMaxZoom: true
-  spiderfyDistanceMultiplier: 1.5
-  spiderLegPolylineOptions:
-    opacity: 0
+# cluster:
+#   animate: true
+#   animateAddingMarkers: false
+#   showCoverageOnHover: true
+#   spiderfyOnMaxZoom: true
+#   spiderfyDistanceMultiplier: 1.5
+#   spiderLegPolylineOptions:
+#     opacity: 0
