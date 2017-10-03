@@ -4,13 +4,13 @@ const baseClass = "tertiary-button";
 
 class TertiaryButton extends Component {
 
-	render() {
-		return (
-			<button className={baseClass}>
-				{this.props.children}
-			</button>
-		);
-	}
+  render() {
+    return (
+      <button className={baseClass}>
+        {this.props.children}
+      </button>
+    );
+  }
 }
 
 export { TertiaryButton }

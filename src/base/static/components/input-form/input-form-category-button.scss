@@ -1,73 +1,73 @@
 .input-form-category-button {
-	margin: $input-form-category-button-margin;
-	background-color: $input-form-category-button-background-color;
-	padding: 0;
+  margin: $input-form-category-button-margin;
+  background-color: $input-form-category-button-background-color;
+  padding: 0;
 
-	label {
-		height: $input-form-category-button-height;
+  label {
+    height: $input-form-category-button-height;
 
-		.label-with-inline-image__label-container {
-			display: flex;
-			justify-content: center;
-			flex-direction: column;
-			flex: 1;
-			height: 100%;
-  		border-right: $input-form-category-button-border;
-			border-top: $input-form-category-button-border;
-			border-bottom: $input-form-category-button-border;
-			border-radius: $input-form-category-button-label-border-radius;
-		}
+    .label-with-inline-image__label-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+      border-right: $input-form-category-button-border;
+      border-top: $input-form-category-button-border;
+      border-bottom: $input-form-category-button-border;
+      border-radius: $input-form-category-button-label-border-radius;
+    }
 
-		.label-with-inline-image__image-container {
-		  display: flex;
-		  flex-direction: column;
-			justify-content: center;
-			height: 100%;
-			border-left: $input-form-category-button-border;
-			border-top: $input-form-category-button-border;
-			border-bottom: $input-form-category-button-border;
-			border-radius: $input-form-category-button-image-border-radius;
+    .label-with-inline-image__image-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      border-left: $input-form-category-button-border;
+      border-top: $input-form-category-button-border;
+      border-bottom: $input-form-category-button-border;
+      border-radius: $input-form-category-button-image-border-radius;
 
-			img {
-				margin: $input-form-category-button-image-margin;
-			}
-		}
-	}
+      img {
+        margin: $input-form-category-button-image-margin;
+      }
+    }
+  }
 
-	&:hover {
-		.label-with-inline-image__image-container {
-			border-left: $input-form-category-button-hover-border;
-			border-top: $input-form-category-button-hover-border;
-			border-bottom: $input-form-category-button-hover-border;
-		}
+  &:hover {
+    .label-with-inline-image__image-container {
+      border-left: $input-form-category-button-hover-border;
+      border-top: $input-form-category-button-hover-border;
+      border-bottom: $input-form-category-button-hover-border;
+    }
 
-		.label-with-inline-image__label-container {
-			border-right: $input-form-category-button-hover-border;
-			border-top: $input-form-category-button-hover-border;
-			border-bottom: $input-form-category-button-hover-border;
-		}
-	}
+    .label-with-inline-image__label-container {
+      border-right: $input-form-category-button-hover-border;
+      border-top: $input-form-category-button-hover-border;
+      border-bottom: $input-form-category-button-hover-border;
+    }
+  }
 
-	input {
-		display: none;
+  input {
+    display: none;
 
-		&:checked + label {
-			border-radius: $input-form-category-button-border-radius;
+    &:checked + label {
+      border-radius: $input-form-category-button-border-radius;
 
-			.label-with-inline-image__image-container {
-				background-color: $input-form-selected-category-button-image-background-color;
-			}
+      .label-with-inline-image__image-container {
+        background-color: $input-form-selected-category-button-image-background-color;
+      }
 
-			.label-with-inline-image__label-container {
-				background-color: $input-form-selected-category-button-label-background-color;
-				color: $input-form-selected-category-button-text-color;
-			}
-		}
-	}
+      .label-with-inline-image__label-container {
+        background-color: $input-form-selected-category-button-label-background-color;
+        color: $input-form-selected-category-button-text-color;
+      }
+    }
+  }
 
-	.label-with-inline-image__label-container {
-		color: $input-form-category-button-text-color;
-		margin: $input-form-category-button-label-margin;
-		padding: $input-form-category-button-label-padding;
-	}
+  .label-with-inline-image__label-container {
+    color: $input-form-category-button-text-color;
+    margin: $input-form-category-button-label-margin;
+    padding: $input-form-category-button-label-padding;
+  }
 }

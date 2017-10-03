@@ -7,16 +7,16 @@ const baseClass = "input-form-submit-button";
 
 class InputFormSubmitButton extends Component {
 
-	render() {
-		return (
-			<div className={baseClass}>
+  render() {
+    return (
+      <div className={baseClass}>
         <PrimaryButton>
           {this.props.label}
           <SubmitField name={this.props.name} />
         </PrimaryButton>
       </div>
-		);
-	}
+    );
+  }
 };
 
 export { InputFormSubmitButton };

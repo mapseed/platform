@@ -1,17 +1,17 @@
 .secondary-button {
-	position: relative;
+  position: relative;
 
-	padding: $secondary-button-padding;
-	background-color: $secondary-button-background-color;
-	border: $secondary-button-border;
-	color: $secondary-button-text-color;
-	box-shadow: $secondary-button-box-shadow;
-	border-radius: $secondary-button-border-radius;
-	text-transform: $secondary-button-text-transform;
-	font-size: $secondary-button-font-size;
-		
-	&:hover {
-		background-color: $secondary-button-background-hover-color;
-		cursor: $secondary-button-hover-cursor;
-	}
+  padding: $secondary-button-padding;
+  background-color: $secondary-button-background-color;
+  border: $secondary-button-border;
+  color: $secondary-button-text-color;
+  box-shadow: $secondary-button-box-shadow;
+  border-radius: $secondary-button-border-radius;
+  text-transform: $secondary-button-text-transform;
+  font-size: $secondary-button-font-size;
+	
+  &:hover {
+    background-color: $secondary-button-background-hover-color;
+    cursor: $secondary-button-hover-cursor;
+  }
 }
