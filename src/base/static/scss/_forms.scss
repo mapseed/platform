@@ -236,23 +236,23 @@ input {
 }
 
 /* QuillJS rich text editor styles */
-.rich-text-field {
-    min-height: 200px;
-    margin-top: 0px !important;
-    border-bottom: 0.35em solid #a3c7d9 !important;
-    border-left: 0.35em solid #a3c7d9 !important;
-    border-right: 0.35em solid #a3c7d9 !important;
-}
+// .rich-text-field {
+//     min-height: 200px;
+//     margin-top: 0px !important;
+//     border-bottom: 0.35em solid #a3c7d9 !important;
+//     border-left: 0.35em solid #a3c7d9 !important;
+//     border-right: 0.35em solid #a3c7d9 !important;
+// }
 
-.ql-toolbar {
-    border-top: 0.30em solid #a3c7d9 !important;
-    border-left: 0.30em solid #a3c7d9 !important;
-    border-right: 0.30em solid #a3c7d9 !important;   
-}
+// .ql-toolbar {
+//     border-top: 0.30em solid #a3c7d9 !important;
+//     border-left: 0.30em solid #a3c7d9 !important;
+//     border-right: 0.30em solid #a3c7d9 !important;
+// }
 
-.ql-out-bottom {
-    visibility: visible !important;
-}
+// .ql-out-bottom {
+//     visibility: visible !important;
+// }
 
 /* Editor mode update form */
 #update-place-model-title-form .place-value-title {

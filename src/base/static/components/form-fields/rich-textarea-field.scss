@@ -1,0 +1,25 @@
+.mapseed-rich-textarea-field {
+
+  .ql-toolbar {
+    border-top: $rich-textarea-border;
+    border-left: $rich-textarea-border;
+    border-right: $rich-textarea-border;
+  }
+
+  .ql-container {
+    min-height: $rich-textarea-min-height;
+    border-bottom: $rich-textarea-border;
+    border-left: $rich-textarea-border;
+    border-right: $rich-textarea-border;
+    font-size: $rich-textarea-font-size;
+  }
+
+  .ql-out-bottom {
+    visibility: visible !important;
+  }
+
+}
+
+.mapseed-rich-textarea-field__quill-file-input--hidden {
+  display: none;
+}
