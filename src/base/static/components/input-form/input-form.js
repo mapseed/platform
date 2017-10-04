@@ -15,6 +15,7 @@ import { AddAttachmentButton } from "../form-fields/add-attachment-button";
 import { RadioBigButton } from "../input-form/radio-big-button";
 import { CheckboxBigButton } from "../input-form/checkbox-big-button";
 import { InputFormSubmitButton } from "../input-form/input-form-submit-button";
+import { RichTextareaField } from "../form-fields/rich-textarea-field";
 
 
 const baseClass = "input-form";
@@ -140,6 +141,8 @@ class InputForm extends Component {
 
           <InputFormSubmitButton 
             label="Put it on the map!" />
+
+          <RichTextareaField />
 
         </form> 
       </div>
