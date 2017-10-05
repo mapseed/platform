@@ -759,13 +759,17 @@ module.exports = Backbone.View.extend({
       <InputForm
         placeConfig={this.options.placeConfig}
         mapConfig={this.options.mapConfig}
+        map={this.mapView.map}
         emitter={emitter}
+        router={this.options.router}
       />,
       document.querySelector("#content article")
     );
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
+    this.setBodyClass("content-visible", "content-expanded");
+    this.mapView.map.invalidateSize({ animate: true, pan: true });
     // this.showPanel(this.placeFormView.render(false).$el);
 
     // this.placeFormView.delegateEvents();

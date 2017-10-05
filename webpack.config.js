@@ -73,7 +73,6 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
       {
         test: /\.s?css$/,
         loader: extractSCSS.extract({
@@ -89,7 +88,8 @@ module.exports = {
           "json-loader",
           "yaml-loader"
         ]
-      }
+      },
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
     ]
   },
   plugins: [

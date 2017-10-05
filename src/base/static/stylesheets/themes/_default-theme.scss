@@ -12,6 +12,7 @@ $accent-color-2: #00AAFF;
 
 $very-light-gray: #EEEEEE;
 $light-gray: #D1D3D4;
+$dark-gray: #888888;
 $very-dark-gray: #36454F;
 $extremely-dark-gray: #222222;
 
@@ -229,5 +230,65 @@ $checkbox-big-button-selected-border: 2px solid $accent-color-1;
 $rich-textarea-border: 0.3em solid $secondary-color;
 $rich-textarea-min-height: 200px;
 $rich-textarea-font-size: 16px;
+
+/*
+  MapDrawingToolbar.js
+  Toolbar for drawing icons, polylines, and polygons on the map
+*/
+$map-drawing-toolbar-background-color: $dark-gray;
+$map-drawing-toolbar-border-radius: 5px;
+$map-drawing-toolbar-padding: 10px 10px 10px 10px;
+$map-drawing-toolbar-text-color: #FFFFFF;
+
+$map-drawing-toolbar-create-marker-icon: url(/static/css/images/create-marker-icon.svg);
+$map-drawing-toolbar-create-marker-icon-width: 30px;
+$map-drawing-toolbar-create-marker-icon-height: 34px;
+$map-drawing-toolbar-edit-marker-icon: url(/static/css/images/edit-geometry-icon.svg);
+$map-drawing-toolbar-edit-marker-icon-width: 30px;
+$map-drawing-toolbar-edit-marker-icon-height: 34px;
+$map-drawing-toolbar-delete-marker-icon: url(/static/css/images/delete-geometry-icon.svg);
+$map-drawing-toolbar-delete-marker-icon-width: 30px;
+$map-drawing-toolbar-delete-marker-icon-height: 34px;
+
+$map-drawing-toolbar-create-polyline-icon: url(/static/css/images/create-polyline-icon.svg);
+$map-drawing-toolbar-create-polyline-icon-width: 30px;
+$map-drawing-toolbar-create-polyline-icon-height: 34px;
+$map-drawing-toolbar-edit-polyline-icon: url(/static/css/images/edit-geometry-icon.svg);
+$map-drawing-toolbar-edit-polyline-icon-width: 30px;
+$map-drawing-toolbar-edit-polyline-icon-height: 34px;
+$map-drawing-toolbar-delete-polyline-icon: url(/static/css/images/delete-geometry-icon.svg);
+$map-drawing-toolbar-delete-polyline-icon-width: 30px;
+$map-drawing-toolbar-delete-polyline-icon-height: 34px;
+
+$map-drawing-toolbar-create-polygon-icon: url(/static/css/images/create-polygon-icon.svg);
+$map-drawing-toolbar-create-polygon-icon-width: 30px;
+$map-drawing-toolbar-create-polygon-icon-height: 34px;
+$map-drawing-toolbar-edit-polygon-icon: url(/static/css/images/edit-geometry-icon.svg);
+$map-drawing-toolbar-edit-polygon-icon-width: 30px;
+$map-drawing-toolbar-edit-polygon-icon-height: 34px;
+$map-drawing-toolbar-delete-polygon-icon: url(/static/css/images/delete-geometry-icon.svg);
+$map-drawing-toolbar-delete-polygon-icon-width: 30px;
+$map-drawing-toolbar-delete-polygon-icon-height: 34px;
+
+$map-drawing-toolbar-fill-colorpicker-icon: url(/static/css/images/colorpicker-icon.svg);
+$map-drawing-toolbar-fill-colorpicker-icon-width: 30px;
+$map-drawing-toolbar-fill-colorpicker-icon-height: 34px;
+$map-drawing-toolbar-stroke-colorpicker-icon: url(/static/css/images/colorpicker-icon.svg);
+$map-drawing-toolbar-stroke-colorpicker-icon-width: 30px;
+$map-drawing-toolbar-stroke-colorpicker-icon-height: 34px;
+
+$map-drawing-toolbar-toolbar-item-border: 2px solid transparent;
+$map-drawing-toolbar-toolbar-item-hover-border: 2px solid #FFFFFF;
+$map-drawing-toolbar-toolbar-border-radius: 4px;
+$map-drawing-toolbar-toolbar-item-padding: 4px 14px 4px 4px;
+$map-drawing-toolbar-toolbar-item-selected-background-color: #FFFFFF;
+$map-drawing-toolbar-toolbar-item-selected-text-color: $secondary-color;
+
+$map-drawing-toolbar-marker-item-marker-width: 25px;
+$map-drawing-toolbar-marker-item-marker-border: 2px solid transparent;
+$map-drawing-toolbar-marker-item-marker-hover-border: 2px solid #FFFFFF;
+$map-drawing-toolbar-marker-item-marker-border-radius: 4px;
+$map-drawing-toolbar-marker-item-selected-background-color: #FFFFFF;
+$map-drawing-toolbar-marker-item-padding: 3px 3px 3px 3px;
 
 
