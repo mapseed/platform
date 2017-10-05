@@ -3,7 +3,7 @@ var Util = require("../utils.js");
 var BasicLayerView = require("mapseed-basic-layer-view");
 var LayerView = require("mapseed-layer-view");
 var toGeoJSON = require("togeojson");
-var GeometryEditorView = require("mapseed-geometry-editor-view");
+//var GeometryEditorView = require("mapseed-geometry-editor-view");
 
 module.exports = Backbone.View.extend({
   events: {
@@ -53,10 +53,10 @@ module.exports = Backbone.View.extend({
     }
 
     // TODO: only init if geometry editing is enabled?
-    this.geometryEditorView = new GeometryEditorView({
-      map: this.map,
-      router: this.options.router,
-    });
+    // this.geometryEditorView = new GeometryEditorView({
+    //   map: this.map,
+    //   router: this.options.router,
+    // });
 
     self.map.on("dragend", logUserPan);
     $(self.map.zoomControl._zoomInButton).click(logUserZoom);

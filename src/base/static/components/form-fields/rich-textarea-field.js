@@ -1,7 +1,6 @@
 import React, { Component, MouseEvent } from "react";
 import cx from "bem-classnames";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const Util = require("../../js/utils.js");
 
@@ -110,7 +109,6 @@ class RichTextareaField extends Component {
     return (
       <div className={baseClass}>
         <ReactQuill 
-          className={baseClass}
           ref="quill-editor"
           theme="snow"
           modules={this.modules}

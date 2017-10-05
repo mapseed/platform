@@ -15,7 +15,8 @@ import { AddAttachmentButton } from "../form-fields/add-attachment-button";
 import { RadioBigButton } from "../input-form/radio-big-button";
 import { CheckboxBigButton } from "../input-form/checkbox-big-button";
 import { InputFormSubmitButton } from "../input-form/input-form-submit-button";
-import { RichTextareaField } from "../form-fields/rich-textarea-field";
+//import { RichTextareaField } from "../form-fields/rich-textarea-field";
+import { MapDrawingToolbar } from "../input-form/map-drawing-toolbar";
 
 
 const baseClass = "input-form";
@@ -26,7 +27,11 @@ class InputForm extends Component {
     super();
     this.state = {
       allCategories: [],
-      visibleCategories: []
+      visibleCategories: [],
+
+      // TODO: this state will probably be bumped higher in the hierarchy as the
+      // port proceeds.
+      formIsOpen: false
     };
 
     this.options = [
@@ -46,6 +51,11 @@ class InputForm extends Component {
         selected: false
       }
     ];
+
+    this.markers = [
+      "/static/css/images/markers/marker-star.png",
+      "/static/css/images/markers/marker-heart.png"
+    ];
   }
 
   onChange() {
@@ -53,9 +63,18 @@ class InputForm extends Component {
 
   }
 
+  onGeometry(geometry) {
+    console.log("onGeometry", geometry);
+  }
+
   componentWillMount() {
     this.setState({ allCategories: this.props.placeConfig.place_detail });
     this.setState({ visibleCategories: this.props.placeConfig.place_detail });
+  }
+
+  componentDidMount() {
+    this.setState({ formIsOpen: true });
+    this.props.router.on("route", this.setState({ formIsOpen: false }), this);
   }
 
   onCategoryChange(evt) {
@@ -142,7 +161,12 @@ class InputForm extends Component {
           <InputFormSubmitButton 
             label="Put it on the map!" />
 
-          <RichTextareaField />
+          <MapDrawingToolbar 
+            map={this.props.map}
+            markers={this.markers} 
+            router={this.props.router}
+            formIsOpen={this.state.formIsOpen} 
+            onGeometry={this.onGeometry.bind(this)} />
 
         </form> 
       </div>

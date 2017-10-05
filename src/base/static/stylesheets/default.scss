@@ -1,6 +1,10 @@
 
 // TODO: CSS reset here?
 
+// Vendor stylesheets
+@import "~rc-color-picker/assets/index.css";
+@import "~react-quill/dist/quill.snow.css";
+
 // Current theme
 @import "themes/default-theme";
 
@@ -25,3 +29,4 @@
 @import "../components/input-form/checkbox-big-button";
 @import "../components/input-form/input-form-submit-button";
 @import "../components/form-fields/rich-textarea-field";
+@import "../components/input-form/map-drawing-toolbar";

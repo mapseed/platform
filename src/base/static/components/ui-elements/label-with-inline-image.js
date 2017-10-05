@@ -27,8 +27,8 @@ class LabelWithInlineImage extends Component {
 };
 
 LabelWithInlineImage.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
-  labelText: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string,
+  labelText: PropTypes.string,
   inputId: PropTypes.string.isRequired
 };
 
