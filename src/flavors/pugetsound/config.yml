@@ -231,6 +231,7 @@ place_types:
           iconAnchor: [25, 35]
 
   pollution:
+    label: _(Pollution report)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
