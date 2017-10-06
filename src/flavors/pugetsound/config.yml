@@ -71,12 +71,6 @@ map:
       type: place
       slug: report
 
-    - id: violators
-      type: landmark
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/pugetsound-landmarks.geojson"
-
     - id: pugetsoundrose
       type: place
       slug: rose
@@ -178,7 +172,7 @@ place_types:
           iconSize: [30, 35]
           iconAnchor: [25, 35]
 
-  observation:
+  pollution:
     label: _(Observation)
     rules:
       - condition: 'this.layer.focused === true'
@@ -348,9 +342,6 @@ sidebar:
             - id: cleanup-sites
               title: _(Toxic cleanup sites)
               visibleDefault: false
-            - id: violators
-              title: _(Pollution violations)
-              visibleDefault: true
             - id: pugetsoundrose
               title: _(Rose Foundation Awardees)
               visibleDefault: false
@@ -550,36 +541,26 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement
-    - category: observation
+    - category: pollution
       includeOnForm: true
       name: location_type
       dataset: pugetsound
       icon_url: /static/css/images/markers/marker-observation.png
-      value: observation
-      label: _(Observation)
+      value: pollution
+      label: _(Report Pollution)
       fields:
         - name: title
           type: text
-          prompt: _(Title of your observation:)
+          prompt: _(Title of your report:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
-          display_prompt: _( )
-          content:
-            - label: _(Sewage)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
-            - label: _(Other)
-              value: other
-          optional: true # NOTE: checkbox_big_button inputs have no validation
+        - name: date
+          type: datetime
+          prompt: _(Date of incident:)
+          display_prompt: _(Date of incident:)
+          placeholder: _(Date of incicent...)
+          optional: false          
         - name: description
           type: textarea
           prompt: _(Description:)
@@ -783,10 +764,12 @@ story:
     # (that is, no default settings will be inherited).
     default_zoom: 15
     default_visible_layers:
-      - violators
     order: 
-      - url: rainier-petroleum
-      - url: ssa-terminals
+      - url: atlantic-salmon
+        zoom: 14
+        basemap: satellite
+        visible_layers:
+          - pugetsoundfeatured
 
   rose-grants:
     tagline: _(Next grant)
