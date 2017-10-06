@@ -173,7 +173,7 @@ place_types:
           iconAnchor: [25, 35]
 
   pollution:
-    label: _(Observation)
+    label: _(Pollution)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
