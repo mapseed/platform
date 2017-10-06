@@ -87,6 +87,7 @@ map:
     - id: topo
       type: basemap
       url: //{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png
+      maxZoom: 13
 
     - id: landcover
       type: basemap

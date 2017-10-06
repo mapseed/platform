@@ -110,6 +110,11 @@ module.exports = Backbone.View.extend({
       }
 
       if (isBasemap) {
+        self.checkLayerZoom(config.maxZoom);
+        self.map.options.maxZoom = (config.maxZoom)
+          ? config.maxZoom
+          : self.options.mapConfig.options.maxZoom;
+
         _.each(self.options.basemapConfigs, function(basemap) {
           if (basemap.id === id) {
             self.map.addLayer(layer);
@@ -129,6 +134,14 @@ module.exports = Backbone.View.extend({
       }
     });
   }, // end initialize
+
+  checkLayerZoom(maxZoom) {
+    if (maxZoom && this.map.getZoom() > maxZoom) {
+      _.defer(() => {
+        this.map.setZoom(parseInt(maxZoom, 10));
+      });
+    }
+  },
 
   onUserHideModel: function(collectionId) {
     return function(model) {
