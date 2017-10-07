@@ -15,8 +15,9 @@ import { AddAttachmentButton } from "../form-fields/add-attachment-button";
 import { RadioBigButton } from "../input-form/radio-big-button";
 import { CheckboxBigButton } from "../input-form/checkbox-big-button";
 import { InputFormSubmitButton } from "../input-form/input-form-submit-button";
-//import { RichTextareaField } from "../form-fields/rich-textarea-field";
+import { RichTextareaField } from "../form-fields/rich-textarea-field";
 import { MapDrawingToolbar } from "../input-form/map-drawing-toolbar";
+import { AutocompleteComboboxField } from "../form-fields/autocomplete-combobox-field";
 
 
 const baseClass = "input-form";
@@ -56,10 +57,25 @@ class InputForm extends Component {
       "/static/css/images/markers/marker-star.png",
       "/static/css/images/markers/marker-heart.png"
     ];
+
+    this.suggestions = [
+      {
+        value: 'france',
+        label: 'France'
+      },
+      {
+        value: 'germany',
+        label: 'Germany'
+      },
+      {
+        value: 'united-kingdom',
+        label: 'United Kingdom'
+      }
+    ];
   }
 
-  onChange() {
-    console.log("!!!!!");
+  onChange(evt) {
+    console.log("!!!!!", evt);
 
   }
 
@@ -167,6 +183,13 @@ class InputForm extends Component {
             router={this.props.router}
             formIsOpen={this.state.formIsOpen} 
             onGeometry={this.onGeometry.bind(this)} />
+
+          <AutocompleteComboboxField
+            options={this.suggestions}
+            placeholder="Type a name"
+            id="autocomplete"
+            onChange={this.onChange.bind(this)}
+            showAllValues={true} />
 
         </form> 
       </div>
