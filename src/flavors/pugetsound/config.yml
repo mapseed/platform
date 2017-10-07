@@ -756,7 +756,7 @@ pages:
     hide_from_top_bar: true
 
 story:
-  violators:
+  home:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different 
