@@ -1,81 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "bem-classnames";
-import ColorPicker from "rc-color-picker";
+//import ColorPicker from "rc-color-picker";
 
 import { RadioField } from "../form-fields/radio-field";
 import { LabelWithInlineImage } from "../ui-elements/label-with-inline-image";
+import { mapDrawingToolbar as messages } from "../messages";
 
 const baseClass = "map-drawing-toolbar";
-
-// TODO: localization
-const messages = {
-  selectTool: {
-    header: "Click on a tool below to draw on the map"
-  },
-  createMarker: {
-    header: "Drag your marker to reposition it"
-  },
-  createMarkerTool: {
-    label: "Create marker"
-  },
-  editMarkerTool: {
-    label: "Edit marker"
-  },
-  deleteMarkerTool: {
-    label: "Delete marker"
-  },
-  selectMarkerType: {
-    header: "Choose a marker style below"
-  },
-  createPolyline: {
-    header: {
-      initial: "Click anywhere on the map to start drawing",
-      continue: "Click to continue drawing",
-      continueOrFinish: "Click to continue drawing, or double click to complete your line"
-    }
-  },
-  createPolylineTool: {
-    label: "Create line"
-  },
-  editPolylineTool: {
-    label: "Edit line"
-  },
-  deletePolylineTool: {
-    label: "Delete line"
-  },
-  createPolygon: {
-    header: {
-      initial: "Click anywhere on the map to start drawing",
-      continue: "Click to continue drawing",
-      continueOrFinish: "Click to continue drawing, or click on your first point to complete your shape"
-    }
-  },
-  createPolygonTool: {
-    label: "Create shape"
-  },
-  editPolygonTool: {
-    label: "Edit shape"
-  },
-  deletePolygonTool: {
-    label: "Delete shape"
-  },
-  editMarker: {
-    header: "Drag your makrer to reposition it"
-  },
-  editPolyline: {
-    header: "Drag line handles to edit your line, or click on line handles to delete vertices"
-  },
-  editPolygon: {
-    header: "Drag shape handles to edit your shape, or click on shape handles to delete vertices"
-  },
-  colorpickerStrokeTool: {
-    label: "Line color"
-  },
-  colorpickerFillTool: {
-    label: "Fill color"
-  }
-};
 
 const drawingDefaults = {
   color: "#f86767", // stroke color

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { EventEmitter } from "fbemitter";
 import cx from "bem-classnames";
 
+import { geocodingField as messages } from "../messages";
+
 const Util = require("../../js/utils.js");
 
 const baseClass = "mapseed-geocoding-field";
@@ -75,7 +77,7 @@ class GeocodingField extends Component {
           onBlur={this.onBlur.bind(this)} />
         <div className={cx(this.geocodingErrorClass, 
           { visibility: this.state.hasGeocodingError ? "visible" : "hidden" })}>
-          Sorry, we could not find that location.
+          {messages.locationNotFoundError}
         </div>
       </div>
     );
