@@ -19,6 +19,8 @@ import { RichTextareaField } from "../form-fields/rich-textarea-field";
 import { MapDrawingToolbar } from "../input-form/map-drawing-toolbar";
 import { AutocompleteComboboxField } from "../form-fields/autocomplete-combobox-field";
 import { CustomUrlField } from "../input-form/custom-url-field";
+import { ToggleField } from "../form-fields/toggle-field";
+import { ToggleBigButton } from "../form-fields/toggle-big-button";
 import { inputForm as messages } from "../messages";
 
 
@@ -83,7 +85,7 @@ class InputForm extends Component {
   }
 
   onChange(evt) {
-    console.log("!!!!!", evt.target.value);
+    console.log("!!!!!", evt.target.checked);
 
   }
 
@@ -203,6 +205,12 @@ class InputForm extends Component {
             urlPrefix="localhost" 
             layerConfig={this.layerConfig} 
             placeholder="Type a custom url" 
+            onChange={this.onChange.bind(this)} />
+
+          <ToggleBigButton
+            labels={["ON", "OFF"]}
+            checked={true}
+            id={"fdfdd"}
             onChange={this.onChange.bind(this)} />
 
         </form> 

@@ -224,6 +224,21 @@ $checkbox-big-button-selected-icon-background-color: $accent-color-1;
 $checkbox-big-button-selected-border: 2px solid $accent-color-1;
 
 /*
+  ToggleBigButton.js
+  Large toggle button with label with left-aligned icon inside
+*/
+$toggle-big-button-icon: $icon-check-mark;
+$toggle-big-button-hover-icon-color: $very-light-gray;
+$toggle-big-button-hover-icon-background-color: $light-gray;
+$toggle-big-button-hover-label-color: $very-dark-gray;
+$toggle-big-button-selected-icon-color: #FFFFFF;
+$toggle-big-button-border: 2px solid $light-gray;
+$toggle-big-button-selected-border: 2px solid $accent-color-1;
+$toggle-big-button-selected-label-color: $extremely-dark-gray;
+$toggle-big-button-selected-icon-background-color: $accent-color-1;
+$toggle-big-button-selected-border: 2px solid $accent-color-1;
+
+/*
   RichTextareaField.js
   Quill-driven rich textarea input box
 */
@@ -300,7 +315,7 @@ $autocomplete-combobox-padding: 0.5em 0.5em 0.5em 0.5em;
 
 /*
   CustomUrlField.js
-  Toolbar for drawing icons, polylines, and polygons on the map
+  Field for entering a custom url for a place
 */
 $custom-url-background-color: $dark-gray;
 $custom-url-border-radius: 5px;
