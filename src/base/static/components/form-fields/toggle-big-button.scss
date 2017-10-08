@@ -1,0 +1,61 @@
+.toggle-big-button {
+  
+  label {
+    font-size: 1.15em;
+    min-height: 2.1em;
+    line-height: 2.1em;
+    padding-right: 10px;
+    padding-left: 60px;
+    text-indent: 0;
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #D1D3D4;
+    border: $toggle-big-button-border;
+    border-radius: 4px;
+
+    &:before {
+      position: absolute;
+      display: block;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      content: "";
+      width: 2.5em;
+      background-color: $toggle-big-button-hover-icon-background-color;
+    }
+
+    &:hover {
+      color: $toggle-big-button-hover-label-color;
+
+      &:before {
+        content: $toggle-big-button-icon;
+        text-indent: 0.9em;
+        color: $toggle-big-button-hover-icon-color;
+      }
+    }
+  }
+
+  .mapseed-toggle-field {
+    display: none;
+
+    &:checked {
+      + label {
+        border: $toggle-big-button-selected-border;
+        color: $toggle-big-button-selected-label-color;
+
+        &:before {
+          content: $toggle-big-button-icon;
+          background-color: $toggle-big-button-selected-icon-background-color;
+          text-indent: 0.9em;
+          color: $toggle-big-button-selected-icon-color;
+        }
+      }
+    }
+  }
+}
