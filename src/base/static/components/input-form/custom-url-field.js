@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import cx from "bem-classnames";
 
 import { TextField } from "../form-fields/text-field";
+import { customUrlField as messages } from "../messages";
 
 const Util = require("../../js/utils.js");
 
@@ -52,7 +53,7 @@ class CustomUrlField extends Component {
     return (
       <div className={baseClass}>
         <div className={cx(this.classes.urlReadoutContainer)}>
-          <p className={cx(this.classes.urlReadoutPrefixMsg)}>Your post will be accessible at:</p>
+          <p className={cx(this.classes.urlReadoutPrefixMsg)}>{messages.urlReadoutPrefix}</p>
           <span className={cx(this.classes.urlReadoutPrefix)}>{this.urlPrefix}</span>
           <span className={cx(this.classes.urlReadoutUrl)}>{this.state.url}</span>
         </div>

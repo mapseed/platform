@@ -19,7 +19,7 @@ import { RichTextareaField } from "../form-fields/rich-textarea-field";
 import { MapDrawingToolbar } from "../input-form/map-drawing-toolbar";
 import { AutocompleteComboboxField } from "../form-fields/autocomplete-combobox-field";
 import { CustomUrlField } from "../input-form/custom-url-field";
-
+import { inputForm as messages } from "../messages";
 
 
 const baseClass = "input-form";
