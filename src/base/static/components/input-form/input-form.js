@@ -18,6 +18,8 @@ import { InputFormSubmitButton } from "../input-form/input-form-submit-button";
 import { RichTextareaField } from "../form-fields/rich-textarea-field";
 import { MapDrawingToolbar } from "../input-form/map-drawing-toolbar";
 import { AutocompleteComboboxField } from "../form-fields/autocomplete-combobox-field";
+import { CustomUrlField } from "../input-form/custom-url-field";
+
 
 
 const baseClass = "input-form";
@@ -72,10 +74,16 @@ class InputForm extends Component {
         label: 'United Kingdom'
       }
     ];
+
+    this.layerConfig = {
+      id: "whatever",
+      type: "place",
+      slug: "slug"
+    }
   }
 
   onChange(evt) {
-    console.log("!!!!!", evt);
+    console.log("!!!!!", evt.target.value);
 
   }
 
@@ -190,6 +198,12 @@ class InputForm extends Component {
             id="autocomplete"
             onChange={this.onChange.bind(this)}
             showAllValues={true} />
+
+          <CustomUrlField 
+            urlPrefix="localhost" 
+            layerConfig={this.layerConfig} 
+            placeholder="Type a custom url" 
+            onChange={this.onChange.bind(this)} />
 
         </form> 
       </div>
