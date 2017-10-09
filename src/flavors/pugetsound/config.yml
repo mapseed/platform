@@ -80,14 +80,57 @@ map:
       layers:
         - tribal-lands
 
+    # Geoserver-based WMS spill incidents layer
+    # - id: spill-incidents
+    #   type: wms
+    #   url: https://geoserver.mapseed.org/geoserver/spill-incidents/wms?
+    #   version: 1.3.0
+    #   format: image/png
+    #   transparent: true
+    #   layers:
+    #     - spill-incidents
+
+    # Github-based geojson spill incidents layer
     - id: spill-incidents
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/spill-incidents/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - spill-incidents
+      type: json      
+      url: "https://raw.githubusercontent.com/mapseed/data/master/spill-incidents.geojson"
+      popupContent: '<div><strong>Oil type: </strong>{{Oil_type}}</div><div><strong>Volume spilled: </strong>{{Quantity_t}} gallons</div>'
+      rules:
+        - condition: '"{{properties.Quantity_t}}" <= 10'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [4, 4]
+            iconAnchor: [2, 2]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.Quantity_t}}" <= 100'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [8, 8]
+            iconAnchor: [4, 4]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.Quantity_t}}" <= 1000'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [12, 12]
+            iconAnchor: [6, 6]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.Quantity_t}}" > 1000'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+          style:
+            opacity: 0.9
+        - condition: 'true'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [0, 0]
+            iconAnchor: [0, 0]
+          style:
+            opacity: 0.0
 
     - id: shellfish-harvesting
       type: wms
