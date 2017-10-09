@@ -462,15 +462,6 @@ place:
       value: featured_place
       label: _(Featured Site)
       fields:
-        - name: published
-          type: publishControl
-        - name: geometry
-          type: geometryToolbar
-          content:
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industrial.png
         - name: title
           type: text
           prompt: _(Title of this featured site:)
@@ -507,15 +498,6 @@ place:
       value: featured_place
       label: _(Featured Site)
       fields:
-        - name: published
-          type: publishControl
-        - name: geometry
-          type: geometryToolbar
-          content:
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industrial.png
         - name: title
           type: text
           prompt: _(Title of this featured site:)
