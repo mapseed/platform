@@ -80,15 +80,6 @@ map:
       layers:
         - tribal-lands
 
-    - id: superfund-sites
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/superfund-sites/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - superfund-sites
-
     - id: spill-incidents
       type: wms
       url: https://geoserver.mapseed.org/geoserver/spill-incidents/wms?
@@ -387,9 +378,6 @@ sidebar:
               visibleDefault: false
             - id: tribal-lands
               title: _(Tribal Lands)
-              visibleDefault: false
-            - id: superfund-sites
-              title: _(Superfund Sites)
               visibleDefault: false
             - id: reported-spills
               title: _(Reported spills)
