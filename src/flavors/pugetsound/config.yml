@@ -71,15 +71,6 @@ map:
       type: place
       slug: report
 
-    - id: tribal-lands
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/tribal-lands/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - tribal-lands
-
     # Geoserver-based WMS spill incidents layer
     # - id: spill-incidents
     #   type: wms
@@ -418,9 +409,6 @@ sidebar:
               visibleDefault: false
             - id: cso
               title: _(Sewer overflow)
-              visibleDefault: false
-            - id: tribal-lands
-              title: _(Tribal Lands)
               visibleDefault: false
             - id: reported-spills
               title: _(Reported spills)
