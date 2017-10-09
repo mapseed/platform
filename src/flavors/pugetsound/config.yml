@@ -173,7 +173,6 @@ place_types:
           iconAnchor: [25, 35]
 
   pollution:
-    label: _(Pollution)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -202,8 +201,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  question:
-    label: _(Question)
+  community-action:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -387,7 +385,7 @@ activity:
 
 right_sidebar:
   show: true
-  visibleDefault: true
+  visibleDefault: false
 
 place:
   adding_supported: true
@@ -402,6 +400,7 @@ place:
   submit_button_label: _(Put it on the map!)
 
   location_item_name: location
+  default_basemap: satellite
 
 
   #### begin dynamic form config ####
@@ -554,19 +553,41 @@ place:
           prompt: _(Title of your report:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
-          optional: false
+          optional: true
         - name: date
           type: datetime
           prompt: _(Date of incident:)
           display_prompt: _(Date of incident:)
           placeholder: _(Date of incicent...)
-          optional: false          
-        - name: description
+          optional: true          
+        - name: waterway
+          type: text
+          prompt: _(Waterway:)
+          display_prompt: _(Waterway:)
+          placeholder: _(Which waterway does the incident concern?)
+          optional: true
+        - name: pollution-location
+          type: text
+          prompt: _(Location of pollution)
+          display_prompt: _(Location:)
+          placeholder: _(Enter the location...)
+          optional: true                      
+        - name: pollution-report
           type: textarea
-          prompt: _(Description:)
-          display_prompt: _( )
+          prompt: _(Report what you saw:)
+          display_prompt: _(Report:)
           placeholder: _(Enter description...)
           optional: false
+        - name: reported_to_other
+          type: binary_toggle
+          prompt: _(Have you reported this incident to anyone else?)
+          display_prompt: _(Reported to someone else)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: true # NOTE: binary_toggle inputs have no validation
         - name: submitter_name
           type: commonFormElement
         - name: private-submitter_email
@@ -575,13 +596,13 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement
-    - category: question
+    - category: community-action
       includeOnForm: true
       name: location_type
       dataset: pugetsound
       icon_url: /static/css/images/markers/marker-question.png
       value: question
-      label: _(Question)
+      label: _(Add a community action)
       fields:
         - name: title
           type: text
@@ -748,6 +769,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
     hide_from_top_bar: false
 
   - title: _(Get involved)
@@ -764,19 +786,25 @@ story:
     # (that is, no default settings will be inherited).
     default_zoom: 15
     default_visible_layers:
+      - pugetsoundfeatured
     order: 
       - url: atlantic-salmon
         zoom: 14
         basemap: satellite
-        visible_layers:
-          - pugetsoundfeatured
+      - url: longfellow-salmon
+        zoom: 18
+        basemap: satellite
 
   rose-grants:
     tagline: _(Next grant)
-    default_zoom: 15
+    default_zoom: 14
     default_visible_layers:
       - pugetsoundrose
     order:
+      - url: rose-fund
+        zoom: 10
+        spotlight: false
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: puget-sound-stewards---duwamish-and-beyond
       - url: green-duwamish-water-quality-improvement-youth-exchange
       - url: tales-of-puget-sound--training-the-next-generation-of-researchers
@@ -871,6 +899,155 @@ story:
       - url: nisqually-reach-aquatic-reserve-project
       - url: biofiltration-swale-and-ngpa-restoration-project
 
+  settled-cases:
+    tagline: _(Next case)
+    default_zoom: 14
+    default_visible_layers:
+      - pugetsoundcases
+    order:
+      - url: settled-cases
+        spotlight: false
+        zoom: 10
+      - url: transtar-metals-corporation
+      - url: scott-galvanizing
+      - url: honcoop-trucking-llc
+      - url: granite-precasting---concrete-inc
+      - url: budget-auto-wrecking
+      - url: binford-metals-llc
+      - url: alaska-logistics-llc
+      - url: aaron-s-auto-wrecking
+      - url: z-recyclers--inc
+      - url: yarrow-bay-yacht-sales-and-service-llc
+      - url: yamato-engine-specialists-ltd
+      - url: yachtfish-marine--inc
+      - url: yacht-performance-center-llc
+      - url: william-scotsman--inc
+      - url: whitley-manufacturing-co--inc-d-b-a--whitley-evergreen
+      - url: western-pneumatic-tube-company
+      - url: warm-beach-christian-camps-and-conference-center
+      - url: warm-beach-christian-camps-and-conference-center
+      - url: veneer-chip-transport-inc
+      - url: urban-accessories--inc
+      - url: unocal-corporation
+      - url: umbra-cuscinetti--inc
+      - url: trident-seafoods-corporation
+      - url: trident-seafoods-corporation
+      - url: total-terminals-international-llc-aka-t46
+      - url: todd-pacific-shipyards-corporation
+      - url: taylor-equipment-and-machine-tool-corporation
+      - url: tacoma-metals-inc
+      - url: tacoma-asphalt-plant
+      - url: streich-bros---inc
+      - url: stevedoring-services-of-america-terminals--inc--aka-t18
+      - url: steeler-inc
+      - url: spadoni-brothers--inc
+      - url: socco--inc
+      - url: snohomish-county
+      - url: snohomish--city-of
+      - url: skyline-electric---manufacturing-co
+      - url: shultz-distributing-inc
+      - url: shasta-beverages--inc
+      - url: seattle--port-of--marine-maintenance-facility
+      - url: schneider-simpson-sheet-metal
+      - url: saint-gobain-containers--inc
+      - url: rsa-microtech--inc
+      - url: rosario-resort-wwt-facility--oly-rose-llc
+      - url: recycling-depot--inc---the
+      - url: recycling---disposal-services-inc
+      - url: rainier-petroleum---pier-15
+      - url: rainier-petroleum---colorado-st
+      - url: puget-sound-naval-shipyard--united-states-navy
+      - url: portac--inc
+      - url: port-of-seattle--pier-66
+      - url: port-of-seattle---cta--pier-91
+      - url: port-blakely-communities--issaquah-highlands
+      - url: port-angeles-landfill
+      - url: pape-machinery-tacoma
+      - url: pacific-metallurgical--inc
+      - url: pacific-commercial-equipment
+      - url: ocean-beauty-seafoods
+      - url: oberto-sausage-co
+      - url: northwest-recycling-inc
+      - url: northwest-forest-products
+      - url: northwest-container-services-inc---t115
+      - url: northland-services--inc
+      - url: north-bend--city-of--stp
+      - url: new-west-gypsum-usa-inc
+      - url: nepa-pallet---container-co--inc
+      - url: milgard-manufacturing-inc
+      - url: metso-paper-usa--inc
+      - url: meltec-division--young-corporation
+      - url: mcclean-iron-works
+      - url: manke-lumber-company--inc
+      - url: louis-dreyfus-commodities-llc---pier-86
+      - url: la-conner--town-of
+      - url: king-county-international-airport
+      - url: kent-meridian-disposal
+      - url: jerstedt-lumber-co--inc
+      - url: j-m--martinac-shipbuilding-corporation
+      - url: j-a--jack---sons--inc
+      - url: goergia-pacific-corporation
+      - url: galvin-flying-services
+      - url: friday-harbor-wwtp
+      - url: fisherman-bay-wwt-facility
+      - url: fibrex-corporation
+      - url: ferndale--city-of
+      - url: federal-express-corporation
+      - url: federal-express-corporation
+      - url: federal-express-corporation
+      - url: federal-express-corporation
+      - url: federal-express-corporation
+      - url: evergreen-trails-inc
+      - url: eastside-masonry-products-monroe
+      - url: duwamish-shipyard-inc
+      - url: dunato-s-marine-services
+      - url: davis-wire-corporation
+      - url: darigold--inc--rainier-ave-plant
+      - url: csr-marine
+      - url: coca-cola-bottling-company
+      - url: cityice-cold-storage-company
+      - url: city-of-tacoma--industrial-pre--treatment-program
+      - url: certainteed-gypsum--inc
+      - url: cedar-grove-composting--inc--everett
+      - url: canyon-lumber-co--inc
+      - url: canfor-usa-corp
+      - url: cadman--seattle--inc----tilbury-cement-co
+      - url: buse-timber-sales--inc
+      - url: brown-minneapolis-tank-northwest--llc
+      - url: bremerton--city-of
+      - url: bp-west-coast-products-llc
+      - url: boyer-logistics--inc
+      - url: bornstein-seafoods--inc
+      - url: bnsf-railway-company--balmer-yard
+      - url: bnsf-railway
+      - url: blake-island-wwtp
+      - url: bellingham-cold-storage
+      - url: bellingham--port-of----bellingham-intl-airport--bellingham-cruise-terminal--port-s-maintenance-shop
+      - url: beall-corporation
+      - url: ballard-marine--inc
+      - url: asc-profiles--inc
+      - url: ameriflight-llc
+      - url: american-steel--llc
+      - url: almar--inc
+      - url: alaskan-copper
+      - url: alaska-marine-lines--inc
+      - url: airport-auto-wrecking--inc
+      - url: achilles-usa-inc
+      - url: ace-galvanizing-inc
+      - url: abf-freight-systems
+      - url: u-s--navy--naval-base-kitsap
+      - url: snohomish-county
+      - url: seattle-iron---metals-corp
+      - url: samson-tug---barge-co--inc
+      - url: pierce-county-recycling--composting-and-disposal--llc--lri-landfill
+      - url: lakehaven-utility-district--lakota-wastewater-treatment-plant
+      - url: epa--nmfs--us-f-w--cooling-water-intake
+      - url: duwamish-marine-center--samson-tug---barge-co--inc
+      - url: cargill--inc
+      - url: apm-terminals-tacoma-llc
+      - url: alaskan-copper-works
+      - url: ace-metal-corporation
+      - url: ace-galvanizing-inc
 # cluster:
 #   animate: true
 #   animateAddingMarkers: false
