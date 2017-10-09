@@ -71,6 +71,42 @@ map:
       type: place
       slug: report
 
+    - id: tribal-lands
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/tribal-lands/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - tribal-lands
+
+    - id: superfund-sites
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/superfund-sites/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - superfund-sites
+
+    - id: spill-incidents
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/spill-incidents/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - spill-incidents
+
+    - id: shellfish-harvesting
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/shellfish-harvesting/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - shellfish-harvesting
+
     - id: pugetsoundrose
       type: place
       slug: rose
@@ -349,8 +385,20 @@ sidebar:
             - id: cso
               title: _(Sewer overflow)
               visibleDefault: false
+            - id: tribal-lands
+              title: _(Tribal Lands)
+              visibleDefault: false
+            - id: superfund-sites
+              title: _(Superfund Sites)
+              visibleDefault: false
             - id: reported-spills
               title: _(Reported spills)
+              visibleDefault: false
+            - id: shellfish-harvesting
+              title: _(Shellfish Harvesting Sites)
+              visibleDefault: false
+            - id: spill-incidents
+              title: _(Oil Spill Incidents)
               visibleDefault: false
 
     # - id: ticker
