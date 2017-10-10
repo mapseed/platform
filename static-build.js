@@ -73,7 +73,7 @@ if (!flavor) {
 
 // This version number is only used for cache-busting on our bundle.js
 // and bundle.css files.
-const bundleVersion = "0.7.5.5";
+const bundleVersion = "0.7.5.7";
 
 const flavorBasePath = path.resolve(
   __dirname,

@@ -28,6 +28,11 @@ var entryPoints = [
   "./src/base/static/js/routes.js",
   "./src/base/static/js/handlebars-helpers.js",
   "./src/base/static/scss/default.scss",
+  "./src/base/static/css/quill.snow.css",
+  "./src/base/static/css/jquery.datetimepicker.css",
+  "./src/base/static/css/leaflet.draw.css",
+  "./src/base/static/css/leaflet-sidebar.css",
+  "./src/base/static/css/spectrum.css",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
   "./src/flavors/" + process.env.FLAVOR + "/config.yml"
 ].concat(flavorJsFiles);
