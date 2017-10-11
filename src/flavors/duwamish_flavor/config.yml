@@ -1465,6 +1465,8 @@ place:
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
+        - name: submit
+          type: commonFormElement
     - category: port_of_seattle_featured_place
       admin_only: true
       admin_groups:
