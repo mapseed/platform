@@ -45,7 +45,7 @@ map:
 
   layers:
     - id: osm
-      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
