@@ -11,7 +11,7 @@ app:
 
   # This should be set to the root of an api server from which you'd like to draw
   # permissions information for logged-in users. This value can be overridden
-  # using the SITE_KEY environment variable. Note the trailing slash.
+  # using the API_ROOT environment variable. Note the trailing slash.
   api_root: https://dev-api.heyduwamish.org/api/v2/
 
   # Fallback image to use for sharing on social services if no model image is present

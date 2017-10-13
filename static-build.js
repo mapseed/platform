@@ -73,7 +73,7 @@ if (!flavor) {
 
 // This version number is only used for cache-busting on our bundle.js
 // and bundle.css files.
-const bundleVersion = "0.7.5.7";
+const bundleVersion = "0.7.5.9";
 
 const flavorBasePath = path.resolve(
   __dirname,
@@ -266,6 +266,13 @@ activeLanguages.forEach((language) => {
     }
   });
 
+  // The API root is defined in the config. In most cases this will be set to 
+  // point to the dev API. If the .env defines a different API root, use that
+  // value here. Use the API_ROOT key in the .env to set a new API root. Note
+  // that this replaces the old SITE_URL key.
+  if (process.env.API_ROOT) {
+    thisConfig.app.api_root = process.env.API_ROOT;
+  }
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from
   //      which the templates can be localized and precompiled. Also resolve
