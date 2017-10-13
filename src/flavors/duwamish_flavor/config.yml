@@ -289,6 +289,21 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
+  otter_sites:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]    
+
   wetland:
     rules:
       - condition: 'this.layer.focused === true && this.style["marker-color"] == "a3e46b"'
@@ -1467,6 +1482,20 @@ place:
           optional: true
         - name: submit
           type: commonFormElement
+
+    - category: otter_sites
+      admin_only: true
+      admin_groups:
+        - otters
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: duwamishfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: otter_sites
+      label: _(Otter sites)
     - category: port_of_seattle_featured_place
       admin_only: true
       admin_groups:
