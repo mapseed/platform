@@ -248,9 +248,8 @@ activeLanguages.forEach((language) => {
         val = val
           .replace(configGettextRegex, "")
           .replace(/\)$/, "");
+        obj[prop] = gt.gettext(val);
       }
-
-      obj[prop] = gt.gettext(val);
     }
   });
   log("Finished localizing config for " + language.code);
