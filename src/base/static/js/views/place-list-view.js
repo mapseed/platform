@@ -373,7 +373,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
 
       // If the location_type has a label, we should search in it also.
       locationType =
-        Shareabouts.Config.flavor.place_types[model.get("location_type")];
+        Shareabouts.Config.placeTypes[model.get("location_type")];
       if (locationType && locationType.label) {
         if (locationType.label.toUpperCase().indexOf(term) !== -1) {
           previouslyUnrenderedModels.push(model);
