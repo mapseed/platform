@@ -146,6 +146,19 @@ map:
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
 
+    # - id: otter-locations
+    #   type: json      
+    #   url: "https://raw.githubusercontent.com/mapseed/data/master/otters.geojson"
+    #   popupContent: '<div><strong>Oil type: </strong>{{title}}</div><div><strong>Volume spilled: </strong>{{description}} gallons</div>'
+    #   rules:
+    #     - condition: '"{{true}}"'
+    #       icon:
+    #         iconUrl: /static/css/images/markers/otter-icon.png
+    #         iconSize: [20, 20]
+    #         iconAnchor: [10, 10]
+    #       style:
+    #         opacity: 0.9
+
     - id: cso
       type: json
       url: "https://raw.githubusercontent.com/keum/data_display/master/cso_test_file.geojson"
@@ -288,6 +301,26 @@ place_types:
         icon:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
+
+  otter_sites:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]    
+      - condition: 'this.map.zoom < 13'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   wetland:
     rules:
@@ -1027,6 +1060,10 @@ sidebar:
               title: _(Community Vision)
               visibleDefault: false
 
+            # - id: otter-locations
+            #   title: _(Otter study)
+            #   visibleDefault: false
+
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
@@ -1467,6 +1504,58 @@ place:
           optional: true
         - name: submit
           type: commonFormElement
+
+    - category: otter_sites
+      admin_only: true
+      admin_groups:
+        - otters
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: duwamishfeatured
+      icon_url: /static/css/images/markers/otter-icon.png
+      value: otter_sites
+      label: _(Otter sites)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/otter-icon.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submit
+          type: commonFormElement      
     - category: port_of_seattle_featured_place
       admin_only: true
       admin_groups:
@@ -1954,8 +2043,6 @@ place:
 
   #### end dynamic form config ####
 
-
-
   items:
     - prompt: _(Type of report)
       type: select
@@ -2111,13 +2198,15 @@ story:
       - restoration
       - duwamishfeatured
     order:
-      - url: marra
+      - url: otters
+        sidebar_icon_url: /static/css/images/markers/otter-icon.png
       - url: flume
         sidebar_icon_url: /static/css/images/markers/marker-transp_comp.png
       - url: southparklibrarygreenwall
         sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
       - url: georgetowngreenwall      
         sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
+      - url: marra
       - url: skatepark
       - url: concord
       - url: cesar-chavez
