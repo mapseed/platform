@@ -52,7 +52,7 @@ map:
     - id: topo
       type: basemap
       url: //stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
-      maxZoom: 17
+      maxZoom: 16
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
