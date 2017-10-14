@@ -811,7 +811,7 @@ place_types:
           iconUrl: /static/css/images/markers/marker-tree.png
           iconSize: [50, 50]
           iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
+      - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/marker-tree-dot.png
           iconSize: [10, 10]
