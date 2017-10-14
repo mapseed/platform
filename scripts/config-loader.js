@@ -1,15 +1,8 @@
-<<<<<<< 75929a63b3d885ba47ee4689000259882409b50b
 const walk = require("object-walk");
-=======
-const Gettext = require("node-gettext");
-const gettextParser = require("gettext-parser");
-//const walk = require("object-walk");
->>>>>>> chore(static site) watch config in dev mode and rebuild
 const Handlebars = require("handlebars");
 const fs = require('fs-extra');
 const path = require('path');
 
-<<<<<<< 75929a63b3d885ba47ee4689000259882409b50b
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
 // static site) will be rebuilt. This loader only rebuilds the English version
@@ -20,8 +13,6 @@ const path = require('path');
 //   NODE_ENV=production npm start
 
 const configGettextRegex = /^_\(/;
-=======
->>>>>>> chore(static site) watch config in dev mode and rebuild
 
 Handlebars.registerHelper("serialize", function(json) {
   if (!json) return false;
@@ -30,7 +21,6 @@ Handlebars.registerHelper("serialize", function(json) {
 
 module.exports = function(source) {
 
-<<<<<<< 75929a63b3d885ba47ee4689000259882409b50b
   source = source.substring(17);
 
   let datasetSiteUrls = {}
@@ -82,22 +72,6 @@ module.exports = function(source) {
   const template = Handlebars.compile(templateSource);
   outputFile = template({
     config: config,
-=======
-	// TODO: attach datasets object
-
-	source = source.substring(17);
-
-	const templateSource = fs.readFileSync(
-	  path.resolve(
-	  	__dirname,
-	    "config-template.hbs"
-	  ),
-	  "utf8"
-	);
-	const template = Handlebars.compile(templateSource);
-	outputFile = template({
-    config: JSON.parse(source),
->>>>>>> chore(static site) watch config in dev mode and rebuild
   });
 
   outputPath = path.resolve(
@@ -110,10 +84,5 @@ module.exports = function(source) {
     // ignore exceptions
   }
 
-<<<<<<< 75929a63b3d885ba47ee4689000259882409b50b
   return source;
 }
-=======
-	return source;
-}
->>>>>>> chore(static site) watch config in dev mode and rebuild
