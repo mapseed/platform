@@ -2157,6 +2157,11 @@ pages:
     slug: getinvolved
     name: contribute
 
+  - title: _(Neighborhood Captain)
+    slug: captain
+    name: captain
+    hide_from_top_bar: true
+
   - title: _(Stories)
     slug: stories
     name: stories
