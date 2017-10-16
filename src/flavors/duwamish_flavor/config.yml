@@ -1457,6 +1457,8 @@ place:
           optional: false
     - category: featured_place
       admin_only: true
+      admin_groups:
+        - featured_places
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
