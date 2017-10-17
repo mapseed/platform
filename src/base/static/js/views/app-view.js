@@ -742,9 +742,11 @@ module.exports = Backbone.View.extend({
       this.options.mapConfig.layers,
       function(targetLayer) {
         if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
-          // don't turn off basemap layers!
-          if (targetLayer.type !== "basemap") {
-            this.setLayerVisibility(targetLayer.id, false, false);
+          // but don't turn off basemap layers!
+          if (!this.basemapConfigs
+              .map(config => config.id)
+              .includes(targetLayer.id)) {
+              this.setLayerVisibility(targetLayer.id, false, false);
           }
         }
       },
