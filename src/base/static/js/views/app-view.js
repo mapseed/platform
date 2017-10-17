@@ -326,6 +326,8 @@ module.exports = Backbone.View.extend({
           basemap: config.basemap || story.default_basemap,
           spotlight: config.spotlight === false ? false : true,
           sidebarIconUrl: config.sidebar_icon_url,
+          layerAddDelay: config.layer_add_delay,
+          basemapAddDelay: config.basemap_add_delay
         };
       });
       story.order = storyStructure;
@@ -720,36 +722,43 @@ module.exports = Backbone.View.extend({
     }
   },
 
-  // If a model has a story object, set the appropriate layer
-  // visilbilities and update legend checkboxes
   setStoryLayerVisibility: function(model) {
-    // change the basemap if it's been set in the story config
-    if (model.get("story").basemap) {
-      this.setLayerVisibility(model.get("story").basemap, true, true);
+    let story = model.get("story"),
+        chainExecute = (story.layerAddDelay) ? Util.chainExecute() : null;
+
+    // Set basemap visibility
+    if (story.basemap) {
+      if (chainExecute) {
+        chainExecute.push(
+
+          // TODO: it's only necessary to chain the basemap add if we're changing
+          // the basemap. Otherwise it's dead time.
+          () => this.setLayerVisibility(story.basemap, true, true),
+          story.basemapAddDelay
+        );
+      } else {
+        this.setLayerVisibility(story.basemap, true, true);
+      }
     }
 
-    // set layer visibility based on story config
+    // Set other layers' visibility
     _.each(
-      model.get("story").visibleLayers,
-      function(targetLayer) {
-        this.setLayerVisibility(targetLayer, true, false);
-      },
-      this,
+      this.options.mapConfig.layers.filter((layer) => layer.type !== "basemap"),
+      function(layer) {
+        let isVisible = _.contains(story.visibleLayers, layer.id);
+
+        if (chainExecute && isVisible) {
+          chainExecute.push(
+            () => this.setLayerVisibility(layer.id, true, false),
+            story.layerAddDelay
+          );
+        } else {
+          this.setLayerVisibility(layer.id, isVisible, false);
+        }
+      }, this
     );
 
-    // switch off all other layers
-    _.each(
-      this.options.mapConfig.layers,
-      function(targetLayer) {
-        if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
-          // don't turn off basemap layers!
-          if (targetLayer.type !== "basemap") {
-            this.setLayerVisibility(targetLayer.id, false, false);
-          }
-        }
-      },
-      this,
-    );
+    chainExecute && chainExecute.exec();
   },
 
   restoreDefaultLayerVisibility: function() {

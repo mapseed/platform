@@ -74,6 +74,36 @@ var self = (module.exports = {
     ].join("");
   },
 
+  // Build and execute a sequence of functions separated by a specified delay
+  chainExecute: function() {
+    let queue = [],
+      _push = (fn, delay) => {
+        queue.push({
+          fn: fn,
+          delay: delay || 1000
+        });
+      },
+      _exec = () => {
+        let current = queue.shift();
+
+        window.setTimeout(() => {
+          current.fn();
+          if (queue.length > 0) {
+            _exec();
+          }
+        }, current.delay);
+      },
+      _clear = () => {
+        queue = [];
+      };
+
+    return {
+      push: _push,
+      exec: _exec,
+      clear: _clear
+    }
+  },
+
   getSocialUrl: function(model, service) {
     var appConfig = Shareabouts.Config.app,
       shareUrl = "http://social.mapseed.org",

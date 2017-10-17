@@ -2427,7 +2427,9 @@ story:
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: sammamish
         zoom: 10
+        basemap_add_delay: 1200
         basemap: light-nolabels
+        layer_add_delay: 750
         visible_layers:
           - wria-7-8-9
           - watershed-sammamish

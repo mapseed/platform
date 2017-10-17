@@ -41,6 +41,8 @@ var addStoryObj = function(response, type) {
         spotlight: story.order[url].spotlight,
         hasCustomZoom: story.order[url].hasCustomZoom,
         sidebarIconUrl: story.order[url].sidebarIconUrl,
+        layerAddDelay: story.order[url].layerAddDelay,
+        basemapAddDelay: story.order[url].basemapAddDelay
       };
     }
   });
