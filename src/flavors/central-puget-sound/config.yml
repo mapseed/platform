@@ -2435,7 +2435,7 @@ story:
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: cedar
         zoom: 10
-        basemap: hillshade
+        basemap: light-nolabels
         visible_layers:
           - wria-7-8-9
           - watershed-cedar
@@ -2443,7 +2443,7 @@ story:
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: green-duwamish
         zoom: 10
-        basemap: hillshade
+        basemap: light-nolabels
         visible_layers:
           - wria-7-8-9
           - watershed-green
@@ -2451,7 +2451,7 @@ story:
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: puyallup-white
         zoom: 10
-        basemap: hillshade
+        basemap: light-nolabels
         visible_layers:
           - wria-7-8-9
           - watershed-puyallup
