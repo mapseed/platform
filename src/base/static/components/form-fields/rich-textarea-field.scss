@@ -1,4 +1,5 @@
 .mapseed-rich-textarea-field {
+  @import "../stylesheets/util/fluid-video";
 
   .ql-toolbar {
     border-top: $rich-textarea-border;
@@ -18,8 +19,7 @@
     visibility: visible !important;
   }
 
-}
-
-.mapseed-rich-textarea-field__quill-file-input--hidden {
-  display: none;
+  .mapseed-rich-textarea-field__quill-file-input--hidden {
+    display: none;
+  }
 }
