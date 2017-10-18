@@ -840,9 +840,9 @@ place_types:
           iconUrl: /static/css/images/markers/marker-dirtcorps.png
           iconSize: [50, 50]
           iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
+      - condition: 'this.map.zoom < 17'
         icon:
-          iconUrl: /static/css/images/markers/marker-dirtcorps-dot.png
+          iconUrl: /static/css/images/markers/marker-industrial-dot.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
       - condition: 'this.map.zoom <= 18'
