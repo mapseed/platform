@@ -30,8 +30,9 @@
     "build-js-production": "webpack -p && cat src/base/static/dist/bundle.js | gzip > src/base/static/dist/bundle.js.gz",
     "watch-js": "webpack -d --watch",
     "build-css": "cat src/base/static/dist/cat-bundle.css | tee src/base/static/dist/bundle.css | gzip > src/base/static/dist/bundle.css.gz",
+    "build-libs": "cat src/base/static/dist/cat-lib-bundle.js | tee src/base/static/dist/lib-bundle.js | uglifyjs -mc | gzip > src/base/static/dist/lib-bundle.js.gz",
     "build-concat": "node scripts/concat.js",
-    "build": "NODE_ENV=production npm run build-scss-production && npm run build-concat && npm run build-js-production && npm run build-css",
+    "build": "NODE_ENV=production npm run build-scss-production && npm run build-concat && npm run build-js-production && npm run build-css && npm run build-libs",
     "prettier": "prettier --write --trailing-comma all \"{src,blah}/**/*.{js,jsx}\""
   },
   "dependencies": {
@@ -61,6 +62,7 @@
     "catw": "^1.0.1",
     "eslint-config-prettier": "^2.1.1",
     "prettier": "^1.4.4",
+    "uglify-js": "^3.0.27",
     "watchify": "^3.4.0"
   }
 }
