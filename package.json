@@ -40,6 +40,7 @@
     "node-env-file": "^0.1.7",
     "node-sass": "^4.0.0",
     "npm": "^5.2.0",
+    "s3-website": "^3.2.2",
     "shelljs": "^0.5.3",
     "static-eval": "^1.1.1",
     "togeojson": "^0.16.0",
