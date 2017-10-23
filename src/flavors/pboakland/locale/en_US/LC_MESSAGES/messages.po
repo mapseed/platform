@@ -1,0 +1,406 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-07 15:31-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Welcome! Participatory Budgeting Oakland is an innovative democratic process "
+"that gives Oakland residents in City Council Districts 1 and 2 the power to "
+"decide how to spend city funds in their district. Help us vote now!"
+msgstr ""
+
+msgid "idea for community programs and services"
+msgstr ""
+
+msgid "idea for parks and recreation"
+msgstr ""
+
+msgid "idea for streets and sidewalks"
+msgstr ""
+
+msgid "idea for housing and jobs"
+msgstr ""
+
+msgid "Map Layers:"
+msgstr ""
+
+msgid "OpenStreetMap"
+msgstr ""
+
+msgid "Satellite View"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Community Data"
+msgstr ""
+
+msgid "Community Reports"
+msgstr ""
+
+msgid "Oakland districts"
+msgstr ""
+
+msgid "Community ideas:"
+msgstr ""
+
+msgid "Community Programs and Services"
+msgstr ""
+
+msgid "Parks and recreation"
+msgstr ""
+
+msgid "Streets and sidewalks"
+msgstr ""
+
+msgid "Housing and Jobs"
+msgstr ""
+
+msgid "Share your idea!"
+msgstr ""
+
+msgid "Show the Map"
+msgstr ""
+
+msgid "suggested"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Title of your idea:"
+msgstr ""
+
+msgid " "
+msgstr ""
+
+msgid "Tell us more about your idea to improve our neighborhood?:"
+msgstr ""
+
+msgid ""
+"Ideas must be for a program, service, or infrastructure improvement "
+"benefiting low-to-moderate income communities in the district."
+msgstr ""
+
+msgid "Why is this important? What need in the community does this serve?:"
+msgstr ""
+
+msgid "Parks and Recreation"
+msgstr ""
+
+msgid "Streets and Sidewalk"
+msgstr ""
+
+msgid "(For administrator use only)"
+msgstr ""
+
+msgid "Submitted at:"
+msgstr ""
+
+msgid "Williams Chapel"
+msgstr ""
+
+msgid "Beebe Memorial Cathedral"
+msgstr ""
+
+msgid "Mobile Assembly at Bella Vista Elementary School"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Demographic information"
+msgstr ""
+
+msgid ""
+"This info is kept private, and is to ensure we are serving a diversity of "
+"people who best represent the needs of the community."
+msgstr ""
+
+msgid "Your age:"
+msgstr ""
+
+msgid "Your age will not appear on the map"
+msgstr ""
+
+msgid "Your ethnicity will not appear on the map"
+msgstr ""
+
+msgid "Ethnicity:"
+msgstr ""
+
+msgid "Asian"
+msgstr ""
+
+msgid "Black or African American"
+msgstr ""
+
+msgid "Hispanic or Latino/a"
+msgstr ""
+
+msgid "Native Hawaiian or Pacific Islander"
+msgstr ""
+
+msgid "White"
+msgstr ""
+
+msgid "Your income:"
+msgstr ""
+
+msgid "Under $10,000"
+msgstr ""
+
+msgid "$10,000 - $14,999"
+msgstr ""
+
+msgid "$15,000 - $24,999"
+msgstr ""
+
+msgid "$25,000 - $34,999"
+msgstr ""
+
+msgid "$35,000 - $49,000"
+msgstr ""
+
+msgid "$50,000 - $74,999"
+msgstr ""
+
+msgid "$75,000 - $99,000"
+msgstr ""
+
+msgid "$100,000 - $149,000"
+msgstr ""
+
+msgid "$150,000 or more"
+msgstr ""
+
+msgid "I want to volunteer:"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Your name"
+msgstr ""
+
+msgid "Your Email"
+msgstr ""
+
+msgid "Your phone number:"
+msgstr ""
+
+msgid "Your phone number will not appear on the map"
+msgstr ""
+
+msgid "Submit!"
+msgstr ""
+
+msgid "comment"
+msgstr ""
+
+msgid "commented on"
+msgstr ""
+
+msgid "Leave a Comment"
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+msgid "Your Name"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "supports"
+msgstr ""
+
+msgid "Someone"
+msgstr ""
+
+msgid "Guidelines"
+msgstr ""
+
+msgid "Get more involved"
+msgstr ""
+
+msgid ""
+"Already submitted an idea? There are many more ways to get involved in "
+"participatory budgeting:"
+msgstr ""
+
+msgid "Volunteer"
+msgstr ""
+
+msgid ""
+"You can help to get the word out to district residents, facilitate small "
+"group meetings, provide support at PB events, and more. Sign up <a href="
+"\"http://www.123contactform.com/form-2317799/PB-Oakland-Volunteer-Sign-Up\" "
+"target=\"_blank\">here</a>."
+msgstr ""
+
+msgid "Contact Us"
+msgstr ""
+
+msgid "Have a question? Feel free to contact us."
+msgstr ""
+
+msgid ""
+"<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
+"Us\" height=\"400\" width=100% </iframe>"
+msgstr ""
+
+msgid ""
+"\n"
+"<iframe src=\"https://player.vimeo.com/video/162743651?"
+"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
+"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
+msgstr ""
+
+msgid ""
+"\n"
+"<h2>How does PB work in Oakland?</h2>\n"
+"<p>\n"
+"Participatory Budgeting (PB) is an innovative democratic process that gives "
+"Oakland residents of City Council Districts 1 and 2 the power to set "
+"priorities for how federal Community Development Block Grant (CDBG) funds "
+"should be spent to improve low-to-moderate income communities in their "
+"districts. The projects that receive the most votes up to the maximum dollar "
+"amount will become the CDBG priorities for the district. In December and "
+"January, residents came together at events in their districts and online to "
+"discuss community needs and brainstorm ideas for funded projects that would "
+"benefit low-to-moderate incomes communities. In early February, volunteer "
+"budget delegates evaluated and prioritized those ideas and turned them into "
+"the priority projects that will appear on the PB ballot from February 18-22, "
+"2017.\n"
+"</p>\n"
+"<p>\n"
+"Following the vote, the City of Oakland will release a Request for Proposals "
+"(RFP), and city and non-profit agencies may apply for funds to implement "
+"priority projects. Community Development District Board Members in Districts "
+"1 and 2 will review all applications in response to the RFP and make "
+"recommendations to the city on which should be funded. For more information "
+"on the RFP process, <a href=\"http://www2.oaklandnet.com/government/o/hcd/s/"
+"CDBG/index.htm\">visit the City of Oakland's CDBG website</a>.\n"
+"</p>\n"
+"<p>\n"
+"<strong>In Council District 1</strong>, the 2017-19 CDBG allocation is "
+"$113,654 per year over two years, or $227,308 in total. For a map of the "
+"CDBG eligible area, <a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/"
+"documents/webcontent/dowd009136.pdf\">click here</a>.\n"
+"</p>\n"
+"<p>\n"
+"<strong>In Council District 2</strong>, the 2017-19 CDBG allocation is "
+"$278,685 per year over two years, or $557,370 in total. For a map of the "
+"CDBG eligible area, <a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/"
+"documents/webcontent/dowd009137.pdf\">click here</a>.\n"
+"</p>\n"
+"<p>\n"
+"Not sure if you live in District 1 or 2? Enter your address on <a href="
+"\"https://participatorybudgeting.nationbuilder.com/r?u=http%3A%2F%2Fmapgis."
+"oaklandnet.com%2Fcouncildistricts"
+"%2F&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1vote&n=7&test_email=1\">this "
+"map</a> to find out.\n"
+"</p>\n"
+"<em><strong>\n"
+"For a full description of the PB process in Oakland, download the <a href="
+"\"https://drive.google.com/file/d/0B8FaQ6MQKJm1U0xQSVNUQ1ZEZk0/view?"
+"usp=sharing\">PB Oakland 2016-17 Rulebook</a>.\n"
+"</em>\n"
+"</strong>\n"
+msgstr ""
+
+msgid "Participatory Budgeting Oakland"
+msgstr ""
+
+msgid ""
+"is an innovative democratic process that gives Oakland residents of City "
+"Council Districts 1 and 2 the power to set priorities for how federal "
+"Community Development Block Grant (CDBG) funds should be spent to improve "
+"low-to-moderate income communities in their district."
+msgstr ""
+
+msgid ""
+"\n"
+"<a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/"
+"oak062978.pdf\"><h2>The results are in!</h2></a>\n"
+"<strong><em>You made it happen: here are your PB Oakland priorities winners</"
+"em></strong>\n"
+msgstr ""
+
+msgid ""
+"\n"
+"<p>\n"
+"We are excited to share that the first ever PB Oakland process is complete!\n"
+"</p>\n"
+"<p>\n"
+"Over 1,200 community members voted in PB Oakland to help decide how to spend "
+"$784,678 over 2 years to benefit low-and moderate-income residents in "
+"Oakland Council Districts 1 and 2!\n"
+"</p>\n"
+"<p>\n"
+"Thank you to everyone who participated in the first ever PB Oakland process! "
+"You are helping to deepen democracy and build stronger communities through "
+"PB during a time when we all need it the most.\n"
+"</p>\n"
+"<p>\n"
+"Special thanks to the Community Development District Board Members, District "
+"1 and 2 Staff, the Budget Delegates, our outreach partners: Asian Pacific "
+"Environmental Network (APEN) and Oakland Rising, and all the volunteers and "
+"participants! This process has been administered by the City of Oakland "
+"Housing & Community Development Department with support from the "
+"Participatory Budgeting Project and supported by generous grants from The "
+"California Endowment and the Akonadi Foundation.​\n"
+"</p>\n"
+"<p>\n"
+"The full list of winning priority projects can be found here: <a href="
+"\"http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/oak062978."
+"pdf\">CD1 and CD2 Funding Priorities</a>. The city of Oakland is currently "
+"conducting a Request for Proposals (RFP) process in which the Community "
+"Development District Boards will make funding recommendations in April. For "
+"more information on the RFP process, <a href=\"http://www2.oaklandnet.com/"
+"government/o/hcd/s/CDBG/index.htm\">click here</a>.\n"
+"</p>\n"
+"<p>\n"
+"P.S. If there was an idea you were rooting for that didn’t win, don’t worry! "
+"All of the ideas submitted during the process will be shared with both "
+"District Boards and Council Office staff for future consideration.\n"
+"</p>\n"
+msgstr ""
+
+msgid ""
+"For more information on the City of Oakland’s Community Development Block "
+"Grant (CDBG) program, <a href=\"http://www2.oaklandnet.com/government/o/hcd/"
+"s/CDBG/index.htm\" target=”_blank”>click here</a>."
+msgstr ""
+
+msgid ""
+"For information on participatory budgeting in the U.S. and Canada, visit the "
+"website of the <a href=\"http://www.participatorybudgeting.org/\" "
+"target=”_blank”>Participatory Budgeting Project</a>."
+msgstr ""
+
+msgid "Explore the map!"
+msgstr ""

@@ -1,29 +1,28 @@
-{% load i18n %}
-{% trans 'Thanks for submitting a new idea to improve your community!' %}
+{{#_}}Thanks for submitting a new idea to improve your community!{{/_}}
 
-{% blocktrans %}Here's what you suggested:{% endblocktrans %} %} {{ place.properties.name }}
+{{#_}}Here's what you suggested:{{/_}} {{ place.properties.name }}
 
-{% blocktrans %}You can see people's comments on your idea at{% endblocktrans %} http://ideas.pblongbeach.org/place/{{ place.id }}.
+{{#_}}You can see people's comments on your idea at{{/_}} http://ideas.pblongbeach.org/place/{{ place.id }}.
 
-{% trans 'For more information on the participatory budgeting process, go to www.pblongbeach.org.' %}
+{{#_}}For more information on the participatory budgeting process, go to www.pblongbeach.org.{{/_}}
 
 
-{% trans 'How to get more involved:' %}
+{{#_}}How to get more involved:{{/_}}
 =========================
 
-## {% trans 'Attend a Neighborhood Assembly' %}
+## {{#_}}Attend a Neighborhood Assembly{{/_}}
 
-{% trans 'Discuss your ideas in person with your friends and neighbors at a 9th District Neighborhood Assembly! Go to http://www.pblongbeach.org/district9.html for upcoming assembly dates, times, and locations.' %}
+{{#_}}Discuss your ideas in person with your friends and neighbors at a 9th District Neighborhood Assembly! Go to http://www.pblongbeach.org/district9.html for upcoming assembly dates, times, and locations.{{/_}}
 
-## {% trans 'Volunteer' %}
+## {{#_}}Volunteer{{/_}}
 
-{% trans 'There are lots of ways to get involved in PB Long Beach! You can help to get the word out to underserved communities, facilitate small group meetings, help translate materials, or design flyers. Sign up at http://www.pblongbeach.org/volunteer.html.' %}
+{{#_}}There are lots of ways to get involved in PB Long Beach! You can help to get the word out to underserved communities, facilitate small group meetings, help translate materials, or design flyers. Sign up at http://www.pblongbeach.org/volunteer.html.{{/_}}
 
-## {% trans 'Connect with Us' %}
+## {{#_}}Connect with Us{{/_}}
 
-{% trans 'Find us on Facebook (https://www.facebook.com/rexrichardsonlb) and follow us on Twitter (https://twitter.com/rexrichardson)!' %}
+{{#_}}Find us on Facebook (https://www.facebook.com/rexrichardsonlb) and follow us on Twitter (https://twitter.com/rexrichardson)!{{/_}}
 
-## {% trans 'Contact Us' %}
+## {{#_}}Contact Us{{/_}}
 
-{% trans 'Have a question? Feel free to contact us at http://www.pblongbeach.org/contact.html.' %}
+{{#_}}Have a question? Feel free to contact us at http://www.pblongbeach.org/contact.html.{{/_}}
 

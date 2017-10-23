@@ -175,7 +175,7 @@ const flavorLocaleDir = path.resolve(
 );
 const mergedPOFileOutputPath = path.resolve(
   __dirname,
-  "src/base/static/dist/django.po"
+  "src/base/static/dist/messages.po"
 );
 
 let activeLanguages;
@@ -209,7 +209,7 @@ activeLanguages.forEach((language) => {
   flavorPOPath = path.resolve(
     flavorLocaleDir,
     language.code,
-    "LC_MESSAGES/django.po"
+    "LC_MESSAGES/messages.po"
   );
 
   // Merge the current language .po with the base project .po of the same
@@ -224,7 +224,7 @@ activeLanguages.forEach((language) => {
       path.resolve(
         baseLocaleDir,
         language.code,
-        "LC_MESSAGES/django.po"
+        "LC_MESSAGES/messages.po"
       )
     );
     mergedPOFile = fs.readFileSync(mergedPOFileOutputPath);

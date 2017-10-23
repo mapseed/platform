@@ -70,6 +70,7 @@
     "mv": "^2.1.1",
     "node-gettext": "^2.0.0",
     "object-walk": "^0.1.1",
+    "optimist": "^0.6.1",
     "prettier": "^1.4.4",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
