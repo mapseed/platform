@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 
-{{!-- 
-{{# load jstemplate }}
-{{# load i18n }}
-{{# load shareabouts_utils }}
-{{# load url from future }}
---}}
-
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
@@ -64,7 +57,7 @@
 </head>
   <body class="{{#if config.map.geocoding_bar_enabled}} geocoding-bar-enabled{{/if}}">
 
-  <header id="site-header" class="clearfix{{#if pages_config}} has-pages{{/if}}">
+  <header id="site-header" class="clearfix{{#if config.pages}} has-pages{{/if}}">
     <h1 id="site-title">{{#block "site-title"}}{{/block}}</h1>
 
     {{#block "pre_auth_nav"}}{{/block}}
@@ -267,75 +260,77 @@
 
   <script>
     moment.locale('{{languageCode}}');
-    $(function() {
-      // Check official browser support.
-      var userAgent = {{#serialize userAgentJson}}{{/serialize}};
-      if (!Shareabouts.Util.isSupported(userAgent)) {
-        var userAgentData = userAgent,
-            $unsupportedEl = $('.unsupported-overlay'),
-            unsupportedHtml;
-        userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
-        unsupportedHtml = Handlebars.templates['unsupported-overlay'](userAgentData);
-        $unsupportedEl.hide();
-        $unsupportedEl.html(unsupportedHtml);
-        $unsupportedEl.slideDown();
-        $unsupportedEl.find('.close-btn').click(function(evt) {
-          evt.preventDefault();
-          $unsupportedEl.slideUp();
-          return false;
-        });
-      }
-    });
   </script>
 
-  <script type="text/javascript">
-  (function(S, $){
-    S.Config = {
-      defaultPlaceTypeName: '{{ default_place_type }}',
-      userToken: (
-        S.bootstrapped.currentUser ?
-        'user:' + S.bootstrapped.currentUser.id :
-        "{{ user_token_json }}"),
-      app:        {{#serialize config.app}}{{/serialize}},
-      place:      {{#serialize config.place}}{{/serialize}},
-      placeTypes: {{#serialize config.place_types}}{{/serialize}},
-      cluster:    {{#serialize config.cluster}}{{/serialize}},
-      survey:     {{#serialize config.survey}}{{/serialize}},
-      support:    {{#serialize config.support}}{{/serialize}},
-      map:        {{#serialize config.map}}{{/serialize}},
-      activity:   {{#serialize config.activity}}{{/serialize}},
-      sidebar:    {{#serialize config.sidebar}}{{/serialize}},
-      leaflet_sidebar: {{#serialize config.leaflet_sidebar}}{{/serialize}},
-      pages:           {{#serialize config.pages}}{{/serialize}},
-      story:           {{#serialize config.story}}{{/serialize}},
-      rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
-      filters:         {{#serialize config.filters}}{{/serialize}},
-      datasets:        {{#serialize config.datasets}}{{/serialize}}
-    };
+  <!--[if IE LTE 7]>
+  <script>
     $(function() {
-      // Ready set go!
-      window.app = new Shareabouts.App({
-        activity: [],
-        defaultPlaceTypeName: S.Config.defaultPlaceTypeName,
-        userToken: S.Config.userToken,
-        appConfig: S.Config.app,
-        placeConfig: S.Config.place,
-        placeTypes: S.Config.placeTypes,
-        cluster: S.Config.cluster,
-        sidebarConfig: S.Config.sidebar,
-        rightSidebarConfig: S.Config.rightSidebar,
-        surveyConfig: S.Config.survey,
-        supportConfig: S.Config.support,
-        mapConfig: S.Config.map,
-        storyConfig: S.Config.story,
-        activityConfig: S.Config.activity,
-        pagesConfig: S.Config.pages,
-        filters: S.Config.filters,
-        datasetsConfig: S.Config.datasets
+      var $unsupportedEl = $('.unsupported-overlay');
+      var unsupportedHtml = Handlebars.templates['unsupported-overlay']();
+      $unsupportedEl.hide();
+      $unsupportedEl.html(unsupportedHtml);
+      $unsupportedEl.slideDown();
+      $unsupportedEl.find('.close-btn').click(function(evt) {
+        evt.preventDefault();
+        $unsupportedEl.slideUp();
+        return false;
       });
     });
-  }(Shareabouts, jQuery));
   </script>
+  <![endif]-->
+
+  {{#if production}}
+    <script>
+      (function(S, $){
+        S.Config = {
+          defaultPlaceTypeName: '{{ default_place_type }}',
+          userToken: (
+            S.bootstrapped.currentUser ?
+            'user:' + S.bootstrapped.currentUser.id :
+            "{{ user_token_json }}"),
+          app:        {{#serialize config.app}}{{/serialize}},
+          place:      {{#serialize config.place}}{{/serialize}},
+          placeTypes: {{#serialize config.place_types}}{{/serialize}},
+          cluster:    {{#serialize config.cluster}}{{/serialize}},
+          survey:     {{#serialize config.survey}}{{/serialize}},
+          support:    {{#serialize config.support}}{{/serialize}},
+          map:        {{#serialize config.map}}{{/serialize}},
+          activity:   {{#serialize config.activity}}{{/serialize}},
+          sidebar:    {{#serialize config.sidebar}}{{/serialize}},
+          leaflet_sidebar: {{#serialize config.leaflet_sidebar}}{{/serialize}},
+          pages:           {{#serialize config.pages}}{{/serialize}},
+          story:           {{#serialize config.story}}{{/serialize}},
+          rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
+          filters:         {{#serialize config.filters}}{{/serialize}},
+          datasets:        {{#serialize config.datasets}}{{/serialize}}
+        };
+        $(function() {
+          // Ready set go!
+          window.app = new Shareabouts.App({
+            activity: [],
+            defaultPlaceTypeName: S.Config.defaultPlaceTypeName,
+            userToken: S.Config.userToken,
+            appConfig: S.Config.app,
+            placeConfig: S.Config.place,
+            placeTypes: S.Config.placeTypes,
+            cluster: S.Config.cluster,
+            sidebarConfig: S.Config.sidebar,
+            rightSidebarConfig: S.Config.rightSidebar,
+            surveyConfig: S.Config.survey,
+            supportConfig: S.Config.support,
+            mapConfig: S.Config.map,
+            storyConfig: S.Config.story,
+            activityConfig: S.Config.activity,
+            pagesConfig: S.Config.pages,
+            filters: S.Config.filters,
+            datasetsConfig: S.Config.datasets
+          });
+        });
+      }(Shareabouts, jQuery));
+    </script>
+  {{else}}
+    <script src="/dist/config-en_US.js" type="text/javascript"></script>
+  {{/if}}
 
   {{#if settings.googleAnalyticsId}}
   <script>

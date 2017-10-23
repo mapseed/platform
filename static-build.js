@@ -175,7 +175,7 @@ const flavorLocaleDir = path.resolve(
 );
 const mergedPOFileOutputPath = path.resolve(
   __dirname,
-  "src/base/static/dist/django.po"
+  "src/base/static/dist/messages.po"
 );
 
 let activeLanguages;
@@ -224,7 +224,7 @@ activeLanguages.forEach((language) => {
       path.resolve(
         baseLocaleDir,
         language.code,
-        "LC_MESSAGES/django.po"
+        "LC_MESSAGES/messages.po"
       )
     );
     mergedPOFile = fs.readFileSync(mergedPOFileOutputPath);
@@ -458,29 +458,6 @@ fontPaths.forEach((fontPath) => {
     );
   } catch (e) {
     logError("Error copying font file: " + e);
-  }
-});
-
-// Copy font files
-const fontPaths = glob.sync(
-  flavorBasePath + 
-  "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"
-);
-fontPaths.forEach((fontPath) => {
-  try {
-    fs.copySync(
-      path.resolve(
-        flavorBasePath,
-        fontPath
-      ),
-      path.resolve(
-        outputBasePath,
-        "static/css",
-        fontPath.split("/").slice(-1)[0]
-      )
-    );
-  } catch (e) {
-    log("(ERROR!) Error copying font file: " + e);
   }
 });
 
