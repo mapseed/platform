@@ -230,7 +230,7 @@ activeLanguages.forEach((language) => {
     mergedPOFile = fs.readFileSync(mergedPOFileOutputPath);
     log("Finsihed merging .po file for " + language.code);
   } catch(e) {
-    log("(ERROR!) Error merging .po file for " + language.code);
+    logError("Error merging .po file for " + language.code);
   }
 
   gt.addTranslations(
@@ -285,7 +285,7 @@ activeLanguages.forEach((language) => {
       outputJSTemplatesPath
     );
   } catch (e) {
-    log("(ERROR!) Error copying base jstemplates assets: " + e);
+    logError("Error copying base jstemplates assets: " + e);
   }
 
   try {
@@ -294,7 +294,7 @@ activeLanguages.forEach((language) => {
       outputJSTemplatesPath
     );
   } catch (e) {
-    log("(ERROR!) Error copying flavor jstemplates assets: " + e);
+    logError("Error copying flavor jstemplates assets: " + e);
   }
 
   try {
@@ -303,7 +303,7 @@ activeLanguages.forEach((language) => {
       outputJSTemplatesPath
     );
   } catch (e) {
-    log("(ERROR!) Error copying flavor pages assets: " + e);
+    logError("Error copying flavor pages assets: " + e);
   }
 
   log("Finished copying jstemplates assets");
@@ -420,7 +420,7 @@ try {
     outputImageAssetsPath
   );
 } catch (e) {
-  log("(ERROR!) Error copying base image assets: " + e);
+  logError("Error copying base image assets: " + e);
 }
 
 // Copy flavor static image assets to www/images, replacing base assets as
@@ -435,7 +435,7 @@ try {
     outputImageAssetsPath
   );
 } catch (e) {
-  log("(ERROR!) Error copying flavor image assets: " + e);
+  logError("Error copying flavor image assets: " + e);
 }
 
 // Copy font files
@@ -457,7 +457,7 @@ fontPaths.forEach((fontPath) => {
       )
     );
   } catch (e) {
-    log("(ERROR!) Error copying font file: " + e);
+    logError("Error copying font file: " + e);
   }
 });
 
@@ -473,7 +473,7 @@ try {
     )
   );
 } catch (e) {
-  log("(ERROR!) Error copying flavor libs files: " + e);
+  logError("Error copying flavor libs files: " + e);
 }
 
 log("BUILD FINISHED for " + flavor);
