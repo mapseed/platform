@@ -162,8 +162,8 @@ const flavorPagesPath = path.resolve(  // NOTE: pages are a flavor-only concept,
   "jstemplates/pages"
 );
 const outputJSTemplatesPath = path.resolve(
-  __dirname,
-  "src/base/static/dist/jstemplates"
+  outputBasePath,
+  "jstemplates"
 );
 const baseLocaleDir = path.resolve(
   __dirname,
@@ -174,8 +174,8 @@ const flavorLocaleDir = path.resolve(
   "locale"
 );
 const mergedPOFileOutputPath = path.resolve(
-  __dirname,
-  "src/base/static/dist/messages.po"
+  outputBasePath,
+  "messages.po"
 );
 
 let activeLanguages;
