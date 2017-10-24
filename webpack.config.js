@@ -36,6 +36,7 @@ var entryPoints = [
   "./src/base/static/css/leaflet.draw.css",
   "./src/base/static/css/leaflet-sidebar.css",
   "./src/base/static/css/spectrum.css",
+  "./src/base/static/stylesheets/default.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
   "./src/flavors/" + process.env.FLAVOR + "/config.yml"
 ].concat(flavorJsFiles);

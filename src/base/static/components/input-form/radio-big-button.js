@@ -11,7 +11,9 @@ class RadioBigButton extends Component {
         <RadioField 
           id={this.props.id}
           name={this.props.name}
-          defaultChecked={this.props.defaultChecked}
+          checked={this.props.checked}
+          value={this.props.value}
+          onChange={this.props.onChange}
           required={this.props.required}>
         </RadioField>
         <label

@@ -10,7 +10,8 @@ class SubmitField extends Component {
         type="submit"
         id={this.props.id}
         name={this.props.name}
-        value={this.props.value} />
+        value={this.props.value} 
+        disabled={this.props.disabled} />
     );
   }
 };

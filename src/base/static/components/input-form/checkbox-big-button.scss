@@ -1,5 +1,9 @@
 .checkbox-big-button {
 	
+  display: inline-block;
+  overflow: auto;
+  margin-right: 5px;
+
   label {
     font-size: 1.15em;
     min-height: 2.1em;
@@ -9,7 +13,6 @@
     text-indent: 0;
     position: relative;
     float: left;
-    margin-top: 5px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;

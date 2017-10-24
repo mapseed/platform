@@ -6,7 +6,9 @@ class PrimaryButton extends Component {
 
   render() {
     return (
-      <button className={baseClass}>
+      <button 
+        className={baseClass}
+        disabled={this.props.disabled}>
         {this.props.children}
       </button>
     );

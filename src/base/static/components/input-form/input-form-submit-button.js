@@ -10,9 +10,11 @@ class InputFormSubmitButton extends Component {
   render() {
     return (
       <div className={baseClass}>
-        <PrimaryButton>
+        <PrimaryButton disabled={this.props.disabled}>
           {this.props.label}
-          <SubmitField name={this.props.name} />
+          <SubmitField 
+            name={this.props.name} 
+            disabled={this.props.disabled} />
         </PrimaryButton>
       </div>
     );

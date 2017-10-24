@@ -11,11 +11,7 @@ app:
 
   # This should be set to the root of an api server from which you'd like to draw
   # permissions information for logged-in users. This value can be overridden
-<<<<<<< f1893f4f33dcc6ac5eac2ad76a4c7fa84f5372b0
   # using the API_ROOT environment variable. Note the trailing slash.
-=======
-  # using the SITE_KEY environment variable. Note the trailing slash.
->>>>>>> chore(static build) store full dataset paths in config.yml files
   api_root: https://dev-api.heyduwamish.org/api/v2/
 
   # Fallback image to use for sharing on social services if no model image is present
@@ -1512,6 +1508,7 @@ place:
           type: richTextarea
           prompt: _(Description:)
           display_prompt: _( )
+          optional: false
           placeholder: _( )
         - name: url-title
           type: url-title
@@ -1912,7 +1909,8 @@ place:
           optional: false
         - name: source  #internally used name for this form element
           type: dropdown  #form type
-          prompt: _(Select one of the following to identify the source of the bad air quality.)  #question prompt
+          prompt: _(Select one of the following to identify the source of the bad air quality.)  
+          #question prompt
           display_prompt: _(Pollution source observed:)  #text used when a submitted report is viewed later
           content:
             - label: _(Asbestos)

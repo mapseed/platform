@@ -9,8 +9,10 @@ class RadioField extends Component {
         className={baseClass}
         type="radio"
         id={this.props.id}
+        value={this.props.value}
         name={this.props.name}
-        defaultChecked={this.props.defaultChecked}
+        checked={this.props.checked}
+        onChange={this.props.onChange}
         required={this.props.required} />
     );
   }

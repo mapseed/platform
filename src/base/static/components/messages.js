@@ -53,7 +53,7 @@ const mapDrawingToolbar = {
     label: "Delete shape"
   },
   editMarker: {
-    header: "Drag your makrer to reposition it"
+    header: "Drag your marker to reposition it"
   },
   editPolyline: {
     header: "Drag line handles to edit your line, or click on line handles to delete vertices"
@@ -69,13 +69,22 @@ const mapDrawingToolbar = {
   }
 },
 inputForm = {
-
+  optionalMsg: "(optional)"
 },
 customUrlField = {
   urlReadoutPrefix: "Your post will be accessible at:"
 },
 geocodingField = {
   locationNotFoundError: "Sorry, we could not find that location."
-}
+},
+publishControlToolbar = {
+  publishedLabel: "Published",
+  notPublishedLabel: "Not published",
+  publishedFooterMsg: "When created, this post will be visible to all map users",
+  notPublishedFooterMsg: "When created, this post will be visible only to logged-in editors"
+},
+dropdownField = {
+  makeSelection: "Select..."
+};
 
-export { mapDrawingToolbar, inputForm, customUrlField, geocodingField };
+export { mapDrawingToolbar, inputForm, customUrlField, geocodingField, publishControlToolbar, dropdownField };

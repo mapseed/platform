@@ -31,14 +31,11 @@ class CustomUrlField extends Component {
       }
     };
 
-    let slug = this.props.layerConfig.slug;
-
     this.urlPrefix = 
       window.location.protocol +
       "//" +
       window.location.hostname +
-      "/" +
-      (this.props.layerConfig.useSlugForCustomUrls ? this.props.layerConfig.slug + "/" : "");
+      "/";
   }
 
   onUrlChange(evt) {
@@ -59,6 +56,9 @@ class CustomUrlField extends Component {
         </div>
         <TextField 
           placeholder={this.props.placeholder} 
+          value={this.props.value}
+          name={this.props.name}
+          required={this.props.required}
           onChange={this.onUrlChange.bind(this)} />
       </div>
     );
