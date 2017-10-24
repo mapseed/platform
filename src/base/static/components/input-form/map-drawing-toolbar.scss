@@ -25,10 +25,14 @@
   }
 
   .map-drawing-toolbar__drawing-tools-container--visible,
-  .map-drawing-toolbar__editing-tools-container--visible,
-  .map-drawing-toolbar__marker-selection-container--visible {
+  .map-drawing-toolbar__editing-tools-container--visible {
     display: flex;
     justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  .map-drawing-toolbar__marker-selection-container--visible {
+    display: block;
     margin-bottom: 15px;
   }
 
@@ -82,8 +86,10 @@
   }
 
   .map-drawing-toolbar__marker-item {
+    display: inline-block;
     margin-right: 10px;
     margin-left: 10px;
+    margin-bottom: 5px;
 
     .label-with-inline-image {
       border: $map-drawing-toolbar-marker-item-marker-border;
@@ -95,6 +101,8 @@
       }
 
       .label-with-inline-image__image-container {
+        width: $map-drawing-toolbar-marker-item-marker-width + 5px;
+
         img {
           width: $map-drawing-toolbar-marker-item-marker-width;
         }

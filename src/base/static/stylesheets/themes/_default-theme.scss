@@ -16,12 +16,16 @@ $dark-gray: #888888;
 $very-dark-gray: #36454F;
 $extremely-dark-gray: #222222;
 
+$warning-color: #FFFFE0;
+$alert-color: #D9534F;
+
 
 // -----------------------------------------------------------------------------
 // ICONS
 // -----------------------------------------------------------------------------
 $icon-search: "\F002";
 $icon-check-mark: "✔";
+$icon-hamburger: "\F03A";
 
 
 // -----------------------------------------------------------------------------
@@ -120,10 +124,14 @@ $input-form-category-button-label-padding: 0 0 0 20px;
 $input-form-category-button-image-margin: 0 20px 0 20px;
 $input-form-category-button-image-border-radius: 7px 0 0 7px;
 $input-form-category-button-label-border-radius: 0 7px 7px 0;
-
-$input-form-selected-category-button-label-background-color: $accent-color-1;
-$input-form-selected-category-button-image-background-color: $accent-color-1-tint;
-$input-form-selected-category-button-text-color: #FFFFFF;
+$input-form-category-button-expand-categories-button: $icon-hamburger;
+$input-form-category-button-expand-categories-button-color: #FFFFFF;
+$input-form-category-button-expand-categories-button-hover-color: $light-gray;
+$input-form-category-button-selected-label-background-color: $accent-color-1;
+$input-form-category-button-selected-image-background-color: $accent-color-1-tint;
+$input-form-category-button-selected-text-color: #FFFFFF;
+$input-form-category-button-collapse-animation-duration: 0.5s;
+$input-form-category-button-height: 55px;
 
 
 // -----------------------------------------------------------------------------
@@ -139,6 +147,7 @@ $text-field-border-radius: 0 0 0 0;
 $text-field-padding: 0.5em 0.5em 0.5em 0.5em;
 $text-field-margin: 0 0 0 0;
 $text-field-width: 100%;
+$text-field-autofill-background-color: $warning-color;
 
 /*
 	TextareaField.js
@@ -322,3 +331,12 @@ $custom-url-border-radius: 5px;
 $custom-url-padding: 10px 10px 10px 10px;
 $custom-url-prefix-msg-text-color: $extremely-dark-gray;
 $custom-url-prefix-url-text-color: #FFFFFF;
+
+/*
+  InputForm.js
+  Main input form for new map content
+*/
+$input-form-prompt-font-size: 1em;
+$input-form-optional-msg-font-size: 0.75em;
+
+

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 const baseClass = "mapseed-checkbox-field";
 
 class CheckboxField extends Component {
+
   render() {
     return (
       <input 
@@ -10,8 +11,10 @@ class CheckboxField extends Component {
         type="checkbox"
         id={this.props.id}
         name={this.props.name}
+        value={this.props.value}
         required={this.props.required} 
-        defaultChecked={this.props.defaultChecked} />
+        onChange={this.props.onChange}
+        checked={this.props.checked} />
     );
   }
 };

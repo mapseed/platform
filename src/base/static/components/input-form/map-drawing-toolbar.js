@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "bem-classnames";
-//import ColorPicker from "rc-color-picker";
+import ColorPicker from "rc-color-picker";
 
 import { RadioField } from "../form-fields/radio-field";
 import { LabelWithInlineImage } from "../ui-elements/label-with-inline-image";
@@ -11,9 +11,9 @@ const baseClass = "map-drawing-toolbar";
 
 const drawingDefaults = {
   color: "#f86767", // stroke color
-  opacity: 0.7*100, // stroke opacity
+  opacity: 0.7,     // stroke opacity
   fillColor: "#f1f075",
-  fillOpacity: 0.3*100
+  fillOpacity: 0.3
 };
 
 class MapDrawingToolbar extends Component {
@@ -32,8 +32,8 @@ class MapDrawingToolbar extends Component {
     };
 
     this.colorpickerState = {
-      strokeColor: drawingDefaults.color,
-      strokeOpacity: drawingDefaults.opacity,
+      color: drawingDefaults.color,
+      opacity: drawingDefaults.opacity,
       fillColor: drawingDefaults.fillColor,
       fillOpacity: drawingDefaults.fillOpacity
     };
@@ -41,6 +41,10 @@ class MapDrawingToolbar extends Component {
     this.drawingObject = null;
     this.editingLayerGroup = new L.FeatureGroup().addTo(this.props.map);
     this.outputGeometry = {};
+
+    // TODO: should this event be un-bound and then rebound if the map drawing
+    // toolbar is opened multiple times?
+    this.props.router.on("route", this.tearDown, this);
 
     this.mapTools = {
       drawing: [
@@ -208,6 +212,9 @@ class MapDrawingToolbar extends Component {
   }
 
   componentWillReceiveProps() {
+    console.log("componentWillReceiveProps");
+    console.log("this.props.formIsOpen", this.props.formIsOpen);
+
     if (!this.props.formIsOpen) {
       this.tearDown();
     }
@@ -220,32 +227,38 @@ class MapDrawingToolbar extends Component {
   }
 
   generateOutputGeometry(layer) {
+    let style;
+
     if (layer instanceof L.Polygon) {
       let latLngs = layer.getLatLngs(),
           coords = this.buildCoords(latLngs);
 
+      // We push the initial polygon vertext onto the end of the vertex array
+      // here so we ensure the final vertex exactly matches the first. The
+      // database will reject polygonal geometry otherwise.
       coords.push([latLngs[0].lng, latLngs[0].lat]);
 
       this.outputGeometry = {
         type: "Polygon",
-        // We push the initial polygon vertext onto the end of the vertex array
-        // here so we ensure the final vertex exactly matches the first. The
-        // database will reject polygonal geometry otherwise.
-        coordinates: coords,
+        coordinates: [coords],
       };
+      style = this.colorpickerState;
     } else if (layer instanceof L.Polyline) {
       this.outputGeometry = {
         type: "LineString",
         coordinates: this.buildCoords(layer.getLatLngs())
       };
+      style = this.colorpickerState;
     } else if (layer instanceof L.Marker) {
       this.outputGeometry = {
         type: "Point",
         coordinates: [layer._latlng.lng, layer._latlng.lat],
       };
+      style = {iconUrl: layer.options.icon.options.iconUrl};
     }
 
-    this.props.onGeometry(this.outputGeometry);
+    this.props.onGeometryChange(this.outputGeometry);
+    this.props.onGeometryStyleChange(style);
   }
 
   onGeometryToolTypeChange(evt) {
@@ -278,8 +291,8 @@ class MapDrawingToolbar extends Component {
         this.resetDrawingObject();
         this.drawingObject = new L.Draw.Polyline(this.props.map, {
           shapeOptions: {
-            color: this.colorpickerState.strokeColor,
-            opacity: this.colorpickerState.strokeOpacity/100
+            color: this.colorpickerState.color,
+            opacity: this.colorpickerState.opacity
           },
         });
         this.drawingObject.enable();
@@ -294,10 +307,10 @@ class MapDrawingToolbar extends Component {
         this.resetDrawingObject();
         this.drawingObject = new L.Draw.Polygon(this.props.map, {
           shapeOptions: {
-            color: this.colorpickerState.strokeColor,
-            opacity: this.colorpickerState.strokeOpacity/100,
+            color: this.colorpickerState.color,
+            opacity: this.colorpickerState.opacity,
             fillColor: this.colorpickerState.fillColor,
-            fillOpacity: this.colorpickerState.fillOpacity/100
+            fillOpacity: this.colorpickerState.fillOpacity
           },
         });
         this.drawingObject.enable();
@@ -337,6 +350,8 @@ class MapDrawingToolbar extends Component {
         selectedDrawingTool: null,
         selectedEditingTool: null
       });
+      this.props.onGeometryChange(null);
+      this.props.onGeometryStyleChange(null);
     } else if (evt.target.id.startsWith("edit-")) {
       this.drawingObject = new L.EditToolbar.Edit(this.props.map, {
         featureGroup: this.editingLayerGroup,
@@ -380,6 +395,7 @@ class MapDrawingToolbar extends Component {
         });
 
     this.getLayerFromEditingLayerGroup().setIcon(icon);
+    this.props.onGeometryStyleChange({iconUrl: iconUrl});
   }
 
   onColorpickerChange(colorInfo, colorpickerId) {
@@ -390,15 +406,17 @@ class MapDrawingToolbar extends Component {
           fillOpacity: colorInfo.alpha/100,
         });
         this.colorpickerState.fillColor = colorInfo.color;
-        this.colorpickerState.fillOpacity = colorInfo.alpha;
+        this.colorpickerState.fillOpacity = colorInfo.alpha/100;
       } else if (colorpickerId === "colorpicker-stroke-tool") {
         this.editingLayerGroup.getLayers()[0].setStyle({
           color: colorInfo.color,
           opacity: colorInfo.alpha/100,
         });
-        this.colorpickerState.strokeColor = colorInfo.color;
-        this.colorpickerState.strikeOpacity = colorInfo.alpha;
+        this.colorpickerState.color = colorInfo.color;
+        this.colorpickerState.opacity = colorInfo.alpha/100;
       }
+
+      this.props.onGeometryStyleChange(this.colorpickerState);
     }
   }
 
@@ -507,6 +525,8 @@ class MapDrawingToolbar extends Component {
   }
 
   tearDown() {
+    console.log("tearDown");
+
     this.setState({
       headerMessage: messages.selectTool.header,
       currentPanel: "select-geometry-type",
@@ -538,7 +558,7 @@ class MapDrawingToolbar extends Component {
             key={tool.type}>
             <ColorPicker 
               color={this.colorpickerState[tool.mode + "Color"]}
-              alpha={this.colorpickerState[tool.mode + "Opacity"]}
+              alpha={this.colorpickerState[tool.mode + "Opacity"]*100}
               mode="RGB"
               enableAlpha={true}
               onOpen={() => this.onColorpickerToggle(tool.type)}
@@ -621,7 +641,7 @@ MapDrawingToolbar.propTypes = {
   map: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
   markers: PropTypes.array.isRequired,
-  onGeometry: PropTypes.func.isRequired
+  onGeometryChange: PropTypes.func.isRequired
 };
 
 export { MapDrawingToolbar };

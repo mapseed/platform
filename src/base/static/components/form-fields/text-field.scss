@@ -6,3 +6,7 @@
   width: $text-field-width;
   box-sizing: border-box;
 }
+
+.mapseed-text-field--has-autofill {
+  background-color: $text-field-autofill-background-color;
+} 

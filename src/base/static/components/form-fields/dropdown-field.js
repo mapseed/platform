@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { dropdownField as messages } from "../messages";
+
 const baseClass = "mapseed-dropdown-field";
 
 /*
@@ -14,18 +16,17 @@ const baseClass = "mapseed-dropdown-field";
 class DropdownField extends Component {
 
   render() {
-    let selectedOption = this.props.options.filter((option) => {
-      return option.selected === true;
-    });
 
     return (
       <select
         className={baseClass}
-        defaultValue={selectedOption.length > 0 && selectedOption[0].value}
+        value={this.props.value}
         name={this.props.name}
         required={this.props.required}
         onChange={this.props.onChange}>
-
+        <option value="">
+          {messages.makeSelection}
+        </option>
         {this.props.options.map((option) => 
           <option
             key={option.value}

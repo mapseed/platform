@@ -8,36 +8,46 @@ const baseClass = "input-form-category-button";
 class InputFormCategoryButton extends Component {
 
   constructor() {
-    super();
-  }
-
-  getClassname(classname) {
-    if (classname === "categoryButtonContainerClass") {
-      return {
+    super(...arguments);
+    this.classes = {
+      expandCategoriesButton: {
+        name: baseClass + "__expand-categories-button",
+        modifiers: ["visibility"]
+      },
+      baseClass: {
         name: baseClass,
         modifiers: ["visibility"]
-      };
-    }
-
-    return null;
+      }
+    };
+    this.state = {
+      isActive: false
+    };
   }
 
   onCategoryChange(evt) {
     this.props.onCategoryChange(evt);
+  }
 
-    // evt.nativeEvent.path[1].className = 
-    // 	cx(this.getClassname("categoryButtonContainerClass"), { visibility: "hidden" });
+  componentWillReceiveProps() {
+    this.setState({ isActive: this.props.isActive })
+  }
+
+  onClickExpandCategories(evt) {
+    this.props.onExpandCategories();
+  }
+
+  getVisibility() {
+    if (!this.props.categoryMenuIsCollapsed) {
+      return true;
+    } else if (this.props.isActive) {
+      return true;
+    }
+    return false;
   }
 
   render() {
-    let visibility = "visible";
-    let categoryButtonContainerClass = {
-          name: baseClass,
-          modifiers: ["visibility"]
-        };
-
     return (
-      <div className={cx(categoryButtonContainerClass, { visibility: visibility })}>
+      <div className={cx(this.classes.baseClass, { visibility: (this.getVisibility()) ? "visible" : "hidden" })}>
         <input 
           id={this.props.categoryConfig.category}
           type="radio"
@@ -49,6 +59,9 @@ class InputFormCategoryButton extends Component {
           imageSrc={this.props.categoryConfig.icon_url} 
           imageAlignment="left"
           inputId={this.props.categoryConfig.category} />
+        <span 
+          className={cx(this.classes.expandCategoriesButton, { visibility: (this.props.isActive) ? "visible" : "hidden" })} 
+          onClick={this.onClickExpandCategories.bind(this)}/>
       </div>
     );
   }

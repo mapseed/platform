@@ -40,13 +40,14 @@ class GeocodingField extends Component {
 
   doGeocode(evt) {
     this.setState({ isGeocoding: true, hasGeocodingError: false });
-    let address = evt.target.value;
+    let address = this.props.value;
 
     Util[this.geocodingEngine].geocode(address, this.hint, {
       success: (data) => {
         let locationsData = data.results[0].locations;
         if (locationsData.length > 0) {
-          this.props.emitter.emit("geocode", [locationsData[0]]);
+          this.setState({ isGeocoding: false, hasGeocodingError: false });
+          this.props.emitter.emit("geocode", locationsData[0]);
         } else {
           this.setState({ isGeocoding: false, hasGeocodingError: true });
         }
@@ -73,7 +74,8 @@ class GeocodingField extends Component {
         <input 
           name={this.props.name}
           type="text"
-          defaultValue={this.props.defaultValue} 
+          value={this.props.value}
+          onChange={this.props.onChange} 
           onBlur={this.onBlur.bind(this)} />
         <div className={cx(this.geocodingErrorClass, 
           { visibility: this.state.hasGeocodingError ? "visible" : "hidden" })}>

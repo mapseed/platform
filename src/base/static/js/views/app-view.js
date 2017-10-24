@@ -279,7 +279,8 @@ module.exports = Backbone.View.extend({
 
       this.mapView.zoomInOn(locationData.latLng);
       if (this.isAddingPlace()) {
-        this.placeFormView.setLatLng(locationData.latLng);
+        // TODO: update location on form
+        //this.placeFormView.setLatLng(locationData.latLng);
       }
     });
 
@@ -540,9 +541,13 @@ module.exports = Backbone.View.extend({
   },
 
   setPlaceFormViewLatLng: function(centerLatLng) {
-    if (this.placeFormView) {
-      this.placeFormView.setLatLng(centerLatLng);
-    }
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    // if (this.placeFormView) {
+    //   this.placeFormView.setLatLng(centerLatLng);
+    // }
+    // NOTE: the input form will just read the map's centerpoint at the time
+    // of submission.
+    // END REACT PORT SECTION //////////////////////////////////////////////////
   },
   onMapZoomEnd: function(evt) {
     if (
@@ -761,6 +766,10 @@ module.exports = Backbone.View.extend({
         mapConfig={this.options.mapConfig}
         map={this.mapView.map}
         emitter={emitter}
+        collectionsSet={{
+          places: this.places,
+          landmarks: this.landmarks,
+        }}
         router={this.options.router}
       />,
       document.querySelector("#content article")
