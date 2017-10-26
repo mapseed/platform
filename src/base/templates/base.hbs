@@ -16,7 +16,7 @@
   <!-- Mobile Viewport Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 
-  {{#block app_icons}}
+  {{#block "app_icons"}}
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
   <link rel="shortcut icon" href="/static/css/images/favicon.ico">
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/css/images/apple-touch-icon-144x144-precomposed.png">
@@ -64,13 +64,13 @@
   <header id="site-header" class="clearfix{{#if config.pages}} has-pages{{/if}}">
     <h1 id="site-title">{{#block "site-title"}}{{/block}}</h1>
 
-    {{#block pre_auth_nav}}{{/block}}
+    {{#block "pre_auth_nav"}}{{/block}}
     <div id="auth-nav-container"></div>
-    {{#block post_auth_nav}}{{/block}}
+    {{#block "post_auth_nav"}}{{/block}}
 
-    {{#block pre_pages_nav}}{{/block}}
+    {{#block "pre_pages_nav"}}{{/block}}
     <div id="pages-nav-container"></div>
-    {{#block post_pages_nav}}{{/block}}
+    {{#block "post_pages_nav"}}{{/block}}
 
     {{#if config.map.counter}}
       <div id="place-counter" class="list-toggle-nav"></div>
@@ -86,7 +86,7 @@
                 <ul class="menu">
                   {{#each config.languages}}
                     <li class="menu-item">
-                      <a href="/{{this.code}}/index.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
+                      <a href="/{{this.code}}.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
                     </li>
                   {{/each}}
                 </ul>
@@ -152,7 +152,7 @@
    <!-- <div id="side-bar"> -->
    {{#if config.sidebar.legend_enabled}}
     <!-- <div id="master-legend"> -->
-      {{#block sidebar}}{{/block}}
+      {{#block "sidebar"}}{{/block}}
       <!--<header>Master Legend</header>-->
     <!-- </div> -->
    {{/if}}
@@ -163,7 +163,7 @@
 
   <!--
   <footer id="colophon">
-    {{#block colophon }}{{/block}}
+    {{#block "colophon"}}{{/block}}
   </footer>
   -->
 
@@ -225,12 +225,12 @@
   {{/if}}
   
   <!-- These are obscure or customized, self-hosted. -->
-  <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
-  <script src="{{STATIC_URL}}libs/exif.js"></script>
-  <script src="{{STATIC_URL}}libs/swag.min.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet.sidebar.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet-wmts.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
+  <script src="/libs/binaryajax.js"></script>
+  <script src="/libs/exif.js"></script>
+  <script src="/libs/swag.min.js"></script>
+  <script src="/libs/leaflet.sidebar.js"></script>
+  <script src="/libs/leaflet-wmts.js"></script>
+  <script src="/libs/leaflet.argo.js"></script>
 
   <!-- Bootstrap site and user information -->
   <script>
@@ -397,7 +397,7 @@
   </noscript>
   {{/if}}
 
-  {{#block includes}}{{/block}}
+  {{#block "includes"}}{{/block}}
 
 </body>
 </html>
