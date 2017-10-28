@@ -47,6 +47,20 @@ const distPath = path.resolve(
   "dist"
 );
 
+let jsHashedBundleName,
+    cssHashedBundleName;
+glob.sync(
+  distPath +
+  "/+(*.bundle.js|*.bundle.css)"
+).forEach((path) => {
+  path = path.split("/");
+  if (path[path.length - 1].endsWith("js")) {
+    jsHashedBundleName = path[path.length - 1];
+  } else if (path[path.length - 1].endsWith("css")) {
+    cssHashedBundleName = path[path.length - 1];
+  }
+});
+
 // Make sure the output directory exists.
 shell.mkdir('-p', distPath);
 
@@ -377,7 +391,8 @@ activeLanguages.forEach((language) => {
   // Build the index-xx.html file for this language
   outputIndexFile = indexTemplate({
     production: (process.env.NODE_ENV === "production" ? true : false),
-    bundleVersion: bundleVersion,
+    jsHashedBundleName: jsHashedBundleName,
+    cssHashedBundleName: cssHashedBundleName,
     config: thisConfig,
     settings: {
       mapboxToken: process.env.MAPBOX_TOKEN || "",

@@ -30,7 +30,7 @@
   <link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="/dist/bundle.css?ver={{bundleVersion}}">
+  <link rel="stylesheet" href="/dist/{{cssHashedBundleName}}">
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
   {{#if config.map.cartodb_enabled}}
@@ -254,7 +254,7 @@
     {{#precompile_jstemplates}}{{/precompile_jstemplates}}
     Handlebars.partials = Handlebars.templates;
   </script>
-  <script src="/dist/bundle.js?ver={{bundleVersion}}"></script>
+  <script src="/dist/{{jsHashedBundleName}}"></script>
   <script src="{{config.app.api_root}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{config.app.api_root}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
 

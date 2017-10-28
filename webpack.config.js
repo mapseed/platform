@@ -45,14 +45,14 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 }
 
 var outputBasePath = path.resolve(__dirname, "www");
-const extractSCSS = new ExtractTextPlugin("bundle.css");
+const extractSCSS = new ExtractTextPlugin("[contenthash].bundle.css");
 const extractYML = new ExtractTextPlugin("config-en_US.js");
 
 module.exports = {
   entry: entryPoints,
   output: {
     path: path.join(outputBasePath, "dist"),
-    filename: "bundle.js"
+    filename: "[chunkhash].bundle.js"
   },
   resolve: {
     alias: alias
