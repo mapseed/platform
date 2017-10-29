@@ -26,7 +26,7 @@
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p && cat www/bundle.js | gzip > www/bundle.js.gz",
     "watch-js": "webpack -d --watch",
-    "build": "NODE_ENV=production npm run build-js-production && node static-build.js",
+    "build": "NODE_ENV=production npm run build-js-production && NODE_ENV=production node static-build.js",
     "prettier": "prettier --write --trailing-comma all \"{src,blah}/**/*.{js,jsx}\""
   },
   "dependencies": {
