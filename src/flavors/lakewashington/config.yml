@@ -108,7 +108,7 @@ map:
       slug: report
 
     - id: lakewashingtonfeatured
-      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/lakewashingtonfeatured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/lakewashingtonfeatured
       type: place
       slug: featured
 

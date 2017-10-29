@@ -62,6 +62,7 @@ map:
       attribution: 'Hello World'
 
     - id: duwamish
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
       type: place
       slug: report
 

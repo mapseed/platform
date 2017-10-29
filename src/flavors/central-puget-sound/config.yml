@@ -311,7 +311,7 @@ map:
       slug: report
 
     - id: mwfeatured
-      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/mwfeatured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured
       type: place
       slug: featured
 

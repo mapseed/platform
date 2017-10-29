@@ -95,7 +95,7 @@ map:
       slug: report
 
     - id: vision
-      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/vision
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/vision
       type: place
       slug: vision
 
@@ -106,7 +106,7 @@ map:
         - "https://raw.githubusercontent.com/mapseed/data/master/dvyc.geojson"
 
     - id: restoration
-      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/restoration
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/restoration
       type: place
       slug: restoration
 
@@ -116,6 +116,7 @@ map:
       slug: trees
 
     - id: duwamishfeatured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamishfeatured
       type: place
       slug: featured
 
