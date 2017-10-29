@@ -1,48 +1,32 @@
-{% extends 'base.html' %}
-{% load i18n %}
+{{#extends "../../../base/templates/base"}}
 
-{% block site-title %}
-<a href="http://www.greensboro-nc.gov/index.aspx?page=4796"><img id="site-logo" src="/static/css/images/pbgreensboro-logobanner.png"></a>
+{{#block "site-title"}}
+<a href="http://www.greensboro-nc.gov/index.aspx?page=4796"><img id="site-logo" src="/css/images/pbgreensboro-logobanner.png"></a>
 
 <!--Typekit embed code-->
 <script src="https://use.typekit.net/mon5qsx.js"></script>
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
-{% endblock %}
+{{/block}}
 
-{% block app_icons %}
+{{#block "app_icons"}}
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
-  <link rel="icon" href="{{ config.static_url }}css/images/greensboro-logo-small.png">
-  <link rel="shortcut icon" href="{{ config.static_url }}css/images/greensboro-logo-simple.png">
-  <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/greensboro-logo-simple.png">
+  <link rel="icon" href="/css/images/greensboro-logo-small.png">
+  <link rel="shortcut icon" href="/css/images/greensboro-logo-simple.png">
+  <link rel="apple-touch-icon-precomposed" href="/css/images/greensboro-logo-simple.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-{% endblock %}
-
-<!--
-  This will place content at the top of the side bar
- -->
-{% block sidebar %}
-
-<!-- <ul class="legend">
-  <li class="clearfix"><img src="/static/css/images/markers/new/fountain-small.png" width="25" height="30"> {% trans 'Art &amp; Culture' %}</li>
-  <li class="clearfix"><img src="/static/css/images/markers/new/playground-small.png" width="25" height="30"> {% trans 'Parks &amp; Recreation' %}</li>
-  <li class="clearfix"><img src="/static/css/images/markers/new/street-sidewalk-small.png" width="25" height="30"> {% trans 'Streets &amp; Sidewalks' %}</li>
-  <li class="clearfix"><img src="/static/css/images/markers/new/health-small.png" width="25" height="30"> {% trans 'Public Health' %}</li>
-  <li class="clearfix"><img src="/static/css/images/markers/new/safety-small.png" width="25" height="30"> {% trans 'Safety &amp; Environment' %}</li>
-  <li class="clearfix"><img src="/static/css/images/markers/new/idea-small.png" width="25" height="30"> {% trans 'Other' %}</li>
-</ul> -->
-{% endblock %}
+{{/block}}
 
 <!--
   This will place content in the colophon below the map
  -->
-{% block colophon %}
-<p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a>.</span></p>
-{% endblock %}
+{{#block "colophon"}}
+<p id="powered-by">{{#_}}Powered by{{/_}} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a>.</span></p>
+{{/block}}
 
 <!--
   Analytics, custom JS, and such go here
  -->
-{% block includes %}
+{{#block "includes"}}
 <script>
 // var mapbox_geocode = Shareabouts.Util.Mapbox.geocode;
 // Shareabouts.Util.Mapbox.geocode = function(location, bounds, options) {
@@ -122,5 +106,6 @@
 
   // }(Shareabouts, jQuery));
 </script>
+{{/block}}
 
-{% endblock %}
+{{/extends}}

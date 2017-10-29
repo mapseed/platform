@@ -47,7 +47,7 @@ module.exports = Backbone.View.extend({
 
     var self = this,
         // Only include submissions if the list view is enabled (anything but false)
-        includeSubmissions = Shareabouts.Config.flavor.app.list_enabled !== false,
+        includeSubmissions = this.options.appConfig.list_enabled !== false,
         placeParams = {
           // NOTE: this is to simply support the list view. It won't
           // scale well, so let's think about a better solution.
@@ -56,8 +56,8 @@ module.exports = Backbone.View.extend({
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
-    if (Shareabouts.Config.flavor.app.places_page_size) {
-      placeParams.page_size = Shareabouts.Config.flavor.app.places_page_size;
+    if (this.options.appConfig.places_page_size) {
+      placeParams.page_size = this.options.appConfig.places_page_size;
     }
 
     // Bootstrapped data from the page
@@ -164,6 +164,7 @@ module.exports = Backbone.View.extend({
 
     this.authNavView = new AuthNavView({
       el: "#auth-nav-container",
+      apiRoot: this.options.apiRoot,
       router: this.options.router,
     }).render();
 
@@ -284,8 +285,8 @@ module.exports = Backbone.View.extend({
     // List view is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.
     if (
-      _.isUndefined(Shareabouts.Config.flavor.app.list_enabled) ||
-      Shareabouts.Config.flavor.app.list_enabled
+      _.isUndefined(this.options.appConfig.list_enabled) ||
+      this.options.appConfig.list_enabled
     ) {
       this.listView = new PlaceListView({
         el: "#list-container",
@@ -929,7 +930,7 @@ module.exports = Backbone.View.extend({
     var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
       slug: slug,
     }),
-      pageTemplateName = "pages/" + (pageConfig.name || pageConfig.slug),
+      pageTemplateName = (pageConfig.name || pageConfig.slug),
       pageHtml = Handlebars.templates[pageTemplateName]({
         config: this.options.config,
       });

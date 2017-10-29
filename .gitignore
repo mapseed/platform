@@ -51,5 +51,5 @@ node_modules/
 # sqlite database
 *.db
 
-# static site build output
+# static site build process output
 www/

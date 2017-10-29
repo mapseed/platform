@@ -8,8 +8,12 @@ module.exports = Backbone.View.extend({
   },
 
   render: function() {
-    var data = Shareabouts.bootstrapped.currentUser,
-      template = Handlebars.templates["auth-nav"](data);
+    var data = {
+      currentUser: Shareabouts.bootstrapped.currentUser,
+      apiRoot: this.options.apiRoot
+    },
+    template = Handlebars.templates["auth-nav"](data);
+
     this.$el.html(template);
 
     return this;

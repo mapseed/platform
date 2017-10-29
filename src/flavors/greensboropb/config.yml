@@ -6,11 +6,17 @@ app:
   name: _(Participatory Budgeting Greensboro)
   # Meta description that will show up in Google search results
   meta_description: _(Participatory Budgeting for City of Greensboro)
+
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   district:
   tagline: _(How would YOU spend $100K?)
 
 # languages:
-#   - code: en
+#   - code: en_US
 #     label: English
 
 #   - code: es
@@ -55,10 +61,12 @@ map:
       type: basemap
 
     - id: greensboropb
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greensboropb
       type: place
       slug: idea
 
     - id: greensboropb_round1
+      url: https://shareaboutsapi2.herokuapp.com/api/v2/PBP/datasets/pb-greensboro-2015
       type: place
       slug: round1
 

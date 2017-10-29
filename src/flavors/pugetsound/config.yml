@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+  
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -18,7 +23,7 @@ app:
   # list_enabled: false
 
 # languages:
-#   - code: en
+#   - code: en_US
 #     label: I Speak English
 
 #   - code: es
@@ -65,6 +70,7 @@ map:
       type: basemap
 
     - id: pugetsound
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound
       type: place
       slug: report
 
@@ -130,14 +136,17 @@ map:
         - shellfish-harvesting
 
     - id: pugetsoundrose
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose
       type: place
       slug: rose
 
     - id: pugetsoundcases
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases
       type: place
       slug: cases
 
     - id: pugetsoundfeatured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured
       type: place
       slug: featured
 
@@ -385,7 +394,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)

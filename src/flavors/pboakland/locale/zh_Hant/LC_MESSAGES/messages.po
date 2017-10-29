@@ -1,10 +1,8 @@
-#: flavors/pboakland/_config.translations.py:74
-#: flavors/pboakland/_config.translations.py:106
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-30 02:17-0400\n"
+"POT-Creation-Date: 2017-09-07 15:31-0700\n"
 "PO-Revision-Date: 2017-03-30 05:43+0000\n"
 "Last-Translator: Language-Team: Chinese Traditional (https://www.transifex."
 "com/mapseed/teams/58669/zh-Hant/)\n"
@@ -18,7 +16,6 @@ msgstr ""
 "X-Loco-Parser: loco_parse_po\n"
 "X-Generator: Loco - https://localise.biz/\n"
 
-#: flavors/pboakland/_config.translations.py:1
 msgid ""
 "Welcome! Participatory Budgeting Oakland is an innovative democratic process "
 "that gives Oakland residents in City Council Districts 1 and 2 the power to "
@@ -27,426 +24,239 @@ msgstr ""
 "歡迎！參與奧克蘭預算編制是一項創新的民主流程，為奧克蘭城市委員會第2區的居民提"
 "供決定他們所在地區如何花費城市資金的權力。現在請幫我們投票吧！"
 
-#: flavors/pboakland/_config.translations.py:2
-#: flavors/pboakland/_config.translations.py:15
-#: flavors/pboakland/_config.translations.py:109
-msgid "Someone"
-msgstr "某人"
+msgid "idea for community programs and services"
+msgstr "對老年人服務的看法"
 
-#: flavors/pboakland/_config.translations.py:3
-msgid "support"
-msgstr "支援"
+msgid "idea for parks and recreation"
+msgstr "對公園和娛樂設施的看法"
 
-#: flavors/pboakland/_config.translations.py:4
-msgid "Support"
-msgstr "支援"
+msgid "idea for streets and sidewalks"
+msgstr "對街道和人行道的看法"
 
-#: flavors/pboakland/_config.translations.py:5
-msgid "supports"
-msgstr "支援"
+msgid "idea for housing and jobs"
+msgstr "住房和工作"
 
-#: flavors/pboakland/_config.translations.py:6
-msgid "comments"
-msgstr "評論"
+msgid "Map Layers:"
+msgstr "地圖圖層："
 
-#: flavors/pboakland/_config.translations.py:7
-msgid "commented on"
-msgstr "評論"
+msgid "OpenStreetMap"
+msgstr "OpenStreetMap"
 
-#: flavors/pboakland/_config.translations.py:8
-#: flavors/pboakland/_config.translations.py:14
-msgid "Leave a Comment"
-msgstr "發表評論"
+msgid "Satellite View"
+msgstr "衛星視圖"
 
-#: flavors/pboakland/_config.translations.py:9
-#: flavors/pboakland/_config.translations.py:10
-#: flavors/pboakland/_config.translations.py:12
-msgid "Comment"
-msgstr "評論"
+msgid "Dark"
+msgstr "黑"
 
-#: flavors/pboakland/_config.translations.py:11
-msgid "Your Name"
-msgstr "您的姓名"
+msgid "Community Data"
+msgstr "社區資料"
 
-#: flavors/pboakland/_config.translations.py:13
-msgid "comment"
-msgstr "評論"
+msgid "Community Reports"
+msgstr "社區報告"
 
-#: flavors/pboakland/_config.translations.py:16
+msgid "Oakland districts"
+msgstr "奧克蘭地區"
+
+msgid "Community ideas:"
+msgstr "社區看法："
+
+msgid "Community Programs and Services"
+msgstr "社區專案和服務"
+
+msgid "Parks and recreation"
+msgstr "公園和娛樂設施"
+
+msgid "Streets and sidewalks"
+msgstr "街道和人行道"
+
+msgid "Housing and Jobs"
+msgstr "住房和工作"
+
+msgid "Share your idea!"
+msgstr "分享您的看法！"
+
 msgid "Show the Map"
 msgstr "顯示地圖"
 
-#: flavors/pboakland/_config.translations.py:17
+msgid "suggested"
+msgstr "建議"
+
 #, fuzzy
 msgid "Submit"
 msgstr "提交！"
 
-#: flavors/pboakland/_config.translations.py:18
-msgid "Tell us more..."
-msgstr "告訴我們更多..."
-
-#: flavors/pboakland/_config.translations.py:19
-#: flavors/pboakland/_config.translations.py:29
-#: flavors/pboakland/_config.translations.py:39
-#: flavors/pboakland/_config.translations.py:49
 msgid "Title of your idea:"
 msgstr "您的意見標題"
 
-#: flavors/pboakland/_config.translations.py:20
-#: flavors/pboakland/_config.translations.py:24
-#: flavors/pboakland/_config.translations.py:26
-#: flavors/pboakland/_config.translations.py:27
-#: flavors/pboakland/_config.translations.py:30
-#: flavors/pboakland/_config.translations.py:34
-#: flavors/pboakland/_config.translations.py:36
-#: flavors/pboakland/_config.translations.py:37
-#: flavors/pboakland/_config.translations.py:40
-#: flavors/pboakland/_config.translations.py:44
-#: flavors/pboakland/_config.translations.py:46
-#: flavors/pboakland/_config.translations.py:47
-#: flavors/pboakland/_config.translations.py:50
-#: flavors/pboakland/_config.translations.py:54
-#: flavors/pboakland/_config.translations.py:56
-#: flavors/pboakland/_config.translations.py:57
 msgid " "
 msgstr " "
 
-#: flavors/pboakland/_config.translations.py:21
-#: flavors/pboakland/_config.translations.py:31
-#: flavors/pboakland/_config.translations.py:41
-#: flavors/pboakland/_config.translations.py:51
-msgid "Title:"
-msgstr "標題："
-
-#: flavors/pboakland/_config.translations.py:22
-#: flavors/pboakland/_config.translations.py:32
-#: flavors/pboakland/_config.translations.py:42
-#: flavors/pboakland/_config.translations.py:52
 msgid "Tell us more about your idea to improve our neighborhood?:"
 msgstr "告訴我們更多關於您對改善鄰居關係的看法？："
 
-#: flavors/pboakland/_config.translations.py:23
-#: flavors/pboakland/_config.translations.py:33
-#: flavors/pboakland/_config.translations.py:43
-#: flavors/pboakland/_config.translations.py:53
 msgid ""
 "Ideas must be for a program, service, or infrastructure improvement "
 "benefiting low-to-moderate income communities in the district."
 msgstr "看法必須針對社區內中低收入社區能受益的專案、服務或基礎設施改善。"
 
-#: flavors/pboakland/_config.translations.py:25
-#: flavors/pboakland/_config.translations.py:35
-#: flavors/pboakland/_config.translations.py:45
-#: flavors/pboakland/_config.translations.py:55
 msgid "Why is this important? What need in the community does this serve?:"
 msgstr "為什麼這很重要？該服務是社區裡需要的嗎？"
 
-#: flavors/pboakland/_config.translations.py:28
-#: flavors/pboakland/_config.translations.py:122
-msgid "Community Programs and Services"
-msgstr "社區專案和服務"
-
-#: flavors/pboakland/_config.translations.py:38
 msgid "Parks and Recreation"
 msgstr "公園和娛樂設施"
 
-#: flavors/pboakland/_config.translations.py:48
 msgid "Streets and Sidewalk"
 msgstr "街道和人行道"
 
-#: flavors/pboakland/_config.translations.py:58
-#: flavors/pboakland/_config.translations.py:125
-msgid "Housing and Jobs"
-msgstr "住房和工作"
-
-#: flavors/pboakland/_config.translations.py:59
-msgid "suggested"
-msgstr "建議"
-
-#: flavors/pboakland/_config.translations.py:60
-msgid "Asian Cultural Center"
-msgstr ""
-
-#: flavors/pboakland/_config.translations.py:61
-msgid "Williams Chapel"
-msgstr ""
-
-#: flavors/pboakland/_config.translations.py:62
-msgid "Beebe Memorial Cathedral"
-msgstr ""
-
-#: flavors/pboakland/_config.translations.py:63
-msgid "Mobile Assembly at Bella Vista Elementary School"
-msgstr ""
-
-#: flavors/pboakland/_config.translations.py:64
-#: flavors/pboakland/_config.translations.py:83
-msgid "Other"
-msgstr "其他"
-
-#: flavors/pboakland/_config.translations.py:65
-#, fuzzy
-msgid "Venue name:"
-msgstr "您的姓名"
-
-#: flavors/pboakland/_config.translations.py:66
 msgid "(For administrator use only)"
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:67
 #, fuzzy
 msgid "Submitted at:"
 msgstr "提交！"
 
-#: flavors/pboakland/_config.translations.py:68
+msgid "Williams Chapel"
+msgstr ""
+
+msgid "Beebe Memorial Cathedral"
+msgstr ""
+
+msgid "Mobile Assembly at Bella Vista Elementary School"
+msgstr ""
+
+msgid "Other"
+msgstr "其他"
+
 msgid "Image"
 msgstr "圖片"
 
-#: flavors/pboakland/_config.translations.py:69
-msgid "Add an Image"
-msgstr "添加圖片"
-
-#: flavors/pboakland/_config.translations.py:70
 msgid "Demographic information"
 msgstr "人口統計學資訊"
 
-#: flavors/pboakland/_config.translations.py:71
 msgid ""
 "This info is kept private, and is to ensure we are serving a diversity of "
 "people who best represent the needs of the community."
 msgstr "該資訊保密，確保我們為各種最能代表社區需要的人群服務。"
 
-#: flavors/pboakland/_config.translations.py:72
 msgid "Your age:"
 msgstr "您的年齡："
 
-#: flavors/pboakland/_config.translations.py:73
 msgid "Your age will not appear on the map"
 msgstr "您的年齡不會出現在地圖上"
 
-#: flavors/pboakland/_config.translations.py:75
-msgid "Your ethnicity:"
-msgstr "您的民族："
-
-#: flavors/pboakland/_config.translations.py:76
-msgid "Ethnicity:"
-msgstr "民族："
-
-#: flavors/pboakland/_config.translations.py:77
-msgid "American Indian/Alaskan Native"
-msgstr "美國印第安人/阿拉斯加原住民"
-
-#: flavors/pboakland/_config.translations.py:78
-msgid "Asian"
-msgstr "亞洲人"
-
-#: flavors/pboakland/_config.translations.py:79
-msgid "Black or African American"
-msgstr "黑人或非裔美國人"
-
-#: flavors/pboakland/_config.translations.py:80
-msgid "Hispanic or Latino/a"
-msgstr "西班牙裔或拉丁裔美國人"
-
-#: flavors/pboakland/_config.translations.py:81
-msgid "Native Hawaiian or Pacific Islander"
-msgstr "夏威夷原住民和太平洋島居民"
-
-#: flavors/pboakland/_config.translations.py:82
-msgid "White"
-msgstr "白人"
-
-#: flavors/pboakland/_config.translations.py:84
 msgid "Your ethnicity will not appear on the map"
 msgstr "您的名族不會出現在地圖上"
 
-#: flavors/pboakland/_config.translations.py:85
-msgid "Under $10,000"
-msgstr "$10,000以下"
+msgid "Ethnicity:"
+msgstr "民族："
 
-#: flavors/pboakland/_config.translations.py:86
-msgid "$10,000 - $14,999"
-msgstr "$10,000 - $14,999"
+msgid "Asian"
+msgstr "亞洲人"
 
-#: flavors/pboakland/_config.translations.py:87
-msgid "$15,000 - $24,999"
-msgstr "$15,000 - $24,999"
+msgid "Black or African American"
+msgstr "黑人或非裔美國人"
 
-#: flavors/pboakland/_config.translations.py:88
-msgid "$25,000 - $34,999"
-msgstr "$25,000 - $34,999"
+msgid "Hispanic or Latino/a"
+msgstr "西班牙裔或拉丁裔美國人"
 
-#: flavors/pboakland/_config.translations.py:89
-msgid "$35,000 - $49,000"
-msgstr "$35,000 - $49,000"
+msgid "Native Hawaiian or Pacific Islander"
+msgstr "夏威夷原住民和太平洋島居民"
 
-#: flavors/pboakland/_config.translations.py:90
-msgid "$50,000 - $74,999"
-msgstr "$50,000 - $74,999"
+msgid "White"
+msgstr "白人"
 
-#: flavors/pboakland/_config.translations.py:91
-msgid "$75,000 - $99,000"
-msgstr "$75,000 - $99,000"
-
-#: flavors/pboakland/_config.translations.py:92
-msgid "$100,000 - $149,000"
-msgstr "$100,000 - $149,000"
-
-#: flavors/pboakland/_config.translations.py:93
-msgid "$150,000 or more"
-msgstr "$150,000或更多"
-
-#: flavors/pboakland/_config.translations.py:94
 msgid "Your income:"
 msgstr "您的收入："
 
-#: flavors/pboakland/_config.translations.py:95
-msgid "Your income will not appear on the map"
-msgstr "您的收入不會出現在地圖上"
+msgid "Under $10,000"
+msgstr "$10,000以下"
 
-#: flavors/pboakland/_config.translations.py:96
-msgid "Yes"
-msgstr "是"
+msgid "$10,000 - $14,999"
+msgstr "$10,000 - $14,999"
 
-#: flavors/pboakland/_config.translations.py:97
-msgid "No"
-msgstr "否"
+msgid "$15,000 - $24,999"
+msgstr "$15,000 - $24,999"
 
-#: flavors/pboakland/_config.translations.py:98
-#: flavors/pboakland/_config.translations.py:99
+msgid "$25,000 - $34,999"
+msgstr "$25,000 - $34,999"
+
+msgid "$35,000 - $49,000"
+msgstr "$35,000 - $49,000"
+
+msgid "$50,000 - $74,999"
+msgstr "$50,000 - $74,999"
+
+msgid "$75,000 - $99,000"
+msgstr "$75,000 - $99,000"
+
+msgid "$100,000 - $149,000"
+msgstr "$100,000 - $149,000"
+
+msgid "$150,000 or more"
+msgstr "$150,000或更多"
+
 msgid "I want to volunteer:"
 msgstr "我想做志願者"
 
-#: flavors/pboakland/_config.translations.py:100
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
 msgid "Your name"
 msgstr "您的姓名"
 
-#: flavors/pboakland/_config.translations.py:101
-msgid "Name"
-msgstr "姓名"
-
-#: flavors/pboakland/_config.translations.py:102
 msgid "Your Email"
 msgstr "您的電子郵件"
 
-#: flavors/pboakland/_config.translations.py:103
-msgid "Receive email updates on your idea"
-msgstr "收到關於您的看法的電子郵件更新"
-
-#: flavors/pboakland/_config.translations.py:104
 msgid "Your phone number:"
 msgstr "您的電話號碼："
 
-#: flavors/pboakland/_config.translations.py:105
 msgid "Your phone number will not appear on the map"
 msgstr "您的電話號碼不會出現在地圖上"
 
-#: flavors/pboakland/_config.translations.py:107
 msgid "Submit!"
 msgstr "提交！"
 
-#: flavors/pboakland/_config.translations.py:108
-msgid "See full list"
-msgstr "查看完整列表"
+msgid "comment"
+msgstr "評論"
 
-#: flavors/pboakland/_config.translations.py:110
-msgid "Share your idea!"
-msgstr "分享您的看法！"
+msgid "commented on"
+msgstr "評論"
 
-#: flavors/pboakland/_config.translations.py:111
-msgid "idea for housing and jobs"
-msgstr "住房和工作"
+msgid "Leave a Comment"
+msgstr "發表評論"
 
-#: flavors/pboakland/_config.translations.py:112
-msgid "idea for streets and sidewalks"
-msgstr "對街道和人行道的看法"
+msgid "Comment"
+msgstr "評論"
 
-#: flavors/pboakland/_config.translations.py:113
-msgid "idea for community programs and services"
-msgstr "對老年人服務的看法"
+msgid "Your Name"
+msgstr "您的姓名"
 
-#: flavors/pboakland/_config.translations.py:114
-msgid "idea for parks and recreation"
-msgstr "對公園和娛樂設施的看法"
+msgid "Support"
+msgstr "支援"
 
-#: flavors/pboakland/_config.translations.py:115
-msgid "Community Reports"
-msgstr "社區報告"
+msgid "supports"
+msgstr "支援"
 
-#: flavors/pboakland/_config.translations.py:116
-msgid "Oakland districts"
-msgstr "奧克蘭地區"
+msgid "Someone"
+msgstr "某人"
 
-#: flavors/pboakland/_config.translations.py:117
-msgid "Community Data"
-msgstr "社區資料"
-
-#: flavors/pboakland/_config.translations.py:118
-msgid "Map Layers:"
-msgstr "地圖圖層："
-
-#: flavors/pboakland/_config.translations.py:119
-msgid "OpenStreetMap"
-msgstr "OpenStreetMap"
-
-#: flavors/pboakland/_config.translations.py:120
-msgid "Satellite View"
-msgstr "衛星視圖"
-
-#: flavors/pboakland/_config.translations.py:121
-msgid "Dark"
-msgstr "黑"
-
-#: flavors/pboakland/_config.translations.py:123
-msgid "Parks and recreation"
-msgstr "公園和娛樂設施"
-
-#: flavors/pboakland/_config.translations.py:124
-msgid "Streets and sidewalks"
-msgstr "街道和人行道"
-
-#: flavors/pboakland/_config.translations.py:126
-msgid "Community ideas:"
-msgstr "社區看法："
-
-#: flavors/pboakland/_config.translations.py:127
-msgid "About"
-msgstr "關於"
-
-#: flavors/pboakland/_config.translations.py:128
 msgid "Guidelines"
 msgstr "指南"
 
-#: flavors/pboakland/_config.translations.py:129
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:4
 msgid "Get more involved"
 msgstr "積極參與此活動"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:1
-msgid ""
-"<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
-"Us\" height=\"400\" width=100% </iframe>"
-msgstr ""
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
 msgid ""
 "Already submitted an idea? There are many more ways to get involved in "
 "participatory budgeting:"
 msgstr "已經提交了看法嗎？有很多方式可以參與預算編制活動："
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:3
-msgid "Contact Us"
-msgstr "聯絡我們"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
-msgid "Have a question? Feel free to contact us."
-msgstr "有問題？請隨時聯絡我們。"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
 msgid "Volunteer"
 msgstr "志願者"
 
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
 msgid ""
 "You can help to get the word out to district residents, facilitate small "
 "group meetings, provide support at PB events, and more. Sign up <a href="
@@ -457,7 +267,28 @@ msgstr ""
 "議舉行，為PB活動提供支援等。登記<a href=\"http://www.123contactform.com/"
 "form-2317799/PB-Oakland-Volunteer-Sign-Up\" target=\"_blank\">這裡</a>。"
 
-#: flavors/pboakland/jstemplates/pages/guidelines.html:1
+msgid "Contact Us"
+msgstr "聯絡我們"
+
+msgid "Have a question? Feel free to contact us."
+msgstr "有問題？請隨時聯絡我們。"
+
+msgid ""
+"<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
+"Us\" height=\"400\" width=100% </iframe>"
+msgstr ""
+
+msgid ""
+"\n"
+"<iframe src=\"https://player.vimeo.com/video/162743651?"
+"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
+"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
+msgstr ""
+"\n"
+"<iframe src=\"https://player.vimeo.com/video/84311420?"
+"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
+"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
+
 msgid ""
 "\n"
 "<h2>How does PB work in Oakland?</h2>\n"
@@ -523,19 +354,18 @@ msgstr ""
 "應獲撥款。\n"
 "</p>\n"
 
-#: flavors/pboakland/jstemplates/pages/guidelines.html:23
-msgid ""
-"\n"
-"<iframe src=\"https://player.vimeo.com/video/162743651?"
-"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
-"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
-msgstr ""
-"\n"
-"<iframe src=\"https://player.vimeo.com/video/84311420?"
-"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
-"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
+msgid "Participatory Budgeting Oakland"
+msgstr "參與奧克蘭預算編制"
 
-#: flavors/pboakland/jstemplates/pages/overview.html:1
+msgid ""
+"is an innovative democratic process that gives Oakland residents of City "
+"Council Districts 1 and 2 the power to set priorities for how federal "
+"Community Development Block Grant (CDBG) funds should be spent to improve "
+"low-to-moderate income communities in their district."
+msgstr ""
+"是一項創新的民主流程，為奧克蘭城市委員會第1區和第2區的居民提供權力，來決定聯"
+"邦社區發展整體補助(CDBG)基金應該如何用於改善他們所在地區的中低收入社區。"
+
 msgid ""
 "\n"
 "<a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/"
@@ -549,7 +379,6 @@ msgstr ""
 "<strong><em>全靠有你：這就是你的屋崙參與式預算制定（Oakland PB）優先撥款的勝"
 "出項目</em></strong>\n"
 
-#: flavors/pboakland/jstemplates/pages/overview.html:5
 msgid ""
 "\n"
 "<p>\n"
@@ -624,20 +453,6 @@ msgstr ""
 "時跟兩區的區委員會以及市議會區辦公室的職員分享，以便將來得到考慮。\n"
 "</p>\n"
 
-#: flavors/pboakland/jstemplates/pages/overview.html:25
-msgid "Explore the map!"
-msgstr "探索地圖！"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:26
-msgid ""
-"For information on participatory budgeting in the U.S. and Canada, visit the "
-"website of the <a href=\"http://www.participatorybudgeting.org/\" "
-"target=”_blank”>Participatory Budgeting Project</a>."
-msgstr ""
-"有關參與美國和加拿大預算編制的資訊，請訪問<a href=\"http://www."
-"participatorybudgeting.org/\" target=”_blank”>參與預算編制項目</a>的網站。"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:27
 msgid ""
 "For more information on the City of Oakland’s Community Development Block "
 "Grant (CDBG) program, <a href=\"http://www2.oaklandnet.com/government/o/hcd/"
@@ -647,50 +462,56 @@ msgstr ""
 "www2.oaklandnet.com/government/o/hcd/s/CDBG/index.htm\" target=”_blank”>這裡"
 "</a>。"
 
-#: flavors/pboakland/jstemplates/pages/overview.html:28
-msgid "Participatory Budgeting Oakland"
-msgstr "參與奧克蘭預算編制"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:29
 msgid ""
-"is an innovative democratic process that gives Oakland residents of City "
-"Council Districts 1 and 2 the power to set priorities for how federal "
-"Community Development Block Grant (CDBG) funds should be spent to improve "
-"low-to-moderate income communities in their district."
+"For information on participatory budgeting in the U.S. and Canada, visit the "
+"website of the <a href=\"http://www.participatorybudgeting.org/\" "
+"target=”_blank”>Participatory Budgeting Project</a>."
 msgstr ""
-"是一項創新的民主流程，為奧克蘭城市委員會第1區和第2區的居民提供權力，來決定聯"
-"邦社區發展整體補助(CDBG)基金應該如何用於改善他們所在地區的中低收入社區。"
+"有關參與美國和加拿大預算編制的資訊，請訪問<a href=\"http://www."
+"participatorybudgeting.org/\" target=”_blank”>參與預算編制項目</a>的網站。"
 
-#: flavors/pboakland/jstemplates/place-detail.html:1
-msgid ""
-"<strong class=\"point-submitter\">\n"
-"              {{#if submitter.avatar_url }}\n"
-"                <img src=\"{{ submitter.avatar_url }}\" class=\"avatar\" />\n"
-"              {{^}}\n"
-"                <img src=\"{{ STATIC_URL }}css/images/user-50.png\" class="
-"\"avatar\" />\n"
-"              {{/if}}\n"
-"              {{#if submitter.name }}\n"
-"                {{ submitter.name }}\n"
-"              {{^}}\n"
-"                {{#if submitter_name }}\n"
-"                  {{ submitter_name }}\n"
-"                {{^}}\n"
-"                  {{ anonymous_name }}\n"
-"                {{/if}}\n"
-"              {{/if}}\n"
-"            </strong> {{ action_text }} this {{ place_type_label "
-"location_type}}{{#if venueLabel}} at <strong>{{venueLabel}}</strong>{{/if}}\n"
-"\n"
-"            {{#if region}}\n"
-"              in {{ region }}\n"
-"            {{/if}}"
-msgstr ""
+msgid "Explore the map!"
+msgstr "探索地圖！"
 
-#: flavors/pboakland/jstemplates/place-detail.html:21
-msgid "View On Map"
-msgstr ""
+#~ msgid "support"
+#~ msgstr "支援"
 
-#: flavors/pboakland/templates/index.html:54
-msgid "Powered by"
-msgstr "技術支援"
+#~ msgid "comments"
+#~ msgstr "評論"
+
+#~ msgid "Tell us more..."
+#~ msgstr "告訴我們更多..."
+
+#~ msgid "Title:"
+#~ msgstr "標題："
+
+#, fuzzy
+#~ msgid "Venue name:"
+#~ msgstr "您的姓名"
+
+#~ msgid "Add an Image"
+#~ msgstr "添加圖片"
+
+#~ msgid "Your ethnicity:"
+#~ msgstr "您的民族："
+
+#~ msgid "American Indian/Alaskan Native"
+#~ msgstr "美國印第安人/阿拉斯加原住民"
+
+#~ msgid "Your income will not appear on the map"
+#~ msgstr "您的收入不會出現在地圖上"
+
+#~ msgid "Name"
+#~ msgstr "姓名"
+
+#~ msgid "Receive email updates on your idea"
+#~ msgstr "收到關於您的看法的電子郵件更新"
+
+#~ msgid "See full list"
+#~ msgstr "查看完整列表"
+
+#~ msgid "About"
+#~ msgstr "關於"
+
+#~ msgid "Powered by"
+#~ msgstr "技術支援"

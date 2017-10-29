@@ -91,6 +91,11 @@ module.exports = Backbone.Model.extend({
     }
 
     options.ignoreAttachments = true;
+    options.beforeSend = function(xhr, options) {
+      options.xhrFields = {
+        withCredentials: true
+      };
+    };
     module.exports.__super__.save.call(this, attrs, options);
   },
 

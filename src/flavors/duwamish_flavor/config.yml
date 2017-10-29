@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # Fallback image to use for sharing on social services if no model image is present
   thumbnail: /static/css/images/fb-thumbnail.png
 
@@ -21,7 +26,7 @@ app:
   # list_enabled: false
 
 languages:
-  - code: en
+  - code: en_US
     label: I Speak English
 
   - code: es
@@ -85,10 +90,12 @@ map:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: duwamish
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
       type: place
       slug: report
 
     - id: vision
+      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/vision
       type: place
       slug: vision
 
@@ -99,10 +106,12 @@ map:
         - "https://raw.githubusercontent.com/mapseed/data/master/dvyc.geojson"
 
     - id: restoration
+      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/restoration
       type: place
       slug: restoration
 
     - id: trees
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees
       type: place
       slug: trees
 
@@ -111,6 +120,7 @@ map:
       slug: featured
 
     - id: air
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
       type: place
       slug: air
 
@@ -1148,7 +1158,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)

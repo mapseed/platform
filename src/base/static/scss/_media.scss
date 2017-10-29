@@ -63,7 +63,7 @@
     }
 
     #site-header {
-        background: url(images/lightpaperfibers.png);
+        background: url(/static/css/images/lightpaperfibers.png);
     }
 
     #main {
@@ -171,7 +171,7 @@
 
     // Header
     #site-header {
-        background: url(images/lightpaperfibers.png);
+        background: url(/static/css/images/lightpaperfibers.png);
         padding-left: 1em;
         overflow: visible;
         height: $header-height-fullscreen;
@@ -284,7 +284,7 @@
     }
 
     .sign-in-menu {
-        background: url(images/lightpaperfibers.png);
+        background: url(/static/css/images/lightpaperfibers.png);
         border-radius: 3px;
         box-shadow: (-0.25em) 0.25em 0 $opacity-low-black;
         width: 18em;
@@ -699,7 +699,7 @@
     // Footer
     #colophon {
         color: $button-background-blue;
-        background: url(images/lightpaperfibers.png);
+        background: url(/static/css/images/lightpaperfibers.png);
         font-size: 1em;
         position: absolute;
         top: auto;
@@ -750,17 +750,17 @@
 // High Resolution Displays
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
     .share-twitter a {
-        background-image: url(images/twitter-64.png);
+        background-image: url(/static/css/images/twitter-64.png);
         background-size: contain;
     }
 
     .share-facebook a {
-        background-image: url(images/facebook-64.png);
+        background-image: url(/static/css/images/facebook-64.png);
         background-size: contain;
     }
 
     .locate-me {
-        background-image: url(images/locate-me@2x.png);
+        background-image: url(/static/css/images/locate-me@2x.png);
         background-size: contain;
     }
 }
