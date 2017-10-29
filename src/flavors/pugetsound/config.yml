@@ -70,6 +70,7 @@ map:
       type: basemap
 
     - id: pugetsound
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound
       type: place
       slug: report
 
@@ -135,15 +136,17 @@ map:
         - shellfish-harvesting
 
     - id: pugetsoundrose
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose
       type: place
       slug: rose
 
     - id: pugetsoundcases
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases
       type: place
       slug: cases
 
     - id: pugetsoundfeatured
-      url: https://dev-api.heyduwamish.org/api/v2/thebestguest/datasets/pugetsoundfeatured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured
       type: place
       slug: featured
 
