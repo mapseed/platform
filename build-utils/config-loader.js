@@ -78,7 +78,9 @@ module.exports = function(source) {
     __dirname,
     "../www/dist/config-en_US.js"
   );
-  fs.writeFileSync(outputPath, outputFile);
+  try {
+    fs.writeFileSync(outputPath, outputFile);
+  }
 
   return source;
 }
