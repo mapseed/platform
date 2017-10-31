@@ -80,6 +80,8 @@ module.exports = function(source) {
   );
   try {
     fs.writeFileSync(outputPath, outputFile);
+  } catch (e) {
+    // ignore exceptions
   }
 
   return source;
