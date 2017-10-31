@@ -61,7 +61,8 @@ glob.sync(
   }
 });
 
-// Make sure the output directory exists.
+// clean out the output directory and recreate it
+shell.rm('-rf', distPath);
 shell.mkdir('-p', distPath);
 
 // Logging
