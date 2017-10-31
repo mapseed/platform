@@ -1,6 +1,7 @@
 // BEGIN FLAVOR-SPECIFIC CODE
 let PlaceFormView = require("../../../../../base/static/js/views/place-form-view.js");
 let Util = require("../../../../../base/static/js/utils.js");
+let Gatekeeper = require("../../../../../base/static/libs/gatekeeper.js");
 
 const SCHOOL_DISTRICTS = {
   "Alcott-Elementary-School": "Lake Washington School District",
@@ -521,4 +522,144 @@ module.exports = PlaceFormView.extend({
 
     return attrs;
   },
+  onSubmit: Gatekeeper.onValidSubmit(function(evt) {
+    var self = this,
+      attrs,
+      spinner,
+      $fileInputs,
+      model,
+      router = this.options.router,
+      collection = this.options.collectionsSet.places[
+        self.formState.selectedCategoryConfig.dataset
+      ],
+      $button = this.$('[name="save-place-btn"]');
+
+    evt.preventDefault();
+
+    this.$el.find("input[name='url-title']").each(function() {
+      $(this).val(Util.prepareCustomUrl($(this).val()));
+    });
+
+    if (this.geometryEnabled) {
+      attrs = this.onComplexSubmit();
+    } else {
+      attrs = this.onSimpleSubmit();
+    }
+
+    if (attrs) {
+      collection.add({
+        location_type: this.formState.selectedCategoryConfig.category,
+        datasetSlug: _.find(this.options.mapConfig.layers, function(layer) {
+          return self.formState.selectedCategoryConfig.dataset == layer.id;
+        }).slug,
+        datasetId: self.formState.selectedCategoryConfig.dataset,
+        showMetadata: self.formState.selectedCategoryConfig.showMetadata,
+      });
+      model = collection.at(collection.length - 1);
+
+      // wrap quill video embeds in a container so we can enable fluid max dimensions
+      this.$("iframe.ql-video").each(function(a) {
+        $(this).wrap("<div class='ql-video-container'></div>");
+      });
+
+      if (self.formState.attachmentData.length > 0) {
+        self.formState.attachmentData.forEach(function(attachment) {
+          model.attachmentCollection.add(attachment);
+        });
+      } else {
+        // Add rich text content. If we're on this path, it means no images
+        // have been embedded.
+        self.$(".rich-text-field").each(function() {
+          attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
+        });
+      }
+
+      $button.attr("disabled", "disabled");
+      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(
+        self.$(".form-spinner")[0],
+      );
+      Util.log("USER", "new-place", "submit-place-btn-click");
+      Util.setStickyFields(
+        attrs,
+        Shareabouts.Config.survey.items,
+        Shareabouts.Config.place.items,
+      );
+
+      // Save and redirect
+      model.save(attrs, {
+        success: function(response) {
+          if (
+            self.formState.attachmentData.length > 0 &&
+            self.$(".rich-text-field").length > 0
+          ) {
+            // If there is rich text image content on the form, add it now and replace
+            // img data urls with their S3 bucket equivalents.
+            // NOTE: this success handler is called when all attachment models have
+            // saved to the server.
+            model.attachmentCollection.fetch({
+              reset: true,
+              success: function(collection) {
+                collection.each(function(attachment) {
+
+                  // BEGIN FLAVOR-SPECIFIC CODE
+                  // In case attachments are added with both the cover image button
+                  // and within a rich text field, ensure that all attachments
+                  // are available on initial detail view render.
+                  model.get("attachments").push(attachment);
+                  // END FLAVOR-SPECIFIC CODE
+
+                  self
+                    .$("img[name='" + attachment.get("name") + "']")
+                    .attr("src", attachment.get("file"));
+                });
+
+                // Add content that has been modified by Quill rich text fields
+                self.$(".rich-text-field").each(function() {
+                  attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
+                });
+
+                model.saveWithoutAttachments(attrs, {
+                  success: function(response) {
+                    Util.log("USER", "new-place", "successfully-add-place");
+                    router.navigate(Util.getUrl(model), { trigger: true });
+                  },
+                  error: function() {
+                    Util.log("USER", "new-place", "fail-to-embed-attachments");
+                  },
+                  complete: function() {
+                    if (self.geometryEditorView) {
+                      self.geometryEditorView.tearDown();
+                    }
+                    $button.removeAttr("disabled");
+                    spinner.stop();
+                    self.resetFormState();
+                    collection.each(function(attachment) {
+                      attachment.set({ saved: true });
+                    });
+                  },
+                });
+              },
+              error: function() {
+                Util.log("USER", "new-place", "fail-to-fetch-embed-urls");
+              },
+            });
+          } else {
+            // Otherwise, go ahead and route to the newly-created place.
+            Util.log("USER", "new-place", "successfully-add-place");
+            router.navigate(Util.getUrl(model), { trigger: true });
+            if (self.geometryEditorView) {
+              self.geometryEditorView.tearDown();
+            }
+            $button.removeAttr("disabled");
+            spinner.stop();
+            self.resetFormState();
+          }
+        },
+        error: function() {
+          Util.log("USER", "new-place", "fail-to-add-place");
+        },
+        wait: true,
+      });
+    }
+  }, null)
 });

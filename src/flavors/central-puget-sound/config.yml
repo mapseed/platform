@@ -870,6 +870,14 @@ place:
       value: featured_place
       label: _(Featured Site)
       fields:
+        - name: cover-image
+          type: file
+          prompt: _(Cover Image)
+          inputfile_label: _(Add a cover image)
+          optional: true
+          attrs:
+            - key: accept
+              value: image/*
         - name: published
           type: publishControl
         - name: geometry
