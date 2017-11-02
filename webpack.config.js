@@ -1,7 +1,7 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 
-require('dotenv').config({path: 'src/.env-production'});
+require('dotenv').config({path: 'src/.env'});
 require("babel-polyfill");
 var path = require('path');
 var glob = require('glob');
