@@ -1,4 +1,4 @@
-require('dotenv').config({path: 'src/.env'});
+require('dotenv').config({path: 'src/.env-production'});
 const path = require('path');
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
@@ -60,10 +60,6 @@ glob.sync(
     cssHashedBundleName = path[path.length - 1];
   }
 });
-
-// clean out the output directory and recreate it
-shell.rm('-rf', distPath);
-shell.mkdir('-p', distPath);
 
 // Logging
 const log = (msg) => {
