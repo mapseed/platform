@@ -2415,15 +2415,19 @@ story:
       #   visible_layers:
       #     - dirt-corps
       #   basemap: terrain
+      - url: hamm-creek-restoration
+        zoom: 18
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
+      - url: wdfw-boat-launch
+        zoom: 18
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: mill-creek-school-flooding
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: paradise-parking-hillside-church
-        zoom: 18
-        basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: wdfw-boat-launch
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
@@ -2440,6 +2444,14 @@ story:
         zoom: 14
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
+      - url: covington-community-park
+        zoom: 18
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
+      - url: jenkins-creek-park
+        zoom: 18
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png        
       - url: sammamish
         zoom: 10
         basemap: light-nolabels
