@@ -33,7 +33,7 @@ const updateCacheControl = () => {
       Body: fs.readFileSync("./www/" + indexFile),
       Bucket: process.env.DEPLOY_DOMAIN,
       Key: indexFile,
-      CacheControl: "no-cache",
+      CacheControl: "no-cache, must-revalidate, max-age=0",
       ContentType: "text/html"
     };
     s3.putObject(params, (err, data) => {
