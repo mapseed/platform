@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
-    "start": "npm run watch-js && node static-build.js & webpack-dev-server",
+    "start": "npm run build-js && node static-build.js && npm run watch-js & webpack-dev-server",
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p && cat www/bundle.js | gzip > www/bundle.js.gz",
     "watch-js": "webpack -d --watch",

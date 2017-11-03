@@ -15,7 +15,6 @@ if (!process.env.FLAVOR) {
   process.exit();
 }
 
-
 const distPath = path.resolve(
   __dirname,
   "www/dist"
@@ -56,14 +55,14 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 }
 
 var outputBasePath = path.resolve(__dirname, "www");
-const extractSCSS = new ExtractTextPlugin("[contenthash].bundle.css");
+const extractSCSS = new ExtractTextPlugin((process.env.NODE_ENV === "production") ? "[contenthash].bundle.css" : "bundle.css");
 const extractYML = new ExtractTextPlugin("config-en_US.js");
 
 module.exports = {
   entry: entryPoints,
   output: {
     path: path.join(outputBasePath, "dist"),
-    filename: "[chunkhash].bundle.js"
+    filename: (process.env.NODE_ENV === "production") ? "[chunkhash].bundle.js" : "bundle.js"
   },
   resolve: {
     alias: alias
