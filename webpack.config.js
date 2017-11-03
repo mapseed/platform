@@ -1,5 +1,6 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const webpack = require("webpack");
 
 require('dotenv').config({path: 'src/.env'});
 require("babel-polyfill");
@@ -94,10 +95,10 @@ module.exports = {
   plugins: [
     extractSCSS,
     new CompressionPlugin({
-      asset: "[path].gz[query]",
-      test:  /\.css$/
+      asset: "[path].gz[query]"
     }),
-    extractYML
+    extractYML,
+    new webpack.optimize.UglifyJsPlugin({minimize: true})
   ],
   devServer: {
     contentBase: outputBasePath,
