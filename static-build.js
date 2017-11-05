@@ -55,9 +55,9 @@ glob.sync(
 ).forEach((path) => {
   path = path.split("/");
   if (path[path.length - 1].endsWith("js")) {
-    jsHashedBundleName = path[path.length - 1];
+    jsHashedBundleName = path[path.length - 1] + ".gz";
   } else if (path[path.length - 1].endsWith("css")) {
-    cssHashedBundleName = path[path.length - 1];
+    cssHashedBundleName = path[path.length - 1] + ".gz" ;
   }
 });
 
