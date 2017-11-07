@@ -69,7 +69,7 @@ module.exports = {
     alias: alias
   },
   resolveLoader: {
-    modules: ["node_modules", path.resolve(__dirname, "build-utils")]
+    modules: ["node_modules", path.resolve(__dirname, "scripts")]
   },
   module: {
     rules: [

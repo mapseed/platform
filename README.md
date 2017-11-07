@@ -112,7 +112,7 @@ You'll generally encounter two scenarios when localizing your map: then need to 
 To generate a `.po` file for a brand new language for a given flavor, run the following in the root of the project:
 
 ```
-FLAVOR=<flavor> node make-flavor-messages.js --set-new-locale=<language_tag>
+FLAVOR=<flavor> node scripts/make-flavor-messages.js --set-new-locale=<language_tag>
 ```
 
 where `<flavor>` is the name of the flavor you'd like to localize, and `<language_tag>` is the standard language and country code for the target language. (See [here](https://www.w3.org/International/articles/language-tags/) for more information about language tags.)
@@ -120,7 +120,7 @@ where `<flavor>` is the name of the flavor you'd like to localize, and `<languag
 To update all existing locales with new content for a given flavor, run the following in the root of the project:
 
 ```
-FLAVOR=<flavor> node make-flavor-messages.js
+FLAVOR=<flavor> node scripts/make-flavor-messages.js
 ```
 
 where `<flavor>` is the name of the flavor whose locales you'd like to update.

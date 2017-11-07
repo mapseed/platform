@@ -40,7 +40,7 @@ const verbose = true;
 
 const outputBasePath = path.resolve(
   __dirname,
-  "www"
+  "../www"
 );
 const distPath = path.resolve(
   outputBasePath,
@@ -55,20 +55,20 @@ glob.sync(
 ).forEach((path) => {
   path = path.split("/");
   if (path[path.length - 1].endsWith("js")) {
-    jsHashedBundleName = path[path.length - 1];
+    jsHashedBundleName = path[path.length - 1] + ".gz";
   } else if (path[path.length - 1].endsWith("css")) {
-    cssHashedBundleName = path[path.length - 1];
+    cssHashedBundleName = path[path.length - 1] + ".gz" ;
   }
 });
 
 // Logging
 const log = (msg) => {
   if (verbose) {
-    console.log("(STATIC SITE BUILD) ", colors.green("(SUCCESS) "), msg);
+    console.log("(STATIC SITE BUILD)", colors.green("(SUCCESS)"), msg);
   }
 };
 const logError = (msg) => {
-  console.error("(STATIC SITE BUILD) ", colors.red("(ERROR!) "), msg);
+  console.error("(STATIC SITE BUILD)", colors.red("(ERROR!)"), msg);
 };
 
 const flavor = process.env.FLAVOR;
@@ -88,7 +88,7 @@ const bundleVersion = "0.7.5.9";
 
 const flavorBasePath = path.resolve(
   __dirname,
-  "src/flavors",
+  "../src/flavors",
   flavor
 );
 
@@ -157,11 +157,11 @@ const indexTemplate = Handlebars.compile(source);
 // Constants and variables to use inside the localization loop below
 const handlebarsExec = path.resolve(
   __dirname,
-  "node_modules/handlebars/bin/handlebars"
+  "../node_modules/handlebars/bin/handlebars"
 );
 const baseJSTemplatesPath = path.resolve(
   __dirname,
-  "src/base/jstemplates"
+  "../src/base/jstemplates"
 );
 const flavorJSTemplatesPath = path.resolve(
   flavorBasePath,
@@ -178,7 +178,7 @@ const outputJSTemplatesPath = path.resolve(
 );
 const baseLocaleDir = path.resolve(
   __dirname,
-  "src/base/locale"
+  "../src/base/locale"
 );
 const flavorLocaleDir = path.resolve(
   flavorBasePath,
@@ -420,7 +420,7 @@ activeLanguages.forEach((language) => {
 // Copy base project static image assets to src/base/static/dist/images
 const baseImageAssetsPath = path.resolve(
   __dirname,
-  "src/base/static/css/images"
+  "../src/base/static/css/images"
 );
 const outputImageAssetsPath = path.resolve(
   outputBasePath,
@@ -477,7 +477,7 @@ try {
   fs.copySync(
     path.resolve(
       __dirname,
-      "src/base/static/libs"
+      "../src/base/static/libs"
     ),
     path.resolve(
       outputBasePath,

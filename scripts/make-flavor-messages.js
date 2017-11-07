@@ -21,18 +21,18 @@ const flavor = process.env.FLAVOR;
 
 // Logging
 const logError = (msg) => {
-	console.error("(MAKEMESSAGES) ", colors.red("(ERROR!) "), msg);
+	console.error("(MAKEMESSAGES)", colors.red("(ERROR!)"), msg);
 };
 
 // Generate message catalog for the given flavor's config.yml file.
 const flavorBasePath = path.resolve(
 	__dirname,
-	"src/flavors",
+	"../src/flavors",
 	flavor
 );
 const messagesCatalogTempPath = path.resolve(
 	__dirname,
-	"src/flavors",
+	"../src/flavors",
 	flavor,
 	"temp-messages"
 );
