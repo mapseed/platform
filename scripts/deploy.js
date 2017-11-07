@@ -1,6 +1,7 @@
 require('dotenv').config({path: 'src/.env'});
 const fs = require('fs-extra');
 const glob = require('glob');
+const path = require('path');
 
 if (!process.env.DEPLOY_DOMAIN) {
   throw 'Set the DEPLOY_DOMAIN environment variable to the domain you want to deploy Mapseed to.';
@@ -42,25 +43,54 @@ const getDistributionConfigPromise = promisify(cloudfront.getDistributionConfig,
 const updateDistributionPromise = promisify(cloudfront.updateDistribution, cloudfront);
 const copyObjectPromise = promisify(s3.copyObject, s3);
 
-function updateCacheControl() {
-  console.log('Updating cache settings');
+function getContentType(filepath) {
+  if (filepath.match(/\.js(\.gz)?$/)) {
+    return "text/javascript";
+  } else if (filepath.match(/\.css(\.gz)?$/)) {
+    return "text/css";
+  } else if (filepath.endsWith(".html")) {
+    return "text/html";
+  } else {
+    return "application/octet-stream";
+  }
+
+  // TODO: other types as needed
+}
+
+function buildParams(filepath, params) {
+  return Object.assign({
+    CopySource: encodeURIComponent(process.env.DEPLOY_DOMAIN + '/' + filepath),
+    Bucket: process.env.DEPLOY_DOMAIN,
+    Key: filepath,
+    MetadataDirective: 'REPLACE',
+    ContentType: getContentType(filepath)
+  }, params);
+}
+
+function updateMetadata() {
+  console.log('Updating metadata');
+  let params;
+
   // NOTE: We need to update the Cache-Control header for the index.html object,
   // as well as any localized index objects (such as es.html, for example),
   // so CloudFront won't cache these objects and they can fetch updated hashed
   // CSS and JS bundles consistently.
-  let updatePromises = glob.sync("./www/*.html").map((path) => {
-    splitPath = path.split("/");
-    let indexFile = splitPath[splitPath.length - 1];
-    let params = {
-      CopySource: encodeURIComponent(process.env.DEPLOY_DOMAIN + '/' + indexFile),
-      Bucket: process.env.DEPLOY_DOMAIN,
-      Key: indexFile,
-      CacheControl: "no-cache, must-revalidate, max-age=0",
-      ContentType: "text/html",
-      MetadataDirective: 'REPLACE'
+  let updatePromises = glob.sync("./www/*.html").map((filepath) => {
+    filepath = path.relative("./www", filepath);
+    params = {
+      CacheControl: "no-cache, must-revalidate, max-age=0"
     };
-    return copyObjectPromise(params);
-  });
+    return copyObjectPromise(buildParams(filepath, params));
+  })
+  .concat(glob.sync("./www/**/*.gz").map((filepath) => {
+
+    // Ensure gzipped files have "Content-Encoding" set
+    filepath = path.relative("./www", filepath);
+    params = {
+      ContentEncoding: "gzip"
+    };
+    return copyObjectPromise(buildParams(filepath, params));
+  }));
 
   return Promise.all(updatePromises);
 }
@@ -101,6 +131,6 @@ createPromise(config)
       throw err;
     }
   })
-  .then(() => updateCacheControl())
+  .then(() => updateMetadata())
   .then(() => console.log('Website created and deployed!'))
   .catch(e => console.log(e));
