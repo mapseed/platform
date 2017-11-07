@@ -19,14 +19,14 @@ if (args.h || args.help) {
 
 // Logging
 const logError = (msg) => {
- 	console.error("(MAKEMESSAGES) ", colors.red("(ERROR!) "), msg);
+ 	console.error("(MAKEMESSAGES)", colors.red("(ERROR!)"), msg);
 };
 
 const jsTemplatesRegexObj = new RegExp(/{{#_}}([\s\S]*?){{\/_}}/, "g");
 
 const basePath = path.resolve(
 	__dirname,
-	"src/base"
+	"../src/base"
 );
 const baseLocalePath = path.resolve(
 	basePath,
@@ -42,7 +42,7 @@ const baseJSTemplatesPath = path.resolve(
 );
 const messagesCatalogTempPath = path.resolve(
 	__dirname,
-	"temp-messages"
+	"../temp-messages"
 );
 shell.mkdir('-p', messagesCatalogTempPath);
 

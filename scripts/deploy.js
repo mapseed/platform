@@ -1,6 +1,7 @@
 require('dotenv').config({path: 'src/.env'});
 const fs = require('fs-extra');
 const glob = require('glob');
+const path = require('path');
 
 if (!process.env.DEPLOY_DOMAIN) {
   throw 'Set the DEPLOY_DOMAIN environment variable to the domain you want to deploy Mapseed to.';
@@ -10,56 +11,126 @@ const config = {
   region: process.env.DEPLOY_REGION || 'us-west-2',
   uploadDir: 'www',
   index: 'index.html',
-  error: 'index.html', // Setting as the error document allows client-side routing
   enableCloudfront: true
 };
 
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({ region: config.region });
+const cloudfront = new AWS.CloudFront();
 
 const create = require('s3-website').s3site;
 const deploy = require('s3-website').deploy;
 
-const updateCacheControl = () => {
+function promisify(func, thisContext) {
+  if (thisContext) {
+    func = func.bind(thisContext);
+  }
+  return (...args) => {
+    return new Promise((resolve, reject) => {
+      func(...args, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    })
+  };
+}
+const createPromise = promisify(create);
+const deployPromise = promisify(deploy);
+const getDistributionConfigPromise = promisify(cloudfront.getDistributionConfig, cloudfront);
+const updateDistributionPromise = promisify(cloudfront.updateDistribution, cloudfront);
+const copyObjectPromise = promisify(s3.copyObject, s3);
+
+function getContentType(filepath) {
+  if (filepath.match(/\.js(\.gz)?$/)) {
+    return "text/javascript";
+  } else if (filepath.match(/\.css(\.gz)?$/)) {
+    return "text/css";
+  } else if (filepath.endsWith(".html")) {
+    return "text/html";
+  } else {
+    return "application/octet-stream";
+  }
+
+  // TODO: other types as needed
+}
+
+function buildParams(filepath, params) {
+  return Object.assign({
+    CopySource: encodeURIComponent(process.env.DEPLOY_DOMAIN + '/' + filepath),
+    Bucket: process.env.DEPLOY_DOMAIN,
+    Key: filepath,
+    MetadataDirective: 'REPLACE',
+    ContentType: getContentType(filepath)
+  }, params);
+}
+
+function updateMetadata() {
+  console.log('Updating metadata');
+  let params;
 
   // NOTE: We need to update the Cache-Control header for the index.html object,
   // as well as any localized index objects (such as es.html, for example),
   // so CloudFront won't cache these objects and they can fetch updated hashed
   // CSS and JS bundles consistently.
-  glob.sync("./www/*.html").forEach((path) => {
-    splitPath = path.split("/");
-    let indexFile = splitPath[splitPath.length - 1];
-    let params = {
-      Body: fs.readFileSync("./www/" + indexFile),
-      Bucket: process.env.DEPLOY_DOMAIN,
-      Key: indexFile,
-      CacheControl: "no-cache, must-revalidate, max-age=0",
-      ContentType: "text/html"
+  let updatePromises = glob.sync("./www/*.html").map((filepath) => {
+    filepath = path.relative("./www", filepath);
+    params = {
+      CacheControl: "no-cache, must-revalidate, max-age=0"
     };
-    s3.putObject(params, (err, data) => {
-      if (err) {
-        console.log(err, err.stack);
-      }
-    });
-  });
+    return copyObjectPromise(buildParams(filepath, params));
+  })
+  .concat(glob.sync("./www/**/*.gz").map((filepath) => {
+
+    // Ensure gzipped files have "Content-Encoding" set
+    filepath = path.relative("./www", filepath);
+    params = {
+      ContentEncoding: "gzip"
+    };
+    return copyObjectPromise(buildParams(filepath, params));
+  }));
+
+  return Promise.all(updatePromises);
 }
 
-create(config, (err, website) => {
-  if (err && err.name === 'CNAMEAlreadyExists') {
-    // It's already been deployed
-    deploy(s3, config, (err, website) => {
-      if (err) {
-        throw err;
-      } else {
-        updateCacheControl();
-        console.log('Website deployed!');
-      }
+createPromise(config)
+  .then((website) => {
+    console.log('Getting cloudfront config');
+    let distConfig = getDistributionConfigPromise({Id: website.cloudfront.Distribution.Id});
+    return Promise.all([Promise.resolve(website), distConfig]);
+  })
+  .then(([website, response]) => {
+    console.log('Updating cloudfront config');
+    let config = response.DistributionConfig;
+    config.CustomErrorResponses = {
+      Quantity: 1,
+      Items: [
+        {
+          ErrorCode: 404,
+          ErrorCachingMinTTL: 300,
+          ResponseCode: '200',
+          ResponsePagePath: '/index.html'
+        }
+      ]
+    };
+    return updateDistributionPromise({
+      Id: website.cloudfront.Distribution.Id,
+      IfMatch: response.ETag,
+      DistributionConfig: config
     });
-    return;
-  } else if (err) {
-    throw err;
-  } else {
-    updateCacheControl();
-    console.log('Website created and deployed!');
-  }
-});
+  })
+  .then(() => deployPromise(s3, config))
+  .catch(err => {
+    if (err.name === 'CNAMEAlreadyExists') {
+      // It's already been deployed
+      console.log('Redeploying existing site');
+      return deployPromise(s3, config);
+    } else {
+      throw err;
+    }
+  })
+  .then(() => updateMetadata())
+  .then(() => console.log('Website created and deployed!'))
+  .catch(e => console.log(e));
