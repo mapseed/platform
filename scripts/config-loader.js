@@ -65,7 +65,7 @@ module.exports = function(source) {
   const templateSource = fs.readFileSync(
     path.resolve(
       __dirname,
-      "config-template.hbs"
+      "../build-utils/config-template.hbs"
     ),
     "utf8"
   );
