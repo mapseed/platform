@@ -981,7 +981,7 @@ module.exports = Backbone.View.extend({
       Backbone.history.getFragment(),
     ]);
 
-    $("#main-btns-container").attr("class", "pos-top-left");
+    $("#main-btns-container").addClass(this.options.placeConfig.add_button_location || "pos-top-left");
 
     Util.log("APP", "panel-state", "open");
   },
@@ -1010,7 +1010,7 @@ module.exports = Backbone.View.extend({
     this.setBodyClass();
     map.invalidateSize({ animate: true, pan: true });
 
-    $("#main-btns-container").attr("class", "pos-top-left");
+    $("#main-btns-container").addClass(this.options.placeConfig.add_button_location || "pos-top-left");
 
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();
