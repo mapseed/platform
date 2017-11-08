@@ -4,6 +4,94 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+#sidebar-panel {
+  position: absolute;
+  opacity: 0.9;
+  left: 0;
+  top: 0;
+  background-color: #FFFFFF;
+  height: 100%;
+  width: 250px;
+  max-width: 250px;
+  z-index: 5000;
+  overflow: scroll;
+  -webkit-box-shadow: 2px 0px 1px 0px rgba(50, 50, 50, 0.3);
+  -moz-box-shadow:    2px 0px 1px 0px rgba(50, 50, 50, 0.3);
+  box-shadow:         2px 0px 1px 0px rgba(50, 50, 50, 0.3);
+}
+
+.sidebar-panel--hidden {
+  display: none;
+}
+
+.sidebar-panel--visible {
+  display: block;
+}
+
+#sidebar-panel hr {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.sidebar-panel__close-panel:after {
+  font-family: FontAwesome;
+  content: "\f00d";
+  float: right;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+.sidebar-panel__close-panel:hover {
+  cursor: pointer;
+  color: #888888;
+}
+
+.layer-panel-icon {
+  float: left;
+  padding-right: 8px;
+  width: 1.2em;
+  text-align: center;
+}
+
+.layer-type-grouping {
+  margin-left: 20px;
+}
+
+.layer-type-grouping-title {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.layer-type-li {
+  height: 2.0em;
+}
+
+.layer-type-title label {
+  margin: 0;
+  border-bottom: 2px solid transparent;
+}
+
+.layer-type-title input:checked ~ label {
+  background-color: transparent;
+  border-bottom: 2px solid rgba(0,0,255,1);
+}
+
+.layer-type-title input:hover ~ label {
+  background-color: transparent;
+  border-bottom: 2px solid rgba(0,0,255,0.5);
+}
+
+.show-layer-panel:before {
+  font-family: FontAwesome;
+  content: "\f03a";
+  font-size: 1.4em;
+}
+
+@media only screen and (min-width: 60em) {
+  #main-btns-container.main-btns-container--offset-left {
+    left: 260px;
+  }
+}
 
 /* =Header
 -------------------------------------------------------------- */
