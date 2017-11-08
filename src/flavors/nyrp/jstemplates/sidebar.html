@@ -1,0 +1,77 @@
+<div id="sidebar-panel" class="sidebar-panel--hidden">
+
+  <div class="sidebar-panel__close-panel"></div>
+
+  <ul class="layer-type-list unstyled-list">
+    <li class="layer-type-grouping">
+      <div class="layer-type-grouping-title">{{#_}}Map type{{/_}}</div>
+        <ul class="layer-type-grouping-list unstyled-list">
+          {{#each sidebarConfig.basemaps}}
+            <li class="layer-type-li">
+              <div class="layer-type-title">
+                <i class="layer-panel-icon fa fa-{{ icon }}"></i>
+                <input id="map-{{ id }}" data-layerid="{{ id }}"
+                       {{#if visibleDefault}}
+                       checked="checked"
+                       {{/if}}
+                       class="map-legend-basemap-radio is-visuallyhidden" type="radio" name="basemap"></input>
+                <label for="map-{{ id }}">{{ title }}</label>
+                {{#if info}}
+                  <span class="info-icon" 
+                        data-info-content="{{info}}"
+                        data-info-title="{{title}}">
+                  </span>
+                {{else}}
+                  <span class="info-icon-placeholder"></span>
+                {{/if}}
+                <span class="status-icon"></span>
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+      </li>
+      <hr />
+    {{#each sidebarConfig.groupings}}
+      <li class="layer-type-grouping">
+        <div class="layer-type-grouping-title">
+          <input id="{{ id }}" class="map-legend-grouping-checkbox is-visuallyhidden"
+                 type="checkbox"
+                 {{#if visibleDefault}}
+                 checked="checked"
+                 {{/if}}
+          ></input>
+          <label for="{{ id }}">{{ title }}</label>
+        </div>
+        <ul class="layer-type-grouping-list unstyled-list">
+          {{# layers}}
+            <li class="layer-type-li">
+              <div class="layer-type-title">
+                <i class="layer-panel-icon fa fa-{{ icon }}"></i>
+                <input id="map-{{ id }}" data-layerid="{{ id }}"
+                       {{#if visibleDefault}}
+                       checked="checked"
+                       {{/if}}
+                       {{#if constituentLayers}}
+                       data-constituent-layers="{{#each constituentLayers}}{{this}} {{/each}}"
+                       {{/if}}
+                       class="map-legend-checkbox is-visuallyhidden" type="checkbox"></input>
+                <label for="map-{{ id }}">{{ title }}</label>
+                {{#if info}}
+                  <span class="info-icon" 
+                        data-layerid="{{id}}"
+                        data-info-content="{{info}}"
+                        data-info-title="{{title}}">
+                  </span>
+                {{else}}
+                  <span class="info-icon-placeholder"></span>
+                {{/if}}
+                <span class="status-icon"></span>
+              </div>
+            </li>
+          {{/layers}}
+        </ul>
+      </li>
+      <hr />
+    {{/each}}
+  </ul>
+</div>
