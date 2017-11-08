@@ -47,6 +47,29 @@ input {
     }
 }
 
+input[type=range] {
+  -webkit-appearance: none;
+  width: 85%;
+  background-color: $button-background-lightblue;
+  height: 4px;
+  vertical-align: middle;
+
+  // These pseudo selectors are non-standard
+  // &::-webkit-slider-thumb, &::-moz-range-thumb, &::-ms-thumb {
+  //   -webkit-appearance: none;
+  //   -ms-appearance: none;
+  //   -moz-appearance: none;
+  //   background-color: #FFFFFF;
+  //   opacity: 1.0;
+  //   z-index: 800;
+  //   width: 26px;
+  //   height: 26px;
+  //   border: 0.5px solid #444444;
+  //   border-radius: 50%;
+  //   cursor: pointer;
+  // }
+}
+
 select, textarea {
     outline: 0;
     border: 0.25em solid $button-background-lightblue;
@@ -265,4 +288,12 @@ select {
 
 #update-place-model-form textarea {
     height: 300px;
+}
+
+/* Range inputs */
+.range-input-label {
+  font-size: 1em;
+  font-weight: bold;
+  padding-left: 8px;
+
 }

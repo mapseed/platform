@@ -353,6 +353,13 @@ var self = (module.exports = {
         selected: existingValue || "isPublished",
       };
       hasValue = true;
+    } else if (fieldConfig.type === "range") {
+      content = {
+        value: existingValue || null,
+      };
+      if (existingValue) {
+        hasValue = true;
+      }
     } else if (fieldConfig.type === "binary_toggle") {
       // Binary toggle buttons
       // NOTE: We assume that the first option listed under content
