@@ -18,6 +18,7 @@ module.exports = Backbone.View.extend({
     "change .publish-control-container input": "onPublishedStateChange",
     "click .btn-geolocate": "onClickGeolocate",
     'keyup input[name="url-title"]': "onUpdateUrlTitle",
+    "input input[type='range']": "onRangeInputChange"
   },
 
   initialize: function() {
@@ -512,6 +513,12 @@ module.exports = Backbone.View.extend({
 
   onBinaryToggle: function(evt) {
     Util.onBinaryToggle(evt);
+  },
+
+  onRangeInputChange: function(evt) {
+    $(evt.target)
+      .siblings(".range-input-label")
+      .text(evt.target.value);
   },
 
   closePanel: function() {

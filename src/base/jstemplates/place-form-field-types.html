@@ -269,6 +269,16 @@
   </span>
 {{/is}}
 
+{{#is type "range"}}
+  <input type="range"
+         name="{{name}}"
+         id="place-{{ name }}" 
+         max={{max}}
+         min={{min}} 
+         value="{{#if content.value}}{{content.value}}{{else}}{{defaultValue}}{{/if}}"/>
+  <label class="range-input-label">{{defaultValue}}</label>
+{{/is}}
+
 {{#is type "submit"}}
   <div>
     <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ label }}" class="btn btn-primary submit-btn">
