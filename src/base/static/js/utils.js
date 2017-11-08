@@ -464,6 +464,14 @@ var self = (module.exports = {
     }
   },
 
+  removeAutocompleteValue: function(name) {
+    if (typeof Storage !== "undefined") {
+      return this.localstorage.destroy(name);
+    } else {
+      return this.cookies.destroy(name, "mapseed-");
+    }
+  },
+
   prepareCustomUrl: function(url) {
     return url.replace(/[^A-Za-z0-9-_]/g, "-").toLowerCase();
   },
