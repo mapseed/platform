@@ -87,6 +87,19 @@
   font-size: 1.4em;
 }
 
+#continue-form-btn, #exit-survey-btn {
+  color: #FFFFFF !important;
+  margin-bottom: 20px;
+}
+
+#continue-form-btn:hover, #exit-survey-btn:hover {
+  background-color: #FF8B61 !important;
+}
+
+#place-form-continue-btns .header-msg {
+  margin-bottom: 25px;
+}
+
 @media only screen and (min-width: 60em) {
   #main-btns-container.main-btns-container--offset-left {
     left: 260px;

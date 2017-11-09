@@ -377,6 +377,15 @@ module.exports = AppView.extend({
     }
   },
 
+  onMapDragEnd: function(evt) {
+    if (this.hasBodyClass("content-visible") === true) {
+      this.hideSpotlightMask();
+      // BEGIN FLAVOR-SPECIFIC CODE
+      this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
+      // END FLAVOR-SPECIFIC CODE
+    }
+  },
+
   // BEGIN FLAVOR-SPECIFIC CODE
   toggleLayerPanel: function() {
     $("#sidebar-panel").toggleClass("sidebar-panel--hidden sidebar-panel--visible");
