@@ -101,16 +101,10 @@ map:
 
     # TODO: add real layer
     - id: heat-waves
-      type: basemap
       url: //api.mapbox.com/styles/v1/sliob/cj9s94qct1tuz2rmdcxkew1s4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2xpb2IiLCJhIjoiY2o5cjdzdDkyNmk2MzMzdDRoZXk3MnRucCJ9.SCk-tekIRwDE5BY7T2GZRw
 
     # TODO: add real layer
     - id: flood-zones
-      type: basemap
-      url: //{s}.tiles.mapbox.com/v3/jkeefe.map-dg0rv3jh/{z}/{x}/{y}.png
-
-    - id: flood-zones
-      type: basemap
       url: //{s}.tiles.mapbox.com/v3/jkeefe.map-dg0rv3jh/{z}/{x}/{y}.png
 
 # The values map the place type to map icons (defined below).
