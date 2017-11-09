@@ -432,25 +432,6 @@ place:
         - name: submit
           type: commonFormElement
 
-    - category: greenwall
-      includeOnForm: false
-      name: location_type
-      dataset: duwamish
-      icon_url: /static/css/images/markers/marker-greenwall.png
-      value: greenwall
-      label: _(Greenwall)
-      fields:
-        - name: name
-          type: text
-        - name: submitter_name
-          type: commonFormElement
-        - name: private-submitter_email
-          type: commonFormElement
-        - name: my_image
-          type: commonFormElement
-        - name: submit
-          type: commonFormElement
-
   # define form elements that appear on every form here
   common_form_elements:
     submitter_name:
@@ -527,3 +508,20 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
+
+story:
+  # example:
+  #   tagline: _(Next featured site)
+  #   default_zoom: 18
+  #   default_visible_layers:
+  #     - satellite
+  #   order:
+      # - url: dirtcorps
+      #   zoom: 15
+      #   panTo:
+      #     lat: 47.53420
+      #     lng: -122.32165
+      #   spotlight: false
+      #   visible_layers:
+      #     - dirt-corps
+  -

@@ -110,12 +110,8 @@ map:
 
     # TODO: add real layer
     - id: flood-zones
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers: sewer
+      type: basemap
+      url: //{s}.tiles.mapbox.com/v3/jkeefe.map-dg0rv3jh/{z}/{x}/{y}.png
 
 # The values map the place type to map icons (defined below).
 place_types:
