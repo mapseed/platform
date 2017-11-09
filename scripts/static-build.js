@@ -82,10 +82,6 @@ if (!flavor) {
   process.exit();
 }
 
-// This version number is only used for cache-busting on our bundle.js
-// and bundle.css files.
-const bundleVersion = "0.7.5.9";
-
 const flavorBasePath = path.resolve(
   __dirname,
   "../src/flavors",
@@ -451,17 +447,24 @@ try {
 }
 
 // Copy font files
-const fontPaths = glob.sync(
+const baseFontsDir = path.resolve(
+  __dirname,
+  "../src/base"
+);
+let fontPaths = glob.sync(
   flavorBasePath +
   "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"
+).concat(
+  glob.sync(
+    baseFontsDir +
+    "/static/css/+(*.ttf|*.otf|*.woff|*.woff2)"
+  )
 );
+
 fontPaths.forEach((fontPath) => {
   try {
     fs.copySync(
-      path.resolve(
-        flavorBasePath,
-        fontPath
-      ),
+      fontPath,
       path.resolve(
         outputBasePath,
         "static/css",
