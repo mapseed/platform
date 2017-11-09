@@ -53,7 +53,11 @@ module.exports = Backbone.View.extend({
 
     if (placesToIncludeOnForm.length === 1) {
       // If we only have a single category, skip the category selection phase
-      this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
+      this.formState.selectedCategoryConfig = $.extend(
+        true,
+        this.formState.selectedCategoryConfig,
+        placesToIncludeOnForm[0],
+      );
       this.setCommonFormElements();
       this.setGeometryEnabled();
       this.prepareFormFieldsForRender();
