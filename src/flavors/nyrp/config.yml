@@ -109,8 +109,8 @@ map:
 
 # The values map the place type to map icons (defined below).
 place_types:
-  observation:
-    label: _(Observation)
+  comment:
+    label: _(Comment)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -136,96 +136,6 @@ place_types:
       - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  question:
-    label: _(Question)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  idea:
-    label: _(Idea)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  complaint:
-    label: _(Complaint)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -275,10 +185,13 @@ sidebar:
               icon: bicycle
               title: _(Biking)
               visibleDefault: false
-            - id: nyrp
+            - id: nyrp_and_nyrpfeatured
               icon: map-marker
               title: _(Comments)
-              visibleDefault: false
+              visibleDefault: true
+              constituentLayers:
+                - nyrp
+                - nyrpfeatured
             - id: community
               icon: users
               title: _(Community)
@@ -372,134 +285,97 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement
-    - category: observation
+    - category: comment
       includeOnForm: true
       name: location_type
       dataset: nyrp
       icon_url: /static/css/images/markers/marker-observation.png
-      value: observation
-      label: _(Observation)
+      value: comment
+      label: _(Add a comment)
       fields:
-        - name: title
-          type: text
-          prompt: _(Title of your observation:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
-          optional: false
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
-          display_prompt: _( )
+        - name: private-age
+          prompt: _(How old are you?)
+          type: range
+          max: 100
+          min: 15
+          defaultValue: 50
+          # NOTE: in this flavor, the autocomplete: true flag causes autocompleted
+          #       fields to be hidden on subsequent form renders.
+          autocomplete: true
+          horizontal_rule_below: true
+        - name: regular_user
+          type: binary_toggle
+          autocomplete: true
+          prompt: _(Are you a regular user of this garden?)
+          display_prompt: _(I am a regular user of this garden:)
           content:
-            - label: _(Sewage)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: false
+          horizontal_rule_below: true
+        - name: children_at_home
+          type: binary_toggle
+          autocomplete: true
+          prompt: _(Do you have children at home?)
+          display_prompt: _(I have children at home:)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: false
+          horizontal_rule_below: true
+        - name: language
+          autocomplete: true
+          type: dropdown
+          prompt: _(What is your preferred language?)
+          display_prompt: _(My preferred language:)
+          content:
+            - label: _(English)
+              value: english
+            - label: _(Spanish)
+              value: spanish
+            # TODO: other languages?
             - label: _(Other)
               value: other
-          optional: true # NOTE: checkbox_big_button inputs have no validation
-        - name: description
+          optional: true
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: comment_type
+          prompt: _(What type of comment is this?)
+          type: radio_big_buttons
+          content:
+            - label: _(Recommendation)
+              value: recommendation
+            - label: _(Concern)
+              value: concern
+          optional: false
+        - name: comment
           type: textarea
-          prompt: _(Description:)
+          autocomplete: false
+          prompt: _(What would encourage you to use this space more often?)
           display_prompt: _( )
-          placeholder: _(Enter description...)
+          placeholder: _(Write your comment here)
           optional: false
-        - name: submitter_name
-          type: commonFormElement
-        - name: private-submitter_email
-          type: commonFormElement
-        - name: my_image
-          type: commonFormElement
-        - name: submit
-          type: commonFormElement
-
-    - category: question
-      includeOnForm: true
-      name: location_type
-      dataset: nyrp
-      icon_url: /static/css/images/markers/marker-question.png
-      value: question
-      label: _(Question)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your question:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: "_(What's your question?)"
-          display_prompt: _( )
-          placeholder: _(Enter question...)
-        - name: submitter_name
-          type: commonFormElement
-        - name: private-submitter_email
-          type: commonFormElement
-        - name: my_image
-          type: commonFormElement
-        - name: submit
-          type: commonFormElement
-
-    - category: idea
-      includeOnForm: true
-      name: location_type
-      dataset: nyrp
-      icon_url: /static/css/images/markers/marker-idea.png
-      value: idea
-      label: _(Idea)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your idea:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Describe your idea below:)
-          display_prompt: "_( )"
-          placeholder: _(Description...)
-          optional: false
-        - name: submitter_name
-          type: commonFormElement
-        - name: private-submitter_email
-          type: commonFormElement
-        - name: my_image
-          type: commonFormElement
-        - name: submit
-          type: commonFormElement
-
-    - category: complaint
-      includeOnForm: true
-      name: location_type
-      dataset: nyrp
-      icon_url: /static/css/images/markers/marker-complaint.png
-      value: complaint
-      label: _(Complaint)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your complaint:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: "_(What's your complaint?)"
-          display_prompt: _( )
-          placeholder: _(Description...)
-          optional: false
-        - name: submitter_name
-          type: commonFormElement
-        - name: private-submitter_email
-          type: commonFormElement
-        - name: my_image
-          type: commonFormElement
+        - name: subcategory
+          prompt: _(Select any of the below categories that apply:)
+          type: checkbox_big_buttons
+          content:
+            - label: _(Amenities)
+              value: amenities
+            - label: _(Horticulture)
+              value: horticulture
+            - label: _(Programs)
+              value: programs
+            - label: _(Safety)
+              value: safety
+            - label: _(Experience)
+              value: experience
+            - label: _(Other)
+              value: other
+          optional: true
         - name: submit
           type: commonFormElement
 
@@ -509,13 +385,14 @@ place:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
-      optional: true
+      autocomplete: true
+      optional: false
     private-submitter_email:
       type: text
-      prompt: _(Your Email)
-      placeholder: _(Receive email updates on your report)
+      prompt: _(Enter your email address for updates)
+      placeholder: _(name@mail.com)
       optional: true
-      sticky: true
+      autocomplete: true
     my_image:
       type: file
       prompt: _(Image)
@@ -526,7 +403,7 @@ place:
           value: image/*
     submit:
       type: submit
-      label: _(Put it on the map!)
+      label: _(Submit comment)
 
   #### end dynamic form config ####
 
@@ -579,3 +456,12 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
+
+cluster:
+  animate: true
+  animateAddingMarkers: false
+  showCoverageOnHover: false
+  spiderfyOnMaxZoom: true
+  spiderfyDistanceMultiplier: 1.5
+  spiderLegPolylineOptions:
+    opacity: 0
