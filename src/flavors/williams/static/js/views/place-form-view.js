@@ -324,7 +324,7 @@ module.exports = PlaceFormView.extend({
             Util.log("USER", "new-place", "successfully-add-place");
 
             // BEGIN FLAVOR-SPECIFIC CODE
-            if (response.get("datasetId") === "comment") {
+            if (response.get("location_type") === "comment") {
               spinner.stop();
               self.formStage = 3;
               self.render();
