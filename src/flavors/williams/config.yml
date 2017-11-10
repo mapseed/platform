@@ -96,6 +96,15 @@ map:
       layers: sewer
 
     # TODO: add real layer
+    - id: zoning
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers: sewer
+
+    # TODO: add real layer
     - id: community
       type: wms
       url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
@@ -203,7 +212,7 @@ sidebar:
               title: _(Community)
               visibleDefault: false
         - id: climate-risks
-          title: _(Map detail)
+          title: _(Climate risks)
           layers:
             - id: heatwaves
               icon_url: /static/css/images/heatwaves.svg
