@@ -9,7 +9,7 @@
           {{#each sidebarConfig.basemaps}}
             <li class="layer-type-li">
               <div class="layer-type-title">
-                <i class="layer-panel-icon fa fa-{{ icon }}"></i>
+                <img src="{{ icon_url }}" />
                 <input id="map-{{ id }}" data-layerid="{{ id }}"
                        {{#if visibleDefault}}
                        checked="checked"
@@ -46,7 +46,7 @@
           {{# layers}}
             <li class="layer-type-li">
               <div class="layer-type-title">
-                <i class="layer-panel-icon fa fa-{{ icon }}"></i>
+                <img src="{{ icon_url }}" />
                 <input id="map-{{ id }}" data-layerid="{{ id }}"
                        {{#if visibleDefault}}
                        checked="checked"

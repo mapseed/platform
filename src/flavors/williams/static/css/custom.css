@@ -64,11 +64,23 @@
 
 .layer-type-li {
   height: 2.0em;
+  margin-bottom: 15px;
+}
+
+.layer-type-title {
+  display: block;
+  overflow: auto;
 }
 
 .layer-type-title label {
-  margin: 0;
+  margin-top: 4px;
   border-bottom: 2px solid transparent;
+}
+
+.layer-type-title img {
+  float: left;
+  width: 1.5em;
+  padding-right: 10px;
 }
 
 .layer-type-title input:checked ~ label {
