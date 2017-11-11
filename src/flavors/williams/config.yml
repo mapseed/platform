@@ -62,15 +62,20 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: nyrp
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/nyrp
+    - id: williams-input
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-input
       type: place
       slug: report
 
-    - id: nyrpfeatured
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/nyrpfeatured
+    - id: williams-project
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-project
       type: place
-      slug: featured
+      slug: project
+
+    - id: williams-partners
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-partners
+      type: place
+      slug: partners
 
     # TODO: add real layer
     - id: transit
@@ -189,14 +194,11 @@ sidebar:
               icon: bicycle
               title: _(Biking)
               visibleDefault: false
-            - id: nyrp_and_nyrpfeatured
+            - id: williams-input
               icon: map-marker
               title: _(Comments)
               visibleDefault: true
-              constituentLayers:
-                - nyrp
-                - nyrpfeatured
-            - id: community
+            - id: williams-partners
               icon: users
               title: _(Community)
               visibleDefault: false
@@ -243,7 +245,7 @@ place:
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: nyrpfeatured
+      dataset: williams-partners
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
       label: _(Featured Site)
@@ -291,7 +293,7 @@ place:
     - category: comment
       includeOnForm: true
       name: location_type
-      dataset: nyrp
+      dataset: williams-input
       icon_url: /static/css/images/markers/marker-observation.png
       value: comment
       label: _(Add a comment)
