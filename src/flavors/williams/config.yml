@@ -62,15 +62,20 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: nyrp
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/nyrp
+    - id: williams-input
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-input
       type: place
       slug: report
 
-    - id: nyrpfeatured
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/nyrpfeatured
+    - id: williams-project
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-project
       type: place
-      slug: featured
+      slug: project
+
+    - id: williams-partners
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-partners
+      type: place
+      slug: partners
 
     # TODO: add real layer
     - id: transit
