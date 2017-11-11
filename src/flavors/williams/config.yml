@@ -194,14 +194,11 @@ sidebar:
               icon: bicycle
               title: _(Biking)
               visibleDefault: false
-            - id: nyrp_and_nyrpfeatured
+            - id: williams-input
               icon: map-marker
               title: _(Comments)
               visibleDefault: true
-              constituentLayers:
-                - nyrp
-                - nyrpfeatured
-            - id: community
+            - id: williams-partners
               icon: users
               title: _(Community)
               visibleDefault: false
@@ -248,7 +245,7 @@ place:
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: nyrpfeatured
+      dataset: williams-partners
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
       label: _(Featured Site)
@@ -296,7 +293,7 @@ place:
     - category: comment
       includeOnForm: true
       name: location_type
-      dataset: nyrp
+      dataset: williams-input
       icon_url: /static/css/images/markers/marker-observation.png
       value: comment
       label: _(Add a comment)
