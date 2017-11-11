@@ -96,6 +96,15 @@ map:
       layers: sewer
 
     # TODO: add real layer
+    - id: zoning
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers: sewer
+
+    # TODO: add real layer
     - id: community
       type: wms
       url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
@@ -171,15 +180,15 @@ sidebar:
     - id: gis-layers
       basemaps:
         - id: osm
-          icon: map-o
+          icon_url: /static/css/images/default-map.svg
           title: _(Default)
           visibleDefault: true
         - id: satellite
-          icon: map
+          icon_url: /static/css/images/satellite-map.svg
           title: _(Satellite)
           visibleDefault: false
         - id: terrain
-          icon: globe
+          icon_url: /static/css/images/terrain-map.svg
           title: _(Terrain)
           visibleDefault: false
       groupings:
@@ -187,11 +196,11 @@ sidebar:
           title: _(Map detail)
           layers:
             - id: transit
-              icon: train
+              icon_url: /static/css/images/transit.svg
               title: _(Transit)
               visibleDefault: false
             - id: biking
-              icon: bicycle
+              icon_url: /static/css/images/bike-lanes.svg
               title: _(Biking)
               visibleDefault: false
             - id: williams-input
@@ -203,14 +212,14 @@ sidebar:
               title: _(Community)
               visibleDefault: false
         - id: climate-risks
-          title: _(Map detail)
+          title: _(Climate risks)
           layers:
             - id: heatwaves
-              icon: thermometer-full
+              icon_url: /static/css/images/heatwaves.svg
               title: _(Heat Waves)
               visibleDefault: false
             - id: flood-zones
-              icon: shower
+              icon_url: /static/css/images/flood-zones.svg
               title: _(Flood Zones)
               visibleDefault: false
 
