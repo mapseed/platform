@@ -95,14 +95,14 @@ map:
       transparent: true
       layers: sewer
 
-    # TODO: add real layer
     - id: zoning
       type: wms
-      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
+      url: https://geoserver.mapseed.org/geoserver/nyrp/wms?
       version: 1.3.0
       format: image/png
       transparent: true
-      layers: sewer
+      layers: 
+        - ny_zoning_2
 
     # TODO: add real layer
     - id: community
@@ -203,12 +203,16 @@ sidebar:
               icon_url: /static/css/images/bike-lanes.svg
               title: _(Biking)
               visibleDefault: false
+            - id: zoning
+              icon_url: /static/css/images/zoning.svg
+              title: _(Zoning)
+              visibleDefault: false
             - id: williams-input
-              icon: map-marker
+              icon_url: /static/css/images/comments.svg
               title: _(Comments)
               visibleDefault: true
             - id: williams-partners
-              icon: users
+              icon_url: /static/css/images/partners.svg
               title: _(Community)
               visibleDefault: false
         - id: climate-risks
