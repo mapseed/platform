@@ -19,6 +19,8 @@ class InputExplorerInputListHeader extends Component {
 
   render() {
 
+    // TODO: single-category subcategories are not arrays!
+
     return (
       <div className={baseClass}>
         <h5 className={cx(this.classes.header)}>What concerns do you have about this garden or its future development?</h5>
