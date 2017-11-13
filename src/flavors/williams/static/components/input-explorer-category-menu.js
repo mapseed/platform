@@ -17,17 +17,24 @@ class InputExplorerCategoryMenu extends Component {
     this.categoryNames = this.props.placeConfig
       .find(category => category.category === "community_input").fields
       .find(field => field.name === "input_category").content;
-
-    this.categoryNames.unshift({
-      label_plural: "Summary", // TODO: localization
-      value: "summary"
-    });
   }
 
   render() {
 
     return (
-      <div className={baseClass}> 
+      <div className={baseClass}>
+        <span>
+          <input 
+            type="radio" 
+            name="input-explorer-category-menu" 
+            id={"input-explorer-category-menu-summary"} 
+            value="summary"
+            checked={this.props.selectedCategory === "summary"} 
+            onChange={this.props.onChange} />
+          <label htmlFor={"input-explorer-category-menu-summary"}>
+            Summary
+          </label>
+        </span>
         {this.categoryNames.map(category => 
           <span key={category.value}>
             <input 
