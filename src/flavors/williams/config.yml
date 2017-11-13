@@ -273,7 +273,7 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: featured_place
+    - category: williams-project
       admin_only: true
       includeOnForm: true
       showMetadata: false
@@ -281,9 +281,9 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: williams-project
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/markers/park-icon.png
       value: featured_place
-      label: _(Featured Site)
+      label: _(Project Site)
       fields:
         - name: published
           type: publishControl
@@ -325,7 +325,7 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement    
-    - category: featured_place
+    - category: williams-partners
       admin_only: true
       includeOnForm: true
       showMetadata: false
@@ -333,9 +333,9 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: williams-partners
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/markers/partners.svg
       value: featured_place
-      label: _(Featured Site)
+      label: _(Partner Site)
       fields:
         - name: published
           type: publishControl
