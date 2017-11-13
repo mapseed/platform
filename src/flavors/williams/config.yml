@@ -157,7 +157,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  featured_place:
+  williams-partners:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
