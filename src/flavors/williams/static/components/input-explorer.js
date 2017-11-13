@@ -19,11 +19,6 @@ class InputExplorer extends Component {
     // TODO: wait until collection syncs before accessing communityInput
     this.inputCategories = _.uniq(this.props.communityInput.pluck("input_category"));
 
-    this.subcategoryNames.unshift({
-      label: "All", // TODO: localization
-      value: "all"
-    });
-
     this.state = {
       selectedCategory: "recommendation",
       selectedSubcategories: ["all"]

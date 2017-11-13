@@ -23,6 +23,16 @@ class InputExplorerInputListHeader extends Component {
       <div className={baseClass}>
         <h5 className={cx(this.classes.header)}>What concerns do you have about this garden or its future development?</h5>
         <div className={cx(this.classes.subcategoryMenu)}>
+          <span>
+            <input 
+              type="checkbox" name="input-explorer-subcategory-menu" id={"input-explorer-subcategory-menu-all"} 
+              value="all"
+              checked={this.props.selectedSubcategories.includes("all")} 
+              onChange={this.props.onChange} />
+            <label htmlFor={"input-explorer-subcategory-menu-all"}>
+              All
+            </label>
+          </span>
           {this.props.subcategoryNames.map(subcategory => 
             <span key={subcategory.value}>
               <input 
