@@ -313,8 +313,8 @@ place:
           optional: false
         - name: description
           type: richTextarea
-          prompt: _(Background, timeline, and data:)
-          display_prompt: _(Background, timeline, and data)
+          prompt: _( )
+          display_prompt: _( )
           placeholder: _( )
         - name: url-title
           type: url-title
@@ -365,8 +365,8 @@ place:
           optional: false
         - name: description
           type: richTextarea
-          prompt: _(Background, timeline, and data:)
-          display_prompt: _(Background, timeline, and data)
+          prompt: _( )
+          display_prompt: _( )
           placeholder: _( )
         - name: url-title
           type: url-title
