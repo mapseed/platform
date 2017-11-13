@@ -77,23 +77,32 @@ map:
       type: place
       slug: partners
 
-    # TODO: add real layer
-    - id: transit
+    - id: transit-points
       type: wms
-      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
+      url: https://geoserver.mapseed.org/geoserver/nyrp/wms?
       version: 1.3.0
       format: image/png
       transparent: true
-      layers: sewer
+      layers:
+        - transit_points
 
-    # TODO: add real layer
+    - id: transit-lines
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/nyrp/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - transit_lines
+
     - id: biking
       type: wms
-      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
+      url: https://geoserver.mapseed.org/geoserver/nyrp/wms?
       version: 1.3.0
       format: image/png
       transparent: true
-      layers: sewer
+      layers:
+        - ny_bike_lanes_2
 
     - id: zoning
       type: wms
@@ -201,9 +210,12 @@ sidebar:
         - id: map-detail
           title: _(Map detail)
           layers:
-            - id: transit
+            - id: transit_lines_and_points
               icon_url: /static/css/images/transit.svg
               title: _(Transit)
+              constituentLayers:
+                - transit-lines
+                - transit-points
               visibleDefault: false
             - id: biking
               icon_url: /static/css/images/bike-lanes.svg
