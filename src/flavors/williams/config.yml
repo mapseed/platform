@@ -293,7 +293,7 @@ place:
             - url: /static/css/images/partners-blue.svg
             - url: /static/css/images/markers/marker-star.png
         - name: address
-          type: text
+          type: geocoding
           prompt: _(Location:)
           display_prompt: _(Address)
           placeholder: _(Enter address...)
