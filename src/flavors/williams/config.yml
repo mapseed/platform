@@ -231,7 +231,7 @@ sidebar:
               visibleDefault: true
             - id: williams-partners
               icon_url: /static/css/images/partners.svg
-              title: _(Community)
+              title: _(Partners)
               visibleDefault: true
             - id: williams-project
               icon_url: /static/css/images/park-icon.png
