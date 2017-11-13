@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Village Vanguard
+  title: Williams Avenue Community Garden
   # Header name
-  name: "Village Vanguard"
+  name: "Williams Avenue Community Garden"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -237,7 +237,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Add your input)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
