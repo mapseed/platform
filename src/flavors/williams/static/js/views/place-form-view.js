@@ -137,11 +137,6 @@ module.exports = PlaceFormView.extend({
 
   render: function() {
     var placesToIncludeOnForm = _.filter(this.placeDetail, function(place) {
-      
-      console.log(place.category);
-      console.log(place.admin_only);
-      console.log(Util.getAdminStatus(place.dataset, place.admin_groups));
-      console.log(place.includeOnForm);
 
       // If we're logged in, we have at least two categories to display: the
       // featured places category and the regular comments category
@@ -160,7 +155,7 @@ module.exports = PlaceFormView.extend({
         placesToIncludeOnForm[0],
       );
 
-      if (this.formState.selectedCategoryConfig.category === "comment") {
+      if (this.formState.selectedCategoryConfig.category === "community_input") {
 
         // If we're in this special comment category, we proceed to a custom
         // multi-stage form.
@@ -324,7 +319,7 @@ module.exports = PlaceFormView.extend({
             Util.log("USER", "new-place", "successfully-add-place");
 
             // BEGIN FLAVOR-SPECIFIC CODE
-            if (response.get("location_type") === "comment") {
+            if (response.get("location_type") === "community_input") {
               spinner.stop();
               self.formStage = 3;
               self.render();

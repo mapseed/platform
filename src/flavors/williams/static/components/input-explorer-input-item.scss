@@ -1,0 +1,25 @@
+.mapseed-input-explorer-input-item {
+  position: relative;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 100px;
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+
+  .mapseed-input-explorer-input-item__response-time {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    color: #AAAAAA;
+    font-style: italic;
+  }
+
+  .mapseed-input-explorer-input-item__subcategory {
+    color: red;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+}

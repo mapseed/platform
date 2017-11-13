@@ -4,6 +4,10 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+@import "../components/input-explorer-category-menu";
+@import "../components/input-explorer-input-list-header";
+@import "../components/input-explorer-input-item";
+
 #sidebar-panel {
   position: absolute;
   opacity: 0.9;
