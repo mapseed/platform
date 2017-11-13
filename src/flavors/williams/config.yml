@@ -333,9 +333,9 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: williams-partners
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/markers/partners.svg
       value: featured_place
-      label: _(Featured Site)
+      label: _(Partner Site)
       fields:
         - name: published
           type: publishControl
