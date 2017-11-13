@@ -127,7 +127,7 @@ map:
 
 # The values map the place type to map icons (defined below).
 place_types:
-  comment:
+  community_input:
     label: _(Comment)
     rules:
       - condition: 'this.layer.focused === true'
@@ -377,12 +377,12 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement
-    - category: comment
+    - category: community_input
       includeOnForm: true
       name: location_type
       dataset: williams-input
       icon_url: /static/css/images/markers/marker-observation.png
-      value: comment
+      value: community_input
       label: _(Add a comment)
       fields:
         - name: private-age
@@ -435,23 +435,25 @@ place:
           optional: true
         - name: private-submitter_email
           type: commonFormElement
-        - name: comment_type
+        - name: input_category
           prompt: _(What type of comment is this?)
           type: radio_big_buttons
           content:
             - label: _(Recommendation)
+              label_plural: _(Recommendations)
               value: recommendation
             - label: _(Concern)
+              label_plural: _(Concerns)
               value: concern
           optional: false
-        - name: comment
+        - name: input_text
           type: textarea
           autocomplete: false
           prompt: _(What would encourage you to use this space more often?)
           display_prompt: _( )
           placeholder: _(Write your comment here)
           optional: false
-        - name: subcategory
+        - name: input_subcategory
           prompt: _(Select any of the below categories that apply:)
           type: checkbox_big_buttons
           content:

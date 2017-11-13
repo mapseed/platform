@@ -1,3 +1,7 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import InputExplorer from "../../../../../flavors/williams/static/components/input-explorer";
+
 const AppView = require("../../../../../base/static/js/views/app-view.js");
 const GeocodeAddressView = require('../../../../../base/static/js/views/geocode-address-view');
 const PlaceCounterView = require('../../../../../base/static/js/views/place-counter-view');
@@ -385,6 +389,22 @@ module.exports = AppView.extend({
       // END FLAVOR-SPECIFIC CODE
     }
   },
+
+  // BEGIN FLAVOR-SPECIFIC CODE
+  showListView: function() {
+    $(".show-the-list").addClass("is-visuallyhidden");
+    $(".show-the-map").removeClass("is-visuallyhidden");
+    $("#list-container").addClass("is-exposed");
+
+    // NOTE: we hard-code the williams-input collection here
+    ReactDOM.render(
+      <InputExplorer 
+        placeConfig={this.options.placeConfig.place_detail}
+        communityInput={this.places["williams-input"]} />,
+      document.querySelector("#list-container")
+    );
+  },
+  // END FLAVOR-SPECIFIC CODE
 
   // BEGIN FLAVOR-SPECIFIC CODE
   toggleLayerPanel: function() {
