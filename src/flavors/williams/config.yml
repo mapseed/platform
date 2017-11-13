@@ -104,15 +104,6 @@ map:
       layers: 
         - ny_zoning_2
 
-    # TODO: add real layer
-    - id: community
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers: sewer
-
     - id: heatwaves
       type: wms
       url: https://geoserver.mapseed.org/geoserver/nyrp/wms?
@@ -174,6 +165,21 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
+  williams-project:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
 sidebar:
   enabled: true
   panels:
@@ -214,7 +220,11 @@ sidebar:
             - id: williams-partners
               icon_url: /static/css/images/partners.svg
               title: _(Community)
-              visibleDefault: false
+              visibleDefault: true
+            - id: williams-project
+              icon_url: /static/css/images/park-icon.png
+              title: _(Project)
+              visibleDefault: true
         - id: climate-risks
           title: _(Climate risks)
           layers:
@@ -237,7 +247,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add your input)
+  add_button_label: _(Add your comments)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
@@ -251,6 +261,58 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: williams-project
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Background, timeline, and data:)
+          display_prompt: _(Background, timeline, and data)
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement    
     - category: featured_place
       admin_only: true
       includeOnForm: true
