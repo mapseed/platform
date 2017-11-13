@@ -273,6 +273,45 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: williams-partners
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: williams-partners
+      icon_url: /static/css/images/partners-blue.svg
+      value: featured_place
+      label: _(Partner Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/partners-blue.svg
+            - url: /static/css/images/markers/marker-star.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _( )
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: williams-project
       admin_only: true
       includeOnForm: true
@@ -281,7 +320,7 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: williams-project
-      icon_url: /static/css/images/markers/park-icon.png
+      icon_url: /static/css/images/park-icon.png
       value: featured_place
       label: _(Project Site)
       fields:
@@ -325,58 +364,6 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement    
-    - category: williams-partners
-      admin_only: true
-      includeOnForm: true
-      showMetadata: false
-      suppressAttachments: true
-      horizontal_rule: true
-      name: location_type
-      dataset: williams-partners
-      icon_url: /static/css/images/markers/partners.svg
-      value: featured_place
-      label: _(Partner Site)
-      fields:
-        - name: published
-          type: publishControl
-        - name: geometry
-          type: geometryToolbar
-          content:
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/marker-bike.png
-            - url: /static/css/images/markers/marker-construction.png
-            - url: /static/css/images/markers/marker-foodforest.png
-            - url: /static/css/images/markers/marker-greenwall.png
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-hist_comp.png
-            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
-            - url: /static/css/images/markers/marker-hist_prog.png
-            - url: /static/css/images/markers/marker-land_comp.png
-            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
-            - url: /static/css/images/markers/marker-land_prog.png
-            - url: /static/css/images/markers/marker-transp_comp.png
-            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-            - url: /static/css/images/markers/marker-transp_prog.png
-        - name: title
-          type: text
-          prompt: _(Title of this featured site:)
-          display_prompt: _( )
-          placeholder: _(Enter title...)
-          optional: false
-        - name: description
-          type: richTextarea
-          prompt: _( )
-          display_prompt: _( )
-          placeholder: _( )
-        - name: url-title
-          type: url-title
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
-        - name: private-submitter_email
-          type: commonFormElement
-        - name: submit
-          type: commonFormElement
     - category: community_input
       includeOnForm: true
       name: location_type
