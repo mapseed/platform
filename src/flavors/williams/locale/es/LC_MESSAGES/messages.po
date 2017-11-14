@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 16:49+0100\n"
+"POT-Creation-Date: 2017-11-14 16:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,30 +193,6 @@ msgid "Support"
 msgstr ""
 
 msgid "supports"
-msgstr ""
-
-msgid "Get involved"
-msgstr ""
-
-msgid "Want to help out? Excellent!"
-msgstr ""
-
-msgid ""
-"The best way to be involved is to <a href=\"/place/new\">submit a report</a> "
-"on the map, or comment on someone else's report."
-msgstr ""
-
-msgid ""
-"We can also use help writing <a href=\"http://github.com/smartercleanup/"
-"duwamish\">code</a>, designing a better interface, and promoting the project."
-msgstr ""
-
-msgid "If you want to see a project like this in your community, let us know!"
-msgstr ""
-
-msgid ""
-"<a href=\"http://eepurl.com/6IfA5\">Send us a message</a> and we'll be in "
-"touch ;)"
 msgstr ""
 
 msgid "Williams Ave Community Garden"
