@@ -1,5 +1,13 @@
 .mapseed-input-explorer-input-list-header {
 
+  &.mapseed-input-explorer-input-list-header--visible {
+    display: block;
+  }
+
+  &.mapseed-input-explorer-input-list-header--hidden {
+    display: none;
+  }
+
   .mapseed-input-explorer-input-list-header__header {
     text-align: center;
     font-style: italic;

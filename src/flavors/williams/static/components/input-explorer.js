@@ -5,6 +5,7 @@ import update from "react-addons-update";
 import InputExplorerCategoryMenu from "../components/input-explorer-category-menu";
 import InputExplorerInputListHeader from "../components/input-explorer-input-list-header";
 import InputExplorerInputItem from "../components/input-explorer-input-item";
+import InputExplorerSummary from "../components/input-explorer-summary";
 
 const Util = require("../../../../base/static/js/utils.js");
 
@@ -92,11 +93,18 @@ class InputExplorer extends Component {
           inputCategories={this.inputCategories} 
           selectedCategory={this.state.selectedCategory}
           placeConfig={this.props.placeConfig} 
-          onChange={this.onCategoryFilterChange.bind(this)} />
+          onChange={this.onCategoryFilterChange.bind(this)} 
+          visibility={(this.state.selectedCategory === "summary") ? false : true} />
+        <InputExplorerSummary 
+          headerMsg={this.props.appConfig.summary_page_header}
+          communityInput={this.props.communityInput}
+          subcategoryNames={this.subcategoryNames}
+          visibility={(this.state.selectedCategory === "summary") ? true : false} />
         <InputExplorerInputListHeader 
           subcategoryNames={this.subcategoryNames} 
           selectedSubcategory={this.state.selectedSubcategory}
-          onChange={this.onSubcategoryFilterChange.bind(this)} />
+          onChange={this.onSubcategoryFilterChange.bind(this)} 
+          visibility={(this.state.selectedCategory === "summary") ? false : true} />
         {communityInputToRender.map(model => 
           <InputExplorerInputItem 
             key={model.id}

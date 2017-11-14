@@ -399,6 +399,7 @@ module.exports = AppView.extend({
     // NOTE: we hard-code the williams-input collection here
     ReactDOM.render(
       <InputExplorer 
+        appConfig={this.options.appConfig}
         placeConfig={this.options.placeConfig.place_detail}
         communityInput={this.places["williams-input"]} />,
       document.querySelector("#list-container")

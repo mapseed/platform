@@ -7,6 +7,7 @@
 @import "../components/input-explorer-category-menu";
 @import "../components/input-explorer-input-list-header";
 @import "../components/input-explorer-input-item";
+@import "../components/input-explorer-summary";
 
 #sidebar-panel {
   position: absolute;
