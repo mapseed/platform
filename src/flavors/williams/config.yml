@@ -22,12 +22,12 @@ app:
   # Optional. List view is supported by default. Set to false to disable.
   # list_enabled: false
 
-# languages:
-#   - code: en_US
-#     label: I Speak English
+languages:
+  - code: en_US
+    label: I Speak English
 
-#   - code: es
-#     label: Hablo Español
+  - code: es
+    label: Hablo Español
 
 #   - code: vi
 #     label: tôi nói tiếng việt
@@ -261,7 +261,7 @@ place:
   adding_supported: true
   add_button_label: _(Add your comments)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(Explore comments)
+  show_list_button_label: _(Comments)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
