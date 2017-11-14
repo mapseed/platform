@@ -123,9 +123,19 @@ To update all existing locales with new content for a given flavor, run the foll
 FLAVOR=<flavor> node scripts/make-flavor-messages.js
 ```
 
-where `<flavor>` is the name of the flavor whose locales you'd like to update.
+where `<flavor>` is the name of the flavor whose locales you'd like to update:
 
 `.po` files for a given flavor locale can be found in the `src/flavors/<flavor>/locale/<language_tag>/LC_MESSAGES/messages.po` file, where `<flavor>` is the name of the flavor and `<language_tag>` is the name of the language tag. Using the `make-flavor-messages.js` tool will create a new folder in the `locale` matching the new language. Translated `.po` files should be returned to the correct language folder in the `locale` directory to work correctly.
+
+You may also wish to do the same for the base project itself:
+
+```
+FLAVOR=<flavor> node scripts/make-flavor-messages.js --set-new-locale=<language_tag>
+```
+(Translate the .po files) then
+```
+FLAVOR=<flavor> node scripts/make-flavor-messages.js
+```
 
 #### Marking content as localizable
 
