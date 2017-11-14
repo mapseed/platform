@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Williams Ave Community Garden
+  title: _(Williams Ave Community Garden)
   # Header name
-  name: "Williams Ave Community Garden"
+  name: "_(Williams Ave Community Garden)"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
