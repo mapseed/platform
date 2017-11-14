@@ -532,6 +532,9 @@ support:
   anonymous_name: _(Someone)
 
 pages:
+  - title: _(Map)
+    name: 17/40.67428/-73.90083
+
   - title: _(Project)
     slug: about
     name: overview
