@@ -43,7 +43,6 @@ const flavorConfigPath = path.resolve(
 const config = yaml.safeLoad(fs.readFileSync(flavorConfigPath));
 shell.mkdir('-p', messagesCatalogTempPath);
 
-const configGettextRegex = /^_\(([\s\S]*?)\)$/g;
 const escapeQuotes = (message) => {
 	return message
 		.split('"')
@@ -168,7 +167,7 @@ let configMessagesOutput = fs.createWriteStream(
 let foundMessage;
 walk(config, (val, prop, obj) => {
 	if (typeof val === "string") {
-		foundMessage = configGettextRegex.exec(val);
+		foundMessage = /^_\(([\s\S]*?)\)$/g.exec(val);
  		foundMessage && configMessagesOutput.write('_("""' + escapeQuotes(foundMessage[1]) + '""");\n');
 	}
 });
