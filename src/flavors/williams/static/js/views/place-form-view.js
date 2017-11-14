@@ -136,7 +136,7 @@ module.exports = PlaceFormView.extend({
   },
 
   render: function() {
-    var placesToIncludeOnForm = _.filter(this.placeDetail, function(place) {
+    let placesToIncludeOnForm = _.filter(this.placeDetail, function(place) {
 
       // If we're logged in, we have at least two categories to display: the
       // featured places category and the regular comments category
