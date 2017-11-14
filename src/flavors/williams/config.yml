@@ -42,9 +42,9 @@ map:
 
   options:
     center:
-      lat: 40.78041
-      lng: -73.94279
-    zoom: 12
+      lat: 40.67428
+      lng: -73.90083
+    zoom: 17
     minZoom: 1
     maxZoom: 18
 
@@ -232,7 +232,7 @@ sidebar:
             - id: williams-partners
               icon_url: /static/css/images/partners.svg
               title: _(Partners)
-              visibleDefault: true
+              visibleDefault: false
             - id: williams-project
               icon_url: /static/css/images/park-icon.png
               title: _(Project)
@@ -531,18 +531,9 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(About)
+  - title: _(Project)
     slug: about
     name: overview
-
-  - title: _(Background)
-    slug: background
-    name: background
-    hide_from_top_bar: true
-
-  - title: _(Get involved)
-    slug: getinvolved
-    name: contribute
 
 cluster:
   animate: true
