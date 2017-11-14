@@ -75,11 +75,6 @@ class InputExplorerInputItem extends Component {
             })}>
           </label>
         </span>
-        {this.props.subcategories.map(subcategory => 
-          <span
-            key={subcategory} 
-            className={cx(this.classes.subcatgories)}>{subcategory}</span>
-        )}
       </div>
     );
   }

@@ -31,7 +31,7 @@ class InputExplorer extends Component {
 
     this.state = {
       selectedCategory: "recommendation",
-      selectedSubcategories: ["all"]
+      selectedSubcategory: "all"
     };
   }
 
@@ -40,32 +40,7 @@ class InputExplorer extends Component {
   }
 
   onSubcategoryFilterChange(evt) {
-    let nextState;
-
-    if (evt.target.checked) {
-
-      // Push the newly selected checkbox value onto our array of selected
-      // checkbox values.
-      nextState = update(
-        this.state, {
-          selectedSubcategories: {$push: [evt.target.value]}
-        }
-      );
-    } else {
-
-      // If a checkbox was unchecked, splice its value out of our array of
-      // selected checkbox values.
-      let index = this.state.selectedSubcategories
-                    .findIndex(item => item === evt.target.value);
-
-      nextState = update(
-        this.state, {
-          selectedSubcategories: {$splice: [[index, 1]]}
-        }
-      );
-    }      
-
-    this.setState(nextState);
+    this.setState({ selectedSubcategory: evt.target.value });
   }
 
   render() {
@@ -73,23 +48,22 @@ class InputExplorer extends Component {
         isAdmin = Util.getAdminStatus(config.dataset, config.admin_groups),
         communityInputToRender = this.props.communityInput
           // filter by main category
-          .where({input_category: this.state.selectedCategory})
+          .where({
+            input_category: this.state.selectedCategory
+          })
           // filter by subcategory
           .filter((model) => {
-            if (this.state.selectedSubcategories.includes("all")) {
+            if (this.state.selectedSubcategory === "all") {
               return true;
             }
 
-            let returnVal = false,
-                inputSubcategory = normalizeCheckboxData(model.get("input_subcategory"));
+            let inputSubcategory = normalizeCheckboxData(model.get("input_subcategory"));
 
-            inputSubcategory.forEach((subcategory) => {
-              if (this.state.selectedSubcategories.includes(subcategory)) {
-                returnVal = true;
-              }
-            });
+            if (inputSubcategory.includes(this.state.selectedSubcategory)) {
+              return true;
+            }
 
-            return returnVal;
+            return false;
           })
           // sort by datetime
           .sort((a, b) => {
@@ -109,7 +83,6 @@ class InputExplorer extends Component {
             if (b.get("is_sticky") && !a.get("is_sticky")) {
               return 1;
             }
-
             return 0;
           });
 
@@ -122,7 +95,7 @@ class InputExplorer extends Component {
           onChange={this.onCategoryFilterChange.bind(this)} />
         <InputExplorerInputListHeader 
           subcategoryNames={this.subcategoryNames} 
-          selectedSubcategories={this.state.selectedSubcategories}
+          selectedSubcategory={this.state.selectedSubcategory}
           onChange={this.onSubcategoryFilterChange.bind(this)} />
         {communityInputToRender.map(model => 
           <InputExplorerInputItem 
@@ -131,7 +104,7 @@ class InputExplorer extends Component {
             isAdmin={isAdmin}
             parent={this}
             inputText={model.get("input_text")} 
-            subcategories={normalizeCheckboxData(model.get("input_subcategory"))}
+            subcategory={model.get("input_subcategory")}
             createdDatetime={model.get("created_datetime")} />
         )}
       </div>

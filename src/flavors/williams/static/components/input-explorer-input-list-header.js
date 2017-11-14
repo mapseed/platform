@@ -27,9 +27,11 @@ class InputExplorerInputListHeader extends Component {
         <div className={cx(this.classes.subcategoryMenu)}>
           <span>
             <input 
-              type="checkbox" name="input-explorer-subcategory-menu" id={"input-explorer-subcategory-menu-all"} 
+              type="radio" 
+              name="input-explorer-subcategory-menu" 
+              id={"input-explorer-subcategory-menu-all"} 
               value="all"
-              checked={this.props.selectedSubcategories.includes("all")} 
+              checked={this.props.selectedSubcategory === "all"} 
               onChange={this.props.onChange} />
             <label htmlFor={"input-explorer-subcategory-menu-all"}>
               All
@@ -38,9 +40,11 @@ class InputExplorerInputListHeader extends Component {
           {this.props.subcategoryNames.map(subcategory => 
             <span key={subcategory.value}>
               <input 
-                type="checkbox" name="input-explorer-subcategory-menu" id={"input-explorer-subcategory-menu-" + subcategory.value} 
+                type="radio" 
+                name="input-explorer-subcategory-menu" 
+                id={"input-explorer-subcategory-menu-" + subcategory.value} 
                 value={subcategory.value}
-                checked={this.props.selectedSubcategories.includes(subcategory.value)} 
+                checked={this.props.selectedSubcategory === subcategory.value}
                 onChange={this.props.onChange} />
               <label htmlFor={"input-explorer-subcategory-menu-" + subcategory.value}>
                 {subcategory.label}
