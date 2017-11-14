@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-29 16:47-0400\n"
+"POT-Creation-Date: 2017-11-14 16:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,167 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Enter an address..."
+msgid ""
+"Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
-msgid ""
-"Shareabouts is a mapping tool to gather crowd sourced public input. Use it "
-"to collect suggested locations and comments in a social, engaging process."
+msgid "Log Out"
+msgstr ""
+
+msgid "Admin"
+msgstr ""
+
+msgid "Welcome!"
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Satellite"
+msgstr ""
+
+msgid "Terrain"
+msgstr ""
+
+msgid "Map detail"
+msgstr ""
+
+msgid "Transit"
+msgstr ""
+
+msgid "Biking"
+msgstr ""
+
+msgid "Zoning"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+msgid "Partners"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Climate risks"
+msgstr ""
+
+msgid "Heat Waves"
+msgstr ""
+
+msgid "Flood Zones"
+msgstr ""
+
+msgid "added"
 msgstr ""
 
 msgid "Someone"
 msgstr ""
 
-msgid "support"
+msgid "Partner Site"
 msgstr ""
 
-msgid "Support"
+msgid "Location:"
 msgstr ""
 
-msgid "supports"
+msgid "Enter address..."
 msgstr ""
 
-msgid "comments"
+msgid "Title of this featured site:"
+msgstr ""
+
+msgid "Enter title..."
+msgstr ""
+
+msgid " "
+msgstr ""
+
+msgid "Choose a custom URL for this place:"
+msgstr ""
+
+msgid "Project Site"
+msgstr ""
+
+msgid "Add a comment"
+msgstr ""
+
+msgid "How old are you?"
+msgstr ""
+
+msgid "Are you a regular user of this garden?"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Do you have children at home?"
+msgstr ""
+
+msgid "What is your preferred language?"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "What type of comment is this?"
+msgstr ""
+
+msgid "Recommendation"
+msgstr ""
+
+msgid "Concern"
+msgstr ""
+
+msgid "What would encourage you to use this space more often?"
+msgstr ""
+
+msgid "Write your comment here"
+msgstr ""
+
+msgid "Select any of the below categories that apply:"
+msgstr ""
+
+msgid "Amenities"
+msgstr ""
+
+msgid "Horticulture"
+msgstr ""
+
+msgid "Programs"
+msgstr ""
+
+msgid "Safety"
+msgstr ""
+
+msgid "Experience"
+msgstr ""
+
+msgid "Your name"
+msgstr ""
+
+msgid "Enter your email address for updates"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Submit comment"
+msgstr ""
+
+msgid "comment"
 msgstr ""
 
 msgid "commented on"
@@ -46,89 +186,243 @@ msgstr ""
 msgid "Leave a Comment"
 msgstr ""
 
-msgid "Comment"
-msgstr ""
-
 msgid "Your Name"
 msgstr ""
 
-msgid "comment"
+msgid "Support"
 msgstr ""
 
-msgid "Show the Map"
+msgid "supports"
 msgstr ""
 
-msgid "Submit"
+msgid "Get involved"
 msgstr ""
 
-msgid "Tell us more..."
+msgid "Want to help out? Excellent!"
 msgstr ""
 
-msgid "Name"
+msgid ""
+"The best way to be involved is to <a href=\"/place/new\">submit a report</a> "
+"on the map, or comment on someone else's report."
 msgstr ""
 
-msgid "Your Email"
+msgid ""
+"We can also use help writing <a href=\"http://github.com/smartercleanup/"
+"duwamish\">code</a>, designing a better interface, and promoting the project."
 msgstr ""
 
-msgid "Email address"
+msgid "If you want to see a project like this in your community, let us know!"
 msgstr ""
 
-msgid "Location Name"
+msgid ""
+"<a href=\"http://eepurl.com/6IfA5\">Send us a message</a> and we'll be in "
+"touch ;)"
 msgstr ""
 
-msgid "Location Type"
+msgid "Williams Ave Community Garden"
 msgstr ""
 
-msgid "Choose One"
+msgid ""
+"NYRP acquired the Williams Ave. Garden in 1999, preserving it as open space "
+"in perpetuity. NYRP received funding from thestate of NY to renovate the "
+"Williams Ave. Community Garden.  Over the nextfew months, we will work with "
+"community members and local stakeholders to design a plan for the space and "
+"begin construction soon after"
 msgstr ""
 
-msgid "Landmark"
+msgid "Williams Ave community garden"
 msgstr ""
 
-msgid "Park"
+msgid "History"
 msgstr ""
 
-msgid "School"
+msgid ""
+"Formerly part of New Lots, East New York, has been home to waves of "
+"immigrant groups: Eastern Europeans in the 1800's and Puerto Ricans and "
+"African‐Americans from the south in the 1900's. Today it has a growing South "
+"Asian population. The garden lot was a former residence, transferred to the "
+"city in 1976. Adjacent buildings both constructed in 1901."
 msgstr ""
 
-msgid "Description"
+msgid "Age of population"
 msgstr ""
 
-msgid "Description..."
+msgid "33% 0‐18, 28% 18‐34, 32% 35‐64, 7% 65+"
 msgstr ""
 
-msgid "Image"
+msgid "Household types"
 msgstr ""
 
-msgid "Add an Image"
+msgid "72% Family, 23% Single non-Family, 5% Shared "
 msgstr ""
 
-msgid "Add a Place"
+msgid "Household income"
 msgstr ""
 
-msgid "created"
+msgid ""
+"Median household income: 29,527 dollars. Mean household income 42,975 "
+"dollars."
 msgstr ""
 
-msgid "List All Places"
+msgid "Ethnicity"
 msgstr ""
 
-msgid "About"
+msgid "63% Hispanic, 27% Black, 7% White, 2% Asian "
 msgstr ""
 
-msgid "Why Shareabouts?"
+msgid "Climate forecasts"
 msgstr ""
 
-msgid "Features"
+msgid "Rising temperatures"
 msgstr ""
 
-msgid "Documentation"
+msgid ""
+"Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the "
+"2050s. The frequency of heat waves is projected to triple by the 2080s."
 msgstr ""
 
-msgid "Issues"
+msgid "Rising sea levels and coastal flooding"
 msgstr ""
 
-msgid "GitHub"
+msgid ""
+"Projections for sea level rise in New York City are 11 to 21inches by the "
+"2050s, 18 to 39 inches by the 2080s, and could reach as high as 6 feet by "
+"2100. Projected sea level rise will increase current 100-year coastal floods "
+"by 10-15 fold by the 2080s."
 msgstr ""
 
-msgid "Links"
+msgid "Increased precipitation"
+msgstr ""
+
+msgid ""
+"Mean annual precipitation is projected to increase by 4% to 11% by the 2050s."
+msgstr ""
+
+msgid ""
+"<p>Source: <a href=\"http://onlinelibrary.wiley.com/doi/10.1111/"
+"nyas.2015.1336.issue-1/issuetoc\">New York City Panel on Climate Change 2015 "
+"Report</a></p>"
+msgstr ""
+
+msgid "optional"
+msgstr ""
+
+msgid "Select..."
+msgstr ""
+
+msgid "Your post will be accessible at:"
+msgstr ""
+
+msgid "This url is already in use. Please try another."
+msgstr ""
+
+msgid "Please choose a url without a forward slash character (/) in it."
+msgstr ""
+
+msgid "Click on a tool below to draw on the map"
+msgstr ""
+
+msgid "Click on a tool below to modify your shape"
+msgstr ""
+
+msgid ""
+"Drag shape handles to edit your shape, or click on shape handles to delete "
+"vertices"
+msgstr ""
+
+msgid "Drag your marker to reposition it"
+msgstr ""
+
+msgid "Click anywhere on the map to start drawing"
+msgstr ""
+
+msgid "Click to continue drawing your shape"
+msgstr ""
+
+msgid ""
+"Click to continue drawing, or click on your first point to complete your "
+"shape"
+msgstr ""
+
+msgid "Click to continue drawing"
+msgstr ""
+
+msgid "Click to continue drawing, or double click to complete your shape"
+msgstr ""
+
+msgid "Click anywhere on the map to place your marker"
+msgstr ""
+
+msgid "Create marker"
+msgstr ""
+
+msgid "Create polyline"
+msgstr ""
+
+msgid "Create polygon"
+msgstr ""
+
+msgid "Edit marker"
+msgstr ""
+
+msgid "Edit polyline"
+msgstr ""
+
+msgid "Edit polygon"
+msgstr ""
+
+msgid "Delete marker"
+msgstr ""
+
+msgid "Delete polyline"
+msgstr ""
+
+msgid "Delete polygon"
+msgstr ""
+
+msgid "Change colors"
+msgstr ""
+
+msgid "Choose an icon style below"
+msgstr ""
+
+msgid "Published"
+msgstr ""
+
+msgid "Not published"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "When saved, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When saved, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "Tell us about yourself!"
+msgstr ""
+
+msgid "Move the map to mark where you live."
+msgstr ""
+
+msgid "Thanks for your comment!"
+msgstr ""
+
+msgid "Submit another comment"
+msgstr ""
+
+msgid "Exit survey"
+msgstr ""
+
+msgid "Map type"
 msgstr ""
