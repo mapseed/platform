@@ -8,6 +8,10 @@ class InputExplorerInputListHeader extends Component {
   constructor() {
     super(...arguments);
     this.classes = {
+      base: {
+        name: baseClass,
+        modifiers: ["visibility"]
+      },
       header: {
         name: baseClass + "__header"
       },
@@ -19,10 +23,8 @@ class InputExplorerInputListHeader extends Component {
 
   render() {
 
-    // TODO: single-category subcategories are not arrays!
-
     return (
-      <div className={baseClass}>
+      <div className={cx(this.classes.base, { visibility: (this.props.visibility) ? "visible" : "hidden" })}>
         <h5 className={cx(this.classes.header)}>What concerns do you have about this garden or its future development?</h5>
         <div className={cx(this.classes.subcategoryMenu)}>
           <span>
