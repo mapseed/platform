@@ -50,7 +50,7 @@ let templatePath,
 		foundMessages,
 		jsTemplatesMessagesOutput;
 const extractTemplateMessages = (jsTemplateName, jsTemplatePath) => {
-	if (jsTemplate.endsWith("html") || jsTemplate.endsWith("hbs")) {
+	if (jsTemplateName.endsWith("html") || jsTemplateName.endsWith("hbs")) {
 		foundMessages = [];
 
 		// NOTE: we save these temp files as python files, so we can take 
