@@ -263,7 +263,7 @@ place:
   add_button_label: _(Add your comments)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Comments)
-  show_map_button_label: _(Show the Map)
+  show_map_button_label: _(Comments)
   action_text: _(added)
   title: _(Tell us more...)
   anonymous_name: _(Someone)
