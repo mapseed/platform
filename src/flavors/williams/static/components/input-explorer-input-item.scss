@@ -22,4 +22,39 @@
     text-transform: uppercase;
     margin-right: 10px;
   }
+
+  .mapseed-input-explorer-input-item__sticky-toggle-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.8em;
+    margin: 0;
+
+    input {
+      display: none;
+    }
+
+    .mapseed-input-explorer-input-item__sticky-toggle-label--toggleable {
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .mapseed-input-explorer-input-item__sticky-toggle-label--toggled {
+
+      &:before {
+        font-family: FontAwesome;
+        content: "\f005";
+      }
+    }
+
+    .mapseed-input-explorer-input-item__sticky-toggle-label--untoggled {
+
+      &:before {
+        font-family: FontAwesome;
+        content: "\f006";
+      }
+    }
+  }
 }
