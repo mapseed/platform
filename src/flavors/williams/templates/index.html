@@ -11,6 +11,22 @@
 {{/block}}
 
 {{#block "language_picker"}}
+<div id="language-picker">
+  <nav class="access" role="article">
+    <ul class="menu">
+      <li class="menu-item">
+        <a class="current-language {{ languageCode }} btn btn-block">Language</a>
+        <ul class="menu">
+          {{#each config.languages}}
+            <li class="menu-item">
+              <a href="/{{this.code}}.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
+            </li>
+          {{/each}}
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
 {{/block}}
 
 <!--
