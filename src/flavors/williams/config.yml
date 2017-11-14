@@ -50,7 +50,8 @@ map:
 
   layers:
     - id: osm
-      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e72cddbdee5d4ecc81f5731d89655980
+      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
+
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: terrain
