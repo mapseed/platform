@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 16:51+0100\n"
+"POT-Creation-Date: 2017-11-14 20:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,6 +25,9 @@ msgid "Log Out"
 msgstr ""
 
 msgid "Admin"
+msgstr ""
+
+msgid "Williams Ave Community Garden"
 msgstr ""
 
 msgid "Welcome!"
@@ -72,10 +75,19 @@ msgstr ""
 msgid "Flood Zones"
 msgstr ""
 
+msgid "Add your comments"
+msgstr ""
+
 msgid "added"
 msgstr ""
 
+msgid "Tell us more..."
+msgstr ""
+
 msgid "Someone"
+msgstr ""
+
+msgid "Put it on the map!"
 msgstr ""
 
 msgid "Partner Site"
@@ -84,16 +96,19 @@ msgstr ""
 msgid "Location:"
 msgstr ""
 
+msgid "Address"
+msgstr ""
+
 msgid "Enter address..."
 msgstr ""
 
 msgid "Title of this featured site:"
 msgstr ""
 
-msgid "Enter title..."
+msgid " "
 msgstr ""
 
-msgid " "
+msgid "Enter title..."
 msgstr ""
 
 msgid "Choose a custom URL for this place:"
@@ -111,6 +126,9 @@ msgstr ""
 msgid "Are you a regular user of this garden?"
 msgstr ""
 
+msgid "I am a regular user of this garden:"
+msgstr ""
+
 msgid "Yes"
 msgstr ""
 
@@ -120,7 +138,13 @@ msgstr ""
 msgid "Do you have children at home?"
 msgstr ""
 
+msgid "I have children at home:"
+msgstr ""
+
 msgid "What is your preferred language?"
+msgstr ""
+
+msgid "My preferred language:"
 msgstr ""
 
 msgid "English"
@@ -138,7 +162,13 @@ msgstr ""
 msgid "Recommendation"
 msgstr ""
 
+msgid "Recommendations"
+msgstr ""
+
 msgid "Concern"
+msgstr ""
+
+msgid "Concerns"
 msgstr ""
 
 msgid "What would encourage you to use this space more often?"
@@ -168,16 +198,28 @@ msgstr ""
 msgid "Your name"
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
 msgid "Enter your email address for updates"
 msgstr ""
 
+msgid "name@mail.com"
+msgstr ""
+
 msgid "Image"
+msgstr ""
+
+msgid "Add an Image"
 msgstr ""
 
 msgid "Submit comment"
 msgstr ""
 
 msgid "comment"
+msgstr ""
+
+msgid "comments"
 msgstr ""
 
 msgid "commented on"
@@ -192,10 +234,13 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
+msgid "support"
+msgstr ""
+
 msgid "supports"
 msgstr ""
 
-msgid "Williams Ave Community Garden"
+msgid "Map"
 msgstr ""
 
 msgid ""
