@@ -130,11 +130,11 @@ where `<flavor>` is the name of the flavor whose locales you'd like to update:
 You may also wish to do the same for the base project itself:
 
 ```
-FLAVOR=<flavor> node scripts/make-flavor-messages.js --set-new-locale=<language_tag>
+node scripts/make-base-messages.js --set-new-locale=<language_tag>
 ```
 (Translate the .po files) then
 ```
-FLAVOR=<flavor> node scripts/make-flavor-messages.js
+node scripts/make-base-messages.js
 ```
 
 #### Marking content as localizable
