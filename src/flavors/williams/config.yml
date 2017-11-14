@@ -261,7 +261,7 @@ place:
   adding_supported: true
   add_button_label: _(Add your comments)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
+  show_list_button_label: _(Explore comments)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
