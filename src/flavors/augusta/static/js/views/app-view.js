@@ -410,12 +410,12 @@ module.exports = AppView.extend({
     $(".show-the-map").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-exposed");
 
-    // NOTE: we hard-code the manzanares-input collection here
+    // NOTE: we hard-code the augusta-input collection here
     ReactDOM.render(
       <InputExplorer 
         appConfig={this.options.appConfig}
         placeConfig={this.options.placeConfig.place_detail}
-        communityInput={this.places["manzanares-input"]} />,
+        communityInput={this.places["augusta-input"]} />,
       document.querySelector("#list-container")
     );
   },
