@@ -117,8 +117,14 @@ map:
       layers:
         - madrid_calor2
 
-    # - id: flood-zones
-    #   url: //{s}.tiles.mapbox.com/v3/jkeefe.map-dg0rv3jh/{z}/{x}/{y}.png
+    - id: huertos_urbanos
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/madrid/wms?
+      format: image/png
+      version: 1.3.0
+      transparent: true
+      layers:
+        - madrid_huertos_urbanos
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -216,6 +222,10 @@ sidebar:
             - id: zoning
               icon_url: /static/css/images/zoning.svg
               title: _(Zoning)
+              visibleDefault: false
+            - id: huertos_urbanos
+              icon_url: /static/css/images/huertos-urbanos.svg
+              title: _(Urban gardens)
               visibleDefault: false
             - id: manzanares-input
               icon_url: /static/css/images/comments.svg
