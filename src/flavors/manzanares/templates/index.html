@@ -1,25 +1,45 @@
-{% extends 'base.html' %}
-{% load i18n %}
+{{#extends "../../../base/templates/base"}}
 
-{% block site-title %}
+{{#block "site-title"}}
 <a href="/">{{ config.app.name }}</a>
-{% endblock %}
+{{/block}}
 
 <!--
   This will place content at the top of the side bar
  -->
-{% block sidebar %}
-{% endblock %}
+{{#block "sidebar"}}
+{{/block}}
+
+{{#block "language_picker"}}
+<div id="language-picker">
+  <nav class="access" role="article">
+    <ul class="menu">
+      <li class="menu-item">
+        <a class="current-language {{ languageCode }} btn btn-block">Language</a>
+        <ul class="menu">
+          {{#each config.languages}}
+            <li class="menu-item">
+              <a href="/{{this.code}}.html" class="{{ this.code }} btn btn-block">{{ this.label }}</a>
+            </li>
+          {{/each}}
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+{{/block}}
 
 <!--
   This will place content in the colophon below the map
  -->
-{% block colophon %}
-<p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a></span></p>
-{% endblock %}
+{{#block "colophon"}}
+<p id="powered-by">{{#_}}Powered by{{/_}} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a></span></p>
+{{/block}}
 
 <!--
   Analytics, custom JS, and such go here
  -->
-{% block includes %}
-{% endblock %}
+{{#block "includes"}}
+{{/block}}
+
+{{/extends}}
