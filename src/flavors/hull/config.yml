@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: _(Manzanares Corridor)
+  title: _(Hull Street Community Garden)
   # Header name
-  name: "_(Manzanares Corridor)"
+  name: "_(Hull Street Community Garden)"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -45,12 +45,11 @@ map:
 
   options:
     center:
-      lat: 40.41774
-      lng: -3.71115
-    zoom: 13
+      lat: 40.67940
+      lng: -73.91167
+    zoom: 18
     minZoom: 1
     maxZoom: 18
-
   layers:
     - id: osm
       url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
@@ -66,18 +65,18 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: manzanares-input
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/manzanares-input
+    - id: hull-input
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/hull-input
       type: place
       slug: report
 
-    - id: manzanares-project
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/manzanares-project
+    - id: hull-project
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/hull-project
       type: place
       slug: project
 
-    - id: manzanares-partners
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/manzanares-partners
+    - id: hull-partners
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/hull-partners
       type: place
       slug: partners
 
@@ -152,7 +151,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  manzanares-partners:
+  hull-partners:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -169,7 +168,7 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
-  manzanares-project:
+  hull-project:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -217,15 +216,15 @@ sidebar:
               icon_url: /static/css/images/zoning.svg
               title: _(Zoning)
               visibleDefault: false
-            - id: manzanares-input
+            - id: hull-input
               icon_url: /static/css/images/comments.svg
               title: _(Comments)
               visibleDefault: true
-            - id: manzanares-partners
+            - id: hull-partners
               icon_url: /static/css/images/partners.svg
               title: _(Partners)
               visibleDefault: false
-            - id: manzanares-project
+            - id: hull-project
               icon_url: /static/css/images/park-icon.png
               title: _(Project)
               visibleDefault: true
@@ -259,14 +258,14 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: manzanares-partners
+    - category: hull-partners
       admin_only: true
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: manzanares-partners
+      dataset: hull-partners
       icon_url: /static/css/images/partners-blue.svg
       value: featured_place
       label: _(Partner Site)
@@ -304,14 +303,14 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement
-    - category: manzanares-project
+    - category: hull-project
       admin_only: true
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: manzanares-project
+      dataset: hull-project
       icon_url: /static/css/images/park-icon.png
       value: featured_place
       label: _(Project Site)
@@ -359,7 +358,7 @@ place:
     - category: community_input
       includeOnForm: true
       name: location_type
-      dataset: manzanares-input
+      dataset: hull-input
       icon_url: /static/css/images/markers/marker-observation.png
       value: community_input
       label: _(Add a comment)
