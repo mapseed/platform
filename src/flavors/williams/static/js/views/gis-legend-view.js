@@ -7,14 +7,6 @@ module.exports = GISLegendView.extend({
     "change .map-legend-checkbox": "toggleVisibility",
     "change .map-legend-grouping-checkbox": "toggleHeaderVisibility",
     "click .info-icon": "onClickInfoIcon",
-    "click .sidebar-panel__close-panel": "onCloseLayerPanel"
-  },
-
-  onCloseLayerPanel: function() {
-    this.$el.toggleClass("sidebar-panel--hidden sidebar-panel--visible");
-    if ($("#main-btns-container").hasClass("pos-top-left")) {
-      $("#main-btns-container").toggleClass("main-btns-container--offset-left");
-    }
   },
 
   render: function() {

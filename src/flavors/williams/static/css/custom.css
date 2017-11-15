@@ -9,9 +9,9 @@
 @import "../components/input-explorer-input-item";
 @import "../components/input-explorer-summary";
 
-#sidebar-panel {
+#sidebar-container {
   position: absolute;
-  opacity: 0.9;
+  opacity: 0.96;
   left: 0;
   top: 0;
   background-color: #FFFFFF;
@@ -25,11 +25,11 @@
   box-shadow:         2px 0px 1px 0px rgba(50, 50, 50, 0.3);
 }
 
-.sidebar-panel--hidden {
+.sidebar-container--hidden {
   display: none;
 }
 
-.sidebar-panel--visible {
+.sidebar-container--visible {
   display: block;
 }
 
@@ -104,6 +104,12 @@
   font-size: 1.4em;
 }
 
+.show-legend-panel:before {
+  font-family: FontAwesome;
+  content: "\f277";
+  font-size: 1.4em;
+}
+
 #continue-form-btn, #exit-survey-btn {
   color: #FFFFFF !important;
   margin-bottom: 20px;
@@ -116,6 +122,128 @@
 #place-form-continue-btns .header-msg {
   margin-bottom: 25px;
 }
+
+/* Map legend */
+#map-legend {
+  padding: 20px;
+}
+
+#map-colors span {
+  display: block;
+  margin: 1px 3px 0px 0px;
+}
+#map-legend span:before {
+  content: "";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+/*tranit map */
+.train:before {
+  background: #c53932;
+}
+.bus:before {
+  background: #2c41d7;
+}
+
+/*zoning*/
+.r1:before {background: #f7fbff;}
+.r2:before {background: #e1edf8;}
+.r3:before {background: #ccdff1;}
+.r4:before {background: #afd1e7;}
+.r5:before {background: #88bedc;}
+.r6:before {background: #5fa6d1;}
+.r7:before {background: #3d8dc3;}
+.r8:before {background: #2171b5;}
+.r9:before {background: #0a539e;}
+.r10:before {background: #9b331e;}
+
+.m1:before {background: #fdd5c4;}
+.m2:before {background: #fb7050;}
+.m3:before {background: #ba1419;}
+
+.c-zone:before {background: #f2ef12;}
+.p-zone:before {background: #5c946e;}
+
+/*heat map */
+.fifty:before {
+  background: #9b331e;
+}
+.forty-eight:before {
+  background: #986434;
+}
+.forty-six:before {
+  background: #cc362b;
+}
+.forty-four:before {
+  background: #e93f33;
+}
+.forty-two:before {
+  background: #e93f33;
+}
+.forty:before {
+  background: #f6cbca;
+}
+.thirty-eight:before {
+  background: #f9cc65;
+}
+.thirty-six:before {
+  background: #fdf733;
+}
+.thirty-four:before {
+  background: #fcfccb;
+}
+.thirty-two:before {
+  background: #cbf9cc;
+}
+.thirty:before {
+  background: #7ef368;
+}
+.twenty-eight:before {
+  background: #6ccd13;
+}
+.twenty-six:before {
+  background: #97fafc;
+}
+.twenty-four:before {
+  background: #59cdfc;
+}
+.twenty-two:before {
+  background: #6765fc;
+}
+.twenty:before {
+  background: #cccccc;
+}
+.eighteen:before {
+  background: #efb1fe;
+}
+.sixteen:before {
+  background: #e55ffd;
+}
+.fourteen:before {
+  background: #9b3999;
+}
+.twelve:before {
+  background: #152ac9;
+}
+.ten:before {
+  background: #323103;
+}
+.eight:before {
+  background: #4d3707;
+}
+.six:before {
+  background: #4a0065;
+}
+
+/*Flood zones */
+.flood-cat1:before {background: #c04b46;}
+.flood-cat2:before {background: #eba05c;}
+.flood-cat3:before {background: #efe78c;}
+.flood-cat4:before {background: #fcf75e;}
+
 
 @media only screen and (min-width: 60em) {
   #main-btns-container.main-btns-container--offset-left {

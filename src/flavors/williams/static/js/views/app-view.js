@@ -20,7 +20,10 @@ module.exports = AppView.extend({
     'click .collapse-btn': 'onToggleSidebarVisibility',
     'click .list-toggle-btn': 'toggleListView',
     // BEGIN FLAVOR-SPECIFIC CODE
-    'click .show-layer-panel': 'toggleLayerPanel'
+    'click .show-layer-panel': 'showLayerPanel',
+    // END FLAVOR-SPECIFIC CODE
+    // BEGIN FLAVOR-SPECIFIC CODE
+    'click .show-legend-panel': 'showLegendPanel'
     // END FLAVOR-SPECIFIC CODE
   },
   initialize: function() {
@@ -172,18 +175,29 @@ module.exports = AppView.extend({
       placeConfig: this.options.placeConfig
     });
 
+    $("#sidebar-container").addClass("sidebar-container--hidden");
     if (self.options.sidebarConfig.enabled) {
-      new SidebarView({
+      this.sidebarView = new SidebarView({
         el: "#sidebar-container",
         mapView: this.mapView,
         sidebarConfig: this.options.sidebarConfig,
         placeConfig: this.options.placeConfig
-      }).render();
+      });
+
+      // TODO: add another view inside the SidebarView for handling the legend
 
       // BEGIN FLAVOR-SPECIFIC CODE
       this.$(".leaflet-top.leaflet-right").append(
         '<div class="leaflet-control leaflet-bar">' +
           '<a href="#" class="show-layer-panel"></a>' +
+          "</div>",
+      );
+      // END FLAVOR-SPECIFIC CODE
+
+      // BEGIN FLAVOR-SPECIFIC CODE
+      this.$(".leaflet-top.leaflet-right").append(
+        '<div class="leaflet-control leaflet-bar">' +
+          '<a href="#" class="show-legend-panel"></a>' +
           "</div>",
       );
       // END FLAVOR-SPECIFIC CODE
@@ -408,11 +422,22 @@ module.exports = AppView.extend({
   // END FLAVOR-SPECIFIC CODE
 
   // BEGIN FLAVOR-SPECIFIC CODE
-  toggleLayerPanel: function() {
-    $("#sidebar-panel").toggleClass("sidebar-panel--hidden sidebar-panel--visible");
+  showSidebarPanel: function() {
+    $("#sidebar-container").removeClass("sidebar-container--hidden");
+    $("#sidebar-container").addClass("sidebar-container--visible");
     if ($("#main-btns-container").hasClass("pos-top-left")) {
       $("#main-btns-container").toggleClass("main-btns-container--offset-left");
     }
+  },
+
+  showLayerPanel: function() {
+    this.sidebarView.render("layers");
+    this.showSidebarPanel();
+  },
+
+  showLegendPanel: function() {
+    this.sidebarView.render("legend");
+    this.showSidebarPanel();
   }
   // END FLAVOR-SPECIFIC CODE
 });
