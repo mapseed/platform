@@ -106,7 +106,7 @@
 
 .show-legend-panel:before {
   font-family: FontAwesome;
-  content: "\f277";
+  content: "\f05a";
   font-size: 1.4em;
 }
 
@@ -126,6 +126,20 @@
 /* Map legend */
 #map-legend {
   padding: 20px;
+}
+
+#map-legend hr {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#map-legend .legend-item {
+  margin-left: 15px;
+}
+
+#map-legend .legend-category-title {
+  font-weight: 800;
+  margin-bottom: 10px;
 }
 
 #map-colors span {
