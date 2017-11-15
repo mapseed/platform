@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 20:33+0100\n"
+"POT-Creation-Date: 2017-11-15 17:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sonia D-B- <sonarqpaisajes@gmail.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/mapseed/teams/58669/es/)\n"
@@ -28,11 +28,17 @@ msgstr "Cerrar sesión"
 msgid "Admin"
 msgstr "Administrador"
 
-msgid "Williams Ave Community Garden"
-msgstr "Jardín comunitario Williams Ave"
+msgid "Manzanares Corridor"
+msgstr ""
 
 msgid "Welcome!"
 msgstr "Bienvenido!"
+
+msgid ""
+"Over the next few months, we will work with community members and local "
+"stakeholders to design a plan for the garden and begin construction soon "
+"after."
+msgstr ""
 
 msgid "Comment"
 msgstr "Comentarios"
@@ -58,6 +64,9 @@ msgstr "Ruta bici"
 msgid "Zoning"
 msgstr "Zonificación"
 
+msgid "Urban gardens"
+msgstr ""
+
 msgid "Comments"
 msgstr "Comentarios"
 
@@ -72,9 +81,6 @@ msgstr "Riesgos climáticos"
 
 msgid "Heat Waves"
 msgstr "Olas de calor"
-
-msgid "Flood Zones"
-msgstr "Zonas inundables"
 
 msgid "Add your comments"
 msgstr ""
@@ -243,6 +249,45 @@ msgstr ""
 
 msgid "Map"
 msgstr ""
+
+msgid "Train"
+msgstr ""
+
+msgid "Bus"
+msgstr ""
+
+msgid "Residential"
+msgstr ""
+
+msgid "Industrial - Manufacturing"
+msgstr ""
+
+msgid "Commercial"
+msgstr ""
+
+msgid "Green areas - Parks"
+msgstr ""
+
+msgid "Land temperature"
+msgstr ""
+
+msgid "Flood zones"
+msgstr ""
+
+msgid "Category 1 Hurricane"
+msgstr ""
+
+msgid "Category 2 Hurricane"
+msgstr ""
+
+msgid "Category 3 Hurricane"
+msgstr ""
+
+msgid "Category 4 Hurricane"
+msgstr ""
+
+msgid "Williams Ave Community Garden"
+msgstr "Jardín comunitario Williams Ave"
 
 msgid ""
 "NYRP acquired the Williams Ave. Garden in 1999, preserving it as open space "
@@ -471,6 +516,9 @@ msgstr "Salir"
 
 msgid "Map type"
 msgstr "Mapa base"
+
+#~ msgid "Flood Zones"
+#~ msgstr "Zonas inundables"
 
 #~ msgid "72% Family, 23% Single non-Family, 5% Share"
 #~ msgstr "72% familia, 23% soltero/a, 5% compartido"
