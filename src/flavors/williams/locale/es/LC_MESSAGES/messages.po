@@ -77,7 +77,7 @@ msgid "Flood Zones"
 msgstr "Zonas inundables"
 
 msgid "Add your comments"
-msgstr ""
+msgstr "Añade tus comentarios"
 
 msgid "added"
 msgstr ""
@@ -242,7 +242,7 @@ msgid "supports"
 msgstr ""
 
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 msgid ""
 "NYRP acquired the Williams Ave. Garden in 1999, preserving it as open space "
