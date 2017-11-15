@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: _(Hull Community Garden)
+  title: _(Hull Street Community Garden)
   # Header name
-  name: "_(Hull Community Garden)"
+  name: "_(Hull Street Community Garden)"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -45,12 +45,11 @@ map:
 
   options:
     center:
-      lat: 40.41774
-      lng: -3.71115
-    zoom: 13
+      lat: 40.67940
+      lng: -73.91167
+    zoom: 18
     minZoom: 1
     maxZoom: 18
-
   layers:
     - id: osm
       url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
