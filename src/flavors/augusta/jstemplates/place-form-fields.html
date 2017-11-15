@@ -1,0 +1,32 @@
+<!-- Template for dynamic form fields -->
+
+<fieldset>
+  <input type="hidden" name="visible" value="on">
+  <input type="hidden" name="user_token" value="{{{ user_token }}}">
+
+  <!-- selected category fields -->
+  {{#each selectedCategoryConfig.fields}}
+    {{#if isRenderable}}
+    <!-- BEGIN FLAVOR-SPECIFIC CODE -->
+      <div class="{{ type }} form-field{{#if is_admin}} is-admin-field{{/if}}{{#if isAutocomplete}} is-hidden{{/if}}">
+    <!-- END FLAVOR-SPECIFIC CODE -->
+        {{> place-form-field-types}}
+      </div>
+    {{/if}}
+  {{/each}}
+
+  <!-- common form elements, included at the bottom of all forms -->
+  <div id="common-form-elements">
+    {{#each commonFormElements }}
+      {{#if isRenderable}}
+      <!-- BEGIN FLAVOR-SPECIFIC CODE -->
+        <div class="{{ type }} form-field{{#if is_admin}} is-admin-field{{/if}}{{#if isAutocomplete}} is-hidden{{/if}}">
+      <!-- END FLAVOR-SPECIFIC CODE -->
+          {{> place-form-field-types}}
+        </div>
+      {{/if}}    
+    {{/each}}
+  </div>
+
+  <div class="form-spinner"></div>
+</fieldset>
