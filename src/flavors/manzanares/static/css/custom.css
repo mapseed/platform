@@ -163,23 +163,11 @@
 }
 
 /*zoning*/
-.r1:before {background: #f7fbff;}
-.r2:before {background: #e1edf8;}
-.r3:before {background: #ccdff1;}
-.r4:before {background: #afd1e7;}
-.r5:before {background: #88bedc;}
-.r6:before {background: #5fa6d1;}
-.r7:before {background: #3d8dc3;}
-.r8:before {background: #2171b5;}
-.r9:before {background: #0a539e;}
-.r10:before {background: #9b331e;}
+.residential:before {background: #08306b;}
+.industrial:before {background: #ba1419;}
+.commercial:before {background: #f2ef12;}
+.green-areas:before {background: #5c946e;}
 
-.m1:before {background: #fdd5c4;}
-.m2:before {background: #fb7050;}
-.m3:before {background: #ba1419;}
-
-.c-zone:before {background: #f2ef12;}
-.p-zone:before {background: #5c946e;}
 
 /*heat map */
 .fifty:before {
