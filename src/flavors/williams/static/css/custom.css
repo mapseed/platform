@@ -128,6 +128,20 @@
   padding: 20px;
 }
 
+#map-legend hr {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#map-legend .legend-item {
+  margin-left: 15px;
+}
+
+#map-legend .legend-category-title {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
 #map-colors span {
   display: block;
   margin: 1px 3px 0px 0px;
