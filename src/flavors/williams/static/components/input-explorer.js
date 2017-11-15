@@ -31,7 +31,7 @@ class InputExplorer extends Component {
     this.inputCategories = _.uniq(this.props.communityInput.pluck("input_category"));
 
     this.state = {
-      selectedCategory: "recommendation",
+      selectedCategory: "summary",
       selectedSubcategory: "all"
     };
   }
