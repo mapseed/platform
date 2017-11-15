@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-14 20:33+0100\n"
+"POT-Creation-Date: 2017-11-15 17:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,10 +27,16 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-msgid "Williams Ave Community Garden"
+msgid "Manzanares Corridor"
 msgstr ""
 
 msgid "Welcome!"
+msgstr ""
+
+msgid ""
+"Over the next few months, we will work with community members and local "
+"stakeholders to design a plan for the garden and begin construction soon "
+"after."
 msgstr ""
 
 msgid "Comment"
@@ -70,9 +76,6 @@ msgid "Climate risks"
 msgstr ""
 
 msgid "Heat Waves"
-msgstr ""
-
-msgid "Flood Zones"
 msgstr ""
 
 msgid "Add your comments"
@@ -241,6 +244,80 @@ msgid "supports"
 msgstr ""
 
 msgid "Map"
+msgstr ""
+
+msgid "Train"
+msgstr ""
+
+msgid "Bus"
+msgstr ""
+
+msgid ""
+"Zoning</p>\n"
+"        <span class='r1 legend-item'>{{#_}}Residential 1"
+msgstr ""
+
+msgid "Residential 2"
+msgstr ""
+
+msgid "Residential 3"
+msgstr ""
+
+msgid "Residential 4"
+msgstr ""
+
+msgid "Residential 5"
+msgstr ""
+
+msgid "Residential 6"
+msgstr ""
+
+msgid "Residential 7"
+msgstr ""
+
+msgid "Residential 8"
+msgstr ""
+
+msgid "Residential 9"
+msgstr ""
+
+msgid "Residential 10"
+msgstr ""
+
+msgid "Manufacturing 1"
+msgstr ""
+
+msgid "Manufacturing 2"
+msgstr ""
+
+msgid "Manufacturing 3"
+msgstr ""
+
+msgid "Commercial"
+msgstr ""
+
+msgid "Parks"
+msgstr ""
+
+msgid "Land temperature"
+msgstr ""
+
+msgid "Flood zones"
+msgstr ""
+
+msgid "Category 1 Hurricane"
+msgstr ""
+
+msgid "Category 2 Hurricane"
+msgstr ""
+
+msgid "Category 3 Hurricane"
+msgstr ""
+
+msgid "Category 4 Hurricane"
+msgstr ""
+
+msgid "Williams Ave Community Garden"
 msgstr ""
 
 msgid ""
