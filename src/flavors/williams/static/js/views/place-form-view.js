@@ -254,6 +254,13 @@ module.exports = PlaceFormView.extend({
         });
       }
 
+      // BEGIN FLAVOR-SPECIFIC CODE
+      // If no subcategory has been selected, assume the subcategory is "other"
+      if (!attrs["input_subcategory"]) {
+        attrs["input_subcategory"] = "other";
+      }
+      // END FLAVOR-SPECIFIC CODE
+
       $button.attr("disabled", "disabled");
       spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(
         self.$(".form-spinner")[0],
