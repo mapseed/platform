@@ -43,7 +43,7 @@ ul.menu {
 
 
 a.btn.btn-block.btn-secondary, span.show-the-list, span.show-the-map, a.current-language.en_US.btn.btn-block  {
-	padding-left: 2.2em;
+	padding-left: 0;
 	text-transform: none;
  	font-family: "Helvetica", sans-serif;
 	font-size: 1em;
@@ -54,7 +54,7 @@ a.btn.btn-block.btn-secondary, span.show-the-list, span.show-the-map, a.current-
 }
 
 a.current-language.en_US.btn.btn-block, a.en_US btn btn-block  {
-	padding-left: 2.2em;
+	padding-left: 0;
 	text-transform: none;
  	font-family: "Helvetica", sans-serif;
 	font-size: 1em;
@@ -96,6 +96,7 @@ a.list-toggle-btn.btn.btn-block {
 }
 
 div#language-picker {
+  margin-left: 12px;
 	float:left;
 }
 
@@ -193,10 +194,12 @@ div#content.page.page-about em {
 	color: white;
 	}
 	
-	a.en_US.btn.btn-block, a.es.btn.btn-block {
-	border: 1px solid red;
-	font-style: italic;
-	
+	#language-picker .menu .menu {
+    .en_US, .es {
+    	font-style: italic;
+      padding: 0;
+      margin-left: 40px;
+    }
 	}
 }
 
