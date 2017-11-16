@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 17:52+0100\n"
+"POT-Creation-Date: 2017-11-16 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sonia D-B- <sonarqpaisajes@gmail.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/mapseed/teams/58669/es/)\n"
@@ -28,7 +28,7 @@ msgstr "Cerrar sesión"
 msgid "Admin"
 msgstr "Administrador"
 
-msgid "Manzanares Corridor"
+msgid "Hull Street Community Garden"
 msgstr ""
 
 msgid "Welcome!"
@@ -151,8 +151,17 @@ msgstr "¿Qué idioma prefieres?"
 msgid "My preferred language:"
 msgstr ""
 
+msgid "Bengali"
+msgstr ""
+
+msgid "Cantonese"
+msgstr ""
+
 msgid "English"
 msgstr "Inglés"
+
+msgid "Mandarin"
+msgstr ""
 
 msgid "Spanish"
 msgstr "Español"
@@ -253,9 +262,7 @@ msgstr ""
 msgid "Bus"
 msgstr ""
 
-msgid ""
-"Zoning</p>\n"
-"        <span class='r1 legend-item'>{{#_}}Residential 1"
+msgid "Residential 1"
 msgstr ""
 
 msgid "Residential 2"
@@ -316,114 +323,6 @@ msgid "Category 3 Hurricane"
 msgstr ""
 
 msgid "Category 4 Hurricane"
-msgstr ""
-
-msgid "Williams Ave Community Garden"
-msgstr "Jardín comunitario Williams Ave"
-
-msgid ""
-"NYRP acquired the Williams Ave. Garden in 1999, preserving it as open space "
-"in perpetuity. NYRP received funding from thestate of NY to renovate the "
-"Williams Ave. Community Garden.  Over the nextfew months, we will work with "
-"community members and local stakeholders to design a plan for the space and "
-"begin construction soon after"
-msgstr ""
-"NYRP adquirió Williams Ave. Jardín en 1999, se ha conservado siempre como un "
-"espacio abierto. NYRP recibió fondos del estado de Nueva York para renovar "
-"la avenida Williams. Jardín comunitario. En los próximos meses, trabajaremos "
-"junto con los miembros de la comunidad y las partes locales interesadas para "
-"diseñar un plan para este espacio e iniciar su construcción poco después."
-
-msgid "Williams Ave community garden"
-msgstr "Jardín comunitario Williams Ave"
-
-msgid "History"
-msgstr "Historia"
-
-msgid ""
-"Formerly part of New Lots, East New York, has been home to waves of "
-"immigrant groups: Eastern Europeans in the 1800's and Puerto Ricans and "
-"African‐Americans from the south in the 1900's. Today it has a growing South "
-"Asian population. The garden lot was a former residence, transferred to the "
-"city in 1976. Adjacent buildings both constructed in 1901."
-msgstr ""
-"East New York, anteriormente parte de New Lots, ha sido el hogar de oleadas "
-"de grupos de inmigrantes: Europeos del este en la década de 1800 y "
-"puertorriqueños y afroamericanos del sur en la década de 1900. Hoy tiene una "
-"creciente población del sur de Asia. La parcela del jardín era un antiguo "
-"edificio residencial, transferido a la ciudad en 1976. Los edificios "
-"adyacentes fueron construidos en 1901."
-
-msgid "Age of population"
-msgstr "Edad de la población"
-
-msgid "33% 0‐18, 28% 18‐34, 32% 35‐64, 7% 65+"
-msgstr ""
-
-msgid "Household types"
-msgstr "Tipología"
-
-msgid "72% Family, 23% Single non-Family, 5% Shared "
-msgstr ""
-
-msgid "Household income"
-msgstr "Ingresos"
-
-msgid ""
-"Median household income: 29,527 dollars. Mean household income 42,975 "
-"dollars."
-msgstr ""
-"Ingresos medios del hogar: 29,527 dólares. Promedio del ingreso familiar: "
-"42,975 dólares."
-
-msgid "Ethnicity"
-msgstr "Etnia"
-
-msgid "63% Hispanic, 27% Black, 7% White, 2% Asian "
-msgstr ""
-
-msgid "Climate forecasts"
-msgstr "Pronósticos climáticos"
-
-msgid "Rising temperatures"
-msgstr "Aumento de las temperaturas"
-
-msgid ""
-"Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the "
-"2050s. The frequency of heat waves is projected to triple by the 2080s."
-msgstr ""
-"Se prevé que las temperaturas medias anuales aumenten de 4.1 a 5.7 °F para "
-"el año 2050. La frecuencia de las olas de calor se triplicará para el año "
-"2080."
-
-msgid "Rising sea levels and coastal flooding"
-msgstr "Aumento del nivel del mar e inundaciones costeras"
-
-msgid ""
-"Projections for sea level rise in New York City are 11 to 21inches by the "
-"2050s, 18 to 39 inches by the 2080s, and could reach as high as 6 feet by "
-"2100. Projected sea level rise will increase current 100-year coastal floods "
-"by 10-15 fold by the 2080s."
-msgstr ""
-"Las proyecciones del aumento del nivel del mar en la ciudad de Nueva York "
-"son de 11 a 21 pulgadas para el año 2050, de 18 a 39 pulgadas para el 2080 y "
-"podrían llegar a 6 pies para el 2100. El aumento en 100 años del nivel del "
-"mar proyectado incrementará en 10-15 veces las inundaciones costeras "
-"actuales para el año 2080."
-
-msgid "Increased precipitation"
-msgstr "Aumento de la precipitación"
-
-msgid ""
-"Mean annual precipitation is projected to increase by 4% to 11% by the 2050s."
-msgstr ""
-"Se prevé que el promedio de precipitación anual aumente en un 4% a 11% para "
-"el año 2050."
-
-msgid ""
-"<p>Source: <a href=\"http://onlinelibrary.wiley.com/doi/10.1111/"
-"nyas.2015.1336.issue-1/issuetoc\">New York City Panel on Climate Change 2015 "
-"Report</a></p>"
 msgstr ""
 
 msgid "optional"
@@ -548,6 +447,102 @@ msgstr "Salir"
 
 msgid "Map type"
 msgstr "Mapa base"
+
+#~ msgid "Williams Ave Community Garden"
+#~ msgstr "Jardín comunitario Williams Ave"
+
+#~ msgid ""
+#~ "NYRP acquired the Williams Ave. Garden in 1999, preserving it as open "
+#~ "space in perpetuity. NYRP received funding from thestate of NY to "
+#~ "renovate the Williams Ave. Community Garden.  Over the nextfew months, we "
+#~ "will work with community members and local stakeholders to design a plan "
+#~ "for the space and begin construction soon after"
+#~ msgstr ""
+#~ "NYRP adquirió Williams Ave. Jardín en 1999, se ha conservado siempre como "
+#~ "un espacio abierto. NYRP recibió fondos del estado de Nueva York para "
+#~ "renovar la avenida Williams. Jardín comunitario. En los próximos meses, "
+#~ "trabajaremos junto con los miembros de la comunidad y las partes locales "
+#~ "interesadas para diseñar un plan para este espacio e iniciar su "
+#~ "construcción poco después."
+
+#~ msgid "Williams Ave community garden"
+#~ msgstr "Jardín comunitario Williams Ave"
+
+#~ msgid "History"
+#~ msgstr "Historia"
+
+#~ msgid ""
+#~ "Formerly part of New Lots, East New York, has been home to waves of "
+#~ "immigrant groups: Eastern Europeans in the 1800's and Puerto Ricans and "
+#~ "African‐Americans from the south in the 1900's. Today it has a growing "
+#~ "South Asian population. The garden lot was a former residence, "
+#~ "transferred to the city in 1976. Adjacent buildings both constructed in "
+#~ "1901."
+#~ msgstr ""
+#~ "East New York, anteriormente parte de New Lots, ha sido el hogar de "
+#~ "oleadas de grupos de inmigrantes: Europeos del este en la década de 1800 "
+#~ "y puertorriqueños y afroamericanos del sur en la década de 1900. Hoy "
+#~ "tiene una creciente población del sur de Asia. La parcela del jardín era "
+#~ "un antiguo edificio residencial, transferido a la ciudad en 1976. Los "
+#~ "edificios adyacentes fueron construidos en 1901."
+
+#~ msgid "Age of population"
+#~ msgstr "Edad de la población"
+
+#~ msgid "Household types"
+#~ msgstr "Tipología"
+
+#~ msgid "Household income"
+#~ msgstr "Ingresos"
+
+#~ msgid ""
+#~ "Median household income: 29,527 dollars. Mean household income 42,975 "
+#~ "dollars."
+#~ msgstr ""
+#~ "Ingresos medios del hogar: 29,527 dólares. Promedio del ingreso familiar: "
+#~ "42,975 dólares."
+
+#~ msgid "Ethnicity"
+#~ msgstr "Etnia"
+
+#~ msgid "Climate forecasts"
+#~ msgstr "Pronósticos climáticos"
+
+#~ msgid "Rising temperatures"
+#~ msgstr "Aumento de las temperaturas"
+
+#~ msgid ""
+#~ "Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the "
+#~ "2050s. The frequency of heat waves is projected to triple by the 2080s."
+#~ msgstr ""
+#~ "Se prevé que las temperaturas medias anuales aumenten de 4.1 a 5.7 °F "
+#~ "para el año 2050. La frecuencia de las olas de calor se triplicará para "
+#~ "el año 2080."
+
+#~ msgid "Rising sea levels and coastal flooding"
+#~ msgstr "Aumento del nivel del mar e inundaciones costeras"
+
+#~ msgid ""
+#~ "Projections for sea level rise in New York City are 11 to 21inches by the "
+#~ "2050s, 18 to 39 inches by the 2080s, and could reach as high as 6 feet by "
+#~ "2100. Projected sea level rise will increase current 100-year coastal "
+#~ "floods by 10-15 fold by the 2080s."
+#~ msgstr ""
+#~ "Las proyecciones del aumento del nivel del mar en la ciudad de Nueva York "
+#~ "son de 11 a 21 pulgadas para el año 2050, de 18 a 39 pulgadas para el "
+#~ "2080 y podrían llegar a 6 pies para el 2100. El aumento en 100 años del "
+#~ "nivel del mar proyectado incrementará en 10-15 veces las inundaciones "
+#~ "costeras actuales para el año 2080."
+
+#~ msgid "Increased precipitation"
+#~ msgstr "Aumento de la precipitación"
+
+#~ msgid ""
+#~ "Mean annual precipitation is projected to increase by 4% to 11% by the "
+#~ "2050s."
+#~ msgstr ""
+#~ "Se prevé que el promedio de precipitación anual aumente en un 4% a 11% "
+#~ "para el año 2050."
 
 #~ msgid "Flood Zones"
 #~ msgstr "Zonas inundables"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 17:52+0100\n"
+"POT-Creation-Date: 2017-11-16 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-msgid "Manzanares Corridor"
+msgid "Hull Street Community Garden"
 msgstr ""
 
 msgid "Welcome!"
@@ -150,7 +150,16 @@ msgstr ""
 msgid "My preferred language:"
 msgstr ""
 
+msgid "Bengali"
+msgstr ""
+
+msgid "Cantonese"
+msgstr ""
+
 msgid "English"
+msgstr ""
+
+msgid "Mandarin"
 msgstr ""
 
 msgid "Spanish"
@@ -252,9 +261,7 @@ msgstr ""
 msgid "Bus"
 msgstr ""
 
-msgid ""
-"Zoning</p>\n"
-"        <span class='r1 legend-item'>{{#_}}Residential 1"
+msgid "Residential 1"
 msgstr ""
 
 msgid "Residential 2"
@@ -315,91 +322,6 @@ msgid "Category 3 Hurricane"
 msgstr ""
 
 msgid "Category 4 Hurricane"
-msgstr ""
-
-msgid "Williams Ave Community Garden"
-msgstr ""
-
-msgid ""
-"NYRP acquired the Williams Ave. Garden in 1999, preserving it as open space "
-"in perpetuity. NYRP received funding from thestate of NY to renovate the "
-"Williams Ave. Community Garden.  Over the nextfew months, we will work with "
-"community members and local stakeholders to design a plan for the space and "
-"begin construction soon after"
-msgstr ""
-
-msgid "Williams Ave community garden"
-msgstr ""
-
-msgid "History"
-msgstr ""
-
-msgid ""
-"Formerly part of New Lots, East New York, has been home to waves of "
-"immigrant groups: Eastern Europeans in the 1800's and Puerto Ricans and "
-"African‐Americans from the south in the 1900's. Today it has a growing South "
-"Asian population. The garden lot was a former residence, transferred to the "
-"city in 1976. Adjacent buildings both constructed in 1901."
-msgstr ""
-
-msgid "Age of population"
-msgstr ""
-
-msgid "33% 0‐18, 28% 18‐34, 32% 35‐64, 7% 65+"
-msgstr ""
-
-msgid "Household types"
-msgstr ""
-
-msgid "72% Family, 23% Single non-Family, 5% Shared "
-msgstr ""
-
-msgid "Household income"
-msgstr ""
-
-msgid ""
-"Median household income: 29,527 dollars. Mean household income 42,975 "
-"dollars."
-msgstr ""
-
-msgid "Ethnicity"
-msgstr ""
-
-msgid "63% Hispanic, 27% Black, 7% White, 2% Asian "
-msgstr ""
-
-msgid "Climate forecasts"
-msgstr ""
-
-msgid "Rising temperatures"
-msgstr ""
-
-msgid ""
-"Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the "
-"2050s. The frequency of heat waves is projected to triple by the 2080s."
-msgstr ""
-
-msgid "Rising sea levels and coastal flooding"
-msgstr ""
-
-msgid ""
-"Projections for sea level rise in New York City are 11 to 21inches by the "
-"2050s, 18 to 39 inches by the 2080s, and could reach as high as 6 feet by "
-"2100. Projected sea level rise will increase current 100-year coastal floods "
-"by 10-15 fold by the 2080s."
-msgstr ""
-
-msgid "Increased precipitation"
-msgstr ""
-
-msgid ""
-"Mean annual precipitation is projected to increase by 4% to 11% by the 2050s."
-msgstr ""
-
-msgid ""
-"<p>Source: <a href=\"http://onlinelibrary.wiley.com/doi/10.1111/"
-"nyas.2015.1336.issue-1/issuetoc\">New York City Panel on Climate Change 2015 "
-"Report</a></p>"
 msgstr ""
 
 msgid "optional"

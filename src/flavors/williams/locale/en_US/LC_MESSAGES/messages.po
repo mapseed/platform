@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 17:51+0100\n"
+"POT-Creation-Date: 2017-11-16 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,7 +153,16 @@ msgstr ""
 msgid "My preferred language:"
 msgstr ""
 
+msgid "Bengali"
+msgstr ""
+
+msgid "Cantonese"
+msgstr ""
+
 msgid "English"
+msgstr ""
+
+msgid "Mandarin"
 msgstr ""
 
 msgid "Spanish"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 17:51+0100\n"
+"POT-Creation-Date: 2017-11-16 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sonia D-B- <sonarqpaisajes@gmail.com>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/mapseed/teams/58669/es/)\n"
@@ -154,8 +154,17 @@ msgstr "¿Qué idioma prefieres?"
 msgid "My preferred language:"
 msgstr ""
 
+msgid "Bengali"
+msgstr ""
+
+msgid "Cantonese"
+msgstr ""
+
 msgid "English"
 msgstr "Inglés"
+
+msgid "Mandarin"
+msgstr ""
 
 msgid "Spanish"
 msgstr "Español"
