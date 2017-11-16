@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import InputExplorer from "../../../../../flavors/williams/static/components/input-explorer";
+import InputExplorer from "../../../../../flavors/manzanares/static/components/input-explorer";
 
 const AppView = require("../../../../../base/static/js/views/app-view.js");
 const GeocodeAddressView = require('../../../../../base/static/js/views/geocode-address-view');
@@ -8,7 +8,7 @@ const PlaceCounterView = require('../../../../../base/static/js/views/place-coun
 const PagesNavView = require('../../../../../base/static/js/views/pages-nav-view');
 const AuthNavView = require('../../../../../base/static/js/views/auth-nav-view');
 const MapView = require('../../../../../base/static/js/views/map-view');
-const SidebarView = require('../../../../../flavors/williams/static/js/views/sidebar-view');
+const SidebarView = require('../../../../../flavors/manzanares/static/js/views/sidebar-view');
 const ActivityView = require('../../../../../base/static/js/views/activity-view');
 const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
 const RightSidebarView = require('../../../../../base/static/js/views/right-sidebar-view');
