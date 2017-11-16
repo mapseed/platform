@@ -28,7 +28,7 @@ class InputExplorerSummary extends Component {
         numConcerns = this.props.communityInput
           .where({ input_category: "concern" })
           .length,
-        numTotal = this.props.communityInput.length;
+        numTotal = 0;
 
     let summaryInfoBySubcategory = [];
 
@@ -49,6 +49,7 @@ class InputExplorerSummary extends Component {
       }).length;
 
       summaryInfoBySubcategory.push(info);
+      numTotal += info["total"];
     });
 
     summaryInfoBySubcategory.sort((a, b) => {
