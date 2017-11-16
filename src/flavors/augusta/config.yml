@@ -32,8 +32,8 @@ languages:
   - code: es
     label: Hablo Español
 
-#   - code: vi
-#     label: tôi nói tiếng việt
+  - code: pt_BR
+    label: Eu falo português
 
 map:
 # Settings for map and layer configs
