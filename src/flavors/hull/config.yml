@@ -403,11 +403,16 @@ place:
           prompt: _(What is your preferred language?)
           display_prompt: _(My preferred language:)
           content:
+            - label: _(Bengali)
+              value: bengali
+            - label: _(Cantonese)
+              value: cantonese
             - label: _(English)
               value: english
+            - label: _(Mandarin)
+              value: mandarin
             - label: _(Spanish)
               value: spanish
-            # TODO: other languages?
             - label: _(Other)
               value: other
           optional: true
@@ -517,7 +522,7 @@ support:
 
 pages:
   - title: _(Map)
-    name: 17/40.67428/-73.90083
+    name: 18/40.67940/-73.91167
 
   - title: _(Project)
     slug: about

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 17:52+0100\n"
+"POT-Creation-Date: 2017-11-16 12:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-msgid "Manzanares Corridor"
+msgid "Hull Street Community Garden"
 msgstr ""
 
 msgid "Welcome!"
@@ -150,7 +150,16 @@ msgstr ""
 msgid "My preferred language:"
 msgstr ""
 
+msgid "Bengali"
+msgstr ""
+
+msgid "Cantonese"
+msgstr ""
+
 msgid "English"
+msgstr ""
+
+msgid "Mandarin"
 msgstr ""
 
 msgid "Spanish"
@@ -252,9 +261,7 @@ msgstr ""
 msgid "Bus"
 msgstr ""
 
-msgid ""
-"Zoning</p>\n"
-"        <span class='r1 legend-item'>{{#_}}Residential 1"
+msgid "Residential 1"
 msgstr ""
 
 msgid "Residential 2"
@@ -317,55 +324,49 @@ msgstr ""
 msgid "Category 4 Hurricane"
 msgstr ""
 
-msgid "Williams Ave Community Garden"
+msgid "Hull St Community Garden"
 msgstr ""
 
 msgid ""
-"NYRP acquired the Williams Ave. Garden in 1999, preserving it as open space "
-"in perpetuity. NYRP received funding from thestate of NY to renovate the "
-"Williams Ave. Community Garden.  Over the nextfew months, we will work with "
+"NYRP acquired the Hull St. Garden in 1999, preserving it as open space in "
+"perpetuity.  In 2017 NYRP received funding from the state of NY to renovate "
+"the Hull St. Community Garden.  Over the next few months, we will work with "
 "community members and local stakeholders to design a plan for the space and "
-"begin construction soon after"
-msgstr ""
-
-msgid "Williams Ave community garden"
-msgstr ""
-
-msgid "History"
+"begin construction soon after."
 msgstr ""
 
 msgid ""
-"Formerly part of New Lots, East New York, has been home to waves of "
-"immigrant groups: Eastern Europeans in the 1800's and Puerto Ricans and "
-"African‐Americans from the south in the 1900's. Today it has a growing South "
-"Asian population. The garden lot was a former residence, transferred to the "
-"city in 1976. Adjacent buildings both constructed in 1901."
+"The Ocean Hill neighborhood was founded in 1890. Until the 1960's it was a "
+"mostly Eastern and Southern European low‐income immigrant community. Since "
+"the mid‐20th century, the neighborhood has been predominately African "
+"American. The lot was historically residential. Adjacent buildings both "
+"constructed in 1925."
 msgstr ""
 
 msgid "Age of population"
 msgstr ""
 
-msgid "33% 0‐18, 28% 18‐34, 32% 35‐64, 7% 65+"
+msgid "29% 0‐18, 25% 18‐34, 36% 35‐64, 10% 65+"
 msgstr ""
 
 msgid "Household types"
 msgstr ""
 
-msgid "72% Family, 23% Single non-Family, 5% Shared "
+msgid "65% Family, 5% Shared, 30% Single Non-Family "
 msgstr ""
 
 msgid "Household income"
 msgstr ""
 
 msgid ""
-"Median household income: 29,527 dollars. Mean household income 42,975 "
+"Median household income: 33,125 dollars. Mean household income 45,900 "
 "dollars."
 msgstr ""
 
 msgid "Ethnicity"
 msgstr ""
 
-msgid "63% Hispanic, 27% Black, 7% White, 2% Asian "
+msgid "74% Black, 17% Hispanic, 7% White, 1% Asian "
 msgstr ""
 
 msgid "Climate forecasts"
@@ -375,7 +376,7 @@ msgid "Rising temperatures"
 msgstr ""
 
 msgid ""
-"Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the "
+"Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the\n"
 "2050s. The frequency of heat waves is projected to triple by the 2080s."
 msgstr ""
 
@@ -384,8 +385,8 @@ msgstr ""
 
 msgid ""
 "Projections for sea level rise in New York City are 11 to 21inches by the "
-"2050s, 18 to 39 inches by the 2080s, and could reach as high as 6 feet by "
-"2100. Projected sea level rise will increase current 100-year coastal floods "
+"2050s, 18 to 39 inches by the 2080s, and could reach as high as 6feet by "
+"2100. Projected sea level rise will increase current 100-year coastalfloods "
 "by 10-15 fold by the 2080s."
 msgstr ""
 
@@ -393,13 +394,12 @@ msgid "Increased precipitation"
 msgstr ""
 
 msgid ""
-"Mean annual precipitation is projected to increase by 4% to 11% by the 2050s."
+"Mean annual precipitation is projected to increase by 4% to 11% bythe 2050s."
 msgstr ""
 
 msgid ""
-"<p>Source: <a href=\"http://onlinelibrary.wiley.com/doi/10.1111/"
-"nyas.2015.1336.issue-1/issuetoc\">New York City Panel on Climate Change 2015 "
-"Report</a></p>"
+"Source: <a href=\"http://onlinelibrary.wiley.com/doi/10.1111/nyas.2015.1336."
+"issue-1/issuetoc\">NewYork City Panel on Climate Change 2015 Report"
 msgstr ""
 
 msgid "optional"

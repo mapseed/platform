@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: _(Manzanares Corridor)
+  title: _(Parque Augusta)
   # Header name
-  name: "_(Manzanares Corridor)"
+  name: "_(Parque Augusta)"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -32,8 +32,8 @@ languages:
   - code: es
     label: Hablo Español
 
-#   - code: vi
-#     label: tôi nói tiếng việt
+  - code: pt_BR
+    label: Eu falo português
 
 map:
 # Settings for map and layer configs
@@ -66,18 +66,18 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: manzanares-input
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/manzanares-input
+    - id: augusta-input
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-input
       type: place
       slug: report
 
-    - id: manzanares-project
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/manzanares-project
+    - id: augusta-project
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-project
       type: place
       slug: project
 
-    - id: manzanares-partners
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/manzanares-partners
+    - id: augusta-partners
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-partners
       type: place
       slug: partners
 
@@ -152,7 +152,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  manzanares-partners:
+  augusta-partners:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -169,7 +169,7 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
-  manzanares-project:
+  augusta-project:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -217,15 +217,15 @@ sidebar:
               icon_url: /static/css/images/zoning.svg
               title: _(Zoning)
               visibleDefault: false
-            - id: manzanares-input
+            - id: augusta-input
               icon_url: /static/css/images/comments.svg
               title: _(Comments)
               visibleDefault: true
-            - id: manzanares-partners
+            - id: augusta-partners
               icon_url: /static/css/images/partners.svg
               title: _(Partners)
               visibleDefault: false
-            - id: manzanares-project
+            - id: augusta-project
               icon_url: /static/css/images/park-icon.png
               title: _(Project)
               visibleDefault: true
@@ -259,14 +259,14 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: manzanares-partners
+    - category: augusta-partners
       admin_only: true
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: manzanares-partners
+      dataset: augusta-partners
       icon_url: /static/css/images/partners-blue.svg
       value: featured_place
       label: _(Partner Site)
@@ -304,14 +304,14 @@ place:
           type: commonFormElement
         - name: submit
           type: commonFormElement
-    - category: manzanares-project
+    - category: augusta-project
       admin_only: true
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: manzanares-project
+      dataset: augusta-project
       icon_url: /static/css/images/park-icon.png
       value: featured_place
       label: _(Project Site)
@@ -359,7 +359,7 @@ place:
     - category: community_input
       includeOnForm: true
       name: location_type
-      dataset: manzanares-input
+      dataset: augusta-input
       icon_url: /static/css/images/markers/marker-observation.png
       value: community_input
       label: _(Add a comment)
@@ -518,7 +518,7 @@ support:
 
 pages:
   - title: _(Map)
-    name: 17/40.67428/-73.90083
+    name: 16/-23.55064/-46.64661
 
   - title: _(Project)
     slug: about

@@ -2,23 +2,23 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-16 11:52+0100\n"
+"POT-Creation-Date: 2017-11-16 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Last-Translator: Malu Oliveira <maluoliveira60@gmail.com>, 2017\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/mapseed/teams/58669/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid ""
-"Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgid "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
 msgstr ""
 
 msgid "Log Out"
@@ -31,70 +31,73 @@ msgid "Parque Augusta"
 msgstr ""
 
 msgid "Welcome!"
-msgstr ""
+msgstr "Bem-vindo"
 
 msgid ""
 "Over the next few months, we will work with community members and local "
 "stakeholders to design a plan for the garden and begin construction soon "
 "after."
 msgstr ""
+"Nos próximos meses, vamos trabalhar com a comunidade e organizações "
+"parceiras para desenhar um projeto de parque para que depois seja implantado"
+" pela Prefeitura"
 
 msgid "Comment"
-msgstr ""
+msgstr "Comentários"
 
 msgid "Default"
 msgstr ""
 
 msgid "Satellite"
-msgstr ""
+msgstr "Satélite"
 
 msgid "Terrain"
-msgstr ""
+msgstr "Relevo"
 
 msgid "Map detail"
-msgstr ""
+msgstr "Detalhes do mapa"
 
 msgid "Transit"
-msgstr ""
+msgstr "Transportes"
 
 msgid "Biking"
-msgstr ""
+msgstr "Ciclismo"
 
 msgid "Zoning"
-msgstr ""
+msgstr "Zoneamento"
 
 msgid "Comments"
-msgstr ""
+msgstr "Comentários"
 
 msgid "Partners"
-msgstr ""
+msgstr "Parceiros"
 
 msgid "Project"
-msgstr ""
+msgstr "Projeto"
 
 msgid "Climate risks"
-msgstr ""
+msgstr "Riscos climáticos"
 
 msgid "Heat Waves"
-msgstr ""
+msgstr "Ondas de calor"
 
 msgid "Add your comments"
-msgstr ""
+msgstr "Inclua seus comentários"
 
 msgid "added"
-msgstr ""
+msgstr "Incluído"
 
 msgid "Tell us more..."
-msgstr ""
+msgstr "Conte-nos mais sobre você"
 
 msgid "Someone"
 msgstr ""
 
 msgid "Put it on the map!"
-msgstr ""
+msgstr "Coloque no mapa"
 
 msgid "Partner Site"
-msgstr ""
+msgstr "Site do parceiro"
 
 msgid "Location:"
 msgstr ""
@@ -118,97 +121,97 @@ msgid "Choose a custom URL for this place:"
 msgstr ""
 
 msgid "Project Site"
-msgstr ""
+msgstr "Localização do projeto"
 
 msgid "Add a comment"
-msgstr ""
+msgstr "Comente"
 
 msgid "How old are you?"
-msgstr ""
+msgstr "Quantos anos você tem?"
 
 msgid "Are you a regular user of this garden?"
-msgstr ""
+msgstr "Você usaria o parque regularmente?"
 
 msgid "I am a regular user of this garden:"
-msgstr ""
+msgstr "Eu usaria o parque regularmente"
 
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 msgid "Do you have children at home?"
-msgstr ""
+msgstr "Você tem crianças em casa?"
 
 msgid "I have children at home:"
-msgstr ""
+msgstr "Eu tenho crianças em casa"
 
 msgid "What is your preferred language?"
-msgstr ""
+msgstr "Em qual idioma você prefere falar?"
 
 msgid "My preferred language:"
-msgstr ""
+msgstr "Eu prefiro falar em:"
 
 msgid "English"
-msgstr ""
+msgstr "Inglês"
 
 msgid "Spanish"
-msgstr ""
+msgstr "Espanhol"
 
 msgid "Other"
-msgstr ""
+msgstr "Outro"
 
 msgid "What type of comment is this?"
-msgstr ""
+msgstr "Que tipo de comentário é esse?"
 
 msgid "Recommendation"
-msgstr ""
+msgstr "Recomendação"
 
 msgid "Recommendations"
-msgstr ""
+msgstr "Recomendações"
 
 msgid "Concern"
-msgstr ""
+msgstr "Preocupação"
 
 msgid "Concerns"
-msgstr ""
+msgstr "Preocupações"
 
 msgid "What would encourage you to use this space more often?"
-msgstr ""
+msgstr "O que faria você usar este parque frequentemente?"
 
 msgid "Write your comment here"
-msgstr ""
+msgstr "Escreve seu comentário aqui"
 
 msgid "Select any of the below categories that apply:"
-msgstr ""
+msgstr "Escolha uma das categorias abaixo:"
 
 msgid "Amenities"
-msgstr ""
+msgstr "Facilidades"
 
 msgid "Horticulture"
-msgstr ""
+msgstr "Horticultura"
 
 msgid "Programs"
-msgstr ""
+msgstr "Programas"
 
 msgid "Safety"
-msgstr ""
+msgstr "Segurança"
 
 msgid "Experience"
-msgstr ""
+msgstr "Experiência"
 
 msgid "Your name"
-msgstr ""
+msgstr "Seu nome"
 
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 msgid "Enter your email address for updates"
-msgstr ""
+msgstr "Deixe seu email para receber atualizações"
 
 msgid "name@mail.com"
-msgstr ""
+msgstr "nome@email.com"
 
 msgid "Image"
 msgstr ""
@@ -217,22 +220,22 @@ msgid "Add an Image"
 msgstr ""
 
 msgid "Submit comment"
-msgstr ""
+msgstr "Envie seu comentário"
 
 msgid "comment"
-msgstr ""
+msgstr "comentário"
 
 msgid "comments"
-msgstr ""
+msgstr "comentários"
 
 msgid "commented on"
-msgstr ""
+msgstr "Comentário em"
 
 msgid "Leave a Comment"
-msgstr ""
+msgstr "Deixe um comentário"
 
 msgid "Your Name"
-msgstr ""
+msgstr "Seu nome"
 
 msgid "Support"
 msgstr ""
@@ -244,64 +247,64 @@ msgid "supports"
 msgstr ""
 
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 msgid "Train"
-msgstr ""
+msgstr "Trem"
 
 msgid "Bus"
-msgstr ""
+msgstr "Ônibus"
 
 msgid "Residential 1"
-msgstr ""
+msgstr "Residencial 1"
 
 msgid "Residential 2"
-msgstr ""
+msgstr "Residencial 2"
 
 msgid "Residential 3"
-msgstr ""
+msgstr "Residencial 3"
 
 msgid "Residential 4"
-msgstr ""
+msgstr "Residencial 4"
 
 msgid "Residential 5"
-msgstr ""
+msgstr "Residencial 5"
 
 msgid "Residential 6"
-msgstr ""
+msgstr "Residencial 6"
 
 msgid "Residential 7"
-msgstr ""
+msgstr "Residencial 7"
 
 msgid "Residential 8"
-msgstr ""
+msgstr "Residencial 8"
 
 msgid "Residential 9"
-msgstr ""
+msgstr "Residencial 9"
 
 msgid "Residential 10"
-msgstr ""
+msgstr "Residencial 10"
 
 msgid "Manufacturing 1"
-msgstr ""
+msgstr "Industrial 1"
 
 msgid "Manufacturing 2"
-msgstr ""
+msgstr "Industrial 2"
 
 msgid "Manufacturing 3"
-msgstr ""
+msgstr "Industrial 3"
 
 msgid "Commercial"
-msgstr ""
+msgstr "Comercial"
 
 msgid "Parks"
-msgstr ""
+msgstr "Parques"
 
 msgid "Land temperature"
-msgstr ""
+msgstr "Temperatura da Terra"
 
 msgid "Flood zones"
-msgstr ""
+msgstr "Zona de Alagamentos"
 
 msgid "Category 1 Hurricane"
 msgstr ""
@@ -323,29 +326,42 @@ msgid ""
 "is awaited for 2018. Community and environmental movements are preparing a "
 "participatory project for the future park."
 msgstr ""
+"O parque Augusta é uma área de 24 mil metros quadrados entre as ruas Augusta, Caio Prado e Marquês de Paranaguá, no bairro da Consolação, no centro de São Paulo. A abertura do parque depende do acordo entre o município e os proprietários privados, o que é esperado para o início de 2018. Movimentos comunitários e ambientais estão preparando um projeto participativo para o futuro parque.\n"
+"\n"
+" "
 
 msgid "Augusta"
-msgstr ""
+msgstr "Parque Augusta"
 
 msgid "History"
-msgstr ""
+msgstr "História"
 
 msgid ""
 "This area has been under an impasse for more than 40 years, since religious "
 "Des Oiseaux College closed theirs doors. The land is registered under the "
 "Historical Patrimony in 2004, but the House revoked the decree and returned "
-"it to the new owners, who wanted to build first a hotel with 1,400 rooms and "
-"then three towers of apartments. In 2013, environmental activists claimed "
-"the park, and the Town Hall decreed it, but the government hasn’t bought the "
-"land from the current owners."
+"it to the new owners, who wanted to build first a hotel with 1,400 rooms and"
+" then three towers of apartments. In 2013, environmental activists claimed "
+"the park, and the Town Hall decreed it, but the government hasn’t bought the"
+" land from the current owners."
 msgstr ""
+"Esta área está sob impasse há mais de 40 anos, desde que o colégio religioso"
+" Des Oiseaux fechou suas portas. Foi declarada Patrimônio Histórico em 2004,"
+" mas a Câmara Municipal revogou o decreto e liberou o terreno para os novos "
+"proprietários, que primeiro queriam construir um hotel com 1.400 quartos e, "
+"depois, três torres de apartamentos. Em 2013, ativistas de toda a cidade, "
+"especialmente o Movimento Parque Augusta, começaram a reivindicar o parque, "
+"que afinal foi criado pela Câmara Municipal, mas até hoje a Prefeitura não "
+"indenizou os proprietários, o que deverá ocorrer agora com a troca por outro"
+" terreno. "
 
 msgid "Population"
-msgstr ""
+msgstr "População"
 
 msgid ""
 "57,365 inhabitants, with a density of 155 inhabitants per square kilometer."
 msgstr ""
+"57.365 habitantes, com densidade de 155 habitantes por quilômetro quadrado."
 
 msgid "Land use zoning"
 msgstr ""
@@ -354,13 +370,15 @@ msgid ""
 "The area is a mixed zone, with multi-family residences, commerce, offices "
 "buildings and night life spaces."
 msgstr ""
+"Esta área é uma zona mista, com edifícios plurifamiliares, comércio, "
+"escritórios e espaços culturais e de vida noturna."
 
 msgid "Origina of population"
 msgstr ""
 
 #, python-format
 msgid ""
-"Palacio: 23,8% foreigners, mostly from Latin America and the European Union "
+"Palacio: 23,8% foreigners, mostly from Latin America and the European Unio"
 msgstr ""
 
 #, python-format
@@ -370,7 +388,7 @@ msgid ""
 msgstr ""
 
 msgid "Climate"
-msgstr ""
+msgstr "Clima"
 
 msgid ""
 "The São Paulo Metropolitan Region, which already suffers from floods every "
@@ -383,11 +401,21 @@ msgid ""
 "with heavy rains in São Paulo (above 20mm) can increase by up to 10 days in "
 "2050 and 20 days, in 2100."
 msgstr ""
+"A Região Metropolitana de São Paulo, que já sofre com enchentes todo verão, "
+"pode ter um aumento no número de dias com chuvas fortes até o final do "
+"século, assim como uma frequência maior de dias e noites quentes e ondas de "
+"calor. As projeções sugerem uma elevação na temperatura de até 2 graus "
+"Celsius em meados do século 21 e de até 4 graus Celsius por volta de 2100. O"
+" aumento de chuvas pode chegar a até 20%, 30% e 50% nos períodos 2010-40, "
+"2041-70 e 2071-2100, respectivamente. O número de dias com chuvas fortes na "
+"capital paulista (acima de 20mm) podem aumentar em até 10 dias em 2050 e 20 "
+"dias, em 2100."
 
 msgid ""
-"<p>Source: <a href=\"http://www.ccst.inpe.br/projeto/megacidades/sao_paulo/"
-"VRMSP/capitulo5.php\">Instituto nacional dePesquisas Espaciais (INPE)</a></p>"
-msgstr ""
+"<p>Source: <a "
+"href=\"http://www.ccst.inpe.br/projeto/megacidades/sao_paulo/VRMSP/capitulo5.php\">Instituto"
+" nacional dePesquisas Espaciais (INPE)</a></p>"
+msgstr "Fonte: Instituto nacional de Pesquisas Espaciais (INPE)"
 
 msgid "optional"
 msgstr ""
@@ -482,32 +510,33 @@ msgid ""
 msgstr ""
 
 msgid ""
-"When created, this post will be visible <strong>only to logged-in editors</"
-"strong>"
-msgstr ""
-
-msgid "When saved, this post will be visible to <strong>all map users</strong>"
+"When created, this post will be visible <strong>only to logged-in "
+"editors</strong>"
 msgstr ""
 
 msgid ""
-"When saved, this post will be visible <strong>only to logged-in editors</"
-"strong>"
+"When saved, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When saved, this post will be visible <strong>only to logged-in "
+"editors</strong>"
 msgstr ""
 
 msgid "Tell us about yourself!"
-msgstr ""
+msgstr "Conte-nos um pouco mais sobre você!"
 
 msgid "Move the map to mark where you live."
-msgstr ""
+msgstr "Mova a seta no mapa para indicar onde você vive."
 
 msgid "Thanks for your comment!"
-msgstr ""
+msgstr "Obrigada por seu comentário!"
 
 msgid "Submit another comment"
-msgstr ""
+msgstr "Envie outro comentário"
 
 msgid "Exit survey"
-msgstr ""
+msgstr "Sair da pesquisa"
 
 msgid "Map type"
-msgstr ""
+msgstr "Tipo de mapa"
