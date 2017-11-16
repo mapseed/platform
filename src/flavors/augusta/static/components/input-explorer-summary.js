@@ -80,7 +80,7 @@ class InputExplorerSummary extends Component {
               className="summary-item-container">
               <div className="summary-bar-label">
                 <span className="summary-bar-label__label">{subcategory.label} </span>
-                <span className="summary-bar-label__percentage">{parseInt(subcategory.total/numTotal*100)}%</span>
+                <span className="summary-bar-label__percentage">{isNaN(parseInt(subcategory.total/numTotal*100)) ? 0 : parseInt(subcategory.total/numTotal*100)}%</span>
               </div>
               <div className="summary-bar-container">
                 <div 
