@@ -305,6 +305,7 @@ div#content.page.page-about em {
 }
 
 #continue-form-btn, #exit-survey-btn {
+  background-color: #4A90E2;
   color: #FFFFFF !important;
   margin-bottom: 20px;
 }
