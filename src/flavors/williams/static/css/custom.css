@@ -21,7 +21,8 @@
 }
 
 #site-header {
-	background: none !important;
+  background: none;
+  background-color: #FFFFFF;
 }
 
 a#nav-btn {
