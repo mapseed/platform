@@ -81,44 +81,50 @@ map:
       type: place
       slug: partners
 
-    - id: transit
+    - id: transit-points
       type: wms
-      url: https://geoserver.mapseed.org/geoserver/madrid/wms?
+      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
       version: 1.3.0
       format: image/png
       transparent: true
       layers:
-        - madrid_transit
+        - augusta_transit_points
+
+    - id: transit-lines
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - augusta_transit_lines
 
     - id: biking
       type: wms
-      url: https://geoserver.mapseed.org/geoserver/madrid/wms?
+      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
       version: 1.3.0
       format: image/png
       transparent: true
       layers:
-        - madrid_bike_lanes
+        - augusta_bike_lanes
 
     - id: zoning
       type: wms
-      url: https://geoserver.mapseed.org/geoserver/madrid/wms?
+      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
       version: 1.3.0
       format: image/png
       transparent: true
       layers: 
-        - madrid_usos_suelo
+        - augusta_zoning
 
     - id: heatwaves
       type: wms
-      url: https://geoserver.mapseed.org/geoserver/madrid/wms?
+      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
       format: image/png
       version: 1.3.0
       transparent: true
       layers:
-        - madrid_calor2
-
-    # - id: flood-zones
-    #   url: //{s}.tiles.mapbox.com/v3/jkeefe.map-dg0rv3jh/{z}/{x}/{y}.png
+        - augusta_heatwave
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -205,9 +211,12 @@ sidebar:
         - id: map-detail
           title: _(Map detail)
           layers:
-            - id: transit
+            - id: transit_points_and_lines
               icon_url: /static/css/images/transit.svg
               title: _(Transit)
+              constituentLayers:
+                - transit-points
+                - transit-lines
               visibleDefault: false
             - id: biking
               icon_url: /static/css/images/bike-lanes.svg
