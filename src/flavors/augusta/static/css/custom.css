@@ -9,6 +9,8 @@
 @import "../components/input-explorer-input-item";
 @import "../components/input-explorer-summary";
 
+
+
 /*  Changes by Erika */
 
 #site-title a:link, #site-title a:visited {
@@ -64,7 +66,7 @@ a.current-language.en_US.btn.btn-block, a.en_US btn btn-block  {
   border: none;
   box-shadow: none;
 }
-  
+
   a.btn:hover {
   color: black;
 }
@@ -109,10 +111,10 @@ div#language-picker {
 
 h5.mapseed-input-explorer-input-list-header__header, h5.summary-quote {
   font-family: "Georgia", serif;
-  color: 4A4A4A;
+  color: #4A4A4A;
   font-size: 1em;
   padding-bottom: 1em;
-} 
+}
 
 div.mapseed-input-explorer-input-item {
   width: 58%;
@@ -147,7 +149,7 @@ div#content.page.page-about h1 {
 
 div#content.page.page-about h2 {
   font-size: 1em;
-  text-transform: uppercase; 
+  text-transform: uppercase;
 }
 
 div#content.page.page-about h3 {
@@ -173,7 +175,7 @@ div#content.page.page-about em {
     font-weight: normal;
     color: black;
   }
-  
+
   nav.access ul.menu a.btn.btn-block.btn-secondary{
     font-weight: normal;
     text-align: left;
@@ -181,18 +183,18 @@ div#content.page.page-about em {
     width: 100%;
     padding-left:0;
   }
-  
+
   a#sign-in-btn {
   line-height:2.9;
   }
-  
-  span#add-place-btn-container, 
+
+  span#add-place-btn-container,
   a#add-place.btn.btn-block.btn-primary.btn-large {
   background-color: #4A90E2;
   font-size: 1.2em;
   color: white;
   }
-  
+
   #language-picker .menu .menu {
     .en_US, .es {
       font-style: italic;
@@ -202,7 +204,37 @@ div#content.page.page-about em {
   }
 }
 
+.access li li .btn {
+  background-color: white;
+  text-transform: capitalize;
+  font-size: 1em;
+}
+
+.access li li .btn.btn-block {
+  width: 180px;
+}
+
+div#main-btns-container.pos-top-right.pos-top-left {
+  background-color: #4A90E2;
+}
+
+/*form > ul.menu {
+  background-color: inherit;
+  box-sizing: inherit;
+  border: none;
+}
+
+nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
+  float: left;
+  padding-top: 0.3em;
+}*/
+
+/*div#language-picker {
+  clear: both;
+}*/
+
 /*  End of changes by Erika */
+
 
 #sidebar-container {
   position: absolute;
@@ -322,6 +354,7 @@ div#content.page.page-about em {
 /* Map legend */
 #map-legend {
   padding: 20px;
+  font-size: 14px;
 }
 
 #map-legend hr {
@@ -359,12 +392,23 @@ div#content.page.page-about em {
 }
 
 /*zoning*/
-/*zoning*/
-.residential:before {background: #08306b;}
-.industrial:before {background: #ba1419;}
-.commercial:before {background: #f2ef12;}
-.green-areas:before {background: #5c946e;}
+.r1:before {background: #f7fbff;}
+.r2:before {background: #e1edf8;}
+.r3:before {background: #ccdff1;}
+.r4:before {background: #afd1e7;}
+.r5:before {background: #88bedc;}
+.r6:before {background: #5fa6d1;}
+.r7:before {background: #3d8dc3;}
+.r8:before {background: #2171b5;}
+.r9:before {background: #0a539e;}
+.r10:before {background: #9b331e;}
 
+.m1:before {background: #fdd5c4;}
+.m2:before {background: #fb7050;}
+.m3:before {background: #ba1419;}
+
+.c-zone:before {background: #f2ef12;}
+.p-zone:before {background: #5c946e;}
 
 /*heat map */
 .fifty:before {
@@ -444,11 +488,6 @@ div#content.page.page-about em {
 .flood-cat4:before {background: #fcf75e;}
 
 
-@media only screen and (min-width: 60em) {
-  #main-btns-container.main-btns-container--offset-left {
-    left: 260px;
-  }
-}
 
 /* =Header
 -------------------------------------------------------------- */
@@ -464,4 +503,37 @@ div#content.page.page-about em {
 }
 
 @media only screen and (min-width: 1300px) {
+}
+
+@media only screen and (min-width: 60em) {
+  #main-btns-container.main-btns-container--offset-left {
+    left: 260px;
+  }
+}
+
+@media only screen and (max-width: 60em) {
+  #list-container.is-exposed {
+    display: block !important;
+  }
+
+  .mapseed-input-explorer-summary,
+  .mapseed-input-explorer-category-menu,
+  .mapseed-input-explorer-input-item,
+  .mapseed-input-explorer-input-list-header,
+  .mapseed-input-explorer-input-list-header__subcategory-menu {
+    width: auto !important;
+  }
+
+  .mapseed-input-explorer-input-list-header__subcategory-menu,
+  .mapseed-input-explorer-category-menu {
+    overflow: scroll;
+  }
+
+  nav.is-exposed + nav.list-toggle-nav {
+    display: block;
+
+    a {
+      text-align: left;
+    }
+  }
 }

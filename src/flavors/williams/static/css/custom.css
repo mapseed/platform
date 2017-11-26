@@ -488,11 +488,6 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
 .flood-cat4:before {background: #fcf75e;}
 
 
-@media only screen and (min-width: 60em) {
-  #main-btns-container.main-btns-container--offset-left {
-    left: 260px;
-  }
-}
 
 /* =Header
 -------------------------------------------------------------- */
@@ -510,8 +505,13 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
 @media only screen and (min-width: 1300px) {
 }
 
-/*@media only screen and (max-width: 60em) {
-  .list-toggle-nav,
+@media only screen and (min-width: 60em) {
+  #main-btns-container.main-btns-container--offset-left {
+    left: 260px;
+  }
+}
+
+@media only screen and (max-width: 60em) {
   #list-container.is-exposed {
     display: block !important;
   }
@@ -528,4 +528,12 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   .mapseed-input-explorer-category-menu {
     overflow: scroll;
   }
-}*/
+
+  nav.is-exposed + nav.list-toggle-nav {
+    display: block;
+
+    a {
+      text-align: left;
+    }
+  }
+}
