@@ -31,11 +31,11 @@ a#nav-btn {
 	text-shadow: none;
 }
 
-a.en_US btn btn-block, a.es btn btn-block {
+a.en_US btn btn-block, 
+a.es btn btn-block {
 	text-transform: none !important;
 	font-family: "Helvetica", sans-serif;
 	font-weight: normal;
-
 }
 
 ul.menu {
@@ -43,7 +43,11 @@ ul.menu {
 }
 
 
-a.btn.btn-block.btn-secondary, span.show-the-list, span.show-the-map, a.current-language.en_US.btn.btn-block  {
+a.btn.btn-block.btn-secondary, 
+span.show-the-list, 
+span.show-the-map, 
+a.current-language.en_US.btn.btn-block
+a.current-language.es.btn.btn-block  {
 	padding-left: 0;
 	text-transform: none;
  	font-family: "Helvetica", sans-serif;
@@ -54,7 +58,10 @@ a.btn.btn-block.btn-secondary, span.show-the-list, span.show-the-map, a.current-
 	background-color: rgba(0,0,0,0);
 }
 
-a.current-language.en_US.btn.btn-block, a.en_US btn btn-block  {
+a.current-language.en_US.btn.btn-block, 
+a.current-language.es.btn.btn-block, 
+a.en_US btn btn-block, 
+a.es btn btn-block {
 	padding-left: 0;
 	text-transform: none;
  	font-family: "Helvetica", sans-serif;
