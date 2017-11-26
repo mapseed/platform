@@ -235,7 +235,7 @@ activeLanguages.forEach((language) => {
       )
     );
     mergedPOFile = fs.readFileSync(mergedPOFileOutputPath);
-    log("Finsihed merging .po file for " + language.code);
+    log("Finished merging .po file for " + language.code);
   } catch(e) {
     logError("Error merging .po file for " + language.code);
   }
