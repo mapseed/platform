@@ -523,6 +523,17 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
     display: block !important;
   }
 
+  .place-form-visible {
+    #main-btns-container {
+      display: none;
+    }
+
+    #content {
+      margin-bottom: 0;
+      min-height: 50%;
+    }
+  }
+
   .mapseed-input-explorer-summary,
   .mapseed-input-explorer-category-menu,
   .mapseed-input-explorer-input-item,
