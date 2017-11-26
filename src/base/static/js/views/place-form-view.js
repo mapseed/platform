@@ -314,6 +314,7 @@ module.exports = Backbone.View.extend({
     ) {
       this.options.appView.setBodyClass(
         "content-visible",
+        "place-form-visible",
         "content-expanded-mid",
       );
       this.options.appView.mapView.map.invalidateSize({
