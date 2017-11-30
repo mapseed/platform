@@ -96,6 +96,10 @@
 
 /*---- leaflet side bar overrides ----*/
 
+.sidebar-tabs {
+  line-height: 0;
+}
+
 .sidebar-header {
     margin: -10px -10px 0;
     .sidebar-close {
