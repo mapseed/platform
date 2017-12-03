@@ -9,19 +9,16 @@ module.exports = GISLegendView.extend({
     "click .info-icon": "onClickInfoIcon",
   },
 
-  render: function() {
-    var self = this,
-      data = _.extend(
-        {
-          basemaps: this.options.config.basemaps,
-          groupings: this.options.config.groupings,
-        },
-        Shareabouts.stickyFieldValues,
-      );
+  initialize: function() {
+    this.options.mapView.map.on("layer:loading", this.onLayerLoading.bind(this));
+    this.options.mapView.map.on("layer:loaded", this.onLayerLoaded.bind(this));
+    this.options.mapView.map.on("layer:error", this.onLayerError.bind(this));
 
-    // BEGIN FLAVOR-SPECIFIC CODE
-    //this.$el.html(Handlebars.templates["gis-legend-content"](data));
-    // END FLAVOR-SPECIFIC CODE
+    this.hasScrolled = false;
+    this.initialScrollPoint;
+    this.options.sidebarView.$("#gis-layers-pane")
+      .off("scroll")
+      .on("scroll", this.onLayersPaneScroll.bind(this));
 
     _.each(this.options.config.groupings, function(group) {
       _.each(group.layers, function(layer) {
@@ -49,7 +46,9 @@ module.exports = GISLegendView.extend({
       !!initialBasemap.visibleDefault,
       true,
     ]);
-    
+  },
+
+  render: function() {
     return this;
   }
 });
