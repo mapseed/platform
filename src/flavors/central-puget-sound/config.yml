@@ -94,14 +94,6 @@ map:
       url: //stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
       maxZoom: 16
 
-    - id: landcover
-      type: basemap
-      url: //raster.nationalmap.gov/arcgis/services/LandCover/USGS_EROS_LandCover_NLCD/MapServer/WMSServer?
-      layers: '1'
-      version: '1.3.0'
-      transparent: 'true'
-      format: 'image/png'
-
     - id: 1936aerial
       type: wmts
       url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?
@@ -110,13 +102,6 @@ map:
       version: 1.0.0
       transparent: false
       format: image/jpg
-
-    - id: colorshade
-      url: https://gis.ngdc.noaa.gov/arcgis/services/dem_hillshades/ImageServer/WMSServer?
-      layers: '0'
-      version: 1.3.0
-      transparent: false
-      format: image/png
 
     - id: bath
       type: wmts
@@ -144,10 +129,6 @@ map:
       version: 1.0.0
       transparent: false
       format: image/png
-
-    - id: blank
-      type: basemap
-      url: intentionally-blank
 
     - id: impervious
       type: wms
@@ -289,21 +270,8 @@ map:
           style:
             opacity: 0.9
 
-    # - id: life-expectancy
-    #   type: basemap
-    #   url: intentionally-blank
-
-    # - id: openspace
-    #   type: basemap
-    #   url: intentionally-blank
-
-    # - id: healthyfood
-    #   type: json
-    #   url: intentionally-blank
-
-    # - id: 1970
-    #   type: basemap
-    #   url: intentionally-blank
+    - id: equity
+      url: intentionally-blank
 
     - id: mw
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw
@@ -328,6 +296,10 @@ map:
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/7b95f83a-294a-11e7-8367-0e05a8b3e3d7/viz.json"
 
+    - id: watershed-7
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/6450e63b-e243-4ba6-ac24-0f0ad87b7a1b/viz.json"
+
     - id: watershed-cedar
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/a9ea3c0c-26aa-11e7-95f1-0ecd1babdde5/viz.json"
@@ -343,10 +315,6 @@ map:
     - id: watershed-puyallup
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/aea1ff97-2c79-48a1-a3a7-040e4d7aadd1/viz.json"
-
-    - id: stormwater-facilities
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/256fb630-26b1-11e7-8650-0e233c30368f/viz.json"
 
       # Land Use
     - id: landuse
@@ -630,41 +598,34 @@ sidebar:
           title: _(Topography)
           visibleDefault: true
           info: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
-        - id: satellite
-          title: _(Satellite View)
-          visibleDefault: false
-          info: _(A bird’s eye view of the world)
-        - id: hydrography
-          title: _(Hydrography)
-          visibleDefault: false
-          info: _(Explore our connection through waterways and watch the magic as political boundaries disappear)
         - id: hillshade
           title: _(Hillshade)
           visibleDefault: false
           info: _(Shaded terrain that pops with clarity. A bold grey color, great for layering)
+        - id: hydrography
+          title: _(Hydrography)
+          visibleDefault: false
+          info: _(Explore our connection through waterways and watch the magic as political boundaries disappear)
         - id: bath
           title: _(Bathymetry)
           visibleDefault: false
           info: _(The shape and depth of the ocean floor. What does it tell us about the history of this place?)
-        - id: colorshade
-          title: _(Colored elevation)
+        - id: satellite
+          title: _(Satellite View)
           visibleDefault: false
-          info: _(A gorgeous rendition of all depths and heights, from the ocean floor to mountain peaks.)
+          info: _(A bird’s eye view of the world)
+        - id: 1936aerial
+          title: _(1936 Aerial View)
+          visibleDefault: false
+          info: _(Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936.)
         - id: light-nolabels
-          title: _(Simple)
+          title: _(Simple Canvas)
           visibleDefault: false
         # - id: hydroregions
         #   title: _(Hydroregions)
         #   visibleDefault: false
           info: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
-        - id: 1936aerial
-          title: _(1936 Aerial)
-          visibleDefault: false
-          info: _(Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936.)
-        - id: blank
-          title: _(Blank canvas)
-          visibleDefault: false
-          info: _(Completely blank. Ideal for exploring spatial patterns that emerge from other layers without seeing the actual location. <br><br><em>Can you guess where things are based on the shape? What causes them to be arranged in such a way?</em>)
+
       groupings:
         - id: grp-map-layers
           title: _(Map Layers)
@@ -677,62 +638,65 @@ sidebar:
               info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: mw
-              title: _(Community Reports)
+              title: _(Stewardship Actions)
               visibleDefault: true
               info: _(This is an example of an info window. Layer info will be added soon.)
 
-            - id: wria-7-8-9
-              title: _(WRIA boundaries)
+            - id: equity
+              title: _(Equity by Neighborhood)
               visibleDefault: false
-              info: _(WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its ridgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 "Water Resource Inventory Areas" across the state.)
+              info: _(Coming soon!)
 
-            - id: watershed-cedar
-              title: _(Cedar River - Lake Washington Watershed)
+            - id: watershed-7
+              title: _(WRIA 7 Streams)
               visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
+
+            - id: watershed-cedar-sammamish
+              title: _(WRIA 8 Streams)
+              visibleDefault: false
+              constituentLayers:
+                - watershed-sammamish
+                - watershed-cedar              
               info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: watershed-green
-              title: _(Green / Duwamish Watershed)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
-            - id: watershed-sammamish
-              title: _(Lake Sammamish Watershed)
+              title: _(WRIA 9 Streams)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: watershed-puyallup
-              title: _(Puyallup / White Watershed)
+              title: _(WRIA 10 Streams)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
+            - id: wria-7-8-9
+              title: _(WRIA Boundaries ALL)
+              visibleDefault: false
+              info: _(WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its ridgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 "Water Resource Inventory Areas" across the state.)
+
             - id: sub-basins
-              title: _(Stream Sub-basins)
+              title: _(Sub-Basin Boundaries)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: contour
-              title: _(Contour lines)
+              title: _(Contour Lines)
+              visibleDefault: false
+              info: _(This is an example of an info window. Layer info will be added soon.)
+
+            - id: cities
+              title: _(City Boundaries)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: landuse
-              title: _(Land use)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
-            - id: landcover
-              title: _(Land cover)
+              title: _(Land Use)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: impervious
               title: _(Impervious Surface Area)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
-            - id: stormwater-facilities
-              title: _(Stormwater Facilities)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
               
@@ -751,18 +715,13 @@ sidebar:
             #   visibleDefault: false
             #   info: _(This is an example of an info window. Layer info will be added soon.)
 
-            - id: cities
-              title: _(City boundaries)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
             - id: school-boundaries
               title: _(School Districts)
               visibleDefault: false
               info: _(This is some information about the school boundaries layer.)
 
             - id: school-sites
-              title: _(Schools and colleges)
+              title: _(Schools and Colleges)
               visibleDefault: false
               info: _(This is an example of an info window. Layer info will be added soon.)
 
@@ -772,7 +731,7 @@ sidebar:
             #   info: _(This is an example of an info window. Layer info will be added soon.)
 
             - id: commfood
-              title: _(Community Food Systems)
+              title: _(Farmers Markets)
               visibleDefault: false
               info: _(This is some information and a legend)
 
@@ -842,7 +801,7 @@ filters:
 # Place Types
 place:
   adding_supported: true
-  add_button_label: _(Add a report)
+  add_button_label: _(Take Action)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Reports)
   show_map_button_label: _(Show Map)
@@ -2375,7 +2334,7 @@ support:
 
 pages:
   - title: _(Projects)
-    name: greenroof
+    name: hamm-creek-restoration
 
   - title: _(Background)
     slug: background

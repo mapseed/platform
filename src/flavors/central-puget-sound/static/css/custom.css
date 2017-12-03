@@ -5,8 +5,8 @@
  */
 
 @font-face {
-  font-family: 'Permanent Marker';
-  src: url('/static/css/PermanentMarker.ttf');
+  font-family: 'Palanquin';
+  src: url('/static/css/palanquindark-regular.ttf');
 }
 
 /*@font-face {
@@ -18,7 +18,7 @@
 #site-title a:visited {
   color: #127de4 !important;
   font-weight: normal;
-  font-family: 'Permanent Marker', cursive !important;
+  font-family: 'Palanquin';
   display: block;
   float: left;
   margin-right: 50px;
@@ -49,6 +49,11 @@
     /*background: url(/static/css/images/longfellow_creek1.jpg);*/
     background: none;
     background-color: #FFF;
+  }
+
+  #site-title a:link, #site-title a:visited {
+    font-size: 3em;
+    line-height: 1.125;
   }
 
   /* reorient add a report button to bottom left when content panel is open */
