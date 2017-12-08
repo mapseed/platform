@@ -509,7 +509,7 @@ pages:
     slug: getinvolved
     name: contribute
 
-story:
+# story:
   # example:
   #   tagline: _(Next featured site)
   #   default_zoom: 18
@@ -524,4 +524,4 @@ story:
       #   spotlight: false
       #   visible_layers:
       #     - dirt-corps
-  -
+
