@@ -525,3 +525,11 @@ pages:
       #   visible_layers:
       #     - dirt-corps
 
+cluster:
+  animate: true
+  animateAddingMarkers: false
+  showCoverageOnHover: false
+  spiderfyOnMaxZoom: true
+  spiderfyDistanceMultiplier: 1.5
+  spiderLegPolylineOptions:
+    opacity: 0
