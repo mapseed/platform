@@ -20,11 +20,10 @@ module.exports = Backbone.Model.extend({
     // Overriding save so that we can handle adding attachments
     var args = ModelUtils.normalizeModelArguments(key, val, options),
       attrs = _.extend(this.attributes, args.attrs);
-
-    return this._attachBlob(attrs.blob, attrs.name, args.options);
+    return this._attachBlob(attrs.blob, attrs.name, attrs.type, args.options);
   },
 
-  _attachBlob: function(blob, name, options) {
+  _attachBlob: function(blob, name, type, options) {
     var formData = new FormData(),
       self = this,
       progressHandler = Util.wrapHandler("progress", this, options.progress),
@@ -32,6 +31,7 @@ module.exports = Backbone.Model.extend({
 
     formData.append("file", blob);
     formData.append("name", name);
+    formData.append("type", type);
 
     options = options || {};
 

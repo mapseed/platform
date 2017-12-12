@@ -266,36 +266,6 @@
   <script src="{{config.app.api_root}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{config.app.api_root}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
 
-  <script type="text/javascript">
-  (function(S, $){
-    // Boostrapping the place types and their icons
-    S.Config = {
-      defaultPlaceTypeName: '{{ default_place_type }}',
-      userToken: (
-        S.bootstrapped.currentUser ?
-        'user:' + S.bootstrapped.currentUser.id :
-        "{{ user_token_json }}"), // NOTE: lost |safe filter
-      app:        {{#serialize config.app}}{{/serialize}},
-      //flavor:     {{#serialize config.data}}{{/serialize}}, // NOTE: this seems superfluous
-      place:      {{#serialize config.place}}{{/serialize}},
-      placeTypes: {{#serialize config.place_types}}{{/serialize}},
-      cluster:    {{#serialize config.cluster}}{{/serialize}},
-      survey:     {{#serialize config.survey}}{{/serialize}},
-      support:    {{#serialize config.support}}{{/serialize}},
-      map:        {{#serialize config.map}}{{/serialize}},
-      activity:   {{#serialize config.activity}}{{/serialize}},
-      sidebar:    {{#serialize config.sidebar}}{{/serialize}},
-      leaflet_sidebar: {{#serialize config.leaflet_sidebar}}{{/serialize}},
-      pages:           {{#serialize config.pages}}{{/serialize}}, // NOTE: lost |safe filter
-      story:           {{#serialize config.story}}{{/serialize}},
-      rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
-      filters:         {{#serialize config.filters}}{{/serialize}},
-      datasets:        {{#serialize config.datasets}}{{/serialize}}
-    };
-  <script>
-    moment.locale('{{languageCode}}');
-  </script>
-
   <!--[if IE LTE 7]>
   <script>
     $(function() {
