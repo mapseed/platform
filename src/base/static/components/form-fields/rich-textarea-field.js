@@ -117,6 +117,7 @@ class RichTextareaField extends Component {
               name: Math.random().toString(36).substring(7),
               blob: blob,
               file: canvas.toDataURL("image/jpeg"),
+              type: "RT" // richtext
             },
             editor = this.refs["quill-editor"].getEditor();
               
