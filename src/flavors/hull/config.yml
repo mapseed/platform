@@ -126,28 +126,28 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/comment-map-marker.svg
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+      # - condition: 'this.map.zoom < 15'
+      #   icon:
+      #     iconUrl: /static/css/images/markers/dot-dbcf2c.png
+      #     iconSize: [10, 12]
+      #     iconAnchor: [5, 12]
 
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+      # - condition: 'this.map.zoom < 15'
+      #   icon:
+      #     iconUrl: /static/css/images/markers/comment-map-marker.svg
+      #     iconSize: [15, 18]
+      #     iconAnchor: [7.5, 18]
 
-      - condition: 'this.map.zoom >= 16'
+      - condition: 'this.map.zoom >= 1'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/comment-map-marker.svg
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -363,7 +363,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: hull-input
-      icon_url: /static/css/images/markers/marker-observation.png
+      icon_url: /static/css/images/markers/comment-map-marker.svg
       value: community_input
       label: _(Add a comment)
       fields:
@@ -532,11 +532,11 @@ pages:
     slug: about
     name: overview
 
-cluster:
-  animate: true
-  animateAddingMarkers: false
-  showCoverageOnHover: false
-  spiderfyOnMaxZoom: true
-  spiderfyDistanceMultiplier: 1.5
-  spiderLegPolylineOptions:
-    opacity: 0
+# cluster:
+#   animate: true
+#   animateAddingMarkers: false
+#   showCoverageOnHover: false
+#   spiderfyOnMaxZoom: true
+#   spiderfyDistanceMultiplier: 1.5
+#   spiderLegPolylineOptions:
+#     opacity: 0
