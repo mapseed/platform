@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Trees!
+  title: New trees!
   # Site Link
-  link: Trees!
+  link: New trees!
   # Header name
-  name: Trees!
+  name: New trees!
   # Meta description that will show up in Google search results
   meta_description: _(Trees!)
   # Meta author that will show up in Google search results
@@ -39,10 +39,10 @@ map:
 
   options:
     center:
-      lat: 47.53273
-      lng: -122.32156
-    zoom: 13
-    minZoom: 7
+      lat: 47.52811
+      lng: -122.31974
+    zoom: 15
+    minZoom: 1
     maxZoom: 18
     maxBounds: [[45.2, -125], [49.3, -116.4]] # Including cushion
   layers:
@@ -391,19 +391,23 @@ sidebar:
               title: _(Original river path)
               visibleDefault: false
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
+            - id: trees
+              title: _(Trees!)
+              visibleDefault: true
 
-    - id: reports_legend
-      title: _(Legend:)
-      view: LegendView
-      icon: info-circle
-      items:
-        - title: _(Tree planted by DIRT Corps)
-          image: /static/css/images/markers/tree.png
+    # - id: ticker
+    #   view: ActivityView
+    #   icon: comments-o
+    #   activity: true
+    #   title: _(Activity Stream:)
+
+    # - id: reports_legend
+    #   title: _(Legend:)
+    #   view: LegendView
+    #   icon: info-circle
+    #   items:
+    #     - title: _(Tree planted by DIRT Corps)
+    #       image: /static/css/images/markers/tree.png
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
