@@ -13,6 +13,10 @@
 
 /*  Changes by Erika */
 
+#site-title {
+  margin-top: 3px;
+}
+
 #site-title a:link, #site-title a:visited {
   color: black !important;
   font-family: "Helvetica", sans-serif;
@@ -516,9 +520,25 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   #main-btns-container.main-btns-container--offset-left {
     left: 260px;
   }
+
+  #pages-nav-container {
+    line-height: 1.4em;
+  }
+
+  nav.access {
+    margin-top: -0.9em;
+  }
+
+  #language-picker {
+    margin-top: -1px;
+  }
 }
 
 @media only screen and (max-width: 60em) {
+  #site-title {
+    margin-top: 0;
+  }
+
   #list-container.is-exposed {
     display: block !important;
   }

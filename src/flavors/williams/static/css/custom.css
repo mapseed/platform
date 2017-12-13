@@ -13,11 +13,15 @@
 
 /*  Changes by Erika */
 
+#site-title {
+  margin-top: 3px;
+}
+
 #site-title a:link, #site-title a:visited {
-	color: black !important;
-	font-family: "Helvetica", sans-serif;
-	font-size: 1.4em;
-	line-height: 2.3;
+  color: black !important;
+  font-family: "Helvetica", sans-serif;
+  font-size: 1.4em;
+  line-height: 2.3;
 }
 
 #site-header {
@@ -26,20 +30,20 @@
 }
 
 a#nav-btn {
-	line-height: 0.7;
-	color: black;
-	text-shadow: none;
+  line-height: 0.7;
+  color: black;
+  text-shadow: none;
 }
 
 a.en_US btn btn-block, 
 a.es btn btn-block {
-	text-transform: none !important;
-	font-family: "Helvetica", sans-serif;
-	font-weight: normal;
+  text-transform: none !important;
+  font-family: "Helvetica", sans-serif;
+  font-weight: normal;
 }
 
 ul.menu {
-	background-color: white;
+  background-color: white;
 }
 
 
@@ -48,196 +52,196 @@ span.show-the-list,
 span.show-the-map, 
 a.current-language.en_US.btn.btn-block
 a.current-language.es.btn.btn-block  {
-	padding-left: 0;
-	text-transform: none;
- 	font-family: "Helvetica", sans-serif;
-	font-size: 1em;
-	color: black;
-	font-weight: normal;
-	line-height: 0.7;
-	background-color: rgba(0,0,0,0);
+  padding-left: 0;
+  text-transform: none;
+  font-family: "Helvetica", sans-serif;
+  font-size: 1em;
+  color: black;
+  font-weight: normal;
+  line-height: 0.7;
+  background-color: rgba(0,0,0,0);
 }
 
 a.current-language.en_US.btn.btn-block, 
 a.current-language.es.btn.btn-block, 
 a.en_US btn btn-block, 
 a.es btn btn-block {
-	padding-left: 0;
-	text-transform: none;
- 	font-family: "Helvetica", sans-serif;
-	font-size: 1em;
-	color: black;
-	font-weight: normal;
-	line-height: 0.9;
-	background-color: rgba(0,0,0,0);
-	border: none;
-	box-shadow: none;
+  padding-left: 0;
+  text-transform: none;
+  font-family: "Helvetica", sans-serif;
+  font-size: 1em;
+  color: black;
+  font-weight: normal;
+  line-height: 0.9;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  box-shadow: none;
 }
 
-	a.btn:hover {
-	color: black;
+  a.btn:hover {
+  color: black;
 }
 
 a#sign-in-btn {
-	text-transform: none;
- 	font-family: "Helvetica", sans-serif;
-	font-size: 0.9em;
-	color: #cccccc;
-	font-weight: normal !important;
-	line-height: 1.2;
-	background-color: rgba(0,0,0,0);
+  text-transform: none;
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.9em;
+  color: #cccccc;
+  font-weight: normal !important;
+  line-height: 1.2;
+  background-color: rgba(0,0,0,0);
 }
 
 div#pages-nav-container {
-	margin-left: 50px;
+  margin-left: 50px;
 }
 
 a.list-toggle-btn.btn.btn-block {
-	padding: none;
-	background-color: rgba(0,0,0,0);
-	box-shadow: none;
-	border: none;
+  padding: none;
+  background-color: rgba(0,0,0,0);
+  box-shadow: none;
+  border: none;
 }
 
 .btn-block {
-	padding: 0.4em 0em;
+  padding: 0.4em 0em;
 }
 
 div#language-picker {
   margin-left: 12px;
-	float:left;
+  float:left;
 }
 
 .btn-primary:visited, .btn-primary:link {
-	background-color: #4A90E2;
-	text-transform: none;
-	font-size: 0.8em;
-	font-weight: normal;
+  background-color: #4A90E2;
+  text-transform: none;
+  font-size: 0.8em;
+  font-weight: normal;
 }
 
 
 h5.mapseed-input-explorer-input-list-header__header, h5.summary-quote {
- 	font-family: "Georgia", serif;
-	color: #4A4A4A;
-	font-size: 1em;
-	padding-bottom: 1em;
+  font-family: "Georgia", serif;
+  color: #4A4A4A;
+  font-size: 1em;
+  padding-bottom: 1em;
 }
 
 div.mapseed-input-explorer-input-item {
-	width: 58%;
+  width: 58%;
 }
 
 p.mapseed-input-explorer-input-item__response-time {
- 	font-family: "Georgia", serif;
-	color: #4A4A4A;
-	font-size: 0.8em;
+  font-family: "Georgia", serif;
+  color: #4A4A4A;
+  font-size: 0.8em;
 }
 
 span.summary-bar-label__label, span.summary-bar-label__percentage {
-	font-family: "Helvetica", sans-serif;
-	font-size: 0.8em;
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.8em;
 }
 
 span.summary-total-items-header, span.mapseed-input-explorer-summary__num-concerns, span.mapseed-input-explorer-summary__num-recommendations {
-	font-family: "Helvetica", sans-serif;
-	font-size: 0.8em;
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.8em;
 }
 
 
 div#content.page.page-about {
-	font-family: "Helvetica", sans-serif;
-	font-size: 0.9em;
-	line-height: 1.5;
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.9em;
+  line-height: 1.5;
 }
 
 div#content.page.page-about h1 {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 div#content.page.page-about h2 {
-	font-size: 1em;
-	text-transform: uppercase;
+  font-size: 1em;
+  text-transform: uppercase;
 }
 
 div#content.page.page-about h3 {
-	font-size: 1em;
-	font-weight: bold;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 div#content.page.page-about em {
-	font-family: "Georgia", serif;
-	font-size: 1.2em;
-	color: #4A4A4A;
+  font-family: "Georgia", serif;
+  font-size: 1.2em;
+  color: #4A4A4A;
 }
 
 
 
 
 @media only screen and (max-width: 60em) {
-	.btn:visited, .btn:link {
-		background-color: white;
-		box-shadow: none;
-		border:none;
-		text-transform: none;
-		font-weight: normal;
-		color: black;
-	}
+  .btn:visited, .btn:link {
+    background-color: white;
+    box-shadow: none;
+    border:none;
+    text-transform: none;
+    font-weight: normal;
+    color: black;
+  }
 
-	nav.access ul.menu a.btn.btn-block.btn-secondary{
-		font-weight: normal;
-		text-align: left;
-		float: left;
-		width: 100%;
-		padding-left:0;
-	}
+  nav.access ul.menu a.btn.btn-block.btn-secondary{
+    font-weight: normal;
+    text-align: left;
+    float: left;
+    width: 100%;
+    padding-left:0;
+  }
 
-	a#sign-in-btn {
-	line-height:2.9;
-	}
+  a#sign-in-btn {
+  line-height:2.9;
+  }
 
-	span#add-place-btn-container,
-	a#add-place.btn.btn-block.btn-primary.btn-large {
-	background-color: #4A90E2;
-	font-size: 1.2em;
-	color: white;
-	}
+  span#add-place-btn-container,
+  a#add-place.btn.btn-block.btn-primary.btn-large {
+  background-color: #4A90E2;
+  font-size: 1.2em;
+  color: white;
+  }
 
-	#language-picker .menu .menu {
+  #language-picker .menu .menu {
     .en_US, .es {
-    	font-style: italic;
+      font-style: italic;
       padding: 0;
       margin-left: 40px;
     }
-	}
+  }
 }
 
 .access li li .btn {
-	background-color: white;
-	text-transform: capitalize;
-	font-size: 1em;
+  background-color: white;
+  text-transform: capitalize;
+  font-size: 1em;
 }
 
 .access li li .btn.btn-block {
-	width: 180px;
+  width: 180px;
 }
 
 div#main-btns-container.pos-top-right.pos-top-left {
-	background-color: #4A90E2;
+  background-color: #4A90E2;
 }
 
 /*form > ul.menu {
-	background-color: inherit;
-	box-sizing: inherit;
-	border: none;
+  background-color: inherit;
+  box-sizing: inherit;
+  border: none;
 }
 
 nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
-	float: left;
-	padding-top: 0.3em;
+  float: left;
+  padding-top: 0.3em;
 }*/
 
 /*div#language-picker {
-	clear: both;
+  clear: both;
 }*/
 
 /*  End of changes by Erika */
@@ -361,7 +365,7 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
 /* Map legend */
 #map-legend {
   padding: 20px;
-	font-size: 14px;
+  font-size: 14px;
 }
 
 #map-legend hr {
@@ -516,9 +520,25 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   #main-btns-container.main-btns-container--offset-left {
     left: 260px;
   }
+
+  #pages-nav-container {
+    line-height: 1.4em;
+  }
+
+  nav.access {
+    margin-top: -0.9em;
+  }
+
+  #language-picker {
+    margin-top: -1px;
+  }
 }
 
 @media only screen and (max-width: 60em) {
+  #site-title {
+    margin-top: 0;
+  }
+
   #list-container.is-exposed {
     display: block !important;
   }
