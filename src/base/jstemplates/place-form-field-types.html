@@ -129,7 +129,7 @@
 
 {{#is type "dropdown"}}
   <div>
-    <select name={{ ../name }} 
+    <select name={{ name }} 
             {{^optional}}required{{/optional}}
             {{#if isAutocomplete}}class="is-autocomplete"{{/if}}>
       <option value="" name="no_response">{{#_}}Select...{{/_}}</option>
