@@ -33,19 +33,26 @@ class InputExplorerSummary extends Component {
     let summaryInfoBySubcategory = [];
 
     this.props.subcategoryNames.forEach((subcategory) => {
-      let info = {};
+      let info = {},
+          modelsFilteredBySubcategory = this.props.communityInput.filter((model) => {
+            let inputSubcategory = model.get("input_subcategory");
 
-      info["total"] = this.props.communityInput.where({
-        input_subcategory: subcategory.value
-      }).length;
+            // there might be a single string subcategory, or an array of subcategories
+            if (Array.isArray(inputSubcategory)) {
+              return inputSubcategory.includes(subcategory.value);
+            } else {
+              return inputSubcategory === subcategory.value;
+            }
+          });
+
+      modelsFilteredBySubcategory = new Backbone.Collection(modelsFilteredBySubcategory);
+      info["total"] = modelsFilteredBySubcategory.length
       info["label"] = subcategory.label;
-      info["numRecommendations"] = this.props.communityInput.where({ 
+      info["numRecommendations"] = modelsFilteredBySubcategory.where({ 
         input_category: "recommendation",
-        input_subcategory: subcategory.value
       }).length;
-      info["numConcerns"] = this.props.communityInput.where({ 
+      info["numConcerns"] = modelsFilteredBySubcategory.where({ 
         input_category: "concern",
-        input_subcategory: subcategory.value
       }).length;
 
       summaryInfoBySubcategory.push(info);
