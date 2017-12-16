@@ -1,0 +1,29 @@
+{{#extends "../../../base/templates/base"}}
+
+{{#block "site-title"}}
+<a href="/">{{ config.app.name }}</a>
+{{/block}}
+
+<!--
+  This will place content at the top of the side bar
+ -->
+{{#block "sidebar"}}
+{{/block}}
+
+{{#block "language_picker"}}
+{{/block}}
+
+<!--
+  This will place content in the colophon below the map
+ -->
+{{#block "colophon"}}
+<p id="powered-by">{{#_}}Powered by{{/_}} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a></span></p>
+{{/block}}
+
+<!--
+  Analytics, custom JS, and such go here
+ -->
+{{#block "includes"}}
+{{/block}}
+
+{{/extends}}
