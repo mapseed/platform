@@ -259,7 +259,7 @@ map:
 
     - id: commfood
       type: json
-      url: http://geo.wa.gov/datasets/a6eab5a8615340f1aacbd65320c2c4c9_0.geojson
+      url: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
       popupContent: '{{MarketName}}'
       rules:
         - condition: '"{{true}}"'
