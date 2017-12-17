@@ -1,13 +1,13 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Mapseed Demo
+  title: Puyallup Watershed
   # Header name
-  name: "Mapseed Demo"
+  name: "Puyallup Watershed"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
-  meta_author: SmarterCleanup.org
+  meta_author: HaxGeo.com
 
   # This should be set to the root of an api server from which you'd like to draw
   # permissions information for logged-in users. This value can be overridden
@@ -42,9 +42,9 @@ map:
 
   options:
     center:
-      lat: 47.53722
-      lng: -122.32573
-    zoom: 16
+      lat: 47.17431
+      lng: -122.09621
+    zoom: 11
     minZoom: 1
     maxZoom: 18
 
@@ -317,17 +317,15 @@ place:
           optional: false
         - name: pollution_type
           type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
+          prompt: _(Additional notes:)
           display_prompt: _( )
           content:
-            - label: _(Sewage)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
+            - label: _(One)
+              value: one
+            - label: _(Two)
+              value: two
+            - label: _(Three)
+              value: three
             - label: _(Other)
               value: other
           optional: true # NOTE: checkbox_big_button inputs have no validation
