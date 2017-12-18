@@ -63,12 +63,12 @@ map:
       type: basemap
 
     - id: pwi-input
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-input
       type: place
       slug: report
 
     - id: pwi-featured
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-featured
       type: place
       slug: report
 
