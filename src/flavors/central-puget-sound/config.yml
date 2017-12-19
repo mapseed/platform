@@ -2353,6 +2353,13 @@ pages:
     start_page: true
     pull_right: true
 
+  - title: _(Guide)
+    slug: guide
+    name: guide
+    hide_from_top_bar: false
+    start_page: true
+    pull_right: true
+
   - title: _(Sponsors)
     slug: sponsors
     name: sponsors

@@ -50,21 +50,31 @@ map:
 
   layers:
     - id: osm
-      url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
+      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    - id: light-nolabels
+      url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
+      type: basemap
 
-    - id: duwamish
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
+    - id: pwi-input
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-input
       type: place
       slug: report
+
+    - id: pwi-featured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-featured
+      type: place
+      slug: report
+
+    - id: watershed-puyallup
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/aea1ff97-2c79-48a1-a3a7-040e4d7aadd1/viz.json"
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -188,35 +198,16 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  greenwall:
-    label: _(Green Screen Vote)
+  featured_place:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 15'
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom <= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
-
-      - condition: 'this.map.zoom >= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
 
 # Sidebar and activity stream should be enabled and disabled together!
@@ -241,17 +232,25 @@ sidebar:
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
-        - id: dark
-          title: _(Dark)
+        - id: light-nolabels
+          title: _(Light)
           visibleDefault: false
       groupings:
         - id: grp-community
           title: _(Community Data)
           visibleDefault: true
           layers:
-            - id: duwamish
+            - id: pwi-input
               title: _(Community Reports)
               visibleDefault: true
+
+            - id: pwi-featured
+              title: _(Featured sites)
+              visibleDefault: true
+
+            - id: watershed-puyallup
+              title: _(WRIA 10 Streams)
+              visibleDefault: false
 
     - id: ticker
       view: ActivityView
@@ -301,10 +300,52 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: pwi-featured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+            - url: /static/css/images/markers/map-pin-marker.png
+            - url: /static/css/images/markers/map-pin-marker-red.png            
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submit
+          type: commonFormElement
+
     - category: observation
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pwi-input
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -347,7 +388,7 @@ place:
     - category: question
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pwi-input
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -375,7 +416,7 @@ place:
     - category: idea
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pwi-input
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -404,7 +445,7 @@ place:
     - category: complaint
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pwi-input
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
