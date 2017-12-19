@@ -50,7 +50,7 @@ map:
 
   layers:
     - id: osm
-      url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
+      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -292,6 +292,48 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: pwi-featured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+            - url: /static/css/images/markers/map-pin-marker.png
+            - url: /static/css/images/markers/map-pin-marker-red.png            
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submit
+          type: commonFormElement
+          
     - category: observation
       includeOnForm: true
       name: location_type
@@ -418,48 +460,6 @@ place:
           type: commonFormElement
         - name: my_image
           type: commonFormElement
-        - name: submit
-          type: commonFormElement
-
-    - category: featured_place
-      admin_only: true
-      includeOnForm: true
-      showMetadata: false
-      suppressAttachments: true
-      horizontal_rule: true
-      name: location_type
-      dataset: pwi-featured
-      icon_url: /static/css/images/markers/marker-star.png
-      value: featured_place
-      label: _(Featured Site)
-      fields:
-        - name: published
-          type: publishControl
-        - name: geometry
-          type: geometryToolbar
-          content:
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industrial.png
-            - url: /static/css/images/markers/map-pin-marker.png
-            - url: /static/css/images/markers/map-pin-marker-red.png            
-        - name: title
-          type: text
-          prompt: _(Title of this featured site:)
-          display_prompt: _( )
-          placeholder: _(Enter title...)
-          optional: false
-        - name: description
-          type: richTextarea
-          prompt: _(Description:)
-          display_prompt: _( )
-          placeholder: _( )
-        - name: url-title
-          type: url-title
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: submit
           type: commonFormElement
 
