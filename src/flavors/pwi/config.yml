@@ -72,6 +72,10 @@ map:
       type: place
       slug: report
 
+    - id: watershed-puyallup
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/aea1ff97-2c79-48a1-a3a7-040e4d7aadd1/viz.json"
+
 # The values map the place type to map icons (defined below).
 place_types:
   observation:
@@ -244,6 +248,10 @@ sidebar:
               title: _(Featured sites)
               visibleDefault: true
 
+            - id: watershed-puyallup
+              title: _(WRIA 10 Streams)
+              visibleDefault: false
+
     - id: ticker
       view: ActivityView
       icon: comments-o
@@ -333,7 +341,7 @@ place:
           optional: true
         - name: submit
           type: commonFormElement
-          
+
     - category: observation
       includeOnForm: true
       name: location_type
