@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Puyallup Watershed
+  title: Just & Healthy Food
   # Header name
-  name: "Puyallup Watershed"
+  name: "Just & Healthy Food"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
