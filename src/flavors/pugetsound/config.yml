@@ -189,6 +189,23 @@ map:
           style:
             opacity: 0.9
 
+    - id: clean-marinas
+      type: json
+      url: "https://raw.githubusercontent.com/mapseed/data/master/clean-marinas.geojson"
+      popupContent: '<strong>{{marina-name}}</strong>'
+      rules:
+        - condition: 'true'          
+          icon:
+            iconUrl: /static/css/images/markers/map-pin-marker-bluegreen.png
+            iconSize: [30, 35]
+            iconAnchor: [25, 35]
+
+    - id: hydrography
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?
+      layers: '0'
+      version: 1.3.0
+      transparent: false
+      format: image/png
 # The values map the place type to map icons (defined below).
 place_types:
 
@@ -321,6 +338,9 @@ sidebar:
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
+        - id: hydrography
+          title: _(Hydrography)
+          visibleDefault: false          
         - id: light-nolabels
           title: _(Simple)
           visibleDefault: false
@@ -352,6 +372,9 @@ sidebar:
               visibleDefault: false
             - id: spill-incidents
               title: _(Oil Spill Incidents)
+              visibleDefault: false
+            - id: clean-marinas
+              title: _(Clean Marinas)
               visibleDefault: false
 
     # - id: ticker
@@ -719,11 +742,43 @@ story:
     default_visible_layers:
       - pugetsoundfeatured
     order: 
+      - url: tacoma-tideflats
+        zoom: 13
+        basemap: satellite
+        spotlight: false      
       - url: atlantic-salmon
         zoom: 14
         basemap: satellite
+      - url: west-point-sewage-spill
+        zoom: 16
+        spotlight: false
+        basemap: satellite
       - url: longfellow-salmon
         zoom: 18
+        basemap: satellite      
+      - url: clean-marinas
+        zoom: 9
+        visible_layers:
+          - clean-marinas
+        spotlight: false
+        basemap: light-nolabels
+      - url: shellfish
+        zoom: 9
+        visible_layers:
+          - shellfish-harvesting
+        basemap: light-nolabels
+        spotlight: false
+      - url: oil-spills
+        zoom: 9
+        visible_layers:
+          - spill-incidents
+        basemap: light-nolabels
+        spotlight: false       
+      - url: sewer-overflow
+        zoom: 12
+        visible_layers:
+          - cso
+        spotlight: false
         basemap: satellite
 
   rose-grants:
