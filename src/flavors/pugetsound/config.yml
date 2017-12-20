@@ -74,6 +74,15 @@ map:
       type: place
       slug: report
 
+    - id: 1936aerial
+      type: wmts
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?
+      layers: BaseMaps_KingCo_Aerial_1936
+      tilematrixSet: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/jpg
+
     # Geoserver-based WMS spill incidents layer
     # - id: spill-incidents
     #   type: wms
@@ -340,7 +349,10 @@ sidebar:
           visibleDefault: false
         - id: hydrography
           title: _(Hydrography)
-          visibleDefault: false          
+          visibleDefault: false
+        - id: 1936aerial
+          title: _(1936 Aerial View)
+          visibleDefault: false                    
         - id: light-nolabels
           title: _(Simple)
           visibleDefault: false
