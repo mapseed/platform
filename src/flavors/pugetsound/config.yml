@@ -135,6 +135,24 @@ map:
       layers:
         - shellfish-harvesting
 
+    - id: chinook
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/soundkeeper/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - chinook-habitat
+
+    - id: critical-habitat
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/soundkeeper/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - nearshore-critical-habitat
+
     - id: pugetsoundrose
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose
       type: place
@@ -349,6 +367,12 @@ sidebar:
           title: _(Map layers)
           visibleDefault: true
           layers:
+            - id: chinook
+              title: _(Chinook Habitat)
+              visibleDefault: false
+            - id: critical-habitat
+              title: _(Nearshore Critical Habitat)
+              visibleDefault: false
             - id: pugetsound
               title: _(Community Reports)
               visibleDefault: true
