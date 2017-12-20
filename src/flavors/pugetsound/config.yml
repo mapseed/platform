@@ -379,12 +379,6 @@ sidebar:
           title: _(Map layers)
           visibleDefault: true
           layers:
-            - id: chinook
-              title: _(Chinook Habitat)
-              visibleDefault: false
-            - id: critical-habitat
-              title: _(Nearshore Critical Habitat)
-              visibleDefault: false
             - id: pugetsound
               title: _(Community Reports)
               visibleDefault: true
@@ -411,6 +405,12 @@ sidebar:
               visibleDefault: false
             - id: clean-marinas
               title: _(Clean Marinas)
+              visibleDefault: false
+            - id: chinook
+              title: _(Chinook Habitat)
+              visibleDefault: false
+            - id: critical-habitat
+              title: _(Nearshore Critical Habitat)
               visibleDefault: false
 
     # - id: ticker
