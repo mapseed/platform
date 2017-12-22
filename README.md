@@ -1,7 +1,5 @@
 # Mapseed _(platform)_
 
-[![Build Status](https://secure.travis-ci.org/mapseed/platform.png)](http://travis-ci.org/mapseed/platform)
-
 > A simple, beautiful way to collect information and tell geographic stories.
 
 Mapseed is a platform that allows anyone to create community-driven maps on the web. These maps allow users to report issues or submit ideas and respond to the issues & ideas of others. Combine user-generated content with external data overlaid on the same map to allow anyone to see what's going on in the area at a glance.
@@ -16,6 +14,7 @@ This module, `platform`, is the tool for creating the maps themselves, while the
   - [Connecting to an API](#connecting-to-an-api)
   - [Configuring](#configuring)
   - [Starting your map server](#starting-your-map-server)
+  - [Localizing your map](#localizing-your-map)  
   - [Using the in-app editor](#using-the-in-app-editor)
 - [Maintainers](#maintainers)
 - [Contribute](#contribute)
@@ -30,47 +29,14 @@ The Mapseed platform is a fork of [Shareabouts](https://github.com/openplans/sha
 
 ## Install
 
-Hey Duwamish! requires Python 2.7 ([Instructions for Windows](/doc/WINDOWS_SETUP.md)) and [Node + and the latest npm](https://nodejs.org/en/download/package-manager/).
+Mapseed requires [Node + and the latest npm](https://nodejs.org/en/download/package-manager/). We recommend managing node/npm versions using [nvm](https://github.com/creationix/nvm).
 
-Install `pip` and `virtualenv`, if not already installed. These will keep your python code isolated from the rest of your machine and ensure you have the correct versions.
-
-```
-easy_install pip
-pip install virtualenv
-```
-You may need to use `sudo`to install these tools.
-
-```
-sudo easy_install pip
-sudo pip install virtualenv
-```
-If you are still getting an error, it means you need to install Python Setup Tools.
-```
-sudo apt-get install python-setuptools
-```
-
-Create a new virtual environment inside of the repository folder, and install the project requirements:
-
-```
-virtualenv env --python=python2.7
-source env/bin/activate
-pip install -r app-requirements.txt
-```
-
-Now install npm dependencies:
+To install npm dependencies:
 
 ```
 # In project folder
 npm install
 ```
-
-**NOTE:** If you run into trouble with gevent, you can safely comment it out of the requirements.txt file. It is not needed for local development. To comment it out, just add a hash "`#`" to the beginning of the line for `gevent`.
-
-**NOTE:** If you have trouble with `pip install -r app-requirements.txt`, you may need to install the Python development libraries (for Python.h). The Windows installation has them by default, but some UNIX-based systems with a pre-installed Python may not. On such systems, you may need to run `sudo apt-get install python-dev` or download a fresh installer from python.org.
-
-**NOTE:** For Linux users on RHEL/CentOS distros, you will need to have the following libraries installed: `sudo yum groupinstall 'Development Tools'` and `sudo yum install python-devel postgresql-devel`
-
-**NOTE:** Mac OS X users need a command line C/C++ compiler in place for the above steps to work. This can be done by downloading Xcode from the App Store and then installing the Command Line Tools via Xcode's Preferences > Downloads area.
 
 ## Usage
 
@@ -78,52 +44,131 @@ npm install
 
 ### Connecting to an API
 
-In order to collect and store user reports, the map must be configured to connect to a [Mapseed API](https://github.com/mapseed/api) backend.
+In order to collect and store user reports, the map must be configured to connect to a [Mapseed API](https://github.com/mapseed/api) backend. By default, map flavors are configured to connect to a hosted development API for testing purposes.
 
 ### Configuring
 
-To customize your map with everything from your API URL to the extra data you want to display, you'll edit your flavor's `config.yml` file. For more information on the configuration process and what options are available, see [the config documentation](https://github.com/mapseed/platform/blob/master/doc/CONFIG.md).
+To customize your map with everything from the input form you want users to complete to the extra data you want to display, you'll edit your flavor's `config.yml` file. For more information on the configuration process and what options are available, see [the config documentation](https://github.com/mapseed/platform/blob/master/doc/CONFIG.md).
 
-### Starting your map server
+### Running your map in a browser
 
 If you want to see your map in action, simply run:
 
 ```
-npm start
+FLAVOR=<flavor> npm start
 ```
 
-By default, this will serve your map at [http://localhost:8000](http://localhost:8000).
+where `<flavor>` should be replaced with the name of a map flavor. If you're building your own flavor you can use that name, otherwise you can try a pre-made flavor, such as `duwamish_flavor`.
 
-**NOTE:** If you're new to programming with virtualenv, be sure to remember to activate your virtual environment every time you start a new terminal session:
+By default, this will serve your map at [http://localhost:8000](http://localhost:8000), but will *not* perform localization (should your map have multiple languages). To build a production bundle with localizations suitable for deployment, run:
 
 ```
-source env/bin/activate
+FLAVOR=<flavor> npm run build
 ```
 
-### Use the Dev API
+Alternatively, to build a production bundle and also start the development server at [http://localhost:8000](http://localhost:8000), run:
 
-If you want to develop without setting up your own [Mapseed API backend](https://github.com/mapseed/api), we've got you covered! Copy and paste this into `src/.env` to connect your local install to the Dev API (full of dummy Duwamish data):
+```
+NODE_ENV=production FLAVOR=<flavor> npm start
+```
+
+By default, this will output all production files to a folder called `www` in the root of the project. This folder will contain all the assets required to deliver your map to users. Furthermore, the assets output to `www` will be entirely static, meaning they won't require a server to host, and can be made available via a static site hosting service such as AWS's S3.
+
+### Using the Dev API
+
+By default, map flavors that you run locally will coneect to a hosted development API. However, if you want to host your own [Mapseed API backend](https://github.com/mapseed/api), either for testing or production purposes, it will be necessary to build your map flavors against a `.env` file with the necessary configuration information.
+
+To do so, create a file at `src/.env` (note the `.` character in the filename), and add information in the following format:
+
+```
+API_ROOT=http://localhost:8001/api/v2/ # note trailing slash
+
+TREES_SITE_URL=http://localhost:8001/api/v2/username/datasets/trees
+RESTORATION_SITE_URL=http://localhost:8001/api/v2/username/datasets/restoration
+```
+
+The value of `API_ROOT` should match the server on which your map datasets are running, and should contain a trailing `/` character. If you're hosting your API on a server called `api.mymap.com`, for example, the value of `API_ROOT` would be:
+
+```
+API_ROOT=http://api.mymap.com/api/v2/ # note trailing slash
+```
+
+For each dataset that your map connects to, you'll need a line that tells the map where to find this dataset. Dataset key names should take the format `<DATASET>_SITE_URL`, where `<DATASET>` is the UPPERCASE name of the dataset referenced in the `config.yml` file for your flavor.
+
+Note that you can also set the `FLAVOR` variable in your `.env` file:
 
 ```
 FLAVOR=duwamish_flavor
-SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish/
-SITE_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
-
-DUWAMISH_SITE_URL=https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
-DUWAMISH_DATASET_KEY=MGMzOWU2ZmUwZmFkZDYzZTI1ZmQ3MDhi
 ```
+
+Doing so will remove the need to pass this value in when your run `npm start` or `npm run build`.
+
+### Localizing your map
+
+It is possible to render the text of your map flavor in multiple languages. Mapseed uses the [Gettext](https://www.gnu.org/software/gettext/) system to localize content. Gettext works by  producing a catalog of all the strings in your map flavor. Such catalogs usually have the file extension `.po`, and are designed to be distributed to translators. Translators translate content in the `.po` file and return the finished file when they're done. The translated `.po` file is saved in a designated place in your project's folder structure, and is used during the build process to produce localized versions of your map.
+
+You'll generally encounter two scenarios when localizing your map: then need to produce a `.po` file for a brand new language which you've never translated before, and the need to update the `.po` files for all existing languages with new content.
+
+To generate a `.po` file for a brand new language for a given flavor, run the following in the root of the project:
+
+```
+FLAVOR=<flavor> node scripts/make-flavor-messages.js --set-new-locale=<language_tag>
+```
+
+where `<flavor>` is the name of the flavor you'd like to localize, and `<language_tag>` is the standard language and country code for the target language. (See [here](https://www.w3.org/International/articles/language-tags/) for more information about language tags.)
+
+To update all existing locales with new content for a given flavor, run the following in the root of the project:
+
+```
+FLAVOR=<flavor> node scripts/make-flavor-messages.js
+```
+
+where `<flavor>` is the name of the flavor whose locales you'd like to update:
+
+`.po` files for a given flavor locale can be found in the `src/flavors/<flavor>/locale/<language_tag>/LC_MESSAGES/messages.po` file, where `<flavor>` is the name of the flavor and `<language_tag>` is the name of the language tag. Using the `make-flavor-messages.js` tool will create a new folder in the `locale` matching the new language. Translated `.po` files should be returned to the correct language folder in the `locale` directory to work correctly.
+
+You may also wish to do the same for the base project itself:
+```
+node scripts/make-base-messages.js --set-new-locale=<language_tag>
+```
+For a new language locale
+```
+node scripts/make-base-messages.js
+```
+To update an existing locale
+
+#### Marking content as localizable
+
+Gettext will look for localizable content in two places: your flavor's `config.yml` file, and  any `jstemplates` files defined by your flavor. When Gettext produces a `.po` file, it will ignore content unless that content is explicitly marked as localizable.
+
+To mark content in your `config.yml` file as localizable, wrap it in the following way:
+
+```
+_(This string will be localized.)
+
+This string will not.
+```
+
+To mark content in your `jstemplates` files as localizable, wrap it in the following way:
+
+```
+{{#_}}<p>This string will be localized.</p>{{/_}}
+
+<p>This string will not.</p>
+```
+
 
 ### Using the in-app editor
 
-The platform includes an in-app editor that you can use to update and hide places and comments on a per-dataset basis. Only authenticated administrators are allowed to make edits. Authentication is performed via third-party social media services (Twitter and Facebook are currently supported), so administrators will need an account on either of these services to use the editor.
+Mapseed includes an in-app editor that you can use to update and hide places and comments on a per-dataset basis. Only authenticated administrators are allowed to make edits. Authentication is performed via third-party social media services (Twitter, Facebook, and Google+ are currently supported), so administrators will need an account on one of these services to use the editor.
 
 Follow these instructions to grant administrator privileges to one or more users:
 
 1. If the user to whom you'd like to grant administrator privileges has previously logged into your app via a social media service, skip to the next step. Otherwise, you'll need to manually add the user before granting privileges. Follow these steps:
 
-    * In the admin panel, click `Users`, then `Add user +`, then create a new user. The username you enter here must match the social media username of the person to whom you'd like to grant administrator privileges. 
+    * In the admin panel, click `Users`, then `Add user +`, then create a new User. The username you enter here is arbitrary, although for convenience it may match the social media username of the person to whom you'd like to grant administrator privileges. Note that you may add several user social auths under a single User.
 
-    * Next, in the `User social auths` panel, click `Add user social auth +`, select the user you just created under `User`, enter the name of the social service provider (`twitter` or `facebook`), then enter the social user's `Uid`. The `Uid` can be looked up online: [here](https://tweeterid.com/) for Twitter, and [here](https://lookup-id.com/) for Facebook.
+    * Next, in the `User social auths` panel, click `Add user social auth +`, select the User you just created under `User` (or choose an existing User), enter the name of the social service provider (`twitter`, `facebook`, or `google-oauth2`), then enter the social user's `Uid`. The `Uid` can be looked up online: [here](https://tweeterid.com/) for Twitter, and [here](https://lookup-id.com/) for Facebook. For Google, the `Uid` is the user's email address.
 
 2. In the Django admin panel, click on `Data sets` and then the name of the dataset you'd like to grant administrator privileges for.
 

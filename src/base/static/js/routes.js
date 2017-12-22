@@ -126,17 +126,13 @@ Shareabouts.Util = Util;
         return layer.type && layer.type === "place";
       });
       _.each(configArrays.places, function(config) {
-        var collection = new PlaceCollection([], {
-          url: "/dataset/" + config.id + "/places",
-        });
+        var collection = new PlaceCollection([], { url: config.url + "/places" });
         self.places[config.id] = collection;
       });
 
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
-        var collection = new ActionCollection([], {
-          url: "/dataset/" + config.id + "/actions",
-        });
+        var collection = new ActionCollection([], { url: config.url + "/actions" });
         self.activities[config.id] = collection;
       });
 
@@ -146,10 +142,12 @@ Shareabouts.Util = Util;
         places: this.places,
         landmarks: this.landmarks,
         datasetConfigs: configArrays,
+        apiRoot: options.appConfig.api_root,
         config: options.config,
         defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
         cluster: options.cluster,
+        appConfig: options.appConfig,
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
         pagesConfig: options.pagesConfig,

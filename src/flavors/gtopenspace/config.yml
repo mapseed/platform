@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -69,10 +74,12 @@ map:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.k9dcl2i9/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: gtopenspace2
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/gtopenspace2
       type: place
       slug: idea
 
     - id: gtopenspace1
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/gtopenspace1
       type: place
       slug: site
 
@@ -443,35 +450,6 @@ place_types:
           iconUrl: /static/css/images/markers/marker-e1264d.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
-  streetscape:
-    label: _(Streetscape)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [60, 60]
-          iconAnchor: [30, 30]
-          shadowSize: [60, 60]
-          shadowAnchor: [30, 30]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          iconSize: [12, 12]
-          iconAnchor: [6, 6]
-
-      - condition: 'this.map.zoom < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          iconSize: [18, 18]
-          iconAnchor: [9, 9]
-
-      - condition: 'this.map.zoom >= 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-green.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
 
   park-improvement:
     label: _(Park Improvement)
@@ -638,7 +616,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show list of ideas)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)
@@ -670,6 +647,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: medium
       includeOnForm: true
       name: location_type
@@ -690,6 +671,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: low
       includeOnForm: true
       name: location_type
@@ -710,6 +695,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: streetscape
       includeOnForm: false
       name: location_type
@@ -730,6 +719,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: park-improvement
       includeOnForm: false
       name: location_type
@@ -750,6 +743,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: streetscape
       includeOnForm: false     
@@ -771,6 +768,10 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
     - category: park-improvement
       includeOnForm: false     
@@ -792,26 +793,14 @@ place:
           display_prompt:
           placeholder: _(Enter comment...)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    # - name: submitter_name
-    #   type: text
-    #   prompt: _(Your name)
-    #   placeholder: _(Name)
-    #   optional: true
-    # - name: private-submitter_email
-    #   type: text
-    #   prompt: _(Your Email)
-    #   placeholder: _(Receive email updates on your report)
-    #   optional: true
-    #   sticky: true
-    #   attrs:
-    #     - key: placeholder
-    #       value: _(Receive email updates on your report)
-    #     - key: size
-    #       value: 30
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -819,7 +808,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####

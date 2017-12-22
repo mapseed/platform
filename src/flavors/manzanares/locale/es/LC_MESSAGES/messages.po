@@ -1,0 +1,545 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-16 12:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Sonia D-B- <sonarqpaisajes@gmail.com>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/mapseed/teams/80778/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgstr ""
+
+msgid "Log Out"
+msgstr "Cerrar sesión"
+
+msgid "Admin"
+msgstr "Administrador"
+
+msgid "Manzanares Corridor"
+msgstr "Corredor Manzanares"
+
+msgid "Welcome!"
+msgstr "Bienvenido!"
+
+msgid ""
+"Over the next few months, we will work with community members and local "
+"stakeholders to design a plan for the garden and begin construction soon "
+"after."
+msgstr ""
+"En los próximos meses, trabajaremos con los miembros de la comunidad y las "
+"partes locales interesadas para diseñar un plan para el parque y comenzar su"
+" construcción poco después."
+
+msgid "Comment"
+msgstr "Comentarios"
+
+msgid "Default"
+msgstr "Mapa"
+
+msgid "Satellite"
+msgstr "Satélite"
+
+msgid "Terrain"
+msgstr "Topografía"
+
+msgid "Map detail"
+msgstr "Capas"
+
+msgid "Transit"
+msgstr "Transportes públicos"
+
+msgid "Biking"
+msgstr "Ruta bici"
+
+msgid "Zoning"
+msgstr "Zonificación"
+
+msgid "Urban gardens"
+msgstr "Jardines urbanos"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "Partners"
+msgstr "Colaboradores"
+
+msgid "Project"
+msgstr "Proyecto"
+
+msgid "Climate risks"
+msgstr "Riesgos climáticos"
+
+msgid "Heat Waves"
+msgstr "Olas de calor"
+
+msgid "Add your comments"
+msgstr "Añade tus comentarios"
+
+msgid "added"
+msgstr ""
+
+msgid "Tell us more..."
+msgstr ""
+
+msgid "Someone"
+msgstr ""
+
+msgid "Put it on the map!"
+msgstr "¡Ponlo en el mapa!"
+
+msgid "Partner Site"
+msgstr "Sitio asociado"
+
+msgid "Location:"
+msgstr "Localización"
+
+msgid "Address"
+msgstr "Dirección"
+
+msgid "Enter address..."
+msgstr "Pon la dirección"
+
+msgid "Title of this featured site:"
+msgstr "Título de este sitio destacado:"
+
+msgid " "
+msgstr ""
+
+msgid "Enter title..."
+msgstr "Pon el título..."
+
+msgid "Choose a custom URL for this place:"
+msgstr ""
+
+msgid "Project Site"
+msgstr "Lugar del proyecto"
+
+msgid "Add a comment"
+msgstr "Añade un comentario"
+
+msgid "How old are you?"
+msgstr "¿Qué edad tienes?"
+
+msgid "Are you a regular user of this garden?"
+msgstr "¿Usas regularmente este parque?"
+
+msgid "I am a regular user of this garden:"
+msgstr "Uso regularmente el parque:"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "No"
+msgstr "No"
+
+msgid "Do you have children at home?"
+msgstr "¿Tienes niños/as en casa?"
+
+msgid "I have children at home:"
+msgstr "Tengo niños/as en casa:"
+
+msgid "What is your preferred language?"
+msgstr "¿Qué idioma prefieres?"
+
+msgid "My preferred language:"
+msgstr "Mi idioma preferido:"
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Other"
+msgstr "Otro"
+
+msgid "What type of comment is this?"
+msgstr "¿Qué tipo de comentario es?"
+
+msgid "Recommendation"
+msgstr "Recomendación"
+
+msgid "Recommendations"
+msgstr "Recomendaciones"
+
+msgid "Concern"
+msgstr "Preocupación"
+
+msgid "Concerns"
+msgstr "Preocupaciones"
+
+msgid "What would encourage you to use this space more often?"
+msgstr "¿Por qué elegirías utilizar este parque?"
+
+msgid "Write your comment here"
+msgstr "Escribe un comentario aquí"
+
+msgid "Select any of the below categories that apply:"
+msgstr "Elige cualquiera de las categorías siguientes que se apliquen:"
+
+msgid "Amenities"
+msgstr "Servicios"
+
+msgid "Horticulture"
+msgstr "Horticultura"
+
+msgid "Programs"
+msgstr "Programs"
+
+msgid "Safety"
+msgstr "Seguridad"
+
+msgid "Experience"
+msgstr "Experiencia"
+
+msgid "Your name"
+msgstr "Tu nombre"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Enter your email address for updates"
+msgstr "Pon tu dirección de correo electrónico para recibir actualizaciones"
+
+msgid "name@mail.com"
+msgstr ""
+
+msgid "Image"
+msgstr "Imagen"
+
+msgid "Add an Image"
+msgstr "Añade una imagen"
+
+msgid "Submit comment"
+msgstr "Enviar un comentario"
+
+msgid "comment"
+msgstr ""
+
+msgid "comments"
+msgstr ""
+
+msgid "commented on"
+msgstr ""
+
+msgid "Leave a Comment"
+msgstr "Deja un comentario"
+
+msgid "Your Name"
+msgstr "Tu nombre"
+
+msgid "Support"
+msgstr ""
+
+msgid "support"
+msgstr ""
+
+msgid "supports"
+msgstr ""
+
+msgid "Map"
+msgstr "Mapa"
+
+msgid "Train"
+msgstr "Tren"
+
+msgid "Bus"
+msgstr "Bus"
+
+msgid "Residential"
+msgstr "Residencial"
+
+msgid "Industrial - Manufacturing"
+msgstr "Industrial"
+
+msgid "Commercial"
+msgstr "Terciario Comercial"
+
+msgid "Green areas - Parks"
+msgstr "Áreas verdes - Parques"
+
+msgid "Land temperature"
+msgstr "Temperaturas"
+
+msgid "Flood zones"
+msgstr "Zonas inundables"
+
+msgid "Category 1 Hurricane"
+msgstr ""
+
+msgid "Category 2 Hurricane"
+msgstr ""
+
+msgid "Category 3 Hurricane"
+msgstr ""
+
+msgid "Category 4 Hurricane"
+msgstr ""
+
+msgid "Corredor Manzanares"
+msgstr "Corredor Manzanares"
+
+msgid ""
+"The Manzanares Corridor is a project that links the Casa de Campo park to "
+"the playful and cultural enclave of Madrid Rio, which is just over 2 km "
+"away. These places are separated by the river Manzanares, on one side of the"
+" Corridor is the Palacio neighborhood, located in the Centro district, and "
+"on the other side are the Puerta del Ángel and Cármenes neighborhoods, in "
+"the Latina district."
+msgstr ""
+"El Corredor Manzanares es un proyecto que une el parque Casa de Campo al "
+"enclave lúdico y cultural Madrid Rio, distantes poco más de 2 km. Separados "
+"por el rio Manzanares, a un lado del Corredor se encuentra el barrio "
+"Palacio, ubicado en el distrito Centro, y en el otro están los barrios "
+"Puerta del Ángel y Cármenes, en el distrito Latina."
+
+msgid "Manzanares"
+msgstr "Manzanares"
+
+msgid "History"
+msgstr "Historia"
+
+msgid ""
+"The Casa de Campo is a historic garden and the largest public park in the "
+"municipality of Madrid (España). It is situated west of the city and belongs"
+" to the Casa de Campo neighborhood, Moncloa-Aravaca district. With an "
+"extension of 1.722,6 hectares, it emerged from a hunting ground of Spanish "
+"royalty and has been a public park since 1931, used especially for "
+"entertainment and sports on weekends and holidays."
+msgstr ""
+"La Casa de Campo es un jardín histórico y el mayor parque público del "
+"municipio de Madrid (España). Ubicado al oeste de la ciudad, pertenece al "
+"barrio Casa de Campo, distrito de Moncloa-Aravaca. Con una de extensión de "
+"1.722,6 hectáreas, surgió a partir de un coto de caza de la realeza española"
+" y es parque público desde 1931, utilizado especialmente para ocio y "
+"deportes en los fines de semana y días festivos."
+
+msgid ""
+"Madrid Río was open in 2011, on the banks of the Manzanares river, which "
+"until then had been inaccessible and hadn't distinguished itself as a point "
+"of attraction for the city, but as a place to which it has turned its back. "
+"With the project the area began to attract the attention of the Madrid "
+"natives, offering the children 17 playgrounds and adults biohealthy and "
+"cultural activities (exhibitions, music, theater) that take place in "
+"Matadero Madrid."
+msgstr ""
+"Madrid Río fue inaugurado 2011, en la ribera del rio Manzanares, que hasta "
+"entonces había sido poco accesible y no se había distinguido como un punto "
+"de atracción de la ciudad, sino como un lugar al que esta ha dado la "
+"espalda. Con el proyecto la área empiezo a atraer la atención de los "
+"madrileños, ofreciendo a los niños 17 áreas de juegos infantiles y a los "
+"adultos circuitos biosaludables y actividades culturales (exposiciones, "
+"música, teatro) que se llevan a cabo en Matadero Madrid."
+
+msgid "Age of population"
+msgstr "Edad de la población"
+
+msgid "Palacio: 8.70% 0-15, 74.97% 16-64 and 16.3% +65."
+msgstr "Palacio: 8,70% 0-15, 74,97% 16-64 and 16,3% +65."
+
+msgid "Puerta del Ángel y Cármenes: 12.4% 0-15, 62% 16-64 y 25, 24% +65"
+msgstr "Puerta del Ángel y Cármenes: 12,4% 0-15, 62% 16-64 y 25,24% +65."
+
+msgid "Urban profile"
+msgstr "Perfil urbano"
+
+msgid ""
+"Palace - Mixed (residential and commercial), occupied by middle class people"
+" and tourists"
+msgstr ""
+"Palacio - Mixto (residencial y comercial), ocupado por clase mediana y "
+"turistas."
+
+msgid ""
+"Puerta del Ángel y Cármenes - residential, occupied by middle class and "
+"lower middle class workers"
+msgstr ""
+"Puerta del Ángel y Cármenes - Residencial, ocupada por trabajadores de clase"
+" media y clase mediana baja."
+
+msgid "Origina of population"
+msgstr "Origen de la población"
+
+#, python-format
+msgid ""
+"Palacio: 23,8% foreigners, mostly from Latin America and the European Unio"
+msgstr ""
+"Palacio:  23,8% extranjeros, la mayoría de América Latina y Unión Europea."
+
+#, python-format
+msgid ""
+"Puerta del Ángel y Cármenes: 21% foreigners, especially from Latin America "
+"and the Caribbean"
+msgstr ""
+"Puerta del Ángel y Cármenes: 21% extranjeros, especialmente de América "
+"Latina y Caribe."
+
+msgid "Climate"
+msgstr "Clima"
+
+msgid ""
+"By 2050, there will be 20% more unusually hot days in the summer, and it "
+"will rain 20% less."
+msgstr ""
+"Para el año 2050, habrá un 20% más de días inusualmente cálidos en el verano"
+" y lloverá un 20% menos. "
+
+msgid ""
+"Summers in Madrid are hot; in  July average temperatures during the day "
+"range from 32°C to 33°C (90°F to 91°F) depending on location, with maximums "
+"commonly climbing over 35 °C (95 °F) during frequent heat waves. The highest"
+" recorded temperature was on 24 July 1995, at 42.2 °C (108.0 °F), and the "
+"lowest recorded temperature was on 16 January 1945 at −10.1 °C (13.8 °F)."
+msgstr ""
+"Los veranos en Madrid serán calientes, se prevé que las temperaturas medias "
+"anuales aumenten de 3ºC para el año 2050. En julio, el promedio de las "
+"temperaturas durante el día oscilan entre 32 °C y 33 °C (90 °F a 91°F) "
+"dependiendo de la ubicación, con máximas que suelen subir más de 35 °C (95 "
+"°F) durante las frecuentes olas de calor. La temperatura más alta registrada"
+" fue el 24 de julio de 1995, de 42.2 °C (108.0 ° F), y la temperatura más "
+"baja registrada fue el 16 de enero de 1945 de -10.1 °C (13.8 ° F)."
+
+msgid ""
+"Winters are cool due to Madrid's altitude, which is approximately 667 m "
+"(2,188 ft) above sea level, including sporadic snowfalls and frequent frosts"
+" in December and January. "
+msgstr ""
+"Los inviernos serán frescos debido a la altitud de Madrid, que está "
+"aproximadamente a 667 m (2.188 pies) sobre el nivel del mar, incluyendo "
+"nevadas esporádicas y heladas frecuentes en diciembre y enero."
+
+msgid "optional"
+msgstr "opcional"
+
+msgid "Select..."
+msgstr "Selecciona..."
+
+msgid "Your post will be accessible at:"
+msgstr ""
+
+msgid "This url is already in use. Please try another."
+msgstr ""
+
+msgid "Please choose a url without a forward slash character (/) in it."
+msgstr ""
+
+msgid "Click on a tool below to draw on the map"
+msgstr ""
+
+msgid "Click on a tool below to modify your shape"
+msgstr ""
+
+msgid ""
+"Drag shape handles to edit your shape, or click on shape handles to delete "
+"vertices"
+msgstr ""
+
+msgid "Drag your marker to reposition it"
+msgstr ""
+
+msgid "Click anywhere on the map to start drawing"
+msgstr ""
+
+msgid "Click to continue drawing your shape"
+msgstr ""
+
+msgid ""
+"Click to continue drawing, or click on your first point to complete your "
+"shape"
+msgstr ""
+
+msgid "Click to continue drawing"
+msgstr ""
+
+msgid "Click to continue drawing, or double click to complete your shape"
+msgstr ""
+
+msgid "Click anywhere on the map to place your marker"
+msgstr ""
+
+msgid "Create marker"
+msgstr ""
+
+msgid "Create polyline"
+msgstr ""
+
+msgid "Create polygon"
+msgstr ""
+
+msgid "Edit marker"
+msgstr ""
+
+msgid "Edit polyline"
+msgstr ""
+
+msgid "Edit polygon"
+msgstr ""
+
+msgid "Delete marker"
+msgstr ""
+
+msgid "Delete polyline"
+msgstr ""
+
+msgid "Delete polygon"
+msgstr ""
+
+msgid "Change colors"
+msgstr ""
+
+msgid "Choose an icon style below"
+msgstr ""
+
+msgid "Published"
+msgstr ""
+
+msgid "Not published"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible <strong>only to logged-in "
+"editors</strong>"
+msgstr ""
+
+msgid ""
+"When saved, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When saved, this post will be visible <strong>only to logged-in "
+"editors</strong>"
+msgstr ""
+
+msgid "Tell us about yourself!"
+msgstr "¡Cuéntanos acerca de tí!"
+
+msgid "Move the map to mark where you live."
+msgstr "Muévete por el mapa y marca donde tu vives."
+
+msgid "Thanks for your comment!"
+msgstr "¡Gracias por su comentario!"
+
+msgid "Submit another comment"
+msgstr "Enviar otro comentario"
+
+msgid "Exit survey"
+msgstr "Salir"
+
+msgid "Map type"
+msgstr "Mapa base"

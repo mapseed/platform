@@ -129,10 +129,27 @@
 
 {{#is type "dropdown"}}
   <div>
-    <select name={{ ../name }} 
+    <select name={{ name }} 
             {{^optional}}required{{/optional}}
             {{#if isAutocomplete}}class="is-autocomplete"{{/if}}>
       <option value="" name="no_response">{{#_}}Select...{{/_}}</option>
+      {{#each content}}
+          <option value={{value}} {{#if selected}}selected{{/if}}>{{label}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div style="clear:both"></div>
+{{/is}}
+
+{{#is type "dropdown-autocomplete"}}
+  <div>
+    <select id="dropdown-autocomplete-container-{{../name}}"
+            class="dropdown-autocomplete-container"
+            name={{ ../name }} 
+            data-placeholder="{{ ../placeholder }}"
+            {{^optional}}required{{/optional}}
+            {{#if isAutocomplete}}class="is-autocomplete"{{/if}}>
+      <option value="" name="no_response"></option>
       {{#each content}}
           <option value={{value}} {{#if selected}}selected{{/if}}>{{label}}</option>
       {{/each}}
@@ -250,6 +267,16 @@
   <span class="fileinput-name">
     {{#if_fileinput_not_supported}}Sorry, your browser doesn't support file uploads.{{/if_fileinput_not_supported}}
   </span>
+{{/is}}
+
+{{#is type "range"}}
+  <input type="range"
+         name="{{name}}"
+         id="place-{{ name }}" 
+         max={{max}}
+         min={{min}} 
+         value="{{#if content.value}}{{content.value}}{{else}}{{defaultValue}}{{/if}}"/>
+  <label class="range-input-label">{{defaultValue}}</label>
 {{/is}}
 
 {{#is type "submit"}}

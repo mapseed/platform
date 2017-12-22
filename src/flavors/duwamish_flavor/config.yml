@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # Fallback image to use for sharing on social services if no model image is present
   thumbnail: /static/css/images/fb-thumbnail.png
 
@@ -21,7 +26,7 @@ app:
   # list_enabled: false
 
 languages:
-  - code: en
+  - code: en_US
     label: I Speak English
 
   - code: es
@@ -48,7 +53,7 @@ map:
   layers:
     # SmarterCleanup Mapbox base layer:
     - id: transportation
-      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png
+      url: //{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e72cddbdee5d4ecc81f5731d89655980
       attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       type: basemap
 
@@ -85,10 +90,12 @@ map:
         - "http://a.tiles.mapbox.com/v4/smartercleanup.1dd7pie7/features.json?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
 
     - id: duwamish
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
       type: place
       slug: report
 
     - id: vision
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/vision
       type: place
       slug: vision
 
@@ -99,18 +106,22 @@ map:
         - "https://raw.githubusercontent.com/mapseed/data/master/dvyc.geojson"
 
     - id: restoration
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/restoration
       type: place
       slug: restoration
 
     - id: trees
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees
       type: place
       slug: trees
 
     - id: duwamishfeatured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamishfeatured
       type: place
       slug: featured
 
     - id: air
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air
       type: place
       slug: air
 
@@ -145,6 +156,19 @@ map:
       type: cartodb
       url: "https://hdbig.cartodb.com/api/v2/viz/f9350ac8-d677-11e5-980b-0e5db1731f59/viz.json"
       opacity: 0.5
+
+    # - id: otter-locations
+    #   type: json      
+    #   url: "https://raw.githubusercontent.com/mapseed/data/master/otters.geojson"
+    #   popupContent: '<div><strong>Oil type: </strong>{{title}}</div><div><strong>Volume spilled: </strong>{{description}} gallons</div>'
+    #   rules:
+    #     - condition: '"{{true}}"'
+    #       icon:
+    #         iconUrl: /static/css/images/markers/otter-icon.png
+    #         iconSize: [20, 20]
+    #         iconAnchor: [10, 10]
+    #       style:
+    #         opacity: 0.9
 
     - id: cso
       type: json
@@ -267,14 +291,47 @@ place_types:
           iconAnchor: [25, 25]
       - condition: 'this.map.zoom < 15'
         icon:
-          iconUrl: /static/css/images/markers/marker-construction-dot.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
       - condition: 'this.map.zoom <= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
           iconSize: [30, 30]
           iconAnchor: [15, 15]
+
+  port_of_seattle_featured_place:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
+
+  otter_sites:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 15'
+        icon:
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
+      - condition: 'this.map.zoom <= 18'
+        icon:
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]    
+      - condition: 'this.map.zoom < 13'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
 
   wetland:
     rules:
@@ -765,7 +822,7 @@ place_types:
           iconUrl: /static/css/images/markers/marker-tree.png
           iconSize: [50, 50]
           iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
+      - condition: 'this.map.zoom < 17'
         icon:
           iconUrl: /static/css/images/markers/marker-tree-dot.png
           iconSize: [10, 10]
@@ -783,9 +840,9 @@ place_types:
           iconUrl: /static/css/images/markers/marker-dirtcorps.png
           iconSize: [50, 50]
           iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
+      - condition: 'this.map.zoom < 17'
         icon:
-          iconUrl: /static/css/images/markers/marker-dirtcorps-dot.png
+          iconUrl: /static/css/images/markers/marker-industrial-dot.png
           iconSize: [10, 10]
           iconAnchor: [0, 0]
       - condition: 'this.map.zoom <= 18'
@@ -1014,6 +1071,10 @@ sidebar:
               title: _(Community Vision)
               visibleDefault: false
 
+            # - id: otter-locations
+            #   title: _(Otter study)
+            #   visibleDefault: false
+
         - id: grp-land
           title: _(Land Data)
           visibleDefault: false
@@ -1098,7 +1159,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)
@@ -1407,6 +1467,8 @@ place:
           optional: false
     - category: featured_place
       admin_only: true
+      admin_groups:
+        - featured_places
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
@@ -1415,7 +1477,7 @@ place:
       dataset: duwamishfeatured
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
-      label: _(Featured Place)
+      label: _(Featured Site)
       fields:
         - name: published
           type: publishControl
@@ -1452,6 +1514,112 @@ place:
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
+        - name: submit
+          type: commonFormElement
+
+    - category: otter_sites
+      admin_only: true
+      admin_groups:
+        - otters
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: duwamishfeatured
+      icon_url: /static/css/images/markers/otter-icon.png
+      value: otter_sites
+      label: _(Otter sites)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/otter-icon.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submit
+          type: commonFormElement      
+    - category: port_of_seattle_featured_place
+      admin_only: true
+      admin_groups:
+        - port_of_seattle
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: duwamishfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: port_of_seattle_featured_place
+      label: _(Port of Seattle Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submit
+          type: commonFormElement
+
     - category: observation
       includeOnForm: true
       name: location_type
@@ -1525,6 +1693,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: question
       includeOnForm: true
       name: location_type
@@ -1540,7 +1711,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: textarea
           prompt: _(Description:)
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
@@ -1567,6 +1738,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: idea
       includeOnForm: true
       name: location_type
@@ -1610,6 +1784,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -1653,6 +1830,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: air_watch  #defines a top-level form category
       includeOnForm: true
       name: location_type  #needs to be "location_type"
@@ -1818,6 +1998,9 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
+
     - category: tree
       includeOnForm: false
       name: location_type
@@ -1861,15 +2044,16 @@ place:
           attrs:
             - key: accept
               value: image/*
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
-
-
 
   items:
     - prompt: _(Type of report)
@@ -1983,6 +2167,11 @@ pages:
     slug: getinvolved
     name: contribute
 
+  - title: _(Neighborhood Captain)
+    slug: captain
+    name: captain
+    hide_from_top_bar: true
+
   - title: _(Stories)
     slug: stories
     name: stories
@@ -2026,13 +2215,20 @@ story:
       - restoration
       - duwamishfeatured
     order:
-      - url: marra
+      - url: south-park-landfill
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-construction.png
+      - url: otters
+        sidebar_icon_url: /static/css/images/markers/otter-icon.png
       - url: flume
         sidebar_icon_url: /static/css/images/markers/marker-transp_comp.png
       - url: southparklibrarygreenwall
         sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
       - url: georgetowngreenwall      
         sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
+      - url: duwamish-waterway-park
+        sidebar_icon_url: /static/css/images/markers/marker-greenwall.png
+      - url: marra
       - url: skatepark
       - url: concord
       - url: cesar-chavez

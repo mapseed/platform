@@ -2,6 +2,11 @@
 // HEADER - SELECTORS
 // ################################
 
+@font-face {
+  font-family: 'Quicksand Regular';
+  src: url('/static/css/Quicksand-Regular.otf');
+}
+
 #site-header {
     position: relative;
     z-index: 99;
@@ -11,8 +16,8 @@
 
 #site-title {
     font-size: 0.75em;
-    font-family: "Alegreya Sans", sans-serif;
-    text-shadow: 1px -1px 1px $opacity-med-black;
+    font-family: "Quicksand Regular", sans-serif;
+    /*text-shadow: 1px -1px 1px $opacity-med-black;*/
     float: left;
     margin: 0 0.5em 0 0;
     padding: 0;
@@ -25,11 +30,11 @@
 #site-title a {
     &:link, &:visited {
         display: block;
-        font-family: "Alegreya Sans", sans-serif;
+        font-family: "Quicksand Regular", sans-serif;
         font-size: 2em;
         line-height: 1.25;
         text-decoration: none;
-        color: #13b309;
+        color: rgba(6, 6, 6, 0.43);
     }
 
     &:hover {
@@ -129,18 +134,23 @@ a {
         display: block;
         padding: 0.5em;
         box-shadow: (-0.25em) 0.25em 0 $opacity-very-low-black;
+        margin-right: 0.25em;
+        margin-bottom: 0.25em;
     }
 
     &.twitter-btn {
         background-color: #4099FF;
         color: $button-color-white !important;
-        margin-right: 0.25em;
     }
 
     &.facebook-btn {
         background-color: #3b5998;
         color: $button-color-white !important;
-        margin-left: 0.25em;
+    }
+
+    &.google-btn {
+        background-color: #e8433a;
+        color: $button-color-white !important;
     }
 }
 

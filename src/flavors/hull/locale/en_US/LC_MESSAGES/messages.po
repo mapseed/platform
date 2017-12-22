@@ -1,0 +1,526 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-16 12:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgstr ""
+
+msgid "Log Out"
+msgstr ""
+
+msgid "Admin"
+msgstr ""
+
+msgid "Hull Street Community Garden"
+msgstr ""
+
+msgid "Welcome!"
+msgstr ""
+
+msgid ""
+"Over the next few months, we will work with community members and local "
+"stakeholders to design a plan for the garden and begin construction soon "
+"after."
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Satellite"
+msgstr ""
+
+msgid "Terrain"
+msgstr ""
+
+msgid "Map detail"
+msgstr ""
+
+msgid "Transit"
+msgstr ""
+
+msgid "Biking"
+msgstr ""
+
+msgid "Zoning"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+msgid "Partners"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Climate risks"
+msgstr ""
+
+msgid "Heat Waves"
+msgstr ""
+
+msgid "Add your comments"
+msgstr ""
+
+msgid "added"
+msgstr ""
+
+msgid "Tell us more..."
+msgstr ""
+
+msgid "Someone"
+msgstr ""
+
+msgid "Put it on the map!"
+msgstr ""
+
+msgid "Partner Site"
+msgstr ""
+
+msgid "Location:"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Enter address..."
+msgstr ""
+
+msgid "Title of this featured site:"
+msgstr ""
+
+msgid " "
+msgstr ""
+
+msgid "Enter title..."
+msgstr ""
+
+msgid "Choose a custom URL for this place:"
+msgstr ""
+
+msgid "Project Site"
+msgstr ""
+
+msgid "Add a comment"
+msgstr ""
+
+msgid "How old are you?"
+msgstr ""
+
+msgid "Are you a regular user of this garden?"
+msgstr ""
+
+msgid "I am a regular user of this garden:"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Do you have children at home?"
+msgstr ""
+
+msgid "I have children at home:"
+msgstr ""
+
+msgid "What is your preferred language?"
+msgstr ""
+
+msgid "My preferred language:"
+msgstr ""
+
+msgid "Bengali"
+msgstr ""
+
+msgid "Cantonese"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Mandarin"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "What type of comment is this?"
+msgstr ""
+
+msgid "Recommendation"
+msgstr ""
+
+msgid "Recommendations"
+msgstr ""
+
+msgid "Concern"
+msgstr ""
+
+msgid "Concerns"
+msgstr ""
+
+msgid "What would encourage you to use this space more often?"
+msgstr ""
+
+msgid "Write your comment here"
+msgstr ""
+
+msgid "Select any of the below categories that apply:"
+msgstr ""
+
+msgid "Amenities"
+msgstr ""
+
+msgid "Horticulture"
+msgstr ""
+
+msgid "Programs"
+msgstr ""
+
+msgid "Safety"
+msgstr ""
+
+msgid "Experience"
+msgstr ""
+
+msgid "Your name"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Enter your email address for updates"
+msgstr ""
+
+msgid "name@mail.com"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Add an Image"
+msgstr ""
+
+msgid "Submit comment"
+msgstr ""
+
+msgid "comment"
+msgstr ""
+
+msgid "comments"
+msgstr ""
+
+msgid "commented on"
+msgstr ""
+
+msgid "Leave a Comment"
+msgstr ""
+
+msgid "Your Name"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "support"
+msgstr ""
+
+msgid "supports"
+msgstr ""
+
+msgid "Map"
+msgstr ""
+
+msgid "Train"
+msgstr ""
+
+msgid "Bus"
+msgstr ""
+
+msgid "Residential 1"
+msgstr ""
+
+msgid "Residential 2"
+msgstr ""
+
+msgid "Residential 3"
+msgstr ""
+
+msgid "Residential 4"
+msgstr ""
+
+msgid "Residential 5"
+msgstr ""
+
+msgid "Residential 6"
+msgstr ""
+
+msgid "Residential 7"
+msgstr ""
+
+msgid "Residential 8"
+msgstr ""
+
+msgid "Residential 9"
+msgstr ""
+
+msgid "Residential 10"
+msgstr ""
+
+msgid "Manufacturing 1"
+msgstr ""
+
+msgid "Manufacturing 2"
+msgstr ""
+
+msgid "Manufacturing 3"
+msgstr ""
+
+msgid "Commercial"
+msgstr ""
+
+msgid "Parks"
+msgstr ""
+
+msgid "Land temperature"
+msgstr ""
+
+msgid "Flood zones"
+msgstr ""
+
+msgid "Category 1 Hurricane"
+msgstr ""
+
+msgid "Category 2 Hurricane"
+msgstr ""
+
+msgid "Category 3 Hurricane"
+msgstr ""
+
+msgid "Category 4 Hurricane"
+msgstr ""
+
+msgid "Hull St Community Garden"
+msgstr ""
+
+msgid ""
+"NYRP acquired the Hull St. Garden in 1999, preserving it as open space in "
+"perpetuity.  In 2017 NYRP received funding from the state of NY to renovate "
+"the Hull St. Community Garden.  Over the next few months, we will work with "
+"community members and local stakeholders to design a plan for the space and "
+"begin construction soon after."
+msgstr ""
+
+msgid ""
+"The Ocean Hill neighborhood was founded in 1890. Until the 1960's it was a "
+"mostly Eastern and Southern European low‐income immigrant community. Since "
+"the mid‐20th century, the neighborhood has been predominately African "
+"American. The lot was historically residential. Adjacent buildings both "
+"constructed in 1925."
+msgstr ""
+
+msgid "Age of population"
+msgstr ""
+
+msgid "29% 0‐18, 25% 18‐34, 36% 35‐64, 10% 65+"
+msgstr ""
+
+msgid "Household types"
+msgstr ""
+
+msgid "65% Family, 5% Shared, 30% Single Non-Family "
+msgstr ""
+
+msgid "Household income"
+msgstr ""
+
+msgid ""
+"Median household income: 33,125 dollars. Mean household income 45,900 "
+"dollars."
+msgstr ""
+
+msgid "Ethnicity"
+msgstr ""
+
+msgid "74% Black, 17% Hispanic, 7% White, 1% Asian "
+msgstr ""
+
+msgid "Climate forecasts"
+msgstr ""
+
+msgid "Rising temperatures"
+msgstr ""
+
+msgid ""
+"Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the\n"
+"2050s. The frequency of heat waves is projected to triple by the 2080s."
+msgstr ""
+
+msgid "Rising sea levels and coastal flooding"
+msgstr ""
+
+msgid ""
+"Projections for sea level rise in New York City are 11 to 21inches by the "
+"2050s, 18 to 39 inches by the 2080s, and could reach as high as 6feet by "
+"2100. Projected sea level rise will increase current 100-year coastalfloods "
+"by 10-15 fold by the 2080s."
+msgstr ""
+
+msgid "Increased precipitation"
+msgstr ""
+
+msgid ""
+"Mean annual precipitation is projected to increase by 4% to 11% bythe 2050s."
+msgstr ""
+
+msgid ""
+"Source: <a href=\"http://onlinelibrary.wiley.com/doi/10.1111/nyas.2015.1336."
+"issue-1/issuetoc\">NewYork City Panel on Climate Change 2015 Report"
+msgstr ""
+
+msgid "optional"
+msgstr ""
+
+msgid "Select..."
+msgstr ""
+
+msgid "Your post will be accessible at:"
+msgstr ""
+
+msgid "This url is already in use. Please try another."
+msgstr ""
+
+msgid "Please choose a url without a forward slash character (/) in it."
+msgstr ""
+
+msgid "Click on a tool below to draw on the map"
+msgstr ""
+
+msgid "Click on a tool below to modify your shape"
+msgstr ""
+
+msgid ""
+"Drag shape handles to edit your shape, or click on shape handles to delete "
+"vertices"
+msgstr ""
+
+msgid "Drag your marker to reposition it"
+msgstr ""
+
+msgid "Click anywhere on the map to start drawing"
+msgstr ""
+
+msgid "Click to continue drawing your shape"
+msgstr ""
+
+msgid ""
+"Click to continue drawing, or click on your first point to complete your "
+"shape"
+msgstr ""
+
+msgid "Click to continue drawing"
+msgstr ""
+
+msgid "Click to continue drawing, or double click to complete your shape"
+msgstr ""
+
+msgid "Click anywhere on the map to place your marker"
+msgstr ""
+
+msgid "Create marker"
+msgstr ""
+
+msgid "Create polyline"
+msgstr ""
+
+msgid "Create polygon"
+msgstr ""
+
+msgid "Edit marker"
+msgstr ""
+
+msgid "Edit polyline"
+msgstr ""
+
+msgid "Edit polygon"
+msgstr ""
+
+msgid "Delete marker"
+msgstr ""
+
+msgid "Delete polyline"
+msgstr ""
+
+msgid "Delete polygon"
+msgstr ""
+
+msgid "Change colors"
+msgstr ""
+
+msgid "Choose an icon style below"
+msgstr ""
+
+msgid "Published"
+msgstr ""
+
+msgid "Not published"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "When saved, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When saved, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "Tell us about yourself!"
+msgstr ""
+
+msgid "Move the map to mark where you live."
+msgstr ""
+
+msgid "Thanks for your comment!"
+msgstr ""
+
+msgid "Submit another comment"
+msgstr ""
+
+msgid "Exit survey"
+msgstr ""
+
+msgid "Map type"
+msgstr ""

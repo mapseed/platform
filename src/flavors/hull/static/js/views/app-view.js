@@ -1,0 +1,443 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import InputExplorer from "../../../../../flavors/hull/static/components/input-explorer";
+
+const AppView = require("../../../../../base/static/js/views/app-view.js");
+const GeocodeAddressView = require('../../../../../base/static/js/views/geocode-address-view');
+const PlaceCounterView = require('../../../../../base/static/js/views/place-counter-view');
+const PagesNavView = require('../../../../../base/static/js/views/pages-nav-view');
+const AuthNavView = require('../../../../../base/static/js/views/auth-nav-view');
+const MapView = require('../../../../../base/static/js/views/map-view');
+const SidebarView = require('../../../../../flavors/hull/static/js/views/sidebar-view');
+const ActivityView = require('../../../../../base/static/js/views/activity-view');
+const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
+const RightSidebarView = require('../../../../../base/static/js/views/right-sidebar-view');
+
+module.exports = AppView.extend({
+  events: {
+    'click #add-place': 'onClickAddPlaceBtn',
+    'click .close-btn': 'onClickClosePanelBtn',
+    'click .collapse-btn': 'onToggleSidebarVisibility',
+    'click .list-toggle-btn': 'toggleListView',
+    // BEGIN FLAVOR-SPECIFIC CODE
+    'click .show-layer-panel': 'showLayerPanel',
+    // END FLAVOR-SPECIFIC CODE
+    // BEGIN FLAVOR-SPECIFIC CODE
+    'click .show-legend-panel': 'showLegendPanel'
+    // END FLAVOR-SPECIFIC CODE
+  },
+  initialize: function() {
+
+    // store promises returned from collection fetches
+    Shareabouts.deferredCollections = [];
+
+    var self = this,
+        // Only include submissions if the list view is enabled (anything but false)
+        includeSubmissions = this.options.appConfig.list_enabled !== false,
+        placeParams = {
+          // NOTE: this is to simply support the list view. It won't
+          // scale well, so let's think about a better solution.
+          include_submissions: includeSubmissions
+        };
+
+    // Use the page size as dictated by the server by default, unless
+    // directed to do otherwise in the configuration.
+    if (this.options.appConfig.places_page_size) {
+      placeParams.page_size = this.options.appConfig.places_page_size;
+    }
+
+    // Bootstrapped data from the page
+    this.activities = this.options.activities;
+    this.places = this.options.places;
+    this.landmarks = this.options.landmarks;
+
+    // Caches of the views (one per place)
+    this.placeFormView = null;
+    this.placeDetailViews = {};
+    this.landmarkDetailViews = {};
+    this.activeDetailView;
+
+    // this flag is used to distinguish between user-initiated zooms and
+    // zooms initiated by a leaflet method
+    this.isProgrammaticZoom = false;
+    this.isStoryActive = false;
+
+    $("body").ajaxError(function(evt, request, settings) {
+      $("#ajax-error-msg").show();
+    });
+
+    $("body").ajaxSuccess(function(evt, request, settings) {
+      $("#ajax-error-msg").hide();
+    });
+
+    if (this.options.activityConfig.show_in_right_panel === true) {
+      $("body").addClass("right-sidebar-visible");
+      $("#right-sidebar-container").html(
+        "<ul class='recent-points unstyled-list'></ul>",
+      );
+    }
+
+    $(document).on("click", ".activity-item a", function(evt) {
+      window.app.clearLocationTypeFilter();
+    });
+
+    // Globally capture clicks. If they are internal and not in the pass
+    // through list, route them through Backbone's navigate method.
+    $(document).on("click", 'a[href^="/"]', function(evt) {
+      var $link = $(evt.currentTarget),
+        href = $link.attr("href"),
+        url,
+        isLinkToPlace = false;
+
+      _.each(self.options.datasetConfigs.places, function(dataset) {
+        if (href.indexOf("/" + dataset.slug) === 0) isLinkToPlace = true;
+      });
+
+      // Allow shift+click for new tabs, etc.
+      if (
+        ($link.attr("rel") === "internal" ||
+          href === "/" ||
+          isLinkToPlace ||
+          href.indexOf("/filter") === 0) &&
+        !evt.altKey &&
+        !evt.ctrlKey &&
+        !evt.metaKey &&
+        !evt.shiftKey
+      ) {
+        evt.preventDefault();
+
+        // Remove leading slashes and hash bangs (backward compatablility)
+        url = href.replace(/^\//, "").replace("#!/", "");
+
+        // # Instruct Backbone to trigger routing events
+        self.options.router.navigate(url, {
+          trigger: true,
+        });
+
+        return false;
+      }
+    });
+
+    // On any route (/place or /page), hide the list view
+    this.options.router.bind(
+      "route",
+      function(route) {
+        if (
+          !_.contains(this.getListRoutes(), route) &&
+          this.listView &&
+          this.listView.isVisible()
+        ) {
+          this.hideListView();
+        }
+      },
+      this,
+    );
+
+    // Only append the tools to add places (if supported)
+    $("#map-container").append(Handlebars.templates["centerpoint"]());
+    // NOTE: append add place/story buttons after the #map-container
+    // div (rather than inside of it) in order to support bottom-clinging buttons
+    $("#map-container").after(
+      Handlebars.templates["add-places"](this.options.placeConfig),
+    );
+
+    this.pagesNavView = new PagesNavView({
+      el: "#pages-nav-container",
+      pagesConfig: this.options.pagesConfig,
+      placeConfig: this.options.placeConfig,
+      router: this.options.router,
+    }).render();
+
+    this.authNavView = new AuthNavView({
+      el: "#auth-nav-container",
+      apiRoot: this.options.apiRoot,
+      router: this.options.router,
+    }).render();
+
+    this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
+      panel,
+    ) {
+      return "basemaps" in panel;
+    }).basemaps;
+    // Init the map view to display the places
+    this.mapView = new MapView({
+      el: "#map",
+      mapConfig: this.options.mapConfig,
+      sidebarConfig: this.options.sidebarConfig,
+      basemapConfigs: this.basemapConfigs,
+      legend_enabled: !!this.options.sidebarConfig.legend_enabled,
+      places: this.places,
+      landmarks: this.landmarks,
+      router: this.options.router,
+      placeTypes: this.options.placeTypes,
+      cluster: this.options.cluster,
+      placeDetailViews: this.placeDetailViews,
+      placeConfig: this.options.placeConfig
+    });
+
+    $("#sidebar-container").addClass("sidebar-container--hidden");
+    if (self.options.sidebarConfig.enabled) {
+      this.sidebarView = new SidebarView({
+        el: "#sidebar-container",
+        mapView: this.mapView,
+        sidebarConfig: this.options.sidebarConfig,
+        placeConfig: this.options.placeConfig
+      });
+
+      // TODO: add another view inside the SidebarView for handling the legend
+
+      // BEGIN FLAVOR-SPECIFIC CODE
+      this.$(".leaflet-top.leaflet-right").append(
+        '<div class="leaflet-control leaflet-bar">' +
+          '<a href="#" class="show-layer-panel"></a>' +
+          "</div>",
+      );
+      // END FLAVOR-SPECIFIC CODE
+
+      // BEGIN FLAVOR-SPECIFIC CODE
+      this.$(".leaflet-top.leaflet-right").append(
+        '<div class="leaflet-control leaflet-bar">' +
+          '<a href="#" class="show-legend-panel"></a>' +
+          "</div>",
+      );
+      // END FLAVOR-SPECIFIC CODE
+    }
+
+    // Activity is enabled by default (undefined) or by enabling it
+    // explicitly. Set it to a falsey value to disable activity.
+    if (
+      _.isUndefined(this.options.activityConfig.enabled) ||
+      this.options.activityConfig.enabled
+    ) {
+      // Init the view for displaying user activity
+      this.activityView = new ActivityView({
+        el: "ul.recent-points",
+        activities: this.activities,
+        places: this.places,
+        landmarks: this.landmarks,
+        placeConfig: this.options.placeConfig,
+        router: this.options.router,
+        placeTypes: this.options.placeTypes,
+        surveyConfig: this.options.surveyConfig,
+        supportConfig: this.options.supportConfig,
+        placeConfig: this.options.placeConfig,
+        mapConfig: this.options.mapConfig,
+        // How often to check for new content
+        interval: this.options.activityConfig.interval || 30000,
+      });
+    }
+
+    // Init the address search bar
+    this.geocodeAddressView = new GeocodeAddressView({
+      el: "#geocode-address-bar",
+      router: this.options.router,
+      mapConfig: this.options.mapConfig,
+    }).render();
+
+    // Init the place-counter
+    this.placeCounterView = new PlaceCounterView({
+      el: "#place-counter",
+      router: this.options.router,
+      mapConfig: this.options.mapConfig,
+      places: this.places,
+    }).render();
+
+    // When the user chooses a geocoded address, the address view will fire
+    // a geocode event on the namespace. At that point we center the map on
+    // the geocoded location.
+    $(Shareabouts).on("geocode", function(evt, locationData) {
+      self.mapView.zoomInOn(locationData.latLng);
+
+      if (self.isAddingPlace()) {
+        self.placeFormView.setLatLng(locationData.latLng);
+        // Don't pass location data into our geolocation's form field
+        // self.placeFormView.setLocation(locationData);
+      }
+    });
+
+    // When the map center moves, the map view will fire a mapmoveend event
+    // on the namespace. If the move was the result of the user dragging, a
+    // mapdragend event will be fired.
+    //
+    // If the user is adding a place, we want to take the opportunity to
+    // reverse geocode the center of the map, if geocoding is enabled. If
+    // the user is doing anything else, we just want to clear out any text
+    // that's currently set in the address search bar.
+    $(Shareabouts).on("mapdragend", function(evt) {
+      if (self.isAddingPlace()) {
+        self.conditionallyReverseGeocode();
+      } else if (self.geocodeAddressView) {
+        self.geocodeAddressView.setAddress("");
+      }
+    });
+
+    // After reverse geocoding, the map view will fire a reversegeocode
+    // event. This should only happen when adding a place while geocoding
+    // is enabled.
+    $(Shareabouts).on("reversegeocode", function(evt, locationData) {
+      var locationString = Handlebars.templates["location-string"](
+        locationData,
+      );
+      self.geocodeAddressView.setAddress($.trim(locationString));
+      self.placeFormView.geocodeAddressPlaceView.setAddress(
+        $.trim(locationString),
+      );
+      self.placeFormView.setLatLng(locationData.latLng);
+      // Don't pass location data into our geolocation's form field
+      // self.placeFormView.setLocation(locationData);
+    });
+
+    // List view is enabled by default (undefined) or by enabling it
+    // explicitly. Set it to a falsey value to disable activity.
+    if (
+      _.isUndefined(this.options.appConfig.list_enabled) ||
+      this.options.appConfig.list_enabled
+    ) {
+      this.listView = new PlaceListView({
+        el: "#list-container",
+        placeCollections: self.places,
+        placeConfig: this.options.placeConfig,
+      }).render();
+    }
+
+    // Cache panel elements that we use a lot
+    this.$panel = $("#content");
+    this.$panelContent = $("#content article");
+    this.$panelCloseBtn = $(".close-btn");
+    this.$centerpoint = $("#centerpoint");
+    this.$addButton = $("#add-place-btn-container");
+
+    // Bind to map move events so we can style our center points
+    // with utmost awesomeness.
+    this.mapView.map.on("zoomend", this.onMapZoomEnd, this);
+    this.mapView.map.on("movestart", this.onMapMoveStart, this);
+    this.mapView.map.on("moveend", this.onMapMoveEnd, this);
+    // For knowing if the user has moved the map after opening the form.
+    this.mapView.map.on("dragend", this.onMapDragEnd, this);
+
+    // If report stories are enabled, build the data structure
+    // we need to enable story navigation
+    _.each(this.options.storyConfig, function(story) {
+      var storyStructure = {},
+        totalStoryElements = story.order.length;
+      _.each(story.order, function(config, i) {
+        storyStructure[config.url] = {
+          zoom: config.zoom || story.default_zoom,
+          hasCustomZoom: config.zoom ? true : false,
+          panTo: config.panTo || null,
+          visibleLayers: config.visible_layers || story.default_visible_layers,
+          previous:
+            story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
+          next: story.order[(i + 1) % totalStoryElements].url,
+          basemap: config.basemap || story.default_basemap,
+          spotlight: config.spotlight === false ? false : true,
+          sidebarIconUrl: config.sidebar_icon_url,
+        };
+      });
+      story.order = storyStructure;
+    });
+
+    // This is the "center" when the popup is open
+    this.offsetRatio = { x: 0.2, y: 0.0 };
+
+    _.each(this.places, function(value, key) {
+      self.placeDetailViews[key] = {};
+    });
+
+    _.each(this.landmarks, function(value, key) {
+      self.landmarkDetailViews[key] = {};
+    });
+
+    // Show tools for adding data
+    this.setBodyClass();
+    this.showCenterPoint();
+
+    // Load places from the API
+    this.loadPlaces(placeParams);
+
+    // Load landmarks from the API
+    this.loadLandmarks();
+
+    // Load activities from the API
+    _.each(this.activities, function(collection, key) {
+      collection.fetch({
+        reset: true,
+        attribute: "target",
+        attributesToAdd: {
+          datasetId: _.find(self.options.mapConfig.layers, function(layer) {
+            return layer.id == key;
+          }).id,
+          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
+            return layer.id == key;
+          }).slug,
+        },
+      });
+    });
+
+    if (this.options.rightSidebarConfig.show) {
+      $("body").addClass("right-sidebar-active");
+      if (this.options.rightSidebarConfig.visibleDefault) {
+        $("body").addClass("right-sidebar-visible");
+      }
+
+      new RightSidebarView({
+        el: "#right-sidebar-container",
+        router: this.options.router,
+        rightSidebarConfig: this.options.rightSidebarConfig,
+        placeConfig: this.options.placeConfig,
+        layers: this.options.mapConfig.layers,
+        storyConfig: this.options.storyConfig,
+        activityConfig: this.options.activityConfig,
+        activityView: this.activityView,
+        appView: this,
+        layerViews: this.mapView.layerViews,
+      }).render();
+    }
+  },
+
+  onMapDragEnd: function(evt) {
+    if (this.hasBodyClass("content-visible") === true) {
+      this.hideSpotlightMask();
+      // BEGIN FLAVOR-SPECIFIC CODE
+      this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
+      // END FLAVOR-SPECIFIC CODE
+    }
+  },
+
+  // BEGIN FLAVOR-SPECIFIC CODE
+  showListView: function() {
+    $(".show-the-list").addClass("is-visuallyhidden");
+    $(".show-the-map").removeClass("is-visuallyhidden");
+    $("#list-container").addClass("is-exposed");
+
+    // NOTE: we hard-code the hull-input collection here
+    ReactDOM.render(
+      <InputExplorer 
+        appConfig={this.options.appConfig}
+        placeConfig={this.options.placeConfig.place_detail}
+        communityInput={this.places["hull-input"]} />,
+      document.querySelector("#list-container")
+    );
+  },
+  // END FLAVOR-SPECIFIC CODE
+
+  // BEGIN FLAVOR-SPECIFIC CODE
+  showSidebarPanel: function() {
+    $("#sidebar-container").removeClass("sidebar-container--hidden");
+    $("#sidebar-container").addClass("sidebar-container--visible");
+    if ($("#main-btns-container").hasClass("pos-top-left")) {
+      $("#main-btns-container").toggleClass("main-btns-container--offset-left");
+    }
+  },
+
+  showLayerPanel: function() {
+    this.sidebarView.render("layers");
+    this.showSidebarPanel();
+  },
+
+  showLegendPanel: function() {
+    this.sidebarView.render("legend");
+    this.showSidebarPanel();
+  }
+  // END FLAVOR-SPECIFIC CODE
+});

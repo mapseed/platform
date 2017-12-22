@@ -13,7 +13,7 @@
 -------------------------------------------------------------- */
 @media only screen and (min-width: 60em) {
   #site-header {
-    /*background: url(images/longfellow_creek1.jpg);*/
+    /*background: url(/static/css/images/longfellow_creek1.jpg);*/
     background: none;
     background-color: #FFF;
   }

@@ -83,14 +83,19 @@ module.exports = Backbone.Model.extend({
     if (this.isNew()) {
       // Attach files after the model is succesfully saved
       options.success = function() {
-        self.saveAttachments(realSuccessHandler, self, arguments);
+        self.saveAttachments(self, arguments, realSuccessHandler);
       };
     } else {
       // Model is already saved, attach away!
-      self.saveAttachments(realSuccessHandler, self, arguments);
+      self.saveAttachments(self, arguments);
     }
 
     options.ignoreAttachments = true;
+    options.beforeSend = function(xhr, options) {
+      options.xhrFields = {
+        withCredentials: true
+      };
+    };
     module.exports.__super__.save.call(this, attrs, options);
   },
 
@@ -103,13 +108,13 @@ module.exports = Backbone.Model.extend({
     options.success.apply(this, arguments);
   },
 
-  saveAttachments: function(realSuccessHandler, context, args) {
+  saveAttachments: function(context, args, realSuccessHandler = null) {
     var attachmentCount = this.attachmentCollection.length,
       numSavedAttachments = 0,
       attachmentSuccessHandler = function() {
         numSavedAttachments++;
         if (attachmentCount === numSavedAttachments) {
-          realSuccessHandler.apply(context, args);
+          realSuccessHandler && realSuccessHandler.apply(context, args);
         }
       };
 
@@ -122,7 +127,7 @@ module.exports = Backbone.Model.extend({
         }
       });
     } else {
-      realSuccessHandler.apply(context, args);
+      realSuccessHandler && realSuccessHandler.apply(context, args);
     }
   },
 

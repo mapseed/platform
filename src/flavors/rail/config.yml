@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: HaxGeo.com
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -18,7 +23,7 @@ app:
   # list_enabled: false
 
 # languages:
-#   - code: en
+#   - code: en_US
 #     label: I Speak English
 
 #   - code: es
@@ -69,6 +74,7 @@ map:
       url: "https://hdbig.carto.com/api/v2/viz/16801b48-76d4-11e6-82e9-0ecd1babdde5/viz.json"
 
     - id: rail
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/rail
       type: place
       slug: report
 
@@ -196,10 +202,10 @@ sidebar:
       basemaps:
         - id: transport
           title: _(Transportation)
-          visibleDefault: true
+          visibleDefault: false
         - id: pioneer
           title: _(Pioneer)
-          visibleDefault: false
+          visibleDefault: true
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
@@ -259,7 +265,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)
@@ -290,6 +295,14 @@ place:
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: question
       includeOnForm: true
       name: location_type
@@ -309,6 +322,14 @@ place:
           prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: idea
       includeOnForm: true
       name: location_type
@@ -329,6 +350,14 @@ place:
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -349,21 +378,29 @@ place:
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
+    submitter_name:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -371,7 +408,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####

@@ -7,7 +7,7 @@ var RichTextEditorView = require("mapseed-rich-text-editor-view");
 
 var SubmissionCollection = require("../models/submission-collection.js");
 
-const TOOLBAR_FIXED_TOP_THRESHOLD = 235;
+const TOOLBAR_FIXED_TOP_THRESHOLD = 1660;
 
 module.exports = Backbone.View.extend({
   events: {
@@ -469,6 +469,7 @@ module.exports = Backbone.View.extend({
       )
     ) {
       if (this.geometryEnabled) {
+        this.geometryEditorView.existingLayerView = null;
         this.geometryEditorView.tearDown();
       }
       this.model.save(

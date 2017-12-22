@@ -91,7 +91,7 @@
     }
 
     #site-title-image {
-      content: url("images/pblogo.png");
+      content: url("/static/css/images/pblogo.png");
     }
 
     #main-btns-container {
@@ -104,7 +104,7 @@
     }
 
     #site-title-image {
-      content:url("images/pblogo_small.png");
+      content:url("/static/css/images/pblogo_small.png");
     }
 }
 

@@ -13,7 +13,7 @@ Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(
 };
 
 var PlaceListItemView = Backbone.Marionette.Layout.extend({
-  template: "#place-detail",
+  template: Handlebars.templates["place-detail"],
   tagName: "li",
   className: "clearfix",
   regions: {
@@ -113,7 +113,7 @@ var PlaceListItemView = Backbone.Marionette.Layout.extend({
 });
 
 module.exports = Backbone.Marionette.CompositeView.extend({
-  template: "#place-list",
+  template: Handlebars.templates["place-list"],
   itemView: PlaceListItemView,
   itemViewContainer: ".place-list",
   ui: {
@@ -373,7 +373,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
 
       // If the location_type has a label, we should search in it also.
       locationType =
-        Shareabouts.Config.flavor.place_types[model.get("location_type")];
+        Shareabouts.Config.placeTypes[model.get("location_type")];
       if (locationType && locationType.label) {
         if (locationType.label.toUpperCase().indexOf(term) !== -1) {
           previouslyUnrenderedModels.push(model);

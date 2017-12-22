@@ -61,6 +61,7 @@ var addLandmarkDescription = function(properties) {
     properties.originalDescription = properties.description;
     properties.description = properties.description.replace(re, "");
   } else {
+    properties.originalDescription = properties.description;
     fullTitle = properties.title;
   }
   return { fullTitle: fullTitle };

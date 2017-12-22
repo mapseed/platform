@@ -29,7 +29,7 @@
 /* =Header
 -------------------------------------------------------------- */
 #site-header {
-  background: url('images/nav-bg.jpg');
+  background: url('/static/css/images/nav-bg.jpg');
   position: relative;
   z-index: 40;
   padding: 0.5em;

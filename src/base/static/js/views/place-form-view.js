@@ -1,3 +1,5 @@
+import accessibleAutocomplete from 'accessible-autocomplete';
+
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
 var GeocodeAddressPlaceView = require("mapseed-geocode-address-place-view");
@@ -16,6 +18,7 @@ module.exports = Backbone.View.extend({
     "change .publish-control-container input": "onPublishedStateChange",
     "click .btn-geolocate": "onClickGeolocate",
     'keyup input[name="url-title"]': "onUpdateUrlTitle",
+    "input input[type='range']": "onRangeInputChange"
   },
 
   initialize: function() {
@@ -50,7 +53,11 @@ module.exports = Backbone.View.extend({
 
     if (placesToIncludeOnForm.length === 1) {
       // If we only have a single category, skip the category selection phase
-      this.formState.selectedCategoryConfig = placesToIncludeOnForm[0];
+      this.formState.selectedCategoryConfig = $.extend(
+        true,
+        this.formState.selectedCategoryConfig,
+        placesToIncludeOnForm[0],
+      );
       this.setCommonFormElements();
       this.setGeometryEnabled();
       this.prepareFormFieldsForRender();
@@ -125,13 +132,48 @@ module.exports = Backbone.View.extend({
     // the top of the content container.
     if (this.$qlToolbar.length > 0) {
       $("#content article").on("scroll", function() {
-        if (this.scrollTop < 520) {
+        if (this.scrollTop < 1060) {
           self.$qlToolbar.removeClass("fixed-top no-edit-toolbar");
         } else if (self.$qlToolbar.offset().top < 75) {
           self.$qlToolbar.addClass("fixed-top no-edit-toolbar");
         }
       });
     }
+
+    // Set up autocomplete comboboxes
+    Array.prototype.forEach.call(
+      document.getElementsByClassName("dropdown-autocomplete-container"),
+      (elt) => {
+        let node = document.getElementsByName(elt.name)[0],
+            optionsArray = Array.prototype.map.call(
+              node.options,
+              (opt) => {
+                return opt.textContent
+              }
+            );
+
+        accessibleAutocomplete.enhanceSelectElement({
+          id: node.id,
+          selectElement: node,
+          displayMenu: "overlay",
+          showAllValues: true,
+          required: node.required,
+          placeholder: node.dataset.placeholder,
+          onConfirm: function(confirmed) {
+            if (confirmed) {
+
+              // Set the value of the underlying select element
+              document.getElementById(this.id + "-select").selectedIndex = 
+                optionsArray.indexOf(confirmed);
+            }
+          }
+        });
+
+        // Remove a required attribute on the underlying select element, to 
+        // prevent problems with validating a hidden element
+        node.required = false;
+      }
+    );
   },
 
   setUrlTitlePrefix: function() {
@@ -203,38 +245,24 @@ module.exports = Backbone.View.extend({
   },
 
   // Before we render the fields for a given category, do the following:
-  // 1. Build an appropriate content object for each field
-  // 2. Check the autocomplete status of each field
-  // 3. Check the admin-only status of each field
+  // 1. Resolve common_form_elements
+  // 2. Build an appropriate content object for each field
+  // 3. Check the autocomplete status of each field
+  // 4. Check the admin-only status of each field
   prepareFormFieldsForRender: function() {
     var self = this;
 
-    // Prepare category-specific fields
-    _.each(
-      this.formState.selectedCategoryConfig.fields,
-      function(field, i) {
-        _.extend(
-          this.formState.selectedCategoryConfig.fields[i],
-          Util.buildFieldContent(
-            field,
-            field.autocomplete ? Util.getAutocompleteValue(field.name) : null,
-          ),
-          self.determineFieldRenderability(
-            self.formState.selectedCategoryConfig,
-            field,
-          ),
-        );
+    // Prepare form fields
+    this.formState.selectedCategoryConfig.fields.forEach((field, i) => {
 
-        this.formState.selectedCategoryConfig.fields[i].isAutocomplete =
-          field.hasValue && field.autocomplete;
-      },
-      this,
-    );
+      if (this.formState.selectedCategoryConfig.fields[i].type === "commonFormElement") {
+        let name = this.formState.selectedCategoryConfig.fields[i].name;
+        Object.assign(this.formState.selectedCategoryConfig.fields[i], 
+          this.formState.commonFormElements[name]);
+      }
 
-    // Prepare common form fields
-    this.formState.commonFormElements.forEach(function(field, i) {
-      _.extend(
-        this.formState.commonFormElements[i],
+      Object.assign(
+        this.formState.selectedCategoryConfig.fields[i],
         Util.buildFieldContent(
           field,
           field.autocomplete ? Util.getAutocompleteValue(field.name) : null,
@@ -245,10 +273,8 @@ module.exports = Backbone.View.extend({
         ),
       );
 
-      this.formState.commonFormElements[i].isAutocomplete = field.hasValue &&
-        field.autocomplete
-        ? true
-        : false;
+      this.formState.selectedCategoryConfig.fields[i].isAutocomplete =
+        field.hasValue && field.autocomplete;
     }, this);
   },
 
@@ -288,6 +314,7 @@ module.exports = Backbone.View.extend({
     ) {
       this.options.appView.setBodyClass(
         "content-visible",
+        "place-form-visible",
         "content-expanded-mid",
       );
       this.options.appView.mapView.map.invalidateSize({
@@ -493,6 +520,12 @@ module.exports = Backbone.View.extend({
     Util.onBinaryToggle(evt);
   },
 
+  onRangeInputChange: function(evt) {
+    $(evt.target)
+      .siblings(".range-input-label")
+      .text(evt.target.value);
+  },
+
   closePanel: function() {
     this.center = null;
     this.resetFormState();
@@ -608,85 +641,85 @@ module.exports = Backbone.View.extend({
           attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
         });
       }
-    }
 
-    $button.attr("disabled", "disabled");
-    spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(
-      self.$(".form-spinner")[0],
-    );
-    Util.log("USER", "new-place", "submit-place-btn-click");
-    Util.setStickyFields(
-      attrs,
-      Shareabouts.Config.survey.items,
-      Shareabouts.Config.place.items,
-    );
+      $button.attr("disabled", "disabled");
+      spinner = new Spinner(Shareabouts.smallSpinnerOptions).spin(
+        self.$(".form-spinner")[0],
+      );
+      Util.log("USER", "new-place", "submit-place-btn-click");
+      Util.setStickyFields(
+        attrs,
+        Shareabouts.Config.survey.items,
+        Shareabouts.Config.place.items,
+      );
 
-    // Save and redirect
-    model.save(attrs, {
-      success: function(response) {
-        if (
-          self.formState.attachmentData.length > 0 &&
-          self.$(".rich-text-field").length > 0
-        ) {
-          // If there is rich text image content on the form, add it now and replace
-          // img data urls with their S3 bucket equivalents.
-          // NOTE: this success handler is called when all attachment models have
-          // saved to the server.
-          model.attachmentCollection.fetch({
-            reset: true,
-            success: function(collection) {
-              collection.each(function(attachment) {
-                self
-                  .$("img[name='" + attachment.get("name") + "']")
-                  .attr("src", attachment.get("file"));
-              });
+      // Save and redirect
+      model.save(attrs, {
+        success: function(response) {
+          if (
+            self.formState.attachmentData.length > 0 &&
+            self.$(".rich-text-field").length > 0
+          ) {
+            // If there is rich text image content on the form, add it now and replace
+            // img data urls with their S3 bucket equivalents.
+            // NOTE: this success handler is called when all attachment models have
+            // saved to the server.
+            model.attachmentCollection.fetch({
+              reset: true,
+              success: function(collection) {
+                collection.each(function(attachment) {
+                  self
+                    .$("img[name='" + attachment.get("name") + "']")
+                    .attr("src", attachment.get("file"));
+                });
 
-              // Add content that has been modified by Quill rich text fields
-              self.$(".rich-text-field").each(function() {
-                attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
-              });
+                // Add content that has been modified by Quill rich text fields
+                self.$(".rich-text-field").each(function() {
+                  attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
+                });
 
-              model.saveWithoutAttachments(attrs, {
-                success: function(response) {
-                  Util.log("USER", "new-place", "successfully-add-place");
-                  router.navigate(Util.getUrl(model), { trigger: true });
-                },
-                error: function() {
-                  Util.log("USER", "new-place", "fail-to-embed-attachments");
-                },
-                complete: function() {
-                  if (self.geometryEditorView) {
-                    self.geometryEditorView.tearDown();
-                  }
-                  $button.removeAttr("disabled");
-                  spinner.stop();
-                  self.resetFormState();
-                  collection.each(function(attachment) {
-                    attachment.set({ saved: true });
-                  });
-                },
-              });
-            },
-            error: function() {
-              Util.log("USER", "new-place", "fail-to-fetch-embed-urls");
-            },
-          });
-        } else {
-          // Otherwise, go ahead and route to the newly-created place.
-          Util.log("USER", "new-place", "successfully-add-place");
-          router.navigate(Util.getUrl(model), { trigger: true });
-          if (self.geometryEditorView) {
-            self.geometryEditorView.tearDown();
+                model.saveWithoutAttachments(attrs, {
+                  success: function(response) {
+                    Util.log("USER", "new-place", "successfully-add-place");
+                    router.navigate(Util.getUrl(model), { trigger: true });
+                  },
+                  error: function() {
+                    Util.log("USER", "new-place", "fail-to-embed-attachments");
+                  },
+                  complete: function() {
+                    if (self.geometryEditorView) {
+                      self.geometryEditorView.tearDown();
+                    }
+                    $button.removeAttr("disabled");
+                    spinner.stop();
+                    self.resetFormState();
+                    collection.each(function(attachment) {
+                      attachment.set({ saved: true });
+                    });
+                  },
+                });
+              },
+              error: function() {
+                Util.log("USER", "new-place", "fail-to-fetch-embed-urls");
+              },
+            });
+          } else {
+            // Otherwise, go ahead and route to the newly-created place.
+            Util.log("USER", "new-place", "successfully-add-place");
+            router.navigate(Util.getUrl(model), { trigger: true });
+            if (self.geometryEditorView) {
+              self.geometryEditorView.tearDown();
+            }
+            $button.removeAttr("disabled");
+            spinner.stop();
+            self.resetFormState();
           }
-          $button.removeAttr("disabled");
-          spinner.stop();
-          self.resetFormState();
-        }
-      },
-      error: function() {
-        Util.log("USER", "new-place", "fail-to-add-place");
-      },
-      wait: true,
-    });
+        },
+        error: function() {
+          Util.log("USER", "new-place", "fail-to-add-place");
+        },
+        wait: true,
+      });
+    }
   }, null),
 });

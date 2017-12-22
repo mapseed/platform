@@ -48,7 +48,8 @@ module.exports = Backbone.View.extend({
           config: panelConfig,
           sidebar: self.sidebar,
           placeConfig: this.options.placeConfig,
-          sidebarView: this
+          sidebarView: this,
+          panelConfig: panelConfig
         }).render();
       }
     }, this);

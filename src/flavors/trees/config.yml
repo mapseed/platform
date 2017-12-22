@@ -1,16 +1,20 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Trees!
+  title: New trees!
   # Site Link
-  link: Trees!
+  link: New trees!
   # Header name
-  name: Trees!
+  name: New trees!
   # Meta description that will show up in Google search results
   meta_description: _(Trees!)
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
 
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
@@ -19,8 +23,6 @@ app:
 
   # Optional. List view is supported by default. Set to false to disable.
   # list_enabled: false
-
-languages:
 
 # Settings for map and layer configs
 map:
@@ -37,10 +39,10 @@ map:
 
   options:
     center:
-      lat: 47.53273
-      lng: -122.32156
-    zoom: 13
-    minZoom: 7
+      lat: 47.52811
+      lng: -122.31974
+    zoom: 15
+    minZoom: 1
     maxZoom: 18
     maxBounds: [[45.2, -125], [49.3, -116.4]] # Including cushion
   layers:
@@ -90,6 +92,7 @@ map:
 
       # Trees
     - id: trees
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees
       type: place
       slug: trees
 
@@ -388,19 +391,23 @@ sidebar:
               title: _(Original river path)
               visibleDefault: false
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
+            - id: trees
+              title: _(Trees!)
+              visibleDefault: true
 
-    - id: reports_legend
-      title: _(Legend:)
-      view: LegendView
-      icon: info-circle
-      items:
-        - title: _(Tree planted by DIRT Corps)
-          image: /static/css/images/markers/tree.png
+    # - id: ticker
+    #   view: ActivityView
+    #   icon: comments-o
+    #   activity: true
+    #   title: _(Activity Stream:)
+
+    # - id: reports_legend
+    #   title: _(Legend:)
+    #   view: LegendView
+    #   icon: info-circle
+    #   items:
+    #     - title: _(Tree planted by DIRT Corps)
+    #       image: /static/css/images/markers/tree.png
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -416,7 +423,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)
   show_map_button_label: _(Back to the Map)
-  action_text: _(added)
   title: _(Register your tree)
   action_text: _(added)
   anonymous_name: _(Anonymous)
@@ -487,10 +493,14 @@ place:
           prompt: _(ID Tag)
           placeholder: _(Leave blank if unknown)
           optional: true
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -498,7 +508,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####

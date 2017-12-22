@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -18,7 +23,7 @@ app:
   # list_enabled: false
 
 # languages:
-#   - code: en
+#   - code: en_US
 #     label: I Speak English
 
 #   - code: es
@@ -45,7 +50,7 @@ map:
 
   layers:
     - id: osm
-      url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -57,6 +62,7 @@ map:
       attribution: 'Hello World'
 
     - id: duwamish
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
       type: place
       slug: report
 
@@ -287,7 +293,6 @@ place:
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
-  action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Put it on the map!)
 
@@ -332,6 +337,15 @@ place:
           display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+
     - category: question
       includeOnForm: true
       name: location_type
@@ -351,6 +365,15 @@ place:
           prompt: "_(What's your question?)"
           display_prompt: _( )
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+
     - category: idea
       includeOnForm: true
       name: location_type
@@ -371,6 +394,15 @@ place:
           display_prompt: "_( )"
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -391,31 +423,29 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
-    - category: greenwall
-      includeOnForm: false
-      name: location_type
-      dataset: duwamish
-      icon_url: /static/css/images/markers/marker-greenwall.png
-      value: greenwall
-      label: _(Greenwall)
-      fields:
-        - name: name
-          type: text
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
+    submitter_name:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -423,7 +453,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
@@ -477,3 +508,28 @@ pages:
   - title: _(Get involved)
     slug: getinvolved
     name: contribute
+
+# story:
+  # example:
+  #   tagline: _(Next featured site)
+  #   default_zoom: 18
+  #   default_visible_layers:
+  #     - satellite
+  #   order:
+      # - url: dirtcorps
+      #   zoom: 15
+      #   panTo:
+      #     lat: 47.53420
+      #     lng: -122.32165
+      #   spotlight: false
+      #   visible_layers:
+      #     - dirt-corps
+
+# cluster:
+#   animate: true
+#   animateAddingMarkers: false
+#   showCoverageOnHover: false
+#   spiderfyOnMaxZoom: true
+#   spiderfyDistanceMultiplier: 1.5
+#   spiderLegPolylineOptions:
+#     opacity: 0

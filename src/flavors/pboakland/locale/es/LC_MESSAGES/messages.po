@@ -2,75 +2,418 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-30 01:18-0400\n"
+"POT-Creation-Date: 2017-09-07 15:31-0700\n"
 "PO-Revision-Date: 2017-03-30 05:30+0000\n"
 "Last-Translator: PB Project <frank+pbproject@openplans.org>, 2016\n"
 "Language-Team: Spanish (https://www.transifex.com/mapseed/teams/58669/es/)\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Loco-Source-Locale: en_US\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Loco - https://localise.biz/"
+"X-Generator: Loco - https://localise.biz/\n"
 
-#: flavors/pboakland/_config.translations.py:20
-#: flavors/pboakland/_config.translations.py:24
-#: flavors/pboakland/_config.translations.py:26
-#: flavors/pboakland/_config.translations.py:27
-#: flavors/pboakland/_config.translations.py:30
-#: flavors/pboakland/_config.translations.py:34
-#: flavors/pboakland/_config.translations.py:36
-#: flavors/pboakland/_config.translations.py:37
-#: flavors/pboakland/_config.translations.py:40
-#: flavors/pboakland/_config.translations.py:44
-#: flavors/pboakland/_config.translations.py:46
-#: flavors/pboakland/_config.translations.py:47
-#: flavors/pboakland/_config.translations.py:50
-#: flavors/pboakland/_config.translations.py:54
-#: flavors/pboakland/_config.translations.py:56
-#: flavors/pboakland/_config.translations.py:57
+msgid ""
+"Welcome! Participatory Budgeting Oakland is an innovative democratic process "
+"that gives Oakland residents in City Council Districts 1 and 2 the power to "
+"decide how to spend city funds in their district. Help us vote now!"
+msgstr ""
+"¡Bienvenido! El Programa de Presupuesto Participativo en Oakland es un "
+"innovador proceso democrático que les otorga a los residentes del distrito 2 "
+"del Concejo Municipal el poder de decidir cómo invertir una serie de fondos "
+"municipales en su distrito. ¡Ayúdanos a votar hoy mismo!"
+
+msgid "idea for community programs and services"
+msgstr "Idea de programas y servicios para la comunidad"
+
+msgid "idea for parks and recreation"
+msgstr "idea sobre parques y recreación"
+
+msgid "idea for streets and sidewalks"
+msgstr "idea sobre calles y aceras"
+
+msgid "idea for housing and jobs"
+msgstr "Vivienda y empleos"
+
+msgid "Map Layers:"
+msgstr "Capas del mapa:"
+
+msgid "OpenStreetMap"
+msgstr "Mapadecallesmodificable"
+
+msgid "Satellite View"
+msgstr "Vista satelital"
+
+msgid "Dark"
+msgstr "Oscuro"
+
+msgid "Community Data"
+msgstr "Datos de la comunidad"
+
+msgid "Community Reports"
+msgstr "Informes de la comunidad"
+
+msgid "Oakland districts"
+msgstr "Distritos de Oakland"
+
+msgid "Community ideas:"
+msgstr "Ideas de la comunidad:"
+
+msgid "Community Programs and Services"
+msgstr "Programas y Servicios Comunitarios"
+
+msgid "Parks and recreation"
+msgstr "Parques y recreación"
+
+msgid "Streets and sidewalks"
+msgstr "Calles y aceras"
+
+msgid "Housing and Jobs"
+msgstr "Vivienda y empleos"
+
+msgid "Share your idea!"
+msgstr "¡Comparte tu idea!"
+
+msgid "Show the Map"
+msgstr "Mostrar el mapa"
+
+msgid "suggested"
+msgstr "sugerido"
+
+msgid "Submit"
+msgstr "¡Enviar!"
+
+msgid "Title of your idea:"
+msgstr "Título de tu idea:"
+
 msgid " "
 msgstr ""
 
-#: flavors/pboakland/_config.translations.py:60
-msgid "Asian Cultural Center"
-msgstr ""
+msgid "Tell us more about your idea to improve our neighborhood?:"
+msgstr "Cuéntanos más detalles sobre tu idea para mejorar nuestra comunidad:"
 
-#: flavors/pboakland/_config.translations.py:61
-msgid "Williams Chapel"
+msgid ""
+"Ideas must be for a program, service, or infrastructure improvement "
+"benefiting low-to-moderate income communities in the district."
 msgstr ""
+"La idea tiene que estar relacionada con algún programa, servicio o mejora "
+"infraestructural que beneficie a comunidades de ingresos escasos a moderados "
+"dentro del distrito."
 
-#: flavors/pboakland/_config.translations.py:62
-msgid "Beebe Memorial Cathedral"
+msgid "Why is this important? What need in the community does this serve?:"
 msgstr ""
+"¿Por qué es importante? ¿Qué necesidad de la comunidad atiende tu idea?"
 
-#: flavors/pboakland/_config.translations.py:63
-msgid "Mobile Assembly at Bella Vista Elementary School"
-msgstr ""
+msgid "Parks and Recreation"
+msgstr "Parques y recreación"
 
-#: flavors/pboakland/_config.translations.py:66
+msgid "Streets and Sidewalk"
+msgstr "Calles y aceras "
+
 msgid "(For administrator use only)"
 msgstr ""
 
-#: flavors/pboakland/jstemplates/pages/overview.html:1
+#, fuzzy
+msgid "Submitted at:"
+msgstr "¡Enviar!"
+
+msgid "Williams Chapel"
+msgstr ""
+
+msgid "Beebe Memorial Cathedral"
+msgstr ""
+
+msgid "Mobile Assembly at Bella Vista Elementary School"
+msgstr ""
+
+msgid "Other"
+msgstr "Otro"
+
+msgid "Image"
+msgstr "Imagen"
+
+msgid "Demographic information"
+msgstr "Información demográfica"
+
+msgid ""
+"This info is kept private, and is to ensure we are serving a diversity of "
+"people who best represent the needs of the community."
+msgstr ""
+"Esta información se mantiene anónima, y permite asegurar que estemos "
+"atendiendo a un grupo diverso de personas que representen las necesidades de "
+"la comunidad."
+
+msgid "Your age:"
+msgstr "Tu edad:"
+
+msgid "Your age will not appear on the map"
+msgstr "Tu edad no aparecerá en el mapa"
+
+msgid "Your ethnicity will not appear on the map"
+msgstr "Tu grupo étnico no aparecerá en el mapa"
+
+msgid "Ethnicity:"
+msgstr "Grupo étnico:"
+
+msgid "Asian"
+msgstr "Asiático"
+
+msgid "Black or African American"
+msgstr "Negro o afroestadounidense"
+
+msgid "Hispanic or Latino/a"
+msgstr "Hispano o latino"
+
+msgid "Native Hawaiian or Pacific Islander"
+msgstr "Nativo de Hawái o de las islas del Pacífico"
+
+msgid "White"
+msgstr "Blanco"
+
+msgid "Your income:"
+msgstr "Tu ingreso:"
+
+msgid "Under $10,000"
+msgstr "Menos que $10,000 "
+
+msgid "$10,000 - $14,999"
+msgstr "$10,000 - $14,999 "
+
+msgid "$15,000 - $24,999"
+msgstr "$15,000 - $24,999 "
+
+msgid "$25,000 - $34,999"
+msgstr "$25,000 - $34,999 "
+
+msgid "$35,000 - $49,000"
+msgstr "$35,000 - $49,000 "
+
+msgid "$50,000 - $74,999"
+msgstr "$50,000 - $74,999 "
+
+msgid "$75,000 - $99,000"
+msgstr "$75,000 - $99,000 "
+
+msgid "$100,000 - $149,000"
+msgstr "$100,000 - $149,000 "
+
+msgid "$150,000 or more"
+msgstr "$150,000 o más"
+
+msgid "I want to volunteer:"
+msgstr "Me gustaría ser voluntario:"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Your name"
+msgstr "Tu nombre"
+
+msgid "Your Email"
+msgstr "Tu dirección de correo electrónico"
+
+msgid "Your phone number:"
+msgstr "Tu número de teléfono:"
+
+msgid "Your phone number will not appear on the map"
+msgstr "Tu número de teléfono no aparecerá en el mapa"
+
+msgid "Submit!"
+msgstr "¡Enviar!"
+
+msgid "comment"
+msgstr "comentario"
+
+msgid "commented on"
+msgstr "comentó en"
+
+msgid "Leave a Comment"
+msgstr "Dejar un comentario"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Your Name"
+msgstr "Tu nombre"
+
+msgid "Support"
+msgstr "Asistencia"
+
+msgid "supports"
+msgstr "respalda"
+
+msgid "Someone"
+msgstr "Alguien"
+
+msgid "Guidelines"
+msgstr "Pautas"
+
+msgid "Get more involved"
+msgstr "Otras maneras de participar"
+
+msgid ""
+"Already submitted an idea? There are many more ways to get involved in "
+"participatory budgeting:"
+msgstr ""
+"¿Ya presentaste una idea? Hay muchas otras formas de ser parte del proceso "
+"de presupuesto participativo:"
+
+msgid "Volunteer"
+msgstr "Voluntario"
+
+msgid ""
+"You can help to get the word out to district residents, facilitate small "
+"group meetings, provide support at PB events, and more. Sign up <a href="
+"\"http://www.123contactform.com/form-2317799/PB-Oakland-Volunteer-Sign-Up\" "
+"target=\"_blank\">here</a>."
+msgstr ""
+"¡Hay muchísimas formas de ser parte del proceso PB en Oakland! Puedes "
+"ayudarnos a hacer correr la voz entre residentes del distrito, facilitar "
+"reuniones en grupos pequeños, asistirnos en eventos de PB y más. Apúntate <a "
+"href=\"http://www.123contactform.com/form-2373917/PB-Oakland-Volunteer-"
+"Spanish\" target=\"_blank\">aquí</a>."
+
+msgid "Contact Us"
+msgstr "Contacto"
+
+msgid "Have a question? Feel free to contact us."
+msgstr "¿Tienes alguna pregunta? Te invitamos a comunicarte con nosotros."
+
+msgid ""
+"<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
+"Us\" height=\"400\" width=100% </iframe>"
+msgstr ""
+"<iframe src=\"http://www.123contactform.com/form-1169718/PB-Oakland-Contact-"
+"Espanol\" height=\"400\" width=100% </iframe>"
+
 msgid ""
 "\n"
-"<a href=\"http://www2.oaklandnet."
-"com/oakca1/groups/ceda/documents/policy/oak062978.pdf\"><h2>The results are "
-"in!</h2></a>\n"
-"<strong><em>You made it happen: here are your PB Oakland priorities "
-"winners</em></strong>\n"
+"<iframe src=\"https://player.vimeo.com/video/162743651?"
+"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
+"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
 msgstr ""
 "\n"
-"<a href=\"http://www2.oaklandnet."
-"com/oakca1/groups/ceda/documents/policy/oak062978.pdf\"><h2>¡Ya están listos "
-"los resultados!</h2></a>\n"
-"<strong><em> Lo logramos gracias a ti: estos son los ganadores de las "
-"prioridades de financiamiento de PB Oakland.</em></strong>"
+"<iframe src=\"https://player.vimeo.com/video/77157163?"
+"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
+"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
+
+msgid ""
 "\n"
-#: flavors/pboakland/jstemplates/pages/overview.html:5
+"<h2>How does PB work in Oakland?</h2>\n"
+"<p>\n"
+"Participatory Budgeting (PB) is an innovative democratic process that gives "
+"Oakland residents of City Council Districts 1 and 2 the power to set "
+"priorities for how federal Community Development Block Grant (CDBG) funds "
+"should be spent to improve low-to-moderate income communities in their "
+"districts. The projects that receive the most votes up to the maximum dollar "
+"amount will become the CDBG priorities for the district. In December and "
+"January, residents came together at events in their districts and online to "
+"discuss community needs and brainstorm ideas for funded projects that would "
+"benefit low-to-moderate incomes communities. In early February, volunteer "
+"budget delegates evaluated and prioritized those ideas and turned them into "
+"the priority projects that will appear on the PB ballot from February 18-22, "
+"2017.\n"
+"</p>\n"
+"<p>\n"
+"Following the vote, the City of Oakland will release a Request for Proposals "
+"(RFP), and city and non-profit agencies may apply for funds to implement "
+"priority projects. Community Development District Board Members in Districts "
+"1 and 2 will review all applications in response to the RFP and make "
+"recommendations to the city on which should be funded. For more information "
+"on the RFP process, <a href=\"http://www2.oaklandnet.com/government/o/hcd/s/"
+"CDBG/index.htm\">visit the City of Oakland's CDBG website</a>.\n"
+"</p>\n"
+"<p>\n"
+"<strong>In Council District 1</strong>, the 2017-19 CDBG allocation is "
+"$113,654 per year over two years, or $227,308 in total. For a map of the "
+"CDBG eligible area, <a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/"
+"documents/webcontent/dowd009136.pdf\">click here</a>.\n"
+"</p>\n"
+"<p>\n"
+"<strong>In Council District 2</strong>, the 2017-19 CDBG allocation is "
+"$278,685 per year over two years, or $557,370 in total. For a map of the "
+"CDBG eligible area, <a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/"
+"documents/webcontent/dowd009137.pdf\">click here</a>.\n"
+"</p>\n"
+"<p>\n"
+"Not sure if you live in District 1 or 2? Enter your address on <a href="
+"\"https://participatorybudgeting.nationbuilder.com/r?u=http%3A%2F%2Fmapgis."
+"oaklandnet.com%2Fcouncildistricts"
+"%2F&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1vote&n=7&test_email=1\">this "
+"map</a> to find out.\n"
+"</p>\n"
+"<em><strong>\n"
+"For a full description of the PB process in Oakland, download the <a href="
+"\"https://drive.google.com/file/d/0B8FaQ6MQKJm1U0xQSVNUQ1ZEZk0/view?"
+"usp=sharing\">PB Oakland 2016-17 Rulebook</a>.\n"
+"</em>\n"
+"</strong>\n"
+msgstr ""
+"\n"
+"<h2>¿Cómo funciona el Proyecto de Presupuesto Participativo en Oakland? </"
+"h2>\n"
+"<p>\n"
+"El Proyecto de Presupuesto Participativo (PB) es un innovador proceso "
+"democrático que les brinda a los residentes de Oakland de los Distritos 1 y "
+"2 del Concejo Municipal el poder de decidir cuáles deben ser las prioridades "
+"para el uso de fondos de la subvención Community Development Block Grant "
+"(CDBG) a fin de financiar iniciativas que mejoren las comunidades de "
+"ingresos escasos a moderados en sus respectivos distritos.\n"
+"</p>\n"
+"<p>\n"
+"<strong>En el Distrito 1</strong>, la asignación de fondos de la CDBG para "
+"2017 a 2019 asciende a $113,654 por año durante un periodo de dos años, o "
+"$227,308 en total. Los cinco (5) proyectos que reciban más votos se "
+"convertirán en prioridades de la subvención CDBG en el distrito, con un "
+"máximo en servicios públicos de $39,521.\n"
+"</p>\n"
+"<p>\n"
+"<strong>En el Distrito 2</strong>, la asignación de fondos de la CDBG para "
+"2017 a 2019 asciende a $278,685 por año durante un periodo de dos años, o "
+"$557,370 en total. Los doce (12) proyectos que reciban más votos se "
+"convertirán en prioridades de la subvención CDBG en el distrito, con un "
+"máximo en servicios públicos de $97,907 por año.\n"
+"</p>\n"
+"<p>\n"
+"¿No está seguro si vive en el Distrito 1 or 2? <a href=\"https://"
+"participatorybudgeting.nationbuilder.com/r?u=http%3A%2F%2Fmapgis.oaklandnet."
+"com%2Fcouncildistricts"
+"%2F&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1vote&n=7&test_email=1\">¡Pone "
+"su dirección en este mapa!</a>\n"
+"</p>\n"
+
+msgid "Participatory Budgeting Oakland"
+msgstr "El Programa de Presupuesto Participativo en Oakland"
+
+msgid ""
+"is an innovative democratic process that gives Oakland residents of City "
+"Council Districts 1 and 2 the power to set priorities for how federal "
+"Community Development Block Grant (CDBG) funds should be spent to improve "
+"low-to-moderate income communities in their district."
+msgstr ""
+"es un innovador proceso democrático que nos brinda a los residentes de "
+"Oakland dentro de los distritos 1 y 2 del Concejo Municipal el poder de "
+"decidir cómo utilizar fondos federales de la subvención de desarrollo "
+"comunitario Community Development Block Grant (CDBG) "
+
+msgid ""
+"\n"
+"<a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/"
+"oak062978.pdf\"><h2>The results are in!</h2></a>\n"
+"<strong><em>You made it happen: here are your PB Oakland priorities winners</"
+"em></strong>\n"
+msgstr ""
+"\n"
+"<a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/"
+"oak062978.pdf\"><h2>¡Ya están listos los resultados!</h2></a>\n"
+"<strong><em> Lo logramos gracias a ti: estos son los ganadores de las "
+"prioridades de financiamiento de PB Oakland.</em></strong>\n"
+
 msgid ""
 "\n"
 "<p>\n"
@@ -96,13 +439,13 @@ msgid ""
 "California Endowment and the Akonadi Foundation.​\n"
 "</p>\n"
 "<p>\n"
-"The full list of winning priority projects can be found here: <a href=\"http:"
-"//www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/oak062978.pdf\">"
-"CD1 and CD2 Funding Priorities</a>. The city of Oakland is currently "
+"The full list of winning priority projects can be found here: <a href="
+"\"http://www2.oaklandnet.com/oakca1/groups/ceda/documents/policy/oak062978."
+"pdf\">CD1 and CD2 Funding Priorities</a>. The city of Oakland is currently "
 "conducting a Request for Proposals (RFP) process in which the Community "
 "Development District Boards will make funding recommendations in April. For "
-"more information on the RFP process, <a href=\"http://www2.oaklandnet."
-"com/government/o/hcd/s/CDBG/index.htm\">click here</a>.\n"
+"more information on the RFP process, <a href=\"http://www2.oaklandnet.com/"
+"government/o/hcd/s/CDBG/index.htm\">click here</a>.\n"
 "</p>\n"
 "<p>\n"
 "P.S. If there was an idea you were rooting for that didn’t win, don’t worry! "
@@ -121,8 +464,8 @@ msgstr ""
 "para ayudar a \n"
 "decidir cómo utilizar $784,678 en un lapso de dos años para beneficiar a "
 "residentes de ingresos \n"
-"escasos y modestos en los distritos 1 y 2 del Concejo Municipal de Oakland. "
-"\n"
+"escasos y modestos en los distritos 1 y 2 del Concejo Municipal de "
+"Oakland. \n"
 "</p>\n"
 "<p>\n"
 "¡Gracias a todos los que participaron en el primer proceso de PB en la "
@@ -148,11 +491,11 @@ msgstr ""
 "</p>\n"
 "<p>\n"
 "Se puede encontrar la lista completa de proyectos ganadores del estudio "
-"prioritario aquí: <a href=\"http://www2.oaklandnet."
-"com/oakca1/groups/ceda/documents/policy/oak062978.pdf\">prioridades de "
-"financiamiento del DC1 y DC2</a>. La ciudad de Oakland se encuentra "
-"realizando un proceso de Convocatoria de Propuestas (RFP, por sus siglas en "
-"inglés) en que las Juntas de Distrito para el Desarrollo Comunitario \n"
+"prioritario aquí: <a href=\"http://www2.oaklandnet.com/oakca1/groups/ceda/"
+"documents/policy/oak062978.pdf\">prioridades de financiamiento del DC1 y "
+"DC2</a>. La ciudad de Oakland se encuentra realizando un proceso de "
+"Convocatoria de Propuestas (RFP, por sus siglas en inglés) en que las Juntas "
+"de Distrito para el Desarrollo Comunitario \n"
 "realizarán recomendaciones de financiamiento en abril. Para más información "
 "sobre el proceso \n"
 "de RFP, <a href=\"http://www2.oaklandnet.com/government/o/hcd/s/CDBG/index."
@@ -164,544 +507,18 @@ msgstr ""
 "ideas propuestas durante el proceso se compartirán con ambas juntas de "
 "distrito y el \n"
 "personal de la oficina del Concejo a fin de estudiarlas en el futuro. \n"
-"</p>"
-"\n"
+"</p>\n"
 
-#: flavors/pboakland/jstemplates/place-detail.html:21
-msgid "View On Map"
-msgstr ""
-
-#: flavors/pboakland/_config.translations.py:65
-#, fuzzy
-msgid "Venue name:"
-msgstr "Tu nombre"
-
-#: flavors/pboakland/_config.translations.py:67
-#, fuzzy
-msgid "Submitted at:"
-msgstr "¡Enviar!"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:27
 msgid ""
 "For more information on the City of Oakland’s Community Development Block "
-"Grant (CDBG) program, <a href=\"http://www2.oaklandnet."
-"com/government/o/hcd/s/CDBG/index.htm\" target=”_blank”>click here</a>."
+"Grant (CDBG) program, <a href=\"http://www2.oaklandnet.com/government/o/hcd/"
+"s/CDBG/index.htm\" target=”_blank”>click here</a>."
 msgstr ""
 "Si deseas obtener más información sobre la subvención de desarrollo urbano  "
 "Community Development Block Grant (CDBG) de la ciudad de Oakland, haz clic "
 "<a href=\"http://www2.oaklandnet.com/government/o/hcd/s/CDBG/index.htm\" "
 "target=”_blank”>aquí</a>."
 
-#: flavors/pboakland/_config.translations.py:1
-msgid ""
-"Welcome! Participatory Budgeting Oakland is an innovative democratic process "
-"that gives Oakland residents in City Council Districts 1 and 2 the power to "
-"decide how to spend city funds in their district. Help us vote now!"
-msgstr ""
-"¡Bienvenido! El Programa de Presupuesto Participativo en Oakland es un "
-"innovador proceso democrático que les otorga a los residentes del distrito 2 "
-"del Concejo Municipal el poder de decidir cómo invertir una serie de fondos "
-"municipales en su distrito. ¡Ayúdanos a votar hoy mismo!"
-
-#: flavors/pboakland/_config.translations.py:2
-#: flavors/pboakland/_config.translations.py:15
-#: flavors/pboakland/_config.translations.py:109
-msgid "Someone"
-msgstr "Alguien"
-
-#: flavors/pboakland/_config.translations.py:3
-msgid "support"
-msgstr "respaldo"
-
-#: flavors/pboakland/_config.translations.py:4
-msgid "Support"
-msgstr "Asistencia"
-
-#: flavors/pboakland/_config.translations.py:5
-msgid "supports"
-msgstr "respalda"
-
-#: flavors/pboakland/_config.translations.py:6
-msgid "comments"
-msgstr "comentarios"
-
-#: flavors/pboakland/_config.translations.py:7
-msgid "commented on"
-msgstr "comentó en"
-
-#: flavors/pboakland/_config.translations.py:8
-#: flavors/pboakland/_config.translations.py:14
-msgid "Leave a Comment"
-msgstr "Dejar un comentario"
-
-#: flavors/pboakland/_config.translations.py:9
-#: flavors/pboakland/_config.translations.py:10
-#: flavors/pboakland/_config.translations.py:12
-msgid "Comment"
-msgstr "Comentario"
-
-#: flavors/pboakland/_config.translations.py:11
-msgid "Your Name"
-msgstr "Tu nombre"
-
-#: flavors/pboakland/_config.translations.py:13
-msgid "comment"
-msgstr "comentario"
-
-#: flavors/pboakland/_config.translations.py:16
-msgid "Show the Map"
-msgstr "Mostrar el mapa"
-
-#: flavors/pboakland/_config.translations.py:17
-msgid "Submit"
-msgstr "¡Enviar!"
-
-#: flavors/pboakland/_config.translations.py:18
-msgid "Tell us more..."
-msgstr "Cuéntanos más..."
-
-#: flavors/pboakland/_config.translations.py:19
-#: flavors/pboakland/_config.translations.py:29
-#: flavors/pboakland/_config.translations.py:39
-#: flavors/pboakland/_config.translations.py:49
-msgid "Title of your idea:"
-msgstr "Título de tu idea:"
-
-#: flavors/pboakland/_config.translations.py:21
-#: flavors/pboakland/_config.translations.py:31
-#: flavors/pboakland/_config.translations.py:41
-#: flavors/pboakland/_config.translations.py:51
-msgid "Title:"
-msgstr "Título:"
-
-#: flavors/pboakland/_config.translations.py:22
-#: flavors/pboakland/_config.translations.py:32
-#: flavors/pboakland/_config.translations.py:42
-#: flavors/pboakland/_config.translations.py:52
-msgid "Tell us more about your idea to improve our neighborhood?:"
-msgstr "Cuéntanos más detalles sobre tu idea para mejorar nuestra comunidad:"
-
-#: flavors/pboakland/_config.translations.py:23
-#: flavors/pboakland/_config.translations.py:33
-#: flavors/pboakland/_config.translations.py:43
-#: flavors/pboakland/_config.translations.py:53
-msgid ""
-"Ideas must be for a program, service, or infrastructure improvement "
-"benefiting low-to-moderate income communities in the district."
-msgstr ""
-"La idea tiene que estar relacionada con algún programa, servicio o mejora "
-"infraestructural que beneficie a comunidades de ingresos escasos a moderados "
-"dentro del distrito."
-
-#: flavors/pboakland/_config.translations.py:25
-#: flavors/pboakland/_config.translations.py:35
-#: flavors/pboakland/_config.translations.py:45
-#: flavors/pboakland/_config.translations.py:55
-msgid "Why is this important? What need in the community does this serve?:"
-msgstr ""
-"¿Por qué es importante? ¿Qué necesidad de la comunidad atiende tu idea?"
-
-#: flavors/pboakland/_config.translations.py:28
-#: flavors/pboakland/_config.translations.py:122
-msgid "Community Programs and Services"
-msgstr "Programas y Servicios Comunitarios"
-
-#: flavors/pboakland/_config.translations.py:38
-msgid "Parks and Recreation"
-msgstr "Parques y recreación"
-
-#: flavors/pboakland/_config.translations.py:48
-msgid "Streets and Sidewalk"
-msgstr "Calles y aceras "
-
-#: flavors/pboakland/_config.translations.py:58
-#: flavors/pboakland/_config.translations.py:125
-msgid "Housing and Jobs"
-msgstr "Vivienda y empleos"
-
-#: flavors/pboakland/_config.translations.py:59
-msgid "suggested"
-msgstr "sugerido"
-
-#: flavors/pboakland/_config.translations.py:64
-#: flavors/pboakland/_config.translations.py:83
-msgid "Other"
-msgstr "Otro"
-
-#: flavors/pboakland/_config.translations.py:68
-msgid "Image"
-msgstr "Imagen"
-
-#: flavors/pboakland/_config.translations.py:69
-msgid "Add an Image"
-msgstr "Añadir una imagen"
-
-#: flavors/pboakland/_config.translations.py:70
-msgid "Demographic information"
-msgstr "Información demográfica"
-
-#: flavors/pboakland/_config.translations.py:71
-msgid ""
-"This info is kept private, and is to ensure we are serving a diversity of "
-"people who best represent the needs of the community."
-msgstr ""
-"Esta información se mantiene anónima, y permite asegurar que estemos "
-"atendiendo a un grupo diverso de personas que representen las necesidades de "
-"la comunidad."
-
-#: flavors/pboakland/_config.translations.py:72
-msgid "Your age:"
-msgstr "Tu edad:"
-
-#: flavors/pboakland/_config.translations.py:73
-msgid "Your age will not appear on the map"
-msgstr "Tu edad no aparecerá en el mapa"
-
-#: flavors/pboakland/_config.translations.py:75
-msgid "Your ethnicity:"
-msgstr "Tu grupo étnico:"
-
-#: flavors/pboakland/_config.translations.py:76
-msgid "Ethnicity:"
-msgstr "Grupo étnico:"
-
-#: flavors/pboakland/_config.translations.py:77
-msgid "American Indian/Alaskan Native"
-msgstr "Indígena estadounidense/nativo de Alaska"
-
-#: flavors/pboakland/_config.translations.py:78
-msgid "Asian"
-msgstr "Asiático"
-
-#: flavors/pboakland/_config.translations.py:79
-msgid "Black or African American"
-msgstr "Negro o afroestadounidense"
-
-#: flavors/pboakland/_config.translations.py:80
-msgid "Hispanic or Latino/a"
-msgstr "Hispano o latino"
-
-#: flavors/pboakland/_config.translations.py:81
-msgid "Native Hawaiian or Pacific Islander"
-msgstr "Nativo de Hawái o de las islas del Pacífico"
-
-#: flavors/pboakland/_config.translations.py:82
-msgid "White"
-msgstr "Blanco"
-
-#: flavors/pboakland/_config.translations.py:84
-msgid "Your ethnicity will not appear on the map"
-msgstr "Tu grupo étnico no aparecerá en el mapa"
-
-#: flavors/pboakland/_config.translations.py:85
-msgid "Under $10,000"
-msgstr "Menos que $10,000 "
-
-#: flavors/pboakland/_config.translations.py:86
-msgid "$10,000 - $14,999"
-msgstr "$10,000 - $14,999 "
-
-#: flavors/pboakland/_config.translations.py:87
-msgid "$15,000 - $24,999"
-msgstr "$15,000 - $24,999 "
-
-#: flavors/pboakland/_config.translations.py:88
-msgid "$25,000 - $34,999"
-msgstr "$25,000 - $34,999 "
-
-#: flavors/pboakland/_config.translations.py:89
-msgid "$35,000 - $49,000"
-msgstr "$35,000 - $49,000 "
-
-#: flavors/pboakland/_config.translations.py:90
-msgid "$50,000 - $74,999"
-msgstr "$50,000 - $74,999 "
-
-#: flavors/pboakland/_config.translations.py:91
-msgid "$75,000 - $99,000"
-msgstr "$75,000 - $99,000 "
-
-#: flavors/pboakland/_config.translations.py:92
-msgid "$100,000 - $149,000"
-msgstr "$100,000 - $149,000 "
-
-#: flavors/pboakland/_config.translations.py:93
-msgid "$150,000 or more"
-msgstr "$150,000 o más"
-
-#: flavors/pboakland/_config.translations.py:94
-msgid "Your income:"
-msgstr "Tu ingreso:"
-
-#: flavors/pboakland/_config.translations.py:95
-msgid "Your income will not appear on the map"
-msgstr "Tu ingreso no aparecerá en el mapa"
-
-#: flavors/pboakland/_config.translations.py:96
-msgid "Yes"
-msgstr "Sí"
-
-#: flavors/pboakland/_config.translations.py:97
-msgid "No"
-msgstr "No"
-
-#: flavors/pboakland/_config.translations.py:98
-#: flavors/pboakland/_config.translations.py:99
-msgid "I want to volunteer:"
-msgstr "Me gustaría ser voluntario:"
-
-#: flavors/pboakland/_config.translations.py:100
-msgid "Your name"
-msgstr "Tu nombre"
-
-#: flavors/pboakland/_config.translations.py:101
-msgid "Name"
-msgstr "Nombre"
-
-#: flavors/pboakland/_config.translations.py:102
-msgid "Your Email"
-msgstr "Tu dirección de correo electrónico"
-
-#: flavors/pboakland/_config.translations.py:103
-msgid "Receive email updates on your idea"
-msgstr "Recibe información actualizada por correo electrónico sobre tu idea."
-
-#: flavors/pboakland/_config.translations.py:104
-msgid "Your phone number:"
-msgstr "Tu número de teléfono:"
-
-#: flavors/pboakland/_config.translations.py:105
-msgid "Your phone number will not appear on the map"
-msgstr "Tu número de teléfono no aparecerá en el mapa"
-
-#: flavors/pboakland/_config.translations.py:107
-msgid "Submit!"
-msgstr "¡Enviar!"
-
-#: flavors/pboakland/_config.translations.py:108
-msgid "See full list"
-msgstr "Ver lista completa"
-
-#: flavors/pboakland/_config.translations.py:110
-msgid "Share your idea!"
-msgstr "¡Comparte tu idea!"
-
-#: flavors/pboakland/_config.translations.py:111
-msgid "idea for housing and jobs"
-msgstr "Vivienda y empleos"
-
-#: flavors/pboakland/_config.translations.py:112
-msgid "idea for streets and sidewalks"
-msgstr "idea sobre calles y aceras"
-
-#: flavors/pboakland/_config.translations.py:113
-msgid "idea for community programs and services"
-msgstr "Idea de programas y servicios para la comunidad"
-
-#: flavors/pboakland/_config.translations.py:114
-msgid "idea for parks and recreation"
-msgstr "idea sobre parques y recreación"
-
-#: flavors/pboakland/_config.translations.py:115
-msgid "Community Reports"
-msgstr "Informes de la comunidad"
-
-#: flavors/pboakland/_config.translations.py:116
-msgid "Oakland districts"
-msgstr "Distritos de Oakland"
-
-#: flavors/pboakland/_config.translations.py:117
-msgid "Community Data"
-msgstr "Datos de la comunidad"
-
-#: flavors/pboakland/_config.translations.py:118
-msgid "Map Layers:"
-msgstr "Capas del mapa:"
-
-#: flavors/pboakland/_config.translations.py:119
-msgid "OpenStreetMap"
-msgstr "Mapadecallesmodificable"
-
-#: flavors/pboakland/_config.translations.py:120
-msgid "Satellite View"
-msgstr "Vista satelital"
-
-#: flavors/pboakland/_config.translations.py:121
-msgid "Dark"
-msgstr "Oscuro"
-
-#: flavors/pboakland/_config.translations.py:123
-msgid "Parks and recreation"
-msgstr "Parques y recreación"
-
-#: flavors/pboakland/_config.translations.py:124
-msgid "Streets and sidewalks"
-msgstr "Calles y aceras"
-
-#: flavors/pboakland/_config.translations.py:126
-msgid "Community ideas:"
-msgstr "Ideas de la comunidad:"
-
-#: flavors/pboakland/_config.translations.py:127
-msgid "About"
-msgstr "Información"
-
-#: flavors/pboakland/_config.translations.py:128
-msgid "Guidelines"
-msgstr "Pautas"
-
-#: flavors/pboakland/_config.translations.py:129
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:4
-msgid "Get more involved"
-msgstr "Otras maneras de participar"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:1
-msgid ""
-"<iframe src=\"http://www.123contactform.com/form-1169694/PB-Oakland-Contact-"
-"Us\" height=\"400\" width=100% </iframe>"
-msgstr ""
-"<iframe src=\"http://www.123contactform.com/form-1169718/PB-Oakland-Contact-"
-"Espanol\" height=\"400\" width=100% </iframe>"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:2
-msgid ""
-"Already submitted an idea? There are many more ways to get involved in "
-"participatory budgeting:"
-msgstr ""
-"¿Ya presentaste una idea? Hay muchas otras formas de ser parte del proceso "
-"de presupuesto participativo:"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:3
-msgid "Contact Us"
-msgstr "Contacto"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:5
-msgid "Have a question? Feel free to contact us."
-msgstr "¿Tienes alguna pregunta? Te invitamos a comunicarte con nosotros."
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:6
-msgid "Volunteer"
-msgstr "Voluntario"
-
-#: flavors/pboakland/jstemplates/pages/getinvolved.html:7
-msgid ""
-"You can help to get the word out to district residents, facilitate small "
-"group meetings, provide support at PB events, and more. Sign up <a "
-"href=\"http://www.123contactform.com/form-2317799/PB-Oakland-Volunteer-Sign-"
-"Up\" target=\"_blank\">here</a>."
-msgstr ""
-"¡Hay muchísimas formas de ser parte del proceso PB en Oakland! Puedes "
-"ayudarnos a hacer correr la voz entre residentes del distrito, facilitar "
-"reuniones en grupos pequeños, asistirnos en eventos de PB y más. Apúntate <a "
-"href=\"http://www.123contactform.com/form-2373917/PB-Oakland-Volunteer-"
-"Spanish\" target=\"_blank\">aquí</a>."
-
-#: flavors/pboakland/jstemplates/pages/guidelines.html:1
-msgid ""
-"\n"
-"<h2>How does PB work in Oakland?</h2>\n"
-"<p>\n"
-"Participatory Budgeting (PB) is an innovative democratic process that gives "
-"Oakland residents of City Council Districts 1 and 2 the power to set "
-"priorities for how federal Community Development Block Grant (CDBG) funds "
-"should be spent to improve low-to-moderate income communities in their "
-"districts. The projects that receive the most votes up to the maximum dollar "
-"amount will become the CDBG priorities for the district. In December and "
-"January, residents came together at events in their districts and online to "
-"discuss community needs and brainstorm ideas for funded projects that would "
-"benefit low-to-moderate incomes communities. In early February, volunteer "
-"budget delegates evaluated and prioritized those ideas and turned them into "
-"the priority projects that will appear on the PB ballot from February 18-22, "
-"2017.\n"
-"</p>\n"
-"<p>\n"
-"Following the vote, the City of Oakland will release a Request for Proposals "
-"(RFP), and city and non-profit agencies may apply for funds to implement "
-"priority projects. Community Development District Board Members in Districts "
-"1 and 2 will review all applications in response to the RFP and make "
-"recommendations to the city on which should be funded. For more information "
-"on the RFP process, <a href=\"http://www2.oaklandnet."
-"com/government/o/hcd/s/CDBG/index.htm\">visit the City of Oakland's CDBG "
-"website</a>.\n"
-"</p>\n"
-"<p>\n"
-"<strong>In Council District 1</strong>, the 2017-19 CDBG allocation is $113,"
-"654 per year over two years, or $227,308 in total. For a map of the CDBG "
-"eligible area, <a href=\"http://www2.oaklandnet."
-"com/oakca1/groups/ceda/documents/webcontent/dowd009136.pdf\">click here</a>."
-"\n"
-"</p>\n"
-"<p>\n"
-"<strong>In Council District 2</strong>, the 2017-19 CDBG allocation is $278,"
-"685 per year over two years, or $557,370 in total. For a map of the CDBG "
-"eligible area, <a href=\"http://www2.oaklandnet."
-"com/oakca1/groups/ceda/documents/webcontent/dowd009137.pdf\">click here</a>."
-"\n"
-"</p>\n"
-"<p>\n"
-"Not sure if you live in District 1 or 2? Enter your address on <a "
-"href=\"https://participatorybudgeting.nationbuilder.com/r?"
-"u=http%3A%2F%2Fmapgis.oaklandnet."
-"com%2Fcouncildistricts%2F&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1vote&n=7&test_email=1\""
-">this map</a> to find out.\n"
-"</p>\n"
-"<em><strong>\n"
-"For a full description of the PB process in Oakland, download the <a "
-"href=\"https://drive.google.com/file/d/0B8FaQ6MQKJm1U0xQSVNUQ1ZEZk0/view?"
-"usp=sharing\">PB Oakland 2016-17 Rulebook</a>.\n"
-"</em>\n"
-"</strong>\n"
-msgstr ""
-"\n"
-"<h2>¿Cómo funciona el Proyecto de Presupuesto Participativo en Oakland? </h2>"
-"\n"
-"<p>\n"
-"El Proyecto de Presupuesto Participativo (PB) es un innovador proceso "
-"democrático que les brinda a los residentes de Oakland de los Distritos 1 y "
-"2 del Concejo Municipal el poder de decidir cuáles deben ser las prioridades "
-"para el uso de fondos de la subvención Community Development Block Grant "
-"(CDBG) a fin de financiar iniciativas que mejoren las comunidades de "
-"ingresos escasos a moderados en sus respectivos distritos.\n"
-"</p>\n"
-"<p>\n"
-"<strong>En el Distrito 1</strong>, la asignación de fondos de la CDBG para "
-"2017 a 2019 asciende a $113,654 por año durante un periodo de dos años, o "
-"$227,308 en total. Los cinco (5) proyectos que reciban más votos se "
-"convertirán en prioridades de la subvención CDBG en el distrito, con un "
-"máximo en servicios públicos de $39,521.\n"
-"</p>\n"
-"<p>\n"
-"<strong>En el Distrito 2</strong>, la asignación de fondos de la CDBG para "
-"2017 a 2019 asciende a $278,685 por año durante un periodo de dos años, o "
-"$557,370 en total. Los doce (12) proyectos que reciban más votos se "
-"convertirán en prioridades de la subvención CDBG en el distrito, con un "
-"máximo en servicios públicos de $97,907 por año.\n"
-"</p>\n"
-"<p>\n"
-"¿No está seguro si vive en el Distrito 1 or 2? <a href=\"https:"
-"//participatorybudgeting.nationbuilder.com/r?u=http%3A%2F%2Fmapgis."
-"oaklandnet."
-"com%2Fcouncildistricts%2F&e=1860e7904dcd651a71dfc072d7cae68cb859e106&utm_source=participatorybudgeting&utm_medium=email&utm_campaign=oakd1vote&n=7&test_email=1\""
-">¡Pone su dirección en este mapa!</a>\n"
-"</p>\n"
-
-#: flavors/pboakland/jstemplates/pages/guidelines.html:23
-msgid ""
-"\n"
-"<iframe src=\"https://player.vimeo.com/video/162743651?"
-"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
-"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
-msgstr ""
-"\n"
-"<iframe src=\"https://player.vimeo.com/video/77157163?"
-"color=ff9933&byline=0\" width=\"640\" height=\"360\" frameborder=\"0\" "
-"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:25
-msgid "Explore the map!"
-msgstr "Explora el mapa!"
-
-#: flavors/pboakland/jstemplates/pages/overview.html:26
 msgid ""
 "For information on participatory budgeting in the U.S. and Canada, visit the "
 "website of the <a href=\"http://www.participatorybudgeting.org/\" "
@@ -712,22 +529,49 @@ msgstr ""
 "participatorybudgeting.org/\" target=”_blank”>Proyecto de Presupuesto "
 "Participativo</a>."
 
-#: flavors/pboakland/jstemplates/pages/overview.html:28
-msgid "Participatory Budgeting Oakland"
-msgstr "El Programa de Presupuesto Participativo en Oakland"
+msgid "Explore the map!"
+msgstr "Explora el mapa!"
 
-#: flavors/pboakland/jstemplates/pages/overview.html:29
-msgid ""
-"is an innovative democratic process that gives Oakland residents of City "
-"Council Districts 1 and 2 the power to set priorities for how federal "
-"Community Development Block Grant (CDBG) funds should be spent to improve "
-"low-to-moderate income communities in their district."
-msgstr ""
-"es un innovador proceso democrático que nos brinda a los residentes de "
-"Oakland dentro de los distritos 1 y 2 del Concejo Municipal el poder de "
-"decidir cómo utilizar fondos federales de la subvención de desarrollo "
-"comunitario Community Development Block Grant (CDBG) "
+#, fuzzy
+#~ msgid "Venue name:"
+#~ msgstr "Tu nombre"
 
-#: flavors/pboakland/templates/index.html:54
-msgid "Powered by"
-msgstr "Con el respaldo de"
+#~ msgid "support"
+#~ msgstr "respaldo"
+
+#~ msgid "comments"
+#~ msgstr "comentarios"
+
+#~ msgid "Tell us more..."
+#~ msgstr "Cuéntanos más..."
+
+#~ msgid "Title:"
+#~ msgstr "Título:"
+
+#~ msgid "Add an Image"
+#~ msgstr "Añadir una imagen"
+
+#~ msgid "Your ethnicity:"
+#~ msgstr "Tu grupo étnico:"
+
+#~ msgid "American Indian/Alaskan Native"
+#~ msgstr "Indígena estadounidense/nativo de Alaska"
+
+#~ msgid "Your income will not appear on the map"
+#~ msgstr "Tu ingreso no aparecerá en el mapa"
+
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#~ msgid "Receive email updates on your idea"
+#~ msgstr ""
+#~ "Recibe información actualizada por correo electrónico sobre tu idea."
+
+#~ msgid "See full list"
+#~ msgstr "Ver lista completa"
+
+#~ msgid "About"
+#~ msgstr "Información"
+
+#~ msgid "Powered by"
+#~ msgstr "Con el respaldo de"

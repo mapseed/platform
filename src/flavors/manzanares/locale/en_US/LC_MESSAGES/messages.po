@@ -1,0 +1,504 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-16 11:54+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+"Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgstr ""
+
+msgid "Log Out"
+msgstr ""
+
+msgid "Admin"
+msgstr ""
+
+msgid "Manzanares Corridor"
+msgstr ""
+
+msgid "Welcome!"
+msgstr ""
+
+msgid ""
+"Over the next few months, we will work with community members and local "
+"stakeholders to design a plan for the garden and begin construction soon "
+"after."
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Satellite"
+msgstr ""
+
+msgid "Terrain"
+msgstr ""
+
+msgid "Map detail"
+msgstr ""
+
+msgid "Transit"
+msgstr ""
+
+msgid "Biking"
+msgstr ""
+
+msgid "Zoning"
+msgstr ""
+
+msgid "Urban gardens"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+msgid "Partners"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Climate risks"
+msgstr ""
+
+msgid "Heat Waves"
+msgstr ""
+
+msgid "Add your comments"
+msgstr ""
+
+msgid "added"
+msgstr ""
+
+msgid "Tell us more..."
+msgstr ""
+
+msgid "Someone"
+msgstr ""
+
+msgid "Put it on the map!"
+msgstr ""
+
+msgid "Partner Site"
+msgstr ""
+
+msgid "Location:"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Enter address..."
+msgstr ""
+
+msgid "Title of this featured site:"
+msgstr ""
+
+msgid " "
+msgstr ""
+
+msgid "Enter title..."
+msgstr ""
+
+msgid "Choose a custom URL for this place:"
+msgstr ""
+
+msgid "Project Site"
+msgstr ""
+
+msgid "Add a comment"
+msgstr ""
+
+msgid "How old are you?"
+msgstr ""
+
+msgid "Are you a regular user of this garden?"
+msgstr ""
+
+msgid "I am a regular user of this garden:"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Do you have children at home?"
+msgstr ""
+
+msgid "I have children at home:"
+msgstr ""
+
+msgid "What is your preferred language?"
+msgstr ""
+
+msgid "My preferred language:"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "What type of comment is this?"
+msgstr ""
+
+msgid "Recommendation"
+msgstr ""
+
+msgid "Recommendations"
+msgstr ""
+
+msgid "Concern"
+msgstr ""
+
+msgid "Concerns"
+msgstr ""
+
+msgid "What would encourage you to use this space more often?"
+msgstr ""
+
+msgid "Write your comment here"
+msgstr ""
+
+msgid "Select any of the below categories that apply:"
+msgstr ""
+
+msgid "Amenities"
+msgstr ""
+
+msgid "Horticulture"
+msgstr ""
+
+msgid "Programs"
+msgstr ""
+
+msgid "Safety"
+msgstr ""
+
+msgid "Experience"
+msgstr ""
+
+msgid "Your name"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Enter your email address for updates"
+msgstr ""
+
+msgid "name@mail.com"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Add an Image"
+msgstr ""
+
+msgid "Submit comment"
+msgstr ""
+
+msgid "comment"
+msgstr ""
+
+msgid "comments"
+msgstr ""
+
+msgid "commented on"
+msgstr ""
+
+msgid "Leave a Comment"
+msgstr ""
+
+msgid "Your Name"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "support"
+msgstr ""
+
+msgid "supports"
+msgstr ""
+
+msgid "Map"
+msgstr ""
+
+msgid "Train"
+msgstr ""
+
+msgid "Bus"
+msgstr ""
+
+msgid "Residential"
+msgstr ""
+
+msgid "Industrial - Manufacturing"
+msgstr ""
+
+msgid "Commercial"
+msgstr ""
+
+msgid "Green areas - Parks"
+msgstr ""
+
+msgid "Land temperature"
+msgstr ""
+
+msgid "Flood zones"
+msgstr ""
+
+msgid "Category 1 Hurricane"
+msgstr ""
+
+msgid "Category 2 Hurricane"
+msgstr ""
+
+msgid "Category 3 Hurricane"
+msgstr ""
+
+msgid "Category 4 Hurricane"
+msgstr ""
+
+msgid "Corredor Manzanares"
+msgstr ""
+
+msgid ""
+"The Manzanares Corridor is a project that links the Casa de Campo park to "
+"the playful and cultural enclave of Madrid Rio, which is just over 2 km "
+"away. These places are separated by the river Manzanares, on one side of the "
+"Corridor is the Palacio neighborhood, located in the Centro district, and on "
+"the other side are the Puerta del Ángel and Cármenes neighborhoods, in the "
+"Latina district."
+msgstr ""
+
+msgid "Manzanares"
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid ""
+"The Casa de Campo is a historic garden and the largest public park in the "
+"municipality of Madrid (España). It is situated west of the city and belongs "
+"to the Casa de Campo neighborhood, Moncloa-Aravaca district. With an "
+"extension of 1.722,6 hectares, it emerged from a hunting ground of Spanish "
+"royalty and has been a public park since 1931, used especially for "
+"entertainment and sports on weekends and holidays."
+msgstr ""
+
+msgid ""
+"Madrid Río was open in 2011, on the banks of the Manzanares river, which "
+"until then had been inaccessible and hadn't distinguished itself as a point "
+"of attraction for the city, but as a place to which it has turned its back. "
+"With the project the area began to attract the attention of the Madrid "
+"natives, offering the children 17 playgrounds and adults biohealthy and "
+"cultural activities (exhibitions, music, theater) that take place in "
+"Matadero Madrid."
+msgstr ""
+
+msgid "Age of population"
+msgstr ""
+
+msgid "Palacio: 8.70% 0-15, 74.97% 16-64 and 16.3% +65."
+msgstr ""
+
+msgid "Puerta del Ángel y Cármenes: 12.4% 0-15, 62% 16-64 y 25, 24% +65"
+msgstr ""
+
+msgid "Urban profile"
+msgstr ""
+
+msgid ""
+"Palace - Mixed (residential and commercial), occupied by middle class people "
+"and tourists"
+msgstr ""
+
+msgid ""
+"Puerta del Ángel y Cármenes - residential, occupied by middle class and "
+"lower middle class workers"
+msgstr ""
+
+msgid "Origina of population"
+msgstr ""
+
+#, python-format
+msgid ""
+"Palacio: 23,8% foreigners, mostly from Latin America and the European Union "
+msgstr ""
+
+#, python-format
+msgid ""
+"Puerta del Ángel y Cármenes: 21% foreigners, especially from Latin America "
+"and the Caribbean"
+msgstr ""
+
+msgid "Climate"
+msgstr ""
+
+msgid ""
+"By 2050, there will be 20% more unusually hot days in the summer, and it "
+"will rain 20% less."
+msgstr ""
+
+msgid ""
+"Summers in Madrid are hot; in  July average temperatures during the day "
+"range from 32°C to 33°C (90°F to 91°F) depending on location, with maximums "
+"commonly climbing over 35 °C (95 °F) during frequent heat waves. The highest "
+"recorded temperature was on 24 July 1995, at 42.2 °C (108.0 °F), and the "
+"lowest recorded temperature was on 16 January 1945 at −10.1 °C (13.8 °F)."
+msgstr ""
+
+msgid ""
+"Winters are cool due to Madrid's altitude, which is approximately 667 m "
+"(2,188 ft) above sea level, including sporadic snowfalls and frequent frosts "
+"in December and January. "
+msgstr ""
+
+msgid "optional"
+msgstr ""
+
+msgid "Select..."
+msgstr ""
+
+msgid "Your post will be accessible at:"
+msgstr ""
+
+msgid "This url is already in use. Please try another."
+msgstr ""
+
+msgid "Please choose a url without a forward slash character (/) in it."
+msgstr ""
+
+msgid "Click on a tool below to draw on the map"
+msgstr ""
+
+msgid "Click on a tool below to modify your shape"
+msgstr ""
+
+msgid ""
+"Drag shape handles to edit your shape, or click on shape handles to delete "
+"vertices"
+msgstr ""
+
+msgid "Drag your marker to reposition it"
+msgstr ""
+
+msgid "Click anywhere on the map to start drawing"
+msgstr ""
+
+msgid "Click to continue drawing your shape"
+msgstr ""
+
+msgid ""
+"Click to continue drawing, or click on your first point to complete your "
+"shape"
+msgstr ""
+
+msgid "Click to continue drawing"
+msgstr ""
+
+msgid "Click to continue drawing, or double click to complete your shape"
+msgstr ""
+
+msgid "Click anywhere on the map to place your marker"
+msgstr ""
+
+msgid "Create marker"
+msgstr ""
+
+msgid "Create polyline"
+msgstr ""
+
+msgid "Create polygon"
+msgstr ""
+
+msgid "Edit marker"
+msgstr ""
+
+msgid "Edit polyline"
+msgstr ""
+
+msgid "Edit polygon"
+msgstr ""
+
+msgid "Delete marker"
+msgstr ""
+
+msgid "Delete polyline"
+msgstr ""
+
+msgid "Delete polygon"
+msgstr ""
+
+msgid "Change colors"
+msgstr ""
+
+msgid "Choose an icon style below"
+msgstr ""
+
+msgid "Published"
+msgstr ""
+
+msgid "Not published"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "When saved, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When saved, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "Tell us about yourself!"
+msgstr ""
+
+msgid "Move the map to mark where you live."
+msgstr ""
+
+msgid "Thanks for your comment!"
+msgstr ""
+
+msgid "Submit another comment"
+msgstr ""
+
+msgid "Exit survey"
+msgstr ""
+
+msgid "Map type"
+msgstr ""

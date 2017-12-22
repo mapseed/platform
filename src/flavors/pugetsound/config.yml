@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+  
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -18,7 +23,7 @@ app:
   # list_enabled: false
 
 # languages:
-#   - code: en
+#   - code: en_US
 #     label: I Speak English
 
 #   - code: es
@@ -51,7 +56,8 @@ map:
 
     - id: topo
       type: basemap
-      url: //{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png
+      url: //stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
+      maxZoom: 16
 
     - id: satellite
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
@@ -63,21 +69,111 @@ map:
       attribution: 'Hello World'
       type: basemap
 
-    - id: reported-spills
-      type: cartodb
-      url: "https://heyduwamishcore.carto.com/api/v2/viz/d92493be-8b69-11e6-9075-0e05a8b3e3d7/viz.json"
-
-    - id: duwamish
+    - id: pugetsound
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound
       type: place
       slug: report
 
-    - id: violators
-      type: landmark
-      url: https://k7b7dyc4v3.execute-api.us-west-2.amazonaws.com/production/getLandmarks
-      sources:
-        - "https://raw.githubusercontent.com/smartercleanup/duwamish-stakeholders/master/pugetsound-landmarks.geojson"
+    - id: 1936aerial
+      type: wmts
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?
+      layers: BaseMaps_KingCo_Aerial_1936
+      tilematrixSet: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/jpg
+
+    # Geoserver-based WMS spill incidents layer
+    # - id: spill-incidents
+    #   type: wms
+    #   url: https://geoserver.mapseed.org/geoserver/spill-incidents/wms?
+    #   version: 1.3.0
+    #   format: image/png
+    #   transparent: true
+    #   layers:
+    #     - spill-incidents
+
+    # Github-based geojson spill incidents layer
+    - id: spill-incidents
+      type: json      
+      url: "https://raw.githubusercontent.com/mapseed/data/master/spill-incidents.geojson"
+      popupContent: '<div><strong>Oil type: </strong>{{Oil_type}}</div><div><strong>Volume spilled: </strong>{{Quantity_t}} gallons</div>'
+      rules:
+        - condition: '"{{properties.Quantity_t}}" <= 10'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [4, 4]
+            iconAnchor: [2, 2]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.Quantity_t}}" <= 100'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [8, 8]
+            iconAnchor: [4, 4]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.Quantity_t}}" <= 1000'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [12, 12]
+            iconAnchor: [6, 6]
+          style:
+            opacity: 0.9
+        - condition: '"{{properties.Quantity_t}}" > 1000'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+          style:
+            opacity: 0.9
+        - condition: 'true'
+          icon:
+            iconUrl: /static/css/images/markers/marker-red-circle.png
+            iconSize: [0, 0]
+            iconAnchor: [0, 0]
+          style:
+            opacity: 0.0
+
+    - id: shellfish-harvesting
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/shellfish-harvesting/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - shellfish-harvesting
+
+    - id: chinook
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/soundkeeper/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - chinook-habitat
+
+    - id: critical-habitat
+      type: wms
+      url: https://geoserver.mapseed.org/geoserver/soundkeeper/wms?
+      version: 1.3.0
+      format: image/png
+      transparent: true
+      layers:
+        - nearshore-critical-habitat
+
+    - id: pugetsoundrose
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose
+      type: place
+      slug: rose
+
+    - id: pugetsoundcases
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundcases
+      type: place
+      slug: cases
 
     - id: pugetsoundfeatured
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundfeatured
       type: place
       slug: featured
 
@@ -120,6 +216,23 @@ map:
           style:
             opacity: 0.9
 
+    - id: clean-marinas
+      type: json
+      url: "https://raw.githubusercontent.com/mapseed/data/master/clean-marinas.geojson"
+      popupContent: '<strong>{{marina-name}}</strong>'
+      rules:
+        - condition: 'true'          
+          icon:
+            iconUrl: /static/css/images/markers/map-pin-marker-bluegreen.png
+            iconSize: [30, 35]
+            iconAnchor: [25, 35]
+
+    - id: hydrography
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?
+      layers: '0'
+      version: 1.3.0
+      transparent: false
+      format: image/png
 # The values map the place type to map icons (defined below).
 place_types:
 
@@ -144,8 +257,33 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-industrial.png
 
-  observation:
-    label: _(Observation)
+  rose-grants:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
+
+  settled-cases:
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          iconSize: [30, 35]
+          iconAnchor: [25, 35]
+
+  pollution:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -174,95 +312,24 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  question:
-    label: _(Question)
+  community-action:
+    label: _(Community Action)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
+          iconUrl: /static/css/images/markers/marker-heart.png
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
+      - condition: 'this.map.zoom < 17'
         icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
+          iconUrl: /static/css/images/markers/marker-heart.png
+          iconSize: [20, 20]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  idea:
-    label: _(Idea)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  complaint:
-    label: _(Complaint)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconUrl: /static/css/images/markers/marker-heart.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
   featured_place:
     rules:
@@ -278,6 +345,7 @@ place_types:
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
+
 sidebar:
   enabled: true
   legend_enabled: true
@@ -297,6 +365,12 @@ sidebar:
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
+        - id: hydrography
+          title: _(Hydrography)
+          visibleDefault: false
+        - id: 1936aerial
+          title: _(1936 Aerial View)
+          visibleDefault: false                    
         - id: light-nolabels
           title: _(Simple)
           visibleDefault: false
@@ -305,7 +379,7 @@ sidebar:
           title: _(Map layers)
           visibleDefault: true
           layers:
-            - id: duwamish
+            - id: pugetsound
               title: _(Community Reports)
               visibleDefault: true
             - id: pugetsoundfeatured
@@ -314,14 +388,29 @@ sidebar:
             - id: cleanup-sites
               title: _(Toxic cleanup sites)
               visibleDefault: false
-            - id: violators
-              title: _(Pollution violations)
-              visibleDefault: true
+            - id: pugetsoundrose
+              title: _(Puget Sound Stewardship & Mitigation Fund)
+              visibleDefault: false
+            - id: pugetsoundcases
+              title: _(Settled Cases)
+              visibleDefault: false
             - id: cso
               title: _(Sewer overflow)
               visibleDefault: false
-            - id: reported-spills
-              title: _(Reported spills)
+            - id: shellfish-harvesting
+              title: _(Shellfish Harvesting Sites)
+              visibleDefault: false
+            - id: spill-incidents
+              title: _(Oil Spill Incidents)
+              visibleDefault: false
+            - id: clean-marinas
+              title: _(Clean Marinas)
+              visibleDefault: false
+            - id: chinook
+              title: _(Chinook Habitat)
+              visibleDefault: false
+            - id: critical-habitat
+              title: _(Nearshore Critical Habitat)
               visibleDefault: false
 
     # - id: ticker
@@ -356,7 +445,7 @@ activity:
 
 right_sidebar:
   show: true
-  visibleDefault: true
+  visibleDefault: false
 
 place:
   adding_supported: true
@@ -364,16 +453,17 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Put it on the map!)
 
   location_item_name: location
+  default_basemap: satellite
 
 
-  #### begin dynamic form config ####
+#### begin dynamic form config ####
+
   place_detail:
     - category: featured_place
       admin_only: true
@@ -385,7 +475,101 @@ place:
       dataset: pugetsoundfeatured
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
-      label: _(Featured Place)
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+            - url: /static/css/images/markers/map-pin-marker.png
+            - url: /static/css/images/markers/map-pin-marker-red.png            
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        # - name: submitter_name
+        #   type: commonFormElement
+        # - name: private-submitter_email
+        #   type: commonFormElement
+        # - name: my_image
+        #   type: commonFormElement
+        - name: submit
+          type: commonFormElement
+    - category: rose-grants
+      admin_only: true
+      includeOnForm: false
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: pugetsoundrose
+      icon_url: /static/css/images/markers/map-pin-marker.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+            - url: /static/css/images/markers/map-pin-marker.png
+            - url: /static/css/images/markers/map-pin-marker-red.png            
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+    - category: settled-cases
+      admin_only: true
+      includeOnForm: false
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: pugetsoundcases
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
       fields:
         - name: published
           type: publishControl
@@ -412,126 +596,112 @@ place:
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
-    - category: observation
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+    - category: pollution
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: pugetsound
       icon_url: /static/css/images/markers/marker-observation.png
-      value: observation
-      label: _(Observation)
+      value: pollution
+      label: _(Report Pollution)
       fields:
         - name: title
           type: text
-          prompt: _(Title of your observation:)
+          prompt: _(Title of your report:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
-          optional: false
-        - name: pollution_type
-          type: checkbox_big_buttons
-          prompt: _(Types of pollution seen:)
-          display_prompt: _( )
-          content:
-            - label: _(Sewage)
-              value: sewage
-            - label: _(Tires)
-              value: tires
-            - label: _(Illegal dumpsite)
-              value: dumpsite
-            - label: _(Litter)
-              value: litter
-            - label: _(Other)
-              value: other
-          optional: true # NOTE: checkbox_big_button inputs have no validation
-        - name: description
+          optional: true
+        - name: date
+          type: datetime
+          prompt: _(Date of incident:)
+          display_prompt: _(Date of incident:)
+          placeholder: _(Date of incicent...)
+          optional: true          
+        - name: waterway
+          type: text
+          prompt: _(Waterway:)
+          display_prompt: _(Waterway:)
+          placeholder: _(Which waterway does the incident concern?)
+          optional: true
+        - name: pollution-location
+          type: text
+          prompt: _(Location of pollution)
+          display_prompt: _(Location:)
+          placeholder: _(Enter the location...)
+          optional: true                      
+        - name: pollution-report
           type: textarea
-          prompt: _(Description:)
-          display_prompt: _( )
+          prompt: _(Report what you saw:)
+          display_prompt: _(Report:)
           placeholder: _(Enter description...)
           optional: false
-    - category: question
+        - name: reported_to_other
+          type: binary_toggle
+          prompt: _(Have you reported this incident to anyone else?)
+          display_prompt: _(Reported to someone else)
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: true # NOTE: binary_toggle inputs have no validation
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+    - category: community-action
       includeOnForm: true
       name: location_type
-      dataset: duwamish
-      icon_url: /static/css/images/markers/marker-question.png
+      dataset: pugetsound
+      icon_url: /static/css/images/markers/marker-heart.png
       value: question
-      label: _(Question)
+      label: _(Add a community action)
       fields:
         - name: title
           type: text
-          prompt: _(Title of your question:)
+          prompt: _(Title:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: textarea
-          prompt: "_(What's your question?)"
+          type: richTextarea
+          prompt: "_(Describe your action:)"
           display_prompt: _( )
-          placeholder: _(Enter question...)
-    - category: idea
-      includeOnForm: true
-      name: location_type
-      dataset: duwamish
-      icon_url: /static/css/images/markers/marker-idea.png
-      value: idea
-      label: _(Idea)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your idea:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: _(Describe your idea below:)
-          display_prompt: "_( )"
-          placeholder: _(Description...)
-          optional: false
-    - category: complaint
-      includeOnForm: true
-      name: location_type
-      dataset: duwamish
-      icon_url: /static/css/images/markers/marker-complaint.png
-      value: complaint
-      label: _(Complaint)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title of your complaint:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: description
-          type: textarea
-          prompt: "_(What's your complaint?)"
-          display_prompt: _( )
-          placeholder: _(Description...)
-          optional: false
-    - category: greenwall
-      includeOnForm: false
-      name: location_type
-      dataset: duwamish
-      icon_url: /static/css/images/markers/marker-greenwall.png
-      value: greenwall
-      label: _(Greenwall)
-      fields:
-        - name: name
-          type: text
+          placeholder: _(Tell us more...)
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
+    submitter_name:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -539,10 +709,15 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
+
+notifications:
+  on_new_place: true
+  submitter_email_field: private-submitter_email
 
 survey:
   submission_type: comments
@@ -581,15 +756,11 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(About)
-    slug: about
+  - title: _(Stories)
+    slug: stories
     name: overview
-    hide_from_top_bar: true
-
-  - title: _(Background)
-    slug: background
-    name: background
-    hide_from_top_bar: true
+    start_page: true
+    hide_from_top_bar: false
 
   - title: _(Get involved)
     slug: getinvolved
@@ -597,7 +768,7 @@ pages:
     hide_from_top_bar: true
 
 story:
-  violators:
+  home:
     tagline: _(Next featured site)
     # every story item will default to the zoom level and visible
     # layers defined below. If a story element defines a different 
@@ -605,16 +776,447 @@ story:
     # (that is, no default settings will be inherited).
     default_zoom: 15
     default_visible_layers:
-      - violators
+      - pugetsoundfeatured
     order: 
-      - url: rainier-petroleum
-      - url: ssa-terminals
+      - url: tacoma-tideflats
+        zoom: 13
+        basemap: satellite
+        spotlight: false      
+      - url: atlantic-salmon
+        zoom: 14
+        basemap: satellite
+      - url: west-point-sewage-spill
+        zoom: 16
+        spotlight: false
+        basemap: satellite
+      - url: longfellow-salmon
+        zoom: 18
+        basemap: satellite      
+      - url: clean-marinas
+        zoom: 9
+        visible_layers:
+          - clean-marinas
+        spotlight: false
+        basemap: light-nolabels
+      - url: shellfish
+        zoom: 9
+        visible_layers:
+          - shellfish-harvesting
+        basemap: light-nolabels
+        spotlight: false
+      - url: oil-spills
+        zoom: 9
+        visible_layers:
+          - spill-incidents
+        basemap: light-nolabels
+        spotlight: false       
+      - url: sewer-overflow
+        zoom: 12
+        visible_layers:
+          - cso
+        spotlight: false
+        basemap: satellite
 
-cluster:
-  animate: true
-  animateAddingMarkers: false
-  showCoverageOnHover: true
-  spiderfyOnMaxZoom: true
-  spiderfyDistanceMultiplier: 1.5
-  spiderLegPolylineOptions:
-    opacity: 0
+  rose-grants:
+    tagline: _(Next grant)
+    default_zoom: 14
+    default_visible_layers:
+      - pugetsoundrose
+    order:
+      - url: rose-fund
+        zoom: 10
+        spotlight: false
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
+      - url: puget-sound-stewards---duwamish-and-beyond
+      - url: green-duwamish-water-quality-improvement-youth-exchange
+      - url: tales-of-puget-sound--training-the-next-generation-of-researchers
+      - url: improving-environmental-restoration-with-unmanned-aerial-vehicle-technology
+      - url: killer-whale-tales--kids-making-a-difference-now-stormwater-busters--deep-dive
+      - url: duwamish-alive---watershed-habitat-restoration--water-quality-improvement-and-community-stewardship
+      - url: wfc-strategic-initiative--puget-sound-net-pens-pollution-reduction
+      - url: new-arrival-environmental-orientation
+      - url: squires-landing-park-restoration
+      - url: matching-grant-for-60--design--olympic-hills-pocket-park
+      - url: phthalates-research-and-education-for-source-control--duwamish-river-and-commencement-bay
+      - url: general-support--hire-a-part-time-staff-person
+      - url: depave-the-duwamish
+      - url: yahowt-native-women-s-circle
+      - url: channeling-interest-in-land-based-whale-watching-into-saving-puget-sound-drop-by-drop
+      - url: shadow-lake-nature-preserve--extend-the-bog-tour
+      - url: be-a-toxic-free-zone-workshops
+      - url: normalizing-green-infrastructure
+      - url: protecting-washington-s-waterways-and-delicate-ecosystems-from-dirty-fossil-fuels
+      - url: a-watershed-stewards-program-for-king-county
+      - url: edmonds-watershed-stewards
+      - url: puget-sound-stormwater-language--messaging-and-outreach-material-development-project
+      - url: tacoma-mall-neighborhood-depave-project
+      - url: burien-residential-rain-garden-pilot-project
+      - url: strengthening-puget-sound-hands-on-stewardship-and-intertidal-monitoring-project
+      - url: hey-duwamish----open-technology-and-community-engagement-for-the-green-duwamish-watershed
+      - url: delridge-wetlands-restoration-and-stewardship-project
+      - url: an-agricultural-pollution-prevention-strategy-to-save-salmon-and-shellfish-in-puget-sound
+      - url: student-stewardship-conservation-project
+      - url: duwamish-river-cleanup-coalition-tag-general-support-2016
+      - url: protecting-the-north-creek-watershed-and-beyond
+      - url: lakewashington-us---a-community-map-uniting-all-to-protect-and-restore-lake-washington
+      - url: carpenter-creek-estuary-restoration--monitoring---internship-program
+      - url: bainbridge-island-beach-cleanup
+      - url: bog-to-bay---stormwater-pollution-solutions-in-my-neighborhood
+      - url: science-connects--discovering-our-role-in-a-healthy-puget-sound
+      - url: sound-horsekeeping-to-protect-puget-sound
+      - url: hylebos-watershed-community-based-restoration
+      - url: aquatic-reserve-program
+      - url: community-involvement-in-the-restoration-of-the-sammamish-river-at-wayne-golf-course
+      - url: kids-making-a-difference-now-whale-scouts
+      - url: save-habitat-and-diversity-of-wetlands-org-general-support
+      - url: 2015-16-regional-stormwater-monitoring-program--rsmp
+      - url: langley-middle-school-oceanography--smith---minor-islands-aquatic-reserve-citizen-science-outreach
+      - url: ecosystem-and-water-quality-advocacy-through-watershed-restoration-in-olympia
+      - url: soundside-marinelife-rescue-center-general-support
+      - url: washington-toxics-coalition-general-support
+      - url: legacy-watersheds--public-private-low-impact-development-solutions-for-puget-sound
+      - url: duwamish-alive--watershed-habitat-restoration---community-stewardship
+      - url: nisqually-land-trust-riparian-forest-restoration-initiative
+      - url: duwamish-river-cleanup-coalition-tag-general-support-2014
+      - url: citizen-stewardship-for-clean-water
+      - url: washington-sustainable-agriculture-campaign
+      - url: puget-sound-stewards---duwamish
+      - url: long-term-fish-use-of-the-elwha-river-nearshore
+      - url: bog-to-bay--stormwater-pollution-solutions-in-my-neighborhood
+      - url: hylebos-watershed-scale-restoration-planning
+      - url: mountains-to-sound-greenway-trust-general-support
+      - url: puget-sound-spill-kit-program
+      - url: clean-water-and-green-infrastructure
+      - url: heyduwamish-org
+      - url: fidalgo-bay-science-and-stewardship-project
+      - url: cherry-point-stewardship-project
+      - url: carpenter-creek-estuary-restoration
+      - url: watershed-health-and-youth
+      - url: water-watchers
+      - url: shinglemill-creek-stormwater-project--community-science-for-clean-waters-and-healthy-salmon
+      - url: nisqually-reach-aquatic-reserve
+      - url: hazel-valley-rain-gardens
+      - url: building-grassroots-help-to-restore-the-north-creek-watershed
+      - url: down-on-the-farm--least-toxic-solutions-for-snohomish-county
+      - url: whale-scout
+      - url: killer-whale-tales--kids-making-a-difference-now--stormbusters
+      - url: art-for-learning-watershed-science---connecting-with-teens
+      - url: boise-creek-treat-riparian-restoration
+      - url: whidbey-island-impaired-waters
+      - url: experiential-learning-in-environmental-science
+      - url: carpenter-creek-estuary-restoration-and-monitoring-program
+      - url: phase-2-launch-rodney-goes-green
+      - url: volunteer-program-implementation
+      - url: inspire-stewardship-of-puget-sound-waters
+      - url: south-king-county-group-soos-creek-park-restoration-project
+      - url: clear-to-the-sound
+      - url: water-mapping-project
+      - url: art-for-learning-watershed-science
+      - url: stillaguamish-river-clean-water-project
+      - url: lower-soos-creek--green-river-watershed-project
+      - url: kids-making-a-difference-now
+      - url: connecting-people-to-our-marine---estuary-waters-project
+      - url: friends-of-north-creek-forest-phase-2
+      - url: kilbourne-ravine-riparian-and-buffer-project
+      - url: nisqually-reach-aquatic-reserve-project
+      - url: biofiltration-swale-and-ngpa-restoration-project
+
+  settled-cases:
+    tagline: _(Next case)
+    default_zoom: 14
+    default_visible_layers:
+      - pugetsoundcases
+    order:
+      - url: settled-cases
+        spotlight: false
+        zoom: 10
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: transtar-metals-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: scott-galvanizing
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: honcoop-trucking-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: granite-precasting---concrete-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: budget-auto-wrecking
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: binford-metals-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: alaska-logistics-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: aaron-s-auto-wrecking
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: z-recyclers--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: yarrow-bay-yacht-sales-and-service-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: yamato-engine-specialists-ltd
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: yachtfish-marine--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: yacht-performance-center-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: william-scotsman--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: whitley-manufacturing-co--inc-d-b-a--whitley-evergreen
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: western-pneumatic-tube-company
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: warm-beach-christian-camps-and-conference-center
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: warm-beach-christian-camps-and-conference-center
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: veneer-chip-transport-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: urban-accessories--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: unocal-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: umbra-cuscinetti--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: trident-seafoods-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: trident-seafoods-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: total-terminals-international-llc-aka-t46
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: todd-pacific-shipyards-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: taylor-equipment-and-machine-tool-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: tacoma-metals-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: tacoma-asphalt-plant
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: streich-bros---inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: stevedoring-services-of-america-terminals--inc--aka-t18
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: steeler-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: spadoni-brothers--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: socco--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: snohomish-county
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: snohomish--city-of
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: skyline-electric---manufacturing-co
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: shultz-distributing-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: shasta-beverages--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: seattle--port-of--marine-maintenance-facility
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: schneider-simpson-sheet-metal
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: saint-gobain-containers--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: rsa-microtech--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: rosario-resort-wwt-facility--oly-rose-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: recycling-depot--inc---the
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: recycling---disposal-services-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: rainier-petroleum---pier-15
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: rainier-petroleum---colorado-st
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: puget-sound-naval-shipyard--united-states-navy
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: portac--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: port-of-seattle--pier-66
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: port-of-seattle---cta--pier-91
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: port-blakely-communities--issaquah-highlands
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: port-angeles-landfill
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: pape-machinery-tacoma
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: pacific-metallurgical--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: pacific-commercial-equipment
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: ocean-beauty-seafoods
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: oberto-sausage-co
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: northwest-recycling-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: northwest-forest-products
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: northwest-container-services-inc---t115
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: northland-services--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: north-bend--city-of--stp
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: new-west-gypsum-usa-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: nepa-pallet---container-co--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: milgard-manufacturing-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: metso-paper-usa--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: meltec-division--young-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: mcclean-iron-works
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: manke-lumber-company--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: louis-dreyfus-commodities-llc---pier-86
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: la-conner--town-of
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: king-county-international-airport
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: kent-meridian-disposal
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: jerstedt-lumber-co--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: j-m--martinac-shipbuilding-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: j-a--jack---sons--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: goergia-pacific-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: galvin-flying-services
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: friday-harbor-wwtp
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: fisherman-bay-wwt-facility
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: fibrex-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: ferndale--city-of
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: federal-express-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: federal-express-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: federal-express-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: federal-express-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: federal-express-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: evergreen-trails-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: eastside-masonry-products-monroe
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: duwamish-shipyard-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: dunato-s-marine-services
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: davis-wire-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: darigold--inc--rainier-ave-plant
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: csr-marine
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: coca-cola-bottling-company
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: cityice-cold-storage-company
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: city-of-tacoma--industrial-pre--treatment-program
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: certainteed-gypsum--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: cedar-grove-composting--inc--everett
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: canyon-lumber-co--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: canfor-usa-corp
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: cadman--seattle--inc----tilbury-cement-co
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: buse-timber-sales--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: brown-minneapolis-tank-northwest--llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: bremerton--city-of
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: bp-west-coast-products-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: boyer-logistics--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: bornstein-seafoods--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: bnsf-railway-company--balmer-yard
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: bnsf-railway
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: blake-island-wwtp
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: bellingham-cold-storage
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: bellingham--port-of----bellingham-intl-airport--bellingham-cruise-terminal--port-s-maintenance-shop
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: beall-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: ballard-marine--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
+      - url: asc-profiles--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: ameriflight-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: american-steel--llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: almar--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: alaskan-copper
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: alaska-marine-lines--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: airport-auto-wrecking--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: achilles-usa-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: ace-galvanizing-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: abf-freight-systems
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: u-s--navy--naval-base-kitsap
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: snohomish-county
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: seattle-iron---metals-corp
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: samson-tug---barge-co--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: pierce-county-recycling--composting-and-disposal--llc--lri-landfill
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: lakehaven-utility-district--lakota-wastewater-treatment-plant
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: epa--nmfs--us-f-w--cooling-water-intake
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: duwamish-marine-center--samson-tug---barge-co--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: cargill--inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: apm-terminals-tacoma-llc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: alaskan-copper-works
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: ace-metal-corporation
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+      - url: ace-galvanizing-inc
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+
+# cluster:
+#   animate: true
+#   animateAddingMarkers: false
+#   showCoverageOnHover: true
+#   spiderfyOnMaxZoom: true
+#   spiderfyDistanceMultiplier: 1.5
+#   spiderLegPolylineOptions:
+#     opacity: 0

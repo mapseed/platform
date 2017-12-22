@@ -9,6 +9,10 @@ app:
   # Meta author that will show up in Google search results
   meta_author: smartercleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
 
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
@@ -86,6 +90,7 @@ map:
       visibleDefault: false
 
     - id: waterfront
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/waterfront
       type: place
       slug: report
 
@@ -321,7 +326,6 @@ place:
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See all comments)
   show_map_button_label: _(Show the Map)
-  action_text: _(added)
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)
@@ -351,6 +355,14 @@ place:
           display_prompt: _(Further description:)
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: question
       includeOnForm: true
       name: location_type
@@ -370,6 +382,14 @@ place:
           prompt: "_(What's your question?)"
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: idea
       includeOnForm: true
       name: location_type
@@ -390,6 +410,14 @@ place:
           display_prompt: "_(Here's my idea:)"
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -410,21 +438,29 @@ place:
           display_prompt: _(I have the following complaint:)
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
+    submitter_name:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -432,7 +468,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####

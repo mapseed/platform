@@ -9,6 +9,11 @@ app:
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
@@ -18,7 +23,7 @@ app:
   # list_enabled: false
 
 # languages:
-#   - code: en
+#   - code: en-us
 #     label: I Speak English
 
 #   - code: es
@@ -63,6 +68,7 @@ map:
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: greenways
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greenways
       type: place
       slug: report
 
@@ -493,6 +499,14 @@ place:
           display_prompt: _( )
           placeholder: _(Enter description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: signage
       includeOnForm: true
       name: location_type
@@ -512,6 +526,14 @@ place:
           prompt: "_(Description:)"
           display_prompt: _( )
           placeholder: _(Enter question...)
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: pavement
       includeOnForm: true
       name: location_type
@@ -532,6 +554,14 @@ place:
           display_prompt: "_( )"
           placeholder: _(Description...) 
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: walkability
       includeOnForm: true
       name: location_type
@@ -567,6 +597,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: accessibility
       includeOnForm: true
       name: location_type
@@ -587,6 +625,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: traffic
       includeOnForm: true
       name: location_type
@@ -607,6 +653,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: design
       includeOnForm: true
       name: location_type
@@ -627,6 +681,14 @@ place:
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     # - category: accessibility  #defines a top-level form category
     #   includeOnForm: true
     #   name: location_type  #needs to be "location_type"
@@ -772,18 +834,18 @@ place:
 
   # define form elements that appear on every form here
   common_form_elements:
-    - name: submitter_name
+    submitter_name:
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
-    - name: private-submitter_email
+    private-submitter_email:
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your report)
       optional: true
       sticky: true
-    - name: my_image
+    my_image:
       type: file
       prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -791,7 +853,8 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - type: submit
+    submit:
+      type: submit
       label: _(Put it on the map!)
 
   #### end dynamic form config ####
