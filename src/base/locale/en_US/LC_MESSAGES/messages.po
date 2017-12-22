@@ -21,6 +21,11 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
+#: base/jstemplates/activity-list-item.html:31
+msgid ""
+"a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }}"
+msgstr ""
+
 #: base/jstemplates/auth-nav.html:1
 msgid "Log Out"
 msgstr ""

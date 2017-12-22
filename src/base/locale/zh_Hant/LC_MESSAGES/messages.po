@@ -17,6 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: base/jstemplates/activity-list-item.html:31
+msgid ""
+"a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }}"
+msgstr ""
+
 #: base/jstemplates/auth-nav.html:1
 msgid "Log Out"
 msgstr "註銷"
