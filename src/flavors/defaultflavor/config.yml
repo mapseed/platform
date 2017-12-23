@@ -66,8 +66,44 @@ map:
       type: place
       slug: report
 
+    - id: demo
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
+      type: place
+      slug: demo
+
+
 # The values map the place type to map icons (defined below).
 place_types:
+  demo:
+    label: _(Observation)
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: 'this.map.zoom < 11'
+        icon:
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: 'this.map.zoom < 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: 'this.map.zoom >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
   observation:
     label: _(Observation)
     rules:
@@ -301,6 +337,149 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: demo
+      includeOnForm: true
+      name: location_type
+      dataset: demo
+      icon_url: /static/css/images/markers/marker-observation.png
+      value: demo
+      label: _(Form Field Demo)
+      fields:
+        - name: text_field
+          type: text
+          autocomplete: true
+          prompt: _(Single line text field input prompt:)
+          display_prompt: _(Rendered text:)
+          placeholder: _(Enter text...)
+          optional: false
+        - name: textarea_field
+          type: textarea
+          autocomplete: true
+          prompt: _(Multiline textarea field input prompt:)
+          display_prompt: _(Rendered text:)
+          placeholder: _(Enter text...)
+          optional: false
+        - name: rich_textarea_field
+          type: rich_textarea
+          autocomplete: true
+          prompt: _(Multiline rich textarea field input prompt:)
+          display_prompt: _(Rendered rich text:)
+          placeholder: _(Enter text...)
+          optional: false
+        - name: big_checkbox_field
+          type: big_checkbox
+          autocomplete: true
+          prompt: _(Large checkbox input prompt:)
+          display_prompt: _(Rendered list of checkbox selections:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: big_radio_field
+          type: big_radio
+          autocomplete: true
+          prompt: _(Large radio input prompt:)
+          display_prompt: _(Rendered radio selection:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: dropdown_field
+          type: dropdown
+          autocomplete: true
+          prompt: _(Dropdown input prompt:)
+          display_prompt: _(Rendered dropdown selection:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: dropdown_autocomplete_combobox_field
+          type: dropdown_autocomplete
+          autocomplete: true
+          prompt: _(Dropdown autocomplete input prompt:)
+          display_prompt: _(Rendered dropdown autocomplete selection:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: publish_control_toolbar
+          type: publish_control_toolbar
+        - name: map_drawing_toolbar
+          type: map_drawing_toolbar
+          content:
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+        - name: custom_url_toolbar
+          type: custom_url_toolbar
+          prompt: _(Custom URL field prompt:)
+          placegolder: _(Enter a custom URL...)
+          optional: false
+        - name: datetime_field
+          type: datetime
+          prompt: _(Datetime field prompt:)
+          display_prompt: _(Rendered datetime:)
+          optional: false
+        - name: geocoding_field
+          type: geocoding
+          prompt: _(Geocoding field prompt:)
+          display_prompt: _(Rendered location:)
+          optional: false
+        - name: big_toggle_field
+          type: big_toggle
+          autocomplete: true
+          prompt: _(Binary toggle field prompt:)
+          display_prompt: _(Rendered binary toggle selection:)
+          content:
+            - label: _(On)
+              value: "on"
+            - label: _(Off)
+              value: "off"
+          optional: false
+        - name: attachment_field
+          type: file
+          prompt: _(Attachment field prompt:)
+          label: _(Attachment field button label)
+          optional: true
+        - name: common_form_element_example
+          type: common_form_element
+        - name: submit_field
+          type: submit
+          label: _(Submit button label)
+
     - category: observation
       includeOnForm: true
       name: location_type

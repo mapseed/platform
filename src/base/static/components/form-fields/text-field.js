@@ -1,33 +1,28 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
-const baseClass = "mapseed-text-field";
+import "./text-field.scss";
 
 class TextField extends Component {
 
-  constructor() {
-    super();
-
-    this.classes = {
-      baseClass: {
-        name: baseClass,
-        modifiers: ["autofill"]
-      }
-    };
-  }
-
   render() {
+
+    const { hasAutofill, name, onChange, placeholder, required, value } = this.props;
+    const classNames = cn("mapseed-text-field", {
+        "mapseed-file-field__label--has-autofill": hasAutofill
+      });
+
     return (
       <input 
-        className={cx(this.classes.baseClass, { autofill: (this.props.hasAutofill) ? "has-autofill" : "" })}
-        name={this.props.name}
+        className={classNames}
+        name={name}
         type="text"
-        value={this.props.value}
-        placeholder={this.props.placeholder} 
-        required={this.props.required} 
-        onChange={this.props.onChange} />
+        value={value}
+        placeholder={placeholder} 
+        required={required} 
+        onChange={onChange} />
     );
   }
 };
 
-export { TextField };
+export default TextField;

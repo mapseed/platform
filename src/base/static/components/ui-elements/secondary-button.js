@@ -1,16 +1,24 @@
 import React, { Component } from "react";
+const cn = require("classnames");
 
-const baseClass = "secondary-button";
+import "./secondary-button.scss";
 
 class SecondaryButton extends Component {
 
   render() {
+    const { children, className, onClick } = this.props;
+    const classNames = cn("mapseed-secondary-button", className);
+
     return (
-      <button className={`${ baseClass } ${ this.props.className }`}>
-        {this.props.children}
+      <button 
+        className={classNames} 
+        type="button"
+        onClick={onClick}>
+        {children}
       </button>
     );
   }
+
 }
 
-export { SecondaryButton }
+export default SecondaryButton;

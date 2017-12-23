@@ -1,4 +1,6 @@
-.secondary-button {
+@import "variables";
+
+.mapseed-secondary-button {
   position: relative;
 
   padding: $secondary-button-padding;
@@ -12,6 +14,7 @@
 	
   &:hover {
     background-color: $secondary-button-background-hover-color;
+    color: $secondary-button-text-color;
     cursor: $secondary-button-hover-cursor;
   }
 }

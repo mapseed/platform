@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Autocomplete from "accessible-autocomplete/react";
 
-const baseClass = "mapseed-autocomplete-combobox-field";
+import "./autocomplete-combobox-field.scss";
 
 /*
   this.props.options should be an array of objects. Each object is as follows:
@@ -22,7 +22,6 @@ class AutocompleteComboboxField extends Component {
         .filter(result => result.toLowerCase().indexOf(query.toLowerCase()) !== -1);
       populateResults(filteredResults);
     }
-    
   }
 
   onConfirm(selectedLabel) {
@@ -34,13 +33,16 @@ class AutocompleteComboboxField extends Component {
   }
 
   render() {
+
+    const { id, placeholder } = this.props;
+
     return (
-      <div className={baseClass}>
+      <div className="mapseed-autocomplete-combobox-field">
         <Autocomplete
           source={this.suggestions}
-          placeholder={this.props.placeholder}
+          placeholder={placeholder}
           confirmOnBlur={true}
-          id={this.props.id}
+          id={id}
           showAllValues={true} 
           onConfirm={this.onConfirm.bind(this)} />
       </div>
@@ -53,4 +55,4 @@ AutocompleteComboboxField.propTypes = {
   id: PropTypes.string.isRequired
 };
 
-export { AutocompleteComboboxField };
+export default AutocompleteComboboxField;

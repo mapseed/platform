@@ -1,23 +1,26 @@
 import React, { Component } from "react";
-
-const baseClass = "mapseed-toggle-field";
+const cn = require("classnames");
 
 class ToggleField extends Component {
 
   render() {
 
+    const { checked, className, id, name, onChange, required, value } = this.props;
+    const classNames = cn("mapseed-toggle-field", className);
+
     return (
       <input 
-        className={baseClass}
+        className={classNames}
         type="checkbox"
-        id={this.props.id}
-        name={this.props.name}
-        value={this.props.value}
-        checked={this.props.checked}
-        onChange={this.props.onChange}
-        required={this.props.required} />
+        id={id}
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+        required={required} />
     );
   }
+
 };
 
-export { ToggleField };
+export default ToggleField;

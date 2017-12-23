@@ -1,46 +1,45 @@
-.input-form {
+@import "variables";
 
-  .input-form__field-container {
-    margin-bottom: 15px;
-  }
+.input-form__field-container {
+  margin-bottom: 15px;
+}
 
-  .input-form__field-prompt {
-    font-size: $input-form-prompt-font-size;
-    margin-bottom: 3px;
-  }
+.input-form__field-prompt {
+  font-size: $input-form-prompt-font-size;
+  margin-bottom: 3px;
+}
 
-  .input-form__optional-msg {
-    padding-left: 0.5em;
-    font-size: $input-form-optional-msg-font-size;
-  }
+.input-form__optional-msg {
+  padding-left: 0.5em;
+  font-size: $input-form-optional-msg-font-size;
+}
 
-  .input-form__optional-msg--visible {
-    display: inline;
-  }
+.input-form__optional-msg--visible {
+  display: inline;
+}
 
-  .input-form__optional-msg--hidden {
-    display: none;
-  }
+.input-form__optional-msg--hidden {
+  display: none;
+}
 
-  .input-form__submit-spinner {
-    position: absolute;
-    left: 50%;
-    bottom: 50%;
-  }
+.input-form__submit-spinner {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+}
 
-  .input-form__submit-spinner--visible {
-    display: block;
-  }
+.input-form__submit-spinner--visible {
+  display: block;
+}
 
-  .input-form__submit-spinner--hidden {
-    display: none;
-  }
+.input-form__submit-spinner--hidden {
+  display: none;
+}
 
-  .input-form__form--active {
-    opacity: 1.0;
-  }
+.input-form__form--active {
+  opacity: 1.0;
+}
 
-  .input-form__form--inactive {
-    opacity: 0.3;
-  }
+.input-form__form--inactive {
+  opacity: 0.3;
 }

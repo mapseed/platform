@@ -1,2 +1,2 @@
-import { InputForm } from "./input-form";
+import InputForm from "./input-form";
 export default InputForm;

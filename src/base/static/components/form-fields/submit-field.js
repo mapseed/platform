@@ -1,19 +1,28 @@
 import React, { Component } from "react";
+const cn = require("classnames");
 
-const baseClass = "mapseed-submit-field";
+import "./submit-field.scss";
 
 class SubmitField extends Component {
+
   render() {
+    const { disabled, id, name, usageContext, value } = this.props;
+    const classNames = cn("submit-field", {
+      "submit-field--primary-button-context": usageContext === "PrimaryButton"
+    });
+
     return (
       <input 
-        className={baseClass}
+        className={classNames}
         type="submit"
-        id={this.props.id}
-        name={this.props.name}
-        value={this.props.value} 
-        disabled={this.props.disabled} />
+        id={id}
+        name={name}
+        value={value} 
+        disabled={disabled} 
+      />
     );
   }
+
 };
 
-export { SubmitField };
+export default SubmitField;

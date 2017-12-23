@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import cx from "bem-classnames";
 import ColorPicker from "rc-color-picker";
+import "rc-color-picker/assets/index.css"
+const cn = require("classnames");
 
-import { RadioField } from "../form-fields/radio-field";
-import { LabelWithInlineImage } from "../ui-elements/label-with-inline-image";
+import RadioField from "../form-fields/radio-field";
 import { mapDrawingToolbar as messages } from "../messages";
-
-const baseClass = "map-drawing-toolbar";
+import "./map-drawing-toolbar.scss";
 
 const drawingDefaults = {
   color: "#f86767", // stroke color
@@ -27,8 +26,8 @@ class MapDrawingToolbar extends Component {
       selectedDrawingTool: null,
       selectedEditingTool: null,
       selectedMarkerIndex: 0,
-      strokeColorpickerToggled: false,
-      fillColorpickerToggled: false
+      hoveredToolbarItem: null,
+      hoveredMarkedItemIndex: null
     };
 
     this.colorpickerState = {
@@ -41,6 +40,13 @@ class MapDrawingToolbar extends Component {
     this.drawingObject = null;
     this.editingLayerGroup = new L.FeatureGroup().addTo(this.props.map);
     this.outputGeometry = {};
+
+    this.onMouseOverToolbarItem = this.onMouseOverToolbarItem.bind(this);
+    this.onMouseOutToolbarItem = this.onMouseOutToolbarItem.bind(this);
+    this.onMouseOverMarkerItem = this.onMouseOverMarkerItem.bind(this);
+    this.onMouseOutMarkerItem = this.onMouseOutMarkerItem.bind(this);
+    this.onGeometryToolTypeChange = this.onGeometryToolTypeChange.bind(this);
+    this.onGeometryEditToolChange = this.onGeometryEditToolChange.bind(this);
 
     // TODO: should this event be un-bound and then rebound if the map drawing
     // toolbar is opened multiple times?
@@ -114,49 +120,6 @@ class MapDrawingToolbar extends Component {
       }
     };
 
-    this.classes = {
-      drawingToolsHeader: {
-        name: baseClass + "__drawing-tools-header"
-      },
-      drawingToolsContainer: {
-        name: baseClass + "__drawing-tools-container",
-        modifiers: ["visibility"]
-      },
-      editingToolsContainer: {
-        name: baseClass + "__editing-tools-container",
-        modifiers: ["visibility"]
-      },
-      markerSelectionHeader: {
-        name: baseClass + "__marker-selection-header",
-        modifiers: ["visibility"]
-      },
-      markerSelectionContainer: {
-        name: baseClass + "__marker-selection-container",
-        modifiers: ["visibility"]
-      },
-      markerSelectionMarker: {
-        name: baseClass + "__marker-selection-marker",
-        modifiers: ["visibility"]
-      },
-      strokeColorpickerTool: {
-        name: baseClass + "__stroke-colorpicker-tool"
-      },
-      fillColorpickerTool: {
-        name: baseClass + "__fill-colorpicker-tool"
-      },
-      strokeColorpickerContainer: {
-        name: baseClass + "__stroke-colorpicker-container",
-        modifiers: ["toggled"]
-      },
-      fillColorpickerContainer: {
-        name: baseClass + "__fill-colorpicker-container",
-        modifiers: ["toggled"]
-      },
-      colorpickerLabel: {
-        name: baseClass + "__colorpicker-label"
-      }
-    };
-
     this.numVertices = 0;
 
     this.props.map.on("draw:drawvertex", (evt) => {
@@ -212,12 +175,25 @@ class MapDrawingToolbar extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log("componentWillReceiveProps");
-    console.log("this.props.formIsOpen", this.props.formIsOpen);
-
     if (!this.props.formIsOpen) {
       this.tearDown();
     }
+  }
+
+  onMouseOverToolbarItem(item) {
+    this.setState({ hoveredToolbarItem: item });
+  }
+
+  onMouseOutToolbarItem() {
+    this.setState({ hoveredToolbarItem: null });
+  }
+
+  onMouseOverMarkerItem(index) {
+    this.setState({ hoveredMarkedItemIndex: index });
+  }
+
+  onMouseOutMarkerItem() {
+    this.setState({ hoveredMarkedItemIndex: null });
   }
 
   buildCoords(latLngs) {
@@ -398,16 +374,16 @@ class MapDrawingToolbar extends Component {
     this.props.onGeometryStyleChange({iconUrl: iconUrl});
   }
 
-  onColorpickerChange(colorInfo, colorpickerId) {
+  onColorpickerChange(colorInfo, colorpickerTool) {
     if (this.editingLayerGroup.getLayers().length > 0) {
-      if (colorpickerId === "colorpicker-fill-tool") {
+      if (colorpickerTool === "colorpicker-fill-tool") {
         this.editingLayerGroup.getLayers()[0].setStyle({
           fillColor: colorInfo.color,
           fillOpacity: colorInfo.alpha/100,
         });
         this.colorpickerState.fillColor = colorInfo.color;
         this.colorpickerState.fillOpacity = colorInfo.alpha/100;
-      } else if (colorpickerId === "colorpicker-stroke-tool") {
+      } else if (colorpickerTool === "colorpicker-stroke-tool") {
         this.editingLayerGroup.getLayers()[0].setStyle({
           color: colorInfo.color,
           opacity: colorInfo.alpha/100,
@@ -420,88 +396,12 @@ class MapDrawingToolbar extends Component {
     }
   }
 
-  onColorpickerToggle(colorpickerTool) {
-    this.resetDrawingObject();
-    let strokeColorpickerToggled,
-        fillColorpickerToggled;
-
-    if (colorpickerTool === "colorpicker-stroke-tool") {
-      strokeColorpickerToggled = !this.state.strokeColorpickerToggled;
-      fillColorpickerToggled = false;
-    } else if (colorpickerTool === "colorpicker-fill-tool") {
-      fillColorpickerToggled = !this.state.fillColorpickerToggled;
-      strokeColorpickerToggled = false;
-    }
-
-    this.setState({ 
-      strokeColorpickerToggled: strokeColorpickerToggled,
-      fillColorpickerToggled: fillColorpickerToggled,
-      selectedEditingTool: colorpickerTool
-    });
+  onColorpickerOpen(colorpickerTool) {
+    this.setState({ selectedEditingTool: colorpickerTool });
   }
 
-  getVisibility(uiElement) {
-    if (uiElement === "select-geometry-type") {
-      switch (this.state.currentPanel) {
-        case "select-geometry-type":
-          return "visible";
-          break;
-        case "edit-marker":
-          return "hidden";
-          break;
-        case "edit-polyline":
-          return "hidden";
-          break;
-        case "edit-polygon":
-          return "hidden";
-          break;
-      }
-    } else if (uiElement === "select-marker-type") {
-      switch (this.state.currentPanel) {
-        case "select-geometry-type":
-          return "hidden";
-          break;
-        case "edit-marker":
-          return "visible";
-          break;
-        case "edit-polyline":
-          return "hidden";
-          break;
-        case "edit-polygon":
-          return "hidden";
-          break;
-      }
-    } else if (uiElement === "edit-geometry") {
-      switch (this.state.currentPanel) {
-        case "select-geometry-type":
-          return "hidden";
-          break;
-        case "edit-marker":
-          return "visible";
-          break;
-        case "edit-polyline":
-          return "visible";
-          break;
-        case "edit-polygon":
-          return "visible";
-          break;
-      }
-    } else if (uiElement === "select-marker-type") {
-      switch (this.state.currentPanel) {
-        case "select-geometry-type":
-          return "hidden";
-          break;
-        case "edit-marker":
-          return "visible";
-          break;
-        case "edit-polyline":
-          return "hidden";
-          break;
-        case "edit-polygon":
-          return "hidden";
-          break;
-      }
-    }
+  onColorpickerClose(colorpickerTool) {
+    this.setState({ selectedEditingTool: null });
   }
 
   getLayerFromEditingLayerGroup() {
@@ -519,14 +419,12 @@ class MapDrawingToolbar extends Component {
   }
 
   clearEditingLayerGroup() {
-    this.editingLayerGroup.eachLayer((layer) => {
+    this.editingLayerGroup.eachLayer(layer => {
       this.editingLayerGroup.removeLayer(layer);
     });
   }
 
   tearDown() {
-    console.log("tearDown");
-
     this.setState({
       headerMessage: messages.selectTool.header,
       currentPanel: "select-geometry-type",
@@ -537,100 +435,191 @@ class MapDrawingToolbar extends Component {
       strokeColorpickerToggled: false,
       fillColorpickerToggled: false
     });
-
     this.resetDrawingObject();
     this.clearEditingLayerGroup();
   }
 
+  getVisibility(uiElement) {
+    const { currentPanel } = this.state;
+    if (uiElement === "select-geometry-type") return currentPanel === "select-geometry-type";
+    else if (uiElement === "select-marker-type") return currentPanel === "edit-marker";
+    else if (uiElement === "edit-geometry") return currentPanel !== "select-geometry-type";
+  }
+
   render() {
-    let editingTools = this.state.currentGeometryType && this.mapTools.editing[this.state.currentGeometryType].map((tool) => {
+    const { markers } = this.props;
+    const { fillColorpickerToggled, hoveredMarkedItemIndex, hoveredToolbarItem,
+            selectedEditingTool, selectedDrawingTool, selectedMarkerIndex,
+            strokeColorpickerToggled } = this.state;
+    const classNames = {
+      drawingToolsContainer: cn("map-drawing-toolbar__drawing-tools-container", {
+        "map-drawing-toolbar__drawing-tools-container--visible": this.getVisibility("select-geometry-type"),
+        "map-drawing-toolbar__drawing-tools-container--hidden": !this.getVisibility("select-geometry-type")
+      }),
+      editingToolsContainer: cn("map-drawing-toolbar__editing-tools-container", {
+        "map-drawing-toolbar__editing-tools-container--visible": this.getVisibility("edit-geometry"),
+        "map-drawing-toolbar__editing-tools-container--hidden": !this.getVisibility("edit-geometry")
+      }),
+      markerSelectionHeader: cn("map-drawing-toolbar__marker-selection-header", {
+        "map-drawing-toolbar__marker-selection-header--visible": this.getVisibility("select-marker-type"),
+        "map-drawing-toolbar__marker-selection-header--hidden": !this.getVisibility("select-marker-type")
+      }),
+      markerSelectionContainer: cn("map-drawing-toolbar__marker-selection-container", {
+        "map-drawing-toolbar__marker-selection-container--visible": this.getVisibility("select-marker-type"),
+        "map-drawing-toolbar__marker-selection-container--hidden": !this.getVisibility("select-marker-type")
+      }),        
+      markerSelectionMarker: cn("map-drawing-toolbar__marker-selection-marker", {
+        "map-drawing-toolbar__marker-selection-marker--visible": "",
+        "map-drawing-toolbar__marker-selection-marker--hidden": ""
+      }),
+      strokeColorpickerContainer: cn("map-drawing-toolbar__colorpicker-stroke-container", {
+        "map-drawing-toolbar__colorpicker-stroke-container--toggled": strokeColorpickerToggled,
+        "map-drawing-toolbar__colorpicker-stroke-container--untoggled": !strokeColorpickerToggled        
+      }),
+      fillColorpickerContainer: cn("map-drawing-toolbar__colorpicker-fill-container", {
+        "map-drawing-toolbar__colorpicker-fill-container--toggled": fillColorpickerToggled,
+        "map-drawing-toolbar__colorpicker-fill-container--untoggled": !fillColorpickerToggled
+      })
+    };
+    const editingTools = this.state.currentGeometryType 
+      && this.mapTools.editing[this.state.currentGeometryType].map(tool => {
+      let toolbarItemClassName;
       if (tool.type.startsWith("colorpicker-")) {
-        let colorpickerToolClass;
-        if (tool.type === "colorpicker-stroke-tool") {
-          colorpickerToolClass = cx((this.classes.strokeColorpickerContainer), { toggled: (this.state.strokeColorpickerToggled) ? "toggled" : "untoggled" });
-        } else if (tool.type === "colorpicker-fill-tool") {
-          colorpickerToolClass = cx((this.classes.fillColorpickerContainer), { toggled: (this.state.fillColorpickerToggled) ? "toggled" : "untoggled" });
-        }
+        toolbarItemClassName = cn(
+          "map-drawing-toolbar__toolbar-item", 
+          "map-drawing-toolbar__" + tool.type, {
+            "map-drawing-toolbar__toolbar-item--hovering": hoveredToolbarItem === tool.type && selectedEditingTool !== tool.type,
+            "map-drawing-toolbar__toolbar-item--selected": selectedEditingTool === tool.type
+          }
+        );
 
         return(
-          <div 
-            className={colorpickerToolClass}
-            key={tool.type}>
+          <label 
+            className={toolbarItemClassName}
+            key={tool.type}
+            onMouseOver={() => this.onMouseOverToolbarItem(tool.type)}
+            onMouseOut={this.onMouseOutToolbarItem}
+          >
             <ColorPicker 
               color={this.colorpickerState[tool.mode + "Color"]}
               alpha={this.colorpickerState[tool.mode + "Opacity"]*100}
               mode="RGB"
               enableAlpha={true}
-              onOpen={() => this.onColorpickerToggle(tool.type)}
-              onClose={() => this.onColorpickerToggle(tool.type)}
-              onChange={(colorInfo) => this.onColorpickerChange(colorInfo, tool.type)}
+              onOpen={() => this.onColorpickerOpen(tool.type)}
+              onClose={() => this.onColorpickerClose(tool.type)}
+              onChange={colorInfo => this.onColorpickerChange(colorInfo, tool.type)}
               placement="topRight"
-              className={cx(this.classes[tool.mode + "ColorpickerTool"])} />
-            <span className={cx(this.classes.colorpickerLabel)}>{tool.label}</span>
-          </div>
+            />
+            {tool.label}
+          </label>
         ); 
       } else {
+        toolbarItemClassName = cn(
+          "map-drawing-toolbar__toolbar-item", 
+          "map-drawing-toolbar__" + tool.type, {
+            "map-drawing-toolbar__toolbar-item--hovering": hoveredToolbarItem === tool.type && selectedEditingTool !== tool.type,
+            "map-drawing-toolbar__toolbar-item--selected": selectedEditingTool === tool.type
+          }
+        );
+
         return(
-          <div 
-            className={baseClass + "__" + tool.type}
-            key={tool.type}>
-            <input 
+          <label
+            className={toolbarItemClassName}
+            key={tool.type}
+            htmlFor={tool.type}
+            onMouseOver={() => this.onMouseOverToolbarItem(tool.type)}
+            onMouseOut={this.onMouseOutToolbarItem}
+          >
+            <input
+              className="map-drawing-toolbar__toolbar-item-input"
               id={tool.type}
               type="radio"
-              checked={this.state.selectedEditingTool === tool.type}
-              name="map-drawing-toolbar-edit-geometry-buttons"
+              checked={selectedEditingTool === tool.type}
+              name="map-drawing-toolbar-create-geometry-buttons"
               value={tool.type}
-              onChange={this.onGeometryEditToolChange.bind(this)} />
-            <LabelWithInlineImage 
-              inputId={tool.type}
-              labelText={tool.label} />
-          </div>
+              onChange={this.onGeometryEditToolChange}
+            />
+            {tool.label}
+          </label>
         );     
       }
     });
 
     return (
-      <div className={baseClass}>
-        <p className={cx(this.classes.drawingToolsHeader)}>{this.state.headerMessage}</p>
-        <div className={cx(this.classes.drawingToolsContainer, { visibility: this.getVisibility("select-geometry-type") })}>
-          {this.mapTools.drawing.map((tool) => 
-            <div 
-              className={baseClass + "__" + tool.type}
-              key={tool.type}>
-              <input 
-                id={tool.type}
-                type="radio"
-                checked={this.state.selectedDrawingTool === tool.type}
-                name="map-drawing-toolbar-create-geometry-buttons"
-                value={tool.type}
-                onChange={this.onGeometryToolTypeChange.bind(this)} />
-              <LabelWithInlineImage 
-                inputId={tool.type}
-                labelText={tool.label} />
-            </div>
-          )}
+      <div className="map-drawing-toolbar">
+        <p className="map-drawing-toolbar__drawing-tools-header">
+          {this.state.headerMessage}
+        </p>
+        <div className={classNames.drawingToolsContainer}>
+          {this.mapTools.drawing.map(tool => {
+            let toolbarItemClassName = cn(
+              "map-drawing-toolbar__toolbar-item", 
+              "map-drawing-toolbar__" + tool.type, {
+                "map-drawing-toolbar__toolbar-item--hovering": hoveredToolbarItem === tool.type && selectedDrawingTool !== tool.type,
+                "map-drawing-toolbar__toolbar-item--selected": selectedDrawingTool === tool.type
+              }
+            );
+
+            return (
+              <label
+                className={toolbarItemClassName}
+                key={tool.type}
+                htmlFor={tool.type}
+                onMouseOver={() => this.onMouseOverToolbarItem(tool.type)}
+                onMouseOut={this.onMouseOutToolbarItem}
+              >
+                <input
+                  className="map-drawing-toolbar__toolbar-item-input"
+                  id={tool.type}
+                  type="radio"
+                  checked={selectedDrawingTool === tool.type}
+                  name="map-drawing-toolbar-create-geometry-buttons"
+                  value={tool.type}
+                  onChange={this.onGeometryToolTypeChange}
+                />
+                {tool.label}
+              </label>
+            );
+          })}
         </div>
-        <div className={cx(this.classes.editingToolsContainer, { visibility: this.getVisibility("edit-geometry") })}>
+        <div className={classNames.editingToolsContainer}>
           {editingTools}
         </div>
-        <p className={cx(this.classes.markerSelectionHeader, { visibility: this.getVisibility("select-marker-type") })}>{this.mapTools.selectIcon.header}</p>
-        <div className={cx(this.classes.markerSelectionContainer, { visibility: this.getVisibility("select-marker-type") })}>
-          {this.props.markers.map((marker, i) => 
-            <div 
-              className={baseClass + "__" + "marker-item"}
-              key={marker}>
-              <input 
-                id={baseClass + "__" + "marker-item-input-" + i}
-                type="radio"
-                checked={this.state.selectedMarkerIndex === i}
-                name="map-drawing-toolbar-select-marker-buttons"
-                value={marker}
-                onChange={() => this.onMarkerSelectionChange(i)} />
-              <LabelWithInlineImage
-                inputId={baseClass + "__" + "marker-item-input-" + i}
-                imageSrc={marker} />
-            </div>
-          )}
+        <p className={classNames.markerSelectionHeader}>
+          {this.mapTools.selectIcon.header}
+        </p>
+        <div className={classNames.markerSelectionContainer}>
+          {markers.map((marker, i) => {
+            let markerItemClassName = cn("map-drawing-toolbar__marker-item", {
+                "map-drawing-toolbar__marker-item--hovering": hoveredMarkedItemIndex === i,
+                "map-drawing-toolbar__marker-item--selected": selectedMarkerIndex === i
+              }
+            );
+
+            return (
+              <label
+                className={markerItemClassName}
+                key={marker}
+                htmlFor={"map-drawing-toolbar__marker-item-input-" + i}
+                onMouseOver={() => this.onMouseOverMarkerItem(i)}
+                onMouseOut={this.onMouseOutMarkerItem}
+              >
+                <input 
+                  className="map-drawing-toolbar__marker-item-input"
+                  id={"map-drawing-toolbar__marker-item-input-" + i}
+                  type="radio"
+                  checked={selectedMarkerIndex === i}
+                  name="map-drawing-toolbar-select-marker-buttons"
+                  value={marker}
+                  onChange={() => this.onMarkerSelectionChange(i)}
+                />
+                <img
+                  className="map-drawing-toolbar__marker-item-image"
+                  src={marker}
+                />
+              </label>
+            );
+          })}
         </div>
       </div>
     );
@@ -644,4 +633,4 @@ MapDrawingToolbar.propTypes = {
   onGeometryChange: PropTypes.func.isRequired
 };
 
-export { MapDrawingToolbar };
+export default MapDrawingToolbar;

@@ -1,3 +1,5 @@
+@import "variables";
+
 .primary-button {
   padding: $primary-button-padding;
   background-color: $primary-button-background-color;
@@ -7,9 +9,13 @@
   border-radius: $primary-button-border-radius;
   text-transform: $primary-button-text-transform;
   font-size: $primary-button-font-size;
-	
-  &:hover {
-    background-color: $primary-button-background-hover-color;
-    cursor: $primary-button-hover-cursor;
-  }
+}
+
+.primary-button--hoverable:hover {
+  background-color: $primary-button-background-hover-color;
+  cursor: $primary-button-hover-cursor;
+}
+
+.input-form-submit-button__button {
+  position: relative;
 }
