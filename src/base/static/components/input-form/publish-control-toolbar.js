@@ -1,54 +1,44 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
-import { RadioBigButton } from "../input-form/radio-big-button";
+import BigRadioField from "../input-form/big-radio-field";
 import { publishControlToolbar as messages } from "../messages";
-
-const baseClass = "publish-control-toolbar";
+import "./publish-control-toolbar.scss";
 
 class PublishControlToolbar extends Component {
 
-  constructor() {
-    super(...arguments);
-    this.classes = {
-      footerMsg: {
-        name: baseClass + "__footer-message"
-      },
-      buttonsContainer: {
-        name: baseClass + "__buttons-container"
-      }
-    }
-  }
-
   render() {
-    let footerMsg = (this.props.published === "isPublished")
+    const { name, onChange, published } = this.props;
+    const footerMsg = (published === "isPublished")
       ? messages.publishedFooterMsg
       : messages.notPublishedFooterMsg;
 
     return (
-      <div className={baseClass}>
-        <div className={cx(this.classes.buttonsContainer)}>
-          <RadioBigButton
+      <div className="publish-control-toolbar">
+        <div className="publish-control-toolbar__buttons-container">
+          <BigRadioField
             value="isPublished"
             label={messages.publishedLabel}
-            id={"input-form-" + this.props.name + "-isPublished"}
+            id={"input-form-" + name + "-isPublished"}
             name={this.props.name}
             value="isPublished"
             checked={this.props.published === "isPublished"}
             onChange={this.props.onChange} />
-          <RadioBigButton
+          <BigRadioField
             value="isNotPublished"
             label={messages.notPublishedLabel}
-            id={"input-form-" + this.props.name + "-isNotPublished"}
-            name={this.props.name}
+            id={"input-form-" + name + "-isNotPublished"}
+            name={name}
             value="isNotPublished"
-            checked={this.props.published === "isNotPublished"}
-            onChange={this.props.onChange} />
+            checked={published === "isNotPublished"}
+            onChange={onChange} />
           </div>
-        <p className={cx(this.classes.footerMsg)}><em>{footerMsg}</em></p>
+        <p className="publish-control-toolbar__footer-message">
+          <em>{footerMsg}</em>
+        </p>
       </div>
     );
   }
 }
 
-export { PublishControlToolbar }
+export default PublishControlToolbar;

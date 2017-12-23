@@ -1,12 +1,14 @@
-@import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
-
-.react-datepicker-wrapper, .react-datepicker__input-container {
-  width: 100%;
-}
+@import "react-datepicker.min";
+@import "variables";
 
 .mapseed-datetime-field {
   width: $datetime-field-width;
   border: $datetime-field-border;
   padding: $datetime-field-padding;
   box-sizing: border-box;
+}
+
+.react-datepicker-wrapper, 
+.react-datepicker__input-container {
+  width: 100%;
 }

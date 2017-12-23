@@ -740,15 +740,17 @@ module.exports = Backbone.View.extend({
     }
 
     ReactDOM.render(
-      <InputForm placeConfig={this.options.placeConfig} 
-                 mapConfig={this.options.mapConfig}
-                 map={this.mapView.map}
-                 emitter={emitter} 
-                 collectionsSet={{
-                   places: this.places,
-                   landmarks: this.landmarks,
-                 }}
-                 router={this.options.router} />,
+      <InputForm
+        placeConfig={this.options.placeConfig} 
+        mapConfig={this.options.mapConfig}
+        map={this.mapView.map}
+        emitter={emitter} 
+        collectionsSet={{
+          places: this.places,
+          landmarks: this.landmarks,
+        }}
+        router={this.options.router} 
+      />,
       document.querySelector("#content article")
     );
 

@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 
-const baseClass = "mapseed-textarea-field";
+import "./textarea-field.scss";
 
 class TextareaField extends Component {
 
   render() {
+    const { name, onChange, placeholder, required, value } = this.props;
+
     return (
       <textarea 
-        className={baseClass}
-        name={this.props.name}
-        placeholder={this.props.placeholder}
-        value={this.props.value}
-        required={this.props.required}
-        onChange={this.props.onChange}>	
+        className="mapseed-textarea-field"
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        required={required}
+        onChange={onChange}>
       </textarea>
     );
   }
+
 };
 
-export { TextareaField };
+export default TextareaField;

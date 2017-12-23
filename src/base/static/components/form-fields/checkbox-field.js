@@ -1,22 +1,26 @@
 import React, { Component } from "react";
-
-const baseClass = "mapseed-checkbox-field";
+const cn = require("classnames");
 
 class CheckboxField extends Component {
 
   render() {
+
+    const { checked, className, id, name, onChange, required, value } = this.props;
+    const classNames = cn("checkbox-field", className);
+
     return (
       <input 
-        className={baseClass}
+        className={classNames}
         type="checkbox"
-        id={this.props.id}
-        name={this.props.name}
-        value={this.props.value}
-        required={this.props.required} 
-        onChange={this.props.onChange}
-        checked={this.props.checked} />
+        id={id}
+        name={name}
+        value={value}
+        required={required}
+        onChange={onChange}
+        checked={checked} />
     );
   }
+
 };
 
-export { CheckboxField };
+export default CheckboxField;

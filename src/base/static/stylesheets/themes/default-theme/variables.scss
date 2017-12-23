@@ -1,4 +1,6 @@
-// All SASS variables for the default theme are defined here
+// 
+// Mapseed Default Theme
+//
 
 // -----------------------------------------------------------------------------
 // COLORS
@@ -40,7 +42,7 @@ $secondary-font: "";
 // -----------------------------------------------------------------------------
 
 /*
-	BasicButton.js
+	basic-button.js
 	No-frills button
 */
 $basic-button-background-width: 100%;
@@ -56,21 +58,9 @@ $basic-button-padding-right: 0;
 $basic-button-padding-top: 0;
 $basic-button-padding-bottom: 0;
 
-/*
-	LabelWithInlineImage.js
-	Label with text and left-aligned or right-aligned image/icon
-*/
-$label-inline-image-img-width: 36px;
-$label-inline-image-img-margin: 0 0 0 0;
-$label-inline-image-img-padding: 3px 3px 3px 3px;
-$label-inline-image-label-padding: 5px 5px 5px 5px;
-$label-inline-image-text-transform: uppercase;
-$label-inline-image-font-size: 1em;
-$label-inline-image-hover-cursor: pointer;
-
 
 /*
-	PrimaryButton.js
+	primary-button.js
 	Primary button component
 */
 $primary-button-padding: 0.325em 0.625em 0.325em 0.625em;
@@ -86,7 +76,7 @@ $primary-button-hover-cursor: pointer;
 
 
 /*
-	SecondaryButton.js
+	secondary-button.js
 	Secondary button component
 */
 $secondary-button-padding: 0.325em 0.625em 0.325em 0.625em;
@@ -102,13 +92,13 @@ $secondary-button-hover-cursor: pointer;
 
 
 /*
-	TertiaryButton.js
+	tertiary-button.js
 	Tertiary button component
 */
 
 
 /*
-	InputFormCategoryButton.js
+	input-form-category-button.js
 	Map input form category selection button
 */
 $input-form-category-button-height: 55px;
@@ -119,11 +109,16 @@ $input-form-category-button-hover-border: 2px solid $accent-color-1;
 $input-form-category-button-border: 2px solid transparent;
 $input-form-category-button-border-radius: 8px;
 $input-form-category-button-padding: 3px 3px 3px 3px;
-$input-form-category-button-label-margin: 0 0 0 0;
-$input-form-category-button-label-padding: 0 0 0 20px;
+$input-form-category-button-image-width: 36px;
+$input-form-category-button-image-margin: 0 0 0 0;
+$input-form-category-button-image-padding: 3px 3px 3px 3px;
+$input-form-category-button-text-transform: uppercase;
+$input-form-category-button-font-size: 1em;
+$input-form-category-button-label-text-margin: 0 0 0 0;
+$input-form-category-button-label-text-padding: 0 0 0 20px;
+$input-form-category-button-label-text-border-radius: 0 7px 7px 0;
 $input-form-category-button-image-margin: 0 20px 0 20px;
 $input-form-category-button-image-border-radius: 7px 0 0 7px;
-$input-form-category-button-label-border-radius: 0 7px 7px 0;
 $input-form-category-button-expand-categories-button: $icon-hamburger;
 $input-form-category-button-expand-categories-button-color: #FFFFFF;
 $input-form-category-button-expand-categories-button-hover-color: $light-gray;
@@ -139,7 +134,7 @@ $input-form-category-button-height: 55px;
 // -----------------------------------------------------------------------------
 
 /*
-	TextField.js
+	text-field.js
 	Basic text field
 */
 $text-field-border: 0.25em solid $secondary-color;
@@ -150,7 +145,7 @@ $text-field-width: 100%;
 $text-field-autofill-background-color: $warning-color;
 
 /*
-	TextareaField.js
+	textarea-field.js
 	Basic textarea field
 */
 $textarea-field-border: 0.25em solid $secondary-color;
@@ -161,24 +156,24 @@ $textarea-field-width: 100%;
 $textarea-field-height: 6.5em;
 
 /*
-	DropdownField.js
+	dropdown-field.js
 	Basic dropdown field
 */
 $dropdown-field-border: 0.25em solid $secondary-color;
 $dropdown-field-width: 100%;
 
 /*
-	CheckboxField.js
+	checkbox-field.js
 	Basic checkbox field
 */
 
 /*
-	RadioField.js
+	radio-field.js
 	Basic radio field
 */
 
 /*
-	DatetimeField.js
+	datetime-field.js
 	Date/time picker
 */
 $datetime-field-width: 100%;
@@ -186,7 +181,7 @@ $datetime-field-border: 0.25em solid $secondary-color;
 $datetime-field-padding: 0.5em 0.5em 0.5em 0.5em;
 
 /*
-	GeocodingField.js
+	geocoding-field.js
 	Geocoder
 */
 $geocoding-field-width: 100%;
@@ -203,60 +198,81 @@ $geocoding-field-error-box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2
 $geocoding-field-error-padding: 0.25em 0.5em;
 
 /*
-	RadioBigButton.js
-	Large radio button with label with left-aligned icon inside
+	big-radio-field.js
+	Large radio field with label with left-aligned icon inside
 */
-$radio-big-button-icon: $icon-check-mark;
-$radio-big-button-hover-icon-color: $very-light-gray;
-$radio-big-button-hover-icon-background-color: $light-gray;
-$radio-big-button-hover-label-color: $very-dark-gray;
-$radio-big-button-selected-icon-color: #FFFFFF;
-$radio-big-button-border: 2px solid $light-gray;
-$radio-big-button-selected-border: 2px solid $accent-color-1;
-$radio-big-button-selected-label-color: $extremely-dark-gray;
-$radio-big-button-selected-icon-background-color: $accent-color-1;
-$radio-big-button-selected-border: 2px solid $accent-color-1;
+$big-radio-field-icon: $icon-check-mark;
+$big-radio-field-hover-icon-color: $very-light-gray;
+$big-radio-field-hover-icon-background-color: $light-gray;
+$big-radio-field-label-font-size: 1.15em;
+$big-radio-field-label-min-height: 2.1em;
+$big-radio-field-label-text-color: $light-gray;
+$big-radio-field-label-padding: 0 10px 0 60px;
+$big-radio-field-label-margin: 5px 0 0 0;
+$big-radio-field-line-height: 2.1em;
+$big-radio-field-hover-label-color: $very-dark-gray;
+$big-radio-field-label-border-radius: 4px;
+$big-radio-field-selected-icon-color: #FFFFFF;
+$big-radio-field-border: 2px solid $light-gray;
+$big-radio-field-selected-border: 2px solid $accent-color-1;
+$big-radio-field-selected-label-color: $extremely-dark-gray;
+$big-radio-field-selected-icon-background-color: $accent-color-1;
+$big-radio-field-selected-border: 2px solid $accent-color-1;
 
 /*
-	CheckboxBigButton.js
-	Large checkbox button with label with left-aligned icon inside
+	big-checkbox-field.js
+	Large checkbox field with label with left-aligned icon inside
 */
-$checkbox-big-button-icon: $icon-check-mark;
-$checkbox-big-button-hover-icon-color: $very-light-gray;
-$checkbox-big-button-hover-icon-background-color: $light-gray;
-$checkbox-big-button-hover-label-color: $very-dark-gray;
-$checkbox-big-button-selected-icon-color: #FFFFFF;
-$checkbox-big-button-border: 2px solid $light-gray;
-$checkbox-big-button-selected-border: 2px solid $accent-color-1;
-$checkbox-big-button-selected-label-color: $extremely-dark-gray;
-$checkbox-big-button-selected-icon-background-color: $accent-color-1;
-$checkbox-big-button-selected-border: 2px solid $accent-color-1;
+$big-checkbox-field-icon: $icon-check-mark;
+$big-checkbox-field-hover-icon-color: $very-light-gray;
+$big-checkbox-field-hover-icon-background-color: $light-gray;
+$big-checkbox-field-label-font-size: 1.15em;
+$big-checkbox-field-label-min-height: 2.1em;
+$big-checkbox-field-label-text-color: $light-gray;
+$big-checkbox-field-label-padding: 0 10px 0 60px;
+$big-checkbox-field-label-margin: 5px 0 0 0;
+$big-checkbox-field-line-height: 2.1em;
+$big-checkbox-field-hover-label-color: $very-dark-gray;
+$big-checkbox-field-label-border-radius: 4px;
+$big-checkbox-field-selected-icon-color: #FFFFFF;
+$big-checkbox-field-border: 2px solid $light-gray;
+$big-checkbox-field-selected-border: 2px solid $accent-color-1;
+$big-checkbox-field-selected-label-color: $extremely-dark-gray;
+$big-checkbox-field-selected-icon-background-color: $accent-color-1;
+$big-checkbox-field-selected-border: 2px solid $accent-color-1;
 
 /*
-  ToggleBigButton.js
-  Large toggle button with label with left-aligned icon inside
+  big-toggle-field.js
+  Large toggle field with label with left-aligned icon inside
 */
-$toggle-big-button-icon: $icon-check-mark;
-$toggle-big-button-hover-icon-color: $very-light-gray;
-$toggle-big-button-hover-icon-background-color: $light-gray;
-$toggle-big-button-hover-label-color: $very-dark-gray;
-$toggle-big-button-selected-icon-color: #FFFFFF;
-$toggle-big-button-border: 2px solid $light-gray;
-$toggle-big-button-selected-border: 2px solid $accent-color-1;
-$toggle-big-button-selected-label-color: $extremely-dark-gray;
-$toggle-big-button-selected-icon-background-color: $accent-color-1;
-$toggle-big-button-selected-border: 2px solid $accent-color-1;
+$big-toggle-field-icon: $icon-check-mark;
+$big-toggle-field-hover-icon-color: $very-light-gray;
+$big-toggle-field-hover-icon-background-color: $light-gray;
+$big-toggle-field-label-font-size: 1.15em;
+$big-toggle-field-label-min-height: 2.1em;
+$big-toggle-field-label-text-color: $light-gray;
+$big-toggle-field-label-padding: 0 10px 0 60px;
+$big-toggle-field-label-margin: 5px 0 0 0;
+$big-toggle-field-line-height: 2.1em;
+$big-toggle-field-hover-label-text-color: $very-dark-gray;
+$big-toggle-field-label-border-radius: 4px;
+$big-toggle-field-selected-icon-color: #FFFFFF;
+$big-toggle-field-border: 2px solid $light-gray;
+$big-toggle-field-selected-border: 2px solid $accent-color-1;
+$big-toggle-field-selected-label-color: $extremely-dark-gray;
+$big-toggle-field-selected-icon-background-color: $accent-color-1;
+$big-toggle-field-selected-border: 2px solid $accent-color-1;
 
 /*
-  RichTextareaField.js
+  rich-textarea-field.js
   Quill-driven rich textarea input box
 */
-$rich-textarea-border: 0.3em solid $secondary-color;
+$rich-textarea-border: 0.25em solid $secondary-color;
 $rich-textarea-min-height: 200px;
 $rich-textarea-font-size: 16px;
 
 /*
-  MapDrawingToolbar.js
+  map-drawing-toolbar.js
   Toolbar for drawing icons, polylines, and polygons on the map
 */
 $map-drawing-toolbar-background-color: $dark-gray;
@@ -304,9 +320,9 @@ $map-drawing-toolbar-stroke-colorpicker-icon-height: 34px;
 $map-drawing-toolbar-toolbar-item-border: 2px solid transparent;
 $map-drawing-toolbar-toolbar-item-hover-border: 2px solid #FFFFFF;
 $map-drawing-toolbar-toolbar-border-radius: 4px;
-$map-drawing-toolbar-toolbar-item-padding: 4px 14px 4px 4px;
+$map-drawing-toolbar-toolbar-item-padding: 4px 4px 4px 4px;
 $map-drawing-toolbar-toolbar-item-selected-background-color: #FFFFFF;
-$map-drawing-toolbar-toolbar-item-selected-text-color: $secondary-color;
+$map-drawing-toolbar-toolbar-item-selected-text-color: $dark-gray;
 
 $map-drawing-toolbar-marker-item-marker-width: 25px;
 $map-drawing-toolbar-marker-item-marker-border: 2px solid transparent;
@@ -316,14 +332,21 @@ $map-drawing-toolbar-marker-item-selected-background-color: #FFFFFF;
 $map-drawing-toolbar-marker-item-padding: 3px 3px 3px 3px;
 
 /*
-  AutocompleteComboboxField.js
+  autocomplete-combobox-field.js
   Autcomplete input field with dropdown capabilities
 */
 $autocomplete-combobox-border: 0.25em solid $secondary-color;
 $autocomplete-combobox-padding: 0.5em 0.5em 0.5em 0.5em;
 
 /*
-  CustomUrlField.js
+  add-attachment-button.js
+  Button for adding file attachments to places
+*/
+$add-attachment-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$add-attachment-button-text-color: $primary-color;
+
+/*
+  custom-url-field.js
   Field for entering a custom url for a place
 */
 $custom-url-background-color: $dark-gray;
@@ -333,7 +356,7 @@ $custom-url-prefix-msg-text-color: $extremely-dark-gray;
 $custom-url-prefix-url-text-color: #FFFFFF;
 
 /*
-  InputForm.js
+  input-form.js
   Main input form for new map content
 */
 $input-form-prompt-font-size: 1em;

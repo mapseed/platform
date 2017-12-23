@@ -1,3 +1,5 @@
+@import "variables";
+
 .mapseed-text-field {
   border: $text-field-border;
   border-radius: $text-field-border-radius;
@@ -9,4 +11,4 @@
 
 .mapseed-text-field--has-autofill {
   background-color: $text-field-autofill-background-color;
-} 
+}

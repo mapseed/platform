@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { EventEmitter } from "fbemitter";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
 import { geocodingField as messages } from "../messages";
+import "./geocoding-field.scss";
 
 const Util = require("../../js/utils.js");
-
-const baseClass = "mapseed-geocoding-field";
 
 class GeocodingField extends Component {
 	
@@ -16,17 +15,6 @@ class GeocodingField extends Component {
       isGeocoding: false,
       hasGeocodingError: false
     };
-    this.doGeocodeIconClass = {
-      name: baseClass + "__do-geocode-icon"
-    };
-    this.geocodingSpinnerClass = {
-      name: baseClass + "__geocoding-spinner",
-      modifiers: ["visibility"]
-    };
-    this.geocodingErrorClass = {
-      name: baseClass + "__geocoding-error",
-      modifiers: ["visibility"]
-    };
     this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
     this.hint = 
       this.props.mapConfig.geocode_bounding_box ||
@@ -34,26 +22,38 @@ class GeocodingField extends Component {
   }
 
   componentDidMount() {
-    let target = document.getElementsByClassName(cx(this.geocodingSpinnerClass))[0];
+    let target = document.getElementsByClassName("mapseed-geocoding-field__geocoding-spinner")[0];
     new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
   }
 
   doGeocode(evt) {
-    this.setState({ isGeocoding: true, hasGeocodingError: false });
+    this.setState({ 
+      isGeocoding: true, 
+      hasGeocodingError: false 
+    });
     let address = this.props.value;
 
     Util[this.geocodingEngine].geocode(address, this.hint, {
       success: (data) => {
         let locationsData = data.results[0].locations;
         if (locationsData.length > 0) {
-          this.setState({ isGeocoding: false, hasGeocodingError: false });
+          this.setState({ 
+            isGeocoding: false, 
+            hasGeocodingError: false 
+          });
           this.props.emitter.emit("geocode", locationsData[0]);
         } else {
-          this.setState({ isGeocoding: false, hasGeocodingError: true });
+          this.setState({ 
+            isGeocoding: false, 
+            hasGeocodingError: true 
+          });
         }
       },
       error: (err) => {
-        this.setState({ isGeocoding: false, hasGeocodingError: true });
+        this.setState({ 
+          isGeocoding: false, 
+          hasGeocodingError: true 
+        });
         console.error("There was an error while geocoding: ", arguments);
       },
     });
@@ -64,21 +64,33 @@ class GeocodingField extends Component {
   }
 
   render() {
+    const { hasGeocodingError, isGeocoding } = this.state;
+    const { name, onChange, value } = this.props;
+    const classNames = {
+        spinner: cn("mapseed-geocoding-field__geocoding-spinner", {
+          "mapseed-geocoding-field__geocoding-spinner--visible": this.state.isGeocoding,
+          "mapseed-geocoding-field__geocoding-spinner--hidden": !this.state.isGeocoding
+        }),
+        error: cn("mapseed-geocoding-field__geocoding-error", {
+          "mapseed-geocoding-field__geocoding-error--visible": this.state.hasGeocodingError,
+          "mapseed-geocoding-field__geocoding-error--hidden": !this.state.hasGeocodingError
+        })
+      };
+
     return (
-      <div className={baseClass}>
-        <span className={cx(this.geocodingSpinnerClass, 
-          { visibility: this.state.isGeocoding ? "visible" : "hidden" })} />
+      <div className="mapseed-geocoding-field">
+        <span className={classNames.spinner} />
         <span 
-          className={cx(this.doGeocodeIconClass)}
+          className="mapseed-geocoding-field__do-geocode-icon"
           onClick={this.doGeocode.bind(this)} />
         <input 
-          name={this.props.name}
+          className="mapseed-geocoding-field__input"
+          name={name}
           type="text"
-          value={this.props.value}
-          onChange={this.props.onChange} 
+          value={value}
+          onChange={onChange} 
           onBlur={this.onBlur.bind(this)} />
-        <div className={cx(this.geocodingErrorClass, 
-          { visibility: this.state.hasGeocodingError ? "visible" : "hidden" })}>
+        <div className={classNames.error}>
           {messages.locationNotFoundError}
         </div>
       </div>
@@ -86,4 +98,4 @@ class GeocodingField extends Component {
   }
 };
 
-export { GeocodingField };
+export default GeocodingField;

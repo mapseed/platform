@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
-import { SecondaryButton } from "../ui-elements/secondary-button";
-import { FileField } from "../form-fields/file-field";
+import SecondaryButton from "../ui-elements/secondary-button";
+import FileField from "../form-fields/file-field";
+
+import "./add-attachment-button.scss";
 
 const Util = require("../../js/utils.js");
-
-const baseClass = "add-attachment-button";
 
 class AddAttachmentButton extends Component {
 
@@ -15,6 +15,8 @@ class AddAttachmentButton extends Component {
     this.state = {
       displayFilename: null
     };
+    // TODO: reset this
+    // TODO: keep track of attachments in parent component?
     this.attachments = [];
   }
 
@@ -31,6 +33,7 @@ class AddAttachmentButton extends Component {
               name: this.props.name,
               blob: blob,
               file: canvas.toDataURL("image/jpeg"),
+              type: "CO" // cover image
             });
           }, "image/jpeg");
         },
@@ -45,24 +48,27 @@ class AddAttachmentButton extends Component {
   }
 
   render() {
-    let addAttachmentFilenameClass = {
-          name: baseClass + "__filename",
-          modifiers: ["visibility"]
-        };
+    const { name, label } = this.props;
+    const { displayFilename } = this.state;
+    const classNames = cn("mapseed-add-attachment-button__filename", {
+        "mapseed-add-attachment-button__filename--visible": displayFilename,
+        "mapseed-add-attachment-button__filename--hidden": !displayFilename
+      });
 
     return (
-      <div className={baseClass}>
+      <div className="mapseed-add-attachment-button">
         <SecondaryButton>
-          Add an image
-          <FileField onChange={this.onChange.bind(this)} 
-                     name={this.props.name} />
+          <FileField
+            onChange={this.onChange.bind(this)}
+            name={name} 
+            label={label} />
         </SecondaryButton>
-        <span className={cx(addAttachmentFilenameClass, { visibility: this.state.displayFilename ? "visible" : "hidden" })}>
-          {this.state.displayFilename}
+        <span className={classNames}>
+          {displayFilename}
         </span>
       </div>
     );
   }
 };
 
-export { AddAttachmentButton };
+export default AddAttachmentButton;

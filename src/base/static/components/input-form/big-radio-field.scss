@@ -1,0 +1,63 @@
+@import "variables";
+
+.big-radio-field {
+  display: inline-block;
+  overflow: auto;
+  margin-right: 5px;
+}
+
+.big-radio-field__input {
+  display: none;
+}
+
+.big-radio-field__label {
+  font-size: $big-radio-field-label-font-size;
+  min-height: $big-radio-field-label-min-height;
+  line-height: $big-radio-field-line-height;
+  margin: $big-radio-field-label-margin;
+  padding: $big-radio-field-label-padding;
+  text-indent: 0;
+  position: relative;
+  float: left;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: $big-radio-field-label-text-color;
+  border: $big-radio-field-border;
+  border-radius: $big-radio-field-label-border-radius;
+
+  &:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    width: 2.5em;
+    background-color: $big-radio-field-hover-icon-background-color;
+  }
+}
+
+.big-radio-field__label--hoverable:hover {
+  color: $big-radio-field-hover-label-color;
+
+  &:before {
+    content: $big-radio-field-icon;
+    text-indent: 0.9em;
+    color: $big-radio-field-hover-icon-color;
+  }
+}
+
+.big-radio-field__label--toggled {
+  border: $big-radio-field-selected-border;
+  color: $big-radio-field-selected-label-color;
+
+  &:before {
+    content: $big-radio-field-icon;
+    background-color: $big-radio-field-selected-icon-background-color;
+    text-indent: 0.9em;
+    color: $big-radio-field-selected-icon-color;
+  }
+}

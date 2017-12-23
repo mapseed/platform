@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 
-const baseClass = "mapseed-datetime-field";
+import "./datetime-field.scss";
 
 class DatetimeField extends Component {
 
@@ -21,15 +21,20 @@ class DatetimeField extends Component {
   }
 
   render() {
+
+    const { showTimeSelect } = this.props;
+    const { startDate } = this.state;
+
     return (
       <DatePicker 
-        className={baseClass}
+        className="mapseed-datetime-field"
         dateFormat={this.dateFormat}
-        showTimeSelect={this.props.showTimeSelect}
-        selected={this.state.startDate}
+        showTimeSelect={showTimeSelect}
+        selected={startDate}
         onChange={this.onChange.bind(this)} />
     );
   }
+
 };
 
-export { DatetimeField };
+export default DatetimeField;

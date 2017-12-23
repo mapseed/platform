@@ -1,21 +1,26 @@
 import React, { Component } from "react";
-
-const baseClass = "mapseed-radio-field";
+const cn = require("classnames");
 
 class RadioField extends Component {
+
   render() {
+
+    const { checked, className, id, name, onChange, required, value } = this.props;
+    const classNames = cn("radio-field", className);
+
     return (
       <input 
-        className={baseClass}
+        className={classNames}
         type="radio"
-        id={this.props.id}
-        value={this.props.value}
-        name={this.props.name}
-        checked={this.props.checked}
-        onChange={this.props.onChange}
-        required={this.props.required} />
+        id={id}
+        value={value}
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        required={required} />
     );
   }
+
 };
 
-export { RadioField };
+export default RadioField;

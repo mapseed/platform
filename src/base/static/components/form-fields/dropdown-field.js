@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import { dropdownField as messages } from "../messages";
-
-const baseClass = "mapseed-dropdown-field";
+import "./dropdown-field.scss";
 
 /*
   this.props.options should be an array of objects. Each object is as follows:
@@ -17,17 +16,19 @@ class DropdownField extends Component {
 
   render() {
 
+    const { name, onChange, options, required, value } = this.props;
+
     return (
       <select
-        className={baseClass}
-        value={this.props.value}
-        name={this.props.name}
-        required={this.props.required}
-        onChange={this.props.onChange}>
+        className="mapseed-dropdown-field"
+        value={value}
+        name={name}
+        required={required}
+        onChange={onChange}>
         <option value="">
           {messages.makeSelection}
         </option>
-        {this.props.options.map((option) => 
+        {options.map((option) => 
           <option
             key={option.value}
             value={option.value}>
@@ -37,6 +38,7 @@ class DropdownField extends Component {
       </select>
     );
   }
+
 };
 
-export { DropdownField };
+export default DropdownField;

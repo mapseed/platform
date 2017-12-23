@@ -36,7 +36,6 @@ var entryPoints = [
   "./src/base/static/css/leaflet.draw.css",
   "./src/base/static/css/leaflet-sidebar.css",
   "./src/base/static/css/spectrum.css",
-  "./src/base/static/stylesheets/default.scss",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
   "./src/flavors/" + process.env.FLAVOR + "/config.yml"
 ].concat(flavorJsFiles);
@@ -59,6 +58,7 @@ for (var i = 0; i < baseViewPaths.length; i++) {
 var outputBasePath = path.resolve(__dirname, "www");
 const extractSCSS = new ExtractTextPlugin((process.env.NODE_ENV === "production") ? "[contenthash].bundle.css" : "bundle.css");
 const extractYML = new ExtractTextPlugin("config-en_US.js");
+const theme = (process.env.THEME) ? process.env.THEME : "default-theme";
 
 module.exports = {
   entry: entryPoints,
@@ -76,9 +76,24 @@ module.exports = {
     rules: [
       {
         test: /\.s?css$/,
-        loader: extractSCSS.extract({
+        use: extractSCSS.extract({
           fallback: "style-loader",
-          use: "css-loader?url=false!sass-loader?includePaths[]=" + path.resolve(__dirname, "./node_modules/compass-mixins/lib")
+          use: [
+            {
+              loader: "css-loader?url=false"
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                includePaths: [
+                  path.resolve(__dirname, "./node_modules/react-datepicker/dist"),
+                  path.resolve(__dirname, "./node_modules/compass-mixins/lib"),
+                  path.resolve(__dirname, "./src/base/static/stylesheets/util"),
+                  path.resolve(__dirname, "./src/base/static/stylesheets/themes", theme)
+                ]
+              }
+            }
+          ]
         }),
       },
       {

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
 import ReactQuill, { Quill } from "react-quill";
 const BlockEmbed = Quill.import("blots/block/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
+const cn = require("classnames");
 
+import "./rich-textarea-field.scss";
 const Util = require("../../js/utils.js");
 
-const baseClass = "mapseed-rich-textarea-field";
-
-// NOTE: this routine is taken from Quill's themes/base module.
+// NOTE: this routine is taken from Quill's themes/base module, which is not
+// importable via react-quill.
 const extractVideoUrl = (url) => {
   let match = url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/) ||
               url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/);
@@ -65,6 +65,8 @@ class RichTextareaField extends Component {
   }
 
   onClickEmbedImage() {
+
+    // TODO: is there a way around using refs here?
     this.refs["quill-file-input"].click();
   }
 
@@ -73,7 +75,6 @@ class RichTextareaField extends Component {
   }
 
   componentDidMount() {
-
     let editor = this.refs["quill-editor"].getEditor();
 
     // NOTE: we create a whole new SnowTheme here so we can make use of a
@@ -174,24 +175,26 @@ class RichTextareaField extends Component {
   }
 
   render() {
-    let quillFileInputClass = {
-          name: baseClass + "__quill-file-input",
-          modifiers: ["visibility"]
-        };
+
+    const { bounds, name, onChange, placeholder, value } = this.props;
+    const classNames = cn(
+        "mapseed-rich-textarea-field__quill-file-input", 
+        "mapseed-rich-textarea-field__quill-file-input--hidden"
+      );
 
     return (
-      <div className={baseClass}>
+      <div className="mapseed-rich-textarea-field">
         <ReactQuill 
           ref="quill-editor"
           theme="snow"
           modules={this.modules}
-          placeholder={this.props.placeholder}
-          value={this.props.value}
-          bounds={this.props.bounds}
-          onChange={(value) => this.props.onChange(value, this.props.name)}>
+          placeholder={placeholder}
+          value={value}
+          bounds={bounds}
+          onChange={(val) => onChange(val, name)}>
         </ReactQuill>
         <input 
-          className={cx(quillFileInputClass, { visibility: "hidden" })}
+          className={classNames}
           ref="quill-file-input"
           type="file" 
           onChange={this.onAddImage.bind(this)}
@@ -199,6 +202,7 @@ class RichTextareaField extends Component {
       </div>
     );
   }
+
 };
 
-export { RichTextareaField };
+export default RichTextareaField;

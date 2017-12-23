@@ -1,6 +1,7 @@
-.mapseed-autocomplete-combobox-field {
-  input {
-    border: $autocomplete-combobox-border;
-    padding: $autocomplete-combobox-padding;
-  }
+@import "variables";
+
+// the .autocomplete__input class is exposed by accessible-autocomplete
+.autocomplete__input {
+  border: $autocomplete-combobox-border !important;
+  padding: $autocomplete-combobox-padding !important;
 }
