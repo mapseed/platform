@@ -38,7 +38,7 @@ module.exports = Backbone.View.extend({
     this.geometryEditorView = this.options.geometryEditorView;
     this.onAddAttachmentCallback = null;
     this.geometryEnabled = _.find(this.categoryConfig.fields, function(field) {
-      return field.type === "geometryToolbar";
+      return field.type === "map_drawing_toolbar";
     })
       ? true
       : false;

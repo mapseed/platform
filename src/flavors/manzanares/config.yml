@@ -282,9 +282,9 @@ place:
       label: _(Partner Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/partners-blue.svg
             - url: /static/css/images/markers/marker-star.png
@@ -301,19 +301,19 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _( )
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: manzanares-project
       admin_only: true
       includeOnForm: true
@@ -327,9 +327,9 @@ place:
       label: _(Project Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-star.png
             - url: /static/css/images/markers/marker-bike.png
@@ -353,19 +353,19 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _( )
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement    
+          type: common_form_element    
     - category: community_input
       includeOnForm: true
       name: location_type
@@ -385,7 +385,7 @@ place:
           autocomplete: true
           horizontal_rule_below: true
         - name: regular_user
-          type: binary_toggle
+          type: big_toggle
           autocomplete: true
           prompt: _(Are you a regular user of this garden?)
           display_prompt: _(I am a regular user of this garden:)
@@ -397,7 +397,7 @@ place:
           optional: false
           horizontal_rule_below: true
         - name: children_at_home
-          type: binary_toggle
+          type: big_toggle
           autocomplete: true
           prompt: _(Do you have children at home?)
           display_prompt: _(I have children at home:)
@@ -423,10 +423,10 @@ place:
               value: other
           optional: true
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: input_category
           prompt: _(What type of comment is this?)
-          type: radio_big_buttons
+          type: big_radio
           content:
             - label: _(Recommendation)
               label_plural: _(Recommendations)
@@ -444,7 +444,7 @@ place:
           optional: false
         - name: input_subcategory
           prompt: _(Select any of the below categories that apply:)
-          type: checkbox_big_buttons
+          type: big_checkbox
           content:
             - label: _(Amenities)
               value: amenities
@@ -460,7 +460,7 @@ place:
               value: other
           optional: true
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -479,11 +479,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Submit comment)

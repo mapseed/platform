@@ -523,9 +523,9 @@ place:
       label: _(Featured Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
@@ -540,23 +540,23 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         # - name: submitter_name
-        #   type: commonFormElement
+        #   type: common_form_element
         # - name: private-submitter_email
-        #   type: commonFormElement
+        #   type: common_form_element
         # - name: my_image
-        #   type: commonFormElement
+        #   type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: rose-grants
       admin_only: true
       includeOnForm: false
@@ -570,9 +570,9 @@ place:
       label: _(Featured Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
@@ -587,23 +587,23 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: settled-cases
       admin_only: true
       includeOnForm: false
@@ -617,9 +617,9 @@ place:
       label: _(Featured Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
@@ -632,23 +632,23 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: pollution
       includeOnForm: true
       name: location_type
@@ -688,7 +688,7 @@ place:
           placeholder: _(Enter description...)
           optional: false
         - name: reported_to_other
-          type: binary_toggle
+          type: big_toggle
           prompt: _(Have you reported this incident to anyone else?)
           display_prompt: _(Reported to someone else)
           content:
@@ -696,15 +696,15 @@ place:
               value: "yes"
             - label: _(No)
               value: "no"
-          optional: true # NOTE: binary_toggle inputs have no validation
+          optional: true # NOTE: big_toggle inputs have no validation
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: community-action
       includeOnForm: true
       name: location_type
@@ -720,18 +720,18 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: "_(Describe your action:)"
           display_prompt: _( )
           placeholder: _(Tell us more...)
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -749,11 +749,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)

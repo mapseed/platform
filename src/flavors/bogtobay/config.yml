@@ -707,7 +707,7 @@ place:
           placeholder: _(Enter title)
           optional: false
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(I pledge to:)
           display_prompt: _(I pledge to:)
           content:
@@ -734,13 +734,13 @@ place:
           placeholder: _(Enter comments...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: conservation-pledge
       includeOnForm: true
       name: location_type
@@ -762,13 +762,13 @@ place:
           placeholder: _(Enter comments...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: wastewater-pledge
       includeOnForm: true
       name: location_type
@@ -790,13 +790,13 @@ place:
           placeholder: _(Enter comments...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: observation
       includeOnForm: true
       name: location_type
@@ -812,7 +812,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: observation_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(I see:)
           display_prompt: _(I see:)
           content:
@@ -837,13 +837,13 @@ place:
           placeholder: _(Enter description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: question
       includeOnForm: true
       name: location_type
@@ -864,13 +864,13 @@ place:
           display_prompt: _(My question:)
           placeholder: _(Enter question...)
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: idea
       includeOnForm: false
       name: location_type
@@ -892,13 +892,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: complaint
       includeOnForm: false
       name: location_type
@@ -920,13 +920,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: air_watch  #defines a top-level form category
       includeOnForm: false
       name: location_type  #needs to be "location_type"
@@ -934,14 +934,14 @@ place:
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
-      fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
+      fields:  #field types can be: "dropdown", "big_radio", "big_checkbox", "yes_only_big_button", "text", or "textarea"
         - name: date_time_observed 
           type: datetime  
           prompt: _(When did you observe these conditions?)
           display_prompt: _(I observed these conditions on:)
           optional: true
         - name: reside_work_georgetown  
-          type: binary_toggle 
+          type: big_toggle 
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
           display_prompt: _(I reside or work in Georgetown or South Park:)
           content:
@@ -949,9 +949,9 @@ place:
               value: "yes"
             - label: _(No)
               value: "no"
-          optional: true # NOTE: binary_toggle inputs have no validation
+          optional: true # NOTE: big_toggle inputs have no validation
         - name: odd_smell
-          type: binary_toggle 
+          type: big_toggle 
           prompt: _(I observe an odd smell)
           display_prompt: _(I observed an odd smell:)
           content:
@@ -962,7 +962,7 @@ place:
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: burning
-          type: binary_toggle
+          type: big_toggle
           prompt: _(I have burning or itching eyes/nose/skin)
           display_prompt: _(I have burning or itching eyes/nose/skin:)
           content:
@@ -973,7 +973,7 @@ place:
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: difficulty_breathing
-          type: binary_toggle
+          type: big_toggle
           prompt: _(I am having difficulty breathing)
           display_prompt: _(I am having difficulty breathing:)
           content:
@@ -984,7 +984,7 @@ place:
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: headache
-          type: binary_toggle
+          type: big_toggle
           prompt: _(I am experiencing a headache)
           display_prompt: _(I am experiencing a headache:)
           content:
@@ -1031,7 +1031,7 @@ place:
               value: other
           optional: false
         - name: normal_activities
-          type: radio_big_buttons
+          type: big_radio
           prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
           display_prompt: _(My normal activities are affected by the air quality in my neighborhood:)
           content:
@@ -1070,13 +1070,13 @@ place:
           display_prompt: _(Additional comments:)
           optional: true
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -1094,11 +1094,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)
