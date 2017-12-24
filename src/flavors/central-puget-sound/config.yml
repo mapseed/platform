@@ -838,9 +838,9 @@ place:
             - key: accept
               value: image/*
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-star.png
             - url: /static/css/images/markers/marker-bike.png
@@ -900,19 +900,19 @@ place:
           placeholder: _(Enter size...)
           optional: true
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Background, timeline, and data:)
           display_prompt: _(Background, timeline, and data)
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: conserve-water
       includeOnForm: true
@@ -923,11 +923,11 @@ place:
       label: _(Conserve Water)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -963,17 +963,17 @@ place:
               value: removed-lawn
           optional: true 
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: prevent-stormwater
       includeOnForm: true
@@ -984,11 +984,11 @@ place:
       label: _(Prevent Stormwater Pollution)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -1023,17 +1023,17 @@ place:
             - label: _(Inspect and fix home septic system)
               value: fix-septic-system
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: only-flush
       includeOnForm: true
@@ -1044,11 +1044,11 @@ place:
       label: _(Think - Toilet, Shower, Sink)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -1081,17 +1081,17 @@ place:
             - label: _(I use natural cleaners)
               value: natural-cleaners              
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: conserve-energy
       includeOnForm: true
@@ -1102,11 +1102,11 @@ place:
       label: _(Conserve Energy)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -1134,17 +1134,17 @@ place:
               value: added-solar-power
           optional: false 
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: waste-less
       includeOnForm: true
@@ -1155,11 +1155,11 @@ place:
       label: _(Waste Less)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -1185,17 +1185,17 @@ place:
               value: use-take-it-back-network
           optional: false 
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: commute-low-carbon
       includeOnForm: true
@@ -1206,11 +1206,11 @@ place:
       label: _(Commute Low Carbon)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -1232,17 +1232,17 @@ place:
               value: fly-rarely
           optional: false 
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: eat-local-organic
       includeOnForm: true
@@ -1253,11 +1253,11 @@ place:
       label: _(Eat Local Organic)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -1275,17 +1275,17 @@ place:
               value: shop-local-organic
           optional: false 
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: restore-salmon-habitat
       includeOnForm: true
@@ -1296,11 +1296,11 @@ place:
       label: _(Restore Salmon Habitat)
       fields:
         - name: address
-          type: commonFormElement
+          type: common_form_element
         - name: title
-          type: commonFormElement
+          type: common_form_element
         - name: pledge_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
@@ -1314,17 +1314,17 @@ place:
               value: backyard-wildlife-habitat
           optional: false 
         - name: comments
-          type: commonFormElement
+          type: common_form_element
         - name: school-name
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # Define form elements that appear on every form here.
   # The key of each common_form_element should match the "name" property
@@ -1351,7 +1351,7 @@ place:
       hideFromDetailView: true
       optional: false
       placeholder: _(Type or select a school name...)
-      type: dropdown-autocomplete
+      type: dropdown_autocomplete
       prompt: _(Your school:)
       content:
         - label: _(Alcott Elementary School)
@@ -2299,11 +2299,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)

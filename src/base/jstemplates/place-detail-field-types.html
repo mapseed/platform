@@ -12,11 +12,11 @@
   <p class="place-value place-value-{{ ../name }}">{{{nlToBr content}}}</p>
 {{/is}}
 
-{{#is type "richTextarea"}}
+{{#is type "rich_textarea"}}
   <span class="place-value place-value-{{ ../name }}">{{{content}}}</span>
 {{/is}}
 
-{{#is type "radio_big_buttons"}}
+{{#is type "big_radio"}}
   <ul>
     {{#each content}}
       {{#if selected}}
@@ -26,7 +26,7 @@
   </ul>
 {{/is}}
 
-{{#is type "checkbox_big_buttons"}}
+{{#is type "big_checkbox"}}
   <ul>
     {{#each content}}
       {{#if selected}}
@@ -36,7 +36,7 @@
   </ul>
 {{/is}}
 
-{{#is type "binary_toggle"}}
+{{#is type "big_toggle"}}
   <p>
     {{#if content.selected}}
       {{ content.selectedLabel }}

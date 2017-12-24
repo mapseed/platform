@@ -59,7 +59,7 @@
             {{^optional}}required{{/optional}}>{{nlToBr content}}</textarea>
 {{/is}}
 
-{{#is type "richTextarea"}}
+{{#is type "rich_textarea"}}
   <div id="place-{{ name }}" 
        class="rich-text-field{{#if isAutocomplete}} is-autocomplete{{/if}}"
        name="{{ name }}" 
@@ -68,7 +68,7 @@
        {{^optional}}required{{/optional}}>{{{content}}}</div>
 {{/is}}
 
-{{#is type "radio_big_buttons"}}
+{{#is type "big_radio"}}
   <div>
     {{#each content}}
         <input type="radio" 
@@ -84,7 +84,7 @@
   <div style="clear:both"></div>
 {{/is}}
 
-{{#is type "checkbox_big_buttons"}}
+{{#is type "big_checkbox"}}
   <div class="checkbox-group">
     {{#each content}}
       <input type="checkbox" 
@@ -99,7 +99,7 @@
   </div>
 {{/is}}
 
-{{#is type "binary_toggle"}}
+{{#is type "big_toggle"}}
   <div>
     <input type="checkbox" 
            name={{ name }} 
@@ -114,7 +114,7 @@
                           {{else}}
                             {{ content.selectedValue }}
                           {{/if}}
-           data-input-type="binary_toggle" 
+           data-input-type="big_toggle" 
            class="big-btn"
            {{#if content.selected}}checked{{/if}}>
     <label for={{ name }}
@@ -141,10 +141,10 @@
   <div style="clear:both"></div>
 {{/is}}
 
-{{#is type "dropdown-autocomplete"}}
+{{#is type "dropdown_autocomplete"}}
   <div>
-    <select id="dropdown-autocomplete-container-{{../name}}"
-            class="dropdown-autocomplete-container"
+    <select id="dropdown_autocomplete-container-{{../name}}"
+            class="dropdown_autocomplete-container"
             name={{ ../name }} 
             data-placeholder="{{ ../placeholder }}"
             {{^optional}}required{{/optional}}
@@ -158,7 +158,7 @@
   <div style="clear:both"></div>
 {{/is}}
 
-{{#is type "url-title"}}
+{{#is type "custom_url_toolbar"}}
   <div class="url-readout-container">
     <p class="url-readout-msg">{{#_}}Your post will be accessible at:{{/_}}</p>
     <p>
@@ -179,7 +179,7 @@
   </div>
 {{/is}}
 
-{{#is type "geometryToolbar"}}
+{{#is type "map_drawing_toolbar"}}
   <div class="geometry-toolbar">
     <div class="helper-messages">
       <p class="create-new-geometry-msg"><em>{{#_}}Click on a tool below to draw on the map{{/_}}</em></p>
@@ -229,7 +229,7 @@
   </div>
 {{/is}}
 
-{{#is type "publishControl"}}
+{{#is type "publish_control_toolbar"}}
   <div class="publish-control-container">
     <input type="radio" 
            name="published" 

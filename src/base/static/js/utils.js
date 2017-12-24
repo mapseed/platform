@@ -294,8 +294,8 @@ var self = (module.exports = {
       fieldConfig.type === "text" ||
       fieldConfig.type === "textarea" ||
       fieldConfig.type === "datetime" ||
-      fieldConfig.type === "richTextarea" ||
-      fieldConfig.type === "url-title"
+      fieldConfig.type === "rich_textarea" ||
+      fieldConfig.type === "custom_url_toolbar"
     ) {
       // Plain text
       content = existingValue || "";
@@ -304,10 +304,10 @@ var self = (module.exports = {
         hasValue = true;
       }
     } else if (
-      fieldConfig.type === "checkbox_big_buttons" ||
-      fieldConfig.type === "radio_big_buttons" ||
+      fieldConfig.type === "big_checkbox" ||
+      fieldConfig.type === "big_radio" ||
       fieldConfig.type === "dropdown" ||
-      fieldConfig.type === "dropdown-autocomplete"
+      fieldConfig.type === "dropdown_autocomplete"
     ) {
       // Checkboxes, radio buttons, and dropdowns
       if (!_.isArray(existingValue)) {
@@ -329,7 +329,7 @@ var self = (module.exports = {
           selected: selected,
         });
       });
-    } else if (fieldConfig.type === "geometryToolbar") {
+    } else if (fieldConfig.type === "map_drawing_toolbar") {
       // Geometry toolbar
       content = [];
 
@@ -347,7 +347,7 @@ var self = (module.exports = {
           content[0].selected = true;
         }
       });
-    } else if (fieldConfig.type === "publishControl") {
+    } else if (fieldConfig.type === "publish_control_toolbar") {
       // Published/Not published radio control
       content = {
         selected: existingValue || "isPublished",
@@ -360,7 +360,7 @@ var self = (module.exports = {
       if (existingValue) {
         hasValue = true;
       }
-    } else if (fieldConfig.type === "binary_toggle") {
+    } else if (fieldConfig.type === "big_toggle") {
       // Binary toggle buttons
       // NOTE: We assume that the first option listed under content
       // corresponds to the "on" value of the toggle input
@@ -393,7 +393,7 @@ var self = (module.exports = {
           (fieldData.name && fieldData.name.indexOf("private-") !== 0) &&
           fieldData.hasValue &&
           fieldData.form_only !== true &&
-          fieldData.name !== "url-title" &&
+          fieldData.name !== "custom_url_toolbar" &&
           fieldData.type !== "submit"
         );
       },
@@ -407,7 +407,7 @@ var self = (module.exports = {
     _.each(
       args.fields,
       function(field, i) {
-        if (field.type === "commonFormElement") {
+        if (field.type === "common_form_element") {
           Object.assign(args.fields[i], args.commonFormElements[args.fields[i].name]);
         }
 

@@ -752,27 +752,27 @@ place:
           placeholder: _(...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-header
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-description
-          type: commonFormElement
+          type: common_form_element
         - name: private-age
-          type: commonFormElement
+          type: common_form_element
         - name: private-ethnicity
-          type: commonFormElement
+          type: common_form_element
         - name: private-income
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: private-phone
-          type: commonFormElement
+          type: common_form_element
         - name: private-volunteer
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: parks
       includeOnForm: true
       name: location_type
@@ -806,27 +806,27 @@ place:
           placeholder: _(...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-header
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-description
-          type: commonFormElement
+          type: common_form_element
         - name: private-age
-          type: commonFormElement
+          type: common_form_element
         - name: private-ethnicity
-          type: commonFormElement
+          type: common_form_element
         - name: private-income
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: private-phone
-          type: commonFormElement
+          type: common_form_element
         - name: private-volunteer
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: streets
       includeOnForm: true
       name: location_type
@@ -860,27 +860,27 @@ place:
           placeholder: _(...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-header
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-description
-          type: commonFormElement
+          type: common_form_element
         - name: private-age
-          type: commonFormElement
+          type: common_form_element
         - name: private-ethnicity
-          type: commonFormElement
+          type: common_form_element
         - name: private-income
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: private-phone
-          type: commonFormElement
+          type: common_form_element
         - name: private-volunteer
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: health
       includeOnForm: true
       name: location_type
@@ -914,27 +914,27 @@ place:
           placeholder: _(...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-header
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-description
-          type: commonFormElement
+          type: common_form_element
         - name: private-age
-          type: commonFormElement
+          type: common_form_element
         - name: private-ethnicity
-          type: commonFormElement
+          type: common_form_element
         - name: private-income
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: private-phone
-          type: commonFormElement
+          type: common_form_element
         - name: private-volunteer
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: safety
       includeOnForm: true
       name: location_type
@@ -968,27 +968,27 @@ place:
           placeholder: _(...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-header
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-description
-          type: commonFormElement
+          type: common_form_element
         - name: private-age
-          type: commonFormElement
+          type: common_form_element
         - name: private-ethnicity
-          type: commonFormElement
+          type: common_form_element
         - name: private-income
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: private-phone
-          type: commonFormElement
+          type: common_form_element
         - name: private-volunteer
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: other
       includeOnForm: true
       name: location_type
@@ -1022,38 +1022,35 @@ place:
           placeholder: _(...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-header
-          type: commonFormElement
+          type: common_form_element
         - name: demographics-description
-          type: commonFormElement
+          type: common_form_element
         - name: private-age
-          type: commonFormElement
+          type: common_form_element
         - name: private-ethnicity
-          type: commonFormElement
+          type: common_form_element
         - name: private-income
-          type: commonFormElement
+          type: common_form_element
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: private-phone
-          type: commonFormElement
+          type: common_form_element
         - name: private-volunteer
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     demographics-header:
       type: section_header
       horizontal_rule: false
@@ -1070,7 +1067,7 @@ place:
       optional: true
     private-ethnicity:
       autocomplete: true
-      type: checkbox_big_buttons
+      type: big_checkbox
       annotation: _(Your ethnicity will not appear on the map)
       prompt: _(Your ethnicity:)
       display_prompt: _(Ethnicity:)
@@ -1136,7 +1133,7 @@ place:
       placeholder: _(Your phone number will not appear on the map)
       optional: true
     private-volunteer:
-      type: binary_toggle
+      type: big_toggle
       prompt: _(I'd like to volunteer as a Budget Delegate)
       content:
         - label: _(Yes)
