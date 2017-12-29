@@ -771,6 +771,7 @@ module.exports = Backbone.View.extend({
           landmarks: this.landmarks,
         }}
         router={this.options.router}
+        customHooks={this.options.customHooks}
       />,
       document.querySelector("#content article")
     );

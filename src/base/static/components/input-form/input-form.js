@@ -25,6 +25,16 @@ import "./input-form.scss";
 
 const Util = require("../../js/utils.js");
 
+// TEMPORARY: we define flavor hooks here for the time being
+const MYWATER_SCHOOL_DISTRICTS = require("../../../../flavors/central-puget-sound/static/school-districts.json");
+const hooks = {
+  myWaterAddDistrict: obj => {
+    obj.district = MYWATER_SCHOOL_DISTRICTS[obj["school-name"]] || "";
+
+    return obj;
+  }
+}
+
 class InputForm extends Component {
 
   constructor() {
@@ -515,6 +525,11 @@ class InputForm extends Component {
 
     if (this.geometryStyle) {
       attrs.style = this.geometryStyle;
+    }
+
+    // pre-save hook
+    if (this.props.customHooks && this.props.customHooks.preSave) {
+      attrs = hooks[this.props.customHooks.preSave](attrs);
     }
 
     model.save(attrs, {

@@ -103,7 +103,7 @@ Shareabouts.Util = Util;
             this.clearLocationTypeFilter();
           }
         },
-        this,
+        this
       );
 
       this.loading = true;
@@ -126,13 +126,17 @@ Shareabouts.Util = Util;
         return layer.type && layer.type === "place";
       });
       _.each(configArrays.places, function(config) {
-        var collection = new PlaceCollection([], { url: config.url + "/places" });
+        var collection = new PlaceCollection([], {
+          url: config.url + "/places",
+        });
         self.places[config.id] = collection;
       });
 
       // instantiate action collections for shareabouts places
       _.each(configArrays.places, function(config) {
-        var collection = new ActionCollection([], { url: config.url + "/actions" });
+        var collection = new ActionCollection([], {
+          url: config.url + "/actions",
+        });
         self.activities[config.id] = collection;
       });
 
@@ -160,7 +164,8 @@ Shareabouts.Util = Util;
         userToken: options.userToken,
         router: this,
         filters: options.filters,
-        languageCode: options.languageCode
+        languageCode: options.languageCode,
+        customHooks: options.customHooks,
       });
 
       // Start tracking the history
@@ -265,7 +270,7 @@ Shareabouts.Util = Util;
       var $filterIndicator = $("#current-filter-type");
       if ($filterIndicator.length === 0) {
         $filterIndicator = $('<div id="current-filter-type"/>').insertAfter(
-          $(".menu-item-filter-type > a:first-child"),
+          $(".menu-item-filter-type > a:first-child")
         );
       }
 
@@ -300,7 +305,10 @@ Shareabouts.Util = Util;
           this.appView.listView.clearFilters();
         }
 
-        $filterIndicator.removeClass().addClass("unfiltered").empty();
+        $filterIndicator
+          .removeClass()
+          .addClass("unfiltered")
+          .empty();
       }
     },
 
