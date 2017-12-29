@@ -741,15 +741,16 @@ module.exports = Backbone.View.extend({
 
     ReactDOM.render(
       <InputForm
-        placeConfig={this.options.placeConfig} 
+        placeConfig={this.options.placeConfig}
         mapConfig={this.options.mapConfig}
         map={this.mapView.map}
-        emitter={emitter} 
+        emitter={emitter}
         collectionsSet={{
           places: this.places,
           landmarks: this.landmarks,
         }}
-        router={this.options.router} 
+        router={this.options.router}
+        customHooks={this.options.customHooks}
       />,
       document.querySelector("#content article")
     );
