@@ -15,26 +15,28 @@ class AddAttachmentButton extends Component {
     this.state = {
       displayFilename: null
     };
-    // TODO: reset this
-    // TODO: keep track of attachments in parent component?
-    this.attachments = [];
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange(evt) {
+    evt.persist();
+
     if (evt.target.files && evt.target.files.length) {
-      let file = evt.target.files[0];
+      const file = evt.target.files[0];
+      const { name, onChange } = this.props;
       this.setState({ displayFilename: file.name });
 
       Util.fileToCanvas(
         file,
-        (canvas) => {
-          canvas.toBlob((blob) => {
-            this.attachments.push({
-              name: this.props.name,
+        canvas => {
+          canvas.toBlob(blob => {
+            const fileObj = {
+              name: name,
               blob: blob,
               file: canvas.toDataURL("image/jpeg"),
               type: "CO" // cover image
-            });
+            };
+            onChange(evt, fileObj);
           }, "image/jpeg");
         },
         {
@@ -51,17 +53,19 @@ class AddAttachmentButton extends Component {
     const { name, label } = this.props;
     const { displayFilename } = this.state;
     const classNames = cn("mapseed-add-attachment-button__filename", {
-        "mapseed-add-attachment-button__filename--visible": displayFilename,
-        "mapseed-add-attachment-button__filename--hidden": !displayFilename
-      });
+      "mapseed-add-attachment-button__filename--visible": displayFilename,
+      "mapseed-add-attachment-button__filename--hidden": !displayFilename
+    });
 
     return (
       <div className="mapseed-add-attachment-button">
         <SecondaryButton>
           <FileField
-            onChange={this.onChange.bind(this)}
-            name={name} 
-            label={label} />
+            onChange={this.onChange}
+            name={name}
+            label={label}
+            accept="image/*"
+          />
         </SecondaryButton>
         <span className={classNames}>
           {displayFilename}

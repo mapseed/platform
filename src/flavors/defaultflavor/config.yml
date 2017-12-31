@@ -420,6 +420,7 @@ place:
         - name: dropdown_autocomplete_combobox_field
           type: dropdown_autocomplete
           autocomplete: true
+          placeholder: _(Begin typing a value...)
           prompt: _(Dropdown autocomplete input prompt:)
           display_prompt: _(Rendered dropdown autocomplete selection:)
           content:
@@ -473,9 +474,7 @@ place:
           type: file
           prompt: _(Attachment field prompt:)
           label: _(Attachment field button label)
-          optional: true
-        - name: common_form_element_example
-          type: common_form_element
+          optional: false
         - name: submit_field
           type: submit
           label: _(Submit button label)

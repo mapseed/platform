@@ -22,18 +22,19 @@ class AutocompleteComboboxField extends Component {
         .filter(result => result.toLowerCase().indexOf(query.toLowerCase()) !== -1);
       populateResults(filteredResults);
     }
+    this.onConfirm = this.onConfirm.bind(this);
   }
 
   onConfirm(selectedLabel) {
-    if (selectedLabel) {
-      this.props.onChange(this.props.options.filter(option => option.label === selectedLabel)[0].value);
-    } else {
-      this.props.onChange(null);
-    }
+    const { name, onChange, options } = this.props;
+    const value = (selectedLabel)
+      ? options.find(option => option.label === selectedLabel).value
+      : "";
+
+    onChange(value, name);
   }
 
   render() {
-
     const { id, placeholder } = this.props;
 
     return (
@@ -43,11 +44,13 @@ class AutocompleteComboboxField extends Component {
           placeholder={placeholder}
           confirmOnBlur={true}
           id={id}
-          showAllValues={true} 
-          onConfirm={this.onConfirm.bind(this)} />
+          showAllValues={true}
+          onConfirm={this.onConfirm}
+        />
       </div>
     );
   }
+
 };
 
 AutocompleteComboboxField.propTypes = {

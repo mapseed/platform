@@ -764,6 +764,9 @@ module.exports = Backbone.View.extend({
       <InputForm
         placeConfig={this.options.placeConfig}
         mapConfig={this.options.mapConfig}
+        hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+        hideCenterPoint={this.hideCenterPoint.bind(this)}
+        showNewPin={this.showNewPin.bind(this)}
         map={this.mapView.map}
         emitter={emitter}
         collectionsSet={{
@@ -772,6 +775,7 @@ module.exports = Backbone.View.extend({
         }}
         router={this.options.router}
         customHooks={this.options.customHooks}
+        container="#content article"
       />,
       document.querySelector("#content article")
     );

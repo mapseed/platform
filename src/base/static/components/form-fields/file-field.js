@@ -7,7 +7,7 @@ class FileField extends Component {
 
   render() {
 
-    const { label, name, onChange, required, value } = this.props;
+    const { accept, label, name, onChange, required, value } = this.props;
     const classNames = {
         input: cn("mapseed-file-field__input", "mapseed-file-field__input--hidden"),
         label: cn("mapseed-file-field__label", "mapseed-file-field__label--hoverable")
@@ -15,14 +15,16 @@ class FileField extends Component {
 
     return (
       <div className="mapseed-file-field">
-        <input 
+        <input
           className={classNames.input}
           type="file"
           id={name}
           name={name}
           value={value}
-          required={required} 
-          onChange={onChange} />
+          required={required}
+          onChange={onChange}
+          accept={accept}
+        />
         <label 
           className={classNames.label}
           htmlFor={name}>

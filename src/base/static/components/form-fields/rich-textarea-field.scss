@@ -4,6 +4,7 @@
 
 // the .ql-toolbar class is exposed by react-quill
 .ql-toolbar.ql-snow {
+  background-color: #FFFFFF;
   border-top: $rich-textarea-border !important;
   border-left: $rich-textarea-border !important;
   border-right: $rich-textarea-border !important;
@@ -11,6 +12,7 @@
 
 // the .ql-container class is exposed by react-quill
 .ql-container {
+  background-color: #FFFFFF;
   min-height: $rich-textarea-min-height !important;
   border-bottom: $rich-textarea-border !important;
   border-left: $rich-textarea-border !important;
