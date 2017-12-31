@@ -9,20 +9,20 @@ const Util = require("../../js/utils.js");
 
 class GeocodingField extends Component {
 	
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.state = {
       isGeocoding: false,
       hasGeocodingError: false
     };
     this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
     this.hint = 
-      this.props.mapConfig.geocode_bounding_box ||
-      this.props.mapConfig.geocode_hint;
+      this.props.mapConfig.geocode_bounding_box
+      || this.props.mapConfig.geocode_hint;
   }
 
   componentDidMount() {
-    let target = document.getElementsByClassName("mapseed-geocoding-field__geocoding-spinner")[0];
+    let target = document.getElementsByClassName("geocoding-field__geocoding-spinner")[0];
     new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
   }
 
@@ -67,35 +67,38 @@ class GeocodingField extends Component {
     const { hasGeocodingError, isGeocoding } = this.state;
     const { name, onChange, value } = this.props;
     const classNames = {
-        spinner: cn("mapseed-geocoding-field__geocoding-spinner", {
-          "mapseed-geocoding-field__geocoding-spinner--visible": this.state.isGeocoding,
-          "mapseed-geocoding-field__geocoding-spinner--hidden": !this.state.isGeocoding
-        }),
-        error: cn("mapseed-geocoding-field__geocoding-error", {
-          "mapseed-geocoding-field__geocoding-error--visible": this.state.hasGeocodingError,
-          "mapseed-geocoding-field__geocoding-error--hidden": !this.state.hasGeocodingError
-        })
-      };
+      spinner: cn("geocoding-field__geocoding-spinner", {
+        "geocoding-field__geocoding-spinner--visible": this.state.isGeocoding,
+        "geocoding-field__geocoding-spinner--hidden": !this.state.isGeocoding
+      }),
+      error: cn("mapseed-geocoding-field__geocoding-error", {
+        "geocoding-field__geocoding-error--visible": this.state.hasGeocodingError,
+        "geocoding-field__geocoding-error--hidden": !this.state.hasGeocodingError
+      })
+    };
 
     return (
-      <div className="mapseed-geocoding-field">
+      <div className="geocoding-field">
         <span className={classNames.spinner} />
-        <span 
-          className="mapseed-geocoding-field__do-geocode-icon"
-          onClick={this.doGeocode.bind(this)} />
-        <input 
-          className="mapseed-geocoding-field__input"
+        <span
+          className="geocoding-field__do-geocode-icon"
+          onClick={this.doGeocode.bind(this)}
+        />
+        <input
+          className="geocoding-field__input"
           name={name}
           type="text"
           value={value}
-          onChange={onChange} 
-          onBlur={this.onBlur.bind(this)} />
+          onChange={onChange}
+          onBlur={this.onBlur.bind(this)}
+        />
         <div className={classNames.error}>
           {messages.locationNotFoundError}
         </div>
       </div>
     );
   }
+
 };
 
 export default GeocodingField;

@@ -51,7 +51,7 @@
     "s3-website": "^3.2.2",
     "prop-types": "^15.6.0",
     "rc-color-picker": "^1.2.0",
-    "react": "^15.6.2",
+    "react": "^16.2.0",
     "react-addons-update": "^15.6.2",
     "react-datepicker": "^0.55.0",
     "react-dom": "^15.6.1",

@@ -64,7 +64,7 @@ Quill.register(ImageWithName);
 class RichTextareaField extends Component {
 
   constructor() {
-    super(...arguments);
+    super();
     this.modules = {
       toolbar: {
         container: [
@@ -125,7 +125,6 @@ class RichTextareaField extends Component {
   }
 
   onAddImage(evt) {
-
     if (evt.target.files && evt.target.files.length) {
       const file = evt.target.files[0];
       Util.fileToCanvas(
@@ -195,12 +194,12 @@ class RichTextareaField extends Component {
   render() {
     const { bounds, name, onChange, placeholder, value } = this.props;
     const classNames = cn(
-      "mapseed-rich-textarea-field__quill-file-input", 
-      "mapseed-rich-textarea-field__quill-file-input--hidden"
+      "rich-textarea-field__quill-file-input", 
+      "rich-textarea-field__quill-file-input--hidden"
     );
 
     return (
-      <div className="mapseed-rich-textarea-field">
+      <div className="rich-textarea-field">
         <ReactQuill
           ref="quill-editor"
           theme="snow"

@@ -252,25 +252,8 @@ module.exports = Backbone.View.extend({
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("geocode", (locationData) => {
-      console.log("on geocode", locationData);
-
       this.mapView.zoomInOn(locationData.latLng);
-      if (this.isAddingPlace()) {
-        
-        // TODO: update location on form
-        //this.placeFormView.setLatLng(locationData.latLng);
-      }
     });
-
-    // $(Shareabouts).on("geocode", function(evt, locationData) {
-    //   self.mapView.zoomInOn(locationData.latLng);
-
-    //   if (self.isAddingPlace()) {
-    //     self.placeFormView.setLatLng(locationData.latLng);
-    //     // Don't pass location data into our geolocation's form field
-    //     // self.placeFormView.setLocation(locationData);
-    //   }
-    // });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // When the map center moves, the map view will fire a mapmoveend event
@@ -517,17 +500,6 @@ module.exports = Backbone.View.extend({
       Shareabouts.deferredCollections.push(deferred);
     });
   },
-
-  setPlaceFormViewLatLng: function(centerLatLng) {
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-
-    // if (this.placeFormView) {
-    //   this.placeFormView.setLatLng(centerLatLng);
-    // }
-    // NOTE: the input form will just read the map's centerpoint at the time
-    // of submission.
-    // END REACT PORT SECTION //////////////////////////////////////////////////
-  },
   onMapZoomEnd: function(evt) {
     if (
       this.hasBodyClass("content-visible") === true &&
@@ -546,12 +518,6 @@ module.exports = Backbone.View.extend({
 
     this.$centerpoint.removeClass("dragging");
 
-    // Never set the placeFormView's latLng until the user does it with a
-    // drag event (below)
-    if (this.placeFormView && this.placeFormView.center) {
-      this.setPlaceFormViewLatLng(ll);
-    }
-
     if (this.hasBodyClass("content-visible") === false) {
       this.setLocationRoute(zoom, ll.lat, ll.lng);
     }
@@ -560,7 +526,6 @@ module.exports = Backbone.View.extend({
     if (this.hasBodyClass("content-visible") === true) {
       this.hideSpotlightMask();
     }
-    this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
   },
   onClickAddPlaceBtn: function(evt) {
     evt.preventDefault();
@@ -724,21 +689,6 @@ module.exports = Backbone.View.extend({
     var self = this;
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    if (!this.placeFormView) {
-      // this.placeFormView = new PlaceFormView({
-      //   appView: this,
-      //   router: this.options.router,
-      //   placeConfig: this.options.placeConfig,
-      //   mapConfig: this.options.mapConfig,
-      //   userToken: this.options.userToken,
-      //   geometryEditorView: this.mapView.geometryEditorView,
-      //   collectionsSet: {
-      //     places: this.places,
-      //     landmarks: this.landmarks,
-      //   },
-      // });
-    }
-
     ReactDOM.render(
       <InputForm
         placeConfig={this.options.placeConfig}
@@ -763,9 +713,6 @@ module.exports = Backbone.View.extend({
     this.$panel.show();
     this.setBodyClass("content-visible", "content-expanded");
     this.mapView.map.invalidateSize({ animate:true, pan:true });
-    // this.showPanel(this.placeFormView.render(false).$el);
-
-    // this.placeFormView.delegateEvents();
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     this.showNewPin();

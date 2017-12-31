@@ -9,8 +9,8 @@ const Util = require("../../js/utils.js");
 
 class CustomUrlToolbar extends Component {
 
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.state = {
       url: ""
     };

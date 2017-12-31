@@ -18,6 +18,7 @@ class PrimaryButton extends Component {
       </button>
     );
   }
+
 }
 
-export default PrimaryButton
+export default PrimaryButton;

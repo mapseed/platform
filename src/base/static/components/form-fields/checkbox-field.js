@@ -4,7 +4,6 @@ const cn = require("classnames");
 class CheckboxField extends Component {
 
   render() {
-
     const { checked, className, id, name, onChange, required, value } = this.props;
     const classNames = cn("checkbox-field", className);
 

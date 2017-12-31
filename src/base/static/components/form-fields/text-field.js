@@ -6,11 +6,10 @@ import "./text-field.scss";
 class TextField extends Component {
 
   render() {
-
     const { hasAutofill, name, onChange, placeholder, required, value } = this.props;
-    const classNames = cn("mapseed-text-field", {
-        "mapseed-file-field__label--has-autofill": hasAutofill
-      });
+    const classNames = cn("text-field", {
+      "text-field--has-autofill": hasAutofill
+    });
 
     return (
       <input 
@@ -20,9 +19,11 @@ class TextField extends Component {
         value={value}
         placeholder={placeholder} 
         required={required} 
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
   }
+
 };
 
 export default TextField;

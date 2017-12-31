@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 
-const baseClass = "tertiary-button";
-
 class TertiaryButton extends Component {
 
   render() {
     return (
-      <button className={baseClass}>
+      <button className="tertiary-button">
         {this.props.children}
       </button>
     );
   }
+
 }
 
-export { TertiaryButton }
+export default TertiaryButton;

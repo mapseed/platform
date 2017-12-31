@@ -12,7 +12,7 @@ class SubmitField extends Component {
     });
 
     return (
-      <input 
+      <input
         className={classNames}
         type="submit"
         id={id}

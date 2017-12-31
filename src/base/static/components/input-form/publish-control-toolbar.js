@@ -23,7 +23,8 @@ class PublishControlToolbar extends Component {
             name={this.props.name}
             value="isPublished"
             checked={this.props.published === "isPublished"}
-            onChange={this.props.onChange} />
+            onChange={this.props.onChange}
+          />
           <BigRadioField
             value="isNotPublished"
             label={messages.notPublishedLabel}
@@ -31,7 +32,8 @@ class PublishControlToolbar extends Component {
             name={name}
             value="isNotPublished"
             checked={published === "isNotPublished"}
-            onChange={onChange} />
+            onChange={onChange}
+          />
           </div>
         <p className="publish-control-toolbar__footer-message">
           <em>{footerMsg}</em>
@@ -39,6 +41,7 @@ class PublishControlToolbar extends Component {
       </div>
     );
   }
+
 }
 
 export default PublishControlToolbar;

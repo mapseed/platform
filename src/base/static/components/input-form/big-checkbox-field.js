@@ -7,7 +7,6 @@ import "./big-checkbox-field.scss";
 class BigCheckboxField extends Component {
 
   render() {
-
     const { checked, id, label, name, onChange, required, value } = this.props;
     const classNames = {
       label: cn("big-checkbox-field__label", "big-checkbox-field__label--hoverable", {

@@ -15,7 +15,7 @@ import "./autocomplete-combobox-field.scss";
 class AutocompleteComboboxField extends Component {
 
   constructor() {
-    super(...arguments);
+    super();
     this.suggestions = (query, populateResults) => {
       const filteredResults = this.props.options
         .map(option => option.label)
@@ -38,7 +38,7 @@ class AutocompleteComboboxField extends Component {
     const { id, placeholder } = this.props;
 
     return (
-      <div className="mapseed-autocomplete-combobox-field">
+      <div className="autocomplete-combobox-field">
         <Autocomplete
           source={this.suggestions}
           placeholder={placeholder}
