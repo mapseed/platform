@@ -6,7 +6,7 @@ import "./input-form-category-button.scss";
 class InputFormCategoryButton extends Component {
 
   constructor() {
-    super(...arguments);
+    super();
     this.state = {
       isHoveringCategory: false,
       isHoveringExpandButton: false,
@@ -75,7 +75,7 @@ class InputFormCategoryButton extends Component {
     };
 
     return (
-      <div 
+      <div
         className={classNames.base}
         onMouseOver={this.onMouseOverCategoryButton}
         onMouseOut={this.onMouseOutCategoryButton}

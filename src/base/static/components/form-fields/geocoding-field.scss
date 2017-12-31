@@ -1,10 +1,10 @@
 @import "variables";
 
-.mapseed-geocoding-field {
+.geocoding-field {
   position: relative;
 }
 
-.mapseed-geocoding-field__geocoding-spinner {
+.geocoding-field__geocoding-spinner {
   position: absolute;
   z-index: 100000;
   background-color: $geocoding-field-spinner-icon-background-color;
@@ -24,15 +24,15 @@
   color: $geocoding-field-spinner-icon-color;
 }
 
-.mapseed-geocoding-field__geocoding-spinner--hidden {
+.geocoding-field__geocoding-spinner--hidden {
   display: none;
 }
 
-.mapseed-geocoding-field__geocoding-spinner--visible {
+.geocoding-field__geocoding-spinner--visible {
   display: block;
 }
 
-.mapseed-geocoding-field__geocoding-error {
+.geocoding-field__geocoding-error {
   position: absolute;
   top: 3em;
   right: 0.5em;
@@ -45,22 +45,22 @@
   box-shadow: $geocoding-field-error-box-shadow;
 }
 
-.mapseed-geocoding-field__geocoding-error--hidden {
+.geocoding-field__geocoding-error--hidden {
   display: none;
 }
 
-.mapseed-geocoding-field__geocoding-error--visible {
+.geocoding-field__geocoding-error--visible {
   display: block;
 }
 
-.mapseed-geocoding-field__input {
+.geocoding-field__input {
   width: $geocoding-field-width;
   border: $geocoding-field-border;
   padding: $geocoding-field-padding;
   box-sizing: border-box;
 }
 
-.mapseed-geocoding-field__do-geocode-icon {
+.geocoding-field__do-geocode-icon {
   position: absolute;
   cursor: pointer;
   left: 12px;

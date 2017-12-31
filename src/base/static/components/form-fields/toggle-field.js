@@ -4,12 +4,11 @@ const cn = require("classnames");
 class ToggleField extends Component {
 
   render() {
-
     const { checked, className, id, name, onChange, required, value } = this.props;
-    const classNames = cn("mapseed-toggle-field", className);
+    const classNames = cn("toggle-field", className);
 
     return (
-      <input 
+      <input
         className={classNames}
         type="checkbox"
         id={id}
@@ -17,7 +16,8 @@ class ToggleField extends Component {
         value={value}
         checked={checked}
         onChange={onChange}
-        required={required} />
+        required={required}
+      />
     );
   }
 

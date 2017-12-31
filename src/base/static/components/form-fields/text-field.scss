@@ -1,6 +1,6 @@
 @import "variables";
 
-.mapseed-text-field {
+.text-field {
   border: $text-field-border;
   border-radius: $text-field-border-radius;
   padding: $text-field-padding;
@@ -9,6 +9,6 @@
   box-sizing: border-box;
 }
 
-.mapseed-text-field--has-autofill {
+.text-field--has-autofill {
   background-color: $text-field-autofill-background-color;
 }

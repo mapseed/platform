@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import update from "react-addons-update";
 const cn = require("classnames");
 
@@ -41,8 +40,8 @@ const hooks = {
 
 class InputForm extends Component {
 
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.state = {
       selectedCategory: null,
       categoryMenuIsCollapsed: false,
@@ -704,6 +703,7 @@ class InputForm extends Component {
       </div>
     );
   }
+
 }
 
 export default InputForm;

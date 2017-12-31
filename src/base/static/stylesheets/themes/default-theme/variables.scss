@@ -44,24 +44,6 @@ $secondary-font: "";
 // -----------------------------------------------------------------------------
 
 /*
-	basic-button.js
-	No-frills button
-*/
-$basic-button-background-width: 100%;
-$basic-button-background-color: #FFFFFF;
-$basic-button-border: none;
-$basic-button-border-radius: 4px;
-$basic-button-hover-cursor: pointer;
-$basic-button-hover-background-color: #DDDDDD;
-$basic-button-text-align: center;
-$basic-button-text-transform: uppercase;
-$basic-button-padding-left: 0;
-$basic-button-padding-right: 0;
-$basic-button-padding-top: 0;
-$basic-button-padding-bottom: 0;
-
-
-/*
 	primary-button.js
 	Primary button component
 */
@@ -91,12 +73,6 @@ $secondary-button-border-radius: 3px;
 $secondary-button-text-transform: uppercase;
 $secondary-button-font-size: 0.75em;
 $secondary-button-hover-cursor: pointer;
-
-
-/*
-	tertiary-button.js
-	Tertiary button component
-*/
 
 
 /*
@@ -146,6 +122,7 @@ $text-field-margin: 0 0 0 0;
 $text-field-width: 100%;
 $text-field-autofill-background-color: $warning-color;
 
+
 /*
 	textarea-field.js
 	Basic textarea field
@@ -157,6 +134,7 @@ $textarea-field-margin: 0 0 0 0;
 $textarea-field-width: 100%;
 $textarea-field-height: 6.5em;
 
+
 /*
 	dropdown-field.js
 	Basic dropdown field
@@ -164,15 +142,6 @@ $textarea-field-height: 6.5em;
 $dropdown-field-border: 0.25em solid $secondary-color;
 $dropdown-field-width: 100%;
 
-/*
-	checkbox-field.js
-	Basic checkbox field
-*/
-
-/*
-	radio-field.js
-	Basic radio field
-*/
 
 /*
 	datetime-field.js
@@ -181,6 +150,7 @@ $dropdown-field-width: 100%;
 $datetime-field-width: 100%;
 $datetime-field-border: 0.25em solid $secondary-color;
 $datetime-field-padding: 0.5em 0.5em 0.5em 0.5em;
+
 
 /*
 	geocoding-field.js
@@ -198,6 +168,7 @@ $geocoding-field-error-background-color: #BF6083;
 $geocoding-field-error-text-color: #FFFFFF;
 $geocoding-field-error-box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
 $geocoding-field-error-padding: 0.25em 0.5em;
+
 
 /*
 	big-radio-field.js
@@ -221,6 +192,7 @@ $big-radio-field-selected-label-color: $extremely-dark-gray;
 $big-radio-field-selected-icon-background-color: $accent-color-1;
 $big-radio-field-selected-border: 2px solid $accent-color-1;
 
+
 /*
 	big-checkbox-field.js
 	Large checkbox field with label with left-aligned icon inside
@@ -242,6 +214,7 @@ $big-checkbox-field-selected-border: 2px solid $accent-color-1;
 $big-checkbox-field-selected-label-color: $extremely-dark-gray;
 $big-checkbox-field-selected-icon-background-color: $accent-color-1;
 $big-checkbox-field-selected-border: 2px solid $accent-color-1;
+
 
 /*
   big-toggle-field.js
@@ -265,6 +238,7 @@ $big-toggle-field-selected-label-color: $extremely-dark-gray;
 $big-toggle-field-selected-icon-background-color: $accent-color-1;
 $big-toggle-field-selected-border: 2px solid $accent-color-1;
 
+
 /*
   rich-textarea-field.js
   Quill-driven rich textarea input box
@@ -272,6 +246,7 @@ $big-toggle-field-selected-border: 2px solid $accent-color-1;
 $rich-textarea-border: 0.25em solid $secondary-color;
 $rich-textarea-min-height: 200px;
 $rich-textarea-font-size: 16px;
+
 
 /*
   map-drawing-toolbar.js
@@ -333,6 +308,7 @@ $map-drawing-toolbar-marker-item-marker-border-radius: 4px;
 $map-drawing-toolbar-marker-item-selected-background-color: #FFFFFF;
 $map-drawing-toolbar-marker-item-padding: 3px 3px 3px 3px;
 
+
 /*
   autocomplete-combobox-field.js
   Autcomplete input field with dropdown capabilities
@@ -340,12 +316,14 @@ $map-drawing-toolbar-marker-item-padding: 3px 3px 3px 3px;
 $autocomplete-combobox-border: 0.25em solid $secondary-color;
 $autocomplete-combobox-padding: 0.5em 0.5em 0.5em 0.5em;
 
+
 /*
   add-attachment-button.js
   Button for adding file attachments to places
 */
 $add-attachment-button-padding: 0.325em 0.625em 0.325em 0.625em;
 $add-attachment-button-text-color: $primary-color;
+
 
 /*
   custom-url-field.js
@@ -356,6 +334,7 @@ $custom-url-border-radius: 5px;
 $custom-url-padding: 10px 10px 10px 10px;
 $custom-url-prefix-msg-text-color: $extremely-dark-gray;
 $custom-url-prefix-url-text-color: #FFFFFF;
+
 
 /*
   input-form.js

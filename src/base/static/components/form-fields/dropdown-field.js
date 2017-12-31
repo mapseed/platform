@@ -15,20 +15,20 @@ import "./dropdown-field.scss";
 class DropdownField extends Component {
 
   render() {
-
     const { name, onChange, options, required, value } = this.props;
 
     return (
       <select
-        className="mapseed-dropdown-field"
+        className="dropdown-field"
         value={value}
         name={name}
         required={required}
-        onChange={onChange}>
+        onChange={onChange}
+      >
         <option value="">
           {messages.makeSelection}
         </option>
-        {options.map((option) => 
+        {options.map((option) =>
           <option
             key={option.value}
             value={option.value}>

@@ -4,12 +4,11 @@ const cn = require("classnames");
 class RadioField extends Component {
 
   render() {
-
     const { checked, className, id, name, onChange, required, value } = this.props;
     const classNames = cn("radio-field", className);
 
     return (
-      <input 
+      <input
         className={classNames}
         type="radio"
         id={id}
@@ -17,7 +16,8 @@ class RadioField extends Component {
         name={name}
         checked={checked}
         onChange={onChange}
-        required={required} />
+        required={required}
+      />
     );
   }
 

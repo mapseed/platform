@@ -6,15 +6,14 @@ import "./file-field.scss";
 class FileField extends Component {
 
   render() {
-
     const { accept, label, name, onChange, required, value } = this.props;
     const classNames = {
-        input: cn("mapseed-file-field__input", "mapseed-file-field__input--hidden"),
-        label: cn("mapseed-file-field__label", "mapseed-file-field__label--hoverable")
-      };
+      input: cn("file-field__input", "file-field__input--hidden"),
+      label: cn("file-field__label", "file-field__label--hoverable")
+    };
 
     return (
-      <div className="mapseed-file-field">
+      <div className="file-field">
         <input
           className={classNames.input}
           type="file"
@@ -25,7 +24,7 @@ class FileField extends Component {
           onChange={onChange}
           accept={accept}
         />
-        <label 
+        <label
           className={classNames.label}
           htmlFor={name}>
           {label}

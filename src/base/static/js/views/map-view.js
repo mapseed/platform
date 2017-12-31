@@ -3,7 +3,6 @@ var Util = require("../utils.js");
 var BasicLayerView = require("mapseed-basic-layer-view");
 var LayerView = require("mapseed-layer-view");
 var toGeoJSON = require("togeojson");
-//var GeometryEditorView = require("mapseed-geometry-editor-view");
 
 module.exports = Backbone.View.extend({
   events: {

@@ -8,14 +8,14 @@ class TextareaField extends Component {
     const { name, onChange, placeholder, required, value } = this.props;
 
     return (
-      <textarea 
-        className="mapseed-textarea-field"
+      <textarea
+        className="textarea-field"
         name={name}
         placeholder={placeholder}
         value={value}
         required={required}
-        onChange={onChange}>
-      </textarea>
+        onChange={onChange}
+      />
     );
   }
 

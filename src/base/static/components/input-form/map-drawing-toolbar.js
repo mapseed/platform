@@ -17,8 +17,8 @@ const drawingDefaults = {
 
 class MapDrawingToolbar extends Component {
 
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.state = {
       headerMessage: messages.selectTool.header,
       currentPanel: "select-geometry-type",
@@ -624,6 +624,7 @@ class MapDrawingToolbar extends Component {
       </div>
     );
   }
+
 };
 
 MapDrawingToolbar.propTypes = {

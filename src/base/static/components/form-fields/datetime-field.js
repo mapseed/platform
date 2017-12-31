@@ -10,7 +10,7 @@ class DatetimeField extends Component {
 
     return (
       <DatePicker
-        className="mapseed-datetime-field"
+        className="datetime-field"
         dateFormat={(showTimeSelect) ? "LLL" : "LL"}
         showTimeSelect={showTimeSelect}
         selected={date}

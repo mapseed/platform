@@ -11,7 +11,7 @@ const Util = require("../../js/utils.js");
 class AddAttachmentButton extends Component {
 
   constructor() {
-    super(...arguments);
+    super();
     this.state = {
       displayFilename: null
     };
@@ -52,13 +52,13 @@ class AddAttachmentButton extends Component {
   render() {
     const { name, label } = this.props;
     const { displayFilename } = this.state;
-    const classNames = cn("mapseed-add-attachment-button__filename", {
-      "mapseed-add-attachment-button__filename--visible": displayFilename,
-      "mapseed-add-attachment-button__filename--hidden": !displayFilename
+    const classNames = cn("add-attachment-button__filename", {
+      "add-attachment-button__filename--visible": displayFilename,
+      "add-attachment-button__filename--hidden": !displayFilename
     });
 
     return (
-      <div className="mapseed-add-attachment-button">
+      <div className="add-attachment-button">
         <SecondaryButton>
           <FileField
             onChange={this.onChange}

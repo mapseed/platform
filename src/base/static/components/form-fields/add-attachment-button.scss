@@ -1,28 +1,28 @@
 @import "variables";
 
-.mapseed-add-attachment-button {
+.add-attachment-button {
   position: relative;
   display: block;
 }
 
-.mapseed-file-field__label {
+.file-field__label {
   display: block;
   color: $add-attachment-button-text-color;
   padding: $add-attachment-button-padding;
 }
 
-.mapseed-secondary-button {
+.secondary-button {
   padding: 0;
 }
 
-.mapseed-add-attachment-button__filename {
+.add-attachment-button__filename {
   margin-left: 8px;
 }
 
-.mapseed-add-attachment-button__filename--visible {
+.add-attachment-button__filename--visible {
   display: inline;
 }
 
-.mapseed-add-attachment-button__filename--hidden {
+.add-attachment-button__filename--hidden {
   display: none;
 }

@@ -7,10 +7,10 @@ class SecondaryButton extends Component {
 
   render() {
     const { children, className, onClick } = this.props;
-    const classNames = cn("mapseed-secondary-button", className);
+    const classNames = cn("secondary-button", className);
 
     return (
-      <button 
+      <button
         className={classNames} 
         type="button"
         onClick={onClick}>

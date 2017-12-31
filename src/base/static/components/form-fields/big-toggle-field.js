@@ -7,7 +7,6 @@ import "./big-toggle-field.scss";
 class BigToggleField extends Component {
 
   render() {
-
     const { id, checked, labels, name, onChange, required, values } = this.props;
     const classNames = {
       label: cn("big-toggle-field__label", "big-toggle-field__label--hoverable", {

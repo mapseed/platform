@@ -5,8 +5,8 @@ import RadioField from "../form-fields/radio-field";
 import "./big-radio-field.scss";
 
 class BigRadioField extends Component {
-  render() {
 
+  render() {
     const { checked, id, label, name, onChange, required, value } = this.props;
     const classNames = {
       label: cn("big-radio-field__label", "big-radio-field__label--hoverable", {
@@ -33,6 +33,7 @@ class BigRadioField extends Component {
       </div>
     );
   }
+
 };
 
 export default BigRadioField;
