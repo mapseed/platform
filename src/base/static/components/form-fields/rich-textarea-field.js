@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactQuill, { Quill } from "react-quill";
 const BlockEmbed = Quill.import("blots/block/embed");
+const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
 const cn = require("classnames");
@@ -42,6 +43,23 @@ WrappedVideo.blotName = "wrappedVideo";
 WrappedVideo.tagName = "DIV";
 WrappedVideo.className = "ql-video-container";
 Quill.register(WrappedVideo);
+
+class ImageWithName extends Embed {
+
+  static create(imgData) {
+    let node = super.create();
+    const img = document.createElement("img");
+
+    img.setAttribute("src", imgData.file);
+    img.setAttribute("name", imgData.name);
+    node.appendChild(img);
+
+    return node;
+  }
+};
+ImageWithName.blotName = "imageWithName";
+ImageWithName.tagName = "DIV";
+Quill.register(ImageWithName);
 
 class RichTextareaField extends Component {
 
@@ -108,31 +126,30 @@ class RichTextareaField extends Component {
 
   onAddImage(evt) {
 
-    // TODO: model/no model distinction here (i.e. form vs editor)
     if (evt.target.files && evt.target.files.length) {
-      let file = evt.target.files[0];
+      const file = evt.target.files[0];
       Util.fileToCanvas(
         file,
-        (canvas) => {
-          canvas.toBlob((blob) => {
-            let data = {
+        canvas => {
+          canvas.toBlob(blob => {
+            const data = {
               name: Math.random().toString(36).substring(7),
               blob: blob,
               file: canvas.toDataURL("image/jpeg"),
               type: "RT" // richtext
-            },
-            editor = this.refs["quill-editor"].getEditor();
+            };
+            const editor = this.refs["quill-editor"].getEditor();
               
             editor.insertEmbed(
               editor.getSelection().index,
-              "image",
-              data.file,
+              "imageWithName",
+              data,
               "user",
             );
 
-            // Store attachment image data in the input form for processing later.
             this.props.onAddImage(data);
 
+            // TODO: place detail view editor use case
             // if (self.options.placeDetailView) {
             //   // If we have a place detail view, we already have a model to which
             //   // we can add attachments
@@ -184,7 +201,7 @@ class RichTextareaField extends Component {
 
     return (
       <div className="mapseed-rich-textarea-field">
-        <ReactQuill 
+        <ReactQuill
           ref="quill-editor"
           theme="snow"
           modules={this.modules}
@@ -193,10 +210,10 @@ class RichTextareaField extends Component {
           bounds={bounds}
           onChange={val => onChange(val, name)}
         />
-        <input 
+        <input
           className={classNames}
           ref="quill-file-input"
-          type="file" 
+          type="file"
           onChange={this.onAddImage}
           accept="image/png, image/gif, image/jpeg"
         />

@@ -36,6 +36,9 @@ const hooks = {
   }
 }
 
+// TODO: VV hook(s)
+// TODO: greensboropb hook(s)
+
 class InputForm extends Component {
 
   constructor() {
@@ -47,7 +50,6 @@ class InputForm extends Component {
       formIsSubmitting: false,
       formValidationErrors: [],
       coverImages: [],
-      richTextImages: [],
 
       // TODO: this state will probably be bumped higher in the hierarchy as the
       // port proceeds.
@@ -64,8 +66,6 @@ class InputForm extends Component {
     this.onCategoryChange = this.onCategoryChange.bind(this);
     this.onExpandCategories = this.onExpandCategories.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onValidSubmit = this.onValidSubmit.bind(this);
-    this.onInvalidSubmit = this.onInvalidSubmit.bind(this);
     this.onGeometryChange = this.onGeometryChange.bind(this);
     this.onGeometryStyleChange = this.onGeometryStyleChange.bind(this);
     this.onCheckboxFieldChange = this.onCheckboxFieldChange.bind(this);
@@ -79,17 +79,12 @@ class InputForm extends Component {
     this.geometryStyle = null;
     this.hasCustomGeometry = false;
     this.requiredFields = [];
+    this.richTextFields = [];
+    this.richTextImages = [];
   }
 
   componentDidMount() {
     this.setState({ formIsOpen: true });
-
-    // TODO: the route event seems to fire even after the component mounts
-    // this.props.router.on("route", () => { 
-    //   console.log("on route");
-    //   this.setState({ formIsOpen: false });
-    // });
-
   }
 
   // General handler for field change events.
@@ -145,11 +140,6 @@ class InputForm extends Component {
     });
   }
 
-  onRichTextAttachmentChange(evt, file) {
-    const nextState = update(this.state.richTextImages, {$push: [file]});
-    this.setState({ richTextImages: nextState });
-  }
-
   // Special handler for checkbox fields, which generate an array of selected
   // values instead of a single string value.
   onCheckboxFieldChange(evt) {
@@ -186,8 +176,8 @@ class InputForm extends Component {
     this.setState({ fieldValues: nextState });
   }
 
-  onAddImage(imgData) {
-    this.attachments.push(imgData);
+  onAddRichTextImage(imgData) {
+    this.richTextImages.push(imgData);
   }
 
   onExpandCategories() {
@@ -208,14 +198,27 @@ class InputForm extends Component {
     let initialFieldStates = {};
     this.props.placeConfig.place_detail
       .filter(category => category.category === evt.target.value)[0].fields
-      .filter(field => {
-          return (
-            // TODO: this won't work for commonFormElements...
-            field.type !== constants.SUBMIT_FIELD_TYPENAME
-            && field.type !== constants.MAP_DRAWING_TOOLBAR_TYPENAME
-          );
+      .filter(fieldConfig => { 
+        if (fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME) {
+          this.hasCustomGeometry = true;
+        }
+
+        // TODO: this won't work for commonFormElements...
+        return (
+          fieldConfig.type !== constants.SUBMIT_FIELD_TYPENAME
+          && fieldConfig.type !== constants.MAP_DRAWING_TOOLBAR_TYPENAME
+        );
       })
-      .forEach(fieldConfig => initialFieldStates[fieldConfig.name] = this.getInitialFieldState(fieldConfig));
+      .forEach(fieldConfig => {
+        initialFieldStates[fieldConfig.name] = this.getInitialFieldState(fieldConfig);
+        if (!fieldConfig.optional && !this.validationExclusions.has(fieldConfig.type)) {
+          this.requiredFields.push(fieldConfig.name);
+        }
+        if (fieldConfig.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
+          this.richTextFields.push(fieldConfig.name);
+        }
+      });
+
 
     this.setState({ 
       selectedCategory: evt.target.value,
@@ -223,8 +226,7 @@ class InputForm extends Component {
       fieldValues: initialFieldStates,
       formIsSubmitting: false,
       formValidationErrors: [],
-      coverImages: [],
-      richTextImages: []
+      coverImages: []
     });
   }
 
@@ -258,6 +260,7 @@ class InputForm extends Component {
 
   onSubmit(evt) {
     evt.preventDefault();
+    Util.log("USER", "new-place", "submit-place-btn-click");
 
     if (!this.hasCustomGeometry) {
       const center = this.props.map.getCenter();
@@ -267,7 +270,7 @@ class InputForm extends Component {
       };
     }
 
-    this.validate(this.onValidSubmit, this.onInvalidSubmit);
+    this.validate();
   }
 
   buildField(fieldConfig) {
@@ -291,10 +294,6 @@ class InputForm extends Component {
           {messages.optionalMsg}
         </span>
       </p>;
-
-    if (!fieldConfig.optional && !this.validationExclusions.has(fieldConfig.type)) {
-      this.requiredFields.push(fieldConfig.name);
-    }
 
     switch(fieldConfig.type) {
       case constants.TEXT_FIELD_TYPENAME:
@@ -326,7 +325,7 @@ class InputForm extends Component {
           <RichTextareaField
             name={fieldConfig.name}
             onChange={(value, name) => this.onRichTextFieldChange(value, name)}
-            onAddImage={this.onAddImage.bind(this)}
+            onAddImage={this.onAddRichTextImage.bind(this)}
             value={fieldValues[fieldConfig.name]}
             placeholder={fieldConfig.placeholder}
             bounds="#content"
@@ -345,7 +344,6 @@ class InputForm extends Component {
         ];
         break;
       case constants.MAP_DRAWING_TOOLBAR_TYPENAME:
-        this.hasCustomGeometry = true;
         return [
           fieldPrompt,
           <MapDrawingToolbar 
@@ -488,7 +486,7 @@ class InputForm extends Component {
     }
   }
 
-  validate(onSuccess, onFailure) {
+  validate() {
     const { fieldValues, formValidationErrors } = this.state;
     let newValidationErrors = [];
 
@@ -499,15 +497,15 @@ class InputForm extends Component {
     for (let i = 0; i < this.requiredFields.length; i++) {
       if (!fieldValues[this.requiredFields[i]]) {
         newValidationErrors.push(messages.missingRequired);
+        break;
       }
-      break;
     }
 
     if (newValidationErrors.length > 0) {
-      onFailure(newValidationErrors);
+      this.onInvalidSubmit(newValidationErrors);
       return;
     } else {
-      onSuccess();
+      this.onValidSubmit();
       return;
     }
   }
@@ -529,18 +527,21 @@ class InputForm extends Component {
   }
 
   onValidSubmit() {
-    let spinnerTarget = document.getElementsByClassName("input-form__submit-spinner")[0];
-    new Spinner(Shareabouts.smallSpinnerOptions).spin(spinnerTarget);
     
     // TODO: this state should disable individual fields as well (?), not just
     //       the submit button.
     this.setState({ formIsSubmitting: true });
 
-    let selectedCategoryConfig = 
-          this.props.placeConfig.place_detail
-            .find(category => category.category === this.state.selectedCategory),
-        collection = this.props.collectionsSet.places[selectedCategoryConfig.dataset],
-        model;
+    const { collectionsSet, placeConfig } = this.props;
+    const { coverImages, fieldValues, selectedCategory } = this.state;
+    const spinnerTarget = document.getElementsByClassName("input-form__submit-spinner")[0];
+    const selectedCategoryConfig = placeConfig.place_detail
+            .find(category => category.category === selectedCategory);
+    let collection = collectionsSet.places[selectedCategoryConfig.dataset];
+    let model;
+    let attrs;
+
+    new Spinner(Shareabouts.smallSpinnerOptions).spin(spinnerTarget);
 
     collection.add({
       location_type: selectedCategoryConfig.category,
@@ -551,94 +552,55 @@ class InputForm extends Component {
       showMetadata: selectedCategoryConfig.showMetadata,
     });
     model = collection.at(collection.length - 1);
+    attrs = Object.assign({}, fieldValues);
 
-    let attrs = Object.assign({}, this.state.fieldValues);
+    this.richTextFields.forEach(fieldName => {
+      // replace base64 image data with placeholders built from each image's name
+      attrs[fieldName] = attrs[fieldName].replace(
+        /\<img.*?name=\"(.*?)\".*?\>/g,
+        "{{#rich_text_image $1}}"
+      );
+    });
 
-    // If attachments have been added via the rich text editor, we need to
-    // remove rich text content initially before saving. Otherwise, we'll save 
-    // the base-64 image content to the database.
-    if (this.attachments.length > 0) {
-      this.richTextFields.forEach(richTextField => delete attrs[richTextField]);
-      this.attachments.forEach(attachment => model.attachmentCollection.add(attachment));
+    if (this.richTextImages.length > 0) {
+      this.richTextImages.forEach(richTextImage => {
+        model.attachmentCollection.add(richTextImage);
+      });
     }
 
-    Util.log("USER", "new-place", "submit-place-btn-click");
-    Util.setStickyFields(  // TODO: investigate this?
-      //attrs,
-      Shareabouts.Config.survey.items,
-      Shareabouts.Config.place.items,
-    );
+    if (coverImages.length > 0) {
+      coverImages.forEach(coverImage => {
+        model.attachmentCollection.add(coverImage);
+      });
+    }
+
+    // TODO: is this still necessary?
+    // Util.setStickyFields(  
+    //   attrs,
+    //   Shareabouts.Config.survey.items,
+    //   Shareabouts.Config.place.items,
+    // );
 
     // TODO: case when url-title field is left blank: fall back to regular urls
 
     attrs.geometry = this.geometry;
-
     if (this.geometryStyle) {
       attrs.style = this.geometryStyle;
     }
 
-    // pre-save hook
+    // fire pre-save hook
     if (this.props.customHooks && this.props.customHooks.preSave) {
       attrs = hooks[this.props.customHooks.preSave](attrs);
     }
 
     model.save(attrs, {
       success: (response) => {
-        //if (self.formState.attachmentData.length > 0 && self.$(".rich-text-field").length > 0) {
-        if (false) {
-          // If there is rich text image content on the form, add it now and replace
-          // img data urls with their S3 bucket equivalents.
-          // NOTE: this success handler is called when all attachment models have
-          // saved to the server.
-          model.attachmentCollection.fetch({
-            reset: true,
-            success: function(collection) {
-              // collection.each(function(attachment) {
-              //   self
-              //     .$("img[name='" + attachment.get("name") + "']")
-              //     .attr("src", attachment.get("file"));
-              // });
-
-              // Add content that has been modified by Quill rich text fields
-              // self.$(".rich-text-field").each(function() {
-              //   attrs[$(this).attr("name")] = $(this).find(".ql-editor").html();
-              // });
-
-              model.saveWithoutAttachments(attrs, {
-                success: function(response) {
-                  Util.log("USER", "new-place", "successfully-add-place");
-                  router.navigate(Util.getUrl(model), { trigger: true });
-                },
-                error: function() {
-                  Util.log("USER", "new-place", "fail-to-embed-attachments");
-                },
-                complete: function() {
-                  // if (self.geometryEditorView) {
-                  //   self.geometryEditorView.tearDown();
-                  // }
-                  collection.each(attachment => attachment.set({ saved: true }));
-                },
-              });
-            },
-            error: function() {
-              Util.log("USER", "new-place", "fail-to-fetch-embed-urls");
-            },
-          });
-        } else {
-          // Otherwise, go ahead and route to the newly-created place.
-          Util.log("USER", "new-place", "successfully-add-place");
-          this.props.router.navigate(Util.getUrl(model), { trigger: true });
-          // if (self.geometryEditorView) {
-          //   self.geometryEditorView.tearDown();
-          // }
-          // $button.removeAttr("disabled");
-          // spinner.stop();
-          // self.resetFormState();
-        }
+        Util.log("USER", "new-place", "successfully-add-place");
+        this.reset();
+        this.props.router.navigate(Util.getUrl(model), { trigger: true });
       },
-      error: (error, b, c) => {
+      error: (error) => {
         Util.log("USER", "new-place", "fail-to-add-place");
-        console.log("error:", error, b, c);
       },
       wait: true,
     });
