@@ -1,7 +1,14 @@
 @import "variables";
 
 .input-form__field-container {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  padding: 5px;
+  border: $input-form-invalid-field-placeholder-border;
+}
+
+.input-form__field-container--invalid {
+  border: $input-form-invalid-field-border;
+  border-radius: $input-form-invalid-field-border-radius;
 }
 
 .input-form__field-prompt {
@@ -42,4 +49,41 @@
 
 .input-form__form--inactive {
   opacity: 0.3;
+}
+
+.input-form__warning-msgs-container {
+  background-color: $input-form-validation-errors-background-color;
+  padding: $input-form-validation-errors-padding;
+  margin: $input-form-validation-errors-margin;
+  border: $input-form-validation-errors-border;
+  border-radius: $input-form-validation-errors-border-radius;
+}
+
+.input-form__warning-msgs-container--visible {
+  display: block;
+}
+
+.input-form__warning-msgs-container--hidden {
+  display: none;
+}
+
+.input-form__warning-msgs-header {
+  margin: $input-form-validation-errors-header-margin;
+  color: $input-form-validation-errors-header-text-color;
+  font-weight: $input-form-validation-errors-header-font-weight;
+}
+
+.input-form__warning-msg {
+  margin: $input-form-validation-errors-error-msg-margin;
+  padding: $input-form-validation-errors-error-msg-padding;
+  text-indent: $input-form-validation-errors-error-msg-text-indent;
+  color: $input-form-validation-errors-error-msg-text-color;
+  font-style: $input-form-validation-errors-error-msg-text-style;
+
+  &:before {
+    font-family: FontAwesome;
+    font-style: normal;
+    content: $input-form-validation-errors-error-msg-icon;
+    padding-right: 5px;
+  }
 }

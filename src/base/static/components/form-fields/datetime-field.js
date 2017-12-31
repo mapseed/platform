@@ -5,33 +5,17 @@ import "./datetime-field.scss";
 
 class DatetimeField extends Component {
 
-  constructor() {
-    super(...arguments);
-    this.state = {
-      startDate: this.props.value
-    };
-    this.dateFormat = (this.props.showTimeSelect) ? "LLL" : "LL";
-  }
-
-  onChange(date) {
-    this.setState({
-      startDate: date
-    });
-    this.props.onChange && this.props.onChange();
-  }
-
   render() {
-
-    const { showTimeSelect } = this.props;
-    const { startDate } = this.state;
+    const { date, name, onChange, showTimeSelect } = this.props;
 
     return (
-      <DatePicker 
+      <DatePicker
         className="mapseed-datetime-field"
-        dateFormat={this.dateFormat}
+        dateFormat={(showTimeSelect) ? "LLL" : "LL"}
         showTimeSelect={showTimeSelect}
-        selected={startDate}
-        onChange={this.onChange.bind(this)} />
+        selected={date}
+        onChange={evt => onChange(evt, name)}
+      />
     );
   }
 

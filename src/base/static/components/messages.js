@@ -67,24 +67,28 @@ const mapDrawingToolbar = {
   colorpickerFillTool: {
     label: "Fill color"
   }
-},
-inputForm = {
-  optionalMsg: "(optional)"
-},
-customUrlField = {
+};
+const inputForm = {
+  optionalMsg: "(optional)",
+  validationHeader: "Your post is looking good, but we need some more information before we can share it on the map.",
+  missingGeometry: "Please use the drawing toolbar to add a point, line, or polygon to the map.",
+  missingRequired: "Please fill out the field(s) outlined below."
+};
+const customUrlField = {
   urlReadoutPrefix: "Your post will be accessible at:"
-},
-geocodingField = {
+};
+const geocodingField = {
   locationNotFoundError: "Sorry, we could not find that location."
-},
-publishControlToolbar = {
+};
+const publishControlToolbar = {
   publishedLabel: "Published",
   notPublishedLabel: "Not published",
   publishedFooterMsg: "When created, this post will be visible to all map users",
   notPublishedFooterMsg: "When created, this post will be visible only to logged-in editors"
-},
-dropdownField = {
+};
+const dropdownField = {
   makeSelection: "Select..."
 };
 
-export { mapDrawingToolbar, inputForm, customUrlField, geocodingField, publishControlToolbar, dropdownField };
+export { mapDrawingToolbar, inputForm, customUrlField, geocodingField,
+         publishControlToolbar, dropdownField };

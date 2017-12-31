@@ -62,6 +62,7 @@ class RichTextareaField extends Component {
         }
       }
     };
+    this.onAddImage = this.onAddImage.bind(this);
   }
 
   onClickEmbedImage() {
@@ -175,12 +176,11 @@ class RichTextareaField extends Component {
   }
 
   render() {
-
     const { bounds, name, onChange, placeholder, value } = this.props;
     const classNames = cn(
-        "mapseed-rich-textarea-field__quill-file-input", 
-        "mapseed-rich-textarea-field__quill-file-input--hidden"
-      );
+      "mapseed-rich-textarea-field__quill-file-input", 
+      "mapseed-rich-textarea-field__quill-file-input--hidden"
+    );
 
     return (
       <div className="mapseed-rich-textarea-field">
@@ -191,14 +191,15 @@ class RichTextareaField extends Component {
           placeholder={placeholder}
           value={value}
           bounds={bounds}
-          onChange={(val) => onChange(val, name)}>
-        </ReactQuill>
+          onChange={val => onChange(val, name)}
+        />
         <input 
           className={classNames}
           ref="quill-file-input"
           type="file" 
-          onChange={this.onAddImage.bind(this)}
-          accept="image/png, image/gif, image/jpeg" />
+          onChange={this.onAddImage}
+          accept="image/png, image/gif, image/jpeg"
+        />
       </div>
     );
   }
