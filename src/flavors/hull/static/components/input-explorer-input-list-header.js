@@ -1,62 +1,76 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
-const baseClass = "mapseed-input-explorer-input-list-header";
+import messages from "./messages";
+import "./input-explorer-input-list-header.scss";
 
 class InputExplorerInputListHeader extends Component {
 
-  constructor() {
-    super(...arguments);
-    this.classes = {
-      base: {
-        name: baseClass,
-        modifiers: ["visibility"]
-      },
-      header: {
-        name: baseClass + "__header"
-      },
-      subcategoryMenu: {
-        name: baseClass + "__subcategory-menu"
-      }
-    };
-  }
-
   render() {
+    const { onChange, selectedSubcategory, subcategoryNames, visibility } = this.props;
+    const classNames = {
+      container: cn("input-explorer-input-list-header", {
+        "input-explorer-input-list-header--visible": visibility,
+        "input-explorer-input-list-header--hidden": !visibility
+      }),
+      allLabel: cn("input-explorer-input-list-header__label", {
+        "input-explorer-input-list-header__label--active": selectedSubcategory === "all"
+      })
+    };
 
     return (
-      <div className={cx(this.classes.base, { visibility: (this.props.visibility) ? "visible" : "hidden" })}>
-        <h5 className={cx(this.classes.header)}>What concerns do you have about this garden or its future development?</h5>
-        <div className={cx(this.classes.subcategoryMenu)}>
+      <div className={classNames.container}>
+        <h5 className="input-explorer-input-list-header__header">
+          {messages.inputListHeader}
+        </h5>
+        <div className="input-explorer-input-list-header__subcategory-menu">
           <span>
-            <input 
-              type="radio" 
-              name="input-explorer-subcategory-menu" 
-              id={"input-explorer-subcategory-menu-all"} 
+            <input
+              className="input-explorer-input-list-header__input"
+              type="radio"
+              name="input-explorer-subcategory-menu"
+              id="input-explorer-subcategory-menu-all"
               value="all"
-              checked={this.props.selectedSubcategory === "all"} 
-              onChange={this.props.onChange} />
-            <label htmlFor={"input-explorer-subcategory-menu-all"}>
-              All
+              checked={selectedSubcategory === "all"}
+              onChange={onChange}
+            />
+            <label
+              className={classNames.allLabel}
+              htmlFor={"input-explorer-subcategory-menu-all"}
+            >
+              {messages.subcategorySummaryLabel}
             </label>
           </span>
-          {this.props.subcategoryNames.map(subcategory => 
-            <span key={subcategory.value}>
-              <input 
-                type="radio" 
-                name="input-explorer-subcategory-menu" 
-                id={"input-explorer-subcategory-menu-" + subcategory.value} 
-                value={subcategory.value}
-                checked={this.props.selectedSubcategory === subcategory.value}
-                onChange={this.props.onChange} />
-              <label htmlFor={"input-explorer-subcategory-menu-" + subcategory.value}>
-                {subcategory.label}
-              </label>
-            </span>
-          )}
+          {subcategoryNames.map(subcategory => {
+            const subcategoryLabelClassname = cn("input-explorer-input-list-header__label", {
+              "input-explorer-input-list-header__label--active": selectedSubcategory === subcategory.value
+            });
+
+            return (
+              <span key={subcategory.value}>
+                <input
+                  className="input-explorer-input-list-header__input"
+                  type="radio"
+                  name="input-explorer-subcategory-menu"
+                  id={"input-explorer-subcategory-menu-" + subcategory.value}
+                  value={subcategory.value}
+                  checked={selectedSubcategory === subcategory.value}
+                  onChange={onChange}
+                />
+                <label
+                  className={subcategoryLabelClassname} 
+                  htmlFor={"input-explorer-subcategory-menu-" + subcategory.value}
+                >
+                  {subcategory.label}
+                </label>
+              </span>
+            );
+          })}
         </div>
       </div>
     );
   }
+
 }
 
 export default InputExplorerInputListHeader;

@@ -4,12 +4,6 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-@import "../components/input-explorer-category-menu";
-@import "../components/input-explorer-input-list-header";
-@import "../components/input-explorer-input-item";
-@import "../components/input-explorer-summary";
-
-
 
 /*  Changes by Erika */
 
@@ -120,29 +114,33 @@ div#language-picker {
 }
 
 
-h5.mapseed-input-explorer-input-list-header__header, h5.summary-quote {
+.input-explorer-input-list-header__header, 
+.input-explorer-summary__summary-quote {
   font-family: "Georgia", serif;
   color: #4A4A4A;
   font-size: 1em;
   padding-bottom: 1em;
 }
 
-div.mapseed-input-explorer-input-item {
+.input-explorer-input-item {
   width: 58%;
 }
 
-p.mapseed-input-explorer-input-item__response-time {
+.input-explorer-input-item__response-time {
   font-family: "Georgia", serif;
   color: #4A4A4A;
   font-size: 0.8em;
 }
 
-span.summary-bar-label__label, span.summary-bar-label__percentage {
+.input-explorer-summary__summary-bar-label, 
+.input-explorer-summary__summary-bar-label-percentage {
   font-family: "Helvetica", sans-serif;
   font-size: 0.8em;
 }
 
-span.summary-total-items-header, span.mapseed-input-explorer-summary__num-concerns, span.mapseed-input-explorer-summary__num-recommendations {
+.input-explorer-summary__summary-total-items-header, 
+.input-explorer-summary__num-concerns, 
+.input-explorer-summary__num-recommendations {
   font-family: "Helvetica", sans-serif;
   font-size: 0.8em;
 }
@@ -554,16 +552,16 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
     }
   }
 
-  .mapseed-input-explorer-summary,
-  .mapseed-input-explorer-category-menu,
-  .mapseed-input-explorer-input-item,
-  .mapseed-input-explorer-input-list-header,
-  .mapseed-input-explorer-input-list-header__subcategory-menu {
+  .input-explorer-summary,
+  .input-explorer-category-menu,
+  .input-explorer-input-item,
+  .input-explorer-input-list-header,
+  .input-explorer-input-list-header__subcategory-menu {
     width: auto !important;
   }
 
-  .mapseed-input-explorer-input-list-header__subcategory-menu,
-  .mapseed-input-explorer-category-menu {
+  .input-explorer-input-list-header__subcategory-menu,
+  .input-explorer-category-menu {
     overflow: scroll;
   }
 

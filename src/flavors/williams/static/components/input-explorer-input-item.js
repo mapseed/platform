@@ -1,48 +1,34 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
-const baseClass = "mapseed-input-explorer-input-item";
+import constants from "./constants";
+import "./input-explorer-input-item.scss";
 
 class InputExplorerInputItem extends Component {
 
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.state = {
-      stickyIsToggled: (this.props.model.get("is_sticky")) ? true : false
+      stickyIsToggled: (this.props.model.get(constants.IS_STICKY_FIELDNAME)) ? true : false
     };
-    this.classes = {
-      responseText: {
-        name: baseClass + "__response-text"
-      },
-      responseTime: {
-        name: baseClass + "__response-time"
-      },
-      subcatgories: {
-        name: baseClass + "__subcategory"
-      },
-      stickyToggleContainer: {
-        name: baseClass + "__sticky-toggle-container"
-      },
-      stickyToggleLabel: {
-        name: baseClass + "__sticky-toggle-label",
-        modifiers: ["toggled", "toggleable", "updating"]
-      }
-    };
+    this.onStickyToggleChange = this.onStickyToggleChange.bind(this);
   }
 
   onStickyToggleChange(evt) {
-    if (this.props.isAdmin) {
+    const { isAdmin, model, parent } = this.props;
+
+    if (isAdmin) {
       let newStickyState = !this.state.stickyIsToggled;
 
       // Update sticky state on server
-      this.props.model.save(
+      model.save(
         {
-          "is_sticky": newStickyState
+          [constants.IS_STICKY_FIELDNAME]: newStickyState
         },
         {
           success: (model, response) => {
             this.setState({ stickyIsToggled: newStickyState });
-            this.props.parent.forceUpdate();
+            parent.forceUpdate();
           },
           error: (model, response) => {
             console.error("Error saving sticky state:", response);
@@ -56,28 +42,41 @@ class InputExplorerInputItem extends Component {
   }
 
   render() {
+    const { createdDatetime, inputText, isAdmin, model } = this.props;
+    const { stickyIsToggled } = this.state;
+    const classNames = {
+      stickyToggleLabel: cn("input-explorer-input-item__sticky-toggle-label", {
+        "input-explorer-input-item__sticky-toggle-label--toggled": stickyIsToggled,
+        "input-explorer-input-item__sticky-toggle-label--untoggled": !stickyIsToggled,
+        "input-explorer-input-item__sticky-toggle-label--toggleable": isAdmin
+      })
+    };
 
     return (
-      <div className={baseClass}>
-        <p className={cx(this.classes.responseText)}>{this.props.inputText}</p>
-        <p className={cx(this.classes.responseTime)}>{moment(this.props.createdDatetime).format('MMMM Do YYYY, h:mm a')}</p>
-        <span className={cx(this.classes.stickyToggleContainer)}>
-          <input 
-            type="checkbox" 
-            id={"mapseed-input-item-" + this.props.model.id}
-            checked={this.state.stickyIsToggled} 
-            onChange={this.onStickyToggleChange.bind(this)} />
+      <div className="input-explorer-input-item">
+        <p className="input-explorer-input-item__response-text">
+          {inputText}
+        </p>
+        <p className="input-explorer-input-item__response-time">
+          {moment(createdDatetime).format("MMMM Do YYYY, h:mm a")}
+        </p>
+        <span className="input-explorer-input-item__sticky-toggle-container">
+          <input
+            className="input-explorer-input-item__sticky-toggle-input"
+            type="checkbox"
+            id={"input-item-" + model.id}
+            checked={stickyIsToggled}
+            onChange={this.onStickyToggleChange}
+          />
           <label
-            htmlFor={"mapseed-input-item-" + this.props.model.id}
-            className={cx(this.classes.stickyToggleLabel, {
-              toggled: (this.state.stickyIsToggled) ? "toggled" : "untoggled",
-              toggleable: (this.props.isAdmin) ? "toggleable" : ""
-            })}>
-          </label>
+            htmlFor={"input-item-" + model.id}
+            className={classNames.stickyToggleLabel}
+          />
         </span>
       </div>
     );
   }
+
 }
 
 export default InputExplorerInputItem;
