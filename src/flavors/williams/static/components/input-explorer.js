@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
 import update from "react-addons-update";
+const cn = require("classnames");
 
 import InputExplorerCategoryMenu from "../components/input-explorer-category-menu";
 import InputExplorerInputListHeader from "../components/input-explorer-input-list-header";
 import InputExplorerInputItem from "../components/input-explorer-input-item";
 import InputExplorerSummary from "../components/input-explorer-summary";
+import constants from "./constants";
 
 const Util = require("../../../../base/static/js/utils.js");
 
-const baseClass = "mapseed-input-explorer";
-
-const normalizeCheckboxData = function(data) {
+const normalizeCheckboxData = data => {
   if (Array.isArray(data)) {
     return data;
   } else {
@@ -21,19 +20,22 @@ const normalizeCheckboxData = function(data) {
 
 class InputExplorer extends Component {
 
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.subcategoryNames = this.props.placeConfig
-      .find(category => category.category === "community_input").fields
-      .find(field => field.name === "input_subcategory").content;
+      .find(category => category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME).fields
+      .find(field => field.name === constants.INPUT_SUBCATEGORY_FIELDNAME).content;
 
     // TODO: wait until collection syncs before accessing communityInput
-    this.inputCategories = _.uniq(this.props.communityInput.pluck("input_category"));
+    this.inputCategories = _.uniq(this.props.communityInput.pluck(constants.INPUT_CATEGORY_FIELDNAME));
 
     this.state = {
-      selectedCategory: "summary",
-      selectedSubcategory: "all"
+      selectedCategory: constants.INPUT_CATEGORY_SUMMARY_NAME,
+      selectedSubcategory: constants.INPUT_SUBCATEGORY_SUMMARY_NAME
     };
+
+    this.onCategoryFilterChange = this.onCategoryFilterChange.bind(this);
+    this.onSubcategoryFilterChange = this.onSubcategoryFilterChange.bind(this);
   }
 
   onCategoryFilterChange(evt) {
@@ -45,75 +47,81 @@ class InputExplorer extends Component {
   }
 
   render() {
-    let config = this.props.placeConfig.find(category => category.category === "community_input"),
-        isAdmin = Util.getAdminStatus(config.dataset, config.admin_groups),
-        communityInputToRender = this.props.communityInput
-          // filter by main category
-          .where({
-            input_category: this.state.selectedCategory
-          })
-          // filter by subcategory
-          .filter((model) => {
-            if (this.state.selectedSubcategory === "all") {
-              return true;
-            }
+    const { selectedCategory, selectedSubcategory } = this.state;
+    const { communityInput, placeConfig } = this.props;
+    const config = placeConfig.find(category => category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME);
+    const isAdmin = Util.getAdminStatus(config.dataset, config.admin_groups);
+    const communityInputToRender = communityInput
+      // filter by main category
+      .where({
+        [constants.INPUT_CATEGORY_FIELDNAME]: selectedCategory
+      })
+      // filter by subcategory
+      .filter(model => {
+        if (selectedSubcategory === constants.INPUT_SUBCATEGORY_SUMMARY_NAME) {
+          return true;
+        }
 
-            let inputSubcategory = normalizeCheckboxData(model.get("input_subcategory"));
+        let inputSubcategory = normalizeCheckboxData(model.get(constants.INPUT_SUBCATEGORY_FIELDNAME));
 
-            if (inputSubcategory.includes(this.state.selectedSubcategory)) {
-              return true;
-            }
+        if (inputSubcategory.includes(selectedSubcategory)) {
+          return true;
+        }
 
-            return false;
-          })
-          // sort by datetime
-          .sort((a, b) => {
-            if (a.get("created_datetime") < b.get("created_datetime")) {
-              return 1;
-            }
-            if (a.get("created_datetime") > b.get("created_datetime")) {
-              return -1;
-            }
-            return 0;
-          })
-          // sort by sticky state: sticky items on top
-          .sort((a, b) => {
-            if (a.get("is_sticky") && !b.get("is_sticky")) {
-              return -1;
-            }
-            if (b.get("is_sticky") && !a.get("is_sticky")) {
-              return 1;
-            }
-            return 0;
-          });
+        return false;
+      })
+      // sort by datetime
+      .sort((a, b) => {
+        if (a.get(constants.CREATED_DATETIME_FIELDNAME) < b.get(constants.CREATED_DATETIME_FIELDNAME)) {
+          return 1;
+        }
+        if (a.get(constants.CREATED_DATETIME_FIELDNAME) > b.get(constants.CREATED_DATETIME_FIELDNAME)) {
+          return -1;
+        }
+        return 0;
+      })
+      // sort by sticky state: sticky items on top
+      .sort((a, b) => {
+        if (a.get(constants.IS_STICKY_FIELDNAME) && !b.get(constants.IS_STICKY_FIELDNAME)) {
+          return -1;
+        }
+        if (b.get(constants.IS_STICKY_FIELDNAME) && !a.get(constants.IS_STICKY_FIELDNAME)) {
+          return 1;
+        }
+        return 0;
+      });
 
     return (
-      <div className={baseClass}>
-        <InputExplorerCategoryMenu 
+      <div className="input-explorer">
+        <InputExplorerCategoryMenu
           inputCategories={this.inputCategories} 
-          selectedCategory={this.state.selectedCategory}
-          placeConfig={this.props.placeConfig} 
-          onChange={this.onCategoryFilterChange.bind(this)} 
-          visibility={(this.state.selectedCategory === "summary") ? false : true} />
-        <InputExplorerSummary 
+          selectedCategory={selectedCategory}
+          placeConfig={placeConfig} 
+          onChange={this.onCategoryFilterChange} 
+          visibility={(selectedCategory === constants.INPUT_CATEGORY_SUMMARY_NAME) ? false : true}
+        />
+        <InputExplorerSummary
           headerMsg={this.props.appConfig.summary_page_header}
           communityInput={this.props.communityInput}
           subcategoryNames={this.subcategoryNames}
-          visibility={(this.state.selectedCategory === "summary") ? true : false} />
-        <InputExplorerInputListHeader 
+          visibility={(selectedCategory === constants.INPUT_CATEGORY_SUMMARY_NAME) ? true : false}
+        />
+        <InputExplorerInputListHeader
           subcategoryNames={this.subcategoryNames} 
-          selectedSubcategory={this.state.selectedSubcategory}
-          onChange={this.onSubcategoryFilterChange.bind(this)} 
-          visibility={(this.state.selectedCategory === "summary") ? false : true} />
-        {communityInputToRender.map(model => 
-          <InputExplorerInputItem 
+          selectedSubcategory={selectedSubcategory}
+          onChange={this.onSubcategoryFilterChange} 
+          visibility={(selectedCategory === constants.INPUT_CATEGORY_SUMMARY_NAME) ? false : true}
+        />
+        {communityInputToRender.map(model =>
+          <InputExplorerInputItem
             key={model.id}
             model={model}
             isAdmin={isAdmin}
             parent={this}
-            inputText={model.get("input_text")} 
-            subcategory={model.get("input_subcategory")}
-            createdDatetime={model.get("created_datetime")} />
+            inputText={model.get(constants.INPUT_TEXT_FIELDNAME)}
+            subcategory={model.get(constants.INPUT_SUBCATEGORY_FIELDNAME)}
+            createdDatetime={model.get(constants.CREATED_DATETIME_FIELDNAME)}
+          />
         )}
       </div>
     );

@@ -1,27 +1,26 @@
-.mapseed-input-explorer-category-menu {
+.input-explorer-category-menu {
   width: 60%;
   text-align: center;
   margin: auto;
+}
 
-  input {
-    display: none;
+.input-explorer-category-menu__input {
+  display: none;
+}
 
-    &:checked + label {
-      border-bottom: 2px solid rgba(0,0,255,1.0);
-    }
+.input-explorer-category-menu__label {
+  font-size: 1.2em;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+
+  &:hover {
+    cursor: pointer;
+    border-bottom: 2px solid rgba(0,0,255,0.5);
   }
+}
 
-  label {
-    font-size: 1.2em;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-bottom: 2px solid transparent;
-    padding-bottom: 4px;
-
-    &:hover {
-      cursor: pointer;
-      border-bottom: 2px solid rgba(0,0,255,0.5);
-    }
-
-  }
+.input-explorer-category-menu__label--active {
+  border-bottom: 2px solid rgba(0,0,255,1.0);
 }

@@ -1,105 +1,103 @@
-.mapseed-input-explorer-summary {
-
+.input-explorer-summary {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
+}
 
-  .summary-box {
-    border: 1px solid #CCCCCC;
-    padding: 10px;
-  }
+.input-explorer-summary__summary-box {
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+}
 
-  &.mapseed-input-explorer-summary--visibile {
-    display: block;
-  }
+.input-explorer-summary--visibile {
+  display: block;
+}
 
-  &.mapseed-input-explorer-summary--hidden {
-    display: none;
-  }
+.input-explorer-summary--hidden {
+  display: none;
+}
 
-  .mapseed-input-explorer-summary__num-recommendations {
-    float: right;
+.input-explorer-summary__num-recommendations {
+  float: right;
 
-    &:before {
-      content: "";
-      width: 15px;
-      height: 15px;
-      background-color: #7ed322;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 4px;
-      margin-left: 12px;
-    }
-  }
-
-  .mapseed-input-explorer-summary__num-concerns {
-    float: right;
-
-    &:before {
-      content: "";
-      width: 15px;
-      height: 15px;
-      background-color: #d0011b;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 4px;
-      margin-left: 12px;
-    }
-  }
-
-  .summary-bar-container {
-    display: inline-block;
-    height: 10px;
-    width: 70%;
-  }
-
-  .summary-bar-recommendations {
-    display: inline-block;
-    height: 10px;
+  &:before {
+    content: "";
+    width: 15px;
+    height: 15px;
     background-color: #7ed322;
-  }
-
-  .summary-bar-concerns {
     display: inline-block;
-    height: 10px;
-    background-color: #d0011b;
-  }
-
-  .summary-bar-label {
-    display: inline-block;
-    text-align: right;
-    width: 20%;
-    margin-right: 25px;
-
-    .summary-bar-label__label {
-      font-weight: 800;
-    }
-
-    .summary-bar-label__percentage {
-      color: #777777;
-      font-weight: 200;
-    }
-  }
-
-  .summary-header {
-    margin-bottom: 20px;
-  }
-
-  .summary-item-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .summary-quote {
-    text-align: center;
-    line-height: 1.1em;
-    font-weight: 200;
-    font-style: italic;
-    margin-bottom: 25px;
-  }
-
-  .summary-total-items-header {
-    font-weight: 800;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-left: 12px;
   }
 }
 
+.input-explorer-summary__num-concerns {
+  float: right;
+
+  &:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    background-color: #d0011b;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-left: 12px;
+  }
+}
+
+.input-explorer-summary__summary-bar-container {
+  display: inline-block;
+  height: 10px;
+  width: 70%;
+}
+
+.input-explorer-summary__summary-bar-recommendations {
+  display: inline-block;
+  height: 10px;
+  background-color: #7ed322;
+}
+
+.input-explorer-summary__summary-bar-concerns {
+  display: inline-block;
+  height: 10px;
+  background-color: #d0011b;
+}
+
+.input-explorer-summary__summary-bar-label-container {
+  display: inline-block;
+  text-align: right;
+  width: 20%;
+  margin-right: 25px;
+}
+
+.input-explorer-summary__summary-bar-label {
+  font-weight: 800;
+}
+
+.input-explorer-summary__summary-bar-label-percentage {
+  color: #777777;
+  font-weight: 200;
+}
+
+.input-explorer-summary__summary-header {
+  margin-bottom: 20px;
+}
+
+.input-explorer-summary__summary-item-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.input-explorer-summary__summary-quote {
+  text-align: center;
+  line-height: 1.1em;
+  font-weight: 200;
+  font-style: italic;
+  margin-bottom: 25px;
+}
+
+.input-explorer-summary__summary-total-items-header {
+  font-weight: 800;
+}

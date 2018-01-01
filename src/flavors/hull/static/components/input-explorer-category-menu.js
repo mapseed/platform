@@ -1,58 +1,76 @@
-// TODO: in-component localization!
-
 import React, { Component } from "react";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
-const baseClass = "mapseed-input-explorer-category-menu";
+import constants from "./constants";
+import messages from "./messages";
+import "./input-explorer-category-menu.scss";
 
 class InputExplorerCategoryMenu extends Component {
 
-  constructor() {
-    super(...arguments);
-    this.classes = {
-      inputSectionHeader: {
-        name: baseClass + "__input-section-header"
-      }
-    };
+  constructor(props) {
+    super(props);
     this.categoryNames = this.props.placeConfig
-      .find(category => category.category === "community_input").fields
-      .find(field => field.name === "input_category").content;
+      .find(category => category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME).fields
+      .find(field => field.name === constants.INPUT_CATEGORY_FIELDNAME).content;
   }
 
   render() {
+    const { categorySummaryLabel, onChange, selectedCategory } = this.props;
+    const classNames = {
+      summaryLabel: cn("input-explorer-category-menu__label", {
+        "input-explorer-category-menu__label--active": selectedCategory === "summary"
+      })
+    };
 
     return (
-      <div className={baseClass}>
+      <div className="input-explorer-category-menu">
         <span>
-          <input 
-            type="radio" 
-            name="input-explorer-category-menu" 
-            id={"input-explorer-category-menu-summary"} 
+          <input
+            className="input-explorer-category-menu__input"
+            type="radio"
+            name="input-explorer-category-menu"
+            id={"input-explorer-category-menu-summary"}
             value="summary"
-            checked={this.props.selectedCategory === "summary"} 
-            onChange={this.props.onChange} />
-          <label htmlFor={"input-explorer-category-menu-summary"}>
-            Summary
+            checked={selectedCategory === "summary"}
+            onChange={onChange}
+          />
+          <label
+            className={classNames.summaryLabel}
+            htmlFor={"input-explorer-category-menu-summary"}
+          >
+            {messages.categorySummaryLabel}
           </label>
         </span>
-        {this.categoryNames.map(category => 
-          <span key={category.value}>
-            <input 
-              type="radio" 
-              name="input-explorer-category-menu" 
-              id={"input-explorer-category-menu-" + category.value} 
-              value={category.value}
-              checked={this.props.selectedCategory === category.value} 
-              onChange={this.props.onChange} />
-            <label htmlFor={"input-explorer-category-menu-" + category.value}>
-              {category.label_plural}
-            </label>
-          </span>
-        )}
+        {this.categoryNames.map(category => {
+          const categoryLabelClassname = cn("input-explorer-category-menu__label", {
+            "input-explorer-category-menu__label--active": selectedCategory === category.value
+          });
+
+          return (
+            <span key={category.value}>
+              <input
+                className="input-explorer-category-menu__input"
+                type="radio"
+                name="input-explorer-category-menu"
+                id={"input-explorer-category-menu-" + category.value}
+                value={category.value}
+                checked={selectedCategory === category.value}
+                onChange={onChange}
+              />
+              <label 
+                className={categoryLabelClassname}
+                htmlFor={"input-explorer-category-menu-" + category.value}
+              >
+                {category.label_plural}
+              </label>
+            </span>
+          );
+        })}
         <hr />
       </div>
     );
   }
+
 }
 
 export default InputExplorerCategoryMenu;

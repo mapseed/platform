@@ -1,58 +1,51 @@
 import React, { Component } from "react";
-import cx from "bem-classnames";
+const cn = require("classnames");
 
-const baseClass = "mapseed-input-explorer-summary";
+import constants from "./constants";
+import messages from "./messages";
+import "./input-explorer-summary.scss";
 
 class InputExplorerSummary extends Component {
 
-  constructor() {
-    super(...arguments);
-    this.classes = {
-      base: {
-        name: baseClass,
-        modifiers: ["visibility"]
-      },
-      numRecommendations: {
-        name: baseClass + "__num-recommendations"
-      },
-      numConcerns: {
-        name: baseClass + "__num-concerns"
-      }
-    }
-  }
-
   render() {
-    let numRecommendations = this.props.communityInput
-          .where({ input_category: "recommendation" })
-          .length,
-        numConcerns = this.props.communityInput
-          .where({ input_category: "concern" })
-          .length,
-        numTotal = 0;
-
+    const { communityInput, headerMsg, subcategoryNames, visibility } = this.props;
+    const numRecommendations = communityInput
+      .where({ [constants.INPUT_CATEGORY_FIELDNAME]: constants.RECOMMENDATION_CATEGORY_NAME })
+      .length;
+    const numConcerns = communityInput
+      .where({ [constants.INPUT_CATEGORY_FIELDNAME]: constants.CONCERN_CATEGORY_NAME })
+      .length;
+    const classNames = {
+      container: cn("input-explorer-summary", {
+        "input-explorer-summary--visible": visibility,
+        "input-explorer-summary--hidden": !visibility
+      })
+    };
+    
+    let numTotal = 0;
     let summaryInfoBySubcategory = [];
 
-    this.props.subcategoryNames.forEach((subcategory) => {
-      let info = {},
-          modelsFilteredBySubcategory = this.props.communityInput.filter((model) => {
-            let inputSubcategory = model.get("input_subcategory");
+    subcategoryNames.forEach(subcategory => {
+      let info = {};
+      let modelsFilteredBySubcategory = communityInput.filter(model => {
+        let inputSubcategory = model.get(constants.INPUT_SUBCATEGORY_FIELDNAME);
 
-            // there might be a single string subcategory, or an array of subcategories
-            if (Array.isArray(inputSubcategory)) {
-              return inputSubcategory.includes(subcategory.value);
-            } else {
-              return inputSubcategory === subcategory.value;
-            }
-          });
+        // there might be a single string subcategory, or an array of subcategories
+        if (Array.isArray(inputSubcategory)) {
+          return inputSubcategory.includes(subcategory.value);
+        } else {
+          return inputSubcategory === subcategory.value;
+        }
+      });
 
       modelsFilteredBySubcategory = new Backbone.Collection(modelsFilteredBySubcategory);
       info["total"] = modelsFilteredBySubcategory.length
       info["label"] = subcategory.label;
       info["numRecommendations"] = modelsFilteredBySubcategory.where({ 
-        input_category: "recommendation",
+        [constants.INPUT_CATEGORY_FIELDNAME]: constants.RECOMMENDATION_CATEGORY_NAME
       }).length;
       info["numConcerns"] = modelsFilteredBySubcategory.where({ 
-        input_category: "concern",
+        [constants.INPUT_CATEGORY_FIELDNAME]: constants.CONCERN_CATEGORY_NAME
       }).length;
 
       summaryInfoBySubcategory.push(info);
@@ -71,37 +64,52 @@ class InputExplorerSummary extends Component {
 
     // unitWidth is the percentage width of a single response, based on the
     // subcategory with the most responses
-    let unitWidth = 100/summaryInfoBySubcategory[0].total;
+    const unitWidth = 100/summaryInfoBySubcategory[0].total;
 
     return (
-      <div className={cx(this.classes.base, { visibility: (this.props.visibility) ? "visible" : "hidden" })}>
-        <h5 className="summary-quote">{this.props.headerMsg}</h5>
-        <div className="summary-box">
-          <div className="summary-header">
-            <span className="summary-total-items-header">{numRecommendations + numConcerns} Community comments submitted</span>
-            <span className={cx(this.classes.numRecommendations)}>{numRecommendations} Recommendations</span>
-            <span className={cx(this.classes.numConcerns)}>{numConcerns} Concerns</span>
+      <div className={classNames.container}>
+        <h5 className="input-explorer-summary__summary-quote">
+          {headerMsg}
+        </h5>
+        <div className="input-explorer-summary__summary-box">
+          <div className="input-explorer-summary__summary-header">
+            <span className="input-explorer-summary__summary-total-items-header">
+              {numRecommendations + numConcerns} Community comments submitted
+            </span>
+            <span className="input-explorer-summary__num-recommendations">
+              {numRecommendations} {messages.recommendationsLabel}
+            </span>
+            <span className="input-explorer-summary__num-concerns">
+              {numConcerns} {messages.concernsLabel}
+            </span>
           </div>
-          {summaryInfoBySubcategory.map((subcategory, i) => 
+          {summaryInfoBySubcategory.map((subcategory, i) =>
             <div
-              key={i} 
-              className="summary-item-container">
-              <div className="summary-bar-label">
-                <span className="summary-bar-label__label">{subcategory.label} </span>
-                <span className="summary-bar-label__percentage">{isNaN(parseInt(subcategory.total/numTotal*100)) ? 0 : parseInt(subcategory.total/numTotal*100)}%</span>
+              key={i}
+              className="input-explorer-summary__summary-item-container"
+            >
+              <div className="input-explorer-summary__summary-bar-label-container">
+                <span className="input-explorer-summary__summary-bar-label">
+                  {subcategory.label + " "}
+                </span>
+                <span className="input-explorer-summary__summary-bar-label-percentage">
+                  {isNaN(parseInt(subcategory.total/numTotal*100)) ? 0 : parseInt(subcategory.total/numTotal*100)}%
+                </span>
               </div>
-              <div className="summary-bar-container">
-                <div 
-                  className="summary-bar-recommendations"
+              <div className="input-explorer-summary__summary-bar-container">
+                <div
+                  className="input-explorer-summary__summary-bar-recommendations"
                   style={{
                     width: subcategory.numRecommendations*unitWidth + "%"
-                  }}>
+                  }}
+                >
                 </div>
-                <div 
-                  className="summary-bar-concerns"
+                <div
+                  className="input-explorer-summary__summary-bar-concerns"
                   style={{
                     width: subcategory.numConcerns*unitWidth + "%"
-                  }}>
+                  }}
+                >
                 </div>
               </div>
             </div>
@@ -110,6 +118,7 @@ class InputExplorerSummary extends Component {
       </div>
     );
   }
+
 }
 
 export default InputExplorerSummary;
