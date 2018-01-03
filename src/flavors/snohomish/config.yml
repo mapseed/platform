@@ -94,13 +94,13 @@ place_types:
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
