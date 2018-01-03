@@ -260,7 +260,7 @@ sidebar:
       title: _(Activity Stream:)
 
     - id: reports_legend
-      title: _(Citizen Reports:)
+      title: _(Community Reports:)
       view: LegendView
       icon: info-circle
       items:
@@ -297,7 +297,7 @@ place:
   submit_button_label: _(Put it on the map!)
 
   location_item_name: location
-
+  default_basemap: satellite
 
   #### begin dynamic form config ####
   place_detail:

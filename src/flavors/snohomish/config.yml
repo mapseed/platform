@@ -42,15 +42,15 @@ map:
 
   options:
     center:
-      lat: 47.17431
-      lng: -122.09621
-    zoom: 11
+      lat: 47.91093
+      lng: -122.01056
+    zoom: 12
     minZoom: 1
     maxZoom: 18
 
   layers:
     - id: osm
-      url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
+      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -74,8 +74,8 @@ map:
 
 # The values map the place type to map icons (defined below).
 place_types:
-  observation:
-    label: _(Observation)
+  farm:
+    label: _(Sound Farm)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -104,8 +104,8 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  question:
-    label: _(Question)
+  horse:
+    label: _(Sound Horsekeeping)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -134,8 +134,8 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  idea:
-    label: _(Idea)
+  nature:
+    label: _(Sound Nature)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -164,8 +164,68 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  complaint:
-    label: _(Complaint)
+  forest:
+    label: _(Sound Forest)
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: 'this.map.zoom < 11'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: 'this.map.zoom < 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: 'this.map.zoom >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
+  home:
+    label: _(Sound Home)
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: 'this.map.zoom < 11'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: 'this.map.zoom < 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: 'this.map.zoom >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
+  shoreline:
+    label: _(Sound Shorelines)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -244,41 +304,20 @@ sidebar:
               title: _(Featured sites)
               visibleDefault: true
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
-
-    - id: reports_legend
-      title: _(Citizen Reports:)
-      view: LegendView
-      icon: info-circle
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
-
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
 
+right_sidebar:
+  show: true
+
   # Place Types
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Add your story)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
@@ -288,17 +327,17 @@ place:
   submit_button_label: _(Put it on the map!)
 
   location_item_name: location
-
+  default_basemap: satellite
 
   #### begin dynamic form config ####
   place_detail:
-    - category: observation
+    - category: farm
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-observation.png
-      value: observation
-      label: _(Observation)
+      icon_url: http://www.betterground.org/wp-content/uploads/2012/09/farmLanding.png
+      value: farm
+      label: _(My Farm)
       fields:
         - name: title
           type: text
@@ -335,13 +374,13 @@ place:
         - name: submit
           type: commonFormElement
 
-    - category: question
+    - category: horse
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-question.png
+      icon_url: /static/css/images/markers/horse-icon.jpg
       value: question
-      label: _(Question)
+      label: _(My horses)
       fields:
         - name: title
           type: text
@@ -363,13 +402,13 @@ place:
         - name: submit
           type: commonFormElement
 
-    - category: idea
+    - category: nature
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-idea.png
-      value: idea
-      label: _(Idea)
+      icon_url: /static/css/images/markers/nature-icon.jpg
+      value: nature
+      label: _(My Land)
       fields:
         - name: title
           type: text
@@ -392,13 +431,71 @@ place:
         - name: submit
           type: commonFormElement
 
-    - category: complaint
+    - category: forest
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-complaint.png
+      icon_url: /static/css/images/markers/forest-icon.png
       value: complaint
-      label: _(Complaint)
+      label: _(My forest)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your complaint:)
+          placeholder: _(Enter title...)
+          display_prompt: _(Title:)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: "_(What's your complaint?)"
+          display_prompt: _( )
+          placeholder: _(Description...)
+          optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+
+    - category: home
+      includeOnForm: true
+      name: location_type
+      dataset: snohomish-input
+      icon_url: /static/css/images/markers/home-icon.jpg
+      value: home
+      label: _(My Home)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title of your complaint:)
+          placeholder: _(Enter title...)
+          display_prompt: _(Title:)
+          optional: false
+        - name: description
+          type: textarea
+          prompt: "_(What's your complaint?)"
+          display_prompt: _( )
+          placeholder: _(Description...)
+          optional: false
+        - name: submitter_name
+          type: commonFormElement
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: my_image
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
+
+    - category: shoreline
+      includeOnForm: true
+      name: location_type
+      dataset: snohomish-input
+      icon_url: /static/css/images/markers/shoreline-icon.png
+      value: shoreline
+      label: _(My Shoreline)
       fields:
         - name: title
           type: text
@@ -536,9 +633,9 @@ pages:
     name: background
     hide_from_top_bar: true
 
-  - title: _(Get involved)
-    slug: getinvolved
-    name: contribute
+  # - title: _(Get involved)
+  #   slug: getinvolved
+  #   name: contribute
 
 # story:
   # example:
