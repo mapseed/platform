@@ -79,7 +79,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -109,7 +109,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -124,13 +124,13 @@ place_types:
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-question.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -139,7 +139,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -154,13 +154,13 @@ place_types:
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -169,7 +169,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -178,19 +178,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker-complaint.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -199,7 +199,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -208,19 +208,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -229,7 +229,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -238,19 +238,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
