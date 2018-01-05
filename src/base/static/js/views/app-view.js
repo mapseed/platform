@@ -2,8 +2,17 @@
 // REACT PORT SECTION //////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
-import InputForm from "../../components/input-form";
 import { EventEmitter } from "fbemitter";
+
+import InputForm from "../../components/input-form";
+
+// TEMPORARY: We import custom templates here for the time being.
+// NOTE: We use the Williams custom input form template for all VV flavors,
+//       since they're all the same.
+// TODO: This is confusing. Eventually we probably want a concept of a meta flavor,
+//       from which individual flavors that share functionality can import components.
+import VVInputForm from "../../../../flavors/williams/static/components/input-form";
+
 let emitter = new EventEmitter();
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
@@ -689,25 +698,38 @@ module.exports = Backbone.View.extend({
     var self = this;
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    ReactDOM.render(
-      <InputForm
-        placeConfig={this.options.placeConfig}
-        mapConfig={this.options.mapConfig}
-        hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-        hideCenterPoint={this.hideCenterPoint.bind(this)}
-        showNewPin={this.showNewPin.bind(this)}
-        map={this.mapView.map}
-        emitter={emitter}
-        collectionsSet={{
-          places: this.places,
-          landmarks: this.landmarks,
-        }}
-        router={this.options.router}
-        customHooks={this.options.customHooks}
-        container="#content article"
-      />,
-      document.querySelector("#content article")
-    );
+    const inputFormProps = {
+      placeConfig: this.options.placeConfig,
+      mapConfig: this.options.mapConfig,
+      hideSpotlightMask: this.hideSpotlightMask.bind(this),
+      hideCenterPoint: this.hideCenterPoint.bind(this),
+      showNewPin: this.showNewPin.bind(this),
+      map: this.mapView.map,
+      emitter: emitter,
+      collectionsSet: {
+        places: this.places,
+        landmarks: this.landmarks,
+      },
+      router: this.options.router,
+      customHooks: this.options.customHooks,
+      container: "#content article"
+    };
+
+    if (this.options.customComponents 
+        && this.options.customComponents.InputForm === "VVInputForm") {
+      ReactDOM.render(
+        <VVInputForm
+          {...inputFormProps}
+          hidePanel={this.hidePanel.bind(this)}
+        />,
+        document.querySelector("#content article")
+      );
+    } else {
+      ReactDOM.render(
+        <InputForm {...inputFormProps} />,
+        document.querySelector("#content article")
+      );
+    }
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
@@ -715,7 +737,6 @@ module.exports = Backbone.View.extend({
     this.mapView.map.invalidateSize({ animate:true, pan:true });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
-    this.showNewPin();
     this.setBodyClass("content-visible", "place-form-visible");
 
     if (this.options.placeConfig.default_basemap) {

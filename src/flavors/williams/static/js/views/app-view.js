@@ -404,7 +404,7 @@ module.exports = AppView.extend({
     if (this.hasBodyClass("content-visible") === true) {
       this.hideSpotlightMask();
       // BEGIN FLAVOR-SPECIFIC CODE
-      this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
+      //this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
       // END FLAVOR-SPECIFIC CODE
     }
   },

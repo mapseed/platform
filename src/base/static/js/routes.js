@@ -160,7 +160,8 @@ Shareabouts.Util = Util;
         userToken: options.userToken,
         router: this,
         filters: options.filters,
-        customHooks: options.customHooks
+        customHooks: options.customHooks,
+        customComponents: options.customComponents
       });
 
       // Start tracking the history

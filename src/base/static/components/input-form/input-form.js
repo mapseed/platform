@@ -29,10 +29,10 @@ const Util = require("../../js/utils.js");
 // TEMPORARY: we define flavor hooks here for the time being
 const MYWATER_SCHOOL_DISTRICTS = require("../../../../flavors/central-puget-sound/static/school-districts.json");
 const hooks = {
-  myWaterAddDistrict: obj => {
-    obj.district = MYWATER_SCHOOL_DISTRICTS[obj["school-name"]] || "";
+  myWaterAddDistrict: attrs => {
+    attrs.district = MYWATER_SCHOOL_DISTRICTS[attrs["school-name"]] || "";
 
-    return obj;
+    return attrs;
   }
 }
 
@@ -574,7 +574,7 @@ class InputForm extends Component {
     //       the submit button.
     this.setState({ formIsSubmitting: true });
 
-    const { collectionsSet, placeConfig } = this.props;
+    const { collectionsSet, customHooks, placeConfig, router } = this.props;
     const { coverImages, fieldValues, selectedCategory } = this.state;
     const spinnerTarget = document.getElementsByClassName("input-form__submit-spinner")[0];
     const selectedCategoryConfig = placeConfig.place_detail
@@ -630,16 +630,26 @@ class InputForm extends Component {
       attrs.style = this.geometryStyle;
     }
 
-    // fire pre-save hook
-    if (this.props.customHooks && this.props.customHooks.preSave) {
-      attrs = hooks[this.props.customHooks.preSave](attrs);
+    // Fire pre-save hook.
+    // The pre-save hook allows flavors to attach arbitrary data to the attrs
+    // object before submission to the database.
+    if (customHooks && customHooks.preSave) {
+      attrs = hooks[customHooks.preSave](attrs);
     }
 
     model.save(attrs, {
       success: (response) => {
         Util.log("USER", "new-place", "successfully-add-place");
-        this.reset();
-        this.props.router.navigate(Util.getUrl(model), { trigger: true });
+        this.setState({ "formIsSubmitting": false });
+
+        // Fire post-save hook.
+        // The post-save hook allows flavors to hijack the default
+        // route-to-detail-view behavior.
+        if (customHooks && customHooks.postSave) {
+          customHooks.postSave(response, model, this.defaultPostSave.bind(this));
+        } else {
+          this.defaultPostSave(model);
+        }
       },
       error: (error) => {
         Util.log("USER", "new-place", "fail-to-add-place");
@@ -648,7 +658,7 @@ class InputForm extends Component {
     });
   }
 
-  defaultPostSave() {
+  defaultPostSave(model) {
     this.reset();
     this.props.router.navigate(Util.getUrl(model), { trigger: true });
   }
@@ -677,15 +687,16 @@ class InputForm extends Component {
   }
 
   render() {
-    const { categoryMenuIsCollapsed, categoryMenuIsHidden, formIsSubmitting, 
+    const { categoryMenuIsCollapsed, categoryMenuIsHidden, formIsSubmitting,
             formValidationErrors, selectedCategory } = this.state;
-    const { hideCenterPoint, hideSpotlightMask, placeConfig, showNewPin } = this.props;
+    const { className, hideCenterPoint, hideSpotlightMask, placeConfig, 
+            showNewPin } = this.props;
     const classNames = {
       categoryBtns: cn("input-form__category-buttons-container", {
         "input-form__category-buttons-container--visible": !categoryMenuIsHidden,
         "input-form__category-buttons-container--hidden": categoryMenuIsHidden
       }),
-      form: cn("input-form__form", {
+      form: cn("input-form__form", className, {
         "input-form__form--active": !formIsSubmitting,
         "input-form__form--inactive": formIsSubmitting
       }),

@@ -51,6 +51,14 @@
   display: none;
 }
 
+.input-form__form--visible {
+  display: block;
+}
+
+.input-form__form--hidden {
+  display: none;
+}
+
 .input-form__form--active {
   opacity: 1.0;
 }

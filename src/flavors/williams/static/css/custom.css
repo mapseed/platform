@@ -356,7 +356,7 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   background-color: #FF8B61 !important;
 }
 
-#place-form-continue-btns .header-msg {
+.input-form__exit-or-continue-header {
   margin-bottom: 25px;
 }
 
