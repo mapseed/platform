@@ -1,5 +1,13 @@
 @import "variables";
 
+.input-form__category-buttons-container--visble {
+  display: block;
+}
+
+.input-form__category-buttons-container--hidden {
+  display: none;
+}
+
 .input-form__field-container {
   margin-bottom: 5px;
   padding: 5px;

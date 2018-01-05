@@ -45,6 +45,7 @@ class InputForm extends Component {
     this.state = {
       selectedCategory: null,
       categoryMenuIsCollapsed: false,
+      categoryMenuIsHidden: false,
       fieldValues: {},
       formIsSubmitting: false,
       formValidationErrors: [],
@@ -83,7 +84,25 @@ class InputForm extends Component {
   }
 
   componentDidMount() {
-    this.setState({ formIsOpen: true });
+    let state = { formIsOpen: true };
+    const visibleCategories = this.getVisibleFormCategories();
+    if (visibleCategories.length === 1) {
+
+      // If we only have one form category to show, skip the category selection
+      // menu and jump right to the form itself.
+      let initialFieldStates = {};
+      visibleCategories[0].fields.forEach(fieldConfig => {
+        if (fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME) {
+          console.log("has custom geometry");
+          this.hasCustomGeometry = true;
+        }
+        initialFieldStates[fieldConfig.name] = this.getInitialFieldState(fieldConfig);
+      });
+      state["categoryMenuIsHidden"] = true;
+      this.setActiveCategoryState(visibleCategories[0].category, initialFieldStates, state);
+    } else {
+      this.setState(state);
+    }
   }
 
   // General handler for field change events.
@@ -210,26 +229,34 @@ class InputForm extends Component {
       })
       .forEach(fieldConfig => {
         initialFieldStates[fieldConfig.name] = this.getInitialFieldState(fieldConfig);
-        if (!fieldConfig.optional && !this.validationExclusions.has(fieldConfig.type)) {
-          this.requiredFields.push(fieldConfig.name);
-        }
-        if (fieldConfig.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
-          this.richTextFields.push(fieldConfig.name);
-        }
       });
 
+      this.setActiveCategoryState(evt.target.value, initialFieldStates);
+  }
 
-    this.setState({ 
-      selectedCategory: evt.target.value,
-      categoryMenuIsCollapsed: true,
-      fieldValues: initialFieldStates,
-      formIsSubmitting: false,
-      formValidationErrors: [],
-      coverImages: []
-    });
+  setActiveCategoryState(selectedCategory, initialFieldStates, additionalState) {
+    const state = Object.assign(
+      {
+        selectedCategory: selectedCategory,
+        categoryMenuIsCollapsed: true,
+        fieldValues: initialFieldStates,
+        formIsSubmitting: false,
+        formValidationErrors: [],
+        coverImages: []
+      },
+      additionalState
+    );
+
+    this.setState(state);
   }
 
   getInitialFieldState(fieldConfig) {
+    if (!fieldConfig.optional && !this.validationExclusions.has(fieldConfig.type)) {
+      this.requiredFields.push(fieldConfig.name);
+    }
+    if (fieldConfig.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
+      this.richTextFields.push(fieldConfig.name);
+    }
 
     // "autofill" is a better term than "autocomplete" for this feature.
     // TODO: update this throughout the codebase
@@ -605,6 +632,26 @@ class InputForm extends Component {
     });
   }
 
+  defaultPostSave() {
+    this.reset();
+    this.props.router.navigate(Util.getUrl(model), { trigger: true });
+  }
+
+  getVisibleFormCategories() {
+    return this.props.placeConfig.place_detail
+      // Filter out categories that shouldn't display on the form at all.
+      .filter(categoryConfig => categoryConfig.includeOnForm)
+      // Filter out admin_only categories that shouldn't be shown given the
+      // current user's credentials.
+      .filter(categoryConfig => {
+        if (categoryConfig.admin_only &&
+            !Util.getAdminStatus(categoryConfig.dataset, categoryConfig.admin_groups)) {
+          return false;
+        }
+        return true;
+      });
+  }
+
   fieldIsInvalid(fieldName) {
     return (
       this.state.formValidationErrors.length > 0 
@@ -614,10 +661,14 @@ class InputForm extends Component {
   }
 
   render() {
-    const { categoryMenuIsCollapsed, formIsSubmitting, formValidationErrors,
-            selectedCategory } = this.state;
+    const { categoryMenuIsCollapsed, categoryMenuIsHidden, formIsSubmitting, 
+            formValidationErrors, selectedCategory } = this.state;
     const { hideCenterPoint, hideSpotlightMask, placeConfig, showNewPin } = this.props;
     const classNames = {
+      categoryBtns: cn("input-form__category-buttons-container", {
+        "input-form__category-buttons-container--visible": !categoryMenuIsHidden,
+        "input-form__category-buttons-container--hidden": categoryMenuIsHidden
+      }),
       form: cn("input-form__form", {
         "input-form__form--active": !formIsSubmitting,
         "input-form__form--inactive": formIsSubmitting
@@ -660,29 +711,18 @@ class InputForm extends Component {
 
     return (
       <div className="input-form">
-        {placeConfig.place_detail
-          // Filter out categories that shouldn't display on the form at all.
-          .filter(categoryConfig => categoryConfig.includeOnForm)
-          // Filter out admin_only categories that shouldn't be shown given the
-          // current user's credentials.
-          .filter(categoryConfig => {
-            if (categoryConfig.admin_only && 
-                !Util.getAdminStatus(categoryConfig.dataset, categoryConfig.admin_groups)) {
-              return false;
-            }
-            return true;
-          })
-          .map(categoryConfig =>
-            <InputFormCategoryButton 
+        <div className={classNames.categoryBtns}>
+          {this.getVisibleFormCategories().map(categoryConfig =>
+            <InputFormCategoryButton
               isActive={selectedCategory === categoryConfig.category}
               categoryMenuIsCollapsed={categoryMenuIsCollapsed}
               key={categoryConfig.category}
-              categoryConfig={categoryConfig} 
-              onCategoryChange={this.onCategoryChange} 
-              onExpandCategories={this.onExpandCategories} 
+              categoryConfig={categoryConfig}
+              onCategoryChange={this.onCategoryChange}
+              onExpandCategories={this.onExpandCategories}
             />
-        )}
-        <hr />
+          )}
+        </div>
         <div className={classNames.warningMsgs}>
           <p className={"input-form__warning-msgs-header"}>
             {messages.validationHeader}
