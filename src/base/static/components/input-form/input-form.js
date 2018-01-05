@@ -19,6 +19,7 @@ import AutocompleteComboboxField from "../form-fields/autocomplete-combobox-fiel
 import CustomUrlToolbar from "../input-form/custom-url-toolbar";
 import BigToggleField from "../form-fields/big-toggle-field";
 import PublishControlToolbar from "../input-form/publish-control-toolbar";
+import RangeSliderWithLabel from "../input-form/range-slider-with-label";
 import { inputForm as messages } from "../messages";
 import constants from "./constants";
 import "./input-form.scss";
@@ -70,6 +71,7 @@ class InputForm extends Component {
     this.onGeometryStyleChange = this.onGeometryStyleChange.bind(this);
     this.onCheckboxFieldChange = this.onCheckboxFieldChange.bind(this);
     this.onAttachmentFieldChange = this.onAttachmentFieldChange.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
 
     this.reset();
   }
@@ -93,7 +95,6 @@ class InputForm extends Component {
       let initialFieldStates = {};
       visibleCategories[0].fields.forEach(fieldConfig => {
         if (fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME) {
-          console.log("has custom geometry");
           this.hasCustomGeometry = true;
         }
         initialFieldStates[fieldConfig.name] = this.getInitialFieldState(fieldConfig);
@@ -277,6 +278,9 @@ class InputForm extends Component {
         break;
       case constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME:
         return autofillValue || "isPublished";
+        break;
+      case constants.RANGE_FIELD_TYPENAME:
+        return autofillValue || fieldConfig.defaultValue;
         break;       
       default:
         return autofillValue || "";
@@ -399,6 +403,18 @@ class InputForm extends Component {
             label={fieldConfig.label}
           />
         ); 
+        break;
+      case constants.RANGE_FIELD_TYPENAME:
+        return [
+          fieldPrompt,
+          <RangeSliderWithLabel
+            name={fieldConfig.name}
+            max={fieldConfig.max}
+            min={fieldConfig.min}
+            onChange={evt => this.onFieldChange(evt, "value")}
+            value={fieldValues[fieldConfig.name]}
+          />
+        ];
         break;
       case constants.BIG_CHECKBOX_FIELD_TYPENAME:
         return [

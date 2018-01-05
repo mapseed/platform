@@ -14,7 +14,8 @@ const constants = {
   BIG_TOGGLE_FIELD_TYPENAME: "big_toggle",
   ATTACHMENT_FIELD_TYPENAME: "file",
   COMMON_FORM_ELEMENT_TYPENAME: "common_form_element",
-  SUBMIT_FIELD_TYPENAME: "submit"
+  SUBMIT_FIELD_TYPENAME: "submit",
+  RANGE_FIELD_TYPENAME: "range"
 }
 
 export default constants;

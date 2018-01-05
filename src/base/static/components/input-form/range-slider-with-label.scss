@@ -1,0 +1,11 @@
+@import "variables";
+
+.range-slider-with-label__input {
+  margin-right: 10px;
+  -webkit-appearance: none;
+  outline: none;
+  background-color: $range-slider-background-color;
+  width: $range-slider-width;
+  height: $range-slider-height;
+  vertical-align: middle;
+}
