@@ -6,14 +6,16 @@ import "./primary-button.scss";
 class PrimaryButton extends Component {
 
   render() {
-    const { className, children, disabled } = this.props;
+    const { className, children, disabled, onClick } = this.props;
     const classNames = cn("primary-button", "primary-button--hoverable", className);
 
     return (
       <button 
         className={classNames}
         type="button"
-        disabled={disabled}>
+        disabled={disabled}
+        onClick={onClick}
+      >
         {children}
       </button>
     );

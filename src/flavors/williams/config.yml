@@ -551,3 +551,6 @@ cluster:
   spiderfyDistanceMultiplier: 1.5
   spiderLegPolylineOptions:
     opacity: 0
+
+custom_components:
+  InputForm: VVInputForm
