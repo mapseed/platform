@@ -265,6 +265,8 @@ class InputForm extends Component {
       ? Util.getAutocompleteValue(fieldConfig.name) 
       : null;
 
+    fieldConfig.hasAutofill = (autofillValue) ? true : false;
+
     switch(fieldConfig.type) {
       case constants.BIG_TOGGLE_FIELD_TYPENAME:
 
@@ -315,7 +317,7 @@ class InputForm extends Component {
         "input-form__optional-msg--hidden": !fieldConfig.optional
       })
     };
-    const { emitter, map, mapConfig, placeConfig, router } = this.props;
+    const { autofillMode, emitter, map, mapConfig, placeConfig, router } = this.props;
     const { fieldValues, formIsOpen, formIsSubmitting } = this.state;
     const fieldPrompt = 
       <p className="input-form__field-prompt">
@@ -334,7 +336,8 @@ class InputForm extends Component {
             onChange={evt => this.onFieldChange(evt, "value")}
             value={fieldValues[fieldConfig.name]}
             placeholder={fieldConfig.placeholder}
-            hasAutofill={fieldConfig.autocomplete}
+            autofillMode={autofillMode}
+            hasAutofill={fieldConfig.hasAutofill}
           />
         ];
         break;
@@ -346,6 +349,8 @@ class InputForm extends Component {
             onChange={evt => this.onFieldChange(evt, "value")}
             value={fieldValues[fieldConfig.name]}
             placeholder={fieldConfig.placeholder}
+            autofillMode={autofillMode}
+            hasAutofill={fieldConfig.hasAutofill}
           />
         ];
         break;
@@ -358,6 +363,8 @@ class InputForm extends Component {
             onAddImage={this.onAddRichTextImage.bind(this)}
             value={fieldValues[fieldConfig.name]}
             placeholder={fieldConfig.placeholder}
+            autofillMode={autofillMode}
+            hasAutofill={fieldConfig.hasAutofill}
             bounds="#content"
           />
         ];
@@ -413,6 +420,8 @@ class InputForm extends Component {
             min={fieldConfig.min}
             onChange={evt => this.onFieldChange(evt, "value")}
             value={fieldValues[fieldConfig.name]}
+            autofillMode={autofillMode}
+            hasAutofill={fieldConfig.hasAutofill}
           />
         ];
         break;
@@ -428,6 +437,8 @@ class InputForm extends Component {
               checked={fieldValues[fieldConfig.name].includes(item.value)}
               name={fieldConfig.name}
               onChange={this.onCheckboxFieldChange}
+              autofillMode={autofillMode}
+              hasAutofill={fieldConfig.hasAutofill}
             />
           )
         ];
@@ -444,6 +455,8 @@ class InputForm extends Component {
               checked={fieldValues[fieldConfig.name] === item.value}
               name={fieldConfig.name}
               onChange={evt => this.onFieldChange(evt, "value")}
+              autofillMode={autofillMode}
+              hasAutofill={fieldConfig.hasAutofill}
             />
           )
         ];
@@ -490,6 +503,8 @@ class InputForm extends Component {
             values={[fieldConfig.content[0].value, fieldConfig.content[1].value]}
             id={"input-form-" + fieldConfig.name}
             onChange={evt => this.onToggleFieldChange(evt, [fieldConfig.content[0].value, fieldConfig.content[1].value])}
+            autofillMode={autofillMode}
+            hasAutofill={fieldConfig.hasAutofill}
           />
         ];
         break;
@@ -501,6 +516,8 @@ class InputForm extends Component {
             value={fieldValues[fieldConfig.name]}
             options={fieldConfig.content}
             onChange={evt => this.onFieldChange(evt, "value")}
+            autofillMode={autofillMode}
+            hasAutofill={fieldConfig.hasAutofill}
           />
         ];
         break;
@@ -514,6 +531,8 @@ class InputForm extends Component {
             id={"autocomplete-" + fieldConfig.name}
             onChange={this.onValueNameFieldChange.bind(this)}
             showAllValues={true}
+            autofillMode={autofillMode}
+            hasAutofill={fieldConfig.hasAutofill}
           />
         ];
         break;
@@ -604,17 +623,13 @@ class InputForm extends Component {
       );
     });
 
-    if (this.richTextImages.length > 0) {
-      this.richTextImages.forEach(richTextImage => {
-        model.attachmentCollection.add(richTextImage);
-      });
-    }
+    this.richTextImages.forEach(richTextImage => {
+      model.attachmentCollection.add(richTextImage);
+    });
 
-    if (coverImages.length > 0) {
-      coverImages.forEach(coverImage => {
-        model.attachmentCollection.add(coverImage);
-      });
-    }
+    coverImages.forEach(coverImage => {
+      model.attachmentCollection.add(coverImage);
+    });
 
     // TODO: is this still necessary?
     // Util.setStickyFields(  
@@ -622,6 +637,17 @@ class InputForm extends Component {
     //   Shareabouts.Config.survey.items,
     //   Shareabouts.Config.place.items,
     // );
+
+    // Save autofill values as necessary.
+    selectedCategoryConfig.fields.concat(placeConfig.common_form_elements).forEach(fieldConfig => {
+      if (fieldConfig.autocomplete) {
+        Util.saveAutocompleteValue(
+          fieldConfig.name,
+          fieldValues[fieldConfig.name],
+          constants.AUTOFILL_DURATION_DAYS
+        );
+      }
+    });
 
     // TODO: case when url-title field is left blank: fall back to regular urls
 

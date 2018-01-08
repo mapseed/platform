@@ -2,6 +2,10 @@
 @import "variables";
 @import "fluid-video";
 
+.rich-textarea-field--has-autofill--hidden {
+  display: none;
+}
+
 // the .ql-toolbar class is exposed by react-quill
 .ql-toolbar.ql-snow {
   background-color: #FFFFFF;
@@ -18,6 +22,12 @@
   border-left: $rich-textarea-border !important;
   border-right: $rich-textarea-border !important;
   font-size: $rich-textarea-font-size !important;
+}
+
+.rich-textarea-field--has-autofill--colored {
+  .ql-container {
+    background-color: $rich-textarea-field-autofill-background-color !important;
+  }
 }
 
 // the .ql-out-bottom class is exposed by react-quill

@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+.big-toggle-field--has-autofill--hidden {
+  display: none;
+}
+
 .big-toggle-field__input {
   display: none;
 }
@@ -36,6 +40,10 @@
     width: 2.5em;
     background-color: $big-toggle-field-hover-icon-background-color;
   }
+}
+
+.big-toggle-field__label--has-autofill--colored {
+  background-color: $big-toggle-field-autofill-background-color;
 }
 
 .big-toggle-field__label--hoverable:hover {

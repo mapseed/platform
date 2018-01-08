@@ -22,6 +22,8 @@ $warning-color: #FFFFE0;
 $alert-color: #D9534F;
 $alert-color-light: #DA8583;
 
+$autofill-color: #FFFFE0;
+
 
 // -----------------------------------------------------------------------------
 // ICONS
@@ -120,7 +122,7 @@ $text-field-border-radius: 0 0 0 0;
 $text-field-padding: 0.5em 0.5em 0.5em 0.5em;
 $text-field-margin: 0 0 0 0;
 $text-field-width: 100%;
-$text-field-autofill-background-color: $warning-color;
+$text-field-autofill-background-color: $autofill-color;
 
 
 /*
@@ -133,6 +135,7 @@ $textarea-field-padding: 0.5em 0.5em 0.5em 0.5em;
 $textarea-field-margin: 0 0 0 0;
 $textarea-field-width: 100%;
 $textarea-field-height: 6.5em;
+$textarea-field-autofill-background-color: $autofill-color;
 
 
 /*
@@ -141,6 +144,7 @@ $textarea-field-height: 6.5em;
 */
 $dropdown-field-border: 0.25em solid $secondary-color;
 $dropdown-field-width: 100%;
+$dropdown-field-autofill-background-color: $autofill-color;
 
 
 /*
@@ -191,6 +195,7 @@ $big-radio-field-selected-border: 2px solid $accent-color-1;
 $big-radio-field-selected-label-color: $extremely-dark-gray;
 $big-radio-field-selected-icon-background-color: $accent-color-1;
 $big-radio-field-selected-border: 2px solid $accent-color-1;
+$big-radio-field-autofill-background-color: $autofill-color;
 
 
 /*
@@ -214,6 +219,7 @@ $big-checkbox-field-selected-border: 2px solid $accent-color-1;
 $big-checkbox-field-selected-label-color: $extremely-dark-gray;
 $big-checkbox-field-selected-icon-background-color: $accent-color-1;
 $big-checkbox-field-selected-border: 2px solid $accent-color-1;
+$big-checkbox-field-autofill-background-color: $autofill-color;
 
 
 /*
@@ -237,6 +243,7 @@ $big-toggle-field-selected-border: 2px solid $accent-color-1;
 $big-toggle-field-selected-label-color: $extremely-dark-gray;
 $big-toggle-field-selected-icon-background-color: $accent-color-1;
 $big-toggle-field-selected-border: 2px solid $accent-color-1;
+$big-toggle-field-autofill-background-color: $autofill-color;
 
 
 /*
@@ -246,6 +253,7 @@ $big-toggle-field-selected-border: 2px solid $accent-color-1;
 $rich-textarea-border: 0.25em solid $secondary-color;
 $rich-textarea-min-height: 200px;
 $rich-textarea-font-size: 16px;
+$rich-textarea-field-autofill-background-color: $autofill-color;
 
 
 /*
@@ -315,6 +323,7 @@ $map-drawing-toolbar-marker-item-padding: 3px 3px 3px 3px;
 */
 $autocomplete-combobox-border: 0.25em solid $secondary-color;
 $autocomplete-combobox-padding: 0.5em 0.5em 0.5em 0.5em;
+$autocomplete-combobox-autofill-background-color: $autofill-color;
 
 
 /*
@@ -343,6 +352,7 @@ $custom-url-prefix-url-text-color: #FFFFFF;
 $range-slider-background-color: $secondary-color;
 $range-slider-width: 85%;
 $range-slider-height: 4px;
+$range-slider-autofill-background-color: $autofill-color;
 
 
 /*

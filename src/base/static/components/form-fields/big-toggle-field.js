@@ -7,15 +7,20 @@ import "./big-toggle-field.scss";
 class BigToggleField extends Component {
 
   render() {
-    const { id, checked, labels, name, onChange, required, values } = this.props;
+    const { autofillMode, hasAutofill, id, checked, labels, name, onChange,
+            required, values } = this.props;
     const classNames = {
+      base: cn("big-toggle-field", {
+        "big-toggle-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
+      }),
       label: cn("big-toggle-field__label", "big-toggle-field__label--hoverable", {
-        "big-toggle-field__label--toggled": checked
+        "big-toggle-field__label--toggled": checked,
+        "big-toggle-field__label--has-autofill--colored": hasAutofill && autofillMode === "color"
       })
     };
 
     return (
-      <div className="big-toggle-field">
+      <div className={classNames.base}>
         <ToggleField
           className="big-toggle-field__input"
           id={id}

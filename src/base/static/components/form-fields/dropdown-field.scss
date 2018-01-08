@@ -4,3 +4,11 @@
   width: $dropdown-field-width;
   border: $dropdown-field-border;
 }
+
+.dropdown-field--has-autofill--hidden {
+  display: none;
+}
+
+.dropdown-field--has-autofill--colored {
+  background-color: $dropdown-field-autofill-background-color;
+}
