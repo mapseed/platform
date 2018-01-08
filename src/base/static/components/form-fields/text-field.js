@@ -6,9 +6,11 @@ import "./text-field.scss";
 class TextField extends Component {
 
   render() {
-    const { hasAutofill, name, onChange, placeholder, required, value } = this.props;
+    const { autofillMode, hasAutofill, name, onChange, placeholder, required,
+            value } = this.props;
     const classNames = cn("text-field", {
-      "text-field--has-autofill": hasAutofill
+      "text-field--has-autofill--colored": hasAutofill && autofillMode === "color",
+      "text-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
     });
 
     return (

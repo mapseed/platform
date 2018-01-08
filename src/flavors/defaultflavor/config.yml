@@ -419,7 +419,6 @@ place:
           optional: false
         - name: dropdown_autocomplete_combobox_field
           type: dropdown_autocomplete
-          autocomplete: true
           placeholder: _(Begin typing a value...)
           prompt: _(Dropdown autocomplete input prompt:)
           display_prompt: _(Rendered dropdown autocomplete selection:)
@@ -458,7 +457,7 @@ place:
           type: geocoding
           prompt: _(Geocoding field prompt:)
           display_prompt: _(Rendered location:)
-          optional: false
+          optional: true
         - name: big_toggle_field
           type: big_toggle
           autocomplete: true
@@ -474,7 +473,7 @@ place:
           type: file
           prompt: _(Attachment field prompt:)
           label: _(Attachment field button label)
-          optional: false
+          optional: true
         - name: submit_field
           type: submit
           label: _(Submit button label)

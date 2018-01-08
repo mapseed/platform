@@ -15,7 +15,9 @@ const constants = {
   ATTACHMENT_FIELD_TYPENAME: "file",
   COMMON_FORM_ELEMENT_TYPENAME: "common_form_element",
   SUBMIT_FIELD_TYPENAME: "submit",
-  RANGE_FIELD_TYPENAME: "range"
+  RANGE_FIELD_TYPENAME: "range",
+
+  AUTOFILL_DURATION_DAYS: 30
 }
 
 export default constants;

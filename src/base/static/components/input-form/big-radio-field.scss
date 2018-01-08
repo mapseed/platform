@@ -6,6 +6,10 @@
   margin-right: 5px;
 }
 
+.big-radio-field--has-autofill--hidden {
+  display: none;
+}
+
 .big-radio-field__input {
   display: none;
 }
@@ -39,6 +43,10 @@
     width: 2.5em;
     background-color: $big-radio-field-hover-icon-background-color;
   }
+}
+
+.big-radio-field__label--has-autofill--colored {
+  background-color: $big-radio-field-autofill-background-color;
 }
 
 .big-radio-field__label--hoverable:hover {

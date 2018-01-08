@@ -720,13 +720,17 @@ module.exports = Backbone.View.extend({
       ReactDOM.render(
         <VVInputForm
           {...inputFormProps}
+          autofillMode="hide"
           hidePanel={this.hidePanel.bind(this)}
         />,
         document.querySelector("#content article")
       );
     } else {
       ReactDOM.render(
-        <InputForm {...inputFormProps} />,
+        <InputForm
+          {...inputFormProps}
+          autofillMode="color"
+        />,
         document.querySelector("#content article")
       );
     }

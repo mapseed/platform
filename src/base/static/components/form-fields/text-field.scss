@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
-.text-field--has-autofill {
+.text-field--has-autofill--colored {
   background-color: $text-field-autofill-background-color;
+}
+
+.text-field--has-autofill--hidden {
+  display: none;
 }

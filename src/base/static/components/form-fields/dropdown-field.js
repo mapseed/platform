@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+const cn = require("classnames");
 
 import { dropdownField as messages } from "../messages";
 import "./dropdown-field.scss";
@@ -15,11 +16,15 @@ import "./dropdown-field.scss";
 class DropdownField extends Component {
 
   render() {
-    const { name, onChange, options, required, value } = this.props;
+    const { autofillMode, hasAutofill, name, onChange, options, required, value } = this.props;
+    const classNames = cn("dropdown-field", {
+      "dropdown-field--has-autofill--colored": hasAutofill && autofillMode === "color",
+      "dropdown-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
+    })
 
     return (
       <select
-        className="dropdown-field"
+        className={classNames}
         value={value}
         name={name}
         required={required}

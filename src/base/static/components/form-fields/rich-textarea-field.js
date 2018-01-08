@@ -86,7 +86,7 @@ class RichTextareaField extends Component {
   onClickEmbedImage() {
 
     // TODO: is there a way around using refs here?
-    this.refs["quill-file-input"].click();
+    this["quill-file-input"].click();
   }
 
   onClickEmbedVideo(evt) {
@@ -94,7 +94,7 @@ class RichTextareaField extends Component {
   }
 
   componentDidMount() {
-    let editor = this.refs["quill-editor"].getEditor();
+    let editor = this["quill-editor"].getEditor();
 
     // NOTE: we create a whole new SnowTheme here so we can make use of a
     // tooltip box with custom click handler.
@@ -137,7 +137,7 @@ class RichTextareaField extends Component {
               file: canvas.toDataURL("image/jpeg"),
               type: "RT" // richtext
             };
-            const editor = this.refs["quill-editor"].getEditor();
+            const editor = this["quill-editor"].getEditor();
               
             editor.insertEmbed(
               editor.getSelection().index,
@@ -188,20 +188,27 @@ class RichTextareaField extends Component {
     // add multiple images to the rich text editor. If we don't reset the value,
     // the input field's onChange handler will only fire after the first image
     // is added.
-    this.refs["quill-file-input"].value = "";
+    this["quill-file-input"].value = "";
   }
 
   render() {
-    const { bounds, name, onChange, placeholder, value } = this.props;
-    const classNames = cn(
-      "rich-textarea-field__quill-file-input", 
-      "rich-textarea-field__quill-file-input--hidden"
-    );
+    const { autofillMode, bounds, hasAutofill, name, onChange, placeholder, 
+            value } = this.props;
+    const classNames = {
+      base: cn("rich-textarea-field", {
+        "rich-textarea-field--has-autofill--colored": hasAutofill && autofillMode === "color",
+        "rich-textarea-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
+      }),
+      quillFileInput: cn(
+        "rich-textarea-field__quill-file-input", 
+        "rich-textarea-field__quill-file-input--hidden"
+      )
+    };
 
     return (
-      <div className="rich-textarea-field">
+      <div className={classNames.base}>
         <ReactQuill
-          ref="quill-editor"
+          ref={node => this["quill-editor"] = node}
           theme="snow"
           modules={this.modules}
           placeholder={placeholder}
@@ -210,8 +217,8 @@ class RichTextareaField extends Component {
           onChange={val => onChange(val, name)}
         />
         <input
-          className={classNames}
-          ref="quill-file-input"
+          className={classNames.quillFileInput}
+          ref={node => this["quill-file-input"] = node}
           type="file"
           onChange={this.onAddImage}
           accept="image/png, image/gif, image/jpeg"
