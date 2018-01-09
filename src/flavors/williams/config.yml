@@ -544,6 +544,7 @@ pages:
   - title: _(Project)
     slug: about
     name: overview
+    start_page: true
 
 cluster:
   animate: true
