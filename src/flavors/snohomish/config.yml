@@ -331,6 +331,49 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: snohomish-featured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+            - url: /static/css/images/markers/map-pin-marker.png
+            - url: /static/css/images/markers/map-pin-marker-red.png           
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: submit
+          type: commonFormElement
+
     - category: farm
       includeOnForm: true
       name: location_type
@@ -582,48 +625,6 @@ place:
           type: commonFormElement
         - name: my_image
           type: commonFormElement
-        - name: submit
-          type: commonFormElement
-
-    - category: featured_place
-      admin_only: true
-      includeOnForm: true
-      showMetadata: false
-      suppressAttachments: true
-      horizontal_rule: true
-      name: location_type
-      dataset: snohomish-featured
-      icon_url: /static/css/images/markers/marker-star.png
-      value: featured_place
-      label: _(Featured Site)
-      fields:
-        - name: published
-          type: publishControl
-        - name: geometry
-          type: geometryToolbar
-          content:
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industrial.png
-            - url: /static/css/images/markers/map-pin-marker.png
-            - url: /static/css/images/markers/map-pin-marker-red.png            
-        - name: title
-          type: text
-          prompt: _(Title of this featured site:)
-          display_prompt: _( )
-          placeholder: _(Enter title...)
-          optional: false
-        - name: description
-          type: richTextarea
-          prompt: _(Description:)
-          display_prompt: _( )
-          placeholder: _( )
-        - name: url-title
-          type: url-title
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: submit
           type: commonFormElement
 

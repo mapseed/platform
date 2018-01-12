@@ -1008,6 +1008,8 @@ place:
               value: install-rain-garden
             - label: _(Harvest and hold rain with cistern) 
               value: harvest-rain
+            - label: _(Reduce impervious surfaces / increase pervious surfaces) 
+              value: impervious-surfaces
             - label: _(Never dump household chemicals, paint or car oil down storm drain)
               value: storm-drain-no-dump
             - label: _(Rake leaves and litter out from my curb and storm drain)
