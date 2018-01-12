@@ -70,7 +70,7 @@ map:
     - id: snohomish-featured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-featured
       type: place
-      slug: report
+      slug: featured
 
 # The values map the place type to map icons (defined below).
 place_types:
