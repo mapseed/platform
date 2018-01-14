@@ -19,6 +19,10 @@
   border-radius: $input-form-invalid-field-border-radius;
 }
 
+.input-form__field-container--hidden {
+  display: none;
+}
+
 .input-form__field-prompt {
   font-size: $input-form-prompt-font-size;
   margin-bottom: 3px;

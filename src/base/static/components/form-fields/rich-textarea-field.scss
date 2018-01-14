@@ -2,10 +2,6 @@
 @import "variables";
 @import "fluid-video";
 
-.rich-textarea-field--has-autofill--hidden {
-  display: none;
-}
-
 // the .ql-toolbar class is exposed by react-quill
 .ql-toolbar.ql-snow {
   background-color: #FFFFFF;

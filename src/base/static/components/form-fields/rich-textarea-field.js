@@ -196,8 +196,7 @@ class RichTextareaField extends Component {
             value } = this.props;
     const classNames = {
       base: cn("rich-textarea-field", {
-        "rich-textarea-field--has-autofill--colored": hasAutofill && autofillMode === "color",
-        "rich-textarea-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
+        "rich-textarea-field--has-autofill--colored": hasAutofill && autofillMode === "color"
       }),
       quillFileInput: cn(
         "rich-textarea-field__quill-file-input", 

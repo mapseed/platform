@@ -30,6 +30,14 @@ module.exports = AppView.extend({
   },
   initialize: function() {
 
+    // BEGIN FLAVOR-SPECIFIC CODE
+    // REACT PORT SECTION //////////////////////////////////////////////////////    
+    if (!this.options.customHooks) {
+      this.options.customHooks = {};
+    }
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+    // END FLAVOR-SPECIFIC CODE
+
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
 
@@ -404,7 +412,7 @@ module.exports = AppView.extend({
     if (this.hasBodyClass("content-visible") === true) {
       this.hideSpotlightMask();
       // BEGIN FLAVOR-SPECIFIC CODE
-      this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
+      //this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
       // END FLAVOR-SPECIFIC CODE
     }
   },

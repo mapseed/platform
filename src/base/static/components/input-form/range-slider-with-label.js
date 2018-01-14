@@ -9,8 +9,7 @@ class RangeSliderWithLabel extends Component {
   render() {
     const { autofillMode, hasAutofill, max, min, name, onChange, value } = this.props;
     const classNames = cn("range-slider-with-label", {
-      "range-slider-with-label--has-autofill-colored": hasAutofill && value && autofillMode === "color",
-      "range-slider-with-label--has-autofill-hidden": hasAutofill && value && autofillMode === "hide"
+      "range-slider-with-label--has-autofill-colored": hasAutofill && value && autofillMode === "color"
     });
 
     return (

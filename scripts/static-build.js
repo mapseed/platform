@@ -104,7 +104,8 @@ Object.keys(process.env).forEach(function(key) {
 // Helper for serializing config objects and injecting them into the index.html
 // file
 Handlebars.registerHelper("serialize", function(json) {
-  return JSON.stringify(json || "");
+  if (!json) return false;
+  return JSON.stringify(json);
 });
 
 // Helper for injecting precompiled templates to the index.html file
