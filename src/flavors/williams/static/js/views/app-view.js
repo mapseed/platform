@@ -126,8 +126,9 @@ module.exports = AppView.extend({
       function(route) {
         if (
           !_.contains(this.getListRoutes(), route) &&
-          this.listView &&
-          this.listView.isVisible()
+          // BEGIN FLAVOR-SPECIFIC CODE
+          $("#list-container").is(":visible")
+          // END FLAVOR-SPECIFIC CODE
         ) {
           this.hideListView();
         }
@@ -442,6 +443,21 @@ module.exports = AppView.extend({
   showLegendPanel: function() {
     this.sidebarView.render("legend");
     this.showSidebarPanel();
-  }
+  },
+
+  hideListView: function() {
+    $("#list-container").removeClass("is-exposed");
+    $(".show-the-list").removeClass("is-visuallyhidden");
+    $(".show-the-map").addClass("is-visuallyhidden");
+  },
+
+  toggleListView: function() {
+    if ($("#list-container").is(":visible")) {
+      this.options.router.navigate("/", { trigger: true });
+    } else {
+      this.options.router.navigate("list", { trigger: true });
+    }
+    this.mapView.clearFilter();
+  },
   // END FLAVOR-SPECIFIC CODE
 });
