@@ -9,8 +9,7 @@ class TextareaField extends Component {
     const { autofillMode, hasAutofill, name, onChange, placeholder, required, 
             value } = this.props;
     const classNames = cn("textarea-field", {
-      "textarea-field--has-autofill--colored": hasAutofill && autofillMode === "color",
-      "textarea-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
+      "textarea-field--has-autofill--colored": hasAutofill && autofillMode === "color"
     });
 
     return (

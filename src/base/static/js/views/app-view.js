@@ -6,11 +6,7 @@ import { EventEmitter } from "fbemitter";
 import InputForm from "../../components/input-form";
 
 // TEMPORARY: We import custom templates here for the time being.
-// NOTE: We use the Williams custom input form template for all VV flavors,
-//       since they're all the same.
-// TODO: This is confusing. Eventually we probably want a concept of a meta flavor,
-//       from which individual flavors that share functionality can import components.
-import VVInputForm from "../../../../flavors/williams/static/components/input-form";
+import VVInputForm from "../../components/vv-input-form";
 
 let emitter = new EventEmitter();
 // END REACT PORT SECTION //////////////////////////////////////////////////////
@@ -744,6 +740,7 @@ module.exports = Backbone.View.extend({
         <VVInputForm
           {...inputFormProps}
           autofillMode="hide"
+          hideNewPin={this.hideNewPin.bind(this)}
           hidePanel={this.hidePanel.bind(this)}
         />,
         document.querySelector("#content article")
@@ -1062,6 +1059,11 @@ module.exports = Backbone.View.extend({
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
     this.$panel.hide();
     this.setBodyClass();
     map.invalidateSize({ animate: true, pan: true });

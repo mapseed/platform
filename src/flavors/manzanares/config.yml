@@ -379,7 +379,7 @@ place:
           type: range
           max: 100
           min: 15
-          defaultValue: 50
+          default_value: 50
           # NOTE: in this flavor, the autocomplete: true flag causes autocompleted
           #       fields to be hidden on subsequent form renders.
           autocomplete: true
@@ -427,6 +427,7 @@ place:
         - name: input_category
           prompt: _(What type of comment is this?)
           type: big_radio
+          default_value: "recommendation"
           content:
             - label: _(Recommendation)
               label_plural: _(Recommendations)
@@ -539,3 +540,6 @@ cluster:
   spiderfyDistanceMultiplier: 1.5
   spiderLegPolylineOptions:
     opacity: 0
+
+custom_components:
+  InputForm: VVInputForm

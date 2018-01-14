@@ -10,9 +10,6 @@ class BigCheckboxField extends Component {
     const { autofillMode, checked, hasAutofill, id, label, name, onChange, 
             required, value } = this.props;
     const classNames = {
-      base: cn("big-checkbox-field", {
-        "big-checkbox-field--has-autofill--hidden": hasAutofill && checked && autofillMode === "hide"
-      }),
       label: cn("big-checkbox-field__label", "big-checkbox-field__label--hoverable", {
         "big-checkbox-field__label--toggled": checked,
         "big-checkbox-field__label--has-autofill--colored": hasAutofill && checked && autofillMode === "color"
@@ -20,7 +17,7 @@ class BigCheckboxField extends Component {
     };
 
     return (
-      <div className={classNames.base}>
+      <div className="big-checkbox-field">
         <CheckboxField
           className="big-checkbox-field__input"
           id={id}

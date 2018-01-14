@@ -46,9 +46,9 @@ class InputFormCategoryButton extends Component {
 
   render() {
     const { isFocusedExpandButton, isHoveringCategory, isHoveringExpandButton } = this.state;
-    const { categoryConfig, categoryMenuIsCollapsed, isActive,
+    const { categoryConfig, isCategoryMenuCollapsed, isActive,
             onCategoryChange, onExpandCategories } = this.props;
-    const isVisible = !categoryMenuIsCollapsed || isActive;
+    const isVisible = !isCategoryMenuCollapsed || isActive;
     const classNames = {
       base: cn("input-form-category-button", {
         "input-form-category-button--hovering": isHoveringCategory,

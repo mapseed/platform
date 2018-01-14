@@ -18,8 +18,7 @@ class DropdownField extends Component {
   render() {
     const { autofillMode, hasAutofill, name, onChange, options, required, value } = this.props;
     const classNames = cn("dropdown-field", {
-      "dropdown-field--has-autofill--colored": hasAutofill && autofillMode === "color",
-      "dropdown-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
+      "dropdown-field--has-autofill--colored": hasAutofill && autofillMode === "color"
     })
 
     return (

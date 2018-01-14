@@ -15,7 +15,8 @@ const path = require("path");
 const configGettextRegex = /^_\(/;
 
 Handlebars.registerHelper("serialize", function(json) {
-  return JSON.stringify(json || "");
+  if (!json) return false;
+  return JSON.stringify(json || {});
 });
 
 module.exports = function(source) {

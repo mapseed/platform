@@ -30,6 +30,14 @@ module.exports = AppView.extend({
     // END FLAVOR-SPECIFIC CODE
   },
   initialize: function() {
+    // BEGIN FLAVOR-SPECIFIC CODE
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    if (!this.options.customHooks) {
+      this.options.customHooks = {};
+    }
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+    // END FLAVOR-SPECIFIC CODE
+
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
 

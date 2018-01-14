@@ -10,9 +10,6 @@ class BigToggleField extends Component {
     const { autofillMode, hasAutofill, id, checked, labels, name, onChange,
             required, values } = this.props;
     const classNames = {
-      base: cn("big-toggle-field", {
-        "big-toggle-field--has-autofill--hidden": hasAutofill && autofillMode === "hide"
-      }),
       label: cn("big-toggle-field__label", "big-toggle-field__label--hoverable", {
         "big-toggle-field__label--toggled": checked,
         "big-toggle-field__label--has-autofill--colored": hasAutofill && autofillMode === "color"
@@ -20,7 +17,7 @@ class BigToggleField extends Component {
     };
 
     return (
-      <div className={classNames.base}>
+      <div className="big-toggle-field">
         <ToggleField
           className="big-toggle-field__input"
           id={id}
