@@ -1078,7 +1078,7 @@ module.exports = Backbone.View.extend({
     $(".show-the-map").addClass("is-visuallyhidden");
   },
   toggleListView: function() {
-    if (this.listView.isVisible()) {
+    if (this.listView && this.listView.isVisible()) {
       this.options.router.navigate("/", { trigger: true });
     } else {
       this.options.router.navigate("list", { trigger: true });

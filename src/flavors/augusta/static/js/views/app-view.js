@@ -10,7 +10,9 @@ const AuthNavView = require('../../../../../base/static/js/views/auth-nav-view')
 const MapView = require('../../../../../base/static/js/views/map-view');
 const SidebarView = require('../../../../../flavors/augusta/static/js/views/sidebar-view');
 const ActivityView = require('../../../../../base/static/js/views/activity-view');
-const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
+// BEGIN FLAVOR-SPECIFIC CODE
+//const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
+// END FLAVOR-SPECIFIC CODE
 const RightSidebarView = require('../../../../../base/static/js/views/right-sidebar-view');
 
 module.exports = AppView.extend({
@@ -287,18 +289,20 @@ module.exports = AppView.extend({
       // self.placeFormView.setLocation(locationData);
     });
 
+    // BEGIN FLAVOR-SPECIFIC CODE
     // List view is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.
-    if (
-      _.isUndefined(this.options.appConfig.list_enabled) ||
-      this.options.appConfig.list_enabled
-    ) {
-      this.listView = new PlaceListView({
-        el: "#list-container",
-        placeCollections: self.places,
-        placeConfig: this.options.placeConfig,
-      }).render();
-    }
+    // if (
+    //   _.isUndefined(this.options.appConfig.list_enabled) ||
+    //   this.options.appConfig.list_enabled
+    // ) {
+    //   this.listView = new PlaceListView({
+    //     el: "#list-container",
+    //     placeCollections: self.places,
+    //     placeConfig: this.options.placeConfig,
+    //   }).render();
+    // }
+    // END FLAVOR-SPECIFIC CODE
 
     // Cache panel elements that we use a lot
     this.$panel = $("#content");
