@@ -2,8 +2,9 @@
   "parser": "babel-eslint",
   "extends": [
     "eslint:recommended",
-    "prettier"
+    "plugin:react/recommended"
   ],
+  "plugins": ["react"],
   "parserOptions": {
     "sourceType": "module"
   },
@@ -90,6 +91,9 @@
     "no-unused-expressions": 0,
     "no-unused-vars": 2,
     "no-use-before-define": 0,
+    "react/jsx-uses-vars": 2,
+    "react/jsx-uses-react": 2,
+    "react/prop-types": 2,
     "no-wrap-func": 0,
     "quotes": [
       0,
