@@ -78,10 +78,10 @@ const InputExplorerSummary = props => {
             {numRecommendations + numConcerns} Community comments submitted
           </span>
           <span className="input-explorer-summary__num-recommendations">
-            {numRecommendations} {messages.recommendationsLabel}
+            {numRecommendations} {messages.t("recommendationsLabel")}
           </span>
           <span className="input-explorer-summary__num-concerns">
-            {numConcerns} {messages.concernsLabel}
+            {numConcerns} {messages.t("concernsLabel")}
           </span>
         </div>
         {summaryInfoBySubcategory.map((subcategory, i) => (
