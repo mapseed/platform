@@ -70,7 +70,7 @@ map:
     - id: snohomish-featured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-featured
       type: place
-      slug: featured
+      slug: report
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -89,14 +89,14 @@ place_types:
       - condition: 'this.map.zoom < 11'
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
       - condition: 'this.map.zoom >= 16'
         icon:
@@ -728,4 +728,4 @@ pages:
 #   spiderfyOnMaxZoom: true
 #   spiderfyDistanceMultiplier: 1.5
 #   spiderLegPolylineOptions:
-#     opacity: 0
+#     opacity: 00
