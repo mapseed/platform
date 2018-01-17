@@ -183,7 +183,7 @@ class InputForm extends Component {
 
   onAttachmentFieldChange(evt, file) {
     this.coverImages.push(file);
-    const nextSate = update(this.state.fieldValues, {
+    const nextState = update(this.state.fieldValues, {
       [evt.target.name]: { $set: true },
     });
     this.setState({ fieldValues: nextState });
@@ -302,13 +302,10 @@ class InputForm extends Component {
           fieldConfig.default_value ||
           fieldConfig.content[1].value
         );
-        break;
       case constants.BIG_CHECKBOX_FIELD_TYPENAME:
         return autofillValue || fieldConfig.default_value || [];
-        break;
       case constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME:
         return autofillValue || fieldConfig.default_value || "isPublished";
-        break;
       case constants.COMMON_FORM_ELEMENT_TYPENAME:
         const commonFormElementConfig = Object.assign(
           {},
@@ -316,10 +313,8 @@ class InputForm extends Component {
           { name: fieldConfig.name }
         );
         return this.getInitialFieldState(commonFormElementConfig);
-        break;
       default:
         return autofillValue || fieldConfig.default_value || "";
-        break;
     }
   }
 
@@ -363,7 +358,6 @@ class InputForm extends Component {
             hasAutofill={fieldConfig.hasAutofill}
           />,
         ];
-        break;
       case constants.TEXTAREA_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -376,7 +370,6 @@ class InputForm extends Component {
             hasAutofill={fieldConfig.hasAutofill}
           />,
         ];
-        break;
       case constants.RICH_TEXTAREA_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -391,7 +384,6 @@ class InputForm extends Component {
             bounds="#content"
           />,
         ];
-        break;
       case constants.CUSTOM_URL_TOOLBAR_TYPENAME:
         return [
           fieldPrompt,
@@ -402,7 +394,6 @@ class InputForm extends Component {
             onChange={evt => this.onFieldChange(evt, "value")}
           />,
         ];
-        break;
       case constants.MAP_DRAWING_TOOLBAR_TYPENAME:
         return [
           fieldPrompt,
@@ -414,7 +405,6 @@ class InputForm extends Component {
             onGeometryStyleChange={this.onGeometryStyleChange}
           />,
         ];
-        break;
       case constants.ATTACHMENT_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -424,7 +414,6 @@ class InputForm extends Component {
             onChange={this.onAttachmentFieldChange}
           />,
         ];
-        break;
       case constants.SUBMIT_FIELD_TYPENAME:
         return (
           <InputFormSubmitButton
@@ -432,7 +421,6 @@ class InputForm extends Component {
             label={fieldConfig.label}
           />
         );
-        break;
       case constants.RANGE_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -446,7 +434,6 @@ class InputForm extends Component {
             hasAutofill={fieldConfig.hasAutofill}
           />,
         ];
-        break;
       case constants.BIG_CHECKBOX_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -464,7 +451,6 @@ class InputForm extends Component {
             />
           )),
         ];
-        break;
       case constants.BIG_RADIO_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -482,7 +468,6 @@ class InputForm extends Component {
             />
           )),
         ];
-        break;
       case constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME:
         return (
           <PublishControlToolbar
@@ -491,7 +476,6 @@ class InputForm extends Component {
             onChange={evt => this.onFieldChange(evt, "value")}
           />
         );
-        break;
       case constants.DATETIME_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -513,12 +497,7 @@ class InputForm extends Component {
             emitter={emitter}
           />,
         ];
-        break;
       case constants.BIG_TOGGLE_FIELD_TYPENAME:
-        const values = [
-          fieldConfig.content[0].value,
-          fieldConfig.content[1].value,
-        ];
         return [
           fieldPrompt,
           <BigToggleField
@@ -545,7 +524,6 @@ class InputForm extends Component {
             hasAutofill={fieldConfig.hasAutofill}
           />,
         ];
-        break;
       case constants.DROPDOWN_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -558,7 +536,6 @@ class InputForm extends Component {
             hasAutofill={fieldConfig.hasAutofill}
           />,
         ];
-        break;
       case constants.DROPDOWN_AUTOCOMPLETE_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -573,7 +550,6 @@ class InputForm extends Component {
             hasAutofill={fieldConfig.hasAutofill}
           />,
         ];
-        break;
       case constants.COMMON_FORM_ELEMENT_TYPENAME:
         const commonFormElementConfig = Object.assign(
           {},
@@ -581,7 +557,6 @@ class InputForm extends Component {
           { name: fieldConfig.name }
         );
         return this.buildField(commonFormElementConfig);
-        break;
     }
   }
 
@@ -614,7 +589,7 @@ class InputForm extends Component {
   }
 
   validate() {
-    const { fieldValues, formValidationErrors } = this.state;
+    const { fieldValues } = this.state;
     let newValidationErrors = [];
 
     if (!this.geometry) {
@@ -650,7 +625,7 @@ class InputForm extends Component {
       isFormSubmitting: true,
     });
 
-    const { collectionsSet, customHooks, placeConfig, router } = this.props;
+    const { collectionsSet, customHooks, placeConfig } = this.props;
     const { fieldValues, selectedCategory } = this.state;
     const selectedCategoryConfig = this.getCategoryConfig(selectedCategory);
     let collection = collectionsSet.places[selectedCategoryConfig.dataset];
@@ -669,7 +644,7 @@ class InputForm extends Component {
     this.richTextFields.forEach(fieldName => {
       // replace base64 image data with placeholders built from each image's name
       attrs[fieldName] = attrs[fieldName].replace(
-        /\<img.*?name=\"(.*?)\".*?\>/g,
+        /<img.*?name="(.*?)".*?>/g,
         "{{#rich_text_image $1}}"
       );
     });

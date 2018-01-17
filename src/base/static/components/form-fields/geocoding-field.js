@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { EventEmitter } from "fbemitter";
+
 const cn = require("classnames");
 
 import { geocodingField as messages } from "../messages";
@@ -27,7 +27,7 @@ class GeocodingField extends Component {
     new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
   }
 
-  doGeocode(evt) {
+  doGeocode() {
     this.setState({
       isGeocoding: true,
       hasGeocodingError: false,
@@ -50,7 +50,7 @@ class GeocodingField extends Component {
           });
         }
       },
-      error: err => {
+      error: () => {
         this.setState({
           isGeocoding: false,
           hasGeocodingError: true,
@@ -69,14 +69,12 @@ class GeocodingField extends Component {
     const { name, onChange, value } = this.props;
     const classNames = {
       spinner: cn("geocoding-field__geocoding-spinner", {
-        "geocoding-field__geocoding-spinner--visible": this.state.isGeocoding,
-        "geocoding-field__geocoding-spinner--hidden": !this.state.isGeocoding,
+        "geocoding-field__geocoding-spinner--visible": isGeocoding,
+        "geocoding-field__geocoding-spinner--hidden": !isGeocoding,
       }),
       error: cn("mapseed-geocoding-field__geocoding-error", {
-        "geocoding-field__geocoding-error--visible": this.state
-          .hasGeocodingError,
-        "geocoding-field__geocoding-error--hidden": !this.state
-          .hasGeocodingError,
+        "geocoding-field__geocoding-error--visible": hasGeocodingError,
+        "geocoding-field__geocoding-error--hidden": !hasGeocodingError,
       }),
     };
 

@@ -19,6 +19,8 @@ class RangeField extends Component {
       <input
         className={classNames}
         type="range"
+        min={min}
+        max={max}
         id={id}
         name={name}
         value={value}

@@ -95,7 +95,7 @@ class RichTextareaField extends Component {
     this["quill-file-input"].click();
   }
 
-  onClickEmbedVideo(evt) {
+  onClickEmbedVideo() {
     this.snowTheme.tooltip.edit("video");
   }
 

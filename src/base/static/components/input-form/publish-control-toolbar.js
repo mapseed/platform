@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-const cn = require("classnames");
-
 import BigRadioField from "../input-form/big-radio-field";
 import { publishControlToolbar as messages } from "../messages";
 import "./publish-control-toolbar.scss";
