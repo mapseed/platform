@@ -417,7 +417,7 @@ class MapDrawingToolbar extends Component {
     this.setState({ selectedEditingTool: colorpickerTool });
   }
 
-  onColorpickerClose(colorpickerTool) {
+  onColorpickerClose() {
     this.setState({ selectedEditingTool: null });
   }
 
@@ -458,12 +458,15 @@ class MapDrawingToolbar extends Component {
 
   getVisibility(uiElement) {
     const { currentPanel } = this.state;
-    if (uiElement === "select-geometry-type")
+    if (uiElement === "select-geometry-type") {
       return currentPanel === "select-geometry-type";
-    else if (uiElement === "select-marker-type")
+    } else if (uiElement === "select-marker-type") {
       return currentPanel === "edit-marker";
-    else if (uiElement === "edit-geometry")
+    } else if (uiElement === "edit-geometry") {
       return currentPanel !== "select-geometry-type";
+    } else {
+      return null;
+    }
   }
 
   render() {

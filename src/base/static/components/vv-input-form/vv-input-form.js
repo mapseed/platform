@@ -50,7 +50,7 @@ class VVInputForm extends React.Component {
       return hooks.postSave(response, model, defaultPostSave, this);
     };
 
-    this.props.customHooks["postSave"] = postSaveHookWrapper;
+    this.props.customHooks.postSave = postSaveHookWrapper;
   }
 
   componentWillMount() {
@@ -70,7 +70,7 @@ class VVInputForm extends React.Component {
       .forEach(field => Util.removeAutocompleteValue(field.name));
   }
 
-  onClickContinueForm(evt) {
+  onClickContinueForm() {
     this.setState({
       stage: 2,
       isContinuingFormSession: true,
@@ -80,7 +80,7 @@ class VVInputForm extends React.Component {
     this.props.hideSpotlightMask();
   }
 
-  onClickExitForm(evt) {
+  onClickExitForm() {
     this.setState({
       stage: 1,
       isContinuingFormSession: false,
