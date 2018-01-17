@@ -4,12 +4,11 @@ const cn = require("classnames");
 import "./file-field.scss";
 
 class FileField extends Component {
-
   render() {
     const { accept, label, name, onChange, required, value } = this.props;
     const classNames = {
       input: cn("file-field__input", "file-field__input--hidden"),
-      label: cn("file-field__label", "file-field__label--hoverable")
+      label: cn("file-field__label", "file-field__label--hoverable"),
     };
 
     return (
@@ -24,15 +23,12 @@ class FileField extends Component {
           onChange={onChange}
           accept={accept}
         />
-        <label
-          className={classNames.label}
-          htmlFor={name}>
+        <label className={classNames.label} htmlFor={name}>
           {label}
         </label>
       </div>
     );
   }
-
-};
+}
 
 export default FileField;

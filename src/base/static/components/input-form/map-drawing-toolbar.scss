@@ -11,7 +11,7 @@
   color: $map-drawing-toolbar-text-color;
   text-align: center;
   margin: 0;
-  height: 3.0em;
+  height: 3em;
 }
 
 .map-drawing-toolbar__marker-selection-header--visible {
@@ -51,7 +51,7 @@
 
 .map-drawing-toolbar__marker-item--hovering {
   cursor: pointer;
-  border: $map-drawing-toolbar-marker-item-marker-hover-border; 
+  border: $map-drawing-toolbar-marker-item-marker-hover-border;
 }
 
 .map-drawing-toolbar__marker-item--selected {
@@ -59,7 +59,7 @@
 }
 
 .map-drawing-toolbar__marker-item-image {
-  width: $map-drawing-toolbar-marker-item-marker-width;    
+  width: $map-drawing-toolbar-marker-item-marker-width;
 }
 
 .map-drawing-toolbar__toolbar-item {
@@ -93,63 +93,72 @@
 
 .map-drawing-toolbar__create-marker-tool:before {
   background-image: $map-drawing-toolbar-create-marker-icon;
-  background-size: $map-drawing-toolbar-create-marker-icon-width $map-drawing-toolbar-create-marker-icon-height;
+  background-size: $map-drawing-toolbar-create-marker-icon-width
+    $map-drawing-toolbar-create-marker-icon-height;
   width: $map-drawing-toolbar-create-marker-icon-width;
   height: $map-drawing-toolbar-create-marker-icon-height;
 }
 
 .map-drawing-toolbar__edit-marker-tool:before {
   background-image: $map-drawing-toolbar-edit-marker-icon;
-  background-size: $map-drawing-toolbar-edit-marker-icon-width $map-drawing-toolbar-edit-marker-icon-height;
+  background-size: $map-drawing-toolbar-edit-marker-icon-width
+    $map-drawing-toolbar-edit-marker-icon-height;
   width: $map-drawing-toolbar-edit-marker-icon-width;
   height: $map-drawing-toolbar-edit-marker-icon-height;
 }
 
 .map-drawing-toolbar__delete-marker-tool:before {
   background-image: $map-drawing-toolbar-delete-marker-icon;
-  background-size: $map-drawing-toolbar-delete-marker-icon-width $map-drawing-toolbar-delete-marker-icon-height;
+  background-size: $map-drawing-toolbar-delete-marker-icon-width
+    $map-drawing-toolbar-delete-marker-icon-height;
   width: $map-drawing-toolbar-delete-marker-icon-width;
   height: $map-drawing-toolbar-delete-marker-icon-height;
 }
 
 .map-drawing-toolbar__create-polyline-tool:before {
   background-image: $map-drawing-toolbar-create-polyline-icon;
-  background-size: $map-drawing-toolbar-create-polyline-icon-width $map-drawing-toolbar-create-polyline-icon-height;
+  background-size: $map-drawing-toolbar-create-polyline-icon-width
+    $map-drawing-toolbar-create-polyline-icon-height;
   width: $map-drawing-toolbar-create-polyline-icon-width;
   height: $map-drawing-toolbar-create-polyline-icon-height;
 }
 
 .map-drawing-toolbar__edit-polyline-tool:before {
   background-image: $map-drawing-toolbar-edit-polyline-icon;
-  background-size: $map-drawing-toolbar-edit-polyline-icon-width $map-drawing-toolbar-edit-polyline-icon-height;
+  background-size: $map-drawing-toolbar-edit-polyline-icon-width
+    $map-drawing-toolbar-edit-polyline-icon-height;
   width: $map-drawing-toolbar-edit-polyline-icon-width;
   height: $map-drawing-toolbar-edit-polyline-icon-height;
 }
 
 .map-drawing-toolbar__delete-polyline-tool:before {
   background-image: $map-drawing-toolbar-delete-polyline-icon;
-  background-size: $map-drawing-toolbar-delete-polyline-icon-width $map-drawing-toolbar-delete-polyline-icon-height;
+  background-size: $map-drawing-toolbar-delete-polyline-icon-width
+    $map-drawing-toolbar-delete-polyline-icon-height;
   width: $map-drawing-toolbar-delete-polyline-icon-width;
   height: $map-drawing-toolbar-delete-polyline-icon-height;
 }
 
 .map-drawing-toolbar__create-polygon-tool:before {
   background-image: $map-drawing-toolbar-create-polygon-icon;
-  background-size: $map-drawing-toolbar-create-polygon-icon-width $map-drawing-toolbar-create-polygon-icon-height;
+  background-size: $map-drawing-toolbar-create-polygon-icon-width
+    $map-drawing-toolbar-create-polygon-icon-height;
   width: $map-drawing-toolbar-create-polygon-icon-width;
   height: $map-drawing-toolbar-create-polygon-icon-height;
 }
 
 .map-drawing-toolbar__edit-polygon-tool:before {
   background-image: $map-drawing-toolbar-edit-polygon-icon;
-  background-size: $map-drawing-toolbar-edit-polygon-icon-width $map-drawing-toolbar-edit-polygon-icon-height;
+  background-size: $map-drawing-toolbar-edit-polygon-icon-width
+    $map-drawing-toolbar-edit-polygon-icon-height;
   width: $map-drawing-toolbar-edit-polygon-icon-width;
   height: $map-drawing-toolbar-edit-polygon-icon-height;
 }
 
 .map-drawing-toolbar__delete-polygon-tool:before {
   background-image: $map-drawing-toolbar-delete-polygon-icon;
-  background-size: $map-drawing-toolbar-delete-polygon-icon-width $map-drawing-toolbar-delete-polygon-icon-height;
+  background-size: $map-drawing-toolbar-delete-polygon-icon-width
+    $map-drawing-toolbar-delete-polygon-icon-height;
   width: $map-drawing-toolbar-delete-polygon-icon-width;
   height: $map-drawing-toolbar-delete-polygon-icon-height;
 }
@@ -166,7 +175,8 @@
     content: "";
     background: no-repeat;
     background-image: $map-drawing-toolbar-stroke-colorpicker-icon;
-    background-size: $map-drawing-toolbar-stroke-colorpicker-icon-width $map-drawing-toolbar-stroke-colorpicker-icon-height;
+    background-size: $map-drawing-toolbar-stroke-colorpicker-icon-width
+      $map-drawing-toolbar-stroke-colorpicker-icon-height;
     width: $map-drawing-toolbar-stroke-colorpicker-icon-width;
     height: $map-drawing-toolbar-stroke-colorpicker-icon-height;
   }

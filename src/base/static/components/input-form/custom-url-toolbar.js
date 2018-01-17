@@ -8,24 +8,20 @@ import "./custom-url-toolbar.scss";
 const Util = require("../../js/utils.js");
 
 class CustomUrlToolbar extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      url: ""
+      url: "",
     };
-    this.urlPrefix = 
-      window.location.protocol +
-      "//" +
-      window.location.hostname +
-      "/";
+    this.urlPrefix =
+      window.location.protocol + "//" + window.location.hostname + "/";
     this.onUrlChange = this.onUrlChange.bind(this);
   }
 
   onUrlChange(evt) {
     evt.target.value = Util.prepareCustomUrl(evt.target.value);
     this.setState({
-      url: evt.target.value
+      url: evt.target.value,
     });
     this.props.onChange(evt);
   }
@@ -46,17 +42,16 @@ class CustomUrlToolbar extends Component {
             {this.state.url}
           </span>
         </div>
-        <TextField 
-          placeholder={placeholder} 
+        <TextField
+          placeholder={placeholder}
           value={value}
           name={name}
           required={required}
-          onChange={this.onUrlChange} 
+          onChange={this.onUrlChange}
         />
       </div>
     );
   }
-
-};
+}
 
 export default CustomUrlToolbar;

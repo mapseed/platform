@@ -8,13 +8,12 @@
   position: absolute;
   z-index: 100000;
   background-color: $geocoding-field-spinner-icon-background-color;
-	
+
   // TODO: fix these hard-coded values...
   // They're appropriate for the default theme's input field height, but won't
   // adapt to changes in the field height.
   width: 36px;
   height: 40px;
-
 }
 
 // the .spinner class is exposed by spin.js

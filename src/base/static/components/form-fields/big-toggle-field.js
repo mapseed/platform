@@ -5,15 +5,28 @@ import ToggleField from "../form-fields/toggle-field";
 import "./big-toggle-field.scss";
 
 class BigToggleField extends Component {
-
   render() {
-    const { autofillMode, hasAutofill, id, checked, labels, name, onChange,
-            required, values } = this.props;
+    const {
+      autofillMode,
+      hasAutofill,
+      id,
+      checked,
+      labels,
+      name,
+      onChange,
+      required,
+      values,
+    } = this.props;
     const classNames = {
-      label: cn("big-toggle-field__label", "big-toggle-field__label--hoverable", {
-        "big-toggle-field__label--toggled": checked,
-        "big-toggle-field__label--has-autofill--colored": hasAutofill && autofillMode === "color"
-      })
+      label: cn(
+        "big-toggle-field__label",
+        "big-toggle-field__label--hoverable",
+        {
+          "big-toggle-field__label--toggled": checked,
+          "big-toggle-field__label--has-autofill--colored":
+            hasAutofill && autofillMode === "color",
+        }
+      ),
     };
 
     return (
@@ -23,17 +36,16 @@ class BigToggleField extends Component {
           id={id}
           name={name}
           checked={checked}
-          value={(checked) ? values[0] : values[1]}
+          value={checked ? values[0] : values[1]}
           onChange={onChange}
-          required={required} />
-        <label
-          className={classNames.label}
-          htmlFor={id}>
-          {(checked) ? labels[0] : labels[1]}
+          required={required}
+        />
+        <label className={classNames.label} htmlFor={id}>
+          {checked ? labels[0] : labels[1]}
         </label>
       </div>
     );
   }
-};
+}
 
 export default BigToggleField;

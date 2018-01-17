@@ -3,5 +3,5 @@ export default {
   continueFormLabel: "Submit another comment",
   welcomeHeader: "Tell us about yourself!",
   welcomeSubheader: "Move the map to mark where you live.",
-  exitFormLabel: "Exit survey"
+  exitFormLabel: "Exit survey",
 };

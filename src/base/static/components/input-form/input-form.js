@@ -33,13 +33,12 @@ const hooks = {
     attrs.district = MYWATER_SCHOOL_DISTRICTS[attrs["school-name"]] || "";
 
     return attrs;
-  }
-}
+  },
+};
 
 // TODO: greensboropb hook(s)
 
 class InputForm extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +49,7 @@ class InputForm extends Component {
       isFormSubmitting: false,
       formValidationErrors: [],
       isMapPositioned: false,
-      isFormVisible: false
+      isFormVisible: false,
     };
 
     this.geometry = null;
@@ -66,7 +65,7 @@ class InputForm extends Component {
       constants.COMMON_FORM_ELEMENT_TYPENAME,
       constants.MAP_DRAWING_TOOLBAR_TYPENAME,
       constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME,
-      constants.SUBMIT_FIELD_TYPENAME
+      constants.SUBMIT_FIELD_TYPENAME,
     ]);
 
     this.onCategoryChange = this.onCategoryChange.bind(this);
@@ -79,13 +78,12 @@ class InputForm extends Component {
     this.onFieldChange = this.onFieldChange.bind(this);
 
     this.props.map.on("dragend", () => {
-      !this.state.isMapPositioned 
-        && this.setState({ isMapPositioned: true });
+      !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
     });
   }
 
   resetState() {
-    const isSingleCategory = (this.visibleCategories.length === 1);
+    const isSingleCategory = this.visibleCategories.length === 1;
 
     this.setState({
       isFormVisible: false,
@@ -96,7 +94,7 @@ class InputForm extends Component {
       isFormSubmitting: false,
       formValidationErrors: [],
       coverImages: [],
-      isMapPositioned: false
+      isMapPositioned: false,
     });
     this.resetCategoryData();
   }
@@ -115,9 +113,9 @@ class InputForm extends Component {
     this.visibleCategories = this.props.placeConfig.place_detail
       .filter(config => config.includeOnForm)
       .filter(config => {
-        return (
-          !(config.admin_only 
-            && !Util.getAdminStatus(config.dataset, config.admin_groups))
+        return !(
+          config.admin_only &&
+          !Util.getAdminStatus(config.dataset, config.admin_groups)
         );
       });
 
@@ -129,8 +127,9 @@ class InputForm extends Component {
 
   componentDidMount() {
     this.setState({ isFormVisible: true });
-    new Spinner(Shareabouts.smallSpinnerOptions)
-      .spin(document.getElementsByClassName("input-form__submit-spinner")[0]);
+    new Spinner(Shareabouts.smallSpinnerOptions).spin(
+      document.getElementsByClassName("input-form__submit-spinner")[0]
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -144,19 +143,16 @@ class InputForm extends Component {
   }
 
   getCategoryConfig(category) {
-    return (
-      this.props.placeConfig.place_detail
-        .find(config => config.category === category)
+    return this.props.placeConfig.place_detail.find(
+      config => config.category === category
     );
   }
 
   // General handler for field change events.
   onFieldChange(evt, property) {
-    const nextState = update(
-      this.state.fieldValues, {
-        [evt.target.name]: {$set: evt.target[property]}
-      }
-    );
+    const nextState = update(this.state.fieldValues, {
+      [evt.target.name]: { $set: evt.target[property] },
+    });
 
     this.setState({ fieldValues: nextState });
   }
@@ -164,16 +160,13 @@ class InputForm extends Component {
   // Special handler for rich textarea fields, which do not return a synthetic
   // event object but rather the value of the editor field itself.
   onRichTextFieldChange(value, name) {
-
     // "Blank" Quill editors actually contain the following markup; we replace
     // that here with an empty string.
     if (value === "<p><br></p>") value = "";
 
-    const nextState = update(
-      this.state.fieldValues, {
-        [name]: {$set: value}
-      }
-    );
+    const nextState = update(this.state.fieldValues, {
+      [name]: { $set: value },
+    });
 
     this.setState({ fieldValues: nextState });
   }
@@ -181,22 +174,18 @@ class InputForm extends Component {
   // Special handler for on/off toggle buttons.
   onToggleFieldChange(evt, values) {
     const idx = evt.target.checked ? 0 : 1;
-    const nextState = update(
-      this.state.fieldValues, {
-        [evt.target.name]: {$set: values[idx]}
-      }
-    );
+    const nextState = update(this.state.fieldValues, {
+      [evt.target.name]: { $set: values[idx] },
+    });
 
     this.setState({ fieldValues: nextState });
   }
 
   onAttachmentFieldChange(evt, file) {
     this.coverImages.push(file);
-    const nextSate = update(
-      this.state.fieldValues, {
-        [evt.target.name]: {$set: true}
-      }
-    );
+    const nextSate = update(this.state.fieldValues, {
+      [evt.target.name]: { $set: true },
+    });
     this.setState({ fieldValues: nextState });
   }
 
@@ -205,20 +194,17 @@ class InputForm extends Component {
   onCheckboxFieldChange(evt) {
     let nextState;
     if (evt.target.checked) {
-      nextState = update(
-        this.state.fieldValues, {
-          [evt.target.name]: {$push: [evt.target.value]}
-        }
-      );
+      nextState = update(this.state.fieldValues, {
+        [evt.target.name]: { $push: [evt.target.value] },
+      });
     } else {
-      const index = this.state.fieldValues[evt.target.name]
-                        .findIndex(item => item === evt.target.value);
-
-      nextState = update(
-        this.state.fieldValues, {
-          [evt.target.name]: {$splice: [[index, 1]]}
-        }
+      const index = this.state.fieldValues[evt.target.name].findIndex(
+        item => item === evt.target.value
       );
+
+      nextState = update(this.state.fieldValues, {
+        [evt.target.name]: { $splice: [[index, 1]] },
+      });
     }
 
     this.setState({ fieldValues: nextState });
@@ -227,11 +213,9 @@ class InputForm extends Component {
   // Special handler for fields that return onChange information in (value, name)
   // format. This includes the autocomplete combobox field and the datetime field.
   onValueNameFieldChange(value, name) {
-    const nextState = update(
-      this.state.fieldValues, {
-        [name]: {$set: value}
-      }
-    );
+    const nextState = update(this.state.fieldValues, {
+      [name]: { $set: value },
+    });
 
     this.setState({ fieldValues: nextState });
   }
@@ -253,9 +237,7 @@ class InputForm extends Component {
   }
 
   onCategoryChange(evt) {
-    this.setActiveCategoryState(
-      this.getCategoryConfig(evt.target.value)
-    );
+    this.setActiveCategoryState(this.getCategoryConfig(evt.target.value));
   }
 
   setActiveCategoryState(categoryConfig) {
@@ -270,8 +252,8 @@ class InputForm extends Component {
 
         const resolvedFieldType = this.resolveFieldType(field);
         return (
-          resolvedFieldType !== constants.SUBMIT_FIELD_TYPENAME
-          && resolvedFieldType !== constants.MAP_DRAWING_TOOLBAR_TYPENAME
+          resolvedFieldType !== constants.SUBMIT_FIELD_TYPENAME &&
+          resolvedFieldType !== constants.MAP_DRAWING_TOOLBAR_TYPENAME
         );
       })
       .forEach(field => {
@@ -289,7 +271,7 @@ class InputForm extends Component {
       isCategoryMenuCollapsed: true,
       fieldValues: initialFieldStates,
       isFormSubmitting: false,
-      formValidationErrors: []
+      formValidationErrors: [],
     });
   }
 
@@ -304,18 +286,22 @@ class InputForm extends Component {
   getInitialFieldState(fieldConfig) {
     // "autofill" is a better term than "autocomplete" for this feature.
     // TODO: update this throughout the codebase.
-    let autofillValue = (fieldConfig.autocomplete)
+    let autofillValue = fieldConfig.autocomplete
       ? Util.getAutocompleteValue(this.resolveFieldType(fieldConfig).name)
       : null;
 
     fieldConfig.hasAutofill = !!autofillValue;
 
-    switch(fieldConfig.type) {
+    switch (fieldConfig.type) {
       case constants.BIG_TOGGLE_FIELD_TYPENAME:
         // NOTE: if binary toggle buttons don't have a saved autofill or
         // declared default value, assume their default value is the value
         // associated with the "off" position of the toggle.
-        return autofillValue || fieldConfig.default_value || fieldConfig.content[1].value;
+        return (
+          autofillValue ||
+          fieldConfig.default_value ||
+          fieldConfig.content[1].value
+        );
         break;
       case constants.BIG_CHECKBOX_FIELD_TYPENAME:
         return autofillValue || fieldConfig.default_value || [];
@@ -327,7 +313,7 @@ class InputForm extends Component {
         const commonFormElementConfig = Object.assign(
           {},
           this.props.placeConfig.common_form_elements[fieldConfig.name],
-          {name: fieldConfig.name}
+          { name: fieldConfig.name }
         );
         return this.getInitialFieldState(commonFormElementConfig);
         break;
@@ -338,28 +324,33 @@ class InputForm extends Component {
   }
 
   buildField(fieldConfig) {
-
     // TODO: appropriate field visibility based on admin status
     // TODO: these field definitions will eventually be factored out for reuse
     //       in the detail view editor.
 
-    const { autofillMode, emitter, map, mapConfig, placeConfig, router } = this.props;
+    const {
+      autofillMode,
+      emitter,
+      map,
+      mapConfig,
+      placeConfig,
+      router,
+    } = this.props;
     const { fieldValues, isFormSubmitting } = this.state;
     const classNames = {
       optionalMsg: cn("input-form__optional-msg", {
         "input-form__optional-msg--visible": fieldConfig.optional,
-        "input-form__optional-msg--hidden": !fieldConfig.optional
-      })
+        "input-form__optional-msg--hidden": !fieldConfig.optional,
+      }),
     };
-    const fieldPrompt = 
+    const fieldPrompt = (
       <p className="input-form__field-prompt">
         {fieldConfig.prompt}
-        <span className={classNames.optionalMsg}>
-          {messages.optionalMsg}
-        </span>
-      </p>;
+        <span className={classNames.optionalMsg}>{messages.optionalMsg}</span>
+      </p>
+    );
 
-    switch(fieldConfig.type) {
+    switch (fieldConfig.type) {
       case constants.TEXT_FIELD_TYPENAME:
         return [
           fieldPrompt,
@@ -370,7 +361,7 @@ class InputForm extends Component {
             placeholder={fieldConfig.placeholder}
             autofillMode={autofillMode}
             hasAutofill={fieldConfig.hasAutofill}
-          />
+          />,
         ];
         break;
       case constants.TEXTAREA_FIELD_TYPENAME:
@@ -383,7 +374,7 @@ class InputForm extends Component {
             placeholder={fieldConfig.placeholder}
             autofillMode={autofillMode}
             hasAutofill={fieldConfig.hasAutofill}
-          />
+          />,
         ];
         break;
       case constants.RICH_TEXTAREA_FIELD_TYPENAME:
@@ -398,7 +389,7 @@ class InputForm extends Component {
             autofillMode={autofillMode}
             hasAutofill={fieldConfig.hasAutofill}
             bounds="#content"
-          />
+          />,
         ];
         break;
       case constants.CUSTOM_URL_TOOLBAR_TYPENAME:
@@ -409,38 +400,38 @@ class InputForm extends Component {
             placeholder={fieldConfig.placeholder}
             name={fieldConfig.name}
             onChange={evt => this.onFieldChange(evt, "value")}
-          />
+          />,
         ];
         break;
       case constants.MAP_DRAWING_TOOLBAR_TYPENAME:
         return [
           fieldPrompt,
-          <MapDrawingToolbar 
+          <MapDrawingToolbar
             map={map}
             markers={fieldConfig.content.map(item => item.url)}
             router={router}
             onGeometryChange={this.onGeometryChange}
             onGeometryStyleChange={this.onGeometryStyleChange}
-          />
+          />,
         ];
         break;
       case constants.ATTACHMENT_FIELD_TYPENAME:
         return [
           fieldPrompt,
-          <AddAttachmentButton 
+          <AddAttachmentButton
             label={fieldConfig.label}
             name={fieldConfig.name}
             onChange={this.onAttachmentFieldChange}
-          />
+          />,
         ];
         break;
       case constants.SUBMIT_FIELD_TYPENAME:
         return (
-          <InputFormSubmitButton 
+          <InputFormSubmitButton
             disabled={isFormSubmitting}
             label={fieldConfig.label}
           />
-        ); 
+        );
         break;
       case constants.RANGE_FIELD_TYPENAME:
         return [
@@ -453,13 +444,13 @@ class InputForm extends Component {
             value={fieldValues[fieldConfig.name]}
             autofillMode={autofillMode}
             hasAutofill={fieldConfig.hasAutofill}
-          />
+          />,
         ];
         break;
       case constants.BIG_CHECKBOX_FIELD_TYPENAME:
         return [
           fieldPrompt,
-          fieldConfig.content.map(item => 
+          fieldConfig.content.map(item => (
             <BigCheckboxField
               key={item.value}
               value={item.value}
@@ -471,13 +462,13 @@ class InputForm extends Component {
               autofillMode={autofillMode}
               hasAutofill={fieldConfig.hasAutofill}
             />
-          )
+          )),
         ];
         break;
       case constants.BIG_RADIO_FIELD_TYPENAME:
         return [
           fieldPrompt,
-          fieldConfig.content.map(item => 
+          fieldConfig.content.map(item => (
             <BigRadioField
               key={item.value}
               value={item.value}
@@ -489,9 +480,9 @@ class InputForm extends Component {
               autofillMode={autofillMode}
               hasAutofill={fieldConfig.hasAutofill}
             />
-          )
+          )),
         ];
-        break
+        break;
       case constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME:
         return (
           <PublishControlToolbar
@@ -509,7 +500,7 @@ class InputForm extends Component {
             date={fieldValues[fieldConfig.name]}
             showTimeSelect={true}
             onChange={(evt, name) => this.onValueNameFieldChange(evt, name)}
-          />
+          />,
         ];
       case constants.GEOCODING_FIELD_TYPENAME:
         return [
@@ -520,23 +511,39 @@ class InputForm extends Component {
             value={fieldValues[fieldConfig.name]}
             mapConfig={mapConfig}
             emitter={emitter}
-          />
+          />,
         ];
         break;
       case constants.BIG_TOGGLE_FIELD_TYPENAME:
-        const values = [fieldConfig.content[0].value, fieldConfig.content[1].value];
+        const values = [
+          fieldConfig.content[0].value,
+          fieldConfig.content[1].value,
+        ];
         return [
           fieldPrompt,
           <BigToggleField
             name={fieldConfig.name}
-            checked={fieldValues[fieldConfig.name] === fieldConfig.content[0].value}
-            labels={[fieldConfig.content[0].label, fieldConfig.content[1].label]}
-            values={[fieldConfig.content[0].value, fieldConfig.content[1].value]}
+            checked={
+              fieldValues[fieldConfig.name] === fieldConfig.content[0].value
+            }
+            labels={[
+              fieldConfig.content[0].label,
+              fieldConfig.content[1].label,
+            ]}
+            values={[
+              fieldConfig.content[0].value,
+              fieldConfig.content[1].value,
+            ]}
             id={"input-form-" + fieldConfig.name}
-            onChange={evt => this.onToggleFieldChange(evt, [fieldConfig.content[0].value, fieldConfig.content[1].value])}
+            onChange={evt =>
+              this.onToggleFieldChange(evt, [
+                fieldConfig.content[0].value,
+                fieldConfig.content[1].value,
+              ])
+            }
             autofillMode={autofillMode}
             hasAutofill={fieldConfig.hasAutofill}
-          />
+          />,
         ];
         break;
       case constants.DROPDOWN_FIELD_TYPENAME:
@@ -549,7 +556,7 @@ class InputForm extends Component {
             onChange={evt => this.onFieldChange(evt, "value")}
             autofillMode={autofillMode}
             hasAutofill={fieldConfig.hasAutofill}
-          />
+          />,
         ];
         break;
       case constants.DROPDOWN_AUTOCOMPLETE_FIELD_TYPENAME:
@@ -564,14 +571,14 @@ class InputForm extends Component {
             showAllValues={true}
             autofillMode={autofillMode}
             hasAutofill={fieldConfig.hasAutofill}
-          />
+          />,
         ];
         break;
       case constants.COMMON_FORM_ELEMENT_TYPENAME:
         const commonFormElementConfig = Object.assign(
           {},
           placeConfig.common_form_elements[fieldConfig.name],
-          {name: fieldConfig.name}
+          { name: fieldConfig.name }
         );
         return this.buildField(commonFormElementConfig);
         break;
@@ -599,7 +606,7 @@ class InputForm extends Component {
       const center = this.props.map.getCenter();
       this.geometry = {
         type: "Point",
-        coordinates: [center.lng, center.lat]
+        coordinates: [center.lng, center.lat],
       };
     }
 
@@ -636,12 +643,11 @@ class InputForm extends Component {
   }
 
   onValidSubmit() {
-    
     // TODO: this state should disable individual fields as well (?), not just
     //       the submit button.
     this.setState({
       formValidationErrors: [],
-      isFormSubmitting: true 
+      isFormSubmitting: true,
     });
 
     const { collectionsSet, customHooks, placeConfig, router } = this.props;
@@ -668,29 +674,29 @@ class InputForm extends Component {
       );
     });
 
-    this.richTextImages
-      .concat(this.coverImages)
-      .forEach(img => {
-        model.attachmentCollection.add(img);
-      });
+    this.richTextImages.concat(this.coverImages).forEach(img => {
+      model.attachmentCollection.add(img);
+    });
 
     // TODO: is this still necessary?
-    // Util.setStickyFields(  
+    // Util.setStickyFields(
     //   attrs,
     //   Shareabouts.Config.survey.items,
     //   Shareabouts.Config.place.items,
     // );
 
     // Save autofill values as necessary.
-    selectedCategoryConfig.fields.concat(placeConfig.common_form_elements).forEach(fieldConfig => {
-      if (fieldConfig.autocomplete) {
-        Util.saveAutocompleteValue(
-          fieldConfig.name,
-          fieldValues[fieldConfig.name],
-          constants.AUTOFILL_DURATION_DAYS
-        );
-      }
-    });
+    selectedCategoryConfig.fields
+      .concat(placeConfig.common_form_elements)
+      .forEach(fieldConfig => {
+        if (fieldConfig.autocomplete) {
+          Util.saveAutocompleteValue(
+            fieldConfig.name,
+            fieldValues[fieldConfig.name],
+            constants.AUTOFILL_DURATION_DAYS
+          );
+        }
+      });
 
     // TODO: case when url-title field is left blank: fall back to regular urls
 
@@ -707,20 +713,24 @@ class InputForm extends Component {
     }
 
     model.save(attrs, {
-      success: (response) => {
+      success: response => {
         Util.log("USER", "new-place", "successfully-add-place");
-        this.setState({ "isFormSubmitting": false });
+        this.setState({ isFormSubmitting: false });
 
         // Fire post-save hook.
         // The post-save hook allows flavors to hijack the default
         // route-to-detail-view behavior.
         if (customHooks && customHooks.postSave) {
-          customHooks.postSave(response, model, this.defaultPostSave.bind(this));
+          customHooks.postSave(
+            response,
+            model,
+            this.defaultPostSave.bind(this)
+          );
         } else {
           this.defaultPostSave(model);
         }
       },
-      error: (error) => {
+      error: error => {
         Util.log("USER", "new-place", "fail-to-add-place");
       },
       wait: true,
@@ -734,52 +744,69 @@ class InputForm extends Component {
 
   fieldIsInvalid(fieldName) {
     return (
-      this.state.formValidationErrors.length > 0 
-      && this.requiredFields.includes(fieldName)
-      && !this.state.fieldValues[fieldName]
+      this.state.formValidationErrors.length > 0 &&
+      this.requiredFields.includes(fieldName) &&
+      !this.state.fieldValues[fieldName]
     );
   }
 
   render() {
-    const { isCategoryMenuCollapsed, isCategoryMenuHidden, isFormVisible, fieldValues,
-            isFormSubmitting, formValidationErrors, isMapPositioned, selectedCategory } = this.state;
-    const { autofillMode, className, hideCenterPoint, hideSpotlightMask, placeConfig, 
-            showNewPin } = this.props;
+    const {
+      isCategoryMenuCollapsed,
+      isCategoryMenuHidden,
+      isFormVisible,
+      fieldValues,
+      isFormSubmitting,
+      formValidationErrors,
+      isMapPositioned,
+      selectedCategory,
+    } = this.state;
+    const {
+      autofillMode,
+      className,
+      hideCenterPoint,
+      hideSpotlightMask,
+      placeConfig,
+      showNewPin,
+    } = this.props;
     const classNames = {
       categoryBtns: cn("input-form__category-buttons-container", {
         "input-form__category-buttons-container--visible": !isCategoryMenuHidden,
-        "input-form__category-buttons-container--hidden": isCategoryMenuHidden
+        "input-form__category-buttons-container--hidden": isCategoryMenuHidden,
       }),
       form: cn("input-form__form", className, {
         "input-form__form--active": !isFormSubmitting,
-        "input-form__form--inactive": isFormSubmitting
+        "input-form__form--inactive": isFormSubmitting,
       }),
       warningMsgs: cn("input-form__warning-msgs-container", {
-        "input-form__warning-msgs-container--visible": formValidationErrors.length > 0,
-        "input-form__warning-msgs-container--hidden": formValidationErrors.length === 0
+        "input-form__warning-msgs-container--visible":
+          formValidationErrors.length > 0,
+        "input-form__warning-msgs-container--hidden":
+          formValidationErrors.length === 0,
       }),
       spinner: cn("input-form__submit-spinner", {
         "input-form__submit-spinner--visible": isFormSubmitting,
-        "input-form__submit-spinner--hidden": !isFormSubmitting
-      })
+        "input-form__submit-spinner--hidden": !isFormSubmitting,
+      }),
     };
-    let formFields = placeConfig.place_detail
-          .filter(categoryConfig => selectedCategory === categoryConfig.category);
+    let formFields = placeConfig.place_detail.filter(
+      categoryConfig => selectedCategory === categoryConfig.category
+    );
 
     if (formFields[0] && formFields[0].fields) {
       formFields = formFields[0].fields.map(fieldConfig => {
         let fieldContainerClassName = cn("input-form__field-container", {
-          "input-form__field-container--invalid": this.fieldIsInvalid(fieldConfig.name),
-          "input-form__field-container--hidden": fieldValues[fieldConfig.name] 
-                                                  && fieldConfig.hasAutofill
-                                                  && autofillMode === "hide"
+          "input-form__field-container--invalid": this.fieldIsInvalid(
+            fieldConfig.name
+          ),
+          "input-form__field-container--hidden":
+            fieldValues[fieldConfig.name] &&
+            fieldConfig.hasAutofill &&
+            autofillMode === "hide",
         });
 
         return (
-          <div
-            key={fieldConfig.name}
-            className={fieldContainerClassName}
-          >
+          <div key={fieldConfig.name} className={fieldContainerClassName}>
             {this.buildField(fieldConfig)}
           </div>
         );
@@ -796,7 +823,7 @@ class InputForm extends Component {
     return (
       <div className="input-form">
         <div className={classNames.categoryBtns}>
-          {this.visibleCategories.map(categoryConfig =>
+          {this.visibleCategories.map(categoryConfig => (
             <InputFormCategoryButton
               isActive={selectedCategory === categoryConfig.category}
               isCategoryMenuCollapsed={isCategoryMenuCollapsed}
@@ -805,29 +832,27 @@ class InputForm extends Component {
               onCategoryChange={this.onCategoryChange}
               onExpandCategories={this.onExpandCategories}
             />
-          )}
+          ))}
         </div>
         <div className={classNames.warningMsgs}>
           <p className={"input-form__warning-msgs-header"}>
             {messages.validationHeader}
           </p>
-          {formValidationErrors.map(error => 
-            <p className={"input-form__warning-msg"}>
-              {error}
-            </p>
-          )}
+          {formValidationErrors.map(error => (
+            <p className={"input-form__warning-msg"}>{error}</p>
+          ))}
         </div>
-        <form 
+        <form
           id="mapseed-input-form"
           className={classNames.form}
-          onSubmit={this.onSubmit}>
+          onSubmit={this.onSubmit}
+        >
           {formFields}
         </form>
-        <div className={classNames.spinner}></div>
+        <div className={classNames.spinner} />
       </div>
     );
   }
-
 }
 
 export default InputForm;
