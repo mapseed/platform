@@ -13,21 +13,22 @@ import "./autocomplete-combobox-field.scss";
 */
 
 class AutocompleteComboboxField extends Component {
-
   constructor() {
     super();
     this.suggestions = (query, populateResults) => {
       const filteredResults = this.props.options
         .map(option => option.label)
-        .filter(result => result.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        .filter(
+          result => result.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        );
       populateResults(filteredResults);
-    }
+    };
     this.onConfirm = this.onConfirm.bind(this);
   }
 
   onConfirm(selectedLabel) {
     const { name, onChange, options } = this.props;
-    const value = (selectedLabel)
+    const value = selectedLabel
       ? options.find(option => option.label === selectedLabel).value
       : "";
 
@@ -50,12 +51,11 @@ class AutocompleteComboboxField extends Component {
       </div>
     );
   }
-
-};
+}
 
 AutocompleteComboboxField.propTypes = {
   options: PropTypes.array.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 export default AutocompleteComboboxField;

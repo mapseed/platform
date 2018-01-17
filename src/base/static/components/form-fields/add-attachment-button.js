@@ -9,11 +9,10 @@ import "./add-attachment-button.scss";
 const Util = require("../../js/utils.js");
 
 class AddAttachmentButton extends Component {
-
   constructor() {
     super();
     this.state = {
-      displayFilename: null
+      displayFilename: null,
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -34,7 +33,7 @@ class AddAttachmentButton extends Component {
               name: name,
               blob: blob,
               file: canvas.toDataURL("image/jpeg"),
-              type: "CO" // cover image
+              type: "CO", // cover image
             };
             onChange(evt, fileObj);
           }, "image/jpeg");
@@ -44,7 +43,7 @@ class AddAttachmentButton extends Component {
           maxWidth: 800,
           maxHeight: 800,
           canvas: true,
-        },
+        }
       );
     }
   }
@@ -54,7 +53,7 @@ class AddAttachmentButton extends Component {
     const { displayFilename } = this.state;
     const classNames = cn("add-attachment-button__filename", {
       "add-attachment-button__filename--visible": displayFilename,
-      "add-attachment-button__filename--hidden": !displayFilename
+      "add-attachment-button__filename--hidden": !displayFilename,
     });
 
     return (
@@ -67,12 +66,10 @@ class AddAttachmentButton extends Component {
             accept="image/*"
           />
         </SecondaryButton>
-        <span className={classNames}>
-          {displayFilename}
-        </span>
+        <span className={classNames}>{displayFilename}</span>
       </div>
     );
   }
-};
+}
 
 export default AddAttachmentButton;

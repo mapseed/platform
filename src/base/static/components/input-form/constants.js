@@ -17,7 +17,7 @@ const constants = {
   SUBMIT_FIELD_TYPENAME: "submit",
   RANGE_FIELD_TYPENAME: "range",
 
-  AUTOFILL_DURATION_DAYS: 30
-}
+  AUTOFILL_DURATION_DAYS: 30,
+};
 
 export default constants;

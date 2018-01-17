@@ -6,12 +6,12 @@ import { publishControlToolbar as messages } from "../messages";
 import "./publish-control-toolbar.scss";
 
 class PublishControlToolbar extends Component {
-
   render() {
     const { name, onChange, published } = this.props;
-    const footerMsg = (published === "isPublished")
-      ? messages.publishedFooterMsg
-      : messages.notPublishedFooterMsg;
+    const footerMsg =
+      published === "isPublished"
+        ? messages.publishedFooterMsg
+        : messages.notPublishedFooterMsg;
 
     return (
       <div className="publish-control-toolbar">
@@ -34,14 +34,13 @@ class PublishControlToolbar extends Component {
             checked={published === "isNotPublished"}
             onChange={onChange}
           />
-          </div>
+        </div>
         <p className="publish-control-toolbar__footer-message">
           <em>{footerMsg}</em>
         </p>
       </div>
     );
   }
-
 }
 
 export default PublishControlToolbar;

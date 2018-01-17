@@ -4,12 +4,19 @@ const cn = require("classnames");
 import "./textarea-field.scss";
 
 class TextareaField extends Component {
-
   render() {
-    const { autofillMode, hasAutofill, name, onChange, placeholder, required, 
-            value } = this.props;
+    const {
+      autofillMode,
+      hasAutofill,
+      name,
+      onChange,
+      placeholder,
+      required,
+      value,
+    } = this.props;
     const classNames = cn("textarea-field", {
-      "textarea-field--has-autofill--colored": hasAutofill && autofillMode === "color"
+      "textarea-field--has-autofill--colored":
+        hasAutofill && autofillMode === "color",
     });
 
     return (
@@ -23,7 +30,6 @@ class TextareaField extends Component {
       />
     );
   }
-
-};
+}
 
 export default TextareaField;

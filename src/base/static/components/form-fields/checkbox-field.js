@@ -2,13 +2,20 @@ import React, { Component } from "react";
 const cn = require("classnames");
 
 class CheckboxField extends Component {
-
   render() {
-    const { checked, className, id, name, onChange, required, value } = this.props;
+    const {
+      checked,
+      className,
+      id,
+      name,
+      onChange,
+      required,
+      value,
+    } = this.props;
     const classNames = cn("checkbox-field", className);
 
     return (
-      <input 
+      <input
         className={classNames}
         type="checkbox"
         id={id}
@@ -16,10 +23,10 @@ class CheckboxField extends Component {
         value={value}
         required={required}
         onChange={onChange}
-        checked={checked} />
+        checked={checked}
+      />
     );
   }
-
-};
+}
 
 export default CheckboxField;

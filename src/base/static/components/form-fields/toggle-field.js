@@ -2,9 +2,16 @@ import React, { Component } from "react";
 const cn = require("classnames");
 
 class ToggleField extends Component {
-
   render() {
-    const { checked, className, id, name, onChange, required, value } = this.props;
+    const {
+      checked,
+      className,
+      id,
+      name,
+      onChange,
+      required,
+      value,
+    } = this.props;
     const classNames = cn("toggle-field", className);
 
     return (
@@ -20,7 +27,6 @@ class ToggleField extends Component {
       />
     );
   }
-
-};
+}
 
 export default ToggleField;

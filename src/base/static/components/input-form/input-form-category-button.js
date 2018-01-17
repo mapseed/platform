@@ -4,14 +4,13 @@ const cn = require("classnames");
 import "./input-form-category-button.scss";
 
 class InputFormCategoryButton extends Component {
-
   constructor() {
     super();
     this.state = {
       isHoveringCategory: false,
       isHoveringExpandButton: false,
-      isFocusedExpandButton: false
-    }
+      isFocusedExpandButton: false,
+    };
     this.onMouseOverCategoryButton = this.onMouseOverCategoryButton.bind(this);
     this.onMouseOutCategoryButton = this.onMouseOutCategoryButton.bind(this);
     this.onMouseOverExpandButton = this.onMouseOverExpandButton.bind(this);
@@ -45,33 +44,45 @@ class InputFormCategoryButton extends Component {
   }
 
   render() {
-    const { isFocusedExpandButton, isHoveringCategory, isHoveringExpandButton } = this.state;
-    const { categoryConfig, isCategoryMenuCollapsed, isActive,
-            onCategoryChange, onExpandCategories } = this.props;
+    const {
+      isFocusedExpandButton,
+      isHoveringCategory,
+      isHoveringExpandButton,
+    } = this.state;
+    const {
+      categoryConfig,
+      isCategoryMenuCollapsed,
+      isActive,
+      onCategoryChange,
+      onExpandCategories,
+    } = this.props;
     const isVisible = !isCategoryMenuCollapsed || isActive;
     const classNames = {
       base: cn("input-form-category-button", {
         "input-form-category-button--hovering": isHoveringCategory,
         "input-form-category-button--visible": isVisible,
-        "input-form-category-button--hidden": !isVisible
+        "input-form-category-button--hidden": !isVisible,
       }),
       label: cn("input-form-category-button__label", {
-        "input-form-category-button__label--active": isActive
+        "input-form-category-button__label--active": isActive,
       }),
       imageContainer: cn("input-form-category-button__image-container", {
         "input-form-category-button__image-container--active": isActive,
-        "input-form-category-button__image-container--hovering": isHoveringCategory
+        "input-form-category-button__image-container--hovering": isHoveringCategory,
       }),
       labelContainer: cn("input-form-category-button__label-text", {
         "input-form-category-button__label-text--active": isActive,
-        "input-form-category-button__label-text--hovering": isHoveringCategory
+        "input-form-category-button__label-text--hovering": isHoveringCategory,
       }),
-      expandCategoriesButton: cn("input-form-category-button__expand-categories-button", {
-        "input-form-category-button__expand-categories-button--visible": isActive,
-        "input-form-category-button__expand-categories-button--hidden": !isActive,
-        "input-form-category-button__expand-categories-button--hovering": isHoveringExpandButton,
-        "input-form-category-button__expand-categories-button--focused": isFocusedExpandButton
-      })
+      expandCategoriesButton: cn(
+        "input-form-category-button__expand-categories-button",
+        {
+          "input-form-category-button__expand-categories-button--visible": isActive,
+          "input-form-category-button__expand-categories-button--hidden": !isActive,
+          "input-form-category-button__expand-categories-button--hovering": isHoveringExpandButton,
+          "input-form-category-button__expand-categories-button--focused": isFocusedExpandButton,
+        }
+      ),
     };
 
     return (
@@ -89,14 +100,11 @@ class InputFormCategoryButton extends Component {
           value={categoryConfig.category}
           onChange={onCategoryChange}
         />
-        <label
-          className={classNames.label}
-          htmlFor={categoryConfig.category}
-        >
+        <label className={classNames.label} htmlFor={categoryConfig.category}>
           <span className={classNames.imageContainer}>
             <img
               className="input-form-category-button__image"
-              src={categoryConfig.icon_url} 
+              src={categoryConfig.icon_url}
             />
           </span>
           <span className={classNames.labelContainer}>
@@ -115,7 +123,6 @@ class InputFormCategoryButton extends Component {
       </div>
     );
   }
-
 }
 
 export default InputFormCategoryButton;

@@ -4,13 +4,16 @@ const cn = require("classnames");
 import "./primary-button.scss";
 
 class PrimaryButton extends Component {
-
   render() {
     const { className, children, disabled, onClick } = this.props;
-    const classNames = cn("primary-button", "primary-button--hoverable", className);
+    const classNames = cn(
+      "primary-button",
+      "primary-button--hoverable",
+      className
+    );
 
     return (
-      <button 
+      <button
         className={classNames}
         type="button"
         disabled={disabled}
@@ -20,7 +23,6 @@ class PrimaryButton extends Component {
       </button>
     );
   }
-
 }
 
 export default PrimaryButton;

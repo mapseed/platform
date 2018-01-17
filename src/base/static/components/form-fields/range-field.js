@@ -2,13 +2,21 @@ import React, { Component } from "react";
 const cn = require("classnames");
 
 class RangeField extends Component {
-
   render() {
-    const { className, id, max, min, name, onChange, required, value } = this.props;
+    const {
+      className,
+      id,
+      max,
+      min,
+      name,
+      onChange,
+      required,
+      value,
+    } = this.props;
     const classNames = cn("range-field", className);
 
     return (
-      <input 
+      <input
         className={classNames}
         type="range"
         id={id}
@@ -19,7 +27,6 @@ class RangeField extends Component {
       />
     );
   }
-
-};
+}
 
 export default RangeField;

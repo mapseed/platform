@@ -11,41 +11,49 @@ const Util = require("../../js/utils.js");
 
 // NOTE: this routine is taken from Quill's themes/base module, which is not
 // importable via react-quill.
-const extractVideoUrl = (url) => {
-  let match = url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/) ||
-              url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/);
+const extractVideoUrl = url => {
+  let match =
+    url.match(
+      /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/
+    ) ||
+    url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/);
   if (match) {
-    return (match[1] || 'https') + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
+    return (
+      (match[1] || "https") +
+      "://www.youtube.com/embed/" +
+      match[2] +
+      "?showinfo=0"
+    );
   }
-  if (match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/)) {
-    return (match[1] || 'https') + '://player.vimeo.com/video/' + match[2] + '/';
+  if ((match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/))) {
+    return (
+      (match[1] || "https") + "://player.vimeo.com/video/" + match[2] + "/"
+    );
   }
   return url;
 };
 
 class WrappedVideo extends BlockEmbed {
-
   static create(url) {
     let node = super.create();
     const iframe = document.createElement("iframe");
-    
+
     url = Link.sanitize(extractVideoUrl(url));
     iframe.setAttribute("src", url);
     iframe.setAttribute("frameborder", 0);
     iframe.setAttribute("allowfullscreen", true);
     iframe.className = "ql-video";
     node.appendChild(iframe);
-    
+
     return node;
   }
-};
+}
 WrappedVideo.blotName = "wrappedVideo";
 WrappedVideo.tagName = "DIV";
 WrappedVideo.className = "ql-video-container";
 Quill.register(WrappedVideo);
 
 class ImageWithName extends Embed {
-
   static create(imgData) {
     let node = super.create();
     const img = document.createElement("img");
@@ -56,13 +64,12 @@ class ImageWithName extends Embed {
 
     return node;
   }
-};
+}
 ImageWithName.blotName = "imageWithName";
 ImageWithName.tagName = "DIV";
 Quill.register(ImageWithName);
 
 class RichTextareaField extends Component {
-
   constructor() {
     super();
     this.modules = {
@@ -75,16 +82,15 @@ class RichTextareaField extends Component {
           ["link", "image", "video"],
         ],
         handlers: {
-          "image": this.onClickEmbedImage.bind(this),
-          "video": this.onClickEmbedVideo.bind(this)
-        }
-      }
+          image: this.onClickEmbedImage.bind(this),
+          video: this.onClickEmbedVideo.bind(this),
+        },
+      },
     };
     this.onAddImage = this.onAddImage.bind(this);
   }
 
   onClickEmbedImage() {
-
     // TODO: is there a way around using refs here?
     this["quill-file-input"].click();
   }
@@ -105,19 +111,19 @@ class RichTextareaField extends Component {
     // We replace the ql-action element so we can attach our own click listener
     // below.
     let oldElt = this.snowTheme.tooltip.root.querySelector("a.ql-action"),
-        newElt = oldElt.cloneNode(true);
+      newElt = oldElt.cloneNode(true);
     oldElt.parentNode.replaceChild(newElt, oldElt);
 
     this.snowTheme.tooltip.root
       .querySelector("a.ql-action")
-      .addEventListener("click", (evt) => {
+      .addEventListener("click", evt => {
         evt.preventDefault();
         editor.focus();
         let url = this.snowTheme.tooltip.root.querySelector("input").value;
         editor.insertEmbed(
-          editor.getSelection().index, 
-          "wrappedVideo", 
-          url, 
+          editor.getSelection().index,
+          "wrappedVideo",
+          url,
           "user"
         );
         this.snowTheme.tooltip.root.className += " ql-hidden";
@@ -132,18 +138,20 @@ class RichTextareaField extends Component {
         canvas => {
           canvas.toBlob(blob => {
             const data = {
-              name: Math.random().toString(36).substring(7),
+              name: Math.random()
+                .toString(36)
+                .substring(7),
               blob: blob,
               file: canvas.toDataURL("image/jpeg"),
-              type: "RT" // richtext
+              type: "RT", // richtext
             };
             const editor = this["quill-editor"].getEditor();
-              
+
             editor.insertEmbed(
               editor.getSelection().index,
               "imageWithName",
               data,
-              "user",
+              "user"
             );
 
             this.props.onAddImage(data);
@@ -180,7 +188,7 @@ class RichTextareaField extends Component {
           maxWidth: 800,
           maxHeight: 800,
           canvas: true,
-        },
+        }
       );
     }
 
@@ -192,22 +200,30 @@ class RichTextareaField extends Component {
   }
 
   render() {
-    const { autofillMode, bounds, hasAutofill, name, onChange, placeholder, 
-            value } = this.props;
+    const {
+      autofillMode,
+      bounds,
+      hasAutofill,
+      name,
+      onChange,
+      placeholder,
+      value,
+    } = this.props;
     const classNames = {
       base: cn("rich-textarea-field", {
-        "rich-textarea-field--has-autofill--colored": hasAutofill && autofillMode === "color"
+        "rich-textarea-field--has-autofill--colored":
+          hasAutofill && autofillMode === "color",
       }),
       quillFileInput: cn(
-        "rich-textarea-field__quill-file-input", 
+        "rich-textarea-field__quill-file-input",
         "rich-textarea-field__quill-file-input--hidden"
-      )
+      ),
     };
 
     return (
       <div className={classNames.base}>
         <ReactQuill
-          ref={node => this["quill-editor"] = node}
+          ref={node => (this["quill-editor"] = node)}
           theme="snow"
           modules={this.modules}
           placeholder={placeholder}
@@ -217,7 +233,7 @@ class RichTextareaField extends Component {
         />
         <input
           className={classNames.quillFileInput}
-          ref={node => this["quill-file-input"] = node}
+          ref={node => (this["quill-file-input"] = node)}
           type="file"
           onChange={this.onAddImage}
           accept="image/png, image/gif, image/jpeg"
@@ -225,7 +241,6 @@ class RichTextareaField extends Component {
       </div>
     );
   }
-
-};
+}
 
 export default RichTextareaField;

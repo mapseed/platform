@@ -5,11 +5,19 @@ import RangeField from "../form-fields/range-field";
 import "./range-slider-with-label.scss";
 
 class RangeSliderWithLabel extends Component {
-
   render() {
-    const { autofillMode, hasAutofill, max, min, name, onChange, value } = this.props;
+    const {
+      autofillMode,
+      hasAutofill,
+      max,
+      min,
+      name,
+      onChange,
+      value,
+    } = this.props;
     const classNames = cn("range-slider-with-label", {
-      "range-slider-with-label--has-autofill-colored": hasAutofill && value && autofillMode === "color"
+      "range-slider-with-label--has-autofill-colored":
+        hasAutofill && value && autofillMode === "color",
     });
 
     return (
@@ -26,7 +34,6 @@ class RangeSliderWithLabel extends Component {
       </label>
     );
   }
-
-};
+}
 
 export default RangeSliderWithLabel;

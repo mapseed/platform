@@ -14,12 +14,20 @@ import "./dropdown-field.scss";
 */
 
 class DropdownField extends Component {
-
   render() {
-    const { autofillMode, hasAutofill, name, onChange, options, required, value } = this.props;
+    const {
+      autofillMode,
+      hasAutofill,
+      name,
+      onChange,
+      options,
+      required,
+      value,
+    } = this.props;
     const classNames = cn("dropdown-field", {
-      "dropdown-field--has-autofill--colored": hasAutofill && autofillMode === "color"
-    })
+      "dropdown-field--has-autofill--colored":
+        hasAutofill && autofillMode === "color",
+    });
 
     return (
       <select
@@ -29,20 +37,15 @@ class DropdownField extends Component {
         required={required}
         onChange={onChange}
       >
-        <option value="">
-          {messages.makeSelection}
-        </option>
-        {options.map((option) =>
-          <option
-            key={option.value}
-            value={option.value}>
+        <option value="">{messages.makeSelection}</option>
+        {options.map(option => (
+          <option key={option.value} value={option.value}>
             {option.label}
           </option>
-        )}
+        ))}
       </select>
     );
   }
-
-};
+}
 
 export default DropdownField;
