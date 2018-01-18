@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-const cn = require("classnames");
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import SecondaryButton from "../ui-elements/secondary-button";
 import FileField from "../form-fields/file-field";
@@ -51,9 +52,8 @@ class AddAttachmentButton extends Component {
   render() {
     const { name, label } = this.props;
     const { displayFilename } = this.state;
-    const classNames = cn("add-attachment-button__filename", {
+    const cn = classNames("add-attachment-button__filename", {
       "add-attachment-button__filename--visible": displayFilename,
-      "add-attachment-button__filename--hidden": !displayFilename,
     });
 
     return (
@@ -66,10 +66,16 @@ class AddAttachmentButton extends Component {
             accept="image/*"
           />
         </SecondaryButton>
-        <span className={classNames}>{displayFilename}</span>
+        <span className={cn}>{displayFilename}</span>
       </div>
     );
   }
 }
+
+AddAttachmentButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default AddAttachmentButton;

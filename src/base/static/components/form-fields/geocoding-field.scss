@@ -5,6 +5,7 @@
 }
 
 .geocoding-field__geocoding-spinner {
+  display: none;
   position: absolute;
   z-index: 100000;
   background-color: $geocoding-field-spinner-icon-background-color;
@@ -23,15 +24,13 @@
   color: $geocoding-field-spinner-icon-color;
 }
 
-.geocoding-field__geocoding-spinner--hidden {
-  display: none;
-}
-
-.geocoding-field__geocoding-spinner--visible {
+.geocoding-field__geocoding-spinner--visible,
+.geocoding-field__geocoding-error--visible {
   display: block;
 }
 
 .geocoding-field__geocoding-error {
+  display: none;
   position: absolute;
   top: 3em;
   right: 0.5em;
@@ -42,14 +41,6 @@
   margin: 0;
   padding: $geocoding-field-error-padding;
   box-shadow: $geocoding-field-error-box-shadow;
-}
-
-.geocoding-field__geocoding-error--hidden {
-  display: none;
-}
-
-.geocoding-field__geocoding-error--visible {
-  display: block;
 }
 
 .geocoding-field__input {

@@ -8,9 +8,6 @@
   // TODO: For the collapse animation to work, we seem to need a hard-coded height
   // here. It would be better if we didn't, but not sure if it's possible.
   height: $input-form-category-button-height;
-}
-
-.input-form-category-button--visible {
   transition: all $input-form-category-button-collapse-animation-duration;
   transition-timing-function: ease;
 }
@@ -45,6 +42,7 @@
 }
 
 .input-form-category-button__expand-categories-button {
+  display: block;
   position: absolute;
   background: none;
   border: none;
@@ -57,10 +55,6 @@
     font-family: FontAwesome;
     content: $input-form-category-button-expand-categories-button;
   }
-}
-
-.input-form-category-button__expand-categories-button--visible {
-  display: block;
 }
 
 .input-form-category-button__expand-categories-button--hidden {

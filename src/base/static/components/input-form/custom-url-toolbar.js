@@ -15,7 +15,6 @@ class CustomUrlToolbar extends Component {
     };
     this.urlPrefix =
       window.location.protocol + "//" + window.location.hostname + "/";
-    this.onUrlChange = this.onUrlChange.bind(this);
   }
 
   onUrlChange(evt) {
@@ -47,11 +46,18 @@ class CustomUrlToolbar extends Component {
           value={value}
           name={name}
           required={required}
-          onChange={this.onUrlChange}
+          onChange={this.onUrlChange.bind(this)}
         />
       </div>
     );
   }
 }
+
+CustomUrlToolbar.propTypes = {
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
+  value: PropTypes.string,
+};
 
 export default CustomUrlToolbar;

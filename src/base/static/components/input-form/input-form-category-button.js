@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-const cn = require("classnames");
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./input-form-category-button.scss";
 
@@ -11,36 +12,6 @@ class InputFormCategoryButton extends Component {
       isHoveringExpandButton: false,
       isFocusedExpandButton: false,
     };
-    this.onMouseOverCategoryButton = this.onMouseOverCategoryButton.bind(this);
-    this.onMouseOutCategoryButton = this.onMouseOutCategoryButton.bind(this);
-    this.onMouseOverExpandButton = this.onMouseOverExpandButton.bind(this);
-    this.onMouseOutExpandButton = this.onMouseOutExpandButton.bind(this);
-    this.onFocusExpandButton = this.onFocusExpandButton.bind(this);
-    this.onBlurExpandButton = this.onBlurExpandButton.bind(this);
-  }
-
-  onMouseOverCategoryButton() {
-    this.setState({ isHoveringCategory: true });
-  }
-
-  onMouseOutCategoryButton() {
-    this.setState({ isHoveringCategory: false });
-  }
-
-  onMouseOverExpandButton() {
-    this.setState({ isHoveringExpandButton: true });
-  }
-
-  onMouseOutExpandButton() {
-    this.setState({ isHoveringExpandButton: false });
-  }
-
-  onFocusExpandButton() {
-    this.setState({ isFocusedExpandButton: true });
-  }
-
-  onBlurExpandButton() {
-    this.setState({ isFocusedExpandButton: false });
   }
 
   render() {
@@ -57,27 +28,28 @@ class InputFormCategoryButton extends Component {
       onExpandCategories,
     } = this.props;
     const isVisible = !isCategoryMenuCollapsed || isActive;
-    const classNames = {
-      base: cn("input-form-category-button", {
+    const cn = {
+      base: classNames("input-form-category-button", {
         "input-form-category-button--hovering": isHoveringCategory,
-        "input-form-category-button--visible": isVisible,
         "input-form-category-button--hidden": !isVisible,
       }),
-      label: cn("input-form-category-button__label", {
+      label: classNames("input-form-category-button__label", {
         "input-form-category-button__label--active": isActive,
       }),
-      imageContainer: cn("input-form-category-button__image-container", {
-        "input-form-category-button__image-container--active": isActive,
-        "input-form-category-button__image-container--hovering": isHoveringCategory,
-      }),
-      labelContainer: cn("input-form-category-button__label-text", {
+      imageContainer: classNames(
+        "input-form-category-button__image-container",
+        {
+          "input-form-category-button__image-container--active": isActive,
+          "input-form-category-button__image-container--hovering": isHoveringCategory,
+        }
+      ),
+      labelContainer: classNames("input-form-category-button__label-text", {
         "input-form-category-button__label-text--active": isActive,
         "input-form-category-button__label-text--hovering": isHoveringCategory,
       }),
-      expandCategoriesButton: cn(
+      expandCategoriesButton: classNames(
         "input-form-category-button__expand-categories-button",
         {
-          "input-form-category-button__expand-categories-button--visible": isActive,
           "input-form-category-button__expand-categories-button--hidden": !isActive,
           "input-form-category-button__expand-categories-button--hovering": isHoveringExpandButton,
           "input-form-category-button__expand-categories-button--focused": isFocusedExpandButton,
@@ -87,9 +59,9 @@ class InputFormCategoryButton extends Component {
 
     return (
       <div
-        className={classNames.base}
-        onMouseOver={this.onMouseOverCategoryButton}
-        onMouseOut={this.onMouseOutCategoryButton}
+        className={cn.base}
+        onMouseOver={() => this.setState({ isHoveringCategory: true })}
+        onMouseOut={() => this.setState({ isHoveringCategory: false })}
       >
         <input
           className="input-form-category-button__input"
@@ -100,29 +72,34 @@ class InputFormCategoryButton extends Component {
           value={categoryConfig.category}
           onChange={onCategoryChange}
         />
-        <label className={classNames.label} htmlFor={categoryConfig.category}>
-          <span className={classNames.imageContainer}>
+        <label className={cn.label} htmlFor={categoryConfig.category}>
+          <span className={cn.imageContainer}>
             <img
               className="input-form-category-button__image"
               src={categoryConfig.icon_url}
             />
           </span>
-          <span className={classNames.labelContainer}>
-            {categoryConfig.label}
-          </span>
+          <span className={cn.labelContainer}>{categoryConfig.label}</span>
         </label>
         <button
-          className={classNames.expandCategoriesButton}
+          className={cn.expandCategoriesButton}
           type="button"
-          onMouseOver={this.onMouseOverExpandButton}
-          onMouseOut={this.onMouseOutExpandButton}
-          onFocus={this.onFocusExpandButton}
-          onBlur={this.onBlurExpandButton}
+          onMouseOver={() => this.setState({ isHoveringExpandButton: true })}
+          onMouseOut={() => this.setState({ isHoveringExpandButton: false })}
+          onFocus={() => this.setState({ isFocusedExpandButton: true })}
+          onBlur={() => this.setState({ isFocusedExpandButton: false })}
           onClick={onExpandCategories}
         />
       </div>
     );
   }
 }
+
+InputFormCategoryButton.propTypes = {
+  isCategoryMenuCollapsed: PropTypes.bool.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
+  onExpandCategories: PropTypes.func.isRequired,
+};
 
 export default InputFormCategoryButton;

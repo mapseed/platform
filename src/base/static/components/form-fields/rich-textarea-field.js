@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ReactQuill, { Quill } from "react-quill";
+import classNames from "classnames";
 const BlockEmbed = Quill.import("blots/block/embed");
 const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
-const cn = require("classnames");
 
 import "./rich-textarea-field.scss";
 const Util = require("../../js/utils.js");
@@ -209,19 +210,19 @@ class RichTextareaField extends Component {
       placeholder,
       value,
     } = this.props;
-    const classNames = {
-      base: cn("rich-textarea-field", {
+    const cn = {
+      base: classNames("rich-textarea-field", {
         "rich-textarea-field--has-autofill--colored":
           hasAutofill && autofillMode === "color",
       }),
-      quillFileInput: cn(
+      quillFileInput: classNames(
         "rich-textarea-field__quill-file-input",
         "rich-textarea-field__quill-file-input--hidden"
       ),
     };
 
     return (
-      <div className={classNames.base}>
+      <div className={cn.base}>
         <ReactQuill
           ref={node => (this["quill-editor"] = node)}
           theme="snow"
@@ -232,7 +233,7 @@ class RichTextareaField extends Component {
           onChange={val => onChange(val, name)}
         />
         <input
-          className={classNames.quillFileInput}
+          className={cn.quillFileInput}
           ref={node => (this["quill-file-input"] = node)}
           type="file"
           onChange={this.onAddImage}
@@ -242,5 +243,20 @@ class RichTextareaField extends Component {
     );
   }
 }
+
+RichTextareaField.propTypes = {
+  autofillMode: PropTypes.string.isRequired,
+  bounds: PropTypes.string.isRequired,
+  hasAutofill: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  onAddImage: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string.isRequired,
+};
+
+RichTextareaField.defaultProps = {
+  autofillMode: "color",
+};
 
 export default RichTextareaField;

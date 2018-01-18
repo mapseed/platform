@@ -1,19 +1,26 @@
-import React, { Component } from "react";
-const cn = require("classnames");
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./secondary-button.scss";
 
-class SecondaryButton extends Component {
-  render() {
-    const { children, className, onClick } = this.props;
-    const classNames = cn("secondary-button", className);
+const SecondaryButton = props => {
+  const { children, className, onClick } = props;
 
-    return (
-      <button className={classNames} type="button" onClick={onClick}>
-        {children}
-      </button>
-    );
-  }
-}
+  return (
+    <button
+      className={classNames("secondary-button", className)}
+      type="button"
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+SecondaryButton.propTypes = {
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+};
 
 export default SecondaryButton;

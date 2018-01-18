@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import update from "react-addons-update";
-const cn = require("classnames");
+import classNames from "classnames";
 
 import InputFormCategoryButton from "./input-form-category-button";
 import TextField from "../form-fields/text-field";
@@ -8,7 +9,6 @@ import TextareaField from "../form-fields/textarea-field";
 import DropdownField from "../form-fields/dropdown-field";
 import DatetimeField from "../form-fields/datetime-field";
 import GeocodingField from "../form-fields/geocoding-field";
-import SecondaryButton from "../ui-elements/secondary-button";
 import AddAttachmentButton from "../form-fields/add-attachment-button";
 import BigRadioField from "../input-form/big-radio-field";
 import BigCheckboxField from "../input-form/big-checkbox-field";
@@ -305,7 +305,7 @@ class InputForm extends Component {
       case constants.BIG_CHECKBOX_FIELD_TYPENAME:
         return autofillValue || fieldConfig.default_value || [];
       case constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME:
-        return autofillValue || fieldConfig.default_value || "isPublished";
+        return autofillValue || fieldConfig.default_value;
       case constants.COMMON_FORM_ELEMENT_TYPENAME:
         const commonFormElementConfig = Object.assign(
           {},
@@ -332,8 +332,8 @@ class InputForm extends Component {
       router,
     } = this.props;
     const { fieldValues, isFormSubmitting } = this.state;
-    const classNames = {
-      optionalMsg: cn("input-form__optional-msg", {
+    const cn = {
+      optionalMsg: classNames("input-form__optional-msg", {
         "input-form__optional-msg--visible": fieldConfig.optional,
         "input-form__optional-msg--hidden": !fieldConfig.optional,
       }),
@@ -341,7 +341,7 @@ class InputForm extends Component {
     const fieldPrompt = (
       <p className="input-form__field-prompt">
         {fieldConfig.prompt}
-        <span className={classNames.optionalMsg}>{messages.optionalMsg}</span>
+        <span className={cn.optionalMsg}>{messages.optionalMsg}</span>
       </p>
     );
 
@@ -419,6 +419,7 @@ class InputForm extends Component {
           <InputFormSubmitButton
             disabled={isFormSubmitting}
             label={fieldConfig.label}
+            name={fieldConfig.name}
           />
         );
       case constants.RANGE_FIELD_TYPENAME:
@@ -557,6 +558,9 @@ class InputForm extends Component {
           { name: fieldConfig.name }
         );
         return this.buildField(commonFormElementConfig);
+      default:
+        console.error("Error: unknown form field type:", fieldConfig.type);
+        return null;
     }
   }
 
@@ -638,7 +642,7 @@ class InputForm extends Component {
       datasetId: selectedCategoryConfig.dataset,
       showMetadata: selectedCategoryConfig.showMetadata,
     });
-    let model = collection.at(collection.length - 1);
+    const model = collection.at(collection.length - 1);
     let attrs = Object.assign({}, fieldValues);
 
     this.richTextFields.forEach(fieldName => {
@@ -744,22 +748,22 @@ class InputForm extends Component {
       placeConfig,
       showNewPin,
     } = this.props;
-    const classNames = {
-      categoryBtns: cn("input-form__category-buttons-container", {
+    const cn = {
+      categoryBtns: classNames("input-form__category-buttons-container", {
         "input-form__category-buttons-container--visible": !isCategoryMenuHidden,
         "input-form__category-buttons-container--hidden": isCategoryMenuHidden,
       }),
-      form: cn("input-form__form", className, {
+      form: classNames("input-form__form", className, {
         "input-form__form--active": !isFormSubmitting,
         "input-form__form--inactive": isFormSubmitting,
       }),
-      warningMsgs: cn("input-form__warning-msgs-container", {
+      warningMsgs: classNames("input-form__warning-msgs-container", {
         "input-form__warning-msgs-container--visible":
           formValidationErrors.length > 0,
         "input-form__warning-msgs-container--hidden":
           formValidationErrors.length === 0,
       }),
-      spinner: cn("input-form__submit-spinner", {
+      spinner: classNames("input-form__submit-spinner", {
         "input-form__submit-spinner--visible": isFormSubmitting,
         "input-form__submit-spinner--hidden": !isFormSubmitting,
       }),
@@ -770,15 +774,18 @@ class InputForm extends Component {
 
     if (formFields[0] && formFields[0].fields) {
       formFields = formFields[0].fields.map(fieldConfig => {
-        let fieldContainerClassName = cn("input-form__field-container", {
-          "input-form__field-container--invalid": this.fieldIsInvalid(
-            fieldConfig.name
-          ),
-          "input-form__field-container--hidden":
-            fieldValues[fieldConfig.name] &&
-            fieldConfig.hasAutofill &&
-            autofillMode === "hide",
-        });
+        let fieldContainerClassName = classNames(
+          "input-form__field-container",
+          {
+            "input-form__field-container--invalid": this.fieldIsInvalid(
+              fieldConfig.name
+            ),
+            "input-form__field-container--hidden":
+              fieldValues[fieldConfig.name] &&
+              fieldConfig.hasAutofill &&
+              autofillMode === "hide",
+          }
+        );
 
         return (
           <div key={fieldConfig.name} className={fieldContainerClassName}>
@@ -797,7 +804,7 @@ class InputForm extends Component {
 
     return (
       <div className="input-form">
-        <div className={classNames.categoryBtns}>
+        <div className={cn.categoryBtns}>
           {this.visibleCategories.map(categoryConfig => (
             <InputFormCategoryButton
               isActive={selectedCategory === categoryConfig.category}
@@ -809,7 +816,7 @@ class InputForm extends Component {
             />
           ))}
         </div>
-        <div className={classNames.warningMsgs}>
+        <div className={cn.warningMsgs}>
           <p className={"input-form__warning-msgs-header"}>
             {messages.validationHeader}
           </p>
@@ -819,15 +826,28 @@ class InputForm extends Component {
         </div>
         <form
           id="mapseed-input-form"
-          className={classNames.form}
+          className={cn.form}
           onSubmit={this.onSubmit}
         >
           {formFields}
         </form>
-        <div className={classNames.spinner} />
+        <div className={cn.spinner} />
       </div>
     );
   }
 }
+
+InputForm.propTypes = {
+  autofillMode: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  hideCenterPoint: PropTypes.func.isRequired,
+  hideSpotlightMask: PropTypes.func.isRequired,
+  placeConfig: PropTypes.object.isRequired,
+  showNewPin: PropTypes.func.isRequired,
+};
+
+InputForm.defaultProps = {
+  autofillMode: "color",
+};
 
 export default InputForm;

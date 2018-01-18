@@ -2,7 +2,7 @@
 
 .add-attachment-button {
   position: relative;
-  display: block;
+  display: none;
 }
 
 .file-field__label {
@@ -21,8 +21,4 @@
 
 .add-attachment-button__filename--visible {
   display: inline;
-}
-
-.add-attachment-button__filename--hidden {
-  display: none;
 }
