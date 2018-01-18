@@ -1,34 +1,39 @@
-import React, { Component } from "react";
-const cn = require("classnames");
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
-class RangeField extends Component {
-  render() {
-    const {
-      className,
-      id,
-      max,
-      min,
-      name,
-      onChange,
-      required,
-      value,
-    } = this.props;
-    const classNames = cn("range-field", className);
+const RangeField = props => {
+  const { className, id, max, min, name, onChange, required, value } = props;
 
-    return (
-      <input
-        className={classNames}
-        type="range"
-        min={min}
-        max={max}
-        id={id}
-        name={name}
-        value={value}
-        required={required}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <input
+      className={classNames("range-field", className)}
+      type="range"
+      min={min}
+      max={max}
+      id={id}
+      name={name}
+      value={value}
+      required={required}
+      onChange={onChange}
+    />
+  );
+};
+
+RangeField.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string,
+  max: PropTypes.number.isRequired,
+  min: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.bool,
+  value: PropTypes.number.isRequired,
+};
+
+RangeField.defaultProps = {
+  min: 0,
+  max: 100,
+};
 
 export default RangeField;

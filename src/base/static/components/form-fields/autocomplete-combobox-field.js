@@ -4,14 +4,6 @@ import Autocomplete from "accessible-autocomplete/react";
 
 import "./autocomplete-combobox-field.scss";
 
-/*
-  this.props.options should be an array of objects. Each object is as follows:
-  {
-    value: "option-value",
-    label: "Option label"
-  }
-*/
-
 class AutocompleteComboboxField extends Component {
   constructor() {
     super();
@@ -23,7 +15,6 @@ class AutocompleteComboboxField extends Component {
         );
       populateResults(filteredResults);
     };
-    this.onConfirm = this.onConfirm.bind(this);
   }
 
   onConfirm(selectedLabel) {
@@ -46,7 +37,7 @@ class AutocompleteComboboxField extends Component {
           confirmOnBlur={true}
           id={id}
           showAllValues={true}
-          onConfirm={this.onConfirm}
+          onConfirm={this.onConfirm.bind(this)}
         />
       </div>
     );
@@ -54,8 +45,16 @@ class AutocompleteComboboxField extends Component {
 }
 
 AutocompleteComboboxField.propTypes = {
-  options: PropTypes.array.isRequired,
   id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  placeholder: PropTypes.string,
 };
 
 export default AutocompleteComboboxField;

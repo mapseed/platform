@@ -1,38 +1,50 @@
-import React, { Component } from "react";
-const cn = require("classnames");
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./text-field.scss";
 
-class TextField extends Component {
-  render() {
-    const {
-      autofillMode,
-      hasAutofill,
-      name,
-      onChange,
-      placeholder,
-      required,
-      value,
-    } = this.props;
-    const classNames = cn("text-field", {
-      "text-field--has-autofill--colored":
-        hasAutofill && autofillMode === "color",
-      "text-field--has-autofill--hidden":
-        hasAutofill && autofillMode === "hide",
-    });
+const TextField = props => {
+  const {
+    autofillMode,
+    hasAutofill,
+    name,
+    onChange,
+    placeholder,
+    required,
+    value,
+  } = props;
+  const cn = classNames("text-field", {
+    "text-field--has-autofill--colored":
+      hasAutofill && autofillMode === "color",
+    "text-field--has-autofill--hidden": hasAutofill && autofillMode === "hide",
+  });
 
-    return (
-      <input
-        className={classNames}
-        name={name}
-        type="text"
-        value={value}
-        placeholder={placeholder}
-        required={required}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <input
+      className={cn}
+      name={name}
+      type="text"
+      value={value}
+      placeholder={placeholder}
+      required={required}
+      onChange={onChange}
+    />
+  );
+};
+
+TextField.propTypes = {
+  autofillMode: PropTypes.string.isRequired,
+  hasAutofill: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  required: PropTypes.string,
+  value: PropTypes.string,
+};
+
+TextField.defaultProps = {
+  autofillMode: "color",
+};
 
 export default TextField;

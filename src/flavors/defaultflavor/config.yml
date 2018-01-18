@@ -366,6 +366,14 @@ place:
           display_prompt: _(Rendered rich text:)
           placeholder: _(Enter text...)
           optional: false
+        - name: range_slider_field
+          prompt: _(Range slider field prompt:)
+          type: range
+          max: 100
+          min: 15
+          default_value: 50
+          display_prompt: _(Rendered range slider:)
+          autocomplete: true
         - name: big_checkbox_field
           type: big_checkbox
           autocomplete: true

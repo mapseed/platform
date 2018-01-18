@@ -14,12 +14,17 @@
   height: 3em;
 }
 
-.map-drawing-toolbar__marker-selection-header--visible {
-  display: block;
+.map-drawing-toolbar__drawing-tools-container {
+  display: none;
+  margin-bottom: 15px;
 }
 
-.map-drawing-toolbar__drawing-tools-container {
-  margin-bottom: 15px;
+.map-drawing-toolbar__marker-selection-container,
+.map-drawing-toolbar__marker-selection-header,
+.map-drawing-toolbar__editing-tools-container,
+.map-drawing-toolbar__toolbar-item-input,
+.map-drawing-toolbar__marker-item-input {
+  display: none;
 }
 
 .map-drawing-toolbar__drawing-tools-container--visible,
@@ -30,13 +35,8 @@
   margin-bottom: 15px;
 }
 
-.map-drawing-toolbar__drawing-tools-container--hidden,
-.map-drawing-toolbar__editing-tools-container--hidden,
-.map-drawing-toolbar__marker-selection-container--hidden,
-.map-drawing-toolbar__marker-selection-header--hidden,
-.map-drawing-toolbar__toolbar-item-input,
-.map-drawing-toolbar__marker-item-input {
-  display: none;
+.map-drawing-toolbar__marker-selection-header--visible {
+  display: block;
 }
 
 .map-drawing-toolbar__marker-item {

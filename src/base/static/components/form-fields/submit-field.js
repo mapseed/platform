@@ -1,26 +1,31 @@
-import React, { Component } from "react";
-const cn = require("classnames");
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./submit-field.scss";
 
-class SubmitField extends Component {
-  render() {
-    const { disabled, id, name, usageContext, value } = this.props;
-    const classNames = cn("submit-field", {
-      "submit-field--primary-button-context": usageContext === "PrimaryButton",
-    });
+const SubmitField = props => {
+  const { disabled, id, name, usageContext } = props;
+  const cn = classNames("submit-field", {
+    "submit-field--primary-button-context": usageContext === "PrimaryButton",
+  });
 
-    return (
-      <input
-        className={classNames}
-        type="submit"
-        id={id}
-        name={name}
-        value={value}
-        disabled={disabled}
-      />
-    );
-  }
-}
+  return (
+    <input
+      className={cn}
+      type="submit"
+      id={id}
+      name={name}
+      disabled={disabled}
+    />
+  );
+};
+
+SubmitField.propTypes = {
+  disabled: PropTypes.bool,
+  id: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  usageContext: PropTypes.string,
+};
 
 export default SubmitField;
