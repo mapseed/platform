@@ -1052,25 +1052,25 @@ place:
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
-            - label: _(I Only flush the 4 P's - Pee, Poop, Toilet Paper, Puke)
+            - label: _(I only flush the 4 P's - Pee, Poop, Toilet Paper, Puke)
               value: only-flush-4-ps
-            - label: _(I Never flush old medicines)
+            - label: _(I never flush old medicines)
               value: never-flush-medicines
-            - label: _(I Never flush hair)
+            - label: _(I never flush hair)
               value: never-flush-hair
-            - label: _(I Never flush household chemicals (like bleach))
+            - label: _(I never flush household chemicals (like bleach))
               value: never-flush-chemicals
-            - label: _(I Never flush facial tissues)
+            - label: _(I never flush facial tissues)
               value: never-flush-tissues
-            - label: _(I Never flush wipes, diapers, nursing pads)
+            - label: _(I never flush wipes, diapers, nursing pads)
               value: never-flush-wipes
-            - label: _(I Never flush tampons or pads)
+            - label: _(I never flush tampons or pads)
               value: never-flush-tampons
-            - label: _(I Never flush condoms)
+            - label: _(I never flush condoms)
               value: never-flush-condoms
             - label: _(I do not put F.O.G down the drain (fat, oil, grease))
               value: fat-oil-grease
-            - label: _(I Never flush condoms)
+            - label: _(I never flush condoms)
               value: never-flush-condoms
             - label: _(I do not use cleansers with plastic “cleansing beads”)
               value: cleansing-plastic
