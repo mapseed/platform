@@ -1041,7 +1041,7 @@ place:
       dataset: mw
       icon_url: /static/css/images/markers/marker-only-flush-this.png
       value: only-flush
-      label: _(Only Flush This)
+      label: _(Think - Toilet, Shower, Sink)
       fields:
         - name: address
           type: commonFormElement
@@ -1052,24 +1052,34 @@ place:
           prompt: _(My actions:)
           display_prompt: _(My actions:)
           content:
-            - label: _(Only flush the 4 P's - Pee, Poop, Toilet Paper, Puke)
+            - label: _(I Only flush the 4 P's - Pee, Poop, Toilet Paper, Puke)
               value: only-flush-4-ps
-            - label: _(Never flush FOG (fat, oil, grease))
-              value: never-flush-fog
-            - label: _(Never flush old medicines)
+            - label: _(I Never flush old medicines)
               value: never-flush-medicines
-            - label: _(Never flush hair)
+            - label: _(I Never flush hair)
               value: never-flush-hair
-            - label: _(Never flush household chemicals)
+            - label: _(I Never flush household chemicals (like bleach))
               value: never-flush-chemicals
-            - label: _(Never flush facial tissues)
+            - label: _(I Never flush facial tissues)
               value: never-flush-tissues
-            - label: _(Never flush wipes, diapers, nursing pads)
+            - label: _(I Never flush wipes, diapers, nursing pads)
               value: never-flush-wipes
-            - label: _(Never flush tampons or pads)
+            - label: _(I Never flush tampons or pads)
               value: never-flush-tampons
-            - label: _(Never flush condoms)
+            - label: _(I Never flush condoms)
               value: never-flush-condoms
+            - label: _(I do not put F.O.G down the drain (fat, oil, grease))
+              value: fat-oil-grease
+            - label: _(I Never flush condoms)
+              value: never-flush-condoms
+            - label: _(I do not use cleansers with plastic “cleansing beads”)
+              value: cleansing-plastic
+            - label: _(I wash fleece and synthetic materials in bags to prevent micro plastic waste)
+              value: micro-plastic-wash
+            - label: _(I use natural care products)
+              value: natural-self-care
+            - label: _(I use natural cleaners)
+              value: natural-cleaners              
         - name: comments
           type: commonFormElement
         - name: school-name
@@ -1255,6 +1265,8 @@ place:
               value: grow-food-garden
             - label: _(Participate in a Community Garden)
               value: participate-community-garden
+            - label: _(Eat mostly meat free)
+              value: mostly-meat-free              
             - label: _(Subscribe to a CSA - Consumer Supported Agriculture)
               value: subscribe-csa
             - label: _(Regularly shop at a local Farmer's Market)
