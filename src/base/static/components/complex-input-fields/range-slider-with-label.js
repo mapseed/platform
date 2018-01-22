@@ -2,27 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import RangeField from "../form-fields/range-field";
+import RangeField from "../basic-input-fields/range-field";
 import "./range-slider-with-label.scss";
 
 const RangeSliderWithLabel = props => {
-  const { autofillMode, hasAutofill, max, min, name, onChange, value } = props;
   const cn = classNames("range-slider-with-label", {
-    "range-slider-with-label--has-autofill-colored":
-      hasAutofill && value && autofillMode === "color",
+    "range-slider-with-label--has-autofill--colored":
+      props.hasAutofill && props.value && props.autofillMode === "color",
   });
 
   return (
     <label className={cn}>
       <RangeField
         className="range-slider-with-label__input"
-        name={name}
-        max={max}
-        min={min}
-        value={value}
-        onChange={onChange}
+        name={props.name}
+        max={props.max}
+        min={props.min}
+        value={props.value}
+        onChange={props.onChange}
       />
-      {value}
+      {props.value}
     </label>
   );
 };
@@ -34,7 +33,7 @@ RangeSliderWithLabel.propTypes = {
   min: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 RangeSliderWithLabel.defaultProps = {

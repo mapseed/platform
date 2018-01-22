@@ -18,24 +18,21 @@ class AutocompleteComboboxField extends Component {
   }
 
   onConfirm(selectedLabel) {
-    const { name, onChange, options } = this.props;
     const value = selectedLabel
-      ? options.find(option => option.label === selectedLabel).value
+      ? this.props.options.find(option => option.label === selectedLabel).value
       : "";
 
-    onChange(value, name);
+    this.props.onChange(this.props.name, value);
   }
 
   render() {
-    const { id, placeholder } = this.props;
-
     return (
       <div className="autocomplete-combobox-field">
         <Autocomplete
           source={this.suggestions}
-          placeholder={placeholder}
+          placeholder={this.props.placeholder}
           confirmOnBlur={true}
-          id={id}
+          id={this.props.id}
           showAllValues={true}
           onConfirm={this.onConfirm.bind(this)}
         />

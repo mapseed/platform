@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 
-import SubmitField from "../form-fields/submit-field";
+import SubmitField from "../basic-input-fields/submit-field";
 import PrimaryButton from "../ui-elements/primary-button";
 
 class InputFormSubmitButton extends Component {
   render() {
-    const { disabled, label, name } = this.props;
-
     return (
       <div className="input-form-submit-button">
         <PrimaryButton
           className="input-form-submit-button__button"
-          disabled={disabled}
+          disabled={this.props.disabled}
         >
-          {label}
+          {this.props.label}
           <SubmitField
-            name={name}
-            disabled={disabled}
+            name={this.props.name}
+            disabled={this.props.disabled}
             usageContext="PrimaryButton"
           />
         </PrimaryButton>

@@ -1,4 +1,3 @@
-
 // REACT PORT SECTION //////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
@@ -12,61 +11,85 @@ import VVInputForm from "../../components/vv-input-form";
 let emitter = new EventEmitter();
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
-var Util = require('../utils.js');
+var Util = require("../utils.js");
 
 // Views
-var MapView = require('mapseed-map-view');
-var PagesNavView = require('mapseed-pages-nav-view');
-var AuthNavView = require('mapseed-auth-nav-view');
-var LandmarkDetailView = require('mapseed-landmark-detail-view');
-var PlaceListView = require('mapseed-place-list-view');
-var SidebarView = require('mapseed-sidebar-view');
-var ActivityView = require('mapseed-activity-view');
-var GeocodeAddressView = require('mapseed-geocode-address-view');
-var PlaceCounterView = require('mapseed-place-counter-view');
-var PlaceDetailView = require('mapseed-place-detail-view');
-var PlaceFormView = require('mapseed-place-form-view');
-var RightSidebarView = require('mapseed-right-sidebar-view');
-var FilterMenuView = require('mapseed-filter-menu-view');
+var MapView = require("mapseed-map-view");
+var PagesNavView = require("mapseed-pages-nav-view");
+var AuthNavView = require("mapseed-auth-nav-view");
+var LandmarkDetailView = require("mapseed-landmark-detail-view");
+var PlaceListView = require("mapseed-place-list-view");
+var SidebarView = require("mapseed-sidebar-view");
+var ActivityView = require("mapseed-activity-view");
+var GeocodeAddressView = require("mapseed-geocode-address-view");
+var PlaceCounterView = require("mapseed-place-counter-view");
+var PlaceDetailView = require("mapseed-place-detail-view");
+var PlaceFormView = require("mapseed-place-form-view");
+var RightSidebarView = require("mapseed-right-sidebar-view");
+var FilterMenuView = require("mapseed-filter-menu-view");
 
 // Models
-var PlaceModel = require('../models/place-model.js');
-var LandmarkModel = require('../models/landmark-model.js');
+var PlaceModel = require("../models/place-model.js");
+var LandmarkModel = require("../models/landmark-model.js");
 
 // Spinner options -- these need to be own modules
 Shareabouts.bigSpinnerOptions = {
-  lines: 13, length: 0, width: 10, radius: 30, corners: 1, rotate: 0,
-  direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
-  hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
-  left: 'auto'
+  lines: 13,
+  length: 0,
+  width: 10,
+  radius: 30,
+  corners: 1,
+  rotate: 0,
+  direction: 1,
+  color: "#000",
+  speed: 1,
+  trail: 60,
+  shadow: false,
+  hwaccel: false,
+  className: "spinner",
+  zIndex: 2e9,
+  top: "auto",
+  left: "auto",
 };
 
 Shareabouts.smallSpinnerOptions = {
-  lines: 13, length: 0, width: 3, radius: 10, corners: 1, rotate: 0,
-  direction: 1, color: '#000', speed: 1, trail: 60, shadow: false,
-  hwaccel: false, className: 'spinner', zIndex: 2e9, top: 'auto',
-  left: 'auto'
+  lines: 13,
+  length: 0,
+  width: 3,
+  radius: 10,
+  corners: 1,
+  rotate: 0,
+  direction: 1,
+  color: "#000",
+  speed: 1,
+  trail: 60,
+  shadow: false,
+  hwaccel: false,
+  className: "spinner",
+  zIndex: 2e9,
+  top: "auto",
+  left: "auto",
 };
 
 module.exports = Backbone.View.extend({
   events: {
-    'click #add-place': 'onClickAddPlaceBtn',
-    'click .close-btn': 'onClickClosePanelBtn',
-    'click .collapse-btn': 'onToggleSidebarVisibility',
-    'click .list-toggle-btn': 'toggleListView'
+    "click #add-place": "onClickAddPlaceBtn",
+    "click .close-btn": "onClickClosePanelBtn",
+    "click .collapse-btn": "onToggleSidebarVisibility",
+    "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
 
     var self = this,
-        // Only include submissions if the list view is enabled (anything but false)
-        includeSubmissions = this.options.appConfig.list_enabled !== false,
-        placeParams = {
-          // NOTE: this is to simply support the list view. It won't
-          // scale well, so let's think about a better solution.
-          include_submissions: includeSubmissions
-        };
+      // Only include submissions if the list view is enabled (anything but false)
+      includeSubmissions = this.options.appConfig.list_enabled !== false,
+      placeParams = {
+        // NOTE: this is to simply support the list view. It won't
+        // scale well, so let's think about a better solution.
+        include_submissions: includeSubmissions,
+      };
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
@@ -101,7 +124,7 @@ module.exports = Backbone.View.extend({
     if (this.options.activityConfig.show_in_right_panel === true) {
       $("body").addClass("right-sidebar-visible");
       $("#right-sidebar-container").html(
-        "<ul class='recent-points unstyled-list'></ul>",
+        "<ul class='recent-points unstyled-list'></ul>"
       );
     }
 
@@ -158,7 +181,7 @@ module.exports = Backbone.View.extend({
           this.hideListView();
         }
       },
-      this,
+      this
     );
 
     // Only append the tools to add places (if supported)
@@ -166,7 +189,7 @@ module.exports = Backbone.View.extend({
     // NOTE: append add place/story buttons after the #map-container
     // div (rather than inside of it) in order to support bottom-clinging buttons
     $("#map-container").after(
-      Handlebars.templates["add-places"](this.options.placeConfig),
+      Handlebars.templates["add-places"](this.options.placeConfig)
     );
 
     this.pagesNavView = new PagesNavView({
@@ -183,7 +206,7 @@ module.exports = Backbone.View.extend({
     }).render();
 
     this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
-      panel,
+      panel
     ) {
       return "basemaps" in panel;
     }).basemaps;
@@ -200,7 +223,7 @@ module.exports = Backbone.View.extend({
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
       placeDetailViews: this.placeDetailViews,
-      placeConfig: this.options.placeConfig
+      placeConfig: this.options.placeConfig,
     });
 
     if (self.options.sidebarConfig.enabled) {
@@ -208,7 +231,7 @@ module.exports = Backbone.View.extend({
         el: "#sidebar-container",
         mapView: this.mapView,
         sidebarConfig: this.options.sidebarConfig,
-        placeConfig: this.options.placeConfig
+        placeConfig: this.options.placeConfig,
       }).render();
     }
 
@@ -256,7 +279,7 @@ module.exports = Backbone.View.extend({
     // the geocoded location.
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    emitter.addListener("geocode", (locationData) => {
+    emitter.addListener("geocode", locationData => {
       this.mapView.zoomInOn(locationData.latLng);
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
@@ -282,11 +305,11 @@ module.exports = Backbone.View.extend({
     // is enabled.
     $(Shareabouts).on("reversegeocode", function(evt, locationData) {
       var locationString = Handlebars.templates["location-string"](
-        locationData,
+        locationData
       );
       self.geocodeAddressView.setAddress($.trim(locationString));
       self.placeFormView.geocodeAddressPlaceView.setAddress(
-        $.trim(locationString),
+        $.trim(locationString)
       );
       self.placeFormView.setLatLng(locationData.latLng);
       // Don't pass location data into our geolocation's form field
@@ -299,11 +322,11 @@ module.exports = Backbone.View.extend({
       _.isUndefined(this.options.appConfig.list_enabled) ||
       this.options.appConfig.list_enabled
     ) {
-      // this.listView = new PlaceListView({
-      //   el: "#list-container",
-      //   placeCollections: self.places,
-      //   placeConfig: this.options.placeConfig,
-      // }).render();
+      this.listView = new PlaceListView({
+        el: "#list-container",
+        placeCollections: self.places,
+        placeConfig: this.options.placeConfig,
+      }).render();
     }
 
     // Cache panel elements that we use a lot
@@ -415,28 +438,28 @@ module.exports = Backbone.View.extend({
 
     // loop through landmark configs
     _.each(_.values(this.options.datasetConfigs.landmarks), function(
-      landmarkConfig,
+      landmarkConfig
     ) {
-      self.mapView.map.fire("layer:loading", {id: landmarkConfig.id});
+      self.mapView.map.fire("layer:loading", { id: landmarkConfig.id });
       if (landmarkConfig.placeType) {
         var deferred = self.landmarks[landmarkConfig.id].fetch({
           attributesToAdd: { location_type: landmarkConfig.placeType },
           success: function() {
-            self.mapView.map.fire("layer:loaded", {id: landmarkConfig.id});
+            self.mapView.map.fire("layer:loaded", { id: landmarkConfig.id });
           },
           error: function() {
-            self.mapView.map.fire("layer:error", {id: landmarkConfig.id});
-          }
+            self.mapView.map.fire("layer:error", { id: landmarkConfig.id });
+          },
         });
         Shareabouts.deferredCollections.push(deferred);
       } else {
         var deferred = self.landmarks[landmarkConfig.id].fetch({
           success: function() {
-            self.mapView.map.fire("layer:loaded", {id: landmarkConfig.id});
+            self.mapView.map.fire("layer:loaded", { id: landmarkConfig.id });
           },
           error: function() {
-            self.mapView.map.fire("layer:error", {id: landmarkConfig.id});
-          }
+            self.mapView.map.fire("layer:error", { id: landmarkConfig.id });
+          },
         });
         Shareabouts.deferredCollections.push(deferred);
       }
@@ -452,7 +475,7 @@ module.exports = Backbone.View.extend({
 
     // loop over all place collections
     _.each(self.places, function(collection, key) {
-      self.mapView.map.fire("layer:loading", {id: key});
+      self.mapView.map.fire("layer:loading", { id: key });
       var deferred = collection.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
@@ -495,12 +518,12 @@ module.exports = Backbone.View.extend({
         },
 
         success: function() {
-          self.mapView.map.fire("layer:loaded", {id: key});
+          self.mapView.map.fire("layer:loaded", { id: key });
         },
 
         error: function() {
-          self.mapView.map.fire("layer:error", {id: key});
-        }
+          self.mapView.map.fire("layer:error", { id: key });
+        },
       });
       Shareabouts.deferredCollections.push(deferred);
     });
@@ -546,7 +569,7 @@ module.exports = Backbone.View.extend({
     if (this.mapView.locationTypeFilter) {
       this.options.router.navigate(
         "filter/" + this.mapView.locationTypeFilter,
-        { trigger: true },
+        { trigger: true }
       );
       this.hidePanel();
     } else {
@@ -564,12 +587,12 @@ module.exports = Backbone.View.extend({
   },
   setBodyClass: function(/* newBodyClasses */) {
     var bodyClasses = [
-      "content-visible",
-      "place-form-visible",
-      "page-visible",
-      "content-expanded",
-      "content-expanded-mid",
-    ],
+        "content-visible",
+        "place-form-visible",
+        "page-visible",
+        "content-expanded",
+        "content-expanded-mid",
+      ],
       newBodyClasses = Array.prototype.slice.call(arguments, 0),
       i,
       $body = $("body");
@@ -583,7 +606,7 @@ module.exports = Backbone.View.extend({
       // should fail loudly.
       if (_.indexOf(bodyClasses, newBodyClasses[i]) === -1) {
         Util.console.error(
-          "Setting an unrecognized body class.\nYou should probably just use jQuery directly.",
+          "Setting an unrecognized body class.\nYou should probably just use jQuery directly."
         );
       }
       $body.addClass(newBodyClasses[i]);
@@ -664,7 +687,7 @@ module.exports = Backbone.View.extend({
         "/" +
         parseFloat(lat).toFixed(5) +
         "/" +
-        parseFloat(lng).toFixed(5),
+        parseFloat(lng).toFixed(5)
     );
   },
 
@@ -702,17 +725,16 @@ module.exports = Backbone.View.extend({
       showNewPin: this.showNewPin.bind(this),
       map: this.mapView.map,
       emitter: emitter,
-      collectionsSet: {
-        places: this.places,
-        landmarks: this.landmarks,
-      },
+      places: this.places,
       router: this.options.router,
       customHooks: this.options.customHooks,
-      container: "#content article"
+      container: "#content article",
     };
 
-    if (this.options.customComponents 
-        && this.options.customComponents.InputForm === "VVInputForm") {
+    if (
+      this.options.customComponents &&
+      this.options.customComponents.InputForm === "VVInputForm"
+    ) {
       ReactDOM.render(
         <VVInputForm
           {...inputFormProps}
@@ -724,10 +746,7 @@ module.exports = Backbone.View.extend({
       );
     } else {
       ReactDOM.render(
-        <InputForm
-          {...inputFormProps}
-          autofillMode="color"
-        />,
+        <InputForm {...inputFormProps} autofillMode="color" />,
         document.querySelector("#content article")
       );
     }
@@ -735,13 +754,17 @@ module.exports = Backbone.View.extend({
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
     this.setBodyClass("content-visible", "content-expanded");
-    this.mapView.map.invalidateSize({ animate:true, pan:true });
+    this.mapView.map.invalidateSize({ animate: true, pan: true });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     this.setBodyClass("content-visible", "place-form-visible");
 
     if (this.options.placeConfig.default_basemap) {
-      this.setLayerVisibility(this.options.placeConfig.default_basemap, true, true);
+      this.setLayerVisibility(
+        this.options.placeConfig.default_basemap,
+        true,
+        true
+      );
     }
   },
 
@@ -759,7 +782,7 @@ module.exports = Backbone.View.extend({
       function(targetLayer) {
         this.setLayerVisibility(targetLayer, true, false);
       },
-      this,
+      this
     );
 
     // switch off all other layers
@@ -768,23 +791,25 @@ module.exports = Backbone.View.extend({
       function(targetLayer) {
         if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
           // but don't turn off basemap layers!
-          if (!this.basemapConfigs
+          if (
+            !this.basemapConfigs
               .map(config => config.id)
-              .includes(targetLayer.id)) {
-              this.setLayerVisibility(targetLayer.id, false, false);
+              .includes(targetLayer.id)
+          ) {
+            this.setLayerVisibility(targetLayer.id, false, false);
           }
         }
       },
-      this,
+      this
     );
   },
 
   restoreDefaultLayerVisibility: function() {
     var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(
-      panel,
-    ) {
-      return panel.id === "gis-layers";
-    }),
+        panel
+      ) {
+        return panel.id === "gis-layers";
+      }),
       defaultBasemapId = _.find(gisLayersPanel.basemaps, function(basemap) {
         return basemap.visibleDefault === true;
       }).id;
@@ -800,13 +825,13 @@ module.exports = Backbone.View.extend({
             this.setLayerVisibility(
               layer.id,
               layer.visibleDefault ? true : false,
-              false,
+              false
             );
           },
-          this,
+          this
         );
       },
-      this,
+      this
     );
   },
 
@@ -833,7 +858,7 @@ module.exports = Backbone.View.extend({
       {
         onFound: _.bind(onFound, this),
         onNotFound: _.bind(onNotFound, this),
-      },
+      }
     );
 
     function onFound(model, type, datasetId) {
@@ -861,18 +886,16 @@ module.exports = Backbone.View.extend({
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
-        detailView = self
-          .getPlaceDetailView(
-            model,
-            self.mapView.layerViews[datasetId][model.cid],
-          );
+        detailView = self.getPlaceDetailView(
+          model,
+          self.mapView.layerViews[datasetId][model.cid]
+        );
 
         self.showPanel(detailView.render().$el, !!args.responseId, detailView);
         detailView.delegateEvents();
       } else if (type === "landmark") {
         layer = self.mapView.layerViews[datasetId][model.id].layer;
-        detailView = self
-          .getLandmarkDetailView(datasetId, model);
+        detailView = self.getLandmarkDetailView(datasetId, model);
 
         self.showPanel(detailView.render().$el, false, detailView);
       }
@@ -923,7 +946,7 @@ module.exports = Backbone.View.extend({
 
       if (args.responseId) {
         $responseToScrollTo = detailView.$el.find(
-          '[data-response-id="' + args.responseId + '"]',
+          '[data-response-id="' + args.responseId + '"]'
         );
         if ($responseToScrollTo.length > 0) {
           if (layout === '"desktop"') {
@@ -952,9 +975,9 @@ module.exports = Backbone.View.extend({
 
   viewPage: function(slug) {
     var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
-      slug: slug,
-    }),
-      pageTemplateName = (pageConfig.name || pageConfig.slug),
+        slug: slug,
+      }),
+      pageTemplateName = pageConfig.name || pageConfig.slug,
       pageHtml = Handlebars.templates[pageTemplateName]({
         config: this.options.config,
       });
@@ -997,7 +1020,7 @@ module.exports = Backbone.View.extend({
     // infamous off-center bug.
     // NOTE: the timeout duration in use here was arbitrarily selected.
     setTimeout(function() {
-      map.invalidateSize({ animate:true, pan:true });
+      map.invalidateSize({ animate: true, pan: true });
     }, 1);
 
     $(Shareabouts).trigger("panelshow", [
@@ -1005,7 +1028,9 @@ module.exports = Backbone.View.extend({
       Backbone.history.getFragment(),
     ]);
 
-    $("#main-btns-container").addClass(this.options.placeConfig.add_button_location || "pos-top-left");
+    $("#main-btns-container").addClass(
+      this.options.placeConfig.add_button_location || "pos-top-left"
+    );
 
     Util.log("APP", "panel-state", "open");
   },
@@ -1039,7 +1064,9 @@ module.exports = Backbone.View.extend({
     this.setBodyClass();
     map.invalidateSize({ animate: true, pan: true });
 
-    $("#main-btns-container").addClass(this.options.placeConfig.add_button_location || "pos-top-left");
+    $("#main-btns-container").addClass(
+      this.options.placeConfig.add_button_location || "pos-top-left"
+    );
 
     Util.log("APP", "panel-state", "closed");
     this.hideSpotlightMask();

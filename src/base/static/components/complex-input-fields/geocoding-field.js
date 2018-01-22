@@ -63,14 +63,13 @@ class GeocodingField extends Component {
   }
 
   render() {
-    const { isWithGeocodingError, isGeocoding } = this.state;
-    const { name, onChange, value } = this.props;
     const cn = {
       spinner: classNames("geocoding-field__geocoding-spinner", {
-        "geocoding-field__geocoding-spinner--visible": isGeocoding,
+        "geocoding-field__geocoding-spinner--visible": this.state.isGeocoding,
       }),
       error: classNames("geocoding-field__geocoding-error", {
-        "geocoding-field__geocoding-error--visible": isWithGeocodingError,
+        "geocoding-field__geocoding-error--visible": this.state
+          .isWithGeocodingError,
       }),
     };
 
@@ -83,10 +82,10 @@ class GeocodingField extends Component {
         />
         <input
           className="geocoding-field__input"
-          name={name}
+          name={this.props.name}
           type="text"
-          value={value}
-          onChange={onChange}
+          value={this.props.value}
+          onChange={e => this.props.onChange(e.target.name, e.target.value)}
           onBlur={this.doGeocode.bind(this)}
         />
         <div className={cn.error}>{messages.locationNotFoundError}</div>

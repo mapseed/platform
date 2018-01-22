@@ -5,16 +5,20 @@ import classNames from "classnames";
 import "./primary-button.scss";
 
 const PrimaryButton = props => {
-  const { className, children, disabled, onClick } = props;
   const cn = classNames(
     "primary-button",
     "primary-button--hoverable",
-    className
+    props.className
   );
 
   return (
-    <button className={cn} type="button" disabled={disabled} onClick={onClick}>
-      {children}
+    <button
+      className={cn}
+      type="button"
+      disabled={props.disabled}
+      onClick={props.onClick}
+    >
+      {props.children}
     </button>
   );
 };

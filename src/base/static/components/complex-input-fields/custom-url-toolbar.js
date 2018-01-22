@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import TextField from "../form-fields/text-field";
+import TextField from "../basic-input-fields/text-field";
 import { customUrlField as messages } from "../messages";
 import "./custom-url-toolbar.scss";
 
@@ -17,17 +17,15 @@ class CustomUrlToolbar extends Component {
       window.location.protocol + "//" + window.location.hostname + "/";
   }
 
-  onUrlChange(evt) {
-    evt.target.value = Util.prepareCustomUrl(evt.target.value);
+  onUrlChange(name, value) {
+    value = Util.prepareCustomUrl(value);
     this.setState({
-      url: evt.target.value,
+      url: value,
     });
-    this.props.onChange(evt);
+    this.props.onChange(name, value);
   }
 
   render() {
-    const { name, placeholder, required, value } = this.props;
-
     return (
       <div className="custom-url-field">
         <div className="custom-url-field__url-readout-container">
@@ -42,10 +40,9 @@ class CustomUrlToolbar extends Component {
           </span>
         </div>
         <TextField
-          placeholder={placeholder}
-          value={value}
-          name={name}
-          required={required}
+          placeholder={this.props.placeholder}
+          value={this.props.value}
+          name={this.props.name}
           onChange={this.onUrlChange.bind(this)}
         />
       </div>
@@ -56,7 +53,6 @@ class CustomUrlToolbar extends Component {
 CustomUrlToolbar.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  required: PropTypes.bool,
   value: PropTypes.string,
 };
 

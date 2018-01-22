@@ -18,6 +18,16 @@ const constants = {
   RANGE_FIELD_TYPENAME: "range",
 
   AUTOFILL_DURATION_DAYS: 30,
+
+  RICH_TEXT_IMAGE_MARKUP_PREFIX: "{{#rich-text-image ",
+  RICH_TEXT_IMAGE_MARKUP_SUFFIX: "}}",
+
+  FIELD_STATE_VALUE_KEY: "value",
+  FIELD_STATE_VALIDITY_KEY: "isValid",
+  FIELD_STATE_VALIDITY_MESSAGE_KEY: "message",
+  FIELD_STATE_FIELD_TYPE_KEY: "type",
+
+  ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
 };
 
 export default constants;

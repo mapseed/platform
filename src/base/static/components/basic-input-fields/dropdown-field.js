@@ -6,30 +6,20 @@ import { dropdownField as messages } from "../messages";
 import "./dropdown-field.scss";
 
 const DropdownField = props => {
-  const {
-    autofillMode,
-    hasAutofill,
-    name,
-    onChange,
-    options,
-    required,
-    value,
-  } = props;
   const cn = classNames("dropdown-field", {
     "dropdown-field--has-autofill--colored":
-      hasAutofill && autofillMode === "color",
+      props.hasAutofill && props.autofillMode === "color",
   });
 
   return (
     <select
       className={cn}
-      value={value}
-      name={name}
-      required={required}
-      onChange={onChange}
+      value={props.value}
+      name={props.name}
+      onChange={e => props.onChange(e.target.name, e.target.value)}
     >
       <option value="">{messages.makeSelection}</option>
-      {options.map(option => (
+      {props.options.map(option => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>
@@ -54,6 +44,7 @@ DropdownField.propTypes = {
 };
 
 DropdownField.defaultProps = {
+  hasAutofill: false,
   autofillMode: "color",
 };
 

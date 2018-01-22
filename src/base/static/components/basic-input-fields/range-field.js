@@ -3,19 +3,16 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 const RangeField = props => {
-  const { className, id, max, min, name, onChange, required, value } = props;
-
   return (
     <input
-      className={classNames("range-field", className)}
+      className={classNames("range-field", props.className)}
       type="range"
-      min={min}
-      max={max}
-      id={id}
-      name={name}
-      value={value}
-      required={required}
-      onChange={onChange}
+      min={props.min}
+      max={props.max}
+      id={props.id}
+      name={props.name}
+      value={props.value}
+      onChange={e => props.onChange(e.target.name, e.target.value)}
     />
   );
 };
@@ -27,8 +24,7 @@ RangeField.propTypes = {
   min: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  required: PropTypes.bool,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 RangeField.defaultProps = {

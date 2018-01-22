@@ -444,6 +444,7 @@ place:
           optional: false
         - name: publish_control_toolbar
           type: publish_control_toolbar
+          default_value: "isPublished"
         - name: map_drawing_toolbar
           type: map_drawing_toolbar
           content:
@@ -455,7 +456,7 @@ place:
           type: custom_url_toolbar
           prompt: _(Custom URL field prompt:)
           placegolder: _(Enter a custom URL...)
-          optional: false
+          optional: true
         - name: datetime_field
           type: datetime
           prompt: _(Datetime field prompt:)

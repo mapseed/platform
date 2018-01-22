@@ -4,25 +4,23 @@ import PropTypes from "prop-types";
 import "./file-field.scss";
 
 const FileField = props => {
-  const { accept, label, name, onChange, required, value } = props;
-
   return (
     <div className="file-field">
       <input
         className="file-field__input file-field__input--hidden"
         type="file"
-        id={name}
-        name={name}
-        value={value}
-        required={required}
-        onChange={onChange}
-        accept={accept}
+        id={props.name}
+        name={props.name}
+        value={props.value}
+        required={props.required}
+        onChange={props.onChange}
+        accept={props.accept}
       />
       <label
         className="file-field__label file-field__label--hoverable"
-        htmlFor={name}
+        htmlFor={props.name}
       >
-        {label}
+        {props.label}
       </label>
     </div>
   );

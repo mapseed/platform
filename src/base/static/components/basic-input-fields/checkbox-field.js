@@ -3,18 +3,17 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 const CheckboxField = props => {
-  const { checked, className, id, name, onChange, value } = props;
-  const cn = classNames("checkbox-field", className);
+  const cn = classNames("checkbox-field", props.className);
 
   return (
     <input
       className={cn}
       type="checkbox"
-      id={id}
-      name={name}
-      value={value}
-      onChange={onChange}
-      checked={checked}
+      id={props.id}
+      name={props.name}
+      value={props.value}
+      onChange={props.onChange}
+      checked={props.checked}
     />
   );
 };

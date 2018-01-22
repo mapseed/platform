@@ -3,18 +3,15 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 const ToggleField = props => {
-  const { checked, className, id, name, onChange, required, value } = props;
-
   return (
     <input
-      className={classNames("toggle-field", className)}
+      className={classNames("toggle-field", props.className)}
       type="checkbox"
-      id={id}
-      name={name}
-      value={value}
-      checked={checked}
-      onChange={onChange}
-      required={required}
+      id={props.id}
+      name={props.name}
+      value={props.value}
+      checked={props.checked}
+      onChange={props.onChange}
     />
   );
 };
@@ -25,7 +22,6 @@ ToggleField.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  required: PropTypes.string,
   value: PropTypes.string.isRequired,
 };
 

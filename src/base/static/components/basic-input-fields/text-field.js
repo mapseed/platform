@@ -5,30 +5,21 @@ import classNames from "classnames";
 import "./text-field.scss";
 
 const TextField = props => {
-  const {
-    autofillMode,
-    hasAutofill,
-    name,
-    onChange,
-    placeholder,
-    required,
-    value,
-  } = props;
   const cn = classNames("text-field", {
     "text-field--has-autofill--colored":
-      hasAutofill && autofillMode === "color",
-    "text-field--has-autofill--hidden": hasAutofill && autofillMode === "hide",
+      props.hasAutofill && props.autofillMode === "color",
+    "text-field--has-autofill--hidden":
+      props.hasAutofill && props.autofillMode === "hide",
   });
 
   return (
     <input
       className={cn}
-      name={name}
+      name={props.name}
       type="text"
-      value={value}
-      placeholder={placeholder}
-      required={required}
-      onChange={onChange}
+      value={props.value}
+      placeholder={props.placeholder}
+      onChange={e => props.onChange(e.target.name, e.target.value)}
     />
   );
 };
@@ -39,7 +30,6 @@ TextField.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  required: PropTypes.string,
   value: PropTypes.string,
 };
 
