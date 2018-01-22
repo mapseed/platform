@@ -2,29 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import ToggleField from "../form-fields/toggle-field";
+import ToggleField from "../basic-input-fields/toggle-field";
 import "./big-toggle-field.scss";
 
 const BigToggleField = props => {
-  const {
-    autofillMode,
-    hasAutofill,
-    id,
-    checked,
-    labels,
-    name,
-    onChange,
-    required,
-    values,
-  } = props;
   const cn = {
     label: classNames(
       "big-toggle-field__label",
       "big-toggle-field__label--hoverable",
       {
-        "big-toggle-field__label--toggled": checked,
+        "big-toggle-field__label--toggled": props.checked,
         "big-toggle-field__label--has-autofill--colored":
-          hasAutofill && autofillMode === "color",
+          props.hasAutofill && props.autofillMode === "color",
       }
     ),
   };
@@ -33,15 +22,16 @@ const BigToggleField = props => {
     <div className="big-toggle-field">
       <ToggleField
         className="big-toggle-field__input"
-        id={id}
-        name={name}
-        checked={checked}
-        value={checked ? values[0] : values[1]}
-        onChange={onChange}
-        required={required}
+        id={props.id}
+        name={props.name}
+        checked={props.checked}
+        value={props.checked ? props.values[0] : props.values[1]}
+        onChange={e =>
+          props.onChange(e.target.name, props.values[e.target.checked ? 0 : 1])
+        }
       />
-      <label className={cn.label} htmlFor={id}>
-        {checked ? labels[0] : labels[1]}
+      <label className={cn.label} htmlFor={props.id}>
+        {props.checked ? props.labels[0] : props.labels[1]}
       </label>
     </div>
   );
@@ -54,7 +44,6 @@ BigToggleField.propTypes = {
   labels: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  required: PropTypes.bool,
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

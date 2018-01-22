@@ -5,18 +5,18 @@ import classNames from "classnames";
 import "./submit-field.scss";
 
 const SubmitField = props => {
-  const { disabled, id, name, usageContext } = props;
   const cn = classNames("submit-field", {
-    "submit-field--primary-button-context": usageContext === "PrimaryButton",
+    "submit-field--primary-button-context":
+      props.usageContext === "PrimaryButton",
   });
 
   return (
     <input
       className={cn}
       type="submit"
-      id={id}
-      name={name}
-      disabled={disabled}
+      id={props.id}
+      name={props.name}
+      disabled={props.disabled}
     />
   );
 };

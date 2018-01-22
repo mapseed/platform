@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import SecondaryButton from "../ui-elements/secondary-button";
-import FileField from "../form-fields/file-field";
+import FileField from "../basic-input-fields/file-field";
+import constants from "../constants";
 
 import "./add-attachment-button.scss";
 
@@ -23,7 +24,6 @@ class AddAttachmentButton extends Component {
 
     if (evt.target.files && evt.target.files.length) {
       const file = evt.target.files[0];
-      const { name, onChange } = this.props;
       this.setState({ displayFilename: file.name });
 
       Util.fileToCanvas(
@@ -31,12 +31,19 @@ class AddAttachmentButton extends Component {
         canvas => {
           canvas.toBlob(blob => {
             const fileObj = {
-              name: name,
+              name: this.props.name,
               blob: blob,
               file: canvas.toDataURL("image/jpeg"),
               type: "CO", // cover image
             };
-            onChange(evt, fileObj);
+
+            // Keep track of whether or not a cover image has been added for the
+            // purposes of validating an attachment button that is required.
+            this.props.onChange(evt.target.name, true);
+            this.props.onAdditionalData(
+              constants.ON_ADD_ATTACHMENT_ACTION,
+              fileObj
+            );
           }, "image/jpeg");
         },
         {
@@ -50,10 +57,8 @@ class AddAttachmentButton extends Component {
   }
 
   render() {
-    const { name, label } = this.props;
-    const { displayFilename } = this.state;
     const cn = classNames("add-attachment-button__filename", {
-      "add-attachment-button__filename--visible": displayFilename,
+      "add-attachment-button__filename--visible": this.state.displayFilename,
     });
 
     return (
@@ -61,12 +66,12 @@ class AddAttachmentButton extends Component {
         <SecondaryButton>
           <FileField
             onChange={this.onChange}
-            name={name}
-            label={label}
+            name={this.props.name}
+            label={this.props.label}
             accept="image/*"
           />
         </SecondaryButton>
-        <span className={cn}>{displayFilename}</span>
+        <span className={cn}>{this.state.displayFilename}</span>
       </div>
     );
   }

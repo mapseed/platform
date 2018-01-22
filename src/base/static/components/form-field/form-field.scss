@@ -1,0 +1,31 @@
+@import "variables";
+
+.input-form__field-prompt {
+  font-size: $input-form-prompt-font-size;
+  margin-bottom: 3px;
+}
+
+.input-form__optional-msg {
+  display: none;
+  padding-left: 0.5em;
+  font-size: $input-form-optional-msg-font-size;
+}
+
+.input-form__optional-msg--visible {
+  display: inline;
+}
+
+.input-form__field-container {
+  margin-bottom: 5px;
+  padding: 5px;
+  border: $input-form-invalid-field-placeholder-border;
+}
+
+.input-form__field-container--invalid {
+  border: $input-form-invalid-field-border;
+  border-radius: $input-form-invalid-field-border-radius;
+}
+
+.input-form__field-container--hidden {
+  display: none;
+}

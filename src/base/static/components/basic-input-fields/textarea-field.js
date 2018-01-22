@@ -5,28 +5,18 @@ import classNames from "classnames";
 import "./textarea-field.scss";
 
 const TextareaField = props => {
-  const {
-    autofillMode,
-    hasAutofill,
-    name,
-    onChange,
-    placeholder,
-    required,
-    value,
-  } = props;
   const cn = classNames("textarea-field", {
     "textarea-field--has-autofill--colored":
-      hasAutofill && autofillMode === "color",
+      props.hasAutofill && props.autofillMode === "color",
   });
 
   return (
     <textarea
       className={cn}
-      name={name}
-      placeholder={placeholder}
-      value={value}
-      required={required}
-      onChange={onChange}
+      name={props.name}
+      placeholder={props.placeholder}
+      value={props.value}
+      onChange={e => props.onChange(e.target.name, e.target.value)}
     />
   );
 };
@@ -37,7 +27,6 @@ TextareaField.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  required: PropTypes.string,
   value: PropTypes.string,
 };
 

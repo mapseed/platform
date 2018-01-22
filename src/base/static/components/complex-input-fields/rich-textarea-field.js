@@ -7,6 +7,8 @@ const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
 
+import constants from "../constants";
+
 import "./rich-textarea-field.scss";
 const Util = require("../../js/utils.js");
 
@@ -131,6 +133,14 @@ class RichTextareaField extends Component {
       });
   }
 
+  onChange(value) {
+    // "Blank" Quill editors actually contain the following markup; we replace
+    // that here with an empty string.
+    if (value === "<p><br></p>") value = "";
+
+    this.props.onChange(this.props.name, value);
+  }
+
   onAddImage(evt) {
     if (evt.target.files && evt.target.files.length) {
       const file = evt.target.files[0];
@@ -155,7 +165,10 @@ class RichTextareaField extends Component {
               "user"
             );
 
-            this.props.onAddImage(data);
+            this.props.onAdditionalData(
+              constants.ON_ADD_ATTACHMENT_ACTION,
+              data
+            );
 
             // TODO: place detail view editor use case
             // if (self.options.placeDetailView) {
@@ -193,27 +206,14 @@ class RichTextareaField extends Component {
       );
     }
 
-    // NOTE: we reset the value of the file input field here so the user can
-    // add multiple images to the rich text editor. If we don't reset the value,
-    // the input field's onChange handler will only fire after the first image
-    // is added.
     this["quill-file-input"].value = "";
   }
 
   render() {
-    const {
-      autofillMode,
-      bounds,
-      hasAutofill,
-      name,
-      onChange,
-      placeholder,
-      value,
-    } = this.props;
     const cn = {
       base: classNames("rich-textarea-field", {
         "rich-textarea-field--has-autofill--colored":
-          hasAutofill && autofillMode === "color",
+          this.props.hasAutofill && this.props.autofillMode === "color",
       }),
       quillFileInput: classNames(
         "rich-textarea-field__quill-file-input",
@@ -227,10 +227,10 @@ class RichTextareaField extends Component {
           ref={node => (this["quill-editor"] = node)}
           theme="snow"
           modules={this.modules}
-          placeholder={placeholder}
-          value={value}
-          bounds={bounds}
-          onChange={val => onChange(val, name)}
+          placeholder={this.props.placeholder}
+          bounds={this.props.bounds}
+          value={this.props.value}
+          onChange={this.onChange.bind(this)}
         />
         <input
           className={cn.quillFileInput}
@@ -249,7 +249,7 @@ RichTextareaField.propTypes = {
   bounds: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  onAddImage: PropTypes.func.isRequired,
+  onAdditionalData: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,

@@ -5,15 +5,13 @@ import classNames from "classnames";
 import "./secondary-button.scss";
 
 const SecondaryButton = props => {
-  const { children, className, onClick } = props;
-
   return (
     <button
-      className={classNames("secondary-button", className)}
+      className={classNames("secondary-button", props.className)}
       type="button"
-      onClick={onClick}
+      onClick={props.onClick}
     >
-      {children}
+      {props.children}
     </button>
   );
 };

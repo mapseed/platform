@@ -322,11 +322,11 @@ module.exports = Backbone.View.extend({
       _.isUndefined(this.options.appConfig.list_enabled) ||
       this.options.appConfig.list_enabled
     ) {
-      // this.listView = new PlaceListView({
-      //   el: "#list-container",
-      //   placeCollections: self.places,
-      //   placeConfig: this.options.placeConfig,
-      // }).render();
+      this.listView = new PlaceListView({
+        el: "#list-container",
+        placeCollections: self.places,
+        placeConfig: this.options.placeConfig,
+      }).render();
     }
 
     // Cache panel elements that we use a lot
@@ -725,17 +725,16 @@ module.exports = Backbone.View.extend({
       showNewPin: this.showNewPin.bind(this),
       map: this.mapView.map,
       emitter: emitter,
-      collectionsSet: {
-        places: this.places,
-        landmarks: this.landmarks,
-      },
+      places: this.places,
       router: this.options.router,
       customHooks: this.options.customHooks,
-      container: "#content article"
+      container: "#content article",
     };
 
-    if (this.options.customComponents 
-        && this.options.customComponents.InputForm === "VVInputForm") {
+    if (
+      this.options.customComponents &&
+      this.options.customComponents.InputForm === "VVInputForm"
+    ) {
       ReactDOM.render(
         <VVInputForm
           {...inputFormProps}
@@ -747,10 +746,7 @@ module.exports = Backbone.View.extend({
       );
     } else {
       ReactDOM.render(
-        <InputForm
-          {...inputFormProps}
-          autofillMode="color"
-        />,
+        <InputForm {...inputFormProps} autofillMode="color" />,
         document.querySelector("#content article")
       );
     }
