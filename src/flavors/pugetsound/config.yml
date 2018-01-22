@@ -83,6 +83,43 @@ map:
       transparent: false
       format: image/jpg
 
+    - id: scorecard
+      type: json      
+      url: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
+      popupContent: '<div><strong>Oil type: </strong>{{CITYNAME}}</div><div><strong>Score</strong>{{LID_Checklist_Master_score}}</div>'
+      rules:
+        - condition: '"{{properties.LID_Checklist_Master_score}}" == 5'
+          style:
+            fillColor: '#fef0d9'
+            fillOpacity: 0.6
+            weight: 1
+            color: '#000000'
+        - condition: '"{{properties.LID_Checklist_Master_score}}" == 4'
+          style:
+            fillColor: '#fdcc8a'
+            fillOpacity: 0.6
+            weight: 1            
+        - condition: '"{{properties.LID_Checklist_Master_score}}" == 3'
+          style:
+            fillColor: '#fc8d59'
+            fillOpacity: 0.6
+            weight: 1            
+        - condition: '"{{properties.LID_Checklist_Master_score}}" == 2'
+          style:
+            fillColor: '#e34a33'
+            fillOpacity: 0.6
+            weight: 1            
+        - condition: '"{{properties.LID_Checklist_Master_score}}" == 1'
+          style:
+            fillColor: '#b30000'
+            fillOpacity: 0.6
+            weight: 1            
+        - condition: '"{{properties.LID_Checklist_Master_score}}" == 0'
+          style:
+            fillColor: '#b30000'
+            fillOpacity: 0.6
+            weight: 1            
+
     # Geoserver-based WMS spill incidents layer
     # - id: spill-incidents
     #   type: wms
@@ -394,6 +431,9 @@ sidebar:
             - id: pugetsoundcases
               title: _(Settled Cases)
               visibleDefault: false
+            - id: scorecard
+              title: _(Scorecard)
+              visibleDefault: false              
             - id: cso
               title: _(Sewer overflow)
               visibleDefault: false
