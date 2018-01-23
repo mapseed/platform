@@ -86,7 +86,7 @@ map:
     - id: scorecard
       type: json      
       url: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
-      popupContent: '<div><strong>Oil type: </strong>{{CITYNAME}}</div><div><strong>Score</strong>{{LID_Checklist_Master_score}}</div>'
+      popupContent: '<div><h3>{{CITYNAME}}</h3></div><div><h4>Total Score: {{LID_Checklist_Master_score}}</h4></div><div><strong>Footprint: </strong>{{LID_Checklist_Master_Footprint}}</div><div><strong>Clearing & Grading: </strong>{{clearing-grading}}</div><div><strong>Permeable: </strong>{{LID_Checklist_Master_Permeable}}</div><div><strong>Tree List: </strong>{{tree-list}}</div><div><strong>Critical Buffers / Native Veg Buffer Enhancement: </strong>{{buffers}}</div>'
       rules:
         - condition: '"{{properties.LID_Checklist_Master_score}}" == 5'
           style:
@@ -856,6 +856,12 @@ story:
           - cso
         spotlight: false
         basemap: satellite
+      - url: scorecard
+        zoom: 9
+        visible_layers:
+          - scorecard
+        spotlight: false
+        basemap: light-nolabels
 
   rose-grants:
     tagline: _(Next grant)
