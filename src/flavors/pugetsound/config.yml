@@ -83,7 +83,7 @@ map:
       transparent: false
       format: image/jpg
 
-    - id: scorecard
+    - id: scorecard-layer
       type: json      
       url: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
       popupContent: '<div><h3>{{CITYNAME}}</h3></div><div><h4>Total Score: {{LID_Checklist_Master_score}}</h4></div><div><strong>Footprint: </strong>{{LID_Checklist_Master_Footprint}}</div><div><strong>Clearing & Grading: </strong>{{clearing-grading}}</div><div><strong>Permeable: </strong>{{LID_Checklist_Master_Permeable}}</div><div><strong>Tree List: </strong>{{tree-list}}</div><div><strong>Critical Buffers / Native Veg Buffer Enhancement: </strong>{{buffers}}</div>'
@@ -431,7 +431,7 @@ sidebar:
             - id: pugetsoundcases
               title: _(Settled Cases)
               visibleDefault: false
-            - id: scorecard
+            - id: scorecard-layer
               title: _(Scorecard)
               visibleDefault: false              
             - id: cso
@@ -859,7 +859,7 @@ story:
       - url: scorecard
         zoom: 9
         visible_layers:
-          - scorecard
+          - scorecard-layer
         spotlight: false
         basemap: light-nolabels
 
