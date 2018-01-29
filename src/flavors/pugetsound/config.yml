@@ -98,27 +98,32 @@ map:
           style:
             fillColor: '#fdcc8a'
             fillOpacity: 0.6
-            weight: 1            
+            weight: 1
+            color: '#000000'            
         - condition: '"{{properties.LID_Checklist_Master_score}}" == 3'
           style:
             fillColor: '#fc8d59'
             fillOpacity: 0.6
-            weight: 1            
+            weight: 1
+            color: '#000000'            
         - condition: '"{{properties.LID_Checklist_Master_score}}" == 2'
           style:
             fillColor: '#e34a33'
             fillOpacity: 0.6
-            weight: 1            
+            weight: 1
+            color: '#000000'            
         - condition: '"{{properties.LID_Checklist_Master_score}}" == 1'
           style:
             fillColor: '#b30000'
             fillOpacity: 0.6
-            weight: 1            
+            weight: 1
+            color: '#000000'            
         - condition: '"{{properties.LID_Checklist_Master_score}}" == 0'
           style:
             fillColor: '#b30000'
             fillOpacity: 0.6
-            weight: 1            
+            weight: 1
+            color: '#000000'            
 
     # Geoserver-based WMS spill incidents layer
     # - id: spill-incidents
@@ -857,7 +862,7 @@ story:
         spotlight: false
         basemap: satellite
       - url: scorecard
-        zoom: 9
+        zoom: 10
         visible_layers:
           - scorecard-layer
         spotlight: false
