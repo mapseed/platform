@@ -19,6 +19,8 @@ const constants = {
 
   AUTOFILL_DURATION_DAYS: 30,
 
+  LOCATION_TYPE_PROPERTY_NAME: "location_type",
+
   RICH_TEXT_IMAGE_MARKUP_PREFIX: "{{#rich-text-image ",
   RICH_TEXT_IMAGE_MARKUP_SUFFIX: "}}",
 

@@ -5,6 +5,7 @@ import emitter from "../../components/utils/emitter";
 
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
+import PlaceDetailView from "../../components/place-detail-view";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
@@ -20,7 +21,6 @@ var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var GeocodeAddressView = require("mapseed-geocode-address-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
-var PlaceDetailView = require("mapseed-place-detail-view");
 var PlaceFormView = require("mapseed-place-form-view");
 var RightSidebarView = require("mapseed-right-sidebar-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
@@ -916,8 +916,56 @@ module.exports = Backbone.View.extend({
           self.mapView.layerViews[datasetId][model.cid]
         );
 
-        self.showPanel(detailView.render().$el, !!args.responseId, detailView);
-        detailView.delegateEvents();
+        // REACT PORT SECTION //////////////////////////////////////////////////
+
+        ReactDOM.unmountComponentAtNode(
+          document.querySelector("#content article")
+        );
+
+        ReactDOM.render(
+          <PlaceDetailView
+            model={model}
+            appView={this}
+            surveyConfig={this.options.surveyConfig}
+            supportConfig={this.options.supportConfig}
+            placeConfig={this.options.placeConfig}
+            storyConfig={this.options.storyConfig}
+            mapConfig={this.options.mapConfig}
+          />,
+          document.querySelector("#content article")
+        );
+
+        this.$panel.show();
+        this.setBodyClass("content-visible", "content-expanded");
+        this.mapView.map.invalidateSize({ animate: true, pan: true });
+
+        // placeDetailView = new PlaceDetailView({
+        //   model: model,
+        //   appView: this,
+        //   layerView: layerView,
+        //   surveyConfig: this.options.surveyConfig,
+        //   supportConfig: this.options.supportConfig,
+        //   placeConfig: this.options.placeConfig,
+        //   storyConfig: this.options.storyConfig,
+        //   mapConfig: this.options.mapConfig,
+        //   placeTypes: this.options.placeTypes,
+        //   userToken: this.options.userToken,
+        //   mapView: this.mapView,
+        //   geometryEditorView: this.mapView.geometryEditorView,
+        //   router: this.options.router,
+        //   datasetId: _.find(this.options.mapConfig.layers, function(layer) {
+        //     return layer.slug == model.attributes.datasetSlug;
+        //   }).id,
+        //   collectionsSet: {
+        //     places: this.places,
+        //     landmarks: this.landmarks,
+        //   },
+        // });
+
+        //self.showPanel(detailView.render().$el, !!args.responseId, detailView);
+        //detailView.delegateEvents();
+
+        // END REACT PORT SECTION //////////////////////////////////////////////
       } else if (type === "landmark") {
         layer = self.mapView.layerViews[datasetId][model.id].layer;
         detailView = self.getLandmarkDetailView(datasetId, model);

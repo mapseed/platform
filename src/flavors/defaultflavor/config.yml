@@ -281,6 +281,12 @@ sidebar:
           visibleDefault: true
           layers:
             - id: demo
+              title: _(Demo Data)
+              visibleDefault: true
+            - id: duwamish
+              title: _(Community Reports)
+              visibleDefault: true
+            - id: demo
               title: _(Demo Layer)
               visibleDefault: true
 
@@ -344,14 +350,14 @@ place:
           type: text
           autocomplete: true
           prompt: _(Single line text field input prompt:)
-          display_prompt: _(Rendered text:)
+          display_prompt: _(Rendered text field:)
           placeholder: _(Enter text...)
           optional: false
         - name: textarea_field
           type: textarea
           autocomplete: true
           prompt: _(Multiline textarea field input prompt:)
-          display_prompt: _(Rendered text:)
+          display_prompt: _(Rendered textarea field:)
           placeholder: _(Enter text...)
           optional: false
         - name: rich_textarea_field

@@ -118,6 +118,8 @@ $text-field-margin: 0 0 0 0;
 $text-field-width: 100%;
 $text-field-autofill-background-color: $autofill-color;
 
+$rendered-text-field-margin-bottom: 5px;
+
 /*
   textarea-field.js
   Basic textarea field
@@ -129,6 +131,8 @@ $textarea-field-margin: 0 0 0 0;
 $textarea-field-width: 100%;
 $textarea-field-height: 6.5em;
 $textarea-field-autofill-background-color: $autofill-color;
+
+$rendered-textarea-field-margin-bottom: 5px;
 
 /*
   dropdown-field.js
@@ -241,6 +245,8 @@ $rich-textarea-border: 0.25em solid $secondary-color;
 $rich-textarea-min-height: 200px;
 $rich-textarea-font-size: 16px;
 $rich-textarea-field-autofill-background-color: $autofill-color;
+
+$rendered-rich-textarea-field-margin-bottom: 5px;
 
 /*
   map-drawing-toolbar.js
