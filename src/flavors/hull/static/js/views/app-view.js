@@ -3,38 +3,53 @@ import ReactDOM from "react-dom";
 import InputExplorer from "../../../../../flavors/hull/static/components/input-explorer";
 
 const AppView = require("../../../../../base/static/js/views/app-view.js");
-const GeocodeAddressView = require('../../../../../base/static/js/views/geocode-address-view');
-const PlaceCounterView = require('../../../../../base/static/js/views/place-counter-view');
-const PagesNavView = require('../../../../../base/static/js/views/pages-nav-view');
-const AuthNavView = require('../../../../../base/static/js/views/auth-nav-view');
-const MapView = require('../../../../../base/static/js/views/map-view');
-const SidebarView = require('../../../../../flavors/hull/static/js/views/sidebar-view');
-const ActivityView = require('../../../../../base/static/js/views/activity-view');
+const GeocodeAddressView = require("../../../../../base/static/js/views/geocode-address-view");
+const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
+const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
+const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
+const MapView = require("../../../../../base/static/js/views/map-view");
+const SidebarView = require("../../../../../flavors/hull/static/js/views/sidebar-view");
+const ActivityView = require("../../../../../base/static/js/views/activity-view");
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
 // END FLAVOR-SPECIFIC CODE
-const RightSidebarView = require('../../../../../base/static/js/views/right-sidebar-view');
+const RightSidebarView = require("../../../../../base/static/js/views/right-sidebar-view");
 
 module.exports = AppView.extend({
   events: {
-    'click #add-place': 'onClickAddPlaceBtn',
-    'click .close-btn': 'onClickClosePanelBtn',
-    'click .collapse-btn': 'onToggleSidebarVisibility',
-    'click .list-toggle-btn': 'toggleListView',
+    "click #add-place": "onClickAddPlaceBtn",
+    "click .close-btn": "onClickClosePanelBtn",
+    "click .collapse-btn": "onToggleSidebarVisibility",
+    "click .list-toggle-btn": "toggleListView",
     // BEGIN FLAVOR-SPECIFIC CODE
-    'click .show-layer-panel': 'showLayerPanel',
+    "click .show-layer-panel": "showLayerPanel",
     // END FLAVOR-SPECIFIC CODE
     // BEGIN FLAVOR-SPECIFIC CODE
-    'click .show-legend-panel': 'showLegendPanel'
+    "click .show-legend-panel": "showLegendPanel",
     // END FLAVOR-SPECIFIC CODE
   },
   initialize: function() {
-
     // BEGIN FLAVOR-SPECIFIC CODE
-    // REACT PORT SECTION //////////////////////////////////////////////////////    
+    // REACT PORT SECTION //////////////////////////////////////////////////////
     if (!this.options.customHooks) {
       this.options.customHooks = {};
     }
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    this.options.placeConfig.place_detail.forEach(category => {
+      category.fields = category.fields.map(field => {
+        if (field.type === "common_form_element") {
+          return Object.assign(
+            {},
+            this.options.placeConfig.common_form_elements[field.name],
+            { name: field.name }
+          );
+        } else {
+          return field;
+        }
+      });
+    });
     // END REACT PORT SECTION //////////////////////////////////////////////////
     // END FLAVOR-SPECIFIC CODE
 
@@ -42,13 +57,13 @@ module.exports = AppView.extend({
     Shareabouts.deferredCollections = [];
 
     var self = this,
-        // Only include submissions if the list view is enabled (anything but false)
-        includeSubmissions = this.options.appConfig.list_enabled !== false,
-        placeParams = {
-          // NOTE: this is to simply support the list view. It won't
-          // scale well, so let's think about a better solution.
-          include_submissions: includeSubmissions
-        };
+      // Only include submissions if the list view is enabled (anything but false)
+      includeSubmissions = this.options.appConfig.list_enabled !== false,
+      placeParams = {
+        // NOTE: this is to simply support the list view. It won't
+        // scale well, so let's think about a better solution.
+        include_submissions: includeSubmissions,
+      };
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
@@ -83,7 +98,7 @@ module.exports = AppView.extend({
     if (this.options.activityConfig.show_in_right_panel === true) {
       $("body").addClass("right-sidebar-visible");
       $("#right-sidebar-container").html(
-        "<ul class='recent-points unstyled-list'></ul>",
+        "<ul class='recent-points unstyled-list'></ul>"
       );
     }
 
@@ -141,7 +156,7 @@ module.exports = AppView.extend({
           this.hideListView();
         }
       },
-      this,
+      this
     );
 
     // Only append the tools to add places (if supported)
@@ -149,7 +164,7 @@ module.exports = AppView.extend({
     // NOTE: append add place/story buttons after the #map-container
     // div (rather than inside of it) in order to support bottom-clinging buttons
     $("#map-container").after(
-      Handlebars.templates["add-places"](this.options.placeConfig),
+      Handlebars.templates["add-places"](this.options.placeConfig)
     );
 
     this.pagesNavView = new PagesNavView({
@@ -166,7 +181,7 @@ module.exports = AppView.extend({
     }).render();
 
     this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
-      panel,
+      panel
     ) {
       return "basemaps" in panel;
     }).basemaps;
@@ -183,7 +198,7 @@ module.exports = AppView.extend({
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
       placeDetailViews: this.placeDetailViews,
-      placeConfig: this.options.placeConfig
+      placeConfig: this.options.placeConfig,
     });
 
     $("#sidebar-container").addClass("sidebar-container--hidden");
@@ -192,7 +207,7 @@ module.exports = AppView.extend({
         el: "#sidebar-container",
         mapView: this.mapView,
         sidebarConfig: this.options.sidebarConfig,
-        placeConfig: this.options.placeConfig
+        placeConfig: this.options.placeConfig,
       });
 
       // TODO: add another view inside the SidebarView for handling the legend
@@ -201,7 +216,7 @@ module.exports = AppView.extend({
       this.$(".leaflet-top.leaflet-right").append(
         '<div class="leaflet-control leaflet-bar">' +
           '<a href="#" class="show-layer-panel"></a>' +
-          "</div>",
+          "</div>"
       );
       // END FLAVOR-SPECIFIC CODE
 
@@ -209,7 +224,7 @@ module.exports = AppView.extend({
       this.$(".leaflet-top.leaflet-right").append(
         '<div class="leaflet-control leaflet-bar">' +
           '<a href="#" class="show-legend-panel"></a>' +
-          "</div>",
+          "</div>"
       );
       // END FLAVOR-SPECIFIC CODE
     }
@@ -287,11 +302,11 @@ module.exports = AppView.extend({
     // is enabled.
     $(Shareabouts).on("reversegeocode", function(evt, locationData) {
       var locationString = Handlebars.templates["location-string"](
-        locationData,
+        locationData
       );
       self.geocodeAddressView.setAddress($.trim(locationString));
       self.placeFormView.geocodeAddressPlaceView.setAddress(
-        $.trim(locationString),
+        $.trim(locationString)
       );
       self.placeFormView.setLatLng(locationData.latLng);
       // Don't pass location data into our geolocation's form field
@@ -425,10 +440,11 @@ module.exports = AppView.extend({
 
     // NOTE: we hard-code the hull-input collection here
     ReactDOM.render(
-      <InputExplorer 
+      <InputExplorer
         appConfig={this.options.appConfig}
         placeConfig={this.options.placeConfig.place_detail}
-        communityInput={this.places["hull-input"]} />,
+        communityInput={this.places["hull-input"]}
+      />,
       document.querySelector("#list-container")
     );
   },

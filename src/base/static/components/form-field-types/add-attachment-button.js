@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import SecondaryButton from "../ui-elements/secondary-button";
-import FileField from "../basic-input-fields/file-field";
+import FileField from "../form-field-types/file-field";
 import constants from "../constants";
 
 import "./add-attachment-button.scss";
@@ -80,6 +80,7 @@ class AddAttachmentButton extends Component {
 AddAttachmentButton.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  onAdditionalData: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

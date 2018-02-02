@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import emitter from "../utils/emitter";
 import { geocodingField as messages } from "../messages";
 import "./geocoding-field.scss";
 
@@ -44,7 +45,7 @@ class GeocodingField extends Component {
             isGeocoding: false,
             isWithGeocodingError: false,
           });
-          this.props.emitter.emit("geocode", locationsData[0]);
+          emitter.emit("geocode", locationsData[0]);
         } else {
           this.setState({
             isGeocoding: false,
@@ -95,6 +96,7 @@ class GeocodingField extends Component {
 }
 
 GeocodingField.propTypes = {
+  mapConfig: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,

@@ -372,7 +372,7 @@ place:
           placeholder: "my-new-featured-place"
           optional: true
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: farm
       includeOnForm: true
@@ -389,7 +389,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: farm_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -417,13 +417,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: horse
       includeOnForm: true
@@ -440,7 +440,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: horse_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -464,13 +464,13 @@ place:
           display_prompt: _( )
           placeholder: _(Enter a description of your actions...)
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: nature
       includeOnForm: true
@@ -487,7 +487,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: nature_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -512,13 +512,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: forest
       includeOnForm: true
@@ -541,13 +541,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: home
       includeOnForm: true
@@ -564,7 +564,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: horse_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -591,13 +591,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: shoreline
       includeOnForm: true
@@ -620,13 +620,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -644,11 +644,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)

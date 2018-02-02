@@ -1,14 +1,12 @@
 // REACT PORT SECTION //////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
-import { EventEmitter } from "fbemitter";
+import emitter from "../../components/utils/emitter";
 
 import InputForm from "../../components/input-form";
 
 // TEMPORARY: We import custom templates here for the time being.
 import VVInputForm from "../../components/vv-input-form";
-
-let emitter = new EventEmitter();
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -90,6 +88,26 @@ module.exports = Backbone.View.extend({
         // scale well, so let's think about a better solution.
         include_submissions: includeSubmissions,
       };
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    // NOTE: we resolve all common_form_elements here, before the React entry
+    // point. This simplifies the work we have to do within React components.
+    // TODO: This should be bumped as high as possible in the hierarchy, and
+    // possibly should happen in the build process.
+    this.options.placeConfig.place_detail.forEach(category => {
+      category.fields = category.fields.map(field => {
+        if (field.type === "common_form_element") {
+          return Object.assign(
+            {},
+            this.options.placeConfig.common_form_elements[field.name],
+            { name: field.name }
+          );
+        } else {
+          return field;
+        }
+      });
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
@@ -724,8 +742,8 @@ module.exports = Backbone.View.extend({
       hideCenterPoint: this.hideCenterPoint.bind(this),
       showNewPin: this.showNewPin.bind(this),
       map: this.mapView.map,
-      emitter: emitter,
       places: this.places,
+      landmarks: this.landmarks,
       router: this.options.router,
       customHooks: this.options.customHooks,
       container: "#content article",
@@ -994,6 +1012,11 @@ module.exports = Backbone.View.extend({
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
     this.$panelContent.html(markup);
     this.$panel.show();
     detailView && detailView.delegateEvents();

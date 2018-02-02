@@ -288,6 +288,9 @@ sidebar:
             - id: duwamish
               title: _(Community Reports)
               visibleDefault: true
+            - id: demo
+              title: _(Demo Layer)
+              visibleDefault: true
 
     - id: ticker
       view: ActivityView
@@ -495,13 +498,13 @@ place:
       value: observation
       label: _(Observation)
       fields:
-        - name: title
+        - name: text_field
           type: text
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
-        - name: pollution_type
+        - name: big_checkbox_field
           type: big_checkbox
           prompt: _(Types of pollution seen:)
           display_prompt: _( )

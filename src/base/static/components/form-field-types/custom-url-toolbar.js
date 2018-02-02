@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import TextField from "../basic-input-fields/text-field";
+import TextField from "../form-field-types/text-field";
 import { customUrlField as messages } from "../messages";
 import "./custom-url-toolbar.scss";
 
@@ -52,6 +52,7 @@ class CustomUrlToolbar extends Component {
 
 CustomUrlToolbar.propTypes = {
   name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
 };

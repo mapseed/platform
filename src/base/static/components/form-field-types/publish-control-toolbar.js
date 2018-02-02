@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
-import BigRadioField from "../complex-input-fields/big-radio-field";
+import BigRadioField from "../form-field-types/big-radio-field";
 import { publishControlToolbar as messages } from "../messages";
 
 import "./publish-control-toolbar.scss";
@@ -21,7 +20,6 @@ const PublishControlToolbar = props => {
           label={messages.publishedLabel}
           id={"input-form-" + props.name + "-isPublished"}
           name={props.name}
-          value="isPublished"
           checked={props.publishedState === "isPublished"}
           onChange={props.onChange}
         />
@@ -30,7 +28,6 @@ const PublishControlToolbar = props => {
           label={messages.notPublishedLabel}
           id={"input-form-" + props.name + "-isNotPublished"}
           name={props.name}
-          value="isNotPublished"
           checked={props.publishedState === "isNotPublished"}
           onChange={props.onChange}
         />
@@ -45,11 +42,11 @@ const PublishControlToolbar = props => {
 PublishControlToolbar.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  published: PropTypes.string.isRequired,
+  publishedState: PropTypes.string.isRequired,
 };
 
 PublishControlToolbar.defaultProps = {
-  published: "isPublished",
+  publishedState: "isPublished",
 };
 
 export default PublishControlToolbar;

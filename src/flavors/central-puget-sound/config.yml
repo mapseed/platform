@@ -1070,8 +1070,6 @@ place:
               value: never-flush-condoms
             - label: _(I do not put F.O.G down the drain (fat, oil, grease))
               value: fat-oil-grease
-            - label: _(I never flush condoms)
-              value: never-flush-condoms
             - label: _(I do not use cleansers with plastic “cleansing beads”)
               value: cleansing-plastic
             - label: _(I wash fleece and synthetic materials in bags to prevent micro plastic waste)

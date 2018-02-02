@@ -260,7 +260,7 @@ place:
           placeholder: _( )
           optional: true
         - name: venue
-          type: commmonFormElement
+          type: common_form_element
         - name: my_image
           type: common_form_element
         - name: demographics-header
@@ -310,7 +310,7 @@ place:
           placeholder: _( )
           optional: true
         - name: venue
-          type: commmonFormElement
+          type: common_form_element
         - name: my_image
           type: common_form_element
         - name: demographics-header
@@ -360,7 +360,7 @@ place:
           placeholder: _( )
           optional: true
         - name: venue
-          type: commmonFormElement
+          type: common_form_element
         - name: my_image
           type: common_form_element
         - name: demographics-header
@@ -410,7 +410,7 @@ place:
           placeholder: _( )
           optional: true
         - name: venue
-          type: commmonFormElement
+          type: common_form_element
         - name: my_image
           type: common_form_element
         - name: demographics-header

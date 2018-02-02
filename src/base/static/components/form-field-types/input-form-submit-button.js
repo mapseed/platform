@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import SubmitField from "../basic-input-fields/submit-field";
+import SubmitField from "../form-field-types/submit-field";
 import PrimaryButton from "../ui-elements/primary-button";
 
 class InputFormSubmitButton extends Component {
@@ -22,5 +23,11 @@ class InputFormSubmitButton extends Component {
     );
   }
 }
+
+InputFormSubmitButton.propTypes = {
+  disabled: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export default InputFormSubmitButton;

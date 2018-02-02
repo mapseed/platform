@@ -2,20 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import RadioField from "../basic-input-fields/radio-field";
+import RadioField from "../form-field-types/radio-field";
 import "./big-radio-field.scss";
 
 const BigRadioField = props => {
   const cn = {
-    label: classNames(
-      "big-radio-field__label",
-      "big-radio-field__label--hoverable",
-      {
-        "big-radio-field__label--toggled": props.checked,
-        "big-radio-field__label--has-autofill--colored":
-          props.hasAutofill && props.checked && props.autofillMode === "color",
-      }
-    ),
+    label: classNames("big-radio-field__label", {
+      "big-radio-field__label--toggled": props.checked,
+      "big-radio-field__label--has-autofill--colored":
+        props.hasAutofill && props.checked && props.autofillMode === "color",
+    }),
   };
 
   return (

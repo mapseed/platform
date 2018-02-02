@@ -3,7 +3,7 @@ import { List } from "immutable";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import CheckboxField from "../basic-input-fields/checkbox-field";
+import CheckboxField from "../form-field-types/checkbox-field";
 import "./big-checkbox-field.scss";
 
 class BigCheckboxField extends Component {
@@ -19,17 +19,13 @@ class BigCheckboxField extends Component {
   render() {
     const isChecked = this.props.checkboxGroupState.includes(this.props.value);
     const cn = {
-      label: classNames(
-        "big-checkbox-field__label",
-        "big-checkbox-field__label--hoverable",
-        {
-          "big-checkbox-field__label--toggled": isChecked,
-          "big-checkbox-field__label--has-autofill--colored":
-            this.props.hasAutofill &&
-            isChecked &&
-            this.props.autofillMode === "color",
-        }
-      ),
+      label: classNames("big-checkbox-field__label", {
+        "big-checkbox-field__label--toggled": isChecked,
+        "big-checkbox-field__label--has-autofill--colored":
+          this.props.hasAutofill &&
+          isChecked &&
+          this.props.autofillMode === "color",
+      }),
     };
 
     return (
@@ -51,7 +47,10 @@ class BigCheckboxField extends Component {
 }
 
 BigCheckboxField.propTypes = {
-  checkboxGroupState: PropTypes.instanceOf(List).isRequired,
+  checkboxGroupState: PropTypes.oneOfType([
+    PropTypes.instanceOf(List),
+    PropTypes.string,
+  ]).isRequired,
   autofillMode: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,

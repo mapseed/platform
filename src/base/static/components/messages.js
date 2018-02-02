@@ -79,6 +79,8 @@ const inputForm = {
   missingGeometry:
     "Please use the drawing toolbar to add a point, line, or polygon to the map.",
   missingRequired: "Please fill out the field(s) outlined below.",
+  duplicateUrl:
+    "Please choose a different URL for your post. The URL you chose is already in use.",
 };
 const customUrlField = {
   urlReadoutPrefix: "Your post will be accessible at:",

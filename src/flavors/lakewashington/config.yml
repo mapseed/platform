@@ -491,11 +491,8 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
           type: common_form_element
     - category: question
@@ -531,11 +528,8 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
           type: common_form_element
     - category: idea
@@ -572,11 +566,8 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
           type: common_form_element
     - category: complaint
@@ -680,13 +671,10 @@ place:
         - key: size
           value: 30
     - prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       type: file
       name: my_image
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
 
 survey:
   submission_type: comments
