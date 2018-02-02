@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-const cn = require("classnames");
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import PrimaryButton from "../ui-elements/primary-button";
 import InputForm from "../input-form";
@@ -15,7 +16,7 @@ const hooks = {
       response.get("location_type") === constants.COMMUNITY_INPUT_CATEGORY_NAME
     ) {
       context.setState({
-        stage: 3,
+        stage: "exit-or-continue",
         isContinuingFormSession: false,
         isLeavingForm: false,
       });
@@ -25,40 +26,37 @@ const hooks = {
   },
 };
 
-class VVInputForm extends React.Component {
+class VVInputForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stage: 1,
+      stage: "set-location",
       isMapPositioned: false,
       isContinuingFormSession: false,
       isLeavingForm: false,
     };
-    this.onClickContinueForm = this.onClickContinueForm.bind(this);
-    this.onClickExitForm = this.onClickExitForm.bind(this);
-
-    this.props.map.on("dragend", () => {
-      !this.state.isMapPositioned &&
-        this.setState({
-          stage: 2,
-          isMapPositioned: true,
-          isContinuingFormSession: false,
-        });
-    });
-
-    const postSaveHookWrapper = (response, model, defaultPostSave) => {
-      return hooks.postSave(response, model, defaultPostSave, this);
-    };
-
-    this.props.customHooks.postSave = postSaveHookWrapper;
+    // We use this.renderCount for creating unique component keys on re-renders
+    // of the form.
+    this.renderCount = 1;
   }
 
   componentWillMount() {
     this.removeAutofillvalues();
   }
 
-  componentWillUnmount() {
-    this.removeAutofillvalues();
+  componentDidMount() {
+    this.props.map.on("dragend", () => {
+      !this.state.isMapPositioned &&
+        this.setState({
+          stage: "enter-data",
+          isMapPositioned: true,
+          isContinuingFormSession: false,
+        });
+    });
+
+    this.props.customHooks.postSave = (response, model, defaultPostSave) => {
+      return hooks.postSave(response, model, defaultPostSave, this);
+    };
   }
 
   removeAutofillvalues() {
@@ -71,8 +69,9 @@ class VVInputForm extends React.Component {
   }
 
   onClickContinueForm() {
+    this.renderCount++;
     this.setState({
-      stage: 2,
+      stage: "enter-data",
       isContinuingFormSession: true,
     });
 
@@ -82,7 +81,7 @@ class VVInputForm extends React.Component {
 
   onClickExitForm() {
     this.setState({
-      stage: 1,
+      stage: "set-location",
       isContinuingFormSession: false,
       isLeavingForm: true,
       isMapPositioned: false,
@@ -94,26 +93,24 @@ class VVInputForm extends React.Component {
   }
 
   render() {
-    const classNames = {
-      form: cn("vv-input-form__form", {
-        "vv-input-form__form--visible": this.state.stage === 2,
-        "vv-input-form__form--hidden": this.state.stage !== 2,
+    const cn = {
+      form: classNames("vv-input-form__form", {
+        "vv-input-form__form--visible": this.state.stage === "enter-data",
       }),
-      welcomeHeader: cn("vv-input-form__welcome-header-container", {
+      welcomeHeader: classNames("vv-input-form__welcome-header-container", {
         "vv-input-form__welcome-header-container--visible":
-          this.state.stage === 1 || this.state.stage === 2,
-        "vv-input-form__welcome-header-container--hidden":
-          this.state.stage === 3,
+          this.state.stage === "set-location" ||
+          this.state.stage === "enter-data",
       }),
-      continueBtns: cn("vv-input-form__continue-btns-container", {
-        "vv-input-form__continue-btns--visible": this.state.stage === 3,
-        "vv-input-form__continue-btns--hidden": this.state.stage !== 3,
+      continueBtns: classNames("vv-input-form__continue-btns-container", {
+        "vv-input-form__continue-btns-container--visible":
+          this.state.stage === "exit-or-continue",
       }),
     };
 
     return (
       <div className="vv-input-form">
-        <div className={classNames.welcomeHeader}>
+        <div className={cn.welcomeHeader}>
           <h3 className="vv-input-form__welcome-header">
             {messages.welcomeHeader}
           </h3>
@@ -123,24 +120,25 @@ class VVInputForm extends React.Component {
           </p>
         </div>
         <InputForm
-          className={classNames.form}
+          className={cn.form}
           isContinuingFormSession={this.state.isContinuingFormSession}
+          renderCount={this.renderCount}
           isLeavingForm={this.state.isLeavingForm}
           {...this.props}
         />
-        <div className={classNames.continueBtns}>
+        <div className={cn.continueBtns}>
           <h4 className="input-form__continue-btns-header">
             {messages.continueBtnsHeader}
           </h4>
           <PrimaryButton
             className="input-form__continue-form-btn"
-            onClick={this.onClickContinueForm}
+            onClick={this.onClickContinueForm.bind(this)}
           >
             {messages.continueFormLabel}
           </PrimaryButton>
           <PrimaryButton
             className="input-form__exit-form-btn"
-            onClick={this.onClickExitForm}
+            onClick={this.onClickExitForm.bind(this)}
           >
             {messages.exitFormLabel}
           </PrimaryButton>
@@ -149,5 +147,15 @@ class VVInputForm extends React.Component {
     );
   }
 }
+
+VVInputForm.propTypes = {
+  customHooks: PropTypes.objectOf(PropTypes.func),
+  hideNewPin: PropTypes.func.isRequired,
+  hidePanel: PropTypes.func.isRequired,
+  hideSpotlightMask: PropTypes.func.isRequired,
+  map: PropTypes.object.isRequired,
+  placeConfig: PropTypes.object.isRequired,
+  showNewPin: PropTypes.func.isRequired,
+};
 
 export default VVInputForm;

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { fromJS, List as ImmutableList, Map as ImmutableMap } from "immutable";
 import classNames from "classnames";
 
-import { TextField, TextareaField, DropdownField } from "../basic-input-fields";
 import {
+  TextField,
+  TextareaField,
+  DropdownField,
   DatetimeField,
   GeocodingField,
   AddAttachmentButton,
@@ -17,17 +20,33 @@ import {
   BigToggleField,
   PublishControlToolbar,
   RangeSliderWithLabel,
-} from "../complex-input-fields";
+} from "../form-field-types";
 
 import "./form-field.scss";
 import { inputForm as messages } from "../messages.js";
+import {
+  mayHaveAnyValue,
+  mustHaveSomeValue,
+  mustHaveUniqueUrl,
+} from "./validators";
 import constants from "../constants";
+
+const Util = require("../../js/utils.js");
 
 class FormField extends Component {
   shouldComponentUpdate(nextProps) {
     return (
+      nextProps.isInitializing ||
       nextProps.showValidityStatus ||
       nextProps.updatingField === this.props.config.name
+    );
+  }
+
+  componentWillMount() {
+    this.validator = this.getValidator(this.props.config);
+    this.props.onInitialize(
+      this.props.config.name,
+      this.getInitialFieldState(this.props.config)
     );
   }
 
@@ -35,9 +54,88 @@ class FormField extends Component {
     this.props.onChange(
       fieldName,
       fieldValue,
-      this.props.validator.validate(fieldValue),
-      this.props.validator.message
+      this.validator.validate(
+        fieldValue,
+        this.props.places,
+        this.props.landmarks
+      ),
+      this.validator.message
     );
+  }
+
+  getValidator(fieldConfig) {
+    if (fieldConfig.type === constants.SUBMIT_FIELD_TYPENAME) {
+      return {
+        validate: mayHaveAnyValue,
+        message: "",
+      };
+    } else if (fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME) {
+      return {
+        validate: mustHaveSomeValue,
+        message: messages.missingGeometry,
+      };
+    } else if (fieldConfig.type === constants.CUSTOM_URL_TOOLBAR_TYPENAME) {
+      return {
+        validate: mustHaveUniqueUrl,
+        message: messages.duplicateUrl,
+      };
+    } else {
+      return {
+        validate: fieldConfig.optional ? mayHaveAnyValue : mustHaveSomeValue,
+        message: messages.missingRequired,
+      };
+    }
+  }
+
+  getInitialFieldState(fieldConfig) {
+    // "autofill" is a better term than "autocomplete" for this feature.
+    // TODO: Update this throughout the codebase.
+    let autofillValue = fieldConfig.autocomplete
+      ? Util.getAutocompleteValue(fieldConfig.name)
+      : null;
+
+    fieldConfig.hasAutofill = !!autofillValue;
+
+    let fieldValue;
+    switch (fieldConfig.type) {
+      case constants.BIG_TOGGLE_FIELD_TYPENAME:
+        fieldValue =
+          autofillValue ||
+          fieldConfig.default_value ||
+          fieldConfig.content[1].value; // "off" position of the toggle
+        break;
+      case constants.BIG_CHECKBOX_FIELD_TYPENAME:
+        fieldValue =
+          fromJS(autofillValue) ||
+          fromJS(fieldConfig.default_value) ||
+          ImmutableList();
+        break;
+      case constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME:
+        fieldValue = autofillValue || fieldConfig.default_value;
+        break;
+      case constants.MAP_DRAWING_TOOLBAR_TYPENAME:
+        fieldValue = null;
+        break;
+      default:
+        fieldValue = autofillValue || fieldConfig.default_value || "";
+        break;
+    }
+
+    const fieldObj = ImmutableMap()
+      .set(constants.FIELD_STATE_INITIALIZED_KEY, true)
+      .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
+      .set(constants.FIELD_STATE_FIELD_TYPE_KEY, fieldConfig.type)
+      .set(
+        constants.FIELD_STATE_VALIDITY_KEY,
+        this.validator.validate(
+          fieldValue,
+          this.props.places,
+          this.props.landmarks
+        )
+      )
+      .set(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY, this.validator.message);
+
+    return fieldObj;
   }
 
   buildField(fieldConfig) {
@@ -64,7 +162,7 @@ class FormField extends Component {
       onAdditionalData: this.props.onAdditionalData,
       onChange: this.onChange.bind(this),
       placeholder: fieldConfig.placeholder,
-      value: this.props.value,
+      value: this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
     };
 
     switch (fieldConfig.type) {
@@ -119,7 +217,9 @@ class FormField extends Component {
               value={item.value}
               label={item.label}
               id={"input-form-" + fieldConfig.name + "-" + item.value}
-              checkboxGroupState={this.props.value}
+              checkboxGroupState={this.props.fieldState.get(
+                constants.FIELD_STATE_VALUE_KEY
+              )}
               name={fieldConfig.name}
               onChange={this.onChange.bind(this)}
               autofillMode={this.props.autofillMode}
@@ -136,7 +236,10 @@ class FormField extends Component {
               value={item.value}
               label={item.label}
               id={"input-form-" + fieldConfig.name + "-" + item.value}
-              checked={this.props.value === item.value}
+              checked={
+                this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ===
+                item.value
+              }
               name={fieldConfig.name}
               onChange={this.onChange.bind(this)}
               autofillMode={this.props.autofillMode}
@@ -148,7 +251,9 @@ class FormField extends Component {
         return (
           <PublishControlToolbar
             {...sharedProps}
-            publishedState={this.props.value}
+            publishedState={this.props.fieldState.get(
+              constants.FIELD_STATE_VALUE_KEY
+            )}
           />
         );
       case constants.DATETIME_FIELD_TYPENAME:
@@ -156,7 +261,7 @@ class FormField extends Component {
           fieldPrompt,
           <DatetimeField
             {...sharedProps}
-            date={this.props.value}
+            date={this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY)}
             showTimeSelect={true}
           />,
         ];
@@ -174,7 +279,10 @@ class FormField extends Component {
           fieldPrompt,
           <BigToggleField
             name={fieldConfig.name}
-            checked={this.props.value === fieldConfig.content[0].value}
+            checked={
+              this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ===
+              fieldConfig.content[0].value
+            }
             key={2}
             labels={[
               fieldConfig.content[0].label,
@@ -205,13 +313,6 @@ class FormField extends Component {
             showAllValues={true}
           />,
         ];
-      case constants.COMMON_FORM_ELEMENT_TYPENAME:
-        const commonFormElementConfig = Object.assign(
-          {},
-          this.props.placeConfig.common_form_elements[fieldConfig.name],
-          { name: fieldConfig.name }
-        );
-        return this.buildField(commonFormElementConfig);
       default:
         console.error("Error: unknown form field type:", fieldConfig.type);
         return null;
@@ -221,10 +322,13 @@ class FormField extends Component {
   render() {
     const cn = classNames("input-form__field-container", {
       "input-form__field-container--invalid":
-        !this.props.validator.validate(this.props.value) &&
-        this.props.showValidityStatus,
+        !this.validator.validate(
+          this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
+          this.props.places,
+          this.props.landmarks
+        ) && this.props.showValidityStatus,
       "input-form__field-container--hidden":
-        this.props.value &&
+        this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) &&
         this.props.config.hasAutofill &&
         this.props.autofillMode === "hide",
     });
@@ -232,5 +336,32 @@ class FormField extends Component {
     return <div className={cn}>{this.buildField(this.props.config)}</div>;
   }
 }
+
+FormField.propTypes = {
+  autofillMode: PropTypes.string.isRequired,
+  config: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  fieldState: PropTypes.object.isRequired,
+  landmarks: PropTypes.object.isRequired,
+  map: PropTypes.object.isRequired,
+  mapConfig: PropTypes.object.isRequired,
+  onAdditionalData: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onInitialize: PropTypes.func.isRequired,
+  placeConfig: PropTypes.object.isRequired,
+  places: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
+  showValidityStatus: PropTypes.bool.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string,
+    PropTypes.bool,
+    PropTypes.object,
+  ]),
+};
+
+FormField.defaultProps = {
+  autofillMode: "color",
+};
 
 export default FormField;

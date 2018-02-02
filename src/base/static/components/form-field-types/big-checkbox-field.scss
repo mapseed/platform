@@ -39,20 +39,20 @@
     width: 2.5em;
     background-color: $big-checkbox-field-hover-icon-background-color;
   }
+
+  &:hover {
+    color: $big-checkbox-field-hover-label-color;
+
+    &:before {
+      content: $big-checkbox-field-icon;
+      text-indent: 0.9em;
+      color: $big-checkbox-field-hover-icon-color;
+    }
+  }
 }
 
 .big-checkbox-field__label--has-autofill--colored {
   background-color: $big-checkbox-field-autofill-background-color;
-}
-
-.big-checkbox-field__label--hoverable:hover {
-  color: $big-checkbox-field-hover-label-color;
-
-  &:before {
-    content: $big-checkbox-field-icon;
-    text-indent: 0.9em;
-    color: $big-checkbox-field-hover-icon-color;
-  }
 }
 
 .big-checkbox-field__label--toggled {

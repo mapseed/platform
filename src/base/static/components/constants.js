@@ -26,6 +26,7 @@ const constants = {
   FIELD_STATE_VALIDITY_KEY: "isValid",
   FIELD_STATE_VALIDITY_MESSAGE_KEY: "message",
   FIELD_STATE_FIELD_TYPE_KEY: "type",
+  FIELD_STATE_INITIALIZED_KEY: "isInitialized",
 
   ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
 };

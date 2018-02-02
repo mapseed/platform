@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { fromJS, List as ImmutableList, Map as ImmutableMap } from "immutable";
+import {
+  OrderedMap as ImmutableOrderedMap,
+  Map as ImmutableMap,
+} from "immutable";
 import classNames from "classnames";
 
-import InputFormCategoryButton from "./input-form-category-button";
+import InputFormCategorySelector from "./input-form-category-selector";
 import FormField from "../form-field";
 
 import { inputForm as messages } from "../messages";
 import constants from "../constants";
-import { mayHaveAnyValue, mustHaveSomeValue } from "./validators";
 import "./input-form.scss";
 
 const Util = require("../../js/utils.js");
@@ -28,9 +30,8 @@ class InputForm extends Component {
     super(props);
     this.state = {
       selectedCategory: null,
-      isCategoryMenuCollapsed: false,
       isCategoryMenuHidden: false,
-      fields: ImmutableMap(),
+      fields: ImmutableOrderedMap(),
       updatingField: null,
       isFormSubmitting: false,
       formValidationErrors: new Set(),
@@ -38,58 +39,13 @@ class InputForm extends Component {
       isMapPositioned: false,
     };
 
-    this.customGeometryFieldname = null;
-    this.richTextFields = [];
+    this.customGeometryObj = {};
     this.attachments = [];
-    this.visibleCategories = [];
-
-    this.props.map.on("dragend", this.handleDragEnd.bind(this));
-  }
-
-  handleDragEnd() {
-    !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
-  }
-
-  resetState() {
-    const isSingleCategory = this.visibleCategories.length === 1;
-
-    this.setState({
-      selectedCategory: isSingleCategory ? this.visibleCategories[0] : null,
-      isCategoryMenuCollapsed: false,
-      isCategoryMenuHidden: isSingleCategory,
-      fields: ImmutableMap(),
-      updatingField: null,
-      isFormSubmitting: false,
-      formValidationErrors: new Set(),
-      showValidityStatus: false,
-      isMapPositioned: false,
-    });
-    this.resetCategoryData();
-  }
-
-  resetCategoryData() {
-    this.customGeometryFieldname = null;
-    this.richTextFields = [];
-    this.attachments = [];
-  }
-
-  componentWillMount() {
-    this.visibleCategories = this.props.placeConfig.place_detail
-      .filter(config => config.includeOnForm)
-      .filter(config => {
-        return !(
-          config.admin_only &&
-          !Util.getAdminStatus(config.dataset, config.admin_groups)
-        );
-      });
-
-    if (this.visibleCategories.length === 1) {
-      this.setActiveCategoryState(this.visibleCategories[0]);
-      this.setState({ isCategoryMenuHidden: true });
-    }
   }
 
   componentDidMount() {
+    this.props.map.on("dragend", this.handleDragEnd.bind(this));
+
     // TODO: Replace this.
     new Spinner(Shareabouts.smallSpinnerOptions).spin(
       document.getElementsByClassName("input-form__submit-spinner")[0]
@@ -98,19 +54,18 @@ class InputForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.isContinuingFormSession) {
-      this.setActiveCategoryState(
+      this.setActiveCategory(
         this.getCategoryConfig(this.state.selectedCategory)
       );
-
-      // TODO: I think this condition will no longer be necessary given reliable
-      // unmount behavior when the detail view renders.
-    } else if (nextProps.isLeavingForm) {
-      this.resetState();
     }
   }
 
   componentWillUnmount() {
     this.props.map.off("dragend", this.handleDragEnd);
+  }
+
+  handleDragEnd() {
+    !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
   }
 
   getCategoryConfig(category) {
@@ -119,16 +74,28 @@ class InputForm extends Component {
     );
   }
 
+  onFieldInitialize(fieldName, fieldValue) {
+    this.setState(({ fields }) => ({
+      fields: fields.set(fieldName, fieldValue),
+      isInitializing: true,
+    }));
+  }
+
   onFieldChange(fieldName, fieldValue, isValid, message) {
     const newState = this.state.fields
       .get(fieldName)
       .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
       .set(constants.FIELD_STATE_VALIDITY_KEY, isValid)
-      .set(constants.FIELD_STATE_VALIDITY_MESSAGE_KET, message);
-    this.setState(({ fields, updatingField }) => ({
+      .set(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY, message);
+    this.setState(({ fields }) => ({
       fields: fields.set(fieldName, newState),
       updatingField: fieldName,
+      isInitializing: false,
     }));
+  }
+
+  onCategoryChange(category) {
+    this.setActiveCategory(this.getCategoryConfig(category));
   }
 
   onAdditionalData(action, payload) {
@@ -145,131 +112,39 @@ class InputForm extends Component {
     }
   }
 
-  setActiveCategoryState(categoryConfig) {
-    this.resetCategoryData();
-
-    let newFields = ImmutableMap();
-    categoryConfig.fields
-      .filter(field => {
-        if (field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME) {
-          this.customGeometryFieldname = field.name;
-        }
-
-        return (
-          this.resolveField(field).type !== constants.SUBMIT_FIELD_TYPENAME
-        );
-      })
-      .forEach(field => {
-        newFields = newFields.set(field.name, this.getInitialFieldState(field));
-        if (field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
-          this.richTextFields.push(field.name);
-        }
-      });
+  setActiveCategory(categoryConfig) {
+    this.customGeometryObj =
+      categoryConfig.fields.find(
+        field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
+      ) || {};
+    this.attachments = [];
+    let fields = ImmutableOrderedMap();
+    categoryConfig.fields.forEach(field => {
+      fields = fields.set(
+        field.name,
+        ImmutableMap()
+          .set(constants.FIELD_STATE_INITIALIZED_KEY, false)
+          .set(constants.FIELD_STATE_VALUE_KEY, "")
+      );
+    });
 
     this.setState({
-      fields: newFields,
+      fields: fields,
       selectedCategory: categoryConfig.category,
-      isCategoryMenuCollapsed: true,
       isFormSubmitting: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
     });
   }
 
-  getValidator(fieldConfig) {
-    if (fieldConfig.type === constants.SUBMIT_FIELD_TYPENAME) {
-      return {
-        validate: mayHaveAnyValue,
-        message: "",
-      };
-    } else if (fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME) {
-      return {
-        validate: mustHaveSomeValue,
-        message: messages.missingGeometry,
-      };
-    } else {
-      return {
-        validate: fieldConfig.optional ? mayHaveAnyValue : mustHaveSomeValue,
-        message: messages.missingRequired,
-      };
-    }
-  }
-
-  getInitialFieldState(fieldConfig) {
-    // "autofill" is a better term than "autocomplete" for this feature.
-    // TODO: Update this throughout the codebase.
-    let autofillValue = fieldConfig.autocomplete
-      ? Util.getAutocompleteValue(this.resolveField(fieldConfig).name)
-      : null;
-
-    fieldConfig.hasAutofill = !!autofillValue;
-
-    let fieldValue;
-    switch (fieldConfig.type) {
-      case constants.BIG_TOGGLE_FIELD_TYPENAME:
-        fieldValue =
-          autofillValue ||
-          fieldConfig.default_value ||
-          fieldConfig.content[1].value; // "off" position of the toggle
-        break;
-      case constants.BIG_CHECKBOX_FIELD_TYPENAME:
-        fieldValue =
-          fromJS(autofillValue) ||
-          fromJS(fieldConfig.default_value) ||
-          ImmutableList();
-        break;
-      case constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME:
-        fieldValue = autofillValue || fieldConfig.default_value;
-        break;
-      case constants.MAP_DRAWING_TOOLBAR_TYPENAME:
-        fieldValue = null;
-        break;
-      case constants.COMMON_FORM_ELEMENT_TYPENAME:
-        const commonFormElementConfig = Object.assign(
-          {},
-          this.props.placeConfig.common_form_elements[fieldConfig.name],
-          { name: fieldConfig.name }
-        );
-        return this.getInitialFieldState(commonFormElementConfig);
-        break;
-      default:
-        fieldValue = autofillValue || fieldConfig.default_value || "";
-        break;
-    }
-
-    const fieldObj = ImmutableMap()
-      .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
-      .set(constants.FIELD_STATE_FIELD_TYPE_KEY, fieldConfig.type)
-      .set(
-        constants.FIELD_STATE_VALIDITY_KEY,
-        this.getValidator(fieldConfig).validate(fieldValue)
-      )
-      .set(
-        constants.FIELD_STATE_VALIDITY_MESSAGE_KEY,
-        this.getValidator(fieldConfig).message
-      );
-
-    return fieldObj;
-  }
-
-  resolveField(fieldConfig) {
-    if (fieldConfig.type === constants.COMMON_FORM_ELEMENT_TYPENAME) {
-      return this.props.placeConfig.common_form_elements[fieldConfig.name];
-    } else {
-      return fieldConfig;
-    }
-  }
-
   onSubmit(evt) {
-    // TOOD: Enter button submission is still having an effect...
-
     evt.preventDefault();
     Util.log("USER", "new-place", "submit-place-btn-click");
 
     // Validate the form.
     const newValidationErrors = new Set();
     let isValid = true;
-    this.state.fields.forEach((value, name) => {
+    this.state.fields.forEach(value => {
       if (!value.get(constants.FIELD_STATE_VALIDITY_KEY)) {
         newValidationErrors.add(
           value.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY)
@@ -321,56 +196,15 @@ class InputForm extends Component {
       showMetadata: selectedCategoryConfig.showMetadata,
     });
     const model = collection.at(collection.length - 1);
-    let attrs = Object.assign(
-      {},
-      this.state.fields
-        .filter(
-          val =>
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-              constants.MAP_DRAWING_TOOLBAR_TYPENAME &&
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-              constants.ATTACHMENT_FIELD_TYPENAME
-        )
-        .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
-        .toJS()
-    );
+    let attrs = {};
 
-    this.richTextFields.forEach(fieldName => {
-      // Replace image data with placeholders built from each image's name.
-      attrs[fieldName] = attrs[fieldName].replace(
-        /<img.*?name="(.*?)".*?>/g,
-        constants.RICH_TEXT_IMAGE_MARKUP_PREFIX +
-          "$1" +
-          constants.RICH_TEXT_IMAGE_MARKUP_SUFFIX
-      );
-    });
-
-    this.attachments.forEach(attachment => {
-      model.attachmentCollection.add(attachment);
-    });
-
-    // Save autofill values as necessary.
-    selectedCategoryConfig.fields
-      .concat(this.props.placeConfig.common_form_elements)
-      .forEach(fieldConfig => {
-        if (fieldConfig.autocomplete) {
-          Util.saveAutocompleteValue(
-            fieldConfig.name,
-            this.state.fields
-              .get(fieldConfig.name)
-              .get(constants.FIELD_STATE_VALUE_KEY),
-            constants.AUTOFILL_DURATION_DAYS
-          );
-        }
-      });
-
-    if (this.customGeometryFieldname) {
+    if (this.customGeometryObj.name) {
       attrs.geometry = this.state.fields
-        .get(this.customGeometryFieldname)
+        .get(this.customGeometryObj.name)
         .get(constants.FIELD_STATE_VALUE_KEY)
         .get("geometry");
       attrs.style = this.state.fields
-        .get(this.customGeometryFieldname)
+        .get(this.customGeometryObj.name)
         .get(constants.FIELD_STATE_VALUE_KEY)
         .get("geometryStyle");
     } else {
@@ -380,6 +214,55 @@ class InputForm extends Component {
         coordinates: [center.lng, center.lat],
       };
     }
+    Object.assign(
+      attrs,
+      this.state.fields
+        .filter(
+          // TODO: There is probably a better pattern to use here, instead of
+          // relying on these specific checks.
+          val =>
+            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
+              constants.MAP_DRAWING_TOOLBAR_TYPENAME &&
+            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
+              constants.ATTACHMENT_FIELD_TYPENAME &&
+            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
+              constants.SUBMIT_FIELD_TYPENAME &&
+            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
+              constants.GEOCODING_FIELD_TYPENAME
+        )
+        .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
+        .toJS()
+    );
+
+    // Save autofill values as necessary.
+    selectedCategoryConfig.fields.forEach(fieldConfig => {
+      if (fieldConfig.autocomplete) {
+        Util.saveAutocompleteValue(
+          fieldConfig.name,
+          this.state.fields
+            .get(fieldConfig.name)
+            .get(constants.FIELD_STATE_VALUE_KEY),
+          constants.AUTOFILL_DURATION_DAYS
+        );
+      }
+    });
+
+    // Replace image data in rich text fields with placeholders built from each
+    // image's name.
+    selectedCategoryConfig.fields
+      .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
+      .forEach(field => {
+        attrs[field.name] = attrs[field.name].replace(
+          /<img.*?name="(.*?)".*?>/g,
+          constants.RICH_TEXT_IMAGE_MARKUP_PREFIX +
+            "$1" +
+            constants.RICH_TEXT_IMAGE_MARKUP_SUFFIX
+        );
+      });
+
+    this.attachments.forEach(attachment => {
+      model.attachmentCollection.add(attachment);
+    });
 
     // Fire pre-save hook.
     // The pre-save hook allows flavors to attach arbitrary data to the attrs
@@ -406,7 +289,7 @@ class InputForm extends Component {
           this.defaultPostSave(model);
         }
       },
-      error: error => {
+      error: () => {
         Util.log("USER", "new-place", "fail-to-add-place");
       },
       wait: true,
@@ -414,37 +297,18 @@ class InputForm extends Component {
   }
 
   defaultPostSave(model) {
-    this.resetState();
     this.props.router.navigate(Util.getUrl(model), { trigger: true });
   }
 
-  getSpecialFieldProps(fieldType) {
-    switch (fieldType) {
-      case constants.MAP_DRAWING_TOOLBAR_TYPENAME:
-        return {
-          map: this.props.map,
-          router: this.props.router,
-        };
-      case constants.GEOCODING_FIELD_TYPENAME:
-        return {
-          mapConfig: this.props.mapConfig,
-          emitter: this.props.emitter,
-        };
-      case constants.COMMON_FORM_ELEMENT_TYPENAME:
-        return {
-          placeConfig: this.props.placeConfig,
-        };
-      default:
-        return {};
-    }
-  }
-
   render() {
+    if (this.customGeometryObj.name) {
+      this.props.hideSpotlightMask();
+      this.props.hideCenterPoint();
+    } else if (!this.state.isMapPositioned) {
+      this.props.showNewPin();
+    }
+
     const cn = {
-      categoryBtns: classNames("input-form__category-buttons-container", {
-        "input-form__category-buttons-container--hidden": this.state
-          .isCategoryMenuHidden,
-      }),
       form: classNames("input-form__form", this.props.className, {
         "input-form__form--inactive": this.state.isFormSubmitting,
       }),
@@ -456,37 +320,46 @@ class InputForm extends Component {
         "input-form__submit-spinner--visible": this.state.isFormSubmitting,
       }),
     };
-    const fields =
-      this.state.selectedCategory &&
-      this.getCategoryConfig(this.state.selectedCategory).fields;
-
-    if (this.customGeometryFieldname) {
-      this.props.hideSpotlightMask();
-      this.props.hideCenterPoint();
-    } else if (!this.state.isMapPositioned) {
-      this.props.showNewPin();
-    }
+    const fields = [];
+    this.state.fields.forEach((fieldState, fieldName) => {
+      fields.push(
+        <FormField
+          autofillMode={this.props.autofillMode}
+          key={
+            this.state.selectedCategory +
+            "-" +
+            fieldName +
+            "-" +
+            this.props.renderCount
+          }
+          map={this.props.map}
+          mapConfig={this.props.mapConfig}
+          isInitializing={this.state.isInitializing}
+          router={this.props.router}
+          placeConfig={this.props.placeConfig}
+          updatingField={this.state.updatingField}
+          config={this.getCategoryConfig(
+            this.state.selectedCategory
+          ).fields.find(field => field.name === fieldName)}
+          showValidityStatus={this.state.showValidityStatus}
+          disabled={this.state.isFormSubmitting}
+          onChange={this.onFieldChange.bind(this)}
+          onInitialize={this.onFieldInitialize.bind(this)}
+          onAdditionalData={this.onAdditionalData.bind(this)}
+          fieldState={fieldState}
+          places={this.props.places}
+          landmarks={this.props.landmarks}
+        />
+      );
+    });
 
     return (
       <div className="input-form">
-        <div className={cn.categoryBtns}>
-          {this.visibleCategories.map(config => (
-            <InputFormCategoryButton
-              isActive={this.state.selectedCategory === config.category}
-              isCategoryMenuCollapsed={this.state.isCategoryMenuCollapsed}
-              key={config.category}
-              categoryConfig={config}
-              onCategoryChange={evt =>
-                this.setActiveCategoryState(
-                  this.getCategoryConfig(evt.target.value)
-                )
-              }
-              onExpandCategories={() =>
-                this.setState({ isCategoryMenuCollapsed: false })
-              }
-            />
-          ))}
-        </div>
+        <InputFormCategorySelector
+          placeConfig={this.props.placeConfig}
+          onCategoryChange={this.onCategoryChange.bind(this)}
+          selectedCategory={this.state.selectedCategory}
+        />
         <div className={cn.warningMsgs}>
           <p className={"input-form__warning-msgs-header"}>
             {messages.validationHeader}
@@ -502,32 +375,7 @@ class InputForm extends Component {
           className={cn.form}
           onSubmit={this.onSubmit.bind(this)}
         >
-          {this.state.selectedCategory &&
-            this.getCategoryConfig(this.state.selectedCategory).fields.map(
-              config => {
-                const specialProps = this.getSpecialFieldProps(config.type);
-                const validator = this.getValidator(config);
-                const value = this.state.fields.get(config.name)
-                  ? this.state.fields
-                      .get(config.name)
-                      .get(constants.FIELD_STATE_VALUE_KEY)
-                  : "";
-                return (
-                  <FormField
-                    key={config.name}
-                    updatingField={this.state.updatingField}
-                    config={config}
-                    showValidityStatus={this.state.showValidityStatus}
-                    validator={validator}
-                    disabled={this.state.isFormSubmitting}
-                    onChange={this.onFieldChange.bind(this)}
-                    onAdditionalData={this.onAdditionalData.bind(this)}
-                    value={value}
-                    {...specialProps}
-                  />
-                );
-              }
-            )}
+          {fields}
         </form>
         <div className={cn.spinner} />
       </div>
@@ -538,9 +386,22 @@ class InputForm extends Component {
 InputForm.propTypes = {
   autofillMode: PropTypes.string.isRequired,
   className: PropTypes.string,
+  customHooks: PropTypes.oneOfType([
+    PropTypes.objectOf(PropTypes.func),
+    PropTypes.bool,
+  ]),
+  container: PropTypes.string.isRequired,
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
+  isContinuingFormSession: PropTypes.bool,
+  isLeavingForm: PropTypes.bool,
+  landmarks: PropTypes.object.isRequired,
+  map: PropTypes.object.isRequired,
+  mapConfig: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
+  places: PropTypes.object.isRequired,
+  renderCount: PropTypes.number,
+  router: PropTypes.object.isRequired,
   showNewPin: PropTypes.func.isRequired,
 };
 

@@ -5,8 +5,6 @@ import classNames from "classnames";
 import ColorPicker from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
 
-import RadioField from "../basic-input-fields/radio-field";
-import constants from "../constants";
 import { mapDrawingToolbar as messages } from "../messages";
 import "./map-drawing-toolbar.scss";
 
@@ -670,6 +668,8 @@ class MapDrawingToolbar extends Component {
 
 MapDrawingToolbar.propTypes = {
   map: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
   markers: PropTypes.array.isRequired,
 };

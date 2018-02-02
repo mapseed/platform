@@ -36,20 +36,20 @@
     width: 2.5em;
     background-color: $big-toggle-field-hover-icon-background-color;
   }
+
+  &:hover {
+    color: $big-toggle-field-hover-label-text-color;
+
+    &:before {
+      content: $big-toggle-field-icon;
+      text-indent: 0.9em;
+      color: $big-toggle-field-hover-icon-color;
+    }
+  }
 }
 
 .big-toggle-field__label--has-autofill--colored {
   background-color: $big-toggle-field-autofill-background-color;
-}
-
-.big-toggle-field__label--hoverable:hover {
-  color: $big-toggle-field-hover-label-text-color;
-
-  &:before {
-    content: $big-toggle-field-icon;
-    text-indent: 0.9em;
-    color: $big-toggle-field-hover-icon-color;
-  }
 }
 
 .big-toggle-field__label--toggled {

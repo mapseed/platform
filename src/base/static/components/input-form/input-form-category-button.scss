@@ -21,24 +21,23 @@
   transition-timing-function: ease;
 }
 
-.input-form-category-button--hovering {
-  cursor: pointer;
-}
-
 .input-form-category-button__input {
   display: none;
 }
 
 .input-form-category-button__label {
   display: flex;
+  border: $input-form-category-button-border;
+  border-radius: $input-form-category-button-border-radius;
   align-items: center;
   text-transform: $input-form-category-button-text-transform;
   font-size: $input-form-category-button-font-size;
   height: $input-form-category-button-height;
-}
 
-.input-form-category-button__label--active {
-  border-radius: $input-form-category-button-border-radius;
+  &:hover {
+    cursor: pointer;
+    border: $input-form-category-button-hover-border;
+  }
 }
 
 .input-form-category-button__expand-categories-button {
@@ -55,19 +54,19 @@
     font-family: FontAwesome;
     content: $input-form-category-button-expand-categories-button;
   }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: $input-form-category-button-expand-categories-button-hover-color;
+  }
 }
 
 .input-form-category-button__expand-categories-button--hidden {
   display: none;
-}
-
-.input-form-category-button__expand-categories-button--focused {
-  outline: none;
-}
-
-.input-form-category-button__expand-categories-button--hovering {
-  cursor: pointer;
-  color: $input-form-category-button-expand-categories-button-hover-color;
 }
 
 .input-form-category-button__label-text {
@@ -88,13 +87,6 @@
   color: $input-form-category-button-selected-text-color;
 }
 
-.input-form-category-button__label-text--hovering {
-  cursor: pointer;
-  border-right: $input-form-category-button-hover-border;
-  border-top: $input-form-category-button-hover-border;
-  border-bottom: $input-form-category-button-hover-border;
-}
-
 .input-form-category-button__image-container {
   display: flex;
   flex-direction: column;
@@ -108,13 +100,6 @@
 
 .input-form-category-button__image-container--active {
   background-color: $input-form-category-button-selected-image-background-color;
-}
-
-.input-form-category-button__image-container--hovering {
-  cursor: pointer;
-  border-left: $input-form-category-button-hover-border;
-  border-top: $input-form-category-button-hover-border;
-  border-bottom: $input-form-category-button-hover-border;
 }
 
 .input-form-category-button__image {

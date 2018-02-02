@@ -1,11 +1,11 @@
-.vv-input-form__form--visible,
-.vv-input-form__welcome-header-container--visible,
-.vv-input-form__continue-btns--visible {
-  display: block;
+.vv-input-form__form,
+.vv-input-form__welcome-header-container,
+.vv-input-form__continue-btns-container {
+  display: none;
 }
 
-.vv-input-form__form--hidden,
-.vv-input-form__welcome-header-container--hidden,
-.vv-input-form__continue-btns--hidden {
-  display: none;
+.vv-input-form__form--visible,
+.vv-input-form__welcome-header-container--visible,
+.vv-input-form__continue-btns-container--visible {
+  display: block;
 }

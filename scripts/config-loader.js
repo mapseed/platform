@@ -16,7 +16,7 @@ const configGettextRegex = /^_\(/;
 
 Handlebars.registerHelper("serialize", function(json) {
   if (!json) return false;
-  return JSON.stringify(json || {});
+  return JSON.stringify(json);
 });
 
 module.exports = function(source) {

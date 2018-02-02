@@ -2,20 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import ToggleField from "../basic-input-fields/toggle-field";
+import ToggleField from "../form-field-types/toggle-field";
 import "./big-toggle-field.scss";
 
 const BigToggleField = props => {
   const cn = {
-    label: classNames(
-      "big-toggle-field__label",
-      "big-toggle-field__label--hoverable",
-      {
-        "big-toggle-field__label--toggled": props.checked,
-        "big-toggle-field__label--has-autofill--colored":
-          props.hasAutofill && props.autofillMode === "color",
-      }
-    ),
+    label: classNames("big-toggle-field__label", {
+      "big-toggle-field__label--toggled": props.checked,
+      "big-toggle-field__label--has-autofill--colored":
+        props.hasAutofill && props.autofillMode === "color",
+    }),
   };
 
   return (
@@ -38,6 +34,7 @@ const BigToggleField = props => {
 };
 
 BigToggleField.propTypes = {
+  autofillMode: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,

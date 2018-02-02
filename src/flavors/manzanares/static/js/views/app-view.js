@@ -36,6 +36,22 @@ module.exports = AppView.extend({
       this.options.customHooks = {};
     }
     // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    this.options.placeConfig.place_detail.forEach(category => {
+      category.fields = category.fields.map(field => {
+        if (field.type === "common_form_element") {
+          return Object.assign(
+            {},
+            this.options.placeConfig.common_form_elements[field.name],
+            { name: field.name }
+          );
+        } else {
+          return field;
+        }
+      });
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
     // END FLAVOR-SPECIFIC CODE
 
     // store promises returned from collection fetches
