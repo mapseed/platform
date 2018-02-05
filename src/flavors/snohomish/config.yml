@@ -72,6 +72,11 @@ map:
       type: place
       slug: report
 
+    - id: boundary
+      url: https://api.mapbox.com/styles/v1/lakewashington/cjd0jrq8s13ei2rs5nh1ohmch/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      attribution: 'Hello World'
+      type: basemap
+
 # The values map the place type to map icons (defined below).
 place_types:
   farm:
@@ -293,7 +298,7 @@ sidebar:
           visibleDefault: false
       groupings:
         - id: grp-community
-          title: _(Community Data)
+          title: _(Data Layers)
           visibleDefault: true
           layers:
             - id: snohomish-input
@@ -302,6 +307,10 @@ sidebar:
 
             - id: snohomish-featured
               title: _(Featured sites)
+              visibleDefault: true
+
+            - id: boundary
+              title: _(Boundary)
               visibleDefault: true
 
 activity:
