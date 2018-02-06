@@ -42,9 +42,9 @@ map:
 
   options:
     center:
-      lat: 47.91093
-      lng: -122.01056
-    zoom: 12
+      lat: 48.02851
+      lng: -121.64543
+    zoom: 10
     minZoom: 1
     maxZoom: 18
 
@@ -74,6 +74,16 @@ map:
 
     - id: boundary
       url: https://api.mapbox.com/styles/v1/lakewashington/cjd0jrq8s13ei2rs5nh1ohmch/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      attribution: 'Hello World'
+      type: basemap
+
+    - id: sub-basins
+      url: https://api.mapbox.com/styles/v1/lakewashington/cjdaksgj191b52ro3zodoa1io/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      attribution: 'Hello World'
+      type: basemap
+
+    - id: wria-boundaries
+      url: https://api.mapbox.com/styles/v1/lakewashington/cjdal68x167762rqdn6o30ncr/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
       attribution: 'Hello World'
       type: basemap
 
@@ -302,7 +312,7 @@ sidebar:
           visibleDefault: true
           layers:
             - id: snohomish-input
-              title: _(Community Reports)
+              title: _(Community Rsidebar:eports)
               visibleDefault: true
 
             - id: snohomish-featured
@@ -312,6 +322,14 @@ sidebar:
             - id: boundary
               title: _(Boundary)
               visibleDefault: true
+
+            - id: sub-basins
+              title: _(Sub-basins)
+              visibleDefault: false
+
+            - id: wria-boundaries
+              title: _(Watershed boundaries)
+              visibleDefault: false
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
