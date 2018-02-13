@@ -1,38 +1,40 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 const cn = require("classnames");
 
 import constants from "./constants";
 import "./input-explorer-input-item.scss";
 
-class InputExplorerInputItem extends Component {
+// TODO: Remove moment global.
 
+class InputExplorerInputItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stickyIsToggled: (this.props.model.get(constants.IS_STICKY_FIELDNAME)) ? true : false
+      isStickyToggled: this.props.model.get(constants.IS_STICKY_FIELDNAME)
+        ? true
+        : false,
     };
     this.onStickyToggleChange = this.onStickyToggleChange.bind(this);
   }
 
-  onStickyToggleChange(evt) {
-    const { isAdmin, model, parent } = this.props;
-
-    if (isAdmin) {
-      let newStickyState = !this.state.stickyIsToggled;
+  onStickyToggleChange() {
+    if (this.props.isAdmin) {
+      let newStickyState = !this.state.isStickyToggled;
 
       // Update sticky state on server
-      model.save(
+      this.props.model.save(
         {
-          [constants.IS_STICKY_FIELDNAME]: newStickyState
+          [constants.IS_STICKY_FIELDNAME]: newStickyState,
         },
         {
-          success: (model, response) => {
-            this.setState({ stickyIsToggled: newStickyState });
-            parent.forceUpdate();
+          success: () => {
+            this.setState({ isStickyToggled: newStickyState });
+            this.props.parent.forceUpdate();
           },
           error: (model, response) => {
             console.error("Error saving sticky state:", response);
-          }
+          },
         }
       );
     }
@@ -42,41 +44,47 @@ class InputExplorerInputItem extends Component {
   }
 
   render() {
-    const { createdDatetime, inputText, isAdmin, model } = this.props;
-    const { stickyIsToggled } = this.state;
     const classNames = {
       stickyToggleLabel: cn("input-explorer-input-item__sticky-toggle-label", {
-        "input-explorer-input-item__sticky-toggle-label--toggled": stickyIsToggled,
-        "input-explorer-input-item__sticky-toggle-label--untoggled": !stickyIsToggled,
-        "input-explorer-input-item__sticky-toggle-label--toggleable": isAdmin
-      })
+        "input-explorer-input-item__sticky-toggle-label--toggled": this.state
+          .isStickyToggled,
+        "input-explorer-input-item__sticky-toggle-label--toggleable": this.props
+          .isAdmin,
+      }),
     };
 
     return (
       <div className="input-explorer-input-item">
         <p className="input-explorer-input-item__response-text">
-          {inputText}
+          {this.props.inputText}
         </p>
         <p className="input-explorer-input-item__response-time">
-          {moment(createdDatetime).format("MMMM Do YYYY, h:mm a")}
+          {moment(this.props.createdDatetime).format("MMMM Do YYYY, h:mm a")}
         </p>
         <span className="input-explorer-input-item__sticky-toggle-container">
           <input
             className="input-explorer-input-item__sticky-toggle-input"
             type="checkbox"
-            id={"input-item-" + model.id}
-            checked={stickyIsToggled}
+            id={"input-item-" + this.props.model.id}
+            checked={this.state.isStickyToggled}
             onChange={this.onStickyToggleChange}
           />
           <label
-            htmlFor={"input-item-" + model.id}
+            htmlFor={"input-item-" + this.props.model.id}
             className={classNames.stickyToggleLabel}
           />
         </span>
       </div>
     );
   }
-
 }
+
+InputExplorerInputItem.propTypes = {
+  createdDatetime: PropTypes.string.isRequired,
+  inputText: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  model: PropTypes.object.isRequired,
+  parent: PropTypes.object.isRequired,
+};
 
 export default InputExplorerInputItem;

@@ -1,9 +1,9 @@
-.input-explorer-input-list-header--visible {
-  display: block;
+.input-explorer-input-list-header {
+  display: none;
 }
 
-.input-explorer-input-list-header--hidden {
-  display: none;
+.input-explorer-input-list-header--visible {
+  display: block;
 }
 
 .input-explorer-input-list-header__header {
@@ -18,8 +18,8 @@
   text-transform: uppercase;
   list-style: none;
   width: 60%;
-  border: 1px solid #CCCCCC;
-  background-color: #EFEFEF;
+  border: 1px solid #cccccc;
+  background-color: #efefef;
   margin: auto;
   padding-top: 5px;
   padding-bottom: 5px;
