@@ -3,8 +3,9 @@ export default {
   submitAnother: "Submit another comment",
   exitSurvey: "Exit survey",
   categorySummaryLabel: "Summary",
-  inputListHeader: "What concerns do you have about this garden or its future development?",
+  inputListHeader:
+    "What concerns do you have about this garden or its future development?",
   subcategorySummaryLabel: "All",
   recommendationsLabel: "Recommendations",
-  concernsLabel: "Concerns"
+  concernsLabel: "Concerns",
 };

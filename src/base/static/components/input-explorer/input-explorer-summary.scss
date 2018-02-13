@@ -1,20 +1,17 @@
 .input-explorer-summary {
+  display: none;
   width: 60%;
   margin-left: auto;
   margin-right: auto;
 }
 
 .input-explorer-summary__summary-box {
-  border: 1px solid #CCCCCC;
+  border: 1px solid #cccccc;
   padding: 10px;
 }
 
-.input-explorer-summary--visibile {
+.input-explorer-summary--visible {
   display: block;
-}
-
-.input-explorer-summary--hidden {
-  display: none;
 }
 
 .input-explorer-summary__num-recommendations {

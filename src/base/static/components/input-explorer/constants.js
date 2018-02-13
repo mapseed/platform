@@ -8,5 +8,5 @@ export default {
   CREATED_DATETIME_FIELDNAME: "created_datetime",
   INPUT_TEXT_FIELDNAME: "input_text",
   RECOMMENDATION_CATEGORY_NAME: "recommendation",
-  CONCERN_CATEGORY_NAME: "concern"
+  CONCERN_CATEGORY_NAME: "concern",
 };
