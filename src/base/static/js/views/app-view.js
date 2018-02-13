@@ -1,5 +1,3 @@
-import i18next from "i18next";
-
 var Util = require("../utils.js");
 
 // Views
@@ -70,8 +68,6 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
-
-    i18next.changeLanguage(this.options.languageCode);
 
     var self = this,
       // Only include submissions if the list view is enabled (anything but false)
