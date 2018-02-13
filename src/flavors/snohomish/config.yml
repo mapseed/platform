@@ -457,7 +457,7 @@ place:
       name: location_type
       dataset: snohomish-input
       icon_url: /static/css/images/markers/horse-icon.jpg
-      value: question
+      value: horse
       label: _(My horses)
       fields:
         - name: title
@@ -552,7 +552,7 @@ place:
       name: location_type
       dataset: snohomish-input
       icon_url: /static/css/images/markers/forest-icon.png
-      value: complaint
+      value: forest
       label: _(My forest)
       fields:
         - name: title
@@ -561,6 +561,66 @@ place:
           placeholder: _(Enter title...)
           display_prompt: _(Title:)
           optional: false
+        - name: forest_category_fire
+          type: checkbox_big_buttons
+          prompt: _(Fire Prevention:)
+          display_prompt: _( )
+          content:
+            - label: _(Maintain fuel-free zones around home and structures (overhanging vegetation, firewood placement, etc.))
+              value: fuel-free
+            - label: _(Remove ladder fuel (brush, low limbs))
+              value: ladder-fuel
+            - label: _(General Emergency Preparedness)
+              value: emergency-preparedness
+            - label: _(Other)
+              value: other
+        - name: forest_category_water
+          type: checkbox_big_buttons
+          prompt: _(Water Quality:)
+          display_prompt: _( )
+          content:
+            - label: _(Control erosion and prevent soil compaction)
+              value: erosion
+            - label: _(Protect streams and wetlands, maintain buffers)
+              value: streams-wetlands-buffers
+            - label: _(Maintain or improve stream crossings and replace fish passage barrier culverts)
+              value: crossings-culverts
+            - label: _(Maintain, improve, or remove and revegetate logging roads)
+              value: logging-roads
+            - label: _(Keep logging slash away from water sources)
+              value: logging-slash
+            - label: _(Control mud from vehicles on local roads)
+              value: vehicle-mud
+        - name: forest_category_habitat
+          type: checkbox_big_buttons
+          prompt: _(Forest Health and Wildlife Habitat:)
+          display_prompt: _( )
+          content:
+            - label: _(Control Invasive/Exotic plants)
+              value: invasive-exotic
+            - label: _(Practice selective thinning )
+              value: thinning
+            - label: _(Improve wildlife habitat with snags, brush piles, etc.)
+              value: snags-piles
+            - label: _(Maintain biological diversity)
+              value: biological-diversity
+            - label: _(Use agroforestry practices such as silviculture)
+              value: agroforestry   
+        - name: forest_category_harvest
+          type: checkbox_big_buttons
+          prompt: _(Harvest:)
+          display_prompt: _( )
+          content:
+            - label: _(Work with Forest Consultant and implement a Forest Stewardship Plan)
+              value: forest-consultant
+            - label: _(Produce non-forest products (mushrooms, floral products))
+              value: non-forest
+            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
+              value: critical-buffers
+            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
+              value: leave-trees
+            - label: _(Other)
+              value: other                                                
         - name: description
           type: textarea
           prompt: "_(Description:)"
@@ -590,7 +650,7 @@ place:
           placeholder: _(Enter title...)
           display_prompt: _(Title:)
           optional: false
-        - name: horse_category
+        - name: home_category
           type: checkbox_big_buttons
           prompt: _(Conservation category:)
           display_prompt: _( )
@@ -640,6 +700,49 @@ place:
           placeholder: _(Enter title...)
           display_prompt: _(Title:)
           optional: false
+        - name: shoreline_category_bank
+          type: checkbox_big_buttons
+          prompt: _(Bank Protection:)
+          display_prompt: _( )
+          content:
+            - label: _(Consult a professional for ideas)
+              value: professional-consult
+            - label: _(Leave bank or slope in natural state)
+              value: natrual-slope
+            - label: _(Re-slope and revegetate shoreline or bank)
+              value: reslope-revegetate
+            - label: _(Log placement to armor bank)
+              value: log-armor
+            - label: _(Install erosion control measures)
+              value: erosion-control                       
+        - name: shoreline_category_vegetation
+          type: checkbox_big_buttons
+          prompt: _(Vegetation:)
+          display_prompt: _( )
+          content:
+            - label: _(Frame views)
+              value: frame-views
+            - label: _(Enhance native vegetation)
+              value: native-vegetation
+            - label: _(Control noxious weeds)
+              value: noxious-weeds
+            - label: _(Conserve and restore soil)
+              value: restore-soil
+            - label: _(Do not tree-top my trees)
+              value: no-tree-top
+        - name: shoreline_category_development
+          type: checkbox_big_buttons
+          prompt: _(Development:)
+          display_prompt: _( )
+          content:
+            - label: _(Minimize impervious surfaces (driveways, roofs))
+              value: minimize-impervious
+            - label: _(Consider locating/moving structures away from slopes)
+              value: avoid-slope
+            - label: _(Enhance with beach nourishment (sand, etc))
+              value: beach-nourishment
+            - label: _(Bulkhead and/or manmade structure removal)
+              value: bulkhead           
         - name: description
           type: textarea
           prompt: "_(Description:)"
