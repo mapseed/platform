@@ -19,7 +19,7 @@ const InputExplorerInputListHeader = props => {
   return (
     <div className={classNames.container}>
       <h5 className="input-explorer-input-list-header__header">
-        {messages.inputListHeader}
+        {messages.t("inputListHeader")}
       </h5>
       <div className="input-explorer-input-list-header__subcategory-menu">
         <span>
@@ -36,7 +36,7 @@ const InputExplorerInputListHeader = props => {
             className={classNames.allLabel}
             htmlFor={"input-explorer-subcategory-menu-all"}
           >
-            {messages.subcategorySummaryLabel}
+            {messages.t("subcategorySummaryLabel")}
           </label>
         </span>
         {props.subcategoryNames.map(subcategory => {

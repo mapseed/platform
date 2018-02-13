@@ -72,6 +72,7 @@ module.exports = function(source) {
   const template = Handlebars.compile(templateSource);
   outputFile = template({
     config: config,
+    languageCode: "en_US"
   });
 
   outputPath = path.resolve(
