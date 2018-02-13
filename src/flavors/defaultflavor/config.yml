@@ -12,7 +12,7 @@ app:
   # This should be set to the root of an api server from which you'd like to draw
   # permissions information for logged-in users. This value can be overridden
   # using the API_ROOT environment variable. Note the trailing slash.
-  api_root: https://dev-api.heyduwamish.org/api/v2/
+  api_root: https://api.heyduwamish.org/api/v2/
 
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
@@ -61,10 +61,15 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
-    - id: duwamish
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
+    - id: demo
+      url: https://api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
       type: place
       slug: report
+
+    - id: demofeatured
+      url: https://api.heyduwamish.org/api/v2/smartercleanup/datasets/demofeatured
+      type: place
+      slug: featured
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -188,35 +193,22 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  greenwall:
-    label: _(Green Screen Vote)
+  featured_place:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
+          iconSize: [50, 50]
+          iconAnchor: [25, 25]
       - condition: 'this.map.zoom < 15'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 18'
+          iconUrl: /static/css/images/markers/marker-construction-dot.png
+          iconSize: [10, 10]
+          iconAnchor: [0, 0]
+      - condition: 'this.map.zoom <= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
-
-      - condition: 'this.map.zoom >= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconUrl: /static/css/images/markers/marker-construction.png
+          iconSize: [30, 30]
+          iconAnchor: [15, 15]
 
 
 # Sidebar and activity stream should be enabled and disabled together!
@@ -249,8 +241,11 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-            - id: duwamish
+            - id: demo
               title: _(Community Reports)
+              visibleDefault: true
+            - id: demofeatured
+              title: _(Featured Places)
               visibleDefault: true
 
     - id: ticker
@@ -301,10 +296,62 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_place
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: demofeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(Featured Site)
+      fields:
+        - name: published
+          type: publishControl
+        - name: geometry
+          type: geometryToolbar
+          content:
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-hist_comp.png
+            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-hist_prog.png
+            - url: /static/css/images/markers/marker-land_comp.png
+            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-land_prog.png
+            - url: /static/css/images/markers/marker-transp_comp.png
+            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
+            - url: /static/css/images/markers/marker-transp_prog.png
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: richTextarea
+          prompt: _(Background, timeline, and data:)
+          display_prompt: _(Background, timeline, and data)
+          placeholder: _( )
+        - name: url-title
+          type: url-title
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        - name: private-submitter_email
+          type: commonFormElement
+        - name: submit
+          type: commonFormElement
     - category: observation
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -349,7 +396,7 @@ place:
     - category: question
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -377,7 +424,7 @@ place:
     - category: idea
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -406,7 +453,7 @@ place:
     - category: complaint
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
