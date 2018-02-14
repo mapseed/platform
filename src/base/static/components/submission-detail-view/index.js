@@ -50,6 +50,8 @@ class SubmissionDetailView extends Component {
         ? this.props.model.get("title")
         : this.props.model.get("name");
 
+    const submitter = this.props.model.get("submitter") || {};
+
     return (
       <div className="detail-view">
         <SubmissionPromotionBar
@@ -58,16 +60,24 @@ class SubmissionDetailView extends Component {
           userToken={this.props.userToken}
         />
         <h1 className="detail-view__header">{title}</h1>
-        <SubmissionMetadataBar />
+        <SubmissionMetadataBar
+          avatarSrc={submitter.avatar_url}
+          model={this.props.model}
+          placeConfig={this.props.placeConfig}
+          placeTypes={this.props.placeTypes}
+          surveyConfig={this.props.surveyConfig}
+        />
 
         {this.props.model.attachmentCollection
           .toJSON()
           .filter(attachment => attachment.type === "CO")
-          .map(attachment => <CoverImage src={attachment.file} />)}
+          .map((attachment, i) => (
+            <CoverImage key={title + "-" + i} src={attachment.file} />
+          ))}
 
         {this.fields.map(field => (
           <FieldResponse
-            key={field.name}
+            key={title + "-" + field.name}
             field={field}
             model={this.props.model}
             placeConfig={this.props.placeConfig}
@@ -81,7 +91,9 @@ class SubmissionDetailView extends Component {
 SubmissionDetailView.propTypes = {
   model: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
+  placeTypes: PropTypes.object.isRequired,
   supportConfig: PropTypes.object.isRequired,
+  surveyConfig: PropTypes.object.isRequired,
   userToken: PropTypes.string.isRequired,
 };
 

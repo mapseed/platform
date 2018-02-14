@@ -931,6 +931,7 @@ module.exports = Backbone.View.extend({
             surveyConfig={this.options.surveyConfig}
             supportConfig={this.options.supportConfig}
             placeConfig={this.options.placeConfig}
+            placeTypes={this.options.placeTypes}
             storyConfig={this.options.storyConfig}
             mapConfig={this.options.mapConfig}
             userToken={this.options.userToken}
