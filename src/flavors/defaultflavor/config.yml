@@ -497,7 +497,7 @@ place:
       value: observation
       label: _(Observation)
       fields:
-        - name: text_field
+        - name: title
           type: text
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)

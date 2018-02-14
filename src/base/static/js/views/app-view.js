@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import emitter from "../../components/utils/emitter";
 
 import InputForm from "../../components/input-form";
+
+import SubmissionDetailView from "../../components/submission-detail-view";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetailView from "../../components/place-detail-view";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
@@ -911,19 +913,19 @@ module.exports = Backbone.View.extend({
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
-        detailView = self.getPlaceDetailView(
-          model,
-          self.mapView.layerViews[datasetId][model.cid]
-        );
-
         // REACT PORT SECTION //////////////////////////////////////////////////
+        // TODO: All the detail view caching shouldn't be necessary anymore...
+        // detailView = self.getPlaceDetailView(
+        //   model,
+        //   self.mapView.layerViews[datasetId][model.cid]
+        // );
 
         ReactDOM.unmountComponentAtNode(
           document.querySelector("#content article")
         );
 
         ReactDOM.render(
-          <PlaceDetailView
+          <SubmissionDetailView
             model={model}
             appView={this}
             surveyConfig={this.options.surveyConfig}
@@ -931,6 +933,7 @@ module.exports = Backbone.View.extend({
             placeConfig={this.options.placeConfig}
             storyConfig={this.options.storyConfig}
             mapConfig={this.options.mapConfig}
+            userToken={this.options.userToken}
           />,
           document.querySelector("#content article")
         );

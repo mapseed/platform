@@ -31,6 +31,7 @@ $icon-search: "\F002";
 $icon-check-mark: "✔";
 $icon-hamburger: "\F03A";
 $icon-solid-star: "\F005";
+$icon-heart-filled: "\F004";
 
 // -----------------------------------------------------------------------------
 // TYPOGRAPHY
@@ -382,3 +383,20 @@ $input-form-validation-errors-error-msg-padding: 0 0 0 10px;
 $input-form-validation-errors-error-msg-text-indent: -20px;
 $input-form-validation-errors-error-msg-text-style: italic;
 $input-form-validation-errors-error-msg-text-color: #ffffff;
+
+/*
+  support-button.js
+  Button to support/like a post
+*/
+$support-button-icon: $icon-heart-filled;
+$support-button-icon-unselected-color: #d1e2ec;
+$support-button-icon-selected-color: $primary-color;
+
+/*
+  social-share-button.js
+  Twitter and Facebook sharing buttons
+*/
+$social-share-button-height: 32px;
+$social-share-button-width: 32px;
+$social-share-button-twitter-image: url(/static/css/images/twitter-32.png);
+$social-share-button-facebook-image: url(/static/css/images/facebook-32.png);

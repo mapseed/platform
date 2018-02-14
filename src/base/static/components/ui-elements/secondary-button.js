@@ -17,7 +17,11 @@ const SecondaryButton = props => {
 };
 
 SecondaryButton.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string,
+  ]),
   className: PropTypes.string,
   onClick: PropTypes.func,
 };
