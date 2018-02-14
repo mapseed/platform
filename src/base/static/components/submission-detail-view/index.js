@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import FieldResponse from "../form-response";
 import SubmissionPromotionBar from "./submission-promotion-bar";
 import SubmissionMetadataBar from "./submission-metadata-bar";
+import CoverImage from "../ui-elements/cover-image";
+
 const Util = require("../../js/utils.js");
 
 import constants from "../constants";
@@ -58,7 +60,11 @@ class SubmissionDetailView extends Component {
         <h1 className="detail-view__header">{title}</h1>
         <SubmissionMetadataBar />
 
-        {/* TODO: cover images */}
+        {this.props.model.attachmentCollection
+          .toJSON()
+          .filter(attachment => attachment.type === "CO")
+          .map(attachment => <CoverImage src={attachment.file} />)}
+
         {this.fields.map(field => (
           <FieldResponse
             key={field.name}
