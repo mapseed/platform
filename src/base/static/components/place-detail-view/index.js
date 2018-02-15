@@ -2,22 +2,17 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import FieldResponse from "../form-response";
-import SubmissionPromotionBar from "./submission-promotion-bar";
-import SubmissionMetadataBar from "./submission-metadata-bar";
+import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
+import PlaceDetailMetadataBar from "./place-detail-metadata-bar";
 import CoverImage from "../ui-elements/cover-image";
 
 const Util = require("../../js/utils.js");
 
 import constants from "../constants";
 
-import "./submission-detail-view.scss";
+import "./place-detail-view.scss";
 
-// TODO: We make a lot of assumptions here about certain fields existing in the
-// model with certain names ("my_image", "title", etc.). Rather than rely on
-// arbitrary names we should come up with a better convention for structuring
-// parts of the detail view.
-
-class SubmissionDetailView extends Component {
+class PlaceDetailView extends Component {
   componentWillMount() {
     this.categoryConfig = this.props.placeConfig.place_detail.find(
       config =>
@@ -25,6 +20,10 @@ class SubmissionDetailView extends Component {
         this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME)
     );
 
+    // TODO: We make a lot of assumptions here about certain fields existing in the
+    // model with certain names ("my_image", "title", etc.). Rather than rely on
+    // arbitrary names we should come up with a better convention for structuring
+    // parts of the detail view.
     this.fields = Util.buildFieldListForRender({
       exclusions: [
         "submitter_name",
@@ -53,21 +52,21 @@ class SubmissionDetailView extends Component {
     const submitter = this.props.model.get("submitter") || {};
 
     return (
-      <div className="detail-view">
-        <SubmissionPromotionBar
+      <div className="place-detail-view">
+        <PlaceDetailPromotionBar
           model={this.props.model}
           supportConfig={this.props.supportConfig}
           userToken={this.props.userToken}
         />
-        <h1 className="detail-view__header">{title}</h1>
-        <SubmissionMetadataBar
+        <h1 className="place-detail-view__header">{title}</h1>
+        <PlaceDetailMetadataBar
           avatarSrc={submitter.avatar_url}
           model={this.props.model}
           placeConfig={this.props.placeConfig}
           placeTypes={this.props.placeTypes}
           surveyConfig={this.props.surveyConfig}
         />
-
+        <div className="clearfix" />
         {this.props.model.attachmentCollection
           .toJSON()
           .filter(attachment => attachment.type === "CO")
@@ -88,7 +87,7 @@ class SubmissionDetailView extends Component {
   }
 }
 
-SubmissionDetailView.propTypes = {
+PlaceDetailView.propTypes = {
   model: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   placeTypes: PropTypes.object.isRequired,
@@ -97,4 +96,4 @@ SubmissionDetailView.propTypes = {
   userToken: PropTypes.string.isRequired,
 };
 
-export default SubmissionDetailView;
+export default PlaceDetailView;

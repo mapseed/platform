@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 
 import UserAvatar from "../ui-elements/user-avatar";
 
-import "./submission-metadata-bar.scss";
+import "./place-detail-metadata-bar.scss";
 
 // TODO: replace moment global.
 // TODO: JSX localization in this component.
 
-const SubmissionMetadataBar = props => {
+const PlaceDetailMetadataBar = props => {
   const isWithSubmissions =
     props.model.submissionSets &&
     props.model.submissionSets[props.surveyConfig.submission_type];
@@ -17,13 +17,13 @@ const SubmissionMetadataBar = props => {
     : 0;
 
   return (
-    <section className="submission-metadata-bar">
+    <section className="place-detail-metadata-bar">
       <UserAvatar
         src={props.avatarSrc}
-        className="submission-metadata-bar__avatar"
+        className="place-detail-metadata-bar__avatar"
       />
-      <section className="submission-metadata-bar__details-container">
-        <p className="submission-metadata-bar__action-text">
+      <section className="place-detail-metadata-bar__details-container">
+        <p className="place-detail-metadata-bar__action-text">
           <strong>
             {props.model.get("submitter_name") ||
               props.placeConfig.anonymous_name}
@@ -35,11 +35,11 @@ const SubmissionMetadataBar = props => {
           href={
             "/" + props.model.get("datasetSlug") + "/" + props.model.get("id")
           }
-          className="submission-metadata-bar__created-datetime"
+          className="place-detail-metadata-bar__created-datetime"
         >
           <time>{moment(props.model.get("created_datetime")).fromNow()}</time>
         </a>
-        <p className="submission-metadata-bar__survey-count">
+        <p className="place-detail-metadata-bar__survey-count">
           {numSubmissions}{" "}
           {numSubmissions === 1
             ? props.surveyConfig.response_name
@@ -50,7 +50,7 @@ const SubmissionMetadataBar = props => {
   );
 };
 
-SubmissionMetadataBar.propTypes = {
+PlaceDetailMetadataBar.propTypes = {
   avatarSrc: PropTypes.string,
   model: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
@@ -58,4 +58,4 @@ SubmissionMetadataBar.propTypes = {
   surveyConfig: PropTypes.object.isRequired,
 };
 
-export default SubmissionMetadataBar;
+export default PlaceDetailMetadataBar;

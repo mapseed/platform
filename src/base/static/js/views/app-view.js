@@ -4,8 +4,6 @@ import ReactDOM from "react-dom";
 import emitter from "../../components/utils/emitter";
 
 import InputForm from "../../components/input-form";
-
-import SubmissionDetailView from "../../components/submission-detail-view";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetailView from "../../components/place-detail-view";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
@@ -925,7 +923,7 @@ module.exports = Backbone.View.extend({
         );
 
         ReactDOM.render(
-          <SubmissionDetailView
+          <PlaceDetailView
             model={model}
             appView={this}
             surveyConfig={this.options.surveyConfig}
