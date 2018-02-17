@@ -312,7 +312,7 @@ sidebar:
           visibleDefault: true
           layers:
             - id: snohomish-input
-              title: _(Community Rsidebar:eports)
+              title: _(Community Reports)
               visibleDefault: true
 
             - id: snohomish-featured
@@ -339,6 +339,7 @@ activity:
 
 right_sidebar:
   show: true
+  visibleDefault: true
 
   # Place Types
 
@@ -835,14 +836,19 @@ pages:
   #   slug: getinvolved
   #   name: contribute
 
-# story:
-  # example:
-  #   tagline: _(Next featured site)
-  #   default_zoom: 18
-  #   default_visible_layers:
-  #     - satellite
-  #   order:
-      # - url: dirtcorps
+story:
+  example:
+    tagline: _(Next featured site)
+    default_zoom: 16
+    default_visible_layers:
+      - snohomish-featured
+    order:
+      - url: photovoice
+        basemap: satellite
+      - url: bay-view
+        basemap: satellite
+      - url: snohomish-conservation-district
+        basemap: satellite
       #   zoom: 15
       #   panTo:
       #     lat: 47.53420
