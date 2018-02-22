@@ -373,6 +373,7 @@ place:
       fields:
         - name: published
           type: publishControl
+        # NOTE: this field type must have the name "geometry"
         - name: geometry
           type: geometryToolbar
           content:

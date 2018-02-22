@@ -28,6 +28,9 @@ const constants = {
   FIELD_STATE_FIELD_TYPE_KEY: "type",
   FIELD_STATE_INITIALIZED_KEY: "isInitialized",
 
+  GEOMETRY_PROPERTY_NAME: "geometry",
+  GEOMETRY_STYLE_PROPERTY_NAME: "style",
+
   ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
 };
 

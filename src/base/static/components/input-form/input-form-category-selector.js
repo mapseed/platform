@@ -49,7 +49,9 @@ class InputFormCategorySelector extends Component {
       <div className={cn}>
         {this.visibleCategories.map(config => (
           <InputFormCategoryButton
-            isActive={this.props.selectedCategory === config.category}
+            isActive={
+              this.props.selectedCategoryConfig.category === config.category
+            }
             isCategoryMenuCollapsed={this.state.isCollapsed}
             key={config.category}
             categoryConfig={config}
@@ -67,7 +69,7 @@ class InputFormCategorySelector extends Component {
 InputFormCategorySelector.propTypes = {
   onCategoryChange: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  selectedCategory: PropTypes.string,
+  selectedCategoryConfig: PropTypes.object,
 };
 
 export default InputFormCategorySelector;

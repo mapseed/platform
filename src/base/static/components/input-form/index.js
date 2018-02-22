@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  OrderedMap as ImmutableOrderedMap,
-  Map as ImmutableMap,
-} from "immutable";
+import { OrderedMap as ImmutableOrderedMap } from "immutable";
 import classNames from "classnames";
 
-import InputFormCategorySelector from "./input-form-category-selector";
 import FormField from "../form-field";
 
 import { inputForm as messages } from "../messages";
@@ -29,8 +25,6 @@ class InputForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedCategory: null,
-      isCategoryMenuHidden: false,
       fields: ImmutableOrderedMap(),
       updatingField: null,
       isFormSubmitting: false,
@@ -39,7 +33,8 @@ class InputForm extends Component {
       isMapPositioned: false,
     };
 
-    this.customGeometryObj = {};
+    this.isWithCustomGeometry = false;
+    this.geometryStyle = null;
     this.attachments = [];
   }
 
@@ -53,10 +48,10 @@ class InputForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isContinuingFormSession) {
-      this.setActiveCategory(
-        this.getCategoryConfig(this.state.selectedCategory)
-      );
+    if (
+      nextProps.categoryConfig.category !== this.props.categoryConfig.category
+    ) {
+      this.setActiveCategory(nextProps.categoryConfig);
     }
   }
 
@@ -68,12 +63,6 @@ class InputForm extends Component {
     !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
   }
 
-  getCategoryConfig(category) {
-    return this.props.placeConfig.place_detail.find(
-      config => config.category === category
-    );
-  }
-
   onFieldInitialize(fieldName, fieldValue) {
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, fieldValue),
@@ -81,21 +70,20 @@ class InputForm extends Component {
     }));
   }
 
-  onFieldChange(fieldName, fieldValue, isValid, message) {
+  onGeometryStyleChange(style) {
+    this.geometryStyle = style;
+  }
+
+  onFieldChange(fieldName, fieldValue, isValid) {
     const newState = this.state.fields
       .get(fieldName)
       .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
-      .set(constants.FIELD_STATE_VALIDITY_KEY, isValid)
-      .set(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY, message);
+      .set(constants.FIELD_STATE_VALIDITY_KEY, isValid);
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, newState),
       updatingField: fieldName,
       isInitializing: false,
     }));
-  }
-
-  onCategoryChange(category) {
-    this.setActiveCategory(this.getCategoryConfig(category));
   }
 
   onAdditionalData(action, payload) {
@@ -113,24 +101,16 @@ class InputForm extends Component {
   }
 
   setActiveCategory(categoryConfig) {
-    this.customGeometryObj =
-      categoryConfig.fields.find(
+    this.isWithCustomGeometry =
+      categoryConfig.fields.findIndex(
         field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
-      ) || {};
+      ) >= 0
+        ? true
+        : false;
     this.attachments = [];
-    let fields = ImmutableOrderedMap();
-    categoryConfig.fields.forEach(field => {
-      fields = fields.set(
-        field.name,
-        ImmutableMap()
-          .set(constants.FIELD_STATE_INITIALIZED_KEY, false)
-          .set(constants.FIELD_STATE_VALUE_KEY, "")
-      );
-    });
-
+    this.geometryStyle = null;
     this.setState({
-      fields: fields,
-      selectedCategory: categoryConfig.category,
+      fields: ImmutableOrderedMap(),
       isFormSubmitting: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
@@ -182,31 +162,22 @@ class InputForm extends Component {
       isFormSubmitting: true,
     });
 
-    const selectedCategoryConfig = this.getCategoryConfig(
-      this.state.selectedCategory
-    );
-    let collection = this.props.places[selectedCategoryConfig.dataset];
-
+    const collection = this.props.places[this.props.categoryConfig.dataset];
     collection.add({
-      location_type: selectedCategoryConfig.category,
+      location_type: this.props.categoryConfig.category,
       datasetSlug: this.props.mapConfig.layers.find(
-        layer => selectedCategoryConfig.dataset === layer.id
+        layer => this.props.categoryConfig.dataset === layer.id
       ).slug,
-      datasetId: selectedCategoryConfig.dataset,
-      showMetadata: selectedCategoryConfig.showMetadata,
+      datasetId: this.props.categoryConfig.dataset,
+      showMetadata: this.props.categoryConfig.showMetadata,
     });
     const model = collection.at(collection.length - 1);
-    let attrs = {};
+    let attrs = this.state.fields
+      .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
+      .toJS();
 
-    if (this.customGeometryObj.name) {
-      attrs.geometry = this.state.fields
-        .get(this.customGeometryObj.name)
-        .get(constants.FIELD_STATE_VALUE_KEY)
-        .get("geometry");
-      attrs.style = this.state.fields
-        .get(this.customGeometryObj.name)
-        .get(constants.FIELD_STATE_VALUE_KEY)
-        .get("geometryStyle");
+    if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
+      attrs.style = this.geometryStyle;
     } else {
       const center = this.props.map.getCenter();
       attrs.geometry = {
@@ -214,42 +185,12 @@ class InputForm extends Component {
         coordinates: [center.lng, center.lat],
       };
     }
-    Object.assign(
-      attrs,
-      this.state.fields
-        .filter(
-          // TODO: There is probably a better pattern to use here, instead of
-          // relying on these specific checks.
-          val =>
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-              constants.MAP_DRAWING_TOOLBAR_TYPENAME &&
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-              constants.ATTACHMENT_FIELD_TYPENAME &&
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-              constants.SUBMIT_FIELD_TYPENAME &&
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-              constants.GEOCODING_FIELD_TYPENAME
-        )
-        .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
-        .toJS()
-    );
-
-    // Save autofill values as necessary.
-    selectedCategoryConfig.fields.forEach(fieldConfig => {
-      if (fieldConfig.autocomplete) {
-        Util.saveAutocompleteValue(
-          fieldConfig.name,
-          this.state.fields
-            .get(fieldConfig.name)
-            .get(constants.FIELD_STATE_VALUE_KEY),
-          constants.AUTOFILL_DURATION_DAYS
-        );
-      }
-    });
 
     // Replace image data in rich text fields with placeholders built from each
     // image's name.
-    selectedCategoryConfig.fields
+    // TODO: This is field-specific logic. Can we move it out of the form
+    // component somehow?
+    this.props.categoryConfig.fields
       .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
       .forEach(field => {
         attrs[field.name] = attrs[field.name].replace(
@@ -274,6 +215,20 @@ class InputForm extends Component {
     model.save(attrs, {
       success: response => {
         Util.log("USER", "new-place", "successfully-add-place");
+
+        // Save autofill values as necessary.
+        this.props.categoryConfig.fields.forEach(fieldConfig => {
+          if (fieldConfig.autocomplete) {
+            Util.saveAutocompleteValue(
+              fieldConfig.name,
+              this.state.fields
+                .get(fieldConfig.name)
+                .get(constants.FIELD_STATE_VALUE_KEY),
+              constants.AUTOFILL_DURATION_DAYS
+            );
+          }
+        });
+
         this.setState({ isFormSubmitting: false });
 
         // Fire post-save hook.
@@ -301,7 +256,7 @@ class InputForm extends Component {
   }
 
   render() {
-    if (this.customGeometryObj.name) {
+    if (this.isWithCustomGeometry) {
       this.props.hideSpotlightMask();
       this.props.hideCenterPoint();
     } else if (!this.state.isMapPositioned) {
@@ -320,46 +275,9 @@ class InputForm extends Component {
         "input-form__submit-spinner--visible": this.state.isFormSubmitting,
       }),
     };
-    const fields = [];
-    this.state.fields.forEach((fieldState, fieldName) => {
-      fields.push(
-        <FormField
-          autofillMode={this.props.autofillMode}
-          key={
-            this.state.selectedCategory +
-            "-" +
-            fieldName +
-            "-" +
-            this.props.renderCount
-          }
-          map={this.props.map}
-          mapConfig={this.props.mapConfig}
-          isInitializing={this.state.isInitializing}
-          router={this.props.router}
-          placeConfig={this.props.placeConfig}
-          updatingField={this.state.updatingField}
-          config={this.getCategoryConfig(
-            this.state.selectedCategory
-          ).fields.find(field => field.name === fieldName)}
-          showValidityStatus={this.state.showValidityStatus}
-          disabled={this.state.isFormSubmitting}
-          onChange={this.onFieldChange.bind(this)}
-          onInitialize={this.onFieldInitialize.bind(this)}
-          onAdditionalData={this.onAdditionalData.bind(this)}
-          fieldState={fieldState}
-          places={this.props.places}
-          landmarks={this.props.landmarks}
-        />
-      );
-    });
 
     return (
       <div className="input-form">
-        <InputFormCategorySelector
-          placeConfig={this.props.placeConfig}
-          onCategoryChange={this.onCategoryChange.bind(this)}
-          selectedCategory={this.state.selectedCategory}
-        />
         <div className={cn.warningMsgs}>
           <p className={"input-form__warning-msgs-header"}>
             {messages.validationHeader}
@@ -375,7 +293,35 @@ class InputForm extends Component {
           className={cn.form}
           onSubmit={this.onSubmit.bind(this)}
         >
-          {fields}
+          {this.props.categoryConfig.fields &&
+            this.props.categoryConfig.fields.map(fieldConfig => {
+              return (
+                <FormField
+                  autofillMode={this.props.autofillMode}
+                  key={
+                    this.props.categoryConfig.category +
+                    fieldConfig.name +
+                    this.props.renderCount
+                  }
+                  map={this.props.map}
+                  mapConfig={this.props.mapConfig}
+                  isInitializing={this.state.isInitializing}
+                  router={this.props.router}
+                  updatingField={this.state.updatingField}
+                  fieldName={fieldConfig.name}
+                  categoryConfig={this.props.categoryConfig}
+                  showValidityStatus={this.state.showValidityStatus}
+                  disabled={this.state.isFormSubmitting}
+                  onChange={this.onFieldChange.bind(this)}
+                  onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
+                  onInitialize={this.onFieldInitialize.bind(this)}
+                  onAdditionalData={this.onAdditionalData.bind(this)}
+                  fieldState={this.state.fields.get(fieldConfig.name)}
+                  places={this.props.places}
+                  landmarks={this.props.landmarks}
+                />
+              );
+            })}
         </form>
         <div className={cn.spinner} />
       </div>
@@ -398,10 +344,10 @@ InputForm.propTypes = {
   landmarks: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
   mapConfig: PropTypes.object.isRequired,
-  placeConfig: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
+  categoryConfig: PropTypes.object,
   showNewPin: PropTypes.func.isRequired,
 };
 

@@ -34,19 +34,22 @@ import constants from "../constants";
 const Util = require("../../js/utils.js");
 
 class FormField extends Component {
+  componentWillMount() {
+    this.fieldConfig = this.props.categoryConfig.fields.find(
+      field => field.name === this.props.fieldName
+    );
+    this.validator = this.getValidator(this.fieldConfig);
+    const initialFieldState = this.getInitialFieldState(this.fieldConfig);
+    if (initialFieldState) {
+      this.props.onInitialize(this.fieldConfig.name, initialFieldState);
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.isInitializing ||
       nextProps.showValidityStatus ||
-      nextProps.updatingField === this.props.config.name
-    );
-  }
-
-  componentWillMount() {
-    this.validator = this.getValidator(this.props.config);
-    this.props.onInitialize(
-      this.props.config.name,
-      this.getInitialFieldState(this.props.config)
+      nextProps.updatingField === this.fieldConfig.name
     );
   }
 
@@ -58,13 +61,16 @@ class FormField extends Component {
         fieldValue,
         this.props.places,
         this.props.landmarks
-      ),
-      this.validator.message
+      )
     );
   }
 
   getValidator(fieldConfig) {
-    if (fieldConfig.type === constants.SUBMIT_FIELD_TYPENAME) {
+    if (
+      fieldConfig.type === constants.SUBMIT_FIELD_TYPENAME ||
+      fieldConfig.type === constants.ATTACHMENT_FIELD_TYPENAME ||
+      fieldConfig.type === constants.GEOCODING_FIELD_TYPENAME
+    ) {
       return {
         validate: mayHaveAnyValue,
         message: "",
@@ -114,8 +120,15 @@ class FormField extends Component {
         fieldValue = autofillValue || fieldConfig.default_value;
         break;
       case constants.MAP_DRAWING_TOOLBAR_TYPENAME:
-        fieldValue = null;
+        fieldValue = "";
         break;
+      // NOTE: For these fields, we don't want to initialize any value in the
+      // parent form's state, since the value these fields produce is not
+      // relevant to the content of the form itself.
+      case constants.SUBMIT_FIELD_TYPENAME ||
+        constants.ATTACHMENT_FIELD_TYPENAME ||
+        constants.GEOCODING_FIELD_TYPENAME:
+        return null;
       default:
         fieldValue = autofillValue || fieldConfig.default_value || "";
         break;
@@ -136,6 +149,12 @@ class FormField extends Component {
       .set(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY, this.validator.message);
 
     return fieldObj;
+  }
+
+  getFieldValue() {
+    return this.props.fieldState
+      ? this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY)
+      : "";
   }
 
   buildField(fieldConfig) {
@@ -159,10 +178,9 @@ class FormField extends Component {
       hasAutofill: fieldConfig.hasAutofill,
       key: 2,
       name: fieldConfig.name,
-      onAdditionalData: this.props.onAdditionalData,
       onChange: this.onChange.bind(this),
       placeholder: fieldConfig.placeholder,
-      value: this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
+      value: this.getFieldValue(),
     };
 
     switch (fieldConfig.type) {
@@ -173,7 +191,12 @@ class FormField extends Component {
       case constants.RICH_TEXTAREA_FIELD_TYPENAME:
         return [
           fieldPrompt,
-          <RichTextareaField {...sharedProps} bounds="#content" />,
+          // TODO: make bounds prop configurable.
+          <RichTextareaField
+            {...sharedProps}
+            onAdditionalData={this.props.onAdditionalData.bind(this)}
+            bounds="#content"
+          />,
         ];
       case constants.CUSTOM_URL_TOOLBAR_TYPENAME:
         return [fieldPrompt, <CustomUrlToolbar {...sharedProps} />];
@@ -182,6 +205,7 @@ class FormField extends Component {
           fieldPrompt,
           <MapDrawingToolbar
             {...sharedProps}
+            onGeometryStyleChange={this.props.onGeometryStyleChange.bind(this)}
             map={this.props.map}
             markers={fieldConfig.content.map(item => item.url)}
             router={this.props.router}
@@ -190,7 +214,10 @@ class FormField extends Component {
       case constants.ATTACHMENT_FIELD_TYPENAME:
         return [
           fieldPrompt,
-          <AddAttachmentButton {...sharedProps} label={fieldConfig.label} />,
+          <AddAttachmentButton
+            onAdditionalData={this.props.onAdditionalData.bind(this)}
+            label={fieldConfig.label}
+          />,
         ];
       case constants.SUBMIT_FIELD_TYPENAME:
         return (
@@ -217,9 +244,7 @@ class FormField extends Component {
               value={item.value}
               label={item.label}
               id={"input-form-" + fieldConfig.name + "-" + item.value}
-              checkboxGroupState={this.props.fieldState.get(
-                constants.FIELD_STATE_VALUE_KEY
-              )}
+              checkboxGroupState={this.getFieldValue()}
               name={fieldConfig.name}
               onChange={this.onChange.bind(this)}
               autofillMode={this.props.autofillMode}
@@ -236,10 +261,7 @@ class FormField extends Component {
               value={item.value}
               label={item.label}
               id={"input-form-" + fieldConfig.name + "-" + item.value}
-              checked={
-                this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ===
-                item.value
-              }
+              checked={this.getFieldValue() === item.value}
               name={fieldConfig.name}
               onChange={this.onChange.bind(this)}
               autofillMode={this.props.autofillMode}
@@ -251,9 +273,7 @@ class FormField extends Component {
         return (
           <PublishControlToolbar
             {...sharedProps}
-            publishedState={this.props.fieldState.get(
-              constants.FIELD_STATE_VALUE_KEY
-            )}
+            publishedState={this.getFieldValue()}
           />
         );
       case constants.DATETIME_FIELD_TYPENAME:
@@ -261,28 +281,21 @@ class FormField extends Component {
           fieldPrompt,
           <DatetimeField
             {...sharedProps}
-            date={this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY)}
+            date={this.getFieldValue()}
             showTimeSelect={true}
           />,
         ];
       case constants.GEOCODING_FIELD_TYPENAME:
         return [
           fieldPrompt,
-          <GeocodingField
-            {...sharedProps}
-            mapConfig={this.props.mapConfig}
-            emitter={this.props.emitter}
-          />,
+          <GeocodingField {...sharedProps} mapConfig={this.props.mapConfig} />,
         ];
       case constants.BIG_TOGGLE_FIELD_TYPENAME:
         return [
           fieldPrompt,
           <BigToggleField
             name={fieldConfig.name}
-            checked={
-              this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ===
-              fieldConfig.content[0].value
-            }
+            checked={this.getFieldValue() === fieldConfig.content[0].value}
             key={2}
             labels={[
               fieldConfig.content[0].label,
@@ -320,35 +333,37 @@ class FormField extends Component {
   }
 
   render() {
+    const value = this.getFieldValue();
     const cn = classNames("input-form__field-container", {
       "input-form__field-container--invalid":
         !this.validator.validate(
-          this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
+          value,
           this.props.places,
           this.props.landmarks
         ) && this.props.showValidityStatus,
       "input-form__field-container--hidden":
-        this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) &&
-        this.props.config.hasAutofill &&
+        value &&
+        this.fieldConfig.hasAutofill &&
         this.props.autofillMode === "hide",
     });
 
-    return <div className={cn}>{this.buildField(this.props.config)}</div>;
+    return <div className={cn}>{this.buildField(this.fieldConfig)}</div>;
   }
 }
 
 FormField.propTypes = {
   autofillMode: PropTypes.string.isRequired,
-  config: PropTypes.object.isRequired,
+  categoryConfig: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
-  fieldState: PropTypes.object.isRequired,
+  fieldName: PropTypes.string.isRequired,
+  fieldState: PropTypes.object,
   landmarks: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
   mapConfig: PropTypes.object.isRequired,
-  onAdditionalData: PropTypes.func.isRequired,
+  onAdditionalData: PropTypes.func,
   onChange: PropTypes.func.isRequired,
+  onGeometryStyleChange: PropTypes.func,
   onInitialize: PropTypes.func.isRequired,
-  placeConfig: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
   showValidityStatus: PropTypes.bool.isRequired,

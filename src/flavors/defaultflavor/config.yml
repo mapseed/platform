@@ -61,11 +61,6 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
-    - id: duwamish
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
-      type: place
-      slug: report
-
     - id: demo
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
       type: place
@@ -285,9 +280,6 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-            - id: duwamish
-              title: _(Community Reports)
-              visibleDefault: true
             - id: demo
               title: _(Demo Layer)
               visibleDefault: true
@@ -448,7 +440,8 @@ place:
         - name: publish_control_toolbar
           type: publish_control_toolbar
           default_value: "isPublished"
-        - name: map_drawing_toolbar
+        # NOTE: this field type must have the name "geometry"
+        - name: geometry
           type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-bike.png
@@ -493,7 +486,7 @@ place:
     - category: observation
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -538,7 +531,7 @@ place:
     - category: question
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -566,7 +559,7 @@ place:
     - category: idea
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -595,7 +588,7 @@ place:
     - category: complaint
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)

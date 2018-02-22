@@ -17,8 +17,6 @@ const hooks = {
     ) {
       context.setState({
         stage: "exit-or-continue",
-        isContinuingFormSession: false,
-        isLeavingForm: false,
       });
     } else {
       defaultPostSave(model);
@@ -32,12 +30,7 @@ class VVInputForm extends Component {
     this.state = {
       stage: "set-location",
       isMapPositioned: false,
-      isContinuingFormSession: false,
-      isLeavingForm: false,
     };
-    // We use this.renderCount for creating unique component keys on re-renders
-    // of the form.
-    this.renderCount = 1;
   }
 
   componentWillMount() {
@@ -50,7 +43,6 @@ class VVInputForm extends Component {
         this.setState({
           stage: "enter-data",
           isMapPositioned: true,
-          isContinuingFormSession: false,
         });
     });
 
@@ -69,21 +61,19 @@ class VVInputForm extends Component {
   }
 
   onClickContinueForm() {
-    this.renderCount++;
     this.setState({
       stage: "enter-data",
-      isContinuingFormSession: true,
     });
 
     this.props.showNewPin();
     this.props.hideSpotlightMask();
+
+    this.props.onCategoryChange(this.props.categoryConfig.category);
   }
 
   onClickExitForm() {
     this.setState({
       stage: "set-location",
-      isContinuingFormSession: false,
-      isLeavingForm: true,
       isMapPositioned: false,
     });
 
@@ -119,13 +109,7 @@ class VVInputForm extends Component {
             {messages.welcomeSubheader}
           </p>
         </div>
-        <InputForm
-          className={cn.form}
-          isContinuingFormSession={this.state.isContinuingFormSession}
-          renderCount={this.renderCount}
-          isLeavingForm={this.state.isLeavingForm}
-          {...this.props}
-        />
+        <InputForm className={cn.form} {...this.props} />
         <div className={cn.continueBtns}>
           <h4 className="input-form__continue-btns-header">
             {messages.continueBtnsHeader}
@@ -149,11 +133,13 @@ class VVInputForm extends Component {
 }
 
 VVInputForm.propTypes = {
+  categoryConfig: PropTypes.object.isRequired,
   customHooks: PropTypes.objectOf(PropTypes.func),
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   map: PropTypes.object.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   showNewPin: PropTypes.func.isRequired,
 };

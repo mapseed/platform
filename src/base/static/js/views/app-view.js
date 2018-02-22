@@ -3,10 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import emitter from "../../components/utils/emitter";
 
-import InputForm from "../../components/input-form";
-
-// TEMPORARY: We import custom templates here for the time being.
-import VVInputForm from "../../components/vv-input-form";
+import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -736,11 +733,12 @@ module.exports = Backbone.View.extend({
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
     const inputFormProps = {
-      placeConfig: this.options.placeConfig,
       mapConfig: this.options.mapConfig,
       hideSpotlightMask: this.hideSpotlightMask.bind(this),
       hideCenterPoint: this.hideCenterPoint.bind(this),
       showNewPin: this.showNewPin.bind(this),
+      hideNewPin: this.hideNewPin.bind(this),
+      hidePanel: this.hidePanel.bind(this),
       map: this.mapView.map,
       places: this.places,
       landmarks: this.landmarks,
@@ -749,25 +747,17 @@ module.exports = Backbone.View.extend({
       container: "#content article",
     };
 
-    if (
-      this.options.customComponents &&
-      this.options.customComponents.InputForm === "VVInputForm"
-    ) {
-      ReactDOM.render(
-        <VVInputForm
-          {...inputFormProps}
-          autofillMode="hide"
-          hideNewPin={this.hideNewPin.bind(this)}
-          hidePanel={this.hidePanel.bind(this)}
-        />,
-        document.querySelector("#content article")
-      );
-    } else {
-      ReactDOM.render(
-        <InputForm {...inputFormProps} autofillMode="color" />,
-        document.querySelector("#content article")
-      );
-    }
+    // NOTE: This wrapper component is temporary, and will be factored out
+    // when the AppView is ported.
+    ReactDOM.render(
+      <FormCategoryMenuWrapper
+        {...inputFormProps}
+        customComponents={this.options.customComponents}
+        placeConfig={this.options.placeConfig}
+        autofillMode="color"
+      />,
+      document.querySelector("#content article")
+    );
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
