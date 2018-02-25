@@ -389,8 +389,8 @@ $input-form-validation-errors-error-msg-text-color: #ffffff;
   Button to support/like a post
 */
 $support-button-icon: $icon-heart-filled;
-$support-button-icon-unselected-color: #d1e2ec;
-$support-button-icon-selected-color: $primary-color;
+$support-button-icon-unsupported-color: #d1e2ec;
+$support-button-icon-supported-color: #d24444;
 
 /*
   social-share-button.js

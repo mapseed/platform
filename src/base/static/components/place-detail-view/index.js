@@ -4,9 +4,11 @@ import PropTypes from "prop-types";
 import FieldResponse from "../form-response";
 import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
 import PlaceDetailMetadataBar from "./place-detail-metadata-bar";
+import PlaceDetailSurvey from "./place-detail-survey";
 import CoverImage from "../ui-elements/cover-image";
 
 const Util = require("../../js/utils.js");
+const SubmissionCollection = require("../../js/models/submission-collection.js");
 
 import constants from "../constants";
 
@@ -14,6 +16,23 @@ import "./place-detail-view.scss";
 
 class PlaceDetailView extends Component {
   componentWillMount() {
+    const surveyType = this.props.surveyConfig.submission_type;
+    const supportType = this.props.supportConfig.submission_type;
+
+    this.props.model.submissionSets[surveyType] =
+      this.props.model.submissionSets[surveyType] ||
+      new SubmissionCollection(null, {
+        submissionType: surveyType,
+        placeModel: this.props.model,
+      });
+
+    this.props.model.submissionSets[supportType] =
+      this.props.model.submissionSets[supportType] ||
+      new SubmissionCollection(null, {
+        submissionType: supportType,
+        placeModel: this.props.model,
+      });
+
     this.categoryConfig = this.props.placeConfig.place_detail.find(
       config =>
         config.category ===
@@ -48,7 +67,6 @@ class PlaceDetailView extends Component {
       : this.props.model.get("title")
         ? this.props.model.get("title")
         : this.props.model.get("name");
-
     const submitter = this.props.model.get("submitter") || {};
 
     return (
@@ -60,7 +78,7 @@ class PlaceDetailView extends Component {
         />
         <h1 className="place-detail-view__header">{title}</h1>
         <PlaceDetailMetadataBar
-          avatarSrc={submitter.avatar_url}
+          submitter={submitter}
           model={this.props.model}
           placeConfig={this.props.placeConfig}
           placeTypes={this.props.placeTypes}
@@ -82,12 +100,22 @@ class PlaceDetailView extends Component {
             placeConfig={this.props.placeConfig}
           />
         ))}
+        <PlaceDetailSurvey
+          apiRoot={this.props.apiRoot}
+          currentUser={this.props.currentUser}
+          model={this.props.model}
+          placeConfig={this.props.placeConfig}
+          submitter={submitter}
+          surveyConfig={this.props.surveyConfig}
+        />
       </div>
     );
   }
 }
 
 PlaceDetailView.propTypes = {
+  apiRoot: PropTypes.string.isRequired,
+  currentUser: PropTypes.object,
   model: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   placeTypes: PropTypes.object.isRequired,

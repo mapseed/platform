@@ -8,11 +8,11 @@
     font-family: FontAwesome;
     content: $support-button-icon;
     padding-right: 8px;
-    color: $support-button-icon-unselected-color;
+    color: $support-button-icon-unsupported-color;
   }
 }
 
 .support-button--supported:before {
-  color: $support-button-icon-selected-color;
+  color: $support-button-icon-supported-color;
 }
 

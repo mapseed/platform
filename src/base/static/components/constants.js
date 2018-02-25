@@ -17,6 +17,8 @@ const constants = {
   SUBMIT_FIELD_TYPENAME: "submit",
   RANGE_FIELD_TYPENAME: "range",
 
+  SUBMITTER_FIELDNAME: "submitter_name",
+
   AUTOFILL_DURATION_DAYS: 30,
 
   LOCATION_TYPE_PROPERTY_NAME: "location_type",
@@ -33,7 +35,6 @@ const constants = {
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
 
-  ON_SET_VALIDITY_MESSAGE_ACTION: "on-set-validity-message",
   ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
 };
 

@@ -1,0 +1,37 @@
+.place-detail-survey__header-bar {
+  overflow: auto;
+}
+
+.place-detail-survey__horizontal-rule {
+  clear: both;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.place-detail-survey__num-comments-header {
+  float: left;
+}
+
+.place-detail-survey__leave-comment-button {
+  float: right;
+}
+
+.place-detail-survey__leave-comment-button {
+  padding: 5px 10px 5px 10px;
+}
+
+.place-detail-survey__submit-user-info {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.place-detail-survey__logout-button {
+  text-transform: uppercase;
+  font-size: 0.8em;
+  margin-left: 15px;
+}
+
+.place-detail-survey__username {
+  font-weight: 800;
+}

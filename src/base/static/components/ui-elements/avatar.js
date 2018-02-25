@@ -7,7 +7,10 @@ import "./user-avatar.scss";
 const UserAvatar = props => {
   return (
     <img
-      className={classNames("user-avatar", props.className)}
+      className={classNames("user-avatar", props.className, {
+        "user-avatar--large": props.size === "large",
+        "user-avatar--small": props.size === "small",
+      })}
       src={props.src}
     />
   );
@@ -15,10 +18,12 @@ const UserAvatar = props => {
 
 UserAvatar.propTypes = {
   className: PropTypes.string,
+  size: PropTypes.string,
   src: PropTypes.string.isRequired,
 };
 
 UserAvatar.defaultProps = {
+  size: "large",
   src: "/static/css/images/user-50.png",
 };
 

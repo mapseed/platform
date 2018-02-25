@@ -115,9 +115,6 @@ class InputForm extends Component {
       case constants.ON_ADD_ATTACHMENT_ACTION:
         this.attachments.push(payload);
         break;
-      case constants.ON_SET_VALIDITY_MESSAGE_ACTION:
-        this.validityMessage = payload;
-        break;
       default:
         console.error(
           "Error: Unable to handle form field callback action:",
@@ -323,7 +320,6 @@ class InputForm extends Component {
                   disabled={this.state.isFormSubmitting}
                   fieldState={fieldState}
                   isInitializing={this.state.isInitializing}
-                  landmarks={this.props.landmarks}
                   key={fieldState.get(constants.FIELD_STATE_RENDER_KEY)}
                   map={this.props.map}
                   mapConfig={this.props.mapConfig}
@@ -358,7 +354,6 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
-  landmarks: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
   mapConfig: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
