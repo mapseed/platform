@@ -9,8 +9,8 @@ const BigRadioField = props => {
   const cn = {
     label: classNames("big-radio-field__label", {
       "big-radio-field__label--toggled": props.checked,
-      "big-radio-field__label--has-autofill--colored":
-        props.hasAutofill && props.checked && props.autofillMode === "color",
+      "big-radio-field__label--has-autofill":
+        props.hasAutofill && props.checked,
     }),
   };
 
@@ -32,7 +32,6 @@ const BigRadioField = props => {
 };
 
 BigRadioField.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
@@ -43,7 +42,6 @@ BigRadioField.propTypes = {
 };
 
 BigRadioField.defaultProps = {
-  autofillMode: "color",
   hasAutofill: false,
 };
 

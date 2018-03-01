@@ -337,6 +337,21 @@ $range-slider-height: 4px;
 $range-slider-autofill-background-color: $autofill-color;
 
 /*
+  input-form-submit-button.js
+  Main input form submit button
+*/
+$input-form-submit-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$input-form-submit-button-background-color: $accent-color-1;
+$input-form-submit-button-background-hover-color: $primary-color;
+$input-form-submit-button-border: 3px solid rgba(0, 0, 0, 0.05);
+$input-form-submit-button-text-color: #ffffff;
+$input-form-submit-button-box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+$input-form-submit-button-border-radius: 3px;
+$input-form-submit-button-text-transform: uppercase;
+$input-form-submit-button-font-size: 1em;
+$input-form-submit-button-hover-cursor: pointer;
+
+/*
   input-form.js
   Main input form for new map content
 */

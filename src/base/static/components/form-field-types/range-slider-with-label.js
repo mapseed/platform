@@ -7,8 +7,7 @@ import "./range-slider-with-label.scss";
 
 const RangeSliderWithLabel = props => {
   const cn = classNames("range-slider-with-label", {
-    "range-slider-with-label--has-autofill--colored":
-      props.hasAutofill && props.value && props.autofillMode === "color",
+    "range-slider-with-label--has-autofill": props.hasAutofill && props.value,
   });
 
   return (
@@ -27,7 +26,6 @@ const RangeSliderWithLabel = props => {
 };
 
 RangeSliderWithLabel.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool,
   max: PropTypes.number.isRequired,
   min: PropTypes.number.isRequired,
@@ -37,7 +35,6 @@ RangeSliderWithLabel.propTypes = {
 };
 
 RangeSliderWithLabel.defaultProps = {
-  autofillMode: "color",
   max: 100,
   min: 0,
 };

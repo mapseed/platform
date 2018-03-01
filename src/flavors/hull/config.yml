@@ -280,7 +280,7 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/partners-blue.svg
+            - url: /static/css/images/partners-blue.png
             - url: /static/css/images/markers/marker-star.png
         - name: address
           type: geocoding

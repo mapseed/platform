@@ -1,0 +1,17 @@
+@import "variables";
+
+.input-form-submit-button {
+  padding: $input-form-submit-button-padding;
+  background-color: $input-form-submit-button-background-color;
+  border: $input-form-submit-button-border;
+  color: $input-form-submit-button-text-color;
+  box-shadow: $input-form-submit-button-box-shadow;
+  border-radius: $input-form-submit-button-border-radius;
+  text-transform: $input-form-submit-button-text-transform;
+  font-size: $input-form-submit-button-font-size;
+
+  &:hover {
+    background-color: $input-form-submit-button-background-hover-color;
+    cursor: $input-form-submit-button-hover-cursor;
+  }
+}

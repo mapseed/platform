@@ -21,10 +21,8 @@ class BigCheckboxField extends Component {
     const cn = {
       label: classNames("big-checkbox-field__label", {
         "big-checkbox-field__label--toggled": isChecked,
-        "big-checkbox-field__label--has-autofill--colored":
-          this.props.hasAutofill &&
-          isChecked &&
-          this.props.autofillMode === "color",
+        "big-checkbox-field__label--has-autofill":
+          this.props.hasAutofill && isChecked,
       }),
     };
 
@@ -51,7 +49,6 @@ BigCheckboxField.propTypes = {
     PropTypes.instanceOf(List),
     PropTypes.string,
   ]).isRequired,
-  autofillMode: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -61,7 +58,6 @@ BigCheckboxField.propTypes = {
 };
 
 BigCheckboxField.defaultProps = {
-  autofillMode: "color",
   hasAutofill: false,
 };
 

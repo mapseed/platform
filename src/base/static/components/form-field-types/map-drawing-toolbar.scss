@@ -31,6 +31,7 @@
 .map-drawing-toolbar__editing-tools-container--visible,
 .map-drawing-toolbar__marker-selection-container--visible {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 15px;
 }
@@ -47,11 +48,11 @@
   border: $map-drawing-toolbar-marker-item-marker-border;
   border-radius: $map-drawing-toolbar-marker-item-marker-border-radius;
   padding: $map-drawing-toolbar-marker-item-padding;
-}
 
-.map-drawing-toolbar__marker-item--hovering {
-  cursor: pointer;
-  border: $map-drawing-toolbar-marker-item-marker-hover-border;
+  &:hover {
+    cursor: pointer;
+    border: $map-drawing-toolbar-marker-item-marker-hover-border;
+  }
 }
 
 .map-drawing-toolbar__marker-item--selected {
@@ -78,17 +79,21 @@
     content: "";
     background: no-repeat;
   }
-}
 
-.map-drawing-toolbar__toolbar-item--hovering {
-  cursor: pointer;
-  border: $map-drawing-toolbar-toolbar-item-hover-border;
-  color: $map-drawing-toolbar-text-color !important;
+  &:hover {
+    cursor: pointer;
+    border: $map-drawing-toolbar-toolbar-item-hover-border;
+    color: $map-drawing-toolbar-text-color !important;
+  }
 }
 
 .map-drawing-toolbar__toolbar-item--selected {
   background-color: $map-drawing-toolbar-toolbar-item-selected-background-color;
   color: $map-drawing-toolbar-toolbar-item-selected-text-color;
+
+  &:hover {
+    color: $map-drawing-toolbar-toolbar-item-selected-text-color !important;
+  }
 }
 
 .map-drawing-toolbar__create-marker-tool:before {

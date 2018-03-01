@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { OrderedMap as ImmutableOrderedMap } from "immutable";
+import {
+  Map as ImmutableMap,
+  OrderedMap as ImmutableOrderedMap,
+} from "immutable";
 import classNames from "classnames";
 
 import FormField from "../form-field";
@@ -40,6 +43,7 @@ class InputForm extends Component {
 
   componentDidMount() {
     this.props.map.on("dragend", this.handleDragEnd.bind(this));
+    this.initializeForm(this.props.selectedCategoryConfig);
 
     // TODO: Replace this.
     new Spinner(Shareabouts.smallSpinnerOptions).spin(
@@ -49,9 +53,11 @@ class InputForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.categoryConfig.category !== this.props.categoryConfig.category
+      nextProps.isFormResetting ||
+      nextProps.selectedCategoryConfig.category !==
+        this.props.selectedCategoryConfig.category
     ) {
-      this.setActiveCategory(nextProps.categoryConfig);
+      this.initializeForm(nextProps.selectedCategoryConfig);
     }
   }
 
@@ -59,30 +65,48 @@ class InputForm extends Component {
     this.props.map.off("dragend", this.handleDragEnd);
   }
 
-  handleDragEnd() {
-    !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
+  initializeForm(selectedCategoryConfig) {
+    this.isWithCustomGeometry =
+      selectedCategoryConfig.fields.findIndex(
+        field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
+      ) >= 0;
+    this.attachments = [];
+    this.geometryStyle = null;
+    let fields = ImmutableOrderedMap();
+    selectedCategoryConfig.fields.forEach(field => {
+      fields = fields.set(
+        field.name,
+        ImmutableMap()
+          .set(constants.FIELD_STATE_VALUE_KEY, "")
+          .set(constants.FIELD_STATE_RENDER_KEY, Math.random())
+      );
+    });
+    this.setState({
+      fields: fields,
+      isFormSubmitting: false,
+      isMapPositioned: false,
+      formValidationErrors: new Set(),
+      showValidityStatus: false,
+    });
   }
 
-  onFieldInitialize(fieldName, fieldValue) {
-    this.setState(({ fields }) => ({
-      fields: fields.set(fieldName, fieldValue),
-      isInitializing: true,
-    }));
+  handleDragEnd() {
+    !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
   }
 
   onGeometryStyleChange(style) {
     this.geometryStyle = style;
   }
 
-  onFieldChange(fieldName, fieldValue, isValid) {
-    const newState = this.state.fields
-      .get(fieldName)
-      .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
-      .set(constants.FIELD_STATE_VALIDITY_KEY, isValid);
+  onFieldChange(fieldName, fieldStatus, isInitializing) {
+    fieldStatus = fieldStatus.set(
+      constants.FIELD_STATE_RENDER_KEY,
+      this.state.fields.get(fieldName).get(constants.FIELD_STATE_RENDER_KEY)
+    );
     this.setState(({ fields }) => ({
-      fields: fields.set(fieldName, newState),
+      fields: fields.set(fieldName, fieldStatus),
       updatingField: fieldName,
-      isInitializing: false,
+      isInitializing: isInitializing,
     }));
   }
 
@@ -91,6 +115,9 @@ class InputForm extends Component {
       case constants.ON_ADD_ATTACHMENT_ACTION:
         this.attachments.push(payload);
         break;
+      case constants.ON_SET_VALIDITY_MESSAGE_ACTION:
+        this.validityMessage = payload;
+        break;
       default:
         console.error(
           "Error: Unable to handle form field callback action:",
@@ -98,23 +125,6 @@ class InputForm extends Component {
         );
         break;
     }
-  }
-
-  setActiveCategory(categoryConfig) {
-    this.isWithCustomGeometry =
-      categoryConfig.fields.findIndex(
-        field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
-      ) >= 0
-        ? true
-        : false;
-    this.attachments = [];
-    this.geometryStyle = null;
-    this.setState({
-      fields: ImmutableOrderedMap(),
-      isFormSubmitting: false,
-      formValidationErrors: new Set(),
-      showValidityStatus: false,
-    });
   }
 
   onSubmit(evt) {
@@ -162,17 +172,20 @@ class InputForm extends Component {
       isFormSubmitting: true,
     });
 
-    const collection = this.props.places[this.props.categoryConfig.dataset];
+    const collection = this.props.places[
+      this.props.selectedCategoryConfig.dataset
+    ];
     collection.add({
-      location_type: this.props.categoryConfig.category,
+      location_type: this.props.selectedCategoryConfig.category,
       datasetSlug: this.props.mapConfig.layers.find(
-        layer => this.props.categoryConfig.dataset === layer.id
+        layer => this.props.selectedCategoryConfig.dataset === layer.id
       ).slug,
-      datasetId: this.props.categoryConfig.dataset,
-      showMetadata: this.props.categoryConfig.showMetadata,
+      datasetId: this.props.selectedCategoryConfig.dataset,
+      showMetadata: this.props.selectedCategoryConfig.showMetadata,
     });
     const model = collection.at(collection.length - 1);
     let attrs = this.state.fields
+      .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
       .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
       .toJS();
 
@@ -188,9 +201,9 @@ class InputForm extends Component {
 
     // Replace image data in rich text fields with placeholders built from each
     // image's name.
-    // TODO: This is field-specific logic. Can we move it out of the form
-    // component somehow?
-    this.props.categoryConfig.fields
+    // TODO: This logic is better suited for the FormField component,
+    // perhaps in an onSave hook.
+    this.props.selectedCategoryConfig.fields
       .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
       .forEach(field => {
         attrs[field.name] = attrs[field.name].replace(
@@ -217,7 +230,9 @@ class InputForm extends Component {
         Util.log("USER", "new-place", "successfully-add-place");
 
         // Save autofill values as necessary.
-        this.props.categoryConfig.fields.forEach(fieldConfig => {
+        // TODO: This logic is better suited for the FormField component,
+        // perhaps in an onSave hook.
+        this.props.selectedCategoryConfig.fields.forEach(fieldConfig => {
           if (fieldConfig.autocomplete) {
             Util.saveAutocompleteValue(
               fieldConfig.name,
@@ -229,7 +244,7 @@ class InputForm extends Component {
           }
         });
 
-        this.setState({ isFormSubmitting: false });
+        this.setState({ isFormSubmitting: false, showValidityStatus: false });
 
         // Fire post-save hook.
         // The post-save hook allows flavors to hijack the default
@@ -259,7 +274,10 @@ class InputForm extends Component {
     if (this.isWithCustomGeometry) {
       this.props.hideSpotlightMask();
       this.props.hideCenterPoint();
-    } else if (!this.state.isMapPositioned) {
+    } else if (
+      this.props.selectedCategoryConfig.category &&
+      !this.state.isMapPositioned
+    ) {
       this.props.showNewPin();
     }
 
@@ -269,7 +287,8 @@ class InputForm extends Component {
       }),
       warningMsgs: classNames("input-form__warning-msgs-container", {
         "input-form__warning-msgs-container--visible":
-          this.state.formValidationErrors.size > 0,
+          this.state.formValidationErrors.size > 0 &&
+          this.state.showValidityStatus,
       }),
       spinner: classNames("input-form__submit-spinner", {
         "input-form__submit-spinner--visible": this.state.isFormSubmitting,
@@ -293,35 +312,32 @@ class InputForm extends Component {
           className={cn.form}
           onSubmit={this.onSubmit.bind(this)}
         >
-          {this.props.categoryConfig.fields &&
-            this.props.categoryConfig.fields.map(fieldConfig => {
+          {this.state.fields
+            .map((fieldState, fieldName) => {
               return (
                 <FormField
-                  autofillMode={this.props.autofillMode}
-                  key={
-                    this.props.categoryConfig.category +
-                    fieldConfig.name +
-                    this.props.renderCount
-                  }
+                  fieldConfig={this.props.selectedCategoryConfig.fields.find(
+                    field => field.name === fieldName
+                  )}
+                  categoryConfig={this.props.selectedCategoryConfig}
+                  disabled={this.state.isFormSubmitting}
+                  fieldState={fieldState}
+                  isInitializing={this.state.isInitializing}
+                  landmarks={this.props.landmarks}
+                  key={fieldState.get(constants.FIELD_STATE_RENDER_KEY)}
                   map={this.props.map}
                   mapConfig={this.props.mapConfig}
-                  isInitializing={this.state.isInitializing}
-                  router={this.props.router}
-                  updatingField={this.state.updatingField}
-                  fieldName={fieldConfig.name}
-                  categoryConfig={this.props.categoryConfig}
-                  showValidityStatus={this.state.showValidityStatus}
-                  disabled={this.state.isFormSubmitting}
-                  onChange={this.onFieldChange.bind(this)}
-                  onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
-                  onInitialize={this.onFieldInitialize.bind(this)}
                   onAdditionalData={this.onAdditionalData.bind(this)}
-                  fieldState={this.state.fields.get(fieldConfig.name)}
+                  onFieldChange={this.onFieldChange.bind(this)}
+                  onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
                   places={this.props.places}
-                  landmarks={this.props.landmarks}
+                  router={this.props.router}
+                  showValidityStatus={this.state.showValidityStatus}
+                  updatingField={this.state.updatingField}
                 />
               );
-            })}
+            })
+            .toArray()}
         </form>
         <div className={cn.spinner} />
       </div>
@@ -330,7 +346,6 @@ class InputForm extends Component {
 }
 
 InputForm.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   className: PropTypes.string,
   customHooks: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.func),
@@ -340,6 +355,8 @@ InputForm.propTypes = {
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
+  isFormResetting: PropTypes.bool,
+  isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
   landmarks: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
@@ -347,12 +364,8 @@ InputForm.propTypes = {
   places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
-  categoryConfig: PropTypes.object,
+  selectedCategoryConfig: PropTypes.object,
   showNewPin: PropTypes.func.isRequired,
-};
-
-InputForm.defaultProps = {
-  autofillMode: "color",
 };
 
 export default InputForm;

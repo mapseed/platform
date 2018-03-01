@@ -30,6 +30,7 @@ FileField.propTypes = {
   accept: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
   value: PropTypes.string,

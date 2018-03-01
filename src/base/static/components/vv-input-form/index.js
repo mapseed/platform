@@ -17,6 +17,7 @@ const hooks = {
     ) {
       context.setState({
         stage: "exit-or-continue",
+        isFormResetting: false,
       });
     } else {
       defaultPostSave(model);
@@ -34,7 +35,14 @@ class VVInputForm extends Component {
   }
 
   componentWillMount() {
-    this.removeAutofillvalues();
+    // Remove saved autofill values. For VV input forms, we always want to reset
+    // any saved autofill values when re-opening the form.
+    this.props.placeConfig.place_detail
+      .find(
+        config => config.category === constants.COMMUNITY_INPUT_CATEGORY_NAME
+      )
+      .fields.filter(field => field.autocomplete === true)
+      .forEach(field => Util.removeAutocompleteValue(field.name));
   }
 
   componentDidMount() {
@@ -51,24 +59,14 @@ class VVInputForm extends Component {
     };
   }
 
-  removeAutofillvalues() {
-    this.props.placeConfig.place_detail
-      .find(
-        config => config.category === constants.COMMUNITY_INPUT_CATEGORY_NAME
-      )
-      .fields.filter(field => field.autocomplete === true)
-      .forEach(field => Util.removeAutocompleteValue(field.name));
-  }
-
   onClickContinueForm() {
     this.setState({
       stage: "enter-data",
+      isFormResetting: true,
     });
 
     this.props.showNewPin();
     this.props.hideSpotlightMask();
-
-    this.props.onCategoryChange(this.props.categoryConfig.category);
   }
 
   onClickExitForm() {
@@ -83,18 +81,27 @@ class VVInputForm extends Component {
   }
 
   render() {
+    // Certain custom behavior should only be performed if we are rendering a
+    // community input form.
+    const isCommunityInputCategorySelected =
+      this.props.selectedCategoryConfig.category ===
+      constants.COMMUNITY_INPUT_CATEGORY_NAME;
     const cn = {
       form: classNames("vv-input-form__form", {
-        "vv-input-form__form--visible": this.state.stage === "enter-data",
-      }),
-      welcomeHeader: classNames("vv-input-form__welcome-header-container", {
-        "vv-input-form__welcome-header-container--visible":
-          this.state.stage === "set-location" ||
+        "vv-input-form__form--visible":
+          !isCommunityInputCategorySelected ||
           this.state.stage === "enter-data",
       }),
+      welcomeHeader: classNames("vv-input-form__welcome-header-container", {
+        "vv-input-form__welcome-header-container--visible": !isCommunityInputCategorySelected
+          ? false
+          : this.state.stage === "set-location" ||
+            this.state.stage === "enter-data",
+      }),
       continueBtns: classNames("vv-input-form__continue-btns-container", {
-        "vv-input-form__continue-btns-container--visible":
-          this.state.stage === "exit-or-continue",
+        "vv-input-form__continue-btns-container--visible": !isCommunityInputCategorySelected
+          ? false
+          : this.state.stage === "exit-or-continue",
       }),
     };
 
@@ -109,7 +116,11 @@ class VVInputForm extends Component {
             {messages.welcomeSubheader}
           </p>
         </div>
-        <InputForm className={cn.form} {...this.props} />
+        <InputForm
+          className={cn.form}
+          isFormResetting={this.state.isFormResetting}
+          {...this.props}
+        />
         <div className={cn.continueBtns}>
           <h4 className="input-form__continue-btns-header">
             {messages.continueBtnsHeader}
@@ -133,7 +144,7 @@ class VVInputForm extends Component {
 }
 
 VVInputForm.propTypes = {
-  categoryConfig: PropTypes.object.isRequired,
+  selectedCategoryConfig: PropTypes.object.isRequired,
   customHooks: PropTypes.objectOf(PropTypes.func),
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,
