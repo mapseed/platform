@@ -842,13 +842,17 @@ story:
     default_zoom: 16
     default_visible_layers:
       - snohomish-featured
+      - snohomish-input
     order:
-      - url: photovoice
-        basemap: satellite
       - url: bay-view
         basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
+      - url: photovoice
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png         
       - url: snohomish-conservation-district
         basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-star.png         
       #   zoom: 15
       #   panTo:
       #     lat: 47.53420
