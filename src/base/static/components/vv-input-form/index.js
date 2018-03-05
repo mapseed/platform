@@ -17,8 +17,7 @@ const hooks = {
     ) {
       context.setState({
         stage: "exit-or-continue",
-        isContinuingFormSession: false,
-        isLeavingForm: false,
+        isFormResetting: false,
       });
     } else {
       defaultPostSave(model);
@@ -32,34 +31,12 @@ class VVInputForm extends Component {
     this.state = {
       stage: "set-location",
       isMapPositioned: false,
-      isContinuingFormSession: false,
-      isLeavingForm: false,
     };
-    // We use this.renderCount for creating unique component keys on re-renders
-    // of the form.
-    this.renderCount = 1;
   }
 
   componentWillMount() {
-    this.removeAutofillvalues();
-  }
-
-  componentDidMount() {
-    this.props.map.on("dragend", () => {
-      !this.state.isMapPositioned &&
-        this.setState({
-          stage: "enter-data",
-          isMapPositioned: true,
-          isContinuingFormSession: false,
-        });
-    });
-
-    this.props.customHooks.postSave = (response, model, defaultPostSave) => {
-      return hooks.postSave(response, model, defaultPostSave, this);
-    };
-  }
-
-  removeAutofillvalues() {
+    // Remove saved autofill values. For VV input forms, we always want to reset
+    // any saved autofill values when re-opening the form.
     this.props.placeConfig.place_detail
       .find(
         config => config.category === constants.COMMUNITY_INPUT_CATEGORY_NAME
@@ -68,11 +45,24 @@ class VVInputForm extends Component {
       .forEach(field => Util.removeAutocompleteValue(field.name));
   }
 
+  componentDidMount() {
+    this.props.map.on("dragend", () => {
+      !this.state.isMapPositioned &&
+        this.setState({
+          stage: "enter-data",
+          isMapPositioned: true,
+        });
+    });
+
+    this.props.customHooks.postSave = (response, model, defaultPostSave) => {
+      return hooks.postSave(response, model, defaultPostSave, this);
+    };
+  }
+
   onClickContinueForm() {
-    this.renderCount++;
     this.setState({
       stage: "enter-data",
-      isContinuingFormSession: true,
+      isFormResetting: true,
     });
 
     this.props.showNewPin();
@@ -82,8 +72,6 @@ class VVInputForm extends Component {
   onClickExitForm() {
     this.setState({
       stage: "set-location",
-      isContinuingFormSession: false,
-      isLeavingForm: true,
       isMapPositioned: false,
     });
 
@@ -93,18 +81,27 @@ class VVInputForm extends Component {
   }
 
   render() {
+    // Certain custom behavior should only be performed if we are rendering a
+    // community input form.
+    const isCommunityInputCategorySelected =
+      this.props.selectedCategoryConfig.category ===
+      constants.COMMUNITY_INPUT_CATEGORY_NAME;
     const cn = {
       form: classNames("vv-input-form__form", {
-        "vv-input-form__form--visible": this.state.stage === "enter-data",
-      }),
-      welcomeHeader: classNames("vv-input-form__welcome-header-container", {
-        "vv-input-form__welcome-header-container--visible":
-          this.state.stage === "set-location" ||
+        "vv-input-form__form--visible":
+          !isCommunityInputCategorySelected ||
           this.state.stage === "enter-data",
       }),
+      welcomeHeader: classNames("vv-input-form__welcome-header-container", {
+        "vv-input-form__welcome-header-container--visible": !isCommunityInputCategorySelected
+          ? false
+          : this.state.stage === "set-location" ||
+            this.state.stage === "enter-data",
+      }),
       continueBtns: classNames("vv-input-form__continue-btns-container", {
-        "vv-input-form__continue-btns-container--visible":
-          this.state.stage === "exit-or-continue",
+        "vv-input-form__continue-btns-container--visible": !isCommunityInputCategorySelected
+          ? false
+          : this.state.stage === "exit-or-continue",
       }),
     };
 
@@ -121,9 +118,7 @@ class VVInputForm extends Component {
         </div>
         <InputForm
           className={cn.form}
-          isContinuingFormSession={this.state.isContinuingFormSession}
-          renderCount={this.renderCount}
-          isLeavingForm={this.state.isLeavingForm}
+          isFormResetting={this.state.isFormResetting}
           {...this.props}
         />
         <div className={cn.continueBtns}>
@@ -149,11 +144,13 @@ class VVInputForm extends Component {
 }
 
 VVInputForm.propTypes = {
+  selectedCategoryConfig: PropTypes.object.isRequired,
   customHooks: PropTypes.objectOf(PropTypes.func),
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   map: PropTypes.object.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   showNewPin: PropTypes.func.isRequired,
 };

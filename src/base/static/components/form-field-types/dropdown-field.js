@@ -7,8 +7,7 @@ import "./dropdown-field.scss";
 
 const DropdownField = props => {
   const cn = classNames("dropdown-field", {
-    "dropdown-field--has-autofill--colored":
-      props.hasAutofill && props.autofillMode === "color",
+    "dropdown-field--has-autofill": props.hasAutofill,
   });
 
   return (
@@ -29,7 +28,6 @@ const DropdownField = props => {
 };
 
 DropdownField.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -45,7 +43,6 @@ DropdownField.propTypes = {
 
 DropdownField.defaultProps = {
   hasAutofill: false,
-  autofillMode: "color",
 };
 
 export default DropdownField;

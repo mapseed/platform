@@ -1,64 +1,45 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
 import InputFormCategoryButton from "./input-form-category-button";
-
-const Util = require("../../js/utils.js");
-
-import "./input-form-category-selector.scss";
 
 class InputFormCategorySelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isCollapsed: false,
-      isHidden: false,
     };
   }
 
-  componentWillMount() {
-    this.visibleCategories = this.props.placeConfig.place_detail
-      .filter(config => config.includeOnForm)
-      .filter(config => {
-        return !(
-          config.admin_only &&
-          !Util.getAdminStatus(config.dataset, config.admin_groups)
-        );
-      });
-
-    if (this.visibleCategories.length === 1) {
-      this.setCategory(this.visibleCategories[0].category, true);
-    }
-  }
-
-  setCategory(categoryName, isSingleCategory) {
+  setCategory(categoryName) {
     this.setState({
       isCollapsed: true,
-      isHidden: isSingleCategory,
     });
     this.props.onCategoryChange(categoryName);
   }
 
   render() {
-    const cn = classNames("input-form__category-selector", {
-      "input-form__category-selector--hidden": this.state.isHidden,
-    });
-
     return (
-      <div className={cn}>
-        {this.visibleCategories.map(config => (
-          <InputFormCategoryButton
-            isActive={this.props.selectedCategory === config.category}
-            isCategoryMenuCollapsed={this.state.isCollapsed}
-            key={config.category}
-            categoryConfig={config}
-            onCategoryChange={evt => {
-              this.setCategory(evt.target.value, false);
-            }}
-            onExpandCategories={() => this.setState({ isCollapsed: false })}
-          />
-        ))}
+      <div className="input-form__category-selector">
+        {this.props.visibleCategoryConfigs.map(config => {
+          const isSelected =
+            this.props.selectedCategoryConfig &&
+            this.props.selectedCategoryConfig.category === config.category;
+
+          return (
+            <InputFormCategoryButton
+              isSelected={isSelected}
+              isCategoryMenuCollapsed={this.state.isCollapsed && !isSelected}
+              isSingleCategory={this.props.visibleCategoryConfigs.length === 1}
+              key={config.category}
+              categoryConfig={config}
+              onCategoryChange={evt => {
+                this.setCategory(evt.target.value, false);
+              }}
+              onExpandCategories={() => this.setState({ isCollapsed: false })}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -66,8 +47,11 @@ class InputFormCategorySelector extends Component {
 
 InputFormCategorySelector.propTypes = {
   onCategoryChange: PropTypes.func.isRequired,
-  placeConfig: PropTypes.object.isRequired,
-  selectedCategory: PropTypes.string,
+  selectedCategoryConfig: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  visibleCategoryConfigs: PropTypes.array.isRequired,
 };
 
 export default InputFormCategorySelector;

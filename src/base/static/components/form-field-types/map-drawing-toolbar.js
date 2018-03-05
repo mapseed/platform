@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map as ImmutableMap } from "immutable";
 import classNames from "classnames";
 import ColorPicker from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
@@ -25,8 +24,6 @@ class MapDrawingToolbar extends Component {
       selectedDrawingTool: null,
       selectedEditingTool: null,
       selectedMarkerIndex: 0,
-      hoveredToolbarItem: null,
-      hoveredMarkedItemIndex: null,
     };
 
     this.colorpickerState = {
@@ -198,8 +195,8 @@ class MapDrawingToolbar extends Component {
       let latLngs = layer.getLatLngs(),
         coords = this.buildCoords(latLngs);
 
-      // We push the initial polygon vertext onto the end of the vertex array
-      // here so we ensure the final vertex exactly matches the first. The
+      // NOTE: We push the initial polygon vertext onto the end of the vertex
+      // array here so we ensure the final vertex exactly matches the first. The
       // database will reject polygonal geometry otherwise.
       coords.push([latLngs[0].lng, latLngs[0].lat]);
 
@@ -222,12 +219,8 @@ class MapDrawingToolbar extends Component {
       style = { iconUrl: layer.options.icon.options.iconUrl };
     }
 
-    this.props.onChange(
-      this.props.name,
-      ImmutableMap()
-        .set("geometry", this.outputGeometry)
-        .set("geometryStyle", style)
-    );
+    this.props.onChange(this.props.name, this.outputGeometry);
+    this.props.onGeometryStyleChange(style);
   }
 
   onGeometryToolTypeChange(evt) {
@@ -318,7 +311,7 @@ class MapDrawingToolbar extends Component {
         selectedDrawingTool: null,
         selectedEditingTool: null,
       });
-
+      this.props.onGeometryStyleChange(null);
       this.props.onChange(this.props.name, null);
     } else if (evt.target.id.startsWith("edit-")) {
       this.drawingObject = new L.EditToolbar.Edit(this.props.map, {
@@ -364,12 +357,9 @@ class MapDrawingToolbar extends Component {
 
     this.getLayerFromEditingLayerGroup().setIcon(icon);
 
-    this.props.onChange(
-      this.props.name,
-      ImmutableMap()
-        .set("geometry", this.outputGeometry)
-        .set("geometryStyle", { iconUrl: iconUrl })
-    );
+    this.props.onGeometryStyleChange({
+      iconUrl: iconUrl,
+    });
   }
 
   onColorpickerChange(colorInfo, colorpickerTool) {
@@ -390,12 +380,7 @@ class MapDrawingToolbar extends Component {
         this.colorpickerState.opacity = colorInfo.alpha / 100;
       }
 
-      this.props.onChange(
-        this.props.name,
-        ImmutableMap()
-          .set("geometry", this.outputGeometry)
-          .set("geometryStyle", this.colorpickerState)
-      );
+      this.props.onGeometryStyleChange(this.colorpickerState);
     }
   }
 
@@ -505,9 +490,6 @@ class MapDrawingToolbar extends Component {
             "map-drawing-toolbar__toolbar-item",
             "map-drawing-toolbar__" + tool.type,
             {
-              "map-drawing-toolbar__toolbar-item--hovering":
-                this.state.hoveredToolbarItem === tool.type &&
-                this.state.selectedEditingTool !== tool.type,
               "map-drawing-toolbar__toolbar-item--selected":
                 this.state.selectedEditingTool === tool.type,
             }
@@ -542,9 +524,6 @@ class MapDrawingToolbar extends Component {
             "map-drawing-toolbar__toolbar-item",
             "map-drawing-toolbar__" + tool.type,
             {
-              "map-drawing-toolbar__toolbar-item--hovering":
-                this.state.hoveredToolbarItem === tool.type &&
-                this.state.selectedEditingTool !== tool.type,
               "map-drawing-toolbar__toolbar-item--selected":
                 this.state.selectedEditingTool === tool.type,
             }
@@ -586,9 +565,6 @@ class MapDrawingToolbar extends Component {
               "map-drawing-toolbar__toolbar-item",
               "map-drawing-toolbar__" + tool.type,
               {
-                "map-drawing-toolbar__toolbar-item--hovering":
-                  this.state.hoveredToolbarItem === tool.type &&
-                  this.state.selectedDrawingTool !== tool.type,
                 "map-drawing-toolbar__toolbar-item--selected":
                   this.state.selectedDrawingTool === tool.type,
               }
@@ -627,8 +603,6 @@ class MapDrawingToolbar extends Component {
             let markerItemClassName = classNames(
               "map-drawing-toolbar__marker-item",
               {
-                "map-drawing-toolbar__marker-item--hovering":
-                  this.state.hoveredMarkedItemIndex === i,
                 "map-drawing-toolbar__marker-item--selected":
                   this.state.selectedMarkerIndex === i,
               }
@@ -670,6 +644,7 @@ MapDrawingToolbar.propTypes = {
   map: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onGeometryStyleChange: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
   markers: PropTypes.array.isRequired,
 };

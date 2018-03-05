@@ -6,10 +6,7 @@ import "./text-field.scss";
 
 const TextField = props => {
   const cn = classNames("text-field", {
-    "text-field--has-autofill--colored":
-      props.hasAutofill && props.autofillMode === "color",
-    "text-field--has-autofill--hidden":
-      props.hasAutofill && props.autofillMode === "hide",
+    "text-field--has-autofill": props.hasAutofill,
   });
 
   return (
@@ -25,16 +22,11 @@ const TextField = props => {
 };
 
 TextField.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-};
-
-TextField.defaultProps = {
-  autofillMode: "color",
 };
 
 export default TextField;

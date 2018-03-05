@@ -839,6 +839,7 @@ place:
               value: image/*
         - name: published
           type: publish_control_toolbar
+        # NOTE: this field type must have the name "geometry"
         - name: geometry
           type: map_drawing_toolbar
           content:

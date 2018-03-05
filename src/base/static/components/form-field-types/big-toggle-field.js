@@ -9,8 +9,7 @@ const BigToggleField = props => {
   const cn = {
     label: classNames("big-toggle-field__label", {
       "big-toggle-field__label--toggled": props.checked,
-      "big-toggle-field__label--has-autofill--colored":
-        props.hasAutofill && props.autofillMode === "color",
+      "big-toggle-field__label--has-autofill": props.hasAutofill,
     }),
   };
 
@@ -34,7 +33,6 @@ const BigToggleField = props => {
 };
 
 BigToggleField.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
@@ -42,10 +40,6 @@ BigToggleField.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-BigToggleField.defaultProps = {
-  autofillMode: "color",
 };
 
 export default BigToggleField;

@@ -39,7 +39,7 @@ class AddAttachmentButton extends Component {
 
             // Keep track of whether or not a cover image has been added for the
             // purposes of validating an attachment button that is required.
-            this.props.onChange(evt.target.name, true);
+            this.props.onChange(evt.target.name, "");
             this.props.onAdditionalData(
               constants.ON_ADD_ATTACHMENT_ACTION,
               fileObj

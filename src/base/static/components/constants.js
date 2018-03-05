@@ -26,8 +26,12 @@ const constants = {
   FIELD_STATE_VALIDITY_KEY: "isValid",
   FIELD_STATE_VALIDITY_MESSAGE_KEY: "message",
   FIELD_STATE_FIELD_TYPE_KEY: "type",
-  FIELD_STATE_INITIALIZED_KEY: "isInitialized",
+  FIELD_STATE_RENDER_KEY: "renderKey",
 
+  GEOMETRY_PROPERTY_NAME: "geometry",
+  GEOMETRY_STYLE_PROPERTY_NAME: "style",
+
+  ON_SET_VALIDITY_MESSAGE_ACTION: "on-set-validity-message",
   ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
 };
 

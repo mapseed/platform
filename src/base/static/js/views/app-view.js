@@ -4,9 +4,8 @@ import ReactDOM from "react-dom";
 import emitter from "../../components/utils/emitter";
 
 import InputForm from "../../components/input-form";
-
-// TEMPORARY: We import custom templates here for the time being.
 import VVInputForm from "../../components/vv-input-form";
+import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -735,39 +734,47 @@ module.exports = Backbone.View.extend({
     var self = this;
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    const inputFormProps = {
-      placeConfig: this.options.placeConfig,
-      mapConfig: this.options.mapConfig,
-      hideSpotlightMask: this.hideSpotlightMask.bind(this),
-      hideCenterPoint: this.hideCenterPoint.bind(this),
-      showNewPin: this.showNewPin.bind(this),
-      map: this.mapView.map,
-      places: this.places,
-      landmarks: this.landmarks,
-      router: this.options.router,
-      customHooks: this.options.customHooks,
-      container: "#content article",
-    };
-
-    if (
-      this.options.customComponents &&
-      this.options.customComponents.InputForm === "VVInputForm"
-    ) {
-      ReactDOM.render(
-        <VVInputForm
-          {...inputFormProps}
-          autofillMode="hide"
-          hideNewPin={this.hideNewPin.bind(this)}
-          hidePanel={this.hidePanel.bind(this)}
-        />,
-        document.querySelector("#content article")
-      );
-    } else {
-      ReactDOM.render(
-        <InputForm {...inputFormProps} autofillMode="color" />,
-        document.querySelector("#content article")
-      );
-    }
+    // NOTE: This wrapper component is temporary, and will be factored out
+    // when the AppView is ported.
+    ReactDOM.render(
+      <FormCategoryMenuWrapper
+        mapConfig={this.options.mapConfig}
+        hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+        hideCenterPoint={this.hideCenterPoint.bind(this)}
+        showNewPin={this.showNewPin.bind(this)}
+        hideNewPin={this.hideNewPin.bind(this)}
+        hidePanel={this.hidePanel.bind(this)}
+        map={this.mapView.map}
+        places={this.places}
+        landmarks={this.landmarks}
+        router={this.options.router}
+        customHooks={this.options.customHooks}
+        container={"#content article"}
+        render={(state, props) => {
+          if (
+            props.customComponents &&
+            props.customComponents.InputForm === "VVInputForm"
+          ) {
+            return (
+              <VVInputForm
+                {...props}
+                selectedCategoryConfig={state.selectedCategoryConfig}
+              />
+            );
+          } else {
+            return (
+              <InputForm
+                {...props}
+                selectedCategoryConfig={state.selectedCategoryConfig}
+              />
+            );
+          }
+        }}
+        customComponents={this.options.customComponents}
+        placeConfig={this.options.placeConfig}
+      />,
+      document.querySelector("#content article")
+    );
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();

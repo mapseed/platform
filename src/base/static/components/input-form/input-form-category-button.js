@@ -7,19 +7,19 @@ import "./input-form-category-button.scss";
 const InputFormCategoryButton = props => {
   const cn = {
     base: classNames("input-form-category-button", {
-      "input-form-category-button--hidden":
-        props.isCategoryMenuCollapsed && !props.isActive,
+      "input-form-category-button--hidden": props.isCategoryMenuCollapsed,
     }),
     imageContainer: classNames("input-form-category-button__image-container", {
-      "input-form-category-button__image-container--active": props.isActive,
+      "input-form-category-button__image-container--active": props.isSelected,
     }),
     labelContainer: classNames("input-form-category-button__label-text", {
-      "input-form-category-button__label-text--active": props.isActive,
+      "input-form-category-button__label-text--active": props.isSelected,
     }),
     expandCategoriesButton: classNames(
       "input-form-category-button__expand-categories-button",
       {
-        "input-form-category-button__expand-categories-button--hidden": !props.isActive,
+        "input-form-category-button__expand-categories-button--hidden":
+          props.isSingleCategory || !props.isSelected,
       }
     ),
   };
@@ -28,7 +28,7 @@ const InputFormCategoryButton = props => {
     <div className={cn.base}>
       <input
         className="input-form-category-button__input"
-        checked={props.isActive}
+        checked={props.isSelected}
         id={props.categoryConfig.category}
         type="radio"
         name="input-form-category-buttons"
@@ -59,7 +59,8 @@ const InputFormCategoryButton = props => {
 InputFormCategoryButton.propTypes = {
   categoryConfig: PropTypes.object.isRequired,
   isCategoryMenuCollapsed: PropTypes.bool.isRequired,
-  isActive: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  isSingleCategory: PropTypes.bool.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
   onExpandCategories: PropTypes.func.isRequired,
 };

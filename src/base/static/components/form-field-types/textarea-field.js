@@ -6,8 +6,7 @@ import "./textarea-field.scss";
 
 const TextareaField = props => {
   const cn = classNames("textarea-field", {
-    "textarea-field--has-autofill--colored":
-      props.hasAutofill && props.autofillMode === "color",
+    "textarea-field--has-autofill": props.hasAutofill,
   });
 
   return (
@@ -22,16 +21,11 @@ const TextareaField = props => {
 };
 
 TextareaField.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-};
-
-TextareaField.defaultProps = {
-  autofillMode: "color",
 };
 
 export default TextareaField;
