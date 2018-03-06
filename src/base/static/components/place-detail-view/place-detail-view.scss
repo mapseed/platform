@@ -1,5 +1,20 @@
+.place-detail-view--faded {
+  opacity: 0.3;
+}
+
 .place-detail-view__header {
   line-height: 1.1em;
+}
+
+.place-detail-view__submit-spinner {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+}
+
+.place-detail-view__submit-spinner--visible {
+  display: block;
 }
 
 .place-detail-view__header--with-top-margin {

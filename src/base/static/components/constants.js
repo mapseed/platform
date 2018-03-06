@@ -1,4 +1,4 @@
-const constants = {
+export default {
   TEXT_FIELD_TYPENAME: "text",
   TEXTAREA_FIELD_TYPENAME: "textarea",
   RICH_TEXTAREA_FIELD_TYPENAME: "rich_textarea",
@@ -31,6 +31,7 @@ const constants = {
   DATASET_SLUG_PROPERTY_NAME: "datasetSlug",
   MODEL_ID_PROPERTY_NAME: "id",
   STORY_FIELD_NAME: "story",
+  DATASET_ID_PROPERTY_NAME: "datasetId",
 
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",
@@ -52,5 +53,3 @@ const constants = {
 
   ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
 };
-
-export default constants;

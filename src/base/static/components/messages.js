@@ -108,6 +108,8 @@ const placeDetailEditor = {
   toggleBtn: "Edit this post",
   saveBtn: "Save",
   removeBtn: "Remove",
+  confirmRemove:
+    "Are you sure you want to remove this post? It will no longer be visible on the map.",
 };
 
 export {

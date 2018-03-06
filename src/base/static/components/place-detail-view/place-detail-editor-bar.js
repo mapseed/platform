@@ -11,24 +11,43 @@ const PlaceDetailEditorBar = props => {
     <div className="place-detail-editor-bar">
       <EditorButton
         className="place-detail-editor-bar__toggle-button"
+        isFormSubmitting={props.isFormSubmitting}
         label={messages.toggleBtn}
         type="toggle"
+        isEditModeToggled={props.isEditModeToggled}
+        onClick={props.onToggleEditMode}
       />
-      <EditorButton
-        className="place-detail-editor-bar__save-button"
-        label={messages.saveBtn}
-        type="save"
-      />
-      <EditorButton
-        className="place-detail-editor-bar__remove-button"
-        label={messages.removeBtn}
-        type="remove"
-      />
+      {props.isEditModeToggled ? (
+        <EditorButton
+          className="place-detail-editor-bar__remove-button"
+          isFormSubmitting={props.isFormSubmitting}
+          label={messages.removeBtn}
+          type="remove"
+          onClick={props.onRemove}
+        />
+      ) : null}
+      {props.isEditModeToggled ? (
+        <EditorButton
+          className="place-detail-editor-bar__save-button"
+          isFormSubmitting={props.isFormSubmitting}
+          isModified={props.isModified}
+          label={messages.saveBtn}
+          type="save"
+          onClick={props.onSave}
+        />
+      ) : null}
       <div className="place-detail-editor-bar__clearfix" />
     </div>
   );
 };
 
-PlaceDetailEditorBar.propTypes = {};
+PlaceDetailEditorBar.propTypes = {
+  isFormSubmitting: PropTypes.bool.isRequired,
+  isModified: PropTypes.bool.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onToggleEditMode: PropTypes.func.isRequired,
+  isEditModeToggled: PropTypes.bool.isRequired,
+};
 
 export default PlaceDetailEditorBar;

@@ -138,8 +138,6 @@ module.exports = Backbone.View.extend({
 
   onUserHideModel: function(collectionId) {
     return function(model) {
-      this.options.placeDetailViews[model.cid].remove();
-      delete this.options.placeDetailViews[model.cid];
       this.places[collectionId].remove(model);
       Util.log("APP", "panel-state", "closed");
       // remove map mask if the user closes the side panel

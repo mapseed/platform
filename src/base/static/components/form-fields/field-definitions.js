@@ -51,8 +51,8 @@ const getPermissiveValidator = () => {
   };
 };
 
-const getDefaultInitialValue = (autofillValue, defaultValue) => {
-  return autofillValue || defaultValue || "";
+const getDefaultInitialValue = (existingValue, autofillValue, defaultValue) => {
+  return existingValue || autofillValue || defaultValue || "";
 };
 
 const getSharedFieldProps = (fieldConfig, context) => {
@@ -72,8 +72,8 @@ export default {
     getComponent: (fieldConfig, context) => (
       <TextField {...getSharedFieldProps(fieldConfig, context)} />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => TextFieldResponse,
   },
   [constants.TEXTAREA_FIELD_TYPENAME]: {
@@ -81,8 +81,8 @@ export default {
     getComponent: (fieldConfig, context) => (
       <TextareaField {...getSharedFieldProps(fieldConfig, context)} />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => TextareaFieldResponse,
   },
   [constants.RICH_TEXTAREA_FIELD_TYPENAME]: {
@@ -95,8 +95,8 @@ export default {
         bounds="#content"
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => RichTextareaFieldResponse,
   },
   [constants.BIG_CHECKBOX_FIELD_TYPENAME]: {
@@ -116,8 +116,11 @@ export default {
           hasAutofill={fieldConfig.hasAutofill}
         />
       )),
-    getInitialValue: (autofillValue, defaultValue) =>
-      fromJS(autofillValue) || fromJS(defaultValue) || ImmutableList(),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      fromJS(existingValue) ||
+      fromJS(autofillValue) ||
+      fromJS(defaultValue) ||
+      ImmutableList(),
     getResponseComponent: () => BigCheckboxFieldResponse,
   },
   [constants.BIG_RADIO_FIELD_TYPENAME]: {
@@ -138,8 +141,8 @@ export default {
           hasAutofill={fieldConfig.hasAutofill}
         />
       )),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => BigRadioFieldResponse,
   },
   [constants.DROPDOWN_FIELD_TYPENAME]: {
@@ -150,8 +153,8 @@ export default {
         options={fieldConfig.content}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => DropdownFieldResponse,
   },
   [constants.DROPDOWN_AUTOCOMPLETE_FIELD_TYPENAME]: {
@@ -164,8 +167,8 @@ export default {
         showAllValues={true}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => AutocompleteComboboxFieldResponse,
   },
   [constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME]: {
@@ -178,8 +181,8 @@ export default {
         )}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      autofillValue || defaultValue || "isPublished",
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      existingValue || autofillValue || defaultValue || "isPublished",
     getResponseComponent: () => null,
   },
   [constants.MAP_DRAWING_TOOLBAR_TYPENAME]: {
@@ -214,8 +217,8 @@ export default {
     getComponent: (fieldConfig, context) => (
       <CustomUrlToolbar {...getSharedFieldProps(fieldConfig, context)} />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => null,
   },
   [constants.DATETIME_FIELD_TYPENAME]: {
@@ -227,8 +230,8 @@ export default {
         showTimeSelect={true}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => DatetimeFieldResponse,
   },
   [constants.GEOCODING_FIELD_TYPENAME]: {
@@ -239,8 +242,8 @@ export default {
         mapConfig={context.props.mapConfig}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => null,
   },
   [constants.BIG_TOGGLE_FIELD_TYPENAME]: {
@@ -259,8 +262,16 @@ export default {
         hasAutofill={fieldConfig.hasAutofill}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue, fieldConfig) =>
-      autofillValue || defaultValue || fieldConfig.content[1].value, // "off" position of the toggle
+    getInitialValue: (
+      existingValue,
+      autofillValue,
+      defaultValue,
+      fieldConfig
+    ) =>
+      existingValue ||
+      autofillValue ||
+      defaultValue ||
+      fieldConfig.content[1].value, // "off" position of the toggle
     getResponseComponent: () => BigToggleFieldResponse,
   },
   [constants.ATTACHMENT_FIELD_TYPENAME]: {
@@ -296,8 +307,8 @@ export default {
         min={fieldConfig.min}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: (existingValue, autofillValue, defaultValue) =>
+      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
     getResponseComponent: () => RangeFieldResponse,
   },
 };

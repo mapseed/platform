@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
 import SupportButton from "../ui-elements/support-button";
 import SocialShareButton from "../ui-elements/social-share-button";
@@ -9,11 +8,7 @@ import "./place-detail-promotion-bar.scss";
 
 const PlaceDetailPromotionBar = props => {
   return (
-    <section
-      className={classNames("place-detail-promotion-bar", {
-        "place-detail-promotion-bar--with-top-margin": props.isEditble,
-      })}
-    >
+    <section className="place-detail-promotion-bar">
       <SupportButton
         className="place-detail-promotion-bar__support-button"
         collection={
@@ -31,7 +26,6 @@ const PlaceDetailPromotionBar = props => {
 };
 
 PlaceDetailPromotionBar.propTypes = {
-  isEditble: PropTypes.bool.isEditble,
   model: PropTypes.object.isRequired,
   supportConfig: PropTypes.object.isRequired,
   userToken: PropTypes.string.isRequired,

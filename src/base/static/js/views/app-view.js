@@ -798,14 +798,17 @@ module.exports = Backbone.View.extend({
           <PlaceDetail
             container={document.querySelector("#content article")}
             currentUser={Shareabouts.bootstrapped.currentUser}
+            map={this.mapView.map}
             model={model}
             appView={this}
             apiRoot={this.options.appConfig.api_root}
             surveyConfig={this.options.surveyConfig}
             supportConfig={this.options.supportConfig}
             placeConfig={this.options.placeConfig}
+            places={this.places}
             placeTypes={this.options.placeTypes}
             scrollToResponseId={args.responseId}
+            router={this.options.router}
             storyConfig={this.options.storyConfig}
             mapConfig={this.options.mapConfig}
             userToken={this.options.userToken}

@@ -14,7 +14,6 @@ const Util = require("../../js/utils.js");
 class FormField extends Component {
   constructor(props) {
     super(props);
-
     this.fieldDefinition = fieldDefinitions[this.props.fieldConfig.type];
     this.validator = this.fieldDefinition.getValidator(
       this.props.fieldConfig.optional
@@ -27,6 +26,7 @@ class FormField extends Component {
       : null;
     this.props.fieldConfig.hasAutofill = !!autofillValue;
     const initialFieldValue = this.fieldDefinition.getInitialValue(
+      this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
       autofillValue,
       this.props.fieldConfig.default_value,
       this.props.fieldConfig
