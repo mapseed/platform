@@ -18,12 +18,15 @@ class MapDrawingToolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      headerMessage: messages.selectTool.header,
-      currentPanel: "select-geometry-type",
-      currentGeometryType: null,
+      headerMessage: messages.selectTool.header, // TODO
+      currentPanel: this.props.mapDrawingToolbarState.initialPanel,
+      currentGeometryType: this.props.mapDrawingToolbarState
+        .initialGeometryType,
       selectedDrawingTool: null,
-      selectedEditingTool: null,
-      selectedMarkerIndex: 0,
+      selectedEditingTool:
+        this.props.mapDrawingToolbarState.initialPanel + "-tool",
+      selectedMarkerIndex: this.props.mapDrawingToolbarState
+        .selectedMarkerIndex,
     };
 
     this.colorpickerState = {
@@ -35,6 +38,17 @@ class MapDrawingToolbar extends Component {
 
     this.drawingObject = null;
     this.editingLayerGroup = new L.FeatureGroup().addTo(this.props.map);
+
+    if (this.props.mapDrawingToolbarState.existingLayer) {
+      this.editingLayerGroup.addLayer(
+        this.props.mapDrawingToolbarState.existingLayer
+      );
+      this.drawingObject = new L.EditToolbar.Edit(this.props.map, {
+        featureGroup: this.editingLayerGroup,
+      });
+      this.drawingObject.enable();
+    }
+
     this.outputGeometry = {};
 
     this.onGeometryToolTypeChange = this.onGeometryToolTypeChange.bind(this);
@@ -641,12 +655,23 @@ class MapDrawingToolbar extends Component {
 }
 
 MapDrawingToolbar.propTypes = {
+  mapDrawingToolbarState: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onGeometryStyleChange: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
   markers: PropTypes.array.isRequired,
+};
+
+MapDrawingToolbar.defaultProps = {
+  mapDrawingToolbarState: {
+    existingLayer: null,
+    initialPanel: "select-geometry-type",
+    currentGeometryType: null,
+    selectedEditingTool: null,
+    selectedMarkerIndex: 0,
+  },
 };
 
 export default MapDrawingToolbar;

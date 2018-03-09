@@ -66,6 +66,17 @@ const getSharedFieldProps = (fieldConfig, context) => {
   };
 };
 
+const getCheckboxLabels = (fieldValue, fieldConfig) => {
+  if (!ImmutableList.isList(fieldValue)) {
+    fieldValue = ImmutableList(fieldValue);
+  }
+  return fieldValue
+    .map(
+      value => fieldConfig.content.find(option => option.value === value).label
+    )
+    .toArray();
+};
+
 export default {
   [constants.TEXT_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -116,11 +127,14 @@ export default {
           hasAutofill={fieldConfig.hasAutofill}
         />
       )),
-    getInitialValue: (existingValue, autofillValue, defaultValue) =>
-      fromJS(existingValue) ||
-      fromJS(autofillValue) ||
-      fromJS(defaultValue) ||
-      ImmutableList(),
+    getInitialValue: (existingValue, autofillValue, defaultValue) => {
+      return (
+        fromJS(existingValue) ||
+        fromJS(autofillValue) ||
+        fromJS(defaultValue) ||
+        ImmutableList()
+      );
+    },
     getResponseComponent: () => BigCheckboxFieldResponse,
   },
   [constants.BIG_RADIO_FIELD_TYPENAME]: {
@@ -204,7 +218,7 @@ export default {
         router={context.props.router}
       />
     ),
-    getInitialValue: () => "",
+    getInitialValue: existingValue => existingValue,
     getResponseComponent: () => null,
   },
   [constants.CUSTOM_URL_TOOLBAR_TYPENAME]: {

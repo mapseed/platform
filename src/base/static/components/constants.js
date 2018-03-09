@@ -52,4 +52,17 @@ export default {
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
 
   ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
+
+  GEOMETRY_TYPE_PROPERTY_NAME: "type",
+  ICON_URL_PROPERTY_NAME: "iconUrl",
+  GEOMETRY_TYPE_MAPPINGS: {
+    LineString: "polyline",
+    Polygon: "polygon",
+    Point: "marker",
+  },
+  GEOMETRY_EDITOR_TOOL_MAPPINGS: {
+    LineString: "edit-polyline",
+    Polygon: "edit-polygon",
+    Point: "edit-marker",
+  },
 };

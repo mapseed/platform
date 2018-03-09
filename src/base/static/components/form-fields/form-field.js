@@ -90,7 +90,7 @@ class FormField extends Component {
 
 FormField.propTypes = {
   categoryConfig: PropTypes.object,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
   map: PropTypes.object,

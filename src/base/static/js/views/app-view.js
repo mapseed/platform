@@ -802,6 +802,7 @@ module.exports = Backbone.View.extend({
             model={model}
             appView={this}
             apiRoot={this.options.appConfig.api_root}
+            layerView={this.mapView.layerViews[datasetId][model.cid]}
             surveyConfig={this.options.surveyConfig}
             supportConfig={this.options.supportConfig}
             placeConfig={this.options.placeConfig}

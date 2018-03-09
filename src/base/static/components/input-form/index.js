@@ -186,6 +186,8 @@ class InputForm extends Component {
       .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
       .toJS();
 
+    console.log("attrs", attrs);
+
     if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
       attrs.style = this.geometryStyle;
     } else {

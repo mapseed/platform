@@ -9,11 +9,14 @@ import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
 import PlaceDetailMetadataBar from "./place-detail-metadata-bar";
 import PlaceDetailSurvey from "./place-detail-survey";
 import CoverImage from "../ui-elements/cover-image";
+import PlaceDetailEditorBar from "./place-detail-editor-bar";
+import PlaceDetailEditor from "./place-detail-editor";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
 import fieldResponseFilter from "../utils/field-response-filter";
 import constants from "../constants";
+import { placeDetailEditor as messages } from "../messages";
 
 const Util = require("../../js/utils.js");
 
@@ -68,6 +71,12 @@ class PlaceDetail extends Component {
       attachmentModels: serializeBackboneCollection(
         this.props.model.attachmentCollection
       ),
+      isEditModeToggled: false,
+      isEditable: Util.getAdminStatus(
+        this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
+        this.categoryConfig.admin_groups
+      ),
+      isEditFormSubmitting: false,
     };
   }
 
@@ -210,6 +219,56 @@ class PlaceDetail extends Component {
     });
   }
 
+  onEditorUpdate(fieldState) {
+    this.setState({ isEditFormSubmitting: true });
+    this.props.model.save(
+      fieldState
+        .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
+        .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
+        .toJS(),
+      {
+        success: () => {
+          if (Backbone.history.fragment === Util.getUrl(this.props.model)) {
+            Backbone.history.loadUrl(Backbone.history.fragment);
+          } else {
+            this.props.router.navigate(Util.getUrl(this.props.model), {
+              trigger: true,
+              replace: true,
+            });
+          }
+        },
+        error: () => {
+          Util.log("USER", "place-editor", "fail-to-edit-place");
+        },
+        always: () => {
+          this.setState({ isEditFormSubmitting: false });
+        },
+      }
+    );
+  }
+
+  onEditorRemove() {
+    this.setState({ isEditFormSubmitting: true });
+    if (confirm(messages.confirmRemove)) {
+      this.props.model.save(
+        {
+          visible: false,
+        },
+        {
+          success: () => {
+            this.props.model.trigger("userHideModel", this.props.model);
+          },
+          error: () => {
+            Util.log("USER", "place-editor", "fail-to-remove-place");
+          },
+          always: () => {
+            this.setState({ isEditFormSubmitting: false });
+          },
+        }
+      );
+    }
+  }
+
   render() {
     // This is an unfortunate series of checks, but needed at the moment.
     // TODO: We should revisit why this is necessary in the first place and see
@@ -226,9 +285,21 @@ class PlaceDetail extends Component {
 
     return (
       <div className="place-detail-view">
+        {this.state.isEditable ? (
+          <PlaceDetailEditorBar
+            isEditModeToggled={this.state.isEditModeToggled}
+            isSubmitting={this.state.isEditFormSubmitting}
+            onToggleEditMode={() => {
+              this.setState({
+                isEditModeToggled: !this.state.isEditModeToggled,
+              });
+            }}
+          />
+        ) : null}
         <h1
           className={classNames("place-detail-view__header", {
             "place-detail-view__header--centered": isStoryChapter,
+            "place-detail-view__header--with-top-space": this.state.isEditable,
           })}
         >
           {title}
@@ -273,17 +344,33 @@ class PlaceDetail extends Component {
               src={attachment.get(constants.ATTACHMENT_FILE_PROPERTY_NAME)}
             />
           ))}
-        {fieldResponseFilter(
-          this.categoryConfig.fields,
-          this.state.placeModel
-        ).map(fieldConfig => (
-          <ResponseField
-            key={fieldConfig.name}
-            fieldConfig={fieldConfig}
-            fieldValue={this.state.placeModel.get(fieldConfig.name)}
-            attachmentModels={this.state.attachmentModels}
+        {this.state.isEditModeToggled ? (
+          <PlaceDetailEditor
+            placeModel={this.state.placeModel}
+            categoryConfig={this.categoryConfig}
+            layerView={this.props.layerView}
+            map={this.props.map}
+            mapConfig={this.props.mapConfig}
+            model={this.props.model}
+            onRemove={this.onEditorRemove.bind(this)}
+            onUpdate={this.onEditorUpdate.bind(this)}
+            places={this.props.places}
+            router={this.props.router}
+            isSubmitting={this.state.isEditFormSubmitting}
           />
-        ))}
+        ) : (
+          fieldResponseFilter(
+            this.categoryConfig.fields,
+            this.state.placeModel
+          ).map(fieldConfig => (
+            <ResponseField
+              key={fieldConfig.name}
+              fieldConfig={fieldConfig}
+              fieldValue={this.state.placeModel.get(fieldConfig.name)}
+              attachmentModels={this.state.attachmentModels}
+            />
+          ))
+        )}
         <PlaceDetailSurvey
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
@@ -304,9 +391,14 @@ PlaceDetail.propTypes = {
   apiRoot: PropTypes.string.isRequired,
   container: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
+  layerView: PropTypes.object,
+  map: PropTypes.object.isRequired,
+  mapConfig: PropTypes.object.isRequired,
   model: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
+  places: PropTypes.object.isRequired,
   placeTypes: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
   scrollToResponseId: PropTypes.string,
   supportConfig: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,

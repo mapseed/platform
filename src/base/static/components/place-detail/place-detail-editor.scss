@@ -1,0 +1,19 @@
+.place-detail-editor {
+  margin-top: 40px;
+  margin-bottom: 100px;
+}
+
+.place-detail-editor--faded {
+  opacity: 0.3;
+}
+
+.place-detail-editor__spinner {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+}
+
+.place-detail-editor__spinner--visible {
+  display: block;
+}

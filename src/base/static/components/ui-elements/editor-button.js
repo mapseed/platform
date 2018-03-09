@@ -12,13 +12,9 @@ const EditorButton = props => {
         "editor-button--toggle--depressed":
           props.type === "toggle" && props.isEditModeToggled,
         "editor-button--save": props.type === "save",
-        "editor-button--save--faded":
-          props.type === "save" && !props.isModified,
         "editor-button--remove": props.type === "remove",
       })}
-      disabled={
-        props.isFormSubmitting || (props.type === "save" && !props.isModified)
-      }
+      disabled={props.isSubmitting}
       onClick={props.onClick}
     >
       <span
@@ -36,8 +32,7 @@ const EditorButton = props => {
 EditorButton.propTypes = {
   className: PropTypes.string,
   isEditModeToggled: PropTypes.bool,
-  isFormSubmitting: PropTypes.bool.isRequired,
-  isModified: PropTypes.bool,
+  isSubmitting: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
