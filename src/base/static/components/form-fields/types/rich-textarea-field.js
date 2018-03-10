@@ -7,10 +7,10 @@ const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
 
-import constants from "../constants";
+import constants from "../../constants";
 
 import "./rich-textarea-field.scss";
-const Util = require("../../js/utils.js");
+const Util = require("../../../js/utils.js");
 
 // NOTE: this routine is taken from Quill's themes/base module, which is not
 // importable via react-quill.

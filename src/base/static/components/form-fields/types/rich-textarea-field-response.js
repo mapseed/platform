@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import constants from "../constants";
+import constants from "../../constants";
 
 class RichTextareaFieldResponse extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
-    this.images = {};
-    this.props.backboneAttachmentModelsAttributes
+    this.images = this.props.attachmentModels
       .filter(
-        attributes => attributes.get("type") === constants.RICH_TEXT_IMAGE_CODE
+        attributes =>
+          attributes.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
+          constants.RICH_TEXT_IMAGE_CODE
       )
-      .forEach(attributes => {
-        this.images[attributes.get("name")] = attributes.get("file");
-      });
+      .reduce((images, attributes) => {
+        images[
+          attributes.get(constants.ATTACHMENT_NAME_PROPERTY_NAME)
+        ] = attributes.get(constants.ATTACHMENT_FILE_PROPERTY_NAME);
+        return images;
+      }, {});
   }
 
   insertEmbeddedImages(html) {
@@ -45,7 +45,7 @@ class RichTextareaFieldResponse extends Component {
 }
 
 RichTextareaFieldResponse.propTypes = {
-  backboneAttachmentModelsAttributes: PropTypes.object,
+  attachmentModels: PropTypes.object,
   value: PropTypes.string.isRequired,
 };
 

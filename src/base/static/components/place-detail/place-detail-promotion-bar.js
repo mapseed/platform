@@ -8,7 +8,7 @@ import "./place-detail-promotion-bar.scss";
 
 const PlaceDetailPromotionBar = props => {
   return (
-    <section className="place-detail-promotion-bar">
+    <div className="place-detail-promotion-bar">
       <SupportButton
         className="place-detail-promotion-bar__support-button"
         isSupported={props.isSupported}
@@ -16,14 +16,14 @@ const PlaceDetailPromotionBar = props => {
         numSupports={props.numSupports}
         onClickSupport={props.onClickSupport}
       />
-      <section className="place-detail-promotion-bar__social-buttons">
+      <div className="place-detail-promotion-bar__social-buttons">
         <SocialShareButton
           onSocialShare={props.onSocialShare}
           type="facebook"
         />
         <SocialShareButton onSocialShare={props.onSocialShare} type="twitter" />
-      </section>
-    </section>
+      </div>
+    </div>
   );
 };
 

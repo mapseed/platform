@@ -4,7 +4,7 @@ import classNames from "classnames";
 import ColorPicker from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
 
-import { mapDrawingToolbar as messages } from "../messages";
+import { mapDrawingToolbar as messages } from "../../messages";
 import "./map-drawing-toolbar.scss";
 
 const drawingDefaults = {

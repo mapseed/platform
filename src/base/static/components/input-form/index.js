@@ -6,11 +6,11 @@ import {
 } from "immutable";
 import classNames from "classnames";
 
-import FormField from "../form-field";
+import FormField from "../form-fields/form-field";
 
 import { inputForm as messages } from "../messages";
 import constants from "../constants";
-import "./input-form.scss";
+import "./index.scss";
 
 const Util = require("../../js/utils.js");
 

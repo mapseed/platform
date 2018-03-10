@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import "./user-avatar.scss";
+import "./avatar.scss";
 
 const UserAvatar = props => {
   return (

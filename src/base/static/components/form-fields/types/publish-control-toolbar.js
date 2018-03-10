@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import BigRadioField from "../form-field-types/big-radio-field";
-import { publishControlToolbar as messages } from "../messages";
+import BigRadioField from "./big-radio-field";
+import { publishControlToolbar as messages } from "../../messages";
 
 import "./publish-control-toolbar.scss";
 

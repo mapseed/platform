@@ -5,7 +5,7 @@ import emitter from "../../components/utils/emitter";
 
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
-import PlaceDetailView from "../../components/place-detail-view";
+import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
@@ -794,7 +794,7 @@ module.exports = Backbone.View.extend({
         );
 
         ReactDOM.render(
-          <PlaceDetailView
+          <PlaceDetail
             currentUser={Shareabouts.bootstrapped.currentUser}
             model={model}
             appView={this}
@@ -918,7 +918,6 @@ module.exports = Backbone.View.extend({
 
     this.$panelContent.html(markup);
     this.$panel.show();
-    // detailView && detailView.delegateEvents();
 
     if (!preventScrollToTop) {
       // will be "mobile" or "desktop", as defined in default.css

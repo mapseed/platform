@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import ToggleField from "../form-field-types/toggle-field";
+import ToggleField from "./toggle-field";
 import "./big-toggle-field.scss";
 
 const BigToggleField = props => {

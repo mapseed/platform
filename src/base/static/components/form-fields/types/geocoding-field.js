@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import emitter from "../utils/emitter";
-import { geocodingField as messages } from "../messages";
+import emitter from "../../utils/emitter";
+import { geocodingField as messages } from "../../messages";
 import "./geocoding-field.scss";
 
 // TODO: Consolidate Util methods used here.
-const Util = require("../../js/utils.js");
+const Util = require("../../../js/utils.js");
 
 class GeocodingField extends Component {
   constructor(props) {

@@ -6,7 +6,7 @@ import PrimaryButton from "../ui-elements/primary-button";
 import InputForm from "../input-form";
 import messages from "./messages";
 import constants from "./constants";
-import "./input-form.scss";
+import "./index.scss";
 
 const Util = require("../../../static/js/utils.js");
 

@@ -19,8 +19,6 @@ import {
   BigToggleField,
   PublishControlToolbar,
   RangeSliderWithLabel,
-} from "../form-field-types";
-import {
   TextFieldResponse,
   TextareaFieldResponse,
   RichTextareaFieldResponse,
@@ -31,7 +29,7 @@ import {
   BigToggleFieldResponse,
   DropdownFieldResponse,
   AutocompleteComboboxFieldResponse,
-} from "../form-field-response-types";
+} from "./types";
 import {
   mayHaveAnyValue,
   mustHaveSomeValue,
@@ -110,14 +108,10 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
-    getResponseComponent: (
-      value,
-      fieldConfig,
-      backboneAttachmentModelsAttributes
-    ) => (
+    getResponseComponent: (value, fieldConfig, attachmentModels) => (
       <RichTextareaFieldResponse
         value={value}
-        backboneAttachmentModelsAttributes={backboneAttachmentModelsAttributes}
+        attachmentModels={attachmentModels}
       />
     ),
   },

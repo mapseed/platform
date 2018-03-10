@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { fromJS, List as ImmutableList } from "immutable";
 import emitter from "../utils/emitter";
 
-import FormFieldResponse from "../form-field-response";
+import ResponseField from "../form-fields/response-field";
 import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
 import PlaceDetailMetadataBar from "./place-detail-metadata-bar";
 import PlaceDetailSurvey from "./place-detail-survey";
@@ -16,7 +16,7 @@ import constants from "../constants";
 
 const Util = require("../../js/utils.js");
 
-import "./place-detail-view.scss";
+import "./index.scss";
 
 const serializeBackboneCollection = collection => {
   let serializedCollection = ImmutableList();
@@ -27,24 +27,28 @@ const serializeBackboneCollection = collection => {
   return serializedCollection;
 };
 
-class PlaceDetailView extends Component {
+class PlaceDetail extends Component {
   constructor(props) {
     super(props);
 
     this.surveyType = this.props.surveyConfig.submission_type;
     this.supportType = this.props.supportConfig.submission_type;
-    this.props.model.submissionSets[this.surveyType] =
-      this.props.model.submissionSets[this.surveyType] ||
-      new SubmissionCollection(null, {
+    if (!this.props.model.submissionSets[this.surveyType]) {
+      this.props.model.submissionSets[
+        this.surveyType
+      ] = new SubmissionCollection(null, {
         submissionType: this.surveyType,
         placeModel: this.props.model,
       });
-    this.props.model.submissionSets[this.supportType] =
-      this.props.model.submissionSets[this.supportType] ||
-      new SubmissionCollection(null, {
+    }
+    if (!this.props.model.submissionSets[this.supportType]) {
+      this.props.model.submissionSets[
+        this.supportType
+      ] = new SubmissionCollection(null, {
         submissionType: this.supportType,
         placeModel: this.props.model,
       });
+    }
 
     this.categoryConfig = this.props.placeConfig.place_detail.find(
       config =>
@@ -53,14 +57,14 @@ class PlaceDetailView extends Component {
     );
 
     this.state = {
-      backbonePlaceModelAttributes: fromJS(this.props.model.attributes),
-      backboneSupportModelsAttributes: serializeBackboneCollection(
+      placeModel: fromJS(this.props.model.attributes),
+      supportModels: serializeBackboneCollection(
         this.props.model.submissionSets[this.supportType]
       ),
-      backboneSurveyModelsAttributes: serializeBackboneCollection(
+      surveyModels: serializeBackboneCollection(
         this.props.model.submissionSets[this.surveyType]
       ),
-      backboneAttachmentModelsAttributes: serializeBackboneCollection(
+      attachmentModels: serializeBackboneCollection(
         this.props.model.attachmentCollection
       ),
     };
@@ -70,7 +74,9 @@ class PlaceDetailView extends Component {
     const userSupportModel = this.props.model.submissionSets[
       this.supportType
     ].find(model => {
-      return model.get("user_token") === this.props.userToken;
+      return (
+        model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
+      );
     });
 
     if (userSupportModel) {
@@ -86,7 +92,7 @@ class PlaceDetailView extends Component {
             this.props.model.getLoggingDetails()
           );
           this.setState({
-            backboneSupportModelsAttributes: serializeBackboneCollection(
+            supportModels: serializeBackboneCollection(
               this.props.model.submissionSets[this.supportType]
             ),
           });
@@ -124,7 +130,7 @@ class PlaceDetailView extends Component {
               this.props.model.getLoggingDetails()
             );
             this.setState({
-              backboneSupportModelsAttributes: serializeBackboneCollection(
+              supportModels: serializeBackboneCollection(
                 this.props.model.submissionSets[this.supportType]
               ),
             });
@@ -142,12 +148,6 @@ class PlaceDetailView extends Component {
         }
       );
     }
-
-    this.setState({
-      backboneSupportModelsAttributes: serializeBackboneCollection(
-        this.props.model.submissionSets[this.supportType]
-      ),
-    });
   }
 
   onSubmitSurvey(attrs) {
@@ -156,7 +156,7 @@ class PlaceDetailView extends Component {
       "place",
       "submit-reply-btn-click",
       this.props.model.getLoggingDetails(),
-      this.state.backboneSurveyModelsAttributes.size
+      this.state.surveyModels.size
     );
 
     this.props.model.submissionSets[this.surveyType].create(attrs, {
@@ -170,7 +170,7 @@ class PlaceDetailView extends Component {
         );
 
         this.setState({
-          backboneSurveyModelsAttributes: serializeBackboneCollection(
+          surveyModels: serializeBackboneCollection(
             this.props.model.submissionSets[this.surveyType]
           ),
         });
@@ -191,23 +191,25 @@ class PlaceDetailView extends Component {
     // This is an unfortunate series of checks, but needed at the moment.
     // TODO: We should revisit why this is necessary in the first place and see
     // if we can refactor.
-    const title = this.state.backbonePlaceModelAttributes.get("fullTitle")
-      ? this.state.backbonePlaceModelAttributes.get("fullTitle")
-      : this.state.backbonePlaceModelAttributes.get("title")
-        ? this.state.backbonePlaceModelAttributes.get("title")
-        : this.state.backbonePlaceModelAttributes.get("name");
+    const title =
+      this.state.placeModel.get(constants.FULL_TITLE_PROPERTY_NAME) ||
+      this.state.placeModel.get(constants.TITLE_PROPERTY_NAME) ||
+      this.state.placeModel.get(constants.NAME_PROPERTY_NAME);
     const submitter =
-      this.state.backbonePlaceModelAttributes.get("submitter") || {};
+      this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || {};
 
     return (
       <div className="place-detail-view">
         <PlaceDetailPromotionBar
           isSupported={
-            !!this.state.backboneSupportModelsAttributes.find(model => {
-              return model.get("user_token") === this.props.userToken;
+            !!this.state.supportModels.find(model => {
+              return (
+                model.get(constants.USER_TOKEN_PROPERTY_NAME) ===
+                this.props.userToken
+              );
             })
           }
-          numSupports={this.state.backboneSupportModelsAttributes.size}
+          numSupports={this.state.supportModels.size}
           onClickSupport={this.onClickSupport.bind(this)}
           onSocialShare={service =>
             Util.onSocialShare(this.props.model, service)
@@ -217,41 +219,31 @@ class PlaceDetailView extends Component {
         <h1 className="place-detail-view__header">{title}</h1>
         <PlaceDetailMetadataBar
           submitter={submitter}
-          backbonePlaceModelAttributes={this.state.backbonePlaceModelAttributes}
-          backboneSurveyModelsAttributes={
-            this.state.backboneSurveyModelsAttributes
-          }
+          placeModel={this.state.placeModel}
+          surveyModels={this.state.surveyModels}
           placeConfig={this.props.placeConfig}
           placeTypes={this.props.placeTypes}
           surveyConfig={this.props.surveyConfig}
         />
-        <div className="clearfix" />
-        {this.state.backboneAttachmentModelsAttributes
+        <div className="place-detail-view__clearfix" />
+        {this.state.attachmentModels
           .filter(attachment => attachment.type === constants.COVER_IMAGE_CODE)
-          .map((attachment, i) => (
-            <CoverImage key={title + "-" + i} src={attachment.file} />
-          ))}
+          .map((attachment, i) => <CoverImage key={i} src={attachment.file} />)}
         {fieldResponseFilter(
           this.categoryConfig.fields,
-          this.state.backbonePlaceModelAttributes
+          this.state.placeModel
         ).map(fieldConfig => (
-          <FormFieldResponse
+          <ResponseField
             key={fieldConfig.name}
             fieldConfig={fieldConfig}
-            fieldValue={this.state.backbonePlaceModelAttributes.get(
-              fieldConfig.name
-            )}
-            backboneAttachmentModelsAttributes={
-              this.state.backboneAttachmentModelsAttributes
-            }
+            fieldValue={this.state.placeModel.get(fieldConfig.name)}
+            attachmentModels={this.state.attachmentModels}
           />
         ))}
         <PlaceDetailSurvey
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
-          backboneSurveyModelsAttributes={
-            this.state.backboneSurveyModelsAttributes
-          }
+          surveyModels={this.state.surveyModels}
           onSubmitSurvey={this.onSubmitSurvey.bind(this)}
           placeConfig={this.props.placeConfig}
           submitter={submitter}
@@ -262,7 +254,7 @@ class PlaceDetailView extends Component {
   }
 }
 
-PlaceDetailView.propTypes = {
+PlaceDetail.propTypes = {
   apiRoot: PropTypes.string.isRequired,
   currentUser: PropTypes.object,
   model: PropTypes.object.isRequired,
@@ -273,4 +265,4 @@ PlaceDetailView.propTypes = {
   userToken: PropTypes.string.isRequired,
 };
 
-export default PlaceDetailView;
+export default PlaceDetail;

@@ -8,16 +8,18 @@ import Avatar from "../ui-elements/avatar";
 import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 
+import constants from "../constants";
+
 import "./place-detail-metadata-bar.scss";
 
 const PlaceDetailMetadataBar = props => {
   return (
-    <section className="place-detail-metadata-bar">
+    <div className="place-detail-metadata-bar">
       <Avatar
         src={props.submitter.avatar_url}
         className="place-detail-metadata-bar__avatar"
       />
-      <section className="place-detail-metadata-bar__details-container">
+      <div className="place-detail-metadata-bar__details-container">
         <p className="place-detail-metadata-bar__action-text">
           <SubmitterName
             submitter={props.submitter}
@@ -26,38 +28,40 @@ const PlaceDetailMetadataBar = props => {
           {props.placeConfig.action_text || "created"} this{" "}
           {
             props.placeTypes[
-              props.backbonePlaceModelAttributes.get("location_type")
+              props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME)
             ].label
           }
         </p>
         <a
           href={
             "/" +
-            props.backbonePlaceModelAttributes.get("datasetSlug") +
+            props.placeModel.get(constants.DATASET_SLUG_PROPERTY_NAME) +
             "/" +
-            props.backbonePlaceModelAttributes.get("id")
+            props.placeModel.get(constants.MODEL_ID_PROPERTY_NAME)
           }
           className="place-detail-metadata-bar__created-datetime"
         >
           <ActionTime
-            time={props.backbonePlaceModelAttributes.get("created_datetime")}
+            time={props.placeModel.get(
+              constants.CREATED_DATETIME_PROPERTY_NAME
+            )}
           />
         </a>
         <p className="place-detail-metadata-bar__survey-count">
-          {props.backboneSurveyModelsAttributes.size}{" "}
-          {props.backboneSurveyModelsAttributes.size === 1
+          {props.surveyModels.size}{" "}
+          {props.surveyModels.size === 1
             ? props.surveyConfig.response_name
             : props.surveyConfig.response_plural_name}
         </p>
-      </section>
-    </section>
+      </div>
+    </div>
   );
 };
 
 PlaceDetailMetadataBar.propTypes = {
   avatarSrc: PropTypes.string,
-  backbonePlaceModelAttributes: PropTypes.object.isRequired,
-  backboneSurveyModelsAttributes: PropTypes.object.isRequired,
+  placeModel: PropTypes.object.isRequired,
+  surveyModels: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   placeTypes: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
