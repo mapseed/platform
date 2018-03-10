@@ -6,6 +6,7 @@ import {
   Map as ImmutableMap,
   OrderedMap as ImmutableOrderedMap,
 } from "immutable";
+import emitter from "../utils/emitter";
 
 import FormField from "../form-field";
 import SecondaryButton from "../ui-elements/secondary-button";
@@ -18,28 +19,9 @@ import { placeDetailSurvey as messages } from "../messages";
 
 import "./place-detail-survey.scss";
 
-const Util = require("../../js/utils.js");
-
 class PlaceDetailSurvey extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fields: ImmutableOrderedMap(),
-      isFormSubmitting: false,
-      formValidationErrors: new Set(),
-      showValidityStatus: false,
-    };
-  }
-
-  componentWillMount() {
-    this.collection = this.props.model.submissionSets[
-      this.props.surveyConfig.submission_type
-    ];
-
-    this.resetState();
-  }
-
-  resetState() {
     let fields = ImmutableOrderedMap();
     this.props.surveyConfig.items.forEach(field => {
       fields = fields.set(
@@ -49,13 +31,37 @@ class PlaceDetailSurvey extends Component {
           .set(constants.FIELD_STATE_VALUE_KEY, "")
       );
     });
-
-    this.setState({
+    this.state = {
       fields: fields,
       isFormSubmitting: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
+    };
+  }
+
+  componentWillMount() {
+    emitter.addListener("place-detail-survey:save", () => {
+      let fields = ImmutableOrderedMap();
+      this.props.surveyConfig.items.forEach(field => {
+        fields = fields.set(
+          field.name,
+          ImmutableMap()
+            .set(constants.FIELD_STATE_RENDER_KEY, Math.random())
+            .set(constants.FIELD_STATE_VALUE_KEY, "")
+        );
+      });
+
+      this.setState({
+        fields: fields,
+        isFormSubmitting: false,
+        formValidationErrors: new Set(),
+        showValidityStatus: false,
+      });
     });
+  }
+
+  componentWillUnmout() {
+    emitter.removeAllListeners("place-detail-survey:save");
   }
 
   onFieldChange(fieldName, fieldStatus, isInitializing) {
@@ -72,15 +78,7 @@ class PlaceDetailSurvey extends Component {
 
   onSubmit(evt) {
     evt.preventDefault();
-    Util.log(
-      "USER",
-      "place",
-      "submit-reply-btn-click",
-      this.collection.options.placeModel.getLoggingDetails(),
-      this.collection.size()
-    );
 
-    // Validate the form.
     const newValidationErrors = new Set();
     let isValid = true;
     this.state.fields.forEach(value => {
@@ -93,7 +91,15 @@ class PlaceDetailSurvey extends Component {
     });
 
     if (isValid) {
-      this.saveModel();
+      const attrs = this.state.fields
+        .filter(
+          val =>
+            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
+            constants.SUBMIT_FIELD_TYPENAME
+        )
+        .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
+        .toJS();
+      this.props.onSubmitSurvey(attrs);
     } else {
       this.setState({
         formValidationErrors: newValidationErrors,
@@ -102,48 +108,8 @@ class PlaceDetailSurvey extends Component {
     }
   }
 
-  saveModel() {
-    const attrs = this.state.fields
-      .filter(
-        val =>
-          val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-          constants.SUBMIT_FIELD_TYPENAME
-      )
-      .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
-      .toJS();
-
-    this.collection.create(attrs, {
-      wait: true,
-      success: () => {
-        Util.log(
-          "USER",
-          "place",
-          "successfully-reply",
-          this.collection.options.placeModel.getLoggingDetails()
-        );
-
-        this.resetState();
-      },
-      error: () => {
-        Util.log(
-          "USER",
-          "place",
-          "fail-to-reply",
-          this.collection.options.placeModel.getLoggingDetails()
-        );
-      },
-    });
-  }
-
   render() {
-    const isWithSubmissions =
-      this.props.model.submissionSets &&
-      this.props.model.submissionSets[this.props.surveyConfig.submission_type];
-    const numSubmissions = isWithSubmissions
-      ? this.props.model.submissionSets[this.props.surveyConfig.submission_type]
-          .length
-      : 0;
-
+    const numSubmissions = this.props.backboneSurveyModelsAttributes.size;
     return (
       <section className="place-detail-survey">
         <section className="place-detail-survey__header-bar">
@@ -154,16 +120,16 @@ class PlaceDetailSurvey extends Component {
               : this.props.surveyConfig.response_plural_name}
           </h4>
           <SecondaryButton className="place-detail-survey__leave-comment-button">
-            Leave a comment
+            {this.props.surveyConfig.form_link_text}
           </SecondaryButton>
           <hr className="place-detail-survey__horizontal-rule" />
         </section>
         <section className="place-detail-survey-responses">
-          {this.collection.models.map((model, i) => (
+          {this.props.backboneSurveyModelsAttributes.map((attributes, i) => (
             <PlaceDetailSurveyResponse
               key={i}
               surveyConfig={this.props.surveyConfig}
-              model={model}
+              attributes={attributes}
               placeConfig={this.props.placeConfig}
               submitter={this.props.submitter}
             />
@@ -215,8 +181,9 @@ class PlaceDetailSurvey extends Component {
 
 PlaceDetailSurvey.propTypes = {
   apiRoot: PropTypes.string.isRequired,
+  backboneSurveyModelsAttributes: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
-  model: PropTypes.object.isRequired,
+  onSubmitSurvey: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,

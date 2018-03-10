@@ -22,6 +22,10 @@ const constants = {
   AUTOFILL_DURATION_DAYS: 30,
 
   LOCATION_TYPE_PROPERTY_NAME: "location_type",
+  TITLE_PROPERTY_NAME: "title",
+
+  RICH_TEXT_IMAGE_CODE: "RT",
+  COVER_IMAGE_CODE: "CO",
 
   RICH_TEXT_IMAGE_MARKUP_PREFIX: "{{#rich-text-image ",
   RICH_TEXT_IMAGE_MARKUP_SUFFIX: "}}",

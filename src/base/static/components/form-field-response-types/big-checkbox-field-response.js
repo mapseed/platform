@@ -6,15 +6,13 @@ import "./big-checkbox-field-response.scss";
 const BigCheckboxFieldResponse = props => {
   return (
     <ul className="big-checkbox-field-response">
-      {props.value
-        .filter(response => response.selected)
-        .map((response, i) => <li key={i}>{response.label}</li>)}
+      {props.labels.map((label, i) => <li key={i}>{label}</li>)}
     </ul>
   );
 };
 
 BigCheckboxFieldResponse.propTypes = {
-  value: PropTypes.array.isRequired,
+  labels: PropTypes.array.isRequired,
 };
 
 export default BigCheckboxFieldResponse;

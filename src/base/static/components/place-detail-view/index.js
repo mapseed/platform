@@ -1,35 +1,48 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { fromJS, List as ImmutableList } from "immutable";
+import emitter from "../utils/emitter";
 
-import FieldResponse from "../form-response";
+import FormFieldResponse from "../form-field-response";
 import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
 import PlaceDetailMetadataBar from "./place-detail-metadata-bar";
 import PlaceDetailSurvey from "./place-detail-survey";
 import CoverImage from "../ui-elements/cover-image";
 
-const Util = require("../../js/utils.js");
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
+import fieldResponseFilter from "../utils/field-response-filter";
 import constants from "../constants";
+
+const Util = require("../../js/utils.js");
 
 import "./place-detail-view.scss";
 
-class PlaceDetailView extends Component {
-  componentWillMount() {
-    const surveyType = this.props.surveyConfig.submission_type;
-    const supportType = this.props.supportConfig.submission_type;
+const serializeBackboneCollection = collection => {
+  let serializedCollection = ImmutableList();
+  collection.each(model => {
+    serializedCollection = serializedCollection.push(fromJS(model.attributes));
+  });
 
-    this.props.model.submissionSets[surveyType] =
-      this.props.model.submissionSets[surveyType] ||
+  return serializedCollection;
+};
+
+class PlaceDetailView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.surveyType = this.props.surveyConfig.submission_type;
+    this.supportType = this.props.supportConfig.submission_type;
+    this.props.model.submissionSets[this.surveyType] =
+      this.props.model.submissionSets[this.surveyType] ||
       new SubmissionCollection(null, {
-        submissionType: surveyType,
+        submissionType: this.surveyType,
         placeModel: this.props.model,
       });
-
-    this.props.model.submissionSets[supportType] =
-      this.props.model.submissionSets[supportType] ||
+    this.props.model.submissionSets[this.supportType] =
+      this.props.model.submissionSets[this.supportType] ||
       new SubmissionCollection(null, {
-        submissionType: supportType,
+        submissionType: this.supportType,
         placeModel: this.props.model,
       });
 
@@ -39,22 +52,138 @@ class PlaceDetailView extends Component {
         this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME)
     );
 
-    // TODO: We make a lot of assumptions here about certain fields existing in the
-    // model with certain names ("my_image", "title", etc.). Rather than rely on
-    // arbitrary names we should come up with a better convention for structuring
-    // parts of the detail view.
-    this.fields = Util.buildFieldListForRender({
-      exclusions: [
-        "submitter_name",
-        "name",
-        constants.LOCATION_TYPE_PROPERTY_NAME,
-        "title",
-        "my_image",
-      ],
-      model: this.props.model,
-      fields: this.categoryConfig.fields,
-      commonFormElements: this.props.placeConfig.common_form_elements,
-      isEditingToggled: false, // TODO: add editor
+    this.state = {
+      backbonePlaceModelAttributes: fromJS(this.props.model.attributes),
+      backboneSupportModelsAttributes: serializeBackboneCollection(
+        this.props.model.submissionSets[this.supportType]
+      ),
+      backboneSurveyModelsAttributes: serializeBackboneCollection(
+        this.props.model.submissionSets[this.surveyType]
+      ),
+      backboneAttachmentModelsAttributes: serializeBackboneCollection(
+        this.props.model.attachmentCollection
+      ),
+    };
+  }
+
+  onClickSupport() {
+    const userSupportModel = this.props.model.submissionSets[
+      this.supportType
+    ].find(model => {
+      return model.get("user_token") === this.props.userToken;
+    });
+
+    if (userSupportModel) {
+      // If we already have user support for the current user token, we should
+      // unsupport.
+      userSupportModel.destroy({
+        wait: true,
+        success: () => {
+          Util.log(
+            "USER",
+            "place",
+            "successfully-unsupport",
+            this.props.model.getLoggingDetails()
+          );
+          this.setState({
+            backboneSupportModelsAttributes: serializeBackboneCollection(
+              this.props.model.submissionSets[this.supportType]
+            ),
+          });
+        },
+        error: () => {
+          this.props.model.submissionSets[this.supportType].add(
+            userSupportModel
+          );
+          alert("Oh dear. It looks like that didn't save.");
+          Util.log(
+            "USER",
+            "place",
+            "fail-to-unsupport",
+            this.props.model.getLoggingDetails()
+          );
+        },
+      });
+    } else {
+      // Otherwise, we're supporting.
+      this.props.model.submissionSets[this.supportType].create(
+        { user_token: this.props.userToken, visible: true },
+        {
+          wait: true,
+          beforeSend: xhr => {
+            // Do not generate activity for anonymous supports
+            if (!Shareabouts.bootstrapped.currentUser) {
+              xhr.setRequestHeader("X-Shareabouts-Silent", "true");
+            }
+          },
+          success: () => {
+            Util.log(
+              "USER",
+              "place",
+              "successfully-support",
+              this.props.model.getLoggingDetails()
+            );
+            this.setState({
+              backboneSupportModelsAttributes: serializeBackboneCollection(
+                this.props.model.submissionSets[this.supportType]
+              ),
+            });
+          },
+          error: () => {
+            userSupportModel.destroy();
+            alert("Oh dear. It looks like that didn't save.");
+            Util.log(
+              "USER",
+              "place",
+              "fail-to-support",
+              this.props.model.getLoggingDetails()
+            );
+          },
+        }
+      );
+    }
+
+    this.setState({
+      backboneSupportModelsAttributes: serializeBackboneCollection(
+        this.props.model.submissionSets[this.supportType]
+      ),
+    });
+  }
+
+  onSubmitSurvey(attrs) {
+    Util.log(
+      "USER",
+      "place",
+      "submit-reply-btn-click",
+      this.props.model.getLoggingDetails(),
+      this.state.backboneSurveyModelsAttributes.size
+    );
+
+    this.props.model.submissionSets[this.surveyType].create(attrs, {
+      wait: true,
+      success: () => {
+        Util.log(
+          "USER",
+          "place",
+          "successfully-reply",
+          this.props.model.getLoggingDetails()
+        );
+
+        this.setState({
+          backboneSurveyModelsAttributes: serializeBackboneCollection(
+            this.props.model.submissionSets[this.surveyType]
+          ),
+        });
+        emitter.emit("place-detail-survey:save");
+      },
+      error: () => {
+        Util.log(
+          "USER",
+          "place",
+          "fail-to-reply",
+          this.props.model.getLoggingDetails()
+        );
+      },
     });
   }
 
@@ -62,48 +191,68 @@ class PlaceDetailView extends Component {
     // This is an unfortunate series of checks, but needed at the moment.
     // TODO: We should revisit why this is necessary in the first place and see
     // if we can refactor.
-    const title = this.props.model.get("fullTitle")
-      ? this.props.model.get("fullTitle")
-      : this.props.model.get("title")
-        ? this.props.model.get("title")
-        : this.props.model.get("name");
-    const submitter = this.props.model.get("submitter") || {};
+    const title = this.state.backbonePlaceModelAttributes.get("fullTitle")
+      ? this.state.backbonePlaceModelAttributes.get("fullTitle")
+      : this.state.backbonePlaceModelAttributes.get("title")
+        ? this.state.backbonePlaceModelAttributes.get("title")
+        : this.state.backbonePlaceModelAttributes.get("name");
+    const submitter =
+      this.state.backbonePlaceModelAttributes.get("submitter") || {};
 
     return (
       <div className="place-detail-view">
         <PlaceDetailPromotionBar
-          model={this.props.model}
+          isSupported={
+            !!this.state.backboneSupportModelsAttributes.find(model => {
+              return model.get("user_token") === this.props.userToken;
+            })
+          }
+          numSupports={this.state.backboneSupportModelsAttributes.size}
+          onClickSupport={this.onClickSupport.bind(this)}
+          onSocialShare={service =>
+            Util.onSocialShare(this.props.model, service)
+          }
           supportConfig={this.props.supportConfig}
-          userToken={this.props.userToken}
         />
         <h1 className="place-detail-view__header">{title}</h1>
         <PlaceDetailMetadataBar
           submitter={submitter}
-          model={this.props.model}
+          backbonePlaceModelAttributes={this.state.backbonePlaceModelAttributes}
+          backboneSurveyModelsAttributes={
+            this.state.backboneSurveyModelsAttributes
+          }
           placeConfig={this.props.placeConfig}
           placeTypes={this.props.placeTypes}
           surveyConfig={this.props.surveyConfig}
         />
         <div className="clearfix" />
-        {this.props.model.attachmentCollection
-          .toJSON()
-          .filter(attachment => attachment.type === "CO")
+        {this.state.backboneAttachmentModelsAttributes
+          .filter(attachment => attachment.type === constants.COVER_IMAGE_CODE)
           .map((attachment, i) => (
             <CoverImage key={title + "-" + i} src={attachment.file} />
           ))}
-
-        {this.fields.map(field => (
-          <FieldResponse
-            key={title + "-" + field.name}
-            field={field}
-            model={this.props.model}
-            placeConfig={this.props.placeConfig}
+        {fieldResponseFilter(
+          this.categoryConfig.fields,
+          this.state.backbonePlaceModelAttributes
+        ).map(fieldConfig => (
+          <FormFieldResponse
+            key={fieldConfig.name}
+            fieldConfig={fieldConfig}
+            fieldValue={this.state.backbonePlaceModelAttributes.get(
+              fieldConfig.name
+            )}
+            backboneAttachmentModelsAttributes={
+              this.state.backboneAttachmentModelsAttributes
+            }
           />
         ))}
         <PlaceDetailSurvey
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
-          model={this.props.model}
+          backboneSurveyModelsAttributes={
+            this.state.backboneSurveyModelsAttributes
+          }
+          onSubmitSurvey={this.onSubmitSurvey.bind(this)}
           placeConfig={this.props.placeConfig}
           submitter={submitter}
           surveyConfig={this.props.surveyConfig}

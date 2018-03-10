@@ -23,7 +23,7 @@ const PlaceDetailSurveyResponse = props => {
               key={field.name}
               className="place-detail-survey-response__paragraph"
             >
-              {props.model.get(field.name)}
+              {props.attributes.get(field.name)}
             </p>
           ))}
       </div>
@@ -38,7 +38,7 @@ const PlaceDetailSurveyResponse = props => {
             submitter={props.submitter}
             placeConfig={props.placeConfig}
           />
-          <ActionTime time={props.model.get("created_datetime")} />
+          <ActionTime time={props.attributes.get("created_datetime")} />
         </section>
       </section>
     </article>
@@ -46,7 +46,7 @@ const PlaceDetailSurveyResponse = props => {
 };
 
 PlaceDetailSurveyResponse.propTypes = {
-  model: PropTypes.object.isRequired,
+  attributes: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,

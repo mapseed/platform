@@ -2,13 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const DropdownFieldResponse = props => {
-  return props.value
-    .filter(response => response.selected)
-    .map((response, i) => <p key={i}>{response.label}</p>);
+  return <p className="dropdown-field-response">{props.label}</p>;
 };
 
 DropdownFieldResponse.propTypes = {
-  value: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 export default DropdownFieldResponse;

@@ -11,24 +11,28 @@ const PlaceDetailPromotionBar = props => {
     <section className="place-detail-promotion-bar">
       <SupportButton
         className="place-detail-promotion-bar__support-button"
-        collection={
-          props.model.submissionSets[props.supportConfig.submission_type]
-        }
+        isSupported={props.isSupported}
         label={props.supportConfig.submit_btn_text}
-        userToken={props.userToken}
+        numSupports={props.numSupports}
+        onClickSupport={props.onClickSupport}
       />
       <section className="place-detail-promotion-bar__social-buttons">
-        <SocialShareButton model={props.model} type="facebook" />
-        <SocialShareButton model={props.model} type="twitter" />
+        <SocialShareButton
+          onSocialShare={props.onSocialShare}
+          type="facebook"
+        />
+        <SocialShareButton onSocialShare={props.onSocialShare} type="twitter" />
       </section>
     </section>
   );
 };
 
 PlaceDetailPromotionBar.propTypes = {
-  model: PropTypes.object.isRequired,
+  isSupported: PropTypes.bool.isRequired,
+  numSupports: PropTypes.number,
+  onClickSupport: PropTypes.func.isRequired,
+  onSocialShare: PropTypes.func.isRequired,
   supportConfig: PropTypes.object.isRequired,
-  userToken: PropTypes.string.isRequired,
 };
 
 export default PlaceDetailPromotionBar;

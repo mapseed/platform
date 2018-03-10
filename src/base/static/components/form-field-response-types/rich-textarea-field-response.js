@@ -10,10 +10,12 @@ class RichTextareaFieldResponse extends Component {
 
   componentWillMount() {
     this.images = {};
-    this.props.model.attachmentCollection.models
-      .filter(model => model.get("type") === "RT")
-      .forEach(model => {
-        this.images[model.get("name")] = model.get("file");
+    this.props.backboneAttachmentModelsAttributes
+      .filter(
+        attributes => attributes.get("type") === constants.RICH_TEXT_IMAGE_CODE
+      )
+      .forEach(attributes => {
+        this.images[attributes.get("name")] = attributes.get("file");
       });
   }
 
@@ -43,7 +45,7 @@ class RichTextareaFieldResponse extends Component {
 }
 
 RichTextareaFieldResponse.propTypes = {
-  model: PropTypes.object.isRequired,
+  backboneAttachmentModelsAttributes: PropTypes.object,
   value: PropTypes.string.isRequired,
 };
 

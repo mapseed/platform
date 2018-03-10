@@ -2,8 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-const Util = require("../../js/utils.js");
-
 import "./social-share-button.scss";
 
 const SocialShareButton = props => {
@@ -13,13 +11,13 @@ const SocialShareButton = props => {
         "social-share-button--twitter": props.type === "twitter",
         "social-share-button--facebook": props.type === "facebook",
       })}
-      onClick={() => Util.onSocialShare(props.model, props.type)}
+      onClick={() => props.onSocialShare(props.type)}
     />
   );
 };
 
 SocialShareButton.propTypes = {
-  model: PropTypes.object.isRequired,
+  onSocialShare: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
 
