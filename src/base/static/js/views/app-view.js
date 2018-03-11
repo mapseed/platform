@@ -795,6 +795,7 @@ module.exports = Backbone.View.extend({
 
         ReactDOM.render(
           <PlaceDetail
+            container={document.querySelector("#content article")}
             currentUser={Shareabouts.bootstrapped.currentUser}
             model={model}
             appView={this}
@@ -803,6 +804,7 @@ module.exports = Backbone.View.extend({
             supportConfig={this.options.supportConfig}
             placeConfig={this.options.placeConfig}
             placeTypes={this.options.placeTypes}
+            scrollToResponseId={args.responseId}
             storyConfig={this.options.storyConfig}
             mapConfig={this.options.mapConfig}
             userToken={this.options.userToken}
@@ -858,22 +860,6 @@ module.exports = Backbone.View.extend({
             });
           }
         }
-      }
-
-      if (args.responseId) {
-        // TODO: Port this for React.
-        // $responseToScrollTo = detailView.$el.find(
-        //   '[data-response-id="' + args.responseId + '"]'
-        // );
-        // if ($responseToScrollTo.length > 0) {
-        //   if (layout === '"desktop"') {
-        //     // For desktop, the panel content is scrollable
-        //     self.$panelContent.scrollTo($responseToScrollTo, 500);
-        //   } else {
-        //     // For mobile, it's the window
-        //     $(window).scrollTo($responseToScrollTo, 500);
-        //   }
-        // }
       }
 
       model.trigger("focus");

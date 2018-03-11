@@ -115,15 +115,20 @@ class PlaceDetailSurvey extends Component {
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
         <div className="place-detail-survey-responses">
-          {this.props.surveyModels.map((attributes, i) => (
-            <PlaceDetailSurveyResponse
-              key={i}
-              surveyConfig={this.props.surveyConfig}
-              attributes={attributes}
-              placeConfig={this.props.placeConfig}
-              submitter={this.props.submitter}
-            />
-          ))}
+          {this.props.surveyModels.map((attributes, i) => {
+            return (
+              <PlaceDetailSurveyResponse
+                key={i}
+                modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
+                onMountTargetResponse={this.props.onMountTargetResponse}
+                scrollToResponseId={this.props.scrollToResponseId}
+                surveyConfig={this.props.surveyConfig}
+                attributes={attributes}
+                placeConfig={this.props.placeConfig}
+                submitter={this.props.submitter}
+              />
+            );
+          })}
         </div>
         <WarningMessagesContainer
           errors={Array.from(this.state.formValidationErrors)}
@@ -171,6 +176,8 @@ class PlaceDetailSurvey extends Component {
 
 PlaceDetailSurvey.propTypes = {
   apiRoot: PropTypes.string.isRequired,
+  onMountTargetResponse: PropTypes.func.isRequired,
+  scrollToResponseId: PropTypes.string,
   surveyModels: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
   onSubmitSurvey: PropTypes.func.isRequired,

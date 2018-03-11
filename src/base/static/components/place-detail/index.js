@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { fromJS, List as ImmutableList } from "immutable";
 import emitter from "../utils/emitter";
+import ReactDOM from "react-dom";
 
 import ResponseField from "../form-fields/response-field";
 import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
@@ -68,6 +69,23 @@ class PlaceDetail extends Component {
         this.props.model.attachmentCollection
       ),
     };
+  }
+
+  onMountTargetResponse(responseRef) {
+    setTimeout(() => {
+      this.scrollDownTo(
+        this.props.container,
+        ReactDOM.findDOMNode(responseRef).getBoundingClientRect().top - 90
+      );
+    }, 500);
+  }
+
+  scrollDownTo(elt, to, jump = 0) {
+    setTimeout(() => {
+      elt.scrollTop = elt.scrollTop + jump;
+      if (elt.scrollTop >= to) return;
+      this.scrollDownTo(elt, to, jump + 0.5);
+    }, 10);
   }
 
   onClickSupport() {
@@ -244,8 +262,10 @@ class PlaceDetail extends Component {
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
           surveyModels={this.state.surveyModels}
+          onMountTargetResponse={this.onMountTargetResponse.bind(this)}
           onSubmitSurvey={this.onSubmitSurvey.bind(this)}
           placeConfig={this.props.placeConfig}
+          scrollToResponseId={this.props.scrollToResponseId}
           submitter={submitter}
           surveyConfig={this.props.surveyConfig}
         />
@@ -256,10 +276,12 @@ class PlaceDetail extends Component {
 
 PlaceDetail.propTypes = {
   apiRoot: PropTypes.string.isRequired,
+  container: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
   model: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   placeTypes: PropTypes.object.isRequired,
+  scrollToResponseId: PropTypes.string,
   supportConfig: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,
   userToken: PropTypes.string.isRequired,
