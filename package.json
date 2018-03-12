@@ -10,11 +10,7 @@
     "type": "git",
     "url": "https://github.com/smartercleanup/platform.git"
   },
-  "keywords": [
-    "maps",
-    "crowdsourcing",
-    "engagement"
-  ],
+  "keywords": ["maps", "crowdsourcing", "engagement"],
   "author": "SmarterCleanup",
   "license": "GPL",
   "bugs": {
@@ -22,15 +18,18 @@
   },
   "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
-    "start": "npm run build-js && node scripts/static-build.js && npm run watch-js & webpack-dev-server",
+    "start": "node scripts/static-build.js && webpack-dev-server",
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p",
     "watch-js": "webpack -d --watch",
-    "build": "NODE_ENV=production npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
-    "prettier": "prettier --write --trailing-comma all \"{src,blah}/**/*.{js,jsx}\""
+    "build":
+      "NODE_ENV=production npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
+    "prettier":
+      "prettier --write --trailing-comma all \"{src,blah}/**/*.{js,jsx}\""
   },
   "dependencies": {
-    "accessible-autocomplete": "git+https://github.com/mapseed/accessible-autocomplete.git",
+    "accessible-autocomplete":
+      "git+https://github.com/mapseed/accessible-autocomplete.git",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
