@@ -3,7 +3,7 @@ import { List } from "immutable";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import CheckboxField from "../form-field-types/checkbox-field";
+import CheckboxField from "./checkbox-field";
 import "./big-checkbox-field.scss";
 
 class BigCheckboxField extends Component {

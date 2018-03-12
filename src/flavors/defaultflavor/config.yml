@@ -281,7 +281,7 @@ sidebar:
           visibleDefault: true
           layers:
             - id: demo
-              title: _(Demo Layer)
+              title: _(Demo Data)
               visibleDefault: true
 
     - id: ticker
@@ -344,14 +344,14 @@ place:
           type: text
           autocomplete: true
           prompt: _(Single line text field input prompt:)
-          display_prompt: _(Rendered text:)
+          display_prompt: _(Rendered text field:)
           placeholder: _(Enter text...)
           optional: false
         - name: textarea_field
           type: textarea
           autocomplete: true
           prompt: _(Multiline textarea field input prompt:)
-          display_prompt: _(Rendered text:)
+          display_prompt: _(Rendered textarea field:)
           placeholder: _(Enter text...)
           optional: false
         - name: rich_textarea_field
@@ -491,7 +491,7 @@ place:
       value: observation
       label: _(Observation)
       fields:
-        - name: text_field
+        - name: title
           type: text
           prompt: _(Title of your observation:)
           display_prompt: _(Title:)
@@ -659,12 +659,14 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
       sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support

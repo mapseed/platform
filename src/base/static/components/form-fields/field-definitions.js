@@ -19,7 +19,17 @@ import {
   BigToggleField,
   PublishControlToolbar,
   RangeSliderWithLabel,
-} from "../form-field-types";
+  TextFieldResponse,
+  TextareaFieldResponse,
+  RichTextareaFieldResponse,
+  RangeFieldResponse,
+  BigCheckboxFieldResponse,
+  BigRadioFieldResponse,
+  DatetimeFieldResponse,
+  BigToggleFieldResponse,
+  DropdownFieldResponse,
+  AutocompleteComboboxFieldResponse,
+} from "./types";
 import {
   mayHaveAnyValue,
   mustHaveSomeValue,
@@ -64,6 +74,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => TextFieldResponse,
   },
   [constants.TEXTAREA_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -72,6 +83,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => TextareaFieldResponse,
   },
   [constants.RICH_TEXTAREA_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -85,6 +97,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => RichTextareaFieldResponse,
   },
   [constants.BIG_CHECKBOX_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -105,6 +118,7 @@ export default {
       )),
     getInitialValue: (autofillValue, defaultValue) =>
       fromJS(autofillValue) || fromJS(defaultValue) || ImmutableList(),
+    getResponseComponent: () => BigCheckboxFieldResponse,
   },
   [constants.BIG_RADIO_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -126,6 +140,7 @@ export default {
       )),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => BigRadioFieldResponse,
   },
   [constants.DROPDOWN_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -137,6 +152,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => DropdownFieldResponse,
   },
   [constants.DROPDOWN_AUTOCOMPLETE_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -150,6 +166,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => AutocompleteComboboxFieldResponse,
   },
   [constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -163,6 +180,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       autofillValue || defaultValue || "isPublished",
+    getResponseComponent: () => null,
   },
   [constants.MAP_DRAWING_TOOLBAR_TYPENAME]: {
     getValidator: () => {
@@ -174,6 +192,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
+        mapDrawingToolbarState={context.props.mapDrawingToolbarState}
         onGeometryStyleChange={context.props.onGeometryStyleChange.bind(
           context
         )}
@@ -183,6 +202,7 @@ export default {
       />
     ),
     getInitialValue: () => "",
+    getResponseComponent: () => null,
   },
   [constants.CUSTOM_URL_TOOLBAR_TYPENAME]: {
     getValidator: () => {
@@ -196,6 +216,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => null,
   },
   [constants.DATETIME_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -208,6 +229,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => DatetimeFieldResponse,
   },
   [constants.GEOCODING_FIELD_TYPENAME]: {
     getValidator: getPermissiveValidator,
@@ -219,6 +241,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => null,
   },
   [constants.BIG_TOGGLE_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -238,6 +261,7 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue, fieldConfig) =>
       autofillValue || defaultValue || fieldConfig.content[1].value, // "off" position of the toggle
+    getResponseComponent: () => BigToggleFieldResponse,
   },
   [constants.ATTACHMENT_FIELD_TYPENAME]: {
     getValidator: getPermissiveValidator,
@@ -250,6 +274,7 @@ export default {
       />
     ),
     getInitialValue: () => null,
+    getResponseComponent: () => null,
   },
   [constants.SUBMIT_FIELD_TYPENAME]: {
     getValidator: getPermissiveValidator,
@@ -260,6 +285,7 @@ export default {
       />
     ),
     getInitialValue: () => null,
+    getResponseComponent: () => null,
   },
   [constants.RANGE_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
@@ -272,5 +298,6 @@ export default {
     ),
     getInitialValue: (autofillValue, defaultValue) =>
       getDefaultInitialValue(autofillValue, defaultValue),
+    getResponseComponent: () => RangeFieldResponse,
   },
 };

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import RadioField from "../form-field-types/radio-field";
+import RadioField from "./radio-field";
 import "./big-radio-field.scss";
 
 const BigRadioField = props => {

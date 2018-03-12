@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import SecondaryButton from "../ui-elements/secondary-button";
-import FileField from "../form-field-types/file-field";
-import constants from "../constants";
+import SecondaryButton from "../../ui-elements/secondary-button";
+import FileField from "./file-field";
+import constants from "../../constants";
 
 import "./add-attachment-button.scss";
 
-const Util = require("../../js/utils.js");
+const Util = require("../../../js/utils.js");
 
 class AddAttachmentButton extends Component {
   constructor() {

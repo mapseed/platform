@@ -32,10 +32,6 @@ class FormField extends Component {
       this.props.fieldConfig
     );
 
-    this.props.onAdditionalData(
-      constants.ON_SET_VALIDITY_MESSAGE_ACTION,
-      this.validator.message
-    );
     this.onChange(this.props.fieldConfig.name, initialFieldValue, true);
   }
 
@@ -54,11 +50,7 @@ class FormField extends Component {
         .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
         .set(
           constants.FIELD_STATE_VALIDITY_KEY,
-          this.validator.validate(
-            fieldValue,
-            this.props.places,
-            this.props.landmarks
-          )
+          this.validator.validate(fieldValue, this.props.places)
         )
         .set(
           constants.FIELD_STATE_RENDER_KEY,
@@ -97,18 +89,16 @@ class FormField extends Component {
 }
 
 FormField.propTypes = {
-  categoryConfig: PropTypes.object.isRequired,
+  categoryConfig: PropTypes.object,
   disabled: PropTypes.bool.isRequired,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
-  landmarks: PropTypes.object.isRequired,
-  map: PropTypes.object.isRequired,
-  mapConfig: PropTypes.object.isRequired,
-  onAdditionalData: PropTypes.func,
+  map: PropTypes.object,
+  mapConfig: PropTypes.object,
   onFieldChange: PropTypes.func.isRequired,
   onGeometryStyleChange: PropTypes.func,
-  places: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
+  places: PropTypes.object,
+  router: PropTypes.object,
   showValidityStatus: PropTypes.bool.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.array,

@@ -99,6 +99,11 @@ const publishControlToolbar = {
 const dropdownField = {
   makeSelection: "Select...",
 };
+const placeDetailSurvey = {
+  validationErrorHeaderMsg:
+    "We're sorry, but we need some more information before we can share your comment.",
+  logOut: "Log out",
+};
 
 export {
   mapDrawingToolbar,
@@ -107,4 +112,5 @@ export {
   geocodingField,
   publishControlToolbar,
   dropdownField,
+  placeDetailSurvey,
 };

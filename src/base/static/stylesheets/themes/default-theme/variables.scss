@@ -31,6 +31,7 @@ $icon-search: "\F002";
 $icon-check-mark: "✔";
 $icon-hamburger: "\F03A";
 $icon-solid-star: "\F005";
+$icon-heart-filled: "\F004";
 
 // -----------------------------------------------------------------------------
 // TYPOGRAPHY
@@ -118,6 +119,8 @@ $text-field-margin: 0 0 0 0;
 $text-field-width: 100%;
 $text-field-autofill-background-color: $autofill-color;
 
+$rendered-text-field-margin-bottom: 5px;
+
 /*
   textarea-field.js
   Basic textarea field
@@ -129,6 +132,8 @@ $textarea-field-margin: 0 0 0 0;
 $textarea-field-width: 100%;
 $textarea-field-height: 6.5em;
 $textarea-field-autofill-background-color: $autofill-color;
+
+$rendered-textarea-field-margin-bottom: 5px;
 
 /*
   dropdown-field.js
@@ -241,6 +246,8 @@ $rich-textarea-border: 0.25em solid $secondary-color;
 $rich-textarea-min-height: 200px;
 $rich-textarea-font-size: 16px;
 $rich-textarea-field-autofill-background-color: $autofill-color;
+
+$rendered-rich-textarea-field-margin-bottom: 5px;
 
 /*
   map-drawing-toolbar.js
@@ -376,3 +383,20 @@ $input-form-validation-errors-error-msg-padding: 0 0 0 10px;
 $input-form-validation-errors-error-msg-text-indent: -20px;
 $input-form-validation-errors-error-msg-text-style: italic;
 $input-form-validation-errors-error-msg-text-color: #ffffff;
+
+/*
+  support-button.js
+  Button to support/like a post
+*/
+$support-button-icon: $icon-heart-filled;
+$support-button-icon-unsupported-color: #d1e2ec;
+$support-button-icon-supported-color: #d24444;
+
+/*
+  social-share-button.js
+  Twitter and Facebook sharing buttons
+*/
+$social-share-button-height: 32px;
+$social-share-button-width: 32px;
+$social-share-button-twitter-image: url(/static/css/images/twitter-32.png);
+$social-share-button-facebook-image: url(/static/css/images/facebook-32.png);

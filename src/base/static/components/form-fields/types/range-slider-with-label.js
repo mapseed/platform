@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import RangeField from "../form-field-types/range-field";
+import RangeField from "./range-field";
 import "./range-slider-with-label.scss";
 
 const RangeSliderWithLabel = props => {

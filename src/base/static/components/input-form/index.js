@@ -6,11 +6,11 @@ import {
 } from "immutable";
 import classNames from "classnames";
 
-import FormField from "../form-field";
+import FormField from "../form-fields/form-field";
 
 import { inputForm as messages } from "../messages";
 import constants from "../constants";
-import "./input-form.scss";
+import "./index.scss";
 
 const Util = require("../../js/utils.js");
 
@@ -114,9 +114,6 @@ class InputForm extends Component {
     switch (action) {
       case constants.ON_ADD_ATTACHMENT_ACTION:
         this.attachments.push(payload);
-        break;
-      case constants.ON_SET_VALIDITY_MESSAGE_ACTION:
-        this.validityMessage = payload;
         break;
       default:
         console.error(
@@ -323,7 +320,6 @@ class InputForm extends Component {
                   disabled={this.state.isFormSubmitting}
                   fieldState={fieldState}
                   isInitializing={this.state.isInitializing}
-                  landmarks={this.props.landmarks}
                   key={fieldState.get(constants.FIELD_STATE_RENDER_KEY)}
                   map={this.props.map}
                   mapConfig={this.props.mapConfig}
@@ -358,7 +354,6 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
-  landmarks: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
   mapConfig: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,

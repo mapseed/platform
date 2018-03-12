@@ -17,7 +17,26 @@ const constants = {
   SUBMIT_FIELD_TYPENAME: "submit",
   RANGE_FIELD_TYPENAME: "range",
 
+  SUBMITTER_FIELDNAME: "submitter_name",
+
   AUTOFILL_DURATION_DAYS: 30,
+
+  LOCATION_TYPE_PROPERTY_NAME: "location_type",
+  TITLE_PROPERTY_NAME: "title",
+  FULL_TITLE_PROPERTY_NAME: "fullTitle",
+  NAME_PROPERTY_NAME: "name",
+  SUBMITTER_FIELD_NAME: "submitter",
+  USER_TOKEN_PROPERTY_NAME: "user_token",
+  CREATED_DATETIME_PROPERTY_NAME: "created_datetime",
+  DATASET_SLUG_PROPERTY_NAME: "datasetSlug",
+  MODEL_ID_PROPERTY_NAME: "id",
+  STORY_FIELD_NAME: "story",
+
+  ATTACHMENT_TYPE_PROPERTY_NAME: "type",
+  ATTACHMENT_NAME_PROPERTY_NAME: "name",
+  ATTACHMENT_FILE_PROPERTY_NAME: "file",
+  RICH_TEXT_IMAGE_CODE: "RT",
+  COVER_IMAGE_CODE: "CO",
 
   RICH_TEXT_IMAGE_MARKUP_PREFIX: "{{#rich-text-image ",
   RICH_TEXT_IMAGE_MARKUP_SUFFIX: "}}",
@@ -31,7 +50,6 @@ const constants = {
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
 
-  ON_SET_VALIDITY_MESSAGE_ACTION: "on-set-validity-message",
   ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
 };
 

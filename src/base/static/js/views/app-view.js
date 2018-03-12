@@ -5,6 +5,7 @@ import emitter from "../../components/utils/emitter";
 
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
+import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
@@ -14,20 +15,13 @@ var Util = require("../utils.js");
 var MapView = require("mapseed-map-view");
 var PagesNavView = require("mapseed-pages-nav-view");
 var AuthNavView = require("mapseed-auth-nav-view");
-var LandmarkDetailView = require("mapseed-landmark-detail-view");
 var PlaceListView = require("mapseed-place-list-view");
 var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var GeocodeAddressView = require("mapseed-geocode-address-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
-var PlaceDetailView = require("mapseed-place-detail-view");
-var PlaceFormView = require("mapseed-place-form-view");
 var RightSidebarView = require("mapseed-right-sidebar-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
-
-// Models
-var PlaceModel = require("../models/place-model.js");
-var LandmarkModel = require("../models/landmark-model.js");
 
 // Spinner options -- these need to be own modules
 Shareabouts.bigSpinnerOptions = {
@@ -117,13 +111,6 @@ module.exports = Backbone.View.extend({
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
-
-    // Caches of the views (one per place)
-    this.placeFormView = null;
-    this.placeDetailViews = {};
-    this.landmarkDetailViews = {};
-    this.activeDetailView;
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
@@ -235,11 +222,9 @@ module.exports = Backbone.View.extend({
       basemapConfigs: this.basemapConfigs,
       legend_enabled: !!this.options.sidebarConfig.legend_enabled,
       places: this.places,
-      landmarks: this.landmarks,
       router: this.options.router,
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
-      placeDetailViews: this.placeDetailViews,
       placeConfig: this.options.placeConfig,
     });
 
@@ -263,13 +248,11 @@ module.exports = Backbone.View.extend({
         el: "ul.recent-points",
         activities: this.activities,
         places: this.places,
-        landmarks: this.landmarks,
         placeConfig: this.options.placeConfig,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         surveyConfig: this.options.surveyConfig,
         supportConfig: this.options.supportConfig,
-        placeConfig: this.options.placeConfig,
         mapConfig: this.options.mapConfig,
         // How often to check for new content
         interval: this.options.activityConfig.interval || 30000,
@@ -386,23 +369,12 @@ module.exports = Backbone.View.extend({
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
-    _.each(this.places, function(value, key) {
-      self.placeDetailViews[key] = {};
-    });
-
-    _.each(this.landmarks, function(value, key) {
-      self.landmarkDetailViews[key] = {};
-    });
-
     // Show tools for adding data
     this.setBodyClass();
     this.showCenterPoint();
 
     // Load places from the API
     this.loadPlaces(placeParams);
-
-    // Load landmarks from the API
-    this.loadLandmarks();
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {
@@ -449,38 +421,6 @@ module.exports = Backbone.View.extend({
 
   isAddingPlace: function(model) {
     return this.$panel.is(":visible") && this.$panel.hasClass("place-form");
-  },
-  loadLandmarks: function() {
-    var self = this;
-
-    // loop through landmark configs
-    _.each(_.values(this.options.datasetConfigs.landmarks), function(
-      landmarkConfig
-    ) {
-      self.mapView.map.fire("layer:loading", { id: landmarkConfig.id });
-      if (landmarkConfig.placeType) {
-        var deferred = self.landmarks[landmarkConfig.id].fetch({
-          attributesToAdd: { location_type: landmarkConfig.placeType },
-          success: function() {
-            self.mapView.map.fire("layer:loaded", { id: landmarkConfig.id });
-          },
-          error: function() {
-            self.mapView.map.fire("layer:error", { id: landmarkConfig.id });
-          },
-        });
-        Shareabouts.deferredCollections.push(deferred);
-      } else {
-        var deferred = self.landmarks[landmarkConfig.id].fetch({
-          success: function() {
-            self.mapView.map.fire("layer:loaded", { id: landmarkConfig.id });
-          },
-          error: function() {
-            self.mapView.map.fire("layer:error", { id: landmarkConfig.id });
-          },
-        });
-        Shareabouts.deferredCollections.push(deferred);
-      }
-    });
   },
   loadPlaces: function(placeParams) {
     var self = this,
@@ -637,66 +577,6 @@ module.exports = Backbone.View.extend({
       this.mapView.reverseGeocodeMapCenter();
     }
   },
-  onRemovePlace: function(model) {
-    if (this.placeDetailViews[model.cid]) {
-      this.placeDetailViews[model.cid].remove();
-      delete this.placeDetailViews[model.cid];
-    }
-  },
-
-  // TODO: clean up landmark/place distinction here
-  getLandmarkDetailView: function(collectionId, model) {
-    var landmarkDetailView;
-    if (
-      this.landmarkDetailViews[collectionId] &&
-      this.landmarkDetailViews[collectionId][model.id]
-    ) {
-      landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
-    } else {
-      landmarkDetailView = new LandmarkDetailView({
-        model: model,
-        description: model.get("properties")["description"],
-        originalDescription: model.get("properties")["originalDescription"],
-        mapConfig: this.options.mapConfig,
-        mapView: this.mapView,
-        router: this.options.router,
-      });
-      this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
-    }
-    return landmarkDetailView;
-  },
-  getPlaceDetailView: function(model, layerView) {
-    var placeDetailView;
-    if (this.placeDetailViews[model.cid]) {
-      placeDetailView = this.placeDetailViews[model.cid];
-    } else {
-      placeDetailView = new PlaceDetailView({
-        model: model,
-        appView: this,
-        layerView: layerView,
-        surveyConfig: this.options.surveyConfig,
-        supportConfig: this.options.supportConfig,
-        placeConfig: this.options.placeConfig,
-        storyConfig: this.options.storyConfig,
-        mapConfig: this.options.mapConfig,
-        placeTypes: this.options.placeTypes,
-        userToken: this.options.userToken,
-        mapView: this.mapView,
-        geometryEditorView: this.mapView.geometryEditorView,
-        router: this.options.router,
-        datasetId: _.find(this.options.mapConfig.layers, function(layer) {
-          return layer.slug == model.attributes.datasetSlug;
-        }).id,
-        collectionsSet: {
-          places: this.places,
-          landmarks: this.landmarks,
-        },
-      });
-      this.placeDetailViews[model.cid] = placeDetailView;
-    }
-
-    return placeDetailView;
-  },
   setLocationRoute: function(zoom, lat, lng) {
     this.options.router.navigate(
       "/" +
@@ -746,7 +626,6 @@ module.exports = Backbone.View.extend({
         hidePanel={this.hidePanel.bind(this)}
         map={this.mapView.map}
         places={this.places}
-        landmarks={this.landmarks}
         router={this.options.router}
         customHooks={this.options.customHooks}
         container={"#content article"}
@@ -876,7 +755,6 @@ module.exports = Backbone.View.extend({
     Util.getPlaceFromCollections(
       {
         places: this.places,
-        landmarks: this.landmarks,
       },
       args,
       this.options.mapConfig,
@@ -891,7 +769,6 @@ module.exports = Backbone.View.extend({
         layer,
         center,
         zoom,
-        detailView,
         $responseToScrollTo;
 
       if (type === "place") {
@@ -911,18 +788,38 @@ module.exports = Backbone.View.extend({
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
-        detailView = self.getPlaceDetailView(
-          model,
-          self.mapView.layerViews[datasetId][model.cid]
+        // REACT PORT SECTION //////////////////////////////////////////////////
+        ReactDOM.unmountComponentAtNode(
+          document.querySelector("#content article")
         );
 
-        self.showPanel(detailView.render().$el, !!args.responseId, detailView);
-        detailView.delegateEvents();
-      } else if (type === "landmark") {
-        layer = self.mapView.layerViews[datasetId][model.id].layer;
-        detailView = self.getLandmarkDetailView(datasetId, model);
+        ReactDOM.render(
+          <PlaceDetail
+            container={document.querySelector("#content article")}
+            currentUser={Shareabouts.bootstrapped.currentUser}
+            model={model}
+            appView={this}
+            apiRoot={this.options.appConfig.api_root}
+            surveyConfig={this.options.surveyConfig}
+            supportConfig={this.options.supportConfig}
+            placeConfig={this.options.placeConfig}
+            placeTypes={this.options.placeTypes}
+            scrollToResponseId={args.responseId}
+            storyConfig={this.options.storyConfig}
+            mapConfig={this.options.mapConfig}
+            userToken={this.options.userToken}
+          />,
+          document.querySelector("#content article")
+        );
 
-        self.showPanel(detailView.render().$el, false, detailView);
+        this.$panel.show();
+        this.setBodyClass("content-visible", "content-expanded");
+        this.mapView.map.invalidateSize({ animate: true, pan: true });
+
+        $("#main-btns-container").addClass(
+          this.options.placeConfig.add_button_location || "pos-top-left"
+        );
+        // END REACT PORT SECTION //////////////////////////////////////////////
       }
 
       self.hideNewPin();
@@ -969,21 +866,6 @@ module.exports = Backbone.View.extend({
         }
       }
 
-      if (args.responseId) {
-        $responseToScrollTo = detailView.$el.find(
-          '[data-response-id="' + args.responseId + '"]'
-        );
-        if ($responseToScrollTo.length > 0) {
-          if (layout === '"desktop"') {
-            // For desktop, the panel content is scrollable
-            self.$panelContent.scrollTo($responseToScrollTo, 500);
-          } else {
-            // For mobile, it's the window
-            $(window).scrollTo($responseToScrollTo, 500);
-          }
-        }
-      }
-
       model.trigger("focus");
 
       if (!model.get("story") && self.isStoryActive) {
@@ -1015,7 +897,7 @@ module.exports = Backbone.View.extend({
     this.setBodyClass("content-visible", "content-expanded");
   },
 
-  showPanel: function(markup, preventScrollToTop, detailView) {
+  showPanel: function(markup, preventScrollToTop) {
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
@@ -1026,7 +908,6 @@ module.exports = Backbone.View.extend({
 
     this.$panelContent.html(markup);
     this.$panel.show();
-    detailView && detailView.delegateEvents();
 
     if (!preventScrollToTop) {
       // will be "mobile" or "desktop", as defined in default.css
@@ -1082,6 +963,8 @@ module.exports = Backbone.View.extend({
     this.$centerpoint.hide();
   },
   hidePanel: function() {
+    console.log("hidePanel");
+
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
@@ -1119,15 +1002,6 @@ module.exports = Backbone.View.extend({
         }
       });
     });
-
-    // Unfocus all of the landmark markers
-    _.each(this.landmarks, function(collection) {
-      collection.each(function(model) {
-        if (!model.isNew()) {
-          model.trigger("unfocus");
-        }
-      });
-    });
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
@@ -1137,16 +1011,7 @@ module.exports = Backbone.View.extend({
         }
       });
     });
-
-    _.each(this.landmarks, function(collection) {
-      collection.each(function(model) {
-        if (model && model.isNew()) {
-          model.destroy();
-        }
-      });
-    });
   },
-
   render: function() {
     this.mapView.render();
   },

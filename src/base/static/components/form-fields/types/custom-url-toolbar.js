@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import TextField from "../form-field-types/text-field";
-import { customUrlField as messages } from "../messages";
+import TextField from "./text-field";
+import { customUrlField as messages } from "../../messages";
 import "./custom-url-toolbar.scss";
 
-const Util = require("../../js/utils.js");
+const Util = require("../../../js/utils.js");
 
 class CustomUrlToolbar extends Component {
   constructor(props) {

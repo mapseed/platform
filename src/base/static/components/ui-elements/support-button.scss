@@ -1,0 +1,18 @@
+@import "variables";
+
+.support-button {
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 8px;
+
+  &:before {
+    font-family: FontAwesome;
+    content: $support-button-icon;
+    padding-right: 8px;
+    color: $support-button-icon-unsupported-color;
+  }
+}
+
+.support-button--supported:before {
+  color: $support-button-icon-supported-color;
+}
+

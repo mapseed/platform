@@ -10,7 +10,7 @@ const mustHaveSomeValue = value => {
 
   // TODO: Accommodate other Immutable types here as needed.
 };
-const mustHaveUniqueUrl = (url, places, landmarks) => {
+const mustHaveUniqueUrl = (url, places) => {
   if (url === "") {
     // If no custom URL has been provided, we assume we'll fall back to the
     // slug/id URL form, and thus we don't need to worry about validation.
@@ -19,11 +19,6 @@ const mustHaveUniqueUrl = (url, places, landmarks) => {
   let isValid = true;
   for (let collection in places) {
     if (places[collection].findWhere({ "url-title": url })) {
-      isValid = false;
-    }
-  }
-  for (let collection in landmarks) {
-    if (landmarks[collection].findWhere({ "url-title": url })) {
       isValid = false;
     }
   }
