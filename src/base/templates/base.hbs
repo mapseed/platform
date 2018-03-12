@@ -32,7 +32,7 @@
   {{#if production}}
     <link rel="stylesheet" href="/dist/{{cssHashedBundleName}}">
   {{else}}
-    <link rel="stylesheet" href="/dist/bundle.css">
+    <link rel="stylesheet" href="/bundle.css">
   {{/if}}
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
@@ -260,7 +260,7 @@
   {{#if production}}
     <script src="/dist/{{jsHashedBundleName}}"></script>
   {{else}}
-    <script src="/dist/bundle.js"></script>
+    <script src="/bundle.js"></script>
   {{/if}}
   <script src="{{config.app.api_root}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{config.app.api_root}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
