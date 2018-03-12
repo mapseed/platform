@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { fromJS, List as ImmutableList } from "immutable";
 import emitter from "../utils/emitter";
-import ReactDOM from "react-dom";
 
 import ResponseField from "../form-fields/response-field";
 import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
@@ -72,12 +71,17 @@ class PlaceDetail extends Component {
   }
 
   onMountTargetResponse(responseRef) {
-    setTimeout(() => {
+    // NOTE: We use requestAnimationFrame() here to avoid a situation where
+    // getBoundingClientRect() is called prematurely and returns zeroed values.
+    // The exact reason is not clear, but evidently we need to give the browser
+    // another tick to set the bounding rectangle offsets before calling
+    // getBoundingClientRect() in this use case.
+    requestAnimationFrame(() => {
       this.scrollDownTo(
         this.props.container,
-        ReactDOM.findDOMNode(responseRef).getBoundingClientRect().top - 90
+        responseRef.getBoundingClientRect().top - 90
       );
-    }, 500);
+    });
   }
 
   scrollDownTo(elt, to, jump = 0) {
