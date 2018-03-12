@@ -60,7 +60,7 @@ PlaceDetailSurveyResponse.propTypes = {
   attributes: PropTypes.object.isRequired,
   modelId: PropTypes.number.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
-  scrollToResponseId: PropTypes.string.isRequired,
+  scrollToResponseId: PropTypes.string,
   submitter: PropTypes.object.isRequired,
   placeConfig: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,
