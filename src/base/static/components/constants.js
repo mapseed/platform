@@ -30,6 +30,7 @@ const constants = {
   CREATED_DATETIME_PROPERTY_NAME: "created_datetime",
   DATASET_SLUG_PROPERTY_NAME: "datasetSlug",
   MODEL_ID_PROPERTY_NAME: "id",
+  STORY_FIELD_NAME: "story",
 
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",

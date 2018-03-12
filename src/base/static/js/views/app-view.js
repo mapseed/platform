@@ -815,6 +815,10 @@ module.exports = Backbone.View.extend({
         this.$panel.show();
         this.setBodyClass("content-visible", "content-expanded");
         this.mapView.map.invalidateSize({ animate: true, pan: true });
+
+        $("#main-btns-container").addClass(
+          this.options.placeConfig.add_button_location || "pos-top-left"
+        );
         // END REACT PORT SECTION //////////////////////////////////////////////
       }
 
@@ -959,6 +963,8 @@ module.exports = Backbone.View.extend({
     this.$centerpoint.hide();
   },
   hidePanel: function() {
+    console.log("hidePanel");
+
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();

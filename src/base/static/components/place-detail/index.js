@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import { fromJS, List as ImmutableList } from "immutable";
 import emitter from "../utils/emitter";
 
@@ -219,9 +220,19 @@ class PlaceDetail extends Component {
       this.state.placeModel.get(constants.NAME_PROPERTY_NAME);
     const submitter =
       this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || {};
+    const isStoryChapter = !!this.state.placeModel.get(
+      constants.STORY_FIELD_NAME
+    );
 
     return (
       <div className="place-detail-view">
+        <h1
+          className={classNames("place-detail-view__header", {
+            "place-detail-view__header--centered": isStoryChapter,
+          })}
+        >
+          {title}
+        </h1>
         <PlaceDetailPromotionBar
           isSupported={
             !!this.state.supportModels.find(model => {
@@ -231,6 +242,7 @@ class PlaceDetail extends Component {
               );
             })
           }
+          isHorizontalLayout={isStoryChapter}
           numSupports={this.state.supportModels.size}
           onClickSupport={this.onClickSupport.bind(this)}
           onSocialShare={service =>
@@ -238,15 +250,16 @@ class PlaceDetail extends Component {
           }
           supportConfig={this.props.supportConfig}
         />
-        <h1 className="place-detail-view__header">{title}</h1>
-        <PlaceDetailMetadataBar
-          submitter={submitter}
-          placeModel={this.state.placeModel}
-          surveyModels={this.state.surveyModels}
-          placeConfig={this.props.placeConfig}
-          placeTypes={this.props.placeTypes}
-          surveyConfig={this.props.surveyConfig}
-        />
+        {!isStoryChapter ? (
+          <PlaceDetailMetadataBar
+            submitter={submitter}
+            placeModel={this.state.placeModel}
+            surveyModels={this.state.surveyModels}
+            placeConfig={this.props.placeConfig}
+            placeTypes={this.props.placeTypes}
+            surveyConfig={this.props.surveyConfig}
+          />
+        ) : null}
         <div className="place-detail-view__clearfix" />
         {this.state.attachmentModels
           .filter(attachment => attachment.type === constants.COVER_IMAGE_CODE)

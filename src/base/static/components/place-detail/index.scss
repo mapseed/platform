@@ -2,6 +2,14 @@
   line-height: 1.1em;
 }
 
+.place-detail-view__header--centered {
+  text-align: center;
+  font-size: 2.4em;
+  padding-top: 15px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #555;
+}
+
 .place-detail-view__clearfix {
   clear: both;
 }
