@@ -262,8 +262,17 @@ class PlaceDetail extends Component {
         ) : null}
         <div className="place-detail-view__clearfix" />
         {this.state.attachmentModels
-          .filter(attachment => attachment.type === constants.COVER_IMAGE_CODE)
-          .map((attachment, i) => <CoverImage key={i} src={attachment.file} />)}
+          .filter(
+            attachment =>
+              attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
+              constants.COVER_IMAGE_CODE
+          )
+          .map((attachment, i) => (
+            <CoverImage
+              key={i}
+              src={attachment.get(constants.ATTACHMENT_FILE_PROPERTY_NAME)}
+            />
+          ))}
         {fieldResponseFilter(
           this.categoryConfig.fields,
           this.state.placeModel
