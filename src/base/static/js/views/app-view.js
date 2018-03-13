@@ -789,6 +789,7 @@ module.exports = Backbone.View.extend({
         }
 
         // REACT PORT SECTION //////////////////////////////////////////////////
+        this.unfocusAllPlaces();
         ReactDOM.unmountComponentAtNode(
           document.querySelector("#content article")
         );
@@ -963,8 +964,6 @@ module.exports = Backbone.View.extend({
     this.$centerpoint.hide();
   },
   hidePanel: function() {
-    console.log("hidePanel");
-
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
