@@ -1,9 +1,7 @@
 var Util = require("../utils.js");
 var Gatekeeper = require("../../libs/gatekeeper.js");
 
-var SurveyView = require("mapseed-survey-view");
 var SupportView = require("mapseed-support-view");
-var RichTextEditorView = require("mapseed-rich-text-editor-view");
 
 var SubmissionCollection = require("../models/submission-collection.js");
 
@@ -29,7 +27,10 @@ module.exports = Backbone.View.extend({
     this.categoryConfig = _.findWhere(this.options.placeConfig.place_detail, {
       category: this.model.get("location_type"),
     });
-    this.isEditable = Util.getAdminStatus(this.options.datasetId, this.categoryConfig.admin_groups);
+    this.isEditable = Util.getAdminStatus(
+      this.options.datasetId,
+      this.categoryConfig.admin_groups
+    );
     this.isEditingToggled = false;
     this.surveyType = this.options.surveyConfig.submission_type;
     this.supportType = this.options.supportConfig.submission_type;
@@ -71,14 +72,6 @@ module.exports = Backbone.View.extend({
         placeModel: this.model,
       });
 
-    this.surveyView = new SurveyView({
-      collection: this.model.submissionSets[this.surveyType],
-      surveyConfig: this.options.surveyConfig,
-      userToken: this.options.userToken,
-      datasetId: self.options.datasetId,
-      placeDetailView: self,
-    });
-
     this.supportView = new SupportView({
       collection: this.model.submissionSets[this.supportType],
       supportConfig: this.options.supportConfig,
@@ -93,7 +86,7 @@ module.exports = Backbone.View.extend({
     this.model.attachmentCollection.on(
       "add",
       this.onAddAttachmentWrapper,
-      this,
+      this
     );
 
     this.$el.on("click", ".share-link a", function(evt) {
@@ -132,7 +125,7 @@ module.exports = Backbone.View.extend({
   onAddAttachmentWrapper: function(attachment) {
     this.onAddAttachmentCallback.call(
       this.onAddAttachmentCallbackContext,
-      attachment,
+      attachment
     );
   },
 
@@ -184,7 +177,6 @@ module.exports = Backbone.View.extend({
     }
 
     this.isEditingToggled = !this.isEditingToggled;
-    this.surveyView.options.isEditingToggled = this.isEditingToggled;
     this.render();
 
     if (this.isEditingToggled) {
@@ -241,7 +233,7 @@ module.exports = Backbone.View.extend({
           fields: this.fields,
           suppressAttachments: this.categoryConfig.suppressAttachments,
         },
-        this.model.toJSON(),
+        this.model.toJSON()
       );
 
     this.options.router.on("route", this.tearDown, this);
@@ -262,15 +254,11 @@ module.exports = Backbone.View.extend({
 
     this.$el.html(Handlebars.templates["place-detail"](data));
 
-    // Render the view as-is (collection may have content already)
-    this.$(".survey").html(this.surveyView.render().$el);
-
     this.$(".support").html(this.supportView.render().$el);
     // Fetch for submissions and automatically update the element
     this.model.submissionSets[this.supportType].fetchAllPages();
 
     this.delegateEvents();
-    this.surveyView.delegateEvents();
 
     // initialize datetime picker, if relevant
     $("#datetimepicker").datetimepicker({ formatTime: "g:i a" });
@@ -278,7 +266,7 @@ module.exports = Backbone.View.extend({
     if (this.isEditingToggled) {
       $("#toggle-editor-btn").addClass("btn-depressed");
       $(
-        ".promotion, .place-submission-details, .survey-header, .reply-link, .response-header",
+        ".promotion, .place-submission-details, .survey-header, .reply-link, .response-header"
       ).addClass("faded");
 
       // detect changes made to non-Quill form elements
@@ -381,7 +369,7 @@ module.exports = Backbone.View.extend({
     var attrs = _.extend(
       Util.getAttrs($("#update-place-model-form")),
       Util.getAttrs($("#update-place-model-title-form")),
-      richTextAttrs,
+      richTextAttrs
     );
 
     // Special handling for binary toggle buttons: we need to remove
@@ -401,7 +389,11 @@ module.exports = Backbone.View.extend({
       .find("#update-place-model-form .checkbox-group")
       .each(function(group) {
         if ($(this).find("input:checkbox:checked").length === 0) {
-          self.model.unset($(this).find(":first-child").attr("name"));
+          self.model.unset(
+            $(this)
+              .find(":first-child")
+              .attr("name")
+          );
         }
       });
 
@@ -465,7 +457,7 @@ module.exports = Backbone.View.extend({
     var self = this;
     if (
       confirm(
-        "Are you sure you want to remove this post? It will no longer be visible on the map.",
+        "Are you sure you want to remove this post? It will no longer be visible on the map."
       )
     ) {
       if (this.geometryEnabled) {
@@ -478,7 +470,7 @@ module.exports = Backbone.View.extend({
           success: function() {
             self.model.trigger("userHideModel", self.model);
           },
-        },
+        }
       );
     }
   },
