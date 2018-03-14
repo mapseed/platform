@@ -11,6 +11,7 @@ import FormField from "../form-fields/form-field";
 import { inputForm as messages } from "../messages";
 import constants from "../constants";
 import { extractEmbeddedImages } from "../utils/embedded-images";
+import { scrollTo } from "../utils/scroll-helpers";
 import "./index.scss";
 
 const Util = require("../../js/utils.js");
@@ -148,19 +149,8 @@ class InputForm extends Component {
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
       });
-      this.scrollTo(document.querySelector(this.props.container), 0, 300);
+      scrollTo(this.props.container, 0, 300);
     }
-  }
-
-  // Due to https://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation
-  scrollTo(elt, to, duration) {
-    const difference = to - elt.scrollTop;
-    const perTick = difference / duration;
-    setTimeout(() => {
-      elt.scrollTop = elt.scrollTop + perTick;
-      if (elt.scrollTop === to) return;
-      this.scrollTo(elt, to, duration - 10);
-    }, 10);
   }
 
   saveModel() {

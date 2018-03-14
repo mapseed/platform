@@ -110,6 +110,8 @@ const placeDetailEditor = {
   removeBtn: "Remove",
   confirmRemove:
     "Are you sure you want to remove this post? It will no longer be visible on the map.",
+  validationErrorHeaderMsg:
+    "We're sorry, but we need some more information before we can update this post.",
 };
 
 export {

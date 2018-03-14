@@ -18,6 +18,7 @@ import fieldResponseFilter from "../utils/field-response-filter";
 import constants from "../constants";
 import { placeDetailEditor as messages } from "../messages";
 import { extractEmbeddedImages } from "../utils/embedded-images";
+import { scrollDownTo } from "../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
 
@@ -89,19 +90,11 @@ class PlaceDetail extends Component {
     // another tick to set the bounding rectangle offsets before calling
     // getBoundingClientRect() in this use case.
     requestAnimationFrame(() => {
-      this.scrollDownTo(
+      scrollDownTo(
         this.props.container,
         responseRef.getBoundingClientRect().top - 90
       );
     });
-  }
-
-  scrollDownTo(elt, to, jump = 0) {
-    setTimeout(() => {
-      elt.scrollTop = elt.scrollTop + jump;
-      if (elt.scrollTop >= to) return;
-      this.scrollDownTo(elt, to, jump + 0.5);
-    }, 10);
   }
 
   onClickSupport() {
@@ -388,6 +381,7 @@ class PlaceDetail extends Component {
         {this.state.isEditModeToggled ? (
           <PlaceDetailEditor
             placeModel={this.state.placeModel}
+            container={this.props.container}
             attachmentModels={this.state.attachmentModels}
             categoryConfig={this.categoryConfig}
             layerView={this.props.layerView}

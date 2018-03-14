@@ -628,7 +628,7 @@ module.exports = Backbone.View.extend({
         places={this.places}
         router={this.options.router}
         customHooks={this.options.customHooks}
-        container={"#content article"}
+        container={document.querySelector("#content article")}
         render={(state, props) => {
           if (
             props.customComponents &&

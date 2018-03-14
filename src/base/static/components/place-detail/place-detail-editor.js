@@ -8,7 +8,10 @@ import {
 } from "immutable";
 
 import FormField from "../form-fields/form-field";
+import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import { scrollTo } from "../utils/scroll-helpers";
 
+import { placeDetailEditor as messages } from "../messages";
 import constants from "../constants";
 
 import "./place-detail-editor.scss";
@@ -18,15 +21,19 @@ class PlaceDetailEditor extends Component {
     super(props);
 
     let fields = ImmutableOrderedMap();
-    this.props.categoryConfig.fields.forEach(field => {
-      fields = fields.set(
-        field.name,
-        ImmutableMap().set(
-          constants.FIELD_STATE_VALUE_KEY,
-          this.props.placeModel.get(field.name)
-        )
-      );
-    });
+    this.props.categoryConfig.fields
+      // NOTE: In the editor, we have to strip out the submit field here,
+      // otherwise, since we don't render it at all, it will always be invalid.
+      .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
+      .forEach(field => {
+        fields = fields.set(
+          field.name,
+          ImmutableMap().set(
+            constants.FIELD_STATE_VALUE_KEY,
+            this.props.placeModel.get(field.name)
+          )
+        );
+      });
 
     this.state = {
       fields: fields,
@@ -37,7 +44,24 @@ class PlaceDetailEditor extends Component {
 
   componentWillMount() {
     emitter.addListener("place-model:update", () => {
-      this.props.onUpdate(this.state.fields);
+      // Validate the form.
+      const newValidationErrors = this.state.fields
+        .filter(value => !value.get(constants.FIELD_STATE_VALIDITY_KEY))
+        .reduce((newValidationErrors, invalidField) => {
+          return newValidationErrors.add(
+            invalidField.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY)
+          );
+        }, new Set());
+
+      if (newValidationErrors.size === 0) {
+        this.props.onUpdate(this.state.fields);
+      } else {
+        this.setState({
+          formValidationErrors: newValidationErrors,
+          showValidityStatus: true,
+        });
+        scrollTo(this.props.container, 0, 300);
+      }
     });
     emitter.addListener("place-model:remove", () => {
       this.props.onRemove();
@@ -66,76 +90,82 @@ class PlaceDetailEditor extends Component {
 
   render() {
     return (
-      <form
+      <div
         className={classNames("place-detail-editor", {
           "place-detail-editor--faded": this.props.isSubmitting,
         })}
       >
-        {this.state.fields
-          .filter(
-            (fieldState, fieldName) =>
-              this.props.categoryConfig.fields.find(
-                field => field.name === fieldName
-              ).type !== constants.SUBMIT_FIELD_TYPENAME
-          )
-          .map((fieldState, fieldName) => {
-            const fieldConfig = this.props.categoryConfig.fields.find(
-              field => field.name === fieldName
-            );
-
-            return (
-              <FormField
-                fieldConfig={fieldConfig}
-                attachmentModels={this.props.attachmentModels}
-                categoryConfig={this.categoryConfig}
-                disabled={this.state.isSubmitting}
-                fieldState={fieldState}
-                onGeometryStyleChange={() => {}}
-                onAdditionalData={this.props.onAdditionalData}
-                mapDrawingToolbarState={{
-                  initialPanel:
-                    constants.GEOMETRY_EDITOR_TOOL_MAPPINGS[
-                      this.props.placeModel
-                        .get(constants.GEOMETRY_PROPERTY_NAME)
-                        .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-                    ],
-                  initialGeometryType:
-                    constants.GEOMETRY_TYPE_MAPPINGS[
-                      this.props.placeModel
-                        .get(constants.GEOMETRY_PROPERTY_NAME)
-                        .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-                    ],
-                  existingLayer: this.props.layerView.layer,
-                  selectedMarkerIndex:
-                    fieldConfig.type ===
-                      constants.MAP_DRAWING_TOOLBAR_TYPENAME &&
-                    fieldConfig.content.findIndex(
-                      marker =>
-                        marker.url ===
-                        this.props.placeModel
-                          .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-                          .get(constants.ICON_URL_PROPERTY_NAME)
-                    ),
-                }}
-                isInitializing={this.state.isInitializing}
-                key={fieldName}
-                map={this.props.map}
-                mapConfig={this.props.mapConfig}
-                onFieldChange={this.onFieldChange.bind(this)}
-                places={this.props.places}
-                router={this.props.router}
-                showValidityStatus={this.state.showValidityStatus}
-                updatingField={this.state.updatingField}
-              />
-            );
-          })
-          .toArray()}
-        <div
-          className={classNames("place-detail-editor__spinner", {
-            "place-detail-editor__spinner--visible": this.props.isSubmitting,
-          })}
+        <WarningMessagesContainer
+          errors={Array.from(this.state.formValidationErrors)}
+          headerMsg={messages.validationErrorHeaderMsg}
         />
-      </form>
+        <form className="place-detail-editor__form">
+          {this.state.fields
+            .filter(
+              (fieldState, fieldName) =>
+                this.props.categoryConfig.fields.find(
+                  field => field.name === fieldName
+                ).type !== constants.SUBMIT_FIELD_TYPENAME
+            )
+            .map((fieldState, fieldName) => {
+              const fieldConfig = this.props.categoryConfig.fields.find(
+                field => field.name === fieldName
+              );
+
+              return (
+                <FormField
+                  fieldConfig={fieldConfig}
+                  attachmentModels={this.props.attachmentModels}
+                  categoryConfig={this.categoryConfig}
+                  disabled={this.state.isSubmitting}
+                  fieldState={fieldState}
+                  onGeometryStyleChange={() => {}}
+                  onAdditionalData={this.props.onAdditionalData}
+                  mapDrawingToolbarState={{
+                    initialPanel:
+                      constants.GEOMETRY_EDITOR_TOOL_MAPPINGS[
+                        this.props.placeModel
+                          .get(constants.GEOMETRY_PROPERTY_NAME)
+                          .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
+                      ],
+                    initialGeometryType:
+                      constants.GEOMETRY_TYPE_MAPPINGS[
+                        this.props.placeModel
+                          .get(constants.GEOMETRY_PROPERTY_NAME)
+                          .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
+                      ],
+                    existingLayer: this.props.layerView.layer,
+                    selectedMarkerIndex:
+                      fieldConfig.type ===
+                        constants.MAP_DRAWING_TOOLBAR_TYPENAME &&
+                      fieldConfig.content.findIndex(
+                        marker =>
+                          marker.url ===
+                          this.props.placeModel
+                            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+                            .get(constants.ICON_URL_PROPERTY_NAME)
+                      ),
+                  }}
+                  isInitializing={this.state.isInitializing}
+                  key={fieldName}
+                  map={this.props.map}
+                  mapConfig={this.props.mapConfig}
+                  onFieldChange={this.onFieldChange.bind(this)}
+                  places={this.props.places}
+                  router={this.props.router}
+                  showValidityStatus={this.state.showValidityStatus}
+                  updatingField={this.state.updatingField}
+                />
+              );
+            })
+            .toArray()}
+          <div
+            className={classNames("place-detail-editor__spinner", {
+              "place-detail-editor__spinner--visible": this.props.isSubmitting,
+            })}
+          />
+        </form>
+      </div>
     );
   }
 }
@@ -143,6 +173,7 @@ class PlaceDetailEditor extends Component {
 PlaceDetailEditor.propTypes = {
   attachmentModels: PropTypes.object,
   categoryConfig: PropTypes.object.isRequired,
+  container: PropTypes.object.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   layerView: PropTypes.object,
   map: PropTypes.object,
