@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import Autocomplete from "accessible-autocomplete/react";
 
 import "./autocomplete-combobox-field.scss";
@@ -27,10 +28,21 @@ class AutocompleteComboboxField extends Component {
 
   render() {
     return (
-      <div className="autocomplete-combobox-field">
+      <div
+        className={classNames("autocomplete-combobox-field", {
+          "autocomplete-combobox-field--has-autofill": this.props.hasAutofill,
+        })}
+      >
         <Autocomplete
           source={this.suggestions}
           placeholder={this.props.placeholder}
+          defaultValue={
+            this.props.value
+              ? this.props.options.find(
+                  option => option.value === this.props.value
+                ).label
+              : ""
+          }
           confirmOnBlur={true}
           id={this.props.id}
           showAllValues={true}
@@ -42,6 +54,7 @@ class AutocompleteComboboxField extends Component {
 }
 
 AutocompleteComboboxField.propTypes = {
+  hasAutofill: PropTypes.bool,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -52,6 +65,7 @@ AutocompleteComboboxField.propTypes = {
     })
   ).isRequired,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
 };
 
 export default AutocompleteComboboxField;

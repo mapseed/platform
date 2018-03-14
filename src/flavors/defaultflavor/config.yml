@@ -422,6 +422,7 @@ place:
           optional: false
         - name: dropdown_autocomplete_combobox_field
           type: dropdown_autocomplete
+          autocomplete: true
           placeholder: _(Begin typing a value...)
           prompt: _(Dropdown autocomplete input prompt:)
           display_prompt: _(Rendered dropdown autocomplete selection:)

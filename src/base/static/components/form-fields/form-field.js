@@ -18,6 +18,8 @@ class FormField extends Component {
     this.validator = this.fieldDefinition.getValidator(
       this.props.fieldConfig.optional
     );
+
+    this.isInitialized = false;
   }
 
   componentDidMount() {
@@ -35,6 +37,7 @@ class FormField extends Component {
       this.props.attachmentModels
     );
 
+    this.isInitialized = true;
     this.onChange(this.props.fieldConfig.name, initialFieldValue, true);
   }
 
@@ -79,7 +82,7 @@ class FormField extends Component {
       }),
     };
 
-    return (
+    return this.isInitialized ? (
       <div className={cn.container}>
         <p className="input-form__field-prompt">
           {this.props.fieldConfig.prompt}
@@ -87,7 +90,7 @@ class FormField extends Component {
         </p>
         {this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>
-    );
+    ) : null;
   }
 }
 
