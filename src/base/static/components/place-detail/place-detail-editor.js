@@ -66,6 +66,54 @@ class PlaceDetailEditor extends Component {
     emitter.addListener("place-model:remove", () => {
       this.props.onRemove();
     });
+
+    // Set the initial geometry style.
+    if (this.props.placeModel.get(constants.GEOMETRY_STYLE_PROPERTY_NAME)) {
+      this.props.onGeometryStyleChange(
+        this.props.placeModel.get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+      );
+    }
+  }
+
+  getMapDrawingToolbarState(fieldConfig) {
+    return fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
+      ? {
+          initialPanel:
+            constants.GEOMETRY_EDITOR_TOOL_MAPPINGS[
+              this.props.placeModel
+                .get(constants.GEOMETRY_PROPERTY_NAME)
+                .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
+            ],
+          initialGeometryType:
+            constants.GEOMETRY_TYPE_MAPPINGS[
+              this.props.placeModel
+                .get(constants.GEOMETRY_PROPERTY_NAME)
+                .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
+            ],
+          existingLayer: this.props.layerView.layer,
+          existingColor: this.props.placeModel
+            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+            .get("color"),
+          existingOpacity: this.props.placeModel
+            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+            .get("opacity"),
+          existingFillColor: this.props.placeModel
+            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+            .get("fillColor"),
+          existingFillOpacity: this.props.placeModel
+            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+            .get("fillOpacity"),
+          selectedMarkerIndex:
+            fieldConfig.content &&
+            fieldConfig.content.findIndex(
+              marker =>
+                marker.url ===
+                this.props.placeModel
+                  .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+                  .get(constants.ICON_URL_PROPERTY_NAME)
+            ),
+        }
+      : {};
   }
 
   componentDidMount() {
@@ -114,38 +162,14 @@ class PlaceDetailEditor extends Component {
 
               return (
                 <FormField
+                  {...this.getMapDrawingToolbarState(fieldConfig)}
                   fieldConfig={fieldConfig}
                   attachmentModels={this.props.attachmentModels}
                   categoryConfig={this.categoryConfig}
                   disabled={this.state.isSubmitting}
                   fieldState={fieldState}
-                  onGeometryStyleChange={() => {}}
+                  onGeometryStyleChange={this.props.onGeometryStyleChange}
                   onAdditionalData={this.props.onAdditionalData}
-                  mapDrawingToolbarState={{
-                    initialPanel:
-                      constants.GEOMETRY_EDITOR_TOOL_MAPPINGS[
-                        this.props.placeModel
-                          .get(constants.GEOMETRY_PROPERTY_NAME)
-                          .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-                      ],
-                    initialGeometryType:
-                      constants.GEOMETRY_TYPE_MAPPINGS[
-                        this.props.placeModel
-                          .get(constants.GEOMETRY_PROPERTY_NAME)
-                          .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-                      ],
-                    existingLayer: this.props.layerView.layer,
-                    selectedMarkerIndex:
-                      fieldConfig.type ===
-                        constants.MAP_DRAWING_TOOLBAR_TYPENAME &&
-                      fieldConfig.content.findIndex(
-                        marker =>
-                          marker.url ===
-                          this.props.placeModel
-                            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-                            .get(constants.ICON_URL_PROPERTY_NAME)
-                      ),
-                  }}
                   isInitializing={this.state.isInitializing}
                   key={fieldName}
                   map={this.props.map}
@@ -179,6 +203,7 @@ PlaceDetailEditor.propTypes = {
   map: PropTypes.object,
   mapConfig: PropTypes.object,
   onAdditionalData: PropTypes.func,
+  onGeometryStyleChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   placeModel: PropTypes.object.isRequired,

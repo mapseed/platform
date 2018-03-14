@@ -7,11 +7,13 @@ import "rc-color-picker/assets/index.css";
 import { mapDrawingToolbar as messages } from "../../messages";
 import "./map-drawing-toolbar.scss";
 
-const drawingDefaults = {
-  color: "#f86767", // stroke color
-  opacity: 0.7, // stroke opacity
-  fillColor: "#f1f075",
-  fillOpacity: 0.3,
+const outputColorpickerState = state => {
+  return {
+    color: state.stroke.color,
+    opacity: state.stroke.opacity,
+    fillColor: state.fill.color,
+    fillOpacity: state.fill.opacity,
+  };
 };
 
 class MapDrawingToolbar extends Component {
@@ -19,31 +21,31 @@ class MapDrawingToolbar extends Component {
     super(props);
     this.state = {
       headerMessage: messages.selectTool.header, // TODO
-      currentPanel: this.props.mapDrawingToolbarState.initialPanel,
-      currentGeometryType: this.props.mapDrawingToolbarState
-        .initialGeometryType,
+      currentPanel: props.initialPanel,
+      currentGeometryType: props.initialGeometryType,
       selectedDrawingTool: null,
-      selectedEditingTool:
-        this.props.mapDrawingToolbarState.initialPanel + "-tool",
-      selectedMarkerIndex: this.props.mapDrawingToolbarState
-        .selectedMarkerIndex,
+      selectedEditingTool: props.initialPanel + "-tool",
+      selectedMarkerIndex:
+        props.selectedMarkerIndex < 0 ? 0 : props.selectedMarkerIndex,
     };
 
     this.colorpickerState = {
-      color: drawingDefaults.color,
-      opacity: drawingDefaults.opacity,
-      fillColor: drawingDefaults.fillColor,
-      fillOpacity: drawingDefaults.fillOpacity,
+      fill: {
+        color: props.existingFillColor,
+        opacity: props.existingFillOpacity,
+      },
+      stroke: {
+        color: props.existingColor,
+        opacity: props.existingOpacity,
+      },
     };
 
     this.drawingObject = null;
-    this.editingLayerGroup = new L.FeatureGroup().addTo(this.props.map);
+    this.editingLayerGroup = new L.FeatureGroup().addTo(props.map);
 
-    if (this.props.mapDrawingToolbarState.existingLayer) {
-      this.editingLayerGroup.addLayer(
-        this.props.mapDrawingToolbarState.existingLayer
-      );
-      this.drawingObject = new L.EditToolbar.Edit(this.props.map, {
+    if (props.existingLayer) {
+      this.editingLayerGroup.addLayer(props.existingLayer);
+      this.drawingObject = new L.EditToolbar.Edit(props.map, {
         featureGroup: this.editingLayerGroup,
       });
       this.drawingObject.enable();
@@ -218,13 +220,13 @@ class MapDrawingToolbar extends Component {
         type: "Polygon",
         coordinates: [coords],
       };
-      style = this.colorpickerState;
+      style = outputColorpickerState(this.colorpickerState);
     } else if (layer instanceof L.Polyline) {
       this.outputGeometry = {
         type: "LineString",
         coordinates: this.buildCoords(layer.getLatLngs()),
       };
-      style = this.colorpickerState;
+      style = outputColorpickerState(this.colorpickerState);
     } else if (layer instanceof L.Marker) {
       this.outputGeometry = {
         type: "Point",
@@ -266,8 +268,8 @@ class MapDrawingToolbar extends Component {
         this.resetDrawingObject();
         this.drawingObject = new L.Draw.Polyline(this.props.map, {
           shapeOptions: {
-            color: this.colorpickerState.color,
-            opacity: this.colorpickerState.opacity,
+            color: this.colorpickerState.stroke.color,
+            opacity: this.colorpickerState.stroke.opacity,
           },
         });
         this.drawingObject.enable();
@@ -282,10 +284,10 @@ class MapDrawingToolbar extends Component {
         this.resetDrawingObject();
         this.drawingObject = new L.Draw.Polygon(this.props.map, {
           shapeOptions: {
-            color: this.colorpickerState.color,
-            opacity: this.colorpickerState.opacity,
-            fillColor: this.colorpickerState.fillColor,
-            fillOpacity: this.colorpickerState.fillOpacity,
+            color: this.colorpickerState.stroke.color,
+            opacity: this.colorpickerState.stroke.opacity,
+            fillColor: this.colorpickerState.fill.color,
+            fillOpacity: this.colorpickerState.fill.opacity,
           },
         });
         this.drawingObject.enable();
@@ -383,18 +385,20 @@ class MapDrawingToolbar extends Component {
           fillColor: colorInfo.color,
           fillOpacity: colorInfo.alpha / 100,
         });
-        this.colorpickerState.fillColor = colorInfo.color;
-        this.colorpickerState.fillOpacity = colorInfo.alpha / 100;
+        this.colorpickerState.fill.color = colorInfo.color;
+        this.colorpickerState.fill.opacity = colorInfo.alpha / 100;
       } else if (colorpickerTool === "colorpicker-stroke-tool") {
         this.editingLayerGroup.getLayers()[0].setStyle({
           color: colorInfo.color,
           opacity: colorInfo.alpha / 100,
         });
-        this.colorpickerState.color = colorInfo.color;
-        this.colorpickerState.opacity = colorInfo.alpha / 100;
+        this.colorpickerState.stroke.color = colorInfo.color;
+        this.colorpickerState.stroke.opacity = colorInfo.alpha / 100;
       }
 
-      this.props.onGeometryStyleChange(this.colorpickerState);
+      this.props.onGeometryStyleChange(
+        outputColorpickerState(this.colorpickerState)
+      );
     }
   }
 
@@ -519,8 +523,8 @@ class MapDrawingToolbar extends Component {
               onMouseOut={() => this.setState({ hoveredToolbarItem: null })}
             >
               <ColorPicker
-                color={this.colorpickerState[tool.mode + "Color"]}
-                alpha={this.colorpickerState[tool.mode + "Opacity"] * 100}
+                color={this.colorpickerState[tool.mode].color}
+                alpha={this.colorpickerState[tool.mode].opacity * 100}
                 mode="RGB"
                 enableAlpha={true}
                 onOpen={() => this.onColorpickerOpen(tool.type)}
@@ -655,23 +659,33 @@ class MapDrawingToolbar extends Component {
 }
 
 MapDrawingToolbar.propTypes = {
+  existingColor: PropTypes.string.isRequired,
+  existingFillColor: PropTypes.string.isRequired,
+  existingFillOpacity: PropTypes.number.isRequired,
+  existingOpacity: PropTypes.number.isRequired,
+  existingLayer: PropTypes.object.isRequired,
+  initialPanel: PropTypes.string.isRequired,
+  initialGeometryType: PropTypes.string.isRequired,
   mapDrawingToolbarState: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onGeometryStyleChange: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
+  selectedMarkerIndex: PropTypes.number.isRequired,
   markers: PropTypes.array.isRequired,
 };
 
 MapDrawingToolbar.defaultProps = {
-  mapDrawingToolbarState: {
-    existingLayer: null,
-    initialPanel: "select-geometry-type",
-    currentGeometryType: null,
-    selectedEditingTool: null,
-    selectedMarkerIndex: 0,
-  },
+  existingLayer: null,
+  initialPanel: "select-geometry-type",
+  currentGeometryType: null,
+  selectedEditingTool: null,
+  selectedMarkerIndex: 0,
+  existingFillColor: "#f1f075",
+  existingFillOpacity: 0.3,
+  existingColor: "#f86767",
+  existingOpacity: 0.7,
 };
 
 export default MapDrawingToolbar;

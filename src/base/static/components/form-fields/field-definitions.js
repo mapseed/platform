@@ -219,7 +219,14 @@ export default {
     getComponent: (fieldConfig, context) => (
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
-        mapDrawingToolbarState={context.props.mapDrawingToolbarState}
+        initialPanel={context.props.initialPanel}
+        initialGeometryType={context.props.initialGeometryType}
+        existingLayer={context.props.existingLayer}
+        existingColor={context.props.existingColor}
+        existingOpacity={context.props.existingOpacity}
+        existingFillColor={context.props.existingFillColor}
+        existingFillOpacity={context.props.existingFillOpacity}
+        selectedMarkerIndex={context.props.selectedMarkerIndex}
         onGeometryStyleChange={context.props.onGeometryStyleChange.bind(
           context
         )}

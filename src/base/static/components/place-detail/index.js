@@ -63,6 +63,7 @@ class PlaceDetail extends Component {
     );
 
     this.attachments = [];
+    this.geometryStyle = null;
     this.state = {
       placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
@@ -228,6 +229,10 @@ class PlaceDetail extends Component {
     }
   }
 
+  onGeometryStyleChange(style) {
+    this.geometryStyle = style;
+  }
+
   onEditorUpdate(fieldState) {
     this.setState({ isEditFormSubmitting: true });
 
@@ -235,6 +240,10 @@ class PlaceDetail extends Component {
       .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
       .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
       .toJS();
+
+    if (fieldState.get(constants.GEOMETRY_PROPERTY_NAME)) {
+      attrs.style = this.geometryStyle;
+    }
 
     // Replace image data in rich text fields with placeholders built from each
     // image's name.
@@ -388,6 +397,7 @@ class PlaceDetail extends Component {
             map={this.props.map}
             mapConfig={this.props.mapConfig}
             onAdditionalData={this.onAdditionalData.bind(this)}
+            onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
             onRemove={this.onEditorRemove.bind(this)}
             onUpdate={this.onEditorUpdate.bind(this)}
             places={this.props.places}

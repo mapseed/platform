@@ -333,7 +333,7 @@ InputForm.propTypes = {
     PropTypes.objectOf(PropTypes.func),
     PropTypes.bool,
   ]),
-  container: PropTypes.string.isRequired,
+  container: PropTypes.object.isRequired,
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
