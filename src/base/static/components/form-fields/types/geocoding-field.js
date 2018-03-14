@@ -87,6 +87,7 @@ class GeocodingField extends Component {
           type="text"
           value={this.props.value}
           onBlur={this.doGeocode.bind(this)}
+          onChange={e => this.props.onChange(e.target.name, e.target.value)}
         />
         <div className={cn.error}>{messages.locationNotFoundError}</div>
       </div>
