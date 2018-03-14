@@ -17,6 +17,7 @@ const SubmissionCollection = require("../../js/models/submission-collection.js")
 import fieldResponseFilter from "../utils/field-response-filter";
 import constants from "../constants";
 import { placeDetailEditor as messages } from "../messages";
+import { extractEmbeddedImages } from "../utils/embedded-images";
 
 const Util = require("../../js/utils.js");
 
@@ -60,6 +61,7 @@ class PlaceDetail extends Component {
         this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME)
     );
 
+    this.attachments = [];
     this.state = {
       placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
@@ -219,32 +221,59 @@ class PlaceDetail extends Component {
     });
   }
 
+  onAdditionalData(action, payload) {
+    switch (action) {
+      case constants.ON_ADD_ATTACHMENT_ACTION:
+        this.attachments.push(payload);
+        break;
+      default:
+        console.error(
+          "Error: Unable to handle form field callback action:",
+          action
+        );
+        break;
+    }
+  }
+
   onEditorUpdate(fieldState) {
     this.setState({ isEditFormSubmitting: true });
-    this.props.model.save(
-      fieldState
-        .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
-        .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
-        .toJS(),
-      {
-        success: () => {
-          if (Backbone.history.fragment === Util.getUrl(this.props.model)) {
-            Backbone.history.loadUrl(Backbone.history.fragment);
-          } else {
-            this.props.router.navigate(Util.getUrl(this.props.model), {
-              trigger: true,
-              replace: true,
-            });
-          }
-        },
-        error: () => {
-          Util.log("USER", "place-editor", "fail-to-edit-place");
-        },
-        always: () => {
-          this.setState({ isEditFormSubmitting: false });
-        },
-      }
-    );
+
+    const attrs = fieldState
+      .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
+      .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
+      .toJS();
+
+    // Replace image data in rich text fields with placeholders built from each
+    // image's name.
+    // TODO: This logic is better suited for the FormField component,
+    // perhaps in an onSave hook.
+    this.categoryConfig.fields
+      .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
+      .forEach(field => {
+        attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
+      });
+
+    this.attachments.forEach(attachment => {
+      this.props.model.attachmentCollection.add(attachment);
+    });
+
+    this.props.model.save(attrs, {
+      success: () => {
+        this.setState({ isEditFormSubmitting: false });
+        if (Backbone.history.fragment === Util.getUrl(this.props.model)) {
+          Backbone.history.loadUrl(Backbone.history.fragment);
+        } else {
+          this.props.router.navigate(Util.getUrl(this.props.model), {
+            trigger: true,
+            replace: true,
+          });
+        }
+      },
+      error: () => {
+        this.setState({ isEditFormSubmitting: false });
+        Util.log("USER", "place-editor", "fail-to-edit-place");
+      },
+    });
   }
 
   onEditorRemove() {
@@ -256,13 +285,12 @@ class PlaceDetail extends Component {
         },
         {
           success: () => {
+            this.setState({ isEditFormSubmitting: false });
             this.props.model.trigger("userHideModel", this.props.model);
           },
           error: () => {
-            Util.log("USER", "place-editor", "fail-to-remove-place");
-          },
-          always: () => {
             this.setState({ isEditFormSubmitting: false });
+            Util.log("USER", "place-editor", "fail-to-remove-place");
           },
         }
       );
@@ -290,8 +318,21 @@ class PlaceDetail extends Component {
             isEditModeToggled={this.state.isEditModeToggled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
-              this.setState({
-                isEditModeToggled: !this.state.isEditModeToggled,
+              this.props.model.attachmentCollection.fetch().always(() => {
+                // We fetch the attachment collection here to make sure we
+                // have the latest attachment URLs. The danger is if someone
+                // creates a place then immediately jumps into edit mode,
+                // duplicate attachments can accumulate.
+                if (!this.state.isEditModeToggled) {
+                  this.setState({
+                    attachmentModels: serializeBackboneCollection(
+                      this.props.model.attachmentCollection
+                    ),
+                  });
+                }
+                this.setState({
+                  isEditModeToggled: !this.state.isEditModeToggled,
+                });
               });
             }}
           />
@@ -347,11 +388,12 @@ class PlaceDetail extends Component {
         {this.state.isEditModeToggled ? (
           <PlaceDetailEditor
             placeModel={this.state.placeModel}
+            attachmentModels={this.state.attachmentModels}
             categoryConfig={this.categoryConfig}
             layerView={this.props.layerView}
             map={this.props.map}
             mapConfig={this.props.mapConfig}
-            model={this.props.model}
+            onAdditionalData={this.onAdditionalData.bind(this)}
             onRemove={this.onEditorRemove.bind(this)}
             onUpdate={this.onEditorUpdate.bind(this)}
             places={this.props.places}

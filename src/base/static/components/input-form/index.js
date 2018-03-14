@@ -10,6 +10,7 @@ import FormField from "../form-fields/form-field";
 
 import { inputForm as messages } from "../messages";
 import constants from "../constants";
+import { extractEmbeddedImages } from "../utils/embedded-images";
 import "./index.scss";
 
 const Util = require("../../js/utils.js");
@@ -186,8 +187,6 @@ class InputForm extends Component {
       .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
       .toJS();
 
-    console.log("attrs", attrs);
-
     if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
       attrs.style = this.geometryStyle;
     } else {
@@ -205,12 +204,7 @@ class InputForm extends Component {
     this.props.selectedCategoryConfig.fields
       .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
       .forEach(field => {
-        attrs[field.name] = attrs[field.name].replace(
-          /<img.*?name="(.*?)".*?>/g,
-          constants.RICH_TEXT_IMAGE_MARKUP_PREFIX +
-            "$1" +
-            constants.RICH_TEXT_IMAGE_MARKUP_SUFFIX
-        );
+        attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
 
     this.attachments.forEach(attachment => {

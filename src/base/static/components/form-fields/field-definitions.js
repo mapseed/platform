@@ -36,6 +36,7 @@ import {
   mustHaveUniqueUrl,
 } from "./validators";
 import { inputForm as messages } from "../messages.js";
+import { insertEmbeddedImages } from "../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
   return {
@@ -106,8 +107,17 @@ export default {
         bounds="#content"
       />
     ),
-    getInitialValue: (existingValue, autofillValue, defaultValue) =>
-      getDefaultInitialValue(existingValue, autofillValue, defaultValue),
+    getInitialValue: (
+      existingValue,
+      autofillValue,
+      defaultValue,
+      fieldConfig,
+      attachmentModels
+    ) =>
+      insertEmbeddedImages(existingValue, attachmentModels) ||
+      insertEmbeddedImages(autofillValue, attachmentModels) ||
+      insertEmbeddedImages(defaultValue, attachmentModels) ||
+      "",
     getResponseComponent: () => RichTextareaFieldResponse,
   },
   [constants.BIG_CHECKBOX_FIELD_TYPENAME]: {

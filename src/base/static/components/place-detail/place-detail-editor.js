@@ -82,14 +82,16 @@ class PlaceDetailEditor extends Component {
             const fieldConfig = this.props.categoryConfig.fields.find(
               field => field.name === fieldName
             );
+
             return (
               <FormField
                 fieldConfig={fieldConfig}
+                attachmentModels={this.props.attachmentModels}
                 categoryConfig={this.categoryConfig}
                 disabled={this.state.isSubmitting}
                 fieldState={fieldState}
                 onGeometryStyleChange={() => {}}
-                onAdditionalData={() => {}}
+                onAdditionalData={this.props.onAdditionalData}
                 mapDrawingToolbarState={{
                   initialPanel:
                     constants.GEOMETRY_EDITOR_TOOL_MAPPINGS[
@@ -139,11 +141,13 @@ class PlaceDetailEditor extends Component {
 }
 
 PlaceDetailEditor.propTypes = {
+  attachmentModels: PropTypes.object,
   categoryConfig: PropTypes.object.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   layerView: PropTypes.object,
   map: PropTypes.object,
   mapConfig: PropTypes.object,
+  onAdditionalData: PropTypes.func,
   onRemove: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   placeModel: PropTypes.object.isRequired,

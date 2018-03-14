@@ -18,7 +18,9 @@ class FormField extends Component {
     this.validator = this.fieldDefinition.getValidator(
       this.props.fieldConfig.optional
     );
+  }
 
+  componentDidMount() {
     // "autofill" is a better term than "autocomplete" for this feature.
     // TODO: Update this throughout the codebase.
     const autofillValue = this.props.fieldConfig.autocomplete
@@ -29,7 +31,8 @@ class FormField extends Component {
       this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
       autofillValue,
       this.props.fieldConfig.default_value,
-      this.props.fieldConfig
+      this.props.fieldConfig,
+      this.props.attachmentModels
     );
 
     this.onChange(this.props.fieldConfig.name, initialFieldValue, true);
@@ -89,6 +92,8 @@ class FormField extends Component {
 }
 
 FormField.propTypes = {
+  attachmentModels: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+    .isRequired,
   categoryConfig: PropTypes.object,
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
@@ -106,6 +111,10 @@ FormField.propTypes = {
     PropTypes.bool,
     PropTypes.object,
   ]),
+};
+
+FormField.defaultProps = {
+  attachmentModels: [],
 };
 
 export default FormField;

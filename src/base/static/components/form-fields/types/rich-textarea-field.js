@@ -36,6 +36,12 @@ const extractVideoUrl = url => {
   return url;
 };
 
+const getRandomName = () => {
+  return Math.random()
+    .toString(36)
+    .substring(7);
+};
+
 class WrappedVideo extends BlockEmbed {
   static create(url) {
     let node = super.create();
@@ -56,25 +62,51 @@ WrappedVideo.tagName = "DIV";
 WrappedVideo.className = "ql-video-container";
 Quill.register(WrappedVideo);
 
+let onAdditionalData;
 class ImageWithName extends Embed {
-  static create(imgData) {
-    let node = super.create();
-    const img = document.createElement("img");
+  static create(value) {
+    value.name = value.name || getRandomName();
 
-    img.setAttribute("src", imgData.file);
-    img.setAttribute("name", imgData.name);
-    node.appendChild(img);
+    let node = super.create();
+    node.setAttribute("alt", value.alt);
+    node.setAttribute("src", value.file);
+    node.setAttribute("name", value.name);
+
+    if (!value.blob && value.file.startsWith("data:")) {
+      // If there is no blob data and the image file is represented by a data
+      // url, we want to create an attachment model for this image.
+      const binary = atob(value.file.split(",")[1]);
+      const array = [];
+      for (let i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+      }
+      value.blob = new Blob([new Uint8Array(array)], {
+        type: "image/jpeg",
+      });
+      value.type = constants.RICH_TEXT_IMAGE_CODE;
+      onAdditionalData(constants.ON_ADD_ATTACHMENT_ACTION, value);
+    }
 
     return node;
   }
+
+  static value(node) {
+    return {
+      name: getRandomName(),
+      alt: node.getAttribute("alt"),
+      file: node.getAttribute("src"),
+    };
+  }
 }
 ImageWithName.blotName = "imageWithName";
-ImageWithName.tagName = "DIV";
+ImageWithName.tagName = "IMG";
 Quill.register(ImageWithName);
 
 class RichTextareaField extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    onAdditionalData = props.onAdditionalData;
     this.modules = {
       toolbar: {
         container: [
@@ -91,15 +123,6 @@ class RichTextareaField extends Component {
       },
     };
     this.onAddImage = this.onAddImage.bind(this);
-  }
-
-  onClickEmbedImage() {
-    // TODO: is there a way around using refs here?
-    this["quill-file-input"].click();
-  }
-
-  onClickEmbedVideo() {
-    this.snowTheme.tooltip.edit("video");
   }
 
   componentDidMount() {
@@ -133,6 +156,15 @@ class RichTextareaField extends Component {
       });
   }
 
+  onClickEmbedImage() {
+    // TODO: is there a way around using refs here?
+    this["quill-file-input"].click();
+  }
+
+  onClickEmbedVideo() {
+    this.snowTheme.tooltip.edit("video");
+  }
+
   onChange(value) {
     // "Blank" Quill editors actually contain the following markup; we replace
     // that here with an empty string.
@@ -147,55 +179,18 @@ class RichTextareaField extends Component {
       Util.fileToCanvas(
         file,
         canvas => {
-          canvas.toBlob(blob => {
-            const data = {
-              name: Math.random()
-                .toString(36)
-                .substring(7),
-              blob: blob,
-              file: canvas.toDataURL("image/jpeg"),
-              type: "RT", // richtext
-            };
-            const editor = this["quill-editor"].getEditor();
+          const data = {
+            file: canvas.toDataURL("image/jpeg"),
+            type: constants.RICH_TEXT_IMAGE_CODE,
+          };
+          const editor = this["quill-editor"].getEditor();
 
-            editor.insertEmbed(
-              editor.getSelection().index,
-              "imageWithName",
-              data,
-              "user"
-            );
-
-            this.props.onAdditionalData(
-              constants.ON_ADD_ATTACHMENT_ACTION,
-              data
-            );
-
-            // TODO: place detail view editor use case
-            // if (self.options.placeDetailView) {
-            //   // If we have a place detail view, we already have a model to which
-            //   // we can add attachments
-            //   self.options.placeDetailView.onAddAttachmentCallback =
-            //     self.onAddAttachment;
-            //   self.options.placeDetailView.onAddAttachmentCallbackContext = self;
-            //   self.model.attachmentCollection.add(data);
-            // } else if (self.options.placeFormView) {
-            //   // Otherwise, store up the added attachments in the place form view
-            //   self.options.placeFormView.formState.attachmentData.push(data);
-            //   self.quill.insertEmbed(
-            //     self.quill.getSelection().index,
-            //     "image",
-            //     data.file,
-            //     "user",
-            //   );
-            //   self
-            //     .$("img")
-            //     .filter(function() {
-            //       return !$(this).attr("name");
-            //     })
-            //     .last()
-            //     .attr("name", data.name);
-            // }
-          }, "image/jpeg");
+          editor.insertEmbed(
+            editor.getSelection().index,
+            "imageWithName",
+            data,
+            "user"
+          );
         },
         {
           // TODO: make configurable
@@ -212,8 +207,7 @@ class RichTextareaField extends Component {
   render() {
     const cn = {
       base: classNames("rich-textarea-field", {
-        "rich-textarea-field--has-autofill--colored":
-          this.props.hasAutofill && this.props.autofillMode === "color",
+        "rich-textarea-field--has-autofill--colored": this.props.hasAutofill,
       }),
       quillFileInput: classNames(
         "rich-textarea-field__quill-file-input",
@@ -245,18 +239,13 @@ class RichTextareaField extends Component {
 }
 
 RichTextareaField.propTypes = {
-  autofillMode: PropTypes.string.isRequired,
   bounds: PropTypes.string.isRequired,
-  hasAutofill: PropTypes.bool.isRequired,
+  hasAutofill: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onAdditionalData: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
-};
-
-RichTextareaField.defaultProps = {
-  autofillMode: "color",
 };
 
 export default RichTextareaField;
