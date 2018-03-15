@@ -56,7 +56,11 @@ class FormField extends Component {
         .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
         .set(
           constants.FIELD_STATE_VALIDITY_KEY,
-          this.validator.validate(fieldValue, this.props.places)
+          this.validator.validate(
+            fieldValue,
+            this.props.places,
+            this.props.modelId
+          )
         )
         .set(
           constants.FIELD_STATE_RENDER_KEY,
@@ -103,6 +107,7 @@ FormField.propTypes = {
   fieldState: PropTypes.object,
   map: PropTypes.object,
   mapConfig: PropTypes.object,
+  modelId: PropTypes.number.isRequired,
   onFieldChange: PropTypes.func.isRequired,
   onGeometryStyleChange: PropTypes.func,
   places: PropTypes.object,
@@ -118,6 +123,7 @@ FormField.propTypes = {
 
 FormField.defaultProps = {
   attachmentModels: [],
+  modelId: -1,
 };
 
 export default FormField;

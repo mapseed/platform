@@ -175,6 +175,9 @@ class PlaceDetailEditor extends Component {
                   key={fieldName}
                   map={this.props.map}
                   mapConfig={this.props.mapConfig}
+                  modelId={this.props.placeModel.get(
+                    constants.MODEL_ID_PROPERTY_NAME
+                  )}
                   onFieldChange={this.onFieldChange.bind(this)}
                   places={this.props.places}
                   router={this.props.router}

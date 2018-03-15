@@ -11,7 +11,7 @@ class CustomUrlToolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: "",
+      url: props.value,
     };
     this.urlPrefix =
       window.location.protocol + "//" + window.location.hostname + "/";
