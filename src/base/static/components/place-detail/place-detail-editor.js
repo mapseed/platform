@@ -78,6 +78,7 @@ class PlaceDetailEditor extends Component {
   getMapDrawingToolbarState(fieldConfig) {
     return fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
       ? {
+          layerView: this.props.layerView,
           initialPanel:
             constants.GEOMETRY_EDITOR_TOOL_MAPPINGS[
               this.props.placeModel

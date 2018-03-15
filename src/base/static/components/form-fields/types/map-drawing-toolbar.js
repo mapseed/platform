@@ -133,6 +133,10 @@ class MapDrawingToolbar extends Component {
     this.props.map.on("draw:editvertex", this.handleEditEvent.bind(this));
     this.props.map.on("draw:editmove", this.handleEditEvent.bind(this));
     this.props.map.on("draw:edited", this.handleEditEvent.bind(this));
+
+    if (this.props.layerView) {
+      this.props.layerView.isEditing = true;
+    }
   }
 
   handleDrawVertexEvent() {
@@ -431,6 +435,11 @@ class MapDrawingToolbar extends Component {
   }
 
   tearDown() {
+    if (this.props.layerView) {
+      this.props.layerView.isEditing = false;
+      this.props.layerView.render();
+    }
+
     this.props.map.off("draw:created", this.handleDrawCreatedEvent);
     this.props.map.off("draw:drawvertex", this.handleDrawVertexEvent);
     this.props.map.off("draw:editvertex", this.handleEditEvent);
@@ -666,6 +675,7 @@ MapDrawingToolbar.propTypes = {
   existingLayer: PropTypes.object.isRequired,
   initialPanel: PropTypes.string.isRequired,
   initialGeometryType: PropTypes.string.isRequired,
+  layerView: PropTypes.object,
   mapDrawingToolbarState: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,

@@ -219,6 +219,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
+        layerView={context.props.layerView}
         initialPanel={context.props.initialPanel}
         initialGeometryType={context.props.initialGeometryType}
         existingLayer={context.props.existingLayer}

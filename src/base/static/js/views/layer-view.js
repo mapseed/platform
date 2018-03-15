@@ -242,7 +242,10 @@ module.exports = Backbone.View.extend({
     }
   },
   render: function() {
-    if (!this.isEditing && this.layer) {
+    // If this layer view is part of an editing layer group, don't do anything
+    if (this.isEditing) return;
+
+    if (this.layer) {
       this.updateLayer();
     } else {
       this.hide();
