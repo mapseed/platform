@@ -1,3 +1,7 @@
+import { List as ImmutableList, fromJS } from "immutable";
+import constants from "../../components/constants";
+import { insertEmbeddedImages } from "../../components/utils/embedded-images";
+
 var Util = require("../utils.js");
 
 var SupportView = require("mapseed-support-view");
@@ -7,7 +11,7 @@ var PlaceCollection = require("../models/place-collection.js");
 
 // Handlebars support for Marionette
 Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(
-  rawTemplate,
+  rawTemplate
 ) {
   return Handlebars.compile(rawTemplate);
 };
@@ -26,8 +30,8 @@ var PlaceListItemView = Backbone.Marionette.Layout.extend({
   },
   serializeData: function() {
     var categoryConfig = _.findWhere(this.options.placeConfig.place_detail, {
-      category: this.model.get("location_type"),
-    }),
+        category: this.model.get("location_type"),
+      }),
       fields = Util.buildFieldListForRender({
         exclusions: [
           "submitter_name",
@@ -51,8 +55,26 @@ var PlaceListItemView = Backbone.Marionette.Layout.extend({
           fields: fields,
           suppressAttachments: categoryConfig.suppressAttachments,
         },
-        this.model.toJSON(),
+        this.model.toJSON()
       );
+
+    // Prep rich embedded rich text images for render.
+    // This is clunky, but all this will be ported soon anyway...
+    let serializedAttachments = ImmutableList();
+    data.attachments.forEach(attachment => {
+      serializedAttachments = serializedAttachments.push(fromJS(attachment));
+    });
+    data.fields.forEach(field => {
+      if (field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
+        field.content = insertEmbeddedImages(
+          field.content,
+          serializedAttachments
+        );
+      }
+    });
+    data.attachments = data.attachments.filter(attachment => {
+      return attachment.type === constants.COVER_IMAGE_CODE;
+    });
 
     return data;
   },
@@ -199,7 +221,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
       this.applyFilters(
         this.collectionFilters,
         this.searchTerm,
-        this.numItemsShown,
+        this.numItemsShown
       );
     }
   },
@@ -250,7 +272,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
   },
   surveyCountSort: function(a, b) {
     var submissionA =
-      a.submissionSets[Shareabouts.Config.survey.submission_type],
+        a.submissionSets[Shareabouts.Config.survey.submission_type],
       submissionB = b.submissionSets[Shareabouts.Config.survey.submission_type],
       aCount = submissionA ? submissionA.size() : 0,
       bCount = submissionB ? submissionB.size() : 0;
@@ -269,7 +291,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
   },
   supportCountSort: function(a, b) {
     var submissionA =
-      a.submissionSets[Shareabouts.Config.support.submission_type],
+        a.submissionSets[Shareabouts.Config.support.submission_type],
       submissionB =
         b.submissionSets[Shareabouts.Config.support.submission_type],
       aCount = submissionA ? submissionA.size() : 0,
@@ -302,7 +324,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
     this.applyFilters(
       this.collectionFilters,
       this.searchTerm,
-      this.numItemsShown,
+      this.numItemsShown
     );
   },
   filter: function(filters) {
@@ -310,7 +332,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
     this.applyFilters(
       this.collectionFilters,
       this.searchTerm,
-      this.numItemsShown,
+      this.numItemsShown
     );
   },
   search: function(term) {
@@ -318,7 +340,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
     this.applyFilters(
       this.collectionFilters,
       this.searchTerm,
-      this.numItemsShown,
+      this.numItemsShown
     );
   },
   applyFilters: function(filters, term, max) {
@@ -340,7 +362,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
       var submitter,
         locationType = model.get("location_type"),
         placeConfig = _.find(Shareabouts.Config.place.place_detail, function(
-          config,
+          config
         ) {
           return config.category === locationType;
         });
@@ -372,8 +394,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
       }
 
       // If the location_type has a label, we should search in it also.
-      locationType =
-        Shareabouts.Config.placeTypes[model.get("location_type")];
+      locationType = Shareabouts.Config.placeTypes[model.get("location_type")];
       if (locationType && locationType.label) {
         if (locationType.label.toUpperCase().indexOf(term) !== -1) {
           previouslyUnrenderedModels.push(model);
