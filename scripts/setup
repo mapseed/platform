@@ -7,11 +7,4 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-echo "Installing virtualenv..."
-pip install virtualenv
-echo "Creating a virtualenv..."
-virtualenv env --python=python2.7
-source env/bin/activate
-
 scripts/bootstrap
-
