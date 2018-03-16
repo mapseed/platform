@@ -26,8 +26,10 @@
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p",
     "watch-js": "webpack -d --watch",
-    "build": "NODE_ENV=production npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
-    "prettier": "prettier --write --trailing-comma all \"{src,blah}/**/*.{js,jsx}\""
+    "build":
+      "NODE_ENV=production npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
+    "prettier":
+      "prettier --write --trailing-comma all \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {
     "accessible-autocomplete": "git+https://github.com/mapseed/accessible-autocomplete.git",
