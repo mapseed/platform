@@ -31,7 +31,7 @@
     "prettier": "prettier --write --trailing-comma all \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {
-    "accessible-autocomplete": "git+https://github.com/mapseed/accessible-autocomplete.git",
+    "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "bem-classnames": "^1.0.7",
