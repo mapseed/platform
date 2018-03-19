@@ -76,6 +76,16 @@ map:
       type: cartodb
       url: "https://smartercleanup.carto.com/api/v2/viz/aea1ff97-2c79-48a1-a3a7-040e4d7aadd1/viz.json"
 
+    - id: vacant-parcels
+      type: json
+      url: "https://raw.githubusercontent.com/mapseed/data/master/tax-parcels-with-owners-vacant.geojson"
+      popupContent: '<div><strong>Address: </strong>{{Site_Addre}}</div><div><strong>Value: </strong>{{Land_Value}}</div>'
+      rules:
+        - condition: '"{{true}}"'
+          style:
+            fillColor: "#ff0000"
+            stroke: "#ffffff"
+
 # The values map the place type to map icons (defined below).
 place_types:
   observation:
@@ -250,6 +260,10 @@ sidebar:
 
             - id: watershed-puyallup
               title: _(WRIA 10 Streams)
+              visibleDefault: false
+
+            - id: vacant-parcels
+              title: _(Vacant parcels)
               visibleDefault: false
 
     - id: ticker
