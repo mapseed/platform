@@ -29,13 +29,13 @@ class FormField extends Component {
       ? Util.getAutocompleteValue(this.props.fieldConfig.name)
       : null;
     this.props.fieldConfig.hasAutofill = !!autofillValue;
-    const initialFieldValue = this.fieldDefinition.getInitialValue(
-      this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
-      autofillValue,
-      this.props.fieldConfig.default_value,
-      this.props.fieldConfig,
-      this.props.attachmentModels
-    );
+    const initialFieldValue = this.fieldDefinition.getInitialValue({
+      value: this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ||
+        autofillValue ||
+        this.props.fieldConfig.default_value || "",
+      fieldConfig: this.props.fieldConfig,
+      attachmentModels: this.props.attachmentModels,
+    });
 
     this.isInitialized = true;
     this.onChange(this.props.fieldConfig.name, initialFieldValue, true);
@@ -122,6 +122,7 @@ FormField.propTypes = {
 
 FormField.defaultProps = {
   modelId: -1,
+  attachmentModels: new ImmutableList
 };
 
 export default FormField;
