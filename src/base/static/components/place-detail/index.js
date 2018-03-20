@@ -435,19 +435,94 @@ class PlaceDetail extends Component {
 
 PlaceDetail.propTypes = {
   apiRoot: PropTypes.string.isRequired,
-  container: PropTypes.object.isRequired,
-  currentUser: PropTypes.object,
-  layerView: PropTypes.object,
-  map: PropTypes.object.isRequired,
+  container: PropTypes.instanceOf(HTMLElement),
+  currentUser: PropTypes.shape({
+    avatar_url: PropTypes.string,
+    groups: PropTypes.arrayOf(
+      PropTypes.shape({
+        dataset: PropTypes.string,
+        name: PropTypes.string,
+      })
+    ),
+    id: PropTypes.number,
+    name: PropTypes.string,
+    provider_id: PropTypes.string,
+    provider_type: PropTypes.string,
+    username: PropTypes.string,
+  }),
+  layerView: PropTypes.instanceOf(Backbone.View),
+  map: PropTypes.instanceOf(L.Map),
   mapConfig: PropTypes.object.isRequired,
-  model: PropTypes.object.isRequired,
-  placeConfig: PropTypes.object.isRequired,
-  places: PropTypes.object.isRequired,
-  placeTypes: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
+  model: PropTypes.instanceOf(Backbone.Model),
+  placeConfig: PropTypes.shape({
+    adding_supported: PropTypes.bool.isRequired,
+    add_button_label: PropTypes.string.isRequired,
+    show_list_button_label: PropTypes.string.isRequired,
+    show_map_button_label: PropTypes.string.isRequired,
+    action_text: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    anonymous_name: PropTypes.string.isRequired,
+    submit_button_label: PropTypes.string.isRequired,
+    location_item_name: PropTypes.string.isRequired,
+    default_basemap: PropTypes.string.isRequired,
+    place_detail: PropTypes.arrayOf(
+      PropTypes.shape({
+        category: PropTypes.string.isRequired,
+        includeOnForm: PropTypes.bool,
+        name: PropTypes.string.isRequired,
+        dataset: PropTypes.string.isRequired,
+        icon_url: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        fields: PropTypes.arrayOf(
+          PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            autocomplete: PropTypes.bool,
+            prompt: PropTypes.string,
+            display_prompt: PropTypes.string,
+            placeholder: PropTypes.string,
+            optional: PropTypes.bool,
+          })
+        ),
+      })
+    ),
+  }).isRequired,
+  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
+  placeTypes: PropTypes.objectOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      rules: PropTypes.arrayOf(
+        PropTypes.shape({
+          condition: PropTypes.string.isRequired,
+          icon: PropTypes.object,
+          style: PropTypes.object,
+        })
+      ),
+    })
+  ).isRequired,
+  router: PropTypes.instanceOf(Backbone.Router),
   scrollToResponseId: PropTypes.string,
-  supportConfig: PropTypes.object.isRequired,
-  surveyConfig: PropTypes.object.isRequired,
+  supportConfig: PropTypes.shape({
+    submission_type: PropTypes.string.isRequired,
+    submit_btn_text: PropTypes.string.isRequired,
+    response_name: PropTypes.string.isRequired,
+    response_plural_name: PropTypes.string.isRequired,
+    action_text: PropTypes.string.isRequired,
+    anonymous_name: PropTypes.string.isRequired,
+  }),
+  surveyConfig: PropTypes.shape({
+    submission_type: PropTypes.string.isRequired,
+    show_responses: PropTypes.bool.isRequired,
+    response_name: PropTypes.string.isRequired,
+    response_plural_name: PropTypes.string.isRequired,
+    action_text: PropTypes.string.isRequired,
+    anonymous_name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    form_link_text: PropTypes.string.isRequired,
+    submit_btn_text: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
   userToken: PropTypes.string.isRequired,
 };
 

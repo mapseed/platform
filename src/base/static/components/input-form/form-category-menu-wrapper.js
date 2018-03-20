@@ -49,6 +49,44 @@ class FormCategoryMenuWrapper extends Component {
 }
 
 FormCategoryMenuWrapper.propTypes = {
+  mapConfig: PropTypes.shape({
+    geolocation_enabled: PropTypes.bool,
+    geolocation_onload: PropTypes.bool,
+    cartodb_enabled: PropTypes.bool,
+    geocode_field_label: PropTypes.string,
+    geocode_bounding_box: PropTypes.arrayOf(PropTypes.number),
+    options: PropTypes.shape({
+      center: PropTypes.shape({
+        lat: PropTypes.number.isRequired,
+        lng: PropTypes.number.isRequired,
+      }),
+      zoom: PropTypes.number,
+      minZoom: PropTypes.number,
+      maxZoom: PropTypes.number,
+    }),
+    layer: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        attribution: PropTypes.string,
+        type: PropTypes.string,
+      })
+    ),
+  }),
+  hideSpotlightMask: PropTypes.func.isRequired,
+  hideCenterPoint: PropTypes.func.isRequired,
+  showNewPin: PropTypes.func.isRequired,
+  hideNewPin: PropTypes.func.isRequired,
+  hidePanel: PropTypes.func.isRequired,
+  map: PropTypes.instanceOf(L.Map),
+  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
+  router: PropTypes.instanceOf(Backbone.Router),
+  customHooks: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.objectOf(PropTypes.func),
+  ]),
+  container: PropTypes.instanceOf(HTMLElement),
+  render: PropTypes.func.isRequired,
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   placeConfig: PropTypes.shape({
     adding_supported: PropTypes.bool.isRequired,
@@ -84,7 +122,6 @@ FormCategoryMenuWrapper.propTypes = {
       })
     ),
   }).isRequired,
-  render: PropTypes.func.isRequired,
 };
 
 export default FormCategoryMenuWrapper;

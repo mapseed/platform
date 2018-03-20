@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map as ImmutableMap } from "immutable";
+import { List as ImmutableList, Map as ImmutableMap } from "immutable";
 import classNames from "classnames";
 
 import fieldDefinitions from "./field-definitions";
@@ -99,8 +99,7 @@ class FormField extends Component {
 }
 
 FormField.propTypes = {
-  attachmentModels: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-    .isRequired,
+  attachmentModels: PropTypes.instanceOf(ImmutableList),
   categoryConfig: PropTypes.object,
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
@@ -122,7 +121,6 @@ FormField.propTypes = {
 };
 
 FormField.defaultProps = {
-  attachmentModels: [],
   modelId: -1,
 };
 
