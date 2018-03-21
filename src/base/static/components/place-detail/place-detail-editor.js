@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import emitter from "../utils/emitter";
+import emitter from "../../utils/emitter";
 import classNames from "classnames";
 import {
   Map as ImmutableMap,
   OrderedMap as ImmutableOrderedMap,
 } from "immutable";
+import Spinner from "react-spinner";
+import "react-spinner/react-spinner.css";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
-import { scrollTo } from "../utils/scroll-helpers";
+import { scrollTo } from "../../utils/scroll-helpers";
+import { extractEmbeddedImages } from "../../utils/embedded-images";
+const Util = require("../../js/utils.js");
 
-import { placeDetailEditor as messages } from "../messages";
-import constants from "../constants";
+import { placeDetailEditor as messages } from "../../messages";
+import constants from "../../constants";
 
 import "./place-detail-editor.scss";
 
@@ -54,7 +58,41 @@ class PlaceDetailEditor extends Component {
         }, new Set());
 
       if (newValidationErrors.size === 0) {
-        this.props.onUpdate(this.state.fields);
+        this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
+
+        const attrs = this.state.fields
+          .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
+          .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
+          .toJS();
+
+        if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
+          attrs.style = this.geometryStyle;
+        }
+
+        // Replace image data in rich text fields with placeholders built from each
+        // image's name.
+        // TODO: This logic is better suited for the FormField component,
+        // perhaps in an onSave hook.
+        this.props.categoryConfig.fields
+          .filter(
+            field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME
+          )
+          .forEach(field => {
+            attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
+          });
+
+        this.props.onPlaceModelSave(attrs, {
+          success: model => {
+            this.props.onModelIO(
+              constants.PLACE_MODEL_IO_END_SUCCESS_ACTION,
+              model
+            );
+          },
+          error: () => {
+            this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
+            Util.log("USER", "place-editor", "fail-to-edit-place");
+          },
+        });
       } else {
         this.setState({
           formValidationErrors: newValidationErrors,
@@ -63,65 +101,26 @@ class PlaceDetailEditor extends Component {
         scrollTo(this.props.container, 0, 300);
       }
     });
+
     emitter.addListener("place-model:remove", () => {
-      this.props.onRemove();
+      this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
+      if (confirm(messages.confirmRemove)) {
+        this.props.onPlaceModelSave(
+          {
+            visible: false,
+          },
+          {
+            success: model => {
+              model.trigger("userHideModel", model);
+            },
+            error: () => {
+              this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
+              Util.log("USER", "place-editor", "fail-to-remove-place");
+            },
+          }
+        );
+      }
     });
-
-    // Set the initial geometry style.
-    if (this.props.placeModel.get(constants.GEOMETRY_STYLE_PROPERTY_NAME)) {
-      this.props.onGeometryStyleChange(
-        this.props.placeModel.get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-      );
-    }
-  }
-
-  getMapDrawingToolbarState(fieldConfig) {
-    return fieldConfig.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
-      ? {
-          layerView: this.props.layerView,
-          initialPanel:
-            constants.GEOMETRY_EDITOR_TOOL_MAPPINGS[
-              this.props.placeModel
-                .get(constants.GEOMETRY_PROPERTY_NAME)
-                .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-            ],
-          initialGeometryType:
-            constants.GEOMETRY_TYPE_MAPPINGS[
-              this.props.placeModel
-                .get(constants.GEOMETRY_PROPERTY_NAME)
-                .get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
-            ],
-          existingLayer: this.props.layerView.layer,
-          existingColor: this.props.placeModel
-            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-            .get("color"),
-          existingOpacity: this.props.placeModel
-            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-            .get("opacity"),
-          existingFillColor: this.props.placeModel
-            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-            .get("fillColor"),
-          existingFillOpacity: this.props.placeModel
-            .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-            .get("fillOpacity"),
-          selectedMarkerIndex:
-            fieldConfig.content &&
-            fieldConfig.content.findIndex(
-              marker =>
-                marker.url ===
-                this.props.placeModel
-                  .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
-                  .get(constants.ICON_URL_PROPERTY_NAME)
-            ),
-        }
-      : {};
-  }
-
-  componentDidMount() {
-    // TODO: Replace this.
-    new Spinner(Shareabouts.smallSpinnerOptions).spin(
-      document.getElementsByClassName("place-detail-editor__spinner")[0]
-    );
   }
 
   componentWillUnmount() {
@@ -129,7 +128,7 @@ class PlaceDetailEditor extends Component {
     emitter.removeAllListeners("place-model:remove");
   }
 
-  onFieldChange(fieldName, fieldStatus, isInitializing) {
+  onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, fieldStatus),
       updatingField: fieldName,
@@ -163,14 +162,20 @@ class PlaceDetailEditor extends Component {
 
               return (
                 <FormField
-                  {...this.getMapDrawingToolbarState(fieldConfig)}
+                  existingGeometry={this.props.placeModel.get(
+                    constants.GEOMETRY_PROPERTY_NAME
+                  )}
+                  existingGeometryStyle={this.props.placeModel.get(
+                    constants.GEOMETRY_STYLE_PROPERTY_NAME
+                  )}
+                  existingLayerView={this.props.layerView}
                   fieldConfig={fieldConfig}
                   attachmentModels={this.props.attachmentModels}
                   categoryConfig={this.categoryConfig}
                   disabled={this.state.isSubmitting}
                   fieldState={fieldState}
                   onGeometryStyleChange={this.props.onGeometryStyleChange}
-                  onAdditionalData={this.props.onAdditionalData}
+                  onAddAttachment={this.props.onAddAttachment}
                   isInitializing={this.state.isInitializing}
                   key={fieldName}
                   map={this.props.map}
@@ -187,11 +192,7 @@ class PlaceDetailEditor extends Component {
               );
             })
             .toArray()}
-          <div
-            className={classNames("place-detail-editor__spinner", {
-              "place-detail-editor__spinner--visible": this.props.isSubmitting,
-            })}
-          />
+          {this.props.isSubmitting && <Spinner />}
         </form>
       </div>
     );
@@ -206,10 +207,10 @@ PlaceDetailEditor.propTypes = {
   layerView: PropTypes.object,
   map: PropTypes.object,
   mapConfig: PropTypes.object,
-  onAdditionalData: PropTypes.func,
+  onAddAttachment: PropTypes.func,
   onGeometryStyleChange: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired,
+  onModelIO: PropTypes.func.isRequired,
+  onPlaceModelSave: PropTypes.func.isRequired,
   placeModel: PropTypes.object.isRequired,
   places: PropTypes.object,
   router: PropTypes.object,

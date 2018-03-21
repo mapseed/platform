@@ -1,9 +1,10 @@
 import { List as ImmutableList } from "immutable";
 
-import constants from "../constants";
+import constants from "../../constants";
 
-const mayHaveAnyValue = () => true;
-const mustHaveSomeValue = value => {
+const isWithAnyValue = () => true;
+
+const isWithSomeValue = ({ value }) => {
   if (value instanceof ImmutableList) {
     return !(value.size === 0);
   } else {
@@ -12,30 +13,26 @@ const mustHaveSomeValue = value => {
 
   // TODO: Accommodate other Immutable types here as needed.
 };
-const mustHaveUniqueUrl = (url, places, modelId) => {
-  let isValid = true;
-  if (url === "") {
-    // If no custom URL has been provided, we assume we'll fall back to the
-    // slug/id URL form, and thus we don't need to worry about validation.
-    return isValid;
-  }
-  for (let collection in places) {
-    if (
-      places.hasOwnProperty(collection) &&
-      places[collection]
-        .filter(model => model.get(constants.CUSTOM_URL_PROPERTY_NAME) === url)
-        // We filter the current model out of this check to prevent validating a
-        // model's custom URL against itself. We'll have a current model if
-        // we're editing an existing place.
-        .filter(
-          model => model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId
-        ).length > 0
-    ) {
-      isValid = false;
-    }
-  }
 
-  return isValid;
+// This validator ensures that a custom URL entered by the user is not
+// duplicated in any other model in any collection on the page. Note that there
+// is *not* equivalent server-side validation for custom URLs.
+// TODO: Rework custom URLs so that a unique, server-supplied number is part of
+// the URL.
+const isWithUniqueUrl = ({ value, places, modelId }) => {
+  // If the passed URL is an empty string, we assume we'll fall back on the
+  // slug/id URL format, so we'll always return true in that case. Otherwise,
+  // we make sure not to validate a model's custom URL against itself.
+  return (
+    value === "" ||
+    !Object.values(places).find(placeCollection =>
+      placeCollection.find(
+        model =>
+          model.get(constants.CUSTOM_URL_PROPERTY_NAME) === value &&
+          model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId
+      )
+    )
+  );
 };
 
-export { mayHaveAnyValue, mustHaveSomeValue, mustHaveUniqueUrl };
+export { isWithAnyValue, isWithSomeValue, isWithUniqueUrl };

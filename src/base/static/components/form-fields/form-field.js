@@ -4,8 +4,8 @@ import { List as ImmutableList, Map as ImmutableMap } from "immutable";
 import classNames from "classnames";
 
 import fieldDefinitions from "./field-definitions";
-import { inputForm as messages } from "../messages.js";
-import constants from "../constants";
+import { inputForm as messages } from "../../messages.js";
+import constants from "../../constants";
 
 import "./form-field.scss";
 
@@ -19,10 +19,6 @@ class FormField extends Component {
       this.props.fieldConfig.optional
     );
 
-    this.isInitialized = false;
-  }
-
-  componentDidMount() {
     // "autofill" is a better term than "autocomplete" for this feature.
     // TODO: Update this throughout the codebase.
     const autofillValue = this.props.fieldConfig.autocomplete
@@ -30,14 +26,15 @@ class FormField extends Component {
       : null;
     this.props.fieldConfig.hasAutofill = !!autofillValue;
     const initialFieldValue = this.fieldDefinition.getInitialValue({
-      value: this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ||
+      value:
+        this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ||
         autofillValue ||
-        this.props.fieldConfig.default_value || "",
+        this.props.fieldConfig.default_value ||
+        "",
       fieldConfig: this.props.fieldConfig,
       attachmentModels: this.props.attachmentModels,
     });
 
-    this.isInitialized = true;
     this.onChange(this.props.fieldConfig.name, initialFieldValue, true);
   }
 
@@ -50,17 +47,17 @@ class FormField extends Component {
   }
 
   onChange(fieldName, fieldValue, isInitializing = false) {
-    this.props.onFieldChange(
-      fieldName,
-      ImmutableMap()
+    this.props.onFieldChange({
+      fieldName: fieldName,
+      fieldStatus: ImmutableMap()
         .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
         .set(
           constants.FIELD_STATE_VALIDITY_KEY,
-          this.validator.validate(
-            fieldValue,
-            this.props.places,
-            this.props.modelId
-          )
+          this.validator.validate({
+            value: fieldValue,
+            places: this.props.places,
+            modelId: this.props.modelId,
+          })
         )
         .set(
           constants.FIELD_STATE_RENDER_KEY,
@@ -70,8 +67,8 @@ class FormField extends Component {
           constants.FIELD_STATE_VALIDITY_MESSAGE_KEY,
           this.validator.message
         ),
-      isInitializing
-    );
+      isInitializing: isInitializing,
+    });
   }
 
   render() {
@@ -86,7 +83,7 @@ class FormField extends Component {
       }),
     };
 
-    return this.isInitialized ? (
+    return (
       <div className={cn.container}>
         <p className="input-form__field-prompt">
           {this.props.fieldConfig.prompt}
@@ -94,7 +91,7 @@ class FormField extends Component {
         </p>
         {this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>
-    ) : null;
+    );
   }
 }
 
@@ -106,7 +103,7 @@ FormField.propTypes = {
   fieldState: PropTypes.object,
   map: PropTypes.object,
   mapConfig: PropTypes.object,
-  modelId: PropTypes.number.isRequired,
+  modelId: PropTypes.number,
   onFieldChange: PropTypes.func.isRequired,
   onGeometryStyleChange: PropTypes.func,
   places: PropTypes.object,
@@ -121,8 +118,7 @@ FormField.propTypes = {
 };
 
 FormField.defaultProps = {
-  modelId: -1,
-  attachmentModels: new ImmutableList
+  attachmentModels: new ImmutableList(),
 };
 
 export default FormField;

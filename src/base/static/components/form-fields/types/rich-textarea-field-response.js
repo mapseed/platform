@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { insertEmbeddedImages } from "../../utils/embedded-images";
+import { insertEmbeddedImages } from "../../../utils/embedded-images";
 
 const RichTextareaFieldResponse = props => {
   return (

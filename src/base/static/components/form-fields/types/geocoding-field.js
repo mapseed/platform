@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import emitter from "../../utils/emitter";
-import { geocodingField as messages } from "../../messages";
+import emitter from "../../../utils/emitter";
+import { geocodingField as messages } from "../../../messages";
 import "./geocoding-field.scss";
 
 // TODO: Consolidate Util methods used here.

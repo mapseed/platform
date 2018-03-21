@@ -7,7 +7,7 @@ const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
 
-import constants from "../../constants";
+import constants from "../../../constants";
 
 import "./rich-textarea-field.scss";
 const Util = require("../../../js/utils.js");
@@ -62,7 +62,7 @@ WrappedVideo.tagName = "DIV";
 WrappedVideo.className = "ql-video-container";
 Quill.register(WrappedVideo);
 
-let onAdditionalData;
+let onAddAttachment;
 class ImageWithName extends Embed {
   static create(value) {
     value.name = value.name || getRandomName();
@@ -84,7 +84,7 @@ class ImageWithName extends Embed {
         type: "image/jpeg",
       });
       value.type = constants.RICH_TEXT_IMAGE_CODE;
-      onAdditionalData(constants.ON_ADD_ATTACHMENT_ACTION, value);
+      onAddAttachment(value);
     }
 
     return node;
@@ -106,7 +106,7 @@ class RichTextareaField extends Component {
   constructor(props) {
     super(props);
 
-    onAdditionalData = props.onAdditionalData;
+    onAddAttachment = props.onAddAttachment;
     this.modules = {
       toolbar: {
         container: [
@@ -126,7 +126,7 @@ class RichTextareaField extends Component {
   }
 
   componentDidMount() {
-    let editor = this["quill-editor"].getEditor();
+    let editor = this.quillEditor.getEditor();
 
     // NOTE: we create a whole new SnowTheme here so we can make use of a
     // tooltip box with custom click handler.
@@ -158,7 +158,7 @@ class RichTextareaField extends Component {
 
   onClickEmbedImage() {
     // TODO: is there a way around using refs here?
-    this["quill-file-input"].click();
+    this.quillFileInput.click();
   }
 
   onClickEmbedVideo() {
@@ -183,7 +183,7 @@ class RichTextareaField extends Component {
             file: canvas.toDataURL("image/jpeg"),
             type: constants.RICH_TEXT_IMAGE_CODE,
           };
-          const editor = this["quill-editor"].getEditor();
+          const editor = this.quillEditor.getEditor();
 
           editor.insertEmbed(
             editor.getSelection().index,
@@ -201,7 +201,7 @@ class RichTextareaField extends Component {
       );
     }
 
-    this["quill-file-input"].value = "";
+    this.quillFileInput.value = "";
   }
 
   render() {
@@ -218,7 +218,7 @@ class RichTextareaField extends Component {
     return (
       <div className={cn.base}>
         <ReactQuill
-          ref={node => (this["quill-editor"] = node)}
+          ref={node => (this.quillEditor = node)}
           theme="snow"
           modules={this.modules}
           placeholder={this.props.placeholder}
@@ -228,7 +228,7 @@ class RichTextareaField extends Component {
         />
         <input
           className={cn.quillFileInput}
-          ref={node => (this["quill-file-input"] = node)}
+          ref={node => (this.quillFileInput = node)}
           type="file"
           onChange={this.onAddImage}
           accept="image/png, image/gif, image/jpeg"
@@ -240,9 +240,9 @@ class RichTextareaField extends Component {
 
 RichTextareaField.propTypes = {
   bounds: PropTypes.string.isRequired,
-  hasAutofill: PropTypes.bool,
+  hasAutofill: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  onAdditionalData: PropTypes.func,
+  onAddAttachment: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,

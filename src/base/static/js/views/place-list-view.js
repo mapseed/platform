@@ -1,6 +1,6 @@
 import { List as ImmutableList, fromJS } from "immutable";
-import constants from "../../components/constants";
-import { insertEmbeddedImages } from "../../components/utils/embedded-images";
+import constants from "../../constants";
+import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 var Util = require("../utils.js");
 
@@ -58,23 +58,25 @@ var PlaceListItemView = Backbone.Marionette.Layout.extend({
         this.model.toJSON()
       );
 
-    // Prep rich embedded rich text images for render.
+    // Prep embedded rich text images for render.
     // This is clunky, but all this will be ported soon anyway...
-    let serializedAttachments = ImmutableList();
-    data.attachments.forEach(attachment => {
-      serializedAttachments = serializedAttachments.push(fromJS(attachment));
-    });
-    data.fields.forEach(field => {
-      if (field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
-        field.content = insertEmbeddedImages(
-          field.content,
-          serializedAttachments
-        );
-      }
-    });
-    data.attachments = data.attachments.filter(attachment => {
-      return attachment.type === constants.COVER_IMAGE_CODE;
-    });
+    if (data.attachments) {
+      let serializedAttachments = ImmutableList();
+      data.attachments.forEach(attachment => {
+        serializedAttachments = serializedAttachments.push(fromJS(attachment));
+      });
+      data.fields.forEach(field => {
+        if (field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
+          field.content = insertEmbeddedImages(
+            field.content,
+            serializedAttachments
+          );
+        }
+      });
+      data.attachments = data.attachments.filter(attachment => {
+        return attachment.type === constants.COVER_IMAGE_CODE;
+      });
+    }
 
     return data;
   },

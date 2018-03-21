@@ -5,13 +5,14 @@ import {
   OrderedMap as ImmutableOrderedMap,
 } from "immutable";
 import classNames from "classnames";
+import Spinner from "react-spinner";
 
 import FormField from "../form-fields/form-field";
 
-import { inputForm as messages } from "../messages";
-import constants from "../constants";
-import { extractEmbeddedImages } from "../utils/embedded-images";
-import { scrollTo } from "../utils/scroll-helpers";
+import { inputForm as messages } from "../../messages";
+import constants from "../../constants";
+import { extractEmbeddedImages } from "../../utils/embedded-images";
+import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
 const Util = require("../../js/utils.js");
@@ -46,11 +47,6 @@ class InputForm extends Component {
   componentDidMount() {
     this.props.map.on("dragend", this.handleDragEnd.bind(this));
     this.initializeForm(this.props.selectedCategoryConfig);
-
-    // TODO: Replace this.
-    new Spinner(Shareabouts.smallSpinnerOptions).spin(
-      document.getElementsByClassName("input-form__submit-spinner")[0]
-    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -100,7 +96,7 @@ class InputForm extends Component {
     this.geometryStyle = style;
   }
 
-  onFieldChange(fieldName, fieldStatus, isInitializing) {
+  onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     fieldStatus = fieldStatus.set(
       constants.FIELD_STATE_RENDER_KEY,
       this.state.fields.get(fieldName).get(constants.FIELD_STATE_RENDER_KEY)
@@ -112,18 +108,8 @@ class InputForm extends Component {
     }));
   }
 
-  onAdditionalData(action, payload) {
-    switch (action) {
-      case constants.ON_ADD_ATTACHMENT_ACTION:
-        this.attachments.push(payload);
-        break;
-      default:
-        console.error(
-          "Error: Unable to handle form field callback action:",
-          action
-        );
-        break;
-    }
+  onAddAttachment(attachment) {
+    this.attachments.push(attachment);
   }
 
   onSubmit(evt) {
@@ -309,7 +295,7 @@ class InputForm extends Component {
                   key={fieldState.get(constants.FIELD_STATE_RENDER_KEY)}
                   map={this.props.map}
                   mapConfig={this.props.mapConfig}
-                  onAdditionalData={this.onAdditionalData.bind(this)}
+                  onAddAttachment={this.onAddAttachment.bind(this)}
                   onFieldChange={this.onFieldChange.bind(this)}
                   onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
                   places={this.props.places}
@@ -321,7 +307,7 @@ class InputForm extends Component {
             })
             .toArray()}
         </form>
-        <div className={cn.spinner} />
+        {this.state.isFormSubmitting && <Spinner />}
       </div>
     );
   }

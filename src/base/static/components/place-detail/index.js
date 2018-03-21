@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { fromJS, List as ImmutableList } from "immutable";
-import emitter from "../utils/emitter";
 
 import ResponseField from "../form-fields/response-field";
 import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
@@ -14,11 +13,9 @@ import PlaceDetailEditor from "./place-detail-editor";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
-import fieldResponseFilter from "../utils/field-response-filter";
-import constants from "../constants";
-import { placeDetailEditor as messages } from "../messages";
-import { extractEmbeddedImages } from "../utils/embedded-images";
-import { scrollDownTo } from "../utils/scroll-helpers";
+import fieldResponseFilter from "../../utils/field-response-filter";
+import constants from "../../constants";
+import { scrollDownTo } from "../../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
 
@@ -62,7 +59,6 @@ class PlaceDetail extends Component {
         this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME)
     );
 
-    this.attachments = [];
     this.geometryStyle = null;
     this.state = {
       placeModel: fromJS(this.props.model.attributes),
@@ -98,204 +94,39 @@ class PlaceDetail extends Component {
     });
   }
 
-  onClickSupport() {
-    const userSupportModel = this.props.model.submissionSets[
-      this.supportType
-    ].find(model => {
-      return (
-        model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
-      );
-    });
-
-    if (userSupportModel) {
-      // If we already have user support for the current user token, we should
-      // unsupport.
-      userSupportModel.destroy({
-        wait: true,
-        success: () => {
-          Util.log(
-            "USER",
-            "place",
-            "successfully-unsupport",
-            this.props.model.getLoggingDetails()
-          );
-          this.setState({
-            supportModels: serializeBackboneCollection(
-              this.props.model.submissionSets[this.supportType]
-            ),
-          });
-        },
-        error: () => {
-          this.props.model.submissionSets[this.supportType].add(
-            userSupportModel
-          );
-          alert("Oh dear. It looks like that didn't save.");
-          Util.log(
-            "USER",
-            "place",
-            "fail-to-unsupport",
-            this.props.model.getLoggingDetails()
-          );
-        },
-      });
-    } else {
-      // Otherwise, we're supporting.
-      this.props.model.submissionSets[this.supportType].create(
-        { user_token: this.props.userToken, visible: true },
-        {
-          wait: true,
-          beforeSend: xhr => {
-            // Do not generate activity for anonymous supports
-            if (!Shareabouts.bootstrapped.currentUser) {
-              xhr.setRequestHeader("X-Shareabouts-Silent", "true");
-            }
-          },
-          success: () => {
-            Util.log(
-              "USER",
-              "place",
-              "successfully-support",
-              this.props.model.getLoggingDetails()
-            );
-            this.setState({
-              supportModels: serializeBackboneCollection(
-                this.props.model.submissionSets[this.supportType]
-              ),
-            });
-          },
-          error: () => {
-            userSupportModel.destroy();
-            alert("Oh dear. It looks like that didn't save.");
-            Util.log(
-              "USER",
-              "place",
-              "fail-to-support",
-              this.props.model.getLoggingDetails()
-            );
-          },
-        }
-      );
-    }
-  }
-
-  onSubmitSurvey(attrs) {
-    Util.log(
-      "USER",
-      "place",
-      "submit-reply-btn-click",
-      this.props.model.getLoggingDetails(),
-      this.state.surveyModels.size
-    );
-
-    this.props.model.submissionSets[this.surveyType].create(attrs, {
-      wait: true,
-      success: () => {
-        Util.log(
-          "USER",
-          "place",
-          "successfully-reply",
-          this.props.model.getLoggingDetails()
-        );
-
-        this.setState({
-          surveyModels: serializeBackboneCollection(
-            this.props.model.submissionSets[this.surveyType]
-          ),
-        });
-        emitter.emit("place-detail-survey:save");
-      },
-      error: () => {
-        Util.log(
-          "USER",
-          "place",
-          "fail-to-reply",
-          this.props.model.getLoggingDetails()
-        );
-      },
-    });
-  }
-
-  onAdditionalData(action, payload) {
-    switch (action) {
-      case constants.ON_ADD_ATTACHMENT_ACTION:
-        this.attachments.push(payload);
-        break;
-      default:
-        console.error(
-          "Error: Unable to handle form field callback action:",
-          action
-        );
-        break;
-    }
+  onAddAttachment(attachment) {
+    this.props.model.attachmentCollection.add(attachment);
   }
 
   onGeometryStyleChange(style) {
     this.geometryStyle = style;
   }
 
-  onEditorUpdate(fieldState) {
-    this.setState({ isEditFormSubmitting: true });
-
-    const attrs = fieldState
-      .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
-      .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
-      .toJS();
-
-    if (fieldState.get(constants.GEOMETRY_PROPERTY_NAME)) {
-      attrs.style = this.geometryStyle;
-    }
-
-    // Replace image data in rich text fields with placeholders built from each
-    // image's name.
-    // TODO: This logic is better suited for the FormField component,
-    // perhaps in an onSave hook.
-    this.categoryConfig.fields
-      .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
-      .forEach(field => {
-        attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
+  // Handle the various results of Backbone model save/update calls that
+  // occur in child components.
+  onChildModelIO(action) {
+    if (action === constants.PLACE_MODEL_IO_START_ACTION) {
+      this.setState({ isEditFormSubmitting: true });
+    } else if (action === constants.PLACE_MODEL_IO_END_SUCCESS_ACTION) {
+      this.setState({
+        isEditModeToggled: false,
+        isEditFormSubmitting: false,
+        placeModel: fromJS(this.props.model.attributes),
       });
-
-    this.attachments.forEach(attachment => {
-      this.props.model.attachmentCollection.add(attachment);
-    });
-
-    this.props.model.save(attrs, {
-      success: () => {
-        this.setState({ isEditFormSubmitting: false });
-        if (Backbone.history.fragment === Util.getUrl(this.props.model)) {
-          Backbone.history.loadUrl(Backbone.history.fragment);
-        } else {
-          this.props.router.navigate(Util.getUrl(this.props.model), {
-            trigger: true,
-            replace: true,
-          });
-        }
-      },
-      error: () => {
-        this.setState({ isEditFormSubmitting: false });
-        Util.log("USER", "place-editor", "fail-to-edit-place");
-      },
-    });
-  }
-
-  onEditorRemove() {
-    this.setState({ isEditFormSubmitting: true });
-    if (confirm(messages.confirmRemove)) {
-      this.props.model.save(
-        {
-          visible: false,
-        },
-        {
-          success: () => {
-            this.setState({ isEditFormSubmitting: false });
-            this.props.model.trigger("userHideModel", this.props.model);
-          },
-          error: () => {
-            this.setState({ isEditFormSubmitting: false });
-            Util.log("USER", "place-editor", "fail-to-remove-place");
-          },
-        }
-      );
+    } else if (action === constants.PLACE_MODEL_IO_END_ERROR_ACTION) {
+      this.setState({ isEditFormSubmitting: false });
+    } else if (action === constants.SURVEY_MODEL_IO_END_SUCCESS_ACTION) {
+      this.setState({
+        surveyModels: serializeBackboneCollection(
+          this.props.model.submissionSets[this.surveyType]
+        ),
+      });
+    } else if (action === constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION) {
+      this.setState({
+        supportModels: serializeBackboneCollection(
+          this.props.model.submissionSets[this.supportType]
+        ),
+      });
     }
   }
 
@@ -312,6 +143,13 @@ class PlaceDetail extends Component {
     const isStoryChapter = !!this.state.placeModel.get(
       constants.STORY_FIELD_NAME
     );
+    const userSupportModel = this.props.model.submissionSets[
+      this.supportType
+    ].find(model => {
+      return (
+        model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
+      );
+    });
 
     return (
       <div className="place-detail-view">
@@ -348,6 +186,9 @@ class PlaceDetail extends Component {
           {title}
         </h1>
         <PlaceDetailPromotionBar
+          getLoggingDetails={this.props.model.getLoggingDetails.bind(
+            this.props.model
+          )}
           isSupported={
             !!this.state.supportModels.find(model => {
               return (
@@ -358,11 +199,16 @@ class PlaceDetail extends Component {
           }
           isHorizontalLayout={isStoryChapter}
           numSupports={this.state.supportModels.size}
-          onClickSupport={this.onClickSupport.bind(this)}
+          onModelIO={this.onChildModelIO.bind(this)}
           onSocialShare={service =>
             Util.onSocialShare(this.props.model, service)
           }
           supportConfig={this.props.supportConfig}
+          supportModelCreate={this.props.model.submissionSets[
+            this.supportType
+          ].create.bind(this.props.model.submissionSets[this.supportType])}
+          userSupportModel={userSupportModel}
+          userToken={this.props.userToken}
         />
         {!isStoryChapter ? (
           <PlaceDetailMetadataBar
@@ -396,10 +242,10 @@ class PlaceDetail extends Component {
             layerView={this.props.layerView}
             map={this.props.map}
             mapConfig={this.props.mapConfig}
-            onAdditionalData={this.onAdditionalData.bind(this)}
+            onAddAttachment={this.onAddAttachment.bind(this)}
             onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
-            onRemove={this.onEditorRemove.bind(this)}
-            onUpdate={this.onEditorUpdate.bind(this)}
+            onModelIO={this.onChildModelIO.bind(this)}
+            onPlaceModelSave={this.props.model.save.bind(this.props.model)}
             places={this.props.places}
             router={this.props.router}
             isSubmitting={this.state.isEditFormSubmitting}
@@ -420,9 +266,15 @@ class PlaceDetail extends Component {
         <PlaceDetailSurvey
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
+          getLoggingDetails={this.props.model.getLoggingDetails.bind(
+            this.props.model
+          )}
           surveyModels={this.state.surveyModels}
+          onModelIO={this.onChildModelIO.bind(this)}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
-          onSubmitSurvey={this.onSubmitSurvey.bind(this)}
+          onSurveyModelCreate={this.props.model.submissionSets[
+            this.surveyType
+          ].create.bind(this.props.model.submissionSets[this.surveyType])}
           placeConfig={this.props.placeConfig}
           scrollToResponseId={this.props.scrollToResponseId}
           submitter={submitter}

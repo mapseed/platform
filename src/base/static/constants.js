@@ -52,18 +52,16 @@ export default {
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
 
-  ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
-
   GEOMETRY_TYPE_PROPERTY_NAME: "type",
   ICON_URL_PROPERTY_NAME: "iconUrl",
-  GEOMETRY_TYPE_MAPPINGS: {
-    LineString: "polyline",
-    Polygon: "polygon",
-    Point: "marker",
-  },
-  GEOMETRY_EDITOR_TOOL_MAPPINGS: {
-    LineString: "edit-polyline",
-    Polygon: "edit-polygon",
-    Point: "edit-marker",
-  },
+  COLOR_PROPERTY_NAME: "color",
+  OPACITY_PROPERTY_NAME: "opacity",
+  FILL_COLOR_PROPERTY_NAME: "fillColor",
+  FILL_OPACITY_PROPERTY_NAME: "fillOpacity",
+
+  PLACE_MODEL_IO_START_ACTION: "place:io-start",
+  PLACE_MODEL_IO_END_SUCCESS_ACTION: "place:io-end-success",
+  PLACE_MODEL_IO_END_ERROR_ACTION: "place:io-end-error",
+  SURVEY_MODEL_IO_END_SUCCESS_ACTION: "survey:io-end",
+  SUPPORT_MODEL_IO_END_SUCCESS_ACTION: "support:io-end-success",
 };

@@ -4,7 +4,8 @@ import classNames from "classnames";
 import ColorPicker from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
 
-import { mapDrawingToolbar as messages } from "../../messages";
+import { mapDrawingToolbar as messages } from "../../../messages";
+import constants from "../../../constants";
 import "./map-drawing-toolbar.scss";
 
 const outputColorpickerState = state => {
@@ -16,35 +17,101 @@ const outputColorpickerState = state => {
   };
 };
 
+// TODO: This component needs to be cleaned up and broken up.
+
+// Map geometry terms used by place models to terms used by Leaflet.
+const GEOMETRY_TYPE_MAPPINGS = {
+  LineString: "polyline",
+  Polygon: "polygon",
+  Point: "marker",
+};
+
+const GEOMETRY_EDITOR_PANEL_MAPPINGS = {
+  LineString: "edit-polyline",
+  Polygon: "edit-polygon",
+  Point: "edit-marker",
+};
+
+// Map geometry terms used by place models to the appropriate editor UI text.
+const EDIT_HEADER_MESSAGE_MAPPINGS = {
+  LineString: "editPolyline",
+  Polygon: "editPolygon",
+  Point: "editMarker",
+};
+
+const GEOMETRY_EDITOR_TOOL_MAPPINGS = {
+  LineString: "edit-polyline-tool",
+  Polygon: "edit-polygon-tool",
+  Point: "edit-marker-tool",
+};
+
 class MapDrawingToolbar extends Component {
   constructor(props) {
     super(props);
+
+    const existingGeometryType =
+      props.existingGeometry &&
+      props.existingGeometry.get(constants.GEOMETRY_TYPE_PROPERTY_NAME);
     this.state = {
-      headerMessage: messages.selectTool.header, // TODO
-      currentPanel: props.initialPanel,
-      currentGeometryType: props.initialGeometryType,
+      headerMessage: existingGeometryType
+        ? messages[EDIT_HEADER_MESSAGE_MAPPINGS[existingGeometryType]].header
+        : messages.selectTool.header,
+      currentPanel:
+        GEOMETRY_EDITOR_PANEL_MAPPINGS[existingGeometryType] ||
+        "select-geometry-type",
+      currentGeometryType: GEOMETRY_TYPE_MAPPINGS[existingGeometryType],
       selectedDrawingTool: null,
-      selectedEditingTool: props.initialPanel + "-tool",
+      selectedEditingTool: GEOMETRY_EDITOR_TOOL_MAPPINGS[existingGeometryType],
       selectedMarkerIndex:
-        props.selectedMarkerIndex < 0 ? 0 : props.selectedMarkerIndex,
+        props.existingGeometryStyle &&
+        props.existingGeometryStyle.get(constants.ICON_URL_PROPERTY_NAME)
+          ? props.fieldConfig.content.findIndex(
+              marker =>
+                marker.url ===
+                props.existingGeometryStyle.get(
+                  constants.ICON_URL_PROPERTY_NAME
+                )
+            )
+          : 0,
     };
 
     this.colorpickerState = {
       fill: {
-        color: props.existingFillColor,
-        opacity: props.existingFillOpacity,
+        color:
+          (props.existingGeometryStyle &&
+            props.existingGeometryStyle.get(
+              constants.FILL_COLOR_PROPERTY_NAME
+            )) ||
+          "#f1f075",
+        opacity:
+          (props.existingGeometryStyle &&
+            props.existingGeometryStyle.get(
+              constants.FILL_OPACITY_PROPERTY_NAME
+            )) ||
+          0.3,
       },
       stroke: {
-        color: props.existingColor,
-        opacity: props.existingOpacity,
+        color:
+          (props.existingGeometryStyle &&
+            props.existingGeometryStyle.get(constants.COLOR_PROPERTY_NAME)) ||
+          "#f86767",
+        opacity:
+          (props.existingGeometryStyle &&
+            props.existingGeometryStyle.get(constants.OPACITY_PROPERTY_NAME)) ||
+          0.7,
       },
     };
+
+    // Set the initial geometry style.
+    if (props.existingGeometryStyle) {
+      this.props.onGeometryStyleChange(props.existingGeometryStyle);
+    }
 
     this.drawingObject = null;
     this.editingLayerGroup = new L.FeatureGroup().addTo(props.map);
 
-    if (props.existingLayer) {
-      this.editingLayerGroup.addLayer(props.existingLayer);
+    if (props.existingLayerView) {
+      this.editingLayerGroup.addLayer(props.existingLayerView.layer);
       this.drawingObject = new L.EditToolbar.Edit(props.map, {
         featureGroup: this.editingLayerGroup,
       });
@@ -134,8 +201,8 @@ class MapDrawingToolbar extends Component {
     this.props.map.on("draw:editmove", this.handleEditEvent.bind(this));
     this.props.map.on("draw:edited", this.handleEditEvent.bind(this));
 
-    if (this.props.layerView) {
-      this.props.layerView.isEditing = true;
+    if (this.props.existingLayerView) {
+      this.props.existingLayerView.isEditing = true;
     }
   }
 
@@ -435,9 +502,9 @@ class MapDrawingToolbar extends Component {
   }
 
   tearDown() {
-    if (this.props.layerView) {
-      this.props.layerView.isEditing = false;
-      this.props.layerView.render();
+    if (this.props.existingLayerView) {
+      this.props.existingLayerView.isEditing = false;
+      this.props.existingLayerView.render();
     }
 
     this.props.map.off("draw:created", this.handleDrawCreatedEvent);
@@ -668,34 +735,26 @@ class MapDrawingToolbar extends Component {
 }
 
 MapDrawingToolbar.propTypes = {
-  existingColor: PropTypes.string.isRequired,
-  existingFillColor: PropTypes.string.isRequired,
-  existingFillOpacity: PropTypes.number.isRequired,
-  existingOpacity: PropTypes.number.isRequired,
-  existingLayer: PropTypes.object.isRequired,
-  initialPanel: PropTypes.string.isRequired,
-  initialGeometryType: PropTypes.string.isRequired,
-  layerView: PropTypes.object,
-  mapDrawingToolbarState: PropTypes.object.isRequired,
+  existingGeometry: PropTypes.object,
+  existingGeometryStyle: PropTypes.object,
+  existingLayerView: PropTypes.object,
+  fieldConfig: PropTypes.shape({
+    content: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string,
+      })
+    ),
+  }),
   map: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onGeometryStyleChange: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
-  selectedMarkerIndex: PropTypes.number.isRequired,
   markers: PropTypes.array.isRequired,
 };
 
 MapDrawingToolbar.defaultProps = {
-  existingLayer: null,
-  initialPanel: "select-geometry-type",
-  currentGeometryType: null,
-  selectedEditingTool: null,
-  selectedMarkerIndex: 0,
-  existingFillColor: "#f1f075",
-  existingFillOpacity: 0.3,
-  existingColor: "#f86767",
-  existingOpacity: 0.7,
+  existingGeometry: null,
 };
 
 export default MapDrawingToolbar;

@@ -235,6 +235,7 @@ module.exports = Backbone.View.extend({
     // zoomend listener on the map still retains a reference to it
     // and is capable of calling view methods on a "deleted" view.
     this.map.off("zoomend", this.render, this);
+    this.removeLayer();
   },
   removeLayer: function() {
     if (this.layer) {

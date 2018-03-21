@@ -1,7 +1,9 @@
+/* eslint react/display-name: 0 */
+
 import React from "react";
 import { fromJS, List as ImmutableList } from "immutable";
 
-import constants from "../constants";
+import constants from "../../constants";
 import {
   TextField,
   TextareaField,
@@ -30,24 +32,20 @@ import {
   DropdownFieldResponse,
   AutocompleteComboboxFieldResponse,
 } from "./types";
-import {
-  mayHaveAnyValue,
-  mustHaveSomeValue,
-  mustHaveUniqueUrl,
-} from "./validators";
-import { inputForm as messages } from "../messages.js";
-import { insertEmbeddedImages } from "../utils/embedded-images";
+import { isWithAnyValue, isWithSomeValue, isWithUniqueUrl } from "./validators";
+import { inputForm as messages } from "../../messages.js";
+import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
   return {
-    validate: isOptional ? mayHaveAnyValue : mustHaveSomeValue,
+    validate: isOptional ? isWithAnyValue : isWithSomeValue,
     message: messages.missingRequired,
   };
 };
 
 const getPermissiveValidator = () => {
   return {
-    validate: mayHaveAnyValue,
+    validate: isWithAnyValue,
     message: "",
   };
 };
@@ -86,7 +84,7 @@ export default {
       // TODO: make bounds prop configurable.
       <RichTextareaField
         {...getSharedFieldProps(fieldConfig, context)}
-        onAdditionalData={context.props.onAdditionalData.bind(context)}
+        onAddAttachment={context.props.onAddAttachment.bind(context)}
         bounds="#content"
       />
     ),
@@ -175,22 +173,17 @@ export default {
   [constants.MAP_DRAWING_TOOLBAR_TYPENAME]: {
     getValidator: () => {
       return {
-        validate: mustHaveSomeValue,
+        validate: isWithSomeValue,
         message: messages.missingGeometry,
       };
     },
     getComponent: (fieldConfig, context) => (
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
-        layerView={context.props.layerView}
-        initialPanel={context.props.initialPanel}
-        initialGeometryType={context.props.initialGeometryType}
-        existingLayer={context.props.existingLayer}
-        existingColor={context.props.existingColor}
-        existingOpacity={context.props.existingOpacity}
-        existingFillColor={context.props.existingFillColor}
-        existingFillOpacity={context.props.existingFillOpacity}
-        selectedMarkerIndex={context.props.selectedMarkerIndex}
+        existingLayerView={context.props.existingLayerView}
+        existingGeometry={context.props.existingGeometry}
+        existingGeometryStyle={context.props.existingGeometryStyle}
+        fieldConfig={fieldConfig}
         onGeometryStyleChange={context.props.onGeometryStyleChange.bind(
           context
         )}
@@ -205,7 +198,7 @@ export default {
   [constants.CUSTOM_URL_TOOLBAR_TYPENAME]: {
     getValidator: () => {
       return {
-        validate: mustHaveUniqueUrl,
+        validate: isWithUniqueUrl,
         message: messages.duplicateUrl,
       };
     },
@@ -263,7 +256,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <AddAttachmentButton
         name={fieldConfig.name}
-        onAdditionalData={context.props.onAdditionalData.bind(context)}
+        onAddAttachment={context.props.onAddAttachment.bind(context)}
         onChange={context.onChange.bind(context)}
         label={fieldConfig.label}
       />

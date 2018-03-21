@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { dropdownField as messages } from "../../messages";
+import { dropdownField as messages } from "../../../messages";
 import "./dropdown-field.scss";
 
 const DropdownField = props => {

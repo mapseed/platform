@@ -8,7 +8,7 @@ import Avatar from "../ui-elements/avatar";
 import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 
-import constants from "../constants";
+import constants from "../../constants";
 
 import "./place-detail-metadata-bar.scss";
 

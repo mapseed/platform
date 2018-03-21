@@ -1,7 +1,7 @@
 // REACT PORT SECTION //////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
-import emitter from "../../components/utils/emitter";
+import emitter from "../../utils/emitter";
 
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
