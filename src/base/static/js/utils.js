@@ -158,7 +158,7 @@ var self = (module.exports = {
     collectionsSet,
     args,
     mapConfig,
-    callbacks
+    callbacks,
   ) {
     var numCollections = 0,
       numCollectionsSynced = 0,

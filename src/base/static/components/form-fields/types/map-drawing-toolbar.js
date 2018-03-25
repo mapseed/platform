@@ -19,30 +19,25 @@ const outputColorpickerState = state => {
 
 // TODO: This component needs to be cleaned up and broken up.
 
-// Map geometry terms used by place models to terms used by Leaflet.
-const GEOMETRY_TYPE_MAPPINGS = {
-  LineString: "polyline",
-  Polygon: "polygon",
-  Point: "marker",
-};
-
-const GEOMETRY_EDITOR_PANEL_MAPPINGS = {
-  LineString: "edit-polyline",
-  Polygon: "edit-polygon",
-  Point: "edit-marker",
-};
-
-// Map geometry terms used by place models to the appropriate editor UI text.
-const EDIT_HEADER_MESSAGE_MAPPINGS = {
-  LineString: "editPolyline",
-  Polygon: "editPolygon",
-  Point: "editMarker",
-};
-
-const GEOMETRY_EDITOR_TOOL_MAPPINGS = {
-  LineString: "edit-polyline-tool",
-  Polygon: "edit-polygon-tool",
-  Point: "edit-marker-tool",
+const GEOMETRIES = {
+  Point: {
+    leafletTerm: "marker",
+    editorPanel: "edit-marker",
+    headerMessage: "editMarker",
+    editorTool: "edit-marker-tool",
+  },
+  LineString: {
+    leafletTerm: "polyline",
+    editorPanel: "edit-polyline",
+    headerMessage: "editPolyline",
+    editorTool: "edit-polyline-tool",
+  },
+  Polygon: {
+    leafletTerm: "polygon",
+    editorPanel: "edit-polygon",
+    headerMessage: "editPolygon",
+    editorTool: "edit-polygon-tool",
+  },
 };
 
 class MapDrawingToolbar extends Component {
@@ -54,14 +49,13 @@ class MapDrawingToolbar extends Component {
       props.existingGeometry.get(constants.GEOMETRY_TYPE_PROPERTY_NAME);
     this.state = {
       headerMessage: existingGeometryType
-        ? messages[EDIT_HEADER_MESSAGE_MAPPINGS[existingGeometryType]].header
+        ? messages[GEOMETRIES[existingGeometryType].headerMessage].header
         : messages.selectTool.header,
       currentPanel:
-        GEOMETRY_EDITOR_PANEL_MAPPINGS[existingGeometryType] ||
-        "select-geometry-type",
-      currentGeometryType: GEOMETRY_TYPE_MAPPINGS[existingGeometryType],
+        existingGeometryType ? GEOMETRIES[existingGeometryType].editorPanel : "select-geometry-type",
+      currentGeometryType: existingGeometryType ? GEOMETRIES[existingGeometryType].leafletTerm : null,
       selectedDrawingTool: null,
-      selectedEditingTool: GEOMETRY_EDITOR_TOOL_MAPPINGS[existingGeometryType],
+      selectedEditingTool: existingGeometryType ? GEOMETRIES[existingGeometryType].editorTool : null,
       selectedMarkerIndex:
         props.existingGeometryStyle &&
         props.existingGeometryStyle.get(constants.ICON_URL_PROPERTY_NAME)
@@ -69,8 +63,8 @@ class MapDrawingToolbar extends Component {
               marker =>
                 marker.url ===
                 props.existingGeometryStyle.get(
-                  constants.ICON_URL_PROPERTY_NAME
-                )
+                  constants.ICON_URL_PROPERTY_NAME,
+                ),
             )
           : 0,
     };
@@ -80,13 +74,13 @@ class MapDrawingToolbar extends Component {
         color:
           (props.existingGeometryStyle &&
             props.existingGeometryStyle.get(
-              constants.FILL_COLOR_PROPERTY_NAME
+              constants.FILL_COLOR_PROPERTY_NAME,
             )) ||
           "#f1f075",
         opacity:
           (props.existingGeometryStyle &&
             props.existingGeometryStyle.get(
-              constants.FILL_OPACITY_PROPERTY_NAME
+              constants.FILL_OPACITY_PROPERTY_NAME,
             )) ||
           0.3,
       },
@@ -468,7 +462,7 @@ class MapDrawingToolbar extends Component {
       }
 
       this.props.onGeometryStyleChange(
-        outputColorpickerState(this.colorpickerState)
+        outputColorpickerState(this.colorpickerState),
       );
     }
   }
@@ -502,11 +496,6 @@ class MapDrawingToolbar extends Component {
   }
 
   tearDown() {
-    if (this.props.existingLayerView) {
-      this.props.existingLayerView.isEditing = false;
-      this.props.existingLayerView.render();
-    }
-
     this.props.map.off("draw:created", this.handleDrawCreatedEvent);
     this.props.map.off("draw:drawvertex", this.handleDrawVertexEvent);
     this.props.map.off("draw:editvertex", this.handleEditEvent);
@@ -525,6 +514,10 @@ class MapDrawingToolbar extends Component {
     });
     this.resetDrawingObject();
     this.clearEditingLayerGroup();
+    if (this.props.existingLayerView) {
+      this.props.existingLayerView.isEditing = false;
+      this.props.existingLayerView.render();
+    }
   }
 
   getVisibility(uiElement) {
@@ -546,33 +539,33 @@ class MapDrawingToolbar extends Component {
         "map-drawing-toolbar__drawing-tools-container",
         {
           "map-drawing-toolbar__drawing-tools-container--visible": this.getVisibility(
-            "select-geometry-type"
+            "select-geometry-type",
           ),
-        }
+        },
       ),
       editingToolsContainer: classNames(
         "map-drawing-toolbar__editing-tools-container",
         {
           "map-drawing-toolbar__editing-tools-container--visible": this.getVisibility(
-            "edit-geometry"
+            "edit-geometry",
           ),
-        }
+        },
       ),
       markerSelectionHeader: classNames(
         "map-drawing-toolbar__marker-selection-header",
         {
           "map-drawing-toolbar__marker-selection-header--visible": this.getVisibility(
-            "select-marker-type"
+            "select-marker-type",
           ),
-        }
+        },
       ),
       markerSelectionContainer: classNames(
         "map-drawing-toolbar__marker-selection-container",
         {
           "map-drawing-toolbar__marker-selection-container--visible": this.getVisibility(
-            "select-marker-type"
+            "select-marker-type",
           ),
-        }
+        },
       ),
     };
     const editingTools =
@@ -586,7 +579,7 @@ class MapDrawingToolbar extends Component {
             {
               "map-drawing-toolbar__toolbar-item--selected":
                 this.state.selectedEditingTool === tool.type,
-            }
+            },
           );
 
           return (
@@ -620,7 +613,7 @@ class MapDrawingToolbar extends Component {
             {
               "map-drawing-toolbar__toolbar-item--selected":
                 this.state.selectedEditingTool === tool.type,
-            }
+            },
           );
 
           return (
@@ -661,7 +654,7 @@ class MapDrawingToolbar extends Component {
               {
                 "map-drawing-toolbar__toolbar-item--selected":
                   this.state.selectedDrawingTool === tool.type,
-              }
+              },
             );
 
             return (
@@ -699,7 +692,7 @@ class MapDrawingToolbar extends Component {
               {
                 "map-drawing-toolbar__marker-item--selected":
                   this.state.selectedMarkerIndex === i,
-              }
+              },
             );
 
             return (
@@ -742,7 +735,7 @@ MapDrawingToolbar.propTypes = {
     content: PropTypes.arrayOf(
       PropTypes.shape({
         url: PropTypes.string,
-      })
+      }),
     ),
   }),
   map: PropTypes.object.isRequired,

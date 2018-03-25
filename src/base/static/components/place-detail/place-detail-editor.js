@@ -34,11 +34,12 @@ class PlaceDetailEditor extends Component {
           field.name,
           ImmutableMap().set(
             constants.FIELD_STATE_VALUE_KEY,
-            this.props.placeModel.get(field.name)
-          )
+            this.props.placeModel.get(field.name),
+          ),
         );
       });
 
+    this.geometryStyle = null;
     this.state = {
       fields: fields,
       formValidationErrors: new Set(),
@@ -53,7 +54,7 @@ class PlaceDetailEditor extends Component {
         .filter(value => !value.get(constants.FIELD_STATE_VALIDITY_KEY))
         .reduce((newValidationErrors, invalidField) => {
           return newValidationErrors.add(
-            invalidField.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY)
+            invalidField.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY),
           );
         }, new Set());
 
@@ -66,7 +67,7 @@ class PlaceDetailEditor extends Component {
           .toJS();
 
         if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-          attrs.style = this.geometryStyle;
+          attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] = this.geometryStyle;
         }
 
         // Replace image data in rich text fields with placeholders built from each
@@ -75,23 +76,15 @@ class PlaceDetailEditor extends Component {
         // perhaps in an onSave hook.
         this.props.categoryConfig.fields
           .filter(
-            field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME
+            field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME,
           )
           .forEach(field => {
             attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
           });
 
         this.props.onPlaceModelSave(attrs, {
-          success: model => {
-            this.props.onModelIO(
-              constants.PLACE_MODEL_IO_END_SUCCESS_ACTION,
-              model
-            );
-          },
-          error: () => {
-            this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
-            Util.log("USER", "place-editor", "fail-to-edit-place");
-          },
+          success: this.onPlaceModelSaveSuccess.bind(this),
+          error: this.onPlaceModelSaveError.bind(this),
         });
       } else {
         this.setState({
@@ -110,14 +103,9 @@ class PlaceDetailEditor extends Component {
             visible: false,
           },
           {
-            success: model => {
-              model.trigger("userHideModel", model);
-            },
-            error: () => {
-              this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
-              Util.log("USER", "place-editor", "fail-to-remove-place");
-            },
-          }
+            success: this.onPlaceModelRemoveSuccess.bind(this),
+            error: this.onPlaceModelRemoveError.bind(this),
+          },
         );
       }
     });
@@ -126,6 +114,28 @@ class PlaceDetailEditor extends Component {
   componentWillUnmount() {
     emitter.removeAllListeners("place-model:update");
     emitter.removeAllListeners("place-model:remove");
+  }
+
+  onPlaceModelSaveSuccess(model) {
+    this.props.onModelIO(constants.PLACE_MODEL_IO_END_SUCCESS_ACTION, model);
+  }
+
+  onPlaceModelSaveError() {
+    this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
+    Util.log("USER", "place-editor", "fail-to-edit-place");
+  }
+
+  onPlaceModelRemoveSuccess(model) {
+    model.trigger("userHideModel", model);
+  }
+
+  onPlaceModelRemoveError() {
+    this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
+    Util.log("USER", "place-editor", "fail-to-remove-place");
+  }
+
+  onGeometryStyleChange(style) {
+    this.geometryStyle = style;
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -152,21 +162,21 @@ class PlaceDetailEditor extends Component {
             .filter(
               (fieldState, fieldName) =>
                 this.props.categoryConfig.fields.find(
-                  field => field.name === fieldName
-                ).type !== constants.SUBMIT_FIELD_TYPENAME
+                  field => field.name === fieldName,
+                ).type !== constants.SUBMIT_FIELD_TYPENAME,
             )
             .map((fieldState, fieldName) => {
               const fieldConfig = this.props.categoryConfig.fields.find(
-                field => field.name === fieldName
+                field => field.name === fieldName,
               );
 
               return (
                 <FormField
                   existingGeometry={this.props.placeModel.get(
-                    constants.GEOMETRY_PROPERTY_NAME
+                    constants.GEOMETRY_PROPERTY_NAME,
                   )}
                   existingGeometryStyle={this.props.placeModel.get(
-                    constants.GEOMETRY_STYLE_PROPERTY_NAME
+                    constants.GEOMETRY_STYLE_PROPERTY_NAME,
                   )}
                   existingLayerView={this.props.layerView}
                   fieldConfig={fieldConfig}
@@ -174,14 +184,14 @@ class PlaceDetailEditor extends Component {
                   categoryConfig={this.categoryConfig}
                   disabled={this.state.isSubmitting}
                   fieldState={fieldState}
-                  onGeometryStyleChange={this.props.onGeometryStyleChange}
+                  onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
                   onAddAttachment={this.props.onAddAttachment}
                   isInitializing={this.state.isInitializing}
                   key={fieldName}
                   map={this.props.map}
                   mapConfig={this.props.mapConfig}
                   modelId={this.props.placeModel.get(
-                    constants.MODEL_ID_PROPERTY_NAME
+                    constants.MODEL_ID_PROPERTY_NAME,
                   )}
                   onFieldChange={this.onFieldChange.bind(this)}
                   places={this.props.places}
@@ -208,7 +218,6 @@ PlaceDetailEditor.propTypes = {
   map: PropTypes.object,
   mapConfig: PropTypes.object,
   onAddAttachment: PropTypes.func,
-  onGeometryStyleChange: PropTypes.func.isRequired,
   onModelIO: PropTypes.func.isRequired,
   onPlaceModelSave: PropTypes.func.isRequired,
   placeModel: PropTypes.object.isRequired,

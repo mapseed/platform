@@ -4,7 +4,7 @@ import constants from "../../constants";
 
 const isWithAnyValue = () => true;
 
-const isWithSomeValue = ({ value }) => {
+const isNotEmpty = ({ value }) => {
   if (value instanceof ImmutableList) {
     return !(value.size === 0);
   } else {
@@ -35,4 +35,4 @@ const isWithUniqueUrl = ({ value, places, modelId }) => {
   );
 };
 
-export { isWithAnyValue, isWithSomeValue, isWithUniqueUrl };
+export { isWithAnyValue, isNotEmpty, isWithUniqueUrl };

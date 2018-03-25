@@ -56,25 +56,24 @@ class PlaceDetail extends Component {
     this.categoryConfig = this.props.placeConfig.place_detail.find(
       config =>
         config.category ===
-        this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME)
+        this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
-    this.geometryStyle = null;
     this.state = {
       placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
-        this.props.model.submissionSets[this.supportType]
+        this.props.model.submissionSets[this.supportType],
       ),
       surveyModels: serializeBackboneCollection(
-        this.props.model.submissionSets[this.surveyType]
+        this.props.model.submissionSets[this.surveyType],
       ),
       attachmentModels: serializeBackboneCollection(
-        this.props.model.attachmentCollection
+        this.props.model.attachmentCollection,
       ),
       isEditModeToggled: false,
       isEditable: Util.getAdminStatus(
         this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
-        this.categoryConfig.admin_groups
+        this.categoryConfig.admin_groups,
       ),
       isEditFormSubmitting: false,
     };
@@ -89,17 +88,13 @@ class PlaceDetail extends Component {
     requestAnimationFrame(() => {
       scrollDownTo(
         this.props.container,
-        responseRef.getBoundingClientRect().top - 90
+        responseRef.getBoundingClientRect().top - 90,
       );
     });
   }
 
   onAddAttachment(attachment) {
     this.props.model.attachmentCollection.add(attachment);
-  }
-
-  onGeometryStyleChange(style) {
-    this.geometryStyle = style;
   }
 
   // Handle the various results of Backbone model save/update calls that
@@ -118,16 +113,28 @@ class PlaceDetail extends Component {
     } else if (action === constants.SURVEY_MODEL_IO_END_SUCCESS_ACTION) {
       this.setState({
         surveyModels: serializeBackboneCollection(
-          this.props.model.submissionSets[this.surveyType]
+          this.props.model.submissionSets[this.surveyType],
         ),
       });
     } else if (action === constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION) {
       this.setState({
         supportModels: serializeBackboneCollection(
-          this.props.model.submissionSets[this.supportType]
+          this.props.model.submissionSets[this.supportType],
         ),
       });
     }
+  }
+
+  refreshAttachments() {
+    this.props.model.attachmentCollection.fetch().always(() => {
+      if (!this.state.isEditModeToggled) {
+        this.setState({
+          attachmentModels: serializeBackboneCollection(
+            this.props.model.attachmentCollection,
+          ),
+        });
+      }
+    });
   }
 
   render() {
@@ -141,7 +148,7 @@ class PlaceDetail extends Component {
     const submitter =
       this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || {};
     const isStoryChapter = !!this.state.placeModel.get(
-      constants.STORY_FIELD_NAME
+      constants.STORY_FIELD_NAME,
     );
     const userSupportModel = this.props.model.submissionSets[
       this.supportType
@@ -158,21 +165,9 @@ class PlaceDetail extends Component {
             isEditModeToggled={this.state.isEditModeToggled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
-              this.props.model.attachmentCollection.fetch().always(() => {
-                // We fetch the attachment collection here to make sure we
-                // have the latest attachment URLs. The danger is if someone
-                // creates a place then immediately jumps into edit mode,
-                // duplicate attachments can accumulate.
-                if (!this.state.isEditModeToggled) {
-                  this.setState({
-                    attachmentModels: serializeBackboneCollection(
-                      this.props.model.attachmentCollection
-                    ),
-                  });
-                }
-                this.setState({
-                  isEditModeToggled: !this.state.isEditModeToggled,
-                });
+              this.refreshAttachments();
+              this.setState({
+                isEditModeToggled: !this.state.isEditModeToggled,
               });
             }}
           />
@@ -187,7 +182,7 @@ class PlaceDetail extends Component {
         </h1>
         <PlaceDetailPromotionBar
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
-            this.props.model
+            this.props.model,
           )}
           isSupported={
             !!this.state.supportModels.find(model => {
@@ -225,7 +220,7 @@ class PlaceDetail extends Component {
           .filter(
             attachment =>
               attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-              constants.COVER_IMAGE_CODE
+              constants.COVER_IMAGE_CODE,
           )
           .map((attachment, i) => (
             <CoverImage
@@ -243,7 +238,6 @@ class PlaceDetail extends Component {
             map={this.props.map}
             mapConfig={this.props.mapConfig}
             onAddAttachment={this.onAddAttachment.bind(this)}
-            onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
             onModelIO={this.onChildModelIO.bind(this)}
             onPlaceModelSave={this.props.model.save.bind(this.props.model)}
             places={this.props.places}
@@ -253,7 +247,7 @@ class PlaceDetail extends Component {
         ) : (
           fieldResponseFilter(
             this.categoryConfig.fields,
-            this.state.placeModel
+            this.state.placeModel,
           ).map(fieldConfig => (
             <ResponseField
               key={fieldConfig.name}
@@ -267,7 +261,7 @@ class PlaceDetail extends Component {
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
-            this.props.model
+            this.props.model,
           )}
           surveyModels={this.state.surveyModels}
           onModelIO={this.onChildModelIO.bind(this)}
@@ -294,7 +288,7 @@ PlaceDetail.propTypes = {
       PropTypes.shape({
         dataset: PropTypes.string,
         name: PropTypes.string,
-      })
+      }),
     ),
     id: PropTypes.number,
     name: PropTypes.string,
@@ -335,9 +329,9 @@ PlaceDetail.propTypes = {
             display_prompt: PropTypes.string,
             placeholder: PropTypes.string,
             optional: PropTypes.bool,
-          })
+          }),
         ),
-      })
+      }),
     ),
   }).isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
@@ -349,9 +343,9 @@ PlaceDetail.propTypes = {
           condition: PropTypes.string.isRequired,
           icon: PropTypes.object,
           style: PropTypes.object,
-        })
+        }),
       ),
-    })
+    }),
   ).isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   scrollToResponseId: PropTypes.string,

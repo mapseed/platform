@@ -32,13 +32,13 @@ import {
   DropdownFieldResponse,
   AutocompleteComboboxFieldResponse,
 } from "./types";
-import { isWithAnyValue, isWithSomeValue, isWithUniqueUrl } from "./validators";
+import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
 import { inputForm as messages } from "../../messages.js";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
   return {
-    validate: isOptional ? isWithAnyValue : isWithSomeValue,
+    validate: isOptional ? isWithAnyValue : isNotEmpty,
     message: messages.missingRequired,
   };
 };
@@ -102,7 +102,7 @@ export default {
           label={item.label}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checkboxGroupState={context.props.fieldState.get(
-            constants.FIELD_STATE_VALUE_KEY
+            constants.FIELD_STATE_VALUE_KEY,
           )}
           name={fieldConfig.name}
           onChange={context.onChange.bind(context)}
@@ -163,7 +163,7 @@ export default {
       <PublishControlToolbar
         {...getSharedFieldProps(fieldConfig, context)}
         publishedState={context.props.fieldState.get(
-          constants.FIELD_STATE_VALUE_KEY
+          constants.FIELD_STATE_VALUE_KEY,
         )}
       />
     ),
@@ -173,7 +173,7 @@ export default {
   [constants.MAP_DRAWING_TOOLBAR_TYPENAME]: {
     getValidator: () => {
       return {
-        validate: isWithSomeValue,
+        validate: isNotEmpty,
         message: messages.missingGeometry,
       };
     },
@@ -185,7 +185,7 @@ export default {
         existingGeometryStyle={context.props.existingGeometryStyle}
         fieldConfig={fieldConfig}
         onGeometryStyleChange={context.props.onGeometryStyleChange.bind(
-          context
+          context,
         )}
         map={context.props.map}
         markers={fieldConfig.content.map(item => item.url)}
