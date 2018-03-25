@@ -104,6 +104,15 @@ const placeDetailSurvey = {
     "We're sorry, but we need some more information before we can share your comment.",
   logOut: "Log out",
 };
+const placeDetailEditor = {
+  toggleBtn: "Edit this post",
+  saveBtn: "Save",
+  removeBtn: "Remove",
+  confirmRemove:
+    "Are you sure you want to remove this post? It will no longer be visible on the map.",
+  validationErrorHeaderMsg:
+    "We're sorry, but we need some more information before we can update this post.",
+};
 
 export {
   mapDrawingToolbar,
@@ -113,4 +122,5 @@ export {
   publishControlToolbar,
   dropdownField,
   placeDetailSurvey,
+  placeDetailEditor,
 };

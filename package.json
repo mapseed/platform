@@ -52,6 +52,7 @@
     "react-datepicker": "^1.0.4",
     "react-dom": "^16.2.0",
     "react-quill": "^1.1.0",
+    "react-spinner": "^0.2.7",
     "s3-website": "^3.2.2",
     "shelljs": "^0.5.3",
     "static-eval": "^1.1.1",

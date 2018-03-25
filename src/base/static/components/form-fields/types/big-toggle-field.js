@@ -34,7 +34,7 @@ const BigToggleField = props => {
 
 BigToggleField.propTypes = {
   checked: PropTypes.bool.isRequired,
-  hasAutofill: PropTypes.bool.isRequired,
+  hasAutofill: PropTypes.bool,
   id: PropTypes.string.isRequired,
   labels: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,

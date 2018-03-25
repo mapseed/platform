@@ -6,7 +6,7 @@ import {
   Map as ImmutableMap,
   OrderedMap as ImmutableOrderedMap,
 } from "immutable";
-import emitter from "../utils/emitter";
+import emitter from "../../utils/emitter";
 
 import FormField from "../form-fields/form-field";
 import SecondaryButton from "../ui-elements/secondary-button";
@@ -14,10 +14,12 @@ import PlaceDetailSurveyResponse from "./place-detail-survey-response";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 import Avatar from "../ui-elements/avatar";
 
-import constants from "../constants";
-import { placeDetailSurvey as messages } from "../messages";
+import constants from "../../constants";
+import { placeDetailSurvey as messages } from "../../messages";
 
 import "./place-detail-survey.scss";
+
+const Util = require("../../js/utils.js");
 
 class PlaceDetailSurvey extends Component {
   constructor(props) {
@@ -57,7 +59,7 @@ class PlaceDetailSurvey extends Component {
     }, ImmutableOrderedMap());
   }
 
-  onFieldChange(fieldName, fieldStatus, isInitializing) {
+  onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     fieldStatus = fieldStatus.set(
       constants.FIELD_STATE_RENDER_KEY,
       this.state.fields.get(fieldName).get(constants.FIELD_STATE_RENDER_KEY)
@@ -89,7 +91,30 @@ class PlaceDetailSurvey extends Component {
         )
         .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
         .toJS();
-      this.props.onSubmitSurvey(attrs);
+      Util.log("USER", "place", "submit-reply-btn-click");
+
+      this.props.onSurveyModelCreate(attrs, {
+        wait: true,
+        success: model => {
+          Util.log(
+            "USER",
+            "place",
+            "successfully-reply",
+            this.props.getLoggingDetails()
+          );
+          this.props.onModelIO(constants.SURVEY_MODEL_IO_END_SUCCESS_ACTION);
+          emitter.emit("place-detail-survey:save");
+        },
+        error: () => {
+          // TODO: User error feedback.
+          Util.log(
+            "USER",
+            "place",
+            "fail-to-reply",
+            this.props.getLoggingDetails()
+          );
+        },
+      });
     } else {
       this.setState({
         formValidationErrors: newValidationErrors,
@@ -176,11 +201,13 @@ class PlaceDetailSurvey extends Component {
 
 PlaceDetailSurvey.propTypes = {
   apiRoot: PropTypes.string.isRequired,
+  getLoggingDetails: PropTypes.func.isRequired,
+  onModelIO: PropTypes.func.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.string,
   surveyModels: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
-  onSubmitSurvey: PropTypes.func.isRequired,
+  onSurveyModelCreate: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,

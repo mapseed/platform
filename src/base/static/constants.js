@@ -1,4 +1,4 @@
-const constants = {
+export default {
   TEXT_FIELD_TYPENAME: "text",
   TEXTAREA_FIELD_TYPENAME: "textarea",
   RICH_TEXTAREA_FIELD_TYPENAME: "rich_textarea",
@@ -31,6 +31,8 @@ const constants = {
   DATASET_SLUG_PROPERTY_NAME: "datasetSlug",
   MODEL_ID_PROPERTY_NAME: "id",
   STORY_FIELD_NAME: "story",
+  DATASET_ID_PROPERTY_NAME: "datasetId",
+  CUSTOM_URL_PROPERTY_NAME: "url-title",
 
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",
@@ -50,7 +52,16 @@ const constants = {
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
 
-  ON_ADD_ATTACHMENT_ACTION: "on-add-attachment",
-};
+  GEOMETRY_TYPE_PROPERTY_NAME: "type",
+  ICON_URL_PROPERTY_NAME: "iconUrl",
+  COLOR_PROPERTY_NAME: "color",
+  OPACITY_PROPERTY_NAME: "opacity",
+  FILL_COLOR_PROPERTY_NAME: "fillColor",
+  FILL_OPACITY_PROPERTY_NAME: "fillOpacity",
 
-export default constants;
+  PLACE_MODEL_IO_START_ACTION: "place:io-start",
+  PLACE_MODEL_IO_END_SUCCESS_ACTION: "place:io-end-success",
+  PLACE_MODEL_IO_END_ERROR_ACTION: "place:io-end-error",
+  SURVEY_MODEL_IO_END_SUCCESS_ACTION: "survey:io-end",
+  SUPPORT_MODEL_IO_END_SUCCESS_ACTION: "support:io-end-success",
+};

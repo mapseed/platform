@@ -1,0 +1,10 @@
+.react-spinner {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: 60px;
+  height: 60px;
+  .react-spinner_bar {
+    background-color: #555;
+  }
+}

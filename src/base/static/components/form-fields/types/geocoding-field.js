@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import emitter from "../../utils/emitter";
-import { geocodingField as messages } from "../../messages";
+import emitter from "../../../utils/emitter";
+import { geocodingField as messages } from "../../../messages";
 import "./geocoding-field.scss";
 
 // TODO: Consolidate Util methods used here.
@@ -99,7 +99,7 @@ GeocodingField.propTypes = {
   mapConfig: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
 };
 
 export default GeocodingField;

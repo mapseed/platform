@@ -1,7 +1,9 @@
+/* eslint react/display-name: 0 */
+
 import React from "react";
 import { fromJS, List as ImmutableList } from "immutable";
 
-import constants from "../constants";
+import constants from "../../constants";
 import {
   TextField,
   TextareaField,
@@ -30,29 +32,22 @@ import {
   DropdownFieldResponse,
   AutocompleteComboboxFieldResponse,
 } from "./types";
-import {
-  mayHaveAnyValue,
-  mustHaveSomeValue,
-  mustHaveUniqueUrl,
-} from "./validators";
-import { inputForm as messages } from "../messages.js";
+import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
+import { inputForm as messages } from "../../messages.js";
+import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
   return {
-    validate: isOptional ? mayHaveAnyValue : mustHaveSomeValue,
+    validate: isOptional ? isWithAnyValue : isNotEmpty,
     message: messages.missingRequired,
   };
 };
 
 const getPermissiveValidator = () => {
   return {
-    validate: mayHaveAnyValue,
+    validate: isWithAnyValue,
     message: "",
   };
-};
-
-const getDefaultInitialValue = (autofillValue, defaultValue) => {
-  return autofillValue || defaultValue || "";
 };
 
 const getSharedFieldProps = (fieldConfig, context) => {
@@ -72,8 +67,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <TextField {...getSharedFieldProps(fieldConfig, context)} />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => TextFieldResponse,
   },
   [constants.TEXTAREA_FIELD_TYPENAME]: {
@@ -81,8 +75,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <TextareaField {...getSharedFieldProps(fieldConfig, context)} />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => TextareaFieldResponse,
   },
   [constants.RICH_TEXTAREA_FIELD_TYPENAME]: {
@@ -91,12 +84,12 @@ export default {
       // TODO: make bounds prop configurable.
       <RichTextareaField
         {...getSharedFieldProps(fieldConfig, context)}
-        onAdditionalData={context.props.onAdditionalData.bind(context)}
+        onAddAttachment={context.props.onAddAttachment.bind(context)}
         bounds="#content"
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value, attachmentModels }) =>
+      insertEmbeddedImages(value, attachmentModels),
     getResponseComponent: () => RichTextareaFieldResponse,
   },
   [constants.BIG_CHECKBOX_FIELD_TYPENAME]: {
@@ -109,15 +102,14 @@ export default {
           label={item.label}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checkboxGroupState={context.props.fieldState.get(
-            constants.FIELD_STATE_VALUE_KEY
+            constants.FIELD_STATE_VALUE_KEY,
           )}
           name={fieldConfig.name}
           onChange={context.onChange.bind(context)}
           hasAutofill={fieldConfig.hasAutofill}
         />
       )),
-    getInitialValue: (autofillValue, defaultValue) =>
-      fromJS(autofillValue) || fromJS(defaultValue) || ImmutableList(),
+    getInitialValue: ({ value }) => fromJS(value) || ImmutableList(),
     getResponseComponent: () => BigCheckboxFieldResponse,
   },
   [constants.BIG_RADIO_FIELD_TYPENAME]: {
@@ -138,8 +130,7 @@ export default {
           hasAutofill={fieldConfig.hasAutofill}
         />
       )),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => BigRadioFieldResponse,
   },
   [constants.DROPDOWN_FIELD_TYPENAME]: {
@@ -150,8 +141,7 @@ export default {
         options={fieldConfig.content}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => DropdownFieldResponse,
   },
   [constants.DROPDOWN_AUTOCOMPLETE_FIELD_TYPENAME]: {
@@ -164,8 +154,7 @@ export default {
         showAllValues={true}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => AutocompleteComboboxFieldResponse,
   },
   [constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME]: {
@@ -174,48 +163,49 @@ export default {
       <PublishControlToolbar
         {...getSharedFieldProps(fieldConfig, context)}
         publishedState={context.props.fieldState.get(
-          constants.FIELD_STATE_VALUE_KEY
+          constants.FIELD_STATE_VALUE_KEY,
         )}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      autofillValue || defaultValue || "isPublished",
+    getInitialValue: ({ value }) => value || "isPublished",
     getResponseComponent: () => null,
   },
   [constants.MAP_DRAWING_TOOLBAR_TYPENAME]: {
     getValidator: () => {
       return {
-        validate: mustHaveSomeValue,
+        validate: isNotEmpty,
         message: messages.missingGeometry,
       };
     },
     getComponent: (fieldConfig, context) => (
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
-        mapDrawingToolbarState={context.props.mapDrawingToolbarState}
+        existingLayerView={context.props.existingLayerView}
+        existingGeometry={context.props.existingGeometry}
+        existingGeometryStyle={context.props.existingGeometryStyle}
+        fieldConfig={fieldConfig}
         onGeometryStyleChange={context.props.onGeometryStyleChange.bind(
-          context
+          context,
         )}
         map={context.props.map}
         markers={fieldConfig.content.map(item => item.url)}
         router={context.props.router}
       />
     ),
-    getInitialValue: () => "",
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => null,
   },
   [constants.CUSTOM_URL_TOOLBAR_TYPENAME]: {
     getValidator: () => {
       return {
-        validate: mustHaveUniqueUrl,
+        validate: isWithUniqueUrl,
         message: messages.duplicateUrl,
       };
     },
     getComponent: (fieldConfig, context) => (
       <CustomUrlToolbar {...getSharedFieldProps(fieldConfig, context)} />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => null,
   },
   [constants.DATETIME_FIELD_TYPENAME]: {
@@ -227,8 +217,7 @@ export default {
         showTimeSelect={true}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => DatetimeFieldResponse,
   },
   [constants.GEOCODING_FIELD_TYPENAME]: {
@@ -239,8 +228,7 @@ export default {
         mapConfig={context.props.mapConfig}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => null,
   },
   [constants.BIG_TOGGLE_FIELD_TYPENAME]: {
@@ -259,8 +247,8 @@ export default {
         hasAutofill={fieldConfig.hasAutofill}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue, fieldConfig) =>
-      autofillValue || defaultValue || fieldConfig.content[1].value, // "off" position of the toggle
+    getInitialValue: ({ value, fieldConfig }) =>
+      value || fieldConfig.content[1].value, // "off" position of the toggle
     getResponseComponent: () => BigToggleFieldResponse,
   },
   [constants.ATTACHMENT_FIELD_TYPENAME]: {
@@ -268,7 +256,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <AddAttachmentButton
         name={fieldConfig.name}
-        onAdditionalData={context.props.onAdditionalData.bind(context)}
+        onAddAttachment={context.props.onAddAttachment.bind(context)}
         onChange={context.onChange.bind(context)}
         label={fieldConfig.label}
       />
@@ -296,8 +284,7 @@ export default {
         min={fieldConfig.min}
       />
     ),
-    getInitialValue: (autofillValue, defaultValue) =>
-      getDefaultInitialValue(autofillValue, defaultValue),
+    getInitialValue: ({ value }) => value,
     getResponseComponent: () => RangeFieldResponse,
   },
 };

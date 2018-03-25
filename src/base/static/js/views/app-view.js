@@ -1,7 +1,7 @@
 // REACT PORT SECTION //////////////////////////////////////////////////////////
 import React from "react";
 import ReactDOM from "react-dom";
-import emitter from "../../components/utils/emitter";
+import emitter from "../../utils/emitter";
 
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
@@ -628,7 +628,7 @@ module.exports = Backbone.View.extend({
         places={this.places}
         router={this.options.router}
         customHooks={this.options.customHooks}
-        container={"#content article"}
+        container={document.querySelector("#content article")}
         render={(state, props) => {
           if (
             props.customComponents &&
@@ -798,14 +798,18 @@ module.exports = Backbone.View.extend({
           <PlaceDetail
             container={document.querySelector("#content article")}
             currentUser={Shareabouts.bootstrapped.currentUser}
+            map={this.mapView.map}
             model={model}
             appView={this}
             apiRoot={this.options.appConfig.api_root}
+            layerView={this.mapView.layerViews[datasetId][model.cid]}
             surveyConfig={this.options.surveyConfig}
             supportConfig={this.options.supportConfig}
             placeConfig={this.options.placeConfig}
+            places={this.places}
             placeTypes={this.options.placeTypes}
             scrollToResponseId={args.responseId}
+            router={this.options.router}
             storyConfig={this.options.storyConfig}
             mapConfig={this.options.mapConfig}
             userToken={this.options.userToken}

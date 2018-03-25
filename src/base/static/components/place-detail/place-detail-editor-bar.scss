@@ -1,0 +1,36 @@
+.place-detail-editor-bar {
+  margin-bottom: 25px;
+}
+
+// Screen widths above 60em
+@media only screen and (min-width: 60em) {
+  .place-detail-editor-bar {
+    z-index: 100;
+    background-color: #fff;
+    position: fixed;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    border-bottom: 2px solid #ddd;
+    // TODO: Obtain this percentage from a variable that determines overall layout.
+    width: calc(40% - 2em);
+    // TODO: Obtain this value from a variable that sets the height of the header.
+    top: 64px;
+  }
+}
+
+.place-detail-editor-bar__clearfix {
+  clear: both;
+}
+
+.place-detail-editor-bar__toggle-button {
+  float: left;
+}
+
+.place-detail-editor-bar__save-button {
+  float: right;
+  margin-right: 8px;
+}
+
+.place-detail-editor-bar__remove-button {
+  float: right;
+}
