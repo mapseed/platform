@@ -16,6 +16,7 @@ const SubmissionCollection = require("../../js/models/submission-collection.js")
 import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollDownTo } from "../../utils/scroll-helpers";
+import { placeDetailSurveyEditor as messages } from "../../messages";
 
 const Util = require("../../js/utils.js");
 
@@ -76,6 +77,7 @@ class PlaceDetail extends Component {
         this.categoryConfig.admin_groups,
       ),
       isEditFormSubmitting: false,
+      isSurveyEditFormSubmitting: false,
     };
   }
 
@@ -95,6 +97,38 @@ class PlaceDetail extends Component {
 
   onAddAttachment(attachment) {
     this.props.model.attachmentCollection.add(attachment);
+  }
+
+  // NOTE: Because we serialize our survey model collection before passing it
+  // down to the survey editor, we aren't able to (easily) pass down a
+  // reference to each survey model's save method. As a result, we have a
+  // special handler here to update survey models.
+  onSurveyModelSave(attrs, modelId) {
+    this.setState({ isSurveyEditFormSubmitting: true });
+    this.props.model.submissionSets[this.surveyType].get(modelId).save(attrs, {
+      success: () => {
+        this.setState({
+          isSurveyEditFormSubmitting: false,
+          surveyModels: serializeBackboneCollection(
+            this.props.model.submissionSets[this.surveyType],
+          ),
+        });
+      },
+    });
+  }
+
+  onSurveyModelRemove(modelId) {
+    if (confirm(messages.confirmRemove)) {
+      this.props.model.submissionSets[this.surveyType].get(modelId).destroy({
+        success: () => {
+          this.setState({
+            surveyModels: serializeBackboneCollection(
+              this.props.model.submissionSets[this.surveyType],
+            ),
+          });
+        },
+      });
+    }
   }
 
   // Handle the various results of Backbone model save/update calls that
@@ -210,7 +244,8 @@ class PlaceDetail extends Component {
             submitter={submitter}
             placeModel={this.state.placeModel}
             surveyModels={this.state.surveyModels}
-            placeConfig={this.props.placeConfig}
+            anonymousName={this.props.placeConfig.anonymous_name}
+            actionText={this.props.placeConfig.action_text}
             placeTypes={this.props.placeTypes}
             surveyConfig={this.props.surveyConfig}
           />
@@ -263,13 +298,17 @@ class PlaceDetail extends Component {
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
             this.props.model,
           )}
+          isEditModeToggled={this.state.isEditModeToggled}
+          isSubmitting={this.state.isSurveyEditFormSubmitting}
           surveyModels={this.state.surveyModels}
           onModelIO={this.onChildModelIO.bind(this)}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
-          onSurveyModelCreate={this.props.model.submissionSets[
+          onSurveyCollectionCreate={this.props.model.submissionSets[
             this.surveyType
           ].create.bind(this.props.model.submissionSets[this.surveyType])}
-          placeConfig={this.props.placeConfig}
+          onSurveyModelSave={this.onSurveyModelSave.bind(this)}
+          onSurveyModelRemove={this.onSurveyModelRemove.bind(this)}
+          anonymousName={this.props.placeConfig.anonymous_name}
           scrollToResponseId={this.props.scrollToResponseId}
           submitter={submitter}
           surveyConfig={this.props.surveyConfig}
@@ -303,11 +342,11 @@ PlaceDetail.propTypes = {
   placeConfig: PropTypes.shape({
     adding_supported: PropTypes.bool.isRequired,
     add_button_label: PropTypes.string.isRequired,
+    anonymous_name: PropTypes.string.isRequired,
     show_list_button_label: PropTypes.string.isRequired,
     show_map_button_label: PropTypes.string.isRequired,
     action_text: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
     submit_button_label: PropTypes.string.isRequired,
     location_item_name: PropTypes.string.isRequired,
     default_basemap: PropTypes.string.isRequired,

@@ -46,9 +46,9 @@ class PlaceDetailSurveyResponse extends Component {
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
               submitter={this.props.submitter}
-              placeConfig={this.props.placeConfig}
+              anonymousName={this.props.anonymousName}
             />
-            <ActionTime time={this.props.attributes.get("created_datetime")} />
+            <ActionTime time={this.props.attributes.get("updated_datetime")} />
           </div>
         </div>
       </article>
@@ -62,7 +62,7 @@ PlaceDetailSurveyResponse.propTypes = {
   onMountTargetResponse: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.string,
   submitter: PropTypes.object.isRequired,
-  placeConfig: PropTypes.object.isRequired,
+  anonymousName: PropTypes.string.isRequired,
   surveyConfig: PropTypes.object.isRequired,
 };
 

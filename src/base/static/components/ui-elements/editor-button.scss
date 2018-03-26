@@ -46,12 +46,15 @@
 
 .editor-button__icon {
   color: #fff;
-  margin-right: 7px;
   float: left !important;
 
   &:before {
     font-family: "FontAwesome";
   }
+}
+
+.editor-button__icon--with-right-margin {
+  margin-right: 7px;
 }
 
 .editor-button__icon--toggle {

@@ -1,0 +1,30 @@
+.place-detail-survey-editor__save-button,
+.place-detail-survey-editor__remove-button {
+  float: right;
+}
+
+.place-detail-survey-editor__body {
+  position: relative;
+  padding: 10px;
+  background-color: #eee;
+  border-top: 1px solid #a8a8a8;
+  border-right: 1px solid #c8c8c8;
+  border-bottom: 0;
+  border-left: 1px solid #c8c8c8;
+  border-radius: 15px;
+
+  &:after {
+    content: "";
+    height: 0;
+    width: 0;
+    border: 1em solid transparent;
+    border-top-color: #eee;
+    position: absolute;
+    top: 100%;
+    left: 1.5em;
+  }
+}
+
+.place-detail-survey-editor__remove-button {
+  margin-left: 10px;
+}

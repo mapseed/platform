@@ -113,6 +113,10 @@ const placeDetailEditor = {
   validationErrorHeaderMsg:
     "We're sorry, but we need some more information before we can update this post.",
 };
+const placeDetailSurveyEditor = {
+  confirmRemove:
+    "You are deleting this comment permanently. Are you sure you want to continue?",
+};
 
 export {
   mapDrawingToolbar,
@@ -123,4 +127,5 @@ export {
   dropdownField,
   placeDetailSurvey,
   placeDetailEditor,
+  placeDetailSurveyEditor,
 };

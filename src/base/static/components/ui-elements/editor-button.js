@@ -18,10 +18,11 @@ const EditorButton = props => {
       onClick={props.onClick}
     >
       <span
-        className={classNames("editor-button__icon", props.className, {
+        className={classNames("editor-button__icon", {
           "editor-button__icon--toggle": props.type === "toggle",
           "editor-button__icon--save": props.type === "save",
           "editor-button__icon--remove": props.type === "remove",
+          "editor-button__icon--with-right-margin": !!props.label,
         })}
       />
       {props.label}
