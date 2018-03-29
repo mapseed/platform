@@ -219,10 +219,36 @@ map:
       type: place
       slug: featured
 
+      #- id: cleanup-sites
+      #- type: esri-feature
+      #- url: "https://fortress.wa.gov/ecy/ecyprodgislb/arcgis/rest/services/TCP/CleanupSitesStatic/MapServer/0"
+      #- popupContent: '<h3>{{cleanupSiteName}}</h3><em>{{siteStatus}}</em>'
+
     - id: cleanup-sites
-      type: esri-feature
-      url: "https://fortress.wa.gov/ecy/ecyprodgislb/arcgis/rest/services/TCP/CleanupSitesStatic/MapServer/0"
-      popupContent: '<h3>{{cleanupSiteName}}</h3><em>{{siteStatus}}</em>'
+      type: json
+      url: "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/toxic-cleanup-sites.geojson"
+      popupContent: "<h4>{{cleanupSiteName}}</h4><em>{{siteStatus}}</em>"
+      rules:
+        - condition: '"{{properties.siteStatus}}" === "Awaiting Cleanup"'
+          icon:
+            iconUrl: /static/css/images/markers/circle-267ab3.png
+            iconSize: [15, 15]
+            iconAnchor: [7.5, 7.5]
+        - condition: '"{{properties.siteStatus}}" === "Cleanup Started"'
+          icon:
+            iconUrl: /static/css/images/markers/circle-b4df8d.png
+            iconSize: [15, 15]
+            iconAnchor: [7.5, 7.5]
+        - condition: '"{{properties.siteStatus}}" === "NFA"'
+          icon:
+            iconUrl: /static/css/images/markers/circle-0b655e.png
+            iconSize: [15, 15]
+            iconAnchor: [7.5, 7.5]
+        - condition: 'true'
+          icon:
+            iconUrl: /static/css/images/markers/circle-a7cee2.png
+            iconSize: [15, 15]
+            iconAnchor: [7.5, 7.5]
 
     - id: cso
       type: json
@@ -1263,11 +1289,13 @@ story:
       - url: ace-galvanizing-inc
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
 
-# cluster:
-#   animate: true
-#   animateAddingMarkers: false
-#   showCoverageOnHover: true
-#   spiderfyOnMaxZoom: true
-#   spiderfyDistanceMultiplier: 1.5
-#   spiderLegPolylineOptions:
-#     opacity: 0
+cluster:
+  layers:
+    - cleanup-sites 
+  animate: true
+  animateAddingMarkers: false
+  showCoverageOnHover: true
+  spiderfyOnMaxZoom: true
+  spiderfyDistanceMultiplier: 1.5
+  spiderLegPolylineOptions:
+    opacity: 0
