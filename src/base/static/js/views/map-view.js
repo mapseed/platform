@@ -80,7 +80,7 @@ module.exports = Backbone.View.extend({
 
     // Bind shareabouts collections event listeners
     _.each(self.places, function(collection, collectionId) {
-      self.layers[collectionId] = self.getLayerGroups();
+      self.layers[collectionId] = self.getLayerGroups(collectionId);
       self.layerViews[collectionId] = {};
       collection.on("reset", self.render, self);
       collection.on("add", self.addLayerView(collectionId), self);
@@ -134,6 +134,16 @@ module.exports = Backbone.View.extend({
       }
     });
   }, // end initialize
+
+  isClusterable(layerId) {
+    // If no cluster config exists, we don't cluster any layers.
+    if (!this.options.cluster) return false;
+    // If a cluster config exists but no layer list is included, we cluster all
+    // layers.
+    if (!this.options.cluster.layers) return true;
+    // Otherwise, we only cluster a layer if it's listed in the cluster config.
+    return this.options.cluster.layers.includes(layerId);
+  },
 
   checkLayerZoom(maxZoom) {
     if (maxZoom && this.map.getZoom() > maxZoom) {
@@ -359,11 +369,11 @@ module.exports = Backbone.View.extend({
     });
   },
 
-  getLayerGroups: function() {
-    if (!this.options.cluster) {
-      return L.layerGroup();
+  getLayerGroups: function(collectionId) {
+    if (this.isClusterable(collectionId)) {
+      return L.markerClusterGroup(this.options.cluster)
     } else {
-      return L.markerClusterGroup(this.options.cluster);
+      return L.layerGroup();
     }
   },
 
@@ -383,7 +393,7 @@ module.exports = Backbone.View.extend({
       }
       config.map = self.map;
       layer = L.argo(url, config);
-      if (self.options.cluster) {
+      if (self.isClusterable(config.id)) {
         layer.on("loaded", layer => {
           let clusters = L.markerClusterGroup(self.options.cluster).addLayer(
             layer.target,

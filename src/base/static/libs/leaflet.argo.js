@@ -8,7 +8,6 @@ L.Argo = L.GeoJSON.extend({
   initialize: function(geojson, options) {
     options.map.fire("layer:loading", { id: options.id });
 
-  initialize: function (geojson, options) {
     // Add options and function to L.Util
     L.Util.setOptions(this, options);
     L.Util.setOptions(this, {
