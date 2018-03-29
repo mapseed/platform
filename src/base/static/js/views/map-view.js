@@ -381,8 +381,19 @@ module.exports = Backbone.View.extend({
           url += encodeURIComponent(source) + "&";
         });
       }
+      config.map = self.map;
       layer = L.argo(url, config);
-      self.layers[config.id] = layer;
+      if (self.options.cluster) {
+        layer.on("loaded", layer => {
+          let clusters = L.markerClusterGroup(self.options.cluster).addLayer(
+            layer.target,
+          );
+          self.layers[config.id] = clusters;
+          self.map.addLayer(clusters);
+        });
+      } else {
+        self.layers[config.id] = layer;
+      }
     } else if (config.type && config.type === "kml") {
       $.ajax(config.url).done(function(xml) {
         layer = L.argo(toGeoJSON.kml(xml), config);
