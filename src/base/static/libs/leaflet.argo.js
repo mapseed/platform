@@ -5,8 +5,9 @@
  */
 
 L.Argo = L.GeoJSON.extend({
+  initialize: function(geojson, options) {
+    options.map.fire("layer:loading", { id: options.id });
 
-  initialize: function (geojson, options) {
     // Add options and function to L.Util
     L.Util.setOptions(this, options);
     L.Util.setOptions(this, {
@@ -15,12 +16,13 @@ L.Argo = L.GeoJSON.extend({
     });
 
     var successHandler = L.Util.bind(function(geojson) {
-      this.addData(geojson);
-      this._map.fire('layer:loaded', {id: options.id});
-    }, this),
-    errorHandler = L.Util.bind(function() {
-      this._map.fire('layer:error', {id: options.id});
-    }, this);
+        this.addData(geojson);
+        this.fire("loaded");
+        options.map.fire("layer:loaded", { id: options.id });
+      }, this),
+      errorHandler = L.Util.bind(function() {
+        this._map.fire("layer:error", { id: options.id });
+      }, this);
 
     // Init layers
     this._layers = {};
