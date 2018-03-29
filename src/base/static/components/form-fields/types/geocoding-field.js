@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import emitter from "../../../utils/emitter";
-import { geocodingField as messages } from "../../../messages";
+import messages from "../messages";
 import "./geocoding-field.scss";
 
 // TODO: Consolidate Util methods used here.
@@ -89,7 +89,7 @@ class GeocodingField extends Component {
           onBlur={this.doGeocode.bind(this)}
           onChange={e => this.props.onChange(e.target.name, e.target.value)}
         />
-        <div className={cn.error}>{messages.locationNotFoundError}</div>
+        <div className={cn.error}>{messages.t("geocodingField:locationNotFoundError")}</div>
       </div>
     );
   }

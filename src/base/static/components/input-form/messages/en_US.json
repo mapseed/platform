@@ -1,0 +1,10 @@
+{
+  "optionalMsg": "(optional)",
+  "validationHeader":
+    "Your post is looking good, but we need some more information before we can share it on the map.",
+  "missingGeometry":
+    "Please use the drawing toolbar to add a point, line, or polygon to the map.",
+  "missingRequired": "Please fill out the field(s) outlined below.",
+  "duplicateUrl":
+    "Please choose a different URL for your post. The URL you chose is already in use."
+}

@@ -1,5 +1,3 @@
-// TODO: localization in this component.
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
@@ -13,7 +11,7 @@ import Avatar from "../ui-elements/avatar";
 import SurveyResponseEditor from "./survey-response-editor";
 
 import constants from "../../constants";
-import { placeDetailSurvey as messages } from "../../messages";
+import messages from "./messages";
 
 import "./survey.scss";
 
@@ -165,7 +163,7 @@ class Survey extends Component {
         </div>
         <WarningMessagesContainer
           errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={messages.validationErrorHeaderMsg}
+          headerMsg={messages.t("placeDetailSurvey:validationErrorHeaderMsg")}
         />
         <form
           className="place-detail-survey__form"
@@ -198,7 +196,7 @@ class Survey extends Component {
               className="place-detail-survey__logout-button"
               href={this.props.apiRoot + "users/logout/"}
             >
-              {messages.logOut}
+              {messages.t("placeDetailSurvey:logOut")}
             </a>
           </span>
         ) : null}

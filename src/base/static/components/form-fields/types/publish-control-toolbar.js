@@ -2,22 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import BigRadioField from "./big-radio-field";
-import { publishControlToolbar as messages } from "../../../messages";
+import messages from "../messages";
 
 import "./publish-control-toolbar.scss";
 
 const PublishControlToolbar = props => {
   const footerMsg =
     props.publishedState === "isPublished"
-      ? messages.publishedFooterMsg
-      : messages.notPublishedFooterMsg;
+      ? messages.t("publishControlToolbar:publishedFooterMsg")
+      : messages.t("publishControlToolbar:notPublishedFooterMsg");
 
   return (
     <div className="publish-control-toolbar">
       <div className="publish-control-toolbar__buttons-container">
         <BigRadioField
           value="isPublished"
-          label={messages.publishedLabel}
+          label={messages.t("publishControlToolbar:publishedLabel")}
           id={"input-form-" + props.name + "-isPublished"}
           name={props.name}
           checked={props.publishedState === "isPublished"}
@@ -25,7 +25,7 @@ const PublishControlToolbar = props => {
         />
         <BigRadioField
           value="isNotPublished"
-          label={messages.notPublishedLabel}
+          label={messages.t("publishControlToolbar:notPublishedLabel")}
           id={"input-form-" + props.name + "-isNotPublished"}
           name={props.name}
           checked={props.publishedState === "isNotPublished"}

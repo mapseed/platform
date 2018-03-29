@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import emitter from "../../utils/emitter";
 
 import EditorButton from "../ui-elements/editor-button";
-import { placeDetailEditor as messages } from "../../messages";
+import messages from "./messages";
 
 import "./editor-bar.scss";
 
@@ -13,7 +13,7 @@ const EditorBar = props => {
       <EditorButton
         className="place-detail-editor-bar__toggle-button"
         isSubmitting={props.isSubmitting}
-        label={messages.toggleBtn}
+        label={messages.t("placeDetailEditor:toggleBtn")}
         type="toggle"
         isEditModeToggled={props.isEditModeToggled}
         onClick={props.onToggleEditMode}
@@ -22,7 +22,7 @@ const EditorBar = props => {
         <EditorButton
           className="place-detail-editor-bar__remove-button"
           isSubmitting={props.isSubmitting}
-          label={messages.removeBtn}
+          label={messages.t("placeDetailEditor:removeBtn")}
           type="remove"
           onClick={() => emitter.emit("place-model:remove")}
         />
@@ -31,7 +31,7 @@ const EditorBar = props => {
         <EditorButton
           className="place-detail-editor-bar__save-button"
           isSubmitting={props.isSubmitting}
-          label={messages.saveBtn}
+          label={messages.t("placeDetailEditor:saveBtn")}
           type="save"
           onClick={() => emitter.emit("place-model:update")}
         />

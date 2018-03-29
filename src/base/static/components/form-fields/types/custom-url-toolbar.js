@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import TextField from "./text-field";
-import { customUrlField as messages } from "../../../messages";
+import messages from "../messages";
 import "./custom-url-toolbar.scss";
 
 const Util = require("../../../js/utils.js");
@@ -30,7 +30,7 @@ class CustomUrlToolbar extends Component {
       <div className="custom-url-field">
         <div className="custom-url-field__url-readout-container">
           <p className="custom-url-field__url-readout-prefix-msg">
-            {messages.urlReadoutPrefix}
+            {messages.t("customUrlField:urlReadoutPrefix")}
           </p>
           <span className="custom-url-field__url-readout-prefix">
             {this.urlPrefix}

@@ -1,0 +1,48 @@
+{
+  "mapDrawingToolbar": {
+    "selectToolHeader": "Click on a tool below to draw on the map",
+    "createMarkerHeader": "Drag your marker to reposition it",
+    "createMarkerToolLabel": "Create marker",
+    "editMarkerToolLabel": "Edit marker",
+    "deleteMarkerToolLabel": "Delete marker",
+    "selectMarkerTypeHeader": "Choose a marker style below",
+    "createPolylineHeaderInitial": "Click anywhere on the map to start drawing",
+    "createPolylineHeaderContinue": "Click to continue drawing",
+    "createPolylineHeaderContinueOrFinish":
+      "Click to continue drawing, or double click to complete your line",
+    "createPolylineToolLabel": "Create line",
+    "editPolylineToolLabel": "Edit line",
+    "deletePolylineToolLabel": "Delete line",
+    "createPolygonHeaderInitial": "Click anywhere on the map to start drawing",
+    "createPolygonHeaderContinue": "Click to continue drawing",
+    "createPolygonHeaderContinueOrFinish":
+      "Click to continue drawing, or click on your first point to complete your shape",
+    "createPolygonToolLabel": "Create shape",
+    "editPolygonToolLabel": "Edit shape",
+    "deletePolygonToolLabel": "Delete shape",
+    "editMarkerHeader": "Drag your marker to reposition it",
+    "editPolylineHeader":
+      "Drag line handles to edit your line, or click on line handles to delete vertices",
+    "editPolygonHeader":
+      "Drag shape handles to edit your shape, or click on shape handles to delete vertices",
+    "colorpickerStrokeToolLabel": "Line color",
+    "colorpickerFillToolLabel": "Fill color"
+  },
+  "customUrlField": {
+    "urlReadoutPrefix": "Your post will be accessible at:"
+  },
+  "geocodingField": {
+    "locationNotFoundError": "Sorry, we could not find that location."
+  },
+  "publishControlToolbar": {
+    "publishedLabel": "Published",
+    "notPublishedLabel": "Not published",
+    "publishedFooterMsg":
+      "When created, this post will be visible to all map users",
+    "notPublishedFooterMsg":
+      "When created, this post will be visible only to logged-in editors"
+  },
+  "dropdownField": {
+    "makeSelection": "Select..."
+  }
+}

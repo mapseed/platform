@@ -12,7 +12,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 const Util = require("../../js/utils.js");
 
-import { placeDetailEditor as messages } from "../../messages";
+import messages from "./messages";
 import constants from "../../constants";
 
 import "./place-detail-editor.scss";
@@ -152,7 +152,7 @@ class PlaceDetailEditor extends Component {
       >
         <WarningMessagesContainer
           errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={messages.validationErrorHeaderMsg}
+          headerMsg={messages.t("placeDetailEditor:validationErrorHeaderMsg")}
         />
         <form className="place-detail-editor__form">
           {this.state.fields

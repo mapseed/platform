@@ -33,13 +33,13 @@ import {
   AutocompleteComboboxFieldResponse,
 } from "./types";
 import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
-import { inputForm as messages } from "../../messages.js";
+import messages from "./messages";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
   return {
     validate: isOptional ? isWithAnyValue : isNotEmpty,
-    message: messages.missingRequired,
+    message: messages.t("inputForm:missingRequired"),
   };
 };
 
@@ -174,7 +174,7 @@ export default {
     getValidator: () => {
       return {
         validate: isNotEmpty,
-        message: messages.missingGeometry,
+        message: messages.t("inputForm:missingGeometry"),
       };
     },
     getComponent: (fieldConfig, context) => (
@@ -199,7 +199,7 @@ export default {
     getValidator: () => {
       return {
         validate: isWithUniqueUrl,
-        message: messages.duplicateUrl,
+        message: messages.t("inputForm:duplicateUrl"),
       };
     },
     getComponent: (fieldConfig, context) => (

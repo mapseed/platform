@@ -36,7 +36,7 @@ const InputExplorerCategoryMenu = props => {
           className={classNames.summaryLabel}
           htmlFor={"input-explorer-category-menu-summary"}
         >
-          {messages.t("categorySummaryLabel")}
+          {messages.t("inputExplorer:categorySummaryLabel")}
         </label>
       </span>
       {categoryNames.map(category => {

@@ -6,7 +6,7 @@ import Spinner from "react-spinner";
 
 import FormField from "../form-fields/form-field";
 
-import { inputForm as messages } from "../../messages";
+import messages from "./messages";
 import constants from "../../constants";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 import { scrollTo } from "../../utils/scroll-helpers";
@@ -265,7 +265,7 @@ class InputForm extends Component {
       <div className="input-form">
         <div className={cn.warningMsgs}>
           <p className={"input-form__warning-msgs-header"}>
-            {messages.validationHeader}
+            {messages.t("inputForm:validationHeader")}
           </p>
           {Array.from(this.state.formValidationErrors).map((errorMsg, i) => (
             <p key={i} className={"input-form__warning-msg"}>

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { dropdownField as messages } from "../../../messages";
+import messages from "../messages";
 import "./dropdown-field.scss";
 
 const DropdownField = props => {
@@ -17,7 +17,7 @@ const DropdownField = props => {
       name={props.name}
       onChange={e => props.onChange(e.target.name, e.target.value)}
     >
-      <option value="">{messages.makeSelection}</option>
+      <option value="">{messages.t("dropdownField:makeSelection")}</option>
       {props.options.map(option => (
         <option key={option.value} value={option.value}>
           {option.label}

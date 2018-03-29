@@ -4,7 +4,7 @@ import { List, Map } from "immutable";
 import classNames from "classnames";
 
 import fieldDefinitions from "./field-definitions";
-import { inputForm as messages } from "../../messages.js";
+import messages from "./messages";
 import constants from "../../constants";
 
 import "./form-field.scss";
@@ -88,7 +88,7 @@ class FormField extends Component {
       <div className={cn.container}>
         <p className="input-form__field-prompt">
           {this.props.fieldConfig.prompt}
-          <span className={cn.optionalMsg}>{messages.optionalMsg}</span>
+          <span className={cn.optionalMsg}>{messages.t("inputForm:optionalMsg")}</span>
         </p>
         {this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>
