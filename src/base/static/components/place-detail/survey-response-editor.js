@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import {
-  Map as ImmutableMap,
-  OrderedMap as ImmutableOrderedMap,
-} from "immutable";
+import { Map, OrderedMap } from "immutable";
 import PropTypes from "prop-types";
 
 import FormField from "../form-fields/form-field";
@@ -26,13 +23,13 @@ class SurveyResponseEditor extends Component {
       .reduce((memo, field) => {
         return memo.set(
           field.name,
-          ImmutableMap({
+          Map({
             [constants.FIELD_STATE_VALUE_KEY]: this.props.attributes.get(
               field.name,
             ),
           }),
         );
-      }, ImmutableOrderedMap());
+      }, OrderedMap());
 
     this.state = {
       fields: fields,

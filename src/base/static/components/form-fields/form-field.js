@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { List as ImmutableList, Map as ImmutableMap } from "immutable";
+import { List, Map } from "immutable";
 import classNames from "classnames";
 
 import fieldDefinitions from "./field-definitions";
@@ -50,7 +50,7 @@ class FormField extends Component {
   onChange(fieldName, fieldValue, isInitializing = false) {
     this.props.onFieldChange({
       fieldName: fieldName,
-      fieldStatus: ImmutableMap()
+      fieldStatus: Map()
         .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
         .set(
           constants.FIELD_STATE_VALIDITY_KEY,
@@ -97,7 +97,7 @@ class FormField extends Component {
 }
 
 FormField.propTypes = {
-  attachmentModels: PropTypes.instanceOf(ImmutableList),
+  attachmentModels: PropTypes.instanceOf(List),
   categoryConfig: PropTypes.object,
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
@@ -119,7 +119,7 @@ FormField.propTypes = {
 };
 
 FormField.defaultProps = {
-  attachmentModels: new ImmutableList(),
+  attachmentModels: new List(),
 };
 
 export default FormField;

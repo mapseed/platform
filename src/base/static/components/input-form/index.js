@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Map as ImmutableMap,
-  OrderedMap as ImmutableOrderedMap,
-} from "immutable";
+import { Map, OrderedMap } from "immutable";
 import classNames from "classnames";
 import Spinner from "react-spinner";
 
@@ -31,7 +28,7 @@ class InputForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fields: ImmutableOrderedMap(),
+      fields: OrderedMap(),
       updatingField: null,
       isFormSubmitting: false,
       formValidationErrors: new Set(),
@@ -66,17 +63,17 @@ class InputForm extends Component {
   initializeForm(selectedCategoryConfig) {
     this.isWithCustomGeometry =
       selectedCategoryConfig.fields.findIndex(
-        field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME
+        field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
       ) >= 0;
     this.attachments = [];
     this.geometryStyle = null;
-    let fields = ImmutableOrderedMap();
+    let fields = OrderedMap();
     selectedCategoryConfig.fields.forEach(field => {
       fields = fields.set(
         field.name,
-        ImmutableMap()
+        Map()
           .set(constants.FIELD_STATE_VALUE_KEY, "")
-          .set(constants.FIELD_STATE_RENDER_KEY, Math.random())
+          .set(constants.FIELD_STATE_RENDER_KEY, Math.random()),
       );
     });
     this.setState({
@@ -99,7 +96,7 @@ class InputForm extends Component {
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     fieldStatus = fieldStatus.set(
       constants.FIELD_STATE_RENDER_KEY,
-      this.state.fields.get(fieldName).get(constants.FIELD_STATE_RENDER_KEY)
+      this.state.fields.get(fieldName).get(constants.FIELD_STATE_RENDER_KEY),
     );
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, fieldStatus),
@@ -122,7 +119,7 @@ class InputForm extends Component {
     this.state.fields.forEach(value => {
       if (!value.get(constants.FIELD_STATE_VALIDITY_KEY)) {
         newValidationErrors.add(
-          value.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY)
+          value.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY),
         );
         isValid = false;
       }
@@ -152,7 +149,7 @@ class InputForm extends Component {
     collection.add({
       location_type: this.props.selectedCategoryConfig.category,
       datasetSlug: this.props.mapConfig.layers.find(
-        layer => this.props.selectedCategoryConfig.dataset === layer.id
+        layer => this.props.selectedCategoryConfig.dataset === layer.id,
       ).slug,
       datasetId: this.props.selectedCategoryConfig.dataset,
       showMetadata: this.props.selectedCategoryConfig.showMetadata,
@@ -208,7 +205,7 @@ class InputForm extends Component {
               this.state.fields
                 .get(fieldConfig.name)
                 .get(constants.FIELD_STATE_VALUE_KEY),
-              constants.AUTOFILL_DURATION_DAYS
+              constants.AUTOFILL_DURATION_DAYS,
             );
           }
         });
@@ -222,7 +219,7 @@ class InputForm extends Component {
           this.props.customHooks.postSave(
             response,
             model,
-            this.defaultPostSave.bind(this)
+            this.defaultPostSave.bind(this),
           );
         } else {
           this.defaultPostSave(model);
@@ -286,7 +283,7 @@ class InputForm extends Component {
               return (
                 <FormField
                   fieldConfig={this.props.selectedCategoryConfig.fields.find(
-                    field => field.name === fieldName
+                    field => field.name === fieldName,
                   )}
                   categoryConfig={this.props.selectedCategoryConfig}
                   disabled={this.state.isFormSubmitting}

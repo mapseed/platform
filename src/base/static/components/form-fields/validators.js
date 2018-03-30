@@ -1,11 +1,11 @@
-import { List as ImmutableList } from "immutable";
+import { List } from "immutable";
 
 import constants from "../../constants";
 
 const isWithAnyValue = () => true;
 
 const isNotEmpty = ({ value }) => {
-  if (value instanceof ImmutableList) {
+  if (value instanceof List) {
     return !(value.size === 0);
   } else {
     return !!value;

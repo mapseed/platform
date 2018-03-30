@@ -2,10 +2,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Map as ImmutableMap,
-  OrderedMap as ImmutableOrderedMap,
-} from "immutable";
+import { Map, OrderedMap } from "immutable";
 import emitter from "../../utils/emitter";
 
 import FormField from "../form-fields/form-field";
@@ -52,12 +49,12 @@ class Survey extends Component {
     return this.props.surveyConfig.items.reduce((fields, field) => {
       fields = fields.set(
         field.name,
-        ImmutableMap()
+        Map()
           .set(constants.FIELD_STATE_RENDER_KEY, Math.random())
           .set(constants.FIELD_STATE_VALUE_KEY, ""),
       );
       return fields;
-    }, ImmutableOrderedMap());
+    }, OrderedMap());
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -144,7 +141,7 @@ class Survey extends Component {
           {this.props.surveyModels.map(attributes => {
             {
               return this.props.isEditModeToggled ? (
-                <PlaceDetailSurveyEditor
+                <SurveyResponseEditor
                   key={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   isSubmitting={this.props.isSubmitting}
                   modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
@@ -156,7 +153,7 @@ class Survey extends Component {
                   submitter={this.props.submitter}
                 />
               ) : (
-                <PlaceDetailSurveyResponse
+                <SurveyResponse
                   anonymousName={this.props.anonymousName}
                   key={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}

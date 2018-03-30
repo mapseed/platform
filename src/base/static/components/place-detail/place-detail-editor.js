@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import emitter from "../../utils/emitter";
 import classNames from "classnames";
-import {
-  Map as ImmutableMap,
-  OrderedMap as ImmutableOrderedMap,
-} from "immutable";
+import { Map, OrderedMap } from "immutable";
 import Spinner from "react-spinner";
 import "react-spinner/react-spinner.css";
 
@@ -24,7 +21,7 @@ class PlaceDetailEditor extends Component {
   constructor(props) {
     super(props);
 
-    let fields = ImmutableOrderedMap();
+    let fields = OrderedMap();
     this.props.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
@@ -32,7 +29,7 @@ class PlaceDetailEditor extends Component {
       .forEach(field => {
         fields = fields.set(
           field.name,
-          ImmutableMap().set(
+          Map().set(
             constants.FIELD_STATE_VALUE_KEY,
             this.props.placeModel.get(field.name),
           ),

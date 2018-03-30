@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { fromJS, List as ImmutableList } from "immutable";
+import { fromJS, List } from "immutable";
 
 import ResponseField from "../form-fields/response-field";
 import PromotionBar from "./promotion-bar";
@@ -23,7 +23,7 @@ const Util = require("../../js/utils.js");
 import "./index.scss";
 
 const serializeBackboneCollection = collection => {
-  let serializedCollection = ImmutableList();
+  let serializedCollection = List();
   collection.each(model => {
     serializedCollection = serializedCollection.push(fromJS(model.attributes));
   });

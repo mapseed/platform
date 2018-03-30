@@ -1,7 +1,7 @@
 /* eslint react/display-name: 0 */
 
 import React from "react";
-import { fromJS, List as ImmutableList } from "immutable";
+import { fromJS, List } from "immutable";
 
 import constants from "../../constants";
 import {
@@ -109,7 +109,7 @@ export default {
           hasAutofill={fieldConfig.hasAutofill}
         />
       )),
-    getInitialValue: ({ value }) => fromJS(value) || ImmutableList(),
+    getInitialValue: ({ value }) => fromJS(value) || List(),
     getResponseComponent: () => BigCheckboxFieldResponse,
   },
   [constants.BIG_RADIO_FIELD_TYPENAME]: {
