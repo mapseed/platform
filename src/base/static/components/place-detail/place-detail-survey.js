@@ -150,7 +150,7 @@ class PlaceDetailSurvey extends Component {
                   modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   onSurveyModelRemove={this.props.onSurveyModelRemove}
                   onSurveyModelSave={this.props.onSurveyModelSave}
-                  surveyConfig={this.props.surveyConfig}
+                  surveyItems={this.props.surveyConfig.items}
                   attributes={attributes}
                   anonymousName={this.props.anonymousName}
                   submitter={this.props.submitter}

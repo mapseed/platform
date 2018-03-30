@@ -16,7 +16,7 @@ class FormField extends Component {
     super(props);
     this.fieldDefinition = fieldDefinitions[this.props.fieldConfig.type];
     this.validator = this.fieldDefinition.getValidator(
-      this.props.fieldConfig.optional
+      this.props.fieldConfig.optional,
     );
 
     // "autofill" is a better term than "autocomplete" for this feature.
@@ -25,6 +25,7 @@ class FormField extends Component {
       ? Util.getAutocompleteValue(this.props.fieldConfig.name)
       : null;
     this.props.fieldConfig.hasAutofill = !!autofillValue;
+
     const initialFieldValue = this.fieldDefinition.getInitialValue({
       value:
         this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ||
@@ -57,15 +58,15 @@ class FormField extends Component {
             value: fieldValue,
             places: this.props.places,
             modelId: this.props.modelId,
-          })
+          }),
         )
         .set(
           constants.FIELD_STATE_RENDER_KEY,
-          this.props.fieldState.get(constants.FIELD_STATE_RENDER_KEY)
+          this.props.fieldState.get(constants.FIELD_STATE_RENDER_KEY),
         )
         .set(
           constants.FIELD_STATE_VALIDITY_MESSAGE_KEY,
-          this.validator.message
+          this.validator.message,
         ),
       isInitializing: isInitializing,
     });

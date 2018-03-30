@@ -19,20 +19,20 @@ class PlaceDetailSurveyEditor extends Component {
   constructor(props) {
     super(props);
 
-    let fields = ImmutableOrderedMap();
-    this.props.surveyConfig.items
+    const fields = this.props.surveyItems
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
       .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
-      .forEach(field => {
-        fields = fields.set(
+      .reduce((memo, field) => {
+        return memo.set(
           field.name,
-          ImmutableMap().set(
-            constants.FIELD_STATE_VALUE_KEY,
-            this.props.attributes.get(field.name),
-          ),
+          ImmutableMap({
+            [constants.FIELD_STATE_VALUE_KEY]: this.props.attributes.get(
+              field.name,
+            ),
+          }),
         );
-      });
+      }, ImmutableOrderedMap());
 
     this.state = {
       fields: fields,
@@ -52,8 +52,8 @@ class PlaceDetailSurveyEditor extends Component {
   onClickSave(evt) {
     evt.preventDefault();
     const attrs = this.state.fields
-      .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
-      .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
+      .filter(field => !!field.get(constants.FIELD_STATE_VALUE_KEY))
+      .map(field => field.get(constants.FIELD_STATE_VALUE_KEY))
       .toJS();
     this.props.onSurveyModelSave(attrs, this.props.modelId);
   }
@@ -81,7 +81,7 @@ class PlaceDetailSurveyEditor extends Component {
             label=""
             onClick={this.onClickSave.bind(this)}
           />
-          {this.props.surveyConfig.items
+          {this.props.surveyItems
             .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
             .map(fieldConfig => (
               <FormField
@@ -129,16 +129,14 @@ PlaceDetailSurveyEditor.propTypes = {
   submitter: PropTypes.shape({
     avatar_url: PropTypes.string,
   }),
-  surveyConfig: PropTypes.shape({
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        prompt: PropTypes.string,
-        label: PropTypes.string,
-        type: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequiredm,
-      }),
-    ),
-  }).isRequired,
+  surveyItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      prompt: PropTypes.string,
+      label: PropTypes.string,
+      type: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default PlaceDetailSurveyEditor;
