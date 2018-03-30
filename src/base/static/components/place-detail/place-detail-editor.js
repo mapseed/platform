@@ -30,7 +30,7 @@ class PlaceDetailEditor extends Component {
         fields = fields.set(
           field.name,
           Map().set(
-            constants.FIELD_STATE_VALUE_KEY,
+            constants.FIELD_VALUE_KEY,
             this.props.placeModel.get(field.name),
           ),
         );
@@ -48,10 +48,10 @@ class PlaceDetailEditor extends Component {
     emitter.addListener("place-model:update", () => {
       // Validate the form.
       const newValidationErrors = this.state.fields
-        .filter(value => !value.get(constants.FIELD_STATE_VALIDITY_KEY))
+        .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
         .reduce((newValidationErrors, invalidField) => {
           return newValidationErrors.add(
-            invalidField.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY),
+            invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
           );
         }, new Set());
 
@@ -59,8 +59,8 @@ class PlaceDetailEditor extends Component {
         this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
 
         const attrs = this.state.fields
-          .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
-          .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
+          .filter(state => state.get(constants.FIELD_VALUE_KEY) !== null)
+          .map(state => state.get(constants.FIELD_VALUE_KEY))
           .toJS();
 
         if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {

@@ -57,7 +57,7 @@ const getSharedFieldProps = (fieldConfig, context) => {
     name: fieldConfig.name,
     onChange: context.onChange.bind(context),
     placeholder: fieldConfig.placeholder,
-    value: context.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY),
+    value: context.props.fieldState.get(constants.FIELD_VALUE_KEY),
   };
 };
 
@@ -102,7 +102,7 @@ export default {
           label={item.label}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checkboxGroupState={context.props.fieldState.get(
-            constants.FIELD_STATE_VALUE_KEY,
+            constants.FIELD_VALUE_KEY,
           )}
           name={fieldConfig.name}
           onChange={context.onChange.bind(context)}
@@ -122,7 +122,7 @@ export default {
           label={item.label}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checked={
-            context.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ===
+            context.props.fieldState.get(constants.FIELD_VALUE_KEY) ===
             item.value
           }
           name={fieldConfig.name}
@@ -163,7 +163,7 @@ export default {
       <PublishControlToolbar
         {...getSharedFieldProps(fieldConfig, context)}
         publishedState={context.props.fieldState.get(
-          constants.FIELD_STATE_VALUE_KEY,
+          constants.FIELD_VALUE_KEY,
         )}
       />
     ),
@@ -213,7 +213,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <DatetimeField
         {...getSharedFieldProps(fieldConfig, context)}
-        date={context.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY)}
+        date={context.props.fieldState.get(constants.FIELD_VALUE_KEY)}
         showTimeSelect={true}
       />
     ),
@@ -237,7 +237,7 @@ export default {
       <BigToggleField
         name={fieldConfig.name}
         checked={
-          context.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ===
+          context.props.fieldState.get(constants.FIELD_VALUE_KEY) ===
           fieldConfig.content[0].value
         }
         labels={[fieldConfig.content[0].label, fieldConfig.content[1].label]}

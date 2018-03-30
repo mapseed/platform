@@ -50,8 +50,8 @@ class Survey extends Component {
       fields = fields.set(
         field.name,
         Map()
-          .set(constants.FIELD_STATE_RENDER_KEY, Math.random())
-          .set(constants.FIELD_STATE_VALUE_KEY, ""),
+          .set(constants.FIELD_RENDER_KEY, Math.random())
+          .set(constants.FIELD_VALUE_KEY, ""),
       );
       return fields;
     }, OrderedMap());
@@ -59,8 +59,8 @@ class Survey extends Component {
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     fieldStatus = fieldStatus.set(
-      constants.FIELD_STATE_RENDER_KEY,
-      this.state.fields.get(fieldName).get(constants.FIELD_STATE_RENDER_KEY),
+      constants.FIELD_RENDER_KEY,
+      this.state.fields.get(fieldName).get(constants.FIELD_RENDER_KEY),
     );
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, fieldStatus),
@@ -73,10 +73,10 @@ class Survey extends Component {
     evt.preventDefault();
 
     const newValidationErrors = this.state.fields
-      .filter(value => !value.get(constants.FIELD_STATE_VALIDITY_KEY))
+      .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
       .reduce((newValidationErrors, invalidField) => {
         return newValidationErrors.add(
-          invalidField.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY),
+          invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
         );
       }, new Set());
 
@@ -84,10 +84,10 @@ class Survey extends Component {
       const attrs = this.state.fields
         .filter(
           val =>
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
+            val.get(constants.FIELD_TYPE_KEY) !==
             constants.SUBMIT_FIELD_TYPENAME,
         )
-        .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
+        .map(val => val.get(constants.FIELD_VALUE_KEY))
         .toJS();
       Util.log("USER", "place", "submit-reply-btn-click");
 
@@ -178,7 +178,7 @@ class Survey extends Component {
           {this.state.fields
             .map((fieldState, fieldName) => (
               <FormField
-                key={fieldState.get(constants.FIELD_STATE_RENDER_KEY)}
+                key={fieldState.get(constants.FIELD_RENDER_KEY)}
                 isInitializing={this.state.isInitializing}
                 fieldConfig={this.props.surveyConfig.items.find(
                   field => field.name === fieldName,

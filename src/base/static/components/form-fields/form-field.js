@@ -28,7 +28,7 @@ class FormField extends Component {
 
     const initialFieldValue = this.fieldDefinition.getInitialValue({
       value:
-        this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ||
+        this.props.fieldState.get(constants.FIELD_VALUE_KEY) ||
         autofillValue ||
         this.props.fieldConfig.default_value ||
         "",
@@ -51,9 +51,9 @@ class FormField extends Component {
     this.props.onFieldChange({
       fieldName: fieldName,
       fieldStatus: Map()
-        .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
+        .set(constants.FIELD_VALUE_KEY, fieldValue)
         .set(
-          constants.FIELD_STATE_VALIDITY_KEY,
+          constants.FIELD_VALIDITY_KEY,
           this.validator.validate({
             value: fieldValue,
             places: this.props.places,
@@ -61,12 +61,12 @@ class FormField extends Component {
           }),
         )
         .set(
-          constants.FIELD_STATE_RENDER_KEY,
-          this.props.fieldState.get(constants.FIELD_STATE_RENDER_KEY),
+          constants.FIELD_RENDER_KEY,
+          this.props.fieldState.get(constants.FIELD_RENDER_KEY)
         )
         .set(
-          constants.FIELD_STATE_VALIDITY_MESSAGE_KEY,
-          this.validator.message,
+          constants.FIELD_VALIDITY_MESSAGE_KEY,
+          this.validator.message
         ),
       isInitializing: isInitializing,
     });
@@ -77,7 +77,7 @@ class FormField extends Component {
       container: classNames("input-form__field-container", {
         "input-form__field-container--invalid":
           this.props.showValidityStatus &&
-          !this.props.fieldState.get(constants.FIELD_STATE_VALIDITY_KEY),
+          !this.props.fieldState.get(constants.FIELD_VALIDITY_KEY),
       }),
       optionalMsg: classNames("input-form__optional-msg", {
         "input-form__optional-msg--visible": this.props.fieldConfig.optional,
