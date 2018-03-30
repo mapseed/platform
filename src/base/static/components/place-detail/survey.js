@@ -10,19 +10,19 @@ import emitter from "../../utils/emitter";
 
 import FormField from "../form-fields/form-field";
 import SecondaryButton from "../ui-elements/secondary-button";
-import PlaceDetailSurveyResponse from "./place-detail-survey-response";
+import SurveyResponse from "./survey-response";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 import Avatar from "../ui-elements/avatar";
-import PlaceDetailSurveyEditor from "./place-detail-survey-editor";
+import SurveyResponseEditor from "./survey-response-editor";
 
 import constants from "../../constants";
 import { placeDetailSurvey as messages } from "../../messages";
 
-import "./place-detail-survey.scss";
+import "./survey.scss";
 
 const Util = require("../../js/utils.js");
 
-class PlaceDetailSurvey extends Component {
+class Survey extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -214,7 +214,7 @@ class PlaceDetailSurvey extends Component {
   }
 }
 
-PlaceDetailSurvey.propTypes = {
+Survey.propTypes = {
   anonymousName: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
@@ -232,4 +232,4 @@ PlaceDetailSurvey.propTypes = {
   surveyConfig: PropTypes.object.isRequired,
 };
 
-export default PlaceDetailSurvey;
+export default Survey;

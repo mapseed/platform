@@ -4,11 +4,11 @@ import classNames from "classnames";
 import { fromJS, List as ImmutableList } from "immutable";
 
 import ResponseField from "../form-fields/response-field";
-import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
-import PlaceDetailMetadataBar from "./place-detail-metadata-bar";
-import PlaceDetailSurvey from "./place-detail-survey";
+import PromotionBar from "./promotion-bar";
+import MetadataBar from "./metadata-bar";
+import Survey from "./survey";
 import CoverImage from "../ui-elements/cover-image";
-import PlaceDetailEditorBar from "./place-detail-editor-bar";
+import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
@@ -195,7 +195,7 @@ class PlaceDetail extends Component {
     return (
       <div className="place-detail-view">
         {this.state.isEditable ? (
-          <PlaceDetailEditorBar
+          <EditorBar
             isEditModeToggled={this.state.isEditModeToggled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
@@ -214,7 +214,7 @@ class PlaceDetail extends Component {
         >
           {title}
         </h1>
-        <PlaceDetailPromotionBar
+        <PromotionBar
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
             this.props.model,
           )}
@@ -240,7 +240,7 @@ class PlaceDetail extends Component {
           userToken={this.props.userToken}
         />
         {!isStoryChapter ? (
-          <PlaceDetailMetadataBar
+          <MetadataBar
             submitter={submitter}
             placeModel={this.state.placeModel}
             surveyModels={this.state.surveyModels}
@@ -292,7 +292,7 @@ class PlaceDetail extends Component {
             />
           ))
         )}
-        <PlaceDetailSurvey
+        <Survey
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
           getLoggingDetails={this.props.model.getLoggingDetails.bind(

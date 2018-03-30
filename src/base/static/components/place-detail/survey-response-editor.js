@@ -13,9 +13,9 @@ import EditorButton from "../ui-elements/editor-button";
 
 import constants from "../../constants";
 
-import "./place-detail-survey-editor.scss";
+import "./survey-response-editor.scss";
 
-class PlaceDetailSurveyEditor extends Component {
+class SurveyResponseEditor extends Component {
   constructor(props) {
     super(props);
 
@@ -119,7 +119,7 @@ class PlaceDetailSurveyEditor extends Component {
   }
 }
 
-PlaceDetailSurveyEditor.propTypes = {
+SurveyResponseEditor.propTypes = {
   attributes: PropTypes.object,
   anonymousName: PropTypes.string.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
@@ -139,4 +139,4 @@ PlaceDetailSurveyEditor.propTypes = {
   ).isRequired,
 };
 
-export default PlaceDetailSurveyEditor;
+export default SurveyResponseEditor;
