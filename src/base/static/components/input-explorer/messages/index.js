@@ -6,4 +6,4 @@ const ES = require("./es.json");
 messages.addResourceBundle("en_US", "inputExplorer", EN_US, true, true);
 messages.addResourceBundle("es", "inputExplorer", ES, true, true);
 
-export default messages;
+export default messages.t.bind(messages);

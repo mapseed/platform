@@ -9,15 +9,15 @@ import "./publish-control-toolbar.scss";
 const PublishControlToolbar = props => {
   const footerMsg =
     props.publishedState === "isPublished"
-      ? messages.t("publishControlToolbar:publishedFooterMsg")
-      : messages.t("publishControlToolbar:notPublishedFooterMsg");
+      ? messages("fields:publishControlToolbar:publishedFooterMsg")
+      : messages("fields:publishControlToolbar:notPublishedFooterMsg");
 
   return (
     <div className="publish-control-toolbar">
       <div className="publish-control-toolbar__buttons-container">
         <BigRadioField
           value="isPublished"
-          label={messages.t("publishControlToolbar:publishedLabel")}
+          label={messages("fields:publishControlToolbar:publishedLabel")}
           id={"input-form-" + props.name + "-isPublished"}
           name={props.name}
           checked={props.publishedState === "isPublished"}
@@ -25,7 +25,7 @@ const PublishControlToolbar = props => {
         />
         <BigRadioField
           value="isNotPublished"
-          label={messages.t("publishControlToolbar:notPublishedLabel")}
+          label={messages("fields:publishControlToolbar:notPublishedLabel")}
           id={"input-form-" + props.name + "-isNotPublished"}
           name={props.name}
           checked={props.publishedState === "isNotPublished"}

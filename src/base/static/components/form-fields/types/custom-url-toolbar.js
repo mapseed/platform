@@ -30,7 +30,7 @@ class CustomUrlToolbar extends Component {
       <div className="custom-url-field">
         <div className="custom-url-field__url-readout-container">
           <p className="custom-url-field__url-readout-prefix-msg">
-            {messages.t("customUrlField:urlReadoutPrefix")}
+            {messages("fields:customUrlField:urlReadoutPrefix")}
           </p>
           <span className="custom-url-field__url-readout-prefix">
             {this.urlPrefix}

@@ -265,7 +265,7 @@ class InputForm extends Component {
       <div className="input-form">
         <div className={cn.warningMsgs}>
           <p className={"input-form__warning-msgs-header"}>
-            {messages.t("inputForm:validationHeader")}
+            {messages("inputForm:validationHeader")}
           </p>
           {Array.from(this.state.formValidationErrors).map((errorMsg, i) => (
             <p key={i} className={"input-form__warning-msg"}>
