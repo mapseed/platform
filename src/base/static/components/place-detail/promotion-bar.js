@@ -6,11 +6,11 @@ import SupportButton from "../ui-elements/support-button";
 import SocialShareButton from "../ui-elements/social-share-button";
 import constants from "../../constants";
 
-import "./place-detail-promotion-bar.scss";
+import "./promotion-bar.scss";
 
 const Util = require("../../js/utils.js");
 
-class PlaceDetailPromotionBar extends Component {
+class PromotionBar extends Component {
   onClickSupport() {
     if (this.props.userSupportModel) {
       // If we already have user support for the current user token, we should
@@ -116,7 +116,7 @@ class PlaceDetailPromotionBar extends Component {
   }
 }
 
-PlaceDetailPromotionBar.propTypes = {
+PromotionBar.propTypes = {
   getLoggingDetails: PropTypes.func.isRequired,
   isHorizontalLayout: PropTypes.bool.isRequired,
   isSupported: PropTypes.bool.isRequired,
@@ -129,8 +129,8 @@ PlaceDetailPromotionBar.propTypes = {
   userToken: PropTypes.string,
 };
 
-PlaceDetailPromotionBar.defaultProps = {
+PromotionBar.defaultProps = {
   isHorizontalLayout: false,
 };
 
-export default PlaceDetailPromotionBar;
+export default PromotionBar;

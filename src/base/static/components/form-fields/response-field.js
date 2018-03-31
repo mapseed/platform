@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { List as ImmutableList } from "immutable";
+import { List } from "immutable";
 
 import fieldDefinitions from "./field-definitions";
 
@@ -12,7 +12,7 @@ import "./response-field.scss";
 const getCheckboxLabels = (fieldValue, fieldConfig) => {
   if (!fieldConfig.content) return null;
 
-  if (ImmutableList.isList(fieldValue)) {
+  if (List.isList(fieldValue)) {
     fieldValue = fieldValue.toArray();
   } else {
     fieldValue = [fieldValue];

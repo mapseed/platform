@@ -10,9 +10,9 @@ import SubmitterName from "../ui-elements/submitter-name";
 
 import constants from "../../constants";
 
-import "./place-detail-metadata-bar.scss";
+import "./metadata-bar.scss";
 
-const PlaceDetailMetadataBar = props => {
+const MetadataBar = props => {
   return (
     <div className="place-detail-metadata-bar">
       <Avatar
@@ -58,7 +58,7 @@ const PlaceDetailMetadataBar = props => {
   );
 };
 
-PlaceDetailMetadataBar.propTypes = {
+MetadataBar.propTypes = {
   actionText: PropTypes.string.isRequired,
   avatarSrc: PropTypes.string,
   placeModel: PropTypes.object.isRequired,
@@ -69,4 +69,4 @@ PlaceDetailMetadataBar.propTypes = {
   surveyConfig: PropTypes.object.isRequired,
 };
 
-export default PlaceDetailMetadataBar;
+export default MetadataBar;

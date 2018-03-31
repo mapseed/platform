@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { List as ImmutableList, Map as ImmutableMap } from "immutable";
+import { List, Map } from "immutable";
 import classNames from "classnames";
 
 import fieldDefinitions from "./field-definitions";
@@ -28,7 +28,7 @@ class FormField extends Component {
 
     const initialFieldValue = this.fieldDefinition.getInitialValue({
       value:
-        this.props.fieldState.get(constants.FIELD_STATE_VALUE_KEY) ||
+        this.props.fieldState.get(constants.FIELD_VALUE_KEY) ||
         autofillValue ||
         this.props.fieldConfig.default_value ||
         "",
@@ -50,10 +50,10 @@ class FormField extends Component {
   onChange(fieldName, fieldValue, isInitializing = false) {
     this.props.onFieldChange({
       fieldName: fieldName,
-      fieldStatus: ImmutableMap()
-        .set(constants.FIELD_STATE_VALUE_KEY, fieldValue)
+      fieldStatus: Map()
+        .set(constants.FIELD_VALUE_KEY, fieldValue)
         .set(
-          constants.FIELD_STATE_VALIDITY_KEY,
+          constants.FIELD_VALIDITY_KEY,
           this.validator.validate({
             value: fieldValue,
             places: this.props.places,
@@ -61,12 +61,12 @@ class FormField extends Component {
           }),
         )
         .set(
-          constants.FIELD_STATE_RENDER_KEY,
-          this.props.fieldState.get(constants.FIELD_STATE_RENDER_KEY),
+          constants.FIELD_RENDER_KEY,
+          this.props.fieldState.get(constants.FIELD_RENDER_KEY)
         )
         .set(
-          constants.FIELD_STATE_VALIDITY_MESSAGE_KEY,
-          this.validator.message,
+          constants.FIELD_VALIDITY_MESSAGE_KEY,
+          this.validator.message
         ),
       isInitializing: isInitializing,
     });
@@ -77,7 +77,7 @@ class FormField extends Component {
       container: classNames("input-form__field-container", {
         "input-form__field-container--invalid":
           this.props.showValidityStatus &&
-          !this.props.fieldState.get(constants.FIELD_STATE_VALIDITY_KEY),
+          !this.props.fieldState.get(constants.FIELD_VALIDITY_KEY),
       }),
       optionalMsg: classNames("input-form__optional-msg", {
         "input-form__optional-msg--visible": this.props.fieldConfig.optional,
@@ -97,7 +97,7 @@ class FormField extends Component {
 }
 
 FormField.propTypes = {
-  attachmentModels: PropTypes.instanceOf(ImmutableList),
+  attachmentModels: PropTypes.instanceOf(List),
   categoryConfig: PropTypes.object,
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
@@ -119,7 +119,7 @@ FormField.propTypes = {
 };
 
 FormField.defaultProps = {
-  attachmentModels: new ImmutableList(),
+  attachmentModels: new List(),
 };
 
 export default FormField;
