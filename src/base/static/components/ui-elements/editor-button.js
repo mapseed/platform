@@ -22,10 +22,11 @@ const EditorButton = props => {
           "editor-button__icon--toggle": props.type === "toggle",
           "editor-button__icon--save": props.type === "save",
           "editor-button__icon--remove": props.type === "remove",
-          "editor-button__icon--with-right-margin": !!props.label,
         })}
       />
-      {props.label}
+      {!!props.label && (
+        <span className="editor-button__label">{props.label}</span>
+      )}
     </button>
   );
 };
