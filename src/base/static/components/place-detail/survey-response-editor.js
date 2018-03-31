@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Map, OrderedMap } from "immutable";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import FormField from "../form-fields/form-field";
 import Avatar from "../ui-elements/avatar";
@@ -24,9 +25,7 @@ class SurveyResponseEditor extends Component {
         return memo.set(
           field.name,
           Map({
-            [constants.FIELD_STATE_VALUE_KEY]: this.props.attributes.get(
-              field.name,
-            ),
+            [constants.FIELD_VALUE_KEY]: this.props.attributes.get(field.name),
           }),
         );
       }, OrderedMap());
@@ -35,6 +34,7 @@ class SurveyResponseEditor extends Component {
       fields: fields,
       formValidationErrors: new Set(),
       showValidityStatus: false,
+      isModified: false,
     };
   }
 
@@ -43,16 +43,26 @@ class SurveyResponseEditor extends Component {
       fields: fields.set(fieldName, fieldStatus),
       updatingField: fieldName,
       isInitializing: isInitializing,
+      isModified: !isInitializing,
     }));
+  }
+
+  successCallback() {
+    this.setState({
+      isModified: false,
+    });
   }
 
   onClickSave(evt) {
     evt.preventDefault();
-    const attrs = this.state.fields
-      .filter(field => !!field.get(constants.FIELD_STATE_VALUE_KEY))
-      .map(field => field.get(constants.FIELD_STATE_VALUE_KEY))
-      .toJS();
-    this.props.onSurveyModelSave(attrs, this.props.modelId);
+    this.props.onSurveyModelSave(
+      this.state.fields
+        .filter(field => !!field.get(constants.FIELD_VALUE_KEY))
+        .map(field => field.get(constants.FIELD_VALUE_KEY))
+        .toJS(),
+      this.props.modelId,
+      this.successCallback.bind(this),
+    );
   }
 
   onClickRemove(evt) {
@@ -78,6 +88,14 @@ class SurveyResponseEditor extends Component {
             label=""
             onClick={this.onClickSave.bind(this)}
           />
+          <em
+            className={classNames("place-detail-survey-editor__save-status", {
+              "place-detail-survey-editor__save-status--unsaved": this.state
+                .isModified,
+            })}
+          >
+            {this.state.isModified ? "Not saved" : "Saved"}
+          </em>
           {this.props.surveyItems
             .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
             .map(fieldConfig => (

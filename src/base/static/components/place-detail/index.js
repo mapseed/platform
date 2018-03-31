@@ -103,7 +103,7 @@ class PlaceDetail extends Component {
   // down to the survey editor, we aren't able to (easily) pass down a
   // reference to each survey model's save method. As a result, we have a
   // special handler here to update survey models.
-  onSurveyModelSave(attrs, modelId) {
+  onSurveyModelSave(attrs, modelId, onSuccess) {
     this.setState({ isSurveyEditFormSubmitting: true });
     this.props.model.submissionSets[this.surveyType].get(modelId).save(attrs, {
       success: () => {
@@ -113,6 +113,7 @@ class PlaceDetail extends Component {
             this.props.model.submissionSets[this.surveyType],
           ),
         });
+        onSuccess();
       },
     });
   }

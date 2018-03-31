@@ -28,3 +28,15 @@
 .place-detail-survey-editor__remove-button {
   margin-left: 10px;
 }
+
+.place-detail-survey-editor__save-status {
+  float: right;
+  font-size: 0.7em;
+  margin-right: 20px;
+  line-height: 2.2em;
+  color: #7ab97a;
+}
+
+.place-detail-survey-editor__save-status--unsaved {
+  color: #e9a8a7;
+}
