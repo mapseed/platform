@@ -60,6 +60,23 @@ class PlaceDetail extends Component {
         this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
+    // Maintain reset listeners for submission collections in case the detail
+    // view is instantiated before these collections have been fetched.
+    this.props.model.submissionSets[this.supportType].on(
+      "reset",
+      collection => {
+        this.setState({
+          supportModels: serializeBackboneCollection(collection),
+        });
+      },
+    );
+
+    this.props.model.submissionSets[this.surveyType].on("reset", collection => {
+      this.setState({
+        surveyModels: serializeBackboneCollection(collection),
+      });
+    });
+
     this.state = {
       placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
