@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import emitter from "../../utils/emitter";
 import classNames from "classnames";
-import {
-  Map as ImmutableMap,
-  OrderedMap as ImmutableOrderedMap,
-} from "immutable";
+import { Map, OrderedMap } from "immutable";
 import Spinner from "react-spinner";
 import "react-spinner/react-spinner.css";
 
@@ -24,7 +21,7 @@ class PlaceDetailEditor extends Component {
   constructor(props) {
     super(props);
 
-    let fields = ImmutableOrderedMap();
+    let fields = OrderedMap();
     this.props.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
@@ -32,8 +29,8 @@ class PlaceDetailEditor extends Component {
       .forEach(field => {
         fields = fields.set(
           field.name,
-          ImmutableMap().set(
-            constants.FIELD_STATE_VALUE_KEY,
+          Map().set(
+            constants.FIELD_VALUE_KEY,
             this.props.placeModel.get(field.name),
           ),
         );
@@ -51,10 +48,10 @@ class PlaceDetailEditor extends Component {
     emitter.addListener("place-model:update", () => {
       // Validate the form.
       const newValidationErrors = this.state.fields
-        .filter(value => !value.get(constants.FIELD_STATE_VALIDITY_KEY))
+        .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
         .reduce((newValidationErrors, invalidField) => {
           return newValidationErrors.add(
-            invalidField.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY),
+            invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
           );
         }, new Set());
 
@@ -62,8 +59,8 @@ class PlaceDetailEditor extends Component {
         this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
 
         const attrs = this.state.fields
-          .filter(state => state.get(constants.FIELD_STATE_VALUE_KEY) !== null)
-          .map(state => state.get(constants.FIELD_STATE_VALUE_KEY))
+          .filter(state => state.get(constants.FIELD_VALUE_KEY) !== null)
+          .map(state => state.get(constants.FIELD_VALUE_KEY))
           .toJS();
 
         if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {

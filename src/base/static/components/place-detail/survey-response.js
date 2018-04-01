@@ -6,9 +6,9 @@ import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
 
-import "./place-detail-survey-response.scss";
+import "./survey-response.scss";
 
-class PlaceDetailSurveyResponse extends Component {
+class SurveyResponse extends Component {
   componentDidMount() {
     if (this.props.modelId === parseInt(this.props.scrollToResponseId)) {
       this.props.onMountTargetResponse(this.responseRef);
@@ -46,9 +46,9 @@ class PlaceDetailSurveyResponse extends Component {
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
               submitter={this.props.submitter}
-              placeConfig={this.props.placeConfig}
+              anonymousName={this.props.anonymousName}
             />
-            <ActionTime time={this.props.attributes.get("created_datetime")} />
+            <ActionTime time={this.props.attributes.get("updated_datetime")} />
           </div>
         </div>
       </article>
@@ -56,14 +56,14 @@ class PlaceDetailSurveyResponse extends Component {
   }
 }
 
-PlaceDetailSurveyResponse.propTypes = {
+SurveyResponse.propTypes = {
   attributes: PropTypes.object.isRequired,
   modelId: PropTypes.number.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.string,
   submitter: PropTypes.object.isRequired,
-  placeConfig: PropTypes.object.isRequired,
+  anonymousName: PropTypes.string.isRequired,
   surveyConfig: PropTypes.object.isRequired,
 };
 
-export default PlaceDetailSurveyResponse;
+export default SurveyResponse;

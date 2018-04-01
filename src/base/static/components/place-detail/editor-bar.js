@@ -5,9 +5,9 @@ import emitter from "../../utils/emitter";
 import EditorButton from "../ui-elements/editor-button";
 import { placeDetailEditor as messages } from "../../messages";
 
-import "./place-detail-editor-bar.scss";
+import "./editor-bar.scss";
 
-const PlaceDetailEditorBar = props => {
+const EditorBar = props => {
   return (
     <div className="place-detail-editor-bar">
       <EditorButton
@@ -41,10 +41,10 @@ const PlaceDetailEditorBar = props => {
   );
 };
 
-PlaceDetailEditorBar.propTypes = {
+EditorBar.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   onToggleEditMode: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
 };
 
-export default PlaceDetailEditorBar;
+export default EditorBar;

@@ -2,26 +2,24 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Map as ImmutableMap,
-  OrderedMap as ImmutableOrderedMap,
-} from "immutable";
+import { Map, OrderedMap } from "immutable";
 import emitter from "../../utils/emitter";
 
 import FormField from "../form-fields/form-field";
 import SecondaryButton from "../ui-elements/secondary-button";
-import PlaceDetailSurveyResponse from "./place-detail-survey-response";
+import SurveyResponse from "./survey-response";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 import Avatar from "../ui-elements/avatar";
+import SurveyResponseEditor from "./survey-response-editor";
 
 import constants from "../../constants";
 import { placeDetailSurvey as messages } from "../../messages";
 
-import "./place-detail-survey.scss";
+import "./survey.scss";
 
 const Util = require("../../js/utils.js");
 
-class PlaceDetailSurvey extends Component {
+class Survey extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,18 +49,18 @@ class PlaceDetailSurvey extends Component {
     return this.props.surveyConfig.items.reduce((fields, field) => {
       fields = fields.set(
         field.name,
-        ImmutableMap()
-          .set(constants.FIELD_STATE_RENDER_KEY, Math.random())
-          .set(constants.FIELD_STATE_VALUE_KEY, "")
+        Map()
+          .set(constants.FIELD_RENDER_KEY, Math.random())
+          .set(constants.FIELD_VALUE_KEY, ""),
       );
       return fields;
-    }, ImmutableOrderedMap());
+    }, OrderedMap());
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     fieldStatus = fieldStatus.set(
-      constants.FIELD_STATE_RENDER_KEY,
-      this.state.fields.get(fieldName).get(constants.FIELD_STATE_RENDER_KEY)
+      constants.FIELD_RENDER_KEY,
+      this.state.fields.get(fieldName).get(constants.FIELD_RENDER_KEY),
     );
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, fieldStatus),
@@ -75,10 +73,10 @@ class PlaceDetailSurvey extends Component {
     evt.preventDefault();
 
     const newValidationErrors = this.state.fields
-      .filter(value => !value.get(constants.FIELD_STATE_VALIDITY_KEY))
+      .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
       .reduce((newValidationErrors, invalidField) => {
         return newValidationErrors.add(
-          invalidField.get(constants.FIELD_STATE_VALIDITY_MESSAGE_KEY)
+          invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
         );
       }, new Set());
 
@@ -86,21 +84,21 @@ class PlaceDetailSurvey extends Component {
       const attrs = this.state.fields
         .filter(
           val =>
-            val.get(constants.FIELD_STATE_FIELD_TYPE_KEY) !==
-            constants.SUBMIT_FIELD_TYPENAME
+            val.get(constants.FIELD_TYPE_KEY) !==
+            constants.SUBMIT_FIELD_TYPENAME,
         )
-        .map(val => val.get(constants.FIELD_STATE_VALUE_KEY))
+        .map(val => val.get(constants.FIELD_VALUE_KEY))
         .toJS();
       Util.log("USER", "place", "submit-reply-btn-click");
 
-      this.props.onSurveyModelCreate(attrs, {
+      this.props.onSurveyCollectionCreate(attrs, {
         wait: true,
-        success: model => {
+        success: () => {
           Util.log(
             "USER",
             "place",
             "successfully-reply",
-            this.props.getLoggingDetails()
+            this.props.getLoggingDetails(),
           );
           this.props.onModelIO(constants.SURVEY_MODEL_IO_END_SUCCESS_ACTION);
           emitter.emit("place-detail-survey:save");
@@ -111,7 +109,7 @@ class PlaceDetailSurvey extends Component {
             "USER",
             "place",
             "fail-to-reply",
-            this.props.getLoggingDetails()
+            this.props.getLoggingDetails(),
           );
         },
       });
@@ -140,19 +138,33 @@ class PlaceDetailSurvey extends Component {
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
         <div className="place-detail-survey-responses">
-          {this.props.surveyModels.map((attributes, i) => {
-            return (
-              <PlaceDetailSurveyResponse
-                key={i}
-                modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
-                onMountTargetResponse={this.props.onMountTargetResponse}
-                scrollToResponseId={this.props.scrollToResponseId}
-                surveyConfig={this.props.surveyConfig}
-                attributes={attributes}
-                placeConfig={this.props.placeConfig}
-                submitter={this.props.submitter}
-              />
-            );
+          {this.props.surveyModels.map(attributes => {
+            {
+              return this.props.isEditModeToggled ? (
+                <SurveyResponseEditor
+                  key={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
+                  isSubmitting={this.props.isSubmitting}
+                  modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
+                  onSurveyModelRemove={this.props.onSurveyModelRemove}
+                  onSurveyModelSave={this.props.onSurveyModelSave}
+                  surveyItems={this.props.surveyConfig.items}
+                  attributes={attributes}
+                  anonymousName={this.props.anonymousName}
+                  submitter={this.props.submitter}
+                />
+              ) : (
+                <SurveyResponse
+                  anonymousName={this.props.anonymousName}
+                  key={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
+                  modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
+                  onMountTargetResponse={this.props.onMountTargetResponse}
+                  scrollToResponseId={this.props.scrollToResponseId}
+                  surveyConfig={this.props.surveyConfig}
+                  attributes={attributes}
+                  submitter={this.props.submitter}
+                />
+              );
+            }
           })}
         </div>
         <WarningMessagesContainer
@@ -166,10 +178,10 @@ class PlaceDetailSurvey extends Component {
           {this.state.fields
             .map((fieldState, fieldName) => (
               <FormField
-                key={fieldState.get(constants.FIELD_STATE_RENDER_KEY)}
+                key={fieldState.get(constants.FIELD_RENDER_KEY)}
                 isInitializing={this.state.isInitializing}
                 fieldConfig={this.props.surveyConfig.items.find(
-                  field => field.name === fieldName
+                  field => field.name === fieldName,
                 )}
                 updatingField={this.state.updatingField}
                 showValidityStatus={this.state.showValidityStatus}
@@ -199,18 +211,22 @@ class PlaceDetailSurvey extends Component {
   }
 }
 
-PlaceDetailSurvey.propTypes = {
+Survey.propTypes = {
+  anonymousName: PropTypes.string.isRequired,
   apiRoot: PropTypes.string.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
+  isEditModeToggled: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   onModelIO: PropTypes.func.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.string,
   surveyModels: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
-  onSurveyModelCreate: PropTypes.func.isRequired,
-  placeConfig: PropTypes.object.isRequired,
+  onSurveyCollectionCreate: PropTypes.func.isRequired,
+  onSurveyModelRemove: PropTypes.func.isRequired,
+  onSurveyModelSave: PropTypes.func.isRequired,
   submitter: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,
 };
 
-export default PlaceDetailSurvey;
+export default Survey;

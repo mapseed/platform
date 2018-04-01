@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { fromJS, List as ImmutableList } from "immutable";
+import { fromJS, List } from "immutable";
 
 import ResponseField from "../form-fields/response-field";
-import PlaceDetailPromotionBar from "./place-detail-promotion-bar";
-import PlaceDetailMetadataBar from "./place-detail-metadata-bar";
-import PlaceDetailSurvey from "./place-detail-survey";
+import PromotionBar from "./promotion-bar";
+import MetadataBar from "./metadata-bar";
+import Survey from "./survey";
 import CoverImage from "../ui-elements/cover-image";
-import PlaceDetailEditorBar from "./place-detail-editor-bar";
+import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
@@ -16,13 +16,14 @@ const SubmissionCollection = require("../../js/models/submission-collection.js")
 import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollDownTo } from "../../utils/scroll-helpers";
+import { placeDetailSurveyEditor as messages } from "../../messages";
 
 const Util = require("../../js/utils.js");
 
 import "./index.scss";
 
 const serializeBackboneCollection = collection => {
-  let serializedCollection = ImmutableList();
+  let serializedCollection = List();
   collection.each(model => {
     serializedCollection = serializedCollection.push(fromJS(model.attributes));
   });
@@ -59,6 +60,23 @@ class PlaceDetail extends Component {
         this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
+    // Maintain reset listeners for submission collections in case the detail
+    // view is instantiated before these collections have been fetched.
+    this.props.model.submissionSets[this.supportType].on(
+      "reset",
+      collection => {
+        this.setState({
+          supportModels: serializeBackboneCollection(collection),
+        });
+      },
+    );
+
+    this.props.model.submissionSets[this.surveyType].on("reset", collection => {
+      this.setState({
+        surveyModels: serializeBackboneCollection(collection),
+      });
+    });
+
     this.state = {
       placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
@@ -76,6 +94,7 @@ class PlaceDetail extends Component {
         this.categoryConfig.admin_groups,
       ),
       isEditFormSubmitting: false,
+      isSurveyEditFormSubmitting: false,
     };
   }
 
@@ -95,6 +114,39 @@ class PlaceDetail extends Component {
 
   onAddAttachment(attachment) {
     this.props.model.attachmentCollection.add(attachment);
+  }
+
+  // NOTE: Because we serialize our survey model collection before passing it
+  // down to the survey editor, we aren't able to (easily) pass down a
+  // reference to each survey model's save method. As a result, we have a
+  // special handler here to update survey models.
+  onSurveyModelSave(attrs, modelId, onSuccess) {
+    this.setState({ isSurveyEditFormSubmitting: true });
+    this.props.model.submissionSets[this.surveyType].get(modelId).save(attrs, {
+      success: () => {
+        this.setState({
+          isSurveyEditFormSubmitting: false,
+          surveyModels: serializeBackboneCollection(
+            this.props.model.submissionSets[this.surveyType],
+          ),
+        });
+        onSuccess();
+      },
+    });
+  }
+
+  onSurveyModelRemove(modelId) {
+    if (confirm(messages.confirmRemove)) {
+      this.props.model.submissionSets[this.surveyType].get(modelId).destroy({
+        success: () => {
+          this.setState({
+            surveyModels: serializeBackboneCollection(
+              this.props.model.submissionSets[this.surveyType],
+            ),
+          });
+        },
+      });
+    }
   }
 
   // Handle the various results of Backbone model save/update calls that
@@ -161,7 +213,7 @@ class PlaceDetail extends Component {
     return (
       <div className="place-detail-view">
         {this.state.isEditable ? (
-          <PlaceDetailEditorBar
+          <EditorBar
             isEditModeToggled={this.state.isEditModeToggled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
@@ -180,7 +232,7 @@ class PlaceDetail extends Component {
         >
           {title}
         </h1>
-        <PlaceDetailPromotionBar
+        <PromotionBar
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
             this.props.model,
           )}
@@ -206,11 +258,12 @@ class PlaceDetail extends Component {
           userToken={this.props.userToken}
         />
         {!isStoryChapter ? (
-          <PlaceDetailMetadataBar
+          <MetadataBar
             submitter={submitter}
             placeModel={this.state.placeModel}
             surveyModels={this.state.surveyModels}
-            placeConfig={this.props.placeConfig}
+            anonymousName={this.props.placeConfig.anonymous_name}
+            actionText={this.props.placeConfig.action_text}
             placeTypes={this.props.placeTypes}
             surveyConfig={this.props.surveyConfig}
           />
@@ -257,19 +310,23 @@ class PlaceDetail extends Component {
             />
           ))
         )}
-        <PlaceDetailSurvey
+        <Survey
           apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
             this.props.model,
           )}
+          isEditModeToggled={this.state.isEditModeToggled}
+          isSubmitting={this.state.isSurveyEditFormSubmitting}
           surveyModels={this.state.surveyModels}
           onModelIO={this.onChildModelIO.bind(this)}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
-          onSurveyModelCreate={this.props.model.submissionSets[
+          onSurveyCollectionCreate={this.props.model.submissionSets[
             this.surveyType
           ].create.bind(this.props.model.submissionSets[this.surveyType])}
-          placeConfig={this.props.placeConfig}
+          onSurveyModelSave={this.onSurveyModelSave.bind(this)}
+          onSurveyModelRemove={this.onSurveyModelRemove.bind(this)}
+          anonymousName={this.props.placeConfig.anonymous_name}
           scrollToResponseId={this.props.scrollToResponseId}
           submitter={submitter}
           surveyConfig={this.props.surveyConfig}
@@ -303,11 +360,11 @@ PlaceDetail.propTypes = {
   placeConfig: PropTypes.shape({
     adding_supported: PropTypes.bool.isRequired,
     add_button_label: PropTypes.string.isRequired,
+    anonymous_name: PropTypes.string.isRequired,
     show_list_button_label: PropTypes.string.isRequired,
     show_map_button_label: PropTypes.string.isRequired,
     action_text: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
     submit_button_label: PropTypes.string.isRequired,
     location_item_name: PropTypes.string.isRequired,
     default_basemap: PropTypes.string.isRequired,

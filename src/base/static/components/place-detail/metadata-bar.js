@@ -10,9 +10,9 @@ import SubmitterName from "../ui-elements/submitter-name";
 
 import constants from "../../constants";
 
-import "./place-detail-metadata-bar.scss";
+import "./metadata-bar.scss";
 
-const PlaceDetailMetadataBar = props => {
+const MetadataBar = props => {
   return (
     <div className="place-detail-metadata-bar">
       <Avatar
@@ -23,9 +23,9 @@ const PlaceDetailMetadataBar = props => {
         <p className="place-detail-metadata-bar__action-text">
           <SubmitterName
             submitter={props.submitter}
-            placeConfig={props.placeConfig}
+            anonymousName={props.anonymousName}
           />{" "}
-          {props.placeConfig.action_text || "created"} this{" "}
+          {props.actionText} this{" "}
           {
             props.placeTypes[
               props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME)
@@ -58,14 +58,15 @@ const PlaceDetailMetadataBar = props => {
   );
 };
 
-PlaceDetailMetadataBar.propTypes = {
+MetadataBar.propTypes = {
+  actionText: PropTypes.string.isRequired,
   avatarSrc: PropTypes.string,
   placeModel: PropTypes.object.isRequired,
   surveyModels: PropTypes.object.isRequired,
-  placeConfig: PropTypes.object.isRequired,
+  anonymousName: PropTypes.string.isRequired,
   placeTypes: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,
 };
 
-export default PlaceDetailMetadataBar;
+export default MetadataBar;
