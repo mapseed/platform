@@ -1,15 +1,19 @@
 import React from "react";
 import { shallow } from "enzyme";
 import InputForm from "../index.js";
-import { OrderedMap } from "immutable";
+import FormField from "../../form-fields/form-field";
+import constants from "../../../constants";
 
 describe("InputForm", () => {
-  test("renders form", () => {
+  const eventMock = { preventDefault: () => {} };
+  test("renders form fields", () => {
     const props = {
       container: {},
       hideCenterPoint: () => {},
       hideSpotlightMask: () => {},
-      selectedCategoryConfig: { fields: [] },
+      selectedCategoryConfig: {
+        fields: [{ name: "test1" }, { name: "test2" }],
+      },
       map: {
         on: () => {},
         off: () => {},
@@ -22,27 +26,8 @@ describe("InputForm", () => {
     };
 
     const wrapper = shallow(<InputForm {...props} />);
-    const component = wrapper.dive();
-    component.setState({
-      fields: OrderedMap(),
-      isFormSubmitting: false,
-      isMapPositioned: false,
-      formValidationErrors: new Set(),
-      showValidityStatus: false,
-    });
-    expect(component).toMatchSnapshot();
+    expect(wrapper.find(FormField)).toHaveLength(2);
   });
 
-  // test("without access token it renders null", () => {
-  //   const props = {
-  //     isOpen: false,
-  //     onCloseDialog() {},
-  //     onGoogleSheetIdSelected() {},
-  //   };
 
-  //   const wrapper = shallow(<ImportGoogleSheetDialog {...props} />, {
-  //     context: { store: mockStore(initialReduxState) },
-  //   });
-  //   expect(wrapper.dive()).toMatchSnapshot();
-  // });
 });
