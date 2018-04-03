@@ -512,6 +512,7 @@ module.exports = Backbone.View.extend({
         fillColor: config.color,
         weight: config.weight,
         fillOpacity: config.fillOpacity,
+        style: config.style,
       })
       .on("loading", function() {
         self.map.fire("layer:loading", {id: config.id});
