@@ -9,6 +9,7 @@ import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 import EditorButton from "../ui-elements/editor-button";
 
+import { translate } from "react-i18next";
 import constants from "../../constants";
 
 import "./survey-response-editor.scss";
@@ -94,7 +95,9 @@ class SurveyResponseEditor extends Component {
                 .isModified,
             })}
           >
-            {this.state.isModified ? "Not saved" : "Saved"}
+            {this.state.isModified
+              ? this.props.t("notSaved")
+              : this.props.t("saved")}
           </em>
           {this.props.surveyItems
             .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
@@ -154,4 +157,4 @@ SurveyResponseEditor.propTypes = {
   ).isRequired,
 };
 
-export default SurveyResponseEditor;
+export default translate("SurveyResponseEditor")(SurveyResponseEditor);

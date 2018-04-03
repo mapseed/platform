@@ -89,6 +89,13 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /locales/,
+        loader: "i18next-resource-store-loader",
+        query: {
+          include: /\.json$/,
+        }
+      },
+      {
         test: /\.s?css$/,
         use: extractSCSS.extract({
           fallback: "style-loader",

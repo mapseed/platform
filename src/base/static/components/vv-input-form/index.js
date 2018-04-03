@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import PrimaryButton from "../ui-elements/primary-button";
 import InputForm from "../input-form";
-import messages from "./messages";
+import { translate } from "react-i18next";
 import constants from "./constants";
 import "./index.scss";
 
@@ -39,7 +39,7 @@ class VVInputForm extends Component {
     // any saved autofill values when re-opening the form.
     this.props.placeConfig.place_detail
       .find(
-        config => config.category === constants.COMMUNITY_INPUT_CATEGORY_NAME
+        config => config.category === constants.COMMUNITY_INPUT_CATEGORY_NAME,
       )
       .fields.filter(field => field.autocomplete === true)
       .forEach(field => Util.removeAutocompleteValue(field.name));
@@ -104,16 +104,17 @@ class VVInputForm extends Component {
           : this.state.stage === "exit-or-continue",
       }),
     };
+    const { t } = this.props;
 
     return (
       <div className="vv-input-form">
         <div className={cn.welcomeHeader}>
           <h3 className="vv-input-form__welcome-header">
-            {messages.welcomeHeader}
+            {t("welcomeHeader")}
           </h3>
           <br />
           <p className="vv-input-form__welcome-subheader">
-            {messages.welcomeSubheader}
+            {t("welcomeSubheader")}
           </p>
         </div>
         <InputForm
@@ -123,19 +124,19 @@ class VVInputForm extends Component {
         />
         <div className={cn.continueBtns}>
           <h4 className="input-form__continue-btns-header">
-            {messages.continueBtnsHeader}
+            {t("continueBtnsHeader")}
           </h4>
           <PrimaryButton
             className="input-form__continue-form-btn"
             onClick={this.onClickContinueForm.bind(this)}
           >
-            {messages.continueFormLabel}
+            {t("continueFormLabel")}
           </PrimaryButton>
           <PrimaryButton
             className="input-form__exit-form-btn"
             onClick={this.onClickExitForm.bind(this)}
           >
-            {messages.exitFormLabel}
+            {t("exitFormLabel")}
           </PrimaryButton>
         </div>
       </div>
@@ -153,6 +154,7 @@ VVInputForm.propTypes = {
   onCategoryChange: PropTypes.func.isRequired,
   placeConfig: PropTypes.object.isRequired,
   showNewPin: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default VVInputForm;
+export default translate("VVInputForm")(VVInputForm);

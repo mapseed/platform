@@ -33,13 +33,12 @@ import {
   AutocompleteComboboxFieldResponse,
 } from "./types";
 import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
-import messages from "./messages";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
 
 const getDefaultValidator = isOptional => {
   return {
     validate: isOptional ? isWithAnyValue : isNotEmpty,
-    message: messages.t("inputForm:missingRequired"),
+    message: "missingRequired",
   };
 };
 
@@ -162,9 +161,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <PublishControlToolbar
         {...getSharedFieldProps(fieldConfig, context)}
-        publishedState={context.props.fieldState.get(
-          constants.FIELD_VALUE_KEY,
-        )}
+        publishedState={context.props.fieldState.get(constants.FIELD_VALUE_KEY)}
       />
     ),
     getInitialValue: ({ value }) => value || "isPublished",
@@ -174,7 +171,7 @@ export default {
     getValidator: () => {
       return {
         validate: isNotEmpty,
-        message: messages.t("inputForm:missingGeometry"),
+        message: "missingGeometry",
       };
     },
     getComponent: (fieldConfig, context) => (
@@ -199,7 +196,7 @@ export default {
     getValidator: () => {
       return {
         validate: isWithUniqueUrl,
-        message: messages.t("inputForm:duplicateUrl"),
+        message: "duplicateUrl",
       };
     },
     getComponent: (fieldConfig, context) => (

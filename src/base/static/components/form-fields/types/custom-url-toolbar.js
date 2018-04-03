@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import TextField from "./text-field";
-import messages from "../messages";
+import { translate } from "react-i18next";
 import "./custom-url-toolbar.scss";
 
 const Util = require("../../../js/utils.js");
@@ -26,11 +26,13 @@ class CustomUrlToolbar extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="custom-url-field">
         <div className="custom-url-field__url-readout-container">
           <p className="custom-url-field__url-readout-prefix-msg">
-            {messages("fields:customUrlField:urlReadoutPrefix")}
+            {t("urlReadoutPrefix")}
           </p>
           <span className="custom-url-field__url-readout-prefix">
             {this.urlPrefix}
@@ -54,7 +56,8 @@ CustomUrlToolbar.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  t: PropTypes.func.isRequired,
   value: PropTypes.string,
 };
 
-export default CustomUrlToolbar;
+export default translate("CustomUrlToolbar")(CustomUrlToolbar);

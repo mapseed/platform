@@ -4,7 +4,7 @@ import { List, Map } from "immutable";
 import classNames from "classnames";
 
 import fieldDefinitions from "./field-definitions";
-import messages from "./messages";
+import { translate } from "react-i18next";
 import constants from "../../constants";
 
 import "./form-field.scss";
@@ -62,12 +62,9 @@ class FormField extends Component {
         )
         .set(
           constants.FIELD_RENDER_KEY,
-          this.props.fieldState.get(constants.FIELD_RENDER_KEY)
+          this.props.fieldState.get(constants.FIELD_RENDER_KEY),
         )
-        .set(
-          constants.FIELD_VALIDITY_MESSAGE_KEY,
-          this.validator.message
-        ),
+        .set(constants.FIELD_VALIDITY_MESSAGE_KEY, this.validator.message),
       isInitializing: isInitializing,
     });
   }
@@ -83,12 +80,13 @@ class FormField extends Component {
         "input-form__optional-msg--visible": this.props.fieldConfig.optional,
       }),
     };
+    const { t } = this.props;
 
     return (
       <div className={cn.container}>
         <p className="input-form__field-prompt">
           {this.props.fieldConfig.prompt}
-          <span className={cn.optionalMsg}>{messages.t("inputForm:optionalMsg")}</span>
+          <span className={cn.optionalMsg}>{t("optionalMsg")}</span>
         </p>
         {this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>
@@ -110,6 +108,7 @@ FormField.propTypes = {
   places: PropTypes.object,
   router: PropTypes.object,
   showValidityStatus: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
@@ -122,4 +121,4 @@ FormField.defaultProps = {
   attachmentModels: new List(),
 };
 
-export default FormField;
+export default translate("FormField")(FormField);

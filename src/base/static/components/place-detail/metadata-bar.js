@@ -6,12 +6,19 @@ import PropTypes from "prop-types";
 import Avatar from "../ui-elements/avatar";
 import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
+import { translate, Trans } from "react-i18next";
 
 import constants from "../../constants";
 
 import "./metadata-bar.scss";
 
 const MetadataBar = props => {
+  const placeTypeLabel =
+    props.placeTypes[
+      props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME)
+    ].label;
+  const actionText = props.actionText;
+
   return (
     <div className="place-detail-metadata-bar">
       <Avatar
@@ -20,19 +27,16 @@ const MetadataBar = props => {
       />
       <div className="place-detail-metadata-bar__details-container">
         <p className="place-detail-metadata-bar__action-text">
-          <SubmitterName
-            submitterName={
-              props.submitter.get(constants.NAME_PROPERTY_NAME) ||
-              props.placeModel.get(constants.SUBMITTER_FIELDNAME)
-            }
-            anonymousName={props.anonymousName}
-          />{" "}
-          {props.actionText} this{" "}
-          {
-            props.placeTypes[
-              props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME)
-            ].label
-          }
+          <Trans i18nKey="submitterActionText">
+            <SubmitterName
+              submitterName={
+                props.submitter.get(constants.NAME_PROPERTY_NAME) ||
+                props.placeModel.get(constants.SUBMITTER_FIELDNAME)
+              }
+              anonymousName={props.anonymousName}
+            />{" "}
+            {{ actionText }} this {{ placeTypeLabel }}
+          </Trans>
         </p>
         <a
           href={
@@ -71,4 +75,4 @@ MetadataBar.propTypes = {
   surveyConfig: PropTypes.object.isRequired,
 };
 
-export default MetadataBar;
+export default translate("MetadataBar")(MetadataBar);
