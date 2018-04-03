@@ -67,22 +67,25 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     this.geometryStyle = null;
-    let fields = OrderedMap();
-    selectedCategoryConfig.fields.forEach(field => {
-      fields = fields.set(
-        field.name,
-        Map()
-          .set(constants.FIELD_VALUE_KEY, "")
-          .set(constants.FIELD_RENDER_KEY, Math.random()),
-      );
-    });
-    this.setState({
-      fields: fields,
+    const getNewFields = prevFields =>
+      selectedCategoryConfig.fields.reduce((memo, field) => {
+        return memo.set(
+          field.name,
+          Map({
+            [constants.FIELD_VALUE_KEY]: "",
+            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
+              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + 1
+              : 0,
+          }),
+        );
+      }, OrderedMap());
+    this.setState(prevState => ({
+      fields: getNewFields(prevState.fields),
       isFormSubmitting: false,
       isMapPositioned: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
-    });
+    }));
   }
 
   handleDragEnd() {
