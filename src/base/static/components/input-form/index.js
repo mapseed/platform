@@ -118,16 +118,18 @@ class InputForm extends Component {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
     // Validate the form.
-    const newValidationErrors = new Set();
-    let isValid = true;
-    this.state.fields.forEach(value => {
-      if (!value.get(constants.FIELD_VALIDITY_KEY)) {
-        newValidationErrors.add(
-          value.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
-        );
-        isValid = false;
-      }
-    });
+    const { newValidationErrors, isValid } = this.state.fields.reduce(
+      ({ newValidationErrors, isValid }, value) => {
+        if (!value.get(constants.FIELD_VALIDITY_KEY)) {
+          newValidationErrors.add(
+            value.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
+          );
+          isValid = false;
+        }
+        return { newValidationErrors, isValid };
+      },
+      { newValidationErrors: new Set(), isValid: true },
+    );
 
     if (isValid) {
       this.saveModel();
@@ -150,14 +152,17 @@ class InputForm extends Component {
     const collection = this.props.places[
       this.props.selectedCategoryConfig.dataset
     ];
-    collection.add({
-      location_type: this.props.selectedCategoryConfig.category,
-      datasetSlug: this.props.mapConfig.layers.find(
-        layer => this.props.selectedCategoryConfig.dataset === layer.id,
-      ).slug,
-      datasetId: this.props.selectedCategoryConfig.dataset,
-      showMetadata: this.props.selectedCategoryConfig.showMetadata,
-    }, { wait: true });
+    collection.add(
+      {
+        location_type: this.props.selectedCategoryConfig.category,
+        datasetSlug: this.props.mapConfig.layers.find(
+          layer => this.props.selectedCategoryConfig.dataset === layer.id,
+        ).slug,
+        datasetId: this.props.selectedCategoryConfig.dataset,
+        showMetadata: this.props.selectedCategoryConfig.showMetadata,
+      },
+      { wait: true },
+    );
     const model = collection.at(collection.length - 1);
     let attrs = this.state.fields
       .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
@@ -268,7 +273,7 @@ class InputForm extends Component {
     return (
       <div className="input-form">
         <WarningMessagesContainer
-          errors={Array.from(this.state.formValidationErrors)}
+          errors={[...this.state.formValidationErrors]}
           headerMsg={this.props.t("validationHeader")}
         />
         <form
