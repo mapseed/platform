@@ -119,10 +119,10 @@ class InputForm extends Component {
 
     // Validate the form.
     const { newValidationErrors, isValid } = this.state.fields.reduce(
-      ({ newValidationErrors, isValid }, value) => {
-        if (!value.get(constants.FIELD_VALIDITY_KEY)) {
+      ({ newValidationErrors, isValid }, field) => {
+        if (!field.get(constants.FIELD_VALIDITY_KEY)) {
           newValidationErrors.add(
-            value.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
+            field.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
           );
           isValid = false;
         }
