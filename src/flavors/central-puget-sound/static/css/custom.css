@@ -18,7 +18,7 @@
 #site-title a:visited {
   color: #127de4 !important;
   font-weight: normal;
-  font-family: 'Palanquin';
+  font-family: 'Palanquin' !important;
   display: block;
   float: left;
   margin-right: 50px;
