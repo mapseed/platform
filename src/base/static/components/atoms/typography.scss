@@ -1,0 +1,16 @@
+@import "variables";
+
+.mapseed__warning-msg {
+  margin: $input-form-validation-errors-error-msg-margin;
+  padding: $input-form-validation-errors-error-msg-padding;
+  text-indent: $input-form-validation-errors-error-msg-text-indent;
+  color: $input-form-validation-errors-error-msg-text-color;
+  font-style: $input-form-validation-errors-error-msg-text-style;
+
+  &:before {
+    font-family: FontAwesome;
+    font-style: normal;
+    content: $input-form-validation-errors-error-msg-icon;
+    padding-right: 5px;
+  }
+}
