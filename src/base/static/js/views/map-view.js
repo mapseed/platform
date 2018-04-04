@@ -78,7 +78,6 @@ module.exports = Backbone.View.extend({
       collection.on("reset", self.render, self);
       collection.on("add", self.addLayerView(collectionId), self);
       collection.on("remove", self.removeLayerView(collectionId), self);
-      collection.on("userHideModel", self.onUserHideModel(collectionId), self);
     });
 
     // Bind landmark collections event listeners
@@ -144,22 +143,6 @@ module.exports = Backbone.View.extend({
         this.map.setZoom(parseInt(maxZoom, 10));
       });
     }
-  },
-
-  onUserHideModel: function(collectionId) {
-    return function(model) {
-      this.places[collectionId].remove(model);
-      Util.log("APP", "panel-state", "closed");
-      // remove map mask if the user closes the side panel
-      $("#spotlight-place-mask").remove();
-      if (this.locationTypeFilter) {
-        this.options.router.navigate("filter/" + this.locationTypeFilter, {
-          trigger: true,
-        });
-      } else {
-        this.options.router.navigate("/", { trigger: true });
-      }
-    };
   },
 
   // Adds or removes the layer  on Master Layer based on visibility
@@ -300,9 +283,24 @@ module.exports = Backbone.View.extend({
         this.layerViews[collectionId][model.cid].throttledRender,
         this.layerViews[collectionId][model.cid]
       );
+      this.map.off(
+        "zoomend",
+        this.layerViews[collectionId][model.cid].render,
+        this.layerViews[collectionId][model.cid]
+      )
 
       this.layerViews[collectionId][model.cid].remove();
       delete this.layerViews[collectionId][model.cid];
+
+      Util.log("APP", "panel-state", "closed");
+      $("#spotlight-place-mask").remove();
+      if (this.locationTypeFilter) {
+        this.options.router.navigate("filter/" + this.locationTypeFilter, {
+          trigger: true,
+        });
+      } else {
+        this.options.router.navigate("/", { trigger: true });
+      }
     };
   },
   zoomInOn: function(latLng) {

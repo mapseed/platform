@@ -28,7 +28,6 @@ module.exports = Backbone.View.extend({
     this.model.on("focus", this.focus, this);
     this.model.on("unfocus", this.unfocus, this);
     this.model.on("destroy", this.onDestroy, this);
-    this.model.on("userHideModel", this.onDestroy, this);
 
     if (!this.options.mapView.options.mapConfig.suppress_zoom_rules) {
       this.map.on("zoomend", this.render, this);
@@ -229,18 +228,13 @@ module.exports = Backbone.View.extend({
     );
   },
   onDestroy: function() {
-    // NOTE: it's necessary to remove the zoomend event here
-    // so this view won't try to recreate a marker when the map is
-    // zoomed. Somehow even when a layer view is removed, the
-    // zoomend listener on the map still retains a reference to it
-    // and is capable of calling view methods on a "deleted" view.
-    this.map.off("zoomend", this.render, this);
     this.layer = null;
     this.hide();
   },
   removeLayer: function() {
     if (this.layer) {
       this.layerGroup.removeLayer(this.layer);
+      this.layer = null;
     }
   },
   render: function() {

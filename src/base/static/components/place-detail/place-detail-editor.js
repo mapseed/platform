@@ -93,8 +93,8 @@ class PlaceDetailEditor extends Component {
     });
 
     emitter.addListener("place-model:remove", () => {
-      this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
       if (confirm(messages.confirmRemove)) {
+        this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
         this.props.onPlaceModelSave(
           {
             visible: false,
@@ -123,7 +123,7 @@ class PlaceDetailEditor extends Component {
   }
 
   onPlaceModelRemoveSuccess(model) {
-    model.trigger("userHideModel", model);
+    model.collection.remove(model.id);
   }
 
   onPlaceModelRemoveError() {
