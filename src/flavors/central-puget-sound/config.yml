@@ -102,6 +102,7 @@ map:
       version: 1.0.0
       transparent: false
       format: image/jpg
+      style: default
 
     - id: bath
       type: wmts
@@ -120,6 +121,7 @@ map:
       version: 1.0.0
       transparent: false
       format: image/jpg
+      style: default
 
     - id: contour
       type: wmts
@@ -129,6 +131,7 @@ map:
       version: 1.0.0
       transparent: false
       format: image/png
+      style: default
 
     - id: impervious
       type: wms
