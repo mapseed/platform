@@ -118,17 +118,18 @@ class InputForm extends Component {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
     // Validate the form.
-    const { newValidationErrors, isValid } = this.state.fields.reduce(
-      ({ newValidationErrors, isValid }, field) => {
+    const {
+      validationErrors: newValidationErrors,
+      isValid,
+    } = this.state.fields.reduce(
+      ({ validationErrors, isValid }, field) => {
         if (!field.get(constants.FIELD_VALIDITY_KEY)) {
-          newValidationErrors.add(
-            field.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
-          );
+          validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
           isValid = false;
         }
-        return { newValidationErrors, isValid };
+        return { validationErrors, isValid };
       },
-      { newValidationErrors: new Set(), isValid: true },
+      { validationErrors: new Set(), isValid: true },
     );
 
     if (isValid) {
