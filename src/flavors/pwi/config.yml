@@ -298,6 +298,10 @@ activity:
 
   # Place Types
 
+right_sidebar:
+  show: true
+  visibleDefault: true
+
 place:
   adding_supported: true
   add_button_label: _(Add a report to the map!)
@@ -559,21 +563,32 @@ pages:
     slug: getinvolved
     name: contribute
 
-# story:
-  # example:
-  #   tagline: _(Next featured site)
-  #   default_zoom: 18
-  #   default_visible_layers:
-  #     - satellite
-  #   order:
-      # - url: dirtcorps
-      #   zoom: 15
-      #   panTo:
-      #     lat: 47.53420
-      #     lng: -122.32165
-      #   spotlight: false
-      #   visible_layers:
-      #     - dirt-corps
+story:
+  example:
+    tagline: _(Next featured site)
+    default_zoom: 16
+    default_visible_layers:
+      - pwi-featured
+      - pwi-input
+    order:
+      - url: lister-elementary-family-nights--varies-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
+      - url: good-shephard-lutheran-meals--tue---6pm-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png  
+      - url: kwa-meals-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
+      - url: first-creek-middle-school--varies-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png  
+      - url: vacant-parcels
+        basemap: satellite
+        zoom: 9
+        visible_layers:
+          - vacant-parcels       
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
 
 # cluster:
 #   animate: true
