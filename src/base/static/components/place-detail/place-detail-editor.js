@@ -12,7 +12,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 const Util = require("../../js/utils.js");
 
-import { placeDetailEditor as messages } from "../../messages";
+import { translate } from "react-i18next";
 import constants from "../../constants";
 
 import "./place-detail-editor.scss";
@@ -93,7 +93,9 @@ class PlaceDetailEditor extends Component {
     });
 
     emitter.addListener("place-model:remove", () => {
-      if (confirm(messages.confirmRemove)) {
+      // TODO: Replace this confirm, as it won't respond to client-side i18n
+      // changes, plus it's a bad UX pattern.
+      if (confirm(this.props.t("confirmRemove"))) {
         this.props.onModelIO(constants.PLACE_MODEL_IO_START_ACTION);
         this.props.onPlaceModelSave(
           {
@@ -152,7 +154,7 @@ class PlaceDetailEditor extends Component {
       >
         <WarningMessagesContainer
           errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={messages.validationErrorHeaderMsg}
+          headerMsg={this.props.t("validationErrorHeaderMsg")}
         />
         <form className="place-detail-editor__form">
           {this.state.fields
@@ -220,6 +222,7 @@ PlaceDetailEditor.propTypes = {
   placeModel: PropTypes.object.isRequired,
   places: PropTypes.object,
   router: PropTypes.object,
+  t: PropTypes.func.isRequired,
 };
 
-export default PlaceDetailEditor;
+export default translate("PlaceDetailEditor")(PlaceDetailEditor);

@@ -16,10 +16,10 @@ const SubmissionCollection = require("../../js/models/submission-collection.js")
 import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
-import { placeDetailSurveyEditor as messages } from "../../messages";
 
 const Util = require("../../js/utils.js");
 
+import { translate } from "react-i18next"
 import "./index.scss";
 
 const serializeBackboneCollection = collection => {
@@ -140,7 +140,7 @@ class PlaceDetail extends Component {
   }
 
   onSurveyModelRemove(modelId) {
-    if (confirm(messages.confirmRemove)) {
+    if (confirm(this.props.t("confirmRemove"))) {
       this.props.model.submissionSets[this.surveyType].get(modelId).destroy({
         success: () => {
           this.setState({
@@ -430,7 +430,8 @@ PlaceDetail.propTypes = {
     submit_btn_text: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  t: PropTypes.func.isRequired,
   userToken: PropTypes.string.isRequired,
 };
 
-export default PlaceDetail;
+export default translate("PlaceDetail")(PlaceDetail);

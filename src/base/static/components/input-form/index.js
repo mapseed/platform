@@ -5,8 +5,9 @@ import classNames from "classnames";
 import Spinner from "react-spinner";
 
 import FormField from "../form-fields/form-field";
+import WarningMessagesContainer from "../ui-elements/warning-messages-container";
 
-import { inputForm as messages } from "../../messages";
+import { translate } from "react-i18next";
 import constants from "../../constants";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 import { scrollTo } from "../../utils/scroll-helpers";
@@ -263,16 +264,10 @@ class InputForm extends Component {
 
     return (
       <div className="input-form">
-        <div className={cn.warningMsgs}>
-          <p className={"input-form__warning-msgs-header"}>
-            {messages.validationHeader}
-          </p>
-          {Array.from(this.state.formValidationErrors).map((errorMsg, i) => (
-            <p key={i} className={"input-form__warning-msg"}>
-              {errorMsg}
-            </p>
-          ))}
-        </div>
+        <WarningMessagesContainer
+          errors={Array.from(this.state.formValidationErrors)}
+          headerMsg={this.props.t("validationHeader")}
+        />
         <form
           id="mapseed-input-form"
           className={cn.form}
@@ -330,6 +325,7 @@ InputForm.propTypes = {
   router: PropTypes.object.isRequired,
   selectedCategoryConfig: PropTypes.object,
   showNewPin: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default InputForm;
+export default translate("InputForm")(InputForm);

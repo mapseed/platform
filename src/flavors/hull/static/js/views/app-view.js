@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import InputExplorer from "../../../../../base/static/components/input-explorer";
+import languageModule from "../../../../../base/static/language-module";
 import i18next from "i18next";
 
 const AppView = require("../../../../../base/static/js/views/app-view.js");
@@ -56,8 +57,8 @@ module.exports = AppView.extend({
 
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
-
-    i18next.changeLanguage(this.options.languageCode);
+    
+    languageModule.changeLanguage(this.options.languageCode);
 
     var self = this,
       // Only include submissions if the list view is enabled (anything but false)

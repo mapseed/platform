@@ -4,7 +4,7 @@ import classNames from "classnames";
 import ColorPicker from "rc-color-picker";
 import "rc-color-picker/assets/index.css";
 
-import { mapDrawingToolbar as messages } from "../../../messages";
+import { translate } from "react-i18next";
 import constants from "../../../constants";
 import "./map-drawing-toolbar.scss";
 
@@ -49,13 +49,18 @@ class MapDrawingToolbar extends Component {
       props.existingGeometry.get(constants.GEOMETRY_TYPE_PROPERTY_NAME);
     this.state = {
       headerMessage: existingGeometryType
-        ? messages[GEOMETRIES[existingGeometryType].headerMessage].header
-        : messages.selectTool.header,
-      currentPanel:
-        existingGeometryType ? GEOMETRIES[existingGeometryType].editorPanel : "select-geometry-type",
-      currentGeometryType: existingGeometryType ? GEOMETRIES[existingGeometryType].leafletTerm : null,
+        ? `${GEOMETRIES[existingGeometryType].headerMessage}Header`
+        : "selectToolHeader",
+      currentPanel: existingGeometryType
+        ? GEOMETRIES[existingGeometryType].editorPanel
+        : "select-geometry-type",
+      currentGeometryType: existingGeometryType
+        ? GEOMETRIES[existingGeometryType].leafletTerm
+        : null,
       selectedDrawingTool: null,
-      selectedEditingTool: existingGeometryType ? GEOMETRIES[existingGeometryType].editorTool : null,
+      selectedEditingTool: existingGeometryType
+        ? GEOMETRIES[existingGeometryType].editorTool
+        : null,
       selectedMarkerIndex:
         props.existingGeometryStyle &&
         props.existingGeometryStyle.get(constants.ICON_URL_PROPERTY_NAME)
@@ -123,67 +128,67 @@ class MapDrawingToolbar extends Component {
       drawing: [
         {
           type: "create-marker-tool",
-          label: messages.createMarkerTool.label,
+          label: "createMarkerToolLabel",
           imgSrc: "",
         },
         {
           type: "create-polyline-tool",
-          label: messages.createPolylineTool.label,
+          label: "createPolylineToolLabel",
         },
         {
           type: "create-polygon-tool",
-          label: messages.createPolygonTool.label,
+          label: "createPolygonToolLabel",
         },
       ],
       editing: {
         marker: [
           {
             type: "edit-marker-tool",
-            label: messages.editMarkerTool.label,
+            label: "editMarkerToolLabel",
           },
           {
             type: "delete-marker-tool",
-            label: messages.deleteMarkerTool.label,
+            label: "deleteMarkerToolLabel",
           },
         ],
         polyline: [
           {
             type: "edit-polyline-tool",
-            label: messages.editPolylineTool.label,
+            label: "editPolylineToolLabel",
           },
           {
             type: "delete-polyline-tool",
-            label: messages.deletePolylineTool.label,
+            label: "deletePolylineToolLabel",
           },
           {
             type: "colorpicker-stroke-tool",
             mode: "stroke",
-            label: messages.colorpickerStrokeTool.label,
+            label: "colorpickerStrokeToolLabel",
           },
         ],
         polygon: [
           {
             type: "edit-polygon-tool",
-            label: messages.editPolygonTool.label,
+            label: "editPolygonToolLabel",
           },
           {
             type: "delete-polygon-tool",
-            label: messages.deletePolygonTool.label,
+            label: "deletePolygonToolLabel",
           },
           {
             type: "colorpicker-fill-tool",
             mode: "fill",
-            label: messages.colorpickerFillTool.label,
+            label: "colorpickerFillToolLabel",
           },
           {
             type: "colorpicker-stroke-tool",
             mode: "stroke",
-            label: messages.colorpickerStrokeTool.label,
+            label: "colorpickerStrokeToolLabel",
           },
         ],
       },
       selectIcon: {
-        header: messages.selectMarkerType.header,
+        header: "selectMarkerTypeHeader",
       },
     };
 
@@ -205,28 +210,28 @@ class MapDrawingToolbar extends Component {
 
     if (this.state.currentGeometryType === "polygon" && this.numVertices <= 2) {
       this.setState({
-        headerMessage: messages.createPolygon.header.continue,
+        headerMessage: "createPolygonHeaderContinue",
       });
     } else if (
       this.state.currentGeometryType === "polygon" &&
       this.numVertices > 2
     ) {
       this.setState({
-        headerMessage: messages.createPolygon.header.continueOrFinish,
+        headerMessage: "createPolygonHeaderContinueOrFinish",
       });
     } else if (
       this.state.currentGeometryType === "polyline" &&
       this.numVertices === 1
     ) {
       this.setState({
-        headerMessage: messages.createPolyline.header.continue,
+        headerMessage: "createPolylineHeaderContinue",
       });
     } else if (
       this.state.currentGeometryType === "polyline" &&
       this.numVertices > 1
     ) {
       this.setState({
-        headerMessage: messages.createPolyline.header.continueOrFinish,
+        headerMessage: "createPolylineHeaderContinueOrFinish",
       });
     }
   }
@@ -241,13 +246,13 @@ class MapDrawingToolbar extends Component {
 
     let headerMessage, selectedEditingTool;
     if (this.state.currentGeometryType === "marker") {
-      headerMessage = messages.editMarker.header;
+      headerMessage = "editMarkerHeader";
       selectedEditingTool = "edit-marker-tool";
     } else if (this.state.currentGeometryType === "polyline") {
-      headerMessage = messages.editPolyline.header;
+      headerMessage = "editPolylineHeader";
       selectedEditingTool = "edit-polyline-tool";
     } else if (this.state.currentGeometryType === "polygon") {
-      headerMessage = messages.editPolygon.header;
+      headerMessage = "editPolygonHeader";
       selectedEditingTool = "edit-polygon-tool";
     }
 
@@ -322,7 +327,7 @@ class MapDrawingToolbar extends Component {
         }).addTo(this.editingLayerGroup);
         this.generateOutputGeometry(this.getLayerFromEditingLayerGroup());
         this.setState({
-          headerMessage: messages.createMarker.header,
+          headerMessage: "createMarkerHeader",
           currentPanel: "edit-marker",
           currentGeometryType: "marker",
           selectedEditingTool: "edit-marker-tool",
@@ -340,7 +345,7 @@ class MapDrawingToolbar extends Component {
         this.drawingObject.enable();
         this.numVertices = 0;
         this.setState({
-          headerMessage: messages.createPolyline.header.initial,
+          headerMessage: "createPolylineHeaderInitial",
           currentGeometryType: "polyline",
           selectedDrawingTool: evt.target.id,
         });
@@ -358,7 +363,7 @@ class MapDrawingToolbar extends Component {
         this.drawingObject.enable();
         this.numVertices = 0;
         this.setState({
-          headerMessage: messages.createPolygon.header.initial,
+          headerMessage: "createPolygonHeaderInitial",
           currentGeometryType: "polygon",
           selectedDrawingTool: evt.target.id,
         });
@@ -386,7 +391,7 @@ class MapDrawingToolbar extends Component {
       this.resetDrawingObject();
       this.clearEditingLayerGroup();
       this.setState({
-        headerMessage: messages.selectTool.header,
+        headerMessage: "selectToolHeader",
         currentPanel: "select-geometry-type",
         currentGeometryType: null,
         selectedDrawingTool: null,
@@ -401,21 +406,21 @@ class MapDrawingToolbar extends Component {
       this.drawingObject.enable();
       if (evt.target.id === "edit-marker-tool") {
         this.setState({
-          headerMessage: messages.editMarker.header,
+          headerMessage: "editMarkerHeader",
           currentPanel: "edit-marker",
           selectedDrawingTool: null,
           selectedEditingTool: evt.target.id,
         });
       } else if (evt.target.id === "edit-polyline-tool") {
         this.setState({
-          headerMessage: messages.editPolyline.header,
+          headerMessage: "editPolylineHeader",
           currentPanel: "edit-polyline",
           selectedDrawingTool: null,
           selectedEditingTool: evt.target.id,
         });
       } else if (evt.target.id === "edit-polygon-tool") {
         this.setState({
-          headerMessage: messages.editPolygon.header,
+          headerMessage: "editPolygonHeader",
           currentPanel: "edit-polygon",
           selectedDrawingTool: null,
           selectedEditingTool: evt.target.id,
@@ -503,7 +508,7 @@ class MapDrawingToolbar extends Component {
     this.props.map.off("draw:edited", this.handleEditEvent);
     this.props.router.off("route", this.tearDown, this);
     this.setState({
-      headerMessage: messages.selectTool.header,
+      headerMessage: "selectToolHeader",
       currentPanel: "select-geometry-type",
       currentGeometryType: null,
       selectedDrawingTool: null,
@@ -603,7 +608,7 @@ class MapDrawingToolbar extends Component {
                 }
                 placement="topRight"
               />
-              {tool.label}
+              {this.props.t(tool.label)}
             </label>
           );
         } else {
@@ -635,7 +640,7 @@ class MapDrawingToolbar extends Component {
                 value={tool.type}
                 onChange={this.onGeometryEditToolChange}
               />
-              {tool.label}
+              {this.props.t(tool.label)}
             </label>
           );
         }
@@ -644,7 +649,7 @@ class MapDrawingToolbar extends Component {
     return (
       <div className="map-drawing-toolbar">
         <p className="map-drawing-toolbar__drawing-tools-header">
-          {this.state.headerMessage}
+          {this.props.t(this.state.headerMessage)}
         </p>
         <div className={cn.drawingToolsContainer}>
           {this.mapTools.drawing.map(tool => {
@@ -676,14 +681,14 @@ class MapDrawingToolbar extends Component {
                   value={tool.type}
                   onChange={this.onGeometryToolTypeChange}
                 />
-                {tool.label}
+                {this.props.t(tool.label)}
               </label>
             );
           })}
         </div>
         <div className={cn.editingToolsContainer}>{editingTools}</div>
         <p className={cn.markerSelectionHeader}>
-          {this.mapTools.selectIcon.header}
+          {this.props.t(this.mapTools.selectIcon.header)}
         </p>
         <div className={cn.markerSelectionContainer}>
           {this.props.markers.map((marker, i) => {
@@ -744,10 +749,11 @@ MapDrawingToolbar.propTypes = {
   onGeometryStyleChange: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
   markers: PropTypes.array.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 MapDrawingToolbar.defaultProps = {
   existingGeometry: null,
 };
 
-export default MapDrawingToolbar;
+export default translate("MapDrawingToolbar")(MapDrawingToolbar);

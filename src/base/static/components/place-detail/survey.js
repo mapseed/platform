@@ -1,5 +1,3 @@
-// TODO: localization in this component.
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
@@ -13,7 +11,7 @@ import Avatar from "../ui-elements/avatar";
 import SurveyResponseEditor from "./survey-response-editor";
 
 import constants from "../../constants";
-import { placeDetailSurvey as messages } from "../../messages";
+import { translate } from "react-i18next";
 
 import "./survey.scss";
 
@@ -118,7 +116,9 @@ class Survey extends Component {
   }
 
   render() {
+    const { t } = this.props;
     const numSubmissions = this.props.surveyModels.size;
+
     return (
       <div className="place-detail-survey">
         <div className="place-detail-survey__header-bar">
@@ -165,7 +165,7 @@ class Survey extends Component {
         </div>
         <WarningMessagesContainer
           errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={messages.validationErrorHeaderMsg}
+          headerMsg={t("validationErrorHeaderMsg")}
         />
         <form
           className="place-detail-survey__form"
@@ -198,7 +198,7 @@ class Survey extends Component {
               className="place-detail-survey__logout-button"
               href={this.props.apiRoot + "users/logout/"}
             >
-              {messages.logOut}
+              {t("logOut")}
             </a>
           </span>
         ) : null}
@@ -223,6 +223,7 @@ Survey.propTypes = {
   onSurveyModelSave: PropTypes.func.isRequired,
   submitter: PropTypes.object.isRequired,
   surveyConfig: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default Survey;
+export default translate("Survey")(Survey);
