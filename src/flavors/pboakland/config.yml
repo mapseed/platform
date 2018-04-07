@@ -263,10 +263,6 @@ place:
           type: common_form_element
         - name: my_image
           type: common_form_element
-        - name: demographics-header
-          type: common_form_element
-        - name: demographics-description
-          type: common_form_element
         - name: private-age
           type: common_form_element
         - name: private-ethnicity
@@ -312,10 +308,6 @@ place:
         - name: venue
           type: common_form_element
         - name: my_image
-          type: common_form_element
-        - name: demographics-header
-          type: common_form_element
-        - name: demographics-description
           type: common_form_element
         - name: private-age
           type: common_form_element
@@ -363,10 +355,6 @@ place:
           type: common_form_element
         - name: my_image
           type: common_form_element
-        - name: demographics-header
-          type: common_form_element
-        - name: demographics-description
-          type: common_form_element
         - name: private-age
           type: common_form_element
         - name: private-ethnicity
@@ -413,10 +401,6 @@ place:
           type: common_form_element
         - name: my_image
           type: common_form_element
-        - name: demographics-header
-          type: common_form_element
-        - name: demographics-description
-          type: common_form_element
         - name: private-age
           type: common_form_element
         - name: private-ethnicity
@@ -459,13 +443,6 @@ place:
       prompt: _(Image)
       label: _(Add an Image)
       optional: true
-    demographics-header:
-      type: section_header
-      horizontal_rule: false
-      content: _(Demographic information)
-    demographics-description:
-      type: section_description
-      content: _(This info is kept private, and is to ensure we are serving a diversity of people who best represent the needs of the community.)
     private-age:
       autocomplete: true
       type: text
@@ -582,12 +559,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   show_in_activity_stream: false

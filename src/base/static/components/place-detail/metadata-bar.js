@@ -1,5 +1,4 @@
 // TODO: replace moment global.
-// TODO: JSX localization in this component.
 
 import React from "react";
 import PropTypes from "prop-types";
@@ -22,7 +21,10 @@ const MetadataBar = props => {
       <div className="place-detail-metadata-bar__details-container">
         <p className="place-detail-metadata-bar__action-text">
           <SubmitterName
-            submitter={props.submitter}
+            submitterName={
+              props.submitter.get(constants.NAME_PROPERTY_NAME) ||
+              props.placeModel.get(constants.SUBMITTER_FIELDNAME)
+            }
             anonymousName={props.anonymousName}
           />{" "}
           {props.actionText} this{" "}
@@ -43,7 +45,7 @@ const MetadataBar = props => {
         >
           <ActionTime
             time={props.placeModel.get(
-              constants.CREATED_DATETIME_PROPERTY_NAME
+              constants.CREATED_DATETIME_PROPERTY_NAME,
             )}
           />
         </a>

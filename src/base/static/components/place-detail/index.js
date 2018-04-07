@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { fromJS, List } from "immutable";
+import { fromJS, List, Map } from "immutable";
 
 import ResponseField from "../form-fields/response-field";
 import PromotionBar from "./promotion-bar";
@@ -15,7 +15,7 @@ const SubmissionCollection = require("../../js/models/submission-collection.js")
 
 import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
-import { scrollDownTo } from "../../utils/scroll-helpers";
+import { scrollTo } from "../../utils/scroll-helpers";
 import { placeDetailSurveyEditor as messages } from "../../messages";
 
 const Util = require("../../js/utils.js");
@@ -98,6 +98,10 @@ class PlaceDetail extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.container.scrollTop = 0;
+  }
+
   onMountTargetResponse(responseRef) {
     // NOTE: We use requestAnimationFrame() here to avoid a situation where
     // getBoundingClientRect() is called prematurely and returns zeroed values.
@@ -105,9 +109,9 @@ class PlaceDetail extends Component {
     // another tick to set the bounding rectangle offsets before calling
     // getBoundingClientRect() in this use case.
     requestAnimationFrame(() => {
-      scrollDownTo(
+      scrollTo(
         this.props.container,
-        responseRef.getBoundingClientRect().top - 90,
+        responseRef.getBoundingClientRect().top - 80,
       );
     });
   }
@@ -198,7 +202,7 @@ class PlaceDetail extends Component {
       this.state.placeModel.get(constants.TITLE_PROPERTY_NAME) ||
       this.state.placeModel.get(constants.NAME_PROPERTY_NAME);
     const submitter =
-      this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || {};
+      this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || Map();
     const isStoryChapter = !!this.state.placeModel.get(
       constants.STORY_FIELD_NAME,
     );
@@ -367,7 +371,7 @@ PlaceDetail.propTypes = {
     title: PropTypes.string.isRequired,
     submit_button_label: PropTypes.string.isRequired,
     location_item_name: PropTypes.string.isRequired,
-    default_basemap: PropTypes.string.isRequired,
+    default_basemap: PropTypes.string,
     place_detail: PropTypes.arrayOf(
       PropTypes.shape({
         category: PropTypes.string.isRequired,

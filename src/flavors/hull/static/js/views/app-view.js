@@ -77,12 +77,10 @@ module.exports = AppView.extend({
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
 
     // Caches of the views (one per place)
     this.placeFormView = null;
     this.placeDetailViews = {};
-    this.landmarkDetailViews = {};
     this.activeDetailView;
 
     // this flag is used to distinguish between user-initiated zooms and
@@ -196,7 +194,6 @@ module.exports = AppView.extend({
       basemapConfigs: this.basemapConfigs,
       legend_enabled: !!this.options.sidebarConfig.legend_enabled,
       places: this.places,
-      landmarks: this.landmarks,
       router: this.options.router,
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
@@ -243,7 +240,6 @@ module.exports = AppView.extend({
         el: "ul.recent-points",
         activities: this.activities,
         places: this.places,
-        landmarks: this.landmarks,
         placeConfig: this.options.placeConfig,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
@@ -375,19 +371,12 @@ module.exports = AppView.extend({
       self.placeDetailViews[key] = {};
     });
 
-    _.each(this.landmarks, function(value, key) {
-      self.landmarkDetailViews[key] = {};
-    });
-
     // Show tools for adding data
     this.setBodyClass();
     this.showCenterPoint();
 
     // Load places from the API
     this.loadPlaces(placeParams);
-
-    // Load landmarks from the API
-    this.loadLandmarks();
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {

@@ -3,21 +3,16 @@ var views = {
   AppView: require("mapseed-app-view"),
   AuthNavView: require("mapseed-auth-nav-view"),
   BasicLayerView: require("mapseed-basic-layer-view"),
-  GeocodeAddressPlaceView: require("mapseed-geocode-address-place-view"),
   GeocodeAddressView: require("mapseed-geocode-address-view"),
   GISLegendView: require("mapseed-gis-legend-view"),
-  LandmarkDetailView: require("mapseed-landmark-detail-view"),
-  LandmarkSurveyView: require("mapseed-landmark-survey-view"),
   LayerView: require("mapseed-layer-view"),
   LegendView: require("mapseed-legend-view"),
   MapView: require("mapseed-map-view"),
   PagesNavView: require("mapseed-pages-nav-view"),
   PlaceCounterView: require("mapseed-place-counter-view"),
   PlaceDetailView: require("mapseed-place-detail-view"),
-  PlaceFormView: require("mapseed-place-form-view"),
   PlaceListView: require("mapseed-place-list-view"),
   SupportView: require("mapseed-support-view"),
-  SurveyView: require("mapseed-survey-view"),
 };
 
 var SidebarView = require("../../../../../base/static/js/views/sidebar-view.js");

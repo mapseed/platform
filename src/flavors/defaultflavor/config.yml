@@ -663,7 +663,6 @@ survey:
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
       optional: true
     - type: submit
       name: submit

@@ -5,7 +5,7 @@ import classNames from "classnames";
 const SubmitterName = props => {
   return (
     <strong className={classNames("submitter-name", props.className)}>
-      {props.submitter.name || props.anonymousName}
+      {props.submitterName || props.anonymousName}
     </strong>
   );
 };
@@ -13,7 +13,7 @@ const SubmitterName = props => {
 SubmitterName.propTypes = {
   className: PropTypes.string,
   anonymousName: PropTypes.string.isRequired,
-  submitter: PropTypes.object.isRequired,
+  submitterName: PropTypes.string,
 };
 
 export default SubmitterName;

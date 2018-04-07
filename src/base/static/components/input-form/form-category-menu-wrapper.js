@@ -98,7 +98,7 @@ FormCategoryMenuWrapper.propTypes = {
     anonymous_name: PropTypes.string.isRequired,
     submit_button_label: PropTypes.string.isRequired,
     location_item_name: PropTypes.string.isRequired,
-    default_basemap: PropTypes.string.isRequired,
+    default_basemap: PropTypes.string,
     place_detail: PropTypes.arrayOf(
       PropTypes.shape({
         category: PropTypes.string.isRequired,

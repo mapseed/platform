@@ -82,11 +82,7 @@ class Survey extends Component {
 
     if (newValidationErrors.size === 0) {
       const attrs = this.state.fields
-        .filter(
-          val =>
-            val.get(constants.FIELD_TYPE_KEY) !==
-            constants.SUBMIT_FIELD_TYPENAME,
-        )
+        .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
         .map(val => val.get(constants.FIELD_VALUE_KEY))
         .toJS();
       Util.log("USER", "place", "submit-reply-btn-click");

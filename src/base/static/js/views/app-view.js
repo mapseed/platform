@@ -300,24 +300,6 @@ module.exports = Backbone.View.extend({
       }
     });
 
-    // After reverse geocoding, the map view will fire a reversegeocode
-    // event. This should only happen when adding a place while geocoding
-    // is enabled.
-    $(Shareabouts).on("reversegeocode", function(evt, locationData) {
-      var locationString = Handlebars.templates["location-string"](
-        locationData
-      );
-      self.geocodeAddressView.setAddress($.trim(locationString));
-      self.placeFormView.geocodeAddressPlaceView.setAddress(
-        $.trim(locationString)
-      );
-      self.placeFormView.setLatLng(locationData.latLng);
-      // Don't pass location data into our geolocation's form field
-      // self.placeFormView.setLocation(locationData);
-    });
-
-    // List view is enabled by default (undefined) or by enabling it
-    // explicitly. Set it to a falsey value to disable activity.
     if (
       _.isUndefined(this.options.appConfig.list_enabled) ||
       this.options.appConfig.list_enabled

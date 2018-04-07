@@ -327,10 +327,10 @@ place:
       label: _(Featured Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
         # NOTE: this field type must have the name "geometry"
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
@@ -345,17 +345,17 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea_field
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: observation
       includeOnForm: true
@@ -372,7 +372,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: pollution_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Additional notes:)
           display_prompt: _( )
           content:
@@ -392,13 +392,13 @@ place:
           placeholder: _(Enter description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: question
       includeOnForm: true
@@ -420,13 +420,13 @@ place:
           display_prompt: _( )
           placeholder: _(Enter question...)
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: idea
       includeOnForm: true
@@ -449,13 +449,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: complaint
       includeOnForm: true
@@ -478,13 +478,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -498,15 +498,10 @@ place:
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your report)
       optional: true
-      sticky: true
     my_image:
       type: file
-      prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)
@@ -534,12 +529,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support

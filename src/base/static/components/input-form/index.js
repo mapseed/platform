@@ -132,7 +132,7 @@ class InputForm extends Component {
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
       });
-      scrollTo(this.props.container, 0, 300);
+      scrollTo(this.props.container, 0);
     }
   }
 
@@ -153,10 +153,10 @@ class InputForm extends Component {
       ).slug,
       datasetId: this.props.selectedCategoryConfig.dataset,
       showMetadata: this.props.selectedCategoryConfig.showMetadata,
-    });
+    }, { wait: true });
     const model = collection.at(collection.length - 1);
     let attrs = this.state.fields
-      .filter(state => state.get(constants.FIELD_VALUE_KEY) !== null)
+      .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
       .map(state => state.get(constants.FIELD_VALUE_KEY))
       .toJS();
 

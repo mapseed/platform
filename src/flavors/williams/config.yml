@@ -378,7 +378,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: williams-input
-      icon_url: /static/css/images/markers/marker-observation.png
+      icon_url: /static/css/images/markers/comment-map-marker.svg
       value: community_input
       label: _(Add a comment)
       fields:
@@ -522,12 +522,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support
