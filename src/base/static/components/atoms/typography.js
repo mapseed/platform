@@ -8,13 +8,13 @@ const errorMessagePropTypes = {
   style: PropTypes.object,
 };
 
-const ErrorMessage = ({ children, ...props }) => {
+const WarningMessage = ({ children, ...props }) => {
   return (
     <p className={"mapseed__warning-msg"} {...props}>
       {children}
     </p>
   );
 };
-ErrorMessage.propTypes = errorMessagePropTypes;
+WarningMessage.propTypes = errorMessagePropTypes;
 
-export { ErrorMessage };
+export { WarningMessage };
