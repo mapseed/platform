@@ -2,14 +2,23 @@ import React from "react";
 import { shallow } from "enzyme";
 import InputForm from "../index.js";
 import FormField from "../../form-fields/form-field";
-import { ErrorMessage } from "../../atoms/typography";
 import constants from "../../../constants";
 import { OrderedMap, Map } from "immutable";
+
+// https://github.com/i18next/react-i18next/issues/417
+jest.mock("react-i18next", () => ({
+  // this mock makes sure any components using the translate HoC receive the t function as a prop
+  translate: () => Component => {
+    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
+    return Component;
+  },
+}));
 
 describe("InputForm", () => {
   // TODO: consider generalizing this stub into a mock:
   const eventStub = { preventDefault: () => {} };
   const defaultProps = {
+    t: key => key,
     container: {},
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
@@ -34,15 +43,6 @@ describe("InputForm", () => {
   test("renders form fields", () => {
     const wrapper = shallow(<InputForm {...defaultProps} />);
     expect(wrapper.find(FormField)).toHaveLength(2);
-  });
-
-  test("renders form validation errors", () => {
-    const wrapper = shallow(<InputForm {...defaultProps} />);
-    wrapper.setState({
-      formValidationErrors: new Set(["asdf", "asdf2"]),
-    });
-
-    expect(wrapper.find(ErrorMessage)).toHaveLength(2);
   });
 
   test("onSubmit creates form validation errors", () => {
