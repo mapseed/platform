@@ -5,6 +5,10 @@ module.exports = {
       runner: "jest-runner-prettier",
       moduleFileExtensions: ["js"],
       testMatch: ["<rootDir>/src/**/*.js", "<rootDir>/scripts/**/*.js"],
+      testPathIgnorePatterns: [
+        "<rootDir>/src/base/static/libs/",
+        "<rootDir>/node_modules/",
+      ],
     },
     {
       displayName: "mapseed-platform-test",
