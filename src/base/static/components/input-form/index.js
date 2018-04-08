@@ -273,10 +273,12 @@ class InputForm extends Component {
 
     return (
       <div className="input-form">
-        <WarningMessagesContainer
-          errors={[...this.state.formValidationErrors]}
-          headerMsg={this.props.t("validationHeader")}
-        />
+        {this.state.formValidationErrors.size && (
+          <WarningMessagesContainer
+            errors={[...this.state.formValidationErrors]}
+            headerMsg={this.props.t("validationHeader")}
+          />
+        )}
         <form
           id="mapseed-input-form"
           className={cn.form}

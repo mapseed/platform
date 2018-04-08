@@ -3,13 +3,13 @@ import { shallow } from "enzyme";
 import InputForm from "../index.js";
 import FormField from "../../form-fields/form-field";
 import constants from "../../../constants";
+import WarningMessagesContainer from "../../ui-elements/warning-messages-container";
 import { OrderedMap, Map } from "immutable";
 
 describe("InputForm", () => {
   // TODO: consider generalizing this stub into a mock:
   const eventStub = { preventDefault: () => {} };
   const defaultProps = {
-    t: key => key,
     container: {},
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
@@ -29,6 +29,15 @@ describe("InputForm", () => {
   test("renders input form", () => {
     const wrapper = shallow(<InputForm {...defaultProps} />);
     expect(wrapper).toMatchSnapshot();
+  });
+
+  test("renders form validation errors", () => {
+    const wrapper = shallow(<InputForm {...defaultProps} />);
+    wrapper.setState({
+      formValidationErrors: new Set(["asdf", "asdf2"]),
+    });
+
+    expect(wrapper.find(WarningMessagesContainer)).toHaveLength(1);
   });
 
   test("renders form fields", () => {
