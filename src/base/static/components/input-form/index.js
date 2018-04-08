@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
 import classNames from "classnames";
 import Spinner from "react-spinner";
+import { ErrorMessage } from "../atoms/typography";
 
 import FormField from "../form-fields/form-field";
 
@@ -117,16 +118,19 @@ class InputForm extends Component {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
     // Validate the form.
-    const newValidationErrors = new Set();
-    let isValid = true;
-    this.state.fields.forEach(value => {
-      if (!value.get(constants.FIELD_VALIDITY_KEY)) {
-        newValidationErrors.add(
-          value.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
-        );
-        isValid = false;
-      }
-    });
+    const {
+      validationErrors: newValidationErrors,
+      isValid,
+    } = this.state.fields.reduce(
+      ({ validationErrors, isValid }, field) => {
+        if (!field.get(constants.FIELD_VALIDITY_KEY)) {
+          validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
+          isValid = false;
+        }
+        return { validationErrors, isValid };
+      },
+      { validationErrors: new Set(), isValid: true },
+    );
 
     if (isValid) {
       this.saveModel();
@@ -270,10 +274,8 @@ class InputForm extends Component {
           <p className={"input-form__warning-msgs-header"}>
             {messages.validationHeader}
           </p>
-          {Array.from(this.state.formValidationErrors).map((errorMsg, i) => (
-            <p key={i} className={"input-form__warning-msg"}>
-              {errorMsg}
-            </p>
+          {[...this.state.formValidationErrors].map((errorMsg, i) => (
+            <ErrorMessage key={i}>{errorMsg}</ErrorMessage>
           ))}
         </div>
         <form
