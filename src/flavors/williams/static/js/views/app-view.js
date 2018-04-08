@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import InputExplorer from "../../../../../base/static/components/input-explorer";
-import i18next from "i18next";
+import languageModule from "../../../../../base/static/language-module";
 
 const AppView = require("../../../../../base/static/js/views/app-view.js");
 const GeocodeAddressView = require("../../../../../base/static/js/views/geocode-address-view");
@@ -30,10 +30,36 @@ module.exports = AppView.extend({
     // END FLAVOR-SPECIFIC CODE
   },
   initialize: function() {
+    // BEGIN FLAVOR-SPECIFIC CODE
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    languageModule.changeLanguage(this.options.languageCode);
+
+    if (!this.options.customHooks) {
+      this.options.customHooks = {};
+    }
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    this.options.placeConfig.place_detail.forEach(category => {
+      category.fields = category.fields.map(field => {
+        if (field.type === "common_form_element") {
+          return Object.assign(
+            {},
+            this.options.placeConfig.common_form_elements[field.name],
+            { name: field.name },
+          );
+        } else {
+          return field;
+        }
+      });
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+    // END FLAVOR-SPECIFIC CODE
+
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
 
-    i18next.changeLanguage(this.options.languageCode);
+    languageModule.changeLanguage(this.options.languageCode);
 
     var self = this,
       // Only include submissions if the list view is enabled (anything but false)
@@ -53,12 +79,10 @@ module.exports = AppView.extend({
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
 
     // Caches of the views (one per place)
     this.placeFormView = null;
     this.placeDetailViews = {};
-    this.landmarkDetailViews = {};
     this.activeDetailView;
 
     // this flag is used to distinguish between user-initiated zooms and
@@ -77,7 +101,7 @@ module.exports = AppView.extend({
     if (this.options.activityConfig.show_in_right_panel === true) {
       $("body").addClass("right-sidebar-visible");
       $("#right-sidebar-container").html(
-        "<ul class='recent-points unstyled-list'></ul>"
+        "<ul class='recent-points unstyled-list'></ul>",
       );
     }
 
@@ -135,7 +159,7 @@ module.exports = AppView.extend({
           this.hideListView();
         }
       },
-      this
+      this,
     );
 
     // Only append the tools to add places (if supported)
@@ -143,7 +167,7 @@ module.exports = AppView.extend({
     // NOTE: append add place/story buttons after the #map-container
     // div (rather than inside of it) in order to support bottom-clinging buttons
     $("#map-container").after(
-      Handlebars.templates["add-places"](this.options.placeConfig)
+      Handlebars.templates["add-places"](this.options.placeConfig),
     );
 
     this.pagesNavView = new PagesNavView({
@@ -160,7 +184,7 @@ module.exports = AppView.extend({
     }).render();
 
     this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
-      panel
+      panel,
     ) {
       return "basemaps" in panel;
     }).basemaps;
@@ -172,7 +196,6 @@ module.exports = AppView.extend({
       basemapConfigs: this.basemapConfigs,
       legend_enabled: !!this.options.sidebarConfig.legend_enabled,
       places: this.places,
-      landmarks: this.landmarks,
       router: this.options.router,
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
@@ -195,7 +218,7 @@ module.exports = AppView.extend({
       this.$(".leaflet-top.leaflet-right").append(
         '<div class="leaflet-control leaflet-bar">' +
           '<a href="#" class="show-layer-panel"></a>' +
-          "</div>"
+          "</div>",
       );
       // END FLAVOR-SPECIFIC CODE
 
@@ -203,7 +226,7 @@ module.exports = AppView.extend({
       this.$(".leaflet-top.leaflet-right").append(
         '<div class="leaflet-control leaflet-bar">' +
           '<a href="#" class="show-legend-panel"></a>' +
-          "</div>"
+          "</div>",
       );
       // END FLAVOR-SPECIFIC CODE
     }
@@ -219,7 +242,6 @@ module.exports = AppView.extend({
         el: "ul.recent-points",
         activities: this.activities,
         places: this.places,
-        landmarks: this.landmarks,
         placeConfig: this.options.placeConfig,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
@@ -281,11 +303,11 @@ module.exports = AppView.extend({
     // is enabled.
     $(Shareabouts).on("reversegeocode", function(evt, locationData) {
       var locationString = Handlebars.templates["location-string"](
-        locationData
+        locationData,
       );
       self.geocodeAddressView.setAddress($.trim(locationString));
       self.placeFormView.geocodeAddressPlaceView.setAddress(
-        $.trim(locationString)
+        $.trim(locationString),
       );
       self.placeFormView.setLatLng(locationData.latLng);
       // Don't pass location data into our geolocation's form field
@@ -351,19 +373,12 @@ module.exports = AppView.extend({
       self.placeDetailViews[key] = {};
     });
 
-    _.each(this.landmarks, function(value, key) {
-      self.landmarkDetailViews[key] = {};
-    });
-
     // Show tools for adding data
     this.setBodyClass();
     this.showCenterPoint();
 
     // Load places from the API
     this.loadPlaces(placeParams);
-
-    // Load landmarks from the API
-    this.loadLandmarks();
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {
@@ -406,7 +421,7 @@ module.exports = AppView.extend({
     if (this.hasBodyClass("content-visible") === true) {
       this.hideSpotlightMask();
       // BEGIN FLAVOR-SPECIFIC CODE
-      this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
+      //this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
       // END FLAVOR-SPECIFIC CODE
     }
   },
@@ -424,7 +439,7 @@ module.exports = AppView.extend({
         placeConfig={this.options.placeConfig.place_detail}
         communityInput={this.places["williams-input"]}
       />,
-      document.querySelector("#list-container")
+      document.querySelector("#list-container"),
     );
   },
   // END FLAVOR-SPECIFIC CODE

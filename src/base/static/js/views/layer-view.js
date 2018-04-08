@@ -7,7 +7,7 @@ module.exports = Backbone.View.extend({
     this.isFocused = false;
     this.isEditing = false;
     this.layerIsAdminControlled = Util.getAdminStatus(
-      this.model.get("datasetId"),
+      this.model.get("datasetId")
     );
     this.throttledRender = _.throttle(this.render, 300);
     this.layerGroup = this.options.layerGroup;
@@ -23,12 +23,11 @@ module.exports = Backbone.View.extend({
         this.createLayer();
         this.render();
       },
-      this,
+      this
     );
     this.model.on("focus", this.focus, this);
     this.model.on("unfocus", this.unfocus, this);
     this.model.on("destroy", this.onDestroy, this);
-    this.model.on("userHideModel", this.onDestroy, this);
 
     if (!this.options.mapView.options.mapConfig.suppress_zoom_rules) {
       this.map.on("zoomend", this.render, this);
@@ -49,13 +48,14 @@ module.exports = Backbone.View.extend({
             rule,
             function(prop, key) {
               if (key === "style") {
-
                 // If we have a style rule with a dedicated "style" object, (i.e.
                 // for third-party GeoJSON polygon/linestring geometry), make sure
                 // to build functions for each sub-rule in the style object.
                 _.each(prop, function(styleProp, stylePropKey) {
                   if (_.isString(styleProp) && styleProp.startsWith("this.")) {
-                    prop[stylePropKey] = new Function(["return ", styleProp, ";"].join(""));
+                    prop[stylePropKey] = new Function(
+                      ["return ", styleProp, ";"].join("")
+                    );
                   } else {
                     prop[stylePropKey] = styleProp;
                   }
@@ -66,12 +66,12 @@ module.exports = Backbone.View.extend({
                 fn.props[key] = prop;
               }
             },
-            this,
+            this
           );
 
           this.styleRules.push(fn);
         },
-        this,
+        this
       );
 
       if (this.placeType.hasOwnProperty("zoomType")) {
@@ -89,12 +89,12 @@ module.exports = Backbone.View.extend({
                   fn.props[key] = prop;
                 }
               },
-              this,
+              this
             );
 
             this.zoomRules.push(fn);
           },
-          this,
+          this
         );
       }
     }
@@ -118,7 +118,7 @@ module.exports = Backbone.View.extend({
         {},
         this.model.toJSON(),
         { map: { zoom: this.map.getZoom() } },
-        { layer: { focused: this.isFocused } },
+        { layer: { focused: this.isFocused } }
       );
 
     for (var i = 0; i < this.styleRules.length; i++) {
@@ -126,12 +126,17 @@ module.exports = Backbone.View.extend({
         styleRule = this.styleRules[i].props;
 
         if (styleRule.style) {
-
           // Apply nested style object sub-rules if necessary
           styleRule.style = _.extend({}, styleRule.style);
-          _.each(styleRule.style, function(rule, key) {
-            styleRule.style[key] = (_.isFunction(rule)) ? rule.apply(styleRuleContext) : rule;
-          }, this);
+          _.each(
+            styleRule.style,
+            function(rule, key) {
+              styleRule.style[key] = _.isFunction(rule)
+                ? rule.apply(styleRuleContext)
+                : rule;
+            },
+            this
+          );
         }
 
         break;
@@ -158,13 +163,13 @@ module.exports = Backbone.View.extend({
 
     // Handle if an existing place type does not match the list of available
     // place types.
-    this.placeType = this.options.placeTypes[this.model.get('location_type')];
+    this.placeType = this.options.placeTypes[this.model.get("location_type")];
 
     if (!this.placeType) {
       console.warn(
         "Place type",
         this.model.get("location_type"),
-        "is not configured so it will not appear on the map.",
+        "is not configured so it will not appear on the map."
       );
       return;
     }
@@ -184,13 +189,17 @@ module.exports = Backbone.View.extend({
         }
 
         if (this.hasIcon()) {
-          this.layer = this.isFocused && this.styleRule.focus_icon
-            ? L.marker(this.latLng, { icon: L.icon(this.styleRule.focus_icon) })
-            : L.marker(this.latLng, { icon: L.icon(this.styleRule.icon) });
+          this.layer =
+            this.isFocused && this.styleRule.focus_icon
+              ? L.marker(this.latLng, {
+                  icon: L.icon(this.styleRule.focus_icon),
+                })
+              : L.marker(this.latLng, { icon: L.icon(this.styleRule.icon) });
         } else if (this.hasStyle()) {
-          this.layer = this.isFocused && this.styleRule.focus_style
-            ? L.circleMarker(this.latLng, this.styleRule.focus_style)
-            : L.circleMarker(this.latLng, this.styleRule.style);
+          this.layer =
+            this.isFocused && this.styleRule.focus_style
+              ? L.circleMarker(this.latLng, this.styleRule.focus_style)
+              : L.circleMarker(this.latLng, this.styleRule.style);
         }
       } else {
         this.layer = L.GeoJSON.geometryToLayer(geom);
@@ -219,20 +228,20 @@ module.exports = Backbone.View.extend({
     );
   },
   onDestroy: function() {
-    // NOTE: it's necessary to remove the zoomend event here
-    // so this view won't try to recreate a marker when the map is
-    // zoomed. Somehow even when a layer view is removed, the
-    // zoomend listener on the map still retains a reference to it
-    // and is capable of calling view methods on a "deleted" view.
-    this.map.off("zoomend", this.render, this);
+    this.layer = null;
+    this.hide();
   },
   removeLayer: function() {
     if (this.layer) {
       this.layerGroup.removeLayer(this.layer);
+      this.layer = null;
     }
   },
   render: function() {
-    if (!this.isEditing && this.layer) {
+    // If this layer view is part of an editing layer group, don't do anything
+    if (this.isEditing) return null;
+
+    if (this.layer) {
       this.updateLayer();
     } else {
       this.hide();
@@ -248,7 +257,7 @@ module.exports = Backbone.View.extend({
       "USER",
       "map",
       "place-marker-click",
-      this.model.getLoggingDetails(),
+      this.model.getLoggingDetails()
     );
     // support places with landmark-style urls
     if (this.model.get("url-title")) {
@@ -258,7 +267,7 @@ module.exports = Backbone.View.extend({
     } else {
       this.options.router.navigate(
         "/" + this.model.get("datasetSlug") + "/" + this.model.id,
-        { trigger: true },
+        { trigger: true }
       );
     }
   },
@@ -313,5 +322,5 @@ module.exports = Backbone.View.extend({
   },
   hide: function() {
     this.removeLayer();
-  }
+  },
 });

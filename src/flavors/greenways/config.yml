@@ -500,13 +500,13 @@ place:
           placeholder: _(Enter description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: signage
       includeOnForm: true
       name: location_type
@@ -527,13 +527,13 @@ place:
           display_prompt: _( )
           placeholder: _(Enter question...)
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: pavement
       includeOnForm: true
       name: location_type
@@ -555,13 +555,13 @@ place:
           placeholder: _(Description...) 
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: walkability
       includeOnForm: true
       name: location_type
@@ -577,7 +577,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: walkability_issue
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Walkability issue:)
           display_prompt: _(Check all that apply:)
           content:
@@ -598,13 +598,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: accessibility
       includeOnForm: true
       name: location_type
@@ -626,13 +626,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: traffic
       includeOnForm: true
       name: location_type
@@ -654,13 +654,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: design
       includeOnForm: true
       name: location_type
@@ -682,13 +682,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     # - category: accessibility  #defines a top-level form category
     #   includeOnForm: true
     #   name: location_type  #needs to be "location_type"
@@ -696,14 +696,14 @@ place:
     #   icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
     #   value: air_watch  #internal value used for this category
     #   label: _(Air watch)  #label for this category
-    #   fields:  #field types can be: "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
+    #   fields:  #field types can be: "dropdown", "big_radio", "big_checkbox", "yes_only_big_button", "text", or "textarea"
     #     - name: date_time_observed 
     #       type: datetime  
     #       prompt: _(When did you observe these conditions?)
     #       display_prompt: _(I observed these conditions on:)
     #       optional: true
     #     - name: reside_work_georgetown  
-    #       type: binary_toggle 
+    #       type: big_toggle 
     #       prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
     #       display_prompt: _(I reside or work in Georgetown or South Park:)
     #       content:
@@ -711,9 +711,9 @@ place:
     #           value: "yes"
     #         - label: _(No)
     #           value: "no"
-    #       optional: true # NOTE: binary_toggle inputs have no validation
+    #       optional: true # NOTE: big_toggle inputs have no validation
     #     - name: odd_smell
-    #       type: binary_toggle 
+    #       type: big_toggle 
     #       prompt: _(I observe an odd smell)
     #       display_prompt: _(I observed an odd smell:)
     #       content:
@@ -724,7 +724,7 @@ place:
     #       annotation: _(Please be sure to seek medical attention if needed.)
     #       optional: true
     #     - name: burning
-    #       type: binary_toggle
+    #       type: big_toggle
     #       prompt: _(I have burning or itching eyes/nose/skin)
     #       display_prompt: _(I have burning or itching eyes/nose/skin:)
     #       content:
@@ -735,7 +735,7 @@ place:
     #       annotation: _(Please be sure to seek medical attention if needed.)
     #       optional: true
     #     - name: difficulty_breathing
-    #       type: binary_toggle
+    #       type: big_toggle
     #       prompt: _(I am having difficulty breathing)
     #       display_prompt: _(I am having difficulty breathing:)
     #       content:
@@ -746,7 +746,7 @@ place:
     #       annotation: _(Please be sure to seek medical attention if needed.)
     #       optional: true
     #     - name: headache
-    #       type: binary_toggle
+    #       type: big_toggle
     #       prompt: _(I am experiencing a headache)
     #       display_prompt: _(I am experiencing a headache:)
     #       content:
@@ -793,7 +793,7 @@ place:
     #           value: other
     #       optional: false
     #     - name: normal_activities
-    #       type: radio_big_buttons
+    #       type: big_radio
     #       prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
     #       display_prompt: _(My normal activities are affected by the air quality in my neighborhood:)
     #       content:
@@ -848,11 +848,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)
@@ -880,12 +877,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support

@@ -6,6 +6,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [staging] - on our `master` branch (staging)
 
+## [0.9.0] - 2018-04-08
+### Added
+ - Jest testing framework
+ - i18next localization framework
+### Changed
+ - The following pieces of functionality have been ported to React.js:
+  - The main input form
+  - The place detail view and subcomponents
+  - The place detail view editor
+  - The place detail survey editor
+ - The following field type names (found in config.yml) have been changed for consistency:
+  - `richTextarea` -> `rich_textarea`
+  - `checkbox_big_buttons` -> `big_checkbox`
+  - `radio_big_buttons` -> `big_radio`
+  - `binary_toggle` -> `big_toggle`
+  - `geometryToolbar` -> `map_drawing_toolbar`
+  - `url-title` -> `custom_url_toolbar`
+  - `dropdown-autocomplete` -> `dropdown_autocomplete`
+  - `publishControl` -> `publish_control_toolbar`
+ - The `survey` section of the config now needs an item of `type: submit`
+
 ## [0.8.2] - 2017-08-12
 ### Added
  - Added accessible-autocomplete suggestion box

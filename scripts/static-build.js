@@ -422,6 +422,7 @@ const outputImageAssetsPath = path.resolve(
   outputBasePath,
   "static/css/images"
 );
+
 try {
   fs.copySync(
     baseImageAssetsPath,
@@ -437,6 +438,7 @@ const flavorImageAssetsPath = path.resolve(
   flavorBasePath,
   "static/css/images"
 );
+
 try {
   fs.copySync(
     flavorImageAssetsPath,

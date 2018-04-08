@@ -9,18 +9,18 @@ fieldset {
     padding: 0 0 1.2em;
 }
 
-label {
-    font-size: 0.75em;
+// label {
+//     font-size: 0.75em;
 
-    //text-transform: uppercase;
-    //color: #999;
-    margin-right: 0.5em;
-    padding-bottom: 0;
+//     //text-transform: uppercase;
+//     //color: #999;
+//     margin-right: 0.5em;
+//     padding-bottom: 0;
 
-    small {
-        text-transform: none;
-    }
-}
+//     small {
+//         text-transform: none;
+//     }
+// }
 
 input {
     &[type=date],
@@ -31,7 +31,7 @@ input {
     &[type=number],
     &[type=password],
     &[type=tel],
-    &[type=text],
+   // &[type=text],
     &[type=time],
     &[type=url],
     &[type=week] {
@@ -47,29 +47,6 @@ input {
     }
 }
 
-input[type=range] {
-  -webkit-appearance: none;
-  width: 85%;
-  background-color: $button-background-lightblue;
-  height: 4px;
-  vertical-align: middle;
-
-  // These pseudo selectors are non-standard
-  // &::-webkit-slider-thumb, &::-moz-range-thumb, &::-ms-thumb {
-  //   -webkit-appearance: none;
-  //   -ms-appearance: none;
-  //   -moz-appearance: none;
-  //   background-color: #FFFFFF;
-  //   opacity: 1.0;
-  //   z-index: 800;
-  //   width: 26px;
-  //   height: 26px;
-  //   border: 0.5px solid #444444;
-  //   border-radius: 50%;
-  //   cursor: pointer;
-  // }
-}
-
 select, textarea {
     outline: 0;
     border: 0.25em solid $button-background-lightblue;
@@ -82,58 +59,58 @@ select, textarea {
     box-sizing: border-box;
 }
 
-input:focus, select:focus {
-    outline: 2px solid $button-background-blue;
-}
+// input:focus, select:focus {
+//     outline: 2px solid $button-background-blue;
+// }
 
-textarea {
-    &:focus {
-        outline: 2px solid $button-background-blue;
-    }
+// textarea {
+//     &:focus {
+//         outline: 2px solid $button-background-blue;
+//     }
 
-    height: 6.5em;
-    resize: none;
-}
+//     height: 6.5em;
+//     resize: none;
+// }
 
-select {
-    background-color: $button-color-white;
-}
+// select {
+//     background-color: $button-color-white;
+// }
 
 /* Icon selection submenu for the geometry toolbar */
-.geometry-toolbar-icon-field {
-    margin-top: 15px;
-    outline: 0;
-    border-radius: 0;
-    padding: 0.5em;
-    display: block;
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    
-    input {
-        display: none;
-        + label > img:hover {
-            border: 2px solid #FFF;
-        }
-        &:checked + label > img {
-            border: 2px solid #FFF;
-            background-color: #FFF;
-        }
-    }
+// .geometry-toolbar-icon-field {
+//     margin-top: 15px;
+//     outline: 0;
+//     border-radius: 0;
+//     padding: 0.5em;
+//     display: block;
+//     width: 100%;
+//     -webkit-box-sizing: border-box;
+//     -moz-box-sizing: border-box;
+//     box-sizing: border-box;
 
-    img {
-        border: 2px solid transparent;
-        border-radius: 4px;
-        padding: 7px;
-        height: 25px;
-        cursor: pointer;
-    }
+//     input {
+//         display: none;
+//         + label > img:hover {
+//             border: 2px solid #FFF;
+//         }
+//         &:checked + label > img {
+//             border: 2px solid #FFF;
+//             background-color: #FFF;
+//         }
+//     }
 
-    p {
-        margin-bottom: 0;
-    }
-}
+//     img {
+//         border: 2px solid transparent;
+//         border-radius: 4px;
+//         padding: 7px;
+//         height: 25px;
+//         cursor: pointer;
+//     }
+
+//     p {
+//         margin-bottom: 0;
+//     }
+// }
 
 
 // Old IE does not like this to be combine with :invalid rules.
@@ -259,23 +236,23 @@ select {
 }
 
 /* QuillJS rich text editor styles */
-.rich-text-field {
-    min-height: 200px;
-    margin-top: 0px !important;
-    border-bottom: 0.35em solid #a3c7d9 !important;
-    border-left: 0.35em solid #a3c7d9 !important;
-    border-right: 0.35em solid #a3c7d9 !important;
-}
+// .rich-text-field {
+//     min-height: 200px;
+//     margin-top: 0px !important;
+//     border-bottom: 0.35em solid #a3c7d9 !important;
+//     border-left: 0.35em solid #a3c7d9 !important;
+//     border-right: 0.35em solid #a3c7d9 !important;
+// }
 
-.ql-toolbar {
-    border-top: 0.30em solid #a3c7d9 !important;
-    border-left: 0.30em solid #a3c7d9 !important;
-    border-right: 0.30em solid #a3c7d9 !important;   
-}
+// .ql-toolbar {
+//     border-top: 0.30em solid #a3c7d9 !important;
+//     border-left: 0.30em solid #a3c7d9 !important;
+//     border-right: 0.30em solid #a3c7d9 !important;
+// }
 
-.ql-out-bottom {
-    visibility: visible !important;
-}
+// .ql-out-bottom {
+//     visibility: visible !important;
+// }
 
 /* Editor mode update form */
 #update-place-model-title-form .place-value-title {

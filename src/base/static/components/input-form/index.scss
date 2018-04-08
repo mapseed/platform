@@ -1,0 +1,32 @@
+@import "variables";
+@import "spinner";
+
+.input-form__submit-spinner {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+}
+
+.input-form__submit-spinner {
+  display: none;
+}
+
+.input-form__submit-spinner--visible {
+  display: block;
+}
+
+.input-form__form--visible {
+  display: block;
+}
+
+.input-form__form--hidden {
+  display: none;
+}
+
+.input-form__form {
+  opacity: 1;
+}
+
+.input-form__form--inactive {
+  opacity: 0.3;
+}

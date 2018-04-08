@@ -1,0 +1,36 @@
+@import "~react-quill/dist/quill.snow.css";
+@import "variables";
+@import "fluid-video";
+
+// the .ql-toolbar class is exposed by react-quill
+.ql-toolbar.ql-snow {
+  background-color: #ffffff;
+  border-top: $rich-textarea-border !important;
+  border-left: $rich-textarea-border !important;
+  border-right: $rich-textarea-border !important;
+}
+
+// the .ql-container class is exposed by react-quill
+.ql-container {
+  background-color: #ffffff;
+  min-height: $rich-textarea-min-height !important;
+  border-bottom: $rich-textarea-border !important;
+  border-left: $rich-textarea-border !important;
+  border-right: $rich-textarea-border !important;
+  font-size: $rich-textarea-font-size !important;
+}
+
+.rich-textarea-field--has-autofill--colored {
+  .ql-container {
+    background-color: $rich-textarea-field-autofill-background-color !important;
+  }
+}
+
+// the .ql-out-bottom class is exposed by react-quill
+.ql-out-bottom {
+  visibility: visible !important;
+}
+
+.rich-textarea-field__quill-file-input--hidden {
+  display: none;
+}

@@ -1,0 +1,109 @@
+@import "variables";
+
+.input-form-category-button {
+  margin: $input-form-category-button-margin;
+  background-color: $input-form-category-button-background-color;
+  padding: 0;
+  position: relative;
+  // TODO: For the collapse animation to work, we seem to need a hard-coded height
+  // here. It would be better if we didn't, but not sure if it's possible.
+  height: $input-form-category-button-height;
+  transition: all $input-form-category-button-collapse-animation-duration;
+  transition-timing-function: ease;
+}
+
+.input-form-category-button--hidden {
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  border: none;
+  transition: all $input-form-category-button-collapse-animation-duration;
+  transition-timing-function: ease;
+}
+
+.input-form-category-button__input {
+  display: none;
+}
+
+.input-form-category-button__label {
+  display: flex;
+  border: $input-form-category-button-border;
+  border-radius: $input-form-category-button-border-radius;
+  align-items: center;
+  text-transform: $input-form-category-button-text-transform;
+  font-size: $input-form-category-button-font-size;
+  height: $input-form-category-button-height;
+
+  &:hover {
+    cursor: pointer;
+    border: $input-form-category-button-hover-border;
+  }
+}
+
+.input-form-category-button__expand-categories-button {
+  display: block;
+  position: absolute;
+  background: none;
+  border: none;
+  right: 30px;
+  top: 8px;
+  font-size: 2em;
+  color: $input-form-category-button-expand-categories-button-color;
+
+  &:after {
+    font-family: FontAwesome;
+    content: $input-form-category-button-expand-categories-button;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: $input-form-category-button-expand-categories-button-hover-color;
+  }
+}
+
+.input-form-category-button__expand-categories-button--hidden {
+  display: none;
+}
+
+.input-form-category-button__label-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  border-right: $input-form-category-button-border;
+  border-top: $input-form-category-button-border;
+  border-bottom: $input-form-category-button-border;
+  border-radius: $input-form-category-button-label-text-border-radius;
+  padding: $input-form-category-button-label-text-padding;
+}
+
+.input-form-category-button__label-text--active {
+  background-color: $input-form-category-button-selected-label-background-color;
+  color: $input-form-category-button-selected-text-color;
+}
+
+.input-form-category-button__image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  border-left: $input-form-category-button-border;
+  border-top: $input-form-category-button-border;
+  border-bottom: $input-form-category-button-border;
+  border-radius: $input-form-category-button-image-border-radius;
+}
+
+.input-form-category-button__image-container--active {
+  background-color: $input-form-category-button-selected-image-background-color;
+}
+
+.input-form-category-button__image {
+  width: $input-form-category-button-image-width;
+  margin: $input-form-category-button-image-margin;
+  padding: $input-form-category-button-image-padding;
+}

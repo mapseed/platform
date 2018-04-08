@@ -74,7 +74,7 @@ input[type=time],
 input[type=url],
 input[type=week],
 textarea {
-  border: 0.25em solid #ACE6E6;
+  border: 0.25em solid #ACE6E6 !important;
 }
 input:focus,
 textarea:focus {
@@ -87,34 +87,30 @@ textarea:focus {
   opacity: 0.8;
 }
 
-.category-btn:checked + label .category-icon {
+.input-form-category-button__image-container--active {
   border-color: rgba(104, 186, 185, 0.43) !important;
   background-color: rgba(104, 186, 185, 0.43) !important;
 }
 
-.category-btn:checked + label .category-label-container{
+.input-form-category-button__label-text--active {
   border-color: rgba(104, 186, 185, 1) !important;
   background-color: rgba(104, 186, 185, 1) !important;
 }
 
-.category-btn:checked + label:hover {
-  border: 2px solid transparent !important;
-}
-
-.category-btn-container:hover {
-  border-color: #68bab9 !important;
-}
-
-.big-btn:checked + label:before {
-  background-color: #68bab9 !important;
-}
-
-.big-btn:checked + label {
-  border: 2px solid #68bab9 !important;
+.input-form-category-button__label:hover {
+  border-color: rgba(104, 186, 185, 1) !important;
 }
 
 .category-label {
   margin-top: -14px !important;
+}
+
+.big-checkbox-field__label--toggled {
+  border-color: rgba(104, 186, 185, 1) !important;
+}
+
+.big-checkbox-field__label--toggled:before {
+  background-color: rgba(104, 186, 185, 1) !important;
 }
 
 /* =The Site Header
@@ -187,9 +183,11 @@ a#add-place:hover {
   font-size: 0.75em;
 }
 input.geocode-address-field {
-  border-width: 0;
+  border-width: 0 !important;
   background-color: #fff;
   color: #555;
+  height: 35px;
+  width: calc(100% - 2.125em);
 }
 #geocode-address-bar .error {
   line-height: 1.75;

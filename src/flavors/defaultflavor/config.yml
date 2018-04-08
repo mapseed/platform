@@ -61,13 +61,44 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
-    - id: duwamish
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish
+    - id: demo
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
       type: place
-      slug: report
+      slug: demo
+
 
 # The values map the place type to map icons (defined below).
 place_types:
+  demo:
+    label: _(Observation)
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: 'this.map.zoom < 11'
+        icon:
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: 'this.map.zoom < 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: 'this.map.zoom >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
   observation:
     label: _(Observation)
     rules:
@@ -249,8 +280,8 @@ sidebar:
           title: _(Community Data)
           visibleDefault: true
           layers:
-            - id: duwamish
-              title: _(Community Reports)
+            - id: demo
+              title: _(Demo Data)
               visibleDefault: true
 
     - id: ticker
@@ -301,10 +332,162 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: demo
+      includeOnForm: true
+      name: location_type
+      dataset: demo
+      icon_url: /static/css/images/markers/marker-observation.png
+      value: demo
+      label: _(Form Field Demo)
+      fields:
+        - name: text_field
+          type: text
+          autocomplete: true
+          prompt: _(Single line text field input prompt:)
+          display_prompt: _(Rendered text field:)
+          placeholder: _(Enter text...)
+          optional: false
+        - name: textarea_field
+          type: textarea
+          autocomplete: true
+          prompt: _(Multiline textarea field input prompt:)
+          display_prompt: _(Rendered textarea field:)
+          placeholder: _(Enter text...)
+          optional: false
+        - name: rich_textarea_field
+          type: rich_textarea
+          autocomplete: true
+          prompt: _(Multiline rich textarea field input prompt:)
+          display_prompt: _(Rendered rich text:)
+          placeholder: _(Enter text...)
+          optional: false
+        - name: range_slider_field
+          prompt: _(Range slider field prompt:)
+          type: range
+          max: 100
+          min: 15
+          default_value: 50
+          display_prompt: _(Rendered range slider:)
+          autocomplete: true
+        - name: big_checkbox_field
+          type: big_checkbox
+          autocomplete: true
+          prompt: _(Large checkbox input prompt:)
+          display_prompt: _(Rendered list of checkbox selections:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: big_radio_field
+          type: big_radio
+          autocomplete: true
+          prompt: _(Large radio input prompt:)
+          display_prompt: _(Rendered radio selection:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: dropdown_field
+          type: dropdown
+          autocomplete: true
+          prompt: _(Dropdown input prompt:)
+          display_prompt: _(Rendered dropdown selection:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: dropdown_autocomplete_combobox_field
+          type: dropdown_autocomplete
+          autocomplete: true
+          placeholder: _(Begin typing a value...)
+          prompt: _(Dropdown autocomplete input prompt:)
+          display_prompt: _(Rendered dropdown autocomplete selection:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: publish_control_toolbar
+          type: publish_control_toolbar
+          default_value: "isPublished"
+        # NOTE: this field type must have the name "geometry"
+        - name: geometry
+          type: map_drawing_toolbar
+          content:
+            - url: /static/css/images/markers/marker-bike.png
+            - url: /static/css/images/markers/marker-construction.png
+            - url: /static/css/images/markers/marker-foodforest.png
+            - url: /static/css/images/markers/marker-greenwall.png
+        - name: url-title
+          type: custom_url_toolbar
+          prompt: _(Custom URL field prompt:)
+          placegolder: _(Enter a custom URL...)
+          optional: true
+        - name: datetime_field
+          type: datetime
+          prompt: _(Datetime field prompt:)
+          display_prompt: _(Rendered datetime:)
+          optional: false
+        - name: geocoding_field
+          type: geocoding
+          prompt: _(Geocoding field prompt:)
+          display_prompt: _(Rendered location:)
+          optional: true
+        - name: big_toggle_field
+          type: big_toggle
+          autocomplete: true
+          prompt: _(Binary toggle field prompt:)
+          display_prompt: _(Rendered binary toggle selection:)
+          content:
+            - label: _(On)
+              value: "on"
+            - label: _(Off)
+              value: "off"
+          optional: false
+        - name: attachment_field
+          type: file
+          prompt: _(Attachment field prompt:)
+          label: _(Attachment field button label)
+          optional: true
+        - name: submit_field
+          type: submit
+          label: _(Submit button label)
+
     - category: observation
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-observation.png
       value: observation
       label: _(Observation)
@@ -315,8 +498,8 @@ place:
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
-        - name: pollution_type
-          type: checkbox_big_buttons
+        - name: big_checkbox_field
+          type: big_checkbox
           prompt: _(Types of pollution seen:)
           display_prompt: _( )
           content:
@@ -338,18 +521,18 @@ place:
           placeholder: _(Enter description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: question
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-question.png
       value: question
       label: _(Question)
@@ -366,18 +549,18 @@ place:
           display_prompt: _( )
           placeholder: _(Enter question...)
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: idea
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-idea.png
       value: idea
       label: _(Idea)
@@ -395,18 +578,18 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: complaint
       includeOnForm: true
       name: location_type
-      dataset: duwamish
+      dataset: demo
       icon_url: /static/css/images/markers/marker-complaint.png
       value: complaint
       label: _(Complaint)
@@ -424,13 +607,13 @@ place:
           placeholder: _(Description...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -448,11 +631,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)
@@ -480,12 +660,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support

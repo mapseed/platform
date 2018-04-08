@@ -1,0 +1,15 @@
+@import "variables";
+
+.textarea-field {
+  border: $textarea-field-border;
+  border-radius: $textarea-field-border-radius;
+  padding: $textarea-field-padding;
+  margin: $textarea-field-margin;
+  width: $textarea-field-width;
+  height: $textarea-field-height;
+  box-sizing: border-box;
+}
+
+.textarea-field--has-autofill {
+  background-color: $textarea-field-autofill-background-color;
+}

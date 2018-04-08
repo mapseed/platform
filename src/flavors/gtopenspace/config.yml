@@ -648,9 +648,9 @@ place:
           placeholder: _(Enter comment...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: medium
       includeOnForm: true
       name: location_type
@@ -672,9 +672,9 @@ place:
           placeholder: _(Enter comment...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: low
       includeOnForm: true
       name: location_type
@@ -696,9 +696,9 @@ place:
           placeholder: _(Enter comment...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: streetscape
       includeOnForm: false
       name: location_type
@@ -720,9 +720,9 @@ place:
           placeholder: _(Enter comment...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: park-improvement
       includeOnForm: false
       name: location_type
@@ -744,9 +744,9 @@ place:
           placeholder: _(Enter comment...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: streetscape
       includeOnForm: false     
@@ -769,9 +769,9 @@ place:
           placeholder: _(Enter comment...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: park-improvement
       includeOnForm: false     
@@ -794,20 +794,17 @@ place:
           placeholder: _(Enter comment...)
           optional: true
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)
@@ -898,12 +895,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support

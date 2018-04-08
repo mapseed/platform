@@ -1187,7 +1187,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1208,7 +1208,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1229,7 +1229,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1250,7 +1250,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1271,7 +1271,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1292,7 +1292,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1313,7 +1313,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1334,7 +1334,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1355,7 +1355,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1376,7 +1376,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1397,7 +1397,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1418,7 +1418,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1439,7 +1439,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1460,7 +1460,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description of this pollution:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -1480,9 +1480,10 @@ place:
       label: _(Featured Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
+        # NOTE: this field type must have the name "geometry"
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-bike.png
             - url: /static/css/images/markers/marker-construction.png
@@ -1505,17 +1506,18 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
+          optional: false
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: otter_sites
       admin_only: true
@@ -1532,9 +1534,10 @@ place:
       label: _(Otter sites)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
+        # NOTE: this field type must have the name "geometry"
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/otter-icon.png
             - url: /static/css/images/markers/marker-construction.png
@@ -1557,17 +1560,17 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submit
-          type: commonFormElement      
+          type: common_form_element      
     - category: port_of_seattle_featured_place
       admin_only: true
       admin_groups:
@@ -1583,9 +1586,10 @@ place:
       label: _(Port of Seattle Featured Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
+        # NOTE: this field type must have the name "geometry"
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-bike.png
             - url: /static/css/images/markers/marker-construction.png
@@ -1608,17 +1612,17 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: observation
       includeOnForm: true
@@ -1636,7 +1640,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: pollution_type
-          type: checkbox_big_buttons
+          type: big_checkbox
           autocomplete: true
           prompt: _(Types of pollution seen:)
           display_prompt: _(I saw the following types of pollution here:)
@@ -1653,7 +1657,7 @@ place:
               value: other
           optional: true # NOTE: checkbox_big_button inputs have no validation
         - name: reside_work_georgetown
-          type: binary_toggle
+          type: big_toggle
           autocomplete: true
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
           display_prompt: _(I reside or work in Georgetown or South Park:)
@@ -1662,7 +1666,7 @@ place:
               value: "yes"
             - label: _(No)
               value: "no"
-          optional: true # NOTE: binary_toggle inputs have no validation
+          optional: true # NOTE: big_toggle inputs have no validation
         - name: description
           type: textarea
           autocomplete: true
@@ -1688,13 +1692,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: question
       includeOnForm: true
@@ -1733,13 +1734,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: idea
       includeOnForm: true
@@ -1779,13 +1777,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: complaint
       includeOnForm: true
@@ -1825,13 +1820,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: air_watch  #defines a top-level form category
       includeOnForm: true
@@ -1840,14 +1832,14 @@ place:
       icon_url: /static/css/images/markers/marker-greenwall.png  #TEMPORARY
       value: air_watch  #internal value used for this category
       label: _(Air watch)  #label for this category
-      fields:  #field types can be:  "dropdown", "radio_big_buttons", "checkbox_big_buttons", "yes_only_big_button", "text", or "textarea"
+      fields:  #field types can be:  "dropdown", "big_radio", "big_checkbox", "yes_only_big_button", "text", or "textarea"
         - name: date_time_observed
           type: datetime
           prompt: _(When did you observe these conditions?)
           display_prompt: _(I observed these conditions on:)
           optional: true
         - name: reside_work_georgetown
-          type: binary_toggle
+          type: big_toggle
           prompt: _(Do you reside and/or work in the Georgetown or South Park Neighborhood?)
           display_prompt: _(I reside or work in Georgetown or South Park:)
           content:
@@ -1855,9 +1847,9 @@ place:
               value: "yes"
             - label: _(No)
               value: "no"
-          optional: true # NOTE: binary_toggle inputs have no validation
+          optional: true # NOTE: big_toggle inputs have no validation
         - name: odd_smell
-          type: binary_toggle
+          type: big_toggle
           prompt: _(I observe an odd smell)
           display_prompt: _(I observed an odd smell:)
           content:
@@ -1868,7 +1860,7 @@ place:
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: burning
-          type: binary_toggle
+          type: big_toggle
           prompt: _(I have burning or itching eyes/nose/skin)
           display_prompt: _(I have burning or itching eyes/nose/skin:)
           content:
@@ -1879,7 +1871,7 @@ place:
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: difficulty_breathing
-          type: binary_toggle
+          type: big_toggle
           prompt: _(I am having difficulty breathing)
           display_prompt: _(I am having difficulty breathing:)
           content:
@@ -1890,7 +1882,7 @@ place:
           annotation: _(Please be sure to seek medical attention if needed.)
           optional: true
         - name: headache
-          type: binary_toggle
+          type: big_toggle
           prompt: _(I am experiencing a headache)
           display_prompt: _(I am experiencing a headache:)
           content:
@@ -1908,7 +1900,8 @@ place:
           optional: false
         - name: source  #internally used name for this form element
           type: dropdown  #form type
-          prompt: _(Select one of the following to identify the source of the bad air quality.)  #question prompt
+          prompt: _(Select one of the following to identify the source of the bad air quality.)  
+          #question prompt
           display_prompt: _(Pollution source observed:)  #text used when a submitted report is viewed later
           content:
             - label: _(Asbestos)
@@ -1937,7 +1930,7 @@ place:
               value: other
           optional: false
         - name: normal_activities
-          type: radio_big_buttons
+          type: big_radio
           prompt: "_(Please indicate your agreement with the following statement: My normal activities are affected by the air quality in my neighborhood.)"
           display_prompt: _(My normal activities are affected by the air quality in my neighborhood:)
           content:
@@ -1993,13 +1986,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: tree
       includeOnForm: false
@@ -2039,13 +2029,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -2137,12 +2124,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support

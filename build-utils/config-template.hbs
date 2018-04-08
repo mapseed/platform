@@ -20,7 +20,9 @@
     rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
     filters:         {{#serialize config.filters}}{{/serialize}},
     datasets:        {{#serialize config.datasets}}{{/serialize}},
-    languageCode:    {{#serialize languageCode}}{{/serialize}}
+    languageCode:    {{#serialize languageCode}}{{/serialize}},
+    customHooks:     {{#serialize config.custom_hooks}}{{/serialize}},
+    customComponents:{{#serialize config.custom_components}}{{/serialize}}
   };
 
   $(function() {
@@ -43,7 +45,9 @@
       pagesConfig: S.Config.pages,
       filters: S.Config.filters,
       datasetsConfig: S.Config.datasets,
-      languageCode: S.Config.languageCode
+      languageCode: S.Config.languageCode,
+      customHooks: S.Config.customHooks,
+      customComponents: S.Config.customComponents
     });
   });
 }(Shareabouts, jQuery));

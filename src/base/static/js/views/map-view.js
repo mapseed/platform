@@ -3,7 +3,6 @@ var Util = require("../utils.js");
 var BasicLayerView = require("mapseed-basic-layer-view");
 var LayerView = require("mapseed-layer-view");
 var toGeoJSON = require("togeojson");
-var GeometryEditorView = require("mapseed-geometry-editor-view");
 
 module.exports = Backbone.View.extend({
   events: {
@@ -19,7 +18,7 @@ module.exports = Backbone.View.extend({
           "map",
           "zoom",
           self.map.getBounds().toBBoxString(),
-          self.map.getZoom(),
+          self.map.getZoom()
         );
       },
       logUserPan = function(evt) {
@@ -28,7 +27,7 @@ module.exports = Backbone.View.extend({
           "map",
           "drag",
           self.map.getBounds().toBBoxString(),
-          self.map.getZoom(),
+          self.map.getZoom()
         );
       };
 
@@ -51,12 +50,6 @@ module.exports = Backbone.View.extend({
     if (self.options.mapConfig.geolocation_enabled) {
       self.initGeolocation();
     }
-
-    // TODO: only init if geometry editing is enabled?
-    this.geometryEditorView = new GeometryEditorView({
-      map: this.map,
-      router: this.options.router,
-    });
 
     self.map.on("dragend", logUserPan);
     $(self.map.zoomControl._zoomInButton).click(logUserZoom);
@@ -85,7 +78,6 @@ module.exports = Backbone.View.extend({
       collection.on("reset", self.render, self);
       collection.on("add", self.addLayerView(collectionId), self);
       collection.on("remove", self.removeLayerView(collectionId), self);
-      collection.on("userHideModel", self.onUserHideModel(collectionId), self);
     });
 
     // Bind landmark collections event listeners
@@ -111,7 +103,7 @@ module.exports = Backbone.View.extend({
 
       if (isBasemap) {
         self.checkLayerZoom(config.maxZoom);
-        self.map.options.maxZoom = (config.maxZoom)
+        self.map.options.maxZoom = config.maxZoom
           ? config.maxZoom
           : self.options.mapConfig.options.maxZoom;
 
@@ -151,24 +143,6 @@ module.exports = Backbone.View.extend({
         this.map.setZoom(parseInt(maxZoom, 10));
       });
     }
-  },
-
-  onUserHideModel: function(collectionId) {
-    return function(model) {
-      this.options.placeDetailViews[model.cid].remove();
-      delete this.options.placeDetailViews[model.cid];
-      this.places[collectionId].remove(model);
-      Util.log("APP", "panel-state", "closed");
-      // remove map mask if the user closes the side panel
-      $("#spotlight-place-mask").remove();
-      if (this.locationTypeFilter) {
-        this.options.router.navigate("filter/" + this.locationTypeFilter, {
-          trigger: true,
-        });
-      } else {
-        this.options.router.navigate("/", { trigger: true });
-      }
-    };
   },
 
   // Adds or removes the layer  on Master Layer based on visibility
@@ -237,7 +211,7 @@ module.exports = Backbone.View.extend({
     this.$(".leaflet-top.leaflet-right").append(
       '<div class="leaflet-control leaflet-bar">' +
         '<a href="#" class="locate-me"></a>' +
-        "</div>",
+        "</div>"
     );
 
     // Bind event handling
@@ -256,7 +230,7 @@ module.exports = Backbone.View.extend({
       "map",
       "geolocate",
       this.map.getBounds().toBBoxString(),
-      this.map.getZoom(),
+      this.map.getZoom()
     );
     this.geolocate();
   },
@@ -302,16 +276,31 @@ module.exports = Backbone.View.extend({
       this.map.off(
         "zoomend",
         this.layerViews[collectionId][model.cid].updateLayer,
-        this.layerViews[collectionId][model.cid],
+        this.layerViews[collectionId][model.cid]
       );
       this.map.off(
         "move",
         this.layerViews[collectionId][model.cid].throttledRender,
-        this.layerViews[collectionId][model.cid],
+        this.layerViews[collectionId][model.cid]
       );
+      this.map.off(
+        "zoomend",
+        this.layerViews[collectionId][model.cid].render,
+        this.layerViews[collectionId][model.cid]
+      )
 
       this.layerViews[collectionId][model.cid].remove();
       delete this.layerViews[collectionId][model.cid];
+
+      Util.log("APP", "panel-state", "closed");
+      $("#spotlight-place-mask").remove();
+      if (this.locationTypeFilter) {
+        this.options.router.navigate("filter/" + this.locationTypeFilter, {
+          trigger: true,
+        });
+      } else {
+        this.options.router.navigate("/", { trigger: true });
+      }
     };
   },
   zoomInOn: function(latLng) {
@@ -320,15 +309,15 @@ module.exports = Backbone.View.extend({
 
   filter: function(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
     let locationType = locationTypeModel.get("locationType"),
-        isActive = locationTypeModel.get("active");
+      isActive = locationTypeModel.get("active");
 
     if (mapWasUnfiltered || mapWillBeUnfiltered) {
       for (let collectionId in this.places) {
         this.places[collectionId]
-          .filter((model) => {
+          .filter(model => {
             return model.get("location_type") !== locationType;
           })
-          .forEach((model) => {
+          .forEach(model => {
             if (mapWasUnfiltered) {
               this.layerViews[collectionId][model.cid].filter();
             } else if (mapWillBeUnfiltered) {
@@ -339,11 +328,11 @@ module.exports = Backbone.View.extend({
     } else {
       for (let collectionId in this.places) {
         this.places[collectionId]
-          .where({location_type: locationType})
-          .forEach((model) => {
-            (isActive) ?
-              this.layerViews[collectionId][model.cid].unfilter() :
-              this.layerViews[collectionId][model.cid].filter();
+          .where({ location_type: locationType })
+          .forEach(model => {
+            isActive
+              ? this.layerViews[collectionId][model.cid].unfilter()
+              : this.layerViews[collectionId][model.cid].filter();
           });
       }
     }
@@ -356,7 +345,9 @@ module.exports = Backbone.View.extend({
     this.locationTypeFilter = null;
     _.each(this.places, function(collection) {
       collection.each(function(model) {
-        if (self.layerViews[model.cid]) { self.layerViews[model.cid].render(); }
+        if (self.layerViews[model.cid]) {
+          self.layerViews[model.cid].render();
+        }
       });
     });
 
@@ -417,37 +408,34 @@ module.exports = Backbone.View.extend({
         // IDs can be returned all at once, while actual geometries are
         // capped at 1000 per request. Gets an array of all IDs then
         // requests their geometry 1000 at a time.
-        self.map.fire("layer:loading", {id: config.id});
-        L.esri.Tasks
-          .query({
-            url: config.url,
-          })
-          .ids(function(error, ids) {
-            var esriLayers = [];
+        self.map.fire("layer:loading", { id: config.id });
+        L.esri.Tasks.query({
+          url: config.url,
+        }).ids(function(error, ids) {
+          var esriLayers = [];
 
-            for (var i = 0; i < ids.length; i += 1000) {
-              L.esri.Tasks
-                .query({ url: config.url })
-                .featureIds(ids.slice(i, i + 1000))
-                .run(function(error, geoJson) {
-                  var currentLayer = L.argo(geoJson, config);
+          for (var i = 0; i < ids.length; i += 1000) {
+            L.esri.Tasks.query({ url: config.url })
+              .featureIds(ids.slice(i, i + 1000))
+              .run(function(error, geoJson) {
+                var currentLayer = L.argo(geoJson, config);
 
-                  if (config.popupContent) {
-                    curentLayer.bindPopup(function(feature) {
-                      return L.Argo.t(config.popupContent, feature.properties);
-                    });
-                  }
+                if (config.popupContent) {
+                  curentLayer.bindPopup(function(feature) {
+                    return L.Argo.t(config.popupContent, feature.properties);
+                  });
+                }
 
-                  esriLayers.push(currentLayer);
+                esriLayers.push(currentLayer);
 
-                  if (esriLayers.length === Math.floor(ids.length / 1000) + 1) {
-                    // All requests have completed
-                    self.layers[config.id] = L.layerGroup(esriLayers);
-                    self.map.fire("layer:loaded", {id: config.id});
-                  }
-                });
-            }
-          });
+                if (esriLayers.length === Math.floor(ids.length / 1000) + 1) {
+                  // All requests have completed
+                  self.layers[config.id] = L.layerGroup(esriLayers);
+                  self.map.fire("layer:loaded", { id: config.id });
+                }
+              });
+          }
+        });
       } else {
         var configStyled = config.rules != null;
         var esriOptions = { url: config.url, ignoreRenderer: configStyled };
@@ -456,12 +444,13 @@ module.exports = Backbone.View.extend({
             return L.Argo.getStyleRule(feature, config.rules)["style"];
           };
         }
-        layer = L.esri.featureLayer(esriOptions)
+        layer = L.esri
+          .featureLayer(esriOptions)
           .on("loading", function() {
-            self.map.fire("layer:loading", {id: config.id});
+            self.map.fire("layer:loading", { id: config.id });
           })
           .on("load", function() {
-            self.map.fire("layer:loaded", {id: config.id});
+            self.map.fire("layer:loaded", { id: config.id });
           });
 
         if (config.popupContent) {
@@ -481,12 +470,12 @@ module.exports = Backbone.View.extend({
       // into our map is handled in our Backbone router.
       // nothing to do
     } else if (config.type && config.type === "cartodb") {
-      this.map.fire("layer:loading", {id: config.id});  
+      this.map.fire("layer:loading", { id: config.id });
       cartodb
         .createLayer(self.map, config.url, { legends: false })
         .on("done", function(cartoLayer) {
           self.layers[config.id] = cartoLayer;
-          self.map.fire("layer:loaded", {id: config.id});
+          self.map.fire("layer:loaded", { id: config.id });
           // This is only set when the 'visibility' event is fired before
           // our carto layer is loaded:
           if (config.asyncLayerVisibleDefault) {
@@ -494,7 +483,7 @@ module.exports = Backbone.View.extend({
           }
         })
         .on("error", function(err) {
-          self.map.fire("layer:error", {id: config.id});
+          self.map.fire("layer:error", { id: config.id });
           Util.log("Cartodb layer creation error:", err);
         });
     } else if (config.type && config.type === "wmts") {
@@ -528,44 +517,43 @@ module.exports = Backbone.View.extend({
       // If "layers" is present, then we assume that the config
       // references a Leaflet WMS layer.
       // http://leafletjs.com/reference.html#tilelayer-wms
-      layer = L.tileLayer.wms(config.url, {
-        layers: config.layers,
-        format: config.format,
-        transparent: config.transparent,
-        version: config.version,
-        crs: L.CRS.EPSG3857,
-        // default TileLayer options
-        attribution: config.attribution,
-        opacity: config.opacity,
-        fillColor: config.color,
-        weight: config.weight,
-        fillOpacity: config.fillOpacity,
-      })
-      .on("loading", function() {
-        self.map.fire("layer:loading", {id: config.id});
-      })
-      .on("load", function() {
-        self.map.fire("layer:loaded", {id: config.id});
-      })
-      .on("tileerror", function() {
-        self.map.fire("layer:error", {id: config.id});
-      });
+      layer = L.tileLayer
+        .wms(config.url, {
+          layers: config.layers,
+          format: config.format,
+          transparent: config.transparent,
+          version: config.version,
+          crs: L.CRS.EPSG3857,
+          // default TileLayer options
+          attribution: config.attribution,
+          opacity: config.opacity,
+          fillColor: config.color,
+          weight: config.weight,
+          fillOpacity: config.fillOpacity,
+        })
+        .on("loading", function() {
+          self.map.fire("layer:loading", { id: config.id });
+        })
+        .on("load", function() {
+          self.map.fire("layer:loaded", { id: config.id });
+        })
+        .on("tileerror", function() {
+          self.map.fire("layer:error", { id: config.id });
+        });
       self.layers[config.id] = layer;
     } else {
       // Assume a tile layer
       // TODO: Isn't type=tile for back compatibility
-      layer = L.tileLayer(
-        config.url, config
-      )
-      .on("loading", function() {
-        self.map.fire("layer:loading", {id: config.id});
-      })
-      .on("load", function() {
-        self.map.fire("layer:loaded", {id: config.id});
-      })
-      .on("tileerror", function() {
-        self.map.fire("layer:error", {id: config.id});
-      });
+      layer = L.tileLayer(config.url, config)
+        .on("loading", function() {
+          self.map.fire("layer:loading", { id: config.id });
+        })
+        .on("load", function() {
+          self.map.fire("layer:loaded", { id: config.id });
+        })
+        .on("tileerror", function() {
+          self.map.fire("layer:error", { id: config.id });
+        });
       self.layers[config.id] = layer;
     }
   },

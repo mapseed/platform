@@ -1,0 +1,65 @@
+@import "variables";
+
+.geocoding-field {
+  position: relative;
+}
+
+.geocoding-field__geocoding-spinner {
+  display: none;
+  position: absolute;
+  z-index: 100000;
+  background-color: $geocoding-field-spinner-icon-background-color;
+
+  // TODO: fix these hard-coded values...
+  // They're appropriate for the default theme's input field height, but won't
+  // adapt to changes in the field height.
+  width: 36px;
+  height: 40px;
+}
+
+// the .spinner class is exposed by spin.js
+.spinner {
+  top: 50% !important;
+  left: 50% !important;
+  color: $geocoding-field-spinner-icon-color;
+}
+
+.geocoding-field__geocoding-spinner--visible,
+.geocoding-field__geocoding-error--visible {
+  display: block;
+}
+
+.geocoding-field__geocoding-error {
+  display: none;
+  position: absolute;
+  top: 3em;
+  right: 0.5em;
+  bottom: auto;
+  left: 0.5em;
+  background-color: $geocoding-field-error-background-color;
+  color: $geocoding-field-error-text-color;
+  margin: 0;
+  padding: $geocoding-field-error-padding;
+  box-shadow: $geocoding-field-error-box-shadow;
+}
+
+.geocoding-field__input {
+  width: $geocoding-field-width;
+  border: $geocoding-field-border;
+  padding: $geocoding-field-padding;
+  box-sizing: border-box;
+}
+
+.geocoding-field__do-geocode-icon {
+  position: absolute;
+  cursor: pointer;
+  left: 12px;
+  top: 5px;
+  font-size: $geocoding-field-search-icon-font-size;
+
+  &:before {
+    font-family: FontAwesome;
+    color: $geocoding-field-search-icon-color;
+    content: $geocoding-field-search-icon;
+  }
+}

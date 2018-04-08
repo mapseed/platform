@@ -1,0 +1,65 @@
+@import "variables";
+
+.big-toggle-field {
+  overflow: hidden;
+}
+
+.big-toggle-field__input {
+  display: none;
+}
+
+.big-toggle-field__label {
+  font-size: $big-toggle-field-label-font-size;
+  min-height: $big-toggle-field-label-min-height;
+  line-height: $big-toggle-field-line-height;
+  margin: $big-toggle-field-label-margin;
+  padding: $big-toggle-field-label-padding;
+  text-indent: 0;
+  position: relative;
+  float: left;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: $big-toggle-field-label-text-color;
+  border: $big-toggle-field-border;
+  border-radius: $big-toggle-field-label-border-radius;
+
+  &:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    width: 2.5em;
+    background-color: $big-toggle-field-hover-icon-background-color;
+  }
+
+  &:hover {
+    color: $big-toggle-field-hover-label-text-color;
+
+    &:before {
+      content: $big-toggle-field-icon;
+      text-indent: 0.9em;
+      color: $big-toggle-field-hover-icon-color;
+    }
+  }
+}
+
+.big-toggle-field__label--has-autofill {
+  background-color: $big-toggle-field-autofill-background-color;
+}
+
+.big-toggle-field__label--toggled {
+  border: $big-toggle-field-selected-border;
+  color: $big-toggle-field-selected-label-color;
+
+  &:before {
+    content: $big-toggle-field-icon;
+    background-color: $big-toggle-field-selected-icon-background-color;
+    text-indent: 0.9em;
+    color: $big-toggle-field-selected-icon-color;
+  }
+}

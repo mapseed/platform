@@ -1,23 +1,28 @@
+// REACT PORT SECTION //////////////////////////////////////////////////////////
+import React from "react";
+import ReactDOM from "react-dom";
+import emitter from "../../utils/emitter";
+import languageModule from "../../language-module";
+
+import InputForm from "../../components/input-form";
+import VVInputForm from "../../components/vv-input-form";
+import PlaceDetail from "../../components/place-detail";
+import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
+// END REACT PORT SECTION //////////////////////////////////////////////////////
+
 var Util = require("../utils.js");
 
 // Views
 var MapView = require("mapseed-map-view");
 var PagesNavView = require("mapseed-pages-nav-view");
 var AuthNavView = require("mapseed-auth-nav-view");
-var LandmarkDetailView = require("mapseed-landmark-detail-view");
 var PlaceListView = require("mapseed-place-list-view");
 var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var GeocodeAddressView = require("mapseed-geocode-address-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
-var PlaceDetailView = require("mapseed-place-detail-view");
-var PlaceFormView = require("mapseed-place-form-view");
 var RightSidebarView = require("mapseed-right-sidebar-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
-
-// Models
-var PlaceModel = require("../models/place-model.js");
-var LandmarkModel = require("../models/landmark-model.js");
 
 // Spinner options -- these need to be own modules
 Shareabouts.bigSpinnerOptions = {
@@ -69,6 +74,8 @@ module.exports = Backbone.View.extend({
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
 
+    languageModule.changeLanguage(this.options.languageCode);
+
     var self = this,
       // Only include submissions if the list view is enabled (anything but false)
       includeSubmissions = this.options.appConfig.list_enabled !== false,
@@ -77,6 +84,26 @@ module.exports = Backbone.View.extend({
         // scale well, so let's think about a better solution.
         include_submissions: includeSubmissions,
       };
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    // NOTE: we resolve all common_form_elements here, before the React entry
+    // point. This simplifies the work we have to do within React components.
+    // TODO: This should be bumped as high as possible in the hierarchy, and
+    // possibly should happen in the build process.
+    this.options.placeConfig.place_detail.forEach(category => {
+      category.fields = category.fields.map(field => {
+        if (field.type === "common_form_element") {
+          return Object.assign(
+            {},
+            this.options.placeConfig.common_form_elements[field.name],
+            { name: field.name },
+          );
+        } else {
+          return field;
+        }
+      });
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
@@ -87,13 +114,6 @@ module.exports = Backbone.View.extend({
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
-
-    // Caches of the views (one per place)
-    this.placeFormView = null;
-    this.placeDetailViews = {};
-    this.landmarkDetailViews = {};
-    this.activeDetailView;
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
@@ -111,7 +131,7 @@ module.exports = Backbone.View.extend({
     if (this.options.activityConfig.show_in_right_panel === true) {
       $("body").addClass("right-sidebar-visible");
       $("#right-sidebar-container").html(
-        "<ul class='recent-points unstyled-list'></ul>"
+        "<ul class='recent-points unstyled-list'></ul>",
       );
     }
 
@@ -168,7 +188,7 @@ module.exports = Backbone.View.extend({
           this.hideListView();
         }
       },
-      this
+      this,
     );
 
     // Only append the tools to add places (if supported)
@@ -176,7 +196,7 @@ module.exports = Backbone.View.extend({
     // NOTE: append add place/story buttons after the #map-container
     // div (rather than inside of it) in order to support bottom-clinging buttons
     $("#map-container").after(
-      Handlebars.templates["add-places"](this.options.placeConfig)
+      Handlebars.templates["add-places"](this.options.placeConfig),
     );
 
     this.pagesNavView = new PagesNavView({
@@ -193,7 +213,7 @@ module.exports = Backbone.View.extend({
     }).render();
 
     this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
-      panel
+      panel,
     ) {
       return "basemaps" in panel;
     }).basemaps;
@@ -205,11 +225,9 @@ module.exports = Backbone.View.extend({
       basemapConfigs: this.basemapConfigs,
       legend_enabled: !!this.options.sidebarConfig.legend_enabled,
       places: this.places,
-      landmarks: this.landmarks,
       router: this.options.router,
       placeTypes: this.options.placeTypes,
       cluster: this.options.cluster,
-      placeDetailViews: this.placeDetailViews,
       placeConfig: this.options.placeConfig,
     });
 
@@ -233,13 +251,11 @@ module.exports = Backbone.View.extend({
         el: "ul.recent-points",
         activities: this.activities,
         places: this.places,
-        landmarks: this.landmarks,
         placeConfig: this.options.placeConfig,
         router: this.options.router,
         placeTypes: this.options.placeTypes,
         surveyConfig: this.options.surveyConfig,
         supportConfig: this.options.supportConfig,
-        placeConfig: this.options.placeConfig,
         mapConfig: this.options.mapConfig,
         // How often to check for new content
         interval: this.options.activityConfig.interval || 30000,
@@ -264,15 +280,12 @@ module.exports = Backbone.View.extend({
     // When the user chooses a geocoded address, the address view will fire
     // a geocode event on the namespace. At that point we center the map on
     // the geocoded location.
-    $(Shareabouts).on("geocode", function(evt, locationData) {
-      self.mapView.zoomInOn(locationData.latLng);
 
-      if (self.isAddingPlace()) {
-        self.placeFormView.setLatLng(locationData.latLng);
-        // Don't pass location data into our geolocation's form field
-        // self.placeFormView.setLocation(locationData);
-      }
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("geocode", locationData => {
+      this.mapView.zoomInOn(locationData.latLng);
     });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // When the map center moves, the map view will fire a mapmoveend event
     // on the namespace. If the move was the result of the user dragging, a
@@ -290,24 +303,6 @@ module.exports = Backbone.View.extend({
       }
     });
 
-    // After reverse geocoding, the map view will fire a reversegeocode
-    // event. This should only happen when adding a place while geocoding
-    // is enabled.
-    $(Shareabouts).on("reversegeocode", function(evt, locationData) {
-      var locationString = Handlebars.templates["location-string"](
-        locationData
-      );
-      self.geocodeAddressView.setAddress($.trim(locationString));
-      self.placeFormView.geocodeAddressPlaceView.setAddress(
-        $.trim(locationString)
-      );
-      self.placeFormView.setLatLng(locationData.latLng);
-      // Don't pass location data into our geolocation's form field
-      // self.placeFormView.setLocation(locationData);
-    });
-
-    // List view is enabled by default (undefined) or by enabling it
-    // explicitly. Set it to a falsey value to disable activity.
     if (
       _.isUndefined(this.options.appConfig.list_enabled) ||
       this.options.appConfig.list_enabled
@@ -359,23 +354,12 @@ module.exports = Backbone.View.extend({
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
-    _.each(this.places, function(value, key) {
-      self.placeDetailViews[key] = {};
-    });
-
-    _.each(this.landmarks, function(value, key) {
-      self.landmarkDetailViews[key] = {};
-    });
-
     // Show tools for adding data
     this.setBodyClass();
     this.showCenterPoint();
 
     // Load places from the API
     this.loadPlaces(placeParams);
-
-    // Load landmarks from the API
-    this.loadLandmarks();
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {
@@ -422,38 +406,6 @@ module.exports = Backbone.View.extend({
 
   isAddingPlace: function(model) {
     return this.$panel.is(":visible") && this.$panel.hasClass("place-form");
-  },
-  loadLandmarks: function() {
-    var self = this;
-
-    // loop through landmark configs
-    _.each(_.values(this.options.datasetConfigs.landmarks), function(
-      landmarkConfig
-    ) {
-      self.mapView.map.fire("layer:loading", { id: landmarkConfig.id });
-      if (landmarkConfig.placeType) {
-        var deferred = self.landmarks[landmarkConfig.id].fetch({
-          attributesToAdd: { location_type: landmarkConfig.placeType },
-          success: function() {
-            self.mapView.map.fire("layer:loaded", { id: landmarkConfig.id });
-          },
-          error: function() {
-            self.mapView.map.fire("layer:error", { id: landmarkConfig.id });
-          },
-        });
-        Shareabouts.deferredCollections.push(deferred);
-      } else {
-        var deferred = self.landmarks[landmarkConfig.id].fetch({
-          success: function() {
-            self.mapView.map.fire("layer:loaded", { id: landmarkConfig.id });
-          },
-          error: function() {
-            self.mapView.map.fire("layer:error", { id: landmarkConfig.id });
-          },
-        });
-        Shareabouts.deferredCollections.push(deferred);
-      }
-    });
   },
   loadPlaces: function(placeParams) {
     var self = this,
@@ -518,12 +470,6 @@ module.exports = Backbone.View.extend({
       Shareabouts.deferredCollections.push(deferred);
     });
   },
-
-  setPlaceFormViewLatLng: function(centerLatLng) {
-    if (this.placeFormView) {
-      this.placeFormView.setLatLng(centerLatLng);
-    }
-  },
   onMapZoomEnd: function(evt) {
     if (
       this.hasBodyClass("content-visible") === true &&
@@ -542,12 +488,6 @@ module.exports = Backbone.View.extend({
 
     this.$centerpoint.removeClass("dragging");
 
-    // Never set the placeFormView's latLng until the user does it with a
-    // drag event (below)
-    if (this.placeFormView && this.placeFormView.center) {
-      this.setPlaceFormViewLatLng(ll);
-    }
-
     if (this.hasBodyClass("content-visible") === false) {
       this.setLocationRoute(zoom, ll.lat, ll.lng);
     }
@@ -556,7 +496,6 @@ module.exports = Backbone.View.extend({
     if (this.hasBodyClass("content-visible") === true) {
       this.hideSpotlightMask();
     }
-    this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
   },
   onClickAddPlaceBtn: function(evt) {
     evt.preventDefault();
@@ -572,7 +511,7 @@ module.exports = Backbone.View.extend({
     if (this.mapView.locationTypeFilter) {
       this.options.router.navigate(
         "filter/" + this.mapView.locationTypeFilter,
-        { trigger: true }
+        { trigger: true },
       );
       this.hidePanel();
     } else {
@@ -609,7 +548,7 @@ module.exports = Backbone.View.extend({
       // should fail loudly.
       if (_.indexOf(bodyClasses, newBodyClasses[i]) === -1) {
         Util.console.error(
-          "Setting an unrecognized body class.\nYou should probably just use jQuery directly."
+          "Setting an unrecognized body class.\nYou should probably just use jQuery directly.",
         );
       }
       $body.addClass(newBodyClasses[i]);
@@ -623,66 +562,6 @@ module.exports = Backbone.View.extend({
       this.mapView.reverseGeocodeMapCenter();
     }
   },
-  onRemovePlace: function(model) {
-    if (this.placeDetailViews[model.cid]) {
-      this.placeDetailViews[model.cid].remove();
-      delete this.placeDetailViews[model.cid];
-    }
-  },
-
-  // TODO: clean up landmark/place distinction here
-  getLandmarkDetailView: function(collectionId, model) {
-    var landmarkDetailView;
-    if (
-      this.landmarkDetailViews[collectionId] &&
-      this.landmarkDetailViews[collectionId][model.id]
-    ) {
-      landmarkDetailView = this.landmarkDetailViews[collectionId][model.id];
-    } else {
-      landmarkDetailView = new LandmarkDetailView({
-        model: model,
-        description: model.get("properties")["description"],
-        originalDescription: model.get("properties")["originalDescription"],
-        mapConfig: this.options.mapConfig,
-        mapView: this.mapView,
-        router: this.options.router,
-      });
-      this.landmarkDetailViews[collectionId][model.id] = landmarkDetailView;
-    }
-    return landmarkDetailView;
-  },
-  getPlaceDetailView: function(model, layerView) {
-    var placeDetailView;
-    if (this.placeDetailViews[model.cid]) {
-      placeDetailView = this.placeDetailViews[model.cid];
-    } else {
-      placeDetailView = new PlaceDetailView({
-        model: model,
-        appView: this,
-        layerView: layerView,
-        surveyConfig: this.options.surveyConfig,
-        supportConfig: this.options.supportConfig,
-        placeConfig: this.options.placeConfig,
-        storyConfig: this.options.storyConfig,
-        mapConfig: this.options.mapConfig,
-        placeTypes: this.options.placeTypes,
-        userToken: this.options.userToken,
-        mapView: this.mapView,
-        geometryEditorView: this.mapView.geometryEditorView,
-        router: this.options.router,
-        datasetId: _.find(this.options.mapConfig.layers, function(layer) {
-          return layer.slug == model.attributes.datasetSlug;
-        }).id,
-        collectionsSet: {
-          places: this.places,
-          landmarks: this.landmarks,
-        },
-      });
-      this.placeDetailViews[model.cid] = placeDetailView;
-    }
-
-    return placeDetailView;
-  },
   setLocationRoute: function(zoom, lat, lng) {
     this.options.router.navigate(
       "/" +
@@ -690,7 +569,7 @@ module.exports = Backbone.View.extend({
         "/" +
         parseFloat(lat).toFixed(5) +
         "/" +
-        parseFloat(lng).toFixed(5)
+        parseFloat(lng).toFixed(5),
     );
   },
 
@@ -719,32 +598,61 @@ module.exports = Backbone.View.extend({
   newPlace: function() {
     var self = this;
 
-    if (!this.placeFormView) {
-      this.placeFormView = new PlaceFormView({
-        appView: this,
-        router: this.options.router,
-        placeConfig: this.options.placeConfig,
-        mapConfig: this.options.mapConfig,
-        userToken: this.options.userToken,
-        geometryEditorView: this.mapView.geometryEditorView,
-        collectionsSet: {
-          places: this.places,
-          landmarks: this.landmarks,
-        },
-      });
-    }
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    // NOTE: This wrapper component is temporary, and will be factored out
+    // when the AppView is ported.
+    ReactDOM.render(
+      <FormCategoryMenuWrapper
+        mapConfig={this.options.mapConfig}
+        hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+        hideCenterPoint={this.hideCenterPoint.bind(this)}
+        showNewPin={this.showNewPin.bind(this)}
+        hideNewPin={this.hideNewPin.bind(this)}
+        hidePanel={this.hidePanel.bind(this)}
+        map={this.mapView.map}
+        places={this.places}
+        router={this.options.router}
+        customHooks={this.options.customHooks}
+        container={document.querySelector("#content article")}
+        render={(state, props) => {
+          if (
+            props.customComponents &&
+            props.customComponents.InputForm === "VVInputForm"
+          ) {
+            return (
+              <VVInputForm
+                {...props}
+                selectedCategoryConfig={state.selectedCategoryConfig}
+              />
+            );
+          } else {
+            return (
+              <InputForm
+                {...props}
+                selectedCategoryConfig={state.selectedCategoryConfig}
+              />
+            );
+          }
+        }}
+        customComponents={this.options.customComponents}
+        placeConfig={this.options.placeConfig}
+      />,
+      document.querySelector("#content article"),
+    );
 
     this.$panel.removeClass().addClass("place-form");
-    this.showPanel(this.placeFormView.render(false).$el);
-    this.placeFormView.delegateEvents();
-    this.showNewPin();
+    this.$panel.show();
+    this.setBodyClass("content-visible", "content-expanded");
+    this.mapView.map.invalidateSize({ animate: true, pan: true });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
     this.setBodyClass("content-visible", "place-form-visible");
 
     if (this.options.placeConfig.default_basemap) {
       this.setLayerVisibility(
         this.options.placeConfig.default_basemap,
         true,
-        true
+        true,
       );
     }
   },
@@ -763,7 +671,7 @@ module.exports = Backbone.View.extend({
       function(targetLayer) {
         this.setLayerVisibility(targetLayer, true, false);
       },
-      this
+      this,
     );
 
     // switch off all other layers
@@ -781,13 +689,13 @@ module.exports = Backbone.View.extend({
           }
         }
       },
-      this
+      this,
     );
   },
 
   restoreDefaultLayerVisibility: function() {
     var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(
-        panel
+        panel,
       ) {
         return panel.id === "gis-layers";
       }),
@@ -806,13 +714,13 @@ module.exports = Backbone.View.extend({
             this.setLayerVisibility(
               layer.id,
               layer.visibleDefault ? true : false,
-              false
+              false,
             );
           },
-          this
+          this,
         );
       },
-      this
+      this,
     );
   },
 
@@ -832,14 +740,13 @@ module.exports = Backbone.View.extend({
     Util.getPlaceFromCollections(
       {
         places: this.places,
-        landmarks: this.landmarks,
       },
       args,
       this.options.mapConfig,
       {
         onFound: _.bind(onFound, this),
         onNotFound: _.bind(onNotFound, this),
-      }
+      },
     );
 
     function onFound(model, type, datasetId) {
@@ -847,7 +754,6 @@ module.exports = Backbone.View.extend({
         layer,
         center,
         zoom,
-        detailView,
         $responseToScrollTo;
 
       if (type === "place") {
@@ -867,18 +773,43 @@ module.exports = Backbone.View.extend({
           layer = self.mapView.layerViews[datasetId][model.cid].layer;
         }
 
-        detailView = self.getPlaceDetailView(
-          model,
-          self.mapView.layerViews[datasetId][model.cid]
+        // REACT PORT SECTION //////////////////////////////////////////////////
+        this.unfocusAllPlaces();
+        ReactDOM.unmountComponentAtNode(
+          document.querySelector("#content article"),
         );
 
-        self.showPanel(detailView.render().$el, !!args.responseId, detailView);
-        detailView.delegateEvents();
-      } else if (type === "landmark") {
-        layer = self.mapView.layerViews[datasetId][model.id].layer;
-        detailView = self.getLandmarkDetailView(datasetId, model);
+        ReactDOM.render(
+          <PlaceDetail
+            container={document.querySelector("#content article")}
+            currentUser={Shareabouts.bootstrapped.currentUser}
+            map={this.mapView.map}
+            model={model}
+            appView={this}
+            apiRoot={this.options.appConfig.api_root}
+            layerView={this.mapView.layerViews[datasetId][model.cid]}
+            surveyConfig={this.options.surveyConfig}
+            supportConfig={this.options.supportConfig}
+            placeConfig={this.options.placeConfig}
+            places={this.places}
+            placeTypes={this.options.placeTypes}
+            scrollToResponseId={args.responseId}
+            router={this.options.router}
+            storyConfig={this.options.storyConfig}
+            mapConfig={this.options.mapConfig}
+            userToken={this.options.userToken}
+          />,
+          document.querySelector("#content article"),
+        );
 
-        self.showPanel(detailView.render().$el, false, detailView);
+        this.$panel.show();
+        this.setBodyClass("content-visible", "content-expanded");
+        this.mapView.map.invalidateSize({ animate: true, pan: true });
+
+        $("#main-btns-container").addClass(
+          this.options.placeConfig.add_button_location || "pos-top-left",
+        );
+        // END REACT PORT SECTION //////////////////////////////////////////////
       }
 
       self.hideNewPin();
@@ -925,21 +856,6 @@ module.exports = Backbone.View.extend({
         }
       }
 
-      if (args.responseId) {
-        $responseToScrollTo = detailView.$el.find(
-          '[data-response-id="' + args.responseId + '"]'
-        );
-        if ($responseToScrollTo.length > 0) {
-          if (layout === '"desktop"') {
-            // For desktop, the panel content is scrollable
-            self.$panelContent.scrollTo($responseToScrollTo, 500);
-          } else {
-            // For mobile, it's the window
-            $(window).scrollTo($responseToScrollTo, 500);
-          }
-        }
-      }
-
       model.trigger("focus");
 
       if (!model.get("story") && self.isStoryActive) {
@@ -971,13 +887,17 @@ module.exports = Backbone.View.extend({
     this.setBodyClass("content-visible", "content-expanded");
   },
 
-  showPanel: function(markup, preventScrollToTop, detailView) {
+  showPanel: function(markup, preventScrollToTop) {
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
     this.$panelContent.html(markup);
     this.$panel.show();
-    detailView && detailView.delegateEvents();
 
     if (!preventScrollToTop) {
       // will be "mobile" or "desktop", as defined in default.css
@@ -1010,7 +930,7 @@ module.exports = Backbone.View.extend({
     ]);
 
     $("#main-btns-container").addClass(
-      this.options.placeConfig.add_button_location || "pos-top-left"
+      this.options.placeConfig.add_button_location || "pos-top-left",
     );
 
     Util.log("APP", "panel-state", "open");
@@ -1036,12 +956,17 @@ module.exports = Backbone.View.extend({
     var map = this.mapView.map;
 
     this.unfocusAllPlaces();
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
     this.$panel.hide();
     this.setBodyClass();
     map.invalidateSize({ animate: true, pan: true });
 
     $("#main-btns-container").addClass(
-      this.options.placeConfig.add_button_location || "pos-top-left"
+      this.options.placeConfig.add_button_location || "pos-top-left",
     );
 
     Util.log("APP", "panel-state", "closed");
@@ -1065,15 +990,6 @@ module.exports = Backbone.View.extend({
         }
       });
     });
-
-    // Unfocus all of the landmark markers
-    _.each(this.landmarks, function(collection) {
-      collection.each(function(model) {
-        if (!model.isNew()) {
-          model.trigger("unfocus");
-        }
-      });
-    });
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
@@ -1083,16 +999,7 @@ module.exports = Backbone.View.extend({
         }
       });
     });
-
-    _.each(this.landmarks, function(collection) {
-      collection.each(function(model) {
-        if (model && model.isNew()) {
-          model.destroy();
-        }
-      });
-    });
   },
-
   render: function() {
     this.mapView.render();
   },

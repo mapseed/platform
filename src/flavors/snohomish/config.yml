@@ -364,7 +364,6 @@ place:
       admin_only: true
       includeOnForm: true
       showMetadata: false
-      suppressAttachments: true
       horizontal_rule: true
       name: location_type
       dataset: snohomish-featured
@@ -373,9 +372,10 @@ place:
       label: _(Featured Site)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
+        # NOTE: this field type must have the name "geometry"
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
@@ -390,17 +390,17 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: farm
       includeOnForm: true
@@ -417,7 +417,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: farm_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -445,13 +445,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: horse
       includeOnForm: true
@@ -468,7 +468,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: horse_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -492,13 +492,13 @@ place:
           display_prompt: _( )
           placeholder: _(Enter a description of your actions...)
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: nature
       includeOnForm: true
@@ -515,7 +515,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: nature_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -540,13 +540,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: forest
       includeOnForm: true
@@ -563,7 +563,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: forest_category_fire
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Fire Prevention:)
           display_prompt: _( )
           content:
@@ -576,7 +576,7 @@ place:
             - label: _(Other)
               value: other
         - name: forest_category_water
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Water Quality:)
           display_prompt: _( )
           content:
@@ -593,7 +593,7 @@ place:
             - label: _(Control mud from vehicles on local roads)
               value: vehicle-mud
         - name: forest_category_habitat
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Forest Health and Wildlife Habitat:)
           display_prompt: _( )
           content:
@@ -608,7 +608,7 @@ place:
             - label: _(Use agroforestry practices such as silviculture)
               value: agroforestry   
         - name: forest_category_harvest
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Harvest:)
           display_prompt: _( )
           content:
@@ -629,13 +629,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: home
       includeOnForm: true
@@ -652,7 +652,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: home_category
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Conservation category:)
           display_prompt: _( )
           content:
@@ -679,13 +679,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
     - category: shoreline
       includeOnForm: true
@@ -702,7 +702,7 @@ place:
           display_prompt: _(Title:)
           optional: false
         - name: shoreline_category_bank
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Bank Protection:)
           display_prompt: _( )
           content:
@@ -717,7 +717,7 @@ place:
             - label: _(Install erosion control measures)
               value: erosion-control                       
         - name: shoreline_category_vegetation
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Vegetation:)
           display_prompt: _( )
           content:
@@ -732,7 +732,7 @@ place:
             - label: _(Do not tree-top my trees)
               value: no-tree-top
         - name: shoreline_category_development
-          type: checkbox_big_buttons
+          type: big_checkbox
           prompt: _(Development:)
           display_prompt: _( )
           content:
@@ -751,13 +751,13 @@ place:
           placeholder: _(Enter a description of your actions...)
           optional: false
         - name: submitter_name
-          type: commonFormElement
+          type: common_form_element
         - name: private-submitter_email
-          type: commonFormElement
+          type: common_form_element
         - name: my_image
-          type: commonFormElement
+          type: common_form_element
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -775,11 +775,8 @@ place:
     my_image:
       type: file
       prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
     submit:
       type: submit
       label: _(Put it on the map!)
@@ -807,12 +804,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support

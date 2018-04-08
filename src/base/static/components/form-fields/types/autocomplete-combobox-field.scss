@@ -1,0 +1,14 @@
+@import "variables";
+
+// the .autocomplete__input class is exposed by accessible-autocomplete
+.autocomplete__input {
+  background-color: #ffffff;
+  border: $autocomplete-combobox-border !important;
+  padding: $autocomplete-combobox-padding !important;
+}
+
+.autocomplete-combobox-field--has-autofill {
+  .autocomplete__input {
+    background-color: $autocomplete-combobox-autofill-background-color !important;
+  }
+}

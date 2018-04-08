@@ -1,24 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-const cn = require("classnames");
+import classNames from "classnames";
 
 import constants from "./constants";
-import messages from "./messages";
+import { translate } from "react-i18next";
 import "./input-explorer-category-menu.scss";
 
 const InputExplorerCategoryMenu = props => {
   const categoryNames = props.placeConfig
     .find(
-      category => category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME
+      category => category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME,
     )
     .fields.find(field => field.name === constants.INPUT_CATEGORY_FIELDNAME)
     .content;
-  const classNames = {
-    summaryLabel: cn("input-explorer-category-menu__label", {
+  const cn = {
+    summaryLabel: classNames("input-explorer-category-menu__label", {
       "input-explorer-category-menu__label--active":
         props.selectedCategory === "summary",
     }),
   };
+  const { t } = this.props;
 
   return (
     <div className="input-explorer-category-menu">
@@ -33,19 +34,19 @@ const InputExplorerCategoryMenu = props => {
           onChange={props.onChange}
         />
         <label
-          className={classNames.summaryLabel}
+          className={cn.summaryLabel}
           htmlFor={"input-explorer-category-menu-summary"}
         >
-          {messages.t("categorySummaryLabel")}
+          {t("categorySummaryLabel")}
         </label>
       </span>
       {categoryNames.map(category => {
-        const categoryLabelClassname = cn(
+        const categoryLabelClassname = classNames(
           "input-explorer-category-menu__label",
           {
             "input-explorer-category-menu__label--active":
               props.selectedCategory === category.value,
-          }
+          },
         );
 
         return (
@@ -78,6 +79,7 @@ InputExplorerCategoryMenu.propTypes = {
   onChange: PropTypes.func.isRequired,
   placeConfig: PropTypes.array.isRequired,
   selectedCategory: PropTypes.string.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default InputExplorerCategoryMenu;
+export default translate("InputExplorer")(InputExplorerCategoryMenu);

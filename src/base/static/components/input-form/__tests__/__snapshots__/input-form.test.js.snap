@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputForm renders input form 1`] = `
+<div
+  className="input-form"
+>
+  <WarningMessagesContainer
+    errors={Array []}
+    headerMsg="validationHeader"
+    t={[Function]}
+  />
+  <form
+    className="input-form__form"
+    id="mapseed-input-form"
+    onSubmit={[Function]}
+  >
+    <FormField
+      attachmentModels={Immutable.List []}
+      categoryConfig={
+        Object {
+          "fields": Array [
+            Object {
+              "name": "test1",
+            },
+            Object {
+              "name": "test2",
+            },
+          ],
+        }
+      }
+      disabled={false}
+      fieldConfig={
+        Object {
+          "name": "test1",
+        }
+      }
+      fieldState={
+        Immutable.Map {
+          "value": "",
+          "renderKey": 0,
+        }
+      }
+      key="0"
+      map={
+        Object {
+          "getCenter": [Function],
+          "off": [Function],
+          "on": [Function],
+        }
+      }
+      mapConfig={Object {}}
+      onAddAttachment={[Function]}
+      onFieldChange={[Function]}
+      onGeometryStyleChange={[Function]}
+      places={Object {}}
+      router={Object {}}
+      showValidityStatus={false}
+      t={[Function]}
+      updatingField={null}
+    />
+    <FormField
+      attachmentModels={Immutable.List []}
+      categoryConfig={
+        Object {
+          "fields": Array [
+            Object {
+              "name": "test1",
+            },
+            Object {
+              "name": "test2",
+            },
+          ],
+        }
+      }
+      disabled={false}
+      fieldConfig={
+        Object {
+          "name": "test2",
+        }
+      }
+      fieldState={
+        Immutable.Map {
+          "value": "",
+          "renderKey": 0,
+        }
+      }
+      key="0"
+      map={
+        Object {
+          "getCenter": [Function],
+          "off": [Function],
+          "on": [Function],
+        }
+      }
+      mapConfig={Object {}}
+      onAddAttachment={[Function]}
+      onFieldChange={[Function]}
+      onGeometryStyleChange={[Function]}
+      places={Object {}}
+      router={Object {}}
+      showValidityStatus={false}
+      t={[Function]}
+      updatingField={null}
+    />
+  </form>
+</div>
+`;

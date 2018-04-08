@@ -1,0 +1,405 @@
+//
+// Mapseed Default Theme
+//
+
+// -----------------------------------------------------------------------------
+// COLORS
+// -----------------------------------------------------------------------------
+$body-text-color: #000000;
+$primary-color: #007fbf;
+$secondary-color: #a3c7d9;
+$accent-color-1: rgba(242, 82, 24, 0.89);
+$accent-color-1-tint: rgba(242, 82, 24, 0.31);
+$accent-color-2: #00aaff;
+
+$very-light-gray: #eeeeee;
+$light-gray: #d1d3d4;
+$dark-gray: #888888;
+$very-dark-gray: #36454f;
+$extremely-dark-gray: #222222;
+
+$warning-color: #ffffe0;
+$alert-color: #d9534f;
+$alert-color-light: #da8583;
+
+$autofill-color: #ffffe0;
+
+// -----------------------------------------------------------------------------
+// ICONS
+// -----------------------------------------------------------------------------
+$icon-search: "\F002";
+$icon-check-mark: "✔";
+$icon-hamburger: "\F03A";
+$icon-solid-star: "\F005";
+$icon-heart-filled: "\F004";
+$icon-pencil: "\F040";
+$icon-floppy-disk: "\F0C7";
+$icon-times: "\F00D";
+
+// -----------------------------------------------------------------------------
+// TYPOGRAPHY
+// -----------------------------------------------------------------------------
+$primary-font: "";
+$secondary-font: "";
+
+// -----------------------------------------------------------------------------
+// BUTTONS
+// -----------------------------------------------------------------------------
+
+/*
+  primary-button.js
+  Primary button component
+*/
+$primary-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$primary-button-background-color: $accent-color-1;
+$primary-button-background-hover-color: $primary-color;
+$primary-button-border: 3px solid rgba(0, 0, 0, 0.05);
+$primary-button-text-color: #ffffff;
+$primary-button-box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+$primary-button-border-radius: 3px;
+$primary-button-text-transform: uppercase;
+$primary-button-font-size: 1em;
+$primary-button-hover-cursor: pointer;
+
+/*
+  secondary-button.js
+  Secondary button component
+*/
+$secondary-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$secondary-button-background-color: $secondary-color;
+$secondary-button-background-hover-color: #93b7c9;
+$secondary-button-border: 3px solid rgba(0, 0, 0, 0.05);
+$secondary-button-text-color: $primary-color;
+$secondary-button-box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+$secondary-button-border-radius: 3px;
+$secondary-button-text-transform: uppercase;
+$secondary-button-font-size: 0.75em;
+$secondary-button-hover-cursor: pointer;
+
+/*
+  input-form-category-button.js
+  Map input form category selection button
+*/
+$input-form-category-button-height: 55px;
+$input-form-category-button-background-color: #ffffff;
+$input-form-category-button-text-color: #000000;
+$input-form-category-button-margin: 0 0 10px 0;
+$input-form-category-button-hover-border: 2px solid $accent-color-1;
+$input-form-category-button-border: 2px solid transparent;
+$input-form-category-button-border-radius: 8px;
+$input-form-category-button-padding: 3px 3px 3px 3px;
+$input-form-category-button-image-width: 36px;
+$input-form-category-button-image-margin: 0 0 0 0;
+$input-form-category-button-image-padding: 3px 3px 3px 3px;
+$input-form-category-button-text-transform: uppercase;
+$input-form-category-button-font-size: 1em;
+$input-form-category-button-label-text-margin: 0 0 0 0;
+$input-form-category-button-label-text-padding: 0 0 0 20px;
+$input-form-category-button-label-text-border-radius: 0 7px 7px 0;
+$input-form-category-button-image-margin: 0 20px 0 20px;
+$input-form-category-button-image-border-radius: 7px 0 0 7px;
+$input-form-category-button-expand-categories-button: $icon-hamburger;
+$input-form-category-button-expand-categories-button-color: #ffffff;
+$input-form-category-button-expand-categories-button-hover-color: $light-gray;
+$input-form-category-button-selected-label-background-color: $accent-color-1;
+$input-form-category-button-selected-image-background-color: $accent-color-1-tint;
+$input-form-category-button-selected-text-color: #ffffff;
+$input-form-category-button-collapse-animation-duration: 0.5s;
+$input-form-category-button-height: 55px;
+
+// -----------------------------------------------------------------------------
+// FORMS
+// -----------------------------------------------------------------------------
+
+/*
+  text-field.js
+  Basic text field
+*/
+$text-field-border: 0.25em solid $secondary-color;
+$text-field-border-radius: 0 0 0 0;
+$text-field-padding: 0.5em 0.5em 0.5em 0.5em;
+$text-field-margin: 0 0 0 0;
+$text-field-width: 100%;
+$text-field-autofill-background-color: $autofill-color;
+
+$rendered-text-field-margin-bottom: 5px;
+
+/*
+  textarea-field.js
+  Basic textarea field
+*/
+$textarea-field-border: 0.25em solid $secondary-color;
+$textarea-field-border-radius: 0 0 0 0;
+$textarea-field-padding: 0.5em 0.5em 0.5em 0.5em;
+$textarea-field-margin: 0 0 0 0;
+$textarea-field-width: 100%;
+$textarea-field-height: 6.5em;
+$textarea-field-autofill-background-color: $autofill-color;
+
+$rendered-textarea-field-margin-bottom: 5px;
+
+/*
+  dropdown-field.js
+  Basic dropdown field
+*/
+$dropdown-field-border: 0.25em solid $secondary-color;
+$dropdown-field-width: 100%;
+$dropdown-field-autofill-background-color: $autofill-color;
+
+/*
+  datetime-field.js
+  Date/time picker
+*/
+$datetime-field-width: 100%;
+$datetime-field-border: 0.25em solid $secondary-color;
+$datetime-field-padding: 0.5em 0.5em 0.5em 0.5em;
+
+/*
+  geocoding-field.js
+  Geocoder
+*/
+$geocoding-field-width: 100%;
+$geocoding-field-border: 0.25em solid $secondary-color;
+$geocoding-field-padding: 0.5em 0.5em 0.5em 2.5em;
+$geocoding-field-search-icon: $icon-search;
+$geocoding-field-search-icon-color: $secondary-color;
+$geocoding-field-search-icon-font-size: 1.5em;
+$geocoding-field-spinner-icon-color: #000000;
+$geocoding-field-spinner-icon-background-color: $secondary-color;
+$geocoding-field-error-background-color: #bf6083;
+$geocoding-field-error-text-color: #ffffff;
+$geocoding-field-error-box-shadow: 2px 2px 0 #bf6083, 2px -2px 0 #bf6083,
+  -2px 2px 0 #bf6083, -2px -2px 0 #bf6083;
+$geocoding-field-error-padding: 0.25em 0.5em;
+
+/*
+  big-radio-field.js
+  Large radio field with label with left-aligned icon inside
+*/
+$big-radio-field-icon: $icon-check-mark;
+$big-radio-field-hover-icon-color: $very-light-gray;
+$big-radio-field-hover-icon-background-color: $light-gray;
+$big-radio-field-label-font-size: 1.15em;
+$big-radio-field-label-min-height: 2.1em;
+$big-radio-field-label-text-color: $light-gray;
+$big-radio-field-label-padding: 0 10px 0 60px;
+$big-radio-field-label-margin: 5px 0 0 0;
+$big-radio-field-line-height: 2.1em;
+$big-radio-field-hover-label-color: $very-dark-gray;
+$big-radio-field-label-border-radius: 4px;
+$big-radio-field-selected-icon-color: #ffffff;
+$big-radio-field-border: 2px solid $light-gray;
+$big-radio-field-selected-border: 2px solid $accent-color-1;
+$big-radio-field-selected-label-color: $extremely-dark-gray;
+$big-radio-field-selected-icon-background-color: $accent-color-1;
+$big-radio-field-selected-border: 2px solid $accent-color-1;
+$big-radio-field-autofill-background-color: $autofill-color;
+
+/*
+  big-checkbox-field.js
+  Large checkbox field with label with left-aligned icon inside
+*/
+$big-checkbox-field-icon: $icon-check-mark;
+$big-checkbox-field-hover-icon-color: $very-light-gray;
+$big-checkbox-field-hover-icon-background-color: $light-gray;
+$big-checkbox-field-label-font-size: 1.15em;
+$big-checkbox-field-label-min-height: 2.1em;
+$big-checkbox-field-label-text-color: $light-gray;
+$big-checkbox-field-label-padding: 0 10px 0 60px;
+$big-checkbox-field-label-margin: 5px 0 0 0;
+$big-checkbox-field-line-height: 2.1em;
+$big-checkbox-field-hover-label-color: $very-dark-gray;
+$big-checkbox-field-label-border-radius: 4px;
+$big-checkbox-field-selected-icon-color: #ffffff;
+$big-checkbox-field-border: 2px solid $light-gray;
+$big-checkbox-field-selected-border: 2px solid $accent-color-1;
+$big-checkbox-field-selected-label-color: $extremely-dark-gray;
+$big-checkbox-field-selected-icon-background-color: $accent-color-1;
+$big-checkbox-field-selected-border: 2px solid $accent-color-1;
+$big-checkbox-field-autofill-background-color: $autofill-color;
+
+/*
+  big-toggle-field.js
+  Large toggle field with label with left-aligned icon inside
+*/
+$big-toggle-field-icon: $icon-check-mark;
+$big-toggle-field-hover-icon-color: $very-light-gray;
+$big-toggle-field-hover-icon-background-color: $light-gray;
+$big-toggle-field-label-font-size: 1.15em;
+$big-toggle-field-label-min-height: 2.1em;
+$big-toggle-field-label-text-color: $light-gray;
+$big-toggle-field-label-padding: 0 10px 0 60px;
+$big-toggle-field-label-margin: 5px 0 0 0;
+$big-toggle-field-line-height: 2.1em;
+$big-toggle-field-hover-label-text-color: $very-dark-gray;
+$big-toggle-field-label-border-radius: 4px;
+$big-toggle-field-selected-icon-color: #ffffff;
+$big-toggle-field-border: 2px solid $light-gray;
+$big-toggle-field-selected-border: 2px solid $accent-color-1;
+$big-toggle-field-selected-label-color: $extremely-dark-gray;
+$big-toggle-field-selected-icon-background-color: $accent-color-1;
+$big-toggle-field-selected-border: 2px solid $accent-color-1;
+$big-toggle-field-autofill-background-color: $autofill-color;
+
+/*
+  rich-textarea-field.js
+  Quill-driven rich textarea input box
+*/
+$rich-textarea-border: 0.25em solid $secondary-color;
+$rich-textarea-min-height: 200px;
+$rich-textarea-font-size: 16px;
+$rich-textarea-field-autofill-background-color: $autofill-color;
+
+$rendered-rich-textarea-field-margin-bottom: 5px;
+
+/*
+  map-drawing-toolbar.js
+  Toolbar for drawing icons, polylines, and polygons on the map
+*/
+$map-drawing-toolbar-background-color: $dark-gray;
+$map-drawing-toolbar-border-radius: 5px;
+$map-drawing-toolbar-padding: 10px 10px 10px 10px;
+$map-drawing-toolbar-text-color: #ffffff;
+
+$map-drawing-toolbar-create-marker-icon: url(/static/css/images/create-marker-icon.svg);
+$map-drawing-toolbar-create-marker-icon-width: 30px;
+$map-drawing-toolbar-create-marker-icon-height: 34px;
+$map-drawing-toolbar-edit-marker-icon: url(/static/css/images/edit-geometry-icon.svg);
+$map-drawing-toolbar-edit-marker-icon-width: 30px;
+$map-drawing-toolbar-edit-marker-icon-height: 34px;
+$map-drawing-toolbar-delete-marker-icon: url(/static/css/images/delete-geometry-icon.svg);
+$map-drawing-toolbar-delete-marker-icon-width: 30px;
+$map-drawing-toolbar-delete-marker-icon-height: 34px;
+
+$map-drawing-toolbar-create-polyline-icon: url(/static/css/images/create-polyline-icon.svg);
+$map-drawing-toolbar-create-polyline-icon-width: 30px;
+$map-drawing-toolbar-create-polyline-icon-height: 34px;
+$map-drawing-toolbar-edit-polyline-icon: url(/static/css/images/edit-geometry-icon.svg);
+$map-drawing-toolbar-edit-polyline-icon-width: 30px;
+$map-drawing-toolbar-edit-polyline-icon-height: 34px;
+$map-drawing-toolbar-delete-polyline-icon: url(/static/css/images/delete-geometry-icon.svg);
+$map-drawing-toolbar-delete-polyline-icon-width: 30px;
+$map-drawing-toolbar-delete-polyline-icon-height: 34px;
+
+$map-drawing-toolbar-create-polygon-icon: url(/static/css/images/create-polygon-icon.svg);
+$map-drawing-toolbar-create-polygon-icon-width: 30px;
+$map-drawing-toolbar-create-polygon-icon-height: 34px;
+$map-drawing-toolbar-edit-polygon-icon: url(/static/css/images/edit-geometry-icon.svg);
+$map-drawing-toolbar-edit-polygon-icon-width: 30px;
+$map-drawing-toolbar-edit-polygon-icon-height: 34px;
+$map-drawing-toolbar-delete-polygon-icon: url(/static/css/images/delete-geometry-icon.svg);
+$map-drawing-toolbar-delete-polygon-icon-width: 30px;
+$map-drawing-toolbar-delete-polygon-icon-height: 34px;
+
+$map-drawing-toolbar-fill-colorpicker-icon: url(/static/css/images/colorpicker-icon.svg);
+$map-drawing-toolbar-fill-colorpicker-icon-width: 30px;
+$map-drawing-toolbar-fill-colorpicker-icon-height: 34px;
+$map-drawing-toolbar-stroke-colorpicker-icon: url(/static/css/images/colorpicker-icon.svg);
+$map-drawing-toolbar-stroke-colorpicker-icon-width: 30px;
+$map-drawing-toolbar-stroke-colorpicker-icon-height: 34px;
+
+$map-drawing-toolbar-toolbar-item-border: 2px solid transparent;
+$map-drawing-toolbar-toolbar-item-hover-border: 2px solid #ffffff;
+$map-drawing-toolbar-toolbar-border-radius: 4px;
+$map-drawing-toolbar-toolbar-item-padding: 4px 4px 4px 4px;
+$map-drawing-toolbar-toolbar-item-selected-background-color: #ffffff;
+$map-drawing-toolbar-toolbar-item-selected-text-color: $dark-gray;
+
+$map-drawing-toolbar-marker-item-marker-width: 25px;
+$map-drawing-toolbar-marker-item-marker-border: 2px solid transparent;
+$map-drawing-toolbar-marker-item-marker-hover-border: 2px solid #ffffff;
+$map-drawing-toolbar-marker-item-marker-border-radius: 4px;
+$map-drawing-toolbar-marker-item-selected-background-color: #ffffff;
+$map-drawing-toolbar-marker-item-padding: 3px 3px 3px 3px;
+
+/*
+  autocomplete-combobox-field.js
+  Autcomplete input field with dropdown capabilities
+*/
+$autocomplete-combobox-border: 0.25em solid $secondary-color;
+$autocomplete-combobox-padding: 0.5em 0.5em 0.5em 0.5em;
+$autocomplete-combobox-autofill-background-color: $autofill-color;
+
+/*
+  add-attachment-button.js
+  Button for adding file attachments to places
+*/
+$add-attachment-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$add-attachment-button-text-color: $primary-color;
+
+/*
+  custom-url-field.js
+  Field for entering a custom url for a place
+*/
+$custom-url-background-color: $dark-gray;
+$custom-url-border-radius: 5px;
+$custom-url-padding: 10px 10px 10px 10px;
+$custom-url-prefix-msg-text-color: $extremely-dark-gray;
+$custom-url-prefix-url-text-color: #ffffff;
+
+/*
+  range-slider-with-label.js
+  Slider field for numeric values
+*/
+$range-slider-background-color: $secondary-color;
+$range-slider-width: 85%;
+$range-slider-height: 4px;
+$range-slider-autofill-background-color: $autofill-color;
+
+/*
+  input-form-submit-button.js
+  Main input form submit button
+*/
+$input-form-submit-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$input-form-submit-button-background-color: $accent-color-1;
+$input-form-submit-button-background-hover-color: $primary-color;
+$input-form-submit-button-border: 3px solid rgba(0, 0, 0, 0.05);
+$input-form-submit-button-text-color: #ffffff;
+$input-form-submit-button-box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+$input-form-submit-button-border-radius: 3px;
+$input-form-submit-button-text-transform: uppercase;
+$input-form-submit-button-font-size: 1em;
+$input-form-submit-button-hover-cursor: pointer;
+
+/*
+  input-form.js
+  Main input form for new map content
+*/
+$input-form-prompt-font-size: 1em;
+$input-form-prompt-invalid-text-color: #ffffff;
+$input-form-optional-msg-font-size: 0.75em;
+$input-form-optional-msg-font-size: 0.75em;
+$input-form-invalid-field-placeholder-border: 2px solid transparent;
+$input-form-invalid-field-border: 2px dotted $alert-color;
+$input-form-invalid-field-border-radius: 8px;
+$input-form-validation-errors-padding: 8px;
+$input-form-validation-errors-margin: 0 0 15px 0;
+$input-form-validation-errors-background-color: $alert-color;
+$input-form-validation-errors-border: 2px dotted #ffffff;
+$input-form-validation-errors-border-radius: 8px;
+$input-form-validation-errors-header-text-color: #ffffff;
+$input-form-validation-errors-header-font-weight: 800;
+$input-form-validation-errors-header-margin: 0 0 10px 0;
+$input-form-validation-errors-error-msg-icon: $icon-solid-star;
+$input-form-validation-errors-error-msg-margin: 0 0 5px 25px;
+$input-form-validation-errors-error-msg-padding: 0 0 0 10px;
+$input-form-validation-errors-error-msg-text-indent: -20px;
+$input-form-validation-errors-error-msg-text-style: italic;
+$input-form-validation-errors-error-msg-text-color: #ffffff;
+
+/*
+  support-button.js
+  Button to support/like a post
+*/
+$support-button-icon: $icon-heart-filled;
+$support-button-icon-unsupported-color: #d1e2ec;
+$support-button-icon-supported-color: #d24444;
+
+/*
+  social-share-button.js
+  Twitter and Facebook sharing buttons
+*/
+$social-share-button-height: 32px;
+$social-share-button-width: 32px;
+$social-share-button-twitter-image: url(/static/css/images/twitter-32.png);
+$social-share-button-facebook-image: url(/static/css/images/facebook-32.png);

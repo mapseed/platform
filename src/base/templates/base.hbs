@@ -34,6 +34,7 @@
   {{else}}
     <link rel="stylesheet" href="/bundle.css">
   {{/if}}
+
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
   {{#if config.map.cartodb_enabled}}
@@ -188,7 +189,7 @@
 
   {{#if production}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.min.js"></script>
@@ -206,7 +207,7 @@
   {{else}}
     <!-- Non-minified, where available -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.js"></script>
@@ -265,10 +266,6 @@
   <script src="{{config.app.api_root}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{config.app.api_root}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
 
-  <script>
-    moment.locale('{{languageCode}}');
-  </script>
-
   <!--[if IE LTE 7]>
   <script>
     $(function() {
@@ -310,7 +307,8 @@
           rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
           filters:         {{#serialize config.filters}}{{/serialize}},
           datasets:        {{#serialize config.datasets}}{{/serialize}},
-          languageCode:    {{#serialize languageCode}}{{/serialize}}
+          customHooks:     {{#serialize config.custom_hooks}}{{/serialize}},
+          customComponents:{{#serialize config.custom_components}}{{/serialize}}
         };
         $(function() {
           // Ready set go!
@@ -332,7 +330,8 @@
             pagesConfig: S.Config.pages,
             filters: S.Config.filters,
             datasetsConfig: S.Config.datasets,
-            languageCode: S.Config.languageCode
+            customHooks: S.Config.customHooks,
+            customComponents: S.Config.customComponents
           });
         });
       }(Shareabouts, jQuery));

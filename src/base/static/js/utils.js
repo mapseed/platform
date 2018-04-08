@@ -40,15 +40,17 @@ var self = (module.exports = {
       Shareabouts.bootstrapped.currentUser.groups
     ) {
       _.each(Shareabouts.bootstrapped.currentUser.groups, function(group) {
-
         // Get the name of the datasetId from the end of the full url
         // provided in Shareabouts.bootstrapped.currentUser.groups
         var url = group.dataset.split("/"),
           match = url[url.length - 1];
 
-        if (match &&
-            match === datasetId &&
-            (group.name === "administrators" || adminGroups.indexOf(group.name) > -1)) {
+        if (
+          match &&
+          match === datasetId &&
+          (group.name === "administrators" ||
+            adminGroups.indexOf(group.name) > -1)
+        ) {
           isAdmin = true;
         }
       });
@@ -89,14 +91,15 @@ var self = (module.exports = {
       components = {
         title: model.get("title") || model.get("name") || appConfig.title,
         desc: model.get("description") || appConfig.meta_description,
-        img: model.attachmentCollection.models.length > 0
-          ? model.attachmentCollection.models[0].get("file")
-          : [
-              window.location.protocol,
-              "//",
-              window.location.host,
-              appConfig.thumbnail,
-            ].join(""),
+        img:
+          model.attachmentCollection.models.length > 0
+            ? model.attachmentCollection.models[0].get("file")
+            : [
+                window.location.protocol,
+                "//",
+                window.location.host,
+                appConfig.thumbnail,
+              ].join(""),
         redirectUrl: [
           window.location.protocol,
           "//",
@@ -133,9 +136,10 @@ var self = (module.exports = {
 
   onSocialShare: function(model, service) {
     this.getSocialUrl(model).then(shareUrl => {
-      let url = service === "facebook"
-        ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
-        : `https://twitter.com/intent/tweet?url=${shareUrl}`;
+      let url =
+        service === "facebook"
+          ? `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+          : `https://twitter.com/intent/tweet?url=${shareUrl}`;
       window.open(url, "_blank").focus();
     });
   },
@@ -185,8 +189,8 @@ var self = (module.exports = {
 
     function searchPlaceCollections() {
       var datasetId = _.find(mapConfig.layers, function(layer) {
-        return layer.slug === args.datasetSlug;
-      }).id,
+          return layer.slug === args.datasetSlug;
+        }).id,
         model = collectionsSet.places[datasetId].get(args.modelId);
 
       if (model) {
@@ -203,8 +207,7 @@ var self = (module.exports = {
             callbacks.onNotFound();
           },
           data: {
-            include_submissions:
-              Shareabouts.Config.app.list_enabled !== false,
+            include_submissions: Shareabouts.Config.app.list_enabled !== false,
           },
         });
       }
@@ -294,8 +297,8 @@ var self = (module.exports = {
       fieldConfig.type === "text" ||
       fieldConfig.type === "textarea" ||
       fieldConfig.type === "datetime" ||
-      fieldConfig.type === "richTextarea" ||
-      fieldConfig.type === "url-title"
+      fieldConfig.type === "rich_textarea" ||
+      fieldConfig.type === "custom_url_toolbar"
     ) {
       // Plain text
       content = existingValue || "";
@@ -304,10 +307,10 @@ var self = (module.exports = {
         hasValue = true;
       }
     } else if (
-      fieldConfig.type === "checkbox_big_buttons" ||
-      fieldConfig.type === "radio_big_buttons" ||
+      fieldConfig.type === "big_checkbox" ||
+      fieldConfig.type === "big_radio" ||
       fieldConfig.type === "dropdown" ||
-      fieldConfig.type === "dropdown-autocomplete"
+      fieldConfig.type === "dropdown_autocomplete"
     ) {
       // Checkboxes, radio buttons, and dropdowns
       if (!_.isArray(existingValue)) {
@@ -329,7 +332,7 @@ var self = (module.exports = {
           selected: selected,
         });
       });
-    } else if (fieldConfig.type === "geometryToolbar") {
+    } else if (fieldConfig.type === "map_drawing_toolbar") {
       // Geometry toolbar
       content = [];
 
@@ -347,7 +350,7 @@ var self = (module.exports = {
           content[0].selected = true;
         }
       });
-    } else if (fieldConfig.type === "publishControl") {
+    } else if (fieldConfig.type === "publish_control_toolbar") {
       // Published/Not published radio control
       content = {
         selected: existingValue || "isPublished",
@@ -360,7 +363,7 @@ var self = (module.exports = {
       if (existingValue) {
         hasValue = true;
       }
-    } else if (fieldConfig.type === "binary_toggle") {
+    } else if (fieldConfig.type === "big_toggle") {
       // Binary toggle buttons
       // NOTE: We assume that the first option listed under content
       // corresponds to the "on" value of the toggle input
@@ -393,7 +396,7 @@ var self = (module.exports = {
           (fieldData.name && fieldData.name.indexOf("private-") !== 0) &&
           fieldData.hasValue &&
           fieldData.form_only !== true &&
-          fieldData.name !== "url-title" &&
+          fieldData.name !== "custom_url_toolbar" &&
           fieldData.type !== "submit"
         );
       },
@@ -407,14 +410,17 @@ var self = (module.exports = {
     _.each(
       args.fields,
       function(field, i) {
-        if (field.type === "commonFormElement") {
-          Object.assign(args.fields[i], args.commonFormElements[args.fields[i].name]);
+        if (field.type === "common_form_element") {
+          Object.assign(
+            args.fields[i],
+            args.commonFormElements[args.fields[i].name]
+          );
         }
 
         var fieldData = _.extend(
           {},
           args.fields[i],
-          self.buildFieldContent(field, args.model.get(field.name)),
+          self.buildFieldContent(field, args.model.get(field.name))
         );
 
         if (args.isEditingToggled && fieldIsValidForEditor(fieldData)) {
@@ -423,34 +429,10 @@ var self = (module.exports = {
           fields.push(fieldData);
         }
       },
-      this,
+      this
     );
 
     return fields;
-  },
-
-  onBinaryToggle: function(evt) {
-    var oldValue = $(evt.target).val(),
-      newValue = $(evt.target).data("alt-value"),
-      oldLabel = $(evt.target).siblings("label").html(),
-      newLabel = $(evt.target).siblings("label").data("alt-label");
-
-    // swap new and old values and labels
-    $(evt.target).data("alt-value", oldValue);
-    $(evt.target).val(newValue);
-    $(evt.target).siblings("label").html(newLabel);
-    $(evt.target).siblings("label").data("alt-label", oldLabel);
-  },
-
-  onPublishedStateChange: function(evt, mode) {
-    var msgClass = [".", $(evt.target).data("helper-msg"), "-", mode].join("");
-
-    $(evt.target)
-      .siblings(".helper-messages")
-      .find(msgClass)
-      .removeClass("hidden")
-      .siblings()
-      .addClass("hidden");
   },
 
   // attempt to save form autocomplete values in localStorage;
@@ -530,42 +512,6 @@ var self = (module.exports = {
     return "desktop";
   },
 
-  // NOTE this is not in Shareabouts.js
-  // Keeps a cache of "sticky" form fields in memory. This cache is set when
-  // the user submits a place or survey form, and is used to prepopulate both
-  // forms. NOTE that the cache is shared between both forms, so, for example,
-  // `submitter_name` in both places will have a shared default value (if
-  // sticky: true in config.yml).
-  setStickyFields: function(data, surveyItemsConfig, placeItemsConfig) {
-    // Make an array of sticky field names
-    var stickySurveyItemNames = _.pluck(
-      _.filter(surveyItemsConfig, function(item) {
-        return item.sticky;
-      }),
-      "name",
-    ),
-      stickyPlaceItemNames = _.pluck(
-        _.filter(placeItemsConfig, function(item) {
-          return item.sticky;
-        }),
-        "name",
-      ),
-      // Array of both place and survey sticky field names
-      stickyItemNames = _.union(stickySurveyItemNames, stickyPlaceItemNames);
-
-    // Create the cache
-    if (!Shareabouts.stickyFieldValues) {
-      Shareabouts.stickyFieldValues = {};
-    }
-
-    _.each(stickyItemNames, function(name) {
-      // Check for existence of the key, not the truthiness of the value
-      if (name in data) {
-        Shareabouts.stickyFieldValues[name] = data[name];
-      }
-    });
-  },
-
   // ====================================================
   // Event and State Logging
 
@@ -606,7 +552,7 @@ var self = (module.exports = {
         measure = measures[secondArg];
         if (!measure) {
           this.console.error(
-            'No metrics or dimensions matching "' + secondArg + '"',
+            'No metrics or dimensions matching "' + secondArg + '"'
           );
           return;
         }
@@ -731,7 +677,7 @@ var self = (module.exports = {
           var rotated = self.fixImageOrientation(canvas, orientation);
           callback(rotated);
         },
-        options,
+        options
       );
     };
 
@@ -823,7 +769,7 @@ var self = (module.exports = {
           JSON.stringify({
             expires: expDate,
             value: value,
-          }),
+          })
         );
       } catch (e) {
         // ignore exceptions
@@ -864,8 +810,14 @@ var self = (module.exports = {
     geocode: function(location, bounds, options) {
       var mapQuestKey = Shareabouts.bootstrapped.mapQuestKey;
 
-      if (!mapQuestKey)
+      if (!mapQuestKey) {
+        // REACT PORT SECTION //////////////////////////////////////////////////
+
+        // call the error handler here to provide better user feedback
+        options.error();
+        // END REACT PORT SECTION //////////////////////////////////////////////
         throw "You must provide a MapQuest key for geocoding to work.";
+      }
 
       options = options || {};
       options.dataType = "jsonp";

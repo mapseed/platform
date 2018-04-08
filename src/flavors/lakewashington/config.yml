@@ -433,9 +433,10 @@ place:
       label: _(Featured Place)
       fields:
         - name: published
-          type: publishControl
+          type: publish_control_toolbar
+        # NOTE: this field type must have the name "geometry"
         - name: geometry
-          type: geometryToolbar
+          type: map_drawing_toolbar
           content:
             - url: /static/css/images/markers/marker-star.png
             - url: /static/css/images/markers/marker-heart.png
@@ -446,17 +447,17 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: richTextarea
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
         - name: url-title
-          type: url-title
+          type: custom_url_toolbar
           prompt: _(Choose a custom URL for this place:)
           placeholder: "my-new-featured-place"
           optional: true
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: observation
       includeOnForm: true
       name: location_type
@@ -491,13 +492,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: question
       includeOnForm: true
       name: location_type
@@ -531,13 +529,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: idea
       includeOnForm: true
       name: location_type
@@ -572,13 +567,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
     - category: complaint
       includeOnForm: true
       name: location_type
@@ -613,13 +605,10 @@ place:
         - name: my_image
           type: file
           prompt: _(Image)
-          inputfile_label: _(Add an Image)
+          label: _(Add an Image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: submit
-          type: commonFormElement
+          type: common_form_element
 
   # define form elements that appear on every form here
   common_form_elements:
@@ -683,13 +672,10 @@ place:
         - key: size
           value: 30
     - prompt: _(Image)
-      inputfile_label: _(Add an Image)
+      label: _(Add an Image)
       type: file
       name: my_image
       optional: true
-      attrs:
-        - key: accept
-          value: image/*
 
 survey:
   submission_type: comments
@@ -712,12 +698,13 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
-      attrs:
-        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      sticky: true
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
 
 support:
   submission_type: support
