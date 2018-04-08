@@ -5,15 +5,6 @@ import FormField from "../../form-fields/form-field";
 import constants from "../../../constants";
 import { OrderedMap, Map } from "immutable";
 
-// https://github.com/i18next/react-i18next/issues/417
-jest.mock("react-i18next", () => ({
-  // this mock makes sure any components using the translate HoC receive the t function as a prop
-  translate: () => Component => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
-
 describe("InputForm", () => {
   // TODO: consider generalizing this stub into a mock:
   const eventStub = { preventDefault: () => {} };
