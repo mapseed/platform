@@ -49,7 +49,7 @@ module.exports = Backbone.View.extend({
           }).render();
         }
       },
-      this
+      this,
     );
 
     self.sidebar.addTo(this.options.mapView);

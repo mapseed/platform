@@ -6,7 +6,7 @@ const insertEmbeddedImages = (html, attachmentModels) => {
     .filter(
       attributes =>
         attributes.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-        constants.RICH_TEXT_IMAGE_CODE
+        constants.RICH_TEXT_IMAGE_CODE,
     )
     .reduce((images, attributes) => {
       images[
@@ -18,7 +18,7 @@ const insertEmbeddedImages = (html, attachmentModels) => {
     constants.RICH_TEXT_IMAGE_MARKUP_PREFIX +
       "(.*?)" +
       constants.RICH_TEXT_IMAGE_MARKUP_SUFFIX,
-    "g"
+    "g",
   );
 
   return (

@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend({
     });
     this.isEditable = Util.getAdminStatus(
       this.options.datasetId,
-      this.categoryConfig.admin_groups
+      this.categoryConfig.admin_groups,
     );
     this.isEditingToggled = false;
     this.surveyType = this.options.surveyConfig.submission_type;
@@ -86,7 +86,7 @@ module.exports = Backbone.View.extend({
     this.model.attachmentCollection.on(
       "add",
       this.onAddAttachmentWrapper,
-      this
+      this,
     );
 
     this.$el.on("click", ".share-link a", function(evt) {
@@ -125,7 +125,7 @@ module.exports = Backbone.View.extend({
   onAddAttachmentWrapper: function(attachment) {
     this.onAddAttachmentCallback.call(
       this.onAddAttachmentCallbackContext,
-      attachment
+      attachment,
     );
   },
 
@@ -233,7 +233,7 @@ module.exports = Backbone.View.extend({
           fields: this.fields,
           suppressAttachments: this.categoryConfig.suppressAttachments,
         },
-        this.model.toJSON()
+        this.model.toJSON(),
       );
 
     this.options.router.on("route", this.tearDown, this);
@@ -266,7 +266,7 @@ module.exports = Backbone.View.extend({
     if (this.isEditingToggled) {
       $("#toggle-editor-btn").addClass("btn-depressed");
       $(
-        ".promotion, .place-submission-details, .survey-header, .reply-link, .response-header"
+        ".promotion, .place-submission-details, .survey-header, .reply-link, .response-header",
       ).addClass("faded");
 
       // detect changes made to non-Quill form elements
@@ -369,7 +369,7 @@ module.exports = Backbone.View.extend({
     var attrs = _.extend(
       Util.getAttrs($("#update-place-model-form")),
       Util.getAttrs($("#update-place-model-title-form")),
-      richTextAttrs
+      richTextAttrs,
     );
 
     // Special handling for binary toggle buttons: we need to remove
@@ -392,7 +392,7 @@ module.exports = Backbone.View.extend({
           self.model.unset(
             $(this)
               .find(":first-child")
-              .attr("name")
+              .attr("name"),
           );
         }
       });
@@ -457,7 +457,7 @@ module.exports = Backbone.View.extend({
     var self = this;
     if (
       confirm(
-        "Are you sure you want to remove this post? It will no longer be visible on the map."
+        "Are you sure you want to remove this post? It will no longer be visible on the map.",
       )
     ) {
       if (this.geometryEnabled) {
@@ -470,7 +470,7 @@ module.exports = Backbone.View.extend({
           success: function() {
             self.model.trigger("userHideModel", self.model);
           },
-        }
+        },
       );
     }
   },

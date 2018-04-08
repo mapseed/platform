@@ -413,14 +413,14 @@ var self = (module.exports = {
         if (field.type === "common_form_element") {
           Object.assign(
             args.fields[i],
-            args.commonFormElements[args.fields[i].name]
+            args.commonFormElements[args.fields[i].name],
           );
         }
 
         var fieldData = _.extend(
           {},
           args.fields[i],
-          self.buildFieldContent(field, args.model.get(field.name))
+          self.buildFieldContent(field, args.model.get(field.name)),
         );
 
         if (args.isEditingToggled && fieldIsValidForEditor(fieldData)) {
@@ -429,7 +429,7 @@ var self = (module.exports = {
           fields.push(fieldData);
         }
       },
-      this
+      this,
     );
 
     return fields;
@@ -552,7 +552,7 @@ var self = (module.exports = {
         measure = measures[secondArg];
         if (!measure) {
           this.console.error(
-            'No metrics or dimensions matching "' + secondArg + '"'
+            'No metrics or dimensions matching "' + secondArg + '"',
           );
           return;
         }
@@ -677,7 +677,7 @@ var self = (module.exports = {
           var rotated = self.fixImageOrientation(canvas, orientation);
           callback(rotated);
         },
-        options
+        options,
       );
     };
 
@@ -769,7 +769,7 @@ var self = (module.exports = {
           JSON.stringify({
             expires: expDate,
             value: value,
-          })
+          }),
         );
       } catch (e) {
         // ignore exceptions

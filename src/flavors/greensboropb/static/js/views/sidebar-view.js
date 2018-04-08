@@ -44,7 +44,7 @@ module.exports = SidebarView.extend({
           config: panelConfig,
           sidebar: self.sidebar,
           placeConfig: self.options.placeConfig,
-          sidebarView: self
+          sidebarView: self,
         }).render();
       }
     });

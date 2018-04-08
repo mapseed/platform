@@ -13,7 +13,9 @@ module.exports = Backbone.View.extend({
   onAddressChange: function(evt) {
     // .hide().addClass('is-hidden') is a bit redundant, but the .hide
     // is so that we can do a fade-in effect.
-    this.$(".error").hide().addClass("is-hidden");
+    this.$(".error")
+      .hide()
+      .addClass("is-hidden");
   },
   onGeocodeAddress: function(evt) {
     evt.preventDefault();

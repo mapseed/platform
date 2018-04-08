@@ -16,7 +16,7 @@ export default (fieldList, backboneModelAttributes) =>
           constants.TITLE_PROPERTY_NAME,
           "submitter_name",
           "name",
-        ].includes(fieldConfig.name)
+        ].includes(fieldConfig.name),
     )
     .filter(fieldConfig => fieldConfig.name.indexOf("private-") !== 0)
     .filter(fieldConfig => !!backboneModelAttributes.get(fieldConfig.name));

@@ -35,7 +35,7 @@ class InputExplorerInputItem extends Component {
           error: (model, response) => {
             console.error("Error saving sticky state:", response);
           },
-        }
+        },
       );
     }
 

@@ -2,7 +2,7 @@ let MapView = require("../../../../../base/static/js/views/map-view.js");
 const MAX_LOCATION_TYPES = 8;
 const Y_JITTER_RANGE = [[-20, -80], [20, 80]];
 const X_JITTER_RANGE = [[-20, -80], [20, 80]];
-const TWO_PI = 2*Math.PI;
+const TWO_PI = 2 * Math.PI;
 
 module.exports = MapView.extend({
   getLayerGroups: function() {
@@ -26,13 +26,16 @@ module.exports = MapView.extend({
       // }
 
       Object.assign(this.options.cluster, {
-        maxClusterRadius: (zoom) => {
-          return (zoom >= 16) ? 40 : 110;
+        maxClusterRadius: zoom => {
+          return zoom >= 16 ? 40 : 110;
         },
-        iconCreateFunction: (cluster) => {
+        iconCreateFunction: cluster => {
           return L.divIcon({
             className: "",
-            html: "<div class='cluster-child-counter cluster-group'>" + cluster.getChildCount() + "</div>"
+            html:
+              "<div class='cluster-child-counter cluster-group'>" +
+              cluster.getChildCount() +
+              "</div>",
           });
 
           // NOTE: the clustering strategy is as follows:
@@ -70,14 +73,14 @@ module.exports = MapView.extend({
           //     html += [
           //       "<div class='cluster-subgroup-container' style='left: ",
           //       Math.sin(i*(TWO_PI/(numClusterSubGroups))) * (jitters[i][0]),
-          //       "px; top: ", 
+          //       "px; top: ",
           //       Math.cos(i*(TWO_PI/(numClusterSubGroups))) * (jitters[i][1]),
           //       "px'><img class='custom-cluster-icon' src='",
           //       clusterSubGroups[x].iconUrl,
           //       "' /><div class='cluster-child-counter top-right",
           //       ((clusterSubGroups[x].count === 1) ? " is-hidden" : "" ),
-          //       "'>", 
-          //       clusterSubGroups[x].count, 
+          //       "'>",
+          //       clusterSubGroups[x].count,
           //       "</div></div>"
           //     ].join("");
 
@@ -94,10 +97,10 @@ module.exports = MapView.extend({
           //     html: "<div class='cluster-child-counter cluster-group'>" + cluster.getChildCount() + "</div>"
           //   });
           // }
-        }
+        },
       });
     }
 
     return L.markerClusterGroup(this.options.cluster);
-  }
+  },
 });

@@ -8,7 +8,7 @@ const PrimaryButton = props => {
   const cn = classNames(
     "primary-button",
     "primary-button--hoverable",
-    props.className
+    props.className,
   );
 
   return (
