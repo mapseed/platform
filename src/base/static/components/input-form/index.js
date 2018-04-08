@@ -68,22 +68,25 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     this.geometryStyle = null;
-    let fields = OrderedMap();
-    selectedCategoryConfig.fields.forEach(field => {
-      fields = fields.set(
-        field.name,
-        Map()
-          .set(constants.FIELD_VALUE_KEY, "")
-          .set(constants.FIELD_RENDER_KEY, Math.random()),
-      );
-    });
-    this.setState({
-      fields: fields,
+    const getNewFields = prevFields =>
+      selectedCategoryConfig.fields.reduce((memo, field) => {
+        return memo.set(
+          field.name,
+          Map({
+            [constants.FIELD_VALUE_KEY]: "",
+            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
+              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + 1
+              : 0,
+          }),
+        );
+      }, OrderedMap());
+    this.setState(prevState => ({
+      fields: getNewFields(prevState.fields),
       isFormSubmitting: false,
       isMapPositioned: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
-    });
+    }));
   }
 
   handleDragEnd() {
@@ -115,16 +118,19 @@ class InputForm extends Component {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
     // Validate the form.
-    const newValidationErrors = new Set();
-    let isValid = true;
-    this.state.fields.forEach(value => {
-      if (!value.get(constants.FIELD_VALIDITY_KEY)) {
-        newValidationErrors.add(
-          value.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
-        );
-        isValid = false;
-      }
-    });
+    const {
+      validationErrors: newValidationErrors,
+      isValid,
+    } = this.state.fields.reduce(
+      ({ validationErrors, isValid }, field) => {
+        if (!field.get(constants.FIELD_VALIDITY_KEY)) {
+          validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
+          isValid = false;
+        }
+        return { validationErrors, isValid };
+      },
+      { validationErrors: new Set(), isValid: true },
+    );
 
     if (isValid) {
       this.saveModel();
@@ -147,14 +153,17 @@ class InputForm extends Component {
     const collection = this.props.places[
       this.props.selectedCategoryConfig.dataset
     ];
-    collection.add({
-      location_type: this.props.selectedCategoryConfig.category,
-      datasetSlug: this.props.mapConfig.layers.find(
-        layer => this.props.selectedCategoryConfig.dataset === layer.id,
-      ).slug,
-      datasetId: this.props.selectedCategoryConfig.dataset,
-      showMetadata: this.props.selectedCategoryConfig.showMetadata,
-    }, { wait: true });
+    collection.add(
+      {
+        location_type: this.props.selectedCategoryConfig.category,
+        datasetSlug: this.props.mapConfig.layers.find(
+          layer => this.props.selectedCategoryConfig.dataset === layer.id,
+        ).slug,
+        datasetId: this.props.selectedCategoryConfig.dataset,
+        showMetadata: this.props.selectedCategoryConfig.showMetadata,
+      },
+      { wait: true },
+    );
     const model = collection.at(collection.length - 1);
     let attrs = this.state.fields
       .filter(state => !!state.get(constants.FIELD_VALUE_KEY))
@@ -265,7 +274,7 @@ class InputForm extends Component {
     return (
       <div className="input-form">
         <WarningMessagesContainer
-          errors={Array.from(this.state.formValidationErrors)}
+          errors={[...this.state.formValidationErrors]}
           headerMsg={this.props.t("validationHeader")}
         />
         <form

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { WarningMessage } from "../atoms/typography";
 
 import { translate } from "react-i18next";
 
@@ -15,9 +16,7 @@ const WarningMessagesContainer = props => {
     >
       <p className={"warning-messages-container__header"}>{props.headerMsg}</p>
       {props.errors.map((errorMsg, i) => (
-        <p key={i} className={"warning-messages-container__warning-msg"}>
-          {props.t(errorMsg)}
-        </p>
+        <WarningMessage key={i}>{props.t(errorMsg)}</WarningMessage>
       ))}
     </section>
   );

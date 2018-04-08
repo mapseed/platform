@@ -1,4 +1,4 @@
 #!/bin/sh
 
-# Run the python tests
+# Run the test suite
 npm test
