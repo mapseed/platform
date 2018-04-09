@@ -57,7 +57,7 @@ module.exports = function(source) {
     }
   });
 
-  // Resolve fields of type common_form_element
+  // Resolve fields of type common_form_element.
   config.place.place_detail.forEach(category => {
     category.fields = category.fields.map(field => {
       if (field.type === "common_form_element") {
