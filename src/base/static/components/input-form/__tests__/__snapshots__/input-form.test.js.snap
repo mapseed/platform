@@ -18,6 +18,7 @@ exports[`InputForm renders input form 1`] = `
       attachmentModels={Immutable.List []}
       categoryConfig={
         Object {
+          "category": "someCategory",
           "fields": Array [
             Object {
               "name": "test1",
@@ -37,10 +38,10 @@ exports[`InputForm renders input form 1`] = `
       fieldState={
         Immutable.Map {
           "value": "",
-          "renderKey": 0,
+          "renderKey": "someCategorytest1",
         }
       }
-      key="0"
+      key="someCategorytest1"
       map={
         Object {
           "getCenter": [Function],
@@ -62,6 +63,7 @@ exports[`InputForm renders input form 1`] = `
       attachmentModels={Immutable.List []}
       categoryConfig={
         Object {
+          "category": "someCategory",
           "fields": Array [
             Object {
               "name": "test1",
@@ -81,10 +83,10 @@ exports[`InputForm renders input form 1`] = `
       fieldState={
         Immutable.Map {
           "value": "",
-          "renderKey": 0,
+          "renderKey": "someCategorytest2",
         }
       }
-      key="0"
+      key="someCategorytest2"
       map={
         Object {
           "getCenter": [Function],

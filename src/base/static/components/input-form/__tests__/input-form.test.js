@@ -23,6 +23,7 @@ describe("InputForm", () => {
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
     selectedCategoryConfig: {
+      category: "someCategory",
       fields: [{ name: "test1" }, { name: "test2" }],
     },
     map: {
@@ -64,19 +65,19 @@ describe("InputForm", () => {
     wrapper.setState({
       fields: OrderedMap({
         test1: Map({
-          [constants.FIELD_RENDER_KEY]: 0,
+          [constants.FIELD_RENDER_KEY]: "someCategorytest1",
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: true,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorKey1,
         }),
         test2: Map({
-          [constants.FIELD_RENDER_KEY]: 1,
+          [constants.FIELD_RENDER_KEY]: "someCategorytest2",
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: false,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorKey2,
         }),
         test3: Map({
-          [constants.FIELD_RENDER_KEY]: 2,
+          [constants.FIELD_RENDER_KEY]: "someCategorytest3",
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: false,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorKey3,
