@@ -1,7 +1,6 @@
 const GISLegendView = require("../../../../../base/static/js/views/gis-legend-view.js");
 
 module.exports = GISLegendView.extend({
-
   events: {
     "change .map-legend-basemap-radio": "toggleBasemap",
     "change .map-legend-checkbox": "toggleVisibility",
@@ -10,13 +9,17 @@ module.exports = GISLegendView.extend({
   },
 
   initialize: function() {
-    this.options.mapView.map.on("layer:loading", this.onLayerLoading.bind(this));
+    this.options.mapView.map.on(
+      "layer:loading",
+      this.onLayerLoading.bind(this),
+    );
     this.options.mapView.map.on("layer:loaded", this.onLayerLoaded.bind(this));
     this.options.mapView.map.on("layer:error", this.onLayerError.bind(this));
 
     this.hasScrolled = false;
     this.initialScrollPoint;
-    this.options.sidebarView.$("#gis-layers-pane")
+    this.options.sidebarView
+      .$("#gis-layers-pane")
       .off("scroll")
       .on("scroll", this.onLayersPaneScroll.bind(this));
 
@@ -50,5 +53,5 @@ module.exports = GISLegendView.extend({
 
   render: function() {
     return this;
-  }
+  },
 });

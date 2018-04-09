@@ -19,7 +19,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
 
-import { translate } from "react-i18next"
+import { translate } from "react-i18next";
 import "./index.scss";
 
 const serializeBackboneCollection = collection => {

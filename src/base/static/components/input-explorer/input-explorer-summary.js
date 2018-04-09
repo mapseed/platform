@@ -37,7 +37,7 @@ const InputExplorerSummary = props => {
     });
 
     modelsFilteredBySubcategory = new Backbone.Collection(
-      modelsFilteredBySubcategory
+      modelsFilteredBySubcategory,
     );
     info.total = modelsFilteredBySubcategory.length;
     info.label = subcategory.label;
@@ -78,7 +78,8 @@ const InputExplorerSummary = props => {
             {numRecommendations + numConcerns} Community comments submitted
           </span>
           <span className="input-explorer-summary__num-recommendations">
-            {numRecommendations} {messages("inputExplorer:recommendationsLabel")}
+            {numRecommendations}{" "}
+            {messages("inputExplorer:recommendationsLabel")}
           </span>
           <span className="input-explorer-summary__num-concerns">
             {numConcerns} {messages("inputExplorer:concernsLabel")}

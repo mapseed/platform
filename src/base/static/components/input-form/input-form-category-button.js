@@ -20,7 +20,7 @@ const InputFormCategoryButton = props => {
       {
         "input-form-category-button__expand-categories-button--hidden":
           props.isSingleCategory || !props.isSelected,
-      }
+      },
     ),
   };
 

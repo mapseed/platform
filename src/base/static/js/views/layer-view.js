@@ -7,7 +7,7 @@ module.exports = Backbone.View.extend({
     this.isFocused = false;
     this.isEditing = false;
     this.layerIsAdminControlled = Util.getAdminStatus(
-      this.model.get("datasetId")
+      this.model.get("datasetId"),
     );
     this.throttledRender = _.throttle(this.render, 300);
     this.layerGroup = this.options.layerGroup;
@@ -23,7 +23,7 @@ module.exports = Backbone.View.extend({
         this.createLayer();
         this.render();
       },
-      this
+      this,
     );
     this.model.on("focus", this.focus, this);
     this.model.on("unfocus", this.unfocus, this);
@@ -54,7 +54,7 @@ module.exports = Backbone.View.extend({
                 _.each(prop, function(styleProp, stylePropKey) {
                   if (_.isString(styleProp) && styleProp.startsWith("this.")) {
                     prop[stylePropKey] = new Function(
-                      ["return ", styleProp, ";"].join("")
+                      ["return ", styleProp, ";"].join(""),
                     );
                   } else {
                     prop[stylePropKey] = styleProp;
@@ -66,12 +66,12 @@ module.exports = Backbone.View.extend({
                 fn.props[key] = prop;
               }
             },
-            this
+            this,
           );
 
           this.styleRules.push(fn);
         },
-        this
+        this,
       );
 
       if (this.placeType.hasOwnProperty("zoomType")) {
@@ -89,12 +89,12 @@ module.exports = Backbone.View.extend({
                   fn.props[key] = prop;
                 }
               },
-              this
+              this,
             );
 
             this.zoomRules.push(fn);
           },
-          this
+          this,
         );
       }
     }
@@ -118,7 +118,7 @@ module.exports = Backbone.View.extend({
         {},
         this.model.toJSON(),
         { map: { zoom: this.map.getZoom() } },
-        { layer: { focused: this.isFocused } }
+        { layer: { focused: this.isFocused } },
       );
 
     for (var i = 0; i < this.styleRules.length; i++) {
@@ -135,7 +135,7 @@ module.exports = Backbone.View.extend({
                 ? rule.apply(styleRuleContext)
                 : rule;
             },
-            this
+            this,
           );
         }
 
@@ -169,7 +169,7 @@ module.exports = Backbone.View.extend({
       console.warn(
         "Place type",
         this.model.get("location_type"),
-        "is not configured so it will not appear on the map."
+        "is not configured so it will not appear on the map.",
       );
       return;
     }
@@ -257,7 +257,7 @@ module.exports = Backbone.View.extend({
       "USER",
       "map",
       "place-marker-click",
-      this.model.getLoggingDetails()
+      this.model.getLoggingDetails(),
     );
     // support places with landmark-style urls
     if (this.model.get("url-title")) {
@@ -267,7 +267,7 @@ module.exports = Backbone.View.extend({
     } else {
       this.options.router.navigate(
         "/" + this.model.get("datasetSlug") + "/" + this.model.id,
-        { trigger: true }
+        { trigger: true },
       );
     }
   },

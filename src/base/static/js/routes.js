@@ -103,7 +103,7 @@ Shareabouts.Util = Util;
             this.clearLocationTypeFilter();
           }
         },
-        this
+        this,
       );
 
       this.loading = true;
@@ -271,7 +271,7 @@ Shareabouts.Util = Util;
       var $filterIndicator = $("#current-filter-type");
       if ($filterIndicator.length === 0) {
         $filterIndicator = $('<div id="current-filter-type"/>').insertAfter(
-          $(".menu-item-filter-type > a:first-child")
+          $(".menu-item-filter-type > a:first-child"),
         );
       }
 

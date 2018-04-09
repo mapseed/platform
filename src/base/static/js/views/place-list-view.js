@@ -11,7 +11,7 @@ var PlaceCollection = require("../models/place-collection.js");
 
 // Handlebars support for Marionette
 Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(
-  rawTemplate
+  rawTemplate,
 ) {
   return Handlebars.compile(rawTemplate);
 };
@@ -55,7 +55,7 @@ var PlaceListItemView = Backbone.Marionette.Layout.extend({
           fields: fields,
           suppressAttachments: categoryConfig.suppressAttachments,
         },
-        this.model.toJSON()
+        this.model.toJSON(),
       );
 
     // Prep embedded rich text images for render.
@@ -69,7 +69,7 @@ var PlaceListItemView = Backbone.Marionette.Layout.extend({
         if (field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME) {
           field.content = insertEmbeddedImages(
             field.content,
-            serializedAttachments
+            serializedAttachments,
           );
         }
       });
@@ -223,7 +223,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
       this.applyFilters(
         this.collectionFilters,
         this.searchTerm,
-        this.numItemsShown
+        this.numItemsShown,
       );
     }
   },
@@ -326,7 +326,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
     this.applyFilters(
       this.collectionFilters,
       this.searchTerm,
-      this.numItemsShown
+      this.numItemsShown,
     );
   },
   filter: function(filters) {
@@ -334,7 +334,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
     this.applyFilters(
       this.collectionFilters,
       this.searchTerm,
-      this.numItemsShown
+      this.numItemsShown,
     );
   },
   search: function(term) {
@@ -342,7 +342,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
     this.applyFilters(
       this.collectionFilters,
       this.searchTerm,
-      this.numItemsShown
+      this.numItemsShown,
     );
   },
   applyFilters: function(filters, term, max) {
@@ -364,7 +364,7 @@ module.exports = Backbone.Marionette.CompositeView.extend({
       var submitter,
         locationType = model.get("location_type"),
         placeConfig = _.find(Shareabouts.Config.place.place_detail, function(
-          config
+          config,
         ) {
           return config.category === locationType;
         });

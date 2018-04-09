@@ -3,19 +3,20 @@ const GISLegendView = require("mapseed-gis-legend-view");
 const LegendView = require("mapseed-legend-view");
 
 module.exports = SidebarView.extend({
-
   // BEGIN FLAVOR-SPECIFIC CODE
   events: {
-    "click .sidebar-panel__close-panel": "onCloseLayerPanel"
+    "click .sidebar-panel__close-panel": "onCloseLayerPanel",
   },
 
   initialize: function() {
     this.$el.append("<div id='map-legend'></div>");
     this.$el.append("<div id='gis-legend'></div>");
 
-    this.$("#gis-legend").html(Handlebars.templates["sidebar"]({
-      sidebarConfig: this.options.sidebarConfig.panels[0],
-    }));
+    this.$("#gis-legend").html(
+      Handlebars.templates["sidebar"]({
+        sidebarConfig: this.options.sidebarConfig.panels[0],
+      }),
+    );
 
     this.$("#map-legend").html(Handlebars.templates["legend"]());
 
@@ -37,7 +38,7 @@ module.exports = SidebarView.extend({
 
   onCloseLayerPanel: function() {
     this.$el.removeClass("sidebar-container--visible");
-    this.$el.addClass("sidebar-container--hidden")
+    this.$el.addClass("sidebar-container--hidden");
     if ($("#main-btns-container").hasClass("pos-top-left")) {
       $("#main-btns-container").toggleClass("main-btns-container--offset-left");
     }

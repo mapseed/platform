@@ -18,7 +18,7 @@ module.exports = Backbone.View.extend({
           "map",
           "zoom",
           self.map.getBounds().toBBoxString(),
-          self.map.getZoom()
+          self.map.getZoom(),
         );
       },
       logUserPan = function(evt) {
@@ -27,7 +27,7 @@ module.exports = Backbone.View.extend({
           "map",
           "drag",
           self.map.getBounds().toBBoxString(),
-          self.map.getZoom()
+          self.map.getZoom(),
         );
       };
 
@@ -211,7 +211,7 @@ module.exports = Backbone.View.extend({
     this.$(".leaflet-top.leaflet-right").append(
       '<div class="leaflet-control leaflet-bar">' +
         '<a href="#" class="locate-me"></a>' +
-        "</div>"
+        "</div>",
     );
 
     // Bind event handling
@@ -230,7 +230,7 @@ module.exports = Backbone.View.extend({
       "map",
       "geolocate",
       this.map.getBounds().toBBoxString(),
-      this.map.getZoom()
+      this.map.getZoom(),
     );
     this.geolocate();
   },
@@ -276,18 +276,18 @@ module.exports = Backbone.View.extend({
       this.map.off(
         "zoomend",
         this.layerViews[collectionId][model.cid].updateLayer,
-        this.layerViews[collectionId][model.cid]
+        this.layerViews[collectionId][model.cid],
       );
       this.map.off(
         "move",
         this.layerViews[collectionId][model.cid].throttledRender,
-        this.layerViews[collectionId][model.cid]
+        this.layerViews[collectionId][model.cid],
       );
       this.map.off(
         "zoomend",
         this.layerViews[collectionId][model.cid].render,
-        this.layerViews[collectionId][model.cid]
-      )
+        this.layerViews[collectionId][model.cid],
+      );
 
       this.layerViews[collectionId][model.cid].remove();
       delete this.layerViews[collectionId][model.cid];
@@ -362,7 +362,7 @@ module.exports = Backbone.View.extend({
 
   getLayerGroups: function(collectionId) {
     if (this.isClusterable(collectionId)) {
-      return L.markerClusterGroup(this.options.cluster)
+      return L.markerClusterGroup(this.options.cluster);
     } else {
       return L.layerGroup();
     }
@@ -487,31 +487,32 @@ module.exports = Backbone.View.extend({
           Util.log("Cartodb layer creation error:", err);
         });
     } else if (config.type && config.type === "wmts") {
-      layer = L.tileLayer.wmts(config.url, {
-        service: "WMTS",
-        tilematrixSet: config.tilematrixSet,
-        layers: config.layers,
-        format: config.format,
-        transparent: config.transparent,
-        version: config.version,
-        crs: L.CRS.EPSG3857,
-        // default TileLayer options
-        attribution: config.attribution,
-        opacity: config.opacity,
-        fillColor: config.color,
-        weight: config.weight,
-        fillOpacity: config.fillOpacity,
-        style: config.style,
-      })
-      .on("loading", function() {
-        self.map.fire("layer:loading", {id: config.id});
-      })
-      .on("load", function() {
-        self.map.fire("layer:loaded", {id: config.id});
-      })
-      .on("tileerror", function() {
-        self.map.fire("layer:error", {id: config.id});
-      });
+      layer = L.tileLayer
+        .wmts(config.url, {
+          service: "WMTS",
+          tilematrixSet: config.tilematrixSet,
+          layers: config.layers,
+          format: config.format,
+          transparent: config.transparent,
+          version: config.version,
+          crs: L.CRS.EPSG3857,
+          // default TileLayer options
+          attribution: config.attribution,
+          opacity: config.opacity,
+          fillColor: config.color,
+          weight: config.weight,
+          fillOpacity: config.fillOpacity,
+          style: config.style,
+        })
+        .on("loading", function() {
+          self.map.fire("layer:loading", { id: config.id });
+        })
+        .on("load", function() {
+          self.map.fire("layer:loaded", { id: config.id });
+        })
+        .on("tileerror", function() {
+          self.map.fire("layer:error", { id: config.id });
+        });
       self.layers[config.id] = layer;
     } else if (config.layers) {
       // If "layers" is present, then we assume that the config

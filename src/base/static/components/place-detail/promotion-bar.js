@@ -22,23 +22,21 @@ class PromotionBar extends Component {
             "USER",
             "place",
             "successfully-unsupport",
-            this.props.getLoggingDetails()
+            this.props.getLoggingDetails(),
           );
-          this.props.onModelIO(
-            constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION
-          );
+          this.props.onModelIO(constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION);
         },
         error: model => {
           this.props.onModelIO(
             constants.SUPPORT_MODEL_IO_END_ERROR_ACTION,
-            model.collection
+            model.collection,
           );
           alert("Oh dear. It looks like that didn't save.");
           Util.log(
             "USER",
             "place",
             "fail-to-unsupport",
-            this.props.getLoggingDetails()
+            this.props.getLoggingDetails(),
           );
         },
       });
@@ -57,13 +55,13 @@ class PromotionBar extends Component {
           success: model => {
             this.props.onModelIO(
               constants.SUPPORT_MODEL_IO_END_SUCCESS_ACTION,
-              model.collection
+              model.collection,
             );
             Util.log(
               "USER",
               "place",
               "successfully-support",
-              this.props.getLoggingDetails()
+              this.props.getLoggingDetails(),
             );
           },
           error: () => {
@@ -73,10 +71,10 @@ class PromotionBar extends Component {
               "USER",
               "place",
               "fail-to-support",
-              this.props.getLoggingDetails()
+              this.props.getLoggingDetails(),
             );
           },
-        }
+        },
       );
     }
   }

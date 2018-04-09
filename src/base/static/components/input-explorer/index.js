@@ -23,10 +23,10 @@ class InputExplorer extends Component {
     this.subcategoryNames = this.props.placeConfig
       .find(
         category =>
-          category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME
+          category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME,
       )
       .fields.find(
-        field => field.name === constants.INPUT_SUBCATEGORY_FIELDNAME
+        field => field.name === constants.INPUT_SUBCATEGORY_FIELDNAME,
       ).content;
 
     // Get unique input category names.
@@ -56,7 +56,7 @@ class InputExplorer extends Component {
     const { selectedCategory, selectedSubcategory } = this.state;
     const { communityInput, placeConfig } = this.props;
     const config = placeConfig.find(
-      category => category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME
+      category => category.category === constants.COMMUNITY_INPUT_CATEGORY_NAME,
     );
     const isAdmin = Util.getAdminStatus(config.dataset, config.admin_groups);
     const communityInputToRender = communityInput
@@ -71,7 +71,7 @@ class InputExplorer extends Component {
         }
 
         let inputSubcategory = normalizeCheckboxData(
-          model.get(constants.INPUT_SUBCATEGORY_FIELDNAME)
+          model.get(constants.INPUT_SUBCATEGORY_FIELDNAME),
         );
 
         if (inputSubcategory.includes(selectedSubcategory)) {

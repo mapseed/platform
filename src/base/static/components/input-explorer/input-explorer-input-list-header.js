@@ -45,7 +45,7 @@ const InputExplorerInputListHeader = props => {
             {
               "input-explorer-input-list-header__label--active":
                 props.selectedSubcategory === subcategory.value,
-            }
+            },
           );
 
           return (
