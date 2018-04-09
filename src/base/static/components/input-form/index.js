@@ -75,8 +75,8 @@ class InputForm extends Component {
           Map({
             [constants.FIELD_VALUE_KEY]: "",
             [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + 1
-              : 0,
+              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+              : selectedCategoryConfig.category + field.name,
           }),
         );
       }, OrderedMap());
