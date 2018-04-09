@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import { getCategoryConfig } from "../../utils/config-utils";
 import "./input-form-category-button.scss";
 
 const InputFormCategoryButton = props => {
@@ -23,29 +24,30 @@ const InputFormCategoryButton = props => {
       },
     ),
   };
+  const categoryConfig = getCategoryConfig(props.categoryName);
 
   return (
     <div className={cn.base}>
       <input
         className="input-form-category-button__input"
         checked={props.isSelected}
-        id={props.categoryConfig.category}
+        id={props.categoryName}
         type="radio"
         name="input-form-category-buttons"
-        value={props.categoryConfig.category}
+        value={props.categoryName}
         onChange={props.onCategoryChange}
       />
       <label
         className={"input-form-category-button__label"}
-        htmlFor={props.categoryConfig.category}
+        htmlFor={props.categoryName}
       >
         <span className={cn.imageContainer}>
           <img
             className="input-form-category-button__image"
-            src={props.categoryConfig.icon_url}
+            src={categoryConfig.icon_url}
           />
         </span>
-        <span className={cn.labelContainer}>{props.categoryConfig.label}</span>
+        <span className={cn.labelContainer}>{categoryConfig.label}</span>
       </label>
       <button
         className={cn.expandCategoriesButton}
@@ -57,7 +59,7 @@ const InputFormCategoryButton = props => {
 };
 
 InputFormCategoryButton.propTypes = {
-  categoryConfig: PropTypes.object.isRequired,
+  categoryName: PropTypes.string.isRequired,
   isCategoryMenuCollapsed: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool.isRequired,

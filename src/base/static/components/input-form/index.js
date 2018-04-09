@@ -13,6 +13,9 @@ import { extractEmbeddedImages } from "../../utils/embedded-images";
 import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
+import { map as mapConfig } from "config";
+import { getCategoryConfig } from "../../utils/config-utils";
+
 const Util = require("../../js/utils.js");
 
 // TEMPORARY: We define flavor hooks here for the time being.
@@ -44,16 +47,15 @@ class InputForm extends Component {
 
   componentDidMount() {
     this.props.map.on("dragend", this.handleDragEnd.bind(this));
-    this.initializeForm(this.props.selectedCategoryConfig);
+    this.initializeForm(this.props.selectedCategory);
   }
 
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.isFormResetting ||
-      nextProps.selectedCategoryConfig.category !==
-        this.props.selectedCategoryConfig.category
+      nextProps.selectedCategory !== this.props.selectedCategory
     ) {
-      this.initializeForm(nextProps.selectedCategoryConfig);
+      this.initializeForm(nextProps.selectedCategory);
     }
   }
 
@@ -61,7 +63,8 @@ class InputForm extends Component {
     this.props.map.off("dragend", this.handleDragEnd);
   }
 
-  initializeForm(selectedCategoryConfig) {
+  initializeForm(selectedCategory) {
+    const selectedCategoryConfig = getCategoryConfig(selectedCategory);
     this.isWithCustomGeometry =
       selectedCategoryConfig.fields.findIndex(
         field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
@@ -149,18 +152,19 @@ class InputForm extends Component {
     this.setState({
       isFormSubmitting: true,
     });
+    const selectedCategoryConfig = getCategoryConfig(
+      this.props.selectedCategory,
+    );
 
-    const collection = this.props.places[
-      this.props.selectedCategoryConfig.dataset
-    ];
+    const collection = this.props.places[selectedCategoryConfig.dataset];
     collection.add(
       {
-        location_type: this.props.selectedCategoryConfig.category,
-        datasetSlug: this.props.mapConfig.layers.find(
-          layer => this.props.selectedCategoryConfig.dataset === layer.id,
+        location_type: selectedCategoryConfig.category,
+        datasetSlug: mapConfig.layers.find(
+          layer => selectedCategoryConfig.dataset === layer.id,
         ).slug,
-        datasetId: this.props.selectedCategoryConfig.dataset,
-        showMetadata: this.props.selectedCategoryConfig.showMetadata,
+        datasetId: selectedCategoryConfig.dataset,
+        showMetadata: selectedCategoryConfig.showMetadata,
       },
       { wait: true },
     );
@@ -184,7 +188,7 @@ class InputForm extends Component {
     // image's name.
     // TODO: This logic is better suited for the FormField component,
     // perhaps in an onSave hook.
-    this.props.selectedCategoryConfig.fields
+    selectedCategoryConfig.fields
       .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
       .forEach(field => {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
@@ -208,7 +212,7 @@ class InputForm extends Component {
         // Save autofill values as necessary.
         // TODO: This logic is better suited for the FormField component,
         // perhaps in an onSave hook.
-        this.props.selectedCategoryConfig.fields.forEach(fieldConfig => {
+        selectedCategoryConfig.fields.forEach(fieldConfig => {
           if (fieldConfig.autocomplete) {
             Util.saveAutocompleteValue(
               fieldConfig.name,
@@ -250,10 +254,7 @@ class InputForm extends Component {
     if (this.isWithCustomGeometry) {
       this.props.hideSpotlightMask();
       this.props.hideCenterPoint();
-    } else if (
-      this.props.selectedCategoryConfig.category &&
-      !this.state.isMapPositioned
-    ) {
+    } else if (this.props.selectedCategory && !this.state.isMapPositioned) {
       this.props.showNewPin();
     }
 
@@ -270,6 +271,9 @@ class InputForm extends Component {
         "input-form__submit-spinner--visible": this.state.isFormSubmitting,
       }),
     };
+    const selectedCategoryConfig = getCategoryConfig(
+      this.props.selectedCategory,
+    );
 
     return (
       <div className="input-form">
@@ -288,16 +292,14 @@ class InputForm extends Component {
             .map((fieldState, fieldName) => {
               return (
                 <FormField
-                  fieldConfig={this.props.selectedCategoryConfig.fields.find(
+                  fieldConfig={selectedCategoryConfig.fields.find(
                     field => field.name === fieldName,
                   )}
-                  categoryConfig={this.props.selectedCategoryConfig}
                   disabled={this.state.isFormSubmitting}
                   fieldState={fieldState}
                   isInitializing={this.state.isInitializing}
                   key={fieldState.get(constants.FIELD_RENDER_KEY)}
                   map={this.props.map}
-                  mapConfig={this.props.mapConfig}
                   onAddAttachment={this.onAddAttachment.bind(this)}
                   onFieldChange={this.onFieldChange.bind(this)}
                   onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
@@ -330,11 +332,10 @@ InputForm.propTypes = {
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
   map: PropTypes.object.isRequired,
-  mapConfig: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
-  selectedCategoryConfig: PropTypes.object,
+  selectedCategory: PropTypes.string.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };

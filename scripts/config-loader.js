@@ -57,6 +57,21 @@ module.exports = function(source) {
     }
   });
 
+  // Resolve fields of type common_form_element
+  config.place.place_detail.forEach(category => {
+    category.fields = category.fields.map(field => {
+      if (field.type === "common_form_element") {
+        return Object.assign(
+          {},
+          config.place.common_form_elements[field.name],
+          { name: field.name },
+        );
+      } else {
+        return field;
+      }
+    });
+  });
+
   const templateSource = fs.readFileSync(
     path.resolve(__dirname, "../build-utils/config-template.hbs"),
     "utf8",

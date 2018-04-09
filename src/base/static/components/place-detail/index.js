@@ -17,6 +17,11 @@ import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
 
+import {
+  survey as surveyConfig,
+  support as supportConfig,
+} from "config";
+import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
 
 import { translate } from "react-i18next";
@@ -35,8 +40,8 @@ class PlaceDetail extends Component {
   constructor(props) {
     super(props);
 
-    this.surveyType = this.props.surveyConfig.submission_type;
-    this.supportType = this.props.supportConfig.submission_type;
+    this.surveyType = surveyConfig.submission_type;
+    this.supportType = supportConfig.submission_type;
     if (!this.props.model.submissionSets[this.surveyType]) {
       this.props.model.submissionSets[
         this.surveyType
@@ -54,10 +59,8 @@ class PlaceDetail extends Component {
       });
     }
 
-    this.categoryConfig = this.props.placeConfig.place_detail.find(
-      config =>
-        config.category ===
-        this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
+    this.categoryConfig = getCategoryConfig(
+      this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
     // Maintain reset listeners for submission collections in case the detail
@@ -217,7 +220,7 @@ class PlaceDetail extends Component {
 
     return (
       <div className="place-detail-view">
-        {this.state.isEditable ? (
+        {this.state.isEditable && (
           <EditorBar
             isEditModeToggled={this.state.isEditModeToggled}
             isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
@@ -228,7 +231,7 @@ class PlaceDetail extends Component {
               });
             }}
           />
-        ) : null}
+        )}
         <h1
           className={classNames("place-detail-view__header", {
             "place-detail-view__header--centered": isStoryChapter,
@@ -255,24 +258,19 @@ class PlaceDetail extends Component {
           onSocialShare={service =>
             Util.onSocialShare(this.props.model, service)
           }
-          supportConfig={this.props.supportConfig}
           supportModelCreate={this.props.model.submissionSets[
             this.supportType
           ].create.bind(this.props.model.submissionSets[this.supportType])}
           userSupportModel={userSupportModel}
           userToken={this.props.userToken}
         />
-        {!isStoryChapter ? (
+        {!isStoryChapter && (
           <MetadataBar
             submitter={submitter}
             placeModel={this.state.placeModel}
             surveyModels={this.state.surveyModels}
-            anonymousName={this.props.placeConfig.anonymous_name}
-            actionText={this.props.placeConfig.action_text}
-            placeTypes={this.props.placeTypes}
-            surveyConfig={this.props.surveyConfig}
           />
-        ) : null}
+        )}
         <div className="place-detail-view__clearfix" />
         {this.state.attachmentModels
           .filter(
@@ -291,10 +289,8 @@ class PlaceDetail extends Component {
             placeModel={this.state.placeModel}
             container={this.props.container}
             attachmentModels={this.state.attachmentModels}
-            categoryConfig={this.categoryConfig}
             layerView={this.props.layerView}
             map={this.props.map}
-            mapConfig={this.props.mapConfig}
             onAddAttachment={this.onAddAttachment.bind(this)}
             onModelIO={this.onChildModelIO.bind(this)}
             onPlaceModelSave={this.props.model.save.bind(this.props.model)}
@@ -316,7 +312,6 @@ class PlaceDetail extends Component {
           ))
         )}
         <Survey
-          apiRoot={this.props.apiRoot}
           currentUser={this.props.currentUser}
           getLoggingDetails={this.props.model.getLoggingDetails.bind(
             this.props.model,
@@ -331,10 +326,8 @@ class PlaceDetail extends Component {
           ].create.bind(this.props.model.submissionSets[this.surveyType])}
           onSurveyModelSave={this.onSurveyModelSave.bind(this)}
           onSurveyModelRemove={this.onSurveyModelRemove.bind(this)}
-          anonymousName={this.props.placeConfig.anonymous_name}
           scrollToResponseId={this.props.scrollToResponseId}
           submitter={submitter}
-          surveyConfig={this.props.surveyConfig}
         />
       </div>
     );
@@ -342,7 +335,6 @@ class PlaceDetail extends Component {
 }
 
 PlaceDetail.propTypes = {
-  apiRoot: PropTypes.string.isRequired,
   container: PropTypes.instanceOf(HTMLElement),
   currentUser: PropTypes.shape({
     avatar_url: PropTypes.string,
@@ -361,77 +353,10 @@ PlaceDetail.propTypes = {
   isGeocodingBarEnabled: PropTypes.bool,
   layerView: PropTypes.instanceOf(Backbone.View),
   map: PropTypes.instanceOf(L.Map),
-  mapConfig: PropTypes.object.isRequired,
   model: PropTypes.instanceOf(Backbone.Model),
-  placeConfig: PropTypes.shape({
-    adding_supported: PropTypes.bool.isRequired,
-    add_button_label: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
-    show_list_button_label: PropTypes.string.isRequired,
-    show_map_button_label: PropTypes.string.isRequired,
-    action_text: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    submit_button_label: PropTypes.string.isRequired,
-    location_item_name: PropTypes.string.isRequired,
-    default_basemap: PropTypes.string,
-    place_detail: PropTypes.arrayOf(
-      PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        includeOnForm: PropTypes.bool,
-        name: PropTypes.string.isRequired,
-        dataset: PropTypes.string.isRequired,
-        icon_url: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        fields: PropTypes.arrayOf(
-          PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            autocomplete: PropTypes.bool,
-            prompt: PropTypes.string,
-            display_prompt: PropTypes.string,
-            placeholder: PropTypes.string,
-            optional: PropTypes.bool,
-          }),
-        ),
-      }),
-    ),
-  }).isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
-  placeTypes: PropTypes.objectOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      rules: PropTypes.arrayOf(
-        PropTypes.shape({
-          condition: PropTypes.string.isRequired,
-          icon: PropTypes.object,
-          style: PropTypes.object,
-        }),
-      ),
-    }),
-  ).isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   scrollToResponseId: PropTypes.string,
-  supportConfig: PropTypes.shape({
-    submission_type: PropTypes.string.isRequired,
-    submit_btn_text: PropTypes.string.isRequired,
-    response_name: PropTypes.string.isRequired,
-    response_plural_name: PropTypes.string.isRequired,
-    action_text: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
-  }),
-  surveyConfig: PropTypes.shape({
-    submission_type: PropTypes.string.isRequired,
-    show_responses: PropTypes.bool.isRequired,
-    response_name: PropTypes.string.isRequired,
-    response_plural_name: PropTypes.string.isRequired,
-    action_text: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    form_link_text: PropTypes.string.isRequired,
-    submit_btn_text: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }).isRequired,
   t: PropTypes.func.isRequired,
   userToken: PropTypes.string.isRequired,
 };

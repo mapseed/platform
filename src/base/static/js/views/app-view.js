@@ -605,7 +605,6 @@ module.exports = Backbone.View.extend({
     // when the AppView is ported.
     ReactDOM.render(
       <FormCategoryMenuWrapper
-        mapConfig={this.options.mapConfig}
         hideSpotlightMask={this.hideSpotlightMask.bind(this)}
         hideCenterPoint={this.hideCenterPoint.bind(this)}
         showNewPin={this.showNewPin.bind(this)}
@@ -624,20 +623,19 @@ module.exports = Backbone.View.extend({
             return (
               <VVInputForm
                 {...props}
-                selectedCategoryConfig={state.selectedCategoryConfig}
+                selectedCategory={state.selectedCategory}
               />
             );
           } else {
             return (
               <InputForm
                 {...props}
-                selectedCategoryConfig={state.selectedCategoryConfig}
+                selectedCategory={state.selectedCategory}
               />
             );
           }
         }}
         customComponents={this.options.customComponents}
-        placeConfig={this.options.placeConfig}
       />,
       document.querySelector("#content article"),
     );
@@ -789,17 +787,10 @@ module.exports = Backbone.View.extend({
             map={this.mapView.map}
             model={model}
             appView={this}
-            apiRoot={this.options.appConfig.api_root}
             layerView={this.mapView.layerViews[datasetId][model.cid]}
-            surveyConfig={this.options.surveyConfig}
-            supportConfig={this.options.supportConfig}
-            placeConfig={this.options.placeConfig}
             places={this.places}
-            placeTypes={this.options.placeTypes}
             scrollToResponseId={args.responseId}
             router={this.options.router}
-            storyConfig={this.options.storyConfig}
-            mapConfig={this.options.mapConfig}
             userToken={this.options.userToken}
           />,
           document.querySelector("#content article"),

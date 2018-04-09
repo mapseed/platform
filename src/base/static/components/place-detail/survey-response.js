@@ -6,6 +6,7 @@ import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
 
+import { survey as surveyConfig, place as placeConfig } from "config";
 import "./survey-response.scss";
 
 class SurveyResponse extends Component {
@@ -22,7 +23,7 @@ class SurveyResponse extends Component {
         ref={response => (this.responseRef = response)}
       >
         <div className="place-detail-survey-response__body">
-          {this.props.surveyConfig.items
+          {surveyConfig.items
             .filter(
               field =>
                 field.type !== constants.SUBMIT_FIELD_TYPENAME &&
@@ -49,7 +50,7 @@ class SurveyResponse extends Component {
                 this.props.submitter.get(constants.NAME_PROPERTY_NAME) ||
                 this.props.attributes.get(constants.SUBMITTER_FIELDNAME)
               }
-              anonymousName={this.props.anonymousName}
+              anonymousName={placeConfig.anonymous_name}
             />
             <ActionTime time={this.props.attributes.get("updated_datetime")} />
           </div>
@@ -65,8 +66,6 @@ SurveyResponse.propTypes = {
   onMountTargetResponse: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.string,
   submitter: PropTypes.object.isRequired,
-  anonymousName: PropTypes.string.isRequired,
-  surveyConfig: PropTypes.object.isRequired,
 };
 
 export default SurveyResponse;

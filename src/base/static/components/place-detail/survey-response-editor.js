@@ -9,6 +9,7 @@ import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 import EditorButton from "../ui-elements/editor-button";
 
+import { survey as surveyConfig, place as placeConfig } from "config";
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
@@ -18,7 +19,7 @@ class SurveyResponseEditor extends Component {
   constructor(props) {
     super(props);
 
-    const fields = this.props.surveyItems
+    const fields = surveyConfig.items
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
       .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
@@ -99,7 +100,7 @@ class SurveyResponseEditor extends Component {
               ? this.props.t("notSaved")
               : this.props.t("saved")}
           </em>
-          {this.props.surveyItems
+          {surveyConfig.items
             .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
             .map(fieldConfig => (
               <FormField
@@ -127,7 +128,7 @@ class SurveyResponseEditor extends Component {
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
               submitter={this.props.submitter}
-              anonymousName={this.props.anonymousName}
+              anonymousName={placeConfig.anonymous_name}
             />
             <ActionTime time={this.props.attributes.get("updated_datetime")} />
           </div>
@@ -139,7 +140,6 @@ class SurveyResponseEditor extends Component {
 
 SurveyResponseEditor.propTypes = {
   attributes: PropTypes.object,
-  anonymousName: PropTypes.string.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   modelId: PropTypes.number.isRequired,
   onSurveyModelRemove: PropTypes.func.isRequired,
@@ -147,14 +147,7 @@ SurveyResponseEditor.propTypes = {
   submitter: PropTypes.shape({
     avatar_url: PropTypes.string,
   }),
-  surveyItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      prompt: PropTypes.string,
-      label: PropTypes.string,
-      type: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 export default translate("SurveyResponseEditor")(SurveyResponseEditor);
