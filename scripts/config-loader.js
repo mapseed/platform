@@ -9,8 +9,6 @@ const path = require("path");
 // of the config; to test other languages in development it will be necessary
 // to produce a full production build:
 //   npm run build
-// Or, to build in production mode and also start the dev server:
-//   NODE_ENV=production npm start
 
 const configGettextRegex = /^_\(/;
 
@@ -22,8 +20,8 @@ Handlebars.registerHelper("serialize", function(json) {
 module.exports = function(source) {
   source = source.substring(17);
 
-  let datasetSiteUrls = {};
-  config = JSON.parse(source);
+  const datasetSiteUrls = {};
+  const config = JSON.parse(source);
 
   Object.keys(process.env).forEach(function(key) {
     if (key.endsWith("SITE_URL")) {
@@ -64,17 +62,17 @@ module.exports = function(source) {
     "utf8",
   );
   const template = Handlebars.compile(templateSource);
-  outputFile = template({
+  const outputFile = template({
     config: config,
     languageCode: "en_US",
   });
 
-  outputPath = path.resolve(__dirname, "../www/dist/config-en_US.js");
+  const outputPath = path.resolve(__dirname, "../www/dist/config-en_US.js");
   try {
     fs.writeFileSync(outputPath, outputFile);
   } catch (e) {
     // ignore exceptions
   }
 
-  return source;
+  return config;
 };

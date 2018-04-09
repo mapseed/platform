@@ -59,13 +59,14 @@ for (var i = 0; i < baseViewPaths.length; i++) {
   }
 }
 
+alias.config = path.resolve(__dirname, "src/flavors", process.env.FLAVOR, "config.yml");
+
 var outputBasePath = path.resolve(__dirname, "www");
 const extractSCSS = new ExtractTextPlugin(
   process.env.NODE_ENV === "production"
     ? "[contenthash].bundle.css"
     : "bundle.css",
 );
-const extractYML = new ExtractTextPlugin("config-en_US.js");
 const theme = process.env.THEME ? process.env.THEME : "default-theme";
 
 module.exports = {
