@@ -628,10 +628,7 @@ module.exports = Backbone.View.extend({
             );
           } else {
             return (
-              <InputForm
-                {...props}
-                selectedCategory={state.selectedCategory}
-              />
+              <InputForm {...props} selectedCategory={state.selectedCategory} />
             );
           }
         }}

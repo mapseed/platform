@@ -17,10 +17,7 @@ import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
 
-import {
-  survey as surveyConfig,
-  support as supportConfig,
-} from "config";
+import { survey as surveyConfig, support as supportConfig } from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
 
