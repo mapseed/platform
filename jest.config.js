@@ -2,6 +2,9 @@ module.exports = {
   projects: [
     {
       displayName: "jest-prettier",
+      moduleNameMapper: {
+        config: "<rootDir>/src/__mocks__/config-mock.js",
+      },
       runner: "jest-runner-prettier",
       moduleFileExtensions: ["js"],
       testMatch: ["<rootDir>/src/**/*.js", "<rootDir>/scripts/**/*.js"],
@@ -16,6 +19,7 @@ module.exports = {
         "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
           "<rootDir>/__mocks__/file-mock.js",
         "\\.(css|less|scss)$": "<rootDir>/__mocks__/style-mock.js",
+        "^config$": "<rootDir>/__mocks__/config-mock.js",
       },
       setupFiles: ["<rootDir>/jest-setup.js"],
       snapshotSerializers: ["enzyme-to-json/serializer"],
