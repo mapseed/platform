@@ -2,9 +2,6 @@ module.exports = {
   projects: [
     {
       displayName: "jest-prettier",
-      moduleNameMapper: {
-        config: "<rootDir>/src/__mocks__/config-mock.js",
-      },
       runner: "jest-runner-prettier",
       moduleFileExtensions: ["js"],
       testMatch: ["<rootDir>/src/**/*.js", "<rootDir>/scripts/**/*.js"],
