@@ -8,12 +8,14 @@ import { OrderedMap, Map } from "immutable";
 
 describe("InputForm", () => {
   // TODO: consider generalizing this stub into a mock:
+  const categoryName = "someCategory";
   const eventStub = { preventDefault: () => {} };
   const defaultProps = {
     container: {},
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
     selectedCategoryConfig: {
+      category: categoryName,
       fields: [{ name: "test1" }, { name: "test2" }],
     },
     map: {
@@ -46,13 +48,16 @@ describe("InputForm", () => {
   });
 
   test("onSubmit creates form validation errors", () => {
+    const fieldName1 = "test1";
+    const fieldName2 = "test2";
+    const fieldName3 = "test3";
     const props = {
       ...defaultProps,
       selectedCategoryConfig: {
         fields: [
-          { name: "test1", [constants.FIELD_VALIDITY_KEY]: "error1" },
-          { name: "test2" },
-          { name: "test3", [constants.FIELD_VALIDITY_KEY]: "error3" },
+          { name: fieldName1, [constants.FIELD_VALIDITY_KEY]: "error1" },
+          { name: fieldName2 },
+          { name: fieldName3, [constants.FIELD_VALIDITY_KEY]: "error3" },
         ],
       },
     };
@@ -63,20 +68,20 @@ describe("InputForm", () => {
     const errorKey3 = "error3";
     wrapper.setState({
       fields: OrderedMap({
-        test1: Map({
-          [constants.FIELD_RENDER_KEY]: 0,
+        [fieldName1]: Map({
+          [constants.FIELD_RENDER_KEY]: categoryName + fieldName1,
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: true,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorKey1,
         }),
-        test2: Map({
-          [constants.FIELD_RENDER_KEY]: 1,
+        [fieldName2]: Map({
+          [constants.FIELD_RENDER_KEY]: categoryName + fieldName2,
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: false,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorKey2,
         }),
-        test3: Map({
-          [constants.FIELD_RENDER_KEY]: 2,
+        [fieldName3]: Map({
+          [constants.FIELD_RENDER_KEY]: categoryName + fieldName3,
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: false,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorKey3,
