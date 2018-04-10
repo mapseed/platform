@@ -13,7 +13,6 @@
 .big-checkbox-field__label {
   background-color: #ffffff;
   font-size: $big-checkbox-field-label-font-size;
-  min-height: $big-checkbox-field-label-min-height;
   line-height: $big-checkbox-field-line-height;
   margin: $big-checkbox-field-label-margin;
   padding: $big-checkbox-field-label-padding;
@@ -31,7 +30,8 @@
 
   &:before {
     position: absolute;
-    display: block;
+    display: flex;
+    align-items: center;
     top: 0;
     bottom: 0;
     left: 0;
