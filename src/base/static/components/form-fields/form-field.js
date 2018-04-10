@@ -26,6 +26,10 @@ class FormField extends Component {
       : null;
     this.props.fieldConfig.hasAutofill = !!autofillValue;
 
+    // TODO: This field initialization mechanism is a little convoluted.
+    // We have to coordinate between the FormField component and its parent--
+    // which manages the state--in order to initialize properly. We should
+    // search for a better pattern to support field state management.
     const initialFieldValue = this.fieldDefinition.getInitialValue({
       value:
         this.props.fieldState.get(constants.FIELD_VALUE_KEY) ||
@@ -36,6 +40,10 @@ class FormField extends Component {
       attachmentModels: this.props.attachmentModels,
     });
 
+    this.state = {
+      isInitialized: false,
+    };
+
     this.onChange(this.props.fieldConfig.name, initialFieldValue, true);
   }
 
@@ -45,6 +53,12 @@ class FormField extends Component {
       nextProps.showValidityStatus ||
       nextProps.updatingField === this.props.fieldConfig.name
     );
+  }
+
+  componentDidMount() {
+    this.setState({
+      isInitialized: true,
+    });
   }
 
   onChange(fieldName, fieldValue, isInitializing = false) {
@@ -88,7 +102,8 @@ class FormField extends Component {
           {this.props.fieldConfig.prompt}
           <span className={cn.optionalMsg}>{t("optionalMsg")}</span>
         </p>
-        {this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
+        {this.state.isInitialized &&
+          this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>
     );
   }
