@@ -4,22 +4,74 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+@font-face {
+  font-family: "Lithos";
+  src: url("/static/css/lithos.ttf");
+}
 
 /* =Header
 -------------------------------------------------------------- */
 
-#site-title a:link, #site-title a:visited {
-    color: rgb(128, 171, 7);
+.menu {
+  font-family: "Lithos", sans-serif !important;
+
+  .btn-secondary {
+    color: #fdc375 !important;
+
+    &:hover {
+      background-color: #fff !important;
+    }
+  }
+
+  .menu-item {
+    border-right: 1px solid #fff !important;
+    padding-right: 7px !important;
+  }
+
+  .menu-item:last {
+    border-right: none !important;
+  }
+}
+
+.list-toggle-nav {
+  margin-left: 7px !important;
+  margin-top: -1.125em !important;
+}
+
+.list-toggle-btn {
+  font-family: "Lithos", sans-serif !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #fdc375 !important;
+  padding: 0.5em 0.75em !important;
+
+  &:hover {
+    background-color: #fff !important;
+  }
+}
+
+#site-header {
+  background: url("/static/css/images/header-banner.png") !important;
+  background-color: #43729c !important;
+  background-repeat: no-repeat !important;
+}
+
+#site-title a:link,
+#site-title a:visited {
+  color: rgb(128, 171, 7);
+  font-family: "Lithos", sans-sefif !important;
+  font-size: 2.5em !important;
 }
 
 /* =Media Queries
 -------------------------------------------------------------- */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 60em) {
 }
 
-@media only screen and (min-width: 1024px) {
-}
-
-@media only screen and (min-width: 1300px) {
+@media only screen and (min-width: 60em) {
+  #pages-nav-container {
+    margin-left: 450px !important;
+  }
 }
