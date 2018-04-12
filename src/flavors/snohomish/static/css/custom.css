@@ -9,22 +9,28 @@
   src: url("/static/css/lithos.ttf");
 }
 
+@font-face {
+  font-family: "Bowlby";
+  src: url("/static/css/BowlbyOneSC-Regular.ttf");
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
 .menu {
-  font-family: "Lithos", sans-serif !important;
+  font-family: "Bowlby", sans-serif !important;
+  letter-spacing: 1.5px !important;
 
   .btn-secondary {
-    color: #fdc375 !important;
+    color: #02440c !important;
 
     &:hover {
-      background-color: #fff !important;
+      background-color: #40becd !important;
     }
   }
 
   .menu-item {
-    border-right: 1px solid #fff !important;
+    border-right: 1px solid #789400 !important;
     padding-right: 7px !important;
   }
 
@@ -39,29 +45,24 @@
 }
 
 .list-toggle-btn {
-  font-family: "Lithos", sans-serif !important;
+  font-family: "Bowlby", sans-serif !important;
+  letter-spacing: 1.5px !important;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  color: #fdc375 !important;
+  color: #02440c !important;
   padding: 0.5em 0.75em !important;
 
   &:hover {
-    background-color: #fff !important;
+    background-color: #40becd !important;
   }
 }
 
 #site-header {
-  background: url("/static/css/images/header-banner.png") !important;
-  background-color: #43729c !important;
+  background: url("/static/css/images/header-banner-large.png") !important;
+  background-size: auto 64px !important;
+  background-color: #f3f5e7 !important;
   background-repeat: no-repeat !important;
-}
-
-#site-title a:link,
-#site-title a:visited {
-  color: rgb(128, 171, 7);
-  font-family: "Lithos", sans-sefif !important;
-  font-size: 2.5em !important;
 }
 
 /* =Media Queries
@@ -72,6 +73,6 @@
 
 @media only screen and (min-width: 60em) {
   #pages-nav-container {
-    margin-left: 450px !important;
+    margin-left: 550px !important;
   }
 }
