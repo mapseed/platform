@@ -161,7 +161,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -170,19 +170,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -191,7 +191,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -200,19 +200,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -514,7 +514,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/nature-icon.jpg
+      icon_url: /static/css/images/markers/marker-my-land.png
       value: nature
       label: _(My Land)
       fields:
@@ -562,7 +562,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/forest-icon.png
+      icon_url: /static/css/images/markers/marker-my-forest.png
       value: forest
       label: _(My forest)
       fields:
