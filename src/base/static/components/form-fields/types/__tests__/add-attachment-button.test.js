@@ -9,9 +9,9 @@ import constants from "../../../../constants";
 
 describe("AddAttachmentButton", () => {
   const defaultProps = {
-    id: "foo",
-    name: "bar",
-    label: "FooBar",
+    id: "test-id",
+    name: "test-name",
+    label: "test-label",
     onChange: () => {},
     onAddAttachment: () => {},
   };
@@ -81,7 +81,7 @@ describe("AddAttachmentButton", () => {
     const onAddAttachmentCalls = onAddAttachmentProp.mock.calls;
     expect(onAddAttachmentCalls.length).toEqual(1);
     const onAddAttachmentCall = onAddAttachmentCalls[0];
-    expect(onAddAttachmentCall[0].name).toEqual("bar");
+    expect(onAddAttachmentCall[0].name).toEqual("test-name");
     expect(onAddAttachmentCall[0].type).toEqual("CO");
     expect(onAddAttachmentCall[0].blob).toEqual("blob");
     expect(onAddAttachmentCall[0].file).toEqual("data-url");

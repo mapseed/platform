@@ -7,8 +7,8 @@ exports[`AddAttachmentButton renders add attachment button 1`] = `
   <SecondaryButton>
     <FileField
       accept="image/*"
-      label="FooBar"
-      name="bar"
+      label="test-label"
+      name="test-name"
       onChange={[Function]}
     />
   </SecondaryButton>
