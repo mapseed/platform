@@ -22,7 +22,6 @@ describe("AddAttachmentButton", () => {
   });
 
   test("converts file to blob format", () => {
-    let timesCalled = 0;
     const onChangeProp = jest.fn();
     const onAddAttachmentProp = jest.fn();
     const props = {
