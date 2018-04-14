@@ -8,7 +8,7 @@
 /* =Header
 -------------------------------------------------------------- */
 #site-title a:link, #site-title a:visited {
-    color: rgb(128, 171, 7);
+    color: rgb(128, 171, 7) !important;
 }
 
 /* =Media Queries
