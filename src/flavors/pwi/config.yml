@@ -345,7 +345,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: rich_textarea_field
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
