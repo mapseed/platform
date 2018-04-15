@@ -2,6 +2,11 @@
   margin-bottom: 25px;
 }
 
+.place-detail-editor-bar--geocoding-bar-enabled {
+  // TODO: Obtain this value from a variable that determines overall layout.
+  margin-top: 70px;
+}
+
 // Screen widths above 60em
 @media only screen and (min-width: 60em) {
   .place-detail-editor-bar {

@@ -39,7 +39,7 @@ class GeocodeAddressBar extends Component {
           onChange={this.onChange.bind(this)}
           name="geocode-address-bar"
           placeholder={this.props.t("placeholderMsg")}
-          triggerGeocode={this.state.triggerGeocode}
+          isTriggeringGeocode={this.state.isTriggeringGeocode}
           value={this.state.value}
         />
       </form>

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import emitter from "../../utils/emitter";
+import classNames from "classnames";
 
 import EditorButton from "../ui-elements/editor-button";
 import { translate } from "react-i18next";
@@ -9,7 +10,12 @@ import "./editor-bar.scss";
 
 const EditorBar = props => {
   return (
-    <div className="place-detail-editor-bar">
+    <div
+      className={classNames("place-detail-editor-bar", {
+        "place-detail-editor-bar--geocoding-bar-enabled":
+          props.isGeocodingBarEnabled,
+      })}
+    >
       <EditorButton
         className="place-detail-editor-bar__toggle-button"
         isSubmitting={props.isSubmitting}
@@ -42,6 +48,7 @@ const EditorBar = props => {
 };
 
 EditorBar.propTypes = {
+  isGeocodingBarEnabled: PropTypes.bool,
   isSubmitting: PropTypes.bool.isRequired,
   onToggleEditMode: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
