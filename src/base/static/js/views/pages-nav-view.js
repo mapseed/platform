@@ -13,11 +13,11 @@ module.exports = Backbone.View.extend({
       return obj["hide_from_top_bar"] !== true;
     });
     var data = {
-      pages: navPageConfig,
-      has_pages: navPageConfig.length > 0,
-      show_list_button_label: this.options.placeConfig.show_list_button_label,
-      show_map_button_label: this.options.placeConfig.show_map_button_label,
-    },
+        pages: navPageConfig,
+        has_pages: navPageConfig.length > 0,
+        show_list_button_label: this.options.placeConfig.show_list_button_label,
+        show_map_button_label: this.options.placeConfig.show_map_button_label,
+      },
       template = Handlebars.templates["pages-nav"](data);
     this.$el.html(template);
 

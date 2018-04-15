@@ -3,23 +3,14 @@ import { shallow } from "enzyme";
 import InputForm from "../index.js";
 import FormField from "../../form-fields/form-field";
 import constants from "../../../constants";
+import WarningMessagesContainer from "../../ui-elements/warning-messages-container";
 import { OrderedMap, Map } from "immutable";
-
-// https://github.com/i18next/react-i18next/issues/417
-jest.mock("react-i18next", () => ({
-  // this mock makes sure any components using the translate HoC receive the t function as a prop
-  translate: () => Component => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
 
 describe("InputForm", () => {
   // TODO: consider generalizing this stub into a mock:
   const categoryName = "someCategory";
   const eventStub = { preventDefault: () => {} };
   const defaultProps = {
-    t: key => key,
     container: {},
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
@@ -40,6 +31,15 @@ describe("InputForm", () => {
   test("renders input form", () => {
     const wrapper = shallow(<InputForm {...defaultProps} />);
     expect(wrapper).toMatchSnapshot();
+  });
+
+  test("renders form validation errors", () => {
+    const wrapper = shallow(<InputForm {...defaultProps} />);
+    wrapper.setState({
+      formValidationErrors: new Set(["asdf", "asdf2"]),
+    });
+
+    expect(wrapper.find(WarningMessagesContainer)).toHaveLength(1);
   });
 
   test("renders form fields", () => {

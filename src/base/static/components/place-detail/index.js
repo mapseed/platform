@@ -19,7 +19,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 
 const Util = require("../../js/utils.js");
 
-import { translate } from "react-i18next"
+import { translate } from "react-i18next";
 import "./index.scss";
 
 const serializeBackboneCollection = collection => {
@@ -164,6 +164,7 @@ class PlaceDetail extends Component {
         isEditFormSubmitting: false,
         placeModel: fromJS(this.props.model.attributes),
       });
+      this.refreshAttachments();
     } else if (action === constants.PLACE_MODEL_IO_END_ERROR_ACTION) {
       this.setState({ isEditFormSubmitting: false });
     } else if (action === constants.SURVEY_MODEL_IO_END_SUCCESS_ACTION) {
@@ -221,7 +222,6 @@ class PlaceDetail extends Component {
             isEditModeToggled={this.state.isEditModeToggled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
-              this.refreshAttachments();
               this.setState({
                 isEditModeToggled: !this.state.isEditModeToggled,
               });

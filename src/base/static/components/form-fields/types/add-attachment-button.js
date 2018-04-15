@@ -47,7 +47,7 @@ class AddAttachmentButton extends Component {
           maxWidth: 800,
           maxHeight: 800,
           canvas: true,
-        }
+        },
       );
     }
   }

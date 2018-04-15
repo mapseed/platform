@@ -27,7 +27,7 @@ class FormCategoryMenuWrapper extends Component {
   onCategoryChange(selectedCategory) {
     this.setState({
       selectedCategoryConfig: this.visibleCategoryConfigs.find(
-        config => config.category === selectedCategory
+        config => config.category === selectedCategory,
       ),
     });
   }
@@ -70,7 +70,7 @@ FormCategoryMenuWrapper.propTypes = {
         url: PropTypes.string.isRequired,
         attribution: PropTypes.string,
         type: PropTypes.string,
-      })
+      }),
     ),
   }),
   hideSpotlightMask: PropTypes.func.isRequired,
@@ -117,9 +117,9 @@ FormCategoryMenuWrapper.propTypes = {
             display_prompt: PropTypes.string,
             placeholder: PropTypes.string,
             optional: PropTypes.bool,
-          })
+          }),
         ),
-      })
+      }),
     ),
   }).isRequired,
 };

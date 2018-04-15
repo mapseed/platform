@@ -12,7 +12,7 @@ class AutocompleteComboboxField extends Component {
       const filteredResults = this.props.options
         .map(option => option.label)
         .filter(
-          result => result.toLowerCase().indexOf(query.toLowerCase()) !== -1
+          result => result.toLowerCase().indexOf(query.toLowerCase()) !== -1,
         );
       populateResults(filteredResults);
     };
@@ -39,7 +39,7 @@ class AutocompleteComboboxField extends Component {
           defaultValue={
             this.props.value
               ? this.props.options.find(
-                  option => option.value === this.props.value
+                  option => option.value === this.props.value,
                 ).label
               : ""
           }
@@ -62,7 +62,7 @@ AutocompleteComboboxField.propTypes = {
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-    })
+    }),
   ).isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,

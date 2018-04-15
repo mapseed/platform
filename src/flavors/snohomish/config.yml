@@ -50,7 +50,7 @@ map:
 
   layers:
     - id: osm
-      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
+      url: //korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -61,6 +61,10 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
+
+    - id: watercolor
+      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
+      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png"
 
     - id: snohomish-input
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-input
@@ -298,7 +302,7 @@ sidebar:
       title: _(Map Layers:)
       basemaps:
         - id: osm
-          title: _(OpenStreetMap)
+          title: _(Outdoors)
           visibleDefault: true
         - id: satellite
           title: _(Satellite View)
@@ -306,6 +310,9 @@ sidebar:
         - id: light-nolabels
           title: _(Light)
           visibleDefault: false
+        - id: watercolor
+          title: _(Watercolor)
+          visibleDefault: false          
       groupings:
         - id: grp-community
           title: _(Data Layers)

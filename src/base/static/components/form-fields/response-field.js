@@ -19,7 +19,7 @@ const getCheckboxLabels = (fieldValue, fieldConfig) => {
   }
 
   return fieldValue.map(
-    value => fieldConfig.content.find(option => option.value === value).label
+    value => fieldConfig.content.find(option => option.value === value).label,
   );
 };
 

@@ -26,7 +26,11 @@ module.exports = PaginatedCollection.extend({
     }
 
     return (
-      this.options.placeModel.collection.url + "/" + placeId + "/" + submissionType
+      this.options.placeModel.collection.url +
+      "/" +
+      placeId +
+      "/" +
+      submissionType
     );
   },
 

@@ -29,8 +29,8 @@ const isWithUniqueUrl = ({ value, places, modelId }) => {
       placeCollection.find(
         model =>
           model.get(constants.CUSTOM_URL_PROPERTY_NAME) === value &&
-          model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId
-      )
+          model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId,
+      ),
     )
   );
 };

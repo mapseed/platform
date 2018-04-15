@@ -28,9 +28,9 @@ module.exports = {
   getItemsFromModel: function(configItems, model, exceptions) {
     // Filter out any items that will be handled specifically in the template
     var filteredConfigItems = _.filter(configItems, function(item) {
-      // Only include if it is not an exception
-      return _.indexOf(exceptions, item.name) === -1;
-    }),
+        // Only include if it is not an exception
+        return _.indexOf(exceptions, item.name) === -1;
+      }),
       items = [];
 
     // Normalize the list

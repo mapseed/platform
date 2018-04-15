@@ -3,30 +3,30 @@
 module.exports = Backbone.View.extend({
   events: {
     "change .filter-menu-item": "onFilterChange",
-    "click #filter-menu-select-reset": "onFilterChange"
+    "click #filter-menu-select-reset": "onFilterChange",
   },
 
-  initialize () {
+  initialize() {
     let locationTypes = {},
-        locationTypeModel = Backbone.Model.extend({
-          defaults: {
-            locationType: "",
-            iconUrl: "",
-            active: false,
-            label: ""
-          }
-        });
+      locationTypeModel = Backbone.Model.extend({
+        defaults: {
+          locationType: "",
+          iconUrl: "",
+          active: false,
+          label: "",
+        },
+      });
 
     this.numActiveFilters = 0;
     this.state = new Backbone.Model({
-      filters: new Backbone.Collection([])
+      filters: new Backbone.Collection([]),
     });
 
-    this.getFilters().forEach((item) => {
+    this.getFilters().forEach(item => {
       let model = new locationTypeModel({
         locationType: item.category,
         iconUrl: item.icon_url,
-        label: item.label
+        label: item.label,
       });
       model.on("change", this.onFilterStateChange, this);
       this.state.get("filters").add(model);
@@ -35,17 +35,17 @@ module.exports = Backbone.View.extend({
     this.render();
   },
 
-  getFilters () {
-    return (this.options.panelConfig.active_filters)
+  getFilters() {
+    return this.options.panelConfig.active_filters
       ? this.options.panelConfig.active_filters
-      : this.options.placeConfig.place_detail
+      : this.options.placeConfig.place_detail;
   },
 
-  onFilterChange (evt) {
+  onFilterChange(evt) {
     let locationType = evt.currentTarget.dataset.locationtype;
 
     if (locationType === "reset") {
-      this.state.get("filters").each((model) => {
+      this.state.get("filters").each(model => {
         model.set("active", false);
       });
 
@@ -53,27 +53,31 @@ module.exports = Backbone.View.extend({
     } else {
       let model = this.state
         .get("filters")
-        .findWhere({locationType: locationType});
+        .findWhere({ locationType: locationType });
 
       model.set({
-        active: !model.get("active")
+        active: !model.get("active"),
       });
     }
   },
 
-  onFilterStateChange (locationTypeModel) {
-    let mapWasUnfiltered = (this.numActiveFilters === 0) ? true : false;
-    this.numActiveFilters += (locationTypeModel.get("active")) ? 1 : -1;
-    let mapWillBeUnfiltered = (this.numActiveFilters === 0) ? true : false;
+  onFilterStateChange(locationTypeModel) {
+    let mapWasUnfiltered = this.numActiveFilters === 0 ? true : false;
+    this.numActiveFilters += locationTypeModel.get("active") ? 1 : -1;
+    let mapWillBeUnfiltered = this.numActiveFilters === 0 ? true : false;
 
-    this.options.mapView.filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered);
+    this.options.mapView.filter(
+      locationTypeModel,
+      mapWasUnfiltered,
+      mapWillBeUnfiltered,
+    );
   },
 
-  render () {
+  render() {
     let data = {
-      activeFilters: this.state.get("filters").toJSON()
+      activeFilters: this.state.get("filters").toJSON(),
     };
 
     this.$el.html(Handlebars.templates["filter-menu"](data));
-  }
+  },
 });

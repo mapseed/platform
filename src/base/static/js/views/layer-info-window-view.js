@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
       top: 0,
       left: 0,
       isVisible: false,
-      lastActiveInfoWindowId: null
+      lastActiveInfoWindowId: null,
     });
 
     this.options.sidebar.on("closing", this.hide, this);
@@ -23,8 +23,11 @@ module.exports = Backbone.View.extend({
   },
 
   setState: function(content = {}) {
-    if (!content.lastActiveInfoWindowId
-        || content.lastActiveInfoWindowId !== this.state.get("lastActiveInfoWindowId")) {
+    if (
+      !content.lastActiveInfoWindowId ||
+      content.lastActiveInfoWindowId !==
+        this.state.get("lastActiveInfoWindowId")
+    ) {
       this.state.set("isVisible", true);
     } else {
       this.state.set("isVisible", !this.state.get("isVisible"));
@@ -43,7 +46,7 @@ module.exports = Backbone.View.extend({
   },
 
   onVisibilityChange: function() {
-    (this.state.get("isVisible"))
+    this.state.get("isVisible")
       ? this.$el.removeClass("is-hidden-fadeout")
       : this.$el.addClass("is-hidden-fadeout");
   },
@@ -51,14 +54,12 @@ module.exports = Backbone.View.extend({
   render: function() {
     let data = {
       title: this.state.get("title"),
-      body: this.state.get("body")
+      body: this.state.get("body"),
     };
 
-    this.$el
-      .html(Handlebars.templates["layer-info-window"](data))
-      .css({
-        top: this.state.get("top") - (this.$el.height() / 2),
-        left: this.state.get("left")
-      });
-  }
+    this.$el.html(Handlebars.templates["layer-info-window"](data)).css({
+      top: this.state.get("top") - this.$el.height() / 2,
+      left: this.state.get("left"),
+    });
+  },
 });

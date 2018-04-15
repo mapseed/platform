@@ -17,7 +17,7 @@ const Util = require("../../../js/utils.js");
 const extractVideoUrl = url => {
   let match =
     url.match(
-      /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/
+      /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/,
     ) ||
     url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/);
   if (match) {
@@ -150,7 +150,7 @@ class RichTextareaField extends Component {
           editor.getSelection().index,
           "wrappedVideo",
           url,
-          "user"
+          "user",
         );
         this.snowTheme.tooltip.root.className += " ql-hidden";
       });
@@ -189,7 +189,7 @@ class RichTextareaField extends Component {
             editor.getSelection().index,
             "imageWithName",
             data,
-            "user"
+            "user",
           );
         },
         {
@@ -197,7 +197,7 @@ class RichTextareaField extends Component {
           maxWidth: 800,
           maxHeight: 800,
           canvas: true,
-        }
+        },
       );
     }
 
@@ -211,7 +211,7 @@ class RichTextareaField extends Component {
       }),
       quillFileInput: classNames(
         "rich-textarea-field__quill-file-input",
-        "rich-textarea-field__quill-file-input--hidden"
+        "rich-textarea-field__quill-file-input--hidden",
       ),
     };
 

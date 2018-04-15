@@ -50,7 +50,7 @@ map:
 
   layers:
     - id: osm
-      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
+      url: //korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: satellite
@@ -61,6 +61,10 @@ map:
       url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
       type: basemap
+
+    - id: watercolor
+      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
+      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: pwi-input
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-input
@@ -237,14 +241,17 @@ sidebar:
       title: _(Map Layers:)
       basemaps:
         - id: osm
-          title: _(OpenStreetMap)
-          visibleDefault: true
+          title: _(Standard)
+          visibleDefault: false
         - id: satellite
-          title: _(Satellite View)
+          title: _(Satellite)
           visibleDefault: false
         - id: light-nolabels
           title: _(Light)
           visibleDefault: false
+        - id: watercolor
+          title: _(Watercolor)
+          visibleDefault: true          
       groupings:
         - id: grp-community
           title: _(Community Data)
@@ -298,6 +305,10 @@ activity:
 
   # Place Types
 
+right_sidebar:
+  show: true
+  visibleDefault: true
+
 place:
   adding_supported: true
   add_button_label: _(Add a report to the map!)
@@ -345,7 +356,7 @@ place:
           placeholder: _(Enter title...)
           optional: false
         - name: description
-          type: rich_textarea_field
+          type: rich_textarea
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
@@ -559,21 +570,32 @@ pages:
     slug: getinvolved
     name: contribute
 
-# story:
-  # example:
-  #   tagline: _(Next featured site)
-  #   default_zoom: 18
-  #   default_visible_layers:
-  #     - satellite
-  #   order:
-      # - url: dirtcorps
-      #   zoom: 15
-      #   panTo:
-      #     lat: 47.53420
-      #     lng: -122.32165
-      #   spotlight: false
-      #   visible_layers:
-      #     - dirt-corps
+story:
+  example:
+    tagline: _(Next featured site)
+    default_zoom: 16
+    default_visible_layers:
+      - pwi-featured
+      - pwi-input
+    order:
+      - url: lister-elementary-family-nights--varies-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
+      - url: good-shephard-lutheran-meals--tue---6pm-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png  
+      - url: kwa-meals-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
+      - url: first-creek-middle-school--varies-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/marker-heart.png  
+      - url: vacant-parcels
+        basemap: satellite
+        zoom: 9
+        visible_layers:
+          - vacant-parcels       
+        sidebar_icon_url: /static/css/images/markers/marker-star.png
 
 # cluster:
 #   animate: true
