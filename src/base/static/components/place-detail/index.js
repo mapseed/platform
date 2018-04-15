@@ -220,6 +220,7 @@ class PlaceDetail extends Component {
         {this.state.isEditable ? (
           <EditorBar
             isEditModeToggled={this.state.isEditModeToggled}
+            isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
             isSubmitting={this.state.isEditFormSubmitting}
             onToggleEditMode={() => {
               this.setState({
@@ -357,6 +358,7 @@ PlaceDetail.propTypes = {
     provider_type: PropTypes.string,
     username: PropTypes.string,
   }),
+  isGeocodingBarEnabled: PropTypes.bool,
   layerView: PropTypes.instanceOf(Backbone.View),
   map: PropTypes.instanceOf(L.Map),
   mapConfig: PropTypes.object.isRequired,

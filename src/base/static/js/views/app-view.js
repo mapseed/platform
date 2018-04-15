@@ -785,6 +785,7 @@ module.exports = Backbone.View.extend({
           <PlaceDetail
             container={document.querySelector("#content article")}
             currentUser={Shareabouts.bootstrapped.currentUser}
+            isGeocodingBarEnabled={this.options.mapConfig.geocoding_bar_enabled}
             map={this.mapView.map}
             model={model}
             appView={this}

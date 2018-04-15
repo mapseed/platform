@@ -455,9 +455,14 @@
     }
 
     .geocoding-bar-enabled {
-      #content, #main-btns-container {
+      #main-btns-container {
         // header + geocode bar + alignment with leaflet controls
         top: $header-height-fullscreen + 72px + 10px;
+      }
+
+      #content {
+        // header + geocode bar
+        top: $header-height-fullscreen + 72px;
       }
     }
 
