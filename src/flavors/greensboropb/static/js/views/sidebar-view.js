@@ -3,7 +3,6 @@ var views = {
   AppView: require("mapseed-app-view"),
   AuthNavView: require("mapseed-auth-nav-view"),
   BasicLayerView: require("mapseed-basic-layer-view"),
-  GeocodeAddressView: require("mapseed-geocode-address-view"),
   GISLegendView: require("mapseed-gis-legend-view"),
   LayerView: require("mapseed-layer-view"),
   LegendView: require("mapseed-legend-view"),
