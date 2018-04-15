@@ -18,52 +18,107 @@
 -------------------------------------------------------------- */
 
 .menu {
-  font-family: "Bowlby", sans-serif !important;
-  letter-spacing: 1.5px !important;
+  font-family: "Bowlby", sans-serif;
+  letter-spacing: 1.5px;
 
   .btn-secondary {
-    color: #02440c !important;
+    color: #02440c;
 
     &:hover {
-      background-color: #40becd !important;
+      background-color: #40becd;
     }
   }
 
   .menu-item {
-    border-right: 1px solid #789400 !important;
-    padding-right: 7px !important;
+    border-right: 1px solid #789400;
+    padding-right: 7px;
   }
 
   .menu-item:last {
-    border-right: none !important;
+    border-right: none;
   }
 }
 
 .list-toggle-nav {
-  margin-left: 7px !important;
-  margin-top: -1.125em !important;
+  margin-left: 7px;
+  margin-top: -1.125em;
 }
 
 .list-toggle-btn {
-  font-family: "Bowlby", sans-serif !important;
-  letter-spacing: 1.5px !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: #02440c !important;
-  padding: 0.5em 0.75em !important;
+  font-family: "Bowlby", sans-serif;
+  letter-spacing: 1.5px;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: #02440c;
+  padding: 0.5em 0.75em;
 
   &:hover {
-    background-color: #40becd !important;
+    background-color: #40becd;
   }
 }
 
 #site-header {
-  background: url("/static/css/images/header-banner-large.png") !important;
-  background-size: auto 64px !important;
-  background-color: #f3f5e7 !important;
-  background-repeat: no-repeat !important;
+  background: url("/static/css/images/header-banner-large.png");
+  background-size: auto 64px;
+  background-color: #f3f5e7;
+  background-repeat: no-repeat;
 }
+
+/* =Geocode Address Bar
+-------------------------------------------------------------- */
+#geocode-address-bar {
+  background-color: #d0d2c4;
+}
+
+.geocoding-field__input {
+  border-color: #789400;
+  background-color: #f3f5e7;
+}
+
+.geocoding-field__do-geocode-icon:before {
+  color: #789400;
+}
+
+.geocoding-field__geocoding-spinner {
+  background-color: #789400;
+}
+
+/* =Input Form
+-------------------------------------------------------------- */
+//.input-form-category-button {
+//  margin-bottom: 30px;
+//}
+//
+//.input-form-category-button--hidden {
+//  margin-bottom: 0;
+//}
+//
+//.input-form-category-button__label {
+//  -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.59);
+//  -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.59);
+//  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.59);
+//  border-radius: 4px;
+//
+//  &:hover {
+//    -webkit-box-shadow: 0px 0px 11px 0px #40becd;
+//    -moz-box-shadow: 0px 0px 11px 0px #40becd;
+//    box-shadow: 0px 0px 11px 0px #40becd;
+//    border-color: transparent;
+//    transition: all 0.5s;
+//    transition-timing-function: ease;
+//  }
+//}
+//
+//.input-form-category-button__label-text {
+//  font-family: "Bowlby", sans-serif;
+//  letter-spacing: 1.3px;
+//  padding-left: 0px;
+//}
+//
+//.input-form-category-button__image {
+//  width: 70px;
+//}
 
 /* =Media Queries
 -------------------------------------------------------------- */
@@ -71,8 +126,13 @@
 @media only screen and (max-width: 60em) {
 }
 
+// Screen sizes about 60em width
 @media only screen and (min-width: 60em) {
   #pages-nav-container {
-    margin-left: 550px !important;
+    margin-left: 550px;
+  }
+
+  .place-detail-editor-bar {
+    margin-top: 70px;
   }
 }
