@@ -346,13 +346,13 @@ activity:
 
 right_sidebar:
   show: true
-  visibleDefault: true
+  visibleDefault: false
 
   # Place Types
 
 place:
   adding_supported: true
-  add_button_label: _(Add your story)
+  add_button_label: _(Report your actions)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
@@ -830,7 +830,8 @@ support:
 pages:
   - title: _(About)
     slug: about
-    name: overview
+    name: about
+    start_page: true
 
   - title: _(Background)
     slug: background
