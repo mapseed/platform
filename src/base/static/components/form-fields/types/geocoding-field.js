@@ -30,6 +30,10 @@ class GeocodingField extends Component {
     new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
   }
 
+  componentWillReceiveProps(nextProps) {
+    nextProps.isTriggeringGeocode && this.doGeocode();
+  }
+
   doGeocode() {
     this.setState({
       isGeocoding: true,
@@ -73,7 +77,6 @@ class GeocodingField extends Component {
           .isWithGeocodingError,
       }),
     };
-    const { t } = this.props;
 
     return (
       <div className="geocoding-field">
@@ -86,12 +89,13 @@ class GeocodingField extends Component {
           className="geocoding-field__input"
           name={this.props.name}
           type="text"
+          placeholder={this.props.placeholder}
           value={this.props.value}
           onBlur={this.doGeocode.bind(this)}
           onChange={e => this.props.onChange(e.target.name, e.target.value)}
         />
         <div className={cn.error}>
-          {t("fields:geocodingField:locationNotFoundError")}
+          {this.props.t("fields:geocodingField:locationNotFoundError")}
         </div>
       </div>
     );
@@ -102,7 +106,9 @@ GeocodingField.propTypes = {
   mapConfig: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
   t: PropTypes.func.isRequired,
+  isTriggeringGeocode: PropTypes.bool,
   value: PropTypes.string,
 };
 

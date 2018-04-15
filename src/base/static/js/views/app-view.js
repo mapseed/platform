@@ -8,6 +8,7 @@ import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
+import GeocodeAddressBar from "../../components/geocode-address-bar";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -19,7 +20,6 @@ var AuthNavView = require("mapseed-auth-nav-view");
 var PlaceListView = require("mapseed-place-list-view");
 var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
-var GeocodeAddressView = require("mapseed-geocode-address-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
 var RightSidebarView = require("mapseed-right-sidebar-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
@@ -262,12 +262,14 @@ module.exports = Backbone.View.extend({
       });
     }
 
-    // Init the address search bar
-    this.geocodeAddressView = new GeocodeAddressView({
-      el: "#geocode-address-bar",
-      router: this.options.router,
-      mapConfig: this.options.mapConfig,
-    }).render();
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    if (this.options.mapConfig.geocoding_bar_enabled) {
+      ReactDOM.render(
+        <GeocodeAddressBar mapConfig={this.options.mapConfig} />,
+        document.getElementById("geocode-address-bar"),
+      );
+    }
+    // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Init the place-counter
     this.placeCounterView = new PlaceCounterView({

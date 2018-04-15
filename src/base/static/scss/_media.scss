@@ -440,7 +440,7 @@
         }
 
         &.right-sidebar-visible {
-            #map-container {
+            #map-container, #geocode-address-bar {
                 width: $map-width-when-sidebar-visible;
             }
             &.content-visible { 
@@ -454,8 +454,11 @@
         }
     }
 
-    .geocoding-bar-enabled #content {
-        top: 8.5em;
+    .geocoding-bar-enabled {
+      #content, #main-btns-container {
+        // header + geocode bar + alignment with leaflet controls
+        top: $header-height-fullscreen + 72px + 10px;
+      }
     }
 
     a.close-btn {
@@ -540,48 +543,20 @@
 
     // Geocoding
     #geocode-address-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: absolute;
         top: 4em;
-
-        // height of #site-header
+        height: 72px;
         right: 0;
         bottom: auto;
         left: 0;
         z-index: 39;
         border-right: 1px solid #666;
         margin-top: 0;
-    }
-
-    .activity-enabled #geocode-address-bar {
-        //right: 16em;
-        right: 18em;
-
-        //right: 20em;
-   
-    }
-
-    #geocode-address-bar .error {
-        padding: 0.25em 0.5em;
-        position: relative;
-        top: auto;
-        right: auto;
-        bottom: auto;
-        left: auto;
-        float: right;
-        width: 15em;
-        text-align: center;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-
-        + form {
-            margin-bottom: 0;
-            margin-right: 15em;
-        }
-
-        &.is-hidden + form {
-            margin-right: 0;
-        }
+        background-color: #fff;
+        box-shadow: 0 0.125em 0 rgba(0, 0, 0, 0.2);
     }
 
     // The Side Bar

@@ -174,34 +174,8 @@ a#add-place:hover {
 -------------------------------------------------------------- */
 
 #geocode-address-bar {
-  display: block;
   background: #DAF2F2 !important;
   border-right: 1px solid #c3d7e5;
-  height: 40px;
-}
-.geocode-address-label {
-  font-size: 0.75em;
-}
-input.geocode-address-field {
-  border-width: 0 !important;
-  background-color: #fff;
-  color: #555;
-  height: 35px;
-  width: calc(100% - 2.125em);
-}
-#geocode-address-bar .error {
-  line-height: 1.75;
-  background-color: #F26161;
-  box-shadow: 2px 2px 0 #F26161, 2px -2px 0 #F26161, -2px 2px 0 #F26161, -2px -2px 0 #F26161;
-}
-#geocode-address-bar .error + form {
-  box-shadow: 2px 2px 0 #F26161, 2px -2px 0 #F26161, -2px 2px 0 #F26161, -2px -2px 0 #F26161;
-}
-#geocode-address-bar .error.is-hidden + form {
-  box-shadow: none;
-}
-.geocode-spinner {
-  background-color: #fff;
 }
 
 /* =Right-clinging sidebar legend
@@ -494,14 +468,10 @@ p.checkbox + p.select {
   #add-place-btn-container {
     background-color: transparent;
   }
-  .geocoding-bar-enabled #map-container {
-    top: 125px;
-  }
   .activity-enabled #geocode-address-bar {
     right: 15%;
   }
   #content {
-    top: 123px !important;
     left: 45% !important;
   }
   .activity-enabled.content-visible #map-container {
