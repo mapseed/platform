@@ -23,7 +23,7 @@ shell.rm("-rf", distPath);
 shell.mkdir("-p", distPath);
 
 var flavorJsFiles = glob.sync(
-  "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js"
+  "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js",
 );
 var entryPoints = [
   "babel-polyfill",
@@ -32,13 +32,12 @@ var entryPoints = [
   "./src/base/static/scss/default.scss",
   "./src/base/static/css/leaflet.draw.css",
   "./src/base/static/css/leaflet-sidebar.css",
-  "./src/base/static/css/spectrum.css",
   "./src/flavors/" + process.env.FLAVOR + "/static/css/custom.css",
   "./src/flavors/" + process.env.FLAVOR + "/config.yml",
 ].concat(flavorJsFiles);
 
 var baseViewPaths = glob.sync(
-  path.resolve(__dirname, "src/base/static/js/views/*.js")
+  path.resolve(__dirname, "src/base/static/js/views/*.js"),
 );
 var alias = {};
 
@@ -51,7 +50,7 @@ for (var i = 0; i < baseViewPaths.length; i++) {
     "src/flavors",
     process.env.FLAVOR,
     "static/js/views/",
-    viewName + ".js"
+    viewName + ".js",
   );
   if (fs.existsSync(flavorViewPath)) {
     alias[aliasName] = flavorViewPath;
@@ -64,7 +63,7 @@ var outputBasePath = path.resolve(__dirname, "www");
 const extractSCSS = new ExtractTextPlugin(
   process.env.NODE_ENV === "production"
     ? "[contenthash].bundle.css"
-    : "bundle.css"
+    : "bundle.css",
 );
 const extractYML = new ExtractTextPlugin("config-en_US.js");
 const theme = process.env.THEME ? process.env.THEME : "default-theme";
@@ -91,7 +90,7 @@ module.exports = {
         loader: "i18next-resource-store-loader",
         query: {
           include: /\.json$/,
-        }
+        },
       },
       {
         test: /\.s?css$/,
@@ -107,14 +106,14 @@ module.exports = {
                 includePaths: [
                   path.resolve(
                     __dirname,
-                    "./node_modules/react-datepicker/dist"
+                    "./node_modules/react-datepicker/dist",
                   ),
                   path.resolve(__dirname, "./node_modules/compass-mixins/lib"),
                   path.resolve(__dirname, "./src/base/static/stylesheets/util"),
                   path.resolve(
                     __dirname,
                     "./src/base/static/stylesheets/themes",
-                    theme
+                    theme,
                   ),
                 ],
               },
@@ -130,14 +129,20 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV":
+        process.env.NODE_ENV === "production"
+          ? JSON.stringify("production")
+          : JSON.stringify("dev"),
+    }),
     extractSCSS,
     new CompressionPlugin({
       asset: "[path].gz[query]",
     }),
     extractYML,
-    new webpack.optimize.UglifyJsPlugin({ minimize: true }),
   ],
-  devtool: "cheap-eval-souce-map",
+  devtool:
+    process.env.NODE_ENV === "production" ? false : "cheap-eval-souce-map",
   devServer: {
     contentBase: outputBasePath,
     historyApiFallback: {
