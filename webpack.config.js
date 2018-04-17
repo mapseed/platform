@@ -135,6 +135,7 @@ module.exports = {
           ? JSON.stringify("production")
           : JSON.stringify("dev"),
     }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,
     new CompressionPlugin({
       asset: "[path].gz[query]",

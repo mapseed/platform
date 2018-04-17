@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 const cn = require("classnames");
+import moment from "moment";
 
 import constants from "./constants";
 import "./input-explorer-input-item.scss";
-
-// TODO: Remove moment global.
 
 class InputExplorerInputItem extends Component {
   constructor(props) {

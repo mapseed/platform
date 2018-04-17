@@ -1,3 +1,5 @@
+import moment from "moment";
+
 var Util = require("./utils.js");
 
 Handlebars.registerHelper("STATIC_URL", function() {
