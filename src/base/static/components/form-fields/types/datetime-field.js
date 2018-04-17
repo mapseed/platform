@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 
 import "./datetime-field.scss";
-
-// TODO: replace moment global.
 
 const DatetimeField = props => {
   const datetimeFormat = "MMMM Do YYYY, h:mm:ss a";

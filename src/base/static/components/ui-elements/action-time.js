@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 import "./action-time.scss";
-
-// TODO: replace moment global.
 
 const ActionTime = props => {
   return <time className="action-time">{moment(props.time).fromNow()}</time>;
