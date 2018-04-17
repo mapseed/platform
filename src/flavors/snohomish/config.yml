@@ -301,7 +301,7 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: osm
+        - id: watercolor
           title: _(Outdoors)
           visibleDefault: true
         - id: satellite
