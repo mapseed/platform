@@ -1,9 +1,7 @@
 /*globals Backbone jQuery _ */
 
 var PlaceModel = require("./models/place-model.js");
-var LandmarkModel = require("./models/landmark-model.js");
 var Util = require("./utils.js");
-var LandmarkCollection = require("./models/landmark-collection.js");
 var PlaceCollection = require("./models/place-collection.js");
 var ActionCollection = require("./models/action-collection.js");
 var AppView = require("mapseed-app-view");
@@ -57,20 +55,15 @@ Shareabouts.Util = Util;
       var self = this,
         startPageConfig,
         filteredRoutes,
-        // store config details for places and landmarks
+        // store config details for places
         configArrays = {};
 
       // store individual place collections for each place type
       this.places = {};
       // store individual activity collections for each place type
       this.activities = {};
-      // store individual landmark collections for each landmark type
-      this.landmarks = {};
 
       PlaceModel.prototype.getLoggingDetails = function() {
-        return this.id;
-      };
-      LandmarkModel.prototype.getLoggingDetails = function() {
         return this.id;
       };
 
@@ -108,19 +101,6 @@ Shareabouts.Util = Util;
 
       this.loading = true;
 
-      // set up landmark configs and instantiate landmark collections
-      configArrays.landmarks = options.mapConfig.layers.filter(function(layer) {
-        return layer.type && layer.type === "landmark";
-      });
-      _.each(configArrays.landmarks, function(config) {
-        var url = config.url + "?";
-        config.sources.forEach(function(source) {
-          url += encodeURIComponent(source) + "&";
-        });
-        var collection = new LandmarkCollection([], { url: url });
-        self.landmarks[config.id] = collection;
-      });
-
       // set up place configs and instantiate place collections
       configArrays.places = options.mapConfig.layers.filter(function(layer) {
         return layer.type && layer.type === "place";
@@ -144,7 +124,6 @@ Shareabouts.Util = Util;
         el: "body",
         activities: this.activities,
         places: this.places,
-        landmarks: this.landmarks,
         datasetConfigs: configArrays,
         apiRoot: options.appConfig.api_root,
         config: options.config,

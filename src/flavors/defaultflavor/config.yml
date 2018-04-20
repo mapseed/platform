@@ -250,6 +250,10 @@ place_types:
           iconAnchor: [19, 46]
 
 
+right_sidebar:
+  show: true
+  visibleDefault: true
+
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
@@ -360,6 +364,13 @@ place:
 
       label: _(Form Field Demo)
       fields:
+        - name: title 
+          type: text
+          autocomplete: true
+          prompt: _(Title:)
+          display_prompt: _(Ttile:)
+          placeholder: _(Enter title...)
+          optional: false
         - name: text_field
           type: text
           autocomplete: true
@@ -710,21 +721,24 @@ pages:
     slug: getinvolved
     name: contribute
 
-# story:
-  # example:
-  #   tagline: _(Next featured site)
-  #   default_zoom: 18
-  #   default_visible_layers:
-  #     - satellite
-  #   order:
-      # - url: dirtcorps
-      #   zoom: 15
-      #   panTo:
-      #     lat: 47.53420
-      #     lng: -122.32165
-      #   spotlight: false
-      #   visible_layers:
-      #     - dirt-corps
+story:
+  example:
+    tagline: _(Next featured site)
+    default_zoom: 18
+    default_visible_layers:
+      - demo
+    order:
+      - url: demo/20
+      - url: demo/21
+  another_example:
+    tagline: _(Next featured site)
+    default_zoom: 18
+    default_visible_layers:
+      - demo
+    order:
+      - url: cool-line
+      - url: demo/17
+
 
 # cluster:
 #   animate: true

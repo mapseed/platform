@@ -10,6 +10,8 @@ import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
+import StorySidebar from "../../components/story-sidebar";
+import LoaderWithSpinner from "../../components/utils/loader-with-spinner";
 
 import transformCommonFormElements from "../../utils/common-form-elements";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
@@ -24,7 +26,6 @@ var PlaceListView = require("mapseed-place-list-view");
 var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
-var RightSidebarView = require("mapseed-right-sidebar-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
 
 // Spinner options -- these need to be own modules
@@ -70,12 +71,12 @@ module.exports = Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .collapse-btn": "onToggleSidebarVisibility",
+    "click .story-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
-    // store promises returned from collection fetches
-    Shareabouts.deferredCollections = [];
+    // Store promises returned from collection fetches.
+    this.placeCollectionPromises = [];
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -392,18 +393,24 @@ module.exports = Backbone.View.extend({
         $("body").addClass("right-sidebar-visible");
       }
 
-      new RightSidebarView({
-        el: "#right-sidebar-container",
-        router: this.options.router,
-        rightSidebarConfig: this.options.rightSidebarConfig,
-        placeConfig: this.options.placeConfig,
-        layers: this.options.mapConfig.layers,
-        storyConfig: this.options.storyConfig,
-        activityConfig: this.options.activityConfig,
-        activityView: this.activityView,
-        appView: this,
-        layerViews: this.mapView.layerViews,
-      }).render();
+      // REACT PORT SECTION ///////////////////////////////////////////////////
+      ReactDOM.render(
+        <LoaderWithSpinner
+          activityConfig={this.options.activityConfig}
+          layers={this.options.mapConfig.layers}
+          placeDetail={this.options.placeConfig.place_detail}
+          places={this.places}
+          rightSidebarConfig={this.options.rightSidebarConfig}
+          router={this.options.router}
+          storyConfig={this.options.storyConfig}
+          promiseData={this.placeCollectionPromises}
+          render={props => {
+            return <StorySidebar {...props} />;
+          }}
+        />,
+        document.getElementById("right-sidebar-container"),
+      );
+      // END REACT PORT SECTION ///////////////////////////////////////////////
     }
   },
 
@@ -427,7 +434,7 @@ module.exports = Backbone.View.extend({
     // loop over all place collections
     _.each(self.places, function(collection, key) {
       self.mapView.map.fire("layer:loading", { id: key });
-      var deferred = collection.fetchAllPages({
+      const placeCollectionPromise = collection.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
         validate: true,
@@ -476,7 +483,7 @@ module.exports = Backbone.View.extend({
           self.mapView.map.fire("layer:error", { id: key });
         },
       });
-      Shareabouts.deferredCollections.push(deferred);
+      self.placeCollectionPromises.push(placeCollectionPromise);
     });
   },
   onMapZoomEnd: function(evt) {
