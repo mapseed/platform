@@ -172,6 +172,16 @@ L.Control.Sidebar = L.Control.extend(/** @lends L.Control.Sidebar.prototype */ {
         return this;
     },
 
+    // BEGIN CUSTOM CODE
+    toggle: function(id) {
+      var sidebarEl = document.getElementById("sidebar");
+      if (L.DomUtil.hasClass(sidebarEl, 'collapsed'))
+        this.open(id);
+      else
+        this.close();
+    },
+    // END CUSTOM CODE
+
     /**
      * @private
      */

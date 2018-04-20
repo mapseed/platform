@@ -16,7 +16,7 @@ module.exports = AppView.extend({
 
   // BEGIN CUSTOM CODE
   showLayerPanel: () => {
-    emitter.emit("nav-layer-btn:open");
+    emitter.emit("nav-layer-btn:toggle");
   },
   // END CUSTOM CODE
 });

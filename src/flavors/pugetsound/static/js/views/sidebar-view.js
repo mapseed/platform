@@ -6,8 +6,8 @@ module.exports = SidebarView.extend({
     var self = this;
 
     // BEGIN CUSTOM CODE
-    emitter.addListener("nav-layer-btn:open", () => {
-      self.sidebar.open("gis-layers-pane");
+    emitter.addListener("nav-layer-btn:toggle", () => {
+      self.sidebar.toggle("gis-layers-pane");
     });
     // END CUSTOM CODE
   },
