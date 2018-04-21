@@ -326,6 +326,15 @@ $autocomplete-combobox-autofill-background-color: $autofill-color;
 */
 $add-attachment-button-padding: 0.325em 0.625em 0.325em 0.625em;
 $add-attachment-button-text-color: $primary-color;
+$add-attachment-button-padding: 0.325em 0.625em 0.325em 0.625em;
+$add-attachment-button-background-color: $secondary-color;
+$add-attachment-button-background-hover-color: #93b7c9;
+$add-attachment-button-border: 3px solid rgba(0, 0, 0, 0.05);
+$add-attachment-button-box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+$add-attachment-button-border-radius: 3px;
+$add-attachment-button-text-transform: uppercase;
+$add-attachment-button-font-size: 0.75em;
+$add-attachment-button-hover-cursor: pointer;
 
 /*
   custom-url-field.js

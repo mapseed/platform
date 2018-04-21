@@ -1,13 +1,20 @@
 @import "variables";
 
-.add-attachment-button {
-  position: relative;
-}
-
-.file-field__label {
-  display: block;
+.add-attachment-button__file-field-label {
+  display: inline;
   color: $add-attachment-button-text-color;
   padding: $add-attachment-button-padding;
+  background-color: $add-attachment-button-background-color;
+  border: $add-attachment-button-border;
+  box-shadow: $add-attachment-button-box-shadow;
+  border-radius: $add-attachment-button-border-radius;
+  text-transform: $add-attachment-button-text-transform;
+  font-size: $add-attachment-button-font-size;
+
+  &:hover {
+    background-color: $add-attachment-button-background-hover-color;
+    cursor: $add-attachment-button-hover-cursor;
+  }
 }
 
 .add-attachment-button__filename {

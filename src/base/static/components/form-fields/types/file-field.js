@@ -1,13 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import "./file-field.scss";
 
 const FileField = props => {
   return (
-    <div className="file-field">
+    <label
+      className={classNames("file-field", props.className)}
+      htmlFor={props.name}
+    >
       <input
-        className="file-field__input file-field__input--hidden"
+        className="file-field__input"
         type="file"
         id={props.name}
         name={props.name}
@@ -16,18 +20,14 @@ const FileField = props => {
         onChange={props.onChange}
         accept={props.accept}
       />
-      <label
-        className="file-field__label file-field__label--hoverable"
-        htmlFor={props.name}
-      >
-        {props.label}
-      </label>
-    </div>
+      {props.label}
+    </label>
   );
 };
 
 FileField.propTypes = {
   accept: PropTypes.string,
+  className: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,

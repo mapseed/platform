@@ -58,15 +58,14 @@ class AddAttachmentButton extends Component {
     });
 
     return (
-      <div className="add-attachment-button">
-        <SecondaryButton>
-          <FileField
-            onChange={this.onChange}
-            name={this.props.name}
-            label={this.props.label}
-            accept="image/*"
-          />
-        </SecondaryButton>
+      <div className="add-attachment-container">
+        <FileField
+          className="add-attachment-button__file-field-label"
+          onChange={this.onChange}
+          name={this.props.name}
+          label={this.props.label}
+          accept="image/*"
+        />
         <span className={cn}>{this.state.displayFilename}</span>
       </div>
     );
