@@ -37,8 +37,8 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
   cartodb_enabled: true
-  #  geocode_field_label: _(Enter an address...)
-  geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
+  geocoding_bar_enabled: true
+  geocode_bounding_box: [48.435, -120.924, 47.704, -122.593] 
 
   options:
     center:
@@ -49,6 +49,10 @@ map:
     maxZoom: 18
 
   layers:
+    - id: osm-hot
+      url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
+      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
     - id: osm
       url: //korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -158,7 +162,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -167,19 +171,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-land.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -188,7 +192,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -197,19 +201,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker-complaint.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconUrl: /static/css/images/markers/marker-my-forest.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -301,7 +305,7 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: watercolor
+        - id: osm-hot
           title: _(Outdoors)
           visibleDefault: true
         - id: satellite
@@ -413,7 +417,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/farm-icon.png
+      icon_url: /static/css/images/markers/marker-my-forest.png
       value: farm
       label: _(My Farm)
       fields:
@@ -464,7 +468,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/horse-icon.jpg
+      icon_url: /static/css/images/markers/marker-my-forest.png
       value: horse
       label: _(My horses)
       fields:
@@ -511,7 +515,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/nature-icon.jpg
+      icon_url: /static/css/images/markers/marker-my-land.png
       value: nature
       label: _(My Land)
       fields:
@@ -559,7 +563,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/forest-icon.png
+      icon_url: /static/css/images/markers/marker-my-forest.png
       value: forest
       label: _(My forest)
       fields:
@@ -648,7 +652,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/home-icon.jpg
+      icon_url: /static/css/images/markers/marker-my-forest.png
       value: home
       label: _(My Home)
       fields:
@@ -698,7 +702,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/shoreline-icon.png
+      icon_url: /static/css/images/markers/marker-my-forest.png
       value: shoreline
       label: _(My Shoreline)
       fields:

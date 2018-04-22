@@ -10,7 +10,6 @@
 
 .big-toggle-field__label {
   font-size: $big-toggle-field-label-font-size;
-  min-height: $big-toggle-field-label-min-height;
   line-height: $big-toggle-field-line-height;
   margin: $big-toggle-field-label-margin;
   padding: $big-toggle-field-label-padding;
@@ -28,7 +27,8 @@
 
   &:before {
     position: absolute;
-    display: block;
+    display: flex;
+    align-items: center;
     top: 0;
     bottom: 0;
     left: 0;
