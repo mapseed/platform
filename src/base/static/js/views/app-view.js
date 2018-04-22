@@ -9,6 +9,8 @@ import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
+
+import transformCommonFormElements from "../../utils/common-form-elements";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -86,23 +88,10 @@ module.exports = Backbone.View.extend({
       };
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    // NOTE: we resolve all common_form_elements here, before the React entry
-    // point. This simplifies the work we have to do within React components.
-    // TODO: This should be bumped as high as possible in the hierarchy, and
-    // possibly should happen in the build process.
-    this.options.placeConfig.place_detail.forEach(category => {
-      category.fields = category.fields.map(field => {
-        if (field.type === "common_form_element") {
-          return Object.assign(
-            {},
-            this.options.placeConfig.common_form_elements[field.name],
-            { name: field.name },
-          );
-        } else {
-          return field;
-        }
-      });
-    });
+    this.options.placeConfig.place_detail = transformCommonFormElements(
+      this.options.placeConfig.place_detail,
+      this.options.placeConfig.common_form_elements,
+    );
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // Use the page size as dictated by the server by default, unless

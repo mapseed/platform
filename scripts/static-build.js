@@ -13,6 +13,8 @@ const shell = require("shelljs");
 const glob = require("glob");
 const colors = require("colors");
 
+const transformCommonFormElements = require("../src/base/static/utils/common-form-elements");
+
 // =============================================================================
 // BEGIN STATIC SITE BUILD
 //
@@ -234,20 +236,10 @@ activeLanguages.forEach(language => {
   }
 
   // Resolve fields of type common_form_element.
-  // This supports the importable config module.
-  thisConfig.place.place_detail.forEach(category => {
-    category.fields = category.fields.map(field => {
-      if (field.type === "common_form_element") {
-        return Object.assign(
-          {},
-          thisConfig.place.common_form_elements[field.name],
-          { name: field.name },
-        );
-      } else {
-        return field;
-      }
-    });
-  });
+  thisConfig.place.place_detail = transformCommonFormElements(
+    thisConfig.place.place_detail,
+    thisConfig.place.common_form_elements,
+  );
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from
   //      which the templates can be localized and precompiled. Also resolve

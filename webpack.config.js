@@ -59,7 +59,12 @@ for (var i = 0; i < baseViewPaths.length; i++) {
   }
 }
 
-alias.config = path.resolve(__dirname, "src/flavors", process.env.FLAVOR, "config.yml");
+alias.config = path.resolve(
+  __dirname,
+  "src/flavors",
+  process.env.FLAVOR,
+  "config.yml",
+);
 
 var outputBasePath = path.resolve(__dirname, "www");
 const extractSCSS = new ExtractTextPlugin(
@@ -141,7 +146,6 @@ module.exports = {
     new CompressionPlugin({
       asset: "[path].gz[query]",
     }),
-    extractYML,
   ],
   devtool:
     process.env.NODE_ENV === "production" ? false : "cheap-eval-souce-map",
