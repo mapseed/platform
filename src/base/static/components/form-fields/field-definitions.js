@@ -220,10 +220,7 @@ export default {
   [constants.GEOCODING_FIELD_TYPENAME]: {
     getValidator: getPermissiveValidator,
     getComponent: (fieldConfig, context) => (
-      <GeocodingField
-        {...getSharedFieldProps(fieldConfig, context)}
-        mapConfig={context.props.mapConfig}
-      />
+      <GeocodingField {...getSharedFieldProps(fieldConfig, context)} />
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => null,

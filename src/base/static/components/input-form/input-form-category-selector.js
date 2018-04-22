@@ -22,9 +22,7 @@ class InputFormCategorySelector extends Component {
     return (
       <div className="input-form__category-selector">
         {this.props.visibleCategoryConfigs.map(config => {
-          const isSelected =
-            this.props.selectedCategoryConfig &&
-            this.props.selectedCategoryConfig.category === config.category;
+          const isSelected = this.props.selectedCategory === config.category;
 
           return (
             <InputFormCategoryButton
@@ -32,7 +30,7 @@ class InputFormCategorySelector extends Component {
               isCategoryMenuCollapsed={this.state.isCollapsed && !isSelected}
               isSingleCategory={this.props.visibleCategoryConfigs.length === 1}
               key={config.category}
-              categoryConfig={config}
+              categoryName={config.category}
               onCategoryChange={evt => {
                 this.setCategory(evt.target.value, false);
               }}
@@ -47,10 +45,8 @@ class InputFormCategorySelector extends Component {
 
 InputFormCategorySelector.propTypes = {
   onCategoryChange: PropTypes.func.isRequired,
-  selectedCategoryConfig: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
+  selectedCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    .isRequired,
   visibleCategoryConfigs: PropTypes.array.isRequired,
 };
 

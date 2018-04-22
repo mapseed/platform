@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 
 import InputFormCategorySelector from "./input-form-category-selector";
 
+import { place as placeConfig } from "config";
+
 const Util = require("../../js/utils.js");
 
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
     super(props);
-    this.visibleCategoryConfigs = this.props.placeConfig.place_detail
+    this.visibleCategoryConfigs = placeConfig.place_detail
       .filter(config => config.includeOnForm)
       .filter(config => {
         return !(
@@ -17,18 +19,16 @@ class FormCategoryMenuWrapper extends Component {
         );
       });
     this.state = {
-      selectedCategoryConfig:
+      selectedCategory:
         this.visibleCategoryConfigs.length === 1
-          ? this.visibleCategoryConfigs[0]
+          ? this.visibleCategoryConfigs[0].category
           : false,
     };
   }
 
   onCategoryChange(selectedCategory) {
     this.setState({
-      selectedCategoryConfig: this.visibleCategoryConfigs.find(
-        config => config.category === selectedCategory,
-      ),
+      selectedCategory: selectedCategory,
     });
   }
 
@@ -37,10 +37,10 @@ class FormCategoryMenuWrapper extends Component {
       <div className="input-form-category-menu-container">
         <InputFormCategorySelector
           onCategoryChange={this.onCategoryChange.bind(this)}
-          selectedCategoryConfig={this.state.selectedCategoryConfig}
+          selectedCategory={this.state.selectedCategory}
           visibleCategoryConfigs={this.visibleCategoryConfigs}
         />
-        {this.state.selectedCategoryConfig
+        {this.state.selectedCategory
           ? this.props.render(this.state, this.props)
           : null}
       </div>
@@ -49,30 +49,6 @@ class FormCategoryMenuWrapper extends Component {
 }
 
 FormCategoryMenuWrapper.propTypes = {
-  mapConfig: PropTypes.shape({
-    geolocation_enabled: PropTypes.bool,
-    geolocation_onload: PropTypes.bool,
-    cartodb_enabled: PropTypes.bool,
-    geocode_field_label: PropTypes.string,
-    geocode_bounding_box: PropTypes.arrayOf(PropTypes.number),
-    options: PropTypes.shape({
-      center: PropTypes.shape({
-        lat: PropTypes.number.isRequired,
-        lng: PropTypes.number.isRequired,
-      }),
-      zoom: PropTypes.number,
-      minZoom: PropTypes.number,
-      maxZoom: PropTypes.number,
-    }),
-    layer: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        attribution: PropTypes.string,
-        type: PropTypes.string,
-      }),
-    ),
-  }),
   hideSpotlightMask: PropTypes.func.isRequired,
   hideCenterPoint: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
@@ -88,40 +64,6 @@ FormCategoryMenuWrapper.propTypes = {
   container: PropTypes.instanceOf(HTMLElement),
   render: PropTypes.func.isRequired,
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  placeConfig: PropTypes.shape({
-    adding_supported: PropTypes.bool.isRequired,
-    add_button_label: PropTypes.string.isRequired,
-    show_list_button_label: PropTypes.string.isRequired,
-    show_map_button_label: PropTypes.string.isRequired,
-    action_text: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
-    submit_button_label: PropTypes.string.isRequired,
-    location_item_name: PropTypes.string.isRequired,
-    default_basemap: PropTypes.string,
-    place_detail: PropTypes.arrayOf(
-      PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        includeOnForm: PropTypes.bool,
-        name: PropTypes.string.isRequired,
-        dataset: PropTypes.string.isRequired,
-        icon_url: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        fields: PropTypes.arrayOf(
-          PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            autocomplete: PropTypes.bool,
-            prompt: PropTypes.string,
-            display_prompt: PropTypes.string,
-            placeholder: PropTypes.string,
-            optional: PropTypes.bool,
-          }),
-        ),
-      }),
-    ),
-  }).isRequired,
 };
 
 export default FormCategoryMenuWrapper;

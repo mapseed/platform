@@ -9,6 +9,8 @@ import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
+
+import transformCommonFormElements from "../../utils/common-form-elements";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -86,23 +88,10 @@ module.exports = Backbone.View.extend({
       };
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    // NOTE: we resolve all common_form_elements here, before the React entry
-    // point. This simplifies the work we have to do within React components.
-    // TODO: This should be bumped as high as possible in the hierarchy, and
-    // possibly should happen in the build process.
-    this.options.placeConfig.place_detail.forEach(category => {
-      category.fields = category.fields.map(field => {
-        if (field.type === "common_form_element") {
-          return Object.assign(
-            {},
-            this.options.placeConfig.common_form_elements[field.name],
-            { name: field.name },
-          );
-        } else {
-          return field;
-        }
-      });
-    });
+    this.options.placeConfig.place_detail = transformCommonFormElements(
+      this.options.placeConfig.place_detail,
+      this.options.placeConfig.common_form_elements,
+    );
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // Use the page size as dictated by the server by default, unless
@@ -605,7 +594,6 @@ module.exports = Backbone.View.extend({
     // when the AppView is ported.
     ReactDOM.render(
       <FormCategoryMenuWrapper
-        mapConfig={this.options.mapConfig}
         hideSpotlightMask={this.hideSpotlightMask.bind(this)}
         hideCenterPoint={this.hideCenterPoint.bind(this)}
         showNewPin={this.showNewPin.bind(this)}
@@ -624,20 +612,16 @@ module.exports = Backbone.View.extend({
             return (
               <VVInputForm
                 {...props}
-                selectedCategoryConfig={state.selectedCategoryConfig}
+                selectedCategory={state.selectedCategory}
               />
             );
           } else {
             return (
-              <InputForm
-                {...props}
-                selectedCategoryConfig={state.selectedCategoryConfig}
-              />
+              <InputForm {...props} selectedCategory={state.selectedCategory} />
             );
           }
         }}
         customComponents={this.options.customComponents}
-        placeConfig={this.options.placeConfig}
       />,
       document.querySelector("#content article"),
     );
@@ -789,17 +773,10 @@ module.exports = Backbone.View.extend({
             map={this.mapView.map}
             model={model}
             appView={this}
-            apiRoot={this.options.appConfig.api_root}
             layerView={this.mapView.layerViews[datasetId][model.cid]}
-            surveyConfig={this.options.surveyConfig}
-            supportConfig={this.options.supportConfig}
-            placeConfig={this.options.placeConfig}
             places={this.places}
-            placeTypes={this.options.placeTypes}
             scrollToResponseId={args.responseId}
             router={this.options.router}
-            storyConfig={this.options.storyConfig}
-            mapConfig={this.options.mapConfig}
             userToken={this.options.userToken}
           />,
           document.querySelector("#content article"),

@@ -90,7 +90,6 @@ class PromotionBar extends Component {
         <SupportButton
           className="place-detail-promotion-bar__support-button"
           isSupported={this.props.isSupported}
-          label={this.props.supportConfig.submit_btn_text}
           numSupports={this.props.numSupports}
           onClickSupport={this.onClickSupport.bind(this)}
         />
@@ -121,7 +120,6 @@ PromotionBar.propTypes = {
   numSupports: PropTypes.number,
   onModelIO: PropTypes.func.isRequired,
   onSocialShare: PropTypes.func.isRequired,
-  supportConfig: PropTypes.object.isRequired,
   supportModelCreate: PropTypes.func.isRequired,
   userSupportModel: PropTypes.instanceOf(Backbone.Model),
   userToken: PropTypes.string,

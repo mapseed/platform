@@ -10,6 +10,7 @@ import WarningMessagesContainer from "../ui-elements/warning-messages-container"
 import Avatar from "../ui-elements/avatar";
 import SurveyResponseEditor from "./survey-response-editor";
 
+import { survey as surveyConfig, app as appConfig } from "config";
 import constants from "../../constants";
 import { translate } from "react-i18next";
 
@@ -44,7 +45,7 @@ class Survey extends Component {
   }
 
   initializeFields() {
-    return this.props.surveyConfig.items.reduce((fields, field) => {
+    return surveyConfig.items.reduce((fields, field) => {
       fields = fields.set(
         field.name,
         Map()
@@ -125,11 +126,11 @@ class Survey extends Component {
           <h4 className="place-detail-survey__num-comments-header">
             {numSubmissions}{" "}
             {numSubmissions === 1
-              ? this.props.surveyConfig.response_name
-              : this.props.surveyConfig.response_plural_name}
+              ? surveyConfig.response_name
+              : surveyConfig.response_plural_name}
           </h4>
           <SecondaryButton className="place-detail-survey__leave-comment-button">
-            {this.props.surveyConfig.form_link_text}
+            {surveyConfig.form_link_text}
           </SecondaryButton>
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
@@ -143,19 +144,15 @@ class Survey extends Component {
                   modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   onSurveyModelRemove={this.props.onSurveyModelRemove}
                   onSurveyModelSave={this.props.onSurveyModelSave}
-                  surveyItems={this.props.surveyConfig.items}
                   attributes={attributes}
-                  anonymousName={this.props.anonymousName}
                   submitter={this.props.submitter}
                 />
               ) : (
                 <SurveyResponse
-                  anonymousName={this.props.anonymousName}
                   key={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   modelId={attributes.get(constants.MODEL_ID_PROPERTY_NAME)}
                   onMountTargetResponse={this.props.onMountTargetResponse}
                   scrollToResponseId={this.props.scrollToResponseId}
-                  surveyConfig={this.props.surveyConfig}
                   attributes={attributes}
                   submitter={this.props.submitter}
                 />
@@ -176,7 +173,7 @@ class Survey extends Component {
               <FormField
                 key={fieldState.get(constants.FIELD_RENDER_KEY)}
                 isInitializing={this.state.isInitializing}
-                fieldConfig={this.props.surveyConfig.items.find(
+                fieldConfig={surveyConfig.items.find(
                   field => field.name === fieldName,
                 )}
                 updatingField={this.state.updatingField}
@@ -196,7 +193,7 @@ class Survey extends Component {
             </span>
             <a
               className="place-detail-survey__logout-button"
-              href={this.props.apiRoot + "users/logout/"}
+              href={appConfig.apiRoot + "users/logout/"}
             >
               {t("logOut")}
             </a>
@@ -208,8 +205,6 @@ class Survey extends Component {
 }
 
 Survey.propTypes = {
-  anonymousName: PropTypes.string.isRequired,
-  apiRoot: PropTypes.string.isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
@@ -222,7 +217,6 @@ Survey.propTypes = {
   onSurveyModelRemove: PropTypes.func.isRequired,
   onSurveyModelSave: PropTypes.func.isRequired,
   submitter: PropTypes.object.isRequired,
-  surveyConfig: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
 };
 

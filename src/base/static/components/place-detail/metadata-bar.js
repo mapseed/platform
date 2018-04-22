@@ -8,15 +8,19 @@ import SubmitterName from "../ui-elements/submitter-name";
 import { translate, Trans } from "react-i18next";
 
 import constants from "../../constants";
+import {
+  place_types as placeTypes,
+  place as placeConfig,
+  survey as surveyConfig,
+} from "config";
 
 import "./metadata-bar.scss";
 
 const MetadataBar = props => {
   const placeTypeLabel =
-    props.placeTypes[
-      props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME)
-    ].label;
-  const actionText = props.actionText;
+    placeTypes[props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME)]
+      .label;
+  const actionText = placeConfig.action_text;
 
   return (
     <div className="place-detail-metadata-bar">
@@ -32,7 +36,6 @@ const MetadataBar = props => {
                 props.submitter.get(constants.NAME_PROPERTY_NAME) ||
                 props.placeModel.get(constants.SUBMITTER_FIELDNAME)
               }
-              anonymousName={props.anonymousName}
             />{" "}
             {{ actionText }} this {{ placeTypeLabel }}
           </Trans>
@@ -55,8 +58,8 @@ const MetadataBar = props => {
         <p className="place-detail-metadata-bar__survey-count">
           {props.surveyModels.size}{" "}
           {props.surveyModels.size === 1
-            ? props.surveyConfig.response_name
-            : props.surveyConfig.response_plural_name}
+            ? surveyConfig.response_name
+            : surveyConfig.response_plural_name}
         </p>
       </div>
     </div>
@@ -64,14 +67,10 @@ const MetadataBar = props => {
 };
 
 MetadataBar.propTypes = {
-  actionText: PropTypes.string.isRequired,
   avatarSrc: PropTypes.string,
   placeModel: PropTypes.object.isRequired,
   surveyModels: PropTypes.object.isRequired,
-  anonymousName: PropTypes.string.isRequired,
-  placeTypes: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
-  surveyConfig: PropTypes.object.isRequired,
 };
 
 export default translate("MetadataBar")(MetadataBar);

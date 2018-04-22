@@ -111,12 +111,10 @@ class FormField extends Component {
 
 FormField.propTypes = {
   attachmentModels: PropTypes.instanceOf(List),
-  categoryConfig: PropTypes.object,
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
   map: PropTypes.object,
-  mapConfig: PropTypes.object,
   modelId: PropTypes.number,
   onFieldChange: PropTypes.func.isRequired,
   onGeometryStyleChange: PropTypes.func,

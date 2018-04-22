@@ -6,6 +6,8 @@ import emitter from "../../../utils/emitter";
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
 
+import { map as mapConfig } from "config";
+
 // TODO: Consolidate Util methods used here.
 const Util = require("../../../js/utils.js");
 
@@ -16,10 +18,8 @@ class GeocodingField extends Component {
       isGeocoding: false,
       isWithGeocodingError: false,
     };
-    this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
-    this.hint =
-      this.props.mapConfig.geocode_bounding_box ||
-      this.props.mapConfig.geocode_hint;
+    this.geocodingEngine = mapConfig.geocoding_engine || "MapQuest";
+    this.hint = mapConfig.geocode_bounding_box || mapConfig.geocode_hint;
   }
 
   componentDidMount() {
@@ -103,7 +103,6 @@ class GeocodingField extends Component {
 }
 
 GeocodingField.propTypes = {
-  mapConfig: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,

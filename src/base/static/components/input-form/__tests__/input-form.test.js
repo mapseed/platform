@@ -14,16 +14,12 @@ describe("InputForm", () => {
     container: {},
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
-    selectedCategoryConfig: {
-      category: categoryName,
-      fields: [{ name: "test1" }, { name: "test2" }],
-    },
+    selectedCategory: "someCategory",
     map: {
       on: () => {},
       off: () => {},
       getCenter: () => {},
     },
-    mapConfig: {},
     places: {},
     router: {},
     showNewPin: () => {},

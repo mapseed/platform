@@ -15,14 +15,20 @@ const Util = require("../../js/utils.js");
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
+import { getCategoryConfig } from "../../utils/config-utils";
+
 import "./place-detail-editor.scss";
 
 class PlaceDetailEditor extends Component {
   constructor(props) {
     super(props);
 
+    this.categoryConfig = getCategoryConfig(
+      this.props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME),
+    );
+
     let fields = OrderedMap();
-    this.props.categoryConfig.fields
+    this.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
       .filter(field => field.type !== constants.SUBMIT_FIELD_TYPENAME)
@@ -71,7 +77,7 @@ class PlaceDetailEditor extends Component {
         // image's name.
         // TODO: This logic is better suited for the FormField component,
         // perhaps in an onSave hook.
-        this.props.categoryConfig.fields
+        this.categoryConfig.fields
           .filter(
             field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME,
           )
@@ -160,12 +166,12 @@ class PlaceDetailEditor extends Component {
           {this.state.fields
             .filter(
               (fieldState, fieldName) =>
-                this.props.categoryConfig.fields.find(
+                this.categoryConfig.fields.find(
                   field => field.name === fieldName,
                 ).type !== constants.SUBMIT_FIELD_TYPENAME,
             )
             .map((fieldState, fieldName) => {
-              const fieldConfig = this.props.categoryConfig.fields.find(
+              const fieldConfig = this.categoryConfig.fields.find(
                 field => field.name === fieldName,
               );
 
@@ -188,7 +194,6 @@ class PlaceDetailEditor extends Component {
                   isInitializing={this.state.isInitializing}
                   key={fieldName}
                   map={this.props.map}
-                  mapConfig={this.props.mapConfig}
                   modelId={this.props.placeModel.get(
                     constants.MODEL_ID_PROPERTY_NAME,
                   )}
@@ -210,12 +215,10 @@ class PlaceDetailEditor extends Component {
 
 PlaceDetailEditor.propTypes = {
   attachmentModels: PropTypes.object,
-  categoryConfig: PropTypes.object.isRequired,
   container: PropTypes.object.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   layerView: PropTypes.object,
   map: PropTypes.object,
-  mapConfig: PropTypes.object,
   onAddAttachment: PropTypes.func,
   onModelIO: PropTypes.func.isRequired,
   onPlaceModelSave: PropTypes.func.isRequired,

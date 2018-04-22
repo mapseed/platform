@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import SecondaryButton from "./secondary-button";
+import { support as supportConfig } from "config";
 
 import "./support-button.scss";
 
@@ -14,7 +15,7 @@ const SupportButton = props => {
       })}
       onClick={props.onClickSupport}
     >
-      {props.numSupports || ""} {props.label}
+      {props.numSupports || ""} {supportConfig.submit_btn_text}
     </SecondaryButton>
   );
 };
@@ -22,7 +23,6 @@ const SupportButton = props => {
 SupportButton.propTypes = {
   className: PropTypes.string,
   isSupported: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
   numSupports: PropTypes.number,
   onClickSupport: PropTypes.func.isRequired,
 };

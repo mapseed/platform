@@ -13,6 +13,8 @@ const shell = require("shelljs");
 const glob = require("glob");
 const colors = require("colors");
 
+const transformCommonFormElements = require("../src/base/static/utils/common-form-elements");
+
 // =============================================================================
 // BEGIN STATIC SITE BUILD
 //
@@ -232,6 +234,12 @@ activeLanguages.forEach(language => {
   if (process.env.API_ROOT) {
     thisConfig.app.api_root = process.env.API_ROOT;
   }
+
+  // Resolve fields of type common_form_element.
+  thisConfig.place.place_detail = transformCommonFormElements(
+    thisConfig.place.place_detail,
+    thisConfig.place.common_form_elements,
+  );
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from
   //      which the templates can be localized and precompiled. Also resolve
