@@ -604,7 +604,7 @@ module.exports = Backbone.View.extend({
         router={this.options.router}
         customHooks={this.options.customHooks}
         container={document.querySelector("#content article")}
-        render={(state, props) => {
+        render={(state, props, onCategoryChange) => {
           if (
             props.customComponents &&
             props.customComponents.InputForm === "VVInputForm"
@@ -613,11 +613,18 @@ module.exports = Backbone.View.extend({
               <VVInputForm
                 {...props}
                 selectedCategory={state.selectedCategory}
+                isSingleCategory={state.isSingleCategory}
+                onCategoryChange={onCategoryChange}
               />
             );
           } else {
             return (
-              <InputForm {...props} selectedCategory={state.selectedCategory} />
+              <InputForm
+                {...props}
+                selectedCategory={state.selectedCategory}
+                isSingleCategory={state.isSingleCategory}
+                onCategoryChange={onCategoryChange}
+              />
             );
           }
         }}
