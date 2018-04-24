@@ -724,6 +724,8 @@ pages:
 story:
   example:
     tagline: _(Next featured site)
+    header: _(Story Number One)
+    description: _(This is the first of two stories. I hope you like it!)
     default_zoom: 18
     default_visible_layers:
       - demo
@@ -732,6 +734,8 @@ story:
       - url: demo/21
   another_example:
     tagline: _(Next featured site)
+    header: _(Story Number Two With a Longer Name than the Other Story)
+    description: _(This is the second story, and it's got a longer header and description because that's just how it is.)
     default_zoom: 18
     default_visible_layers:
       - demo

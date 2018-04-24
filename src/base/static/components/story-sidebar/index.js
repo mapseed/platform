@@ -5,6 +5,8 @@ import { Map, OrderedMap, fromJS } from "immutable";
 import StoryChapter from "./story-chapter";
 import constants from "../../constants";
 
+import "./index.scss";
+
 import { story as storyConfig, place as placeConfig } from "config";
 
 class StorySidebar extends Component {
@@ -30,9 +32,11 @@ class StorySidebar extends Component {
     }, OrderedMap());
 
     this.state = {
-      currentStoryName: null,
+      currentStoryHeader: "",
+      currentStoryDescription: "",
+      currentStoryName: "",
       currentStoryChapters: OrderedMap(),
-      currentStoryRoute: null,
+      currentStoryRoute: "",
       currentChapter: Map(),
     };
   }
@@ -56,6 +60,8 @@ class StorySidebar extends Component {
         // the current chapter and name.
         isRouteFound = true;
         this.setState({
+          currentStoryHeader: storyConfig[storyName].header,
+          currentStoryDescription: storyConfig[storyName].description,
           currentStoryName: storyName,
           currentStoryChapters: story,
           currentStoryRoute: joinedRoute,
@@ -69,14 +75,20 @@ class StorySidebar extends Component {
     // provided in the config so the sidebar is never without content.
     if (!isRouteFound) {
       this.setState({
+        currentStoryHeader: !this.isInitialized
+          ? storyConfig[this.stories.keySeq().first()].header
+          : "",
+        currentStoryDescription: !this.stories.isInitialized
+          ? storyConfig[this.stories.keySeq().first()].description
+          : "",
         currentStoryName: !this.isInitialized
           ? this.stories.keySeq().first()
           : this.state.currentStoryName,
         currentStoryChapters: !this.isInitialized
           ? this.stories.first()
           : this.state.currentStoryChapters,
-        currentStoryRoute: null,
-        currentChapter: null,
+        currentStoryRoute: "",
+        currentChapter: Map(),
       });
     }
   }
@@ -146,6 +158,17 @@ class StorySidebar extends Component {
     return (
       <div className="story-sidebar">
         <a href="#" className="story-sidebar__collapse-btn" />
+        {this.state.currentStoryHeader && (
+          <h5 className="story-sidebar__header">
+            {this.state.currentStoryHeader}
+          </h5>
+        )}
+        {this.state.currentStoryDescription && (
+          <p className="story-sidebar__description">
+            {this.state.currentStoryDescription}
+          </p>
+        )}
+        <hr />
         {this.state.currentStoryChapters
           .map((chapter, placeUrl) => {
             return (
