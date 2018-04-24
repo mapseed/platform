@@ -12,8 +12,6 @@ import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import StorySidebar from "../../components/story-sidebar";
 import LoaderWithSpinner from "../../components/utils/loader-with-spinner";
-
-import transformCommonFormElements from "../../utils/common-form-elements";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -88,13 +86,6 @@ module.exports = Backbone.View.extend({
         // scale well, so let's think about a better solution.
         include_submissions: includeSubmissions,
       };
-
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    this.options.placeConfig.place_detail = transformCommonFormElements(
-      this.options.placeConfig.place_detail,
-      this.options.placeConfig.common_form_elements,
-    );
-    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
@@ -339,28 +330,6 @@ module.exports = Backbone.View.extend({
     // For knowing if the user has moved the map after opening the form.
     this.mapView.map.on("dragend", this.onMapDragEnd, this);
 
-    // If report stories are enabled, build the data structure
-    // we need to enable story navigation
-    _.each(this.options.storyConfig, function(story) {
-      var storyStructure = {},
-        totalStoryElements = story.order.length;
-      _.each(story.order, function(config, i) {
-        storyStructure[config.url] = {
-          zoom: config.zoom || story.default_zoom,
-          hasCustomZoom: config.zoom ? true : false,
-          panTo: config.panTo || null,
-          visibleLayers: config.visible_layers || story.default_visible_layers,
-          previous:
-            story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
-          next: story.order[(i + 1) % totalStoryElements].url,
-          basemap: config.basemap || story.default_basemap,
-          spotlight: config.spotlight === false ? false : true,
-          sidebarIconUrl: config.sidebar_icon_url,
-        };
-      });
-      story.order = storyStructure;
-    });
-
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
@@ -396,13 +365,9 @@ module.exports = Backbone.View.extend({
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
         <LoaderWithSpinner
-          activityConfig={this.options.activityConfig}
           layers={this.options.mapConfig.layers}
-          placeDetail={this.options.placeConfig.place_detail}
           places={this.places}
-          rightSidebarConfig={this.options.rightSidebarConfig}
           router={this.options.router}
-          storyConfig={this.options.storyConfig}
           promiseData={this.placeCollectionPromises}
           render={props => {
             return <StorySidebar {...props} />;

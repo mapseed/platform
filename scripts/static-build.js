@@ -13,7 +13,10 @@ const shell = require("shelljs");
 const glob = require("glob");
 const colors = require("colors");
 
-const transformCommonFormElements = require("../src/base/static/utils/common-form-elements");
+const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
+  .transformCommonFormElements;
+const transformStoryContent = require("../src/base/static/utils/config-loader-utils")
+  .transformStoryContent;
 
 // =============================================================================
 // BEGIN STATIC SITE BUILD
@@ -240,6 +243,9 @@ activeLanguages.forEach(language => {
     thisConfig.place.place_detail,
     thisConfig.place.common_form_elements,
   );
+
+  // Build the story data structure used by the app.
+  thisConfig.story = transformStoryContent(thisConfig.story);
 
   // (5a) Copy all jstemplates and flavor pages to a working directory from
   //      which the templates can be localized and precompiled. Also resolve

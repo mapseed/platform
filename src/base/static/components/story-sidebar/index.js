@@ -5,20 +5,25 @@ import { Map, OrderedMap, fromJS } from "immutable";
 import StoryChapter from "./story-chapter";
 import constants from "../../constants";
 
+import {
+  story as storyConfig,
+  place as placeConfig,
+} from "config";
+
 class StorySidebar extends Component {
   constructor(props) {
     super(props);
 
     // Collect stories into a Map whose values are Lists of serialized attribute
     // data from Place models in the story.
-    this.stories = Object.keys(props.storyConfig).reduce((memo, storyName) => {
+    this.stories = Object.keys(storyConfig).reduce((memo, storyName) => {
       return memo.set(
         storyName,
         // TODO: The order property on the storyConfig object below gets
         // transformed from its array structure in the config. This is
         // confusing because this section of the config isn't declarative, and
         // should probably be refactored when we port the app view.
-        Object.keys(props.storyConfig[storyName].order).reduce(
+        Object.keys(storyConfig[storyName].order).reduce(
           (memo, chapterUrl) => {
             return memo.set(
               chapterUrl,
@@ -105,10 +110,10 @@ class StorySidebar extends Component {
     // If the story config for this place declares an explicit sidebar icon url,
     // use that icon.
     if (
-      this.props.storyConfig[this.state.currentStoryName].order[storyUrl]
+      storyConfig[this.state.currentStoryName].order[storyUrl]
         .sidebarIconUrl // TODO: normalize this name
     ) {
-      return this.props.storyConfig[this.state.currentStoryName].order[storyUrl]
+      return storyConfig[this.state.currentStoryName].order[storyUrl]
         .sidebarIconUrl;
     }
 
@@ -118,7 +123,7 @@ class StorySidebar extends Component {
     }
 
     // Otherwise, use the icon url defined in the category config.
-    return this.props.placeDetail.find(
+    return placeConfig.place_detail.find(
       config => config.category === chapter.get("location_type"),
     ).icon_url;
   }
@@ -158,9 +163,7 @@ class StorySidebar extends Component {
 }
 
 StorySidebar.propTypes = {
-  storyConfig: PropTypes.object.isRequired,
   layers: PropTypes.array.isRequired,
-  placeDetail: PropTypes.array.isRequired,
   places: PropTypes.object.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
 };

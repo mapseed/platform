@@ -3,7 +3,8 @@ const Handlebars = require("handlebars");
 const fs = require("fs-extra");
 const path = require("path");
 
-const transformCommonFormElements = require("../src/base/static/utils/common-form-elements");
+const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils").transformCommonFormElements;
+const transformStoryContent = require("../src/base/static/utils/config-loader-utils").transformStoryContent;
 
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
@@ -64,6 +65,9 @@ module.exports = function(source) {
     config.place.place_detail,
     config.place.common_form_elements,
   );
+
+  // Build the story data structure used by the app.
+  config.story = transformStoryContent(config.story);
 
   const templateSource = fs.readFileSync(
     path.resolve(__dirname, "../build-utils/config-template.hbs"),
