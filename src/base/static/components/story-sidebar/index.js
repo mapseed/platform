@@ -13,15 +13,9 @@ class StorySidebar extends Component {
   constructor(props) {
     super(props);
 
-    // Collect stories into a Map whose values are Lists of serialized attribute
-    // data from Place models in the story.
     this.stories = Object.keys(storyConfig).reduce((memo, storyName) => {
       return memo.set(
         storyName,
-        // TODO: The order property on the storyConfig object below gets
-        // transformed from its array structure in the config. This is
-        // confusing because this section of the config isn't declarative, and
-        // should probably be refactored when we port the app view.
         Object.keys(storyConfig[storyName].order).reduce((memo, chapterUrl) => {
           return memo.set(
             chapterUrl,
