@@ -60,35 +60,34 @@ describe("AddAttachmentButton", () => {
       });
 
     // Internally used functions
-    const toBlobCalls = canvasToBlobMock.mock.calls;
-    expect(toBlobCalls.length).toEqual(1);
+    expect(canvasToBlobMock).toHaveBeenCalledTimes(1);
 
-    const toDataUrlCalls = canvasToDataUrlMock.mock.calls;
-    expect(toDataUrlCalls.length).toEqual(1);
-    const toDataUrlCall = toDataUrlCalls[0];
-    expect(toDataUrlCall[0]).toEqual("image/jpeg");
+    expect(canvasToDataUrlMock).toHaveBeenCalledTimes(1);
+    expect(canvasToDataUrlMock).toHaveBeenCalledWith("image/jpeg");
 
-    const toCanvasCalls = fileToCanvasMock.mock.calls;
-    expect(toCanvasCalls.length).toEqual(1);
-    const toCanvasCall = toCanvasCalls[0];
-    expect(toCanvasCall[0]).toEqual(mockFile);
-    expect(toCanvasCall[2].maxHeight).toEqual(800);
-    expect(toCanvasCall[2].maxHeight).toEqual(800);
-    expect(toCanvasCall[2].canvas).toEqual(true);
+    expect(fileToCanvasMock).toHaveBeenCalledTimes(1);
+    expect(fileToCanvasMock).toHaveBeenCalledWith(
+      mockFile,
+      expect.any(Function),
+      expect.objectContaining({
+        maxHeight: 800,
+        maxWidth: 800,
+        canvas: true,
+      }),
+    );
 
     // Prop hooks
-    const onAddAttachmentCalls = onAddAttachmentProp.mock.calls;
-    expect(onAddAttachmentCalls.length).toEqual(1);
-    const onAddAttachmentCall = onAddAttachmentCalls[0];
-    expect(onAddAttachmentCall[0].name).toEqual("test-name");
-    expect(onAddAttachmentCall[0].type).toEqual("CO");
-    expect(onAddAttachmentCall[0].blob).toEqual("blob");
-    expect(onAddAttachmentCall[0].file).toEqual("data-url");
+    expect(onAddAttachmentProp).toHaveBeenCalledTimes(1);
+    expect(onAddAttachmentProp).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "test-name",
+        type: "CO",
+        blob: "blob",
+        file: "data-url",
+      }),
+    );
 
-    const onChangeCalls = onChangeProp.mock.calls;
-    expect(onChangeCalls.length).toEqual(1);
-    const onChangeCall = onChangeCalls[0];
-    expect(onChangeCall[0]).toEqual("target-name");
-    expect(onChangeCall[1]).toEqual("");
+    expect(onChangeProp).toHaveBeenCalledTimes(1);
+    expect(onChangeProp).toHaveBeenCalledWith("target-name", "");
   });
 });
