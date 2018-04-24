@@ -3,8 +3,10 @@ const Handlebars = require("handlebars");
 const fs = require("fs-extra");
 const path = require("path");
 
-const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils").transformCommonFormElements;
-const transformStoryContent = require("../src/base/static/utils/config-loader-utils").transformStoryContent;
+const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
+  .transformCommonFormElements;
+const transformStoryContent = require("../src/base/static/utils/config-loader-utils")
+  .transformStoryContent;
 
 // This loader is used to listen to changes in the config file during development.
 // Any config changes will be detected and the config (but not the rest of the
