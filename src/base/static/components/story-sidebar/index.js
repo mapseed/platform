@@ -5,10 +5,7 @@ import { Map, OrderedMap, fromJS } from "immutable";
 import StoryChapter from "./story-chapter";
 import constants from "../../constants";
 
-import {
-  story as storyConfig,
-  place as placeConfig,
-} from "config";
+import { story as storyConfig, place as placeConfig } from "config";
 
 class StorySidebar extends Component {
   constructor(props) {
@@ -23,17 +20,14 @@ class StorySidebar extends Component {
         // transformed from its array structure in the config. This is
         // confusing because this section of the config isn't declarative, and
         // should probably be refactored when we port the app view.
-        Object.keys(storyConfig[storyName].order).reduce(
-          (memo, chapterUrl) => {
-            return memo.set(
-              chapterUrl,
-              fromJS(this.getModelFromUrl(chapterUrl).attributes),
-            );
-          },
-          OrderedMap(),
-        ),
+        Object.keys(storyConfig[storyName].order).reduce((memo, chapterUrl) => {
+          return memo.set(
+            chapterUrl,
+            fromJS(this.getModelFromUrl(chapterUrl).attributes),
+          );
+        }, OrderedMap()),
       );
-    }, Map());
+    }, OrderedMap());
 
     this.state = {
       currentStoryName: null,
@@ -44,9 +38,9 @@ class StorySidebar extends Component {
   }
 
   componentWillMount() {
-    // If we're loading the page directly to a place, check if that
-    // url is part of a story. If not, show default story content.
+    this.isInitialized = false;
     this.loadAndSetStoryChapter(Backbone.history.getFragment().split("/"));
+    this.isInitialized = true;
 
     this.props.router.on("route", (fn, route) => {
       this.loadAndSetStoryChapter(route);
@@ -68,14 +62,23 @@ class StorySidebar extends Component {
           currentChapter: story.get(joinedRoute),
         });
       }
-
-      if (!isRouteFound) {
-        this.setState({
-          currentStoryRoute: null,
-          currentChapter: null,
-        });
-      }
     });
+
+    // If we can't find a match for the current route and we haven't
+    // initialized the story sidebar, load content from the first story
+    // provided in the config so the sidebar is never without content.
+    if (!isRouteFound) {
+      this.setState({
+        currentStoryName: !this.isInitialized
+          ? this.stories.keySeq().first()
+          : this.state.currentStoryName,
+        currentStoryChapters: !this.isInitialized
+          ? this.stories.first()
+          : this.state.currentStoryChapters,
+        currentStoryRoute: null,
+        currentChapter: null,
+      });
+    }
   }
 
   getModelFromUrl(url) {
@@ -110,8 +113,7 @@ class StorySidebar extends Component {
     // If the story config for this place declares an explicit sidebar icon url,
     // use that icon.
     if (
-      storyConfig[this.state.currentStoryName].order[storyUrl]
-        .sidebarIconUrl // TODO: normalize this name
+      storyConfig[this.state.currentStoryName].order[storyUrl].sidebarIconUrl
     ) {
       return storyConfig[this.state.currentStoryName].order[storyUrl]
         .sidebarIconUrl;
