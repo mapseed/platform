@@ -234,7 +234,6 @@ module.exports = Backbone.View.extend({
   removeLayer: function() {
     if (this.layer) {
       this.layerGroup.removeLayer(this.layer);
-      this.layer = null;
     }
   },
   render: function() {
