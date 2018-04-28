@@ -835,11 +835,8 @@ place:
         - name: cover-image
           type: file
           prompt: _(Cover Image)
-          inputfile_label: _(Add a cover image)
+          label: _(Add a cover image)
           optional: true
-          attrs:
-            - key: accept
-              value: image/*
         - name: published
           type: publish_control_toolbar
         # NOTE: this field type must have the name "geometry"
