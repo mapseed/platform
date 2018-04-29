@@ -33,8 +33,10 @@ const hooks = {
 class InputForm extends Component {
   constructor(props) {
     super(props);
+
+    this.initializeForm(props.selectedCategory);
     this.state = {
-      fields: OrderedMap(),
+      fields: this.getNewFields(OrderedMap()),
       updatingField: null,
       isFormSubmitting: false,
       formValidationErrors: new Set(),
@@ -42,16 +44,10 @@ class InputForm extends Component {
       isMapPositioned: false,
       currentStage: 1,
     };
-
-    this.isWithCustomGeometry = false;
-    this.geometryStyle = null;
-    this.attachments = [];
-    this.selectedCategoryConfig = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.map.on("dragend", this.handleDragEnd.bind(this));
-    this.initializeForm(this.props.selectedCategory);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,11 +56,32 @@ class InputForm extends Component {
       nextProps.selectedCategory !== this.props.selectedCategory
     ) {
       this.initializeForm(nextProps.selectedCategory);
+      this.setState(prevState => ({
+        fields: this.getNewFields(prevState.fields),
+        isFormSubmitting: false,
+        isMapPositioned: false,
+        formValidationErrors: new Set(),
+        showValidityStatus: false,
+      }));
     }
   }
 
   componentWillUnmount() {
     this.props.map.off("dragend", this.handleDragEnd);
+  }
+
+  getNewFields(prevFields) {
+    return this.selectedCategoryConfig.fields.reduce((memo, field) => {
+      return memo.set(
+        field.name,
+        Map({
+          [constants.FIELD_VALUE_KEY]: "",
+          [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
+            ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+            : this.selectedCategoryConfig.category + field.name,
+        }),
+      );
+    }, OrderedMap());
   }
 
   initializeForm(selectedCategory) {
@@ -75,25 +92,6 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     this.geometryStyle = null;
-    const getNewFields = prevFields =>
-      this.selectedCategoryConfig.fields.reduce((memo, field) => {
-        return memo.set(
-          field.name,
-          Map({
-            [constants.FIELD_VALUE_KEY]: "",
-            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
-              : this.selectedCategoryConfig.category + field.name,
-          }),
-        );
-      }, OrderedMap());
-    this.setState(prevState => ({
-      fields: getNewFields(prevState.fields),
-      isFormSubmitting: false,
-      isMapPositioned: false,
-      formValidationErrors: new Set(),
-      showValidityStatus: false,
-    }));
   }
 
   handleDragEnd() {
