@@ -259,7 +259,7 @@ class InputForm extends Component {
     return this.selectedCategoryConfig.multi_stage
       ? this.selectedCategoryConfig.multi_stage[this.state.currentStage - 1]
           .start_field_index - 1
-      : 1;
+      : 0;
   }
 
   getStageEndField() {

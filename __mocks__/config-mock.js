@@ -12,6 +12,9 @@ module.exports = {
           {
             name: "test2",
           },
+          {
+            name: "test3",
+          }
         ],
       },
     ],

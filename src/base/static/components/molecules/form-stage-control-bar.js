@@ -14,7 +14,7 @@ const FormStageControlBar = props => {
     <div className="form-stage-control-bar">
       <span className="form-stage-control-bar__stage-counter">
         <Trans i18nKey="progressCounter">
-          Page {{currentStage}} of {{numStages}}
+          Page {{ currentStage }} of {{ numStages }}
         </Trans>
       </span>
       <div className="form-stage-control-bar__controls-container">

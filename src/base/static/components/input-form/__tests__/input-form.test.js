@@ -40,7 +40,7 @@ describe("InputForm", () => {
 
   test("renders form fields", () => {
     const wrapper = shallow(<InputForm {...defaultProps} />);
-    expect(wrapper.find(FormField)).toHaveLength(2);
+    expect(wrapper.find(FormField)).toHaveLength(3);
   });
 
   test("onSubmit creates form validation errors", () => {
