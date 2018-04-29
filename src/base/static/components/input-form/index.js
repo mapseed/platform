@@ -6,8 +6,8 @@ import Spinner from "react-spinner";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
-import FormStageHeaderBar from "./form-stage-header-bar";
-import FormStageControlBar from "./form-stage-control-bar";
+import FormStageHeaderBar from "../molecules/form-stage-header-bar";
+import FormStageControlBar from "../molecules/form-stage-control-bar";
 
 import { translate } from "react-i18next";
 import constants from "../../constants";

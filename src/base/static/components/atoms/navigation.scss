@@ -1,0 +1,76 @@
+@import "variables";
+
+/*
+  Links
+*/
+
+.mapseed__link {
+  text-transform: uppercase;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.mapseed__link--size-regular {
+  padding: 0.5em;
+  font-size: 1em;
+  font-weight: 200;
+}
+
+.mapseed__link--size-large {
+  padding: 0.5em 0.75em 0.5em 0.75em;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.mapseed__link--rounded {
+  border-radius: 3px;
+  border: 3px solid rgba(0, 0, 0, 0.05);
+}
+
+.mapseed__link--raised {
+  box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
+}
+
+.mapseed__link--color-primary {
+  background-color: $primary-color;
+  // TODO: remove these !important flags when we can be sure it's ok to remove
+  // the more specific selector from the non-React part of the codebase.
+  color: #fff !important;
+
+  &:hover {
+    color: $secondary-color !important;
+  }
+}
+
+.mapseed__link--color-secondary {
+  background-color: $secondary-color;
+  color: $primary-color;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.mapseed__link--color-accent {
+  background-color: $accent-color-1;
+  color: #fff;
+}
+
+.mapseed__link--depressable {
+  &:active {
+    box-shadow: none;
+    transform: translate(-0.25em, 0.25em);
+  }
+}
+
+.mapseed__link--disabled {
+  background-color: #999 !important;
+  color: #ccc !important;
+
+  &:hover {
+    color: #ccc !important;
+    cursor: initial;
+  }
+}

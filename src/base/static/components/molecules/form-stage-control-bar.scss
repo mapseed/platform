@@ -1,0 +1,19 @@
+.form-stage-control-bar {
+  padding: 20px 10px 20px 10px;
+  background: url("data:image/bmp;base64,Qk1IAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABgAAAAAABIAAAASCwAAEgsAAAAAAAAAAAAA/v7+//7+AIDayKT//v4AAAAA")
+    repeat;
+  margin-top: 30px;
+}
+
+.form-stage-control-bar__controls-container {
+  display: flex;
+  align-items: center;
+}
+
+.form-stage-control-bar__stage-counter {
+  font-weight: 800;
+}
+
+.form-stage-control-bar__stage-nav-link {
+  margin-left: 10px;
+}
