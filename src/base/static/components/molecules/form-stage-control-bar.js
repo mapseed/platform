@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { translate, Trans } from "react-i18next";
 
 import { Link } from "../atoms/navigation";
 import { ProgressBar } from "../atoms/feedback";
@@ -7,10 +8,14 @@ import { ProgressBar } from "../atoms/feedback";
 import "./form-stage-control-bar.scss";
 
 const FormStageControlBar = props => {
+  const { currentStage, numStages } = props;
+
   return (
     <div className="form-stage-control-bar">
       <span className="form-stage-control-bar__stage-counter">
-        Page {props.currentStage} of {props.numStages}
+        <Trans i18nKey="progressCounter">
+          Page {{currentStage}} of {{numStages}}
+        </Trans>
       </span>
       <div className="form-stage-control-bar__controls-container">
         <ProgressBar
@@ -22,14 +27,14 @@ const FormStageControlBar = props => {
           onClick={props.onClickRetreatStage}
           disabled={props.isSingleCategory && props.currentStage === 1}
         >
-          Back
+          {props.t("previousStageLinkLabel")}
         </Link>
         <Link
           classes="form-stage-control-bar__stage-nav-link"
           onClick={props.onClickAdvanceStage}
           disabled={props.currentStage === props.numStages}
         >
-          Next
+          {props.t("nextStageLinkLabel")}
         </Link>
       </div>
     </div>
@@ -42,6 +47,7 @@ FormStageControlBar.propTypes = {
   numStages: PropTypes.number.isRequired,
   onClickAdvanceStage: PropTypes.func.isRequired,
   onClickRetreatStage: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default FormStageControlBar;
+export default translate("FormStageControlBar")(FormStageControlBar);
