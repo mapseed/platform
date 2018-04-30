@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap, fromJS } from "immutable";
+import Spinner from "react-spinner";
 
-import StoryChapter from "./story-chapter";
+import StoryChapter from "../molecules/story-chapter";
 import constants from "../../constants";
+
+import { translate } from "react-i18next";
+
+import { getModelFromUrl } from "../../utils/collection-utils";
 
 import "./index.scss";
 
@@ -13,18 +18,6 @@ class StorySidebar extends Component {
   constructor(props) {
     super(props);
 
-    this.stories = Object.keys(storyConfig).reduce((memo, storyName) => {
-      return memo.set(
-        storyName,
-        Object.keys(storyConfig[storyName].order).reduce((memo, chapterUrl) => {
-          return memo.set(
-            chapterUrl,
-            fromJS(this.getModelFromUrl(chapterUrl).attributes),
-          );
-        }, OrderedMap()),
-      );
-    }, OrderedMap());
-
     this.state = {
       currentStoryHeader: "",
       currentStoryDescription: "",
@@ -32,86 +25,84 @@ class StorySidebar extends Component {
       currentStoryChapters: OrderedMap(),
       currentStoryRoute: "",
       currentChapter: Map(),
+      isStoryDataReady: false,
+      isWithError: false,
     };
   }
 
-  componentWillMount() {
-    this.isInitialized = false;
-    this.loadAndSetStoryChapter(Backbone.history.getFragment().split("/"));
-    this.isInitialized = true;
+  componentDidMount() {
+    Promise.all(this.props.placeCollectionPromises)
+      .then(() => {
+        this.stories = Object.keys(storyConfig).reduce((stories, storyName) => {
+          return stories.set(
+            storyName,
+            Object.keys(storyConfig[storyName].order).reduce(
+              (chapters, chapterUrl) => {
+                return chapters.set(
+                  chapterUrl,
+                  fromJS(
+                    getModelFromUrl(this.props.places, chapterUrl).attributes,
+                  ),
+                );
+              },
+              OrderedMap(),
+            ),
+          );
+        }, OrderedMap());
 
-    this.props.router.on("route", (fn, route) => {
-      this.loadAndSetStoryChapter(route);
-    });
+        const currentStoryState = this.getCurrentStoryState(
+          Backbone.history.getFragment().split("/"),
+          false,
+        );
+
+        currentStoryState.isStoryDataReady = true;
+        this.setState(currentStoryState);
+
+        this.props.router.on("route", (fn, route) => {
+          this.setState(this.getCurrentStoryState(route));
+        });
+      })
+      .catch(() => {
+        console.log("ERROR!");
+        this.setState({
+          isWithError: true,
+        });
+      });
   }
 
-  loadAndSetStoryChapter(route) {
-    let isRouteFound = false;
+  getCurrentStoryState(route, isInitialized = true) {
     const joinedRoute = route.join("/");
-    this.stories.forEach((story, storyName) => {
-      if (story.get(joinedRoute)) {
-        // If the current route exists in this story, load the story and set
-        // the current chapter and name.
-        isRouteFound = true;
-        this.setState({
-          currentStoryHeader: storyConfig[storyName].header,
-          currentStoryDescription: storyConfig[storyName].description,
-          currentStoryName: storyName,
-          currentStoryChapters: story,
-          currentStoryRoute: joinedRoute,
-          currentChapter: story.get(joinedRoute),
-        });
-      }
-    });
+    const [foundStoryName, foundStory] =
+      this.stories.findEntry(story => {
+        return story.get(joinedRoute);
+      }) || [];
 
-    // If we can't find a match for the current route and we haven't
-    // initialized the story sidebar, load content from the first story
-    // provided in the config so the sidebar is never without content.
-    if (!isRouteFound) {
-      this.setState({
-        currentStoryHeader: !this.isInitialized
+    if (foundStory) {
+      return {
+        currentStoryHeader: storyConfig[foundStoryName].header,
+        currentStoryDescription: storyConfig[foundStoryName].description,
+        currentStoryName: foundStoryName,
+        currentStoryChapters: foundStory,
+        currentStoryRoute: joinedRoute,
+        currentChapter: foundStory.get(joinedRoute),
+      };
+    } else {
+      return {
+        currentStoryHeader: !isInitialized
           ? storyConfig[this.stories.keySeq().first()].header
-          : "",
-        currentStoryDescription: !this.stories.isInitialized
+          : this.state.currentStoryHeader,
+        currentStoryDescription: !isInitialized
           ? storyConfig[this.stories.keySeq().first()].description
-          : "",
-        currentStoryName: !this.isInitialized
+          : this.state.currentStoryDescription,
+        currentStoryName: !isInitialized
           ? this.stories.keySeq().first()
           : this.state.currentStoryName,
-        currentStoryChapters: !this.isInitialized
+        currentStoryChapters: !isInitialized
           ? this.stories.first()
           : this.state.currentStoryChapters,
         currentStoryRoute: "",
         currentChapter: Map(),
-      });
-    }
-  }
-
-  getModelFromUrl(url) {
-    const splitUrl = url.split("/");
-
-    // If the url has a slash in it with text on either side, we assume we have
-    // a place model url and can look up the model directly.
-    if (splitUrl.length === 2) {
-      return (
-        this.props.places[
-          this.props.layers.find(layer => layer.slug === splitUrl[0]).id
-        ].get(splitUrl[1]) || {}
-      );
-    } else {
-      // Otherwise, we have a "landmark-style" url, and have to search all place
-      // collections.
-      let foundModel;
-      Object.keys(this.props.places).forEach(collectionName => {
-        let model = this.props.places[collectionName].findWhere({
-          [constants.CUSTOM_URL_PROPERTY_NAME]: splitUrl[0],
-        });
-        if (model) {
-          foundModel = model;
-        }
-      });
-
-      return foundModel || {};
+      };
     }
   }
 
@@ -126,13 +117,21 @@ class StorySidebar extends Component {
     }
 
     // If the story chapter has an icon url defined, use that.
-    if (chapter.get("style") && chapter.get("style").get("iconUrl")) {
-      return chapter.get("style").get("iconUrl");
+    if (
+      chapter.get(constants.GEOMETRY_STYLE_PROPERTY_NAME) &&
+      chapter
+        .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+        .get(constants.ICON_URL_PROPERTY_NAME)
+    ) {
+      return chapter
+        .get(constants.GEOMETRY_STYLE_PROPERTY_NAME)
+        .get(constants.ICON_URL_PROPERTY_NAME);
     }
 
     // Otherwise, use the icon url defined in the category config.
     return placeConfig.place_detail.find(
-      config => config.category === chapter.get("location_type"),
+      config =>
+        config.category === chapter.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     ).icon_url;
   }
 
@@ -176,15 +175,20 @@ class StorySidebar extends Component {
             );
           })
           .toArray()}
+        {!this.state.isStoryDataReady && !this.state.isWithError && <Spinner />}
+        {this.state.isWithError && (
+          <p className="story-sidebar__error-msg">{this.props.t("errorMsg")}</p>
+        )}
       </div>
     );
   }
 }
 
 StorySidebar.propTypes = {
-  layers: PropTypes.array.isRequired,
   places: PropTypes.object.isRequired,
+  placeCollectionPromises: PropTypes.arrayOf(PropTypes.object).isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
+  t: PropTypes.func.isRequired,
 };
 
-export default StorySidebar;
+export default translate("StorySidebar")(StorySidebar);

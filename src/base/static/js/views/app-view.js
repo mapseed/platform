@@ -11,7 +11,6 @@ import FormCategoryMenuWrapper from "../../components/input-form/form-category-m
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import StorySidebar from "../../components/story-sidebar";
-import LoaderWithSpinner from "../../components/utils/loader-with-spinner";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -364,14 +363,10 @@ module.exports = Backbone.View.extend({
 
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
-        <LoaderWithSpinner
-          layers={this.options.mapConfig.layers}
+        <StorySidebar
+          placeCollectionPromises={this.placeCollectionPromises}
           places={this.places}
           router={this.options.router}
-          promiseData={this.placeCollectionPromises}
-          render={props => {
-            return <StorySidebar {...props} />;
-          }}
         />,
         document.getElementById("right-sidebar-container"),
       );

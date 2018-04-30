@@ -1,4 +1,6 @@
 .story-sidebar {
+  overflow: auto;
+  height: 100%;
   padding-top: 15px;
 }
 
@@ -10,4 +12,12 @@
 .story-sidebar__description {
   padding: 0 10px 0 10px;
   font-style: italic;
+}
+
+.story-sidebar__error-msg {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #aaa;
 }
