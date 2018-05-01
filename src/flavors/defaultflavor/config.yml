@@ -333,6 +333,7 @@ place:
   #### begin dynamic form config ####
   place_detail:
     - category: demo
+      submitter_editing_supported: true
       includeOnForm: true
       name: location_type
       dataset: demo
