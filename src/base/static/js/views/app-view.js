@@ -9,6 +9,7 @@ import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
+import InfoModal from "../../components/organisms/info-modal";
 
 import transformCommonFormElements from "../../utils/common-form-elements";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
@@ -275,6 +276,19 @@ module.exports = Backbone.View.extend({
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("geocode", locationData => {
       this.mapView.zoomInOn(locationData.latLng);
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("info-modal:open", modalContent => {
+      ReactDOM.unmountComponentAtNode(
+        document.getElementById("info-modal-container"),
+      );
+
+      ReactDOM.render(
+        <InfoModal isModalOpen={true} {...modalContent} />,
+        document.getElementById("info-modal-container"),
+      );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 

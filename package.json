@@ -55,6 +55,7 @@
     "react-datepicker": "^1.0.4",
     "react-dom": "^16.2.0",
     "react-i18next": "^7.5.1",
+    "react-modal": "^3.4.4",
     "react-quill": "^1.1.0",
     "react-spinner": "^0.2.7",
     "s3-website": "^3.2.2",

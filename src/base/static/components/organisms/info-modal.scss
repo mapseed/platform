@@ -1,0 +1,70 @@
+.mapseed-info-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  max-width: 95%;
+  word-wrap: break-word;
+}
+
+.mapseed-info-modal__overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.mapseed-info-modal__header-bar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 1em 2.2em 1em 1em;
+  background-color: #ddd;
+  color: #777;
+}
+
+.mapseed-info-modal__header-img {
+  width: 1em;
+  margin-right: 0.5em;
+}
+
+.mapseed-info-modal__header-content {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.mapseed-info-modal__body {
+  padding: 1em;
+}
+
+.mapseed-info-modal__paragraph {
+  margin: 10px 0 0 0;
+}
+
+.mapseed-info-modal__close-btn {
+  color: #ff5e99;
+  font-size: 1.3em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top-right-radius: 8px;
+  padding: 10px;
+
+  &:hover {
+    cursor: pointer;
+    color: #cd2c67;
+  }
+}
+
+@media only screen and (max-width: 60em) {
+  .mapseed-info-modal {
+    min-width: 95%;
+  }
+}
