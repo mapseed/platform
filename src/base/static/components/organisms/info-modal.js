@@ -62,6 +62,10 @@ class InfoModal extends Component {
   }
 }
 
-InfoModal.propTypes = {};
+InfoModal.propTypes = {
+  header: PropTypes.string,
+  body: PropTypes.arrayOf(PropTypes.string),
+  headerImgSrc: PropTypes.string,
+};
 
 export default InfoModal;
