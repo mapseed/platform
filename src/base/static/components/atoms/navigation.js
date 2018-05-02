@@ -8,6 +8,7 @@ const Link = ({ children, ...props }) => {
   return (
     <a
       className={classNames("mapseed__link", props.classes, {
+        "mapseed__link--unstyled": props.variant.includes("unstyled"),
         "mapseed__link--rounded": props.variant.includes("rounded"),
         "mapseed__link--raised": props.variant.includes("raised"),
         "mapseed__link--depressable": props.variant.includes("depressable"),
@@ -35,9 +36,7 @@ Link.propTypes = {
 };
 
 Link.defaultProps = {
-  variant: "flat",
-  color: "primary",
-  size: "regular",
+  variant: "unstyled",
 };
 
 export { Link };

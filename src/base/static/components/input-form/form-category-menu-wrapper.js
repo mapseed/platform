@@ -24,7 +24,7 @@ class FormCategoryMenuWrapper extends Component {
         this.visibleCategoryConfigs.length === 1
           ? this.visibleCategoryConfigs[0].category
           : null,
-      isCategoryBarHidden: this.visibleCategoryConfigs.length === 1,
+      isShowingCategorySelector: this.visibleCategoryConfigs.length !== 1,
       isSingleCategory: this.visibleCategoryConfigs.length === 1,
     };
   }
@@ -32,15 +32,15 @@ class FormCategoryMenuWrapper extends Component {
   onCategoryChange(selectedCategory) {
     this.setState({
       selectedCategory: selectedCategory,
-      isCategoryBarHidden: !!getCategoryConfig(selectedCategory)
-        .hide_category_button_on_selection,
+      isShowingCategorySelector: !getCategoryConfig(selectedCategory)
+        .multi_stage,
     });
   }
 
   render() {
     return (
       <div className="input-form-category-menu-container">
-        {!this.state.isCategoryBarHidden && (
+        {this.state.isShowingCategorySelector && (
           <InputFormCategorySelector
             onCategoryChange={this.onCategoryChange.bind(this)}
             selectedCategory={this.state.selectedCategory}

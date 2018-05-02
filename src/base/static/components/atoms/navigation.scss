@@ -65,6 +65,18 @@
   }
 }
 
+.mapseed__link--unstyled {
+  padding: 0 !important;
+  text-transform: none !important;
+  background-color: transparent !important;
+  color: $link-color !important;
+  font-size: 1em !important;
+
+  &:hover {
+    color: $link-hover-color !important;
+  }
+}
+
 .mapseed__link--disabled {
   background-color: #999 !important;
   color: #ccc !important;

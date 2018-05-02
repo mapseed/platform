@@ -338,7 +338,6 @@ place:
       dataset: demo
       icon_url: /static/css/images/markers/marker-observation.png
       value: demo
-      hide_category_button_on_selection: true
       multi_stage:
         - start_field_index: 1
           end_field_index: 3

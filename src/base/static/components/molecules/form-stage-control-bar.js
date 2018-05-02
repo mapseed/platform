@@ -26,6 +26,9 @@ const FormStageControlBar = props => {
           classes="form-stage-control-bar__stage-nav-link"
           onClick={props.onClickRetreatStage}
           disabled={props.isSingleCategory && props.currentStage === 1}
+          variant="flat"
+          color="primary"
+          size="regular"
         >
           {props.t("previousStageLinkLabel")}
         </Link>
@@ -33,6 +36,9 @@ const FormStageControlBar = props => {
           classes="form-stage-control-bar__stage-nav-link"
           onClick={props.onClickAdvanceStage}
           disabled={props.currentStage === props.numStages}
+          variant="flat"
+          color="primary"
+          size="regular"
         >
           {props.t("nextStageLinkLabel")}
         </Link>

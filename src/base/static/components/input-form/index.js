@@ -122,20 +122,16 @@ class InputForm extends Component {
     const {
       validationErrors: newValidationErrors,
       isValid,
-    } = this.state.fields
-      .slice(this.getStageStartField(), this.getStageEndField())
-      .reduce(
-        ({ validationErrors, isValid }, field) => {
-          if (!field.get(constants.FIELD_VALIDITY_KEY)) {
-            validationErrors.add(
-              field.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
-            );
-            isValid = false;
-          }
-          return { validationErrors, isValid };
-        },
-        { validationErrors: new Set(), isValid: true },
-      );
+    } = this.getFields().reduce(
+      ({ validationErrors, isValid }, field) => {
+        if (!field.get(constants.FIELD_VALIDITY_KEY)) {
+          validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
+          isValid = false;
+        }
+        return { validationErrors, isValid };
+      },
+      { validationErrors: new Set(), isValid: true },
+    );
 
     if (isValid) {
       successCallback();
@@ -269,6 +265,21 @@ class InputForm extends Component {
       : this.selectedCategoryConfig.fields.length;
   }
 
+  getFields() {
+    return this.selectedCategoryConfig.multi_stage
+      ? this.getFieldsFromStage({
+          fields: this.state.fields,
+          stage: this.selectedCategoryConfig.multi_stage[
+            this.state.currentStage - 1
+          ],
+        })
+      : this.state.fields;
+  }
+
+  getFieldsFromStage({ fields, stage }) {
+    return fields.slice(stage.start_field_index - 1, stage.end_field_index);
+  }
+
   render() {
     if (this.isWithCustomGeometry) {
       this.props.hideSpotlightMask();
@@ -313,8 +324,7 @@ class InputForm extends Component {
           className={cn.form}
           onSubmit={this.onSubmit.bind(this)}
         >
-          {this.state.fields
-            .slice(this.getStageStartField(), this.getStageEndField())
+          {this.getFields()
             .map((fieldState, fieldName) => {
               return (
                 <FormField
@@ -361,6 +371,8 @@ class InputForm extends Component {
               } else {
                 this.setState({
                   currentStage: this.state.currentStage - 1,
+                  showValidityStatus: false,
+                  formValidationErrors: new Set(),
                 });
               }
               this.props.container.scrollTop = 0;
