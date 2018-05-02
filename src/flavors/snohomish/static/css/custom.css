@@ -120,6 +120,39 @@
 //  width: 70px;
 //}
 
+/* =Custom pages
+-------------------------------------------------------------- */
+.dotted-background-container {
+  overflow: hidden;
+  padding: 20px 10px 20px 10px;
+  background: url("data:image/bmp;base64,Qk1IAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABgAAAAAABIAAAASCwAAEgsAAAAAAAAAAAAA/v7+//7+AIDayKT//v4AAAAA")
+    repeat;
+  margin-top: 30px;
+}
+
+.next-btn {
+  float: right;
+  background: none;
+  outline: none;
+  border: none;
+  background-color: #007fbf;
+  text-transform: uppercase;
+  color: #fff !important;
+  padding: 0.5em;
+  margin-left: 10px;
+
+  &:hover {
+    color: #a3c7d9 !important;
+  }
+}
+
+.page-sign-in-btn {
+  width: 50%;
+  text-align: center;
+  list-style: none;
+}
+
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
