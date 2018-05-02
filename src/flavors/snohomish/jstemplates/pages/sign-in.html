@@ -1,0 +1,22 @@
+{{# is_authenticated}}
+
+<h4>{{#_}}Thanks for signing in!{{/_}}</h4>
+
+{{else}}
+
+<h1>{{#_}}Please sign in{{/_}}</h1>
+<ul>
+  <li class="page-sign-in-btn"><a class="auth-btn google-btn" href="{{apiRoot}}users/login/google-oauth2/">Google</a></li>
+  <li class="page-sign-in-btn"><a class="auth-btn twitter-btn" href="{{apiRoot}}users/login/twitter/">Twitter</a></li>
+  <li class="page-sign-in-btn"><a class="auth-btn facebook-btn" href="{{apiRoot}}users/login/facebook/">Facebook</a></li>
+</ul>
+
+<p>{{#_}}By signing in, you will have the option to update your submissions at a later date.{{/_}}</p>
+
+{{/is_authenticated}}
+
+<p>{{#_}}Note: your answers will be anonymous and none of your personal information will be shared.{{/_}}</p>
+
+<div class="dotted-background-container">
+  <a href="/new" rel="internal" class="next-btn">{{#_}}Next{{/_}}</a>
+</div>

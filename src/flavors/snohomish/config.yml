@@ -97,97 +97,7 @@ map:
 
 # The values map the place type to map icons (defined below).
 place_types:
-  farm:
-    label: _(Sound Farm)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [30, 36]
-          iconAnchor: [15, 36]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  horse:
-    label: _(Sound Horsekeeping)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  nature:
-    label: _(Sound Nature)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-my-land.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-my-land.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-my-land.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-my-land.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  forest:
+  conservation-actions:
     label: _(Sound Forest)
     rules:
       - condition: 'this.layer.focused === true'
@@ -214,66 +124,6 @@ place_types:
       - condition: 'this.map.zoom >= 16'
         icon:
           iconUrl: /static/css/images/markers/marker-my-forest.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  home:
-    label: _(Sound Home)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  shoreline:
-    label: _(Sound Shorelines)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -370,7 +220,6 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-
     - category: featured_place
       admin_only: true
       includeOnForm: true
@@ -413,23 +262,54 @@ place:
         - name: submit
           type: common_form_element
 
-    - category: farm
+    - category: conservation-actions
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
       icon_url: /static/css/images/markers/marker-my-forest.png
-      value: farm
-      label: _(My Farm)
+      value: conservation-actions
+      multi_stage:
+        - start_field_index: 1
+          end_field_index: 2
+          icon_url: /static/css/images/markers/marker-my-land.png
+          header: _(Farm Conservation)
+          description: _(Tell us what you’ve done on your farm to make it more sustainable)
+        - start_field_index: 3
+          end_field_index: 6
+          icon_url: /static/css/images/markers/marker-my-forest.png
+          header: _(Forest Conservation)
+          description: _(Tell us what you’ve done to improve forest conservation)
+        - start_field_index: 7
+          end_field_index: 8
+          icon_url: /static/css/images/markers/marker-my-forest.png
+          header: _(Sound Horsekeeping)
+          description: _(Tell us about your best practices in horsekeeping)
+        - start_field_index: 9
+          end_field_index: 10
+          icon_url: /static/css/images/markers/marker-my-forest.png
+          header: _(Urban Conservation)
+          description: _(Tell us what you’ve done to improve urban conservation)
+        - start_field_index: 11
+          end_field_index: 14
+          icon_url: /static/css/images/markers/marker-my-forest.png
+          header: _(Shoreline Conservation)
+          description: _(Tell us what you’ve done to improve shoreline conservation)
+        - start_field_index: 15
+          end_field_index: 16
+          icon_url: /static/css/images/markers/marker-my-forest.png
+          header: _(General Best Practices)
+          description: _(Tell us about other actions you’ve taken)
+        - start_field_index: 17
+          end_field_index: 20
+          icon_url: /static/css/images/markers/marker-my-forest.png
+          header: _(Almost Done!)
+          description: _( )
+      label: _(Conservation Actions)
       fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
-          optional: false
-        - name: farm_category
+        # Farm
+        - name: farm_category-actions
           type: big_checkbox
-          prompt: _(Conservation category:)
+          prompt: _(Actions)
           display_prompt: _( )
           content:
             - label: _(Mud and manure)
@@ -445,42 +325,85 @@ place:
             - label: _(Drainage)
               value: drainage
             - label: _(Nutrients and fertilizing)
-              value: nutrients-fertilizing
-            - label: _(Other)
-              value: other                                                        
-          optional: true # NOTE: checkbox_big_button inputs have no validation
-        - name: description
+              value: nutrients-fertilizing                                                       
+          optional: true
+        - name: farm_category-comments
           type: textarea
-          prompt: _(Description:)
+          prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
-          placeholder: _(Enter a description of your actions...)
-          optional: false
-        - name: submitter_name
-          type: common_form_element
-        - name: private-submitter_email
-          type: common_form_element
-        - name: my_image
-          type: common_form_element
-        - name: submit
-          type: common_form_element
+          placeholder: _(Enter your comments...)
+          optional: true
 
-    - category: horse
-      includeOnForm: true
-      name: location_type
-      dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-my-forest.png
-      value: horse
-      label: _(My horses)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          display_prompt: _(Title:)
-          placeholder: _(Enter title...)
-          optional: false
-        - name: horse_category
+        # Forest
+        - name: forest_category-fire-actions
           type: big_checkbox
-          prompt: _(Conservation category:)
+          prompt: _(Fire Prevention)
+          display_prompt: _( )
+          content:
+            - label: _(Maintain fuel-free zones around home and structures (overhanging vegetation, firewood placement, etc.))
+              value: fuel-free
+            - label: _(Remove ladder fuel (brush, low limbs))
+              value: ladder-fuel
+            - label: _(General Emergency Preparedness)
+              value: emergency-preparedness
+            - label: _(Other)
+              value: other
+          optional: true
+        - name: forest_category-water-actions
+          type: big_checkbox
+          prompt: _(Water Quality)
+          display_prompt: _( )
+          content:
+            - label: _(Control erosion and prevent soil compaction)
+              value: erosion
+            - label: _(Protect streams and wetlands, maintain buffers)
+              value: streams-wetlands-buffers
+            - label: _(Maintain or improve stream crossings and replace fish passage barrier culverts)
+              value: crossings-culverts
+            - label: _(Maintain, improve, or remove and revegetate logging roads)
+              value: logging-roads
+            - label: _(Keep logging slash away from water sources)
+              value: logging-slash
+            - label: _(Control mud from vehicles on local roads)
+              value: vehicle-mud
+          optional: true
+        - name: forest_category-habitat-actions
+          type: big_checkbox
+          prompt: _(Forest Health and Wildlife Habitat)
+          display_prompt: _( )
+          content:
+            - label: _(Control Invasive/Exotic plants)
+              value: invasive-exotic
+            - label: _(Practice selective thinning )
+              value: thinning
+            - label: _(Improve wildlife habitat with snags, brush piles, etc.)
+              value: snags-piles
+            - label: _(Maintain biological diversity)
+              value: biological-diversity
+            - label: _(Use agroforestry practices such as silviculture)
+              value: agroforestry
+          optional: true 
+        - name: forest_category-harvest-actions
+          type: big_checkbox
+          prompt: _(Harvest)
+          display_prompt: _( )
+          content:
+            - label: _(Work with Forest Consultant and implement a Forest Stewardship Plan)
+              value: forest-consultant
+            - label: _(Produce non-forest products (mushrooms, floral products))
+              value: non-forest
+            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
+              value: critical-buffers
+            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
+              value: leave-trees
+            - label: _(Other)
+              value: other
+          optional: true
+
+        # Horses
+        - name: horse_category-actions
+          type: big_checkbox
+          prompt: _(Actions)
           display_prompt: _( )
           content:
             - label: _(Mud and manure)
@@ -496,225 +419,45 @@ place:
             - label: _(Nutrients and fertilizing)
               value: nutrients-fertilizing
             - label: _(Other)
-              value: other          
-        - name: description
-          type: textarea
-          prompt: "_(Description:)"
-          display_prompt: _( )
-          placeholder: _(Enter a description of your actions...)
-        - name: submitter_name
-          type: common_form_element
-        - name: private-submitter_email
-          type: common_form_element
-        - name: my_image
-          type: common_form_element
-        - name: submit
-          type: common_form_element
-
-    - category: nature
-      includeOnForm: true
-      name: location_type
-      dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-my-land.png
-      value: nature
-      label: _(My Land)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: nature_category
-          type: big_checkbox
-          prompt: _(Conservation category:)
-          display_prompt: _( )
-          content:
-            - label: _(Water)
-              value: water
-            - label: _(Wildlife)
-              value: wildlife
-            - label: _(Shorelines and steep slopes)
-              value: shorelines-and-steep-slopes
-            - label: _(Non-native weeds)
-              value: non-native weeds
-            - label: _(Naturescaping)
-              value: naturescaping
-            - label: _(Native plants)
-              value: native plants
-            - label: _(Other)
-              value: other          
-        - name: description
-          type: textarea
-          prompt: _(Description:)
-          display_prompt: "_( )"
-          placeholder: _(Enter a description of your actions...)
-          optional: false
-        - name: submitter_name
-          type: common_form_element
-        - name: private-submitter_email
-          type: common_form_element
-        - name: my_image
-          type: common_form_element
-        - name: submit
-          type: common_form_element
-
-    - category: forest
-      includeOnForm: true
-      name: location_type
-      dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-my-forest.png
-      value: forest
-      label: _(My forest)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: forest_category_fire
-          type: big_checkbox
-          prompt: _(Fire Prevention:)
-          display_prompt: _( )
-          content:
-            - label: _(Maintain fuel-free zones around home and structures (overhanging vegetation, firewood placement, etc.))
-              value: fuel-free
-            - label: _(Remove ladder fuel (brush, low limbs))
-              value: ladder-fuel
-            - label: _(General Emergency Preparedness)
-              value: emergency-preparedness
-            - label: _(Other)
               value: other
-        - name: forest_category_water
-          type: big_checkbox
-          prompt: _(Water Quality:)
-          display_prompt: _( )
-          content:
-            - label: _(Control erosion and prevent soil compaction)
-              value: erosion
-            - label: _(Protect streams and wetlands, maintain buffers)
-              value: streams-wetlands-buffers
-            - label: _(Maintain or improve stream crossings and replace fish passage barrier culverts)
-              value: crossings-culverts
-            - label: _(Maintain, improve, or remove and revegetate logging roads)
-              value: logging-roads
-            - label: _(Keep logging slash away from water sources)
-              value: logging-slash
-            - label: _(Control mud from vehicles on local roads)
-              value: vehicle-mud
-        - name: forest_category_habitat
-          type: big_checkbox
-          prompt: _(Forest Health and Wildlife Habitat:)
-          display_prompt: _( )
-          content:
-            - label: _(Control Invasive/Exotic plants)
-              value: invasive-exotic
-            - label: _(Practice selective thinning )
-              value: thinning
-            - label: _(Improve wildlife habitat with snags, brush piles, etc.)
-              value: snags-piles
-            - label: _(Maintain biological diversity)
-              value: biological-diversity
-            - label: _(Use agroforestry practices such as silviculture)
-              value: agroforestry   
-        - name: forest_category_harvest
-          type: big_checkbox
-          prompt: _(Harvest:)
-          display_prompt: _( )
-          content:
-            - label: _(Work with Forest Consultant and implement a Forest Stewardship Plan)
-              value: forest-consultant
-            - label: _(Produce non-forest products (mushrooms, floral products))
-              value: non-forest
-            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
-              value: critical-buffers
-            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
-              value: leave-trees
-            - label: _(Other)
-              value: other                                                
-        - name: description
+          optional: true
+        - name: horse_category-comments
           type: textarea
-          prompt: "_(Description:)"
+          prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
-          placeholder: _(Enter a description of your actions...)
-          optional: false
-        - name: submitter_name
-          type: common_form_element
-        - name: private-submitter_email
-          type: common_form_element
-        - name: my_image
-          type: common_form_element
-        - name: submit
-          type: common_form_element
+          placeholder: _(Enter your comments...)
+          optional: true
 
-    - category: home
-      includeOnForm: true
-      name: location_type
-      dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-my-forest.png
-      value: home
-      label: _(My Home)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: home_category
+        # Urban conservation
+        - name: urban_category-actions
           type: big_checkbox
-          prompt: _(Conservation category:)
+          prompt: _(Actions)
           display_prompt: _( )
           content:
-            - label: _(Rain gardens)
+            - label: _(Installed a rain garden)
               value: rain-gardens
-            - label: _(Rain barrels and cisterns)
+            - label: _(Installed rain barrels or cisterns)
               value: rain-barrels-and-cisterns
-            - label: _(Rain beds)
+            - label: _(Installed rain beds)
               value: rain-beds
-            - label: _(Urban farming)
+            - label: _(Began practicing urban agriculture)
               value: urban-farming
-            - label: _(Natural yard care)
+            - label: _(Used natural yard care)
               value: natural-yard-care
-            - label: _(Stormwater management)
-              value: stormwater-management
-            - label: _(Community engagement)
-              value: community-management              
-            - label: _(Other)
-              value: other             
-        - name: description
+            - label: _(Addressed flooding and/or drainage concerns)
+              value: drainage-concerns
+          optional: true
+        - name: urban_category-comments
           type: textarea
-          prompt: "_(Description:)"
+          prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
-          placeholder: _(Enter a description of your actions...)
-          optional: false
-        - name: submitter_name
-          type: common_form_element
-        - name: private-submitter_email
-          type: common_form_element
-        - name: my_image
-          type: common_form_element
-        - name: submit
-          type: common_form_element
+          placeholder: _(Enter your comments...)
+          optional: true
 
-    - category: shoreline
-      includeOnForm: true
-      name: location_type
-      dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-my-forest.png
-      value: shoreline
-      label: _(My Shoreline)
-      fields:
-        - name: title
-          type: text
-          prompt: _(Title:)
-          placeholder: _(Enter title...)
-          display_prompt: _(Title:)
-          optional: false
-        - name: shoreline_category_bank
+        # Shoreline
+        - name: shoreline_category-bank-actions
           type: big_checkbox
-          prompt: _(Bank Protection:)
+          prompt: _(Bank Protection)
           display_prompt: _( )
           content:
             - label: _(Consult a professional for ideas)
@@ -726,10 +469,11 @@ place:
             - label: _(Log placement to armor bank)
               value: log-armor
             - label: _(Install erosion control measures)
-              value: erosion-control                       
-        - name: shoreline_category_vegetation
+              value: erosion-control
+          optional: true
+        - name: shoreline_category-vegetation-actions
           type: big_checkbox
-          prompt: _(Vegetation:)
+          prompt: _(Vegetation)
           display_prompt: _( )
           content:
             - label: _(Frame views)
@@ -742,9 +486,10 @@ place:
               value: restore-soil
             - label: _(Do not tree-top my trees)
               value: no-tree-top
-        - name: shoreline_category_development
+          optional: true
+        - name: shoreline_category-development-actions
           type: big_checkbox
-          prompt: _(Development:)
+          prompt: _(Development)
           display_prompt: _( )
           content:
             - label: _(Minimize impervious surfaces (driveways, roofs))
@@ -754,19 +499,52 @@ place:
             - label: _(Enhance with beach nourishment (sand, etc))
               value: beach-nourishment
             - label: _(Bulkhead and/or manmade structure removal)
-              value: bulkhead           
-        - name: description
+              value: bulkhead
+          optional: true
+        - name: shoreline_category-comments
           type: textarea
-          prompt: "_(Description:)"
+          prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
-          placeholder: _(Enter a description of your actions...)
+          placeholder: _(Enter your comments...)
+          optional: true
+
+        # General best practices
+        - name: general_category-actions
+          type: big_checkbox
+          prompt: _(Actions)
+          display_prompt: _( )
+          content:
+            - label: _(A)
+              value: temp-a
+            - label: _(B)
+              value: temp-b
+            - label: _(C)
+              value: temp-c
+            - label: _(D)
+              value: temp-d
+          optional: true
+        - name: general_category-comments
+          type: textarea
+          prompt: _(Please comment or elaborate here:)
+          display_prompt: _( )
+          placeholder: _(Enter your comments...)
+          optional: true
+
+        # Final stage
+        - name: title
+          type: text
+          prompt: _(Enter a headline that describes your actions or experiences)
+          default_value: _(My conservation actions)
+          display_prompt: _( )
           optional: false
-        - name: submitter_name
-          type: common_form_element
-        - name: private-submitter_email
-          type: common_form_element
         - name: my_image
           type: common_form_element
+        - name: other-comments
+          type: textarea
+          prompt: _(Anything else you’d like us to know?)
+          display_prompt: _( )
+          placeholder: _(Enter your comments...)
+          optional: true
         - name: submit
           type: common_form_element
 
@@ -840,6 +618,11 @@ pages:
   - title: _(Background)
     slug: background
     name: background
+    hide_from_top_bar: true
+
+  - title: _(Sign in)
+    slug: sign-in
+    name: sign-in
     hide_from_top_bar: true
 
   # - title: _(Get involved)

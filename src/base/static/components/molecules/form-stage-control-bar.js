@@ -9,6 +9,14 @@ import "./form-stage-control-bar.scss";
 
 const FormStageControlBar = props => {
   const { currentStage, numStages } = props;
+  const advanceOpts = {};
+  const retreatOpts = {};
+  if (props.currentStage !== props.numStages) {
+    advanceOpts.onClick = props.onClickAdvanceStage;
+  }
+  if (!(props.isSingleCategory && props.currentStage === 1)) {
+    retreatOpts.onClick = props.onClickRetreatStage;
+  }
 
   return (
     <div className="form-stage-control-bar">
@@ -24,21 +32,21 @@ const FormStageControlBar = props => {
         />
         <Link
           classes="form-stage-control-bar__stage-nav-link"
-          onClick={props.onClickRetreatStage}
           disabled={props.isSingleCategory && props.currentStage === 1}
           variant="flat"
           color="primary"
           size="regular"
+          {...retreatOpts}
         >
           {props.t("previousStageLinkLabel")}
         </Link>
         <Link
           classes="form-stage-control-bar__stage-nav-link"
-          onClick={props.onClickAdvanceStage}
           disabled={props.currentStage === props.numStages}
           variant="flat"
           color="primary"
           size="regular"
+          {...advanceOpts}
         >
           {props.t("nextStageLinkLabel")}
         </Link>
