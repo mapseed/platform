@@ -41,12 +41,12 @@ class InfoModal extends Component {
             )}
             {this.props.header}
           </h3>
-          <span
+          <button
             className="mapseed-info-modal__close-btn"
             onClick={this.onClickCloseBtn.bind(this)}
           >
             &#10005;
-          </span>
+          </button>
         </div>
         <div className="mapseed-info-modal__body">
           {this.props.body.map((paragraph, i) => {
