@@ -15,6 +15,7 @@ exports[`InputForm renders input form 1`] = `
       fieldConfig={
         Object {
           "name": "test1",
+          "type": "text",
         }
       }
       fieldState={
@@ -46,6 +47,7 @@ exports[`InputForm renders input form 1`] = `
       fieldConfig={
         Object {
           "name": "test2",
+          "type": "text",
         }
       }
       fieldState={
@@ -55,6 +57,38 @@ exports[`InputForm renders input form 1`] = `
         }
       }
       key="someCategorytest2"
+      map={
+        Object {
+          "getCenter": [Function],
+          "off": [Function],
+          "on": [Function],
+        }
+      }
+      onAddAttachment={[Function]}
+      onFieldChange={[Function]}
+      onGeometryStyleChange={[Function]}
+      places={Object {}}
+      router={Object {}}
+      showValidityStatus={false}
+      t={[Function]}
+      updatingField={null}
+    />
+    <FormField
+      attachmentModels={Immutable.List []}
+      disabled={false}
+      fieldConfig={
+        Object {
+          "name": "test3",
+          "type": "text",
+        }
+      }
+      fieldState={
+        Immutable.Map {
+          "value": "",
+          "renderKey": "someCategorytest3",
+        }
+      }
+      key="someCategorytest3"
       map={
         Object {
           "getCenter": [Function],

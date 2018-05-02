@@ -45,8 +45,7 @@ class InputFormCategorySelector extends Component {
 
 InputFormCategorySelector.propTypes = {
   onCategoryChange: PropTypes.func.isRequired,
-  selectedCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
-    .isRequired,
+  selectedCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   visibleCategoryConfigs: PropTypes.array.isRequired,
 };
 

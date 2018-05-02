@@ -6,6 +6,8 @@ import Spinner from "react-spinner";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import FormStageHeaderBar from "../molecules/form-stage-header-bar";
+import FormStageControlBar from "../molecules/form-stage-control-bar";
 
 import { translate } from "react-i18next";
 import constants from "../../constants";
@@ -31,23 +33,21 @@ const hooks = {
 class InputForm extends Component {
   constructor(props) {
     super(props);
+
+    this.initializeForm(props.selectedCategory);
     this.state = {
-      fields: OrderedMap(),
+      fields: this.getNewFields(OrderedMap()),
       updatingField: null,
       isFormSubmitting: false,
       formValidationErrors: new Set(),
       showValidityStatus: false,
       isMapPositioned: false,
+      currentStage: 1,
     };
-
-    this.isWithCustomGeometry = false;
-    this.geometryStyle = null;
-    this.attachments = [];
   }
 
   componentDidMount() {
     this.props.map.on("dragend", this.handleDragEnd.bind(this));
-    this.initializeForm(this.props.selectedCategory);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,6 +56,13 @@ class InputForm extends Component {
       nextProps.selectedCategory !== this.props.selectedCategory
     ) {
       this.initializeForm(nextProps.selectedCategory);
+      this.setState(prevState => ({
+        fields: this.getNewFields(prevState.fields),
+        isFormSubmitting: false,
+        isMapPositioned: false,
+        formValidationErrors: new Set(),
+        showValidityStatus: false,
+      }));
     }
   }
 
@@ -63,33 +70,28 @@ class InputForm extends Component {
     this.props.map.off("dragend", this.handleDragEnd);
   }
 
+  getNewFields(prevFields) {
+    return this.selectedCategoryConfig.fields.reduce((memo, field) => {
+      return memo.set(
+        field.name,
+        Map({
+          [constants.FIELD_VALUE_KEY]: "",
+          [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
+            ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
+            : this.selectedCategoryConfig.category + field.name,
+        }),
+      );
+    }, OrderedMap());
+  }
+
   initializeForm(selectedCategory) {
-    const selectedCategoryConfig = getCategoryConfig(selectedCategory);
+    this.selectedCategoryConfig = getCategoryConfig(selectedCategory);
     this.isWithCustomGeometry =
-      selectedCategoryConfig.fields.findIndex(
+      this.selectedCategoryConfig.fields.findIndex(
         field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
       ) >= 0;
     this.attachments = [];
     this.geometryStyle = null;
-    const getNewFields = prevFields =>
-      selectedCategoryConfig.fields.reduce((memo, field) => {
-        return memo.set(
-          field.name,
-          Map({
-            [constants.FIELD_VALUE_KEY]: "",
-            [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
-              ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
-              : selectedCategoryConfig.category + field.name,
-          }),
-        );
-      }, OrderedMap());
-    this.setState(prevState => ({
-      fields: getNewFields(prevState.fields),
-      isFormSubmitting: false,
-      isMapPositioned: false,
-      formValidationErrors: new Set(),
-      showValidityStatus: false,
-    }));
   }
 
   handleDragEnd() {
@@ -116,15 +118,11 @@ class InputForm extends Component {
     this.attachments.push(attachment);
   }
 
-  onSubmit(evt) {
-    evt.preventDefault();
-    Util.log("USER", "new-place", "submit-place-btn-click");
-
-    // Validate the form.
+  validateForm(successCallback) {
     const {
       validationErrors: newValidationErrors,
       isValid,
-    } = this.state.fields.reduce(
+    } = this.getFields().reduce(
       ({ validationErrors, isValid }, field) => {
         if (!field.get(constants.FIELD_VALIDITY_KEY)) {
           validationErrors.add(field.get(constants.FIELD_VALIDITY_MESSAGE_KEY));
@@ -136,7 +134,7 @@ class InputForm extends Component {
     );
 
     if (isValid) {
-      this.saveModel();
+      successCallback();
     } else {
       this.setState({
         formValidationErrors: newValidationErrors,
@@ -146,25 +144,28 @@ class InputForm extends Component {
     }
   }
 
+  onSubmit(evt) {
+    evt.preventDefault();
+    Util.log("USER", "new-place", "submit-place-btn-click");
+
+    this.validateForm(this.saveModel.bind(this));
+  }
+
   saveModel() {
     // TODO: this state should disable individual fields as well (?), not just
     //       the submit button.
     this.setState({
       isFormSubmitting: true,
     });
-    const selectedCategoryConfig = getCategoryConfig(
-      this.props.selectedCategory,
-    );
-
-    const collection = this.props.places[selectedCategoryConfig.dataset];
+    const collection = this.props.places[this.selectedCategoryConfig.dataset];
     collection.add(
       {
-        location_type: selectedCategoryConfig.category,
+        location_type: this.selectedCategoryConfig.category,
         datasetSlug: mapConfig.layers.find(
-          layer => selectedCategoryConfig.dataset === layer.id,
+          layer => this.selectedCategoryConfig.dataset === layer.id,
         ).slug,
-        datasetId: selectedCategoryConfig.dataset,
-        showMetadata: selectedCategoryConfig.showMetadata,
+        datasetId: this.selectedCategoryConfig.dataset,
+        showMetadata: this.selectedCategoryConfig.showMetadata,
       },
       { wait: true },
     );
@@ -188,7 +189,7 @@ class InputForm extends Component {
     // image's name.
     // TODO: This logic is better suited for the FormField component,
     // perhaps in an onSave hook.
-    selectedCategoryConfig.fields
+    this.selectedCategoryConfig.fields
       .filter(field => field.type === constants.RICH_TEXTAREA_FIELD_TYPENAME)
       .forEach(field => {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
@@ -212,7 +213,7 @@ class InputForm extends Component {
         // Save autofill values as necessary.
         // TODO: This logic is better suited for the FormField component,
         // perhaps in an onSave hook.
-        selectedCategoryConfig.fields.forEach(fieldConfig => {
+        this.selectedCategoryConfig.fields.forEach(fieldConfig => {
           if (fieldConfig.autocomplete) {
             Util.saveAutocompleteValue(
               fieldConfig.name,
@@ -250,6 +251,35 @@ class InputForm extends Component {
     this.props.router.navigate(Util.getUrl(model), { trigger: true });
   }
 
+  getStageStartField() {
+    return this.selectedCategoryConfig.multi_stage
+      ? this.selectedCategoryConfig.multi_stage[this.state.currentStage - 1]
+          .start_field_index - 1
+      : 0;
+  }
+
+  getStageEndField() {
+    return this.selectedCategoryConfig.multi_stage
+      ? this.selectedCategoryConfig.multi_stage[this.state.currentStage - 1]
+          .end_field_index
+      : this.selectedCategoryConfig.fields.length;
+  }
+
+  getFields() {
+    return this.selectedCategoryConfig.multi_stage
+      ? this.getFieldsFromStage({
+          fields: this.state.fields,
+          stage: this.selectedCategoryConfig.multi_stage[
+            this.state.currentStage - 1
+          ],
+        })
+      : this.state.fields;
+  }
+
+  getFieldsFromStage({ fields, stage }) {
+    return fields.slice(stage.start_field_index - 1, stage.end_field_index);
+  }
+
   render() {
     if (this.isWithCustomGeometry) {
       this.props.hideSpotlightMask();
@@ -271,12 +301,18 @@ class InputForm extends Component {
         "input-form__submit-spinner--visible": this.state.isFormSubmitting,
       }),
     };
-    const selectedCategoryConfig = getCategoryConfig(
-      this.props.selectedCategory,
-    );
 
     return (
       <div className="input-form">
+        {this.selectedCategoryConfig.multi_stage && (
+          <FormStageHeaderBar
+            stageConfig={
+              this.selectedCategoryConfig.multi_stage[
+                this.state.currentStage - 1
+              ]
+            }
+          />
+        )}
         {this.state.formValidationErrors.size > 0 && (
           <WarningMessagesContainer
             errors={[...this.state.formValidationErrors]}
@@ -288,11 +324,11 @@ class InputForm extends Component {
           className={cn.form}
           onSubmit={this.onSubmit.bind(this)}
         >
-          {this.state.fields
+          {this.getFields()
             .map((fieldState, fieldName) => {
               return (
                 <FormField
-                  fieldConfig={selectedCategoryConfig.fields.find(
+                  fieldConfig={this.selectedCategoryConfig.fields.find(
                     field => field.name === fieldName,
                   )}
                   disabled={this.state.isFormSubmitting}
@@ -313,6 +349,39 @@ class InputForm extends Component {
             .toArray()}
         </form>
         {this.state.isFormSubmitting && <Spinner />}
+
+        {this.selectedCategoryConfig.multi_stage && (
+          <FormStageControlBar
+            onClickAdvanceStage={() => {
+              this.validateForm(() => {
+                this.setState({
+                  currentStage: this.state.currentStage + 1,
+                  showValidityStatus: false,
+                  formValidationErrors: new Set(),
+                });
+                this.props.container.scrollTop = 0;
+              });
+            }}
+            onClickRetreatStage={() => {
+              if (
+                this.state.currentStage === 1 &&
+                !this.props.isSingleCategory
+              ) {
+                this.props.onCategoryChange(null);
+              } else {
+                this.setState({
+                  currentStage: this.state.currentStage - 1,
+                  showValidityStatus: false,
+                  formValidationErrors: new Set(),
+                });
+              }
+              this.props.container.scrollTop = 0;
+            }}
+            currentStage={this.state.currentStage}
+            numStages={this.selectedCategoryConfig.multi_stage.length}
+            isSingleCategory={this.props.isSingleCategory}
+          />
+        )}
       </div>
     );
   }
@@ -331,7 +400,9 @@ InputForm.propTypes = {
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
+  isSingleCategory: PropTypes.bool,
   map: PropTypes.object.isRequired,
+  onCategoryChange: PropTypes.func,
   places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,

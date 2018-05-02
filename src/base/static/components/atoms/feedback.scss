@@ -1,0 +1,17 @@
+@import "variables";
+
+.mapseed__progress-bar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 5px 0 5px;
+  background-color: #ccc;
+  height: 20px;
+  border-radius: 10px;
+}
+
+.mapseed__progress-bar-inner {
+  height: 10px;
+  border-radius: 5px;
+  background-color: $accent-color-2;
+}

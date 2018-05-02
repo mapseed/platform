@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import InputFormCategorySelector from "./input-form-category-selector";
 
 import { place as placeConfig } from "config";
+import { getCategoryConfig } from "../../utils/config-utils";
 
 const Util = require("../../js/utils.js");
 
@@ -22,26 +23,36 @@ class FormCategoryMenuWrapper extends Component {
       selectedCategory:
         this.visibleCategoryConfigs.length === 1
           ? this.visibleCategoryConfigs[0].category
-          : false,
+          : null,
+      isShowingCategorySelector: this.visibleCategoryConfigs.length !== 1,
+      isSingleCategory: this.visibleCategoryConfigs.length === 1,
     };
   }
 
   onCategoryChange(selectedCategory) {
     this.setState({
       selectedCategory: selectedCategory,
+      isShowingCategorySelector: !getCategoryConfig(selectedCategory)
+        .multi_stage,
     });
   }
 
   render() {
     return (
       <div className="input-form-category-menu-container">
-        <InputFormCategorySelector
-          onCategoryChange={this.onCategoryChange.bind(this)}
-          selectedCategory={this.state.selectedCategory}
-          visibleCategoryConfigs={this.visibleCategoryConfigs}
-        />
+        {this.state.isShowingCategorySelector && (
+          <InputFormCategorySelector
+            onCategoryChange={this.onCategoryChange.bind(this)}
+            selectedCategory={this.state.selectedCategory}
+            visibleCategoryConfigs={this.visibleCategoryConfigs}
+          />
+        )}
         {this.state.selectedCategory
-          ? this.props.render(this.state, this.props)
+          ? this.props.render(
+              this.state,
+              this.props,
+              this.onCategoryChange.bind(this),
+            )
           : null}
       </div>
     );
