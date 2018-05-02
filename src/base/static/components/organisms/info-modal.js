@@ -29,7 +29,7 @@ class InfoModal extends Component {
         className="mapseed-info-modal"
         overlayClassName="mapseed-info-modal__overlay"
         isOpen={this.state.isModalOpen}
-        parentSelector={() => document.getElementById("info-modal-container")}
+        parentSelector={() => document.getElementById(this.props.parentId)}
       >
         <div className="mapseed-info-modal__header-bar">
           <h3 className="mapseed-info-modal__header-content">
@@ -66,6 +66,7 @@ InfoModal.propTypes = {
   header: PropTypes.string,
   body: PropTypes.arrayOf(PropTypes.string),
   headerImgSrc: PropTypes.string,
+  parentId: PropTypes.string.isRequired,
 };
 
 export default InfoModal;

@@ -286,7 +286,11 @@ module.exports = Backbone.View.extend({
       );
 
       ReactDOM.render(
-        <InfoModal isModalOpen={true} {...modalContent} />,
+        <InfoModal
+          parentId="info-modal-container"
+          isModalOpen={true}
+          {...modalContent}
+        />,
         document.getElementById("info-modal-container"),
       );
     });
