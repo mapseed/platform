@@ -81,4 +81,6 @@ InputExplorerInputListHeader.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("InputExplorerInputListHeader")(InputExplorerInputListHeader);
+export default translate("InputExplorerInputListHeader")(
+  InputExplorerInputListHeader,
+);

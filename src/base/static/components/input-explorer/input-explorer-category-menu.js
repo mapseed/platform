@@ -81,4 +81,6 @@ InputExplorerCategoryMenu.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("InputExplorerCategoryMenu")(InputExplorerCategoryMenu);
+export default translate("InputExplorerCategoryMenu")(
+  InputExplorerCategoryMenu,
+);

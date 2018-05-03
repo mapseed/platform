@@ -78,8 +78,7 @@ const InputExplorerSummary = props => {
             {numRecommendations + numConcerns} Community comments submitted
           </span>
           <span className="input-explorer-summary__num-recommendations">
-            {numRecommendations}{" "}
-            {props.t("recommendationsLabel")}
+            {numRecommendations} {props.t("recommendationsLabel")}
           </span>
           <span className="input-explorer-summary__num-concerns">
             {numConcerns} {props.t("concernsLabel")}

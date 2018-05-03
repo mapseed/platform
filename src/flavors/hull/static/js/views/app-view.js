@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import emitter from "../../../../../base/static/utils/emitter";
 import InputExplorer from "../../../../../base/static/components/input-explorer";
+import GeocodeAddressBar from "../../../../../base/static/components/geocode-address-bar";
+import InfoModal from "../../../../../base/static/components/organisms/info-modal";
 import languageModule from "../../../../../base/static/language-module";
 import i18next from "i18next";
 
@@ -257,6 +259,23 @@ module.exports = AppView.extend({
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("geocode", locationData => {
       this.mapView.zoomInOn(locationData.latLng);
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("info-modal:open", modalContent => {
+      ReactDOM.unmountComponentAtNode(
+        document.getElementById("info-modal-container"),
+      );
+
+      ReactDOM.render(
+        <InfoModal
+          parentId="info-modal-container"
+          isModalOpen={true}
+          {...modalContent}
+        />,
+        document.getElementById("info-modal-container"),
+      );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
