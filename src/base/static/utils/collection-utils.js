@@ -11,7 +11,8 @@ const getModelFromUrl = (collections, route) => {
   if (splitRoute.length === 2) {
     return (
       collections[
-        mapConfig.layers.find(layerConfig => layerConfig.slug === splitRoute[0]).id
+        mapConfig.layers.find(layerConfig => layerConfig.slug === splitRoute[0])
+          .id
       ].get(splitRoute[1]) || {}
     );
   } else {
