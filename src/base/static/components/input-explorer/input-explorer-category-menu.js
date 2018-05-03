@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { translate } from "react-i18next";
 
 import constants from "./constants";
-import { translate } from "react-i18next";
 import "./input-explorer-category-menu.scss";
 
 const InputExplorerCategoryMenu = props => {
@@ -19,7 +19,6 @@ const InputExplorerCategoryMenu = props => {
         props.selectedCategory === "summary",
     }),
   };
-  const { t } = this.props;
 
   return (
     <div className="input-explorer-category-menu">
@@ -37,7 +36,7 @@ const InputExplorerCategoryMenu = props => {
           className={cn.summaryLabel}
           htmlFor={"input-explorer-category-menu-summary"}
         >
-          {t("categorySummaryLabel")}
+          {props.t("categorySummaryLabel")}
         </label>
       </span>
       {categoryNames.map(category => {
@@ -82,4 +81,4 @@ InputExplorerCategoryMenu.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("InputExplorer")(InputExplorerCategoryMenu);
+export default translate("InputExplorerCategoryMenu")(InputExplorerCategoryMenu);

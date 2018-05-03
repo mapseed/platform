@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 const cn = require("classnames");
+import { translate } from "react-i18next";
 
 import constants from "./constants";
-import messages from "./messages";
 import "./input-explorer-summary.scss";
 
 const InputExplorerSummary = props => {
@@ -79,10 +79,10 @@ const InputExplorerSummary = props => {
           </span>
           <span className="input-explorer-summary__num-recommendations">
             {numRecommendations}{" "}
-            {messages("inputExplorer:recommendationsLabel")}
+            {props.t("recommendationsLabel")}
           </span>
           <span className="input-explorer-summary__num-concerns">
-            {numConcerns} {messages("inputExplorer:concernsLabel")}
+            {numConcerns} {props.t("concernsLabel")}
           </span>
         </div>
         {summaryInfoBySubcategory.map((subcategory, i) => (
@@ -128,4 +128,4 @@ InputExplorerSummary.propTypes = {
   visibility: PropTypes.bool.isRequired,
 };
 
-export default InputExplorerSummary;
+export default translate("InputExplorerSummary")(InputExplorerSummary);

@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import emitter from "../../../../../base/static/utils/emitter";
 import InputExplorer from "../../../../../base/static/components/input-explorer";
 import languageModule from "../../../../../base/static/language-module";
 
+import transformCommonFormElements from "../../../../../base/static/utils/common-form-elements";
+
 const AppView = require("../../../../../base/static/js/views/app-view.js");
-const GeocodeAddressView = require("../../../../../base/static/js/views/geocode-address-view");
 const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
 const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
@@ -12,7 +14,7 @@ const MapView = require("../../../../../base/static/js/views/map-view");
 const SidebarView = require("../../../../../flavors/manzanares/static/js/views/sidebar-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
 // BEGIN FLAVOR-SPECIFIC CODE
-const PlaceListView = require("../../../../../base/static/js/views/place-list-view");
+//const PlaceListView = require("../../../../../base/static/js/views/place-list-view");
 // END FLAVOR-SPECIFIC CODE
 const RightSidebarView = require("../../../../../base/static/js/views/right-sidebar-view");
 
@@ -30,30 +32,6 @@ module.exports = AppView.extend({
     // END FLAVOR-SPECIFIC CODE
   },
   initialize: function() {
-    // BEGIN FLAVOR-SPECIFIC CODE
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    if (!this.options.customHooks) {
-      this.options.customHooks = {};
-    }
-    // END REACT PORT SECTION //////////////////////////////////////////////////
-
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    this.options.placeConfig.place_detail.forEach(category => {
-      category.fields = category.fields.map(field => {
-        if (field.type === "common_form_element") {
-          return Object.assign(
-            {},
-            this.options.placeConfig.common_form_elements[field.name],
-            { name: field.name },
-          );
-        } else {
-          return field;
-        }
-      });
-    });
-    // END REACT PORT SECTION //////////////////////////////////////////////////
-    // END FLAVOR-SPECIFIC CODE
-
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
 
@@ -68,6 +46,13 @@ module.exports = AppView.extend({
         include_submissions: includeSubmissions,
       };
 
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    this.options.placeConfig.place_detail = transformCommonFormElements(
+      this.options.placeConfig.place_detail,
+      this.options.placeConfig.common_form_elements,
+    );
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
     if (this.options.appConfig.places_page_size) {
@@ -77,11 +62,6 @@ module.exports = AppView.extend({
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
-
-    // Caches of the views (one per place)
-    this.placeFormView = null;
-    this.placeDetailViews = {};
-    this.activeDetailView;
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
@@ -252,12 +232,14 @@ module.exports = AppView.extend({
       });
     }
 
-    // Init the address search bar
-    this.geocodeAddressView = new GeocodeAddressView({
-      el: "#geocode-address-bar",
-      router: this.options.router,
-      mapConfig: this.options.mapConfig,
-    }).render();
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    if (this.options.mapConfig.geocoding_bar_enabled) {
+      ReactDOM.render(
+        <GeocodeAddressBar mapConfig={this.options.mapConfig} />,
+        document.getElementById("geocode-address-bar"),
+      );
+    }
+    // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Init the place-counter
     this.placeCounterView = new PlaceCounterView({
@@ -270,15 +252,12 @@ module.exports = AppView.extend({
     // When the user chooses a geocoded address, the address view will fire
     // a geocode event on the namespace. At that point we center the map on
     // the geocoded location.
-    $(Shareabouts).on("geocode", function(evt, locationData) {
-      self.mapView.zoomInOn(locationData.latLng);
 
-      if (self.isAddingPlace()) {
-        self.placeFormView.setLatLng(locationData.latLng);
-        // Don't pass location data into our geolocation's form field
-        // self.placeFormView.setLocation(locationData);
-      }
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("geocode", locationData => {
+      this.mapView.zoomInOn(locationData.latLng);
     });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // When the map center moves, the map view will fire a mapmoveend event
     // on the namespace. If the move was the result of the user dragging, a
@@ -294,22 +273,6 @@ module.exports = AppView.extend({
       } else if (self.geocodeAddressView) {
         self.geocodeAddressView.setAddress("");
       }
-    });
-
-    // After reverse geocoding, the map view will fire a reversegeocode
-    // event. This should only happen when adding a place while geocoding
-    // is enabled.
-    $(Shareabouts).on("reversegeocode", function(evt, locationData) {
-      var locationString = Handlebars.templates["location-string"](
-        locationData,
-      );
-      self.geocodeAddressView.setAddress($.trim(locationString));
-      self.placeFormView.geocodeAddressPlaceView.setAddress(
-        $.trim(locationString),
-      );
-      self.placeFormView.setLatLng(locationData.latLng);
-      // Don't pass location data into our geolocation's form field
-      // self.placeFormView.setLocation(locationData);
     });
 
     // BEGIN FLAVOR-SPECIFIC CODE
@@ -366,10 +329,6 @@ module.exports = AppView.extend({
 
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
-
-    _.each(this.places, function(value, key) {
-      self.placeDetailViews[key] = {};
-    });
 
     // Show tools for adding data
     this.setBodyClass();

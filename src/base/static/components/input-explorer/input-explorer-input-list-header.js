@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 const cn = require("classnames");
+import { translate } from "react-i18next";
 
-import messages from "./messages";
 import "./input-explorer-input-list-header.scss";
 
 const InputExplorerInputListHeader = props => {
@@ -19,7 +19,7 @@ const InputExplorerInputListHeader = props => {
   return (
     <div className={classNames.container}>
       <h5 className="input-explorer-input-list-header__header">
-        {messages("inputExplorer:inputListHeader")}
+        {props.t("inputListHeader")}
       </h5>
       <div className="input-explorer-input-list-header__subcategory-menu">
         <span>
@@ -36,7 +36,7 @@ const InputExplorerInputListHeader = props => {
             className={classNames.allLabel}
             htmlFor={"input-explorer-subcategory-menu-all"}
           >
-            {messages("inputExplorer:subcategorySummaryLabel")}
+            {props.t("subcategorySummaryLabel")}
           </label>
         </span>
         {props.subcategoryNames.map(subcategory => {
@@ -78,6 +78,7 @@ InputExplorerInputListHeader.propTypes = {
   selectedSubcategory: PropTypes.string.isRequired,
   subcategoryNames: PropTypes.array.isRequired,
   visibility: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default InputExplorerInputListHeader;
+export default translate("InputExplorerInputListHeader")(InputExplorerInputListHeader);
