@@ -93,6 +93,11 @@ map:
       type: place
       slug: idea
 
+    - id: pboakland-funded-2017
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland-funded-2016
+      type: place
+      slug: funded
+
 # The values map the place type to map icons (defined below).
 place_types:
 
@@ -146,6 +151,14 @@ place_types:
         icon:
           iconUrl: /static/css/images/markers/marker-housing.png
 
+  funded-2017:
+    label: _(2017 Funded Projects)
+    zoomType: markerZoomStyle
+    rules:
+      - condition: 'true'
+        icon:
+          iconUrl: /static/css/images/markers/marker-star.png
+
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'
 # TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
@@ -178,6 +191,10 @@ sidebar:
           layers:
             - id: pboakland
               title: _(Community Reports)
+              visibleDefault: true
+
+            - id: pboakland-funded-2017
+              title: _(2017 Funded Projects)
               visibleDefault: true
 
             - id: districts
@@ -217,11 +234,7 @@ activity:
   # Place Types
 
 place:
-  administrators:
-    - HadassahDamien
-    - phreethought
-    - goldpbear
-  adding_supported: false
+  adding_supported: true
   add_button_label: _(Share your idea!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See full list)
@@ -235,6 +248,53 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: funded-2017
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      name: location_type
+      dataset: pboakland-funded-2017
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_place
+      label: _(2017 Funded Project)
+      fields:
+        - name: published
+          type: publish_control_toolbar
+        # NOTE: this field type must have the name "geometry"
+        - name: geometry
+          type: map_drawing_toolbar
+          content:
+            - url: /static/css/images/markers/marker-heart.png
+            - url: /static/css/images/markers/marker-star.png
+            - url: /static/css/images/markers/triangle-e1264d.png
+            - url: /static/css/images/markers/marker-industrial.png
+            - url: /static/css/images/markers/map-pin-marker.png
+            - url: /static/css/images/markers/map-pin-marker-red.png            
+        - name: title
+          type: text
+          prompt: _(Title of this featured site:)
+          display_prompt: _( )
+          placeholder: _(Enter title...)
+          optional: false
+        - name: description
+          type: rich_textarea
+          prompt: _(Description:)
+          display_prompt: _( )
+          placeholder: _( )
+        - name: url-title
+          type: custom_url_toolbar
+          prompt: _(Choose a custom URL for this place:)
+          placeholder: "my-new-featured-place"
+          optional: true
+        # - name: submitter_name
+        #   type: common_form_element
+        # - name: private-submitter_email
+        #   type: common_form_element
+        # - name: my_image
+        #   type: common_form_element
+        - name: submit
+          type: common_form_element
+
     - category: community
       includeOnForm: true
       name: location_type
@@ -593,3 +653,6 @@ pages:
     slug: getinvolved
     name: getinvolved
     hide_from_top_bar: false
+
+custom_hooks:
+  onDetailViewMount: pbOaklandDetailViewMount

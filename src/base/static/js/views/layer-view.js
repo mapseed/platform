@@ -1,3 +1,6 @@
+import constants from "../../constants";
+import emitter from "../../utils/emitter";
+
 var Util = require("../utils.js");
 
 module.exports = Backbone.View.extend({
@@ -16,6 +19,27 @@ module.exports = Backbone.View.extend({
     this.styleRules = [];
     this.zoomRules = [];
     this.isHiddenByFilters = false;
+
+    // TODO: Let's eventually refactor all our layer styling to follow this
+    // pattern, rather than evaluating style rules in every layer view.
+    emitter.addListener("layer-view:style", payload => {
+      switch (payload.action) {
+        case constants.FOCUS_TARGET_LAYER_ACTION: {
+          if (
+            payload.targetLayers &&
+            payload.targetLayers.has(
+              this.model.get(constants.MODEL_ID_PROPERTY_NAME),
+            )
+          ) {
+            this.focus();
+          }
+          break;
+        }
+        default: {
+          console.error("Unknown style rule action", payload.action);
+        }
+      }
+    });
 
     this.model.on(
       "change",
