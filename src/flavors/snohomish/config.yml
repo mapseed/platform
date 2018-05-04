@@ -220,12 +220,12 @@ place:
   adding_supported: true
   add_button_label: _(Report your actions)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(See All Reports)
+  show_list_button_label: _(Community actions)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
   anonymous_name: _(Someone)
-  submit_button_label: _(Put it on the map!)
+  submit_button_label: _(Submit)
 
   location_item_name: location
   default_basemap: satellite
@@ -312,7 +312,7 @@ place:
           header: _(General Best Practices)
           description: _(Tell us about other actions you’ve taken)
         - start_field_index: 17
-          end_field_index: 20
+          end_field_index: 21
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Almost Done!)
           description: _( )
@@ -337,7 +337,7 @@ place:
             - label: _(Drainage)
               value: drainage
             - label: _(Nutrients and fertilizing)
-              value: nutrients-fertilizing                                                       
+              value: nutrients-fertilizing
           optional: true
         - name: farm_category-comments
           type: textarea
@@ -586,7 +586,7 @@ place:
       optional: true
     submit:
       type: submit
-      label: _(Put it on the map!)
+      label: _(Submit)
 
   #### end dynamic form config ####
 
