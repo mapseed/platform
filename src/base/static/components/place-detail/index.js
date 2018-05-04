@@ -31,10 +31,10 @@ import "./index.scss";
 
 // TEMPORARY: We define flavor hooks here for the time being.
 const hooks = {
-  pbOaklandDetailViewMount: model => {
+  pbOaklandDetailViewMount: state => {
     emitter.emit("layer-view:style", {
       action: constants.FOCUS_TARGET_LAYER_ACTION,
-      targetLayers: new Set(model.get("related-ideas")),
+      targetLayers: new Set(state.placeModel.get("related-ideas")),
     });
   },
 };
@@ -119,7 +119,7 @@ class PlaceDetail extends Component {
     // The on mount hook allows flavors to run arbitrary code after the detail
     // view mounts.
     if (customHooks && customHooks.onDetailViewMount) {
-      hooks[customHooks.onDetailViewMount](this.state.placeModel);
+      hooks[customHooks.onDetailViewMount](this.state);
     }
   }
 
