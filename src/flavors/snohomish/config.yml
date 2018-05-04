@@ -95,6 +95,14 @@ map:
       attribution: 'Hello World'
       type: basemap
 
+    # WMS hydrography
+    - id: hydrography
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?
+      layers: '0'
+      version: 1.3.0
+      transparent: true
+      format: image/png
+
 # The values map the place type to map icons (defined below).
 place_types:
   conservation-actions:
@@ -192,6 +200,10 @@ sidebar:
               title: _(Watershed boundaries)
               visibleDefault: false
 
+            - id: hydrography
+              title: _(Hydrography)
+              visibleDefault: false
+
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
@@ -273,7 +285,7 @@ place:
           end_field_index: 2
           icon_url: /static/css/images/markers/marker-my-land.png
           header: _(Farm Conservation)
-          description: _(Tell us what you’ve done on your farm to make it more sustainable)
+          description: _(Tell us what you’ve done on your farm to protect natural resources)
         - start_field_index: 3
           end_field_index: 6
           icon_url: /static/css/images/markers/marker-my-forest.png
@@ -312,16 +324,16 @@ place:
           prompt: _(Actions)
           display_prompt: _( )
           content:
-            - label: _(Mud and manure)
+            - label: _(Control mud and manure)
               value: mud-manure
-            - label: _(Pastures)
+            - label: _(Manage pastures)
               value: pastures
-            - label: _(Fencing)
+            - label: _(Added streamside fencing)
               value: fencing
-            - label: _(Off-stream watering)
+            - label: _(Make use of off-stream watering)
               value: off-stream-watering
-            - label: _(Heavy use areas)
-              value: heavy-use-areas
+            - label: _(Use livestock heavy-use areas)
+              value: livestock-heavy-use-areas
             - label: _(Drainage)
               value: drainage
             - label: _(Nutrients and fertilizing)
@@ -537,6 +549,12 @@ place:
           default_value: _(My conservation actions)
           display_prompt: _( )
           optional: false
+        - name: address
+          type: geocoding
+          prompt: _(Location:)
+          display_prompt: _(Address)
+          placeholder: _(Enter your address...)
+          optional: false         
         - name: my_image
           type: common_form_element
         - name: other-comments
