@@ -37,7 +37,7 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
   cartodb_enabled: true
-  geocoding_bar_enabled: true
+  geocoding_bar_enabled: false
   geocode_bounding_box: [48.435, -120.924, 47.704, -122.593] 
 
   options:
