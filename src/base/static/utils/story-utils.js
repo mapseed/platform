@@ -16,12 +16,18 @@ const hydrateStoriesFromConfig = (placeCollectionPromises, places) => {
                 .set(
                   "chapters",
                   storyEntry[1].chapters.reduce((chapters, chapter) => {
-                    return chapters.set(
-                      chapter.url,
-                      fromJS(
-                        getModelFromUrl(places, chapter.url).attributes,
-                      ).set("sidebarIconUrl", chapter.sidebarIconUrl),
-                    );
+                    const model = getModelFromUrl(places, chapter.url);
+                    if (model) {
+                      return chapters.set(
+                        chapter.url,
+                        fromJS(model.attributes).set(
+                          "sidebarIconUrl",
+                          chapter.sidebarIconUrl,
+                        ),
+                      );
+                    } else {
+                      return chapters;
+                    }
                   }, OrderedMap()),
                 )
                 .set("header", storyConfig[storyName].header)

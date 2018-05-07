@@ -43,7 +43,6 @@ class StorySidebar extends Component {
         );
       })
       .catch(e => {
-        console.log("ERROR", e);
         this.setState({
           isWithError: true,
         });
