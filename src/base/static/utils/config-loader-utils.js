@@ -36,8 +36,8 @@ const transformStoryContent = storyConfig => {
 // Transform the place_detail section of the config to resolve
 // common_form_element references.
 const transformCommonFormElements = (placeDetail, commonFormElements) => {
-  placeDetail.forEach(category => {
-    category.fields = category.fields.map(field => {
+  return placeDetail.reduce((memo, category) => {
+    return (category.fields = category.fields.map(field => {
       if (field.type === "common_form_element") {
         return Object.assign({}, commonFormElements[field.name], {
           name: field.name,
@@ -45,10 +45,8 @@ const transformCommonFormElements = (placeDetail, commonFormElements) => {
       } else {
         return field;
       }
-    });
-  });
-
-  return placeDetail;
+    }));
+  }, {});
 };
 
 module.exports = {
