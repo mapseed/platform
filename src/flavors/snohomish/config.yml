@@ -42,7 +42,7 @@ map:
 
   options:
     center:
-      lat: 48.02851
+      lat: 48.03677
       lng: -121.64543
     zoom: 10
     minZoom: 1
@@ -102,6 +102,10 @@ map:
       version: 1.3.0
       transparent: true
       format: image/png
+
+    # Delisted streams
+    - id: delisted
+      url: https://api.mapbox.com/styles/v1/lakewashington/cjgtk2f9b000x2rpd9f3dhsg2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -188,6 +192,10 @@ sidebar:
               title: _(Featured sites)
               visibleDefault: true
 
+            - id: delisted
+              title: _(Stream delisting candidates)
+              visibleDefault: true
+
             - id: boundary
               title: _(Boundary)
               visibleDefault: true
@@ -218,14 +226,14 @@ right_sidebar:
 
 place:
   adding_supported: true
-  add_button_label: _(Report your actions)
+  add_button_label: _(Show off your projects)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(Community actions)
+  show_list_button_label: _(Local stories)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
   anonymous_name: _(Someone)
-  submit_button_label: _(Submit)
+  submit_button_label: _(Submit my project)
 
   location_item_name: location
   default_basemap: satellite
@@ -282,43 +290,46 @@ place:
       value: conservation-actions
       multi_stage:
         - start_field_index: 1
-          end_field_index: 2
+          end_field_index: 3
           icon_url: /static/css/images/markers/marker-my-land.png
           header: _(Farm Conservation)
           description: _(Tell us what you’ve done on your farm to protect natural resources)
-        - start_field_index: 3
-          end_field_index: 6
+        - start_field_index: 4
+          end_field_index: 7
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
-        - start_field_index: 7
-          end_field_index: 8
-          icon_url: /static/css/images/markers/marker-my-forest.png
-          header: _(Sound Horsekeeping)
-          description: _(Tell us about your best practices in horsekeeping)
-        - start_field_index: 9
-          end_field_index: 10
+        - start_field_index: 8
+          end_field_index: 9
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Urban Conservation)
           description: _(Tell us what you’ve done to improve urban conservation)
-        - start_field_index: 11
-          end_field_index: 14
+        - start_field_index: 10
+          end_field_index: 13
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Shoreline Conservation)
           description: _(Tell us what you’ve done to improve shoreline conservation)
-        - start_field_index: 15
-          end_field_index: 16
+        - start_field_index: 14
+          end_field_index: 15
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(General Best Practices)
           description: _(Tell us about other actions you’ve taken)
-        - start_field_index: 17
-          end_field_index: 21
+        - start_field_index: 16
+          end_field_index: 20
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Almost Done!)
           description: _( )
       label: _(Conservation Actions)
       fields:
         # Farm
+        - name: farm_no-farm
+          type: big_checkbox
+          prompt: _( )
+          display_prompt: _( )
+          content:
+            - label: _(I don't live on a farm)
+              value: no-farm
+          optional: true    
         - name: farm_category-actions
           type: big_checkbox
           prompt: _(Actions)
@@ -334,10 +345,14 @@ place:
               value: off-stream-watering
             - label: _(Use livestock heavy-use areas)
               value: livestock-heavy-use-areas
-            - label: _(Drainage)
-              value: drainage
-            - label: _(Nutrients and fertilizing)
-              value: nutrients-fertilizing
+            - label: _(Control run-off and drainage)
+              value: run-off-drainage
+            - label: _(Monitor nutrients by soil testing)
+              value: soil-testing
+            - label: _(Fertilize at appropriate levels and times)
+              value: fertilize-properly
+            - label: _(Work with a farm planner to implement Best Management Practices)
+              value: farm-planner
           optional: true
         - name: farm_category-comments
           type: textarea
@@ -345,7 +360,6 @@ place:
           display_prompt: _( )
           placeholder: _(Enter your comments...)
           optional: true
-
         # Forest
         - name: forest_category-fire-actions
           type: big_checkbox
@@ -410,34 +424,6 @@ place:
               value: leave-trees
             - label: _(Other)
               value: other
-          optional: true
-
-        # Horses
-        - name: horse_category-actions
-          type: big_checkbox
-          prompt: _(Actions)
-          display_prompt: _( )
-          content:
-            - label: _(Mud and manure)
-              value: mud-manure
-            - label: _(Pastures)
-              value: pastures
-            - label: _(Fencing)
-              value: fencing
-            - label: _(Winter paddocks)
-              value: winter-paddocks
-            - label: _(Drainage)
-              value: drainage
-            - label: _(Nutrients and fertilizing)
-              value: nutrients-fertilizing
-            - label: _(Other)
-              value: other
-          optional: true
-        - name: horse_category-comments
-          type: textarea
-          prompt: _(Please comment or elaborate here:)
-          display_prompt: _( )
-          placeholder: _(Enter your comments...)
           optional: true
 
         # Urban conservation
@@ -526,14 +512,26 @@ place:
           prompt: _(Actions)
           display_prompt: _( )
           content:
-            - label: _(A)
-              value: temp-a
-            - label: _(B)
-              value: temp-b
-            - label: _(C)
-              value: temp-c
-            - label: _(D)
-              value: temp-d
+            - label: _(Use Natural Yard Care practices)
+              value: natural-yard-care-general
+            - label: _(Practice Water Conservation and Protection)
+              value: water-conservation
+            - label: _(Use Native Plants)
+              value: native-plants
+            - label: _(Enhanced Habitat (wildlife, birds, pollinators, etc))
+              value: enhanced-habitat
+            - label: _(Recycle and reuse on-site)
+              value: recycle
+            - label: _(Left snags, downed logs and brush piles for wildlife)
+              value: wildlife-brush
+            - label: _(Provide a source of water for wildlife)
+              value: wildlife-water
+            - label: _(Certified my property as a Backyard Wildlife Habitat)
+              value: wildlife-backyard
+            - label: _(Make use of Permaculture practices)
+              value: permaculture
+            - label: _(Grow food for myself and/or others sustainably)
+              value: grow-food     
           optional: true
         - name: general_category-comments
           type: textarea
@@ -549,7 +547,7 @@ place:
           default_value: _(My conservation actions)
           display_prompt: _( )
           optional: false
-        - name: address
+        - name: private-address
           type: geocoding
           prompt: _(Location:)
           display_prompt: _(Address)
@@ -586,7 +584,7 @@ place:
       optional: true
     submit:
       type: submit
-      label: _(Submit)
+      label: _(Submit my project)
 
   #### end dynamic form config ####
 
