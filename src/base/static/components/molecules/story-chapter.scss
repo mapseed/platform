@@ -1,0 +1,44 @@
+@import "variables";
+
+.story-chapter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-left: 8px;
+  padding: 10px;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+    border-left: 2px solid $story-chapter-hover-color;
+
+    .story-chapter__title {
+      color: $story-chapter-hover-color;
+    }
+
+    .story-chapter__title--selected {
+      color: #fff;
+    }
+  }
+}
+
+.story-chapter--selected {
+  background-color: $story-chapter-hover-color;
+}
+
+.story-chapter__icon {
+  width: 30px;
+  min-width: 30px;
+}
+
+.story-chapter__title {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  padding-left: 15px;
+}
+
+.story-chapter__title--selected {
+  color: #fff;
+}

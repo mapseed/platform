@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
+import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
@@ -10,8 +11,7 @@ import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
-
-import transformCommonFormElements from "../../utils/common-form-elements";
+import StorySidebar from "../../components/story-sidebar";
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -24,7 +24,6 @@ var PlaceListView = require("mapseed-place-list-view");
 var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
-var RightSidebarView = require("mapseed-right-sidebar-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
 
 // Spinner options -- these need to be own modules
@@ -70,12 +69,12 @@ module.exports = Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .collapse-btn": "onToggleSidebarVisibility",
+    "click .story-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
-    // store promises returned from collection fetches
-    Shareabouts.deferredCollections = [];
+    // Store promises returned from collection fetches.
+    this.placeCollectionPromises = [];
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -87,13 +86,6 @@ module.exports = Backbone.View.extend({
         // scale well, so let's think about a better solution.
         include_submissions: includeSubmissions,
       };
-
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    this.options.placeConfig.place_detail = transformCommonFormElements(
-      this.options.placeConfig.place_detail,
-      this.options.placeConfig.common_form_elements,
-    );
-    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
@@ -338,28 +330,6 @@ module.exports = Backbone.View.extend({
     // For knowing if the user has moved the map after opening the form.
     this.mapView.map.on("dragend", this.onMapDragEnd, this);
 
-    // If report stories are enabled, build the data structure
-    // we need to enable story navigation
-    _.each(this.options.storyConfig, function(story) {
-      var storyStructure = {},
-        totalStoryElements = story.order.length;
-      _.each(story.order, function(config, i) {
-        storyStructure[config.url] = {
-          zoom: config.zoom || story.default_zoom,
-          hasCustomZoom: config.zoom ? true : false,
-          panTo: config.panTo || null,
-          visibleLayers: config.visible_layers || story.default_visible_layers,
-          previous:
-            story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
-          next: story.order[(i + 1) % totalStoryElements].url,
-          basemap: config.basemap || story.default_basemap,
-          spotlight: config.spotlight === false ? false : true,
-          sidebarIconUrl: config.sidebar_icon_url,
-        };
-      });
-      story.order = storyStructure;
-    });
-
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
@@ -369,6 +339,11 @@ module.exports = Backbone.View.extend({
 
     // Load places from the API
     this.loadPlaces(placeParams);
+
+    this.storiesPromise = hydrateStoriesFromConfig(
+      this.placeCollectionPromises,
+      this.places,
+    );
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {
@@ -392,18 +367,16 @@ module.exports = Backbone.View.extend({
         $("body").addClass("right-sidebar-visible");
       }
 
-      new RightSidebarView({
-        el: "#right-sidebar-container",
-        router: this.options.router,
-        rightSidebarConfig: this.options.rightSidebarConfig,
-        placeConfig: this.options.placeConfig,
-        layers: this.options.mapConfig.layers,
-        storyConfig: this.options.storyConfig,
-        activityConfig: this.options.activityConfig,
-        activityView: this.activityView,
-        appView: this,
-        layerViews: this.mapView.layerViews,
-      }).render();
+      // REACT PORT SECTION ///////////////////////////////////////////////////
+      ReactDOM.render(
+        <StorySidebar
+          storiesPromise={this.storiesPromise}
+          places={this.places}
+          router={this.options.router}
+        />,
+        document.getElementById("right-sidebar-container"),
+      );
+      // END REACT PORT SECTION ///////////////////////////////////////////////
     }
   },
 
@@ -427,7 +400,7 @@ module.exports = Backbone.View.extend({
     // loop over all place collections
     _.each(self.places, function(collection, key) {
       self.mapView.map.fire("layer:loading", { id: key });
-      var deferred = collection.fetchAllPages({
+      const placeCollectionPromise = collection.fetchAllPages({
         remove: false,
         // Check for a valid location type before adding it to the collection
         validate: true,
@@ -476,7 +449,7 @@ module.exports = Backbone.View.extend({
           self.mapView.map.fire("layer:error", { id: key });
         },
       });
-      Shareabouts.deferredCollections.push(deferred);
+      self.placeCollectionPromises.push(placeCollectionPromise);
     });
   },
   onMapZoomEnd: function(evt) {
