@@ -134,7 +134,7 @@ module.exports = Backbone.Model.extend({
   parse: function(response) {
     var properties = _.clone(response.properties);
     // add story object, if relevant
-    _.extend(properties, ModelUtils.addStoryObj(response, "place"));
+    _.extend(properties, ModelUtils.addStoryObj(response));
     properties.geometry = _.clone(response.geometry);
 
     return properties;

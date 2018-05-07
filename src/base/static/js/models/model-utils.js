@@ -1,3 +1,6 @@
+import { story as storyConfig } from "config";
+import constants from "../../constants";
+
 var normalizeModelArguments = function(key, val, options) {
   var attrs;
   if (key === null || _.isObject(key)) {
@@ -14,37 +17,21 @@ var normalizeModelArguments = function(key, val, options) {
   };
 };
 
-var addStoryObj = function(response, type) {
-  var storyObj = null,
-    url;
+const addStoryObj = response => {
+  const url = response.properties[constants.CUSTOM_URL_PROPERTY_NAME]
+    ? response.properties[constants.CUSTOM_URL_PROPERTY_NAME]
+    : response.properties.datasetSlug + "/" + response.properties.id;
 
-  if (type === "place") {
-    if (response.properties["url-title"]) {
-      url = response.properties["url-title"];
-    } else {
-      url = response.properties.datasetSlug + "/" + response.properties.id;
-    }
-  } else if (type === "landmark") {
-    url = response.title;
+  const storyObj = Object.values(storyConfig).reduce((chapter, story) => {
+    chapter = story.chapters.find(chapter => {
+      return chapter.url === url;
+    });
+    return chapter;
+  }, {});
+
+  if (storyObj) {
+    return { story: storyObj };
   }
-
-  _.each(Shareabouts.Config.story, function(story) {
-    if (story.order[url]) {
-      storyObj = {
-        tagline: story.tagline,
-        next: story.order[url].next,
-        previous: story.order[url].previous,
-        zoom: story.order[url].zoom,
-        panTo: story.order[url].panTo,
-        visibleLayers: story.order[url].visibleLayers,
-        basemap: story.order[url].basemap,
-        spotlight: story.order[url].spotlight,
-        hasCustomZoom: story.order[url].hasCustomZoom,
-        sidebarIconUrl: story.order[url].sidebarIconUrl,
-      };
-    }
-  });
-  return { story: storyObj };
 };
 
 // Pull out the full title string from the block of HTML used

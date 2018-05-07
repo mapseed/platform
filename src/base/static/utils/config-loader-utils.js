@@ -1,32 +1,36 @@
 // NOTE: These utility methods transform sections of the config for use by the app.
-// TODO: I don't like this very much, because it means sections of the config
-// aren't declarative. Ideally we should revisit this at some point and
-// refactor.
 
 // Transform the story section of the config to build the data structure we
 // need for story navigation.
 const transformStoryContent = storyConfig => {
-  Object.values(storyConfig).forEach(story => {
-    const numChapters = story.order.length;
-    const storyStructure = {};
-
-    story.order.forEach((chapter, i) => {
-      storyStructure[chapter.url] = {
-        zoom: chapter.zoom || story.default_zoom,
-        hasCustomZoom: chapter.zoom ? true : false,
-        panTo: chapter.panTo || null,
-        visibleLayers: chapter.visible_layers || story.default_visible_layers,
-        previous: story.order[(i - 1 + numChapters) % numChapters].url,
-        next: story.order[(i + 1) % numChapters].url,
-        basemap: chapter.basemap || story.default_basemap,
-        spotlight: chapter.spotlight === false ? false : true,
-        sidebarIconUrl: chapter.sidebar_icon_url,
+  return Object.entries(storyConfig).reduce(
+    (stories, [storyName, storyContent]) => {
+      const numChapters = storyContent.order.length;
+      stories[storyName] = {
+        header: storyContent.header,
+        description: storyContent.description,
+        chapters: storyContent.order.map((chapter, i) => {
+          return {
+            url: chapter.url,
+            zoom: chapter.zoom || storyContent.default_zoom,
+            hasCustomZoom: !!chapter.zoom,
+            panTo: chapter.panTo || null,
+            visibleLayers:
+              chapter.visible_layers || storyContent.default_visible_layers,
+            previous:
+              storyContent.order[(i - 1 + numChapters) % numChapters].url,
+            next: storyContent.order[(i + 1) % numChapters].url,
+            basemap: chapter.basemap || storyContent.default_basemap,
+            spotlight: chapter.spotlight === false ? false : true,
+            sidebarIconUrl: chapter.sidebar_icon_url,
+          };
+        }),
       };
-    });
-    story.order = storyStructure;
-  });
 
-  return storyConfig;
+      return stories;
+    },
+    {},
+  );
 };
 
 // Transform the place_detail section of the config to resolve
@@ -48,6 +52,6 @@ const transformCommonFormElements = (placeDetail, commonFormElements) => {
 };
 
 module.exports = {
-  transformStoryContent: transformStoryContent,
-  transformCommonFormElements: transformCommonFormElements,
+  transformStoryContent,
+  transformCommonFormElements,
 };

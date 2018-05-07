@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
+import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
@@ -339,6 +340,11 @@ module.exports = Backbone.View.extend({
     // Load places from the API
     this.loadPlaces(placeParams);
 
+    this.storiesPromise = hydrateStoriesFromConfig(
+      this.placeCollectionPromises,
+      this.places,
+    );
+
     // Load activities from the API
     _.each(this.activities, function(collection, key) {
       collection.fetch({
@@ -364,7 +370,7 @@ module.exports = Backbone.View.extend({
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
         <StorySidebar
-          placeCollectionPromises={this.placeCollectionPromises}
+          storiesPromise={this.storiesPromise}
           places={this.places}
           router={this.options.router}
         />,

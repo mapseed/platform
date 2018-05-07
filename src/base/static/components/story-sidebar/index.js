@@ -4,11 +4,14 @@ import { Map, OrderedMap, fromJS } from "immutable";
 import Spinner from "react-spinner";
 
 import StoryChapter from "../molecules/story-chapter";
+import { Header5, Paragraph } from "../atoms/typography";
+import { Link } from "../atoms/navigation";
 import constants from "../../constants";
 
 import { translate } from "react-i18next";
 
 import { getModelFromUrl } from "../../utils/collection-utils";
+import { prepStoryContent } from "../../utils/story-utils";
 
 import "./index.scss";
 
@@ -19,51 +22,28 @@ class StorySidebar extends Component {
     super(props);
 
     this.state = {
-      currentStoryHeader: "",
-      currentStoryDescription: "",
-      currentStoryName: "",
-      currentStoryChapters: OrderedMap(),
-      currentStoryRoute: "",
-      currentChapter: Map(),
+      currentStory: Map(),
+      currentRoute: "",
       isStoryDataReady: false,
       isWithError: false,
     };
   }
 
   componentDidMount() {
-    Promise.all(this.props.placeCollectionPromises)
-      .then(() => {
-        this.stories = Object.keys(storyConfig).reduce((stories, storyName) => {
-          return stories.set(
-            storyName,
-            Object.keys(storyConfig[storyName].order).reduce(
-              (chapters, chapterUrl) => {
-                return chapters.set(
-                  chapterUrl,
-                  fromJS(
-                    getModelFromUrl(this.props.places, chapterUrl).attributes,
-                  ),
-                );
-              },
-              OrderedMap(),
-            ),
-          );
-        }, OrderedMap());
-
-        const currentStoryState = this.getCurrentStoryState(
-          Backbone.history.getFragment().split("/"),
-          false,
-        );
-
-        currentStoryState.isStoryDataReady = true;
-        this.setState(currentStoryState);
+    this.props.storiesPromise
+      .then(stories => {
+        this.stories = stories;
 
         this.props.router.on("route", (fn, route) => {
-          this.setState(this.getCurrentStoryState(route));
+          const currentStoryState = this.getCurrentStoryState(route.join("/"));
+          currentStoryState && this.setState(currentStoryState);
         });
+        this.setState(
+          this.getCurrentStoryState(Backbone.history.getFragment(), false),
+        );
       })
-      .catch(() => {
-        console.log("ERROR!");
+      .catch(e => {
+        console.log("ERROR", e);
         this.setState({
           isWithError: true,
         });
@@ -71,52 +51,37 @@ class StorySidebar extends Component {
   }
 
   getCurrentStoryState(route, isInitialized = true) {
-    const joinedRoute = route.join("/");
-    const [foundStoryName, foundStory] =
-      this.stories.findEntry(story => {
-        return story.get(joinedRoute);
-      }) || [];
+    const currentStory = this.stories.find(story => {
+      return story.get("chapters").get(route);
+    });
 
-    if (foundStory) {
+    if (currentStory) {
       return {
-        currentStoryHeader: storyConfig[foundStoryName].header,
-        currentStoryDescription: storyConfig[foundStoryName].description,
-        currentStoryName: foundStoryName,
-        currentStoryChapters: foundStory,
-        currentStoryRoute: joinedRoute,
-        currentChapter: foundStory.get(joinedRoute),
+        currentStory: currentStory,
+        currentRoute: route,
+        isStoryDataReady: true,
+      };
+    } else if (!isInitialized) {
+      return {
+        currentStory: this.stories.valueSeq().first(),
+        isStoryDataReady: true,
       };
     } else {
       return {
-        currentStoryHeader: !isInitialized
-          ? storyConfig[this.stories.keySeq().first()].header
-          : this.state.currentStoryHeader,
-        currentStoryDescription: !isInitialized
-          ? storyConfig[this.stories.keySeq().first()].description
-          : this.state.currentStoryDescription,
-        currentStoryName: !isInitialized
-          ? this.stories.keySeq().first()
-          : this.state.currentStoryName,
-        currentStoryChapters: !isInitialized
-          ? this.stories.first()
-          : this.state.currentStoryChapters,
-        currentStoryRoute: "",
-        currentChapter: Map(),
+        currentRoute: route,
+        isStoryDataReady: true,
       };
     }
   }
 
   getIconUrl(chapter, storyUrl) {
-    // If the story config for this place declares an explicit sidebar icon url,
-    // use that icon.
-    if (
-      storyConfig[this.state.currentStoryName].order[storyUrl].sidebarIconUrl
-    ) {
-      return storyConfig[this.state.currentStoryName].order[storyUrl]
-        .sidebarIconUrl;
+    // If the story chapter has an icon url defined, use that.
+    if (chapter.get("sidebarIconUrl")) {
+      return chapter.get("sidebarIconUrl");
     }
 
-    // If the story chapter has an icon url defined, use that.
+    // If the story chapter has a style object with an icon url defined, use
+    // that.
     if (
       chapter.get(constants.GEOMETRY_STYLE_PROPERTY_NAME) &&
       chapter
@@ -150,34 +115,38 @@ class StorySidebar extends Component {
   render() {
     return (
       <div className="story-sidebar">
-        <a href="#" className="story-sidebar__collapse-btn" />
-        {this.state.currentStoryHeader && (
-          <h5 className="story-sidebar__header">
-            {this.state.currentStoryHeader}
-          </h5>
+        <Link href="#" className="story-sidebar__collapse-btn" />
+        {this.state.currentStory.get("header") && (
+          <Header5 className="story-sidebar__header">
+            {this.state.currentStory.get("header")}
+          </Header5>
         )}
-        {this.state.currentStoryDescription && (
-          <p className="story-sidebar__description">
-            {this.state.currentStoryDescription}
-          </p>
+        {this.state.currentStory.get("description") && (
+          <Paragraph className="story-sidebar__description">
+            {this.state.currentStory.get("description")}
+          </Paragraph>
         )}
         <hr />
-        {this.state.currentStoryChapters
-          .map((chapter, placeUrl) => {
-            return (
-              <StoryChapter
-                key={placeUrl}
-                title={this.getTitle(chapter)}
-                iconUrl={this.getIconUrl(chapter, placeUrl)}
-                isSelected={this.state.currentStoryRoute === placeUrl}
-                placeUrl={placeUrl}
-              />
-            );
-          })
-          .toArray()}
+        {this.state.currentStory.get("chapters") &&
+          this.state.currentStory
+            .get("chapters")
+            .map((chapter, route) => {
+              return (
+                <StoryChapter
+                  key={route}
+                  title={this.getTitle(chapter)}
+                  iconUrl={this.getIconUrl(chapter, route)}
+                  isSelected={this.state.currentRoute === route}
+                  placeUrl={route}
+                />
+              );
+            })
+            .toArray()}
         {!this.state.isStoryDataReady && !this.state.isWithError && <Spinner />}
         {this.state.isWithError && (
-          <p className="story-sidebar__error-msg">{this.props.t("errorMsg")}</p>
+          <Paragraph className="story-sidebar__error-msg">
+            {this.props.t("errorMsg")}
+          </Paragraph>
         )}
       </div>
     );
@@ -186,7 +155,7 @@ class StorySidebar extends Component {
 
 StorySidebar.propTypes = {
   places: PropTypes.object.isRequired,
-  placeCollectionPromises: PropTypes.arrayOf(PropTypes.object).isRequired,
+  storiesPromise: PropTypes.object.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   t: PropTypes.func.isRequired,
 };

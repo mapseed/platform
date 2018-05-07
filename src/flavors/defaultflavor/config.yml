@@ -741,6 +741,8 @@ story:
       - demo
     order:
       - url: cool-line
+        sidebar_icon_url: /static/css/images/markers/marker-question.png
+        zoom: 4
       - url: demo/17
 
 
