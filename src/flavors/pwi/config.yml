@@ -593,9 +593,12 @@ story:
       - url: vacant-parcels
         basemap: satellite
         zoom: 13
+        panTo:
+          lat: 47.26944549602832
+          lng: -122.41241455078125
         spotlight: false
         visible_layers:
-          - vacant-parcels       
+          - vacant-parcels             
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: good-shephard-lutheran-meals--tue---6pm-
         basemap: satellite
