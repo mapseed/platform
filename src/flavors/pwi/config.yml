@@ -44,7 +44,7 @@ map:
     center:
       lat: 47.17431
       lng: -122.09621
-    zoom: 11
+    zoom: 10
     minZoom: 1
     maxZoom: 18
 
@@ -592,7 +592,7 @@ story:
     order:
       - url: vacant-parcels
         basemap: satellite
-        zoom: 13
+        zoom: 11
         panTo:
           lat: 47.26944549602832
           lng: -122.41241455078125
