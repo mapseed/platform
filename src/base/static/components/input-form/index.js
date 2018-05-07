@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map, OrderedMap } from "immutable";
+import { Map, OrderedMap, fromJS } from "immutable";
 import classNames from "classnames";
 import Spinner from "react-spinner";
 
@@ -76,6 +76,11 @@ class InputForm extends Component {
         field.name,
         Map({
           [constants.FIELD_VALUE_KEY]: "",
+          [constants.FIELD_TRIGGER_VALUE_KEY]:
+            field.trigger && field.trigger.trigger_value,
+          [constants.FIELD_TRIGGER_TARGETS_KEY]:
+            field.trigger && fromJS(field.trigger.targets),
+          [constants.FIELD_VISIBILITY_KEY]: field.hidden_default ? false : true,
           [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
             ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
             : this.selectedCategoryConfig.category + field.name,
@@ -107,11 +112,35 @@ class InputForm extends Component {
       constants.FIELD_RENDER_KEY,
       this.state.fields.get(fieldName).get(constants.FIELD_RENDER_KEY),
     );
+
+    // Check if this field triggers the visibility of other fields(s)
+    if (fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY)) {
+      const isVisible =
+        fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) ===
+        fieldStatus.get(constants.FIELD_VALUE_KEY);
+      this.triggerFieldVisibility(
+        fieldStatus.get(constants.FIELD_TRIGGER_TARGETS_KEY),
+        isVisible,
+      );
+    }
+
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, fieldStatus),
       updatingField: fieldName,
       isInitializing: isInitializing,
     }));
+  }
+
+  triggerFieldVisibility(targets, isVisible) {
+    targets.forEach(target => {
+      const fieldStatus = this.state.fields
+        .get(target)
+        .set(constants.FIELD_VISIBILITY_KEY, isVisible);
+
+      this.setState(({ fields }) => ({
+        fields: fields.set(target, fieldStatus),
+      }));
+    });
   }
 
   onAddAttachment(attachment) {
@@ -266,14 +295,17 @@ class InputForm extends Component {
   }
 
   getFields() {
-    return this.selectedCategoryConfig.multi_stage
+    return (this.selectedCategoryConfig.multi_stage
       ? this.getFieldsFromStage({
           fields: this.state.fields,
           stage: this.selectedCategoryConfig.multi_stage[
             this.state.currentStage - 1
           ],
         })
-      : this.state.fields;
+      : this.state.fields
+    ).filter(field => {
+      return field.get(constants.FIELD_VISIBILITY_KEY);
+    });
   }
 
   getFieldsFromStage({ fields, stage }) {
