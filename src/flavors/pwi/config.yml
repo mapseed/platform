@@ -584,9 +584,6 @@ story:
       - pwi-featured
       - pwi-input
     order:
-      - url: lister-elementary-family-nights--varies-
-        basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
       - url: good-shephard-lutheran-meals--tue---6pm-
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-heart.png  
