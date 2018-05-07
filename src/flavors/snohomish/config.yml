@@ -289,39 +289,52 @@ place:
       icon_url: /static/css/images/markers/marker-my-forest.png
       value: conservation-actions
       multi_stage:
+        
+        # Farm
         - start_field_index: 1
-          end_field_index: 3
+          end_field_index: 20
           icon_url: /static/css/images/markers/marker-my-land.png
           header: _(Farm Conservation)
           description: _(Tell us what you’ve done on your farm to protect natural resources)
-        - start_field_index: 4
-          end_field_index: 7
+
+        # Forest
+        - start_field_index: 21
+          end_field_index: 60
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
-        - start_field_index: 8
-          end_field_index: 9
+
+        # Urban
+        - start_field_index: 61
+          end_field_index: 73
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Urban Conservation)
           description: _(Tell us what you’ve done to improve urban conservation)
-        - start_field_index: 10
-          end_field_index: 13
+
+        # Shoreline
+        - start_field_index: 74
+          end_field_index: 102
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Shoreline Conservation)
           description: _(Tell us what you’ve done to improve shoreline conservation)
-        - start_field_index: 14
-          end_field_index: 15
+
+        # General best practices
+        - start_field_index: 103
+          end_field_index: 123
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(General Best Practices)
           description: _(Tell us about other actions you’ve taken)
-        - start_field_index: 16
-          end_field_index: 20
+
+        # Final
+        - start_field_index: 124
+          end_field_index: 129
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Almost Done!)
           description: _( )
       label: _(Conservation Actions)
       fields:
-        # Farm
+
+        # FARM CATEGORY ########################################################
         - name: farm_no-farm
           type: big_checkbox
           prompt: _( )
@@ -329,217 +342,1292 @@ place:
           content:
             - label: _(I don't live on a farm)
               value: no-farm
-          optional: true    
-        - name: farm_category-actions
-          type: big_checkbox
+          optional: true
+
+        # Mud & manure
+        - name: farm_mud-manure
+          type: big_toggle
           prompt: _(Actions)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_mud-manure-datetime
           content:
             - label: _(Control mud and manure)
-              value: mud-manure
+              value: yes
+            - label: _(Control mud and manure)
+              value: no
+        - name: farm_mud-manure-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Pastures
+        - name: farm_pastures
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_pastures-datetime
+          content:
             - label: _(Manage pastures)
-              value: pastures
+              value: yes
+            - label: _(Manage pastures)
+              value: no
+        - name: farm_pastures-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Fencing
+        - name: farm_fencing
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_fencing-datetime
+          content:
             - label: _(Added streamside fencing)
-              value: fencing
+              value: yes
+            - label: _(Added streamside fencing)
+              value: no
+        - name: farm_fencing-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Off-stream watering
+        - name: farm_off-stream-watering
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_off-stream-watering-datetime
+          content:
             - label: _(Make use of off-stream watering)
-              value: off-stream-watering
+              value: yes
+            - label: _(Make use of off-stream watering)
+              value: no
+        - name: farm_off-stream-watering-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Livestock heavy-use areas
+        - name: farm_livestock-heavy-use-areas
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_livestock-heavy-use-areas-datetime
+          content:
             - label: _(Use livestock heavy-use areas)
-              value: livestock-heavy-use-areas
+              value: yes
+            - label: _(Use livestock heavy-use areas)
+              value: no
+        - name: farm_livestock-heavy-use-areas-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Run-off and drainage
+        - name: farm_run-off-drainage
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_run-off-drainage-datetime
+          content:
             - label: _(Control run-off and drainage)
-              value: run-off-drainage
+              value: yes
+            - label: _(Control run-off and drainage)
+              value: no
+        - name: farm_run-off-drainage-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Soil testing
+        - name: farm_soil-testing
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_soil-testing-datetime
+          content:
             - label: _(Monitor nutrients by soil testing)
-              value: soil-testing
+              value: yes
+            - label: _(Monitor nutrients by soil testing)
+              value: no
+        - name: farm_soil-testing-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Fertilizing
+        - name: farm_fertilize-properly
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_fertilize-properly-datetime
+          content:
             - label: _(Fertilize at appropriate levels and times)
-              value: fertilize-properly
+              value: yes
+            - label: _(Fertilize at appropriate levels and times)
+              value: no
+        - name: farm_fertilize-properly-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Farm planner
+        - name: farm_farm-planner
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_farm-planner-datetime
+          content:
             - label: _(Work with a farm planner to implement Best Management Practices)
-              value: farm-planner
-          optional: true
+              value: yes
+            - label: _(Work with a farm planner to implement Best Management Practices)
+              value: no
+        - name: farm_farm-planner-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Comments
         - name: farm_category-comments
           type: textarea
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
           optional: true
-        # Forest
-        - name: forest_category-fire-actions
-          type: big_checkbox
+
+
+        # FOREST CATEGORY ######################################################
+        # FIRE ACTIONS
+        # Maintain fuel-free zones
+        - name: forest_fire_fuel-free
+          type: big_toggle
           prompt: _(Fire Prevention)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_fire_fuel-free-datetime
           content:
             - label: _(Maintain fuel-free zones around home and structures (overhanging vegetation, firewood placement, etc.))
-              value: fuel-free
+              value: yes
+            - label: _(Maintain fuel-free zones around home and structures (overhanging vegetation, firewood placement, etc.))
+              value: no
+        - name: forest_fire_fuel-free-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Remove ladder fuel
+        - name: forest_fire_ladder-fuel
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_fire_ladder-fuel-datetime
+          content:
             - label: _(Remove ladder fuel (brush, low limbs))
-              value: ladder-fuel
+              value: yes
+            - label: _(Remove ladder fuel (brush, low limbs))
+              value: no
+        - name: forest_fire_ladder-fuel-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Emergency preparedness
+        - name: forest_fire_emergency-preparedness
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_fire_emergency-preparedness-datetime
+          content:
             - label: _(General Emergency Preparedness)
-              value: emergency-preparedness
+              value: yes
+            - label: _(General Emergency Preparedness)
+              value: no
+        - name: forest_fire_emergency-preparedness-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Other
+        - name: forest_fire_other
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_fire_other-datetime
+          content:
             - label: _(Other)
-              value: other
-          optional: true
-        - name: forest_category-water-actions
-          type: big_checkbox
+              value: yes
+            - label: _(Other)
+              value: no
+        - name: forest_fire_other-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # WATER ACTIONS
+        # Erosion
+        - name: forest_water_erosion
+          type: big_toggle
           prompt: _(Water Quality)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_water_erosion-datetime
           content:
             - label: _(Control erosion and prevent soil compaction)
-              value: erosion
+              value: yes
+            - label: _(Control erosion and prevent soil compaction)
+              value: no
+        - name: forest_water_erosion-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Streams, wetlands, buffers
+        - name: forest_water_streams-wetlands-buffers
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_water_streams-wetlands-buffers-datetime
+          content:
             - label: _(Protect streams and wetlands, maintain buffers)
-              value: streams-wetlands-buffers
+              value: yes
+            - label: _(Protect streams and wetlands, maintain buffers)
+              value: no
+        - name: forest_water_streams-wetlands-buffers-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Crossings & culverts
+        - name: forest_water_crossings-culverts
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_water_crossings-culverts-datetime
+          content:
             - label: _(Maintain or improve stream crossings and replace fish passage barrier culverts)
-              value: crossings-culverts
+              value: yes
+            - label: _(Maintain or improve stream crossings and replace fish passage barrier culverts)
+              value: no
+        - name: forest_water_crossings-culverts-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Logging roads
+        - name: forest_water_logging-roads
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_water_logging-roads-datetime
+          content:
             - label: _(Maintain, improve, or remove and revegetate logging roads)
-              value: logging-roads
+              value: yes
+            - label: _(Maintain, improve, or remove and revegetate logging roads)
+              value: no
+        - name: forest_water_logging-roads-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Logging slash
+        - name: forest_water_logging-slash
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_water_logging-slash-datetime
+          content:
             - label: _(Keep logging slash away from water sources)
-              value: logging-slash
+              value: yes
+            - label: _(Keep logging slash away from water sources)
+              value: no
+        - name: forest_water_logging-slash-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Vehicle mud
+        - name: forest_water_vehicle-mud
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_water_vehicle-mud-datetime
+          content:
             - label: _(Control mud from vehicles on local roads)
-              value: vehicle-mud
-          optional: true
-        - name: forest_category-habitat-actions
-          type: big_checkbox
+              value: yes
+            - label: _(Control mud from vehicles on local roads)
+              value: no
+        - name: forest_water_vehicle-mud-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # HABITAT ACTIONS
+        # Invasive/exotic plants
+        - name: forest_habitat_invasive-exotic
+          type: big_toggle
           prompt: _(Forest Health and Wildlife Habitat)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_habitat_invasive-exotic-datetime
           content:
             - label: _(Control Invasive/Exotic plants)
-              value: invasive-exotic
-            - label: _(Practice selective thinning )
-              value: thinning
+              value: yes
+            - label: _(Control Invasive/Exotic plants)
+              value: no
+        - name: forest_habitat_invasive-exotic-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Selective thinning
+        - name: forest_habitat_thinning
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_habitat_thinning-datetime
+          content:
+            - label: _(Practice selective thinning)
+              value: yes
+            - label: _(Practice selective thinning)
+              value: no
+        - name: forest_habitat_thinning-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Snags & piles
+        - name: forest_habitat_snags-piles
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_habitat_snags-piles-datetime
+          content:
             - label: _(Improve wildlife habitat with snags, brush piles, etc.)
-              value: snags-piles
+              value: yes
+            - label: _(Improve wildlife habitat with snags, brush piles, etc.)
+              value: no
+        - name: forest_habitat_snags-piles-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Biological diversity
+        - name: forest_habitat_biological-diversity
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_habitat_biological-diversity-datetime
+          content:
             - label: _(Maintain biological diversity)
-              value: biological-diversity
+              value: yes
+            - label: _(Maintain biological diversity)
+              value: no
+        - name: forest_habitat_biological-diversity-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Agroforestry
+        - name: forest_habitat_agroforestry
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_habitat_agroforestry-datetime
+          content:
             - label: _(Use agroforestry practices such as silviculture)
-              value: agroforestry
-          optional: true 
-        - name: forest_category-harvest-actions
-          type: big_checkbox
+              value: yes
+            - label: _(Use agroforestry practices such as silviculture)
+              value: no
+        - name: forest_habitat_agroforestry-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # HARVEST ACTIONS
+        # Foest consultant
+        - name: forest_harvest_forest-consultant
+          type: big_toggle
           prompt: _(Harvest)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_harvest_forest-consultant-datetime
           content:
             - label: _(Work with Forest Consultant and implement a Forest Stewardship Plan)
-              value: forest-consultant
-            - label: _(Produce non-forest products (mushrooms, floral products))
-              value: non-forest
-            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
-              value: critical-buffers
-            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
-              value: leave-trees
-            - label: _(Other)
-              value: other
-          optional: true
+              value: yes
+            - label: _(Work with Forest Consultant and implement a Forest Stewardship Plan)
+              value: no
+        - name: forest_harvest_forest-consultant-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
 
-        # Urban conservation
-        - name: urban_category-actions
-          type: big_checkbox
+        # Non-forest products
+        - name: forest_harvest_non-forest
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_harvest_non-forest-datetime
+          content:
+            - label: _(Produce non-forest products (mushrooms, floral products))
+              value: yes
+            - label: _(Produce non-forest products (mushrooms, floral products))
+              value: no
+        - name: forest_harvest_non-forest-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Critical buffers
+        - name: forest_harvest_critical-buffers
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_harvest_critical-buffers-datetime
+          content:
+            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
+              value: yes
+            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
+              value: no
+        - name: forest_harvest_critical-buffers-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Leave trees
+        - name: forest_harvest_leave-trees
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_harvest_leave-trees-datetime
+          content:
+            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
+              value: yes
+            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
+              value: no
+        - name: forest_harvest_leave-trees-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Other
+        - name: forest_harvest_forest-other
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - forest_harvest_forest-other-datetime
+          content:
+            - label: _(Other)
+              value: yes
+            - label: _(Other)
+              value: no
+        - name: forest_harvest_forest-other-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # URBAN CATEGORY #######################################################
+        # Rain gardens
+        - name: urban_rain-gardens
+          type: big_toggle
           prompt: _(Actions)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_rain-gardens-datetime
           content:
             - label: _(Installed a rain garden)
-              value: rain-gardens
+              value: yes
+            - label: _(Installed a rain garden)
+              value: no
+        - name: urban_rain-gardens-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Rain barrels
+        - name: urban_rain-barrels
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_rain-barrels-datetime
+          content:
             - label: _(Installed rain barrels or cisterns)
-              value: rain-barrels-and-cisterns
+              value: yes
+            - label: _(Installed rain barrels or cisterns)
+              value: no
+        - name: urban_rain-barrels-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Rain beds
+        - name: urban_rain-beds
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_rain-beds-datetime
+          content:
             - label: _(Installed rain beds)
-              value: rain-beds
+              value: yes
+            - label: _(Installed rain beds)
+              value: no
+        - name: urban_rain-beds-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Urban farming
+        - name: urban_urban-farming
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_urban-farming-datetime
+          content:
             - label: _(Began practicing urban agriculture)
-              value: urban-farming
+              value: yes
+            - label: _(Began practicing urban agriculture)
+              value: no
+        - name: urban_urban-farming-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Natural yard care
+        - name: urban_natural-yard-care
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_natural-yard-care-datetime
+          content:
             - label: _(Used natural yard care)
-              value: natural-yard-care
+              value: yes
+            - label: _(Used natural yard care)
+              value: no
+        - name: urban_natural-yard-care-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Drainage concerns
+        - name: urban_drainage-concerns
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_drainage-concerns-datetime
+          content:
             - label: _(Addressed flooding and/or drainage concerns)
-              value: drainage-concerns
-          optional: true
-        - name: urban_category-comments
+              value: yes
+            - label: _(Addressed flooding and/or drainage concerns)
+              value: no
+        - name: urban_drainage-concerns-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Comments
+        - name: urban_comments
           type: textarea
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
           optional: true
 
-        # Shoreline
-        - name: shoreline_category-bank-actions
-          type: big_checkbox
+        # SHORELINE CARTEGORY ##################################################
+        # BANK ACTIONS
+        # Consult professional
+        - name: shoreline_bank_consult-professional
+          type: big_toggle
           prompt: _(Bank Protection)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_bank_consult-professional-datetime
           content:
             - label: _(Consult a professional for ideas)
-              value: professional-consult
+              value: yes
+            - label: _(Consult a professional for ideas)
+              value: no
+        - name: shoreline_bank_consult-professional-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Natural slope
+        - name: shoreline_bank_natural-slope
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_bank_natural-slope-datetime
+          content:
             - label: _(Leave bank or slope in natural state)
-              value: natrual-slope
+              value: yes
+            - label: _(Leave bank or slope in natural state)
+              value: no
+        - name: shoreline_bank_natural-slope-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Reslope & revegetate
+        - name: shoreline_bank_reslope-revegetate
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_bank_reslope-revegetate-datetime
+          content:
             - label: _(Re-slope and revegetate shoreline or bank)
-              value: reslope-revegetate
+              value: yes
+            - label: _(Re-slope and revegetate shoreline or bank)
+              value: no
+        - name: shoreline_bank_reslope-revegetate-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Log armor
+        - name: shoreline_bank_log-armor
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_bank_log-armor-datetime
+          content:
             - label: _(Log placement to armor bank)
-              value: log-armor
+              value: yes
+            - label: _(Log placement to armor bank)
+              value: no
+        - name: shoreline_bank_log-armor-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Erosion control
+        - name: shoreline_bank_erosion-control
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_bank_erosion-control-datetime
+          content:
             - label: _(Install erosion control measures)
-              value: erosion-control
-          optional: true
-        - name: shoreline_category-vegetation-actions
-          type: big_checkbox
+              value: yes
+            - label: _(Install erosion control measures)
+              value: no
+        - name: shoreline_bank_erosion-control-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # VEGETATION ACTIONS
+        # Frame views
+        - name: shoreline_vegetation_frame-views
+          type: big_toggle
           prompt: _(Vegetation)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_vegetation_frame-views-datetime
           content:
             - label: _(Frame views)
-              value: frame-views
+              value: yes
+            - label: _(Frame views)
+              value: no
+        - name: shoreline_vegetation_frame-views-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Native vegetation
+        - name: shoreline_vegetation_native-vegetation
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_vegetation_native-vegetation-datetime
+          content:
             - label: _(Enhance native vegetation)
-              value: native-vegetation
+              value: yes
+            - label: _(Enhance native vegetation)
+              value: no
+        - name: shoreline_vegetation_native-vegetation-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Naxious weeds
+        - name: shoreline_vegetation_noxious-weeds
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_vegetation_noxious-weeds-datetime
+          content:
             - label: _(Control noxious weeds)
-              value: noxious-weeds
+              value: yes
+            - label: _(Control noxious weeds)
+              value: no
+        - name: shoreline_vegetation_noxious-weeds-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Restore soil
+        - name: shoreline_vegetation_restore-soil
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_vegetation_restore-soil-datetime
+          content:
             - label: _(Conserve and restore soil)
-              value: restore-soil
+              value: yes
+            - label: _(Conserve and restore soil)
+              value: no
+        - name: shoreline_vegetation_restore-soil-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # No tree top
+        - name: shoreline_vegetation_no-tree-top
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_vegetation_no-tree-top-datetime
+          content:
             - label: _(Do not tree-top my trees)
-              value: no-tree-top
-          optional: true
-        - name: shoreline_category-development-actions
-          type: big_checkbox
+              value: yes
+            - label: _(Do not tree-top my trees)
+              value: no
+        - name: shoreline_vegetation_no-tree-top-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # DEVELOPMENT ACTIONS
+        # Minimize impervious surfaces
+        - name: shoreline_development_minimize-impervious
+          type: big_toggle
           prompt: _(Development)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_development_minimize-impervious-datetime
           content:
             - label: _(Minimize impervious surfaces (driveways, roofs))
-              value: minimize-impervious
+              value: yes
+            - label: _(Minimize impervious surfaces (driveways, roofs))
+              value: no
+        - name: shoreline_development_minimize-impervious-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Avoid slope
+        - name: shoreline_development_avoid-slope
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_development_avoid-slope-datetime
+          content:
             - label: _(Consider locating/moving structures away from slopes)
-              value: avoid-slope
+              value: yes
+            - label: _(Consider locating/moving structures away from slopes)
+              value: no
+        - name: shoreline_development_avoid-slope-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Beach nourishment
+        - name: shoreline_development_beach-nourishment
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_development_beach-nourishment-datetime
+          content:
             - label: _(Enhance with beach nourishment (sand, etc))
-              value: beach-nourishment
+              value: yes
+            - label: _(Enhance with beach nourishment (sand, etc))
+              value: no
+        - name: shoreline_development_beach-nourishment-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Bulkhead removal
+        - name: shoreline_development_bulkhead
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_development_bulkhead-datetime
+          content:
             - label: _(Bulkhead and/or manmade structure removal)
-              value: bulkhead
-          optional: true
-        - name: shoreline_category-comments
+              value: yes
+            - label: _(Bulkhead and/or manmade structure removal)
+              value: no
+        - name: shoreline_development_bulkhead-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Comments
+        - name: shoreline_comments
           type: textarea
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
           optional: true
 
-        # General best practices
-        - name: general_category-actions
-          type: big_checkbox
+        # GENERAL BEST PRACTICES CATEGORY ######################################
+        # Natural yard care
+        - name: general_natural-yard-care
+          type: big_toggle
           prompt: _(Actions)
           display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_natural-yard-care-datetime
           content:
             - label: _(Use Natural Yard Care practices)
-              value: natural-yard-care-general
+              value: yes
+            - label: _(Use Natural Yard Care practices)
+              value: no
+        - name: general_natural-yard-care-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Water conservation
+        - name: general_water-conservation
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_water-conservation-datetime
+          content:
             - label: _(Practice Water Conservation and Protection)
-              value: water-conservation
+              value: yes
+            - label: _(Practice Water Conservation and Protection)
+              value: no
+        - name: general_water-conservation-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Native plants
+        - name: general_native-plants
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_native-plants-datetime
+          content:
             - label: _(Use Native Plants)
-              value: native-plants
+              value: yes
+            - label: _(Use Native Plants)
+              value: no
+        - name: general_native-plants-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Enhanced habitat
+        - name: general_enhanced-habitat
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_enhanced-habitat-datetime
+          content:
             - label: _(Enhanced Habitat (wildlife, birds, pollinators, etc))
-              value: enhanced-habitat
+              value: yes
+            - label: _(Enhanced Habitat (wildlife, birds, pollinators, etc))
+              value: no
+        - name: general_enhanced-habitat-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Recycle
+        - name: general_recycle
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_recycle-datetime
+          content:
             - label: _(Recycle and reuse on-site)
-              value: recycle
+              value: yes
+            - label: _(Recycle and reuse on-site)
+              value: no
+        - name: general_recycle-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Wildlife brusg
+        - name: general_wildlife-brush
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_wildlife-brush-datetime
+          content:
             - label: _(Left snags, downed logs and brush piles for wildlife)
-              value: wildlife-brush
+              value: yes
+            - label: _(Left snags, downed logs and brush piles for wildlife)
+              value: no
+        - name: general_wildlife-brush-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Wildlife water
+        - name: general_wildlife-water
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_wildlife-water-datetime
+          content:
             - label: _(Provide a source of water for wildlife)
-              value: wildlife-water
+              value: yes
+            - label: _(Provide a source of water for wildlife)
+              value: no
+        - name: general_wildlife-water-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Wildlife backyward
+        - name: general_wildlife-backyard
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_wildlife-backyard-datetime
+          content:
             - label: _(Certified my property as a Backyard Wildlife Habitat)
-              value: wildlife-backyard
+              value: yes
+            - label: _(Certified my property as a Backyard Wildlife Habitat)
+              value: no
+        - name: general_wildlife-backyard-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Permaculture
+        - name: general_permaculture
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_permaculture-datetime
+          content:
             - label: _(Make use of Permaculture practices)
-              value: permaculture
+              value: yes
+            - label: _(Make use of Permaculture practices)
+              value: no
+        - name: general_permaculture-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Grow food
+        - name: general_grow-food
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_grow-food-datetime
+          content:
             - label: _(Grow food for myself and/or others sustainably)
-              value: grow-food     
-          optional: true
-        - name: general_category-comments
+              value: yes
+            - label: _(Grow food for myself and/or others sustainably)
+              value: no
+        - name: general_grow-food-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Comments
+        - name: general_comments
           type: textarea
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
           optional: true
 
+        # FINAL STAGE ##########################################################
         # Final stage
         - name: title
           type: text
