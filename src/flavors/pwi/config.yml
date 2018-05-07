@@ -81,20 +81,26 @@ map:
       url: "https://smartercleanup.carto.com/api/v2/viz/aea1ff97-2c79-48a1-a3a7-040e4d7aadd1/viz.json"
 
     - id: vacant-parcels
-      type: json
-      url: "https://raw.githubusercontent.com/mapseed/data/master/tax-parcels-with-owners-vacant.geojson"
-      popupContent: '<div><strong>Address: </strong>{{Site_Addre}}</div><div><strong>Value: </strong>{{Land_Value}}</div>'
-      rules:
-        - condition: '"{{properties.taxpayer_7}}" === "public-city"'
-          style:
-            fillColor: "#ff0000"
-            weight: 0
-            fillOpacity: 0.4
-        - condition: '"{{properties.taxpayer_7}}" === "public-tpu"'
-          style:
-            fillColor: "#00ff00"
-            weight: 0
-            fillOpacity: 0.4
+      type: cartodb
+      url: "https://smartercleanup.carto.com/api/v2/viz/79b16316-0810-4236-9ce8-59d468832b9f/viz.json"
+
+    # - id: vacant-parcels
+    #   type: json
+    #   url: "https://raw.githubusercontent.com/mapseed/data/master/tax-parcels-with-owners-vacant.geojson"
+    #   popupContent: '<div><strong>Address: </strong>{{Site_Addre}}</div><div><strong>Value: </strong>{{Land_Value}}</div>'
+    #   rules:
+    #     - condition: '"{{properties.taxpayer_7}}" === "public-city"'
+    #       style:
+    #         fillColor: "#ff0000"
+    #         weight: 0
+    #         fillOpacity: 0.4
+    #     - condition: '"{{properties.taxpayer_7}}" === "public-tpu"'
+    #       style:
+    #         fillColor: "#00ff00"
+    #         weight: 0
+    #         fillOpacity: 0.4
+
+
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -279,29 +285,29 @@ sidebar:
               title: _(Vacant parcels)
               visibleDefault: false
 
-    - id: ticker
-      view: ActivityView
-      icon: comments-o
-      activity: true
-      title: _(Activity Stream:)
+    # - id: ticker
+    #   view: ActivityView
+    #   icon: comments-o
+    #   activity: true
+    #   title: _(Activity Stream:)
 
-    - id: reports_legend
-      title: _(Community Reports:)
-      view: LegendView
-      icon: info-circle
-      items:
-        - title: _(Observations)
-          image: /static/css/images/markers/marker-observation.png
-          url: /filter/observation
-        - title: _(Ideas)
-          image: /static/css/images/markers/marker-idea.png
-          url: /filter/idea
-        - title: _(Questions)
-          image: /static/css/images/markers/marker-question.png
-          url: /filter/question
-        - title: _(Complaints)
-          image: /static/css/images/markers/marker-complaint.png
-          url: /filter/complaint
+    # - id: reports_legend
+    #   title: _(Community Reports:)
+    #   view: LegendView
+    #   icon: info-circle
+    #   items:
+    #     - title: _(Observations)
+    #       image: /static/css/images/markers/marker-observation.png
+    #       url: /filter/observation
+    #     - title: _(Ideas)
+    #       image: /static/css/images/markers/marker-idea.png
+    #       url: /filter/idea
+    #     - title: _(Questions)
+    #       image: /static/css/images/markers/marker-question.png
+    #       url: /filter/question
+    #     - title: _(Complaints)
+    #       image: /static/css/images/markers/marker-complaint.png
+    #       url: /filter/complaint
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -584,21 +590,22 @@ story:
       - pwi-featured
       - pwi-input
     order:
-      - url: good-shephard-lutheran-meals--tue---6pm-
-        basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png  
-      - url: kwa-meals-
-        basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
-      - url: first-creek-middle-school--varies-
-        basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png  
       - url: vacant-parcels
         basemap: satellite
-        zoom: 9
+        zoom: 13
+        spotlight: false
         visible_layers:
           - vacant-parcels       
         sidebar_icon_url: /static/css/images/markers/marker-star.png
+      - url: good-shephard-lutheran-meals--tue---6pm-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png  
+      - url: kwa-meals-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png        
+      - url: first-creek-middle-school--varies-
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker.png  
 
 # cluster:
 #   animate: true
