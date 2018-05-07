@@ -42,8 +42,8 @@ map:
 
   options:
     center:
-      lat: 47.17431
-      lng: -122.09621
+      lat: 47.24510
+      lng: -122.36504
     zoom: 12
     minZoom: 1
     maxZoom: 18
@@ -57,7 +57,7 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: light-nolabelslight
+    - id: light
       url: https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png
       attribution: 'Hello World'
       type: basemap
