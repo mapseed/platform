@@ -296,6 +296,13 @@ place:
           icon_url: /static/css/images/markers/marker-my-land.png
           header: _(Farm Conservation)
           description: _(Tell us what you’ve done on your farm to protect natural resources)
+          modal:
+            headerImgSrc: /static/css/images/markers/marker-my-land.png
+            header: _(More About Farm Conservation)
+            body: [
+              "Information about farm conservation actions.",
+              "More to come!"
+            ]
 
         # Forest
         - start_field_index: 21
@@ -303,6 +310,13 @@ place:
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
+          modal:
+            headerImgSrc: /static/css/images/markers/marker-my-forest.png
+            header: _(More About Forest Conservation)
+            body: [
+              "Information about forest conservation actions.",
+              "More to come!"
+            ]
 
         # Urban
         - start_field_index: 61
@@ -310,6 +324,13 @@ place:
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Urban Conservation)
           description: _(Tell us what you’ve done to improve urban conservation)
+          modal:
+            headerImgSrc: /static/css/images/markers/marker-my-forest.png
+            header: _(More About Urban Conservation)
+            body: [
+              "Information about urban conservation actions.",
+              "More to come!"
+            ]
 
         # Shoreline
         - start_field_index: 74
@@ -317,6 +338,13 @@ place:
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Shoreline Conservation)
           description: _(Tell us what you’ve done to improve shoreline conservation)
+          modal:
+            headerImgSrc: /static/css/images/markers/marker-my-forest.png
+            header: _(More About Shoreline Conservation)
+            body: [
+              "Information about shoreline conservation actions.",
+              "More to come!"
+            ]
 
         # General best practices
         - start_field_index: 103
@@ -324,6 +352,12 @@ place:
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(General Best Practices)
           description: _(Tell us about other actions you’ve taken)
+          modal:
+            headerImgSrc: /static/css/images/markers/marker-my-forest.png
+            header: _(More About General Best Practices)
+            body: [
+              "More to come!"
+            ]
 
         # Final
         - start_field_index: 124

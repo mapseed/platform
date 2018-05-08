@@ -15,3 +15,24 @@
   border-radius: 5px;
   background-color: $accent-color-2;
 }
+
+.mapseed__info-modal-trigger {
+  outline: none;
+  background: none;
+  border: none;
+
+  &:before {
+    font-size: 1em;
+    color: #999;
+    font-family: FontAwesome;
+    content: "\f059";
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &:before {
+      color: #555;
+    }
+  }
+}
