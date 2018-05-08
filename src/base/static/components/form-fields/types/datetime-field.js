@@ -29,7 +29,7 @@ DatetimeField.propTypes = {
 };
 
 DatetimeField.defaultProps = {
-  showTimeSelect: true,
+  showTimeSelect: false,
 };
 
 export default DatetimeField;
