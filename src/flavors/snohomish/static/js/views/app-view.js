@@ -21,4 +21,14 @@ module.exports = AppView.extend({
     this.hideCenterPoint();
     this.setBodyClass("content-visible", "content-expanded");
   },
+
+  onClickAddPlaceBtn: function(evt) {
+    evt.preventDefault();
+    Util.log("USER", "map", "new-place-btn-click");
+    // BEGIN CUSTOM CODE
+    // NOTE: We use an internal rel in the anchor tag to do custom routing on
+    // this flavor.
+    //this.options.router.navigate("/new", { trigger: true });
+    // END CUSTOM CODE
+  },
 });
