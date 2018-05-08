@@ -108,7 +108,11 @@ class FormField extends Component {
     };
 
     return (
-      <div className={cn.container}>
+      <div
+        className={cn.container}
+        data-field-type={this.props.fieldConfig.type}
+        data-field-name={this.props.fieldConfig.name}
+      >
         <p className="input-form__field-prompt">
           {this.props.fieldConfig.prompt}
           <span className={cn.optionalMsg}>{this.props.t("optionalMsg")}</span>
