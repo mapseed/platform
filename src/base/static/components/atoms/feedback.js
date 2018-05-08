@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
+
+import emitter from "../../utils/emitter";
 
 import "./feedback.scss";
 
@@ -19,4 +22,15 @@ ProgressBar.propTypes = {
   total: PropTypes.number.isRequired,
 };
 
-export { ProgressBar };
+const InfoModalTrigger = props => {
+  return (
+    <button
+      className={classNames("mapseed__info-modal-trigger", props.classes)}
+      onClick={() => emitter.emit("info-modal:open", props.modalContent)}
+    />
+  );
+};
+
+InfoModalTrigger.propTypes = {};
+
+export { ProgressBar, InfoModalTrigger };

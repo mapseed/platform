@@ -211,7 +211,7 @@ export default {
       <DatetimeField
         {...getSharedFieldProps(fieldConfig, context)}
         date={context.props.fieldState.get(constants.FIELD_VALUE_KEY)}
-        showTimeSelect={true}
+        showTimeSelect={fieldConfig.show_time_select}
       />
     ),
     getInitialValue: ({ value }) => value,
