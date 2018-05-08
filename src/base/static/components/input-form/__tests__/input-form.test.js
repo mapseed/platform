@@ -58,14 +58,17 @@ describe("InputForm", () => {
     wrapper.setState({
       fields: OrderedMap({
         [fieldName1]: Map({
+          [constants.FIELD_VISIBILITY_KEY]: true,
           [constants.FIELD_VALIDITY_KEY]: true,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorMessage1,
         }),
         [fieldName2]: Map({
+          [constants.FIELD_VISIBILITY_KEY]: true,
           [constants.FIELD_VALIDITY_KEY]: true,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorMessage2,
         }),
         [fieldName3]: Map({
+          [constants.FIELD_VISIBILITY_KEY]: true,
           [constants.FIELD_VALIDITY_KEY]: false,
           [constants.FIELD_VALIDITY_MESSAGE_KEY]: errorMessage3,
         }),
@@ -93,18 +96,22 @@ describe("InputForm", () => {
     wrapper.setState({
       fields: OrderedMap({
         [fieldName1]: Map({
+          [constants.FIELD_VISIBILITY_KEY]: true,
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: true,
         }),
         [fieldName2]: Map({
+          [constants.FIELD_VISIBILITY_KEY]: true,
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: true,
         }),
         [fieldName3]: Map({
+          [constants.FIELD_VISIBILITY_KEY]: true,
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: true,
         }),
         [fieldName4]: Map({
+          [constants.FIELD_VISIBILITY_KEY]: true,
           [constants.FIELD_VALUE_KEY]: "",
           [constants.FIELD_VALIDITY_KEY]: true,
         }),

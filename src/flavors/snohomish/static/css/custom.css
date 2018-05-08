@@ -120,6 +120,16 @@
 //  width: 70px;
 //}
 
+.input-form__field-container[data-field-type="datetime"],
+.input-form__field-container[data-field-type="big_toggle"] {
+  background-color: #eee;
+  margin-bottom: 15px;
+}
+
+.input-form__field-container[data-field-type="datetime"] {
+  margin-top: -15px;
+}
+
 /* =Custom pages
 -------------------------------------------------------------- */
 .dotted-background-container {
@@ -151,7 +161,6 @@
   text-align: center;
   list-style: none;
 }
-
 
 /* =Media Queries
 -------------------------------------------------------------- */

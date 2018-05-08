@@ -608,6 +608,42 @@ place:
           display_prompt: "_( )"
           placeholder: _(Description...)
           optional: false
+        - name: toggle_a
+          type: big_toggle
+          prompt: _(On or off?)
+          display_prompt: _( )
+          trigger:
+            trigger_value: "on"
+            targets:
+               - toggle_a_datetime
+          content:
+            - label: _(On)
+              value: "on"
+            - label: _(Off)
+              value: "off"
+          optional: false
+        - name: toggle_a_datetime
+          type: datetime
+          prompt: _(Time for this action:)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+        - name: toggle_b
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          content:
+            - label: _(Yes)
+              value: "yes"
+            - label: _(No)
+              value: "no"
+          optional: false
+        - name: toggle_b_datetime
+          type: datetime
+          prompt: _(Time for this action:)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
         - name: submitter_name
           type: common_form_element
         - name: private-submitter_email

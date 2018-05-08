@@ -78,7 +78,19 @@ class FormField extends Component {
           constants.FIELD_RENDER_KEY,
           this.props.fieldState.get(constants.FIELD_RENDER_KEY),
         )
-        .set(constants.FIELD_VALIDITY_MESSAGE_KEY, this.validator.message),
+        .set(constants.FIELD_VALIDITY_MESSAGE_KEY, this.validator.message)
+        .set(
+          constants.FIELD_TRIGGER_VALUE_KEY,
+          this.props.fieldState.get(constants.FIELD_TRIGGER_VALUE_KEY),
+        )
+        .set(
+          constants.FIELD_TRIGGER_TARGETS_KEY,
+          this.props.fieldState.get(constants.FIELD_TRIGGER_TARGETS_KEY),
+        )
+        .set(
+          constants.FIELD_VISIBILITY_KEY,
+          this.props.fieldState.get(constants.FIELD_VISIBILITY_KEY),
+        ),
       isInitializing: isInitializing,
     });
   }
@@ -94,13 +106,16 @@ class FormField extends Component {
         "input-form__optional-msg--visible": this.props.fieldConfig.optional,
       }),
     };
-    const { t } = this.props;
 
     return (
-      <div className={cn.container}>
+      <div
+        className={cn.container}
+        data-field-type={this.props.fieldConfig.type}
+        data-field-name={this.props.fieldConfig.name}
+      >
         <p className="input-form__field-prompt">
           {this.props.fieldConfig.prompt}
-          <span className={cn.optionalMsg}>{t("optionalMsg")}</span>
+          <span className={cn.optionalMsg}>{this.props.t("optionalMsg")}</span>
         </p>
         {this.state.isInitialized &&
           this.fieldDefinition.getComponent(this.props.fieldConfig, this)}

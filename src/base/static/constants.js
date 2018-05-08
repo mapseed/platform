@@ -48,6 +48,9 @@ export default {
   FIELD_VALIDITY_MESSAGE_KEY: "message",
   FIELD_FIELD_TYPE_KEY: "type",
   FIELD_RENDER_KEY: "renderKey",
+  FIELD_VISIBILITY_KEY: "isVisible",
+  FIELD_TRIGGER_VALUE_KEY: "trigger",
+  FIELD_TRIGGER_TARGETS_KEY: "triggerTargets",
 
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
