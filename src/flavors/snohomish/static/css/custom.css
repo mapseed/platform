@@ -130,6 +130,31 @@
   margin-top: -15px;
 }
 
+.big-toggle-field__label {
+  margin-top: 0;
+  border: none;
+  color: #36454f;
+}
+
+.big-toggle-field__label:before {
+  max-height: 41px;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: 41px;
+}
+
+.big-toggle-field__label--toggled:before {
+  background-color: #02440b;
+}
+
+.datetime-field {
+  border-color: #02440b;
+}
+
+.input-form__optional-msg {
+  display: none;
+}
+
 /* =Custom pages
 -------------------------------------------------------------- */
 .dotted-background-container {
