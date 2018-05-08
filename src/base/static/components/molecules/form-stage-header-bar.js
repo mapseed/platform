@@ -16,7 +16,10 @@ const FormStageHeaderBar = props => {
         />
         {props.stageConfig.header}
         {props.stageConfig.modal && (
-          <InfoModalTrigger classes="form-stage-header-bar__modal-trigger" modalContent={props.stageConfig.modal} />
+          <InfoModalTrigger
+            classes="form-stage-header-bar__modal-trigger"
+            modalContent={props.stageConfig.modal}
+          />
         )}
       </Header3>
       <Paragraph className="form-stage-header-bar__description">
