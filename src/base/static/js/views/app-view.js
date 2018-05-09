@@ -840,6 +840,13 @@ module.exports = Backbone.View.extend({
         self.isStoryActive = false;
         self.restoreDefaultLayerVisibility();
       }
+
+      // Sigh. This is the latest attempt to avert the off-center bug. Tweaking
+      // the map's center point slightly seems to help Leaflet figure out the
+      // correct map dimensions. Definitely hacky...
+      map.panBy(new L.Point(0, -1));
+      map.panBy(new L.Point(0, 1));
+      map.invalidateSize(true);
     }
 
     function onNotFound() {
@@ -891,16 +898,6 @@ module.exports = Backbone.View.extend({
     }
 
     this.setBodyClass("content-visible");
-
-    // Set a very short timeout here to hopefully avoid a race condition
-    // between the CSS transition that resizes the map container and
-    // invalidateSize(). Otherwise, invalidateSize() may fire before the new
-    // map container dimensions have been set by CSS, resulting in the
-    // infamous off-center bug.
-    // NOTE: the timeout duration in use here was arbitrarily selected.
-    setTimeout(function() {
-      map.invalidateSize({ animate: true, pan: true });
-    }, 1);
 
     $(Shareabouts).trigger("panelshow", [
       this.options.router,
