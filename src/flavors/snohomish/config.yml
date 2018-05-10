@@ -306,7 +306,7 @@ place:
 
         # Forest
         - start_field_index: 21
-          end_field_index: 60
+          end_field_index: 62
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
@@ -319,8 +319,8 @@ place:
             ]
 
         # Urban
-        - start_field_index: 61
-          end_field_index: 73
+        - start_field_index: 63
+          end_field_index: 78
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Urban Conservation)
           description: _(Tell us what you’ve done to improve urban conservation)
@@ -333,8 +333,8 @@ place:
             ]
 
         # Shoreline
-        - start_field_index: 74
-          end_field_index: 102
+        - start_field_index: 79
+          end_field_index: 107
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Shoreline Conservation)
           description: _(Tell us what you’ve done to improve shoreline conservation)
@@ -347,8 +347,8 @@ place:
             ]
 
         # General best practices
-        - start_field_index: 103
-          end_field_index: 123
+        - start_field_index: 108
+          end_field_index: 128
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(General Best Practices)
           description: _(Tell us about other actions you’ve taken)
@@ -360,8 +360,8 @@ place:
             ]
 
         # Final
-        - start_field_index: 124
-          end_field_index: 129
+        - start_field_index: 129
+          end_field_index: 135
           icon_url: /static/css/images/markers/marker-my-forest.png
           header: _(Almost Done!)
           description: _( )
@@ -649,12 +649,19 @@ place:
           trigger:
             trigger_value: yes
             targets:
+              - forest_fire_other-action
               - forest_fire_other-datetime
           content:
             - label: _(Other)
               value: yes
             - label: _(Other)
               value: no
+        - name: forest_fire_other-action
+          type: text
+          prompt: _(What was your action?)
+          display_prompt: _( )
+          optional: true
+          hidden_default: true
         - name: forest_fire_other-datetime
           type: datetime
           prompt: _(When did you last complete this action?)
@@ -981,20 +988,27 @@ place:
           hidden_default: true
 
         # Other
-        - name: forest_harvest_forest-other
+        - name: forest_harvest_other
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_harvest_forest-other-datetime
+              - forest_harvest_other-datetime
+              - forest_harvest_other-action
           content:
             - label: _(Other)
               value: yes
             - label: _(Other)
               value: no
-        - name: forest_harvest_forest-other-datetime
+        - name: forest_harvest_other-action
+          type: text
+          prompt: _(What was your action?)
+          display_prompt: _( )
+          optional: true
+          hidden_default: true
+        - name: forest_harvest_other-datetime
           type: datetime
           prompt: _(When did you last complete this action?)
           display_prompt: _( )
@@ -1122,6 +1136,33 @@ place:
             - label: _(Addressed flooding and/or drainage concerns)
               value: no
         - name: urban_drainage-concerns-datetime
+          type: datetime
+          prompt: _(When did you last complete this action?)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        - name: urban_other
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_other-action
+              - urban_other-datetime
+          content:
+            - label: _(Other)
+              value: yes
+            - label: _(Other)
+              value: no
+        - name: urban_other-action
+          type: text
+          prompt: _(What was your action?)
+          display_prompt: _( )
+          optional: true
+          hidden_default: true
+        - name: urban_other-datetime
           type: datetime
           prompt: _(When did you last complete this action?)
           display_prompt: _( )
@@ -1677,6 +1718,8 @@ place:
           optional: false         
         - name: my_image
           type: common_form_element
+        - name: private-submitter_email
+          type: common_form_element
         - name: other-comments
           type: textarea
           prompt: _(Anything else you’d like us to know?)
@@ -1696,7 +1739,7 @@ place:
     private-submitter_email:
       type: text
       prompt: _(Your Email)
-      placeholder: _(Receive email updates on your report)
+      placeholder: _(Receive updates on your work)
       optional: true
       sticky: true
     my_image:
