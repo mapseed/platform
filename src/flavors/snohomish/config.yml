@@ -1673,7 +1673,7 @@ place:
           type: geocoding
           prompt: _(Location:)
           display_prompt: _(Address)
-          placeholder: _(Enter your address...)
+          placeholder: _(Enter your address, to ensure streams can be delisted)
           optional: false         
         - name: my_image
           type: common_form_element
@@ -1701,8 +1701,8 @@ place:
       sticky: true
     my_image:
       type: file
-      prompt: _(Image)
-      label: _(Add an Image)
+      prompt: _(Please share an image of your work)
+      label: _(📷 Add an Image)
       optional: true
     submit:
       type: submit
