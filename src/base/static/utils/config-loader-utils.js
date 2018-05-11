@@ -2,7 +2,7 @@
 
 // Transform the story section of the config to build the data structure we
 // need for story navigation.
-const transformStoryContent = storyConfig => {
+const transformStoryContent = (storyConfig = {}) => {
   return Object.entries(storyConfig).reduce(
     (stories, [storyName, storyContent]) => {
       const numChapters = storyContent.order.length;
