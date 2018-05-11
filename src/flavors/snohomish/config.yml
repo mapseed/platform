@@ -1714,7 +1714,7 @@ place:
           type: geocoding
           prompt: _(Location:)
           display_prompt: _(Address)
-          placeholder: _(Enter your address, to ensure streams can be delisted)
+          placeholder: _(Enter your address, to ensure streams can be list as safe)
           optional: false         
         - name: my_image
           type: common_form_element
