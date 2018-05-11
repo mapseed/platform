@@ -8,7 +8,7 @@
 <ul>
   <li class="page-sign-in-btn"><a class="auth-btn google-btn" href="{{apiRoot}}users/login/google-oauth2/?next=/new">Google</a></li>
   <li class="page-sign-in-btn"><a class="auth-btn twitter-btn" href="{{apiRoot}}users/login/twitter/?next=/new">Twitter</a></li>
-  <li class="page-sign-in-btn"><a class="auth-btn facebook-btn" href="{{apiRoot}}users/login/facebook/?next=/new">Facebook</a></li>
+<!--   <li class="page-sign-in-btn"><a class="auth-btn facebook-btn" href="{{apiRoot}}users/login/facebook/?next=/new">Facebook</a></li> -->
 </ul>
 
 <p>{{#_}}By signing in, you will have the option to update your submissions at a later date.{{/_}}</p>
@@ -27,6 +27,16 @@
 The information you provide will help us show how the positive actions of landowners can help clean up our water, and this information (your photos, address, improvement actions taken) may be provided to the Department of Ecology to help us show that incentive programs and willing landowners are invaluable to cleaning up our water!
 {{/_}}</p>
 
+<img src="/static/css/images/logo_transparent_small.png">
+{{#_}}
+<p>This project has been funded by a Washington State Department of Ecology water quality grant with on-going support from Snohomish Conservation District.</p>
+<p>
+Learn more about us at:
+<a href="http://snohomishcd.org">snohomishcd.org</a> 
+</p>
+<p>
+Learn more about sustainable living at: <a href="http://betterground.org">betterground.org</a></p>
+{{/_}}
 {{# is_authenticated}}
 <div class="dotted-background-container">
   <a href="/new" rel="internal" class="next-btn">{{#_}}Next{{/_}}</a>
