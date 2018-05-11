@@ -260,9 +260,10 @@ export default {
   },
   [constants.SUBMIT_FIELD_TYPENAME]: {
     getValidator: getPermissiveValidator,
-    getComponent: fieldConfig => (
+    getComponent: (fieldConfig, context) => (
       <InputFormSubmitButton
-        name={fieldConfig.name}
+        {...getSharedFieldProps(fieldConfig, context)}
+        onClickSubmit={context.props.onClickSubmit.bind(context)}
         label={fieldConfig.label}
       />
     ),

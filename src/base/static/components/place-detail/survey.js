@@ -68,9 +68,7 @@ class Survey extends Component {
     }));
   }
 
-  onSubmit(evt) {
-    evt.preventDefault();
-
+  onSubmit() {
     const newValidationErrors = this.state.fields
       .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
       .reduce((newValidationErrors, invalidField) => {
@@ -166,7 +164,7 @@ class Survey extends Component {
         />
         <form
           className="place-detail-survey__form"
-          onSubmit={this.onSubmit.bind(this)}
+          onSubmit={evt => evt.preventDefault()}
         >
           {this.state.fields
             .map((fieldState, fieldName) => (
@@ -181,6 +179,7 @@ class Survey extends Component {
                 disabled={this.state.isFormSubmitting}
                 onFieldChange={this.onFieldChange.bind(this)}
                 fieldState={fieldState}
+                onClickSubmit={this.onSubmit.bind(this)}
               />
             ))
             .toArray()}

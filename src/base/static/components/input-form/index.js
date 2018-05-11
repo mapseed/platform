@@ -173,8 +173,7 @@ class InputForm extends Component {
     }
   }
 
-  onSubmit(evt) {
-    evt.preventDefault();
+  onSubmit() {
     Util.log("USER", "new-place", "submit-place-btn-click");
 
     this.validateForm(this.saveModel.bind(this));
@@ -354,7 +353,7 @@ class InputForm extends Component {
         <form
           id="mapseed-input-form"
           className={cn.form}
-          onSubmit={this.onSubmit.bind(this)}
+          onSubmit={evt => evt.preventDefault()}
         >
           {this.getFields()
             .map((fieldState, fieldName) => {
@@ -375,6 +374,7 @@ class InputForm extends Component {
                   router={this.props.router}
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
+                  onClickSubmit={this.onSubmit.bind(this)}
                 />
               );
             })
