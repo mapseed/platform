@@ -10,6 +10,7 @@ export default (fieldList, backboneModelAttributes) =>
           constants.CUSTOM_URL_TOOLBAR_TYPENAME,
           constants.MAP_DRAWING_TOOLBAR_TYPENAME,
           constants.PUBLISH_CONTROL_TOOLBAR_TYPENAME,
+          constants.INFORMATIONAL_HTML_FIELD_TYPENAME,
         ].includes(fieldConfig.type) &&
         ![
           constants.LOCATION_TYPE_PROPERTY_NAME,
