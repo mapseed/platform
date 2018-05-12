@@ -31,6 +31,7 @@ import {
   BigToggleFieldResponse,
   DropdownFieldResponse,
   AutocompleteComboboxFieldResponse,
+  InformationalHTMLField,
 } from "./types";
 import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
@@ -281,5 +282,16 @@ export default {
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => RangeFieldResponse,
+  },
+  [constants.INFORMATIONAL_HTML_FIELD_TYPENAME]: {
+    getValidator: getPermissiveValidator,
+    getComponent: (fieldConfig, context) => (
+      <InformationalHTMLField
+        {...getSharedFieldProps(fieldConfig, context)}
+        content={fieldConfig.content}
+      />
+    ),
+    getInitialValue: () => null,
+    getResponseComponent: () => null,
   },
 };
