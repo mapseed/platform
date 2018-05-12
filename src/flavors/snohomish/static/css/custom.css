@@ -205,6 +205,23 @@
   color: #ccc !important;
 }
 
+#drag-map-graphic {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  margin-bottom: 40px;
+}
+
+.map-drag-header {
+  text-align: center;
+}
+
+.input-form__field-container[data-field-name="location-information"] {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 /* =Custom pages
 -------------------------------------------------------------- */
 .dotted-background-container {
