@@ -5,6 +5,7 @@ import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
 import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 
+import { story as storyConfig } from "config";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -340,10 +341,12 @@ module.exports = Backbone.View.extend({
     // Load places from the API
     this.loadPlaces(placeParams);
 
-    this.storiesPromise = hydrateStoriesFromConfig(
-      this.placeCollectionPromises,
-      this.places,
-    );
+    if (storyConfig) {
+      this.storiesPromise = hydrateStoriesFromConfig(
+        this.placeCollectionPromises,
+        this.places,
+      );
+    }
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {

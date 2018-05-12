@@ -18,6 +18,7 @@ var normalizeModelArguments = function(key, val, options) {
 };
 
 const addStoryObj = response => {
+  if (!storyConfig) return;
   const url = response.properties[constants.CUSTOM_URL_PROPERTY_NAME]
     ? response.properties[constants.CUSTOM_URL_PROPERTY_NAME]
     : response.properties.datasetSlug + "/" + response.properties.id;
