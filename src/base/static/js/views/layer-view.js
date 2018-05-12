@@ -26,10 +26,9 @@ module.exports = Backbone.View.extend({
       switch (payload.action) {
         case constants.FOCUS_TARGET_LAYER_ACTION: {
           if (
-            payload.targetLayers &&
-            payload.targetLayers.has(
-              this.model.get(constants.MODEL_ID_PROPERTY_NAME),
-            )
+            payload.targetLocationType &&
+            payload.targetLocationType ===
+              this.model.get(constants.LOCATION_TYPE_PROPERTY_NAME)
           ) {
             this.focus();
           }

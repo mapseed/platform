@@ -34,7 +34,8 @@ const hooks = {
   pbOaklandDetailViewMount: state => {
     emitter.emit("layer-view:style", {
       action: constants.FOCUS_TARGET_LAYER_ACTION,
-      targetLayers: new Set(state.placeModel.get("related-ideas")),
+      // targetLayers: new Set(state.placeModel.get("related-ideas")),
+      targetLocationType: state.placeModel.get("related-location-type"),
     });
   },
 };
