@@ -283,6 +283,7 @@ place:
           type: common_form_element
 
     - category: conservation-actions
+      submitter_editing_supported: true
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
