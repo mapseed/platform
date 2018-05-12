@@ -210,7 +210,7 @@
   margin-left: auto;
   margin-right: auto;
   width: 30%;
-  margin-bottom: 40px;
+  margin-bottom: 5px;
 }
 
 .map-drag-header {
@@ -220,6 +220,33 @@
 .input-form__field-container[data-field-name="location-information"] {
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+.form-stage-header-bar {
+  position: relative;
+  padding-left: 0;
+}
+
+.form-stage-header-bar__icon {
+  position: absolute;
+  bottom: 0;
+  width: 140%;
+  left: 40px;
+}
+
+.form-stage-header-bar__header {
+  text-align: center;
+  font-family: bowlby, sans-serif;
+  letter-spacing: 1px;
+  color: #02440b;
+}
+
+.form-stage-header-bar__description {
+  padding-left: 60px;
+  padding-right: 50px;
+  font-size: 1.3em;
+  font-weight: 800;
+  margin-bottom: 40px;
 }
 
 /* =Custom pages
