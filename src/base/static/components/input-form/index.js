@@ -386,12 +386,12 @@ class InputForm extends Component {
           <FormStageControlBar
             onClickAdvanceStage={() => {
               this.validateForm(() => {
+                scrollTo(this.props.container, 0);
                 this.setState({
                   currentStage: this.state.currentStage + 1,
                   showValidityStatus: false,
                   formValidationErrors: new Set(),
                 });
-                this.props.container.scrollTop = 0;
               });
             }}
             onClickRetreatStage={() => {
@@ -401,13 +401,13 @@ class InputForm extends Component {
               ) {
                 this.props.onCategoryChange(null);
               } else {
+                scrollTo(this.props.container, 0);
                 this.setState({
                   currentStage: this.state.currentStage - 1,
                   showValidityStatus: false,
                   formValidationErrors: new Set(),
                 });
               }
-              this.props.container.scrollTop = 0;
             }}
             currentStage={this.state.currentStage}
             numStages={this.selectedCategoryConfig.multi_stage.length}

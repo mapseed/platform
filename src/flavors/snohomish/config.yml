@@ -294,83 +294,48 @@ place:
         # Set location
         - start_field_index: 1
           end_field_index: 2
-          #icon_url: /static/css/images/marker-plus.png
+          icon_url: /static/css/images/form-stage-header-graphic-b.png
           header: _(Please set your location)
           description: _(Setting your location will help us list streams as safe. Your address will not be shared on the map.)
         
         # Farm
         - start_field_index: 3
           end_field_index: 22
-          icon_url: /static/css/images/markers/marker-my-land.png
+          icon_url: /static/css/images/form-stage-header-graphic-b.png
           header: _(Farm Conservation)
           description: _(Tell us what you’ve done on your farm to protect natural resources)
-          modal:
-            headerImgSrc: /static/css/images/markers/marker-my-land.png
-            header: _(More About Farm Conservation)
-            body: [
-              "Information about farm conservation actions.",
-              "More to come!"
-            ]
 
         # Forest
         - start_field_index: 23
           end_field_index: 64
-          icon_url: /static/css/images/markers/marker-my-forest.png
+          icon_url: /static/css/images/form-stage-header-graphic-b.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
-          modal:
-            headerImgSrc: /static/css/images/markers/marker-my-forest.png
-            header: _(More About Forest Conservation)
-            body: [
-              "Information about forest conservation actions.",
-              "More to come!"
-            ]
 
         # Urban
         - start_field_index: 65
           end_field_index: 80
-          icon_url: /static/css/images/markers/marker-my-forest.png
+          icon_url: /static/css/images/form-stage-header-graphic-b.png
           header: _(Urban Conservation)
           description: _(Tell us what you’ve done to improve urban conservation)
-          modal:
-            headerImgSrc: /static/css/images/markers/marker-my-forest.png
-            header: _(More About Urban Conservation)
-            body: [
-              "Information about urban conservation actions.",
-              "More to come!"
-            ]
 
         # Shoreline
         - start_field_index: 81
           end_field_index: 109
-          icon_url: /static/css/images/markers/marker-my-forest.png
+          icon_url: /static/css/images/form-stage-header-graphic-b.png
           header: _(Shoreline Conservation)
           description: _(Tell us what you’ve done to improve shoreline conservation)
-          modal:
-            headerImgSrc: /static/css/images/markers/marker-my-forest.png
-            header: _(More About Shoreline Conservation)
-            body: [
-              "Information about shoreline conservation actions.",
-              "More to come!"
-            ]
 
         # General best practices
         - start_field_index: 110
           end_field_index: 130
-          icon_url: /static/css/images/markers/marker-my-forest.png
+          icon_url: /static/css/images/form-stage-header-graphic-b.png
           header: _(General Best Practices)
           description: _(Tell us about other actions you’ve taken)
-          modal:
-            headerImgSrc: /static/css/images/markers/marker-my-forest.png
-            header: _(More About General Best Practices)
-            body: [
-              "More to come!"
-            ]
-
         # Final
         - start_field_index: 131
           end_field_index: 135
-          icon_url: /static/css/images/markers/marker-my-forest.png
+          icon_url: /static/css/images/form-stage-header-graphic-b.png
           header: _(Almost Done!)
           description: _( )
       label: _(Conservation Actions)
@@ -439,6 +404,11 @@ place:
               value: yes
             - label: _(Manage pastures)
               value: no
+          modal:
+            header: _(Manage pastures)
+            body: [
+              "Information about managing pastures"
+            ]
         - name: farm_pastures-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
