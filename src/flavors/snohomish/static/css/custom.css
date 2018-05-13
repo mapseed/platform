@@ -18,7 +18,7 @@
 -------------------------------------------------------------- */
 
 .menu {
-  font-family: "Bowlby", sans-serif;
+  font-family: "Lithos", sans-serif;
   letter-spacing: 1.5px;
 
   .btn-secondary {
@@ -45,7 +45,7 @@
 }
 
 .list-toggle-btn {
-  font-family: "Bowlby", sans-serif;
+  font-family: "Lithos", sans-serif;
   letter-spacing: 1.5px;
   background-color: transparent;
   border: none;
@@ -64,6 +64,16 @@
   background-color: #f3f5e7;
   background-repeat: no-repeat;
 }
+
+#sign-in-btn {
+  background-color: #02440b !important;
+  color: #fff !important;
+
+  &:hover {
+    color: #779300 !important;
+  }
+}
+  
 
 /* =Geocode Address Bar
 -------------------------------------------------------------- */
@@ -236,7 +246,7 @@
 
 .form-stage-header-bar__header {
   text-align: center;
-  font-family: bowlby, sans-serif;
+  font-family: "Bowlby", sans-serif;
   letter-spacing: 1px;
   color: #02440b;
 }
@@ -247,6 +257,19 @@
   font-size: 1.3em;
   font-weight: 800;
   margin-bottom: 40px;
+}
+
+/* =Info modal
+-------------------------------------------------------------- */
+.mapseed-info-modal__header-bar,
+.mapseed-info-modal__close-btn {
+  background-color: #f3f5e7;
+}
+
+.mapseed-info-modal__header-content {
+  color: #02440b;
+  font-family: bowlby, sans-serif;
+  letter-spacing: 1px;
 }
 
 /* =Custom pages
@@ -262,18 +285,18 @@
 }
 
 .next-btn {
+  background-color: #02440b !important;
   float: right;
   background: none;
   outline: none;
   border: none;
-  background-color: #007fbf;
   text-transform: uppercase;
   color: #fff !important;
   padding: 0.5em;
   margin-left: 10px;
 
   &:hover {
-    color: #a3c7d9 !important;
+    color: #779300 !important;
   }
 }
 
@@ -286,6 +309,23 @@
 .guest-btn {
   background-color: #888;
   color: #fff !important;
+}
+
+.custom-page-header {
+  color: #02440b;
+  font-family: "Bowlby", sans-serif;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.custom-page-img {
+  margin-bottom: 1.5em;
+}
+
+.page-sign-in-container {
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
 }
 
 /* =Media Queries

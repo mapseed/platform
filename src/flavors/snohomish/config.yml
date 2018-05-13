@@ -404,6 +404,11 @@ place:
               value: yes
             - label: _(Manage pastures)
               value: no
+          modal:
+            header: _(Manage pastures)
+            body: [
+              "Information about managing pastures"
+            ]
         - name: farm_pastures-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
