@@ -412,6 +412,11 @@ place:
               value: yes
             - label: _(Control mud and manure)
               value: no
+          modal:
+            header: _(Mud and manure)
+            body: [
+              "Information about controlling mud and manure"
+            ]
         - name: farm_mud-manure-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
