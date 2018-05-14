@@ -1,9 +1,9 @@
 import constants from "../constants";
-import { map as mapConfig } from "config";
 
 // Given a route and a POJO of Backbone collections, return the model that
 // matches the route if it exists.
-const getModelFromUrl = (collections, route) => {
+const getModelFromUrl = ({ collections, route, mapConfig }) => {
+  // ie: "myStory/123"
   const splitRoute = route.split("/");
 
   // If the url has a slash in it with text on either side, we assume we have
