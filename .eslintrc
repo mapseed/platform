@@ -10,9 +10,12 @@
     }
   },
   "globals": {
-    "__LOGGER__": false,
-    "SERVER_SIDE": false,
-    "Backbone": true
+    "Backbone": false,
+    "module": false,
+    "_": false,
+    "$": false,
+    "Handlebars": false,
+    "Shareabouts": false
   },
   "env": {
     "browser": true,
