@@ -66,6 +66,13 @@ alias.config = path.resolve(
   "config.yml",
 );
 
+const mapProvider = process.env.MAP_PROVIDER || "mapbox-gl";
+alias.map = path.resolve(
+  __dirname,
+  "src/base/static/map-providers",
+  mapProvider + ".js",
+);
+
 var outputBasePath = path.resolve(__dirname, "www");
 const extractSCSS = new ExtractTextPlugin(
   process.env.NODE_ENV === "production"
