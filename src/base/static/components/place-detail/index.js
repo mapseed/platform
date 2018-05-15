@@ -10,10 +10,10 @@ import Survey from "./survey";
 import CoverImage from "../ui-elements/cover-image";
 import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
+import StandardFieldSummary from "./standard-field-summary";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
-import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
 
@@ -298,17 +298,11 @@ class PlaceDetail extends Component {
             isSubmitting={this.state.isEditFormSubmitting}
           />
         ) : (
-          fieldResponseFilter(
-            this.categoryConfig.fields,
-            this.state.placeModel,
-          ).map(fieldConfig => (
-            <ResponseField
-              key={fieldConfig.name}
-              fieldConfig={fieldConfig}
-              fieldValue={this.state.placeModel.get(fieldConfig.name)}
-              attachmentModels={this.state.attachmentModels}
-            />
-          ))
+          <StandardFieldSummary
+            fields={this.categoryConfig.fields}
+            placeModel={this.state.placeModel}
+            attachmentModels={this.state.attachmentModels}
+          />
         )}
         <Survey
           currentUser={this.props.currentUser}
