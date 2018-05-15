@@ -130,7 +130,7 @@ place_types:
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -145,7 +145,7 @@ place_types:
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -160,7 +160,7 @@ place_types:
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -175,7 +175,7 @@ place_types:
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
