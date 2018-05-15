@@ -368,7 +368,6 @@ PlaceDetail.propTypes = {
   }),
   isGeocodingBarEnabled: PropTypes.bool,
   layerView: PropTypes.instanceOf(Backbone.View),
-  map: PropTypes.instanceOf(L.Map),
   model: PropTypes.instanceOf(Backbone.Model),
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),

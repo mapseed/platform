@@ -1,3 +1,5 @@
+import MapProvider from "map";
+
 var Util = require("../utils.js");
 
 var BasicLayerView = require("mapseed-basic-layer-view");
@@ -31,7 +33,20 @@ module.exports = Backbone.View.extend({
         );
       };
 
-    this.map = L.map(self.el, self.options.mapConfig.options);
+    this.map = MapProvider.createMap(
+      self.el,
+      self.options.mapConfig.options,
+      self.options.mapConfig.vendor_options,
+    );
+
+    // TODO: This seems too convoluted... Is there a better pattern for
+    // managing vendor-specific options?
+    this.map.addNavControl({
+      options: { position: "top-left" },
+      vendorOptions:
+        self.options.mapConfig.vendor_options &&
+        self.options.mapConfig.vendor_options.control,
+    });
 
     _.each(self.options.mapConfig.layers, function(config) {
       config.loaded = false;
@@ -43,17 +58,12 @@ module.exports = Backbone.View.extend({
     this.places = this.options.places;
     this.landmarks = this.options.landmarks;
 
-    // Remove default prefix
-    self.map.attributionControl.setPrefix("");
-
     // Init geolocation
     if (self.options.mapConfig.geolocation_enabled) {
       self.initGeolocation();
     }
 
     self.map.on("dragend", logUserPan);
-    $(self.map.zoomControl._zoomInButton).click(logUserZoom);
-    $(self.map.zoomControl._zoomOutButton).click(logUserZoom);
 
     self.map.on("zoomend", function(evt) {
       Util.log("APP", "zoom", self.map.getZoom());
@@ -90,10 +100,10 @@ module.exports = Backbone.View.extend({
 
     // Bind visiblity event for custom layers
     $(Shareabouts).on("visibility", function(evt, id, visible, isBasemap) {
-      var layer = self.layers[id],
-        config = _.find(self.options.mapConfig.layers, function(c) {
-          return c.id === id;
-        });
+      var layer = self.layers[id];
+      const config = self.options.mapConfig.layers.find(
+        layerConfig => layerConfig.id === id,
+      );
 
       if (config && !config.loaded && visible) {
         self.createLayerFromConfig(config);
@@ -147,8 +157,8 @@ module.exports = Backbone.View.extend({
 
   // Adds or removes the layer  on Master Layer based on visibility
   setLayerVisibility: function(layer, visible) {
-    this.map.closePopup();
-    if (visible && !this.map.hasLayer(layer)) {
+    // TODO: layer id
+    if (visible && !this.map.hasLayer(layer._leaflet_id)) {
       this.map.addLayer(layer);
     }
     if (!visible && this.map.hasLayer(layer)) {
@@ -369,193 +379,197 @@ module.exports = Backbone.View.extend({
   },
 
   createLayerFromConfig: function(config) {
-    var self = this,
-      layer,
-      collectionId,
-      collection;
-
-    if (config.type && config.type === "json") {
-      var url = config.url;
-      if (config.sources) {
-        url += "?";
-        config.sources.forEach(function(source) {
-          url += encodeURIComponent(source) + "&";
-        });
-      }
-      config.map = self.map;
-      layer = L.argo(url, config);
-      if (self.isClusterable(config.id)) {
-        layer.on("loaded", layer => {
-          let clusters = L.markerClusterGroup(self.options.cluster).addLayer(
-            layer.target,
-          );
-          self.layers[config.id] = clusters;
-          self.map.addLayer(clusters);
-        });
-      } else {
-        self.layers[config.id] = layer;
-      }
-    } else if (config.type && config.type === "kml") {
-      $.ajax(config.url).done(function(xml) {
-        layer = L.argo(toGeoJSON.kml(xml), config);
-        self.layers[config.id] = layer;
-        if (config.asyncLayerVisibleDefault) {
-          layer.addTo(self.map);
-        }
-      });
-    } else if (config.type && config.type === "esri-feature") {
-      if (config.loadStrategy === "all at once") {
-        // IDs can be returned all at once, while actual geometries are
-        // capped at 1000 per request. Gets an array of all IDs then
-        // requests their geometry 1000 at a time.
-        self.map.fire("layer:loading", { id: config.id });
-        L.esri.Tasks.query({
-          url: config.url,
-        }).ids(function(error, ids) {
-          var esriLayers = [];
-
-          for (var i = 0; i < ids.length; i += 1000) {
-            L.esri.Tasks.query({ url: config.url })
-              .featureIds(ids.slice(i, i + 1000))
-              .run(function(error, geoJson) {
-                var currentLayer = L.argo(geoJson, config);
-
-                if (config.popupContent) {
-                  curentLayer.bindPopup(function(feature) {
-                    return L.Argo.t(config.popupContent, feature.properties);
-                  });
-                }
-
-                esriLayers.push(currentLayer);
-
-                if (esriLayers.length === Math.floor(ids.length / 1000) + 1) {
-                  // All requests have completed
-                  self.layers[config.id] = L.layerGroup(esriLayers);
-                  self.map.fire("layer:loaded", { id: config.id });
-                }
-              });
-          }
-        });
-      } else {
-        var configStyled = config.rules != null;
-        var esriOptions = { url: config.url, ignoreRenderer: configStyled };
-        if (configStyled) {
-          esriOptions.style = function(feature) {
-            return L.Argo.getStyleRule(feature, config.rules)["style"];
-          };
-        }
-        layer = L.esri
-          .featureLayer(esriOptions)
-          .on("loading", function() {
-            self.map.fire("layer:loading", { id: config.id });
-          })
-          .on("load", function() {
-            self.map.fire("layer:loaded", { id: config.id });
-          });
-
-        if (config.popupContent) {
-          layer.bindPopup(function(feature) {
-            return L.Argo.t(config.popupContent, feature.properties);
-          });
-        }
-
-        self.layers[config.id] = layer;
-      }
-    } else if (config.type && config.type === "place") {
-      // NOTE: Since places and landmarks have their own url's, loading them
-      // into our map is handled in our Backbone router.
-      // nothing to do
-    } else if (config.type && config.type === "landmark") {
-      // NOTE: Since places and landmarks have their own url's, loading them
-      // into our map is handled in our Backbone router.
-      // nothing to do
-    } else if (config.type && config.type === "cartodb") {
-      this.map.fire("layer:loading", { id: config.id });
-      cartodb
-        .createLayer(self.map, config.url, { legends: false })
-        .on("done", function(cartoLayer) {
-          self.layers[config.id] = cartoLayer;
-          self.map.fire("layer:loaded", { id: config.id });
-          // This is only set when the 'visibility' event is fired before
-          // our carto layer is loaded:
-          if (config.asyncLayerVisibleDefault) {
-            cartoLayer.addTo(self.map);
-          }
-        })
-        .on("error", function(err) {
-          self.map.fire("layer:error", { id: config.id });
-          Util.log("Cartodb layer creation error:", err);
-        });
-    } else if (config.type && config.type === "wmts") {
-      layer = L.tileLayer
-        .wmts(config.url, {
-          service: "WMTS",
-          tilematrixSet: config.tilematrixSet,
-          layers: config.layers,
-          format: config.format,
-          transparent: config.transparent,
-          version: config.version,
-          crs: L.CRS.EPSG3857,
-          // default TileLayer options
-          attribution: config.attribution,
-          opacity: config.opacity,
-          fillColor: config.color,
-          weight: config.weight,
-          fillOpacity: config.fillOpacity,
-          style: config.style,
-        })
-        .on("loading", function() {
-          self.map.fire("layer:loading", { id: config.id });
-        })
-        .on("load", function() {
-          self.map.fire("layer:loaded", { id: config.id });
-        })
-        .on("tileerror", function() {
-          self.map.fire("layer:error", { id: config.id });
-        });
-      self.layers[config.id] = layer;
-    } else if (config.layers) {
-      // If "layers" is present, then we assume that the config
-      // references a Leaflet WMS layer.
-      // http://leafletjs.com/reference.html#tilelayer-wms
-      layer = L.tileLayer
-        .wms(config.url, {
-          layers: config.layers,
-          format: config.format,
-          transparent: config.transparent,
-          version: config.version,
-          crs: L.CRS.EPSG3857,
-          // default TileLayer options
-          attribution: config.attribution,
-          opacity: config.opacity,
-          fillColor: config.color,
-          weight: config.weight,
-          fillOpacity: config.fillOpacity,
-        })
-        .on("loading", function() {
-          self.map.fire("layer:loading", { id: config.id });
-        })
-        .on("load", function() {
-          self.map.fire("layer:loaded", { id: config.id });
-        })
-        .on("tileerror", function() {
-          self.map.fire("layer:error", { id: config.id });
-        });
-      self.layers[config.id] = layer;
-    } else {
-      // Assume a tile layer
-      // TODO: Isn't type=tile for back compatibility
-      layer = L.tileLayer(config.url, config)
-        .on("loading", function() {
-          self.map.fire("layer:loading", { id: config.id });
-        })
-        .on("load", function() {
-          self.map.fire("layer:loaded", { id: config.id });
-        })
-        .on("tileerror", function() {
-          self.map.fire("layer:error", { id: config.id });
-        });
-      self.layers[config.id] = layer;
+    if (config.type && config.type === "mapbox-style") {
+      this.map.addMapboxStyle(config.url);
     }
+
+    //var self = this,
+    //  layer,
+    //  collectionId,
+    //  collection;
+
+    //if (config.type && config.type === "json") {
+    //  var url = config.url;
+    //  if (config.sources) {
+    //    url += "?";
+    //    config.sources.forEach(function(source) {
+    //      url += encodeURIComponent(source) + "&";
+    //    });
+    //  }
+    //  config.map = self.map;
+    //  layer = L.argo(url, config);
+    //  if (self.isClusterable(config.id)) {
+    //    layer.on("loaded", layer => {
+    //      let clusters = L.markerClusterGroup(self.options.cluster).addLayer(
+    //        layer.target,
+    //      );
+    //      self.layers[config.id] = clusters;
+    //      self.map.addLayer(clusters);
+    //    });
+    //  } else {
+    //    self.layers[config.id] = layer;
+    //  }
+    //} else if (config.type && config.type === "kml") {
+    //  $.ajax(config.url).done(function(xml) {
+    //    layer = L.argo(toGeoJSON.kml(xml), config);
+    //    self.layers[config.id] = layer;
+    //    if (config.asyncLayerVisibleDefault) {
+    //      layer.addTo(self.map);
+    //    }
+    //  });
+    //} else if (config.type && config.type === "esri-feature") {
+    //  if (config.loadStrategy === "all at once") {
+    //    // IDs can be returned all at once, while actual geometries are
+    //    // capped at 1000 per request. Gets an array of all IDs then
+    //    // requests their geometry 1000 at a time.
+    //    self.map.fire("layer:loading", { id: config.id });
+    //    L.esri.Tasks.query({
+    //      url: config.url,
+    //    }).ids(function(error, ids) {
+    //      var esriLayers = [];
+
+    //      for (var i = 0; i < ids.length; i += 1000) {
+    //        L.esri.Tasks.query({ url: config.url })
+    //          .featureIds(ids.slice(i, i + 1000))
+    //          .run(function(error, geoJson) {
+    //            var currentLayer = L.argo(geoJson, config);
+
+    //            if (config.popupContent) {
+    //              curentLayer.bindPopup(function(feature) {
+    //                return L.Argo.t(config.popupContent, feature.properties);
+    //              });
+    //            }
+
+    //            esriLayers.push(currentLayer);
+
+    //            if (esriLayers.length === Math.floor(ids.length / 1000) + 1) {
+    //              // All requests have completed
+    //              self.layers[config.id] = L.layerGroup(esriLayers);
+    //              self.map.fire("layer:loaded", { id: config.id });
+    //            }
+    //          });
+    //      }
+    //    });
+    //  } else {
+    //    var configStyled = config.rules != null;
+    //    var esriOptions = { url: config.url, ignoreRenderer: configStyled };
+    //    if (configStyled) {
+    //      esriOptions.style = function(feature) {
+    //        return L.Argo.getStyleRule(feature, config.rules)["style"];
+    //      };
+    //    }
+    //    layer = L.esri
+    //      .featureLayer(esriOptions)
+    //      .on("loading", function() {
+    //        self.map.fire("layer:loading", { id: config.id });
+    //      })
+    //      .on("load", function() {
+    //        self.map.fire("layer:loaded", { id: config.id });
+    //      });
+
+    //    if (config.popupContent) {
+    //      layer.bindPopup(function(feature) {
+    //        return L.Argo.t(config.popupContent, feature.properties);
+    //      });
+    //    }
+
+    //    self.layers[config.id] = layer;
+    //  }
+    //} else if (config.type && config.type === "place") {
+    //  // NOTE: Since places and landmarks have their own url's, loading them
+    //  // into our map is handled in our Backbone router.
+    //  // nothing to do
+    //} else if (config.type && config.type === "landmark") {
+    //  // NOTE: Since places and landmarks have their own url's, loading them
+    //  // into our map is handled in our Backbone router.
+    //  // nothing to do
+    //} else if (config.type && config.type === "cartodb") {
+    //  this.map.fire("layer:loading", { id: config.id });
+    //  cartodb
+    //    .createLayer(self.map, config.url, { legends: false })
+    //    .on("done", function(cartoLayer) {
+    //      self.layers[config.id] = cartoLayer;
+    //      self.map.fire("layer:loaded", { id: config.id });
+    //      // This is only set when the 'visibility' event is fired before
+    //      // our carto layer is loaded:
+    //      if (config.asyncLayerVisibleDefault) {
+    //        cartoLayer.addTo(self.map);
+    //      }
+    //    })
+    //    .on("error", function(err) {
+    //      self.map.fire("layer:error", { id: config.id });
+    //      Util.log("Cartodb layer creation error:", err);
+    //    });
+    //} else if (config.type && config.type === "wmts") {
+    //  layer = L.tileLayer
+    //    .wmts(config.url, {
+    //      service: "WMTS",
+    //      tilematrixSet: config.tilematrixSet,
+    //      layers: config.layers,
+    //      format: config.format,
+    //      transparent: config.transparent,
+    //      version: config.version,
+    //      crs: L.CRS.EPSG3857,
+    //      // default TileLayer options
+    //      attribution: config.attribution,
+    //      opacity: config.opacity,
+    //      fillColor: config.color,
+    //      weight: config.weight,
+    //      fillOpacity: config.fillOpacity,
+    //      style: config.style,
+    //    })
+    //    .on("loading", function() {
+    //      self.map.fire("layer:loading", { id: config.id });
+    //    })
+    //    .on("load", function() {
+    //      self.map.fire("layer:loaded", { id: config.id });
+    //    })
+    //    .on("tileerror", function() {
+    //      self.map.fire("layer:error", { id: config.id });
+    //    });
+    //  self.layers[config.id] = layer;
+    //} else if (config.layers) {
+    //  // If "layers" is present, then we assume that the config
+    //  // references a Leaflet WMS layer.
+    //  // http://leafletjs.com/reference.html#tilelayer-wms
+    //  layer = L.tileLayer
+    //    .wms(config.url, {
+    //      layers: config.layers,
+    //      format: config.format,
+    //      transparent: config.transparent,
+    //      version: config.version,
+    //      crs: L.CRS.EPSG3857,
+    //      // default TileLayer options
+    //      attribution: config.attribution,
+    //      opacity: config.opacity,
+    //      fillColor: config.color,
+    //      weight: config.weight,
+    //      fillOpacity: config.fillOpacity,
+    //    })
+    //    .on("loading", function() {
+    //      self.map.fire("layer:loading", { id: config.id });
+    //    })
+    //    .on("load", function() {
+    //      self.map.fire("layer:loaded", { id: config.id });
+    //    })
+    //    .on("tileerror", function() {
+    //      self.map.fire("layer:error", { id: config.id });
+    //    });
+    //  self.layers[config.id] = layer;
+    //} else {
+    //  // Assume a tile layer
+    //  // TODO: Isn't type=tile for back compatibility
+    //  layer = L.tileLayer(config.url, config)
+    //    .on("loading", function() {
+    //      self.map.fire("layer:loading", { id: config.id });
+    //    })
+    //    .on("load", function() {
+    //      self.map.fire("layer:loaded", { id: config.id });
+    //    })
+    //    .on("tileerror", function() {
+    //      self.map.fire("layer:error", { id: config.id });
+    //    });
+    //  self.layers[config.id] = layer;
+    // }
   },
 });

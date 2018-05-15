@@ -20,40 +20,54 @@ const abstractMethods = {
    *
    * @returns {Object} A reference to the map abstraction.
    */
-  createMap: (container, options) => {
+  createMap: function(container, options, vendorOptions) {
     notImplemented();
   },
 
   /**
    * Bind a map event listener.
    *
-   * @param {"zoomstart"|"zoomend"|"movestart"|"moveend"|"dragstart"|"dragend"} - The event name.
+   * @param {"zoomstart"|"zoomend"|"movestart"|"moveend"|"dragstart"|"dragend"} event - The event name.
    * @param {Object} callback - Function to call when the event is fired.
    * @param {Object} context - The context to which the callback should be bound before calling.
    *
    * @returns undefined
    */
-  on: (event, callback, context) => {
+  on: function(event, callback, context) {
     notImplemented();
   },
 
   /**
    * Unbind a map event listener.
    */
-  off: (event, callback) => {
+  off: function(event, callback) {
     notImplemented();
   },
 
   /**
    * Fire a map event.
    */
-  fire: (event, payload) => {
+  fire: function(event, payload) {
+    notImplemented();
+  },
+
+  /**
+   * Add navigation (zoom, compass, etc.) controls to the map.
+   *
+   * @param {Object} options
+   * @param {"top-left"|"top-right"|"bottom-left"|"bottom-right"} position="top-left" - The position of the controls within the map container.
+   * @param {Object} [vendorOptions] - Vendor-specific options.
+   *
+   * @returns {Object} - The controls instance.
+   */
+  addNavControl: function({ options, vendorOptions }) {
     notImplemented();
   },
 
   /**
    * Create a WMS layer.
-   * @returns {object} The layer instance.
+   *
+   * @returns {Object} -  The layer instance.
    */
   createWMSLayer: (source, options) => {
     notImplemented();
@@ -61,7 +75,8 @@ const abstractMethods = {
 
   /**
    * Create a WMTS layer.
-   * @returns {object} The layer instance.
+   *
+   * @returns {Object} -  The layer instance.
    */
   createWMTSLayer: (source, options) => {
     notImplemented();
@@ -69,7 +84,8 @@ const abstractMethods = {
 
   /**
    * Create a GeoJSON layer.
-   * @returns {object} The layer instance.
+   *
+   * @returns {Object} - The layer instance.
    */
   createGeoJSONLayer: (source, options) => {
     notImplemented();
@@ -77,7 +93,8 @@ const abstractMethods = {
 
   /**
    * Create an ESRI layer.
-   * @returns {object} The layer instance.
+   *
+   * @returns {Object} - The layer instance.
    */
   createESRILayer: (source, options) => {
     notImplemented();
@@ -85,7 +102,8 @@ const abstractMethods = {
 
   /**
    * Create a tile layer.
-   * @returns {object} The layer instance.
+   *
+   * @returns {Object} - The layer instance.
    */
   createTileLayer: (source, options) => {
     notImplemented();
@@ -93,7 +111,8 @@ const abstractMethods = {
 
   /**
    * Create a vector tile layer.
-   * @returns {object} The layer instance.
+   *
+   * @returns {Object} - The layer instance.
    */
   createVectorTileLayer: (source, options) => {
     notImplemented();
@@ -110,6 +129,21 @@ const abstractMethods = {
    * Add the passed layer to the map.
    */
   addLayer: layer => {
+    notImplemented();
+  },
+
+  addMapboxStyle: styleUrl => {
+    notImplemented();
+  },
+
+  /**
+   * Check whether a given layer has been added to the map.
+   *
+   * @param {string} layerId - The id of the layer to check for.
+   *
+   * @returns {boolean} - true or false
+   */
+  hasLayer: layerId => {
     notImplemented();
   },
 

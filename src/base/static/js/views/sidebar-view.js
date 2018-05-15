@@ -28,9 +28,9 @@ module.exports = Backbone.View.extend({
 
     this.$el.html(Handlebars.templates["sidebar"](data));
 
-    this.sidebar = L.control.sidebar("sidebar", {
-      position: "left",
-    });
+    //this.sidebar = L.control.sidebar("sidebar", {
+    //  position: "left",
+    //});
 
     _.each(
       this.options.sidebarConfig.panels,

@@ -147,6 +147,7 @@ module.exports = {
         process.env.NODE_ENV === "production"
           ? JSON.stringify("production")
           : JSON.stringify("dev"),
+      MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,

@@ -518,17 +518,17 @@ module.exports = Backbone.View.extend({
       ll;
 
     // If the map locatin is part of the url already
-    if (zoom && lat && lng) {
-      ll = L.latLng(parseFloat(lat), parseFloat(lng));
+    //if (zoom && lat && lng) {
+    //  ll = L.latLng(parseFloat(lat), parseFloat(lng));
 
-      // Why defer? Good question. There is a mysterious race condition in
-      // some cases where the view fails to set and the user is left in map
-      // limbo. This condition is seemingly eliminated by defering the
-      // execution of this step.
-      _.defer(function() {
-        self.mapView.map.setView(ll, parseInt(zoom, 10));
-      });
-    }
+    //  // Why defer? Good question. There is a mysterious race condition in
+    //  // some cases where the view fails to set and the user is left in map
+    //  // limbo. This condition is seemingly eliminated by defering the
+    //  // execution of this step.
+    //  _.defer(function() {
+    //    self.mapView.map.setView(ll, parseInt(zoom, 10));
+    //  });
+    //}
 
     this.hidePanel();
     this.hideNewPin();
@@ -808,8 +808,8 @@ module.exports = Backbone.View.extend({
       // Sigh. This is the latest attempt to avert the off-center bug. Tweaking
       // the map's center point slightly seems to help Leaflet figure out the
       // correct map dimensions. Definitely hacky...
-      map.panBy(new L.Point(0, -1));
-      map.panBy(new L.Point(0, 1));
+      //map.panBy(new L.Point(0, -1));
+      //map.panBy(new L.Point(0, 1));
       map.invalidateSize(true);
     }
 
