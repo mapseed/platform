@@ -73,7 +73,6 @@
     color: #779300 !important;
   }
 }
-  
 
 /* =Geocode Address Bar
 -------------------------------------------------------------- */
@@ -326,6 +325,64 @@
   display: flex;
   justify-content: center;
   padding-left: 0;
+}
+
+/* =Custom detail view
+-------------------------------------------------------------- */
+.snohomish-field-summary {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.snohomish-num-actions {
+  font-family: Bowlby, sans-serif;
+  line-height: 1.9em !important;
+  font-weight: 200;
+  border: 5px solid #779300;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.3em;
+  border-radius: 50%;
+}
+
+.snohomish-total-actions {
+  text-transform: uppercase;
+}
+
+.snohomish-stage-action-summary {
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.snohomish-stage-summary {
+}
+
+.snohomish-completed-action {
+  color: #555;
+  position: relative;
+  font-style: italic;
+  font-size: 1.2em;
+  margin-left: 15px;
+  padding-left: 40px;
+  margin-bottom: 25px !important;
+
+  &:before {
+    content: "✔";
+    font-style: normal;
+    color: #fff;
+    max-height: 2em;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 1.5em;
+    background-color: #779300;
+    width: 1.5em;
+    position: absolute;
+    text-align: center;
+    padding-top: 4px;
+  }
 }
 
 /* =Media Queries
