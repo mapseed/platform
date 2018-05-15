@@ -104,20 +104,20 @@ place_types:
   markerZoomStyle:
     - condition: 'this.layer.focused === true'
       icon:
-        iconSize: [75, 90]
-        iconAnchor: [38, 90]
+        iconSize: [48, 75]
+        iconAnchor: [24, 90]
     - condition: 'this.map.zoom < 14'
       icon:
-        iconSize: [15, 18]
-        iconAnchor: [7.5, 18]
+        iconSize: [24, 37.5]
+        iconAnchor: [12, 37.5]
     - condition: 'this.map.zoom < 16'
       icon:
-        iconSize: [30, 36]
-        iconAnchor: [15, 36]
+        iconSize: [24, 37.5]
+        iconAnchor: [12, 37.5]
     - condition: 'this.map.zoom >= 16'
       icon:
-        iconSize: [50, 60]
-        iconAnchor: [25, 60]
+        iconSize: [24, 37.5]
+        iconAnchor: [12, 37.5]
 
   community:
     label: _(idea for community programs and services)
@@ -125,12 +125,12 @@ place_types:
     rules:
       - condition: "this.layer.focused === true"
         icon:
-          iconUrl: /static/css/images/markers/marker-community-dot-accented.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
+          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-community-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -140,12 +140,12 @@ place_types:
     rules:
       - condition: "this.layer.focused === true"
         icon:
-          iconUrl: /static/css/images/markers/marker-parks-dot-accented.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
+          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-paerks-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -156,11 +156,11 @@ place_types:
       - condition: "this.layer.focused === true"
         icon:
           iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -170,17 +170,17 @@ place_types:
     rules:
       - condition: "this.layer.focused === true"
         icon:
-          iconUrl: /static/css/images/markers/marker-housing-dot-accented.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
+          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconSize: [20, 20]
+          iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-housing-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
-  funded-2017:
-    label: _(2017 Funded Projects)
+  projects-2017:
+    label: _(2017 Projects)
     zoomType: markerZoomStyle
     rules:
       - condition: 'true'
@@ -240,18 +240,23 @@ sidebar:
       view: LegendView
       icon: info-circle
       items:
-        - title: _(Community Programs and Services)
-          image: /static/css/images/markers/marker-youth.png
-          url: /filter/observation
-        - title: _(Parks and recreation)
-          image: /static/css/images/markers/marker-parks.png
-          url: /filter/idea
-        - title: _(Streets and sidewalks)
-          image: /static/css/images/markers/marker-streets.png
-          url: /filter/complaint
-        - title: _(Housing and Jobs)
-          image: /static/css/images/markers/marker-housing.png
-          url: /filter/complaint          
+        - title: _(Funded Project)
+          image: /static/css/images/funded-legend-icon.png
+        - title: _(Not Funded Project)
+          image: /static/css/images/losing-legend-icon.png
+        - title: _(Youth Services)
+          image: /static/css/images/youth-legend-icon.png
+        - title: _(Capital Improvement)
+          image: /static/css/images/capital-legend-icon.png
+        - title: _(Senior and Disabled Services)
+          image: /static/css/images/senior-legend-icon.png
+        - title: _(Housing Services)
+          image: /static/css/images/housing-legend-icon.png
+        - title: _(Homeless Services)
+          image: /static/css/images/homeless-legend-icon.png
+        - title: _(Ideas)
+          image: /static/css/images/idea-legend-icon.png
+
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
@@ -276,7 +281,7 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: funded-2017
+    - category: projects-2017
       admin_only: true
       includeOnForm: true
       showMetadata: false
@@ -290,12 +295,16 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industrial.png
-            - url: /static/css/images/markers/map-pin-marker.png
-            - url: /static/css/images/markers/map-pin-marker-red.png            
+            - url: /static/css/images/markers/marker-capital-funded.png
+            - url: /static/css/images/markers/marker-capital-losing.png
+            - url: /static/css/images/markers/marker-youth-funded.png
+            - url: /static/css/images/markers/marker-youth-losing.png
+            - url: /static/css/images/markers/marker-senior-funded.png
+            - url: /static/css/images/markers/marker-senior-losing.png            
+            - url: /static/css/images/markers/marker-homeless-funded.png
+            - url: /static/css/images/markers/marker-homeless-losing.png
+            - url: /static/css/images/markers/marker-housing-funded.png
+            - url: /static/css/images/markers/marker-housing-losing.png            
         - name: title
           type: text
           prompt: _(Title of this featured site:)
@@ -308,9 +317,20 @@ place:
           display_prompt: _( )
           placeholder: _( )
         - name: related-location-type
-          type: text
-          prompt: _(Enter related location type:)
+          type: dropdown
+          prompt: _(Choose a related idea type to highlight:)
           display_prompt: _( )
+          content:
+            - label: _(Community)
+              value: community
+            - label: _(Parks)
+              value: parks
+            - label: _(Streets)
+              value: streets
+            - label: _(Housing)
+              value: housing
+          optional: false
+
         # - name: submitter_name
         #   type: common_form_element
         # - name: private-submitter_email

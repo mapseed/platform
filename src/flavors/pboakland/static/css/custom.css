@@ -198,9 +198,14 @@
 
 /* Right-clinging sidebar legend */
 .shareabouts-layer-li {
+  font-size: 1em !important;
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  img {
+    width: 30px !important;
+  }
 }
 
 .shareabouts-layer-li span {
