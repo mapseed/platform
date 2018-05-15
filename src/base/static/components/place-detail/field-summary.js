@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import ResponseField from "../form-fields/response-field";
 import fieldResponseFilter from "../../utils/field-response-filter";
 
-const StandardFieldSummary = props => {
+const FieldSummary = props => {
   return (
-    <div className="standard-field-summary">
+    <div className="field-summary">
       {fieldResponseFilter(
         props.fields,
         props.placeModel,
@@ -22,10 +22,10 @@ const StandardFieldSummary = props => {
   );
 };
 
-StandardFieldSummary.propTypes = {
+FieldSummary.propTypes = {
   fields: PropTypes.array.isRequired,
   placeModel: PropTypes.object.isRequired,
   attachmentModels: PropTypes.object.isRequired,
 }
 
-export default StandardFieldSummary;
+export default FieldSummary;

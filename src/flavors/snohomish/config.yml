@@ -1892,3 +1892,6 @@ story:
 #   spiderfyDistanceMultiplier: 1.5
 #   spiderLegPolylineOptions:
 #     opacity: 00
+
+custom_components:
+  FieldSummary: SnohomishFieldSummary

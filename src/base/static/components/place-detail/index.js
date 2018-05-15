@@ -3,21 +3,26 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { fromJS, List, Map } from "immutable";
 
-import ResponseField from "../form-fields/response-field";
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
 import CoverImage from "../ui-elements/cover-image";
 import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
-import StandardFieldSummary from "./standard-field-summary";
+import FieldSummary from "./field-summary";
+// Flavor custom code
+import SnohomishFieldSummary from "./snohomish-field-summary";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
 
-import { survey as surveyConfig, support as supportConfig } from "config";
+import {
+  survey as surveyConfig,
+  support as supportConfig,
+  custom_components as customComponents,
+} from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
 
@@ -216,6 +221,20 @@ class PlaceDetail extends Component {
         model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
       );
     });
+    const fieldSummary =
+      customComponents &&
+      customComponents.FieldSummary === "SnohomishFieldSummary" ? (
+        <SnohomishFieldSummary
+          fields={this.categoryConfig.fields}
+          placeModel={this.state.placeModel}
+        />
+      ) : (
+        <FieldSummary
+          fields={this.categoryConfig.fields}
+          placeModel={this.state.placeModel}
+          attachmentModels={this.state.attachmentModels}
+        />
+      );
 
     return (
       <div className="place-detail-view">
@@ -298,11 +317,7 @@ class PlaceDetail extends Component {
             isSubmitting={this.state.isEditFormSubmitting}
           />
         ) : (
-          <StandardFieldSummary
-            fields={this.categoryConfig.fields}
-            placeModel={this.state.placeModel}
-            attachmentModels={this.state.attachmentModels}
-          />
+          fieldSummary
         )}
         <Survey
           currentUser={this.props.currentUser}
