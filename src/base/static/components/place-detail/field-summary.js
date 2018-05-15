@@ -7,10 +7,7 @@ import fieldResponseFilter from "../../utils/field-response-filter";
 const FieldSummary = props => {
   return (
     <div className="field-summary">
-      {fieldResponseFilter(
-        props.fields,
-        props.placeModel,
-      ).map(fieldConfig => (
+      {fieldResponseFilter(props.fields, props.placeModel).map(fieldConfig => (
         <ResponseField
           key={fieldConfig.name}
           fieldConfig={fieldConfig}
@@ -26,6 +23,6 @@ FieldSummary.propTypes = {
   fields: PropTypes.array.isRequired,
   placeModel: PropTypes.object.isRequired,
   attachmentModels: PropTypes.object.isRequired,
-}
+};
 
 export default FieldSummary;
