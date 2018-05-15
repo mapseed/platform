@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "src/.env" });
+require("dotenv").config({ path: "src/.env-production" });
 const path = require("path");
 const fs = require("fs-extra");
 const yaml = require("js-yaml");
