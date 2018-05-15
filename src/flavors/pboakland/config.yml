@@ -125,12 +125,12 @@ place_types:
     rules:
       - condition: "this.layer.focused === true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-idea-accented.png
           iconSize: [20, 20]
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-idea-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -140,12 +140,12 @@ place_types:
     rules:
       - condition: "this.layer.focused === true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-idea-accented.png
           iconSize: [20, 20]
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-idea-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -155,12 +155,12 @@ place_types:
     rules:
       - condition: "this.layer.focused === true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-idea-accented.png
           iconSize: [20, 20]
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-idea-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
@@ -170,12 +170,12 @@ place_types:
     rules:
       - condition: "this.layer.focused === true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-accented.png
+          iconUrl: /static/css/images/markers/marker-idea-accented.png
           iconSize: [20, 20]
           iconAnchor: [10, 10]
       - condition: "true"
         icon:
-          iconUrl: /static/css/images/markers/marker-streets-dot-muted.png
+          iconUrl: /static/css/images/markers/marker-idea-muted.png
           iconSize: [10, 10]
           iconAnchor: [5, 5]
 
