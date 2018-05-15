@@ -98,7 +98,7 @@ module.exports = Backbone.View.extend({
         // NOTE: this is to simply support the list view. It won't
         // scale well, so let's think about a better solution.
         include_submissions: includeSubmissions,
-      };
+};
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
