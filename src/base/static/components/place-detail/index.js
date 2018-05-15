@@ -221,9 +221,12 @@ class PlaceDetail extends Component {
         model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
       );
     });
+
     const fieldSummary =
       customComponents &&
-      customComponents.FieldSummary === "SnohomishFieldSummary" ? (
+      customComponents.FieldSummary === "SnohomishFieldSummary" &&
+      this.state.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME) ===
+        "conservation-actions" ? (
         <SnohomishFieldSummary
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
