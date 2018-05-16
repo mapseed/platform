@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map, OrderedMap, fromJS } from "immutable";
+import { connect } from "react-redux";
+import {
+  storyConfigSelector,
+  placeConfigSelector,
+  mapConfigSelector,
+} from "../../state/ducks/config";
+import { hydrateStoriesFromConfig } from "../../utils/story-utils";
+import Immutable from "immutable";
 import Spinner from "react-spinner";
 
 import StoryChapter from "../molecules/story-chapter";
@@ -10,43 +17,46 @@ import constants from "../../constants";
 
 import { translate } from "react-i18next";
 
-import { getModelFromUrl } from "../../utils/collection-utils";
-import { prepStoryContent } from "../../utils/story-utils";
-
 import "./index.scss";
-
-import { story as storyConfig, place as placeConfig } from "config";
 
 class StorySidebar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentStory: Map(),
+      currentStory: Immutable.Map(),
       currentRoute: "",
       isStoryDataReady: false,
       isWithError: false,
     };
   }
 
-  componentDidMount() {
-    this.props.storiesPromise
-      .then(stories => {
-        this.stories = stories;
-
-        this.props.router.on("route", (fn, route) => {
-          const currentStoryState = this.getCurrentStoryState(route.join("/"));
-          currentStoryState && this.setState(currentStoryState);
-        });
-        this.setState(
-          this.getCurrentStoryState(Backbone.history.getFragment(), false),
-        );
-      })
-      .catch(e => {
-        this.setState({
-          isWithError: true,
-        });
+  async componentDidMount() {
+    // TODO(luke): When AppView is ported to a react component, await
+    // the place collections to load in the App component:
+    await this.props.placeCollectionsPromise;
+    try {
+      // TODO(luke): implement hydrateStoriesFromConfig here
+      const stories = hydrateStoriesFromConfig({
+        places: this.props.places,
+        storyConfig: this.props.storyConfig,
+        mapConfig: this.props.mapConfig,
       });
+      this.stories = stories;
+
+      this.props.router.on("route", (fn, route) => {
+        const currentStoryState = this.getCurrentStoryState(route.join("/"));
+        currentStoryState && this.setState(currentStoryState);
+      });
+      this.setState(
+        this.getCurrentStoryState(Backbone.history.getFragment(), false),
+      );
+    } catch (e) {
+      // TODO(luke): use a logger to log the exception here
+      this.setState({
+        isWithError: true,
+      });
+    }
   }
 
   getCurrentStoryState(route, isInitialized = true) {
@@ -73,7 +83,7 @@ class StorySidebar extends Component {
     }
   }
 
-  getIconUrl(chapter, storyUrl) {
+  getIconUrl(chapter) {
     // If the story chapter has an icon url defined, use that.
     if (chapter.get("sidebarIconUrl")) {
       return chapter.get("sidebarIconUrl");
@@ -93,7 +103,7 @@ class StorySidebar extends Component {
     }
 
     // Otherwise, use the icon url defined in the category config.
-    return placeConfig.place_detail.find(
+    return this.props.placeConfig.place_detail.find(
       config =>
         config.category === chapter.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     ).icon_url;
@@ -153,10 +163,24 @@ class StorySidebar extends Component {
 }
 
 StorySidebar.propTypes = {
+  storyConfig: PropTypes.object.isRequired,
+  placeConfig: PropTypes.shape({
+    place_detail: PropTypes.array.isRequired,
+  }).isRequired,
+  mapConfig: PropTypes.object.isRequired,
+
   places: PropTypes.object.isRequired,
-  storiesPromise: PropTypes.object.isRequired,
+  placeCollectionsPromise: PropTypes.object.isRequired,
   router: PropTypes.instanceOf(Backbone.Router),
   t: PropTypes.func.isRequired,
 };
 
-export default translate("StorySidebar")(StorySidebar);
+const mapStateToProps = state => ({
+  storyConfig: storyConfigSelector(state),
+  placeConfig: placeConfigSelector(state),
+  mapConfig: mapConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(
+  translate("StorySidebar")(StorySidebar),
+);
