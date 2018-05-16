@@ -364,52 +364,20 @@ place:
           optional: true
 
         # Mud & manure
-        - name: farm_mud-manure
-          type: big_toggle
-          prompt: _(Actions)
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - farm_mud-manure-datetime
-          content:
-            - label: _(Control mud and manure)
-              value: yes
-            - label: _(Control mud and manure)
-              value: no
-          modal:
-            header: _(Mud and manure)
-            body: [
-              "Information about controlling mud and manure"
-            ]
-        - name: farm_mud-manure-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Pastures
-        - name: farm_pastures
+        - name: farm_rotation-grazing
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - farm_pastures-datetime
+              - farm_rotation-grazing-datetime
           content:
-            - label: _(Manage pastures)
+            - label: _(Practice rotation grazing, never grazing grass below 3” deep)
               value: yes
-            - label: _(Manage pastures)
+            - label: _(Practice rotation grazing, never grazing grass below 3” deep)
               value: no
-          modal:
-            header: _(Manage pastures)
-            body: [
-              "Information about managing pastures"
-            ]
-        - name: farm_pastures-datetime
+        - name: farm_rotation-grazing-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -427,9 +395,9 @@ place:
             targets:
               - farm_fencing-datetime
           content:
-            - label: _(Added streamside fencing)
+            - label: _(Added streamside fencing to keep livestock out of waterway)
               value: yes
-            - label: _(Added streamside fencing)
+            - label: _(Added streamside fencing to keep livestock out of waterway)
               value: no
         - name: farm_fencing-datetime
           type: datetime
@@ -449,9 +417,9 @@ place:
             targets:
               - farm_off-stream-watering-datetime
           content:
-            - label: _(Make use of off-stream watering)
+            - label: _(Installed an off-stream watering system)
               value: yes
-            - label: _(Make use of off-stream watering)
+            - label: _(Installed an off-stream watering system)
               value: no
         - name: farm_off-stream-watering-datetime
           type: datetime
@@ -471,10 +439,15 @@ place:
             targets:
               - farm_livestock-heavy-use-areas-datetime
           content:
-            - label: _(Use livestock heavy-use areas)
+            - label: _(Installed a heavy use or sacrifice area for livestock)
               value: yes
-            - label: _(Use livestock heavy-use areas)
+            - label: _(Installed a heavy use or sacrifice area for livestock)
               value: no
+          modal:
+            header: _(Heavy use area)
+            body: [
+              "A heavy use area is a small fenced in area with a footing such as gravel or hog fuel. Livestock are kept in this area during winter months to protect pasture soils and grasses."
+            ]          
         - name: farm_livestock-heavy-use-areas-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
@@ -483,21 +456,21 @@ place:
           optional: false
           hidden_default: true
 
-        # Run-off and drainage
-        - name: farm_run-off-drainage
+        # Gutters and diversion
+        - name: farm_gutters
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - farm_run-off-drainage-datetime
+              - farm_gutters-diversion-datetime
           content:
-            - label: _(Control run-off and drainage)
+            - label: _(Installed gutters or water diversion to keep roof runoff away from heavily used areas)
               value: yes
-            - label: _(Control run-off and drainage)
+            - label: _(Installed gutters or water diversion to keep roof runoff away from heavily used areas)
               value: no
-        - name: farm_run-off-drainage-datetime
+        - name: farm_gutters-diversion-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -515,9 +488,9 @@ place:
             targets:
               - farm_soil-testing-datetime
           content:
-            - label: _(Monitor nutrients by soil testing)
+            - label: _(Tested my soils to ensure proper fertilizer, manure, or lime application rates)
               value: yes
-            - label: _(Monitor nutrients by soil testing)
+            - label: _(Tested my soils to ensure proper fertilizer, manure, or lime application rates)
               value: no
         - name: farm_soil-testing-datetime
           type: datetime
@@ -527,21 +500,21 @@ place:
           optional: false
           hidden_default: true
 
-        # Fertilizing
-        - name: farm_fertilize-properly
+        # Farm manure storage
+        - name: farm_manure-storage
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - farm_fertilize-properly-datetime
+              - farm_manure-storage-datetime
           content:
-            - label: _(Fertilize at appropriate levels and times)
+            - label: _(Installed a covered manure storage or composting bin)
               value: yes
-            - label: _(Fertilize at appropriate levels and times)
+            - label: _(Installed a covered manure storage or composting bin)
               value: no
-        - name: farm_fertilize-properly-datetime
+        - name: farm_manure-storage-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -549,27 +522,36 @@ place:
           optional: false
           hidden_default: true
 
-        # Farm planner
-        - name: farm_farm-planner
+        # Farm - other
+
+        # Other
+        - name: farm_other
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - farm_farm-planner-datetime
+              - farm_other-action
+              - farm_other-datetime
           content:
-            - label: _(Work with a farm planner to implement Best Management Practices)
+            - label: _(Other)
               value: yes
-            - label: _(Work with a farm planner to implement Best Management Practices)
+            - label: _(Other)
               value: no
-        - name: farm_farm-planner-datetime
+        - name: farm_other-action
+          type: text
+          prompt: _(What was your action?)
+          display_prompt: _( )
+          optional: true
+          hidden_default: true
+        - name: farm_other-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
           optional: false
-          hidden_default: true
+          hidden_default: true        
 
         # Comments
         - name: farm_category-comments
@@ -582,10 +564,14 @@ place:
 
         # FOREST CATEGORY ######################################################
         # FIRE ACTIONS
+        - name: fire-actions
+          type: informational_html
+          prompt: _( )
+          content: <h6>🔥 Fire prevention</h6>        
         # Maintain fuel-free zones
         - name: forest_fire_fuel-free
           type: big_toggle
-          prompt: _(Fire Prevention)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -679,9 +665,13 @@ place:
 
         # WATER ACTIONS
         # Erosion
+        - name: water-actions
+          type: informational_html
+          prompt: _( )
+          content: <h6>💦 Water quality</h6>         
         - name: forest_water_erosion
           type: big_toggle
-          prompt: _(Water Quality)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -811,10 +801,14 @@ place:
           hidden_default: true
 
         # HABITAT ACTIONS
+        - name: forest_habitat-actions
+          type: informational_html
+          prompt: _( )
+          content: <h6>🌲 Forest Health and Wildlife Habitat</h6>
         # Invasive/exotic plants
         - name: forest_habitat_invasive-exotic
           type: big_toggle
-          prompt: _(Forest Health and Wildlife Habitat)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -922,10 +916,14 @@ place:
           hidden_default: true
 
         # HARVEST ACTIONS
-        # Foest consultant
+        - name: harvest-actions
+          type: informational_html
+          prompt: _( )
+          content: <h6>🌱 Harvest</h6>        
+        # Forest consultant
         - name: forest_harvest_forest-consultant
           type: big_toggle
-          prompt: _(Harvest)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -1043,7 +1041,7 @@ place:
         # Rain gardens
         - name: urban_rain-gardens
           type: big_toggle
-          prompt: _(Actions)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -1210,10 +1208,14 @@ place:
 
         # SHORELINE CARTEGORY ##################################################
         # BANK ACTIONS
+        - name: bank-actions
+          type: informational_html
+          prompt: _( )
+          content: <h6>🏞 Bank protection</h6>        
         # Consult professional
         - name: shoreline_bank_consult-professional
           type: big_toggle
-          prompt: _(Bank Protection)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -1321,10 +1323,14 @@ place:
           hidden_default: true
 
         # VEGETATION ACTIONS
+        - name: vegetation-actions
+          type: informational_html
+          prompt: _( )
+          content: <h6>🌿 Vegetation</h6>        
         # Frame views
         - name: shoreline_vegetation_frame-views
           type: big_toggle
-          prompt: _(Vegetation)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -1432,10 +1438,14 @@ place:
           hidden_default: true
 
         # DEVELOPMENT ACTIONS
+        - name: development-actions
+          type: informational_html
+          prompt: _( )
+          content: <h6>🚛 Development</h6>        
         # Minimize impervious surfaces
         - name: shoreline_development_minimize-impervious
           type: big_toggle
-          prompt: _(Development)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -1532,7 +1542,7 @@ place:
         # Natural yard care
         - name: general_natural-yard-care
           type: big_toggle
-          prompt: _(Actions)
+          prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
@@ -1761,7 +1771,7 @@ place:
         # Final stage
         - name: title
           type: text
-          prompt: _(Enter a headline that describes your actions or experiences)
+          prompt: _(Enter a headline that describes your experiences)
           default_value: _(My conservation actions)
           display_prompt: _( )
           optional: false
