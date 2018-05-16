@@ -83,7 +83,12 @@ class PlaceDetail extends Component {
     });
 
     this.state = {
-      placeModel: fromJS(this.props.model.attributes),
+      // NOTE: We remove the story property before serializing, so it doesn't
+      // get saved.
+      // TODO: A proper story model would avoid this problem.
+      placeModel: fromJS(this.props.model.attributes).delete(
+        constants.STORY_FIELD_NAME,
+      ),
       supportModels: serializeBackboneCollection(
         this.props.model.submissionSets[this.supportType],
       ),

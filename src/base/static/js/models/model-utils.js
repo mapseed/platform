@@ -22,13 +22,17 @@ const addStoryObj = response => {
   const url = response.properties[constants.CUSTOM_URL_PROPERTY_NAME]
     ? response.properties[constants.CUSTOM_URL_PROPERTY_NAME]
     : response.properties.datasetSlug + "/" + response.properties.id;
+  let storyObj;
 
-  const storyObj = Object.values(storyConfig).reduce((chapter, story) => {
-    chapter = story.chapters.find(chapter => {
+  Object.values(storyConfig).forEach(story => {
+    const foundChapter = story.chapters.find(chapter => {
       return chapter.url === url;
     });
-    return chapter;
-  }, {});
+
+    if (foundChapter) {
+      storyObj = foundChapter;
+    }
+  });
 
   if (storyObj) {
     return { story: storyObj };
