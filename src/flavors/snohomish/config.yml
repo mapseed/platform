@@ -247,7 +247,7 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: snohomish-featured
-      icon_url: /static/css/images/markers/marker-pin-marker-red.png
+      icon_url: /static/css/images/markers/map-pin-marker-red.png
       value: featured_place
       label: _(Featured Site)
       fields:
