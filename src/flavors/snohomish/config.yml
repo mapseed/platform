@@ -110,7 +110,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   conservation-actions:
-    label: _(Sound Forest)
+    label: _(Conservation Action)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -143,12 +143,12 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
       - condition: 'this.map.zoom <= 18'
         icon:
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
 
 # Sidebar and activity stream should be enabled and disabled together!
@@ -1383,13 +1383,13 @@ story:
     order:
       - url: bay-view
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png        
       - url: photovoice
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png         
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         
       - url: snohomish-conservation-district
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-star.png         
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png 
       #   zoom: 15
       #   panTo:
       #     lat: 47.53420
