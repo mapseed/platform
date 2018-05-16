@@ -294,7 +294,7 @@ place:
         # Set location
         - start_field_index: 1
           end_field_index: 2
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Please set your location)
           description: _(Setting your location will help us list streams as safe. Your address will not be shared on the map.)
         
