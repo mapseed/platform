@@ -76,17 +76,24 @@
 
 /* =Map
 -------------------------------------------------------------- */
-#centerpoint .overlay {
+#centerpoint.newpin .overlay {
   &:before {
-    content: "";
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 800;
+    font-size: 1.1em;
+    content: "Drag the map";
     background-image: url(/static/css/images/marker-arrow-overlay.png);
     background-size: cover;
-    width: 109px;
-    height: 121px;
-    display: block;
-    left: -42px;
-    top: -35px;
+    width: 139px;
+    height: 162px;
+    left: -58px;
+    top: -75px;
     position: absolute;
+    text-transform: uppercase;
+    color: yellow;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
   }
 }
 

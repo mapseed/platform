@@ -339,7 +339,7 @@ place:
         - name: location-information
           type: informational_html
           prompt: _( )
-          content: <h5 class="map-drag-header">You may drag the map to set your location:</h5><img id="drag-map-graphic" src="/static/css/images/map-drag-graphic.png" /><h5 class="map-drag-header">Or, you may enter your address:</h5>
+          content: <h5 class="map-drag-header">You may drag the map to set your location.</h5><h5 class="map-drag-header">Or, you may enter your address:</h5>
         - name: private-address
           type: geocoding
           prompt: _( )
