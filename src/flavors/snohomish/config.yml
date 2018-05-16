@@ -110,45 +110,45 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   conservation-actions:
-    label: _(Sound Forest)
+    label: _(Conservation Action)
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
           shadowSize: [50, 60]
           shadowAnchor: [14, 60]
 
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          #- condition: 'this.map.zoom < 11'
+          #icon:
+          #iconUrl: /static/css/images/markers/map-pin-marker.png
+          #iconSize: [10, 12]
+          #iconAnchor: [5, 12]
 
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          #- condition: 'this.map.zoom < 16'
+          #icon:
+          #iconUrl: /static/css/images/markers/map-pin-marker.png
+          #iconSize: [15, 18]
+          #iconAnchor: [7.5, 18]
 
-      - condition: 'this.map.zoom >= 16'
+      - condition: 'this.map.zoom <= 18'
         icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
+          iconUrl: /static/css/images/markers/map-pin-marker.png
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
   featured_place:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
       - condition: 'this.map.zoom <= 18'
         icon:
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
+          iconSize: [30, 36]
+          iconAnchor: [15, 36]
 
 
 # Sidebar and activity stream should be enabled and disabled together!
@@ -247,7 +247,7 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: snohomish-featured
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/markers/map-pin-marker-red.png
       value: featured_place
       label: _(Featured Site)
       fields:
@@ -257,6 +257,7 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
+            - url: /static/css/images/map-pin-marker-red.png
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
             - url: /static/css/images/markers/triangle-e1264d.png
@@ -287,14 +288,14 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-my-forest.png
+      icon_url: /static/css/images/markers/map-pin-marker.png
       value: conservation-actions
       multi_stage:
 
         # Set location
         - start_field_index: 1
           end_field_index: 2
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Please set your location)
           description: _(Setting your location will help us list streams as safe. Your address will not be shared on the map.)
         
@@ -339,7 +340,7 @@ place:
         - name: location-information
           type: informational_html
           prompt: _( )
-          content: <h5 class="map-drag-header">You may drag the map to set your location:</h5><img id="drag-map-graphic" src="/static/css/images/map-drag-graphic.png" /><h5 class="map-drag-header">Or, you may enter your address:</h5>
+          content: <h5 class="map-drag-header">You may drag the map to set your location.</h5><h5 class="map-drag-header">Or, you may enter your address:</h5>
         - name: private-address
           type: geocoding
           prompt: _( )
@@ -1382,13 +1383,13 @@ story:
     order:
       - url: bay-view
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png        
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png        
       - url: photovoice
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-heart.png         
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         
       - url: snohomish-conservation-district
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/marker-star.png         
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png 
       #   zoom: 15
       #   panTo:
       #     lat: 47.53420
