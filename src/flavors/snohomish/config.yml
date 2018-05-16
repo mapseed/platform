@@ -114,7 +114,7 @@ place_types:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [50, 60]
           iconAnchor: [25, 60]
@@ -123,19 +123,19 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [10, 12]
           iconAnchor: [5, 12]
 
       - condition: 'this.map.zoom < 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [15, 18]
           iconAnchor: [7.5, 18]
 
       - condition: 'this.map.zoom >= 16'
         icon:
-          iconUrl: /static/css/images/markers/marker-my-forest.png
+          iconUrl: /static/css/images/markers/map-pin-marker.png
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
@@ -247,7 +247,7 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: snohomish-featured
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/markers/marker-pin-marker-red.png
       value: featured_place
       label: _(Featured Site)
       fields:
@@ -257,6 +257,7 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
+            - url: /static/css/images/map-pin-marker-red.png
             - url: /static/css/images/markers/marker-heart.png
             - url: /static/css/images/markers/marker-star.png
             - url: /static/css/images/markers/triangle-e1264d.png
@@ -287,7 +288,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: snohomish-input
-      icon_url: /static/css/images/markers/marker-my-forest.png
+      icon_url: /static/css/images/markers/map-pin-marker.png
       value: conservation-actions
       multi_stage:
 
