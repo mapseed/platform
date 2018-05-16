@@ -563,26 +563,31 @@ place:
 
 
         # FOREST CATEGORY ######################################################
-        # FIRE ACTIONS
-        - name: fire-actions
-          type: informational_html
+
+        - name: forest_no-forest
+          type: big_checkbox
           prompt: _( )
-          content: <h6>🔥 Fire prevention</h6>        
+          display_prompt: _( )
+          content:
+            - label: _(I don't own/operate forestland)
+              value: no-forest
+          optional: true
+      
         # Maintain fuel-free zones
-        - name: forest_fire_fuel-free
+        - name: forest_protected-buffers
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_fire_fuel-free-datetime
+              - forest_protected-buffers-datetime
           content:
-            - label: _(Maintain fuel-free zones around home and structures (overhanging vegetation, firewood placement, etc.))
+            - label: _(Protected forest buffers around wetlands, streams, steep slopes, and bald eagle nests to protect water quality and critical wildlife areas)
               value: yes
-            - label: _(Maintain fuel-free zones around home and structures (overhanging vegetation, firewood placement, etc.))
+            - label: _(Protected forest buffers around wetlands, streams, steep slopes, and bald eagle nests to protect water quality and critical wildlife areas)
               value: no
-        - name: forest_fire_fuel-free-datetime
+        - name: forest_protected-buffers-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -591,20 +596,20 @@ place:
           hidden_default: true
 
         # Remove ladder fuel
-        - name: forest_fire_ladder-fuel
+        - name: forest_restored-buffers
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_fire_ladder-fuel-datetime
+              - forest_restored-buffers-datetime
           content:
-            - label: _(Remove ladder fuel (brush, low limbs))
+            - label: _(Restored forest buffers around wetlands, streams, steep slopes, and bald eagle nests to improve water quality and critical wildlife areas)
               value: yes
-            - label: _(Remove ladder fuel (brush, low limbs))
+            - label: _(Restored forest buffers around wetlands, streams, steep slopes, and bald eagle nests to improve water quality and critical wildlife areas)
               value: no
-        - name: forest_fire_ladder-fuel-datetime
+        - name: forest_restored-buffers-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -613,76 +618,41 @@ place:
           hidden_default: true
 
         # Emergency preparedness
-        - name: forest_fire_emergency-preparedness
+        - name: forest_left-trees-snags-etc
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_fire_emergency-preparedness-datetime
+              - forest_left-trees-snags-etc-datetime
           content:
-            - label: _(General Emergency Preparedness)
+            - label: _(Left green trees and/or left or created snags, brush piles, downed logs, or other habitat features to improve wildlife habitat)
               value: yes
-            - label: _(General Emergency Preparedness)
+            - label: _(Left green trees and/or left or created snags, brush piles, downed logs, or other habitat features to improve wildlife habitat)
               value: no
-        - name: forest_fire_emergency-preparedness-datetime
+        - name: forest_left-trees-snags-etc-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
           optional: false
           hidden_default: true
-
-        # Other
-        - name: forest_fire_other
+       
+        - name: forest_maintain-roads
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_fire_other-action
-              - forest_fire_other-datetime
+              - forest_maintain-roads-datetime
           content:
-            - label: _(Other)
+            - label: _(Maintained forest roads and stream crossings to control erosion)
               value: yes
-            - label: _(Other)
+            - label: _(Maintained forest roads and stream crossings to control erosion)
               value: no
-        - name: forest_fire_other-action
-          type: text
-          prompt: _(What was your action?)
-          display_prompt: _( )
-          optional: true
-          hidden_default: true
-        - name: forest_fire_other-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # WATER ACTIONS
-        # Erosion
-        - name: water-actions
-          type: informational_html
-          prompt: _( )
-          content: <h6>💦 Water quality</h6>         
-        - name: forest_water_erosion
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_water_erosion-datetime
-          content:
-            - label: _(Control erosion and prevent soil compaction)
-              value: yes
-            - label: _(Control erosion and prevent soil compaction)
-              value: no
-        - name: forest_water_erosion-datetime
+        - name: forest_maintain-roads-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -691,20 +661,20 @@ place:
           hidden_default: true
 
         # Streams, wetlands, buffers
-        - name: forest_water_streams-wetlands-buffers
+        - name: forest_reduce-harvest-compaction
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_water_streams-wetlands-buffers-datetime
+              - forest_reduce-harvest-compaction-datetime
           content:
             - label: _(Protect streams and wetlands, maintain buffers)
               value: yes
             - label: _(Protect streams and wetlands, maintain buffers)
               value: no
-        - name: forest_water_streams-wetlands-buffers-datetime
+        - name: forest_reduce-harvest-compaction-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -713,42 +683,20 @@ place:
           hidden_default: true
 
         # Crossings & culverts
-        - name: forest_water_crossings-culverts
+        - name: forest_fish-passage
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_water_crossings-culverts-datetime
+              - forest_fish-passage-datetime
           content:
-            - label: _(Maintain or improve stream crossings and replace fish passage barrier culverts)
+            - label: _(Replaced fish-passage barrier culverts with larger culverts or bridges)
               value: yes
-            - label: _(Maintain or improve stream crossings and replace fish passage barrier culverts)
+            - label: _(Replaced fish-passage barrier culverts with larger culverts or bridges)
               value: no
-        - name: forest_water_crossings-culverts-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Logging roads
-        - name: forest_water_logging-roads
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_water_logging-roads-datetime
-          content:
-            - label: _(Maintain, improve, or remove and revegetate logging roads)
-              value: yes
-            - label: _(Maintain, improve, or remove and revegetate logging roads)
-              value: no
-        - name: forest_water_logging-roads-datetime
+        - name: forest_fish-passage-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -757,250 +705,42 @@ place:
           hidden_default: true
 
         # Logging slash
-        - name: forest_water_logging-slash
+        - name: forest_logging-slash-etc
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_water_logging-slash-datetime
+              - forest_logging-slash-etc-datetime
           content:
-            - label: _(Keep logging slash away from water sources)
+            - label: _(Kept logging slash and other materials and equipment away from streams, wetlands, and slopes)
               value: yes
-            - label: _(Keep logging slash away from water sources)
+            - label: _(Kept logging slash and other materials and equipment away from streams, wetlands, and slopes)
               value: no
-        - name: forest_water_logging-slash-datetime
+        - name: forest_logging-slash-etc-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
           optional: false
           hidden_default: true
-
-        # Vehicle mud
-        - name: forest_water_vehicle-mud
+       
+        # Forest stewardship plan
+        - name: forest_stewardship-plan
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_water_vehicle-mud-datetime
+              - forest_stewardship-plan-datetime
           content:
-            - label: _(Control mud from vehicles on local roads)
+            - label: _(Created and implemented a Forest Stewardship Plan)
               value: yes
-            - label: _(Control mud from vehicles on local roads)
+            - label: _(Created and implemented a Forest Stewardship Plan)
               value: no
-        - name: forest_water_vehicle-mud-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # HABITAT ACTIONS
-        - name: forest_habitat-actions
-          type: informational_html
-          prompt: _( )
-          content: <h6>🌲 Forest Health and Wildlife Habitat</h6>
-        # Invasive/exotic plants
-        - name: forest_habitat_invasive-exotic
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_habitat_invasive-exotic-datetime
-          content:
-            - label: _(Control Invasive/Exotic plants)
-              value: yes
-            - label: _(Control Invasive/Exotic plants)
-              value: no
-        - name: forest_habitat_invasive-exotic-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Selective thinning
-        - name: forest_habitat_thinning
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_habitat_thinning-datetime
-          content:
-            - label: _(Practice selective thinning)
-              value: yes
-            - label: _(Practice selective thinning)
-              value: no
-        - name: forest_habitat_thinning-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Snags & piles
-        - name: forest_habitat_snags-piles
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_habitat_snags-piles-datetime
-          content:
-            - label: _(Improve wildlife habitat with snags, brush piles, etc.)
-              value: yes
-            - label: _(Improve wildlife habitat with snags, brush piles, etc.)
-              value: no
-        - name: forest_habitat_snags-piles-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Biological diversity
-        - name: forest_habitat_biological-diversity
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_habitat_biological-diversity-datetime
-          content:
-            - label: _(Maintain biological diversity)
-              value: yes
-            - label: _(Maintain biological diversity)
-              value: no
-        - name: forest_habitat_biological-diversity-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Agroforestry
-        - name: forest_habitat_agroforestry
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_habitat_agroforestry-datetime
-          content:
-            - label: _(Use agroforestry practices such as silviculture)
-              value: yes
-            - label: _(Use agroforestry practices such as silviculture)
-              value: no
-        - name: forest_habitat_agroforestry-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # HARVEST ACTIONS
-        - name: harvest-actions
-          type: informational_html
-          prompt: _( )
-          content: <h6>🌱 Harvest</h6>        
-        # Forest consultant
-        - name: forest_harvest_forest-consultant
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_harvest_forest-consultant-datetime
-          content:
-            - label: _(Work with Forest Consultant and implement a Forest Stewardship Plan)
-              value: yes
-            - label: _(Work with Forest Consultant and implement a Forest Stewardship Plan)
-              value: no
-        - name: forest_harvest_forest-consultant-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Non-forest products
-        - name: forest_harvest_non-forest
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_harvest_non-forest-datetime
-          content:
-            - label: _(Produce non-forest products (mushrooms, floral products))
-              value: yes
-            - label: _(Produce non-forest products (mushrooms, floral products))
-              value: no
-        - name: forest_harvest_non-forest-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Critical buffers
-        - name: forest_harvest_critical-buffers
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_harvest_critical-buffers-datetime
-          content:
-            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
-              value: yes
-            - label: _(Maintain critical area and endangered species buffers (e.g. wetland, riparian, bald eagle, steep slopes))
-              value: no
-        - name: forest_harvest_critical-buffers-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Leave trees
-        - name: forest_harvest_leave-trees
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - forest_harvest_leave-trees-datetime
-          content:
-            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
-              value: yes
-            - label: _(Leave standing green trees and wildlife trees and downed trees for wildlife habitat)
-              value: no
-        - name: forest_harvest_leave-trees-datetime
+        - name: forest_stewardship-plan-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -1009,27 +749,27 @@ place:
           hidden_default: true
 
         # Other
-        - name: forest_harvest_other
+        - name: forest_other
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - forest_harvest_other-datetime
-              - forest_harvest_other-action
+              - forest_other-datetime
+              - forest_other-action
           content:
             - label: _(Other)
               value: yes
             - label: _(Other)
               value: no
-        - name: forest_harvest_other-action
+        - name: forest_other-action
           type: text
           prompt: _(What was your action?)
           display_prompt: _( )
           optional: true
           hidden_default: true
-        - name: forest_harvest_other-datetime
+        - name: forest_other-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
@@ -1104,6 +844,50 @@ place:
           optional: false
           hidden_default: true
 
+        # Natural yard care
+        - name: urban_natural-yard-care
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_natural-yard-care-datetime
+          content:
+            - label: _(Used natural yard care)
+              value: yes
+            - label: _(Used natural yard care)
+              value: no
+        - name: urban_natural-yard-care-datetime
+          type: datetime
+          prompt: _(Approximately when did you last complete this action?)
+          placeholder: _(Approximate date and time)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Wildlife backyward
+        - name: general_wildlife-backyard
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - general_wildlife-backyard-datetime
+          content:
+            - label: _(Certified my property as a Backyard Wildlife Habitat)
+              value: yes
+            - label: _(Certified my property as a Backyard Wildlife Habitat)
+              value: no
+        - name: general_wildlife-backyard-datetime
+          type: datetime
+          prompt: _(Approximately when did you last complete this action?)
+          placeholder: _(Approximate date and time)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
         # Urban farming
         - name: urban_urban-farming
           type: big_toggle
@@ -1126,27 +910,6 @@ place:
           optional: false
           hidden_default: true
 
-        # Natural yard care
-        - name: urban_natural-yard-care
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - urban_natural-yard-care-datetime
-          content:
-            - label: _(Used natural yard care)
-              value: yes
-            - label: _(Used natural yard care)
-              value: no
-        - name: urban_natural-yard-care-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
 
         # Drainage concerns
         - name: urban_drainage-concerns
@@ -1649,7 +1412,7 @@ place:
           optional: false
           hidden_default: true
 
-        # Wildlife brusg
+        # Wildlife brush
         - name: general_wildlife-brush
           type: big_toggle
           prompt: _( )
@@ -1686,28 +1449,6 @@ place:
             - label: _(Provide a source of water for wildlife)
               value: no
         - name: general_wildlife-water-datetime
-          type: datetime
-          prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
-          display_prompt: _( )
-          optional: false
-          hidden_default: true
-
-        # Wildlife backyward
-        - name: general_wildlife-backyard
-          type: big_toggle
-          prompt: _( )
-          display_prompt: _( )
-          trigger:
-            trigger_value: yes
-            targets:
-              - general_wildlife-backyard-datetime
-          content:
-            - label: _(Certified my property as a Backyard Wildlife Habitat)
-              value: yes
-            - label: _(Certified my property as a Backyard Wildlife Habitat)
-              value: no
-        - name: general_wildlife-backyard-datetime
           type: datetime
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
