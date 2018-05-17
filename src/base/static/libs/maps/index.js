@@ -5,8 +5,8 @@ var Util = require("../../js/utils.js");
 var LayerView = require("mapseed-layer-view");
 
 class MainMap {
-  constructor({ container, places, router, store }) {
-    this.mapConfig = store.getState().config.map;
+  constructor({ container, places, router, mapConfig }) {
+    this.mapConfig = mapConfig;
 
     let MapProvider;
     switch (this.mapConfig.provider) {
