@@ -1,5 +1,5 @@
 const notImplemented = () => {
-  throw new Error("Error: Method is not implemented for this mapping provider");
+  throw new Error("Method is not implemented for this mapping provider");
 };
 const abstractMethods = {
 
