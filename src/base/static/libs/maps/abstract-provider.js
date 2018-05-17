@@ -1,8 +1,8 @@
 const notImplemented = () => {
-  throw "Error: Method is not implemented for this mapping provider";
+  throw new Error("Error: Method is not implemented for this mapping provider");
 };
-
 const abstractMethods = {
+
   /**
    * Create a new map instance.
    * @interface

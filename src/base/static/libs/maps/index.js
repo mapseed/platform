@@ -1,15 +1,26 @@
 /* global $ Shareabouts */
 
-import MapProvider from "map";
+import MapboxGLProvider from "./mapboxgl-provider";
+// Import other providers here as they become available
 
-var Util = require("../js/utils.js");
-
+var Util = require("../../js/utils.js");
 var LayerView = require("mapseed-layer-view");
 
 import { map as mapConfig } from "config";
 
 class MainMap {
   constructor(mapContainer, places, router) {
+    let MapProvider;
+    switch (mapConfig.provider) {
+      // Add other provider types here as they become available
+      case "mapboxgl":
+        MapProvider = MapboxGLProvider;
+        break;
+     default:
+        MapProvider = MapboxGLProvider;
+        break;
+    }
+
     this.places = places;
     this.router = router;
 
