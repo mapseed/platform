@@ -1,3 +1,5 @@
+/* global MAP_PROVIDER_TOKEN */
+
 import AbstractMapFactory from "./abstract-map-factory";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -14,31 +16,7 @@ const mapboxGLMethods = {
 
   on: function(event, callback, context) {
     callback = callback.bind(context);
-    let eventName;
-
-    // TODO: This switch probably won't be necessary for mapbox-gl
-    switch (event) {
-      case "zoomstart":
-        break;
-        eventName = "zoomstart";
-      case "zoomend":
-        eventName = "zoomend";
-        break;
-      case "movestart":
-        eventName = "movestart";
-        break;
-      case "moveend":
-        eventName = "moveend";
-        break;
-      case "dragstart":
-        eventName = "dragstart";
-        break;
-      case "dragend":
-        eventName = "dragend";
-        break;
-    }
-
-    this._map.on(eventName, callback);
+    this._map.on(event, callback);
   },
 
   getMap: function() {
@@ -52,19 +30,32 @@ const mapboxGLMethods = {
     return this._navControl;
   },
 
-  addGeolocationControl: function(
-    { position = "top-left" } = {},
-    vendorOptions = {},
-  ) {
-    this.geolocationControl; // TODO
-  },
-
   hasLayer: function(layerId) {
     return !!this._map.getLayer(layerId);
   },
 
   addMapboxStyle: function(styleUrl) {
     this._map.setStyle(styleUrl);
+  },
+
+  setMaxZoom: function(zoom) {
+    this._map.setMaxZoom(zoom);
+  },
+
+  getZoom: function() {
+    return this._map.getZoom();
+  },
+
+  getBBoxString: function() {
+    return this._map.getBounds().toString();
+  },
+
+  getCenter: function() {
+    return this._map.getCenter();
+  },
+
+  invalidateSize: function() {
+    this._map.resize();
   },
 };
 

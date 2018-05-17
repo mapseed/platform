@@ -14,6 +14,8 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 // from the api:
 import config from "config";
 import { setConfig } from "../../state/ducks/config";
+
+import MainMap from "../../map";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -29,11 +31,9 @@ const store = createStore(reducer);
 var Util = require("../utils.js");
 
 // Views
-var MapView = require("mapseed-map-view");
 var PagesNavView = require("mapseed-pages-nav-view");
 var AuthNavView = require("mapseed-auth-nav-view");
 var PlaceListView = require("mapseed-place-list-view");
-var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
@@ -212,28 +212,11 @@ module.exports = Backbone.View.extend({
     ) {
       return "basemaps" in panel;
     }).basemaps;
-    // Init the map view to display the places
-    this.mapView = new MapView({
-      el: "#map",
-      mapConfig: this.options.mapConfig,
-      sidebarConfig: this.options.sidebarConfig,
-      basemapConfigs: this.basemapConfigs,
-      legend_enabled: !!this.options.sidebarConfig.legend_enabled,
-      places: this.places,
-      router: this.options.router,
-      placeTypes: this.options.placeTypes,
-      cluster: this.options.cluster,
-      placeConfig: this.options.placeConfig,
-    });
 
-    if (self.options.sidebarConfig.enabled) {
-      new SidebarView({
-        el: "#sidebar-container",
-        mapView: this.mapView,
-        sidebarConfig: this.options.sidebarConfig,
-        placeConfig: this.options.placeConfig,
-      }).render();
-    }
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    // Instantiate the map.
+    this.mapView = new MainMap("map", this.places, this.options.router);
+    // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Activity is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.
@@ -517,6 +500,7 @@ module.exports = Backbone.View.extend({
     var self = this,
       ll;
 
+    // TODO
     // If the map locatin is part of the url already
     //if (zoom && lat && lng) {
     //  ll = L.latLng(parseFloat(lat), parseFloat(lng));
@@ -804,13 +788,6 @@ module.exports = Backbone.View.extend({
         self.isStoryActive = false;
         self.restoreDefaultLayerVisibility();
       }
-
-      // Sigh. This is the latest attempt to avert the off-center bug. Tweaking
-      // the map's center point slightly seems to help Leaflet figure out the
-      // correct map dimensions. Definitely hacky...
-      //map.panBy(new L.Point(0, -1));
-      //map.panBy(new L.Point(0, 1));
-      map.invalidateSize(true);
     }
 
     function onNotFound() {
