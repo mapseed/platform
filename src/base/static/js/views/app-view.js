@@ -15,7 +15,7 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 import config from "config";
 import { setConfig } from "../../state/ducks/config";
 
-import MainMap from "../../map";
+import MainMap from "../../libs/maps";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -215,7 +215,13 @@ module.exports = Backbone.View.extend({
 
     // REACT PORT SECTION /////////////////////////////////////////////////////
     // Instantiate the map.
-    this.mapView = new MainMap("map", this.places, this.options.router);
+    // TODO: Componentize the map module.
+    this.mapView = new MainMap({
+      container: "map",
+      places: this.places,
+      router: this.options.router,
+      store: store,
+    });
     // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Activity is enabled by default (undefined) or by enabling it
