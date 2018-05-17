@@ -6,6 +6,16 @@ import GeocodeAddressBar from "../../../../../base/static/components/geocode-add
 import InfoModal from "../../../../../base/static/components/organisms/info-modal";
 import languageModule from "../../../../../base/static/language-module";
 
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import reducer from "../../../../../base/static/state/reducers";
+import mapseedApiClient from "../../../../../base/static/client/mapseed-api-client";
+// TODO(luke): This should be the only instance of our config singleton.
+// Eventually, it will be removed once we start fetching the config
+// from the api:
+import config from "config";
+import { setConfig } from "../../../../../base/static/state/ducks/config";
+
 import transformCommonFormElements from "../../../../../base/static/utils/common-form-elements";
 
 const AppView = require("../../../../../base/static/js/views/app-view.js");
@@ -20,11 +30,14 @@ const ActivityView = require("../../../../../base/static/js/views/activity-view"
 // END FLAVOR-SPECIFIC CODE
 const RightSidebarView = require("../../../../../base/static/js/views/right-sidebar-view");
 
+// TODO(luke): move this into index.js (currently routes.js)
+const store = createStore(reducer);
+
 module.exports = AppView.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .collapse-btn": "onToggleSidebarVisibility",
+    "click .story-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
     // BEGIN FLAVOR-SPECIFIC CODE
     "click .show-layer-panel": "showLayerPanel",
@@ -36,6 +49,9 @@ module.exports = AppView.extend({
   initialize: function() {
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
+    // TODO(luke): move this into "componentDidMount" when App becomes a
+    // component:
+    store.dispatch(setConfig(config));
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -237,7 +253,9 @@ module.exports = AppView.extend({
     // REACT PORT SECTION /////////////////////////////////////////////////////
     if (this.options.mapConfig.geocoding_bar_enabled) {
       ReactDOM.render(
-        <GeocodeAddressBar mapConfig={this.options.mapConfig} />,
+        <Provider store={store}>
+          <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+        </Provider>,
         document.getElementById("geocode-address-bar"),
       );
     }
@@ -268,11 +286,13 @@ module.exports = AppView.extend({
       );
 
       ReactDOM.render(
-        <InfoModal
-          parentId="info-modal-container"
-          isModalOpen={true}
-          {...modalContent}
-        />,
+        <Provider store={store}>
+          <InfoModal
+            parentId="info-modal-container"
+            isModalOpen={true}
+            {...modalContent}
+          />
+        </Provider>,
         document.getElementById("info-modal-container"),
       );
     });
@@ -354,7 +374,14 @@ module.exports = AppView.extend({
     this.showCenterPoint();
 
     // Load places from the API
-    this.loadPlaces(placeParams);
+    // TODO(luke): move this into componentDidMount when App is ported
+    // to a component:
+    mapseedApiClient.place.get({
+      placeParams,
+      placeCollections: self.places,
+      mapView: self.mapView,
+      mapConfig: self.options.mapConfig,
+    });
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {
@@ -410,11 +437,13 @@ module.exports = AppView.extend({
 
     // NOTE: we hard-code the manzanares-input collection here
     ReactDOM.render(
-      <InputExplorer
-        appConfig={this.options.appConfig}
-        placeConfig={this.options.placeConfig.place_detail}
-        communityInput={this.places["manzanares-input"]}
-      />,
+      <Provider store={store}>
+        <InputExplorer
+          appConfig={this.options.appConfig}
+          placeConfig={this.options.placeConfig.place_detail}
+          communityInput={this.places["manzanares-input"]}
+        />
+      </Provider>,
       document.querySelector("#list-container"),
     );
   },

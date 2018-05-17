@@ -73,7 +73,29 @@
     color: #779300 !important;
   }
 }
-  
+
+/* =Map
+-------------------------------------------------------------- */
+#centerpoint.newpin .overlay {
+  &:before {
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 800;
+    font-size: 1.1em;
+    content: "Drag the map";
+    background-image: url(/static/css/images/marker-arrow-overlay.png);
+    background-size: cover;
+    width: 139px;
+    height: 162px;
+    left: -58px;
+    top: -75px;
+    position: absolute;
+    text-transform: uppercase;
+    color: yellow;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+}
 
 /* =Geocode Address Bar
 -------------------------------------------------------------- */
@@ -245,8 +267,10 @@
 }
 
 .form-stage-header-bar__header {
+  font-size: 2em;
   text-align: center;
-  font-family: "Bowlby", sans-serif;
+  font-family: "Lithos", sans-serif;
+  font-weight: 800;
   letter-spacing: 1px;
   color: #02440b;
 }
@@ -255,7 +279,7 @@
   padding-left: 60px;
   padding-right: 50px;
   font-size: 1.3em;
-  font-weight: 800;
+  font-weight: 200;
   margin-bottom: 40px;
 }
 
@@ -268,7 +292,8 @@
 
 .mapseed-info-modal__header-content {
   color: #02440b;
-  font-family: bowlby, sans-serif;
+  font-weight: 800;
+  font-family: "Lithos", sans-serif;
   letter-spacing: 1px;
 }
 
@@ -313,7 +338,9 @@
 
 .custom-page-header {
   color: #02440b;
-  font-family: "Bowlby", sans-serif;
+  font-weight: 800;
+  font-size: 2em;
+  font-family: "Lithos", sans-serif;
   letter-spacing: 1px;
   text-align: center;
 }
@@ -326,6 +353,64 @@
   display: flex;
   justify-content: center;
   padding-left: 0;
+}
+
+/* =Custom detail view
+-------------------------------------------------------------- */
+.snohomish-field-summary {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.snohomish-num-actions {
+  font-family: Bowlby, sans-serif;
+  line-height: 1.9em !important;
+  font-weight: 200;
+  border: 5px solid #779300;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.3em;
+  border-radius: 50%;
+}
+
+.snohomish-total-actions {
+  text-transform: uppercase;
+}
+
+.snohomish-stage-action-summary {
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.snohomish-stage-summary {
+}
+
+.snohomish-completed-action {
+  color: #555;
+  position: relative;
+  font-style: italic;
+  font-size: 1.2em;
+  margin-left: 15px;
+  padding-left: 40px;
+  margin-bottom: 25px !important;
+
+  &:before {
+    content: "✔";
+    font-style: normal;
+    color: #fff;
+    max-height: 2em;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 1.5em;
+    background-color: #779300;
+    width: 1.5em;
+    position: absolute;
+    text-align: center;
+    padding-top: 4px;
+  }
 }
 
 /* =Media Queries
