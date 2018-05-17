@@ -15,7 +15,8 @@
     "_": false,
     "$": false,
     "Handlebars": false,
-    "Shareabouts": false
+    "Shareabouts": false,
+    "MAP_PROVIDER_TOKEN": false
   },
   "env": {
     "browser": true,
