@@ -20,7 +20,7 @@ const abstractMethods = {
    *
    * @returns {Object} A reference to the map abstraction.
    */
-  createMap: function(container, options, vendorOptions) {
+  createMap: function(/*container, options, vendorOptions*/) {
     notImplemented();
   },
 
@@ -33,21 +33,21 @@ const abstractMethods = {
    *
    * @returns undefined
    */
-  on: function(event, callback, context) {
+  on: function(/*event, callback, context*/) {
     notImplemented();
   },
 
   /**
    * Unbind a map event listener.
    */
-  off: function(event, callback) {
+  off: function(/*event, callback*/) {
     notImplemented();
   },
 
   /**
    * Fire a map event.
    */
-  fire: function(event, payload) {
+  fire: function(/*event, payload*/) {
     notImplemented();
   },
 
@@ -55,12 +55,12 @@ const abstractMethods = {
    * Add navigation (zoom, compass, etc.) controls to the map.
    *
    * @param {Object} options
-   * @param {"top-left"|"top-right"|"bottom-left"|"bottom-right"} position="top-left" - The position of the controls within the map container.
+   * @param {"top-left"|"top-right"|"bottom-left"|"bottom-right"} options.position="top-left" - The position of the controls within the map container.
    * @param {Object} [vendorOptions] - Vendor-specific options.
    *
    * @returns {Object} - The controls instance.
    */
-  addNavControl: function({ options, vendorOptions }) {
+  addNavControl: function(/*{ options, vendorOptions }*/) {
     notImplemented();
   },
 
@@ -69,7 +69,7 @@ const abstractMethods = {
    *
    * @returns {Object} -  The layer instance.
    */
-  createWMSLayer: (source, options) => {
+  createWMSLayer: function(/*source, options*/) {
     notImplemented();
   },
 
@@ -78,7 +78,7 @@ const abstractMethods = {
    *
    * @returns {Object} -  The layer instance.
    */
-  createWMTSLayer: (source, options) => {
+  createWMTSLayer: function(/*source, options*/) {
     notImplemented();
   },
 
@@ -87,7 +87,7 @@ const abstractMethods = {
    *
    * @returns {Object} - The layer instance.
    */
-  createGeoJSONLayer: (source, options) => {
+  createGeoJSONLayer: function(/*source, options*/) {
     notImplemented();
   },
 
@@ -96,7 +96,7 @@ const abstractMethods = {
    *
    * @returns {Object} - The layer instance.
    */
-  createESRILayer: (source, options) => {
+  createESRILayer: function(/*source, options*/) {
     notImplemented();
   },
 
@@ -105,7 +105,7 @@ const abstractMethods = {
    *
    * @returns {Object} - The layer instance.
    */
-  createTileLayer: (source, options) => {
+  createTileLayer: function(/*source, options*/) {
     notImplemented();
   },
 
@@ -114,25 +114,25 @@ const abstractMethods = {
    *
    * @returns {Object} - The layer instance.
    */
-  createVectorTileLayer: (source, options) => {
+  createVectorTileLayer: function(/*source, options*/) {
     notImplemented();
   },
 
   /**
    * Remove the passed layer from the map.
    */
-  removeLayer: layer => {
+  removeLayer: function(/*layer*/) {
     notImplemented();
   },
 
   /**
    * Add the passed layer to the map.
    */
-  addLayer: layer => {
+  addLayer: function(/*layer*/) {
     notImplemented();
   },
 
-  addMapboxStyle: styleUrl => {
+  addMapboxStyle: function(/*styleUrl*/) {
     notImplemented();
   },
 
@@ -143,37 +143,39 @@ const abstractMethods = {
    *
    * @returns {boolean} - true or false
    */
-  hasLayer: layerId => {
+  hasLayer: function(/*layerId*/) {
     notImplemented();
   },
 
   /**
    * Attempt to geolocate the map user.
    */
-  locate: options => {
+  locate: function(/*options*/) {
     notImplemented();
   },
 
   /**
    * Get the map's current zoom level.
+   *
    * @returns {number} The zoom level.
    */
-  getZoom: () => {
-    notImplemented;
+  getZoom: function() {
+    notImplemented();
   },
 
   /**
    * Get the map's current bounding box as a string.
+   *
    * @returns {string} The bounding box string.
    */
-  getBBoxString: () => {
-    notImplemented;
+  getBBoxString: function() {
+    notImplemented();
   },
 
   /**
    * Fit the map to the passed native map client bounds.
    */
-  fitBounds: bounds => {
+  fitBounds: function(/*bounds*/) {
     notImplemented();
   },
 
@@ -182,6 +184,26 @@ const abstractMethods = {
    * @returns {string[]} The latitude, longitude center of the map as an array.
    */
   getCenter: () => {
+    notImplemented();
+  },
+
+  /**
+   * Set the map's maximum zoom level.
+   *
+   * @param {number} zoom - The zom level.
+   *
+   * @returns undefined
+   */
+  setMaxZoom: function(/*zoom*/) {
+    notImplemented();
+  },
+
+  /**
+   * Resize the map inside its container.
+   *
+   * @returns undefined.
+   */
+  invalidateSize: function() {
     notImplemented();
   },
 };

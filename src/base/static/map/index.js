@@ -1,130 +1,106 @@
+/* global $ Shareabouts */
+
 import MapProvider from "map";
 
-var Util = require("../utils.js");
+var Util = require("../js/utils.js");
 
-var BasicLayerView = require("mapseed-basic-layer-view");
 var LayerView = require("mapseed-layer-view");
-var toGeoJSON = require("togeojson");
 
-module.exports = Backbone.View.extend({
-  events: {
-    "click .locate-me": "onClickGeolocate",
-  },
-  initialize: function() {
-    var self = this,
-      i,
-      layerModel,
-      logUserZoom = function() {
-        Util.log(
-          "USER",
-          "map",
-          "zoom",
-          self.map.getBounds().toBBoxString(),
-          self.map.getZoom(),
-        );
-      },
-      logUserPan = function(evt) {
-        Util.log(
-          "USER",
-          "map",
-          "drag",
-          self.map.getBounds().toBBoxString(),
-          self.map.getZoom(),
-        );
-      };
+import { map as mapConfig } from "config";
+
+class MainMap {
+  constructor(mapContainer, places, router) {
+    this.places = places;
+    this.router = router;
+
+    const logUserPan = () => {
+      Util.log(
+        "USER",
+        "map",
+        "drag",
+        this.map.getBBoxString(),
+        this.map.getZoom(),
+      );
+    };
 
     this.map = MapProvider.createMap(
-      self.el,
-      self.options.mapConfig.options,
-      self.options.mapConfig.vendor_options,
+      mapContainer,
+      mapConfig.options,
+      mapConfig.vendor_options,
     );
 
-    // TODO: This seems too convoluted... Is there a better pattern for
-    // managing vendor-specific options?
     this.map.addNavControl({
       options: { position: "top-left" },
       vendorOptions:
-        self.options.mapConfig.vendor_options &&
-        self.options.mapConfig.vendor_options.control,
+        mapConfig.vendor_options && mapConfig.vendor_options.control,
     });
 
-    _.each(self.options.mapConfig.layers, function(config) {
+    mapConfig.layers.forEach(config => {
       config.loaded = false;
     });
+
+    // TODO: move to redux store?
     this.layers = {};
     this.layerViews = {};
 
-    // bootstrapped data from page
-    this.places = this.options.places;
-    this.landmarks = this.options.landmarks;
-
-    // Init geolocation
-    if (self.options.mapConfig.geolocation_enabled) {
-      self.initGeolocation();
+    if (mapConfig.geolocation_enabled) {
+      this.initGeolocation();
     }
 
-    self.map.on("dragend", logUserPan);
-
-    self.map.on("zoomend", function(evt) {
-      Util.log("APP", "zoom", self.map.getZoom());
+    this.map.on("dragend", logUserPan);
+    this.map.on("zoomend", evt => {
+      Util.log("APP", "zoom", this.map.getZoom());
       $(Shareabouts).trigger("zoomend", [evt]);
     });
 
-    self.map.on("moveend", function(evt) {
-      Util.log("APP", "center-lat", self.map.getCenter().lat);
-      Util.log("APP", "center-lng", self.map.getCenter().lng);
+    this.map.on("moveend", evt => {
+      Util.log("APP", "center-lat", this.map.getCenter().lat);
+      Util.log("APP", "center-lng", this.map.getCenter().lng);
 
       $(Shareabouts).trigger("mapmoveend", [evt]);
     });
 
-    self.map.on("dragend", function(evt) {
+    this.map.on("dragend", evt => {
       $(Shareabouts).trigger("mapdragend", [evt]);
     });
 
-    // Bind shareabouts collections event listeners
-    _.each(self.places, function(collection, collectionId) {
-      self.layers[collectionId] = self.getLayerGroups(collectionId);
-      self.layerViews[collectionId] = {};
-      collection.on("reset", self.render, self);
-      collection.on("add", self.addLayerView(collectionId), self);
-      collection.on("remove", self.removeLayerView(collectionId), self);
-    });
-
-    // Bind landmark collections event listeners
-    _.each(self.landmarks, function(collection, collectionId) {
-      self.layers[collectionId] = L.layerGroup();
-      self.layerViews[collectionId] = {};
-      collection.on("add", self.addLandmarkLayerView(collectionId), self);
-      collection.on("remove", self.removeLandmarkLayerView(collectionId), self);
+    // Bind place collections event listeners
+    Object.entries(this.places, ([collectionId, collection]) => {
+      this.layers[collectionId] = this.getLayerGroups(collectionId);
+      this.layerViews[collectionId] = {};
+      collection.on("reset", this.render, this);
+      collection.on("add", this.addLayerView(collectionId), this);
+      collection.on("remove", this.removeLayerView(collectionId), this);
     });
 
     // Bind visiblity event for custom layers
-    $(Shareabouts).on("visibility", function(evt, id, visible, isBasemap) {
-      var layer = self.layers[id];
-      const config = self.options.mapConfig.layers.find(
+    $(Shareabouts).on("visibility", (evt, id, visible, isBasemap) => {
+      var layer = this.layers[id];
+      const config = mapConfig.layers.find(
         layerConfig => layerConfig.id === id,
       );
 
       if (config && !config.loaded && visible) {
-        self.createLayerFromConfig(config);
+        this.createLayerFromConfig(config);
         config.loaded = true;
-        layer = self.layers[id];
+        layer = this.layers[id];
       }
 
       if (isBasemap) {
-        self.checkLayerZoom(config.maxZoom);
-        self.map.options.maxZoom = config.maxZoom
-          ? config.maxZoom
-          : self.options.mapConfig.options.maxZoom;
+        this.checkLayerZoom(config.maxZoom);
+        this.map.setMaxZoom(
+          config.maxZoom ? config.maxZoom : mapConfig.options.maxZoom,
+        );
 
-        _.each(self.options.basemapConfigs, function(basemap) {
-          if (basemap.id === id) {
-            self.map.addLayer(layer);
-            layer.bringToBack();
-          } else if (self.layers[basemap.id]) {
-            self.map.removeLayer(self.layers[basemap.id]);
-          }
-        });
+        // TODO
+        //_.each(this.options.basemapConfigs, function(basemap) {
+        //  if (basemap.id === id) {
+        //    self.map.addLayer(layer);
+        //    layer.bringToBack();
+        //  } else if (self.layers[basemap.id]) {
+        //    self.map.removeLayer(self.layers[basemap.id]);
+        //  }
+        //});
       } else if (layer) {
         self.setLayerVisibility(layer, visible);
       } else {
@@ -135,28 +111,23 @@ module.exports = Backbone.View.extend({
         config.asyncLayerVisibleDefault = visible;
       }
     });
-  }, // end initialize
 
-  isClusterable(layerId) {
-    // If no cluster config exists, we don't cluster any layers.
-    if (!this.options.cluster) return false;
-    // If a cluster config exists but no layer list is included, we cluster all
-    // layers.
-    if (!this.options.cluster.layers) return true;
-    // Otherwise, we only cluster a layer if it's listed in the cluster config.
-    return this.options.cluster.layers.includes(layerId);
-  },
+    // TEMPORARY: Manually trigger the visibility of a layer for testing
+    $(Shareabouts).trigger("visibility", [mapConfig.layers[0].id, true, true]);
+  }
+
+  clearFilter() {
+    // TODO
+  }
 
   checkLayerZoom(maxZoom) {
     if (maxZoom && this.map.getZoom() > maxZoom) {
-      _.defer(() => {
-        this.map.setZoom(parseInt(maxZoom, 10));
-      });
+      this.map.setZoom(parseInt(maxZoom, 10));
     }
-  },
+  }
 
   // Adds or removes the layer  on Master Layer based on visibility
-  setLayerVisibility: function(layer, visible) {
+  setLayerVisibility(layer, visible) {
     // TODO: layer id
     if (visible && !this.map.hasLayer(layer._leaflet_id)) {
       this.map.addLayer(layer);
@@ -164,22 +135,22 @@ module.exports = Backbone.View.extend({
     if (!visible && this.map.hasLayer(layer)) {
       this.map.removeLayer(layer);
     }
-  },
-  reverseGeocodeMapCenter: _.debounce(function() {
-    var center = this.map.getCenter();
+  }
+
+  reverseGeocodeMapCenter() {
+    const center = this.map.getCenter();
     Util.MapQuest.reverseGeocode(center, {
-      success: function(data) {
-        var locationsData = data.results[0].locations;
+      success: data => {
+        const locationsData = data.results[0].locations;
         // Util.console.log('Reverse geocoded center: ', data);
         $(Shareabouts).trigger("reversegeocode", [locationsData[0]]);
       },
     });
-  }, 1000),
-  initGeolocation: function() {
-    var self = this;
+  }
 
-    var onLocationError = function(evt) {
-      var message;
+  initGeolocation() {
+    const onLocationError = evt => {
+      let message;
       switch (evt.code) {
         // Unknown
         case 0:
@@ -203,13 +174,13 @@ module.exports = Backbone.View.extend({
       }
       alert(message);
     };
-    var onLocationFound = function(evt) {
-      var msg;
+    const onLocationFound = evt => {
+      let msg;
       if (
-        !self.map.options.maxBounds ||
-        self.map.options.maxBounds.contains(evt.latlng)
+        !this.map.options.maxBounds ||
+        this.map.options.maxBounds.contains(evt.latlng)
       ) {
-        self.map.fitBounds(evt.bounds);
+        this.map.fitBounds(evt.bounds);
       } else {
         msg =
           "It looks like you're not in a place where we're collecting " +
@@ -217,61 +188,38 @@ module.exports = Backbone.View.extend({
         alert(msg);
       }
     };
-    // Add the geolocation control link
-    this.$(".leaflet-top.leaflet-right").append(
-      '<div class="leaflet-control leaflet-bar">' +
-        '<a href="#" class="locate-me"></a>' +
-        "</div>",
-    );
 
     // Bind event handling
     this.map.on("locationerror", onLocationError);
     this.map.on("locationfound", onLocationFound);
 
     // Go to the current location if specified
-    if (this.options.mapConfig.geolocation_onload) {
+    if (mapConfig.geolocation_onload) {
       this.geolocate();
     }
-  },
-  onClickGeolocate: function(evt) {
+  }
+
+  onClickGeolocate(evt) {
     evt.preventDefault();
     Util.log(
       "USER",
       "map",
       "geolocate",
-      this.map.getBounds().toBBoxString(),
+      this.map.getBBoxString(),
       this.map.getZoom(),
     );
     this.geolocate();
-  },
-  geolocate: function() {
+  }
+
+  geolocate() {
     this.map.locate();
-  },
-  addLandmarkLayerView: function(collectionId) {
-    return function(model) {
-      this.layerViews[collectionId][model.id] = new BasicLayerView({
-        model: model,
-        router: this.options.router,
-        map: this.map,
-        placeTypes: this.options.placeTypes,
-        collectionId: collectionId,
-        layer: this.layers[collectionId],
-        // to access the filter
-        mapView: this,
-      });
-    };
-  },
-  removeLandmarkLayerView: function(collectionId) {
-    return function(model) {
-      this.layerViews[collectionId][model.id].remove();
-      delete this.layerViews[collectionId][model.id];
-    };
-  },
-  addLayerView: function(collectionId) {
-    return function(model) {
+  }
+
+  addLayerView(collectionId) {
+    return model => {
       this.layerViews[collectionId][model.cid] = new LayerView({
         model: model,
-        router: this.options.router,
+        router: this.router,
         map: this.map,
         layerGroup: this.layers[collectionId],
         placeTypes: this.options.placeTypes,
@@ -279,9 +227,10 @@ module.exports = Backbone.View.extend({
         mapView: this,
       });
     };
-  },
-  removeLayerView: function(collectionId) {
-    return function(model) {
+  }
+
+  removeLayerView(collectionId) {
+    return model => {
       // remove map-bound events for this layer view
       this.map.off(
         "zoomend",
@@ -303,23 +252,24 @@ module.exports = Backbone.View.extend({
       delete this.layerViews[collectionId][model.cid];
 
       Util.log("APP", "panel-state", "closed");
-      $("#spotlight-place-mask").remove();
       if (this.locationTypeFilter) {
-        this.options.router.navigate("filter/" + this.locationTypeFilter, {
+        this.router.navigate("filter/" + this.locationTypeFilter, {
           trigger: true,
         });
       } else {
-        this.options.router.navigate("/", { trigger: true });
+        this.router.navigate("/", { trigger: true });
       }
     };
-  },
-  zoomInOn: function(latLng) {
-    this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
-  },
+  }
 
-  filter: function(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
-    let locationType = locationTypeModel.get("locationType"),
-      isActive = locationTypeModel.get("active");
+  zoomInOn(/*latLng*/) {
+    // TODO
+    //this.map.setView(latLng, mapConfig.options.maxZoom || 17);
+  }
+
+  filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
+    const locationType = locationTypeModel.get("locationType");
+    const isActive = locationTypeModel.get("active");
 
     if (mapWasUnfiltered || mapWillBeUnfiltered) {
       for (let collectionId in this.places) {
@@ -346,43 +296,36 @@ module.exports = Backbone.View.extend({
           });
       }
     }
+  }
 
-    // TODO: filtering for landmarks also?
-  },
+  clearFilters(/*collectionId*/) {
+    // TODO
+    //this.locationTypeFilter = null;
+    //Object.values(this.places).forEach(collection => {
+    //  collection.each(function(model) {
+    //    if (self.layerViews[model.cid]) {
+    //      self.layerViews[model.cid].render();
+    //    }
+    //  });
+    //});
+  }
 
-  clearFilter: function(collectionId) {
-    var self = this;
-    this.locationTypeFilter = null;
-    _.each(this.places, function(collection) {
-      collection.each(function(model) {
-        if (self.layerViews[model.cid]) {
-          self.layerViews[model.cid].render();
-        }
-      });
-    });
+  getLayerGroups(/*collectionId*/) {
+    //  TODO
+    //  if (this.isClusterable(collectionId)) {
+    //    return L.markerClusterGroup(this.options.cluster);
+    //  } else {
+    //    return L.layerGroup();
+    //  }
+  }
 
-    _.each(this.landmarks, function(collection) {
-      collection.each(function(model) {
-        if (self.layerViews[model.cid]) {
-          self.layerViews[model.cid].render();
-        }
-      });
-    });
-  },
-
-  getLayerGroups: function(collectionId) {
-    if (this.isClusterable(collectionId)) {
-      return L.markerClusterGroup(this.options.cluster);
-    } else {
-      return L.layerGroup();
-    }
-  },
-
-  createLayerFromConfig: function(config) {
+  createLayerFromConfig(config) {
     if (config.type && config.type === "mapbox-style") {
       this.map.addMapboxStyle(config.url);
     }
 
+    // TODO: Full layer type support!
+    //
     //var self = this,
     //  layer,
     //  collectionId,
@@ -571,5 +514,7 @@ module.exports = Backbone.View.extend({
     //    });
     //  self.layers[config.id] = layer;
     // }
-  },
-});
+  }
+}
+
+export default MainMap;

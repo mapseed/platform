@@ -48,35 +48,16 @@ map:
 
   vendor_options:
     map:
+      # Sample vendor option
       failIfMajorPerformanceCaveat: true
     control:
       showCompass: true
 
   layers:
-    #- id: osm
-    #  url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
-    #  attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-
-    #- id: satellite
-    #  url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-    #  attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-
-    #- id: dark
-    #  url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-    #  attribution: 'Hello World'
-
-    #- id: demo
-    #  url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
-    #  type: place
-    #  slug: demo
     - id: sample-mapbox-style
       type: mapbox-style
       url: mapbox://styles/tcroxson/cjdw01pyx0i0f2qmxt0ugxtul
       attribution: "Hey there"
-
-      #- id: sample-vector
-
-      #- id: sample-wms
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -284,20 +265,7 @@ sidebar:
         - id: sample-mapbox-style
           title: _(Sample Mapbox Style)
           visibleDefault: true
-          #    - id: satellite
-          #title: _(Satellite View)
-          #visibleDefault: false
-          #    - id: dark
-          #title: _(Dark)
-          #visibleDefault: false
       groupings:
-        #- id: grp-community
-        #  title: _(Community Data)
-        #  visibleDefault: true
-        #  layers:
-        #    - id: demo
-        #      title: _(Demo Data)
-        #      visibleDefault: true
 
     - id: ticker
       view: ActivityView
