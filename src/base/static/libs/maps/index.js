@@ -1,5 +1,3 @@
-/* global $ Shareabouts */
-
 import MapboxGLProvider from "./mapboxgl-provider";
 // Import other providers here as they become available
 
