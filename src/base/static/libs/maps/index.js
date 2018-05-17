@@ -1,20 +1,22 @@
+/* global $ Shareabouts */
+
 import MapboxGLProvider from "./mapboxgl-provider";
 // Import other providers here as they become available
 
 var Util = require("../../js/utils.js");
 var LayerView = require("mapseed-layer-view");
 
-class MainMap {
-  constructor({ container, places, router, mapConfig }) {
-    this.mapConfig = mapConfig;
+import { map as mapConfig } from "config";
 
+class MainMap {
+  constructor(mapContainer, places, router) {
     let MapProvider;
-    switch (this.mapConfig.provider) {
+    switch (mapConfig.provider) {
       // Add other provider types here as they become available
       case "mapboxgl":
         MapProvider = MapboxGLProvider;
         break;
-      default:
+     default:
         MapProvider = MapboxGLProvider;
         break;
     }
@@ -33,18 +35,18 @@ class MainMap {
     };
 
     this.map = MapProvider.createMap(
-      container,
-      this.mapConfig.options,
-      this.mapConfig.vendor_options,
+      mapContainer,
+      mapConfig.options,
+      mapConfig.vendor_options,
     );
 
     this.map.addNavControl({
       options: { position: "top-left" },
       vendorOptions:
-        this.mapConfig.vendor_options && this.mapConfig.vendor_options.control,
+        mapConfig.vendor_options && mapConfig.vendor_options.control,
     });
 
-    this.mapConfig.layers.forEach(config => {
+    mapConfig.layers.forEach(config => {
       config.loaded = false;
     });
 
@@ -52,7 +54,7 @@ class MainMap {
     this.layers = {};
     this.layerViews = {};
 
-    if (this.mapConfig.geolocation_enabled) {
+    if (mapConfig.geolocation_enabled) {
       this.initGeolocation();
     }
 
@@ -85,7 +87,7 @@ class MainMap {
     // Bind visiblity event for custom layers
     $(Shareabouts).on("visibility", (evt, id, visible, isBasemap) => {
       var layer = this.layers[id];
-      const config = this.mapConfig.layers.find(
+      const config = mapConfig.layers.find(
         layerConfig => layerConfig.id === id,
       );
 
@@ -98,7 +100,7 @@ class MainMap {
       if (isBasemap) {
         this.checkLayerZoom(config.maxZoom);
         this.map.setMaxZoom(
-          config.maxZoom ? config.maxZoom : this.mapConfig.options.maxZoom,
+          config.maxZoom ? config.maxZoom : mapConfig.options.maxZoom,
         );
 
         // TODO
@@ -122,11 +124,7 @@ class MainMap {
     });
 
     // TEMPORARY: Manually trigger the visibility of a layer for testing
-    $(Shareabouts).trigger("visibility", [
-      this.mapConfig.layers[0].id,
-      true,
-      true,
-    ]);
+    $(Shareabouts).trigger("visibility", [mapConfig.layers[0].id, true, true]);
   }
 
   clearFilter() {
@@ -207,7 +205,7 @@ class MainMap {
     this.map.on("locationfound", onLocationFound);
 
     // Go to the current location if specified
-    if (this.mapConfig.geolocation_onload) {
+    if (mapConfig.geolocation_onload) {
       this.geolocate();
     }
   }
@@ -277,7 +275,7 @@ class MainMap {
 
   zoomInOn(/*latLng*/) {
     // TODO
-    //this.map.setView(latLng, this.mapConfig.options.maxZoom || 17);
+    //this.map.setView(latLng, mapConfig.options.maxZoom || 17);
   }
 
   filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {

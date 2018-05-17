@@ -1,3 +1,5 @@
+/* global MAP_PROVIDER_TOKEN */
+
 import AbstractMapFactory from "./abstract-provider";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
