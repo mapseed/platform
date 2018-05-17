@@ -122,7 +122,11 @@ class MainMap {
     });
 
     // TEMPORARY: Manually trigger the visibility of a layer for testing
-    $(Shareabouts).trigger("visibility", [this.mapConfig.layers[0].id, true, true]);
+    $(Shareabouts).trigger("visibility", [
+      this.mapConfig.layers[0].id,
+      true,
+      true,
+    ]);
   }
 
   clearFilter() {
