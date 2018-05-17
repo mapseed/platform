@@ -167,7 +167,7 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: osm-hot
+        - id: osm
           title: _(Outdoors)
           visibleDefault: true
         - id: satellite
