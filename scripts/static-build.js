@@ -410,8 +410,8 @@ fontPaths.forEach(fontPath => {
 
 try {
   fs.copySync(
-    path.resolve(__dirname, "../src/base/static/libs"),
-    path.resolve(outputBasePath, "libs"),
+    path.resolve(__dirname, "../src/base/static/legacy-libs"),
+    path.resolve(outputBasePath, "legacy-libs"),
   );
 } catch (e) {
   logError("Error copying flavor libs files: " + e);

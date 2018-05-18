@@ -23,7 +23,6 @@ const PlaceCounterView = require("../../../../../base/static/js/views/place-coun
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
 const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
 const MapView = require("../../../../../base/static/js/views/map-view");
-const SidebarView = require("../../../../../flavors/manzanares/static/js/views/sidebar-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require("../../../../../base/static/js/views/place-list-view");
@@ -200,32 +199,33 @@ module.exports = AppView.extend({
     });
 
     $("#sidebar-container").addClass("sidebar-container--hidden");
-    if (self.options.sidebarConfig.enabled) {
-      this.sidebarView = new SidebarView({
-        el: "#sidebar-container",
-        mapView: this.mapView,
-        sidebarConfig: this.options.sidebarConfig,
-        placeConfig: this.options.placeConfig,
-      });
+    // TODO: update for new sidebar
+    //if (self.options.sidebarConfig.enabled) {
+    //  this.sidebarView = new SidebarView({
+    //    el: "#sidebar-container",
+    //    mapView: this.mapView,
+    //    sidebarConfig: this.options.sidebarConfig,
+    //    placeConfig: this.options.placeConfig,
+    //  });
 
-      // TODO: add another view inside the SidebarView for handling the legend
+    //  // TODO: add another view inside the SidebarView for handling the legend
 
-      // BEGIN FLAVOR-SPECIFIC CODE
-      this.$(".leaflet-top.leaflet-right").append(
-        '<div class="leaflet-control leaflet-bar">' +
-          '<a href="#" class="show-layer-panel"></a>' +
-          "</div>",
-      );
-      // END FLAVOR-SPECIFIC CODE
+    //  // BEGIN FLAVOR-SPECIFIC CODE
+    //  this.$(".leaflet-top.leaflet-right").append(
+    //    '<div class="leaflet-control leaflet-bar">' +
+    //      '<a href="#" class="show-layer-panel"></a>' +
+    //      "</div>",
+    //  );
+    //  // END FLAVOR-SPECIFIC CODE
 
-      // BEGIN FLAVOR-SPECIFIC CODE
-      this.$(".leaflet-top.leaflet-right").append(
-        '<div class="leaflet-control leaflet-bar">' +
-          '<a href="#" class="show-legend-panel"></a>' +
-          "</div>",
-      );
-      // END FLAVOR-SPECIFIC CODE
-    }
+    //  // BEGIN FLAVOR-SPECIFIC CODE
+    //  this.$(".leaflet-top.leaflet-right").append(
+    //    '<div class="leaflet-control leaflet-bar">' +
+    //      '<a href="#" class="show-legend-panel"></a>' +
+    //      "</div>",
+    //  );
+    //  // END FLAVOR-SPECIFIC CODE
+    //}
 
     // Activity is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.

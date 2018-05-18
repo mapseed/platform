@@ -65,7 +65,6 @@ FormCategoryMenuWrapper.propTypes = {
   showNewPin: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,
-  map: PropTypes.instanceOf(L.Map),
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),
   customHooks: PropTypes.oneOfType([
