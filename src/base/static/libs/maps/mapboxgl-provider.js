@@ -73,21 +73,39 @@ const mapboxGLMethods = {
     };
   },
 
-  // https://www.mapbox.com/mapbox-gl-js/example/wms/
-  createWMSLayer: function(options) {
-    options.layers = Array.isArray(options.layers)
-      ? options.layers.join(",")
-      : options.layers;
+  createVectorTileLayer: function(options) {
+    return {
+      id: options.id,
+      type: options.vector_type,
+      "source-layer": options.source_layer,
+      source: {
+        id: options.id,
+        type: "vector",
+        tiles: [options.url],
+      },
+    };
+  },
 
-    const requestUrl = `${options.url}?service=wms&request=getmap&format=${
-      options.format
-    }&version=${options.version}&crs=EPSG:3857&transparent=${
-      options.transparent
-    }&layers=${
-      options.layers
-    }&bbox={bbox-epsg-3857}&width=256&height=256&styles=${
-      options.style ? options.style : "default"
-    }`;
+  // https://www.mapbox.com/mapbox-gl-js/example/wms/
+  // http://cite.opengeospatial.org/pub/cite/files/edu/wms/text/operations.html#getmap
+  createWMSLayer: function(options) {
+    if (Array.isArray(options.layers)) {
+      options.layers = options.layers.join(",");
+    }
+
+    const requestUrl = [
+      options.url,
+      "?service=wms&request=getmap&format=",
+      options.format,
+      "&version=",
+      options.version,
+      "&crs=EPSG:3857&transparent=",
+      options.transparent,
+      "&layers=",
+      options.layers,
+      "&bbox={bbox-epsg-3857}&width=256&height=256&styles=",
+      options.style ? options.style : "default",
+    ].join("");
 
     return {
       id: options.id,
@@ -96,8 +114,37 @@ const mapboxGLMethods = {
         type: "raster",
         tiles: [requestUrl],
       },
-      // TODO: Does this need to be configurable? I think 256 is standard...
       tileSize: 256,
+    };
+  },
+
+  // https://stackoverflow.com/questions/35566940/wmts-geotiff-for-a-mapbox-gl-source
+  // http://cite.opengeospatial.org/pub/cite/files/edu/wmts/text/operations.html#examples-requests-and-responses-for-tile-resources
+  createWMTSLayer: function(options) {
+    const requestUrl = [
+      options.url,
+      "?service=wmts&request=gettile&layers=",
+      options.layers,
+      "&version=",
+      options.version,
+      "&tilematrixset=",
+      options.tilematrix_set,
+      "&format=",
+      options.format,
+      "&transparent=",
+      options.transparent,
+      "&style=",
+      options.style ? options.style : "default",
+      "&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}",
+    ].join("");
+
+    return {
+      id: options.id,
+      type: "raster",
+      source: {
+        type: "raster",
+        tiles: [requestUrl],
+      },
     };
   },
 
