@@ -54,10 +54,23 @@ map:
       showCompass: true
 
   layers:
+    - id: sample-wms
+      type: wms
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer
+      layers: '0'
+      version: 1.3.0
+      transparent: false
+      format: image/png
+
+    - id: sample-raster-tile
+      type: raster-tile
+      url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: "Hello"
+ 
     - id: sample-mapbox-style
       type: mapbox-style
       url: mapbox://styles/tcroxson/cjdw01pyx0i0f2qmxt0ugxtul
-      attribution: "Hey there"
+      attribution: "Hello"
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -262,9 +275,12 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
+        - id: sample-raster-tile
+          title: _(Sample Raster Tiles)
+          visibleDefault: true
         - id: sample-mapbox-style
           title: _(Sample Mapbox Style)
-          visibleDefault: true
+          visibleDefault: false
       groupings:
 
     - id: ticker

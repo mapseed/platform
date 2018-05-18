@@ -335,6 +335,12 @@ class MainMap {
   createLayerFromConfig(config) {
     if (config.type && config.type === "mapbox-style") {
       this.map.addMapboxStyle(config.url);
+    } else if (config.type && config.type === "raster-tile") {
+      this.layers[config.id] = this.map.createRasterTileLayer(config);
+      this.map.addLayer(this.layers[config.id]);
+    } else if (config.type && config.type === "wms") {
+      this.layers[config.id] = this.map.createWMSLayer(config);
+      this.map.addLayer(this.layers[config.id]);
     }
 
     // TODO: Full layer type support!
