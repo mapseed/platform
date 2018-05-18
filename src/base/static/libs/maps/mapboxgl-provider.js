@@ -62,7 +62,6 @@ const mapboxGLMethods = {
   },
 
   createRasterTileLayer: function(options) {
-    // TODO: return the created store and cache that?
     return {
       id: options.id,
       type: "raster",
@@ -74,16 +73,20 @@ const mapboxGLMethods = {
   },
 
   createVectorTileLayer: function(options) {
-    return {
-      id: options.id,
-      type: options.vector_type,
-      "source-layer": options.source_layer,
-      source: {
-        id: options.id,
-        type: "vector",
-        tiles: [options.url],
-      },
-    };
+    this._guardedAddSource(options);
+
+    return fetch(options.style_url)
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        result.layers.forEach(layerConfig => {
+          layerConfig.source = options.id;
+          layerConfig["source-layer"] = options.source_layer;
+        });
+
+        return result.layers;
+      });
   },
 
   // https://www.mapbox.com/mapbox-gl-js/example/wms/
@@ -149,10 +152,32 @@ const mapboxGLMethods = {
   },
 
   addLayer: function(layerConfig) {
-    this.guardedAddLayer(layerConfig);
+    this._guardedAddLayer(layerConfig);
   },
 
-  guardedAddLayer: function(layerConfig) {
+  addVectorLayerGroup: function(layerStyles) {
+    layerStyles.forEach(layerStyle => {
+      this._map.addLayer(layerStyle);
+    });
+  },
+
+  _guardedAddSource(options) {
+    if (this._map.isStyleLoaded()) {
+      this._map.addSource(options.id, {
+        type: "vector",
+        tiles: [options.url],
+      });
+    } else {
+      this._map.on("load", () => {
+        this._map.addSource(options.id, {
+          type: "vector",
+          tiles: [options.url],
+        });
+      });
+    }
+  },
+
+  _guardedAddLayer: function(layerConfig) {
     if (this._map.isStyleLoaded()) {
       this._map.addLayer(layerConfig);
     } else {

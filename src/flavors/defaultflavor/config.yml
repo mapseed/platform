@@ -54,6 +54,13 @@ map:
       showCompass: true
 
   layers:
+    - id: sample-vector
+      type: vector-tile
+      vector_type: fill
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/style.json
+      source_layer: historical_river_pathgeojson
+
     - id: sample-wmts
       type: wmts
       url: https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS
@@ -62,13 +69,6 @@ map:
       version: 1.0.0
       transparent: false
       format: image/jpg
-
-    - id: sample-vector
-      type: vector-tile
-      vector_type: fill
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/style.json
-      source_layer: historical_river_pathgeojson
 
     - id: sample-wms
       type: wms
@@ -333,7 +333,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Add a report to the map)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)

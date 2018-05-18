@@ -345,8 +345,10 @@ class MainMap {
       this.layers[config.id] = this.map.createWMTSLayer(config);
       this.map.addLayer(this.layers[config.id]);
     } else if (config.type && config.type === "vector-tile") {
-      this.layers[config.id] = this.map.createVectorTileLayer(config);
-      this.map.addLayer(this.layers[config.id]);
+      this.map.createVectorTileLayer(config).then(vectorLayerGroupConfig => {
+        this.layers[config.id] = vectorLayerGroupConfig;
+        this.map.addVectorLayerGroup(this.layers[config.id])
+      });
     }
 
     // TODO: Full layer type support!
