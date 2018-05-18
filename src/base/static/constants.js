@@ -67,4 +67,7 @@ export default {
   PLACE_MODEL_IO_END_ERROR_ACTION: "place:io-end-error",
   SURVEY_MODEL_IO_END_SUCCESS_ACTION: "survey:io-end",
   SUPPORT_MODEL_IO_END_SUCCESS_ACTION: "support:io-end-success",
+
+  FOCUS_TARGET_LAYER_ACTION: "focus",
+  UNFOCUS_MODEL_ACTION: "unfocus",
 };

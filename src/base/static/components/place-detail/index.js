@@ -10,6 +10,7 @@ import Survey from "./survey";
 import CoverImage from "../ui-elements/cover-image";
 import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
+import emitter from "../../utils/emitter";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
@@ -17,12 +18,27 @@ import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
 
-import { survey as surveyConfig, support as supportConfig } from "config";
+import {
+  survey as surveyConfig,
+  support as supportConfig,
+  custom_hooks as customHooks,
+} from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
 
 import { translate } from "react-i18next";
 import "./index.scss";
+
+// TEMPORARY: We define flavor hooks here for the time being.
+const hooks = {
+  pbOaklandDetailViewMount: state => {
+    emitter.emit("layer-view:style", {
+      action: constants.FOCUS_TARGET_LAYER_ACTION,
+      // targetLayers: new Set(state.placeModel.get("related-ideas")),
+      targetLocationType: state.placeModel.get("related-location-type"),
+    });
+  },
+};
 
 const serializeBackboneCollection = collection => {
   let serializedCollection = List();
@@ -100,6 +116,12 @@ class PlaceDetail extends Component {
 
   componentDidMount() {
     this.props.container.scrollTop = 0;
+    // Fire on mount hook.
+    // The on mount hook allows flavors to run arbitrary code after the detail
+    // view mounts.
+    if (customHooks && customHooks.onDetailViewMount) {
+      hooks[customHooks.onDetailViewMount](this.state);
+    }
   }
 
   onMountTargetResponse(responseRef) {
