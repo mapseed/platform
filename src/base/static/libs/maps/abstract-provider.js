@@ -67,18 +67,30 @@ const abstractMethods = {
   /**
    * Create a WMS layer.
    *
-   * @returns {Object} -  The layer instance.
+   * @param {Object} options - Options hash.
+   * @param {string} options.id - Id of the layer.
+   * @param {string} options.url - The WMS url.
+   * @param {string|string[]} options.layers - Layer(s) to request.
+   * @param {string} options.format - Tile image format to request.
+   * @param {boolean} options.transparent - Whether or not to request tiles with transparency.
+   * @param {string} options.version - Version string.
+   * 
+   * @returns {Object} - The layer representation.
    */
-  createWMSLayer: function(/*source, options*/) {
+  createWMSLayer: function(/*options*/) {
     notImplemented();
   },
 
   /**
-   * Create a WMTS layer.
+   * Create a raster tile layer from a slippy tile source.
    *
-   * @returns {Object} -  The layer instance.
+   * @param {Object} options - Options hash.
+   * @param {string} options.id - Id of the layer.
+   * @param {string} options.url - The request url, in slippy format.
+   *
+   * @returns {Object} - The layer representation.
    */
-  createWMTSLayer: function(/*source, options*/) {
+  createRasterTileLayer: function(/*options*/) {
     notImplemented();
   },
 
@@ -126,9 +138,13 @@ const abstractMethods = {
   },
 
   /**
-   * Add the passed layer to the map.
+   * Add the layer represented by the passed layer representation to the map.
+   *
+   * @param {Object} layerRepresentation - The layer representation.
+   *
+   * @returns undefined
    */
-  addLayer: function(/*layer*/) {
+  addLayer: function(/*layerRepresentation*/) {
     notImplemented();
   },
 

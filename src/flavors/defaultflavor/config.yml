@@ -54,10 +54,39 @@ map:
       showCompass: true
 
   layers:
+    - id: sample-vector
+      type: vector-tile
+      vector_type: fill
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/style.json
+      source_layer: historical_river_pathgeojson
+
+    - id: sample-wmts
+      type: wmts
+      url: https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS
+      layers: 0
+      tilematrix_set: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/jpg
+
+    - id: sample-wms
+      type: wms
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer
+      layers: '0'
+      version: 1.3.0
+      transparent: false
+      format: image/png
+
+    - id: sample-raster-tile
+      type: raster-tile
+      url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: "Hello"
+ 
     - id: sample-mapbox-style
       type: mapbox-style
       url: mapbox://styles/tcroxson/cjdw01pyx0i0f2qmxt0ugxtul
-      attribution: "Hey there"
+      attribution: "Hello"
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -262,9 +291,12 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
+        - id: sample-raster-tile
+          title: _(Sample Raster Tiles)
+          visibleDefault: true
         - id: sample-mapbox-style
           title: _(Sample Mapbox Style)
-          visibleDefault: true
+          visibleDefault: false
       groupings:
 
     - id: ticker
@@ -301,7 +333,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Add a report to the map)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
