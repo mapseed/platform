@@ -42,13 +42,18 @@ map:
 
   options:
     center:
-      lat: 48.03677
-      lng: -121.64543
-    zoom: 10
+      lat: 48.02262
+      lng: -121.97262
+    zoom: 11
     minZoom: 1
     maxZoom: 18
 
   layers:
+
+    - id: history
+      url: http://maps.nypl.org/warper/maps/tile/13610/{z}/{x}/{y}.png
+      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
     - id: osm-hot
       url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -178,7 +183,10 @@ sidebar:
           visibleDefault: false
         - id: watercolor
           title: _(Watercolor)
-          visibleDefault: false          
+          visibleDefault: false
+        - id: history
+          title: _(history)
+          visibleDefault: false                      
       groupings:
         - id: grp-community
           title: _(Data Layers)
@@ -544,9 +552,9 @@ place:
               - farm_other-action
               - farm_other-datetime
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: farm_other-action
           type: text
@@ -786,9 +794,9 @@ place:
               - forest_other-datetime
               - forest_other-action
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: forest_other-action
           type: text
@@ -878,6 +886,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Noxious Weeds)
+            body: [
+              "Common noxious weeds that compete with our native vegetation include blackberry, knotweed, ivy, and scotch broom."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -1007,6 +1020,11 @@ place:
               value: yes
             - label: _(Removed shoreline armoring)
               value: no
+          modal:
+            header: _(Shoreline armoring)
+            body: [
+              "Removing armoring such as rip rap or bulkheads improves fish and wildlife habitat."
+            ]              
         - name: shoreline_removed-armoring-datetime
           type: datetime
           date_format: "YYYY-MM"
@@ -1027,9 +1045,9 @@ place:
               - shoreline_other-action
               - shoreline_other-datetime
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: shoreline_other-action
           type: text
@@ -1071,6 +1089,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Rain garden)
+            body: [
+              "A rain garden is an area that is dug out, lined with a special soil mix, and planted with the intent of infiltrating runoff from your house, driveway, or other hardened surfaces."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -1119,6 +1142,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Rain bed)
+            body: [
+              "A rain bed combines a rain barrel system with a raised garden bed. A special gutter in the raised bed spreads water from the barrels over the garden for easy watering. Excess water from the barrels infiltrates through the bed and is dispersed over the surrounding yard where it is filtered and infiltrated."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -1143,6 +1171,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Natural Yard Care)
+            body: [
+              "Natural Yard Care can include: building healthy soil, practicing smart watering, using organic products, avoiding chemical use, mulching/composting and supporting pollinators."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -1316,9 +1349,9 @@ place:
               - urban_other-action
               - urban_other-datetime
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: urban_other-action
           type: text
