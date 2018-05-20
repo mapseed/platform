@@ -93,8 +93,8 @@ map:
       type: place
       slug: idea
 
-    - id: pboakland-funded-2017
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland-funded-2017
+    - id: pboakland-featured-2017
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland-featured-2017
       type: place
       slug: funded
 
@@ -221,7 +221,7 @@ sidebar:
               title: _(Community Reports)
               visibleDefault: true
 
-            - id: pboakland-funded-2017
+            - id: pboakland-featured-2017
               title: _(2017 Funded Project)
               visibleDefault: true
 
@@ -286,7 +286,7 @@ place:
       includeOnForm: true
       showMetadata: false
       name: location_type
-      dataset: pboakland-funded-2017
+      dataset: pboakland-featured-2017
       icon_url: /static/css/images/markers/marker-star.png
       value: featured_place
       label: _(2017 Funded Project)
