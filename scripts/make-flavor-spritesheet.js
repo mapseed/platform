@@ -1,6 +1,9 @@
 /* global __dirname process */
 
-// TODO: Reconcile with base project marker assets.
+// TODO: Reconcile with base project marker assets, and make this tool smart
+// enough to only package the sprites it needs for a given flavor.
+// TODO: Automatically build spritesheets as part of the static build.
+
 
 require("dotenv").config({ path: "src/.env" });
 

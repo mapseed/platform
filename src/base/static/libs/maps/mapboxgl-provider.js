@@ -11,6 +11,7 @@ const mapboxGLMethods = {
       version: 8,
       sources: {},
       layers: [],
+      sprite: "http://localhost:8000/static/css/images/markers/spritesheet",
     };
     this._map = new mapboxgl.Map(options);
 
@@ -73,7 +74,10 @@ const mapboxGLMethods = {
   },
 
   createVectorTileLayer: function(options) {
-    this._guardedAddSource(options);
+    this._map.addSource(options.id, {
+      type: "vector",
+      tiles: [options.url],
+    });
 
     return fetch(options.style_url)
       .then(response => {
@@ -151,8 +155,22 @@ const mapboxGLMethods = {
     };
   },
 
+  createGeoJSONLayer: function(options) {
+    this._map.addSource(options.id, {
+      type: "geojson",
+      data: options.url,
+    });
+
+    return options.rules.map((styleRule, i) => {
+      styleRule.id = [options.id, "_", i].join("");
+      styleRule.source = options.id;
+
+      return styleRule;
+    });
+  },
+
   addLayer: function(layerConfig) {
-    this._guardedAddLayer(layerConfig);
+    this._map.addLayer(layerConfig);
   },
 
   addVectorLayerGroup: function(layerStyles) {
@@ -161,28 +179,27 @@ const mapboxGLMethods = {
     });
   },
 
-  _guardedAddSource(options) {
-    if (this._map.isStyleLoaded()) {
-      this._map.addSource(options.id, {
-        type: "vector",
-        tiles: [options.url],
-      });
-    } else {
-      this._map.on("load", () => {
-        this._map.addSource(options.id, {
-          type: "vector",
-          tiles: [options.url],
-        });
-      });
-    }
-  },
+  addGeoJSONLayer: function(layerStyles, sourceId, geometryType) {
+    // TODO: Can we detect GeoJSON geometry types automatically instead?
+    // What about datasets with multiple geometry types?
+    // It's possible to obtain the geometry type in filter expressions, e.g.:
+    // ["==", "$type", "Point"]
 
-  _guardedAddLayer: function(layerConfig) {
-    if (this._map.isStyleLoaded()) {
-      this._map.addLayer(layerConfig);
-    } else {
-      this._map.on("load", () => {
-        this._map.addLayer(layerConfig);
+    if (geometryType === "Point") {
+      layerStyles.forEach(layerStyle => {
+        layerStyle.layout["icon-allow-overlap"] = true;
+        layerStyle.type = "symbol";
+        this._map.addLayer(layerStyle);
+      });
+    } else if (geometryType === "Polygon") {
+      layerStyles.forEach(layerStyle => {
+        layerStyle.type = "fill";
+        this._map.addLayer(layerStyle);
+      });
+    } else if (geometryType === "LineString") {
+      layerStyles.forEach(layerStyle => {
+        layerStyle.type = "line";
+        this._map.addLayer(layerStyle);
       });
     }
   },
