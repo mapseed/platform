@@ -11,7 +11,12 @@ const mapboxGLMethods = {
       version: 8,
       sources: {},
       layers: [],
-      sprite: "http://localhost:8000/static/css/images/markers/spritesheet",
+      sprite: [
+        window.location.protocol,
+        "//",
+        window.location.host,
+        "/static/css/images/markers/spritesheet",
+      ].join(""),
     };
     this._map = new mapboxgl.Map(options);
 
