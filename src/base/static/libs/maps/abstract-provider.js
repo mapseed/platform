@@ -74,7 +74,7 @@ const abstractMethods = {
    * @param {string} options.format - Tile image format to request.
    * @param {boolean} options.transparent - Whether or not to request tiles with transparency.
    * @param {string} options.version - Version string.
-   * 
+   *
    * @returns {Object} - The layer representation.
    */
   createWMSLayer: function(/*options*/) {
