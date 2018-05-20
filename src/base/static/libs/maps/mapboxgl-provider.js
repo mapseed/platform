@@ -179,7 +179,7 @@ const mapboxGLMethods = {
     });
   },
 
-  addGeoJSONLayer: function(layerStyles, sourceId, geometryType) {
+  addGeoJSONLayer: function(layerStyles, geometryType) {
     // TODO: Can we detect GeoJSON geometry types automatically instead?
     // What about datasets with multiple geometry types?
     // It's possible to obtain the geometry type in filter expressions, e.g.:

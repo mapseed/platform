@@ -369,11 +369,7 @@ class MainMap {
       });
     } else if (config.type && config.type === "json") {
       this.layers[config.id] = this.map.createGeoJSONLayer(config);
-      this.map.addGeoJSONLayer(
-        this.layers[config.id],
-        config.id,
-        config.geometry_type,
-      );
+      this.map.addGeoJSONLayer(this.layers[config.id], config.geometry_type);
     }
   }
 }
