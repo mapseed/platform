@@ -287,7 +287,7 @@ place:
       showMetadata: false
       name: location_type
       dataset: pboakland-featured-2017
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/funded-legend-icon.png
       value: featured_place
       label: _(2017 Featured Project)
       fields:
@@ -321,13 +321,13 @@ place:
           prompt: _(Choose a related idea type to highlight:)
           display_prompt: _( )
           content:
-            - label: _(Community)
-              value: community
-            - label: _(Parks)
+            - label: _(Programs and Services)
+              value: programs
+            - label: _(Parks and Recreation)
               value: parks
-            - label: _(Streets)
+            - label: _(Streets and Sidewalks)
               value: streets
-            - label: _(Housing)
+            - label: _(Housing and Jobs)
               value: housing
           optional: false
 
@@ -637,7 +637,7 @@ place:
       optional: true
     submit:
       type: submit
-      label: _(Submit!)
+      label: _(Submit)
 
   #### end dynamic form config ####
 
