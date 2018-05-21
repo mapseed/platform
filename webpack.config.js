@@ -16,12 +16,6 @@ if (!process.env.FLAVOR) {
   process.exit();
 }
 
-const distPath = path.resolve(__dirname, "www/dist");
-
-// clean out the output directory and recreate it
-shell.rm("-rf", distPath);
-shell.mkdir("-p", distPath);
-
 var flavorJsFiles = glob.sync(
   "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js",
 );

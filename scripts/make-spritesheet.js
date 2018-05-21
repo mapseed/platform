@@ -1,33 +1,22 @@
 /* global __dirname process */
 
-// TODO: Reconcile with base project marker assets, and make this tool smart
-// enough to only package the sprites it needs for a given flavor.
-// TODO: Automatically build spritesheets as part of the static build.
-
 require("dotenv").config({ path: "src/.env" });
 
 const fs = require("fs-extra");
 const Spritesmith = require("spritesmith");
 const glob = require("glob");
 const path = require("path");
-const shell = require("shelljs");
 
-const flavorMarkersPath = path.resolve(
+const distMarkersPath = path.resolve(
   __dirname,
-  "../src/flavors",
-  process.env.FLAVOR,
-  "static/css/images/markers",
+  "../www/static/css/images/markers",
 );
 
-// Remove old spritesheets so they don't get baked into the new spritesheets!
-shell.rm(path.resolve(flavorMarkersPath, "spritesheet.png"));
-shell.rm(path.resolve(flavorMarkersPath, "spritesheet@2x.png"));
-
-const flavorMarkers = glob.sync(
-  path.resolve(flavorMarkersPath, "*.{png,jpg,jpeg,gif}"),
+const markers = glob.sync(
+  path.resolve(distMarkersPath, "*.{png,jpg,jpeg,gif}"),
 );
 
-Spritesmith.run({ src: flavorMarkers }, (err, result) => {
+Spritesmith.run({ src: markers }, (err, result) => {
   if (err) {
     console.log("Spritesmith error:", err);
 
@@ -36,12 +25,12 @@ Spritesmith.run({ src: flavorMarkers }, (err, result) => {
   }
 
   fs.writeFileSync(
-    path.resolve(flavorMarkersPath, "spritesheet.png"),
+    path.resolve(distMarkersPath, "spritesheet.png"),
     result.image,
   );
   fs.writeFileSync(
     // For high-resolution devices; Mapbox expects this file.
-    path.resolve(flavorMarkersPath, "spritesheet@2x.png"),
+    path.resolve(distMarkersPath, "spritesheet@2x.png"),
     result.image,
   );
 
@@ -61,12 +50,12 @@ Spritesmith.run({ src: flavorMarkers }, (err, result) => {
   });
 
   fs.writeFileSync(
-    path.resolve(flavorMarkersPath, "spritesheet.json"),
+    path.resolve(distMarkersPath, "spritesheet.json"),
     JSON.stringify(result.coordinates),
   );
   fs.writeFileSync(
     // For high-resolution devices; Mapbox expects this file.
-    path.resolve(flavorMarkersPath, "spritesheet@2x.json"),
+    path.resolve(distMarkersPath, "spritesheet@2x.json"),
     JSON.stringify(result.coordinates),
   );
 

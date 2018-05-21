@@ -11,7 +11,11 @@
     "type": "git",
     "url": "https://github.com/smartercleanup/platform.git"
   },
-  "keywords": ["maps", "crowdsourcing", "engagement"],
+  "keywords": [
+    "maps",
+    "crowdsourcing",
+    "engagement"
+  ],
   "author": "SmarterCleanup",
   "license": "GPL",
   "bugs": {
@@ -19,22 +23,18 @@
   },
   "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
-    "start": "node scripts/static-build.js && webpack-dev-server",
+    "start": "node scripts/static-build.js && node scripts/make-spritesheet.js && webpack-dev-server",
     "test": "jest --verbose --config ./jest.config.js",
     "test:watch": "jest --watch --verbose --config ./jest.watch.config.js",
-    "test:debug":
-      "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p",
     "watch-js": "webpack -d --watch",
-    "build":
-      "npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
-    "prettier": "prettier --write \"{src,scripts}/**/*.{js,jsx}\"",
-    "make-flavor-spritesheet": "node scripts/make-flavor-spritesheet.js"
+    "build": "NODE_ENV=production node scripts/static-build.js && node scripts/make-spritesheet.js && npm run build-js-production",
+    "prettier": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {
-    "accessible-autocomplete":
-      "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
+    "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-polyfill": "^6.23.0",
