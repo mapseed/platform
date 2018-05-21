@@ -32,17 +32,10 @@ class MainMap {
       );
     };
 
-    this.map = MapProvider.createMap(
+    this.map = MapProvider(
       container,
       this.mapConfig.options,
-      this.mapConfig.vendor_options,
     );
-
-    this.map.addNavControl({
-      options: { position: "top-left" },
-      vendorOptions:
-        this.mapConfig.vendor_options && this.mapConfig.vendor_options.control,
-    });
 
     this.mapConfig.layers.forEach(config => {
       config.loaded = false;
@@ -350,24 +343,27 @@ class MainMap {
   }
 
   // TODO: Layer loading and error events.
-  createLayerFromConfig(config) {
-    if (config.type && config.type === "mapbox-style") {
+  async createLayerFromConfig(config) {
+    if (!config.type) {
+      return;
+    }
+
+    if (config.type === "mapbox-style") {
       this.map.addMapboxStyle(config.url);
-    } else if (config.type && config.type === "raster-tile") {
+    } else if (config.type === "raster-tile") {
       this.layers[config.id] = this.map.createRasterTileLayer(config);
       this.map.addLayer(this.layers[config.id]);
-    } else if (config.type && config.type === "wms") {
+    } else if (config.type === "wms") {
       this.layers[config.id] = this.map.createWMSLayer(config);
       this.map.addLayer(this.layers[config.id]);
-    } else if (config.type && config.type === "wmts") {
+    } else if (config.type === "wmts") {
       this.layers[config.id] = this.map.createWMTSLayer(config);
       this.map.addLayer(this.layers[config.id]);
-    } else if (config.type && config.type === "vector-tile") {
-      this.map.createVectorTileLayer(config).then(vectorLayerGroupConfig => {
-        this.layers[config.id] = vectorLayerGroupConfig;
-        this.map.addVectorLayerGroup(this.layers[config.id]);
-      });
-    } else if (config.type && config.type === "json") {
+    } else if (config.type === "vector-tile") {
+      const vectorLayerGroupConfig = await this.map.createVectorTileLayer(config);
+      this.layers[config.id] = vectorLayerGroupConfig;
+      this.map.addVectorLayerGroup(this.layers[config.id]);
+    } else if (config.type === "json") {
       this.layers[config.id] = this.map.createGeoJSONLayer(config);
       this.map.addGeoJSONLayer(this.layers[config.id], config.geometry_type);
     }

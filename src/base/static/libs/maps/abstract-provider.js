@@ -52,19 +52,6 @@ const abstractMethods = {
   },
 
   /**
-   * Add navigation (zoom, compass, etc.) controls to the map.
-   *
-   * @param {Object} options
-   * @param {"top-left"|"top-right"|"bottom-left"|"bottom-right"} options.position="top-left" - The position of the controls within the map container.
-   * @param {Object} [vendorOptions] - Vendor-specific options.
-   *
-   * @returns {Object} - The controls instance.
-   */
-  addNavControl: function(/*{ options, vendorOptions }*/) {
-    notImplemented();
-  },
-
-  /**
    * Create a WMS layer.
    *
    * @param {Object} options - Options hash.
