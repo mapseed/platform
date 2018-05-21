@@ -32,10 +32,7 @@ class MainMap {
       );
     };
 
-    this.map = MapProvider(
-      container,
-      this.mapConfig.options,
-    );
+    this.map = MapProvider(container, this.mapConfig.options);
 
     this.mapConfig.layers.forEach(config => {
       config.loaded = false;
@@ -360,7 +357,9 @@ class MainMap {
       this.layers[config.id] = this.map.createWMTSLayer(config);
       this.map.addLayer(this.layers[config.id]);
     } else if (config.type === "vector-tile") {
-      const vectorLayerGroupConfig = await this.map.createVectorTileLayer(config);
+      const vectorLayerGroupConfig = await this.map.createVectorTileLayer(
+        config,
+      );
       this.layers[config.id] = vectorLayerGroupConfig;
       this.map.addVectorLayerGroup(this.layers[config.id]);
     } else if (config.type === "json") {
