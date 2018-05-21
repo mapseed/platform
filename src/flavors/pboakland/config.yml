@@ -322,7 +322,7 @@ place:
           display_prompt: _( )
           content:
             - label: _(Programs and Services)
-              value: programs
+              value: community
             - label: _(Parks and Recreation)
               value: parks
             - label: _(Streets and Sidewalks)
