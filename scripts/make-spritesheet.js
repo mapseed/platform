@@ -6,6 +6,7 @@ const fs = require("fs-extra");
 const Spritesmith = require("spritesmith");
 const glob = require("glob");
 const path = require("path");
+const colors = require("colors");
 
 const distMarkersPath = path.resolve(
   __dirname,
@@ -18,7 +19,12 @@ const markers = glob.sync(
 
 Spritesmith.run({ src: markers }, (err, result) => {
   if (err) {
-    console.log("Spritesmith error:", err);
+    console.error(
+      "(STATIC SITE BUILD)",
+      colors.red("(ERROR)"),
+      "Error generating marker spritesheets:",
+      err,
+    );
 
     process.exitCode = 1;
     process.exit();
@@ -35,7 +41,7 @@ Spritesmith.run({ src: markers }, (err, result) => {
   );
 
   // Postprocess the coordinates object.
-  Object.keys(result.coordinates).forEach(spriteIdentifier => {
+  result.coordinates = Object.keys(result.coordinates).map(spriteIdentifier => {
     const newSpriteIdentifier = path
       .basename(spriteIdentifier)
       // e.g.: my-test-marker.png -> my-test-marker
@@ -47,6 +53,8 @@ Spritesmith.run({ src: markers }, (err, result) => {
 
     // Required by Mapbox.
     result.coordinates[newSpriteIdentifier].pixelRatio = 1;
+
+    return result.coordinates;
   });
 
   fs.writeFileSync(
@@ -59,5 +67,9 @@ Spritesmith.run({ src: markers }, (err, result) => {
     JSON.stringify(result.coordinates),
   );
 
-  console.log("Done! Spritesheets and metadata created.");
+  console.log(
+    "(STATIC SITE BUILD)",
+    colors.green("(SUCCESS)"),
+    "Marker spritesheets and metadata created.",
+  );
 });

@@ -73,14 +73,14 @@ class MainMap {
     });
 
     // Bind visiblity event for custom layers
-    $(Shareabouts).on("visibility", (evt, id, visible, isBasemap) => {
+    $(Shareabouts).on("visibility", async (evt, id, visible, isBasemap) => {
       var layer = this.layers[id];
       const config = this.mapConfig.layers.find(
         layerConfig => layerConfig.id === id,
       );
 
       if (config && !config.loaded && visible) {
-        this.createLayerFromConfig(config);
+        await this.createLayerFromConfig(config);
         config.loaded = true;
         layer = this.layers[id];
       }
