@@ -696,21 +696,21 @@ module.exports = Backbone.View.extend({
         $responseToScrollTo;
 
       if (type === "place") {
-        // If this model is a duplicate of one that already exists in the
-        // places collection, it may not correspond to a layerView. For this
-        // case, get the model that's actually in the places collection.
-        if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places[datasetId].get(model.id);
-        }
+        //// If this model is a duplicate of one that already exists in the
+        //// places collection, it may not correspond to a layerView. For this
+        //// case, get the model that's actually in the places collection.
+        //if (_.isUndefined(self.mapView.layerViews[model.cid])) {
+        //  model = self.places[datasetId].get(model.id);
+        //}
 
-        // TODO: We need to handle the non-deterministic case when
-        // 'self.mapView.layerViews[datasetId][model.cid]` is undefined
-        if (
-          self.mapView.layerViews[datasetId] &&
-          self.mapView.layerViews[datasetId][model.cid]
-        ) {
-          layer = self.mapView.layerViews[datasetId][model.cid].layer;
-        }
+        //// TODO: We need to handle the non-deterministic case when
+        //// 'self.mapView.layerViews[datasetId][model.cid]` is undefined
+        //if (
+        //  self.mapView.layerViews[datasetId] &&
+        //  self.mapView.layerViews[datasetId][model.cid]
+        //) {
+        //  layer = self.mapView.layerViews[datasetId][model.cid].layer;
+        //}
 
         // REACT PORT SECTION //////////////////////////////////////////////////
         this.unfocusAllPlaces();
@@ -729,7 +729,6 @@ module.exports = Backbone.View.extend({
               map={this.mapView.map}
               model={model}
               appView={this}
-              layerView={this.mapView.layerViews[datasetId][model.cid]}
               places={this.places}
               scrollToResponseId={args.responseId}
               router={this.options.router}

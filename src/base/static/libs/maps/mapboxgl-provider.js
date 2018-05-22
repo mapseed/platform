@@ -29,8 +29,17 @@ export default (container, options) => {
       map.on(event, callback);
     },
 
+    onLayerEvent: (event, layerId, callback, context) => {
+      callback = callback.bind(context);
+      map.on(event, layerId, callback);
+    },
+
     getMap: () => {
       return map;
+    },
+
+    queryRenderedFeatures: (geometry, options = {}) => {
+      return map.queryRenderedFeatures(geometry, options);
     },
 
     hasLayer: layerId => {
@@ -55,6 +64,14 @@ export default (container, options) => {
 
     getCenter: () => {
       return map.getCenter();
+    },
+
+    setCenter: coordinates => {
+      map.setCenter(coordinates);
+    },
+
+    easeTo: options => {
+      map.easeTo(options);
     },
 
     invalidateSize: () => {
@@ -182,7 +199,7 @@ export default (container, options) => {
             if (styleRule.filter[0] !== "all") {
               // If an existing filter does not already start with the logical
               // AND oprtator "all", we need to prepend it before we add the
-              // location_type filer.
+              // location_type filter.
               styleRule.filter = ["all", styleRule.filter, locationTypeFilter];
             } else {
               styleRule.filter.push(locationTypeFilter);

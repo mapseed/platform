@@ -96,7 +96,7 @@ map:
             layout:
               icon-image: "marker-complaint"
               icon-size: 0.5
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - "all"
               - - ">="
@@ -108,7 +108,7 @@ map:
             layout:
               icon-image: "marker-complaint"
               icon-size: 0.75
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - ">="
               - - "zoom"
@@ -116,7 +116,7 @@ map:
             layout:
               icon-image: "marker-complaint"
               icon-size: 0.9
-              icon-anchor: "center"
+              icon-anchor: "bottom"
         question:
           - filter:
               - "<"
@@ -125,7 +125,7 @@ map:
             layout:
               icon-image: "marker-question"
               icon-size: 0.5
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - "all"
               - - ">="
@@ -137,7 +137,7 @@ map:
             layout:
               icon-image: "marker-question"
               icon-size: 0.75
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - ">="
               - - "zoom"
@@ -145,7 +145,7 @@ map:
             layout:
               icon-image: "marker-question"
               icon-size: 0.9
-              icon-anchor: "center"
+              icon-anchor: "bottom"
         idea:
           - filter:
               - "<"
@@ -154,7 +154,7 @@ map:
             layout:
               icon-image: "marker-idea"
               icon-size: 0.5
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - "all"
               - - ">="
@@ -166,7 +166,7 @@ map:
             layout:
               icon-image: "marker-idea"
               icon-size: 0.75
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - ">="
               - - "zoom"
@@ -174,7 +174,7 @@ map:
             layout:
               icon-image: "marker-idea"
               icon-size: 0.9
-              icon-anchor: "center"
+              icon-anchor: "bottom"
         observation:
           - filter:
               - "<"
@@ -183,7 +183,7 @@ map:
             layout:
               icon-image: "marker-observation"
               icon-size: 0.5
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - "all"
               - - ">="
@@ -195,7 +195,7 @@ map:
             layout:
               icon-image: "marker-observation"
               icon-size: 0.75
-              icon-anchor: "center"
+              icon-anchor: "bottom"
           - filter:
               - ">="
               - - "zoom"
@@ -203,7 +203,7 @@ map:
             layout:
               icon-image: "marker-observation"
               icon-size: 0.9
-              icon-anchor: "center"
+              icon-anchor: "bottom"
 
     - id: sample-json-point
       type: json

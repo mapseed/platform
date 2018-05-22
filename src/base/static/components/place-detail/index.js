@@ -315,7 +315,6 @@ class PlaceDetail extends Component {
             placeModel={this.state.placeModel}
             container={this.props.container}
             attachmentModels={this.state.attachmentModels}
-            layerView={this.props.layerView}
             map={this.props.map}
             onAddAttachment={this.onAddAttachment.bind(this)}
             onModelIO={this.onChildModelIO.bind(this)}
@@ -367,7 +366,6 @@ PlaceDetail.propTypes = {
     username: PropTypes.string,
   }),
   isGeocodingBarEnabled: PropTypes.bool,
-  layerView: PropTypes.instanceOf(Backbone.View),
   model: PropTypes.instanceOf(Backbone.Model),
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),

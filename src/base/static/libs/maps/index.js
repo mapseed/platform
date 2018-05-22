@@ -7,6 +7,7 @@ class MainMap {
   constructor({ container, places, router, mapConfig, placeTypeConfig }) {
     this.mapConfig = mapConfig;
     this.placeTypeConfig = placeTypeConfig;
+    this.router = router;
 
     let MapProvider;
     switch (this.mapConfig.provider) {
@@ -113,6 +114,11 @@ class MainMap {
 
     // TEMPORARY: Manually trigger the visibility of layers for testing
     this.map.on("load", () => {
+      $(Shareabouts).trigger("visibility", [
+        this.mapConfig.layers[3].id,
+        true,
+        true,
+      ]);
       $(Shareabouts).trigger("visibility", [
         this.mapConfig.layers[0].id,
         true,
@@ -221,11 +227,6 @@ class MainMap {
   }
 
   buildPlaceGeoJSON(collectionId, collection) {
-    if (collection.length === 0) {
-      console.log("!!!!!", collection);
-      return;
-    }
-
     const geoJSON = {
       type: "FeatureCollection",
       features: [],
@@ -246,8 +247,6 @@ class MainMap {
       });
     });
 
-    console.log(geoJSON)
-
     if (!this.layers[collectionId]) {
       this.layers[collectionId] = this.map.createPlaceLayer(
         {
@@ -258,6 +257,43 @@ class MainMap {
         geoJSON,
       );
       this.map.addGeoJSONLayer(this.layers[collectionId], "Point"); // TODO
+      this.layers[collectionId].forEach(layer => {
+        this.map.onLayerEvent("click", layer.id, evt => {
+          // We query rendered features here to obtain a single array of layers
+          // below the clicked-on point. The first entry in this array
+          // corresponds to the topmost rendered feature.
+          const properties = this.map.queryRenderedFeatures(
+            [evt.point.x, evt.point.y],
+            {
+              // Limit these click listeners to place geometry
+              filter: ["==", ["get", "type"], "place"],
+            },
+          )[0].properties;
+
+          Util.log(
+            "USER",
+            "map",
+            "place-marker-click",
+            //this.model.getLoggingDetails(),
+          );
+
+          if (properties["url-title"]) {
+            this.router.navigate("/" + properties["url-title"], {
+              trigger: true,
+            });
+          } else {
+            this.router.navigate(
+              "/" + properties["datasetSlug"] + "/" + properties.id,
+              { trigger: true },
+            );
+          }
+
+          // TODO: Move to AppView
+          this.map.easeTo({
+            center: evt.features[0].geometry.coordinates,
+          });
+        });
+      });
     }
   }
 
