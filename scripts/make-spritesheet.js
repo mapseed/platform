@@ -41,30 +41,45 @@ Spritesmith.run({ src: markers }, (err, result) => {
   );
 
   // Postprocess the coordinates object.
-  result.coordinates = Object.keys(result.coordinates).map(spriteIdentifier => {
-    const newSpriteIdentifier = path
-      .basename(spriteIdentifier)
-      // e.g.: my-test-marker.png -> my-test-marker
-      .replace(/\.[A-Za-z0-9\-_]+$/, "");
+  const coordinates = Object.keys(result.coordinates).reduce(
+    (coordinateMapping, spriteIdentifier) => {
+      const newSpriteIdentifier = path
+        .basename(spriteIdentifier)
+        // e.g.: my-test-marker.png -> my-test-marker
+        .replace(/\.[A-Za-z0-9\-_]+$/, "");
 
-    result.coordinates[newSpriteIdentifier] =
-      result.coordinates[spriteIdentifier];
-    delete result.coordinates[spriteIdentifier];
+      coordinateMapping[newSpriteIdentifier] = Object.assign(
+        result.coordinates[spriteIdentifier],
+        { pixelRatio: 1 },
+      );
+      return coordinateMapping;
+    },
+    {},
+  );
+  //result.coordinates = Object.keys(result.coordinates).map(spriteIdentifier => {
+  //  const newSpriteIdentifier = path
+  //    .basename(spriteIdentifier)
+  //    // e.g.: my-test-marker.png -> my-test-marker
+  //    .replace(/\.[A-Za-z0-9\-_]+$/, "");
 
-    // Required by Mapbox.
-    result.coordinates[newSpriteIdentifier].pixelRatio = 1;
+  //  result.coordinates[newSpriteIdentifier] =
+  //    result.coordinates[spriteIdentifier];
+  //  delete result.coordinates[spriteIdentifier];
 
-    return result.coordinates;
-  });
+  //  // Required by Mapbox.
+  //  result.coordinates[newSpriteIdentifier].pixelRatio = 1;
+
+  //  return result.coordinates;
+  //});
 
   fs.writeFileSync(
     path.resolve(distMarkersPath, "spritesheet.json"),
-    JSON.stringify(result.coordinates),
+    JSON.stringify(coordinates),
   );
   fs.writeFileSync(
     // For high-resolution devices; Mapbox expects this file.
     path.resolve(distMarkersPath, "spritesheet@2x.json"),
-    JSON.stringify(result.coordinates),
+    JSON.stringify(coordinates),
   );
 
   console.log(
