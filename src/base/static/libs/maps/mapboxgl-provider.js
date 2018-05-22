@@ -156,11 +156,48 @@ export default (container, options) => {
       });
 
       return options.rules.map((styleRule, i) => {
-        styleRule.id = [options.id, "_", i].join("");
+        styleRule.id = `${options.id}_${i}`;
         styleRule.source = options.id;
 
         return styleRule;
       });
+    },
+
+    createPlaceLayer: (options, geoJSON) => {
+      map.addSource(options.id, {
+        type: "geojson",
+        data: geoJSON,
+      });
+
+      // We need to add a filter on location_type for place layers. We append
+      // that filter programatically here to save repetition in the config.
+      const rules = Object.entries(options.rules).map(
+        ([locationType, styleRules]) => {
+          const locationTypeFilter = [
+            "==",
+            ["get", "location_type"],
+            locationType,
+          ];
+          return styleRules.map((styleRule, i) => {
+            if (styleRule.filter[0] !== "all") {
+              // If an existing filter does not already start with the logical
+              // AND oprtator "all", we need to prepend it before we add the
+              // location_type filer.
+              styleRule.filter = ["all", styleRule.filter, locationTypeFilter];
+            } else {
+              styleRule.filter.push(locationTypeFilter);
+            }
+
+            styleRule.source = options.id;
+            styleRule.id = `${locationType}_${i}`;
+            return styleRule;
+          });
+        },
+      );
+
+      return rules.reduce((flat, toFlatten) => {
+        return flat.concat(toFlatten);
+      }, []);
     },
 
     addLayer: layerConfig => {

@@ -2,11 +2,11 @@ import MapboxGLProvider from "./mapboxgl-provider";
 // Import other providers here as they become available
 
 var Util = require("../../js/utils.js");
-var LayerView = require("mapseed-layer-view");
 
 class MainMap {
-  constructor({ container, places, router, mapConfig }) {
+  constructor({ container, places, router, mapConfig, placeTypeConfig }) {
     this.mapConfig = mapConfig;
+    this.placeTypeConfig = placeTypeConfig;
 
     let MapProvider;
     switch (this.mapConfig.provider) {
@@ -40,7 +40,6 @@ class MainMap {
 
     // TODO: move to redux store?
     this.layers = {};
-    this.layerViews = {};
 
     if (this.mapConfig.geolocation_enabled) {
       this.initGeolocation();
@@ -64,12 +63,13 @@ class MainMap {
     });
 
     // Bind place collections event listeners
-    Object.entries(this.places, ([collectionId, collection]) => {
-      this.layers[collectionId] = this.getLayerGroups(collectionId);
-      this.layerViews[collectionId] = {};
-      collection.on("reset", this.render, this);
-      collection.on("add", this.addLayerView(collectionId), this);
-      collection.on("remove", this.removeLayerView(collectionId), this);
+    Object.entries(this.places).forEach(([collectionId, collection]) => {
+      collection.on(
+        "sync",
+        () => this.buildPlaceGeoJSON(collectionId, collection),
+        this,
+      );
+      collection.on("remove", () => this.removeLayerView(collectionId), this);
     });
 
     // Bind visiblity event for custom layers
@@ -114,22 +114,7 @@ class MainMap {
     // TEMPORARY: Manually trigger the visibility of layers for testing
     this.map.on("load", () => {
       $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[3].id,
-        true,
-        true,
-      ]);
-      $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[1].id,
-        true,
-        true,
-      ]);
-      $(Shareabouts).trigger("visibility", [
         this.mapConfig.layers[0].id,
-        true,
-        true,
-      ]);
-      $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[2].id,
         true,
         true,
       ]);
@@ -235,18 +220,45 @@ class MainMap {
     this.map.locate();
   }
 
-  addLayerView(collectionId) {
-    return model => {
-      this.layerViews[collectionId][model.cid] = new LayerView({
-        model: model,
-        router: this.router,
-        map: this.map,
-        layerGroup: this.layers[collectionId],
-        placeTypes: this.options.placeTypes,
-        // to access the filter
-        mapView: this,
-      });
+  buildPlaceGeoJSON(collectionId, collection) {
+    if (collection.length === 0) {
+      console.log("!!!!!", collection);
+      return;
+    }
+
+    const geoJSON = {
+      type: "FeatureCollection",
+      features: [],
     };
+
+    collection.each(model => {
+      const properties = Object.keys(model.attributes)
+        .filter(key => key !== "geometry")
+        .reduce((geoJSONProperties, property) => {
+          geoJSONProperties[property] = model.get(property);
+          return geoJSONProperties;
+        }, {});
+
+      geoJSON.features.push({
+        type: "Feature",
+        properties: properties,
+        geometry: model.get("geometry"),
+      });
+    });
+
+    console.log(geoJSON)
+
+    if (!this.layers[collectionId]) {
+      this.layers[collectionId] = this.map.createPlaceLayer(
+        {
+          id: collectionId,
+          rules: this.mapConfig.layers.find(layer => layer.id === collectionId)
+            .rules,
+        },
+        geoJSON,
+      );
+      this.map.addGeoJSONLayer(this.layers[collectionId], "Point"); // TODO
+    }
   }
 
   removeLayerView(collectionId) {

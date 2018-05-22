@@ -17,7 +17,7 @@ const getPlaceCollections = async ({
   // loop over all place collections
   const placeCollectionPromises = [];
   _.each(placeCollections, function(collection, key) {
-    mapView.map.fire("layer:loading", { id: key });
+    // TODO: layer loading event; fix in layer UI PR
     const placeCollectionPromise = collection.fetchAllPages({
       remove: false,
       // Check for a valid location type before adding it to the collection
@@ -60,11 +60,11 @@ const getPlaceCollections = async ({
       },
 
       success: function() {
-        mapView.map.fire("layer:loaded", { id: key });
+        // TODO: layer loading event; fix in layer UI PR
       },
 
       error: function() {
-        mapView.map.fire("layer:error", { id: key });
+        // TODO: layer loading event; fix in layer UI PR
       },
     });
     placeCollectionPromises.push(placeCollectionPromise);

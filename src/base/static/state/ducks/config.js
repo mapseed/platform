@@ -8,6 +8,9 @@ export const placeConfigSelector = state => {
 export const mapConfigSelector = state => {
   return state.config.map;
 };
+export const placeTypeConfigSelector = state => {
+  return state.config.place_types;
+};
 
 // Actions:
 const SET_CONFIG = "SET_CONFIG";

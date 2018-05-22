@@ -67,17 +67,16 @@ Shareabouts.Util = Util;
         return this.id;
       };
 
-      // Reject a place that does not have a supported location type. This will
-      // prevent invalid places from being added or saved to the collection.
-      PlaceModel.prototype.validate = function(attrs, options) {
-        var locationType = attrs.location_type,
-          locationTypes = _.map(S.Config.placeTypes, function(config, key) {
-            return key;
-          });
-
-        if (!_.contains(locationTypes, locationType)) {
-          console.warn(locationType + " is not supported.");
-          return locationType + " is not supported.";
+      // Reject a place that does not have a supported place_detail configuration.
+      // This will prevent invalid places from being added or saved to the collection.
+      PlaceModel.prototype.validate = function(attrs) {
+        if (
+          !S.Config.place.place_detail.find(
+            placeDetail => placeDetail.category === attrs.location_type,
+          )
+        ) {
+          console.warn(attrs.location_type + " is not supported.");
+          return attrs.location_type + " is not supported.";
         }
       };
 
