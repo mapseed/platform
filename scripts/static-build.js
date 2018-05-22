@@ -42,6 +42,12 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 // Control logging output
 const verbose = true;
 
+const baseDistPath = path.resolve(__dirname, "../www");
+
+// clean out the output directory and recreate it
+shell.rm("-rf", baseDistPath);
+shell.mkdir("-p", path.resolve(baseDistPath, "dist"));
+
 const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
 

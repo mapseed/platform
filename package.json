@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
-    "start": "node scripts/static-build.js && webpack-dev-server",
+    "start": "node scripts/static-build.js && node scripts/make-spritesheet.js && webpack-dev-server",
     "test": "jest --verbose --config ./jest.config.js",
     "test:watch": "jest --watch --verbose --config ./jest.watch.config.js",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p",
     "watch-js": "webpack -d --watch",
-    "build": "npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
+    "build": "NODE_ENV=production node scripts/static-build.js && node scripts/make-spritesheet.js && npm run build-js-production",
     "prettier": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {
@@ -106,6 +106,7 @@
     "prettier": "^1.4.4",
     "raf": "^3.4.0",
     "sass-loader": "^6.0.6",
+    "spritesmith": "^3.3.0",
     "style-loader": "^0.18.2",
     "watchify": "^3.4.0",
     "wax-on": "^1.2.0",
