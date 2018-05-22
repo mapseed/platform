@@ -23,6 +23,19 @@ export default (container, options) => {
     options.control.position,
   );
 
+  const _appendFilter = (existingFilters, filterToAdd) => {
+    const newFilters = [existingFilters.slice()];
+    newFilters.push(filterToAdd);
+
+    // If an existing filter does not already start with the logical AND
+    // operator "all", we need to prepend it before we add a new filter.
+    if (newFilters[0] !== "all") {
+      newFilters.unshift("all");
+    }
+
+    return newFilters;
+  };
+
   return AbstractMapFactory({
     on: (event, callback, context) => {
       callback = callback.bind(context);
@@ -44,6 +57,14 @@ export default (container, options) => {
 
     queryRenderedFeatures: (geometry, options = {}) => {
       return map.queryRenderedFeatures(geometry, options);
+    },
+
+    makeLngLatBounds: (lng, lat) => {
+      return new mapboxgl.LngLatBounds(lng, lat);
+    },
+
+    fitBounds: (bounds, options) => {
+      map.fitBounds(bounds, options);
     },
 
     hasLayer: layerId => {
@@ -196,33 +217,26 @@ export default (container, options) => {
 
       // We need to add a filter on location_type for place layers. We append
       // that filter programatically here to save repetition in the config.
-      const rules = Object.entries(options.rules).map(
-        ([locationType, styleRules]) => {
+      return Object.entries(options.rules)
+        .map(([locationType, styleRules]) => {
           const locationTypeFilter = [
             "==",
             ["get", "location_type"],
             locationType,
           ];
           return styleRules.map((styleRule, i) => {
-            if (styleRule.filter[0] !== "all") {
-              // If an existing filter does not already start with the logical
-              // AND oprtator "all", we need to prepend it before we add the
-              // location_type filter.
-              styleRule.filter = ["all", styleRule.filter, locationTypeFilter];
-            } else {
-              styleRule.filter.push(locationTypeFilter);
-            }
-
+            styleRule.filter = _appendFilter(
+              styleRule.filter,
+              locationTypeFilter,
+            );
             styleRule.source = options.id;
             styleRule.id = `${locationType}_${i}`;
             return styleRule;
           });
-        },
-      );
-
-      return rules.reduce((flat, toFlatten) => {
-        return flat.concat(toFlatten);
-      }, []);
+        })
+        .reduce((flat, toFlatten) => {
+          return flat.concat(toFlatten);
+        }, []);
     },
 
     addLayer: layerConfig => {
@@ -235,29 +249,58 @@ export default (container, options) => {
       });
     },
 
-    addGeoJSONLayer: (layerStyles, geometryType) => {
-      // TODO: Can we detect GeoJSON geometry types automatically instead?
-      // What about datasets with multiple geometry types?
-      // It's possible to obtain the geometry type in filter expressions, e.g.:
-      // ["==", "$type", "Point"]
+    addGeoJSONLayer: layerStyles => {
+      layerStyles
+        .map(layerStyle => {
+          return {
+            id: `${layerStyle.id}_symbol`,
+            source: layerStyle.source,
+            layout: layerStyle["icon-layout"],
+            type: "symbol",
+            filter: _appendFilter(layerStyle.filter, [
+              "==",
+              ["geometry-type"],
+              "Point",
+            ]),
+          };
+        })
+        .forEach(layerStyle => {
+          map.addLayer(layerStyle);
+        });
 
-      if (geometryType === "Point") {
-        layerStyles.forEach(layerStyle => {
-          layerStyle.layout["icon-allow-overlap"] = true;
-          layerStyle.type = "symbol";
+      layerStyles
+        .map(layerStyle => {
+          return {
+            id: `${layerStyle.id}_fill`,
+            source: layerStyle.source,
+            type: "fill",
+            filter: _appendFilter(layerStyle.filter, [
+              "==",
+              ["geometry-type"],
+              "Polygon",
+            ]),
+          };
+        })
+        .forEach(layerStyle => {
           map.addLayer(layerStyle);
         });
-      } else if (geometryType === "Polygon") {
-        layerStyles.forEach(layerStyle => {
-          layerStyle.type = "fill";
+
+      layerStyles
+        .map(layerStyle => {
+          return {
+            id: `${layerStyle.id}_line`,
+            source: layerStyle.source,
+            type: "line",
+            filter: _appendFilter(layerStyle.filter, [
+              "==",
+              ["geometry-type"],
+              "LineString",
+            ]),
+          };
+        })
+        .forEach(layerStyle => {
           map.addLayer(layerStyle);
         });
-      } else if (geometryType === "LineString") {
-        layerStyles.forEach(layerStyle => {
-          layerStyle.type = "line";
-          map.addLayer(layerStyle);
-        });
-      }
     },
   });
 };

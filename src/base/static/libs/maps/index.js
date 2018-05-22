@@ -265,45 +265,60 @@ class MainMap {
       },
       this.createGeoJSONFromCollection(collection),
     );
-    this.map.addGeoJSONLayer(this.layers[collectionId], "Point"); // TODO
+    this.map.addGeoJSONLayer(this.layers[collectionId]);
 
     // Bind map interaction events.
     // TODO: hover cursor
     this.layers[collectionId].forEach(layer => {
-      this.map.onLayerEvent("click", layer.id, evt => {
-        // We query rendered features here to obtain a single array of layers
-        // below the clicked-on point. The first entry in this array
-        // corresponds to the topmost rendered feature.
-        const properties = this.map.queryRenderedFeatures(
-          [evt.point.x, evt.point.y],
-          {
-            // Limit these click listeners to place geometry
-            filter: ["==", ["get", "type"], "place"],
+      ["symbol", "fill", "line"].forEach(layerGeometryType => {
+        this.map.onLayerEvent(
+          "click",
+          `${layer.id}_${layerGeometryType}`,
+          evt => {
+            // We query rendered features here to obtain a single array of layers
+            // below the clicked-on point. The first entry in this array
+            // corresponds to the topmost rendered feature.
+            const properties = this.map.queryRenderedFeatures(
+              [evt.point.x, evt.point.y],
+              {
+                // Limit these click listeners to place geometry
+                filter: ["==", ["get", "type"], "place"],
+              },
+            )[0].properties;
+            const geometry = evt.features[0].geometry;
+
+            Util.log("USER", "map", "place-marker-click");
+
+            if (properties["url-title"]) {
+              this.router.navigate("/" + properties["url-title"], {
+                trigger: true,
+              });
+            } else {
+              this.router.navigate(
+                "/" + properties["datasetSlug"] + "/" + properties.id,
+                { trigger: true },
+              );
+            }
+
+            // TODO: Move to AppView
+            if (geometry.type === "Polygon" || geometry.type === "LineString") {
+              // Fit to bounds
+              // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
+              const bounds = geometry.coordinates.reduce(
+                (bounds, coord) => bounds.extend(coord),
+                this.map.makeLngLatBounds(
+                  geometry.coordinates[0],
+                  geometry.coordinates[0],
+                ),
+              );
+              this.map.fitBounds(bounds, { padding: 30 });
+            } else if (geometry.type === "Point") {
+              this.map.easeTo({
+                center: geometry.coordinates,
+              });
+            }
           },
-        )[0].properties;
-
-        Util.log(
-          "USER",
-          "map",
-          "place-marker-click",
-          //this.model.getLoggingDetails(),
         );
-
-        if (properties["url-title"]) {
-          this.router.navigate("/" + properties["url-title"], {
-            trigger: true,
-          });
-        } else {
-          this.router.navigate(
-            "/" + properties["datasetSlug"] + "/" + properties.id,
-            { trigger: true },
-          );
-        }
-
-        // TODO: Move to AppView
-        this.map.easeTo({
-          center: evt.features[0].geometry.coordinates,
-        });
       });
     });
   }

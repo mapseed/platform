@@ -64,10 +64,11 @@ map:
               - "<"
               - - "zoom"
               - 11
-            layout:
+            icon-layout:
               icon-image: "marker-star"
               icon-size: 0.5
               icon-anchor: "center"
+              icon-allow-overlap: true
           - filter:
               - "all"
               - - ">="
@@ -76,27 +77,30 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
-            layout:
+            icon-layout:
               icon-image: "marker-star"
               icon-size: 0.75
               icon-anchor: "center"
+              icon-allow-overlap: true
           - filter:
               - ">="
               - - "zoom"
               - 14
-            layout:
+            icon-layout:
               icon-image: "marker-star"
               icon-size: 0.9
               icon-anchor: "center"
+              icon-allow-overlap: true
         complaint:
           - filter:
               - "<"
               - - "zoom"
               - 11
-            layout:
+            icon-layout:
               icon-image: "marker-complaint"
               icon-size: 0.5
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - "all"
               - - ">="
@@ -105,27 +109,30 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
-            layout:
+            icon-layout:
               icon-image: "marker-complaint"
               icon-size: 0.75
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - ">="
               - - "zoom"
               - 14
-            layout:
+            icon-layout:
               icon-image: "marker-complaint"
               icon-size: 0.9
               icon-anchor: "bottom"
+              icon-allow-overlap: true
         question:
           - filter:
               - "<"
               - - "zoom"
               - 11
-            layout:
+            icon-layout:
               icon-image: "marker-question"
               icon-size: 0.5
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - "all"
               - - ">="
@@ -134,27 +141,30 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
-            layout:
+            icon-layout:
               icon-image: "marker-question"
               icon-size: 0.75
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - ">="
               - - "zoom"
               - 14
-            layout:
+            icon-layout:
               icon-image: "marker-question"
               icon-size: 0.9
               icon-anchor: "bottom"
+              icon-allow-overlap: true
         idea:
           - filter:
               - "<"
               - - "zoom"
               - 11
-            layout:
+            icon-layout:
               icon-image: "marker-idea"
               icon-size: 0.5
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - "all"
               - - ">="
@@ -163,27 +173,30 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
-            layout:
+            icon-layout:
               icon-image: "marker-idea"
               icon-size: 0.75
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - ">="
               - - "zoom"
               - 14
-            layout:
+            icon-layout:
               icon-image: "marker-idea"
               icon-size: 0.9
               icon-anchor: "bottom"
+              icon-allow-overlap: true
         observation:
           - filter:
               - "<"
               - - "zoom"
               - 11
-            layout:
+            icon-layout:
               icon-image: "marker-observation"
               icon-size: 0.5
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - "all"
               - - ">="
@@ -192,22 +205,23 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
-            layout:
+            icon-layout:
               icon-image: "marker-observation"
               icon-size: 0.75
               icon-anchor: "bottom"
+              icon-allow-overlap: true
           - filter:
               - ">="
               - - "zoom"
               - 14
-            layout:
+            icon-layout:
               icon-image: "marker-observation"
               icon-size: 0.9
               icon-anchor: "bottom"
+              icon-allow-overlap: true
 
     - id: sample-json-point
       type: json
-      geometry_type: "Point"
       url: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
       rules:
         - filter:
@@ -219,10 +233,11 @@ map:
               - - "get"
                 - "WICcash"
               - "Y"
-          layout:
+          icon-layout:
             icon-image: "marker-dot-conserve-water"
             icon-size: 0.5
             icon-anchor: "center"
+            icon-allow-overlap: true
         - filter:
              - "all"
              - - ">"
@@ -232,10 +247,11 @@ map:
                - - "get"
                  - "WICcash"
                - "Y"
-          layout:
+          icon-layout:
             icon-image: "marker-conserve-water"
             icon-size: 0.5
             icon-anchor: "bottom"
+            icon-allow-overlap: true
         - filter:
             - "all"
             - - "<="
@@ -245,10 +261,11 @@ map:
               - - "get"
                 - "WICcash"
               - "N"
-          layout:
+          icon-layout:
             icon-image: "marker-dot-commute-low-carbon"
             icon-size: 0.5
             icon-anchor: "center"
+            icon-allow-overlap: true
         - filter:
              - "all"
              - - ">"
@@ -258,14 +275,14 @@ map:
                - - "get"
                  - "WICcash"
                - "N"
-          layout:
+          icon-layout:
             icon-image: "marker-commute-low-carbon"
             icon-size: 0.5
             icon-anchor: "bottom"
+            icon-allow-overlap: true
 
     - id: sample-json-polygonal
       type: json      
-      geometry_type: "Polygon"
       url: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
       rules:
         - filter:
