@@ -1,6 +1,8 @@
 import MapboxGLProvider from "./mapboxgl-provider";
 // Import other providers here as they become available
 
+import emitter from "../../utils/emitter";
+
 var Util = require("../../js/utils.js");
 
 class MainMap {
@@ -63,14 +65,12 @@ class MainMap {
       $(Shareabouts).trigger("mapdragend", [evt]);
     });
 
-    // Bind place collections event listeners
-    Object.entries(this.places).forEach(([collectionId, collection]) => {
-      collection.on(
-        "sync",
-        () => this.buildPlaceGeoJSON(collectionId, collection),
-        this,
-      );
-      collection.on("remove", () => this.removeLayerView(collectionId), this);
+    emitter.addListener("place-collection:loaded", data => {
+      this.addPlaceCollectionLayer(data.collectionId, data.collection);
+    });
+
+    emitter.addListener("place-collection:add-place", data => {
+      this.updatePlaceCollectionLayer(data.collectionId, data.collection);
     });
 
     // Bind visiblity event for custom layers
@@ -226,7 +226,7 @@ class MainMap {
     this.map.locate();
   }
 
-  buildPlaceGeoJSON(collectionId, collection) {
+  createGeoJSONFromCollection(collection) {
     const geoJSON = {
       type: "FeatureCollection",
       features: [],
@@ -247,54 +247,65 @@ class MainMap {
       });
     });
 
-    if (!this.layers[collectionId]) {
-      this.layers[collectionId] = this.map.createPlaceLayer(
-        {
-          id: collectionId,
-          rules: this.mapConfig.layers.find(layer => layer.id === collectionId)
-            .rules,
-        },
-        geoJSON,
-      );
-      this.map.addGeoJSONLayer(this.layers[collectionId], "Point"); // TODO
-      this.layers[collectionId].forEach(layer => {
-        this.map.onLayerEvent("click", layer.id, evt => {
-          // We query rendered features here to obtain a single array of layers
-          // below the clicked-on point. The first entry in this array
-          // corresponds to the topmost rendered feature.
-          const properties = this.map.queryRenderedFeatures(
-            [evt.point.x, evt.point.y],
-            {
-              // Limit these click listeners to place geometry
-              filter: ["==", ["get", "type"], "place"],
-            },
-          )[0].properties;
+    return geoJSON;
+  }
 
-          Util.log(
-            "USER",
-            "map",
-            "place-marker-click",
-            //this.model.getLoggingDetails(),
-          );
+  updatePlaceCollectionLayer(collectionId, collection) {
+    this.map
+      .getSource(collectionId)
+      .setData(this.createGeoJSONFromCollection(collection));
+  }
 
-          if (properties["url-title"]) {
-            this.router.navigate("/" + properties["url-title"], {
-              trigger: true,
-            });
-          } else {
-            this.router.navigate(
-              "/" + properties["datasetSlug"] + "/" + properties.id,
-              { trigger: true },
-            );
-          }
+  addPlaceCollectionLayer(collectionId, collection) {
+    this.layers[collectionId] = this.map.createPlaceLayer(
+      {
+        id: collectionId,
+        rules: this.mapConfig.layers.find(layer => layer.id === collectionId)
+          .rules,
+      },
+      this.createGeoJSONFromCollection(collection),
+    );
+    this.map.addGeoJSONLayer(this.layers[collectionId], "Point"); // TODO
 
-          // TODO: Move to AppView
-          this.map.easeTo({
-            center: evt.features[0].geometry.coordinates,
+    // Bind map interaction events.
+    // TODO: hover cursor
+    this.layers[collectionId].forEach(layer => {
+      this.map.onLayerEvent("click", layer.id, evt => {
+        // We query rendered features here to obtain a single array of layers
+        // below the clicked-on point. The first entry in this array
+        // corresponds to the topmost rendered feature.
+        const properties = this.map.queryRenderedFeatures(
+          [evt.point.x, evt.point.y],
+          {
+            // Limit these click listeners to place geometry
+            filter: ["==", ["get", "type"], "place"],
+          },
+        )[0].properties;
+
+        Util.log(
+          "USER",
+          "map",
+          "place-marker-click",
+          //this.model.getLoggingDetails(),
+        );
+
+        if (properties["url-title"]) {
+          this.router.navigate("/" + properties["url-title"], {
+            trigger: true,
           });
+        } else {
+          this.router.navigate(
+            "/" + properties["datasetSlug"] + "/" + properties.id,
+            { trigger: true },
+          );
+        }
+
+        // TODO: Move to AppView
+        this.map.easeTo({
+          center: evt.features[0].geometry.coordinates,
         });
       });
-    }
+    });
   }
 
   removeLayerView(collectionId) {

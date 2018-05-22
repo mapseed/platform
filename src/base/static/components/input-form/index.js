@@ -18,6 +18,7 @@ import "./index.scss";
 import { map as mapConfig } from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
 
+import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
 
 // TEMPORARY: We define flavor hooks here for the time being.
@@ -243,6 +244,11 @@ class InputForm extends Component {
     model.save(attrs, {
       success: response => {
         Util.log("USER", "new-place", "successfully-add-place");
+
+        emitter.emit("place-collection:add-place", {
+          collection: response.collection,
+          collectionId: this.selectedCategoryConfig.dataset,
+        });
 
         // Save autofill values as necessary.
         // TODO: This logic is better suited for the FormField component,

@@ -1,7 +1,8 @@
+import emitter from "../utils/emitter";
+
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
-  mapView,
   mapConfig,
 }) => {
   const $progressContainer = $("#map-progress");
@@ -16,7 +17,7 @@ const getPlaceCollections = async ({
 
   // loop over all place collections
   const placeCollectionPromises = [];
-  _.each(placeCollections, function(collection, key) {
+  _.each(placeCollections, function(collection, collectionId) {
     // TODO: layer loading event; fix in layer UI PR
     const placeCollectionPromise = collection.fetchAllPages({
       remove: false,
@@ -26,10 +27,10 @@ const getPlaceCollections = async ({
       // get the dataset slug and id from the array of map layers
       attributesToAdd: {
         datasetSlug: _.find(mapConfig.layers, function(layer) {
-          return layer.id == key;
+          return layer.id == collectionId;
         }).slug,
         datasetId: _.find(mapConfig.layers, function(layer) {
-          return layer.id == key;
+          return layer.id == collectionId;
         }).id,
       },
       attribute: "properties",
@@ -60,6 +61,10 @@ const getPlaceCollections = async ({
       },
 
       success: function() {
+        emitter.emit("place-collection:loaded", {
+          collectionId: collectionId,
+          collection: collection,
+        });
         // TODO: layer loading event; fix in layer UI PR
       },
 

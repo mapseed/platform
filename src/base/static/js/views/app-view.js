@@ -354,7 +354,6 @@ module.exports = Backbone.View.extend({
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
-      mapView: self.mapView,
       mapConfig: self.options.mapConfig,
     });
 

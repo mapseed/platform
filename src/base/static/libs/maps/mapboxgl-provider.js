@@ -29,6 +29,10 @@ export default (container, options) => {
       map.on(event, callback);
     },
 
+    off: (event, callback) => {
+      map.off(event, callback);
+    },
+
     onLayerEvent: (event, layerId, callback, context) => {
       callback = callback.bind(context);
       map.on(event, layerId, callback);
@@ -164,6 +168,10 @@ export default (container, options) => {
           tiles: [requestUrl],
         },
       };
+    },
+
+    getSource: sourceId => {
+      return map.getSource(sourceId);
     },
 
     createGeoJSONLayer: options => {
