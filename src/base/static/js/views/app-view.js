@@ -14,11 +14,7 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 // from the api:
 import config from "config";
 
-import {
-  setConfig,
-  mapConfigSelector,
-  placeTypeConfigSelector,
-} from "../../state/ducks/config";
+import { setConfig, mapConfigSelector } from "../../state/ducks/config";
 import MainMap from "../../libs/maps";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
@@ -225,7 +221,6 @@ module.exports = Backbone.View.extend({
       places: this.places,
       router: this.options.router,
       mapConfig: mapConfigSelector(store.getState()),
-      placeTypeConfig: placeTypeConfigSelector(store.getState()),
     });
     // END REACT PORT SECTION /////////////////////////////////////////////////
 

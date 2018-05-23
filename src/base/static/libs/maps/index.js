@@ -6,9 +6,8 @@ import emitter from "../../utils/emitter";
 var Util = require("../../js/utils.js");
 
 class MainMap {
-  constructor({ container, places, router, mapConfig, placeTypeConfig }) {
+  constructor({ container, places, router, mapConfig }) {
     this.mapConfig = mapConfig;
-    this.placeTypeConfig = placeTypeConfig;
     this.router = router;
 
     let MapProvider;
