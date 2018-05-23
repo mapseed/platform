@@ -325,6 +325,7 @@ class MainMap {
     });
   }
 
+  // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
     const locationType = locationTypeModel.get("locationType");
     const isActive = locationTypeModel.get("active");
@@ -354,27 +355,6 @@ class MainMap {
           });
       }
     }
-  }
-
-  clearFilters(/*collectionId*/) {
-    // TODO
-    //this.locationTypeFilter = null;
-    //Object.values(this.places).forEach(collection => {
-    //  collection.each(function(model) {
-    //    if (self.layerViews[model.cid]) {
-    //      self.layerViews[model.cid].render();
-    //    }
-    //  });
-    //});
-  }
-
-  getLayerGroups(/*collectionId*/) {
-    //  TODO
-    //  if (this.isClusterable(collectionId)) {
-    //    return L.markerClusterGroup(this.options.cluster);
-    //  } else {
-    //    return L.layerGroup();
-    //  }
   }
 
   // TODO: Layer loading and error events.

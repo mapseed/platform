@@ -436,15 +436,7 @@ module.exports = Backbone.View.extend({
     Util.log("USER", "panel", "close-btn-click");
     // remove map mask if the user closes the side panel
     this.hideSpotlightMask();
-    if (this.mapView.locationTypeFilter) {
-      this.options.router.navigate(
-        "filter/" + this.mapView.locationTypeFilter,
-        { trigger: true },
-      );
-      this.hidePanel();
-    } else {
-      this.options.router.navigate("/", { trigger: true });
-    }
+    this.options.router.navigate("/", { trigger: true });
 
     if (this.isStoryActive) {
       this.isStoryActive = false;
@@ -776,7 +768,7 @@ module.exports = Backbone.View.extend({
         collectionId: collectionId,
         collection: model.collection,
         modelId: model.get("id"),
-      })
+      });
 
       if (!model.get("story") && self.isStoryActive) {
         self.isStoryActive = false;

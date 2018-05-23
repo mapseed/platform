@@ -13,7 +13,6 @@ Shareabouts.Util = Util;
   S.App = Backbone.Router.extend({
     routes: {
       "": "viewMap",
-      "filter/:locationtype": "filterMap",
       "page/:slug": "viewPage",
       ":dataset/:id": "viewPlace",
       new: "newPlace",
@@ -238,68 +237,6 @@ Shareabouts.Util = Util;
 
     getFilteredRoutes: function() {
       return ["filterMap", "viewPlace", "showList", "viewMap", "viewLandmark"];
-    },
-
-    clearLocationTypeFilter: function() {
-      this.setLocationTypeFilter("all");
-    },
-
-    setLocationTypeFilter: function(locationType) {
-      // TODO: This functionality should be moved in to the app-view
-      var $filterIndicator = $("#current-filter-type");
-      if ($filterIndicator.length === 0) {
-        $filterIndicator = $('<div id="current-filter-type"/>').insertAfter(
-          $(".menu-item-filter-type > a:first-child"),
-        );
-      }
-
-      // Get the menu information for the current location type
-      var filterMenu, menuItem;
-      if (S.Config.pages) {
-        filterMenu = _.findWhere(S.Config.pages, { slug: "filter-type" });
-      }
-      if (filterMenu) {
-        menuItem = _.findWhere(filterMenu.pages, {
-          url: "/filter/" + locationType,
-        });
-      }
-
-      if (locationType !== "all") {
-        this.appView.mapView.filter(locationType);
-        if (this.appView.listView) {
-          this.appView.listView.filter({ location_type: locationType });
-        }
-
-        // Show the menu item title with the coresponding style
-        if (menuItem) {
-          $filterIndicator
-            .removeClass()
-            .addClass(locationType)
-            .html(menuItem.title);
-        }
-      } else {
-        // If the filter is 'all', we're unsetting the filter.
-        this.appView.mapView.clearFilter();
-        if (this.appView.listView) {
-          this.appView.listView.clearFilters();
-        }
-
-        $filterIndicator
-          .removeClass()
-          .addClass("unfiltered")
-          .empty();
-      }
-    },
-
-    filterMap: function(locationType) {
-      this.setLocationTypeFilter(locationType);
-      if (locationType === "all") {
-        if (this.appView.listView && this.appView.listView.isVisible()) {
-          this.navigate("/list", { trigger: false });
-        } else {
-          this.navigate("/", { trigger: false });
-        }
-      }
     },
   });
 })(Shareabouts, jQuery, Util.console);
