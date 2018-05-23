@@ -23,9 +23,9 @@ export default (container, options) => {
     options.control.position,
   );
 
-  const _appendFilter = (existingFilters, filterToAdd) => {
+  const _appendFilters = (existingFilters, ...filtersToAdd) => {
     const newFilters = [existingFilters.slice()];
-    newFilters.push(filterToAdd);
+    filtersToAdd.forEach(filterToAdd => newFilters.push(filterToAdd));
 
     // If an existing filter does not already start with the logical AND
     // operator "all", we need to prepend it before we add a new filter.
@@ -225,7 +225,7 @@ export default (container, options) => {
             locationType,
           ];
           return styleRules.map((styleRule, i) => {
-            styleRule.filter = _appendFilter(
+            styleRule.filter = _appendFilters(
               styleRule.filter,
               locationTypeFilter,
             );
@@ -255,9 +255,20 @@ export default (container, options) => {
           return {
             id: `${layerStyle.id}_symbol`,
             source: layerStyle.source,
-            layout: layerStyle["icon-layout"],
+            layout: {
+              "icon-image": (layerStyle.layout &&
+                layerStyle.layout["icon-image"]) || [
+                "get",
+                "iconUrl",
+                ["get", "style"],
+              ],
+              "icon-size": layerStyle.layout && layerStyle.layout["icon-size"],
+              "icon-anchor":
+                layerStyle.layout && layerStyle.layout["icon-anchor"],
+              "icon-allow-overlap": true,
+            },
             type: "symbol",
-            filter: _appendFilter(layerStyle.filter, [
+            filter: _appendFilters(layerStyle.filter, [
               "==",
               ["geometry-type"],
               "Point",
@@ -274,7 +285,21 @@ export default (container, options) => {
             id: `${layerStyle.id}_fill`,
             source: layerStyle.source,
             type: "fill",
-            filter: _appendFilter(layerStyle.filter, [
+            paint: {
+              "fill-color": (layerStyle.paint &&
+                layerStyle.paint["fill-color"]) || [
+                "get",
+                "fillColor",
+                ["get", "style"],
+              ],
+              "fill-opacity": (layerStyle.paint &&
+                layerStyle.paint["fill-opacity"]) || [
+                "get",
+                "fillOpacity",
+                ["get", "style"],
+              ],
+            },
+            filter: _appendFilters(layerStyle.filter, [
               "==",
               ["geometry-type"],
               "Polygon",
@@ -290,8 +315,23 @@ export default (container, options) => {
           return {
             id: `${layerStyle.id}_line`,
             source: layerStyle.source,
+            paint: {
+              "line-color": (layerStyle.paint &&
+                layerStyle.paint["line-color"]) || [
+                "get",
+                "color",
+                ["get", "style"],
+              ],
+              "line-opacity": (layerStyle.paint &&
+                layerStyle.paint["line-opacity"]) || [
+                "get",
+                "opacity",
+                ["get", "style"],
+              ],
+              "line-width": 5,
+            },
             type: "line",
-            filter: _appendFilter(layerStyle.filter, [
+            filter: _appendFilters(layerStyle.filter, [
               "==",
               ["geometry-type"],
               "LineString",

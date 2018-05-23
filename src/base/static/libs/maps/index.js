@@ -115,12 +115,12 @@ class MainMap {
     // TEMPORARY: Manually trigger the visibility of layers for testing
     this.map.on("load", () => {
       $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[3].id,
+        this.mapConfig.layers[0].id,
         true,
         true,
       ]);
       $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[0].id,
+        this.mapConfig.layers[4].id,
         true,
         true,
       ]);
