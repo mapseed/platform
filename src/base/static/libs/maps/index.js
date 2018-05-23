@@ -272,35 +272,38 @@ class MainMap {
     // TODO: hover cursor
     this.layers[collectionId].forEach(layer => {
       ["symbol", "fill", "line"].forEach(layerGeometryType => {
-        this.map.onLayerEvent(
-          "click",
-          `${layer.id}_${layerGeometryType}`,
-          evt => {
-            // We query rendered features here to obtain a single array of layers
-            // below the clicked-on point. The first entry in this array
-            // corresponds to the topmost rendered feature.
-            const properties = this.map.queryRenderedFeatures(
-              [evt.point.x, evt.point.y],
-              {
-                // Limit these click listeners to place geometry.
-                filter: ["==", ["get", "type"], "place"],
-              },
-            )[0].properties;
+        const layerId = `${layer.id}_${layerGeometryType}`;
+        this.map.onLayerEvent("mouseenter", layerId, () => {
+          this.map.getCanvas().style.cursor = "pointer";
+        });
+        this.map.onLayerEvent("mouseleave", layerId, () => {
+          this.map.getCanvas().style.cursor = "";
+        });
+        this.map.onLayerEvent("click", layerId, evt => {
+          // We query rendered features here to obtain a single array of layers
+          // below the clicked-on point. The first entry in this array
+          // corresponds to the topmost rendered feature.
+          const properties = this.map.queryRenderedFeatures(
+            [evt.point.x, evt.point.y],
+            {
+              // Limit these click listeners to place geometry.
+              filter: ["==", ["get", "type"], "place"],
+            },
+          )[0].properties;
 
-            Util.log("USER", "map", "place-marker-click");
+          Util.log("USER", "map", "place-marker-click");
 
-            if (properties["url-title"]) {
-              this.router.navigate("/" + properties["url-title"], {
-                trigger: true,
-              });
-            } else {
-              this.router.navigate(
-                "/" + properties["datasetSlug"] + "/" + properties.id,
-                { trigger: true },
-              );
-            }
-          },
-        );
+          if (properties["url-title"]) {
+            this.router.navigate("/" + properties["url-title"], {
+              trigger: true,
+            });
+          } else {
+            this.router.navigate(
+              "/" + properties["datasetSlug"] + "/" + properties.id,
+              { trigger: true },
+            );
+          }
+        });
       });
     });
   }

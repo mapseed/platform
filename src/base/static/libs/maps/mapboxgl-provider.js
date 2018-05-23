@@ -55,6 +55,10 @@ export default (container, options) => {
       return map;
     },
 
+    getCanvas: () => {
+      return map.getCanvas();
+    },
+
     queryRenderedFeatures: (geometry, options = {}) => {
       return map.queryRenderedFeatures(geometry, options);
     },
