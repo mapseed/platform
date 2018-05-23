@@ -751,12 +751,21 @@ module.exports = Backbone.View.extend({
       const coordinates = story.panTo || geometry.coordinates;
       const zoom = story.zoom || this.mapView.map.getZoom();
 
-      if (geometry.type === "Polygon" || geometry.type === "LineString") {
+      if (geometry.type === "LineString") {
         // Fit to bounds
         // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
         const bounds = coordinates.reduce(
           (bounds, coord) => bounds.extend(coord),
           this.mapView.map.makeLngLatBounds(coordinates[0], coordinates[0]),
+        );
+        this.mapView.map.fitBounds(bounds, { padding: 30 });
+      } else if (geometry.type === "Polygon") {
+        const bounds = coordinates[0].reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this.mapView.map.makeLngLatBounds(
+            coordinates[0][0],
+            coordinates[0][0],
+          ),
         );
         this.mapView.map.fitBounds(bounds, { padding: 30 });
       } else if (geometry.type === "Point") {
