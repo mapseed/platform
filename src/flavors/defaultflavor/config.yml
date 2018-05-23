@@ -75,6 +75,10 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-size: 0.75
               icon-anchor: "center"
@@ -87,9 +91,23 @@ map:
               icon-anchor: "center"
         complaint:
           - filter:
-              - "<"
-              - - "zoom"
-              - 11
+              - "=="
+              - - "get"
+                - "focused"
+              - "yes"
+            layout:
+              icon-image: "marker-complaint"
+              icon-size: 1.2
+              icon-anchor: "bottom"
+          - filter:
+              - "all"
+              - - "<"
+                - - "zoom"
+                - 11
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-complaint"
               icon-size: 0.5
@@ -102,23 +120,46 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-complaint"
               icon-size: 0.75
               icon-anchor: "bottom"
           - filter:
-              - ">="
-              - - "zoom"
-              - 14
+              - "all"
+              - - ">="
+                - - "zoom"
+                - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-complaint"
               icon-size: 0.9
               icon-anchor: "bottom"
         question:
           - filter:
-              - "<"
-              - - "zoom"
-              - 11
+              - "=="
+              - - "get"
+                - "focused"
+              - "yes"
+            layout:
+              icon-image: "marker-question"
+              icon-size: 1.2
+              icon-anchor: "bottom"
+          - filter:
+              - "all"
+              - - "<"
+                - - "zoom"
+                - 11
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-question"
               icon-size: 0.5
@@ -131,23 +172,46 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-question"
               icon-size: 0.75
               icon-anchor: "bottom"
           - filter:
-              - ">="
-              - - "zoom"
-              - 14
+              - "all"
+              - - ">="
+                - - "zoom"
+                - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-question"
               icon-size: 0.9
               icon-anchor: "bottom"
         idea:
           - filter:
-              - "<"
-              - - "zoom"
-              - 11
+              - "=="
+              - - "get"
+                - "focused"
+              - "yes"
+            layout:
+              icon-image: "marker-idea"
+              icon-size: 1.2
+              icon-anchor: "bottom"
+          - filter:
+              - "all"
+              - - "<"
+                - - "zoom"
+                - 11
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-idea"
               icon-size: 0.5
@@ -160,23 +224,46 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-idea"
               icon-size: 0.75
               icon-anchor: "bottom"
           - filter:
-              - ">="
-              - - "zoom"
-              - 14
+              - "all"
+              - - ">="
+                - - "zoom"
+                - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-idea"
               icon-size: 0.9
               icon-anchor: "bottom"
         observation:
           - filter:
-              - "<"
-              - - "zoom"
-              - 11
+              - "=="
+              - - "get"
+                - "focused"
+              - "yes"
+            layout:
+              icon-image: "marker-observation"
+              icon-size: 1.2
+              icon-anchor: "bottom"
+          - filter:
+              - "all"
+              - - "<"
+                - - "zoom"
+                - 11
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-observation"
               icon-size: 0.5
@@ -189,14 +276,23 @@ map:
               - - "<"
                 - - "zoom"
                 - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-observation"
               icon-size: 0.75
               icon-anchor: "bottom"
           - filter:
-              - ">="
-              - - "zoom"
-              - 14
+              - "all"
+              - - ">="
+                - - "zoom"
+                - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
             layout:
               icon-image: "marker-observation"
               icon-size: 0.9

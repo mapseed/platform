@@ -450,6 +450,8 @@ module.exports = Backbone.View.extend({
       this.isStoryActive = false;
       this.restoreDefaultLayerVisibility();
     }
+
+    emitter.emit("place-collection:unfocus-all-places");
   },
   onToggleSidebarVisibility: function() {
     $("body").toggleClass("right-sidebar-visible");
@@ -681,7 +683,7 @@ module.exports = Backbone.View.extend({
       },
     );
 
-    function onFound(model, type) {
+    function onFound(model, type, collectionId) {
       if (type === "place") {
         // REACT PORT SECTION //////////////////////////////////////////////////
         this.unfocusAllPlaces();
@@ -770,7 +772,11 @@ module.exports = Backbone.View.extend({
         });
       }
 
-      model.trigger("focus");
+      emitter.emit("place-collection:focus-place", {
+        collectionId: collectionId,
+        collection: model.collection,
+        modelId: model.get("id"),
+      })
 
       if (!model.get("story") && self.isStoryActive) {
         self.isStoryActive = false;

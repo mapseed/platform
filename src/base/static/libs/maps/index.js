@@ -72,6 +72,20 @@ class MainMap {
       this.updatePlaceCollectionLayer(data.collectionId, data.collection);
     });
 
+    emitter.addListener("place-collection:focus-place", data => {
+      this.updatePlaceCollectionLayer(
+        data.collectionId,
+        data.collection,
+        data.modelId,
+      );
+    });
+
+    emitter.addListener("place-collection:unfocus-all-places", () => {
+      Object.entries(this.places).forEach(([collectionId, collection]) => {
+        this.updatePlaceCollectionLayer(collectionId, collection);
+      });
+    });
+
     // Bind visiblity event for custom layers
     $(Shareabouts).on("visibility", async (evt, id, visible, isBasemap) => {
       var layer = this.layers[id];
@@ -226,7 +240,7 @@ class MainMap {
     this.map.locate();
   }
 
-  createGeoJSONFromCollection(collection) {
+  createGeoJSONFromCollection(collection, modelIdToFocus) {
     const geoJSON = {
       type: "FeatureCollection",
       features: [],
@@ -240,6 +254,10 @@ class MainMap {
           return geoJSONProperties;
         }, {});
 
+      // We use "yes" and "no" here instead of booleans because I think it's
+      // a little easier to write filter expressions using string lookups.
+      properties.focused = modelIdToFocus === properties.id ? "yes" : "no";
+
       geoJSON.features.push({
         type: "Feature",
         properties: properties,
@@ -250,10 +268,10 @@ class MainMap {
     return geoJSON;
   }
 
-  updatePlaceCollectionLayer(collectionId, collection) {
+  updatePlaceCollectionLayer(collectionId, collection, modelId) {
     this.map
       .getSource(collectionId)
-      .setData(this.createGeoJSONFromCollection(collection));
+      .setData(this.createGeoJSONFromCollection(collection, modelId));
   }
 
   addPlaceCollectionLayer(collectionId, collection) {
