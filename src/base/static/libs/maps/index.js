@@ -102,7 +102,7 @@ class MainMap {
         //  }
         //});
       } else if (layer) {
-        self.setLayerVisibility(layer, visible);
+        //self.setLayerVisibility(layer, visible);
       } else {
         // Handles cases when we fire events for layers that are not yet
         // loaded (ie cartodb layers, which are loaded asynchronously)
@@ -120,7 +120,7 @@ class MainMap {
         true,
       ]);
       $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[4].id,
+        this.mapConfig.layers[3].id,
         true,
         true,
       ]);
@@ -223,6 +223,7 @@ class MainMap {
   }
 
   geolocate() {
+    // TODO
     this.map.locate();
   }
 
@@ -267,7 +268,7 @@ class MainMap {
     );
     this.map.addGeoJSONLayer(this.layers[collectionId]);
 
-    // Bind map interaction events.
+    // Bind map interaction events for Mapseed place layers.
     // TODO: hover cursor
     this.layers[collectionId].forEach(layer => {
       ["symbol", "fill", "line"].forEach(layerGeometryType => {
@@ -281,11 +282,10 @@ class MainMap {
             const properties = this.map.queryRenderedFeatures(
               [evt.point.x, evt.point.y],
               {
-                // Limit these click listeners to place geometry
+                // Limit these click listeners to place geometry.
                 filter: ["==", ["get", "type"], "place"],
               },
             )[0].properties;
-            const geometry = evt.features[0].geometry;
 
             Util.log("USER", "map", "place-marker-click");
 
@@ -299,66 +299,10 @@ class MainMap {
                 { trigger: true },
               );
             }
-
-            // TODO: Move to AppView
-            if (geometry.type === "Polygon" || geometry.type === "LineString") {
-              // Fit to bounds
-              // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
-              const bounds = geometry.coordinates.reduce(
-                (bounds, coord) => bounds.extend(coord),
-                this.map.makeLngLatBounds(
-                  geometry.coordinates[0],
-                  geometry.coordinates[0],
-                ),
-              );
-              this.map.fitBounds(bounds, { padding: 30 });
-            } else if (geometry.type === "Point") {
-              this.map.easeTo({
-                center: geometry.coordinates,
-              });
-            }
           },
         );
       });
     });
-  }
-
-  removeLayerView(collectionId) {
-    return model => {
-      // remove map-bound events for this layer view
-      this.map.off(
-        "zoomend",
-        this.layerViews[collectionId][model.cid].updateLayer,
-        this.layerViews[collectionId][model.cid],
-      );
-      this.map.off(
-        "move",
-        this.layerViews[collectionId][model.cid].throttledRender,
-        this.layerViews[collectionId][model.cid],
-      );
-      this.map.off(
-        "zoomend",
-        this.layerViews[collectionId][model.cid].render,
-        this.layerViews[collectionId][model.cid],
-      );
-
-      this.layerViews[collectionId][model.cid].remove();
-      delete this.layerViews[collectionId][model.cid];
-
-      Util.log("APP", "panel-state", "closed");
-      if (this.locationTypeFilter) {
-        this.router.navigate("filter/" + this.locationTypeFilter, {
-          trigger: true,
-        });
-      } else {
-        this.router.navigate("/", { trigger: true });
-      }
-    };
-  }
-
-  zoomInOn(/*latLng*/) {
-    // TODO
-    //this.map.setView(latLng, this.mapConfig.options.maxZoom || 17);
   }
 
   filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {

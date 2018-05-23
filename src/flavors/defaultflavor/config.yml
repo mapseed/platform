@@ -934,8 +934,14 @@ story:
     default_visible_layers:
       - demo
     order:
-      - url: demo/20
+      - url: demo/86
+        spotlight: false
+        zoom: 7
+        panTo:
+          lat: 47.44334015969261
+          lng: -122.57256740778439
       - url: demo/21
+        zoom: 10
   another_example:
     tagline: _(Next featured site)
     header: _(Story Number Two With a Longer Name than the Other Story)

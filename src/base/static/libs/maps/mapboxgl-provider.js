@@ -99,6 +99,10 @@ export default (container, options) => {
       map.easeTo(options);
     },
 
+    flyTo: options => {
+      map.flyTo(options);
+    },
+
     invalidateSize: () => {
       map.resize();
     },

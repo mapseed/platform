@@ -672,8 +672,7 @@ module.exports = Backbone.View.extend({
   },
 
   viewPlaceOrLandmark: function(args) {
-    var self = this,
-      layout = Util.getPageLayout();
+    var self = this;
 
     Util.getPlaceFromCollections(
       {
@@ -687,30 +686,8 @@ module.exports = Backbone.View.extend({
       },
     );
 
-    function onFound(model, type, datasetId) {
-      var map = self.mapView.map,
-        layer,
-        center,
-        zoom,
-        $responseToScrollTo;
-
+    function onFound(model, type) {
       if (type === "place") {
-        //// If this model is a duplicate of one that already exists in the
-        //// places collection, it may not correspond to a layerView. For this
-        //// case, get the model that's actually in the places collection.
-        //if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-        //  model = self.places[datasetId].get(model.id);
-        //}
-
-        //// TODO: We need to handle the non-deterministic case when
-        //// 'self.mapView.layerViews[datasetId][model.cid]` is undefined
-        //if (
-        //  self.mapView.layerViews[datasetId] &&
-        //  self.mapView.layerViews[datasetId][model.cid]
-        //) {
-        //  layer = self.mapView.layerViews[datasetId][model.cid].layer;
-        //}
-
         // REACT PORT SECTION //////////////////////////////////////////////////
         this.unfocusAllPlaces();
         ReactDOM.unmountComponentAtNode(
@@ -753,46 +730,40 @@ module.exports = Backbone.View.extend({
       self.setBodyClass("content-visible");
       self.showSpotlightMask();
 
-      if (layer) {
-        center = layer.getLatLng
-          ? layer.getLatLng()
-          : layer.getBounds().getCenter();
-        zoom = map.getZoom();
+      const geometry = model.get("geometry");
 
-        self.ensureLayerVisibility(datasetId);
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) {
-            self.hideSpotlightMask();
-          }
-          self.isStoryActive = true;
-          self.isProgrammaticZoom = true;
-          self.setStoryLayerVisibility(model);
-          center = model.get("story").panTo || center;
-          zoom = model.get("story").zoom;
-
-          if (!self.hasBodyClass("right-sidebar-visible")) {
-            $("body").addClass("right-sidebar-visible");
-          }
+      if (model.get("story")) {
+        self.isStoryActive = true;
+        self.isProgrammaticZoom = true;
+        self.setStoryLayerVisibility(model);
+        if (!model.get("story").spotlight) {
+          self.hideSpotlightMask();
         }
 
-        if (layer.getLatLng) {
-          map.setView(center, zoom, {
-            animate: true,
-          });
-        } else {
-          // If we've defined a custom zoom for a polygon layer for some reason,
-          // don't use fitBounds and instead set the zoom defined
-          if (model.get("story") && model.get("story").hasCustomZoom) {
-            map.setView(center, model.get("story").zoom, {
-              animate: true,
-            });
-          } else {
-            map.fitBounds(layer.getBounds(), {
-              animate: true,
-            });
-          }
+        if (!self.hasBodyClass("right-sidebar-visible")) {
+          $("body").addClass("right-sidebar-visible");
         }
+      }
+
+      const story = model.get("story") || {};
+      // Determine map settings, reconciling with custom story settings if this
+      // model is part of a story.
+      const coordinates = story.panTo || geometry.coordinates;
+      const zoom = story.zoom || this.mapView.map.getZoom();
+
+      if (geometry.type === "Polygon" || geometry.type === "LineString") {
+        // Fit to bounds
+        // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
+        const bounds = coordinates.reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this.mapView.map.makeLngLatBounds(coordinates[0], coordinates[0]),
+        );
+        this.mapView.map.fitBounds(bounds, { padding: 30 });
+      } else if (geometry.type === "Point") {
+        this.mapView.map.easeTo({
+          center: coordinates,
+          zoom: zoom,
+        });
       }
 
       model.trigger("focus");
