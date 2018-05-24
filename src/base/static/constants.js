@@ -16,6 +16,7 @@ export default {
   COMMON_FORM_ELEMENT_TYPENAME: "common_form_element",
   SUBMIT_FIELD_TYPENAME: "submit",
   RANGE_FIELD_TYPENAME: "range",
+  INFORMATIONAL_HTML_FIELD_TYPENAME: "informational_html",
 
   SUBMITTER_FIELDNAME: "submitter_name",
 

@@ -3,9 +3,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
-import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 
-import { story as storyConfig } from "config";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import reducer from "../../state/reducers";
+import mapseedApiClient from "../../client/mapseed-api-client";
+
+// TODO(luke): This should be the only instance of our config singleton.
+// Eventually, it will be removed once we start fetching the config
+// from the api:
+import config from "config";
+import { setConfig } from "../../state/ducks/config";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -13,6 +21,9 @@ import FormCategoryMenuWrapper from "../../components/input-form/form-category-m
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import StorySidebar from "../../components/story-sidebar";
+
+// TODO(luke): move this into index.js (currently routes.js)
+const store = createStore(reducer);
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
@@ -74,8 +85,9 @@ module.exports = Backbone.View.extend({
     "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
-    // Store promises returned from collection fetches.
-    this.placeCollectionPromises = [];
+    // TODO(luke): move this into "componentDidMount" when App becomes a
+    // component:
+    store.dispatch(setConfig(config));
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -248,7 +260,9 @@ module.exports = Backbone.View.extend({
     // REACT PORT SECTION /////////////////////////////////////////////////////
     if (this.options.mapConfig.geocoding_bar_enabled) {
       ReactDOM.render(
-        <GeocodeAddressBar mapConfig={this.options.mapConfig} />,
+        <Provider store={store}>
+          <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+        </Provider>,
         document.getElementById("geocode-address-bar"),
       );
     }
@@ -279,11 +293,13 @@ module.exports = Backbone.View.extend({
       );
 
       ReactDOM.render(
-        <InfoModal
-          parentId="info-modal-container"
-          isModalOpen={true}
-          {...modalContent}
-        />,
+        <Provider store={store}>
+          <InfoModal
+            parentId="info-modal-container"
+            isModalOpen={true}
+            {...modalContent}
+          />
+        </Provider>,
         document.getElementById("info-modal-container"),
       );
     });
@@ -339,14 +355,14 @@ module.exports = Backbone.View.extend({
     this.showCenterPoint();
 
     // Load places from the API
-    this.loadPlaces(placeParams);
-
-    if (storyConfig) {
-      this.storiesPromise = hydrateStoriesFromConfig(
-        this.placeCollectionPromises,
-        this.places,
-      );
-    }
+    // TODO(luke): move this into componentDidMount when App is ported
+    // to a component:
+    const placeCollectionsPromise = mapseedApiClient.place.get({
+      placeParams,
+      placeCollections: self.places,
+      mapView: self.mapView,
+      mapConfig: self.options.mapConfig,
+    });
 
     // Load activities from the API
     _.each(this.activities, function(collection, key) {
@@ -372,11 +388,13 @@ module.exports = Backbone.View.extend({
 
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
-        <StorySidebar
-          storiesPromise={this.storiesPromise}
-          places={this.places}
-          router={this.options.router}
-        />,
+        <Provider store={store}>
+          <StorySidebar
+            placeCollectionsPromise={placeCollectionsPromise}
+            places={this.places}
+            router={this.options.router}
+          />
+        </Provider>,
         document.getElementById("right-sidebar-container"),
       );
       // END REACT PORT SECTION ///////////////////////////////////////////////
@@ -391,69 +409,6 @@ module.exports = Backbone.View.extend({
 
   isAddingPlace: function(model) {
     return this.$panel.is(":visible") && this.$panel.hasClass("place-form");
-  },
-  loadPlaces: function(placeParams) {
-    var self = this,
-      $progressContainer = $("#map-progress"),
-      $currentProgress = $("#map-progress .current-progress"),
-      pageSize,
-      totalPages,
-      pagesComplete = 0;
-
-    // loop over all place collections
-    _.each(self.places, function(collection, key) {
-      self.mapView.map.fire("layer:loading", { id: key });
-      const placeCollectionPromise = collection.fetchAllPages({
-        remove: false,
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        data: placeParams,
-        // get the dataset slug and id from the array of map layers
-        attributesToAdd: {
-          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).slug,
-          datasetId: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).id,
-        },
-        attribute: "properties",
-
-        // Only do this for the first page...
-        pageSuccess: _.once(function(collection, data) {
-          pageSize = data.features.length;
-          totalPages = Math.ceil(data.metadata.length / pageSize);
-
-          if (data.metadata.next) {
-            $progressContainer.show();
-          }
-        }),
-
-        // Do this for every page...
-        pageComplete: function() {
-          var percent;
-
-          pagesComplete++;
-          percent = pagesComplete / totalPages * 100;
-          $currentProgress.width(percent + "%");
-
-          if (pagesComplete === totalPages) {
-            _.delay(function() {
-              $progressContainer.hide();
-            }, 2000);
-          }
-        },
-
-        success: function() {
-          self.mapView.map.fire("layer:loaded", { id: key });
-        },
-
-        error: function() {
-          self.mapView.map.fire("layer:error", { id: key });
-        },
-      });
-      self.placeCollectionPromises.push(placeCollectionPromise);
-    });
   },
   onMapZoomEnd: function(evt) {
     if (
@@ -587,43 +542,45 @@ module.exports = Backbone.View.extend({
     // NOTE: This wrapper component is temporary, and will be factored out
     // when the AppView is ported.
     ReactDOM.render(
-      <FormCategoryMenuWrapper
-        hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-        hideCenterPoint={this.hideCenterPoint.bind(this)}
-        showNewPin={this.showNewPin.bind(this)}
-        hideNewPin={this.hideNewPin.bind(this)}
-        hidePanel={this.hidePanel.bind(this)}
-        map={this.mapView.map}
-        places={this.places}
-        router={this.options.router}
-        customHooks={this.options.customHooks}
-        container={document.querySelector("#content article")}
-        render={(state, props, onCategoryChange) => {
-          if (
-            props.customComponents &&
-            props.customComponents.InputForm === "VVInputForm"
-          ) {
-            return (
-              <VVInputForm
-                {...props}
-                selectedCategory={state.selectedCategory}
-                isSingleCategory={state.isSingleCategory}
-                onCategoryChange={onCategoryChange}
-              />
-            );
-          } else {
-            return (
-              <InputForm
-                {...props}
-                selectedCategory={state.selectedCategory}
-                isSingleCategory={state.isSingleCategory}
-                onCategoryChange={onCategoryChange}
-              />
-            );
-          }
-        }}
-        customComponents={this.options.customComponents}
-      />,
+      <Provider store={store}>
+        <FormCategoryMenuWrapper
+          hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+          hideCenterPoint={this.hideCenterPoint.bind(this)}
+          showNewPin={this.showNewPin.bind(this)}
+          hideNewPin={this.hideNewPin.bind(this)}
+          hidePanel={this.hidePanel.bind(this)}
+          map={this.mapView.map}
+          places={this.places}
+          router={this.options.router}
+          customHooks={this.options.customHooks}
+          container={document.querySelector("#content article")}
+          render={(state, props, onCategoryChange) => {
+            if (
+              props.customComponents &&
+              props.customComponents.InputForm === "VVInputForm"
+            ) {
+              return (
+                <VVInputForm
+                  {...props}
+                  selectedCategory={state.selectedCategory}
+                  isSingleCategory={state.isSingleCategory}
+                  onCategoryChange={onCategoryChange}
+                />
+              );
+            } else {
+              return (
+                <InputForm
+                  {...props}
+                  selectedCategory={state.selectedCategory}
+                  isSingleCategory={state.isSingleCategory}
+                  onCategoryChange={onCategoryChange}
+                />
+              );
+            }
+          }}
+          customComponents={this.options.customComponents}
+        />
+      </Provider>,
       document.querySelector("#content article"),
     );
 
@@ -767,19 +724,23 @@ module.exports = Backbone.View.extend({
         );
 
         ReactDOM.render(
-          <PlaceDetail
-            container={document.querySelector("#content article")}
-            currentUser={Shareabouts.bootstrapped.currentUser}
-            isGeocodingBarEnabled={this.options.mapConfig.geocoding_bar_enabled}
-            map={this.mapView.map}
-            model={model}
-            appView={this}
-            layerView={this.mapView.layerViews[datasetId][model.cid]}
-            places={this.places}
-            scrollToResponseId={args.responseId}
-            router={this.options.router}
-            userToken={this.options.userToken}
-          />,
+          <Provider store={store}>
+            <PlaceDetail
+              container={document.querySelector("#content article")}
+              currentUser={Shareabouts.bootstrapped.currentUser}
+              isGeocodingBarEnabled={
+                this.options.mapConfig.geocoding_bar_enabled
+              }
+              map={this.mapView.map}
+              model={model}
+              appView={this}
+              layerView={this.mapView.layerViews[datasetId][model.cid]}
+              places={this.places}
+              scrollToResponseId={args.responseId}
+              router={this.options.router}
+              userToken={this.options.userToken}
+            />
+          </Provider>,
           document.querySelector("#content article"),
         );
 

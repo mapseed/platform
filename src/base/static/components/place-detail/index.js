@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { fromJS, List, Map } from "immutable";
 
-import ResponseField from "../form-fields/response-field";
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
@@ -12,9 +11,13 @@ import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 import emitter from "../../utils/emitter";
 
+import FieldSummary from "./field-summary";
+
+// Flavor custom code
+import SnohomishFieldSummary from "./snohomish-field-summary";
+
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
-import fieldResponseFilter from "../../utils/field-response-filter";
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
 
@@ -22,6 +25,7 @@ import {
   survey as surveyConfig,
   support as supportConfig,
   custom_hooks as customHooks,
+  custom_components as customComponents,
 } from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
@@ -94,7 +98,12 @@ class PlaceDetail extends Component {
     });
 
     this.state = {
-      placeModel: fromJS(this.props.model.attributes),
+      // NOTE: We remove the story property before serializing, so it doesn't
+      // get saved.
+      // TODO: A proper story model would avoid this problem.
+      placeModel: fromJS(this.props.model.attributes).delete(
+        constants.STORY_FIELD_NAME,
+      ),
       supportModels: serializeBackboneCollection(
         this.props.model.submissionSets[this.supportType],
       ),
@@ -108,6 +117,8 @@ class PlaceDetail extends Component {
       isEditable: Util.getAdminStatus(
         this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
         this.categoryConfig.admin_groups,
+        !!this.categoryConfig.submitter_editing_supported,
+        this.props.model.get(constants.SUBMITTER_FIELD_NAME),
       ),
       isEditFormSubmitting: false,
       isSurveyEditFormSubmitting: false,
@@ -237,6 +248,23 @@ class PlaceDetail extends Component {
       );
     });
 
+    const fieldSummary =
+      customComponents &&
+      customComponents.FieldSummary === "SnohomishFieldSummary" &&
+      this.state.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME) ===
+        "conservation-actions" ? (
+        <SnohomishFieldSummary
+          fields={this.categoryConfig.fields}
+          placeModel={this.state.placeModel}
+        />
+      ) : (
+        <FieldSummary
+          fields={this.categoryConfig.fields}
+          placeModel={this.state.placeModel}
+          attachmentModels={this.state.attachmentModels}
+        />
+      );
+
     return (
       <div className="place-detail-view">
         {this.state.isEditable && (
@@ -318,17 +346,7 @@ class PlaceDetail extends Component {
             isSubmitting={this.state.isEditFormSubmitting}
           />
         ) : (
-          fieldResponseFilter(
-            this.categoryConfig.fields,
-            this.state.placeModel,
-          ).map(fieldConfig => (
-            <ResponseField
-              key={fieldConfig.name}
-              fieldConfig={fieldConfig}
-              fieldValue={this.state.placeModel.get(fieldConfig.name)}
-              attachmentModels={this.state.attachmentModels}
-            />
-          ))
+          fieldSummary
         )}
         <Survey
           currentUser={this.props.currentUser}

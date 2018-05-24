@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { List, Map } from "immutable";
 import classNames from "classnames";
 
+import { InfoModalTrigger } from "../atoms/feedback";
 import fieldDefinitions from "./field-definitions";
 import { translate } from "react-i18next";
 import constants from "../../constants";
@@ -113,10 +114,25 @@ class FormField extends Component {
         data-field-type={this.props.fieldConfig.type}
         data-field-name={this.props.fieldConfig.name}
       >
-        <p className="input-form__field-prompt">
-          {this.props.fieldConfig.prompt}
-          <span className={cn.optionalMsg}>{this.props.t("optionalMsg")}</span>
-        </p>
+        <div className="input-form__field-prompt-container">
+          <p
+            className={classNames("input-form__field-prompt", {
+              "input-form__field-prompt--with-modal-trigger": !!this.props
+                .fieldConfig.modal,
+            })}
+          >
+            {this.props.fieldConfig.prompt}
+            <span className={cn.optionalMsg}>
+              {this.props.t("optionalMsg")}
+            </span>
+          </p>
+        </div>
+        {this.props.fieldConfig.modal && (
+          <InfoModalTrigger
+            classes="input-form__field-modal-trigger"
+            modalContent={this.props.fieldConfig.modal}
+          />
+        )}
         {this.state.isInitialized &&
           this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>

@@ -18,7 +18,7 @@
 -------------------------------------------------------------- */
 
 .menu {
-  font-family: "Bowlby", sans-serif;
+  font-family: "Lithos", sans-serif;
   letter-spacing: 1.5px;
 
   .btn-secondary {
@@ -45,7 +45,7 @@
 }
 
 .list-toggle-btn {
-  font-family: "Bowlby", sans-serif;
+  font-family: "Lithos", sans-serif;
   letter-spacing: 1.5px;
   background-color: transparent;
   border: none;
@@ -63,6 +63,38 @@
   background-size: auto 64px;
   background-color: #f3f5e7;
   background-repeat: no-repeat;
+}
+
+#sign-in-btn {
+  background-color: #02440b !important;
+  color: #fff !important;
+
+  &:hover {
+    color: #779300 !important;
+  }
+}
+
+/* =Map
+-------------------------------------------------------------- */
+#centerpoint.newpin .overlay {
+  &:before {
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 800;
+    font-size: 1.1em;
+    content: "Drag the map";
+    background-image: url(/static/css/images/marker-arrow-overlay.png);
+    background-size: cover;
+    width: 139px;
+    height: 162px;
+    left: -58px;
+    top: -75px;
+    position: absolute;
+    text-transform: uppercase;
+    color: yellow;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
 }
 
 /* =Geocode Address Bar
@@ -205,6 +237,66 @@
   color: #ccc !important;
 }
 
+#drag-map-graphic {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  margin-bottom: 5px;
+}
+
+.map-drag-header {
+  text-align: center;
+}
+
+.input-form__field-container[data-field-name="location-information"] {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.form-stage-header-bar {
+  position: relative;
+  padding-left: 0;
+}
+
+.form-stage-header-bar__icon {
+  position: absolute;
+  bottom: 0;
+  width: 140%;
+  left: 40px;
+}
+
+.form-stage-header-bar__header {
+  font-size: 2em;
+  text-align: center;
+  font-family: "Lithos", sans-serif;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #02440b;
+}
+
+.form-stage-header-bar__description {
+  padding-left: 60px;
+  padding-right: 50px;
+  font-size: 1.3em;
+  font-weight: 200;
+  margin-bottom: 40px;
+}
+
+/* =Info modal
+-------------------------------------------------------------- */
+.mapseed-info-modal__header-bar,
+.mapseed-info-modal__close-btn {
+  background-color: #f3f5e7;
+}
+
+.mapseed-info-modal__header-content {
+  color: #02440b;
+  font-weight: 800;
+  font-family: "Lithos", sans-serif;
+  letter-spacing: 1px;
+}
+
 /* =Custom pages
 -------------------------------------------------------------- */
 .dotted-background-container {
@@ -218,18 +310,18 @@
 }
 
 .next-btn {
+  background-color: #02440b !important;
   float: right;
   background: none;
   outline: none;
   border: none;
-  background-color: #007fbf;
   text-transform: uppercase;
   color: #fff !important;
   padding: 0.5em;
   margin-left: 10px;
 
   &:hover {
-    color: #a3c7d9 !important;
+    color: #779300 !important;
   }
 }
 
@@ -242,6 +334,83 @@
 .guest-btn {
   background-color: #888;
   color: #fff !important;
+}
+
+.custom-page-header {
+  color: #02440b;
+  font-weight: 800;
+  font-size: 2em;
+  font-family: "Lithos", sans-serif;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.custom-page-img {
+  margin-bottom: 1.5em;
+}
+
+.page-sign-in-container {
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+}
+
+/* =Custom detail view
+-------------------------------------------------------------- */
+.snohomish-field-summary {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.snohomish-num-actions {
+  font-family: Bowlby, sans-serif;
+  line-height: 1.9em !important;
+  font-weight: 200;
+  border: 5px solid #779300;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.3em;
+  border-radius: 50%;
+}
+
+.snohomish-total-actions {
+  text-transform: uppercase;
+}
+
+.snohomish-stage-action-summary {
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.snohomish-stage-summary {
+}
+
+.snohomish-completed-action {
+  color: #555;
+  position: relative;
+  font-style: italic;
+  font-size: 1.2em;
+  margin-left: 15px;
+  padding-left: 40px;
+  margin-bottom: 25px !important;
+
+  &:before {
+    content: "✔";
+    font-style: normal;
+    color: #fff;
+    max-height: 2em;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 1.5em;
+    background-color: #779300;
+    width: 1.5em;
+    position: absolute;
+    text-align: center;
+    padding-top: 4px;
+  }
 }
 
 /* =Media Queries

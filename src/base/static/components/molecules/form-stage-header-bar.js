@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 
 import { InfoModalTrigger } from "../atoms/feedback";
@@ -8,12 +9,18 @@ import "./form-stage-header-bar.scss";
 
 const FormStageHeaderBar = props => {
   return (
-    <div className="form-stage-header-bar">
+    <div
+      className={classNames("form-stage-header-bar", {
+        "form-stage-header-bar--without-image": !props.stageConfig.icon_url,
+      })}
+    >
       <Header3 classes="form-stage-header-bar__header">
-        <img
-          className="form-stage-header-bar__icon"
-          src={props.stageConfig.icon_url}
-        />
+        {props.stageConfig.icon_url && (
+          <img
+            className="form-stage-header-bar__icon"
+            src={props.stageConfig.icon_url}
+          />
+        )}
         {props.stageConfig.header}
         {props.stageConfig.modal && (
           <InfoModalTrigger

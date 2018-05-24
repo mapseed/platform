@@ -37,3 +37,4 @@ export { default as MapDrawingToolbar } from "./map-drawing-toolbar";
 export { default as PublishControlToolbar } from "./publish-control-toolbar";
 export { default as RangeSliderWithLabel } from "./range-slider-with-label";
 export { default as RichTextareaField } from "./rich-textarea-field";
+export { default as InformationalHTMLField } from "./informational-html-field";

@@ -337,6 +337,7 @@ place:
   #### begin dynamic form config ####
   place_detail:
     - category: demo
+      submitter_editing_supported: true
       includeOnForm: true
       name: location_type
       dataset: demo
@@ -358,7 +359,7 @@ place:
           icon_url: ""
           header: _(Stage 3)
         - start_field_index: 11
-          end_field_index: 16
+          end_field_index: 18
           icon_url: ""
           header: _(Stage 4)
 
@@ -371,6 +372,10 @@ place:
           display_prompt: _(Ttile:)
           placeholder: _(Enter title...)
           optional: false
+        - name: informational
+          type: informational_html
+          prompt: _(Info)
+          content: <h1>This is some information for you.</h1><p>Hooray.</p>
         - name: text_field
           type: text
           autocomplete: true
@@ -378,6 +383,11 @@ place:
           display_prompt: _(Rendered text field:)
           placeholder: _(Enter text...)
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: textarea_field
           type: textarea
           autocomplete: true
@@ -385,6 +395,11 @@ place:
           display_prompt: _(Rendered textarea field:)
           placeholder: _(Enter text...)
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: rich_textarea_field
           type: rich_textarea
           autocomplete: true
@@ -392,6 +407,11 @@ place:
           display_prompt: _(Rendered rich text:)
           placeholder: _(Enter text...)
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: range_slider_field
           prompt: _(Range slider field prompt:)
           type: range
@@ -400,6 +420,11 @@ place:
           default_value: 50
           display_prompt: _(Rendered range slider:)
           autocomplete: true
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: big_checkbox_field
           type: big_checkbox
           autocomplete: true
@@ -417,6 +442,11 @@ place:
             - label: _(Choice E)
               value: choice_e
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: big_radio_field
           type: big_radio
           autocomplete: true
@@ -434,6 +464,11 @@ place:
             - label: _(Choice E)
               value: choice_e
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: dropdown_field
           type: dropdown
           autocomplete: true
@@ -451,6 +486,11 @@ place:
             - label: _(Choice E)
               value: choice_e
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: dropdown_autocomplete_combobox_field
           type: dropdown_autocomplete
           autocomplete: true
@@ -469,6 +509,11 @@ place:
             - label: _(Choice E)
               value: choice_e
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: publish_control_toolbar
           type: publish_control_toolbar
           default_value: "isPublished"
@@ -485,16 +530,31 @@ place:
           prompt: _(Custom URL field prompt:)
           placegolder: _(Enter a custom URL...)
           optional: true
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: datetime_field
           type: datetime
           prompt: _(Datetime field prompt:)
           display_prompt: _(Rendered datetime:)
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: geocoding_field
           type: geocoding
           prompt: _(Geocoding field prompt:)
           display_prompt: _(Rendered location:)
           optional: true
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: big_toggle_field
           type: big_toggle
           autocomplete: true
@@ -506,11 +566,21 @@ place:
             - label: _(Off)
               value: "off"
           optional: false
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: attachment_field
           type: file
           prompt: _(Attachment field prompt:)
           label: _(Attachment field button label)
           optional: true
+          modal:
+            header: _(Modal header)
+            body: [
+              "Modal body"
+            ]
         - name: submit_field
           type: submit
           label: _(Submit button label)
