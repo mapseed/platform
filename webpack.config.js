@@ -110,10 +110,6 @@ module.exports = {
               loader: "sass-loader",
               options: {
                 includePaths: [
-                  path.resolve(
-                    __dirname,
-                    "./node_modules/react-datepicker/dist",
-                  ),
                   path.resolve(__dirname, "./node_modules/compass-mixins/lib"),
                   path.resolve(__dirname, "./src/base/static/stylesheets/util"),
                   path.resolve(

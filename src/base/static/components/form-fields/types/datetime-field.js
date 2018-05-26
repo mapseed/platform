@@ -1,35 +1,70 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DatePicker from "react-datepicker";
+import Datetime from "react-datetime";
 import moment from "moment";
+
+import "react-datetime/css/react-datetime.css";
+
+import constants from "../../../constants";
 
 import "./datetime-field.scss";
 
-const DatetimeField = props => {
-  const datetimeFormat = "MMMM Do YYYY, h:mm:ss a";
-
+/* eslint-disable react/prop-types */
+const renderInput = ({ datetimeProps, props, openCalendar }) => {
   return (
-    <DatePicker
+    <button
+      type="button"
+      className="datetime-field__open-button"
+      onClick={openCalendar}
+    >
+      {datetimeProps.value
+        ? moment(datetimeProps.value).format(props.displayFormat)
+        : props.placeholder ? props.placeholder : "Select a date"}
+    </button>
+  );
+};
+/* eslint-enable react/prop-types */
+
+const DatetimeField = props => {
+  return (
+    <Datetime
       className="datetime-field"
-      dateFormat={props.showTimeSelect ? "LLL" : "LL"}
-      showTimeSelect={props.showTimeSelect}
-      selected={props.date ? moment(props.date, datetimeFormat) : ""}
-      onChange={dateObj =>
-        props.onChange(props.name, dateObj.format(datetimeFormat))
-      }
+      dateFormat={props.dateFormat}
+      timeFormat={props.timeFormat}
+      renderInput={(datetimeProps, openCalendar) => {
+        return renderInput({
+          datetimeProps: datetimeProps,
+          openCalendar: openCalendar,
+          props: props,
+        });
+      }}
+      onChange={date => {
+        props.onChange(
+          props.name,
+          date.format(
+            `${props.dateFormat}${
+              props.timeFormat ? " " + props.timeFormat : ""
+            }`,
+          ),
+        );
+      }}
     />
   );
 };
 
 DatetimeField.propTypes = {
-  date: PropTypes.string,
+  dateFormat: PropTypes.string.isRequired,
+  displayFormat: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  showTimeSelect: PropTypes.bool.isRequired,
+  timeFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    .isRequired,
 };
 
 DatetimeField.defaultProps = {
-  showTimeSelect: false,
+  dateFormat: constants.DEFAULT_DATE_FORMAT,
+  displayFormat: constants.DEFAULT_DATE_DISPLAY_FORMAT,
+  timeFormat: false,
 };
 
 export default DatetimeField;
