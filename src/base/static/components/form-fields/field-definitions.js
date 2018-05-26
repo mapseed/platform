@@ -211,8 +211,10 @@ export default {
     getComponent: (fieldConfig, context) => (
       <DatetimeField
         {...getSharedFieldProps(fieldConfig, context)}
-        date={context.props.fieldState.get(constants.FIELD_VALUE_KEY)}
         showTimeSelect={fieldConfig.show_time_select}
+        timeFormat={fieldConfig.time_format}
+        dateFormat={fieldConfig.date_format}
+        displayFormat={fieldConfig.display_format}
       />
     ),
     getInitialValue: ({ value }) => value,

@@ -283,6 +283,15 @@
   margin-bottom: 40px;
 }
 
+.datetime-field__open-button {
+  background-image: linear-gradient(#769300, #5e7306);
+}
+
+/* Datepicker plugin overrides */
+.rdtActive {
+  background-color: #02440b !important;
+}
+
 /* =Info modal
 -------------------------------------------------------------- */
 .mapseed-info-modal__header-bar,

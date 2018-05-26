@@ -1,18 +1,25 @@
-@import "react-datepicker.min";
 @import "variables";
 
 .datetime-field {
   width: $datetime-field-width;
-  border: $datetime-field-border;
+  border: none;
   padding: $datetime-field-padding;
   box-sizing: border-box;
 }
 
-.react-datepicker-wrapper,
-.react-datepicker__input-container {
-  width: 100%;
-}
+.datetime-field__open-button {
+  font-size: 0.9em;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  text-transform: uppercase;
+  background-image: linear-gradient(#a3c7d9, #699ab3);
+  box-shadow: -2px 2px 3px #ccc;
 
-.react-datepicker__time-list {
-  padding: 0 !important;
+  &:before {
+    font-family: FontAwesome;
+    content: "\F073";
+    margin-right: 10px;
+  }
 }

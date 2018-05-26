@@ -644,6 +644,14 @@ place:
           display_prompt: _(Title:)
           placeholder: _(Enter title...)
           optional: false
+        - name: datetime_field
+          type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
+          placeholder: _(Please select a date)
+          prompt: _(Datetime field prompt:)
+          display_prompt: _(Rendered datetime:)
+          optional: false
         - name: description
           type: textarea
           prompt: "_(What's your question?)"

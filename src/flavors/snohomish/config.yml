@@ -302,35 +302,35 @@ place:
         # Farm
         - start_field_index: 3
           end_field_index: 21
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Farm Conservation)
           description: _(Tell us what you’ve done on your farm to protect natural resources)
 
         # Forest
         - start_field_index: 22
           end_field_index: 42
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
 
         # Shoreline
         - start_field_index: 43
           end_field_index: 63
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Shoreline Conservation)
           description: _(Tell us what you’ve done to improve shoreline conservation)
         
         # Urban
         - start_field_index: 64
           end_field_index: 88
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Urban / Suburban Conservation)
           description: _(Tell us what you’ve done to improve urban / surburban conservation)
 
         # Final
         - start_field_index: 89
           end_field_index: 95
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Almost Done!)
           description: _( )
       label: _(Conservation Actions)
@@ -374,6 +374,8 @@ place:
               value: no
         - name: farm_rotation-grazing-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -396,6 +398,8 @@ place:
               value: no
         - name: farm_fencing-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -418,6 +422,8 @@ place:
               value: no
         - name: farm_off-stream-watering-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -445,6 +451,8 @@ place:
             ]          
         - name: farm_livestock-heavy-use-areas-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -467,6 +475,8 @@ place:
               value: no
         - name: farm_gutters-diversion-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -489,6 +499,8 @@ place:
               value: no
         - name: farm_soil-testing-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -511,6 +523,8 @@ place:
               value: no
         - name: farm_manure-storage-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -542,6 +556,8 @@ place:
           hidden_default: true
         - name: farm_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -584,6 +600,8 @@ place:
               value: no
         - name: forest_protected-buffers-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -606,6 +624,8 @@ place:
               value: no
         - name: forest_restored-buffers-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -628,6 +648,8 @@ place:
               value: no
         - name: forest_left-trees-snags-etc-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -649,6 +671,8 @@ place:
               value: no
         - name: forest_maintain-roads-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -671,6 +695,8 @@ place:
               value: no
         - name: forest_reduce-harvest-compaction-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -693,6 +719,8 @@ place:
               value: no
         - name: forest_fish-passage-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -715,6 +743,8 @@ place:
               value: no
         - name: forest_logging-slash-etc-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -737,6 +767,8 @@ place:
               value: no
         - name: forest_stewardship-plan-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -766,6 +798,8 @@ place:
           hidden_default: true
         - name: forest_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -807,6 +841,8 @@ place:
               value: no
         - name: shoreline_left-slope-vegetation-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -829,6 +865,8 @@ place:
               value: no
         - name: shoreline_slope-native-buffer-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -851,6 +889,8 @@ place:
               value: no
         - name: shoreline_remove-noxious-weeds-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -873,6 +913,8 @@ place:
               value: no
         - name: shoreline_left-dead-trees-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -895,6 +937,8 @@ place:
               value: no
         - name: shoreline_impervious-surfaces-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -917,6 +961,8 @@ place:
               value: no
         - name: shoreline_relocated-slope-structures-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -939,6 +985,8 @@ place:
               value: no
         - name: shoreline_grass-clippings-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -961,6 +1009,8 @@ place:
               value: no
         - name: shoreline_removed-armoring-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -989,6 +1039,8 @@ place:
           hidden_default: true
         - name: shoreline_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1030,6 +1082,8 @@ place:
               value: no
         - name: urban_rain-gardens-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1052,6 +1106,8 @@ place:
               value: no
         - name: urban_rain-barrels-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1074,6 +1130,8 @@ place:
               value: no
         - name: urban_rain-beds-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1096,6 +1154,8 @@ place:
               value: no
         - name: urban_natural-yard-care-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1118,6 +1178,8 @@ place:
               value: no
         - name: general_wildlife-backyard-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1140,6 +1202,8 @@ place:
               value: no
         - name: urban_pollinator-habitat-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1162,6 +1226,8 @@ place:
               value: no
         - name: urban_water-conservation-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1184,6 +1250,8 @@ place:
               value: no
         - name: urban_compost-mulch-soil-amendments-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1206,6 +1274,8 @@ place:
               value: no
         - name: urban_food-garden-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1228,6 +1298,8 @@ place:
               value: no
         - name: urban_drainage-concerns-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1256,6 +1328,8 @@ place:
           hidden_default: true
         - name: urban_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )

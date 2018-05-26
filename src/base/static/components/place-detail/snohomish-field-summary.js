@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ResponseField from "../form-fields/response-field";
 import fieldResponseFilter from "../../utils/field-response-filter";
 import { Header1, Header4, Paragraph } from "../atoms/typography";
 
