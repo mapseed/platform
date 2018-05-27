@@ -367,20 +367,20 @@ place:
           optional: true
 
         # Mud & manure
-        - name: farm_rotation-grazing
+        - name: farm_rotational-grazing
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - farm_rotation-grazing-datetime
+              - farm_rotational-grazing-datetime
           content:
-            - label: _(Practice rotation grazing, never grazing grass below 3” deep)
+            - label: _(Practice rotational grazing, never grazing grass below 3” deep)
               value: yes
-            - label: _(Practice rotation grazing, never grazing grass below 3” deep)
+            - label: _(Practice rotational grazing, never grazing grass below 3” deep)
               value: no
-        - name: farm_rotation-grazing-datetime
+        - name: farm_rotational-grazing-datetime
           type: datetime
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
