@@ -108,10 +108,6 @@ map:
       transparent: true
       format: image/png
 
-    # Delisted streams
-    - id: delisted
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjgtk2f9b000x2rpd9f3dhsg2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
-
 # The values map the place type to map icons (defined below).
 place_types:
   conservation-actions:
@@ -199,11 +195,7 @@ sidebar:
             - id: snohomish-featured
               title: _(Featured sites)
               visibleDefault: true
-
-            - id: delisted
-              title: _(Stream delisting candidates)
-              visibleDefault: true
-
+              
             - id: boundary
               title: _(Boundary)
               visibleDefault: true
@@ -326,7 +318,7 @@ place:
           end_field_index: 63
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Shoreline or Streamside Conservation)
-          description: _(Tell us what you’ve done to improve shoreline conservation)
+          description: _(Tell us what you’ve done to improve shoreline or streamside conservation)
         
         # Urban
         - start_field_index: 64
