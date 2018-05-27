@@ -1487,7 +1487,7 @@ pages:
 story:
   example:
     tagline: _(Next featured site)
-    default_zoom: 16
+    default_zoom: 15
     default_visible_layers:
       - snohomish-featured
       - snohomish-input
@@ -1495,10 +1495,10 @@ story:
       - url: bay-view
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png        
-      - url: photovoice
+      - url: tulalip-rain-barrels-2018
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         
-      - url: snohomish-conservation-district
+      - url: eagle-ridge-lake-stevens-2018
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png 
       #   zoom: 15
