@@ -1466,7 +1466,7 @@ pages:
     name: about
     start_page: true
 
-  - title: _(Local STories)
+  - title: _(Local Stories)
     name: /bay-view
     start_page: false
 
