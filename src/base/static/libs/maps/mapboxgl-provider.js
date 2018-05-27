@@ -258,24 +258,28 @@ export default (container, options) => {
     },
 
     addGeoJSONLayer: layerStyles => {
+      // Points
       layerStyles
         .map(layerStyle => {
+          const fallbackIconImage =
+            (layerStyle["symbol-layout"] &&
+              layerStyle["symbol-layout"]["icon-image"]) ||
+            "no-icon-image";
           return {
             id: `${layerStyle.id}_symbol`,
             source: layerStyle.source,
-            layout: {
-              "icon-image": (layerStyle.layout &&
-                layerStyle.layout["icon-image"]) || [
-                "get",
-                "iconUrl",
-                ["get", "style"],
-              ],
-              "icon-size": layerStyle.layout && layerStyle.layout["icon-size"],
-              "icon-anchor":
-                layerStyle.layout && layerStyle.layout["icon-anchor"],
-              "icon-allow-overlap": true,
-            },
             type: "symbol",
+            layout: {
+              "icon-image": [
+                "case",
+                ["all", ["has", "style"], ["has", "iconUrl", ["get", "style"]]],
+                ["get", "iconUrl", ["get", "style"]],
+                fallbackIconImage,
+              ],
+              "icon-allow-overlap": true,
+              ...layerStyle["symbol-layout"],
+            },
+            paint: layerStyle["symbol-paint"] || {},
             filter: _appendFilters(layerStyle.filter, [
               "==",
               ["geometry-type"],
@@ -287,25 +291,44 @@ export default (container, options) => {
           map.addLayer(layerStyle);
         });
 
+      // Polygons
       layerStyles
         .map(layerStyle => {
+          const fallbackFillColor =
+            (layerStyle["fill-paint"] &&
+              layerStyle["fill-paint"]["fill-color"]) ||
+            "#f1f075";
+          const fallbackFillOpacity =
+            (layerStyle["fill-paint"] &&
+              layerStyle["fill-paint"]["fill-opacity"]) ||
+            0.3;
           return {
             id: `${layerStyle.id}_fill`,
             source: layerStyle.source,
             type: "fill",
+            layout: layerStyle["fill-layout"] || {},
             paint: {
-              "fill-color": (layerStyle.paint &&
-                layerStyle.paint["fill-color"]) || [
-                "get",
-                "fillColor",
-                ["get", "style"],
+              "fill-color": [
+                "case",
+                [
+                  "all",
+                  ["has", "style"],
+                  ["has", "fillColor", ["get", "style"]],
+                ],
+                ["get", "fillColor", ["get", "style"]],
+                fallbackFillColor,
               ],
-              "fill-opacity": (layerStyle.paint &&
-                layerStyle.paint["fill-opacity"]) || [
-                "get",
-                "fillOpacity",
-                ["get", "style"],
+              "fill-opacity": [
+                "case",
+                [
+                  "all",
+                  ["has", "style"],
+                  ["has", "fillOpacity", ["get", "style"]],
+                ],
+                ["get", "fillOpacity", ["get", "style"]],
+                fallbackFillOpacity,
               ],
+              ...layerStyle["fill-paint"],
             },
             filter: _appendFilters(layerStyle.filter, [
               "==",
@@ -318,27 +341,37 @@ export default (container, options) => {
           map.addLayer(layerStyle);
         });
 
+      // LineStrings
       layerStyles
         .map(layerStyle => {
+          const fallbackLineColor =
+            (layerStyle["line-paint"] &&
+              layerStyle["line-paint"]["line-color"]) ||
+            "#f86767";
+          const fallbackLineOpacity =
+            (layerStyle["line-paint"] &&
+              layerStyle["line-paint"]["line-opacity"]) ||
+            0.7;
           return {
             id: `${layerStyle.id}_line`,
             source: layerStyle.source,
-            paint: {
-              "line-color": (layerStyle.paint &&
-                layerStyle.paint["line-color"]) || [
-                "get",
-                "color",
-                ["get", "style"],
-              ],
-              "line-opacity": (layerStyle.paint &&
-                layerStyle.paint["line-opacity"]) || [
-                "get",
-                "opacity",
-                ["get", "style"],
-              ],
-              "line-width": 5,
-            },
             type: "line",
+            layout: layerStyle["line-layout"] || {},
+            paint: {
+              "line-color": [
+                "case",
+                ["all", ["has", "style"], ["has", "color", ["get", "style"]]],
+                ["get", "color", ["get", "style"]],
+                fallbackLineColor,
+              ],
+              "line-opacity": [
+                "case",
+                ["all", ["has", "style"], ["has", "opacity", ["get", "style"]]],
+                ["get", "opacity", ["get", "style"]],
+                fallbackLineOpacity,
+              ],
+              ...layerStyle["line-paint"],
+            },
             filter: _appendFilters(layerStyle.filter, [
               "==",
               ["geometry-type"],

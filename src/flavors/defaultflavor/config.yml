@@ -61,10 +61,23 @@ map:
       rules:
         demo:
           - filter:
-              - "<"
-              - - "zoom"
-              - 11
-            layout:
+              - "=="
+              - - "get"
+                - "focused"
+              - "yes"
+            symbol-layout:
+              icon-size: 1.2
+              icon-anchor: "bottom"
+          - filter:
+              - "all"
+              - - "<"
+                - - "zoom"
+                - 11
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
+            symbol-layout:
               icon-size: 0.5
               icon-anchor: "center"
           - filter:
@@ -79,14 +92,19 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-size: 0.75
               icon-anchor: "center"
           - filter:
-              - ">="
-              - - "zoom"
-              - 14
-            layout:
+              - "all"
+              - -  ">="
+                - - "zoom"
+                - 14
+              - - "=="
+                - - "get"
+                  - "focused"
+                - "no"
+            symbol-layout:
               icon-size: 0.9
               icon-anchor: "center"
         complaint:
@@ -95,7 +113,7 @@ map:
               - - "get"
                 - "focused"
               - "yes"
-            layout:
+            symbol-layout:
               icon-image: "marker-complaint"
               icon-size: 1.2
               icon-anchor: "bottom"
@@ -108,7 +126,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-complaint"
               icon-size: 0.5
               icon-anchor: "bottom"
@@ -124,7 +142,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-complaint"
               icon-size: 0.75
               icon-anchor: "bottom"
@@ -137,7 +155,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-complaint"
               icon-size: 0.9
               icon-anchor: "bottom"
@@ -147,7 +165,7 @@ map:
               - - "get"
                 - "focused"
               - "yes"
-            layout:
+            symbol-layout:
               icon-image: "marker-question"
               icon-size: 1.2
               icon-anchor: "bottom"
@@ -160,7 +178,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-question"
               icon-size: 0.5
               icon-anchor: "bottom"
@@ -176,7 +194,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-question"
               icon-size: 0.75
               icon-anchor: "bottom"
@@ -189,7 +207,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-question"
               icon-size: 0.9
               icon-anchor: "bottom"
@@ -199,7 +217,7 @@ map:
               - - "get"
                 - "focused"
               - "yes"
-            layout:
+            symbol-layout:
               icon-image: "marker-idea"
               icon-size: 1.2
               icon-anchor: "bottom"
@@ -212,7 +230,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-idea"
               icon-size: 0.5
               icon-anchor: "bottom"
@@ -228,7 +246,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-idea"
               icon-size: 0.75
               icon-anchor: "bottom"
@@ -241,7 +259,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-idea"
               icon-size: 0.9
               icon-anchor: "bottom"
@@ -251,7 +269,7 @@ map:
               - - "get"
                 - "focused"
               - "yes"
-            layout:
+            symbol-layout:
               icon-image: "marker-observation"
               icon-size: 1.2
               icon-anchor: "bottom"
@@ -264,7 +282,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-observation"
               icon-size: 0.5
               icon-anchor: "bottom"
@@ -280,7 +298,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-observation"
               icon-size: 0.75
               icon-anchor: "bottom"
@@ -293,7 +311,7 @@ map:
                 - - "get"
                   - "focused"
                 - "no"
-            layout:
+            symbol-layout:
               icon-image: "marker-observation"
               icon-size: 0.9
               icon-anchor: "bottom"
@@ -311,7 +329,7 @@ map:
               - - "get"
                 - "WICcash"
               - "Y"
-          layout:
+          symbol-layout:
             icon-image: "marker-dot-conserve-water"
             icon-size: 0.5
             icon-anchor: "center"
@@ -325,7 +343,7 @@ map:
                - - "get"
                  - "WICcash"
                - "Y"
-          layout:
+          symbol-layout:
             icon-image: "marker-conserve-water"
             icon-size: 0.5
             icon-anchor: "bottom"
@@ -339,7 +357,7 @@ map:
               - - "get"
                 - "WICcash"
               - "N"
-          layout:
+          symbol-layout:
             icon-image: "marker-dot-commute-low-carbon"
             icon-size: 0.5
             icon-anchor: "center"
@@ -353,7 +371,7 @@ map:
                - - "get"
                  - "WICcash"
                - "N"
-          layout:
+          symbol-layout:
             icon-image: "marker-commute-low-carbon"
             icon-size: 0.5
             icon-anchor: "bottom"
@@ -367,7 +385,7 @@ map:
             - "=="
             - "LID_Checklist_Master_score"
             - 5
-          paint:
+          fill-paint:
             fill-color: "#fef0d9"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
@@ -375,7 +393,7 @@ map:
             - "=="
             - "LID_Checklist_Master_score"
             - 4
-          paint:
+          fill-paint:
             fill-color: "#fdcc8a"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
@@ -383,7 +401,7 @@ map:
             - "=="
             - "LID_Checklist_Master_score"
             - 3
-          paint:
+          fill-paint:
             fill-color: "#fc8d59"
             fill-opacity: 0.6
             fill-outline-color: "#000000" 
@@ -391,7 +409,7 @@ map:
             - "=="
             - "LID_Checklist_Master_score"
             - 2
-          paint:
+          fill-paint:
             fill-color: "#e34a33"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
@@ -399,7 +417,7 @@ map:
             - "=="
             - "LID_Checklist_Master_score"
             - 1
-          paint:
+          fill-paint:
             fill-color: "#b30000"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
@@ -407,7 +425,7 @@ map:
             - "=="
             - "LID_Checklist_Master_score"
             - 0
-          paint:
+          fill-paint:
             fill-color: "#b30000"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
