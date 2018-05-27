@@ -50,10 +50,6 @@ map:
 
   layers:
 
-    - id: history
-      url: http://maps.nypl.org/warper/maps/tile/13610/{z}/{x}/{y}.png
-      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-
     - id: osm-hot
       url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -91,12 +87,12 @@ map:
       type: basemap
 
     - id: sub-basins
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjdaksgj191b52ro3zodoa1io/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://api.mapbox.com/styles/v1/lakewashington/cjhpex9hp65972smh3lg55b9n/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
       attribution: 'Hello World'
       type: basemap
 
     - id: wria-boundaries
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjdal68x167762rqdn6o30ncr/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://api.mapbox.com/styles/v1/lakewashington/cjhpfsqqd4z0p2rmpktq37g67/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
       attribution: 'Hello World'
       type: basemap
 
@@ -179,10 +175,7 @@ sidebar:
           visibleDefault: false
         - id: watercolor
           title: _(Watercolor)
-          visibleDefault: false
-        - id: history
-          title: _(history)
-          visibleDefault: false                      
+          visibleDefault: false                    
       groupings:
         - id: grp-community
           title: _(Data Layers)
@@ -195,10 +188,10 @@ sidebar:
             - id: snohomish-featured
               title: _(Featured sites)
               visibleDefault: true
-              
+
             - id: boundary
               title: _(Boundary)
-              visibleDefault: true
+              visibleDefault: false
 
             - id: sub-basins
               title: _(Sub-basins)
