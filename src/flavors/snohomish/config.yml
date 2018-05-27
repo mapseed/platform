@@ -325,7 +325,7 @@ place:
         - start_field_index: 43
           end_field_index: 63
           icon_url: /static/css/images/form-stage-header-graphic.png
-          header: _(Shoreline Conservation)
+          header: _(Shoreline or Streamside Conservation)
           description: _(Tell us what you’ve done to improve shoreline conservation)
         
         # Urban
