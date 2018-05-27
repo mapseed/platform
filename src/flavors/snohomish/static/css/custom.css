@@ -36,7 +36,7 @@
 
   /* TODO: update this if we add more page header links */
   .menu-item:nth-child(2) {
-    border-right: none;
+    border-right: none !important;
   }
 
   .menu-item:last {
