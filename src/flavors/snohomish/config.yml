@@ -82,19 +82,19 @@ map:
       slug: report
 
     - id: boundary
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjd0jrq8s13ei2rs5nh1ohmch/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://smartercleanup.carto.com/api/v2/viz/fffd9f0f-e3d7-4f6d-be2f-cd2939c687e8/viz.json
       attribution: 'Hello World'
-      type: basemap
+      type: cartodb
 
     - id: sub-basins
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjhpex9hp65972smh3lg55b9n/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://smartercleanup.carto.com/api/v2/viz/54b5715a-8923-406d-b656-3e1861936cf6/viz.json
       attribution: 'Hello World'
-      type: basemap
+      type: cartodb
 
     - id: wria-boundaries
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjhpfsqqd4z0p2rmpktq37g67/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://smartercleanup.carto.com/api/v2/viz/52cf7d6d-99c6-49e5-8149-c51443ca7597/viz.json
       attribution: 'Hello World'
-      type: basemap
+      type: cartodb
 
     # WMS hydrography
     - id: hydrography
@@ -191,7 +191,7 @@ sidebar:
 
             - id: boundary
               title: _(Boundary)
-              visibleDefault: false
+              visibleDefault: true
 
             - id: sub-basins
               title: _(Sub-basins)
