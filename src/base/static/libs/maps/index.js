@@ -6,7 +6,7 @@ import { createGeoJSONFromCollection } from "../../utils/collection-utils";
 
 import constants from "../../constants";
 
-var Util = require("../../js/utils.js");
+const Util = require("../../js/utils.js");
 
 class MainMap {
   constructor({ container, places, router, mapConfig }) {
@@ -96,7 +96,7 @@ class MainMap {
 
     // Bind visiblity event for custom layers
     $(Shareabouts).on("visibility", async (evt, id, visible, isBasemap) => {
-      var layer = this.layers[id];
+      let layer = this.layers[id];
       const config = this.mapConfig.layers.find(
         layerConfig => layerConfig.id === id,
       );
@@ -255,29 +255,29 @@ class MainMap {
   }
 
   addPlaceCollectionLayer(collectionId, collection) {
-    this.layers[collectionId] = this.map.createPlaceLayer({
+    this.layers[collectionId] = this.map.createGeoJSONLayer({
       id: collectionId,
       rules: this.mapConfig.layers.find(layer => layer.id === collectionId)
         .rules,
-      geoJSON: createGeoJSONFromCollection(collection),
+      source: createGeoJSONFromCollection(collection),
     });
-    this.map.addGeoJSONLayer(this.layers[collectionId]);
+    this.map.addLayer(this.layers[collectionId]);
 
     // Bind map interaction events for Mapseed place layers.
     this.layers[collectionId].forEach(layer => {
-      this.map.bindPlaceLayerEvent("click", layer, topmostProperties => {
-        if (topmostProperties[constants.CUSTOM_URL_PROPERTY_NAME]) {
+      this.map.bindPlaceLayerEvent("click", layer, clickedOnLayer => {
+        if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
           this.router.navigate(
-            `/${topmostProperties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
+            `/${clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
             {
               trigger: true,
             },
           );
         } else {
           this.router.navigate(
-            `/${topmostProperties[constants.DATASET_SLUG_PROPERTY_NAME]}/${
-              topmostProperties.id
-            }`,
+            `/${
+              clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
+            }/${clickedOnLayer.properties.id}`,
             { trigger: true },
           );
         }
@@ -337,14 +337,13 @@ class MainMap {
       this.layers[config.id] = this.map.createWMTSLayer(config);
       this.map.addLayer(this.layers[config.id]);
     } else if (config.type === "vector-tile") {
-      const vectorLayerGroupConfig = await this.map.createVectorTileLayer(
+      this.layers[config.id] = await this.map.createVectorTileLayer(
         config,
       );
-      this.layers[config.id] = vectorLayerGroupConfig;
-      this.map.addVectorLayerGroup(this.layers[config.id]);
+      this.map.addLayer(this.layers[config.id]);
     } else if (config.type === "json") {
       this.layers[config.id] = this.map.createGeoJSONLayer(config);
-      this.map.addGeoJSONLayer(this.layers[config.id]);
+      this.map.addLayer(this.layers[config.id]);
     }
   }
 }

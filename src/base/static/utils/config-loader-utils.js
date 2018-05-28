@@ -15,9 +15,7 @@ const transformStoryContent = storyConfig => {
             url: chapter.url,
             zoom: chapter.zoom || storyContent.default_zoom,
             hasCustomZoom: !!chapter.zoom,
-            panTo: chapter.panTo
-              ? [chapter.panTo.lng, chapter.panTo.lat]
-              : null,
+            panTo: chapter.pan_to || null,
             visibleLayers:
               chapter.visible_layers || storyContent.default_visible_layers,
             previous:

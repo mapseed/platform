@@ -4,8 +4,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import VectorTileClient from "../../client/vector-tile-client";
 
-import constants from "../../constants";
-
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
 
 const appendFilters = (existingFilters, ...filtersToAdd) => {
@@ -23,110 +21,102 @@ const appendFilters = (existingFilters, ...filtersToAdd) => {
   return newFilters;
 };
 
-const layerToSymbol = layerConfigs => {
-  return layerConfigs.map(layerConfig => {
-    const fallbackIconImage =
-      (layerConfig["symbol-layout"] &&
-        layerConfig["symbol-layout"]["icon-image"]) ||
-      "no-icon-image";
-    return {
-      id: `${layerConfig.id}_symbol`,
-      source: layerConfig.source,
-      type: "symbol",
-      layout: {
-        "icon-image": [
-          "case",
-          ["all", ["has", "style"], ["has", "iconUrl", ["get", "style"]]],
-          ["get", "iconUrl", ["get", "style"]],
-          fallbackIconImage,
-        ],
-        "icon-allow-overlap": true,
-        ...layerConfig["symbol-layout"],
-      },
-      paint: layerConfig["symbol-paint"] || {},
-      filter: appendFilters(layerConfig.filter, [
-        "==",
-        ["geometry-type"],
-        "Point",
-      ]),
-    };
-  });
+const configRuleToSymbolLayer = (layerConfig, i) => {
+  const fallbackIconImage =
+    (layerConfig["symbol-layout"] &&
+      layerConfig["symbol-layout"]["icon-image"]) ||
+    "no-icon-image";
+  return {
+    id: `${layerConfig.baseLayerId}_symbol_${i}`,
+    source: layerConfig.source,
+    type: "symbol",
+    layout: {
+      "icon-image": [
+        "case",
+        ["all", ["has", "style"], ["has", "iconUrl", ["get", "style"]]],
+        ["get", "iconUrl", ["get", "style"]],
+        fallbackIconImage,
+      ],
+      "icon-allow-overlap": true,
+      ...layerConfig["symbol-layout"],
+    },
+    paint: layerConfig["symbol-paint"] || {},
+    filter: appendFilters(layerConfig.filter, [
+      "==",
+      ["geometry-type"],
+      "Point",
+    ]),
+  };
 };
 
-const layerToLine = layerConfigs => {
-  return layerConfigs.map(layerConfig => {
-    const fallbackLineColor =
-      (layerConfig["line-paint"] && layerConfig["line-paint"]["line-color"]) ||
-      "#f86767";
-    const fallbackLineOpacity =
-      (layerConfig["line-paint"] &&
-        layerConfig["line-paint"]["line-opacity"]) ||
-      0.7;
-    return {
-      id: `${layerConfig.id}_line`,
-      source: layerConfig.source,
-      type: "line",
-      layout: layerConfig["line-layout"] || {},
-      paint: {
-        "line-color": [
-          "case",
-          ["all", ["has", "style"], ["has", "color", ["get", "style"]]],
-          ["get", "color", ["get", "style"]],
-          fallbackLineColor,
-        ],
-        "line-opacity": [
-          "case",
-          ["all", ["has", "style"], ["has", "opacity", ["get", "style"]]],
-          ["get", "opacity", ["get", "style"]],
-          fallbackLineOpacity,
-        ],
-        ...layerConfig["line-paint"],
-      },
-      filter: appendFilters(layerConfig.filter, [
-        "==",
-        ["geometry-type"],
-        "LineString",
-      ]),
-    };
-  });
+const configRuleToLineLayer = (layerConfig, i) => {
+  const fallbackLineColor =
+    (layerConfig["line-paint"] && layerConfig["line-paint"]["line-color"]) ||
+    "#f86767";
+  const fallbackLineOpacity =
+    (layerConfig["line-paint"] && layerConfig["line-paint"]["line-opacity"]) ||
+    0.7;
+  return {
+    id: `${layerConfig.baseLayerId}_line_${i}`,
+    source: layerConfig.source,
+    type: "line",
+    layout: layerConfig["line-layout"] || {},
+    paint: {
+      "line-color": [
+        "case",
+        ["all", ["has", "style"], ["has", "color", ["get", "style"]]],
+        ["get", "color", ["get", "style"]],
+        fallbackLineColor,
+      ],
+      "line-opacity": [
+        "case",
+        ["all", ["has", "style"], ["has", "opacity", ["get", "style"]]],
+        ["get", "opacity", ["get", "style"]],
+        fallbackLineOpacity,
+      ],
+      ...layerConfig["line-paint"],
+    },
+    filter: appendFilters(layerConfig.filter, [
+      "==",
+      ["geometry-type"],
+      "LineString",
+    ]),
+  };
 };
 
-const layerToFill = layerConfigs => {
-  return layerConfigs.map(layerConfig => {
-    const fallbackFillColor =
-      (layerConfig["fill-paint"] && layerConfig["fill-paint"]["fill-color"]) ||
-      "#f1f075";
-    const fallbackFillOpacity =
-      (layerConfig["fill-paint"] &&
-        layerConfig["fill-paint"]["fill-opacity"]) ||
-      0.3;
-    return {
-      id: `${layerConfig.id}_fill`,
-      source: layerConfig.source,
-      type: "fill",
-      layout: layerConfig["fill-layout"] || {},
-      paint: {
-        "fill-color": [
-          "case",
-          ["all", ["has", "style"], ["has", "fillColor", ["get", "style"]]],
-          ["get", "fillColor", ["get", "style"]],
-          fallbackFillColor,
-        ],
-        "fill-opacity": [
-          "case",
-          ["all", ["has", "style"], ["has", "fillOpacity", ["get", "style"]]],
-          ["get", "fillOpacity", ["get", "style"]],
-          fallbackFillOpacity,
-        ],
-        ...layerConfig["fill-paint"],
-      },
-      filter: appendFilters(layerConfig.filter, [
-        "==",
-        ["geometry-type"],
-        "Polygon",
-      ]),
-    };
-  });
+const configRuleToFillLayer = (layerConfig, i) => {
+  const fallbackFillColor =
+    (layerConfig["fill-paint"] && layerConfig["fill-paint"]["fill-color"]) ||
+    "#f1f075";
+  const fallbackFillOpacity =
+    (layerConfig["fill-paint"] && layerConfig["fill-paint"]["fill-opacity"]) ||
+    0.3;
+  return {
+    id: `${layerConfig.baseLayerId}_fill_${i}`,
+    source: layerConfig.source,
+    type: "fill",
+    layout: layerConfig["fill-layout"] || {},
+    paint: {
+      "fill-color": [
+        "case",
+        ["all", ["has", "style"], ["has", "fillColor", ["get", "style"]]],
+        ["get", "fillColor", ["get", "style"]],
+        fallbackFillColor,
+      ],
+      "fill-opacity": [
+        "case",
+        ["all", ["has", "style"], ["has", "fillOpacity", ["get", "style"]]],
+        ["get", "fillOpacity", ["get", "style"]],
+        fallbackFillOpacity,
+      ],
+      ...layerConfig["fill-paint"],
+    },
+    filter: appendFilters(layerConfig.filter, [
+      "==",
+      ["geometry-type"],
+      "Polygon",
+    ]),
+  };
 };
 
 export default (container, options) => {
@@ -162,25 +152,22 @@ export default (container, options) => {
     },
 
     bindPlaceLayerEvent: (eventName, layer, callback) => {
-      ["symbol", "fill", "line"].forEach(layerGeometryType => {
-        const layerId = `${layer.id}_${layerGeometryType}`;
-        let topmostProperties;
-        map.on(eventName, layerId, evt => {
-          if (eventName === "click") {
-            // For click events, we query rendered features here to obtain a
-            // single array of layers below the clicked-on point. The first
-            // entry in this array corresponds to the topmost rendered feature.
-            topmostProperties = map.queryRenderedFeatures(
-              [evt.point.x, evt.point.y],
-              {
-                // Limit these click listeners to place geometry.
-                filter: ["==", ["get", "type"], "place"],
-              },
-            )[0].properties;
-          }
+      let targetLayer = null;
+      map.on(eventName, layer.id, evt => {
+        if (eventName === "click") {
+          // For click events, we query rendered features here to obtain a
+          // single array of layers below the clicked-on point. The first
+          // entry in this array corresponds to the topmost rendered feature.
+          // We skip this work for other events (like mouseenter), since we
+          // don't make use of information about the layer under the cursor
+          // in those cases.
+          targetLayer = map.queryRenderedFeatures([evt.point.x, evt.point.y], {
+            // Limit these click listeners to place geometry.
+            filter: ["==", ["get", "type"], "place"],
+          })[0];
+        }
 
-          callback(topmostProperties);
-        });
+        callback(targetLayer);
       });
     },
 
@@ -340,66 +327,30 @@ export default (container, options) => {
       return map.getSource(sourceId);
     },
 
-    createGeoJSONLayer: ({ id, url, rules }) => {
+    createGeoJSONLayer: ({ id, source, rules }) => {
       map.addSource(id, {
         type: "geojson",
-        data: url,
+        data: source,
       });
 
-      return rules.map((styleRule, i) => ({
-        ...styleRule,
-        id: `${id}_${i}`,
+      rules = rules.map(rule => ({
+        baseLayerId: id,
         source: id,
+        ...rule,
       }));
+
+      return rules
+        .map(configRuleToSymbolLayer)
+        .concat(rules.map(configRuleToLineLayer))
+        .concat(rules.map(configRuleToFillLayer));
     },
 
-    createPlaceLayer: ({ id, rules, geoJSON }) => {
-      map.addSource(id, {
-        type: "geojson",
-        data: geoJSON,
-      });
-
-      // We need to add a filter on location_type for place layers. We append
-      // that filter programatically here to save repetition in the config.
-      return Object.entries(rules)
-        .map(([locationType, styleRules]) => {
-          const locationTypeFilter = [
-            "==",
-            ["get", constants.LOCATION_TYPE_PROPERTY_NAME],
-            locationType,
-          ];
-          return styleRules.map((styleRule, i) => ({
-            ...styleRule,
-            filter: appendFilters(styleRule.filter, locationTypeFilter),
-            source: id,
-            id: `${locationType}_${i}`,
-          }));
-        })
-        .reduce((flat, toFlatten) => {
-          return flat.concat(toFlatten);
-        }, []);
-    },
-
-    addLayer: layerConfig => {
-      map.addLayer(layerConfig);
-    },
-
-    addVectorLayerGroup: layerConfigs => {
-      layerConfigs.forEach(layerConfig => {
-        map.addLayer(layerConfig);
-      });
-    },
-
-    addGeoJSONLayer: layerConfigs => {
-      layerToSymbol(layerConfigs).forEach(layerConfig => {
-        map.addLayer(layerConfig);
-      });
-      layerToLine(layerConfigs).forEach(layerConfig => {
-        map.addLayer(layerConfig);
-      });
-      layerToFill(layerConfigs).forEach(layerConfig => {
-        map.addLayer(layerConfig);
-      });
+    addLayer: layer => {
+      if (Array.isArray(layer)) {
+        layer.forEach(internalLayer => map.addLayer(internalLayer));
+      } else {
+        map.addLayer(layer);
+      }
     },
   });
 };
