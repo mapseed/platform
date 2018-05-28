@@ -734,21 +734,24 @@ module.exports = Backbone.View.extend({
         }
       }
 
-      const story = model.get("story") || {};
       // Determine map settings, reconciling with custom story settings if this
       // model is part of a story.
-      const coordinates = story.panTo || geometry.coordinates;
+      const story = model.get("story") || {};
       const zoom = story.zoom || this.mapView.map.getZoom();
 
       if (geometry.type === "LineString") {
         // Fit to bounds
         // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
+        const coordinates = story.panTo ? [story.panTo] : geometry.coordinates;
         const bounds = coordinates.reduce(
           (bounds, coord) => bounds.extend(coord),
           this.mapView.map.makeLngLatBounds(coordinates[0], coordinates[0]),
         );
         this.mapView.map.fitBounds(bounds, { padding: 30 });
       } else if (geometry.type === "Polygon") {
+        const coordinates = story.panTo
+          ? [[story.panTo]]
+          : geometry.coordinates;
         const bounds = coordinates[0].reduce(
           (bounds, coord) => bounds.extend(coord),
           this.mapView.map.makeLngLatBounds(
@@ -759,7 +762,7 @@ module.exports = Backbone.View.extend({
         this.mapView.map.fitBounds(bounds, { padding: 30 });
       } else if (geometry.type === "Point") {
         this.mapView.map.easeTo({
-          center: coordinates,
+          center: story.panTo || geometry.coordinates,
           zoom: zoom,
         });
       }

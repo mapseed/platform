@@ -4,7 +4,130 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import VectorTileClient from "../../client/vector-tile-client";
 
+import constants from "../../constants";
+
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
+
+const appendFilters = (existingFilters, ...filtersToAdd) => {
+  const newFilters = filtersToAdd.reduce(
+    (newFilters, filterToAdd) => [...newFilters, filterToAdd],
+    [existingFilters],
+  );
+
+  // If an existing filter does not already start with the logical AND
+  // operator "all", we need to prepend it before we add a new filter.
+  if (newFilters[0] !== "all") {
+    newFilters.unshift("all");
+  }
+
+  return newFilters;
+};
+
+const layerToSymbol = layerConfigs => {
+  return layerConfigs.map(layerConfig => {
+    const fallbackIconImage =
+      (layerConfig["symbol-layout"] &&
+        layerConfig["symbol-layout"]["icon-image"]) ||
+      "no-icon-image";
+    return {
+      id: `${layerConfig.id}_symbol`,
+      source: layerConfig.source,
+      type: "symbol",
+      layout: {
+        "icon-image": [
+          "case",
+          ["all", ["has", "style"], ["has", "iconUrl", ["get", "style"]]],
+          ["get", "iconUrl", ["get", "style"]],
+          fallbackIconImage,
+        ],
+        "icon-allow-overlap": true,
+        ...layerConfig["symbol-layout"],
+      },
+      paint: layerConfig["symbol-paint"] || {},
+      filter: appendFilters(layerConfig.filter, [
+        "==",
+        ["geometry-type"],
+        "Point",
+      ]),
+    };
+  });
+};
+
+const layerToLine = layerConfigs => {
+  return layerConfigs.map(layerConfig => {
+    const fallbackLineColor =
+      (layerConfig["line-paint"] && layerConfig["line-paint"]["line-color"]) ||
+      "#f86767";
+    const fallbackLineOpacity =
+      (layerConfig["line-paint"] &&
+        layerConfig["line-paint"]["line-opacity"]) ||
+      0.7;
+    return {
+      id: `${layerConfig.id}_line`,
+      source: layerConfig.source,
+      type: "line",
+      layout: layerConfig["line-layout"] || {},
+      paint: {
+        "line-color": [
+          "case",
+          ["all", ["has", "style"], ["has", "color", ["get", "style"]]],
+          ["get", "color", ["get", "style"]],
+          fallbackLineColor,
+        ],
+        "line-opacity": [
+          "case",
+          ["all", ["has", "style"], ["has", "opacity", ["get", "style"]]],
+          ["get", "opacity", ["get", "style"]],
+          fallbackLineOpacity,
+        ],
+        ...layerConfig["line-paint"],
+      },
+      filter: appendFilters(layerConfig.filter, [
+        "==",
+        ["geometry-type"],
+        "LineString",
+      ]),
+    };
+  });
+};
+
+const layerToFill = layerConfigs => {
+  return layerConfigs.map(layerConfig => {
+    const fallbackFillColor =
+      (layerConfig["fill-paint"] && layerConfig["fill-paint"]["fill-color"]) ||
+      "#f1f075";
+    const fallbackFillOpacity =
+      (layerConfig["fill-paint"] &&
+        layerConfig["fill-paint"]["fill-opacity"]) ||
+      0.3;
+    return {
+      id: `${layerConfig.id}_fill`,
+      source: layerConfig.source,
+      type: "fill",
+      layout: layerConfig["fill-layout"] || {},
+      paint: {
+        "fill-color": [
+          "case",
+          ["all", ["has", "style"], ["has", "fillColor", ["get", "style"]]],
+          ["get", "fillColor", ["get", "style"]],
+          fallbackFillColor,
+        ],
+        "fill-opacity": [
+          "case",
+          ["all", ["has", "style"], ["has", "fillOpacity", ["get", "style"]]],
+          ["get", "fillOpacity", ["get", "style"]],
+          fallbackFillOpacity,
+        ],
+        ...layerConfig["fill-paint"],
+      },
+      filter: appendFilters(layerConfig.filter, [
+        "==",
+        ["geometry-type"],
+        "Polygon",
+      ]),
+    };
+  });
+};
 
 export default (container, options) => {
   options.map.container = container;
@@ -23,19 +146,6 @@ export default (container, options) => {
     options.control.position,
   );
 
-  const _appendFilters = (existingFilters, ...filtersToAdd) => {
-    const newFilters = [existingFilters.slice()];
-    filtersToAdd.forEach(filterToAdd => newFilters.push(filterToAdd));
-
-    // If an existing filter does not already start with the logical AND
-    // operator "all", we need to prepend it before we add a new filter.
-    if (newFilters[0] !== "all") {
-      newFilters.unshift("all");
-    }
-
-    return newFilters;
-  };
-
   return AbstractMapFactory({
     on: (event, callback, context) => {
       callback = callback.bind(context);
@@ -49,6 +159,33 @@ export default (container, options) => {
     onLayerEvent: (event, layerId, callback, context) => {
       callback = callback.bind(context);
       map.on(event, layerId, callback);
+    },
+
+    bindPlaceLayerEvent: (eventName, layer, callback) => {
+      ["symbol", "fill", "line"].forEach(layerGeometryType => {
+        const layerId = `${layer.id}_${layerGeometryType}`;
+        let topmostProperties;
+        map.on(eventName, layerId, evt => {
+          if (eventName === "click") {
+            // For click events, we query rendered features here to obtain a
+            // single array of layers below the clicked-on point. The first
+            // entry in this array corresponds to the topmost rendered feature.
+            topmostProperties = map.queryRenderedFeatures(
+              [evt.point.x, evt.point.y],
+              {
+                // Limit these click listeners to place geometry.
+                filter: ["==", ["get", "type"], "place"],
+              },
+            )[0].properties;
+          }
+
+          callback(topmostProperties);
+        });
+      });
+    },
+
+    setCursor: style => {
+      map.getCanvas().style.cursor = style;
     },
 
     getMap: () => {
@@ -203,44 +340,40 @@ export default (container, options) => {
       return map.getSource(sourceId);
     },
 
-    createGeoJSONLayer: options => {
-      map.addSource(options.id, {
+    createGeoJSONLayer: ({ id, url, rules }) => {
+      map.addSource(id, {
         type: "geojson",
-        data: options.url,
+        data: url,
       });
 
-      return options.rules.map((styleRule, i) => {
-        styleRule.id = `${options.id}_${i}`;
-        styleRule.source = options.id;
-
-        return styleRule;
-      });
+      return rules.map((styleRule, i) => ({
+        ...styleRule,
+        id: `${id}_${i}`,
+        source: id,
+      }));
     },
 
-    createPlaceLayer: (options, geoJSON) => {
-      map.addSource(options.id, {
+    createPlaceLayer: ({ id, rules, geoJSON }) => {
+      map.addSource(id, {
         type: "geojson",
         data: geoJSON,
       });
 
       // We need to add a filter on location_type for place layers. We append
       // that filter programatically here to save repetition in the config.
-      return Object.entries(options.rules)
+      return Object.entries(rules)
         .map(([locationType, styleRules]) => {
           const locationTypeFilter = [
             "==",
-            ["get", "location_type"],
+            ["get", constants.LOCATION_TYPE_PROPERTY_NAME],
             locationType,
           ];
-          return styleRules.map((styleRule, i) => {
-            styleRule.filter = _appendFilters(
-              styleRule.filter,
-              locationTypeFilter,
-            );
-            styleRule.source = options.id;
-            styleRule.id = `${locationType}_${i}`;
-            return styleRule;
-          });
+          return styleRules.map((styleRule, i) => ({
+            ...styleRule,
+            filter: appendFilters(styleRule.filter, locationTypeFilter),
+            source: id,
+            id: `${locationType}_${i}`,
+          }));
         })
         .reduce((flat, toFlatten) => {
           return flat.concat(toFlatten);
@@ -251,137 +384,22 @@ export default (container, options) => {
       map.addLayer(layerConfig);
     },
 
-    addVectorLayerGroup: layerStyles => {
-      layerStyles.forEach(layerStyle => {
-        map.addLayer(layerStyle);
+    addVectorLayerGroup: layerConfigs => {
+      layerConfigs.forEach(layerConfig => {
+        map.addLayer(layerConfig);
       });
     },
 
-    addGeoJSONLayer: layerStyles => {
-      // Points
-      layerStyles
-        .map(layerStyle => {
-          const fallbackIconImage =
-            (layerStyle["symbol-layout"] &&
-              layerStyle["symbol-layout"]["icon-image"]) ||
-            "no-icon-image";
-          return {
-            id: `${layerStyle.id}_symbol`,
-            source: layerStyle.source,
-            type: "symbol",
-            layout: {
-              "icon-image": [
-                "case",
-                ["all", ["has", "style"], ["has", "iconUrl", ["get", "style"]]],
-                ["get", "iconUrl", ["get", "style"]],
-                fallbackIconImage,
-              ],
-              "icon-allow-overlap": true,
-              ...layerStyle["symbol-layout"],
-            },
-            paint: layerStyle["symbol-paint"] || {},
-            filter: _appendFilters(layerStyle.filter, [
-              "==",
-              ["geometry-type"],
-              "Point",
-            ]),
-          };
-        })
-        .forEach(layerStyle => {
-          map.addLayer(layerStyle);
-        });
-
-      // Polygons
-      layerStyles
-        .map(layerStyle => {
-          const fallbackFillColor =
-            (layerStyle["fill-paint"] &&
-              layerStyle["fill-paint"]["fill-color"]) ||
-            "#f1f075";
-          const fallbackFillOpacity =
-            (layerStyle["fill-paint"] &&
-              layerStyle["fill-paint"]["fill-opacity"]) ||
-            0.3;
-          return {
-            id: `${layerStyle.id}_fill`,
-            source: layerStyle.source,
-            type: "fill",
-            layout: layerStyle["fill-layout"] || {},
-            paint: {
-              "fill-color": [
-                "case",
-                [
-                  "all",
-                  ["has", "style"],
-                  ["has", "fillColor", ["get", "style"]],
-                ],
-                ["get", "fillColor", ["get", "style"]],
-                fallbackFillColor,
-              ],
-              "fill-opacity": [
-                "case",
-                [
-                  "all",
-                  ["has", "style"],
-                  ["has", "fillOpacity", ["get", "style"]],
-                ],
-                ["get", "fillOpacity", ["get", "style"]],
-                fallbackFillOpacity,
-              ],
-              ...layerStyle["fill-paint"],
-            },
-            filter: _appendFilters(layerStyle.filter, [
-              "==",
-              ["geometry-type"],
-              "Polygon",
-            ]),
-          };
-        })
-        .forEach(layerStyle => {
-          map.addLayer(layerStyle);
-        });
-
-      // LineStrings
-      layerStyles
-        .map(layerStyle => {
-          const fallbackLineColor =
-            (layerStyle["line-paint"] &&
-              layerStyle["line-paint"]["line-color"]) ||
-            "#f86767";
-          const fallbackLineOpacity =
-            (layerStyle["line-paint"] &&
-              layerStyle["line-paint"]["line-opacity"]) ||
-            0.7;
-          return {
-            id: `${layerStyle.id}_line`,
-            source: layerStyle.source,
-            type: "line",
-            layout: layerStyle["line-layout"] || {},
-            paint: {
-              "line-color": [
-                "case",
-                ["all", ["has", "style"], ["has", "color", ["get", "style"]]],
-                ["get", "color", ["get", "style"]],
-                fallbackLineColor,
-              ],
-              "line-opacity": [
-                "case",
-                ["all", ["has", "style"], ["has", "opacity", ["get", "style"]]],
-                ["get", "opacity", ["get", "style"]],
-                fallbackLineOpacity,
-              ],
-              ...layerStyle["line-paint"],
-            },
-            filter: _appendFilters(layerStyle.filter, [
-              "==",
-              ["geometry-type"],
-              "LineString",
-            ]),
-          };
-        })
-        .forEach(layerStyle => {
-          map.addLayer(layerStyle);
-        });
+    addGeoJSONLayer: layerConfigs => {
+      layerToSymbol(layerConfigs).forEach(layerConfig => {
+        map.addLayer(layerConfig);
+      });
+      layerToLine(layerConfigs).forEach(layerConfig => {
+        map.addLayer(layerConfig);
+      });
+      layerToFill(layerConfigs).forEach(layerConfig => {
+        map.addLayer(layerConfig);
+      });
     },
   });
 };

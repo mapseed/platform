@@ -2,6 +2,9 @@ import MapboxGLProvider from "./mapboxgl-provider";
 // Import other providers here as they become available
 
 import emitter from "../../utils/emitter";
+import { createGeoJSONFromCollection } from "../../utils/collection-utils";
+
+import constants from "../../constants";
 
 var Util = require("../../js/utils.js");
 
@@ -64,21 +67,26 @@ class MainMap {
       $(Shareabouts).trigger("mapdragend", [evt]);
     });
 
-    emitter.addListener("place-collection:loaded", data => {
-      this.addPlaceCollectionLayer(data.collectionId, data.collection);
-    });
+    emitter.addListener(
+      "place-collection:loaded",
+      ({ collectionId, collection }) => {
+        this.addPlaceCollectionLayer(collectionId, collection);
+      },
+    );
 
-    emitter.addListener("place-collection:add-place", data => {
-      this.updatePlaceCollectionLayer(data.collectionId, data.collection);
-    });
+    emitter.addListener(
+      "place-collection:add-place",
+      ({ collectionId, collection }) => {
+        this.updatePlaceCollectionLayer(collectionId, collection);
+      },
+    );
 
-    emitter.addListener("place-collection:focus-place", data => {
-      this.updatePlaceCollectionLayer(
-        data.collectionId,
-        data.collection,
-        data.modelId,
-      );
-    });
+    emitter.addListener(
+      "place-collection:focus-place",
+      ({ collectionId, collection, modelId }) => {
+        this.updatePlaceCollectionLayer(collectionId, collection, modelId);
+      },
+    );
 
     emitter.addListener("place-collection:unfocus-all-places", () => {
       Object.entries(this.places).forEach(([collectionId, collection]) => {
@@ -93,7 +101,7 @@ class MainMap {
         layerConfig => layerConfig.id === id,
       );
 
-      if (config && !config.loaded && visible) {
+      if (config && !config.loaded && config.type && visible) {
         await this.createLayerFromConfig(config);
         config.loaded = true;
         layer = this.layers[id];
@@ -240,87 +248,45 @@ class MainMap {
     this.map.locate();
   }
 
-  createGeoJSONFromCollection(collection, modelIdToFocus) {
-    const geoJSON = {
-      type: "FeatureCollection",
-      features: [],
-    };
-
-    collection.each(model => {
-      const properties = Object.keys(model.attributes)
-        .filter(key => key !== "geometry")
-        .reduce((geoJSONProperties, property) => {
-          geoJSONProperties[property] = model.get(property);
-          return geoJSONProperties;
-        }, {});
-
-      // We use "yes" and "no" here instead of booleans because I think it's
-      // a little easier to write filter expressions using string lookups.
-      properties.focused = modelIdToFocus === properties.id ? "yes" : "no";
-
-      geoJSON.features.push({
-        type: "Feature",
-        properties: properties,
-        geometry: model.get("geometry"),
-      });
-    });
-
-    return geoJSON;
-  }
-
   updatePlaceCollectionLayer(collectionId, collection, modelId) {
     this.map
       .getSource(collectionId)
-      .setData(this.createGeoJSONFromCollection(collection, modelId));
+      .setData(createGeoJSONFromCollection(collection, modelId));
   }
 
   addPlaceCollectionLayer(collectionId, collection) {
-    this.layers[collectionId] = this.map.createPlaceLayer(
-      {
-        id: collectionId,
-        rules: this.mapConfig.layers.find(layer => layer.id === collectionId)
-          .rules,
-      },
-      this.createGeoJSONFromCollection(collection),
-    );
+    this.layers[collectionId] = this.map.createPlaceLayer({
+      id: collectionId,
+      rules: this.mapConfig.layers.find(layer => layer.id === collectionId)
+        .rules,
+      geoJSON: createGeoJSONFromCollection(collection),
+    });
     this.map.addGeoJSONLayer(this.layers[collectionId]);
 
     // Bind map interaction events for Mapseed place layers.
-    // TODO: hover cursor
     this.layers[collectionId].forEach(layer => {
-      ["symbol", "fill", "line"].forEach(layerGeometryType => {
-        const layerId = `${layer.id}_${layerGeometryType}`;
-        this.map.onLayerEvent("mouseenter", layerId, () => {
-          this.map.getCanvas().style.cursor = "pointer";
-        });
-        this.map.onLayerEvent("mouseleave", layerId, () => {
-          this.map.getCanvas().style.cursor = "";
-        });
-        this.map.onLayerEvent("click", layerId, evt => {
-          // We query rendered features here to obtain a single array of layers
-          // below the clicked-on point. The first entry in this array
-          // corresponds to the topmost rendered feature.
-          const properties = this.map.queryRenderedFeatures(
-            [evt.point.x, evt.point.y],
+      this.map.bindPlaceLayerEvent("click", layer, topmostProperties => {
+        if (topmostProperties[constants.CUSTOM_URL_PROPERTY_NAME]) {
+          this.router.navigate(
+            `/${topmostProperties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
             {
-              // Limit these click listeners to place geometry.
-              filter: ["==", ["get", "type"], "place"],
-            },
-          )[0].properties;
-
-          Util.log("USER", "map", "place-marker-click");
-
-          if (properties["url-title"]) {
-            this.router.navigate("/" + properties["url-title"], {
               trigger: true,
-            });
-          } else {
-            this.router.navigate(
-              "/" + properties["datasetSlug"] + "/" + properties.id,
-              { trigger: true },
-            );
-          }
-        });
+            },
+          );
+        } else {
+          this.router.navigate(
+            `/${topmostProperties[constants.DATASET_SLUG_PROPERTY_NAME]}/${
+              topmostProperties.id
+            }`,
+            { trigger: true },
+          );
+        }
+      });
+      this.map.bindPlaceLayerEvent("mouseenter", layer, () => {
+        this.map.setCursor("pointer");
+      });
+      this.map.bindPlaceLayerEvent("mouseleave", layer, () => {
+        this.map.setCursor("");
       });
     });
   }
@@ -359,10 +325,6 @@ class MainMap {
 
   // TODO: Layer loading and error events.
   async createLayerFromConfig(config) {
-    if (!config.type) {
-      return;
-    }
-
     if (config.type === "mapbox-style") {
       this.map.addMapboxStyle(config.url);
     } else if (config.type === "raster-tile") {
@@ -382,7 +344,7 @@ class MainMap {
       this.map.addVectorLayerGroup(this.layers[config.id]);
     } else if (config.type === "json") {
       this.layers[config.id] = this.map.createGeoJSONLayer(config);
-      this.map.addGeoJSONLayer(this.layers[config.id], config.geometry_type);
+      this.map.addGeoJSONLayer(this.layers[config.id]);
     }
   }
 }
