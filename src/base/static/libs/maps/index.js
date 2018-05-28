@@ -337,9 +337,7 @@ class MainMap {
       this.layers[config.id] = this.map.createWMTSLayer(config);
       this.map.addLayer(this.layers[config.id]);
     } else if (config.type === "vector-tile") {
-      this.layers[config.id] = await this.map.createVectorTileLayer(
-        config,
-      );
+      this.layers[config.id] = await this.map.createVectorTileLayer(config);
       this.map.addLayer(this.layers[config.id]);
     } else if (config.type === "json") {
       this.layers[config.id] = this.map.createGeoJSONLayer(config);
