@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Datetime from "react-datetime";
 import moment from "moment";
@@ -9,55 +9,59 @@ import constants from "../../../constants";
 
 import "./datetime-field.scss";
 
-/* eslint-disable react/prop-types */
-const renderInput = ({ props, openCalendar }) => {
-  return (
-    <button
-      type="button"
-      className="datetime-field__open-button"
-      onClick={openCalendar}
-    >
-      {props.value
-        ? moment(props.value).format(props.displayFormat)
-        : props.placeholder ? props.placeholder : "Select a date"}
-    </button>
-  );
-};
-/* eslint-enable react/prop-types */
+class DatetimeField extends Component {
+  componentDidMount() {
+    this.props.isAutoFocusing && this.inputRef.focus();
+  }
 
-const DatetimeField = props => {
-  return (
-    <Datetime
-      className="datetime-field"
-      dateFormat={props.dateFormat}
-      timeFormat={props.timeFormat}
-      renderInput={(datetimeProps, openCalendar) => {
-        return renderInput({
-          openCalendar: openCalendar,
-          props: props,
-        });
-      }}
-      onChange={date => {
-        props.onChange(
-          props.name,
-          date.format(
-            `${props.dateFormat}${
-              props.timeFormat ? " " + props.timeFormat : ""
-            }`,
-          ),
-        );
-      }}
-    />
-  );
-};
+  render() {
+    return (
+      <Datetime
+        className="datetime-field"
+        dateFormat={this.props.dateFormat}
+        timeFormat={this.props.timeFormat}
+        renderInput={(datetimeProps, openCalendar) => {
+          return (
+            <input
+              type="text"
+              ref={input => {
+                this.inputRef = input;
+              }}
+              className="datetime-field__input"
+              onFocus={openCalendar}
+              placeholder={this.props.placeholder || "Select a date"}
+              value={
+                this.props.value &&
+                moment(this.props.value).format(this.props.displayFormat)
+              }
+            />
+          );
+        }}
+        onChange={date => {
+          this.props.onChange(
+            this.props.name,
+            date.format(
+              `${this.props.dateFormat}${
+                this.props.timeFormat ? " " + this.props.timeFormat : ""
+              }`,
+            ),
+          );
+        }}
+      />
+    );
+  }
+}
 
 DatetimeField.propTypes = {
   dateFormat: PropTypes.string.isRequired,
   displayFormat: PropTypes.string.isRequired,
+  isAutoFocusing: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
   timeFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
     .isRequired,
+  value: PropTypes.string,
 };
 
 DatetimeField.defaultProps = {

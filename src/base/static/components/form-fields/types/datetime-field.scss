@@ -2,20 +2,13 @@
 
 .datetime-field {
   width: $datetime-field-width;
-  border: none;
-  padding: $datetime-field-padding;
-  box-sizing: border-box;
 }
 
-.datetime-field__open-button {
-  font-size: 0.9em;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px 5px 10px;
-  text-transform: uppercase;
-  background-image: linear-gradient(#a3c7d9, #699ab3);
-  box-shadow: -2px 2px 3px #ccc;
+.datetime-field__input {
+  padding: $datetime-field-padding;
+  width: 100%;
+  box-sizing: border-box;
+  border-style: solid;
 
   &:before {
     font-family: FontAwesome;

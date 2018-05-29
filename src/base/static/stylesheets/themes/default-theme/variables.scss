@@ -152,9 +152,14 @@ $dropdown-field-autofill-background-color: $autofill-color;
   datetime-field.js
   Date/time picker
 */
-$datetime-field-width: 100%;
 $datetime-field-border: 0.25em solid $secondary-color;
+$datetime-field-border-radius: 0 0 0 0;
 $datetime-field-padding: 0.5em 0.5em 0.5em 0.5em;
+$datetime-field-margin: 0 0 0 0;
+$datetime-field-width: 100%;
+$datetime-field-autofill-background-color: $autofill-color;
+
+$rendered-datetime-field-margin-bottom: 5px;
 
 /*
   geocoding-field.js
