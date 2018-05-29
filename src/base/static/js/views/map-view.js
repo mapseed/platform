@@ -51,6 +51,7 @@ module.exports = Backbone.View.extend({
       self.initGeolocation();
     }
 
+    self.map.on("click", this.centerMapOnClick, this);
     self.map.on("dragend", logUserPan);
     $(self.map.zoomControl._zoomInButton).click(logUserZoom);
     $(self.map.zoomControl._zoomOutButton).click(logUserZoom);
@@ -126,6 +127,10 @@ module.exports = Backbone.View.extend({
       }
     });
   }, // end initialize
+
+  centerMapOnClick(evt) {
+    this.map.panTo(evt.latlng, { animate: true });
+  },
 
   isClusterable(layerId) {
     // If no cluster config exists, we don't cluster any layers.
