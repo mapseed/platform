@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import emitter from "../../utils/emitter";
 import classNames from "classnames";
-import { Map, OrderedMap } from "immutable";
+import { Map, OrderedMap, fromJS } from "immutable";
 import Spinner from "react-spinner";
 import "react-spinner/react-spinner.css";
 
@@ -35,10 +35,23 @@ class PlaceDetailEditor extends Component {
       .forEach(field => {
         fields = fields.set(
           field.name,
-          Map().set(
-            constants.FIELD_VALUE_KEY,
-            this.props.placeModel.get(field.name),
-          ),
+          Map()
+            .set(
+              constants.FIELD_VALUE_KEY,
+              this.props.placeModel.get(field.name),
+            )
+            .set(
+              constants.FIELD_VISIBILITY_KEY,
+              field.hidden_default ? false : true,
+            )
+            .set(
+              constants.FIELD_TRIGGER_VALUE_KEY,
+              field.trigger && field.trigger.trigger_value,
+            )
+            .set(
+              constants.FIELD_TRIGGER_TARGETS_KEY,
+              field.trigger && fromJS(field.trigger.targets),
+            ),
         );
       });
 
@@ -54,7 +67,8 @@ class PlaceDetailEditor extends Component {
     emitter.addListener("place-model:update", () => {
       // Validate the form.
       const newValidationErrors = this.state.fields
-        .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
+        .filter(field => field.get(constants.FIELD_VISIBILITY_KEY))
+        .filter(field => !field.get(constants.FIELD_VALIDITY_KEY))
         .reduce((newValidationErrors, invalidField) => {
           return newValidationErrors.add(
             invalidField.get(constants.FIELD_VALIDITY_MESSAGE_KEY),
@@ -143,7 +157,30 @@ class PlaceDetailEditor extends Component {
     this.geometryStyle = style;
   }
 
+  triggerFieldVisibility(targets, isVisible) {
+    targets.forEach(target => {
+      const fieldStatus = this.state.fields
+        .get(target)
+        .set(constants.FIELD_VISIBILITY_KEY, isVisible);
+
+      this.setState(({ fields }) => ({
+        fields: fields.set(target, fieldStatus),
+      }));
+    });
+  }
+
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
+    // Check if this field triggers the visibility of other fields(s)
+    if (fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY)) {
+      const isVisible =
+        fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) ===
+        fieldStatus.get(constants.FIELD_VALUE_KEY);
+      this.triggerFieldVisibility(
+        fieldStatus.get(constants.FIELD_TRIGGER_TARGETS_KEY),
+        isVisible,
+      );
+    }
+
     this.setState(({ fields }) => ({
       fields: fields.set(fieldName, fieldStatus),
       updatingField: fieldName,
@@ -170,6 +207,9 @@ class PlaceDetailEditor extends Component {
                   field => field.name === fieldName,
                 ).type !== constants.SUBMIT_FIELD_TYPENAME,
             )
+            .filter(field => {
+              return field.get(constants.FIELD_VISIBILITY_KEY);
+            })
             .map((fieldState, fieldName) => {
               const fieldConfig = this.categoryConfig.fields.find(
                 field => field.name === fieldName,

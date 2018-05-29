@@ -10,15 +10,15 @@ import constants from "../../../constants";
 import "./datetime-field.scss";
 
 /* eslint-disable react/prop-types */
-const renderInput = ({ datetimeProps, props, openCalendar }) => {
+const renderInput = ({ props, openCalendar }) => {
   return (
     <button
       type="button"
       className="datetime-field__open-button"
       onClick={openCalendar}
     >
-      {datetimeProps.value
-        ? moment(datetimeProps.value).format(props.displayFormat)
+      {props.value
+        ? moment(props.value).format(props.displayFormat)
         : props.placeholder ? props.placeholder : "Select a date"}
     </button>
   );
@@ -33,7 +33,6 @@ const DatetimeField = props => {
       timeFormat={props.timeFormat}
       renderInput={(datetimeProps, openCalendar) => {
         return renderInput({
-          datetimeProps: datetimeProps,
           openCalendar: openCalendar,
           props: props,
         });
