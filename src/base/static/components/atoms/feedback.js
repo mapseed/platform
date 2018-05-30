@@ -25,12 +25,19 @@ ProgressBar.propTypes = {
 const InfoModalTrigger = props => {
   return (
     <button
+      type="button"
       className={classNames("mapseed__info-modal-trigger", props.classes)}
       onClick={() => emitter.emit("info-modal:open", props.modalContent)}
     />
   );
 };
 
-InfoModalTrigger.propTypes = {};
+InfoModalTrigger.propTypes = {
+  classes: PropTypes.string,
+  modalContent: PropTypes.shape({
+    header: PropTypes.string,
+    body: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+};
 
 export { ProgressBar, InfoModalTrigger };

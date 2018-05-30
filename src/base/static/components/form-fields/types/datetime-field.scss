@@ -1,18 +1,18 @@
-@import "react-datepicker.min";
 @import "variables";
 
 .datetime-field {
   width: $datetime-field-width;
-  border: $datetime-field-border;
+}
+
+.datetime-field__input {
   padding: $datetime-field-padding;
-  box-sizing: border-box;
-}
-
-.react-datepicker-wrapper,
-.react-datepicker__input-container {
   width: 100%;
-}
+  box-sizing: border-box;
+  border-style: solid;
 
-.react-datepicker__time-list {
-  padding: 0 !important;
+  &:before {
+    font-family: FontAwesome;
+    content: "\F073";
+    margin-right: 10px;
+  }
 }

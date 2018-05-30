@@ -767,6 +767,10 @@ module.exports = Backbone.View.extend({
           self.setStoryLayerVisibility(model);
           center = model.get("story").panTo || center;
           zoom = model.get("story").zoom;
+
+          if (!self.hasBodyClass("right-sidebar-visible")) {
+            $("body").addClass("right-sidebar-visible");
+          }
         }
 
         if (layer.getLatLng) {

@@ -84,6 +84,9 @@ class InputForm extends Component {
           [constants.FIELD_RENDER_KEY]: prevFields.has(field.name)
             ? prevFields.get(field.name).get(constants.FIELD_RENDER_KEY) + "_"
             : this.selectedCategoryConfig.category + field.name,
+          [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
+            constants.FIELD_AUTO_FOCUS_KEY,
+          ),
         }),
       );
     }, OrderedMap());
@@ -114,7 +117,7 @@ class InputForm extends Component {
     );
 
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY)) {
+    if (fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) && !isInitializing) {
       const isVisible =
         fieldStatus.get(constants.FIELD_TRIGGER_VALUE_KEY) ===
         fieldStatus.get(constants.FIELD_VALUE_KEY);
@@ -132,14 +135,17 @@ class InputForm extends Component {
   }
 
   triggerFieldVisibility(targets, isVisible) {
-    targets.forEach(target => {
-      const fieldStatus = this.state.fields
-        .get(target)
-        .set(constants.FIELD_VISIBILITY_KEY, isVisible);
-
-      this.setState(({ fields }) => ({
-        fields: fields.set(target, fieldStatus),
-      }));
+    this.setState({
+      fields: this.state.fields.map((field, fieldName) => {
+        return targets.includes(fieldName)
+          ? field
+              .set(constants.FIELD_VISIBILITY_KEY, isVisible)
+              .set(
+                "isAutoFocusing",
+                targets.indexOf(fieldName) === 0 && isVisible,
+              )
+          : field;
+      }),
     });
   }
 

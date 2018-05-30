@@ -47,6 +47,7 @@ const ResponseField = props => {
           value={props.fieldValue}
           attachmentModels={props.attachmentModels}
           labels={getCheckboxLabels(props.fieldValue, props.fieldConfig)}
+          fieldConfig={props.fieldConfig}
         />
       )}
     </div>

@@ -52,6 +52,7 @@ export default {
   FIELD_VISIBILITY_KEY: "isVisible",
   FIELD_TRIGGER_VALUE_KEY: "trigger",
   FIELD_TRIGGER_TARGETS_KEY: "triggerTargets",
+  FIELD_AUTO_FOCUS_KEY: "isAutoFocusing",
 
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
@@ -68,4 +69,7 @@ export default {
   PLACE_MODEL_IO_END_ERROR_ACTION: "place:io-end-error",
   SURVEY_MODEL_IO_END_SUCCESS_ACTION: "survey:io-end",
   SUPPORT_MODEL_IO_END_SUCCESS_ACTION: "support:io-end-success",
+
+  DEFAULT_DATE_FORMAT: "YYYY-MM-DD",
+  DEFAULT_DATE_DISPLAY_FORMAT: "MMMM Do YYYY",
 };

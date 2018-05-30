@@ -20,7 +20,7 @@ app:
   # places_page_size: 100
 
   # Optional. List view is supported by default. Set to false to disable.
-  # list_enabled: false
+  list_enabled: false
 
 # languages:
 #   - code: en_US
@@ -42,13 +42,14 @@ map:
 
   options:
     center:
-      lat: 48.03677
-      lng: -121.64543
-    zoom: 10
+      lat: 48.02262
+      lng: -121.97262
+    zoom: 11
     minZoom: 1
     maxZoom: 18
 
   layers:
+
     - id: osm-hot
       url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
       attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
@@ -81,19 +82,19 @@ map:
       slug: report
 
     - id: boundary
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjd0jrq8s13ei2rs5nh1ohmch/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://smartercleanup.carto.com/api/v2/viz/fffd9f0f-e3d7-4f6d-be2f-cd2939c687e8/viz.json
       attribution: 'Hello World'
-      type: basemap
+      type: cartodb
 
     - id: sub-basins
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjdaksgj191b52ro3zodoa1io/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://smartercleanup.carto.com/api/v2/viz/54b5715a-8923-406d-b656-3e1861936cf6/viz.json
       attribution: 'Hello World'
-      type: basemap
+      type: cartodb
 
     - id: wria-boundaries
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjdal68x167762rqdn6o30ncr/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
+      url: https://smartercleanup.carto.com/api/v2/viz/52cf7d6d-99c6-49e5-8149-c51443ca7597/viz.json
       attribution: 'Hello World'
-      type: basemap
+      type: cartodb
 
     # WMS hydrography
     - id: hydrography
@@ -102,10 +103,6 @@ map:
       version: 1.3.0
       transparent: true
       format: image/png
-
-    # Delisted streams
-    - id: delisted
-      url: https://api.mapbox.com/styles/v1/lakewashington/cjgtk2f9b000x2rpd9f3dhsg2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -178,7 +175,7 @@ sidebar:
           visibleDefault: false
         - id: watercolor
           title: _(Watercolor)
-          visibleDefault: false          
+          visibleDefault: false                    
       groupings:
         - id: grp-community
           title: _(Data Layers)
@@ -190,10 +187,6 @@ sidebar:
 
             - id: snohomish-featured
               title: _(Featured sites)
-              visibleDefault: true
-
-            - id: delisted
-              title: _(Stream delisting candidates)
               visibleDefault: true
 
             - id: boundary
@@ -302,35 +295,35 @@ place:
         # Farm
         - start_field_index: 3
           end_field_index: 21
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Farm Conservation)
           description: _(Tell us what you’ve done on your farm to protect natural resources)
 
         # Forest
         - start_field_index: 22
           end_field_index: 42
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
 
         # Shoreline
         - start_field_index: 43
           end_field_index: 63
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
-          header: _(Shoreline Conservation)
-          description: _(Tell us what you’ve done to improve shoreline conservation)
+          icon_url: /static/css/images/form-stage-header-graphic.png
+          header: _(Shoreline or Streamside Conservation)
+          description: _(Tell us what you’ve done to improve shoreline or streamside conservation)
         
         # Urban
         - start_field_index: 64
           end_field_index: 88
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Urban / Suburban Conservation)
           description: _(Tell us what you’ve done to improve urban / surburban conservation)
 
         # Final
         - start_field_index: 89
           end_field_index: 95
-          icon_url: /static/css/images/form-stage-header-graphic-b.png
+          icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Almost Done!)
           description: _( )
       label: _(Conservation Actions)
@@ -359,21 +352,23 @@ place:
           optional: true
 
         # Mud & manure
-        - name: farm_rotation-grazing
+        - name: farm_rotational-grazing
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
           trigger:
             trigger_value: yes
             targets:
-              - farm_rotation-grazing-datetime
+              - farm_rotational-grazing-datetime
           content:
-            - label: _(Practice rotation grazing, never grazing grass below 3” deep)
+            - label: _(Practice rotational grazing, never grazing grass below 3” deep)
               value: yes
-            - label: _(Practice rotation grazing, never grazing grass below 3” deep)
+            - label: _(Practice rotational grazing, never grazing grass below 3” deep)
               value: no
-        - name: farm_rotation-grazing-datetime
+        - name: farm_rotational-grazing-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -396,6 +391,8 @@ place:
               value: no
         - name: farm_fencing-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -418,6 +415,8 @@ place:
               value: no
         - name: farm_off-stream-watering-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -445,6 +444,8 @@ place:
             ]          
         - name: farm_livestock-heavy-use-areas-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -467,6 +468,8 @@ place:
               value: no
         - name: farm_gutters-diversion-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -489,6 +492,8 @@ place:
               value: no
         - name: farm_soil-testing-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -511,6 +516,8 @@ place:
               value: no
         - name: farm_manure-storage-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -530,9 +537,9 @@ place:
               - farm_other-action
               - farm_other-datetime
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: farm_other-action
           type: text
@@ -542,6 +549,8 @@ place:
           hidden_default: true
         - name: farm_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -584,6 +593,8 @@ place:
               value: no
         - name: forest_protected-buffers-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -606,6 +617,8 @@ place:
               value: no
         - name: forest_restored-buffers-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -628,6 +641,8 @@ place:
               value: no
         - name: forest_left-trees-snags-etc-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -649,6 +664,8 @@ place:
               value: no
         - name: forest_maintain-roads-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -671,6 +688,8 @@ place:
               value: no
         - name: forest_reduce-harvest-compaction-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -693,6 +712,8 @@ place:
               value: no
         - name: forest_fish-passage-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -715,6 +736,8 @@ place:
               value: no
         - name: forest_logging-slash-etc-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -737,6 +760,8 @@ place:
               value: no
         - name: forest_stewardship-plan-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -754,9 +779,9 @@ place:
               - forest_other-datetime
               - forest_other-action
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: forest_other-action
           type: text
@@ -766,6 +791,8 @@ place:
           hidden_default: true
         - name: forest_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -807,6 +834,8 @@ place:
               value: no
         - name: shoreline_left-slope-vegetation-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -829,6 +858,8 @@ place:
               value: no
         - name: shoreline_slope-native-buffer-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -840,6 +871,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Noxious Weeds)
+            body: [
+              "Common noxious weeds that compete with our native vegetation include blackberry, knotweed, ivy, and scotch broom."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -851,6 +887,8 @@ place:
               value: no
         - name: shoreline_remove-noxious-weeds-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -873,6 +911,8 @@ place:
               value: no
         - name: shoreline_left-dead-trees-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -895,6 +935,8 @@ place:
               value: no
         - name: shoreline_impervious-surfaces-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -917,6 +959,8 @@ place:
               value: no
         - name: shoreline_relocated-slope-structures-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -939,6 +983,8 @@ place:
               value: no
         - name: shoreline_grass-clippings-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -959,8 +1005,15 @@ place:
               value: yes
             - label: _(Removed shoreline armoring)
               value: no
+          modal:
+            header: _(Shoreline armoring)
+            body: [
+              "Removing armoring such as rip rap or bulkheads improves fish and wildlife habitat."
+            ]              
         - name: shoreline_removed-armoring-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -977,9 +1030,9 @@ place:
               - shoreline_other-action
               - shoreline_other-datetime
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: shoreline_other-action
           type: text
@@ -989,6 +1042,8 @@ place:
           hidden_default: true
         - name: shoreline_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1019,6 +1074,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Rain garden)
+            body: [
+              "A rain garden is an area that is dug out, lined with a special soil mix, and planted with the intent of infiltrating runoff from your house, driveway, or other hardened surfaces."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -1030,6 +1090,8 @@ place:
               value: no
         - name: urban_rain-gardens-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1052,6 +1114,8 @@ place:
               value: no
         - name: urban_rain-barrels-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1063,6 +1127,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Rain bed)
+            body: [
+              "A rain bed combines a rain barrel system with a raised garden bed. A special gutter in the raised bed spreads water from the barrels over the garden for easy watering. Excess water from the barrels infiltrates through the bed and is dispersed over the surrounding yard where it is filtered and infiltrated."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -1074,6 +1143,8 @@ place:
               value: no
         - name: urban_rain-beds-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1085,6 +1156,11 @@ place:
           type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          modal:
+            header: _(Natural Yard Care)
+            body: [
+              "Natural Yard Care can include: building healthy soil, practicing smart watering, using organic products, avoiding chemical use, mulching/composting and supporting pollinators."
+            ]          
           trigger:
             trigger_value: yes
             targets:
@@ -1096,6 +1172,8 @@ place:
               value: no
         - name: urban_natural-yard-care-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1118,6 +1196,8 @@ place:
               value: no
         - name: general_wildlife-backyard-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1140,6 +1220,8 @@ place:
               value: no
         - name: urban_pollinator-habitat-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1162,6 +1244,8 @@ place:
               value: no
         - name: urban_water-conservation-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1184,6 +1268,8 @@ place:
               value: no
         - name: urban_compost-mulch-soil-amendments-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1206,6 +1292,8 @@ place:
               value: no
         - name: urban_food-garden-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1228,6 +1316,8 @@ place:
               value: no
         - name: urban_drainage-concerns-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1244,9 +1334,9 @@ place:
               - urban_other-action
               - urban_other-datetime
           content:
-            - label: _(Other)
+            - label: _(OTHER)
               value: yes
-            - label: _(Other)
+            - label: _(OTHER)
               value: no
         - name: urban_other-action
           type: text
@@ -1256,6 +1346,8 @@ place:
           hidden_default: true
         - name: urban_other-datetime
           type: datetime
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
           placeholder: _(Approximate date and time)
           display_prompt: _( )
@@ -1359,6 +1451,10 @@ pages:
     name: about
     start_page: true
 
+  - title: _(Local Stories)
+    name: /bay-view
+    start_page: false
+
   - title: _(Background)
     slug: background
     name: background
@@ -1376,7 +1472,7 @@ pages:
 story:
   example:
     tagline: _(Next featured site)
-    default_zoom: 16
+    default_zoom: 15
     default_visible_layers:
       - snohomish-featured
       - snohomish-input
@@ -1384,10 +1480,10 @@ story:
       - url: bay-view
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png        
-      - url: photovoice
+      - url: tulalip-rain-barrels-2018
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         
-      - url: snohomish-conservation-district
+      - url: eagle-ridge-lake-stevens-2018
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png 
       #   zoom: 15
