@@ -245,10 +245,10 @@ class InputForm extends Component {
       success: response => {
         Util.log("USER", "new-place", "successfully-add-place");
 
-        emitter.emit("place-collection:add-place", {
-          collection: response.collection,
-          collectionId: this.selectedCategoryConfig.dataset,
-        });
+        emitter.emit(
+          "place-collection:add-place",
+          this.selectedCategoryConfig.dataset,
+        );
 
         // Save autofill values as necessary.
         // TODO: This logic is better suited for the FormField component,

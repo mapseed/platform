@@ -61,10 +61,7 @@ const getPlaceCollections = async ({
       },
 
       success: function() {
-        emitter.emit("place-collection:loaded", {
-          collectionId: collectionId,
-          collection: collection,
-        });
+        emitter.emit("place-collection:loaded", collectionId);
         // TODO: layer loading event; fix in layer UI PR
       },
 

@@ -769,7 +769,6 @@ module.exports = Backbone.View.extend({
 
       emitter.emit("place-collection:focus-place", {
         collectionId: collectionId,
-        collection: model.collection,
         modelId: model.get("id"),
       });
 

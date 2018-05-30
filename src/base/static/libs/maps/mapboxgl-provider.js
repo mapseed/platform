@@ -119,6 +119,8 @@ const configRuleToFillLayer = (layerConfig, i) => {
   };
 };
 
+const layersCache = {};
+
 export default (container, options) => {
   options.map.container = container;
   options.map.style = {
@@ -135,6 +137,10 @@ export default (container, options) => {
     new mapboxgl.NavigationControl(options.control),
     options.control.position,
   );
+  const addLayers = layers => {
+    layers = Array.isArray(layers) ? layers : [layers];
+    layers.forEach(layer => map.addLayer(layer));
+  };
 
   return AbstractMapFactory({
     on: (event, callback, context) => {
@@ -151,23 +157,28 @@ export default (container, options) => {
       map.on(event, layerId, callback);
     },
 
-    bindPlaceLayerEvent: (eventName, layer, callback) => {
-      let targetLayer = null;
-      map.on(eventName, layer.id, evt => {
-        if (eventName === "click") {
-          // For click events, we query rendered features here to obtain a
-          // single array of layers below the clicked-on point. The first
-          // entry in this array corresponds to the topmost rendered feature.
-          // We skip this work for other events (like mouseenter), since we
-          // don't make use of information about the layer under the cursor
-          // in those cases.
-          targetLayer = map.queryRenderedFeatures([evt.point.x, evt.point.y], {
-            // Limit these click listeners to place geometry.
-            filter: ["==", ["get", "type"], "place"],
-          })[0];
-        }
+    bindPlaceLayerEvent: (eventName, layerId, callback) => {
+      layersCache[layerId].forEach(mapProviderLayer => {
+        let targetLayer = null;
+        map.on(eventName, mapProviderLayer.id, evt => {
+          if (eventName === "click") {
+            // For click events, we query rendered features here to obtain a
+            // single array of layers below the clicked-on point. The first
+            // entry in this array corresponds to the topmost rendered feature.
+            // We skip this work for other events (like mouseenter), since we
+            // don't make use of information about the layer under the cursor
+            // in those cases.
+            targetLayer = map.queryRenderedFeatures(
+              [evt.point.x, evt.point.y],
+              {
+                // Limit these click listeners to place geometry.
+                filter: ["==", ["get", "type"], "place"],
+              },
+            )[0];
+          }
 
-        callback(targetLayer);
+          callback(targetLayer);
+        });
       });
     },
 
@@ -235,55 +246,67 @@ export default (container, options) => {
       map.resize();
     },
 
-    createRasterTileLayer: options => {
-      return {
-        id: options.id,
+    createRasterTileLayer: ({ id, url }) => {
+      layersCache[id] = {
+        id: id,
         type: "raster",
         source: {
           type: "raster",
-          tiles: [options.url],
+          tiles: [url],
         },
       };
+
+      addLayers(layersCache[id]);
     },
 
-    createVectorTileLayer: async options => {
-      map.addSource(options.id, {
+    createVectorTileLayer: async ({ id, url, style_url, source_layer }) => {
+      map.addSource(id, {
         type: "vector",
-        tiles: [options.url],
+        tiles: [url],
       });
 
-      const style = await VectorTileClient.fetchStyle(options.style_url);
+      const style = await VectorTileClient.fetchStyle(style_url);
 
-      return style.layers.map(layer => {
-        layer.source = options.id;
-        layer["source-layer"] = options.source_layer;
+      layersCache[id] = style.layers.map(layer => {
+        layer.source = id;
+        layer["source-layer"] = source_layer;
         return layer;
       });
+
+      addLayers(layersCache[id]);
     },
 
     // https://www.mapbox.com/mapbox-gl-js/example/wms/
     // http://cite.opengeospatial.org/pub/cite/files/edu/wms/text/operations.html#getmap
-    createWMSLayer: options => {
-      if (Array.isArray(options.layers)) {
-        options.layers = options.layers.join(",");
+    createWMSLayer: ({
+      id,
+      layers,
+      url,
+      format,
+      version,
+      transparent,
+      style,
+    }) => {
+      if (Array.isArray(layers)) {
+        layers = layers.join(",");
       }
 
       const requestUrl = [
-        options.url,
+        url,
         "?service=wms&request=getmap&format=",
-        options.format,
+        format,
         "&version=",
-        options.version,
+        version,
         "&crs=EPSG:3857&transparent=",
-        options.transparent,
+        transparent,
         "&layers=",
-        options.layers,
+        layers,
         "&bbox={bbox-epsg-3857}&width=256&height=256&styles=",
-        options.style ? options.style : "default",
+        style ? style : "default",
       ].join("");
 
       return {
-        id: options.id,
+        id: id,
         type: "raster",
         source: {
           type: "raster",
@@ -295,32 +318,43 @@ export default (container, options) => {
 
     // https://stackoverflow.com/questions/35566940/wmts-geotiff-for-a-mapbox-gl-source
     // http://cite.opengeospatial.org/pub/cite/files/edu/wmts/text/operations.html#examples-requests-and-responses-for-tile-resources
-    createWMTSLayer: options => {
+    createWMTSLayer: ({
+      id,
+      url,
+      layers,
+      version,
+      tilematrix_set,
+      format,
+      transparent,
+      style,
+    }) => {
       const requestUrl = [
-        options.url,
+        url,
         "?service=wmts&request=gettile&layers=",
-        options.layers,
+        layers,
         "&version=",
-        options.version,
+        version,
         "&tilematrixset=",
-        options.tilematrix_set,
+        tilematrix_set,
         "&format=",
-        options.format,
+        format,
         "&transparent=",
-        options.transparent,
+        transparent,
         "&style=",
-        options.style ? options.style : "default",
+        style ? style : "default",
         "&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}",
       ].join("");
 
-      return {
-        id: options.id,
+      layersCache[id] = {
+        id: id,
         type: "raster",
         source: {
           type: "raster",
           tiles: [requestUrl],
         },
       };
+
+      addLayers(layersCache[id]);
     },
 
     getSource: sourceId => {
@@ -339,18 +373,15 @@ export default (container, options) => {
         ...rule,
       }));
 
-      return rules
+      // NOTE: We create a lot of layers here, which could be a performance
+      // bottleneck.
+      // See: https://github.com/mapseed/platform/issues/961
+      layersCache[id] = rules
         .map(configRuleToSymbolLayer)
         .concat(rules.map(configRuleToLineLayer))
         .concat(rules.map(configRuleToFillLayer));
-    },
 
-    addLayer: layer => {
-      if (Array.isArray(layer)) {
-        layer.forEach(internalLayer => map.addLayer(internalLayer));
-      } else {
-        map.addLayer(layer);
-      }
+      addLayers(layersCache[id]);
     },
   });
 };
