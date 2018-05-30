@@ -13,8 +13,8 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 // Eventually, it will be removed once we start fetching the config
 // from the api:
 import config from "config";
-import { setConfig, mapConfigSelector } from "../../state/ducks/config";
 
+import { setConfig, mapConfigSelector } from "../../state/ducks/config";
 import MainMap from "../../libs/maps";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
@@ -349,7 +349,6 @@ module.exports = Backbone.View.extend({
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
-      mapView: self.mapView,
       mapConfig: self.options.mapConfig,
     });
 
@@ -437,20 +436,14 @@ module.exports = Backbone.View.extend({
     Util.log("USER", "panel", "close-btn-click");
     // remove map mask if the user closes the side panel
     this.hideSpotlightMask();
-    if (this.mapView.locationTypeFilter) {
-      this.options.router.navigate(
-        "filter/" + this.mapView.locationTypeFilter,
-        { trigger: true },
-      );
-      this.hidePanel();
-    } else {
-      this.options.router.navigate("/", { trigger: true });
-    }
+    this.options.router.navigate("/", { trigger: true });
 
     if (this.isStoryActive) {
       this.isStoryActive = false;
       this.restoreDefaultLayerVisibility();
     }
+
+    emitter.emit("place-collection:unfocus-all-places");
   },
   onToggleSidebarVisibility: function() {
     $("body").toggleClass("right-sidebar-visible");
@@ -668,8 +661,7 @@ module.exports = Backbone.View.extend({
   },
 
   viewPlaceOrLandmark: function(args) {
-    var self = this,
-      layout = Util.getPageLayout();
+    var self = this;
 
     Util.getPlaceFromCollections(
       {
@@ -683,30 +675,8 @@ module.exports = Backbone.View.extend({
       },
     );
 
-    function onFound(model, type, datasetId) {
-      var map = self.mapView.map,
-        layer,
-        center,
-        zoom,
-        $responseToScrollTo;
-
+    function onFound(model, type, collectionId) {
       if (type === "place") {
-        // If this model is a duplicate of one that already exists in the
-        // places collection, it may not correspond to a layerView. For this
-        // case, get the model that's actually in the places collection.
-        if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places[datasetId].get(model.id);
-        }
-
-        // TODO: We need to handle the non-deterministic case when
-        // 'self.mapView.layerViews[datasetId][model.cid]` is undefined
-        if (
-          self.mapView.layerViews[datasetId] &&
-          self.mapView.layerViews[datasetId][model.cid]
-        ) {
-          layer = self.mapView.layerViews[datasetId][model.cid].layer;
-        }
-
         // REACT PORT SECTION //////////////////////////////////////////////////
         this.unfocusAllPlaces();
         ReactDOM.unmountComponentAtNode(
@@ -724,7 +694,6 @@ module.exports = Backbone.View.extend({
               map={this.mapView.map}
               model={model}
               appView={this}
-              layerView={this.mapView.layerViews[datasetId][model.cid]}
               places={this.places}
               scrollToResponseId={args.responseId}
               router={this.options.router}
@@ -750,49 +719,58 @@ module.exports = Backbone.View.extend({
       self.setBodyClass("content-visible");
       self.showSpotlightMask();
 
-      if (layer) {
-        center = layer.getLatLng
-          ? layer.getLatLng()
-          : layer.getBounds().getCenter();
-        zoom = map.getZoom();
+      const geometry = model.get("geometry");
 
-        self.ensureLayerVisibility(datasetId);
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) {
-            self.hideSpotlightMask();
-          }
-          self.isStoryActive = true;
-          self.isProgrammaticZoom = true;
-          self.setStoryLayerVisibility(model);
-          center = model.get("story").panTo || center;
-          zoom = model.get("story").zoom;
-
-          if (!self.hasBodyClass("right-sidebar-visible")) {
-            $("body").addClass("right-sidebar-visible");
-          }
+      if (model.get("story")) {
+        self.isStoryActive = true;
+        self.isProgrammaticZoom = true;
+        self.setStoryLayerVisibility(model);
+        if (!model.get("story").spotlight) {
+          self.hideSpotlightMask();
         }
 
-        if (layer.getLatLng) {
-          map.setView(center, zoom, {
-            animate: true,
-          });
-        } else {
-          // If we've defined a custom zoom for a polygon layer for some reason,
-          // don't use fitBounds and instead set the zoom defined
-          if (model.get("story") && model.get("story").hasCustomZoom) {
-            map.setView(center, model.get("story").zoom, {
-              animate: true,
-            });
-          } else {
-            map.fitBounds(layer.getBounds(), {
-              animate: true,
-            });
-          }
+        if (!self.hasBodyClass("right-sidebar-visible")) {
+          $("body").addClass("right-sidebar-visible");
         }
       }
 
-      model.trigger("focus");
+      // Determine map settings, reconciling with custom story settings if this
+      // model is part of a story.
+      const story = model.get("story") || {};
+      const zoom = story.zoom || this.mapView.map.getZoom();
+
+      if (geometry.type === "LineString") {
+        // Fit to bounds
+        // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
+        const coordinates = story.panTo ? [story.panTo] : geometry.coordinates;
+        const bounds = coordinates.reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this.mapView.map.makeLngLatBounds(coordinates[0], coordinates[0]),
+        );
+        this.mapView.map.fitBounds(bounds, { padding: 30 });
+      } else if (geometry.type === "Polygon") {
+        const coordinates = story.panTo
+          ? [[story.panTo]]
+          : geometry.coordinates;
+        const bounds = coordinates[0].reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this.mapView.map.makeLngLatBounds(
+            coordinates[0][0],
+            coordinates[0][0],
+          ),
+        );
+        this.mapView.map.fitBounds(bounds, { padding: 30 });
+      } else if (geometry.type === "Point") {
+        this.mapView.map.easeTo({
+          center: story.panTo || geometry.coordinates,
+          zoom: zoom,
+        });
+      }
+
+      emitter.emit("place-collection:focus-place", {
+        collectionId: collectionId,
+        modelId: model.get("id"),
+      });
 
       if (!model.get("story") && self.isStoryActive) {
         self.isStoryActive = false;

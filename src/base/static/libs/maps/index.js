@@ -1,15 +1,22 @@
 import MapboxGLProvider from "./mapboxgl-provider";
 // Import other providers here as they become available
 
-var Util = require("../../js/utils.js");
-var LayerView = require("mapseed-layer-view");
+import emitter from "../../utils/emitter";
+import { createGeoJSONFromCollection } from "../../utils/collection-utils";
+
+import constants from "../../constants";
+
+const Util = require("../../js/utils.js");
 
 class MainMap {
   constructor({ container, places, router, mapConfig }) {
-    this.mapConfig = mapConfig;
+    this._mapConfig = mapConfig;
+    this._router = router;
+    this._layers = mapConfig.layers;
+    this._places = places;
 
     let MapProvider;
-    switch (this.mapConfig.provider) {
+    switch (this._mapConfig.provider) {
       // Add other provider types here as they become available
       case "mapboxgl":
         MapProvider = MapboxGLProvider;
@@ -19,76 +26,80 @@ class MainMap {
         break;
     }
 
-    this.places = places;
-    this.router = router;
-
     const logUserPan = () => {
       Util.log(
         "USER",
         "map",
         "drag",
-        this.map.getBBoxString(),
-        this.map.getZoom(),
+        this._map.getBBoxString(),
+        this._map.getZoom(),
       );
     };
 
-    this.map = MapProvider(container, this.mapConfig.options);
+    this._map = MapProvider(container, this._mapConfig.options);
 
-    this.mapConfig.layers.forEach(config => {
+    this._layers.forEach(config => {
       config.loaded = false;
     });
 
-    // TODO: move to redux store?
-    this.layers = {};
-    this.layerViews = {};
-
-    if (this.mapConfig.geolocation_enabled) {
+    if (this._mapConfig.geolocation_enabled) {
       this.initGeolocation();
     }
 
-    this.map.on("dragend", logUserPan);
-    this.map.on("zoomend", evt => {
-      Util.log("APP", "zoom", this.map.getZoom());
+    this._map.on("dragend", logUserPan);
+    this._map.on("zoomend", evt => {
+      Util.log("APP", "zoom", this._map.getZoom());
       $(Shareabouts).trigger("zoomend", [evt]);
     });
 
-    this.map.on("moveend", evt => {
-      Util.log("APP", "center-lat", this.map.getCenter().lat);
-      Util.log("APP", "center-lng", this.map.getCenter().lng);
+    this._map.on("moveend", evt => {
+      Util.log("APP", "center-lat", this._map.getCenter().lat);
+      Util.log("APP", "center-lng", this._map.getCenter().lng);
 
       $(Shareabouts).trigger("mapmoveend", [evt]);
     });
 
-    this.map.on("dragend", evt => {
+    this._map.on("dragend", evt => {
       $(Shareabouts).trigger("mapdragend", [evt]);
     });
 
-    // Bind place collections event listeners
-    Object.entries(this.places, ([collectionId, collection]) => {
-      this.layers[collectionId] = this.getLayerGroups(collectionId);
-      this.layerViews[collectionId] = {};
-      collection.on("reset", this.render, this);
-      collection.on("add", this.addLayerView(collectionId), this);
-      collection.on("remove", this.removeLayerView(collectionId), this);
+    emitter.addListener("place-collection:loaded", collectionId => {
+      this.addPlaceCollectionLayer(collectionId);
+    });
+
+    emitter.addListener("place-collection:add-place", collectionId => {
+      this.updatePlaceCollectionLayer(collectionId);
+    });
+
+    emitter.addListener(
+      "place-collection:focus-place",
+      ({ collectionId, modelId }) => {
+        this.updatePlaceCollectionLayer(collectionId, modelId);
+      },
+    );
+
+    emitter.addListener("place-collection:unfocus-all-places", () => {
+      Object.keys(this._places).forEach(collectionId => {
+        this.updatePlaceCollectionLayer(collectionId);
+      });
     });
 
     // Bind visiblity event for custom layers
     $(Shareabouts).on("visibility", async (evt, id, visible, isBasemap) => {
-      var layer = this.layers[id];
-      const config = this.mapConfig.layers.find(
-        layerConfig => layerConfig.id === id,
-      );
+      let layer = this._layers[id];
+      const layerConfig = this._layers.find(config => config.id === id);
 
-      if (config && !config.loaded && visible) {
-        await this.createLayerFromConfig(config);
-        config.loaded = true;
-        layer = this.layers[id];
+      if (layerConfig && !layerConfig.loaded && layerConfig.type && visible) {
+        await this.createLayerFromConfig(layerConfig);
+        layerConfig.loaded = true;
       }
 
       if (isBasemap) {
-        this.checkLayerZoom(config.maxZoom);
-        this.map.setMaxZoom(
-          config.maxZoom ? config.maxZoom : this.mapConfig.options.maxZoom,
+        this.checkLayerZoom(layerConfig.maxZoom);
+        this._map.setMaxZoom(
+          layerConfig.maxZoom
+            ? layerConfig.maxZoom
+            : this._mapConfig.options.maxZoom,
         );
 
         // TODO
@@ -101,39 +112,25 @@ class MainMap {
         //  }
         //});
       } else if (layer) {
-        self.setLayerVisibility(layer, visible);
+        //self.setLayerVisibility(layer, visible);
       } else {
         // Handles cases when we fire events for layers that are not yet
         // loaded (ie cartodb layers, which are loaded asynchronously)
-        // We are setting the asynch layer config's default visibility here to
+        // We are setting the asynch layer layerConfig's default visibility here to
         // ensure they are added to the map when they are eventually loaded:
-        config.asyncLayerVisibleDefault = visible;
+        layerConfig.asyncLayerVisibleDefault = visible;
       }
     });
 
     // TEMPORARY: Manually trigger the visibility of layers for testing
-    this.map.on("load", () => {
-      $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[3].id,
-        true,
-        true,
-      ]);
-      $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[1].id,
-        true,
-        true,
-      ]);
-      $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[0].id,
-        true,
-        true,
-      ]);
-      $(Shareabouts).trigger("visibility", [
-        this.mapConfig.layers[2].id,
-        true,
-        true,
-      ]);
+    this._map.on("load", () => {
+      $(Shareabouts).trigger("visibility", [this._layers[0].id, true, true]);
+      $(Shareabouts).trigger("visibility", [this._layers[3].id, true, true]);
     });
+  }
+
+  get map() {
+    return this._map;
   }
 
   clearFilter() {
@@ -141,24 +138,24 @@ class MainMap {
   }
 
   checkLayerZoom(maxZoom) {
-    if (maxZoom && this.map.getZoom() > maxZoom) {
-      this.map.setZoom(parseInt(maxZoom, 10));
+    if (maxZoom && this._map.getZoom() > maxZoom) {
+      this._map.setZoom(parseInt(maxZoom, 10));
     }
   }
 
   // Adds or removes the layer  on Master Layer based on visibility
   setLayerVisibility(layer, visible) {
     // TODO: layer id
-    if (visible && !this.map.hasLayer(layer._leaflet_id)) {
-      this.map.addLayer(layer);
+    if (visible && !this._map.hasLayer(layer._leaflet_id)) {
+      this._map.addLayer(layer);
     }
-    if (!visible && this.map.hasLayer(layer)) {
-      this.map.removeLayer(layer);
+    if (!visible && this._map.hasLayer(layer)) {
+      this._map.removeLayer(layer);
     }
   }
 
   reverseGeocodeMapCenter() {
-    const center = this.map.getCenter();
+    const center = this._map.getCenter();
     Util.MapQuest.reverseGeocode(center, {
       success: data => {
         const locationsData = data.results[0].locations;
@@ -197,10 +194,10 @@ class MainMap {
     const onLocationFound = evt => {
       let msg;
       if (
-        !this.map.options.maxBounds ||
-        this.map.options.maxBounds.contains(evt.latlng)
+        !this._map.options.maxBounds ||
+        this._map.options.maxBounds.contains(evt.latlng)
       ) {
-        this.map.fitBounds(evt.bounds);
+        this._map.fitBounds(evt.bounds);
       } else {
         msg =
           "It looks like you're not in a place where we're collecting " +
@@ -210,11 +207,11 @@ class MainMap {
     };
 
     // Bind event handling
-    this.map.on("locationerror", onLocationError);
-    this.map.on("locationfound", onLocationFound);
+    this._map.on("locationerror", onLocationError);
+    this._map.on("locationfound", onLocationFound);
 
     // Go to the current location if specified
-    if (this.mapConfig.geolocation_onload) {
+    if (this._mapConfig.geolocation_onload) {
       this.geolocate();
     }
   }
@@ -225,75 +222,66 @@ class MainMap {
       "USER",
       "map",
       "geolocate",
-      this.map.getBBoxString(),
-      this.map.getZoom(),
+      this._map.getBBoxString(),
+      this._map.getZoom(),
     );
     this.geolocate();
   }
 
   geolocate() {
-    this.map.locate();
-  }
-
-  addLayerView(collectionId) {
-    return model => {
-      this.layerViews[collectionId][model.cid] = new LayerView({
-        model: model,
-        router: this.router,
-        map: this.map,
-        layerGroup: this.layers[collectionId],
-        placeTypes: this.options.placeTypes,
-        // to access the filter
-        mapView: this,
-      });
-    };
-  }
-
-  removeLayerView(collectionId) {
-    return model => {
-      // remove map-bound events for this layer view
-      this.map.off(
-        "zoomend",
-        this.layerViews[collectionId][model.cid].updateLayer,
-        this.layerViews[collectionId][model.cid],
-      );
-      this.map.off(
-        "move",
-        this.layerViews[collectionId][model.cid].throttledRender,
-        this.layerViews[collectionId][model.cid],
-      );
-      this.map.off(
-        "zoomend",
-        this.layerViews[collectionId][model.cid].render,
-        this.layerViews[collectionId][model.cid],
-      );
-
-      this.layerViews[collectionId][model.cid].remove();
-      delete this.layerViews[collectionId][model.cid];
-
-      Util.log("APP", "panel-state", "closed");
-      if (this.locationTypeFilter) {
-        this.router.navigate("filter/" + this.locationTypeFilter, {
-          trigger: true,
-        });
-      } else {
-        this.router.navigate("/", { trigger: true });
-      }
-    };
-  }
-
-  zoomInOn(/*latLng*/) {
     // TODO
-    //this.map.setView(latLng, this.mapConfig.options.maxZoom || 17);
+    this._map.locate();
   }
 
+  updatePlaceCollectionLayer(collectionId, modelId) {
+    this._map
+      .getSource(collectionId)
+      .setData(
+        createGeoJSONFromCollection(this._places[collectionId], modelId),
+      );
+  }
+
+  addPlaceCollectionLayer(collectionId) {
+    // Note that the object passed here to createGeoJSONLayer is a first-class
+    // Layer object.
+    const placeLayer = this._layers.find(layer => layer.id === collectionId);
+    placeLayer.source = createGeoJSONFromCollection(this._places[collectionId]);
+    this._map.createGeoJSONLayer(placeLayer);
+
+    // Bind map interaction events for Mapseed place layers.
+    this._map.bindPlaceLayerEvent("click", collectionId, clickedOnLayer => {
+      if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
+        this._router.navigate(
+          `/${clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
+          {
+            trigger: true,
+          },
+        );
+      } else {
+        this._router.navigate(
+          `/${
+            clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
+          }/${clickedOnLayer.properties.id}`,
+          { trigger: true },
+        );
+      }
+    });
+    this._map.bindPlaceLayerEvent("mouseenter", collectionId, () => {
+      this._map.setCursor("pointer");
+    });
+    this._map.bindPlaceLayerEvent("mouseleave", collectionId, () => {
+      this._map.setCursor("");
+    });
+  }
+
+  // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
     const locationType = locationTypeModel.get("locationType");
     const isActive = locationTypeModel.get("active");
 
     if (mapWasUnfiltered || mapWillBeUnfiltered) {
-      for (let collectionId in this.places) {
-        this.places[collectionId]
+      for (let collectionId in this._places) {
+        this._places[collectionId]
           .filter(model => {
             return model.get("location_type") !== locationType;
           })
@@ -306,8 +294,8 @@ class MainMap {
           });
       }
     } else {
-      for (let collectionId in this.places) {
-        this.places[collectionId]
+      for (let collectionId in this._places) {
+        this._places[collectionId]
           .where({ location_type: locationType })
           .forEach(model => {
             isActive
@@ -318,53 +306,20 @@ class MainMap {
     }
   }
 
-  clearFilters(/*collectionId*/) {
-    // TODO
-    //this.locationTypeFilter = null;
-    //Object.values(this.places).forEach(collection => {
-    //  collection.each(function(model) {
-    //    if (self.layerViews[model.cid]) {
-    //      self.layerViews[model.cid].render();
-    //    }
-    //  });
-    //});
-  }
-
-  getLayerGroups(/*collectionId*/) {
-    //  TODO
-    //  if (this.isClusterable(collectionId)) {
-    //    return L.markerClusterGroup(this.options.cluster);
-    //  } else {
-    //    return L.layerGroup();
-    //  }
-  }
-
   // TODO: Layer loading and error events.
-  async createLayerFromConfig(config) {
-    if (!config.type) {
-      return;
-    }
-
-    if (config.type === "mapbox-style") {
-      this.map.addMapboxStyle(config.url);
-    } else if (config.type === "raster-tile") {
-      this.layers[config.id] = this.map.createRasterTileLayer(config);
-      this.map.addLayer(this.layers[config.id]);
-    } else if (config.type === "wms") {
-      this.layers[config.id] = this.map.createWMSLayer(config);
-      this.map.addLayer(this.layers[config.id]);
-    } else if (config.type === "wmts") {
-      this.layers[config.id] = this.map.createWMTSLayer(config);
-      this.map.addLayer(this.layers[config.id]);
-    } else if (config.type === "vector-tile") {
-      const vectorLayerGroupConfig = await this.map.createVectorTileLayer(
-        config,
-      );
-      this.layers[config.id] = vectorLayerGroupConfig;
-      this.map.addVectorLayerGroup(this.layers[config.id]);
-    } else if (config.type === "json") {
-      this.layers[config.id] = this.map.createGeoJSONLayer(config);
-      this.map.addGeoJSONLayer(this.layers[config.id], config.geometry_type);
+  async createLayerFromConfig(layerConfig) {
+    if (layerConfig.type === "mapbox-style") {
+      this._map.addMapboxStyle(layerConfig.url);
+    } else if (layerConfig.type === "raster-tile") {
+      this._map.createRasterTileLayer(layerConfig);
+    } else if (layerConfig.type === "wms") {
+      this._map.createWMSLayer(layerConfig);
+    } else if (layerConfig.type === "wmts") {
+      this._map.createWMTSLayer(layerConfig);
+    } else if (layerConfig.type === "vector-tile") {
+      this._map.createVectorTileLayer(layerConfig);
+    } else if (layerConfig.type === "json") {
+      this._map.createGeoJSONLayer(layerConfig);
     }
   }
 }

@@ -53,10 +53,380 @@ map:
       position: "top-left"
 
   layers:
-    - id: sample-json-point
+    - id: demo
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
+      type: place
+      slug: demo
+      rules:
+        # "demo" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "demo"
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - true
+          symbol-layout:
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "demo"
+            - - "<"
+              - - "zoom"
+              - 11
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-size: 0.5
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "demo"
+            - - ">="
+              - - "zoom"
+              - 11
+            - - "<"
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-size: 0.75
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "demo"
+            - -  ">="
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-size: 0.9
+            icon-anchor: "center"
+
+        # "complaint" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "complaint"
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - true
+          symbol-layout:
+            icon-image: "marker-complaint"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "complaint"
+            - - "<"
+              - - "zoom"
+              - 11
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-complaint"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "complaint"
+            - - ">="
+              - - "zoom"
+              - 11
+            - - "<"
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-complaint"
+            icon-size: 0.75
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "complaint"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-complaint"
+            icon-size: 0.9
+            icon-anchor: "bottom"
+
+        # "question" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "question"
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - true
+          symbol-layout:
+            icon-image: "marker-question"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "question"
+            - - "<"
+              - - "zoom"
+              - 11
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-question"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "question"
+            - - ">="
+              - - "zoom"
+              - 11
+            - - "<"
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-question"
+            icon-size: 0.75
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "question"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-question"
+            icon-size: 0.9
+            icon-anchor: "bottom"
+
+        # "idea" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "idea"
+            - -  "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - true
+          symbol-layout:
+            icon-image: "marker-idea"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "idea"
+            - - "<"
+              - - "zoom"
+              - 11
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-idea"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "idea"
+            - - ">="
+              - - "zoom"
+              - 11
+            - - "<"
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-idea"
+            icon-size: 0.75
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "idea"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-idea"
+            icon-size: 0.9
+            icon-anchor: "bottom"
+
+        # "observation" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "observation"
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - true
+          symbol-layout:
+            icon-image: "marker-observation"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "observation"
+            - - "<"
+              - - "zoom"
+              - 11
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-observation"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "observation"
+            - - ">="
+              - - "zoom"
+              - 11
+            - - "<"
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-observation"
+            icon-size: 0.75
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "observation"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-observation"
+            icon-size: 0.9
+            icon-anchor: "bottom"
+
+    - id: sample-json-a
       type: json
-      geometry_type: "Point"
-      url: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
+      source: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
       rules:
         - filter:
             - "all"
@@ -67,10 +437,11 @@ map:
               - - "get"
                 - "WICcash"
               - "Y"
-          layout:
+          symbol-layout:
             icon-image: "marker-dot-conserve-water"
             icon-size: 0.5
             icon-anchor: "center"
+            icon-allow-overlap: true
         - filter:
              - "all"
              - - ">"
@@ -80,10 +451,11 @@ map:
                - - "get"
                  - "WICcash"
                - "Y"
-          layout:
+          symbol-layout:
             icon-image: "marker-conserve-water"
             icon-size: 0.5
             icon-anchor: "bottom"
+            icon-allow-overlap: true
         - filter:
             - "all"
             - - "<="
@@ -93,10 +465,11 @@ map:
               - - "get"
                 - "WICcash"
               - "N"
-          layout:
+          symbol-layout:
             icon-image: "marker-dot-commute-low-carbon"
             icon-size: 0.5
             icon-anchor: "center"
+            icon-allow-overlap: true
         - filter:
              - "all"
              - - ">"
@@ -106,65 +479,70 @@ map:
                - - "get"
                  - "WICcash"
                - "N"
-          layout:
+          symbol-layout:
             icon-image: "marker-commute-low-carbon"
             icon-size: 0.5
             icon-anchor: "bottom"
+            icon-allow-overlap: true
 
-    - id: sample-json-polygonal
+    - id: sample-json-b
       type: json      
-      geometry_type: "Polygon"
-      url: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
+      source: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
       rules:
         - filter:
             - "=="
-            - "LID_Checklist_Master_score"
+            - - "get" 
+              - "LID_Checklist_Master_score"
             - 5
-          paint:
+          fill-paint:
             fill-color: "#fef0d9"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
         - filter:
             - "=="
-            - "LID_Checklist_Master_score"
+            - - "get"
+              - "LID_Checklist_Master_score"
             - 4
-          paint:
+          fill-paint:
             fill-color: "#fdcc8a"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
         - filter:
             - "=="
-            - "LID_Checklist_Master_score"
+            - - "get"
+              - "LID_Checklist_Master_score"
             - 3
-          paint:
+          fill-paint:
             fill-color: "#fc8d59"
             fill-opacity: 0.6
             fill-outline-color: "#000000" 
         - filter:
             - "=="
-            - "LID_Checklist_Master_score"
+            - - "get"
+              - "LID_Checklist_Master_score"
             - 2
-          paint:
+          fill-paint:
             fill-color: "#e34a33"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
         - filter:
             - "=="
-            - "LID_Checklist_Master_score"
+            - - "get"
+              - "LID_Checklist_Master_score"
             - 1
-          paint:
+          fill-paint:
             fill-color: "#b30000"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
         - filter:
             - "=="
-            - "LID_Checklist_Master_score"
+            - - "get"
+              - "LID_Checklist_Master_score"
             - 0
-          paint:
+          fill-paint:
             fill-color: "#b30000"
             fill-opacity: 0.6
             fill-outline-color: "#000000"
-
 
     - id: sample-vector
       type: vector-tile
@@ -199,189 +577,6 @@ map:
       type: mapbox-style
       url: mapbox://styles/tcroxson/cjdw01pyx0i0f2qmxt0ugxtul
       attribution: "Hello"
-
-# The values map the place type to map icons (defined below).
-place_types:
-  demo:
-    label: _(Observation)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  observation:
-    label: _(Observation)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  question:
-    label: _(Question)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-dbcf2c.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-question.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  idea:
-    label: _(Idea)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-f95016.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-idea.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  complaint:
-    label: _(Complaint)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-complaint.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  greenwall:
-    label: _(Green Screen Vote)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [18, 21.75]
-          iconAnchor: [9, 21.75]
-
-      - condition: 'this.map.zoom >= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-greenwall.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
 
 right_sidebar:
   show: true
@@ -967,8 +1162,12 @@ story:
     default_visible_layers:
       - demo
     order:
-      - url: demo/20
+      - url: demo/83
+        spotlight: false
+        zoom: 7
+        pan_to: [-122.57256740778439, 47.44334015969261]
       - url: demo/21
+        zoom: 10
   another_example:
     tagline: _(Next featured site)
     header: _(Story Number Two With a Longer Name than the Other Story)
@@ -980,6 +1179,7 @@ story:
       - url: cool-line
         sidebar_icon_url: /static/css/images/markers/marker-question.png
         zoom: 4
+        pan_to: [-122.57256740778439, 47.44334015969261]
       - url: demo/17
 
 
