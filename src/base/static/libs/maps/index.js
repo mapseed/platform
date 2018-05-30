@@ -79,7 +79,7 @@ class MainMap {
     );
 
     emitter.addListener("place-collection:unfocus-all-places", () => {
-      Object.keys(this.places).forEach(collectionId => {
+      Object.keys(this._places).forEach(collectionId => {
         this.updatePlaceCollectionLayer(collectionId);
       });
     });
@@ -280,8 +280,8 @@ class MainMap {
     const isActive = locationTypeModel.get("active");
 
     if (mapWasUnfiltered || mapWillBeUnfiltered) {
-      for (let collectionId in this.places) {
-        this.places[collectionId]
+      for (let collectionId in this._places) {
+        this._places[collectionId]
           .filter(model => {
             return model.get("location_type") !== locationType;
           })
@@ -294,8 +294,8 @@ class MainMap {
           });
       }
     } else {
-      for (let collectionId in this.places) {
-        this.places[collectionId]
+      for (let collectionId in this._places) {
+        this._places[collectionId]
           .where({ location_type: locationType })
           .forEach(model => {
             isActive
