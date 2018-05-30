@@ -11,6 +11,11 @@ export const mapConfigSelector = state => {
 export const rightSidebarConfigSelector = state => {
   return state.config.right_sidebar;
 };
+export const leftSidebarPanelConfigSelector = (state, panelComponentName) => {
+  return state.config.left_sidebar.panels.find(
+    panel => panel.component === panelComponentName,
+  );
+};
 
 // Actions:
 const SET_CONFIG = "SET_CONFIG";

@@ -1,15 +1,18 @@
+import { connect } from "react-redux";
 import MapboxGLProvider from "./mapboxgl-provider";
 // Import other providers here as they become available
 
 import emitter from "../../utils/emitter";
 import { createGeoJSONFromCollection } from "../../utils/collection-utils";
 
+import { mapLayersBasemapSelector } from "../../state/ducks/map-layers";
+
 import constants from "../../constants";
 
 const Util = require("../../js/utils.js");
 
 class MainMap {
-  constructor({ container, places, router, mapConfig }) {
+  constructor({ container, places, router, mapConfig, store }) {
     this._mapConfig = mapConfig;
     this._router = router;
     this._layers = mapConfig.layers;
@@ -84,6 +87,18 @@ class MainMap {
       });
     });
 
+    store.subscribe(() => {
+      const visibleBasemapId = mapLayersBasemapSelector(store.getState());
+      const layerConfig = this._layers.find(
+        config => config.id === visibleBasemapId,
+      );
+
+      if (layerConfig && !layerConfig.loaded && layerConfig.type) {
+        this.createLayerFromConfig(layerConfig);
+        layerConfig.loaded = true;
+      }
+    });
+
     // Bind visiblity event for custom layers
     $(Shareabouts).on("visibility", async (evt, id, visible, isBasemap) => {
       let layer = this._layers[id];
@@ -120,12 +135,6 @@ class MainMap {
         // ensure they are added to the map when they are eventually loaded:
         layerConfig.asyncLayerVisibleDefault = visible;
       }
-    });
-
-    // TEMPORARY: Manually trigger the visibility of layers for testing
-    this._map.on("load", () => {
-      $(Shareabouts).trigger("visibility", [this._layers[0].id, true, true]);
-      $(Shareabouts).trigger("visibility", [this._layers[3].id, true, true]);
     });
   }
 

@@ -1,123 +1,43 @@
-// ################################
-// SIDEBAR - SELECTORS
-// ################################
-
-#side-bar {
-    display: none;
-    overflow: auto;
-    letter-spacing: 1px;
-    background-color: rgba(255, 255, 255, 0.5);
-
-    p {
-        color: #F25218;
-        font-family: $default-font-family;
-        text-shadow: 1px -1px 1px $opacity-med-black;
-        font-size: 1.4em;
-        margin: 0;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    hr {
-        margin: 0.5em 0;
-
-        //padding: 7px 0 7px 10px;
-        //margin: 0;
-        //letter-spacing: 1px;
-        //text-transform: uppercase;
-        //height: 12px;
-        border: none;
-    }
-
-    display: block;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+#left-sidebar-container {
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  width: 20%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0.95;
 }
-
-/* Leaflet sidebar filter menu */
-#filters-pane {
-    hr {
-        margin-top: 3px;
-        margin-bottom: 3px;
-    }
-
-    .filter-menu-item {
-        position: relative;
-        display: block;
-        cursor: pointer;
-        margin-top: 5px;
-        font-size: 1.0em !important;
-
-        .filter-menu-check-icon {
-            display: none;
-            float: right;
-            margin-top: 2px;
-            color: #22c722;
-
-            &:before {
-                font-family: "FontAwesome";
-                content: $icon-checkmark;
-                font-size: 0.7em;
-            }
-        }
-
-        img {
-            width: 25px;
-        }
-
-        input {
-            display: none;
-
-            &:checked {
-                & + .filter-menu-item-label {
-                    background-color: yellow;
-                }
-
-                & ~ .filter-menu-check-icon {
-                    display: block;
-                }
-            }
-        }
-        
-        .filter-menu-item-label {
-            text-transform: uppercase;
-            font-size: 0.65em;
-            position: absolute;
-            top: 0.8em;
-            left: 35px;
-        }
-
-        &:hover .filter-menu-item-label {
-            background-color: lightyellow;
-        }
-    }
-}
-
-/*---- leaflet side bar overrides ----*/
-
-.sidebar-tabs {
-  line-height: 0;
-}
-
-.sidebar-header {
-    margin: -10px -10px 0;
-    .sidebar-close {
-        z-index: 1;
-        i {
-            margin-right: 30px;
-            background: #0074d9;
-            border-radius: 50%;
-            padding: 6px 10px 5px 6px;
-        }
-    }
-}
-
-/*---- right-clinging sidebar styles ----*/
 
 #right-sidebar-container {
-    background-color: #FFF;
-    width: 0;
+  background-color: #fff;
+  width: 0;
+  position: absolute;
+  right: 0;
+  .story-sidebar__collapse-btn {
+    position: absolute;
+    top: 50%;
+    text-decoration: none;
+    z-index: 100;
+    font-size: 1.2em;
+    background-color: white;
+    padding: 10px;
+    color: #ff5e99;
+    border-radius: 0.325em 0 0 0.325em;
+    box-shadow: -0.325em 0.325em 0 rgba(0, 0, 0, 0.1);
+    left: -25px;
+
+    &:hover {
+      color: #cd2c67;
+    }
+
+    &:before {
+      content: "\276e";
+    }
+  }
+}
+
+.right-sidebar-visible {
+  #right-sidebar-container {
     position: absolute;
     right: 0;
     .right-sidebar__collapse-btn {

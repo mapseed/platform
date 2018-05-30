@@ -135,7 +135,7 @@ Shareabouts.Util = Util;
         mapConfig: options.mapConfig,
         storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
-        sidebarConfig: options.sidebarConfig,
+        leftSidebarConfig: options.leftSidebarConfig,
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
         userToken: options.userToken,
