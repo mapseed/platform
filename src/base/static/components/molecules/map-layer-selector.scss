@@ -1,0 +1,40 @@
+.map-layer-selector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.map-layer-selector__id-icon {
+  padding-right: 10px;
+  font-size: 1.5em;
+  flex: 1;
+}
+
+.map-layer-selector__layer-title {
+  flex: 6;
+
+  &:hover {
+    background-color: #ffffd4;
+  }
+}
+
+.map-layer-selector__layer-title--selected {
+  background-color: #ffff00;
+
+  &:hover {
+    background-color: #ffff00;
+  }
+}
+
+.map-layer-selector__status-icon {
+  margin-left: 10px;
+  flex: 1;
+}
+
+.map-layer-selector__input {
+  display: none;
+}

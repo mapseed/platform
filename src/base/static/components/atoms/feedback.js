@@ -40,4 +40,31 @@ InfoModalTrigger.propTypes = {
   }).isRequired,
 };
 
-export { ProgressBar, InfoModalTrigger };
+// The source image for an Icon component can be either the name of a
+// FontAwesome icon or the url of an image asset. We assume that if the icon
+// reference ends with an image filetype, the identifier is an image url.
+const Icon = props => {
+  const icon = /\.{jpg,jpeg,png,gif,bmp}$/.test(props.icon) ? (
+    <img
+      src={props.icon}
+      className={classNames("mapseed__icon", props.classes)}
+    />
+  ) : (
+    <span
+      className={classNames(
+        `fas ${props.icon}`,
+        "mapseed__icon",
+        props.classes,
+      )}
+    />
+  );
+
+  return icon;
+};
+
+Icon.propTypes = {
+  classes: PropTypes.string,
+  icon: PropTypes.string.isRequired,
+};
+
+export { ProgressBar, InfoModalTrigger, Icon };

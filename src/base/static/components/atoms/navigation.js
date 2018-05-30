@@ -39,4 +39,20 @@ Link.defaultProps = {
   variant: "unstyled",
 };
 
-export { Link };
+const CloseButton = ({ ...props }) => {
+  return (
+    <button
+      className={classNames("mapseed__close-button", props.classes)}
+      {...props}
+    >
+      &#10005;
+    </button>
+  );
+};
+
+CloseButton.propTypes = {
+  children: PropTypes.node,
+  classes: PropTypes.string,
+};
+
+export { Link, CloseButton };

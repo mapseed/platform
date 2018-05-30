@@ -3,30 +3,41 @@
 // this reducer
 
 // Selectors:
-export const sidebarExpandedSelector = state => {
-  return state.ui.isSidebarExpanded;
+export const rightSidebarExpandedSelector = state => {
+  return state.ui.isRightSidebarExpanded;
+};
+export const leftSidebarExpandedSelector = state => {
+  return state.ui.isLeftSidebarExpanded;
+};
+export const leftSidebarComponentSelector = state => {
+  return state.ui.leftSidebarComponent;
 };
 export const contentPanelOpenSelector = state => {
   return state.ui.isConentPanelOpen;
 };
 
 // Actions:
-const SET_UI_SIDEBAR = "ui/SET_UI_SIDEBAR";
+const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
+const SET_UI_LEFT_SIDEBAR = "ui/SET_UI_LEFT_SIDEBAR";
 const SET_UI_CONTENT_PANEL = "ui/SET_UI_CONTENT_PANEL";
 
 // Action creators:
 export function setContentPanel(isOpen) {
   return { type: SET_UI_CONTENT_PANEL, payload: isOpen };
 }
-
-export function setSidebar(isExpanded) {
-  return { type: SET_UI_SIDEBAR, payload: isExpanded };
+export function setRightSidebar(isExpanded) {
+  return { type: SET_UI_RIGHT_SIDEBAR, payload: isExpanded };
+}
+export function setLeftSidebar(isExpanded) {
+  return { type: SET_UI_LEFT_SIDEBAR, payload: isExpanded };
 }
 
 // Reducers:
 const INITIAL_STATE = {
   isContentPanelOpen: undefined,
   isSidebarExpanded: undefined,
+  isLeftSidebarExpanded: true, // TODO-- make this configurable
+  leftSidebarComponent: "MapLayerPanel", // TODO-- make this configurable
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -36,10 +47,16 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         isContentPanelOpen: action.payload,
       };
-    case SET_UI_SIDEBAR:
+    case SET_UI_RIGHT_SIDEBAR:
       return {
         ...state,
-        isSidebarExpanded: action.payload,
+        isRightSidebarExpanded: action.payload,
+      };
+    case SET_UI_LEFT_SIDEBAR:
+      return {
+        ...state,
+        isLeftSidebarExpanded: action.payload.isLeftSidebarExpanded,
+        leftSidebarComponent: action.payload.leftSidebarComponent,
       };
     default:
       return state;

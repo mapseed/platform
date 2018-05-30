@@ -23,6 +23,7 @@ import FormCategoryMenuWrapper from "../../components/input-form/form-category-m
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import StorySidebar from "../../components/story-sidebar";
+import LeftSidebar from "../../components/organisms/left-sidebar";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(reducer);
@@ -36,8 +37,8 @@ var AuthNavView = require("mapseed-auth-nav-view");
 var PlaceListView = require("mapseed-place-list-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
-var FilterMenuView = require("mapseed-filter-menu-view");
 
+var FilterMenuView = require("mapseed-filter-menu-view");
 // Spinner options -- these need to be own modules
 Shareabouts.bigSpinnerOptions = {
   lines: 13,
@@ -123,12 +124,12 @@ module.exports = Backbone.View.extend({
       $("#ajax-error-msg").hide();
     });
 
-    if (this.options.activityConfig.show_in_right_panel === true) {
-      $("body").addClass("right-sidebar-visible");
-      $("#right-sidebar-container").html(
-        "<ul class='recent-points unstyled-list'></ul>",
-      );
-    }
+    //if (this.options.activityConfig.show_in_right_panel === true) {
+    //  $("body").addClass("right-sidebar-visible");
+    //  $("#right-sidebar-container").html(
+    //    "<ul class='recent-points unstyled-list'></ul>",
+    //  );
+    //}
 
     $(document).on("click", ".activity-item a", function(evt) {
       window.app.clearLocationTypeFilter();
@@ -207,11 +208,12 @@ module.exports = Backbone.View.extend({
       router: this.options.router,
     }).render();
 
-    this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
-      panel,
-    ) {
-      return "basemaps" in panel;
-    }).basemaps;
+    this.basemapConfigs = _.find(
+      this.options.leftSidebarConfig.panels,
+      function(panel) {
+        return "basemaps" in panel;
+      },
+    ).basemaps;
 
     // REACT PORT SECTION /////////////////////////////////////////////////////
     // Instantiate the map.
@@ -221,6 +223,7 @@ module.exports = Backbone.View.extend({
       places: this.places,
       router: this.options.router,
       mapConfig: mapConfigSelector(store.getState()),
+      store: store,
     });
     // END REACT PORT SECTION /////////////////////////////////////////////////
 
@@ -368,9 +371,9 @@ module.exports = Backbone.View.extend({
       });
     });
 
-    if (this.options.rightSidebarConfig.show) {
+    if (this.options.rightSidebarConfig.enabled) {
       $("body").addClass("right-sidebar-active");
-      if (this.options.rightSidebarConfig.visibleDefault) {
+      if (this.options.rightSidebarConfig.visible_default) {
         $("body").addClass("right-sidebar-visible");
       }
 
@@ -387,6 +390,17 @@ module.exports = Backbone.View.extend({
       );
       // END REACT PORT SECTION ///////////////////////////////////////////////
     }
+
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    if (this.options.leftSidebarConfig.enabled) {
+      ReactDOM.render(
+        <Provider store={store}>
+          <LeftSidebar />
+        </Provider>,
+        document.getElementById("left-sidebar-container"),
+      );
+    }
+    // END REACT PORT SECTION /////////////////////////////////////////////////
   },
 
   getListRoutes: function() {
@@ -621,34 +635,32 @@ module.exports = Backbone.View.extend({
   },
 
   restoreDefaultLayerVisibility: function() {
-    var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(
-        panel,
-      ) {
-        return panel.id === "gis-layers";
-      }),
-      defaultBasemapId = _.find(gisLayersPanel.basemaps, function(basemap) {
-        return basemap.visibleDefault === true;
-      }).id;
-
-    this.setLayerVisibility(defaultBasemapId, true, true);
-
-    _.each(
-      gisLayersPanel.groupings,
-      function(grouping) {
-        _.each(
-          grouping.layers,
-          function(layer) {
-            this.setLayerVisibility(
-              layer.id,
-              layer.visibleDefault ? true : false,
-              false,
-            );
-          },
-          this,
-        );
-      },
-      this,
-    );
+    //var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(
+    //    panel,
+    //  ) {
+    //    return panel.id === "gis-layers";
+    //  }),
+    //  defaultBasemapId = _.find(gisLayersPanel.basemaps, function(basemap) {
+    //    return basemap.visibleDefault === true;
+    //  }).id;
+    //this.setLayerVisibility(defaultBasemapId, true, true);
+    //_.each(
+    //  gisLayersPanel.groupings,
+    //  function(grouping) {
+    //    _.each(
+    //      grouping.layers,
+    //      function(layer) {
+    //        this.setLayerVisibility(
+    //          layer.id,
+    //          layer.visibleDefault ? true : false,
+    //          false,
+    //        );
+    //      },
+    //      this,
+    //    );
+    //  },
+    //  this,
+    //);
   },
 
   ensureLayerVisibility: function(datasetId) {

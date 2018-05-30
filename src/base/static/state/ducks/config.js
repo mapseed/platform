@@ -8,6 +8,11 @@ export const placeConfigSelector = state => {
 export const mapConfigSelector = state => {
   return state.config.map;
 };
+export const leftSidebarPanelConfigSelector = (state, panelComponentName) => {
+  return state.config.left_sidebar.panels.find(
+    panel => panel.component === panelComponentName,
+  );
+};
 
 // Actions:
 const SET_CONFIG = "SET_CONFIG";
