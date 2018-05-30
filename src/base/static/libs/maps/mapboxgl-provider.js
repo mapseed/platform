@@ -119,8 +119,6 @@ const configRuleToFillLayer = (layerConfig, i) => {
   };
 };
 
-const layersCache = {};
-
 export default (container, options) => {
   options.map.container = container;
   options.map.style = {
@@ -132,6 +130,7 @@ export default (container, options) => {
     }/static/css/images/markers/spritesheet`,
   };
 
+  const layersCache = {};
   const map = new mapboxgl.Map(options.map);
   map.addControl(
     new mapboxgl.NavigationControl(options.control),

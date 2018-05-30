@@ -90,7 +90,7 @@ class MainMap {
       const layerConfig = this._layers.find(config => config.id === id);
 
       if (layerConfig && !layerConfig.loaded && layerConfig.type && visible) {
-        this.createLayerFromConfig(layerConfig);
+        await this.createLayerFromConfig(layerConfig);
         layerConfig.loaded = true;
       }
 
@@ -242,11 +242,11 @@ class MainMap {
   }
 
   addPlaceCollectionLayer(collectionId) {
-    this._map.createGeoJSONLayer({
-      id: collectionId,
-      rules: this._layers.find(layer => layer.id === collectionId).rules,
-      source: createGeoJSONFromCollection(this._places[collectionId]),
-    });
+    // Note that the object passed here to createGeoJSONLayer is a first-class
+    // Layer object.
+    const placeLayer = this._layers.find(layer => layer.id === collectionId);
+    placeLayer.source = createGeoJSONFromCollection(this._places[collectionId]);
+    this._map.createGeoJSONLayer(placeLayer);
 
     // Bind map interaction events for Mapseed place layers.
     this._map.bindPlaceLayerEvent("click", collectionId, clickedOnLayer => {
@@ -307,7 +307,7 @@ class MainMap {
   }
 
   // TODO: Layer loading and error events.
-  createLayerFromConfig(layerConfig) {
+  async createLayerFromConfig(layerConfig) {
     if (layerConfig.type === "mapbox-style") {
       this._map.addMapboxStyle(layerConfig.url);
     } else if (layerConfig.type === "raster-tile") {
