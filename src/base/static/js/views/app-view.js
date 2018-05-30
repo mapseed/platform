@@ -13,7 +13,9 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 // Eventually, it will be removed once we start fetching the config
 // from the api:
 import config from "config";
-import { setConfig } from "../../state/ducks/config";
+
+import { setConfig, mapConfigSelector } from "../../state/ducks/config";
+import MainMap from "../../libs/maps";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -21,6 +23,7 @@ import FormCategoryMenuWrapper from "../../components/input-form/form-category-m
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import StorySidebar from "../../components/story-sidebar";
+import LeftSidebar from "../../components/organisms/left-sidebar";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(reducer);
@@ -29,11 +32,9 @@ const store = createStore(reducer);
 var Util = require("../utils.js");
 
 // Views
-var MapView = require("mapseed-map-view");
 var PagesNavView = require("mapseed-pages-nav-view");
 var AuthNavView = require("mapseed-auth-nav-view");
 var PlaceListView = require("mapseed-place-list-view");
-var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
 var FilterMenuView = require("mapseed-filter-menu-view");
@@ -123,12 +124,12 @@ module.exports = Backbone.View.extend({
       $("#ajax-error-msg").hide();
     });
 
-    if (this.options.activityConfig.show_in_right_panel === true) {
-      $("body").addClass("right-sidebar-visible");
-      $("#right-sidebar-container").html(
-        "<ul class='recent-points unstyled-list'></ul>",
-      );
-    }
+    //if (this.options.activityConfig.show_in_right_panel === true) {
+    //  $("body").addClass("right-sidebar-visible");
+    //  $("#right-sidebar-container").html(
+    //    "<ul class='recent-points unstyled-list'></ul>",
+    //  );
+    //}
 
     $(document).on("click", ".activity-item a", function(evt) {
       window.app.clearLocationTypeFilter();
@@ -207,33 +208,23 @@ module.exports = Backbone.View.extend({
       router: this.options.router,
     }).render();
 
-    this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
-      panel,
-    ) {
-      return "basemaps" in panel;
-    }).basemaps;
-    // Init the map view to display the places
-    this.mapView = new MapView({
-      el: "#map",
-      mapConfig: this.options.mapConfig,
-      sidebarConfig: this.options.sidebarConfig,
-      basemapConfigs: this.basemapConfigs,
-      legend_enabled: !!this.options.sidebarConfig.legend_enabled,
+    this.basemapConfigs = _.find(
+      this.options.leftSidebarConfig.panels,
+      function(panel) {
+        return "basemaps" in panel;
+      },
+    ).basemaps;
+
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    // Instantiate the map.
+    // TODO: Componentize the map module.
+    this.mapView = new MainMap({
+      container: "map",
       places: this.places,
       router: this.options.router,
-      placeTypes: this.options.placeTypes,
-      cluster: this.options.cluster,
-      placeConfig: this.options.placeConfig,
+      mapConfig: mapConfigSelector(store.getState()),
     });
-
-    if (self.options.sidebarConfig.enabled) {
-      new SidebarView({
-        el: "#sidebar-container",
-        mapView: this.mapView,
-        sidebarConfig: this.options.sidebarConfig,
-        placeConfig: this.options.placeConfig,
-      }).render();
-    }
+    // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Activity is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.
@@ -360,7 +351,6 @@ module.exports = Backbone.View.extend({
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
-      mapView: self.mapView,
       mapConfig: self.options.mapConfig,
     });
 
@@ -380,9 +370,9 @@ module.exports = Backbone.View.extend({
       });
     });
 
-    if (this.options.rightSidebarConfig.show) {
+    if (this.options.rightSidebarConfig.enabled) {
       $("body").addClass("right-sidebar-active");
-      if (this.options.rightSidebarConfig.visibleDefault) {
+      if (this.options.rightSidebarConfig.visible_default) {
         $("body").addClass("right-sidebar-visible");
       }
 
@@ -399,6 +389,17 @@ module.exports = Backbone.View.extend({
       );
       // END REACT PORT SECTION ///////////////////////////////////////////////
     }
+
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    if (this.options.leftSidebarConfig.enabled) {
+      ReactDOM.render(
+        <Provider store={store}>
+          <LeftSidebar />
+        </Provider>,
+        document.getElementById("left-sidebar-container"),
+      );
+    }
+    // END REACT PORT SECTION /////////////////////////////////////////////////
   },
 
   getListRoutes: function() {
@@ -448,20 +449,14 @@ module.exports = Backbone.View.extend({
     Util.log("USER", "panel", "close-btn-click");
     // remove map mask if the user closes the side panel
     this.hideSpotlightMask();
-    if (this.mapView.locationTypeFilter) {
-      this.options.router.navigate(
-        "filter/" + this.mapView.locationTypeFilter,
-        { trigger: true },
-      );
-      this.hidePanel();
-    } else {
-      this.options.router.navigate("/", { trigger: true });
-    }
+    this.options.router.navigate("/", { trigger: true });
 
     if (this.isStoryActive) {
       this.isStoryActive = false;
       this.restoreDefaultLayerVisibility();
     }
+
+    emitter.emit("place-collection:unfocus-all-places");
   },
   onToggleSidebarVisibility: function() {
     $("body").toggleClass("right-sidebar-visible");
@@ -517,18 +512,19 @@ module.exports = Backbone.View.extend({
     var self = this,
       ll;
 
+    // TODO
     // If the map locatin is part of the url already
-    if (zoom && lat && lng) {
-      ll = L.latLng(parseFloat(lat), parseFloat(lng));
+    //if (zoom && lat && lng) {
+    //  ll = L.latLng(parseFloat(lat), parseFloat(lng));
 
-      // Why defer? Good question. There is a mysterious race condition in
-      // some cases where the view fails to set and the user is left in map
-      // limbo. This condition is seemingly eliminated by defering the
-      // execution of this step.
-      _.defer(function() {
-        self.mapView.map.setView(ll, parseInt(zoom, 10));
-      });
-    }
+    //  // Why defer? Good question. There is a mysterious race condition in
+    //  // some cases where the view fails to set and the user is left in map
+    //  // limbo. This condition is seemingly eliminated by defering the
+    //  // execution of this step.
+    //  _.defer(function() {
+    //    self.mapView.map.setView(ll, parseInt(zoom, 10));
+    //  });
+    //}
 
     this.hidePanel();
     this.hideNewPin();
@@ -638,34 +634,32 @@ module.exports = Backbone.View.extend({
   },
 
   restoreDefaultLayerVisibility: function() {
-    var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(
-        panel,
-      ) {
-        return panel.id === "gis-layers";
-      }),
-      defaultBasemapId = _.find(gisLayersPanel.basemaps, function(basemap) {
-        return basemap.visibleDefault === true;
-      }).id;
-
-    this.setLayerVisibility(defaultBasemapId, true, true);
-
-    _.each(
-      gisLayersPanel.groupings,
-      function(grouping) {
-        _.each(
-          grouping.layers,
-          function(layer) {
-            this.setLayerVisibility(
-              layer.id,
-              layer.visibleDefault ? true : false,
-              false,
-            );
-          },
-          this,
-        );
-      },
-      this,
-    );
+    //var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(
+    //    panel,
+    //  ) {
+    //    return panel.id === "gis-layers";
+    //  }),
+    //  defaultBasemapId = _.find(gisLayersPanel.basemaps, function(basemap) {
+    //    return basemap.visibleDefault === true;
+    //  }).id;
+    //this.setLayerVisibility(defaultBasemapId, true, true);
+    //_.each(
+    //  gisLayersPanel.groupings,
+    //  function(grouping) {
+    //    _.each(
+    //      grouping.layers,
+    //      function(layer) {
+    //        this.setLayerVisibility(
+    //          layer.id,
+    //          layer.visibleDefault ? true : false,
+    //          false,
+    //        );
+    //      },
+    //      this,
+    //    );
+    //  },
+    //  this,
+    //);
   },
 
   ensureLayerVisibility: function(datasetId) {
@@ -678,8 +672,7 @@ module.exports = Backbone.View.extend({
   },
 
   viewPlaceOrLandmark: function(args) {
-    var self = this,
-      layout = Util.getPageLayout();
+    var self = this;
 
     Util.getPlaceFromCollections(
       {
@@ -693,30 +686,8 @@ module.exports = Backbone.View.extend({
       },
     );
 
-    function onFound(model, type, datasetId) {
-      var map = self.mapView.map,
-        layer,
-        center,
-        zoom,
-        $responseToScrollTo;
-
+    function onFound(model, type, collectionId) {
       if (type === "place") {
-        // If this model is a duplicate of one that already exists in the
-        // places collection, it may not correspond to a layerView. For this
-        // case, get the model that's actually in the places collection.
-        if (_.isUndefined(self.mapView.layerViews[model.cid])) {
-          model = self.places[datasetId].get(model.id);
-        }
-
-        // TODO: We need to handle the non-deterministic case when
-        // 'self.mapView.layerViews[datasetId][model.cid]` is undefined
-        if (
-          self.mapView.layerViews[datasetId] &&
-          self.mapView.layerViews[datasetId][model.cid]
-        ) {
-          layer = self.mapView.layerViews[datasetId][model.cid].layer;
-        }
-
         // REACT PORT SECTION //////////////////////////////////////////////////
         this.unfocusAllPlaces();
         ReactDOM.unmountComponentAtNode(
@@ -734,7 +705,6 @@ module.exports = Backbone.View.extend({
               map={this.mapView.map}
               model={model}
               appView={this}
-              layerView={this.mapView.layerViews[datasetId][model.cid]}
               places={this.places}
               scrollToResponseId={args.responseId}
               router={this.options.router}
@@ -760,61 +730,63 @@ module.exports = Backbone.View.extend({
       self.setBodyClass("content-visible");
       self.showSpotlightMask();
 
-      if (layer) {
-        center = layer.getLatLng
-          ? layer.getLatLng()
-          : layer.getBounds().getCenter();
-        zoom = map.getZoom();
+      const geometry = model.get("geometry");
 
-        self.ensureLayerVisibility(datasetId);
-
-        if (model.get("story")) {
-          if (!model.get("story").spotlight) {
-            self.hideSpotlightMask();
-          }
-          self.isStoryActive = true;
-          self.isProgrammaticZoom = true;
-          self.setStoryLayerVisibility(model);
-          center = model.get("story").panTo || center;
-          zoom = model.get("story").zoom;
-
-          if (!self.hasBodyClass("right-sidebar-visible")) {
-            $("body").addClass("right-sidebar-visible");
-          }
+      if (model.get("story")) {
+        self.isStoryActive = true;
+        self.isProgrammaticZoom = true;
+        self.setStoryLayerVisibility(model);
+        if (!model.get("story").spotlight) {
+          self.hideSpotlightMask();
         }
 
-        if (layer.getLatLng) {
-          map.setView(center, zoom, {
-            animate: true,
-          });
-        } else {
-          // If we've defined a custom zoom for a polygon layer for some reason,
-          // don't use fitBounds and instead set the zoom defined
-          if (model.get("story") && model.get("story").hasCustomZoom) {
-            map.setView(center, model.get("story").zoom, {
-              animate: true,
-            });
-          } else {
-            map.fitBounds(layer.getBounds(), {
-              animate: true,
-            });
-          }
+        if (!self.hasBodyClass("right-sidebar-visible")) {
+          $("body").addClass("right-sidebar-visible");
         }
       }
 
-      model.trigger("focus");
+      // Determine map settings, reconciling with custom story settings if this
+      // model is part of a story.
+      const story = model.get("story") || {};
+      const zoom = story.zoom || this.mapView.map.getZoom();
+
+      if (geometry.type === "LineString") {
+        // Fit to bounds
+        // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
+        const coordinates = story.panTo ? [story.panTo] : geometry.coordinates;
+        const bounds = coordinates.reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this.mapView.map.makeLngLatBounds(coordinates[0], coordinates[0]),
+        );
+        this.mapView.map.fitBounds(bounds, { padding: 30 });
+      } else if (geometry.type === "Polygon") {
+        const coordinates = story.panTo
+          ? [[story.panTo]]
+          : geometry.coordinates;
+        const bounds = coordinates[0].reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this.mapView.map.makeLngLatBounds(
+            coordinates[0][0],
+            coordinates[0][0],
+          ),
+        );
+        this.mapView.map.fitBounds(bounds, { padding: 30 });
+      } else if (geometry.type === "Point") {
+        this.mapView.map.easeTo({
+          center: story.panTo || geometry.coordinates,
+          zoom: zoom,
+        });
+      }
+
+      emitter.emit("place-collection:focus-place", {
+        collectionId: collectionId,
+        modelId: model.get("id"),
+      });
 
       if (!model.get("story") && self.isStoryActive) {
         self.isStoryActive = false;
         self.restoreDefaultLayerVisibility();
       }
-
-      // Sigh. This is the latest attempt to avert the off-center bug. Tweaking
-      // the map's center point slightly seems to help Leaflet figure out the
-      // correct map dimensions. Definitely hacky...
-      map.panBy(new L.Point(0, -1));
-      map.panBy(new L.Point(0, 1));
-      map.invalidateSize(true);
     }
 
     function onNotFound() {

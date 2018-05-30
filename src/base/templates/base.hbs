@@ -37,22 +37,6 @@
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
-  {{#if config.map.cartodb_enabled}}
-  <link rel="stylesheet" href="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css" />
-  {{else}}
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css" />
-  {{/if}}
-
-  {{#if config.cluster}}
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
-  {{/if}}
-
-  <!--[if lte IE 8]>
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.ie.css" />
-  <![endif]-->
-
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.js"></script>
     <script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -125,19 +109,14 @@
     <div id="geocode-address-bar" class="clearfix"></div>
     {{/if}}
 
-    <div id="map-container">
+    <div id="left-sidebar-container"></div>
 
+    <div id="map-container">
       <div id="ajax-error-msg">{{#_}}We can't connect to the server at the moment. Hang tight while we re-establish communication.{{/_}}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
       <div id="spotlight-mask"></div>
-
-      {{#if config.sidebar.enabled}}
-        <div id="sidebar-container"></div>
-      {{/if}}
-
       <div id="layer-info-window-container" class="is-hidden-fadeout"></div>
-    
     </div>
 
     <div id="content"><!-- .place or .page -->
@@ -145,49 +124,15 @@
       <article></article>
     </div><!-- end #content -->
 
-    <!-- right-panel sidebar -->
     <div id="right-sidebar-container"></div>
 
   </div><!-- end #main -->
 
- {{#if config.sidebar.enabled}}
-   <!-- <div id="side-bar"> -->
-   {{#if config.sidebar.legend_enabled}}
-    <!-- <div id="master-legend"> -->
-      {{#block "sidebar"}}{{/block}}
-      <!--<header>Master Legend</header>-->
-    <!-- </div> -->
-   {{/if}}
-  <!-- </div> -->
- {{/if}}
-
   <div id="list-container"></div>
-
-  <!--
-  <footer id="colophon">
-    {{#block "colophon"}}{{/block}}
-  </footer>
-  -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/static/libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
-
-  {{#if config.map.cartodb_enabled}}
-    <script src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
-  {{else}}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
-  {{/if}}
-
-  {{#if config.cluster}}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.5.0/leaflet.markercluster.js"></script>
-  {{/if}}
-
-  {{#if settings.mapboxToken}}
-    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.css" rel='stylesheet' />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.js"></script>
-    <script src="/libs/leaflet-mapbox-gl.js"></script>
-  {{/if}}
 
   {{#if production}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
@@ -195,13 +140,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/esri-leaflet/1.0.3/esri-leaflet.js"></script>
-    <script src="//cdn.jsdelivr.net/leaflet.esri.renderers/1.0.0/esri-leaflet-renderers.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.12/jquery.scrollTo.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.2/spin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw-src.js"></script>
   {{else}}
     <!-- Non-minified, where available -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
@@ -209,22 +149,14 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.1/backbone.marionette.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/esri-leaflet/1.0.3/esri-leaflet.js"></script>
-    <script src="//cdn.jsdelivr.net/leaflet.esri.renderers/1.0.0/esri-leaflet-renderers.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.12/jquery.scrollTo.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.2/spin.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw-src.js"></script>
   {{/if}}
   
   <!-- These are obscure or customized, self-hosted. -->
-  <script src="/libs/binaryajax.js"></script>
-  <script src="/libs/exif.js"></script>
-  <script src="/libs/swag.min.js"></script>
-  <script src="/libs/leaflet.sidebar.js"></script>
-  <script src="/libs/leaflet-wmts.js"></script>
-  <script src="/libs/leaflet.argo.js"></script>
+  <script src="/legacy-libs/binaryajax.js"></script>
+  <script src="/legacy-libs/exif.js"></script>
+  <script src="/legacy-libs/swag.min.js"></script>
 
   <!-- Bootstrap site and user information -->
   <script>
@@ -294,11 +226,10 @@
           support:    {{#serialize config.support}}{{/serialize}},
           map:        {{#serialize config.map}}{{/serialize}},
           activity:   {{#serialize config.activity}}{{/serialize}},
-          sidebar:    {{#serialize config.sidebar}}{{/serialize}},
-          leaflet_sidebar: {{#serialize config.leaflet_sidebar}}{{/serialize}},
+          leftSidebar:    {{#serialize config.left_sidebar}}{{/serialize}},
+          rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
           pages:           {{#serialize config.pages}}{{/serialize}},
           story:           {{#serialize config.story}}{{/serialize}},
-          rightSidebar:    {{#serialize config.right_sidebar}}{{/serialize}},
           filters:         {{#serialize config.filters}}{{/serialize}},
           datasets:        {{#serialize config.datasets}}{{/serialize}},
           customHooks:     {{#serialize config.custom_hooks}}{{/serialize}},
@@ -314,7 +245,7 @@
             placeConfig: S.Config.place,
             placeTypes: S.Config.placeTypes,
             cluster: S.Config.cluster,
-            sidebarConfig: S.Config.sidebar,
+            leftSidebarConfig: S.Config.leftSidebar,
             rightSidebarConfig: S.Config.rightSidebar,
             surveyConfig: S.Config.survey,
             supportConfig: S.Config.support,
