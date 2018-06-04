@@ -23,12 +23,15 @@ const scrollUpTo = (elt, beginning, diff, time, step, to) => {
   });
 };
 
-const scrollTo = (elt, to) => {
-  if (elt.scrollTop < to) {
-    scrollDownTo(elt, elt.scrollTop, to - elt.scrollTop, 1, 5, to);
-  } else {
-    scrollUpTo(elt, elt.scrollTop, to - elt.scrollTop, 1, 5, to);
-  }
+// elts should be a NodeList.
+const scrollTo = (elts, to) => {
+  elts.forEach(elt => {
+    if (elt.scrollTop < to) {
+      scrollDownTo(elt, elt.scrollTop, to - elt.scrollTop, 1, 5, to);
+    } else {
+      scrollUpTo(elt, elt.scrollTop, to - elt.scrollTop, 1, 5, to);
+    }
+  });
 };
 
 export { scrollTo };
