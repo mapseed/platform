@@ -468,13 +468,7 @@ module.exports = Backbone.View.extend({
     this.mapView.map.invalidateSize();
   },
   setBodyClass: function(/* newBodyClasses */) {
-    var bodyClasses = [
-        "content-visible",
-        "place-form-visible",
-        "page-visible",
-        "content-expanded",
-        "content-expanded-mid",
-      ],
+    var bodyClasses = ["content-visible", "place-form-visible", "page-visible"],
       newBodyClasses = Array.prototype.slice.call(arguments, 0),
       i,
       $body = $("body");
@@ -553,7 +547,12 @@ module.exports = Backbone.View.extend({
           places={this.places}
           router={this.options.router}
           customHooks={this.options.customHooks}
-          container={document.querySelector("#content article")}
+          // '#content article' and 'html' represent the two containers into
+          // which panel content is rendered (one at desktop size and one at
+          // mobile size).
+          // TODO: Improve this when we move overall app layout management to
+          // Redux.
+          containers={document.querySelectorAll("#content article, html")}
           render={(state, props, onCategoryChange) => {
             if (
               props.customComponents &&
@@ -586,11 +585,10 @@ module.exports = Backbone.View.extend({
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
-    this.setBodyClass("content-visible", "content-expanded");
-    this.mapView.map.invalidateSize({ animate: true, pan: true });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     this.setBodyClass("content-visible", "place-form-visible");
+    this.mapView.map.invalidateSize({ animate: true, pan: true });
 
     if (this.options.placeConfig.default_basemap) {
       this.setLayerVisibility(
@@ -745,7 +743,7 @@ module.exports = Backbone.View.extend({
         );
 
         this.$panel.show();
-        this.setBodyClass("content-visible", "content-expanded");
+        this.setBodyClass("content-visible");
         this.mapView.map.invalidateSize({ animate: true, pan: true });
 
         $("#main-btns-container").addClass(
@@ -837,7 +835,7 @@ module.exports = Backbone.View.extend({
     this.hideNewPin();
     this.destroyNewModels();
     this.hideCenterPoint();
-    this.setBodyClass("content-visible", "content-expanded");
+    this.setBodyClass("content-visible");
   },
 
   showPanel: function(markup, preventScrollToTop) {

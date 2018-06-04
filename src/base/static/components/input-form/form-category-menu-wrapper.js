@@ -72,7 +72,7 @@ FormCategoryMenuWrapper.propTypes = {
     PropTypes.bool,
     PropTypes.objectOf(PropTypes.func),
   ]),
-  container: PropTypes.instanceOf(HTMLElement),
+  containers: PropTypes.instanceOf(NodeList),
   render: PropTypes.func.isRequired,
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };

@@ -175,7 +175,7 @@ class InputForm extends Component {
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
       });
-      scrollTo(this.props.container, 0);
+      scrollTo(this.props.containers, 0);
     }
   }
 
@@ -392,7 +392,7 @@ class InputForm extends Component {
           <FormStageControlBar
             onClickAdvanceStage={() => {
               this.validateForm(() => {
-                scrollTo(this.props.container, 0);
+                scrollTo(this.props.containers, 0);
                 this.setState({
                   currentStage: this.state.currentStage + 1,
                   showValidityStatus: false,
@@ -407,7 +407,7 @@ class InputForm extends Component {
               ) {
                 this.props.onCategoryChange(null);
               } else {
-                scrollTo(this.props.container, 0);
+                scrollTo(this.props.containers, 0);
                 this.setState({
                   currentStage: this.state.currentStage - 1,
                   showValidityStatus: false,
@@ -431,7 +431,7 @@ InputForm.propTypes = {
     PropTypes.objectOf(PropTypes.func),
     PropTypes.bool,
   ]),
-  container: PropTypes.object.isRequired,
+  containers: PropTypes.instanceOf(NodeList),
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
