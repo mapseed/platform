@@ -468,11 +468,7 @@ module.exports = Backbone.View.extend({
     this.mapView.map.invalidateSize();
   },
   setBodyClass: function(/* newBodyClasses */) {
-    var bodyClasses = [
-        "content-visible",
-        "place-form-visible",
-        "page-visible",
-      ],
+    var bodyClasses = ["content-visible", "place-form-visible", "page-visible"],
       newBodyClasses = Array.prototype.slice.call(arguments, 0),
       i,
       $body = $("body");
