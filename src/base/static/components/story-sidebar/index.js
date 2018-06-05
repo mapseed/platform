@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  storyConfigSelector,
-  placeConfigSelector,
-  mapConfigSelector,
-} from "../../state/ducks/config";
+import { storyConfigSelector } from "../../state/ducks/story-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
+import { mapConfigSelector } from "../../state/ducks/map-config"
+
 import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 import Immutable from "immutable";
 import Spinner from "react-spinner";

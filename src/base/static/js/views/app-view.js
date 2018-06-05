@@ -14,8 +14,12 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 // from the api:
 import config from "config";
 
-import { setConfig, mapConfigSelector } from "../../state/ducks/config";
-import MainMap from "../../libs/maps";
+import { setMapConfig } from "../../state/ducks/map-config";
+import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
+import { setStoryConfig } from "../../state/ducks/story-config";
+import { setPlaceConfig } from "../../state/ducks/place-config";
+
+import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -88,7 +92,11 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    store.dispatch(setConfig(config));
+    // TODO: Create ducks for remaining config sections.
+    store.dispatch(setMapConfig(config.map));
+    store.dispatch(setLeftSidebarConfig(config.left_sidebar));
+    store.dispatch(setStoryConfig(config.story));
+    store.dispatch(setPlaceConfig(config.place));
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -208,23 +216,22 @@ module.exports = Backbone.View.extend({
       router: this.options.router,
     }).render();
 
-    this.basemapConfigs = _.find(
-      this.options.leftSidebarConfig.panels,
-      function(panel) {
-        return "basemaps" in panel;
-      },
-    ).basemaps;
-
     // REACT PORT SECTION /////////////////////////////////////////////////////
-    // Instantiate the map.
-    // TODO: Componentize the map module.
-    this.mapView = new MainMap({
-      container: "map",
-      places: this.places,
-      router: this.options.router,
-      mapConfig: mapConfigSelector(store.getState()),
-      store: store,
-    });
+    this.mapView = (
+      <Provider store={store}>
+        <MainMap
+          onZoomend={this.onMapZoomEnd.bind(this)}
+          onMovestart={this.onMapMoveStart.bind(this)}
+          onMoveend={this.onMapMoveEnd.bind(this)}
+          onDragend={this.onMapDragEnd.bind(this)}
+          container="map"
+          places={this.places}
+          router={this.options.router}
+        />
+      </Provider>
+    );
+
+    console.log("this.mapView", this.mapView)
     // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Activity is enabled by default (undefined) or by enabling it
@@ -330,14 +337,6 @@ module.exports = Backbone.View.extend({
     this.$panelCloseBtn = $(".close-btn");
     this.$centerpoint = $("#centerpoint");
     this.$addButton = $("#add-place-btn-container");
-
-    // Bind to map move events so we can style our center points
-    // with utmost awesomeness.
-    this.mapView.map.on("zoomend", this.onMapZoomEnd, this);
-    this.mapView.map.on("movestart", this.onMapMoveStart, this);
-    this.mapView.map.on("moveend", this.onMapMoveEnd, this);
-    // For knowing if the user has moved the map after opening the form.
-    this.mapView.map.on("dragend", this.onMapDragEnd, this);
 
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
