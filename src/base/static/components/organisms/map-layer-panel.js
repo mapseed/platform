@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { leftSidebarPanelConfigSelector } from "../../state/ducks/config";
+import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config"
+import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
-  setLayerVisibility,
+  toggleLayerVisibility,
   setBasemap,
   mapLayersBasemapSelector,
 } from "../../state/ducks/map-layers";
@@ -15,30 +16,13 @@ import MapLayerSelector from "../molecules/map-layer-selector";
 import "./map-layer-panel.scss";
 
 const MapLayerPanel = props => {
-  const { leftSidebarConfigMapLayerPanel } = props;
+  const { mapLayerPanel, mapConfig } = props;
 
   return (
     <div className="map-layer-panel">
-      <Header4>{leftSidebarConfigMapLayerPanel.title}</Header4>
-      <HorizontalRule />
-      {leftSidebarConfigMapLayerPanel.basemaps && (
-        <div className="map-layer-panel__basemaps-group">
-          <Header5>Basemaps</Header5>
-          {leftSidebarConfigMapLayerPanel.basemaps.map(basemap => (
-            <MapLayerSelector
-              key={basemap.id}
-              type="basemap"
-              group="basemaps"
-              id={basemap.id}
-              title={basemap.title}
-              selected={props.visibleBasemap === basemap.id}
-              onToggleLayer={props.onToggleLayer}
-            />
-          ))}
-        </div>
-      )}
-      {leftSidebarConfigMapLayerPanel.groupings &&
-        leftSidebarConfigMapLayerPanel.groupings.map(grouping => (
+      <Header4>{mapLayerPanel.title}</Header4>
+      {mapLayerPanel.groupings &&
+        mapLayerPanel.groupings.map(grouping => (
           <div key={grouping.id}>
             <HorizontalRule />
             <div className="map-layer-panel__layer-group">
@@ -50,7 +34,18 @@ const MapLayerPanel = props => {
                   group={grouping.id}
                   id={layer.id}
                   title={layer.title}
-                  onToggleLayer={props.onToggleLayer}
+                  selected={
+                    layer.isBasemap
+                      ? layer.id === props.visibleBasemapId
+                      : false /*props.visibleLayers.includes(layer.id)*/
+                  }
+                  onToggleLayer={layerId => {
+                    if (layer.isBasemap) {
+                      props.setBasemap(layerId);
+                    } else {
+                      props.toggleLayerVisibility(layerId);
+                    }
+                  }}
                 />
               ))}
             </div>
@@ -95,15 +90,14 @@ MapLayerPanel.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  leftSidebarConfigMapLayerPanel: leftSidebarPanelConfigSelector(
-    state,
-    "MapLayerPanel",
-  ),
-  visibleBasemap: mapLayersBasemapSelector(state),
+  mapLayerPanel: leftSidebarPanelConfigSelector(state, "MapLayerPanel"),
+  mapConfig: mapConfigSelector(state),
+  visibleBasemapId: mapLayersBasemapSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onToggleLayer: layerId => dispatch(setBasemap(layerId)),
+  toggleLayerVisibility: layerId => dispatch(toggleLayerVisibility(layerId)),
+  setBasemap: layerId => dispatch(setBasemap(layerId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapLayerPanel);
