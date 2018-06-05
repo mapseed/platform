@@ -48,9 +48,9 @@ map:
 
   options:
     center:
-      lat: 37.82192
-      lng: -122.23680
-    zoom: 13
+      lat: 37.82453
+      lng: -122.22440
+    zoom: 14
     minZoom: 1
     maxZoom: 18
 
@@ -267,7 +267,7 @@ activity:
   # Place Types
 
 place:
-  adding_supported: true
+  adding_supported: false
   add_button_label: _(Share your idea!)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See full list)
