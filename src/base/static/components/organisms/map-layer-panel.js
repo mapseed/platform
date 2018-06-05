@@ -8,7 +8,7 @@ import {
   toggleLayerVisibility,
   setBasemap,
   mapLayersBasemapSelector,
-} from "../../state/ducks/map-layers";
+} from "../../state/ducks/map";
 import { Header4, Header5 } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/misc";
 import MapLayerSelector from "../molecules/map-layer-selector";

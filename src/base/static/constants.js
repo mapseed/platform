@@ -72,4 +72,8 @@ export default {
 
   DEFAULT_DATE_FORMAT: "YYYY-MM-DD",
   DEFAULT_DATE_DISPLAY_FORMAT: "MMMM Do YYYY",
+
+  MAP_TRANSITION_FIT_LINESTRING_COORDS: "map:fit-linestring-coords",
+  MAP_TRANSITION_FIT_POLYGON_COORDS: "map:fit-polygonal-coords",
+  MAP_TRANSITION_EASE_TO_POINT: "map:ease-to-point",
 };

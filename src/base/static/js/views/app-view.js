@@ -1,5 +1,5 @@
-// REACT PORT SECTION //////////////////////////////////////////////////////////
 import React from "react";
+// REACT PORT SECTION //////////////////////////////////////////////////////////
 import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
@@ -14,8 +14,16 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 // from the api:
 import config from "config";
 
-import { setConfig, mapConfigSelector } from "../../state/ducks/config";
-import MainMap from "../../libs/maps";
+import { setMapConfig } from "../../state/ducks/map-config";
+import { setPlaceConfig } from "../../state/ducks/place-config";
+import { setStoryConfig } from "../../state/ducks/story-config";
+import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
+import {
+  setMapSizeValidity,
+  mapPositionSelector,
+} from "../../state/ducks/map";
+
+import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
 import VVInputForm from "../../components/vv-input-form";
 import PlaceDetail from "../../components/place-detail";
@@ -24,6 +32,8 @@ import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import StorySidebar from "../../components/story-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
+
+import constants from "../../constants"
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(reducer);
@@ -88,7 +98,10 @@ module.exports = Backbone.View.extend({
   initialize: function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    store.dispatch(setConfig(config));
+    store.dispatch(setMapConfig(config.map));
+    store.dispatch(setPlaceConfig(config.place));
+    store.dispatch(setLeftSidebarConfig(config.left_sidebar));
+    store.dispatch(setStoryConfig(config.story));
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -208,23 +221,21 @@ module.exports = Backbone.View.extend({
       router: this.options.router,
     }).render();
 
-    this.basemapConfigs = _.find(
-      this.options.leftSidebarConfig.panels,
-      function(panel) {
-        return "basemaps" in panel;
-      },
-    ).basemaps;
-
     // REACT PORT SECTION /////////////////////////////////////////////////////
-    // Instantiate the map.
-    // TODO: Componentize the map module.
-    this.mapView = new MainMap({
-      container: "map",
-      places: this.places,
-      router: this.options.router,
-      mapConfig: mapConfigSelector(store.getState()),
-      store: store,
-    });
+    ReactDOM.render(
+      <Provider store={store}>
+        <MainMap
+          container="map"
+          places={this.places}
+          router={this.options.router}
+          onZoomend={this.onMapZoomEnd.bind(this)}
+          onMovestart={this.onMapMoveStart.bind(this)}
+          onMoveend={this.onMapMoveEnd.bind(this)}
+          onDragend={this.onMapDragEnd.bind(this)}
+        />
+      </Provider>,
+      document.getElementById("map-component"),
+    );
     // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Activity is enabled by default (undefined) or by enabling it
@@ -331,14 +342,6 @@ module.exports = Backbone.View.extend({
     this.$centerpoint = $("#centerpoint");
     this.$addButton = $("#add-place-btn-container");
 
-    // Bind to map move events so we can style our center points
-    // with utmost awesomeness.
-    this.mapView.map.on("zoomend", this.onMapZoomEnd, this);
-    this.mapView.map.on("movestart", this.onMapMoveStart, this);
-    this.mapView.map.on("moveend", this.onMapMoveEnd, this);
-    // For knowing if the user has moved the map after opening the form.
-    this.mapView.map.on("dragend", this.onMapDragEnd, this);
-
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
@@ -424,14 +427,12 @@ module.exports = Backbone.View.extend({
   onMapMoveStart: function(evt) {
     this.$centerpoint.addClass("dragging");
   },
-  onMapMoveEnd: function(evt) {
-    var ll = this.mapView.map.getCenter(),
-      zoom = this.mapView.map.getZoom();
-
+  onMapMoveEnd: function() {
     this.$centerpoint.removeClass("dragging");
 
     if (this.hasBodyClass("content-visible") === false) {
-      this.setLocationRoute(zoom, ll.lat, ll.lng);
+      const { zoom, center } = mapPositionSelector(store.getState());
+      this.setLocationRoute(zoom, center.lat, center.lng);
     }
   },
   onMapDragEnd: function(evt) {
@@ -461,7 +462,7 @@ module.exports = Backbone.View.extend({
   },
   onToggleSidebarVisibility: function() {
     $("body").toggleClass("right-sidebar-visible");
-    this.mapView.map.invalidateSize();
+    store.dispatch(setMapSizeValidity(false));
   },
   setBodyClass: function(/* newBodyClasses */) {
     var bodyClasses = [
@@ -546,7 +547,6 @@ module.exports = Backbone.View.extend({
           showNewPin={this.showNewPin.bind(this)}
           hideNewPin={this.hideNewPin.bind(this)}
           hidePanel={this.hidePanel.bind(this)}
-          map={this.mapView.map}
           places={this.places}
           router={this.options.router}
           customHooks={this.options.customHooks}
@@ -584,7 +584,7 @@ module.exports = Backbone.View.extend({
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
     this.setBodyClass("content-visible", "content-expanded");
-    this.mapView.map.invalidateSize({ animate: true, pan: true });
+    store.dispatch(setMapSizeValidity(false));
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     this.setBodyClass("content-visible", "place-form-visible");
@@ -601,66 +601,11 @@ module.exports = Backbone.View.extend({
   // If a model has a story object, set the appropriate layer
   // visilbilities and update legend checkboxes
   setStoryLayerVisibility: function(model) {
-    // change the basemap if it's been set in the story config
-    if (model.get("story").basemap) {
-      this.setLayerVisibility(model.get("story").basemap, true, true);
-    }
-
-    // set layer visibility based on story config
-    _.each(
-      model.get("story").visibleLayers,
-      function(targetLayer) {
-        this.setLayerVisibility(targetLayer, true, false);
-      },
-      this,
-    );
-
-    // switch off all other layers
-    _.each(
-      this.options.mapConfig.layers,
-      function(targetLayer) {
-        if (!_.contains(model.attributes.story.visibleLayers, targetLayer.id)) {
-          // but don't turn off basemap layers!
-          if (
-            !this.basemapConfigs
-              .map(config => config.id)
-              .includes(targetLayer.id)
-          ) {
-            this.setLayerVisibility(targetLayer.id, false, false);
-          }
-        }
-      },
-      this,
-    );
+    // TODO
   },
 
   restoreDefaultLayerVisibility: function() {
-    //var gisLayersPanel = _.find(this.options.sidebarConfig.panels, function(
-    //    panel,
-    //  ) {
-    //    return panel.id === "gis-layers";
-    //  }),
-    //  defaultBasemapId = _.find(gisLayersPanel.basemaps, function(basemap) {
-    //    return basemap.visibleDefault === true;
-    //  }).id;
-    //this.setLayerVisibility(defaultBasemapId, true, true);
-    //_.each(
-    //  gisLayersPanel.groupings,
-    //  function(grouping) {
-    //    _.each(
-    //      grouping.layers,
-    //      function(layer) {
-    //        this.setLayerVisibility(
-    //          layer.id,
-    //          layer.visibleDefault ? true : false,
-    //          false,
-    //        );
-    //      },
-    //      this,
-    //    );
-    //  },
-    //  this,
-    //);
+    // TODO
   },
 
   ensureLayerVisibility: function(datasetId) {
@@ -703,7 +648,6 @@ module.exports = Backbone.View.extend({
               isGeocodingBarEnabled={
                 this.options.mapConfig.geocoding_bar_enabled
               }
-              map={this.mapView.map}
               model={model}
               appView={this}
               places={this.places}
@@ -717,7 +661,7 @@ module.exports = Backbone.View.extend({
 
         this.$panel.show();
         this.setBodyClass("content-visible", "content-expanded");
-        this.mapView.map.invalidateSize({ animate: true, pan: true });
+        store.dispatch(setMapSizeValidity(false));
 
         $("#main-btns-container").addClass(
           this.options.placeConfig.add_button_location || "pos-top-left",
@@ -746,36 +690,22 @@ module.exports = Backbone.View.extend({
         }
       }
 
-      // Determine map settings, reconciling with custom story settings if this
-      // model is part of a story.
+      // Fire an event to set map position, reconciling with custom story 
+      // settings if this model is part of a story.
       const story = model.get("story") || {};
-      const zoom = story.zoom || this.mapView.map.getZoom();
 
       if (geometry.type === "LineString") {
-        // Fit to bounds
-        // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
-        const coordinates = story.panTo ? [story.panTo] : geometry.coordinates;
-        const bounds = coordinates.reduce(
-          (bounds, coord) => bounds.extend(coord),
-          this.mapView.map.makeLngLatBounds(coordinates[0], coordinates[0]),
-        );
-        this.mapView.map.fitBounds(bounds, { padding: 30 });
+        emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
+          coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
+        });
       } else if (geometry.type === "Polygon") {
-        const coordinates = story.panTo
-          ? [[story.panTo]]
-          : geometry.coordinates;
-        const bounds = coordinates[0].reduce(
-          (bounds, coord) => bounds.extend(coord),
-          this.mapView.map.makeLngLatBounds(
-            coordinates[0][0],
-            coordinates[0][0],
-          ),
-        );
-        this.mapView.map.fitBounds(bounds, { padding: 30 });
+        emitter.emit(constants.MAP_TRANSITION_FIT_POLYGON_COORDS, {
+          coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
+        });
       } else if (geometry.type === "Point") {
-        this.mapView.map.easeTo({
-          center: story.panTo || geometry.coordinates,
-          zoom: zoom,
+        emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+          coordinates: story.panTo || geometry.coordinates,
+          zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
         });
       }
 
@@ -814,8 +744,6 @@ module.exports = Backbone.View.extend({
   },
 
   showPanel: function(markup, preventScrollToTop) {
-    var map = this.mapView.map;
-
     this.unfocusAllPlaces();
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
@@ -850,6 +778,8 @@ module.exports = Backbone.View.extend({
     );
 
     Util.log("APP", "panel-state", "open");
+
+    store.dispatch(setMapSizeValidity(false));
   },
   showNewPin: function() {
     this.$centerpoint.show().addClass("newpin");
@@ -869,8 +799,6 @@ module.exports = Backbone.View.extend({
     this.$centerpoint.hide();
   },
   hidePanel: function() {
-    var map = this.mapView.map;
-
     this.unfocusAllPlaces();
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
@@ -879,7 +807,7 @@ module.exports = Backbone.View.extend({
 
     this.$panel.hide();
     this.setBodyClass();
-    map.invalidateSize({ animate: true, pan: true });
+    store.dispatch(setMapSizeValidity(false));
 
     $("#main-btns-container").addClass(
       this.options.placeConfig.add_button_location || "pos-top-left",

@@ -1,25 +1,34 @@
+import { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import MapboxGLProvider from "./mapboxgl-provider";
+
+import MapboxGLProvider from "../../libs/maps/mapboxgl-provider";
 // Import other providers here as they become available
 
 import emitter from "../../utils/emitter";
 import { createGeoJSONFromCollection } from "../../utils/collection-utils";
 
-import { mapLayersBasemapSelector } from "../../state/ducks/map";
+import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  mapLayersBasemapSelector,
+  mapSizeValiditySelector,
+  setMapSizeValidity,
+  setMapPosition,
+} from "../../state/ducks/map";
 
 import constants from "../../constants";
 
 const Util = require("../../js/utils.js");
 
-class MainMap {
-  constructor({ container, places, router, mapConfig, store }) {
-    this._mapConfig = mapConfig;
-    this._router = router;
-    this._layers = mapConfig.layers;
-    this._places = places;
+class MainMap extends Component {
+  constructor(props) {
+    super(props);
+    this._router = props.router;
+    this._places = props.places;
+    this._layers = props.mapConfig.layers;
 
     let MapProvider;
-    switch (this._mapConfig.provider) {
+    switch (props.mapConfig.provider) {
       // Add other provider types here as they become available
       case "mapboxgl":
         MapProvider = MapboxGLProvider;
@@ -29,7 +38,32 @@ class MainMap {
         break;
     }
 
-    const logUserPan = () => {
+    // Bind visiblity event for custom layers
+    $(Shareabouts).on("visibility", async (evt, layer) => {
+      await this.createLayerFromConfig(layer);
+    });
+
+    this._map = MapProvider(props.container, props.mapConfig.options);
+
+    // TEMPORARY: Manually trigger the visibility of layers for testing
+    this._map.on("load", () => {
+      $(Shareabouts).trigger("visibility", [this._layers[4], true, true]);
+    });
+
+    if (props.mapConfig.geolocation_enabled) {
+      // TODO
+    }
+  }
+
+  componentDidUpdate() {
+    if (!this.props.isValidSize) {
+      this._map.invalidateSize();
+      this.props.setMapSizeValidity(true);
+    }
+  }
+
+  componentDidMount() {
+    this._map.on("dragend", () => {
       Util.log(
         "USER",
         "map",
@@ -37,105 +71,62 @@ class MainMap {
         this._map.getBBoxString(),
         this._map.getZoom(),
       );
-    };
-
-    this._map = MapProvider(container, this._mapConfig.options);
-
-    this._layers.forEach(config => {
-      config.loaded = false;
+      this.props.onDragend();
     });
-
-    if (this._mapConfig.geolocation_enabled) {
-      this.initGeolocation();
-    }
-
-    this._map.on("dragend", logUserPan);
-    this._map.on("zoomend", evt => {
+    this._map.on("zoomend", () => {
       Util.log("APP", "zoom", this._map.getZoom());
-      $(Shareabouts).trigger("zoomend", [evt]);
+      this.props.onZoomend();
     });
-
-    this._map.on("moveend", evt => {
+    this._map.on("movestart", this.props.onMovestart);
+    this._map.on("moveend", () => {
       Util.log("APP", "center-lat", this._map.getCenter().lat);
       Util.log("APP", "center-lng", this._map.getCenter().lng);
-
-      $(Shareabouts).trigger("mapmoveend", [evt]);
-    });
-
-    this._map.on("dragend", evt => {
-      $(Shareabouts).trigger("mapdragend", [evt]);
+      this.props.setMapPosition({
+        center: this._map.getCenter(),
+        zoom: this._map.getZoom(),
+      });
+      this.props.onMoveend();
     });
 
     emitter.addListener("place-collection:loaded", collectionId => {
       this.addPlaceCollectionLayer(collectionId);
     });
-
     emitter.addListener("place-collection:add-place", collectionId => {
       this.updatePlaceCollectionLayer(collectionId);
     });
-
     emitter.addListener(
       "place-collection:focus-place",
       ({ collectionId, modelId }) => {
         this.updatePlaceCollectionLayer(collectionId, modelId);
       },
     );
-
     emitter.addListener("place-collection:unfocus-all-places", () => {
       Object.keys(this._places).forEach(collectionId => {
         this.updatePlaceCollectionLayer(collectionId);
       });
     });
 
-    store.subscribe(() => {
-      const visibleBasemapId = mapLayersBasemapSelector(store.getState());
-      const layerConfig = this._layers.find(
-        config => config.id === visibleBasemapId,
-      );
-
-      if (layerConfig && !layerConfig.loaded && layerConfig.type) {
-        this.createLayerFromConfig(layerConfig);
-        layerConfig.loaded = true;
-      }
-    });
-
-    // Bind visiblity event for custom layers
-    $(Shareabouts).on("visibility", async (evt, id, visible, isBasemap) => {
-      let layer = this._layers[id];
-      const layerConfig = this._layers.find(config => config.id === id);
-
-      if (layerConfig && !layerConfig.loaded && layerConfig.type && visible) {
-        await this.createLayerFromConfig(layerConfig);
-        layerConfig.loaded = true;
-      }
-
-      if (isBasemap) {
-        this.checkLayerZoom(layerConfig.maxZoom);
-        this._map.setMaxZoom(
-          layerConfig.maxZoom
-            ? layerConfig.maxZoom
-            : this._mapConfig.options.maxZoom,
-        );
-
-        // TODO
-        //_.each(this.options.basemapConfigs, function(basemap) {
-        //  if (basemap.id === id) {
-        //    self.map.addLayer(layer);
-        //    layer.bringToBack();
-        //  } else if (self.layers[basemap.id]) {
-        //    self.map.removeLayer(self.layers[basemap.id]);
-        //  }
-        //});
-      } else if (layer) {
-        //self.setLayerVisibility(layer, visible);
-      } else {
-        // Handles cases when we fire events for layers that are not yet
-        // loaded (ie cartodb layers, which are loaded asynchronously)
-        // We are setting the asynch layer layerConfig's default visibility here to
-        // ensure they are added to the map when they are eventually loaded:
-        layerConfig.asyncLayerVisibleDefault = visible;
-      }
-    });
+    emitter.addListener(
+      constants.MAP_TRANSITION_FIT_LINESTRING_COORDS,
+      ({ coordinates }) => {
+        this._map.fitLineStringCoords(coordinates, { padding: 30 });
+      },
+    );
+    emitter.addListener(
+      constants.MAP_TRANSITION_FIT_POLYGON_COORDS,
+      ({ coordinates }) => {
+        this._map.fitPolygonCoords(coordinates, { padding: 30 });
+      },
+    );
+    emitter.addListener(
+      constants.MAP_TRANSITION_EASE_TO_POINT,
+      ({ coordinates, zoom }) => {
+        this._map.easeTo({
+          center: coordinates,
+          zoom: zoom,
+        });
+      },
+    );
   }
 
   get map() {
@@ -255,7 +246,7 @@ class MainMap {
     // Layer object.
     const placeLayer = this._layers.find(layer => layer.id === collectionId);
     placeLayer.source = createGeoJSONFromCollection(this._places[collectionId]);
-    this._map.createGeoJSONLayer(placeLayer);
+    this._map.addLayer(placeLayer);
 
     // Bind map interaction events for Mapseed place layers.
     this._map.bindPlaceLayerEvent("click", collectionId, clickedOnLayer => {
@@ -317,20 +308,70 @@ class MainMap {
 
   // TODO: Layer loading and error events.
   async createLayerFromConfig(layerConfig) {
-    if (layerConfig.type === "mapbox-style") {
-      this._map.addMapboxStyle(layerConfig.url);
-    } else if (layerConfig.type === "raster-tile") {
-      this._map.createRasterTileLayer(layerConfig);
-    } else if (layerConfig.type === "wms") {
-      this._map.createWMSLayer(layerConfig);
-    } else if (layerConfig.type === "wmts") {
-      this._map.createWMTSLayer(layerConfig);
-    } else if (layerConfig.type === "vector-tile") {
-      this._map.createVectorTileLayer(layerConfig);
-    } else if (layerConfig.type === "json") {
-      this._map.createGeoJSONLayer(layerConfig);
-    }
+    this._map.addLayer(layerConfig);
+  }
+
+  render() {
+    return null;
   }
 }
 
-export default MainMap;
+MainMap.propTypes = {
+  container: PropTypes.string.isRequired,
+  isValidSize: PropTypes.bool.isRequired,
+  mapConfig: PropTypes.shape({
+    geolocation_enabled: PropTypes.bool.isRequired,
+    layers: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        url: PropTypes.string,
+        source: PropTypes.string,
+        slug: PropTypes.string,
+        rules: PropTypes.arrayOf(
+          PropTypes.shape({
+            filter: PropTypes.array,
+            "symbol-layout": PropTypes.object,
+            "symbol-paint": PropTypes.object,
+            "line-layout": PropTypes.object,
+            "line-paint": PropTypes.object,
+            "fill-layout": PropTypes.object,
+            "fill-paint": PropTypes.object,
+          }),
+        ),
+      }),
+    ),
+    options: PropTypes.shape({
+      center: PropTypes.shape({
+        lat: PropTypes.number.isRequired,
+        lng: PropTypes.number.isRequired,
+      }).isRequired,
+      zoom: PropTypes.number.isRequired,
+      minZoom: PropTypes.number.isRequired,
+      maxZoom: PropTypes.number.isRequired,
+    }),
+    provider: PropTypes.string,
+  }),
+  onZoomend: PropTypes.func.isRequired,
+  onMovestart: PropTypes.func.isRequired,
+  onMoveend: PropTypes.func.isRequired,
+  onDragend: PropTypes.func.isRequired,
+  places: PropTypes.object.isRequired,
+  provider: PropTypes.string,
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  setMapPosition: PropTypes.func.isRequired,
+  setMapSizeValidity: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  mapConfig: mapConfigSelector(state),
+  basemap: mapLayersBasemapSelector(state),
+  isValidSize: mapSizeValiditySelector(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  setMapPosition: mapPosition => dispatch(setMapPosition(mapPosition)),
+  setMapSizeValidity: isValidSize => dispatch(setMapSizeValidity(isValidSize)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainMap);
