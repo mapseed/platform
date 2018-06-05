@@ -131,14 +131,154 @@ export default (container, options) => {
   };
 
   const layersCache = {};
+
+  const createRasterTileLayer = ({ id, url }) => {
+    layersCache[id] = [
+      {
+        id: id,
+        type: "raster",
+        source: {
+          type: "raster",
+          tiles: [url],
+        },
+      },
+    ];
+  };
+
+  const createVectorTileLayer = async ({
+    id,
+    url,
+    style_url,
+    source_layer,
+  }) => {
+    map.addSource(id, {
+      type: "vector",
+      tiles: [url],
+    });
+
+    const style = await VectorTileClient.fetchStyle(style_url);
+
+    layersCache[id] = style.layers.map(layer => {
+      layer.source = id;
+      layer["source-layer"] = source_layer;
+      return layer;
+    });
+  };
+
+  // https://www.mapbox.com/mapbox-gl-js/example/wms/
+  // http://cite.opengeospatial.org/pub/cite/files/edu/wms/text/operations.html#getmap
+  const createWMSLayer = ({
+    id,
+    layers,
+    url,
+    format,
+    version,
+    transparent,
+    style,
+  }) => {
+    if (Array.isArray(layers)) {
+      layers = layers.join(",");
+    }
+
+    const requestUrl = [
+      url,
+      "?service=wms&request=getmap&format=",
+      format,
+      "&version=",
+      version,
+      "&crs=EPSG:3857&transparent=",
+      transparent,
+      "&layers=",
+      layers,
+      "&bbox={bbox-epsg-3857}&width=256&height=256&styles=",
+      style ? style : "default",
+    ].join("");
+
+    layersCache[id] = [
+      {
+        id: id,
+        type: "raster",
+        source: {
+          type: "raster",
+          tiles: [requestUrl],
+        },
+        tileSize: 256,
+      },
+    ];
+  };
+
+  // https://stackoverflow.com/questions/35566940/wmts-geotiff-for-a-mapbox-gl-source
+  // http://cite.opengeospatial.org/pub/cite/files/edu/wmts/text/operations.html#examples-requests-and-responses-for-tile-resources
+  const createWMTSLayer = ({
+    id,
+    url,
+    layers,
+    version,
+    tilematrix_set,
+    format,
+    transparent,
+    style,
+  }) => {
+    const requestUrl = [
+      url,
+      "?service=wmts&request=gettile&layers=",
+      layers,
+      "&version=",
+      version,
+      "&tilematrixset=",
+      tilematrix_set,
+      "&format=",
+      format,
+      "&transparent=",
+      transparent,
+      "&style=",
+      style ? style : "default",
+      "&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}",
+    ].join("");
+
+    layersCache[id] = [
+      {
+        id: id,
+        type: "raster",
+        source: {
+          type: "raster",
+          tiles: [requestUrl],
+        },
+      },
+    ];
+  };
+
+  const createGeoJSONLayer = ({ id, source, rules }) => {
+    map.addSource(id, {
+      type: "geojson",
+      data: source,
+    });
+
+    rules = rules.map(rule => ({
+      baseLayerId: id,
+      source: id,
+      ...rule,
+    }));
+
+    // NOTE: We create a lot of layers here, which could be a performance
+    // bottleneck.
+    // See: https://github.com/mapseed/platform/issues/961
+    layersCache[id] = rules
+      .map(configRuleToSymbolLayer)
+      .concat(rules.map(configRuleToLineLayer))
+      .concat(rules.map(configRuleToFillLayer));
+  };
+
   const map = new mapboxgl.Map(options.map);
   map.addControl(
     new mapboxgl.NavigationControl(options.control),
     options.control.position,
   );
-  const addLayers = layers => {
-    layers = Array.isArray(layers) ? layers : [layers];
-    layers.forEach(layer => map.addLayer(layer));
+  const removeConstituentLayers = layerId => {
+    const layers = Array.isArray(layersCache[layerId])
+      ? layersCache[layerId]
+      : [layersCache[layerId]];
+    layers.forEach(layer => map.removeLayer(layer.id));
   };
 
   return AbstractMapFactory({
@@ -209,6 +349,52 @@ export default (container, options) => {
       return !!map.getLayer(layerId);
     },
 
+    addLayer: async layer => {
+      if (!layersCache[layer.id]) {
+        switch (layer.type) {
+          case "mapbox-style":
+            addMapoxStyle(layer);
+            break;
+          case "raster-tile":
+            createRasterTileLayer(layer);
+            break;
+          case "wms":
+            createWMSLayer(layer);
+            break;
+          case "wmts":
+            createWMTSLayer(layer);
+            break;
+          case "vector-tile":
+            await createVectorTileLayer(layer);
+            break;
+          case "json":
+            createGeoJSONLayer(layer);
+            break;
+        }
+      }
+
+      layersCache[layer.id].forEach(internalLayer => {
+        console.log("!!!", map.getLayer(internalLayer.id));
+        !map.getLayer(internalLayer.id) && map.addLayer(internalLayer);
+      });
+    },
+
+    removeLayer: layer => {
+      console.log("removing", layer);
+      layer &&
+        layersCache[layer.id].forEach(internalLayer => {
+          !!map.getLayer(internalLayer.id) && map.removeLayer(internalLayer.id);
+        });
+    },
+
+    isLayerCached: layerId => {
+      return !!layersCache[layerId];
+    },
+
+    getSource: sourceId => {
+      return map.getSource(sourceId);
+    },
+
     addMapboxStyle: styleUrl => {
       map.setStyle(styleUrl);
     },
@@ -243,144 +429,6 @@ export default (container, options) => {
 
     invalidateSize: () => {
       map.resize();
-    },
-
-    createRasterTileLayer: ({ id, url }) => {
-      layersCache[id] = {
-        id: id,
-        type: "raster",
-        source: {
-          type: "raster",
-          tiles: [url],
-        },
-      };
-
-      addLayers(layersCache[id]);
-    },
-
-    createVectorTileLayer: async ({ id, url, style_url, source_layer }) => {
-      map.addSource(id, {
-        type: "vector",
-        tiles: [url],
-      });
-
-      const style = await VectorTileClient.fetchStyle(style_url);
-
-      layersCache[id] = style.layers.map(layer => {
-        layer.source = id;
-        layer["source-layer"] = source_layer;
-        return layer;
-      });
-
-      addLayers(layersCache[id]);
-    },
-
-    // https://www.mapbox.com/mapbox-gl-js/example/wms/
-    // http://cite.opengeospatial.org/pub/cite/files/edu/wms/text/operations.html#getmap
-    createWMSLayer: ({
-      id,
-      layers,
-      url,
-      format,
-      version,
-      transparent,
-      style,
-    }) => {
-      if (Array.isArray(layers)) {
-        layers = layers.join(",");
-      }
-
-      const requestUrl = [
-        url,
-        "?service=wms&request=getmap&format=",
-        format,
-        "&version=",
-        version,
-        "&crs=EPSG:3857&transparent=",
-        transparent,
-        "&layers=",
-        layers,
-        "&bbox={bbox-epsg-3857}&width=256&height=256&styles=",
-        style ? style : "default",
-      ].join("");
-
-      return {
-        id: id,
-        type: "raster",
-        source: {
-          type: "raster",
-          tiles: [requestUrl],
-        },
-        tileSize: 256,
-      };
-    },
-
-    // https://stackoverflow.com/questions/35566940/wmts-geotiff-for-a-mapbox-gl-source
-    // http://cite.opengeospatial.org/pub/cite/files/edu/wmts/text/operations.html#examples-requests-and-responses-for-tile-resources
-    createWMTSLayer: ({
-      id,
-      url,
-      layers,
-      version,
-      tilematrix_set,
-      format,
-      transparent,
-      style,
-    }) => {
-      const requestUrl = [
-        url,
-        "?service=wmts&request=gettile&layers=",
-        layers,
-        "&version=",
-        version,
-        "&tilematrixset=",
-        tilematrix_set,
-        "&format=",
-        format,
-        "&transparent=",
-        transparent,
-        "&style=",
-        style ? style : "default",
-        "&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}",
-      ].join("");
-
-      layersCache[id] = {
-        id: id,
-        type: "raster",
-        source: {
-          type: "raster",
-          tiles: [requestUrl],
-        },
-      };
-
-      addLayers(layersCache[id]);
-    },
-
-    getSource: sourceId => {
-      return map.getSource(sourceId);
-    },
-
-    createGeoJSONLayer: ({ id, source, rules }) => {
-      map.addSource(id, {
-        type: "geojson",
-        data: source,
-      });
-
-      rules = rules.map(rule => ({
-        baseLayerId: id,
-        source: id,
-        ...rule,
-      }));
-
-      // NOTE: We create a lot of layers here, which could be a performance
-      // bottleneck.
-      // See: https://github.com/mapseed/platform/issues/961
-      layersCache[id] = rules
-        .map(configRuleToSymbolLayer)
-        .concat(rules.map(configRuleToLineLayer))
-        .concat(rules.map(configRuleToFillLayer));
-
-      addLayers(layersCache[id]);
     },
   });
 };
