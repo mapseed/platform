@@ -63,8 +63,8 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: dark
-      url: //api.mapbox.com/styles/v1/smartercleanup/cis9wdf5h003w2xt6atlz48yh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+    - id: light
+      url: //{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
       attribution: 'Hello World'
 
     - id: districts
@@ -209,8 +209,8 @@ sidebar:
         - id: satellite
           title: _(Satellite View)
           visibleDefault: false
-        - id: dark
-          title: _(Dark)
+        - id: light
+          title: _(Light)
           visibleDefault: false
       groupings:
         - id: grp-community
