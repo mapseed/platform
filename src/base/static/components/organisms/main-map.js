@@ -1,22 +1,26 @@
+import { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import MapboxGLProvider from "./mapboxgl-provider";
+
+import MapboxGLProvider from "../../libs/maps/mapboxgl-provider";
 // Import other providers here as they become available
 
 import emitter from "../../utils/emitter";
 import { createGeoJSONFromCollection } from "../../utils/collection-utils";
 
+import { mapConfigSelector } from "../../state/ducks/map-config";
 import { mapLayersBasemapSelector } from "../../state/ducks/map-layers";
 
 import constants from "../../constants";
 
 const Util = require("../../js/utils.js");
 
-class MainMap {
-  constructor({ container, places, router, mapConfig, store }) {
-    this._mapConfig = mapConfig;
-    this._router = router;
-    this._layers = mapConfig.layers;
-    this._places = places;
+class MainMap extends Component {
+  constructor(props) {
+    super(props);
+    this._router = props.router;
+    this._places = props.places;
+    this._layers = props.mapConfig.layers;
 
     let MapProvider;
     switch (this._mapConfig.provider) {
@@ -29,7 +33,13 @@ class MainMap {
         break;
     }
 
-    const logUserPan = () => {
+    this._map = MapProvider(props.container, props.mapConfig.options);
+
+    if (this._mapConfig.geolocation_enabled) {
+      this.initGeolocation();
+    }
+
+    this._map.on("dragend", evt => {
       Util.log(
         "USER",
         "map",
@@ -37,33 +47,23 @@ class MainMap {
         this._map.getBBoxString(),
         this._map.getZoom(),
       );
-    };
+      props.onDragend();
 
-    this._map = MapProvider(container, this._mapConfig.options);
-
-    this._layers.forEach(config => {
-      config.loaded = false;
+      $(Shareabouts).trigger("mapdragend", [evt]);
     });
-
-    if (this._mapConfig.geolocation_enabled) {
-      this.initGeolocation();
-    }
-
-    this._map.on("dragend", logUserPan);
     this._map.on("zoomend", evt => {
       Util.log("APP", "zoom", this._map.getZoom());
+      props.onZoomend();
+
       $(Shareabouts).trigger("zoomend", [evt]);
     });
-
+    this._map.on("movestart", props.onMovestart);
     this._map.on("moveend", evt => {
       Util.log("APP", "center-lat", this._map.getCenter().lat);
       Util.log("APP", "center-lng", this._map.getCenter().lng);
+      props.onMoveend();
 
       $(Shareabouts).trigger("mapmoveend", [evt]);
-    });
-
-    this._map.on("dragend", evt => {
-      $(Shareabouts).trigger("mapdragend", [evt]);
     });
 
     emitter.addListener("place-collection:loaded", collectionId => {
@@ -87,55 +87,23 @@ class MainMap {
       });
     });
 
-    store.subscribe(() => {
-      const visibleBasemapId = mapLayersBasemapSelector(store.getState());
-      const layerConfig = this._layers.find(
-        config => config.id === visibleBasemapId,
-      );
+    //store.subscribe(async () => {
+    //  const basemapState = mapLayersBasemapSelector(store.getState());
 
-      if (layerConfig && !layerConfig.loaded && layerConfig.type) {
-        this.createLayerFromConfig(layerConfig);
-        layerConfig.loaded = true;
-      }
-    });
+    //  console.log("basemapState", basemapState);
+    //  const layerToAdd = this._layers.find(
+    //    layer => layer.id === basemapState.visibleBasemapId,
+    //  );
+    //  const layerToRemove = this._layers.find(
+    //    layer => layer.id === basemapState.priorVisibleBasemapId,
+    //  );
+    //  this._map.addLayer(layerToAdd);
+    //  this._map.removeLayer(layerToRemove);
+    //});
+  }
 
-    // Bind visiblity event for custom layers
-    $(Shareabouts).on("visibility", async (evt, id, visible, isBasemap) => {
-      let layer = this._layers[id];
-      const layerConfig = this._layers.find(config => config.id === id);
-
-      if (layerConfig && !layerConfig.loaded && layerConfig.type && visible) {
-        await this.createLayerFromConfig(layerConfig);
-        layerConfig.loaded = true;
-      }
-
-      if (isBasemap) {
-        this.checkLayerZoom(layerConfig.maxZoom);
-        this._map.setMaxZoom(
-          layerConfig.maxZoom
-            ? layerConfig.maxZoom
-            : this._mapConfig.options.maxZoom,
-        );
-
-        // TODO
-        //_.each(this.options.basemapConfigs, function(basemap) {
-        //  if (basemap.id === id) {
-        //    self.map.addLayer(layer);
-        //    layer.bringToBack();
-        //  } else if (self.layers[basemap.id]) {
-        //    self.map.removeLayer(self.layers[basemap.id]);
-        //  }
-        //});
-      } else if (layer) {
-        //self.setLayerVisibility(layer, visible);
-      } else {
-        // Handles cases when we fire events for layers that are not yet
-        // loaded (ie cartodb layers, which are loaded asynchronously)
-        // We are setting the asynch layer layerConfig's default visibility here to
-        // ensure they are added to the map when they are eventually loaded:
-        layerConfig.asyncLayerVisibleDefault = visible;
-      }
-    });
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate", prevProps, prevState);
   }
 
   get map() {
@@ -314,23 +282,18 @@ class MainMap {
       }
     }
   }
-
-  // TODO: Layer loading and error events.
-  async createLayerFromConfig(layerConfig) {
-    if (layerConfig.type === "mapbox-style") {
-      this._map.addMapboxStyle(layerConfig.url);
-    } else if (layerConfig.type === "raster-tile") {
-      this._map.createRasterTileLayer(layerConfig);
-    } else if (layerConfig.type === "wms") {
-      this._map.createWMSLayer(layerConfig);
-    } else if (layerConfig.type === "wmts") {
-      this._map.createWMTSLayer(layerConfig);
-    } else if (layerConfig.type === "vector-tile") {
-      this._map.createVectorTileLayer(layerConfig);
-    } else if (layerConfig.type === "json") {
-      this._map.createGeoJSONLayer(layerConfig);
-    }
-  }
 }
 
-export default MainMap;
+MainMap.propTypes = {
+  onZoomend: PropTypes.func.isRequired,
+  onMovestart: PropTypes.func.isRequired,
+  onMoveend: PropTypes.func.isRequired,
+  onDragend: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  mapConfig: mapConfigSelector(state),
+  basemap: mapLayersBasemapSelector(state),
+});
+
+export default connect(mapStateToProps)(MainMap);
