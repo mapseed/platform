@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config"
+import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   toggleLayerVisibility,

@@ -10,7 +10,7 @@ export const mapSizeValiditySelector = state => {
 };
 export const mapPositionSelector = state => {
   return state.mapLayers.mapPosition;
-}
+};
 
 // Actions
 const TOGGLE_LAYER_VISIBILITY = "map/TOGGLE_LAYER_VISIBILITY";

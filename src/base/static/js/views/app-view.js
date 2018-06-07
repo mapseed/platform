@@ -18,10 +18,7 @@ import { setMapConfig } from "../../state/ducks/map-config";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
-import {
-  setMapSizeValidity,
-  mapPositionSelector,
-} from "../../state/ducks/map";
+import { setMapSizeValidity, mapPositionSelector } from "../../state/ducks/map";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -33,7 +30,7 @@ import InfoModal from "../../components/organisms/info-modal";
 import StorySidebar from "../../components/story-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
 
-import constants from "../../constants"
+import constants from "../../constants";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(reducer);
@@ -690,7 +687,7 @@ module.exports = Backbone.View.extend({
         }
       }
 
-      // Fire an event to set map position, reconciling with custom story 
+      // Fire an event to set map position, reconciling with custom story
       // settings if this model is part of a story.
       const story = model.get("story") || {};
 
