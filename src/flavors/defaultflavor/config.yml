@@ -253,6 +253,7 @@ place_types:
 right_sidebar:
   show: true
   visibleDefault: true
+  component: StorySidebar
 
 # Sidebar and activity stream should be enabled and disabled together!
 # note: sidebar is aka 'MasterLegend'

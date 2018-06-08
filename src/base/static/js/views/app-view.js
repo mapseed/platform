@@ -20,7 +20,7 @@ import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
-import StorySidebar from "../../components/story-sidebar";
+import RightSidebar from "../../components/templates/right-sidebar";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(reducer);
@@ -389,7 +389,7 @@ module.exports = Backbone.View.extend({
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
         <Provider store={store}>
-          <StorySidebar
+          <RightSidebar
             placeCollectionsPromise={placeCollectionsPromise}
             places={this.places}
             router={this.options.router}
