@@ -17,9 +17,9 @@ import constants from "../../constants";
 
 import { translate } from "react-i18next";
 
-import "./index.scss";
+import "./story-navigator.scss";
 
-class StorySidebar extends Component {
+class StoryNavigator extends Component {
   constructor(props) {
     super(props);
 
@@ -123,15 +123,15 @@ class StorySidebar extends Component {
 
   render() {
     return (
-      <div className="story-sidebar">
-        <Link href="#" className="story-sidebar__collapse-btn" />
+      <div className="story-navigator">
+        <Link href="#" className="story-navigator__collapse-btn" />
         {this.state.currentStory.get("header") && (
-          <Header5 className="story-sidebar__header">
+          <Header5 className="story-navigator__header">
             {this.state.currentStory.get("header")}
           </Header5>
         )}
         {this.state.currentStory.get("description") && (
-          <Paragraph className="story-sidebar__description">
+          <Paragraph className="story-navigator__description">
             {this.state.currentStory.get("description")}
           </Paragraph>
         )}
@@ -153,7 +153,7 @@ class StorySidebar extends Component {
             .toArray()}
         {!this.state.isStoryDataReady && !this.state.isWithError && <Spinner />}
         {this.state.isWithError && (
-          <Paragraph className="story-sidebar__error-msg">
+          <Paragraph className="story-navigator__error-msg">
             {this.props.t("errorMsg")}
           </Paragraph>
         )}
@@ -162,7 +162,7 @@ class StorySidebar extends Component {
   }
 }
 
-StorySidebar.propTypes = {
+StoryNavigator.propTypes = {
   storyConfig: PropTypes.object.isRequired,
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
@@ -182,5 +182,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(
-  translate("StorySidebar")(StorySidebar),
+  translate("StoryNavigator")(StoryNavigator),
 );
