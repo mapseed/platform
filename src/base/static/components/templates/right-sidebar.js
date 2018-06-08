@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { Link } from "../atoms/navigation";
 import StoryNavigator from "../organisms/story-navigator";
 
 const RightSidebar = props => {
@@ -10,7 +11,12 @@ const RightSidebar = props => {
     component = <StoryNavigator {...props} />;
   }
 
-  return <div className="right-sidebar">{component}</div>;
+  return (
+    <div className="right-sidebar">
+      <Link href="#" className="right-sidebar__collapse-btn" />
+      {component}
+    </div>
+  );
 };
 
 RightSidebar.propTypes = {

@@ -12,7 +12,6 @@ import Spinner from "react-spinner";
 
 import StoryChapter from "../molecules/story-chapter";
 import { Header5, Paragraph } from "../atoms/typography";
-import { Link } from "../atoms/navigation";
 import constants from "../../constants";
 
 import { translate } from "react-i18next";
@@ -124,7 +123,6 @@ class StoryNavigator extends Component {
   render() {
     return (
       <div className="story-navigator">
-        <Link href="#" className="story-navigator__collapse-btn" />
         {this.state.currentStory.get("header") && (
           <Header5 className="story-navigator__header">
             {this.state.currentStory.get("header")}
