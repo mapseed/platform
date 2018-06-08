@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
 
 import Avatar from "../ui-elements/avatar";
 import ActionTime from "../ui-elements/action-time";

@@ -144,6 +144,8 @@ FormField.propTypes = {
   disabled: PropTypes.bool,
   fieldConfig: PropTypes.object.isRequired,
   fieldState: PropTypes.object,
+  isInitializing: PropTypes.bool,
+  updatingField: PropTypes.string,
   map: PropTypes.object,
   modelId: PropTypes.number,
   onFieldChange: PropTypes.func.isRequired,

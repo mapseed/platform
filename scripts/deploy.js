@@ -1,5 +1,4 @@
 require("dotenv").config({ path: "src/.env" });
-const fs = require("fs-extra");
 const glob = require("glob");
 const path = require("path");
 
@@ -79,6 +78,7 @@ function buildParams(filepath, params) {
 }
 
 function updateMetadata() {
+  // eslint-disable-next-line no-console
   console.log("Updating metadata");
   let params;
 
@@ -111,6 +111,7 @@ function updateMetadata() {
 
 createPromise(config)
   .then(website => {
+    // eslint-disable-next-line no-console
     console.log("Getting cloudfront config");
     let distConfig = getDistributionConfigPromise({
       Id: website.cloudfront.Distribution.Id,
@@ -118,6 +119,7 @@ createPromise(config)
     return Promise.all([Promise.resolve(website), distConfig]);
   })
   .then(([website, response]) => {
+    // eslint-disable-next-line no-console
     console.log("Updating cloudfront config");
     let config = response.DistributionConfig;
     config.CustomErrorResponses = {
@@ -141,6 +143,7 @@ createPromise(config)
   .catch(err => {
     if (err.name === "CNAMEAlreadyExists") {
       // It's already been deployed
+      // eslint-disable-next-line no-console
       console.log("Redeploying existing site");
       return deployPromise(s3, config);
     } else {
@@ -148,5 +151,7 @@ createPromise(config)
     }
   })
   .then(() => updateMetadata())
+  // eslint-disable-next-line no-console
   .then(() => console.log("Website created and deployed!"))
+  // eslint-disable-next-line no-console
   .catch(e => console.log(e));

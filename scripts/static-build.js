@@ -8,8 +8,6 @@ const walk = require("object-walk"); // object-walk supports traversal of JS obj
 const Handlebars = require("handlebars");
 const wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 const execSync = require("child_process").execSync;
-const mv = require("mv");
-const shell = require("shelljs");
 const glob = require("glob");
 const colors = require("colors");
 
@@ -58,10 +56,12 @@ glob.sync(distPath + "/+(*.bundle.js|*.bundle.css)").forEach(path => {
 // Logging
 const log = msg => {
   if (verbose) {
+    // eslint-disable-next-line no-console
     console.log("(STATIC SITE BUILD)", colors.green("(SUCCESS)"), msg);
   }
 };
 const logError = msg => {
+  // eslint-disable-next-line no-console
   console.error("(STATIC SITE BUILD)", colors.red("(ERROR!)"), msg);
 };
 
@@ -161,12 +161,7 @@ const configGettextRegex = /^_\(/;
 
 // Gettext object
 const gt = new Gettext();
-let thisConfig,
-  flavorPOPath,
-  mergedPOFile,
-  rootComponents,
-  protocol,
-  outputIndexFilename;
+let thisConfig, flavorPOPath, mergedPOFile, outputIndexFilename;
 
 // Loop over all languages defined in a given flavor's config file and
 // generate fully localized output.
@@ -332,7 +327,7 @@ activeLanguages.forEach(language => {
   log("Finished jstemplates compilation for " + language.code);
 
   // Build the index-xx.html file for this language
-  outputIndexFile = indexTemplate({
+  const outputIndexFile = indexTemplate({
     production: process.env.NODE_ENV === "production" ? true : false,
     jsHashedBundleName: jsHashedBundleName,
     cssHashedBundleName: cssHashedBundleName,
