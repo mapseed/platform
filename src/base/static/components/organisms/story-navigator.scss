@@ -1,20 +1,20 @@
-.story-sidebar {
+.story-navigator {
   overflow: auto;
   height: 100%;
   padding-top: 15px;
 }
 
-.story-sidebar__header {
+.story-navigator__header {
   line-height: 1.2em;
   padding: 0 10px 0 10px;
 }
 
-.story-sidebar__description {
+.story-navigator__description {
   padding: 0 10px 0 10px;
   font-style: italic;
 }
 
-.story-sidebar__error-msg {
+.story-navigator__error-msg {
   position: absolute;
   top: 50%;
   width: 100%;
