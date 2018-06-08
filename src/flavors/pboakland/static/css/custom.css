@@ -202,15 +202,29 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
 
   img {
-    width: 30px !important;
+    width: auto !important;
+  }
+
+  span {
+    flex: 5;
+    margin-bottom: 6px;
+    line-height: 1.2em;
   }
 }
 
-.shareabouts-layer-li span {
-  margin-bottom: 6px;
-  line-height: 1.2em;
+.legend__image-container {
+  display: flex;
+  justify-content: center;
+  flex: 2;
+}
+
+.legend__custom-header {
+  text-transform: uppercase;
+  line-height: 1.1em;
+  margin-top: 15px;
 }
 
 /* admin-only form fields */

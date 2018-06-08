@@ -1,0 +1,21 @@
+<!-- SHAREABOUTS LAYERS -->
+<ul class="master-layer-list">
+  {{# items }}
+    <!-- BEGIN FLAVOR CUSTOM CODE -->
+    {{#is type "legend-item" }}
+      <li class="shareabouts-layer-li legend-layer-li" >
+        <div class="legend__image-container">
+        <img class="shareabouts-layer-title" location="{{ title }}" layer-title="{{ title }}" src="{{ image }}">
+        </div>
+        <span>{{ title }}</span>
+      </li>
+    {{/is}}
+    {{#is type "header"}}
+      <h5 class="legend__custom-header">{{ content }}</h5>   
+    {{/is}}
+    {{#is type "description" }}
+      <p class="legend__custom-description">{{ content }}</p>
+    {{/is}}
+    <!-- END FLAVOR CUSTOM CODE -->
+  {{/items }}
+</ul>
