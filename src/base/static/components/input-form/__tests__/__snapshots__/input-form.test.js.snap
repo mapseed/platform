@@ -25,6 +25,7 @@ exports[`InputForm renders input form 1`] = `
           "triggerTargets": undefined,
           "isVisible": true,
           "renderKey": "someCategorytest1",
+          "isAutoFocusing": undefined,
         }
       }
       key="someCategorytest1"
@@ -61,6 +62,7 @@ exports[`InputForm renders input form 1`] = `
           "triggerTargets": undefined,
           "isVisible": true,
           "renderKey": "someCategorytest2",
+          "isAutoFocusing": undefined,
         }
       }
       key="someCategorytest2"
@@ -97,6 +99,7 @@ exports[`InputForm renders input form 1`] = `
           "triggerTargets": undefined,
           "isVisible": true,
           "renderKey": "someCategorytest3",
+          "isAutoFocusing": undefined,
         }
       }
       key="someCategorytest3"

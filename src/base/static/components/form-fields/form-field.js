@@ -91,6 +91,10 @@ class FormField extends Component {
         .set(
           constants.FIELD_VISIBILITY_KEY,
           this.props.fieldState.get(constants.FIELD_VISIBILITY_KEY),
+        )
+        .set(
+          constants.FIELD_AUTO_FOCUS_KEY,
+          this.props.fieldState.get(constants.FIELD_AUTO_FOCUS_KEY),
         ),
       isInitializing: isInitializing,
     });
@@ -115,24 +119,19 @@ class FormField extends Component {
         data-field-name={this.props.fieldConfig.name}
       >
         <div className="input-form__field-prompt-container">
-          <p
-            className={classNames("input-form__field-prompt", {
-              "input-form__field-prompt--with-modal-trigger": !!this.props
-                .fieldConfig.modal,
-            })}
-          >
+          <p className="input-form__field-prompt">
             {this.props.fieldConfig.prompt}
             <span className={cn.optionalMsg}>
               {this.props.t("optionalMsg")}
             </span>
           </p>
+          {this.props.fieldConfig.modal && (
+            <InfoModalTrigger
+              classes="input-form__field-modal-trigger"
+              modalContent={this.props.fieldConfig.modal}
+            />
+          )}
         </div>
-        {this.props.fieldConfig.modal && (
-          <InfoModalTrigger
-            classes="input-form__field-modal-trigger"
-            modalContent={this.props.fieldConfig.modal}
-          />
-        )}
         {this.state.isInitialized &&
           this.fieldDefinition.getComponent(this.props.fieldConfig, this)}
       </div>
