@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config"
+import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   toggleLayerVisibility,
   setBasemap,
   mapLayersBasemapSelector,
-} from "../../state/ducks/map-layers";
+} from "../../state/ducks/map";
 import { Header4, Header5 } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/misc";
 import MapLayerSelector from "../molecules/map-layer-selector";

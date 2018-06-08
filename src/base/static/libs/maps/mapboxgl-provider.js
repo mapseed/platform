@@ -345,6 +345,31 @@ export default (container, options) => {
       map.fitBounds(bounds, options);
     },
 
+    fitLineStringCoords: (coordinates, options) => {
+      // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
+      map.fitBounds(
+        coordinates.reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this._map.makeLngLatBounds(coordinates[0], coordinates[0]),
+        ),
+        options,
+      );
+    },
+
+    fitPolygonalCoords: (coordinates, options) => {
+      // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
+      map.fitBounds(
+        coordinates[0].reduce(
+          (bounds, coord) => bounds.extend(coord),
+          this.mapView.map.makeLngLatBounds(
+            coordinates[0][0],
+            coordinates[0][0],
+          ),
+        ),
+        options,
+      );
+    },
+
     hasLayer: layerId => {
       return !!map.getLayer(layerId);
     },
@@ -373,14 +398,14 @@ export default (container, options) => {
         }
       }
 
+      console.log("layer", layer);
+
       layersCache[layer.id].forEach(internalLayer => {
-        console.log("!!!", map.getLayer(internalLayer.id));
         !map.getLayer(internalLayer.id) && map.addLayer(internalLayer);
       });
     },
 
     removeLayer: layer => {
-      console.log("removing", layer);
       layer &&
         layersCache[layer.id].forEach(internalLayer => {
           !!map.getLayer(internalLayer.id) && map.removeLayer(internalLayer.id);
@@ -421,6 +446,10 @@ export default (container, options) => {
 
     easeTo: options => {
       map.easeTo(options);
+    },
+
+    jumpTo: options => {
+      map.jumpTo(options);
     },
 
     flyTo: options => {
