@@ -94,9 +94,9 @@ const InputExplorerSummary = props => {
                 {subcategory.label + " "}
               </span>
               <span className="input-explorer-summary__summary-bar-label-percentage">
-                {isNaN(parseInt(subcategory.total / numTotal * 100))
+                {isNaN(parseInt((subcategory.total / numTotal) * 100))
                   ? 0
-                  : parseInt(subcategory.total / numTotal * 100)}%
+                  : parseInt((subcategory.total / numTotal) * 100)}%
               </span>
             </div>
             <div className="input-explorer-summary__summary-bar-container">
@@ -125,6 +125,7 @@ InputExplorerSummary.propTypes = {
   headerMsg: PropTypes.string.isRequired,
   subcategoryNames: PropTypes.array.isRequired,
   visibility: PropTypes.bool.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 export default translate("InputExplorerSummary")(InputExplorerSummary);

@@ -14,6 +14,7 @@ const help =
   "Add a new flavor locale: node make-flavor-messages.js --set-new-locale=<locale_code>";
 
 if (args.h || args.help) {
+  // eslint-disable-next-line no-console
   console.log(help);
   process.exit(0);
 }
@@ -22,6 +23,7 @@ const flavor = process.env.FLAVOR;
 
 // Logging
 const logError = msg => {
+  // eslint-disable-next-line no-console
   console.error("(MAKEMESSAGES)", colors.red("(ERROR!)"), msg);
 };
 
@@ -46,7 +48,7 @@ const escapeQuotes = message => {
 };
 
 const jsTemplatesRegexObj = new RegExp(/{{#_}}([\s\S]*?){{\/_}}/, "g");
-let templatePath, foundMessages, jsTemplatesMessagesOutput;
+let foundMessages, jsTemplatesMessagesOutput;
 const extractTemplateMessages = (jsTemplate, outputPath) => {
   foundMessages = [];
 
@@ -56,7 +58,7 @@ const extractTemplateMessages = (jsTemplate, outputPath) => {
   jsTemplatesMessagesOutput = fs.createWriteStream(
     path.resolve(messagesCatalogTempPath, jsTemplate + "-messages.temp.py"),
   );
-  templateString = fs.readFileSync(
+  const templateString = fs.readFileSync(
     path.resolve(outputPath, jsTemplate),
     "utf8",
   );
@@ -80,7 +82,7 @@ const cleanup = () => {
 };
 
 const flavorLocalePath = path.resolve(flavorBasePath, "locale");
-let flavorPOPath, mergedFlavorPOPath;
+let flavorPOPath;
 const mergeExistingLocales = () => {
   const locales = fs.readdirSync(flavorLocalePath).filter(locale => {
     // filter out any hidden system files, like .DS_Store
@@ -148,7 +150,7 @@ let configMessagesOutput = fs.createWriteStream(
   path.resolve(messagesCatalogTempPath, "config-messages.temp.py"),
 );
 let foundMessage;
-walk(config, (val, prop, obj) => {
+walk(config, val => {
   if (typeof val === "string") {
     foundMessage = /^_\(([\s\S]*?)\)$/g.exec(val);
     foundMessage &&

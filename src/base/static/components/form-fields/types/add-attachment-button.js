@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import SecondaryButton from "../../ui-elements/secondary-button";
 import FileField from "./file-field";
 
 import "./add-attachment-button.scss";

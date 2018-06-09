@@ -11,7 +11,7 @@ const ProgressBar = props => {
     <div className="mapseed__progress-bar">
       <div
         className="mapseed__progress-bar-inner"
-        style={{ width: props.currentProgress / props.total * 100 + "%" }}
+        style={{ width: (props.currentProgress / props.total) * 100 + "%" }}
       />
     </div>
   );
