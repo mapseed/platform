@@ -10,7 +10,7 @@ export const mapConfigSelector = state => {
 };
 export const rightSidebarConfigSelector = state => {
   return state.config.right_sidebar;
-}
+};
 
 // Actions:
 const SET_CONFIG = "SET_CONFIG";
