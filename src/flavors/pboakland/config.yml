@@ -310,6 +310,16 @@ place:
       label: _(2017 Featured Project)
       fields:
         # NOTE: this field type must have the name "geometry"
+        - name: agency
+          type: text
+          placeholder: _(Agency name)
+          prompt: _(Implemented by)
+          display_prompt: _(Implementation by:)
+        - name: fiscal-year
+          type: text
+          placeholder: _(Year)
+          prompt: _(Fiscal year)
+          display_prompt: _(Funds appropriated in fiscal year:)
         - name: geometry
           type: map_drawing_toolbar
           content:
