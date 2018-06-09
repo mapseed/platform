@@ -15,11 +15,17 @@
     "_": false,
     "$": false,
     "Handlebars": false,
-    "Shareabouts": false
+    "Shareabouts": false,
+    "moment": false,
+    "L": false
   },
   "env": {
     "browser": true,
     "es6": true,
-    "jest": true
+    "jest": true,
+    "node": true
+  },
+  "rules": {
+    "no-unused-vars": 1
   }
 }

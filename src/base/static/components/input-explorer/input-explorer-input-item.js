@@ -32,6 +32,7 @@ class InputExplorerInputItem extends Component {
             this.props.parent.forceUpdate();
           },
           error: (model, response) => {
+            // eslint-disable-next-line no-console
             console.error("Error saving sticky state:", response);
           },
         },

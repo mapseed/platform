@@ -27,6 +27,7 @@ class GeocodingField extends Component {
       "geocoding-field__geocoding-spinner",
     )[0];
     // TODO: Replace spin.js spinner with a React component.
+    // eslint-disable-next-line no-undef
     new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
   }
 
@@ -62,6 +63,7 @@ class GeocodingField extends Component {
           isGeocoding: false,
           isWithGeocodingError: true,
         });
+        // eslint-disable-next-line no-console
         console.error("There was an error while geocoding: ", arguments);
       },
     });

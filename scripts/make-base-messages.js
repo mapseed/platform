@@ -1,9 +1,7 @@
 require("dotenv").config({ path: "src/.env" });
 const fs = require("fs-extra");
 const path = require("path");
-const walk = require("object-walk");
 const exec = require("child_process").exec;
-const yaml = require("js-yaml");
 const shell = require("shelljs");
 const colors = require("colors");
 const args = require("optimist").argv;
@@ -14,12 +12,14 @@ const help =
   "Add a new base project locale: node make-base-messages.js --set-new-locale=<locale_code>";
 
 if (args.h || args.help) {
+  // eslint-disable-next-line no-console
   console.log(help);
   process.exit(0);
 }
 
 // Logging
 const logError = msg => {
+  // eslint-disable-next-line no-console
   console.error("(MAKEMESSAGES)", colors.red("(ERROR!)"), msg);
 };
 
@@ -32,7 +32,7 @@ const baseJSTemplatesPath = path.resolve(basePath, "jstemplates");
 const messagesCatalogTempPath = path.resolve(__dirname, "../temp-messages");
 shell.mkdir("-p", messagesCatalogTempPath);
 
-let templatePath, foundMessages, jsTemplatesMessagesOutput;
+let foundMessages, jsTemplatesMessagesOutput;
 const extractTemplateMessages = (jsTemplateName, jsTemplatePath) => {
   if (jsTemplateName.endsWith("html") || jsTemplateName.endsWith("hbs")) {
     foundMessages = [];
@@ -46,10 +46,11 @@ const extractTemplateMessages = (jsTemplateName, jsTemplatePath) => {
         jsTemplateName + "-messages.temp.py",
       ),
     );
-    templateString = fs.readFileSync(
+    const templateString = fs.readFileSync(
       path.resolve(jsTemplatePath, jsTemplateName),
       "utf8",
     );
+    let foundMessage;
     while ((foundMessage = jsTemplatesRegexObj.exec(templateString))) {
       // The second item in foundMessage represents the capture group
       foundMessages.push(foundMessage[1]);
@@ -70,7 +71,7 @@ const cleanup = () => {
   fs.existsSync(potFilePath) && shell.rm(potFilePath);
 };
 
-let basePOPath, mergedBasePOPath;
+let basePOPath;
 const mergeExistingLocales = () => {
   const locales = fs.readdirSync(baseLocalePath).filter(locale => {
     // filter out any hidden system files, like .DS_Store
