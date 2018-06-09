@@ -16,8 +16,6 @@ import mapseedApiClient from "../../../../../base/static/client/mapseed-api-clie
 import config from "config";
 import { setConfig } from "../../../../../base/static/state/ducks/config";
 
-import transformCommonFormElements from "../../../../../base/static/utils/common-form-elements";
-
 const AppView = require("../../../../../base/static/js/views/app-view.js");
 const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
@@ -28,7 +26,6 @@ const ActivityView = require("../../../../../base/static/js/views/activity-view"
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require("../../../../../base/static/js/views/place-list-view");
 // END FLAVOR-SPECIFIC CODE
-const RightSidebarView = require("../../../../../base/static/js/views/right-sidebar-view");
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(reducer);
@@ -63,13 +60,6 @@ module.exports = AppView.extend({
         // scale well, so let's think about a better solution.
         include_submissions: includeSubmissions,
       };
-
-    // REACT PORT SECTION //////////////////////////////////////////////////////
-    this.options.placeConfig.place_detail = transformCommonFormElements(
-      this.options.placeConfig.place_detail,
-      this.options.placeConfig.common_form_elements,
-    );
-    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // Use the page size as dictated by the server by default, unless
     // directed to do otherwise in the configuration.
