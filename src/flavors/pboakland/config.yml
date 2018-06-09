@@ -235,46 +235,45 @@ sidebar:
     #   activity: true
     #   title: _(Activity Stream:)
 
-    - id: right-sidebar-container
-      title: _(Community ideas:)
-      view: LegendView
-      icon: info-circle
-      # NOTE: the _type_ field here is custom flavor code
-      items:
-        - type: header
-          content: _(Map Key)
-        - type: description
-          content: _(Select a Map Pin to see project details and related ideas)
-        - type: legend-item
-          title: _(Funded Project)
-          image: /static/css/images/funded-legend-icon.png
-        - type: legend-item
-          title: _(Not Funded Project)
-          image: /static/css/images/losing-legend-icon.png
-        - type: legend-item
-          title: _(Ideas)
-          image: /static/css/images/idea-legend-icon.png
-        - type: legend-item
-          title: _(Ideas Related to Selected Project)
-          image: /static/css/images/idea-selected-legend-icon.png
+right_sidebar:
+  show: true
+  visibleDefault: true
+  component: MapLegend
+  content:
+    - type: header
+      content: _(Map Key)
+    - type: description
+      content: _(Select a Map Pin to see project details and related ideas)
+    - type: legend-item
+      title: _(Funded Project)
+      image: /static/css/images/funded-legend-icon.png
+    - type: legend-item
+      title: _(Not Funded Project)
+      image: /static/css/images/losing-legend-icon.png
+    - type: legend-item
+      title: _(Ideas)
+      image: /static/css/images/idea-legend-icon.png
+    - type: legend-item
+      title: _(Ideas Related to Selected Project)
+      image: /static/css/images/idea-selected-legend-icon.png
 
-        - type: header
-          content: _(Project Categories)
-        - type: legend-item
-          title: _(Youth Services)
-          image: /static/css/images/youth-legend-icon.png
-        - type: legend-item
-          title: _(Capital Improvement)
-          image: /static/css/images/capital-legend-icon.png
-        - type: legend-item
-          title: _(Senior and Disabled Services)
-          image: /static/css/images/senior-legend-icon.png
-        - type: legend-item
-          title: _(Housing Services)
-          image: /static/css/images/housing-legend-icon.png
-        - type: legend-item
-          title: _(Homeless Services)
-          image: /static/css/images/homeless-legend-icon.png
+    - type: header
+      content: _(Project Categories)
+    - type: legend-item
+      title: _(Youth Services)
+      image: /static/css/images/youth-legend-icon.png
+    - type: legend-item
+      title: _(Capital Improvement)
+      image: /static/css/images/capital-legend-icon.png
+    - type: legend-item
+      title: _(Senior and Disabled Services)
+      image: /static/css/images/senior-legend-icon.png
+    - type: legend-item
+      title: _(Housing Services)
+      image: /static/css/images/housing-legend-icon.png
+    - type: legend-item
+      title: _(Homeless Services)
+      image: /static/css/images/homeless-legend-icon.png
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.

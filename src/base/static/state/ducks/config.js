@@ -8,6 +8,9 @@ export const placeConfigSelector = state => {
 export const mapConfigSelector = state => {
   return state.config.map;
 };
+export const rightSidebarConfigSelector = state => {
+  return state.config.right_sidebar;
+}
 
 // Actions:
 const SET_CONFIG = "SET_CONFIG";
