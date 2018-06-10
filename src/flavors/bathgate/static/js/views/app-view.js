@@ -21,7 +21,7 @@ const PlaceCounterView = require("../../../../../base/static/js/views/place-coun
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
 const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
 const MapView = require("../../../../../base/static/js/views/map-view");
-const SidebarView = require("../../../../../flavors/williams/static/js/views/sidebar-view");
+const SidebarView = require("../../../../../flavors/bathgate/static/js/views/sidebar-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
@@ -425,13 +425,13 @@ module.exports = AppView.extend({
     $(".show-the-map").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-exposed");
 
-    // NOTE: we hard-code the williams-input collection here
+    // NOTE: we hard-code the bathgate-input collection here
     ReactDOM.render(
       <Provider store={store}>
         <InputExplorer
           appConfig={this.options.appConfig}
           placeConfig={this.options.placeConfig.place_detail}
-          communityInput={this.places["williams-input"]}
+          communityInput={this.places["bathgate-input"]}
         />
       </Provider>,
       document.querySelector("#list-container"),
