@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: _(Williams Ave Community Garden)
+  title: _(Bathgate Community Garden)
   # Header name
-  name: "_(Williams Ave Community Garden)"
+  name: "_(Bathgate Community Garden)"
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -45,8 +45,8 @@ map:
 
   options:
     center:
-      lat: 40.67428
-      lng: -73.90083
+      lat: 40.8443036
+      lng: -73.8996152
     zoom: 17
     minZoom: 1
     maxZoom: 18
@@ -66,18 +66,18 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: williams-input
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-input
+    - id: bathgate-input
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-input
       type: place
       slug: report
 
-    - id: williams-project
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-project
+    - id: bathgate-project
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-project
       type: place
       slug: project
 
-    - id: williams-partners
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/williams-partners
+    - id: bathgate-partners
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-partners
       type: place
       slug: partners
 
@@ -161,7 +161,7 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  williams-partners:
+  bathgate-partners:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -178,7 +178,7 @@ place_types:
           iconSize: [30, 30]
           iconAnchor: [15, 15]
 
-  williams-project:
+  bathgate-project:
     rules:
       - condition: 'this.layer.focused === true'
         icon:
@@ -229,15 +229,15 @@ sidebar:
               icon_url: /static/css/images/zoning.svg
               title: _(Zoning)
               visibleDefault: false
-            - id: williams-input
+            - id: bathgate-input
               icon_url: /static/css/images/comments.svg
               title: _(Comments)
               visibleDefault: true
-            - id: williams-partners
+            - id: bathgate-partners
               icon_url: /static/css/images/partners.svg
               title: _(Partners)
               visibleDefault: false
-            - id: williams-project
+            - id: bathgate-project
               icon_url: /static/css/images/park-icon.png
               title: _(Project)
               visibleDefault: true
@@ -275,14 +275,14 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: williams-partners
+    - category: bathgate-partners
       admin_only: true
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: williams-partners
+      dataset: bathgate-partners
       icon_url: /static/css/images/partners-blue.svg
       value: featured_place
       label: _(Partner Site)
@@ -321,14 +321,14 @@ place:
           type: common_form_element
         - name: submit
           type: common_form_element
-    - category: williams-project
+    - category: bathgate-project
       admin_only: true
       includeOnForm: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
       name: location_type
-      dataset: williams-project
+      dataset: bathgate-project
       icon_url: /static/css/images/park-icon.png
       value: featured_place
       label: _(Project Site)
@@ -377,7 +377,7 @@ place:
     - category: community_input
       includeOnForm: true
       name: location_type
-      dataset: williams-input
+      dataset: bathgate-input
       icon_url: /static/css/images/markers/comment-map-marker.svg
       value: community_input
       label: _(Add a comment)
