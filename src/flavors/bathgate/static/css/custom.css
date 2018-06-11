@@ -8,6 +8,7 @@
 
 #site-title {
   margin-top: 3px;
+  margin-left: 200px;
 }
 
 #site-title a:link,
@@ -16,6 +17,19 @@
   font-family: "Helvetica", sans-serif;
   font-size: 1.4em;
   line-height: 2.3;
+}
+
+#site-title a:before {
+  display: block;
+  background-image: url("/static/css/images/nyrp-logo.jpg");
+  content: "";
+  background-size: auto 55px;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 200px;
+  height: 64px;
 }
 
 #site-header {
@@ -89,7 +103,6 @@ div#pages-nav-container {
 }
 
 a.list-toggle-btn.btn.btn-block {
-  padding: none;
   background-color: rgba(0, 0, 0, 0);
   box-shadow: none;
   border: none;
@@ -167,46 +180,6 @@ div#content.page.page-about em {
   font-family: "Georgia", serif;
   font-size: 1.2em;
   color: #4a4a4a;
-}
-
-@media only screen and (max-width: 60em) {
-  .btn:visited,
-  .btn:link {
-    background-color: white;
-    box-shadow: none;
-    border: none;
-    text-transform: none;
-    font-weight: normal;
-    color: black;
-  }
-
-  nav.access ul.menu a.btn.btn-block.btn-secondary {
-    font-weight: normal;
-    text-align: left;
-    float: left;
-    width: 100%;
-    padding-left: 0;
-  }
-
-  a#sign-in-btn {
-    line-height: 2.9;
-  }
-
-  span#add-place-btn-container,
-  a#add-place.btn.btn-block.btn-primary.btn-large {
-    background-color: #4a90e2;
-    font-size: 1.2em;
-    color: white;
-  }
-
-  #language-picker .menu .menu {
-    .en_US,
-    .es {
-      font-style: italic;
-      padding: 0;
-      margin-left: 40px;
-    }
-  }
 }
 
 .access li li .btn {
@@ -357,6 +330,17 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
 
 .input-form__exit-or-continue-header {
   margin-bottom: 25px;
+}
+
+.input-form__field-prompt {
+  font-size: 1.3em;
+}
+
+.vv-input-form__welcome-subheader {
+  font-size: 1.4em;
+  font-style: italic;
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 15px;
 }
 
 /* Map legend */
@@ -560,15 +544,54 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   nav.access {
     margin-top: -0.9em;
   }
-
-  #language-picker {
-    margin-top: -1px;
-  }
 }
 
 @media only screen and (max-width: 60em) {
+  .btn:visited,
+  .btn:link {
+    background-color: white;
+    box-shadow: none;
+    border: none;
+    text-transform: none;
+    font-weight: normal;
+    color: black;
+  }
+
+  nav.access ul.menu a.btn.btn-block.btn-secondary {
+    font-weight: normal;
+    text-align: left;
+    float: left;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  a#sign-in-btn {
+    line-height: 2.9;
+  }
+
+  span#add-place-btn-container,
+  a#add-place.btn.btn-block.btn-primary.btn-large {
+    background-color: #4a90e2;
+    font-size: 1.2em;
+    color: white;
+  }
+
+  #language-picker .menu .menu {
+    .en_US,
+    .es {
+      font-style: italic;
+      padding: 0;
+      margin-left: 40px;
+    }
+  }
+
   #site-title {
     margin-top: 0;
+    margin-left: 0;
+  }
+
+  #site-title a:before {
+    background-size: 0;
   }
 
   #list-container.is-exposed {

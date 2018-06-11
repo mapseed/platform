@@ -318,7 +318,10 @@ place:
           placeholder: "my-new-featured-place"
           optional: true
         - name: private-submitter_email
-          type: common_form_element
+          type: text
+          prompt: _(Enter your email address for updates)
+          placeholder: _(name@mail.com)
+          optional: true
         - name: submit
           type: common_form_element
     - category: bathgate-project
@@ -371,7 +374,10 @@ place:
           placeholder: "my-new-featured-place"
           optional: true
         - name: private-submitter_email
-          type: common_form_element
+          type: text
+          prompt: _(Enter your email address for updates)
+          placeholder: _(name@mail.com)
+          optional: true
         - name: submit
           type: common_form_element    
     - category: community_input
@@ -388,8 +394,6 @@ place:
           max: 100
           min: 15
           default_value: 50
-          # NOTE: in this flavor, the autocomplete: true flag causes autocompleted
-          #       fields to be hidden on subsequent form renders.
           autocomplete: true
           horizontal_rule_below: true
         - name: regular_user
@@ -436,7 +440,11 @@ place:
               value: other
           optional: true
         - name: private-submitter_email
-          type: common_form_element
+          type: text
+          prompt: _(Enter your email address for updates)
+          placeholder: _(name@mail.com)
+          optional: true
+          autocomplete: true
         - name: input_category
           prompt: _(What type of comment is this?)
           type: big_radio
@@ -484,12 +492,6 @@ place:
       placeholder: _(Name)
       autocomplete: true
       optional: false
-    private-submitter_email:
-      type: text
-      prompt: _(Enter your email address for updates)
-      placeholder: _(name@mail.com)
-      optional: true
-      autocomplete: true
     my_image:
       type: file
       prompt: _(Image)
