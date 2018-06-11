@@ -1,0 +1,563 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-16 11:54+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Sonia D-B- <sonarqpaisajes@gmail.com>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/mapseed/teams/58669/es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgstr ""
+
+msgid "Log Out"
+msgstr "Cerrar sesión"
+
+msgid "Admin"
+msgstr "Administrador"
+
+msgid "Williams Ave Community Garden"
+msgstr "Jardín comunitario Williams Ave"
+
+msgid "Welcome!"
+msgstr "Bienvenido!"
+
+msgid ""
+"Over the next few months, we will work with community members and local "
+"stakeholders to design a plan for the garden and begin construction soon "
+"after."
+msgstr ""
+
+msgid "Comment"
+msgstr "Comentarios"
+
+msgid "Default"
+msgstr "Mapa"
+
+msgid "Satellite"
+msgstr "Satélite"
+
+msgid "Terrain"
+msgstr "Topografía"
+
+msgid "Map detail"
+msgstr "Capas"
+
+msgid "Transit"
+msgstr "Transportes públicos"
+
+msgid "Biking"
+msgstr "Ruta bici"
+
+msgid "Zoning"
+msgstr "Zonificación"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "Partners"
+msgstr "Colaboradores"
+
+msgid "Project"
+msgstr "Proyecto"
+
+msgid "Climate risks"
+msgstr "Riesgos climáticos"
+
+msgid "Heat Waves"
+msgstr "Olas de calor"
+
+msgid "Flood Zones"
+msgstr "Zonas inundables"
+
+msgid "Add your comments"
+msgstr "Añade tus comentarios"
+
+msgid "added"
+msgstr ""
+
+msgid "Tell us more..."
+msgstr ""
+
+msgid "Someone"
+msgstr ""
+
+msgid "Put it on the map!"
+msgstr ""
+
+msgid "Partner Site"
+msgstr ""
+
+msgid "Location:"
+msgstr "Localización"
+
+msgid "Address"
+msgstr ""
+
+msgid "Enter address..."
+msgstr "Pon la dirección"
+
+msgid "Title of this featured site:"
+msgstr ""
+
+msgid " "
+msgstr ""
+
+msgid "Enter title..."
+msgstr "Pon el título..."
+
+msgid "Choose a custom URL for this place:"
+msgstr ""
+
+msgid "Project Site"
+msgstr "Lugar del proyecto"
+
+msgid "Add a comment"
+msgstr "Añade un comentario"
+
+msgid "How old are you?"
+msgstr "¿Qué edad tienes?"
+
+msgid "Are you a regular user of this garden?"
+msgstr "¿Usas regularmente este parque?"
+
+msgid "I am a regular user of this garden:"
+msgstr ""
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "No"
+msgstr "No"
+
+msgid "Do you have children at home?"
+msgstr "¿Tienes niños/as en casa?"
+
+msgid "I have children at home:"
+msgstr ""
+
+msgid "What is your preferred language?"
+msgstr "¿Qué idioma prefieres?"
+
+msgid "My preferred language:"
+msgstr ""
+
+msgid "Bengali"
+msgstr ""
+
+msgid "Cantonese"
+msgstr ""
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Mandarin"
+msgstr ""
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Other"
+msgstr "Otro"
+
+msgid "What type of comment is this?"
+msgstr "¿Qué tipo de comentario es?"
+
+msgid "Recommendation"
+msgstr "Recomendación"
+
+msgid "Recommendations"
+msgstr ""
+
+msgid "Concern"
+msgstr "Preocupación"
+
+msgid "Concerns"
+msgstr ""
+
+msgid "What would encourage you to use this space more often?"
+msgstr "¿Por qué elegirías utilizar este parque?"
+
+msgid "Write your comment here"
+msgstr "Escribe un comentario aquí"
+
+msgid "Select any of the below categories that apply:"
+msgstr "Elige cualquiera de las categorías siguientes que se apliquen:"
+
+msgid "Amenities"
+msgstr "Servicios"
+
+msgid "Horticulture"
+msgstr "Horticultura"
+
+msgid "Programs"
+msgstr "Programs"
+
+msgid "Safety"
+msgstr "Seguridad"
+
+msgid "Experience"
+msgstr "Experiencia"
+
+msgid "Your name"
+msgstr "Tu nombre"
+
+msgid "Name"
+msgstr ""
+
+msgid "Enter your email address for updates"
+msgstr "Pon tu dirección de correo electrónico para recibir actualizaciones"
+
+msgid "name@mail.com"
+msgstr ""
+
+msgid "Image"
+msgstr "Imagen"
+
+msgid "Add an Image"
+msgstr ""
+
+msgid "Submit comment"
+msgstr "Enviar un comentario"
+
+msgid "comment"
+msgstr ""
+
+msgid "comments"
+msgstr ""
+
+msgid "commented on"
+msgstr ""
+
+msgid "Leave a Comment"
+msgstr ""
+
+msgid "Your Name"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "support"
+msgstr ""
+
+msgid "supports"
+msgstr ""
+
+msgid "Map"
+msgstr "Mapa"
+
+msgid "Train"
+msgstr ""
+
+msgid "Bus"
+msgstr ""
+
+msgid "Residential 1"
+msgstr ""
+
+msgid "Residential 2"
+msgstr ""
+
+msgid "Residential 3"
+msgstr ""
+
+msgid "Residential 4"
+msgstr ""
+
+msgid "Residential 5"
+msgstr ""
+
+msgid "Residential 6"
+msgstr ""
+
+msgid "Residential 7"
+msgstr ""
+
+msgid "Residential 8"
+msgstr ""
+
+msgid "Residential 9"
+msgstr ""
+
+msgid "Residential 10"
+msgstr ""
+
+msgid "Manufacturing 1"
+msgstr ""
+
+msgid "Manufacturing 2"
+msgstr ""
+
+msgid "Manufacturing 3"
+msgstr ""
+
+msgid "Commercial"
+msgstr ""
+
+msgid "Parks"
+msgstr ""
+
+msgid "Land temperature"
+msgstr ""
+
+msgid "Flood zones"
+msgstr ""
+
+msgid "Category 1 Hurricane"
+msgstr ""
+
+msgid "Category 2 Hurricane"
+msgstr ""
+
+msgid "Category 3 Hurricane"
+msgstr ""
+
+msgid "Category 4 Hurricane"
+msgstr ""
+
+msgid ""
+"NYRP acquired the Williams Ave. Garden in 1999, preserving it as open space "
+"in perpetuity. NYRP received funding from thestate of NY to renovate the "
+"Williams Ave. Community Garden.  Over the nextfew months, we will work with "
+"community members and local stakeholders to design a plan for the space and "
+"begin construction soon after"
+msgstr ""
+"NYRP adquirió Williams Ave. Jardín en 1999, se ha conservado siempre como un "
+"espacio abierto. NYRP recibió fondos del estado de Nueva York para renovar "
+"la avenida Williams. Jardín comunitario. En los próximos meses, trabajaremos "
+"junto con los miembros de la comunidad y las partes locales interesadas para "
+"diseñar un plan para este espacio e iniciar su construcción poco después."
+
+msgid "Williams Ave community garden"
+msgstr "Jardín comunitario Williams Ave"
+
+msgid "History"
+msgstr "Historia"
+
+msgid ""
+"Formerly part of New Lots, East New York, has been home to waves of "
+"immigrant groups: Eastern Europeans in the 1800's and Puerto Ricans and "
+"African‐Americans from the south in the 1900's. Today it has a growing South "
+"Asian population. The garden lot was a former residence, transferred to the "
+"city in 1976. Adjacent buildings both constructed in 1901."
+msgstr ""
+"East New York, anteriormente parte de New Lots, ha sido el hogar de oleadas "
+"de grupos de inmigrantes: Europeos del este en la década de 1800 y "
+"puertorriqueños y afroamericanos del sur en la década de 1900. Hoy tiene una "
+"creciente población del sur de Asia. La parcela del jardín era un antiguo "
+"edificio residencial, transferido a la ciudad en 1976. Los edificios "
+"adyacentes fueron construidos en 1901."
+
+msgid "Age of population"
+msgstr "Edad de la población"
+
+msgid "33% 0‐18, 28% 18‐34, 32% 35‐64, 7% 65+"
+msgstr ""
+
+msgid "Household types"
+msgstr "Tipología"
+
+msgid "72% Family, 23% Single non-Family, 5% Shared "
+msgstr ""
+
+msgid "Household income"
+msgstr "Ingresos"
+
+msgid ""
+"Median household income: 29,527 dollars. Mean household income 42,975 "
+"dollars."
+msgstr ""
+"Ingresos medios del hogar: 29,527 dólares. Promedio del ingreso familiar: "
+"42,975 dólares."
+
+msgid "Ethnicity"
+msgstr "Etnia"
+
+msgid "63% Hispanic, 27% Black, 7% White, 2% Asian "
+msgstr ""
+
+msgid "Climate forecasts"
+msgstr "Pronósticos climáticos"
+
+msgid "Rising temperatures"
+msgstr "Aumento de las temperaturas"
+
+msgid ""
+"Mean annual temperatures are projected to increase by 4.1 to 5.7°F by the "
+"2050s. The frequency of heat waves is projected to triple by the 2080s."
+msgstr ""
+"Se prevé que las temperaturas medias anuales aumenten de 4.1 a 5.7 °F para "
+"el año 2050. La frecuencia de las olas de calor se triplicará para el año "
+"2080."
+
+msgid "Rising sea levels and coastal flooding"
+msgstr "Aumento del nivel del mar e inundaciones costeras"
+
+msgid ""
+"Projections for sea level rise in New York City are 11 to 21inches by the "
+"2050s, 18 to 39 inches by the 2080s, and could reach as high as 6 feet by "
+"2100. Projected sea level rise will increase current 100-year coastal floods "
+"by 10-15 fold by the 2080s."
+msgstr ""
+"Las proyecciones del aumento del nivel del mar en la ciudad de Nueva York "
+"son de 11 a 21 pulgadas para el año 2050, de 18 a 39 pulgadas para el 2080 y "
+"podrían llegar a 6 pies para el 2100. El aumento en 100 años del nivel del "
+"mar proyectado incrementará en 10-15 veces las inundaciones costeras "
+"actuales para el año 2080."
+
+msgid "Increased precipitation"
+msgstr "Aumento de la precipitación"
+
+msgid ""
+"Mean annual precipitation is projected to increase by 4% to 11% by the 2050s."
+msgstr ""
+"Se prevé que el promedio de precipitación anual aumente en un 4% a 11% para "
+"el año 2050."
+
+msgid ""
+"<p>Source: <a href=\"http://onlinelibrary.wiley.com/doi/10.1111/"
+"nyas.2015.1336.issue-1/issuetoc\">New York City Panel on Climate Change 2015 "
+"Report</a></p>"
+msgstr ""
+
+msgid "optional"
+msgstr "opcional"
+
+msgid "Select..."
+msgstr "Selecciona..."
+
+msgid "Your post will be accessible at:"
+msgstr ""
+
+msgid "This url is already in use. Please try another."
+msgstr ""
+
+msgid "Please choose a url without a forward slash character (/) in it."
+msgstr ""
+
+msgid "Click on a tool below to draw on the map"
+msgstr ""
+
+msgid "Click on a tool below to modify your shape"
+msgstr ""
+
+msgid ""
+"Drag shape handles to edit your shape, or click on shape handles to delete "
+"vertices"
+msgstr ""
+
+msgid "Drag your marker to reposition it"
+msgstr ""
+
+msgid "Click anywhere on the map to start drawing"
+msgstr ""
+
+msgid "Click to continue drawing your shape"
+msgstr ""
+
+msgid ""
+"Click to continue drawing, or click on your first point to complete your "
+"shape"
+msgstr ""
+
+msgid "Click to continue drawing"
+msgstr ""
+
+msgid "Click to continue drawing, or double click to complete your shape"
+msgstr ""
+
+msgid "Click anywhere on the map to place your marker"
+msgstr ""
+
+msgid "Create marker"
+msgstr ""
+
+msgid "Create polyline"
+msgstr ""
+
+msgid "Create polygon"
+msgstr ""
+
+msgid "Edit marker"
+msgstr ""
+
+msgid "Edit polyline"
+msgstr ""
+
+msgid "Edit polygon"
+msgstr ""
+
+msgid "Delete marker"
+msgstr ""
+
+msgid "Delete polyline"
+msgstr ""
+
+msgid "Delete polygon"
+msgstr ""
+
+msgid "Change colors"
+msgstr ""
+
+msgid "Choose an icon style below"
+msgstr ""
+
+msgid "Published"
+msgstr ""
+
+msgid "Not published"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When created, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "When saved, this post will be visible to <strong>all map users</strong>"
+msgstr ""
+
+msgid ""
+"When saved, this post will be visible <strong>only to logged-in editors</"
+"strong>"
+msgstr ""
+
+msgid "Tell us about yourself!"
+msgstr "¡Cuéntanos acerca de tí!"
+
+msgid "Move the map to mark where you live."
+msgstr "Muévete por el mapa y marca donde tu vives."
+
+msgid "Thanks for your comment!"
+msgstr "¡Gracias por su comentario!"
+
+msgid "Submit another comment"
+msgstr "Enviar otro comentario"
+
+msgid "Exit survey"
+msgstr "Salir"
+
+msgid "Map type"
+msgstr "Mapa base"
+
+#~ msgid "72% Family, 23% Single non-Family, 5% Share"
+#~ msgstr "72% familia, 23% soltero/a, 5% compartido"
+
+#~ msgid "63% Hispanic, 27% Black, 7% White, 2% Asia"
+#~ msgstr "63% hispanos, 27% afroamericanos, 7% blancos, 2% asiáticos."
