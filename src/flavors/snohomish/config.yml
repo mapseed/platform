@@ -214,6 +214,7 @@ activity:
 right_sidebar:
   show: true
   visibleDefault: false
+  component: StoryNavigator
 
   # Place Types
 
