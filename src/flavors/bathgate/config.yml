@@ -45,9 +45,9 @@ map:
 
   options:
     center:
-      lat: 40.8443036
-      lng: -73.8996152
-    zoom: 17
+      lat: 40.84482032566562
+      lng: -73.89809310436249
+    zoom: 18
     minZoom: 1
     maxZoom: 18
 
@@ -542,21 +542,11 @@ support:
 
 pages:
   - title: _(Map)
-    name: 17/40.67428/-73.90083
-
+    name: 18/40.8448203256656/-73.89809310436249
   - title: _(Project)
     slug: about
     name: overview
     start_page: true
-
-cluster:
-  animate: true
-  animateAddingMarkers: false
-  showCoverageOnHover: false
-  spiderfyOnMaxZoom: true
-  spiderfyDistanceMultiplier: 1.5
-  spiderLegPolylineOptions:
-    opacity: 0
 
 custom_components:
   InputForm: VVInputForm

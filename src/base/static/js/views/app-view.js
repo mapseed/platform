@@ -836,6 +836,7 @@ module.exports = Backbone.View.extend({
     this.destroyNewModels();
     this.hideCenterPoint();
     this.setBodyClass("content-visible");
+    this.mapView.map.invalidateSize({ animate: true, pan: true })
   },
 
   showPanel: function(markup, preventScrollToTop) {

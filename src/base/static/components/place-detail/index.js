@@ -247,7 +247,12 @@ class PlaceDetail extends Component {
         model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
       );
     });
-
+    const isWithMetadata =
+      !isStoryChapter &&
+      !(
+        this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
+        false
+      );
     const fieldSummary =
       customComponents &&
       customComponents.FieldSummary === "SnohomishFieldSummary" &&
@@ -299,7 +304,7 @@ class PlaceDetail extends Component {
               );
             })
           }
-          isHorizontalLayout={isStoryChapter}
+          isHorizontalLayout={isStoryChapter || !isWithMetadata}
           numSupports={this.state.supportModels.size}
           onModelIO={this.onChildModelIO.bind(this)}
           onSocialShare={service =>
@@ -311,7 +316,7 @@ class PlaceDetail extends Component {
           userSupportModel={userSupportModel}
           userToken={this.props.userToken}
         />
-        {!isStoryChapter && (
+        {isWithMetadata && (
           <MetadataBar
             submitter={submitter}
             placeModel={this.state.placeModel}

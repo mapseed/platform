@@ -34,6 +34,7 @@ export default {
   STORY_FIELD_NAME: "story",
   DATASET_ID_PROPERTY_NAME: "datasetId",
   CUSTOM_URL_PROPERTY_NAME: "url-title",
+  SHOW_METADATA_PROPERTY_NAME: "showMetadata",
 
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",

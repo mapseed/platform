@@ -94,7 +94,7 @@ a#sign-in-btn {
   font-size: 0.9em;
   color: #cccccc;
   font-weight: normal !important;
-  line-height: 1.2;
+  line-height: 1.7em;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -517,22 +517,41 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   background: #fcf75e;
 }
 
+.dotted-background-container {
+  overflow: hidden;
+  padding: 20px 10px 20px 10px;
+  background: url("data:image/bmp;base64,Qk1IAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABgAAAAAABIAAAASCwAAEgsAAAAAAAAAAAAA/v7+//7+AIDayKT//v4AAAAA")
+    repeat;
+  margin-top: 15px;
+}
+
+.next-btn {
+  background-color: #007fbf !important;
+  float: right;
+  background: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+  color: #fff !important;
+  padding: 0.5em;
+  margin-left: 10px;
+
+  &:hover {
+    color: #a3c7d9 !important;
+  }
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
 /* =Media Queries
 -------------------------------------------------------------- */
 
-@media only screen and (min-width: 768px) {
-}
-
-@media only screen and (min-width: 1024px) {
-}
-
-@media only screen and (min-width: 1300px) {
-}
-
 @media only screen and (min-width: 60em) {
+  #content {
+    top: 64px;
+  }
+
   #main-btns-container.main-btns-container--offset-left {
     left: 260px;
   }
