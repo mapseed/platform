@@ -402,9 +402,9 @@ place:
           prompt: _(Are you a regular user of this garden?)
           display_prompt: _(I am a regular user of this garden:)
           content:
-            - label: _(Yes)
+            - label: _(I am a regular user of this garden)
               value: "yes"
-            - label: _(No)
+            - label: _(I am a regular user of this garden)
               value: "no"
           optional: false
           horizontal_rule_below: true
@@ -414,9 +414,9 @@ place:
           prompt: _(Do you have children at home?)
           display_prompt: _(I have children at home:)
           content:
-            - label: _(Yes)
+            - label: _(I have children at home)
               value: "yes"
-            - label: _(No)
+            - label: _(I have children at home)
               value: "no"
           optional: false
           horizontal_rule_below: true
