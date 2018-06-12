@@ -39,14 +39,18 @@
     width: 2.5em;
     background-color: $big-checkbox-field-hover-icon-background-color;
   }
+}
 
-  &:hover {
-    color: $big-checkbox-field-hover-label-color;
+@media (hover: hover) {
+  .big-checkbox-field__label {
+    &:hover {
+      color: $big-checkbox-field-hover-label-color;
 
-    &:before {
-      content: $big-checkbox-field-icon;
-      text-indent: 0.9em;
-      color: $big-checkbox-field-hover-icon-color;
+      &:before {
+        content: $big-checkbox-field-icon;
+        text-indent: 0.9em;
+        color: $big-checkbox-field-hover-icon-color;
+      }
     }
   }
 }
