@@ -76,10 +76,10 @@ map:
       type: place
       slug: project
 
-    - id: bathgate-partners
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-partners
-      type: place
-      slug: partners
+      #    - id: bathgate-partners
+      #      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-partners
+      #      type: place
+      #      slug: partners
 
     - id: transit-points
       type: wms
@@ -161,22 +161,22 @@ place_types:
           iconSize: [38, 46]
           iconAnchor: [19, 46]
 
-  bathgate-partners:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction-dot.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
-      - condition: 'this.map.zoom <= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
+          #  bathgate-partners:
+          #    rules:
+          #      - condition: 'this.layer.focused === true'
+          #        icon:
+          #          iconSize: [50, 50]
+          #          iconAnchor: [25, 25]
+          #      - condition: 'this.map.zoom < 15'
+          #        icon:
+          #          iconUrl: /static/css/images/markers/marker-construction-dot.png
+          #          iconSize: [10, 10]
+          #          iconAnchor: [0, 0]
+          #      - condition: 'this.map.zoom <= 18'
+          #        icon:
+          #          iconUrl: /static/css/images/markers/marker-construction.png
+          #          iconSize: [30, 30]
+          #          iconAnchor: [15, 15]
 
   bathgate-project:
     rules:
@@ -233,10 +233,10 @@ sidebar:
               icon_url: /static/css/images/comments.svg
               title: _(Comments)
               visibleDefault: true
-            - id: bathgate-partners
-              icon_url: /static/css/images/partners.svg
-              title: _(Partners)
-              visibleDefault: false
+              #            - id: bathgate-partners
+              #              icon_url: /static/css/images/partners.svg
+              #              title: _(Partners)
+              #              visibleDefault: false
             - id: bathgate-project
               icon_url: /static/css/images/park-icon.png
               title: _(Project)
@@ -275,55 +275,55 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    - category: bathgate-partners
-      admin_only: true
-      includeOnForm: true
-      showMetadata: false
-      suppressAttachments: true
-      horizontal_rule: true
-      name: location_type
-      dataset: bathgate-partners
-      icon_url: /static/css/images/partners-blue.svg
-      value: featured_place
-      label: _(Partner Site)
-      fields:
-        - name: published
-          type: publish_control_toolbar
-        # NOTE: this field type must have the name "geometry"
-        - name: geometry
-          type: map_drawing_toolbar
-          content:
-            - url: /static/css/images/partners-blue.png
-            - url: /static/css/images/markers/marker-star.png
-        - name: address
-          type: geocoding
-          prompt: _(Location:)
-          display_prompt: _(Address)
-          placeholder: _(Enter address...)
-          optional: true
-        - name: title
-          type: text
-          prompt: _(Title of this featured site:)
-          display_prompt: _( )
-          placeholder: _(Enter title...)
-          optional: false
-        - name: description
-          type: rich_textarea
-          prompt: _( )
-          display_prompt: _( )
-          placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
-        - name: private-submitter_email
-          type: text
-          prompt: _(Enter your email address for updates)
-          placeholder: _(name@mail.com)
-          optional: true
-        - name: submit
-          type: common_form_element
+    #    - category: bathgate-partners
+    #      admin_only: true
+    #      includeOnForm: true
+    #      showMetadata: false
+    #      suppressAttachments: true
+    #      horizontal_rule: true
+    #      name: location_type
+    #      dataset: bathgate-partners
+    #      icon_url: /static/css/images/partners-blue.svg
+    #      value: featured_place
+    #      label: _(Partner Site)
+    #      fields:
+    #        - name: published
+    #          type: publish_control_toolbar
+    #        # NOTE: this field type must have the name "geometry"
+    #        - name: geometry
+    #          type: map_drawing_toolbar
+    #          content:
+    #            - url: /static/css/images/partners-blue.png
+    #            - url: /static/css/images/markers/marker-star.png
+    #        - name: address
+    #          type: geocoding
+    #          prompt: _(Location:)
+    #          display_prompt: _(Address)
+    #          placeholder: _(Enter address...)
+    #          optional: true
+    #        - name: title
+    #          type: text
+    #          prompt: _(Title of this featured site:)
+    #          display_prompt: _( )
+    #          placeholder: _(Enter title...)
+    #          optional: false
+    #        - name: description
+    #          type: rich_textarea
+    #          prompt: _( )
+    #          display_prompt: _( )
+    #          placeholder: _( )
+    #        - name: url-title
+    #          type: custom_url_toolbar
+    #          prompt: _(Choose a custom URL for this place:)
+    #          placeholder: "my-new-featured-place"
+    #          optional: true
+    #        - name: private-submitter_email
+    #          type: text
+    #          prompt: _(Enter your email address for updates)
+    #          placeholder: _(name@mail.com)
+    #          optional: true
+    #        - name: submit
+    #          type: common_form_element
     - category: bathgate-project
       admin_only: true
       includeOnForm: true
