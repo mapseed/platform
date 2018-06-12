@@ -29,6 +29,10 @@ class FormCategoryMenuWrapper extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.showNewPin();
+  }
+
   onCategoryChange(selectedCategory) {
     this.setState({
       selectedCategory: selectedCategory,
