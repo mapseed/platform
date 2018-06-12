@@ -36,14 +36,18 @@
     width: 2.5em;
     background-color: $big-toggle-field-hover-icon-background-color;
   }
+}
 
-  &:hover {
-    color: $big-toggle-field-hover-label-text-color;
+@media (hover: hover) {
+  .big-toggle-field__label {
+    &:hover {
+      color: $big-toggle-field-hover-label-text-color;
 
-    &:before {
-      content: $big-toggle-field-icon;
-      text-indent: 0.9em;
-      color: $big-toggle-field-hover-icon-color;
+      &:before {
+        content: $big-toggle-field-icon;
+        text-indent: 0.9em;
+        color: $big-toggle-field-hover-icon-color;
+      }
     }
   }
 }
