@@ -323,10 +323,6 @@ div#content.page.page-about em {
   margin-bottom: 25px;
 }
 
-.input-form__field-prompt {
-  font-size: 1.3em;
-}
-
 .vv-input-form__welcome-subheader {
   font-size: 1.4em;
   font-style: italic;
@@ -553,6 +549,14 @@ div#content.page.page-about em {
 
 .range-field {
   background-color: #7ac143;
+}
+
+.input-form__field-prompt,
+.range-slider-with-label,
+.big-toggle-field__label,
+.big-radio-field__label,
+.big-checkbox-field__label {
+  font-size: 1.3em;
 }
 
 .dropdown-field,
