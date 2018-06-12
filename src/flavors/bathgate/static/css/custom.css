@@ -7,7 +7,8 @@
 /*  Changes by Erika */
 
 #site-title {
-  margin-top: 3px;
+  margin-top: 4px;
+  margin-left: 200px;
 }
 
 #site-title a:link,
@@ -15,7 +16,20 @@
   color: black !important;
   font-family: "Helvetica", sans-serif;
   font-size: 1.4em;
-  line-height: 2.3;
+  line-height: 2.4em;
+}
+
+#site-title a:before {
+  display: block;
+  background-image: url("/static/css/images/nyrp-logo.jpg");
+  content: "";
+  background-size: auto 55px;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 200px;
+  height: 64px;
 }
 
 #site-header {
@@ -24,7 +38,7 @@
 }
 
 a#nav-btn {
-  line-height: 0.7;
+  line-height: 1.2em;
   color: black;
   text-shadow: none;
 }
@@ -80,7 +94,7 @@ a#sign-in-btn {
   font-size: 0.9em;
   color: #cccccc;
   font-weight: normal !important;
-  line-height: 1.2;
+  line-height: 1.7em;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -89,10 +103,11 @@ div#pages-nav-container {
 }
 
 a.list-toggle-btn.btn.btn-block {
-  padding: none;
   background-color: rgba(0, 0, 0, 0);
   box-shadow: none;
   border: none;
+  line-height: 0.7em;
+  padding: 0;
 }
 
 .btn-block {
@@ -169,44 +184,8 @@ div#content.page.page-about em {
   color: #4a4a4a;
 }
 
-@media only screen and (max-width: 60em) {
-  .btn:visited,
-  .btn:link {
-    background-color: white;
-    box-shadow: none;
-    border: none;
-    text-transform: none;
-    font-weight: normal;
-    color: black;
-  }
-
-  nav.access ul.menu a.btn.btn-block.btn-secondary {
-    font-weight: normal;
-    text-align: left;
-    float: left;
-    width: 100%;
-    padding-left: 0;
-  }
-
-  a#sign-in-btn {
-    line-height: 2.9;
-  }
-
-  span#add-place-btn-container,
-  a#add-place.btn.btn-block.btn-primary.btn-large {
-    background-color: #4a90e2;
-    font-size: 1.2em;
-    color: white;
-  }
-
-  #language-picker .menu .menu {
-    .en_US,
-    .es {
-      font-style: italic;
-      padding: 0;
-      margin-left: 40px;
-    }
-  }
+.access {
+  top: 0;
 }
 
 .access li li .btn {
@@ -219,26 +198,11 @@ div#content.page.page-about em {
   width: 180px;
 }
 
-div#main-btns-container.pos-top-right.pos-top-left {
-  background-color: #4a90e2;
-}
-
-/*form > ul.menu {
-  background-color: inherit;
-  box-sizing: inherit;
-  border: none;
-}
-
-nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
-  float: left;
-  padding-top: 0.3em;
-}*/
-
-/*div#language-picker {
-  clear: both;
-}*/
-
 /*  End of changes by Erika */
+
+.page-image {
+  width: 100%;
+}
 
 #sidebar-container {
   position: absolute;
@@ -357,6 +321,13 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
 
 .input-form__exit-or-continue-header {
   margin-bottom: 25px;
+}
+
+.vv-input-form__welcome-subheader {
+  font-size: 1.4em;
+  font-style: italic;
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 15px;
 }
 
 /* Map legend */
@@ -533,22 +504,145 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   background: #fcf75e;
 }
 
+.dotted-background-container {
+  overflow: hidden;
+  padding: 20px 10px 20px 10px;
+  background: url("data:image/bmp;base64,Qk1IAAAAAAAAADYAAAAoAAAAAgAAAAIAAAABABgAAAAAABIAAAASCwAAEgsAAAAAAAAAAAAA/v7+//7+AIDayKT//v4AAAAA")
+    repeat;
+  margin-top: 15px;
+}
+
+.next-btn {
+  background-color: #007fbf !important;
+  float: right;
+  background: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+  color: #fff !important;
+  padding: 0.5em;
+  margin-left: 10px;
+
+  &:hover {
+    color: #a3c7d9 !important;
+  }
+}
+
+/* =Form
+-------------------------------------------------------------- */
+.input-form__field-container[data-field-type="big_toggle"] {
+  margin-bottom: 15px;
+
+  .input-form__field-prompt-container {
+    display: none;
+  }
+}
+
+.input-form__field-prompt {
+  margin-bottom: 15px;
+}
+
+.input-form__field-container {
+  margin-top: 20px;
+  background-color: #efefef;
+}
+
+.range-field {
+  background-color: #7ac143;
+}
+
+.input-form__field-prompt,
+.range-slider-with-label,
+.big-toggle-field__label,
+.big-radio-field__label,
+.big-checkbox-field__label {
+  font-size: 1.3em;
+}
+
+.dropdown-field,
+.text-field,
+.textarea-field {
+  border-color: #7ac143;
+}
+
+.big-radio-field,
+.big-checkbox-field {
+  margin-bottom: 25px;
+  display: block;
+}
+
+.big-radio-field:last-child,
+.big-checkbox-field:last-child {
+  margin-bottom: 0;
+}
+
+.big-radio-field__label,
+.big-checkbox-field__label,
+.big-toggle-field__label {
+  background-color: #efefef;
+  margin-top: 0;
+  border: none;
+  color: #222;
+  line-height: 1.6em;
+}
+
+.big-radio-field__label:hover:before,
+.big-checkbox-field__label:hover:before,
+.big-toggle-field__label:hover:before {
+  color: #7ac143;
+  text-indent: 0.7em;
+}
+
+.big-checkbox-field__label:before,
+.big-radio-field__label:before,
+.big-toggle-field__label:before {
+  max-height: 2em;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: 2.5em;
+  background-color: #fff;
+  border: 4px solid #7ac143;
+  width: 2em;
+  text-indent: 0.7em;
+}
+
+.big-radio-field__label--toggled:hover:before,
+.big-checkbox-field__label--toggled:hover:before,
+.big-toggle-field__label--toggled:hover:before {
+  color: #fff;
+}
+
+.big-radio-field__label--toggled:before,
+.big-checkbox-field__label--toggled:before,
+.big-toggle-field__label--toggled:before {
+  background-color: #7ac143;
+}
+
+.input-form__field-container[data-field-type="submit"],
+.input-form__field-container[data-field-name="comment"],
+.input-form__field-container[data-field-name="submitter_name"] {
+  margin-top: 0;
+  background-color: #fff;
+}
+
+.input-form__field-container[data-field-name="comment"],
+.input-form__field-container[data-field-name="submitter_name"] {
+  .input-form__field-prompt {
+    margin-bottom: 5px;
+  }
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
 /* =Media Queries
 -------------------------------------------------------------- */
 
-@media only screen and (min-width: 768px) {
-}
-
-@media only screen and (min-width: 1024px) {
-}
-
-@media only screen and (min-width: 1300px) {
-}
-
 @media only screen and (min-width: 60em) {
+  #content {
+    top: 64px;
+  }
+
   #main-btns-container.main-btns-container--offset-left {
     left: 260px;
   }
@@ -557,18 +651,77 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
     line-height: 1.4em;
   }
 
-  nav.access {
-    margin-top: -0.9em;
+  .access {
+    margin: 0;
+  }
+
+  #pages-nav-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .list-toggle-nav {
+    margin: 0 0 0 10px;
+    top: 0;
   }
 
   #language-picker {
-    margin-top: -1px;
+    display: flex;
+    align-items: center;
   }
 }
 
 @media only screen and (max-width: 60em) {
+  .btn:visited,
+  .btn:link {
+    background-color: white;
+    box-shadow: none;
+    border: none;
+    text-transform: none;
+    font-weight: normal;
+    color: black;
+  }
+
+  nav.access ul.menu a.btn.btn-block.btn-secondary {
+    font-weight: normal;
+    text-align: left;
+    float: left;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  a#sign-in-btn {
+    display: none;
+  }
+
+  span#add-place-btn-container,
+  a#add-place.btn.btn-block.btn-primary.btn-large {
+    background-color: #4a90e2;
+    font-size: 1.2em;
+    color: white;
+  }
+
+  #language-picker .menu .menu {
+    .en_US,
+    .es {
+      font-style: italic;
+      padding: 0;
+      margin-left: 40px;
+    }
+  }
+
+  #site-title a:link,
+  #site-title a:visited {
+    line-height: 2.8;
+  }
+
   #site-title {
     margin-top: 0;
+    margin-left: 0;
+  }
+
+  #site-title a:before {
+    background-size: 0;
   }
 
   #list-container.is-exposed {

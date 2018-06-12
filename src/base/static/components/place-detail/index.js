@@ -15,6 +15,7 @@ import FieldSummary from "./field-summary";
 
 // Flavor custom code
 import SnohomishFieldSummary from "./snohomish-field-summary";
+import VVFieldSummary from "./vv-field-summary";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
@@ -235,6 +236,9 @@ class PlaceDetail extends Component {
       this.state.placeModel.get(constants.FULL_TITLE_PROPERTY_NAME) ||
       this.state.placeModel.get(constants.TITLE_PROPERTY_NAME) ||
       this.state.placeModel.get(constants.NAME_PROPERTY_NAME);
+    const locationType = this.state.placeModel.get(
+      constants.LOCATION_TYPE_PROPERTY_NAME,
+    );
     const submitter =
       this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || Map();
     const isStoryChapter = !!this.state.placeModel.get(
@@ -247,23 +251,46 @@ class PlaceDetail extends Component {
         model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
       );
     });
-
-    const fieldSummary =
+    const isWithMetadata =
+      !isStoryChapter &&
+      !(
+        this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
+        false
+      );
+    // TODO: dissolve when flavor abstraction is ready
+    let fieldSummary;
+    if (
       customComponents &&
       customComponents.FieldSummary === "SnohomishFieldSummary" &&
-      this.state.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME) ===
-        "conservation-actions" ? (
+      locationType === "conservation-actions"
+    ) {
+      fieldSummary = (
         <SnohomishFieldSummary
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
         />
-      ) : (
+      );
+    } else if (
+      customComponents &&
+      customComponents.FieldSummary === "VVFieldSummary" &&
+      locationType === "community_input"
+    ) {
+      fieldSummary = (
+        <VVFieldSummary
+          fields={this.categoryConfig.fields}
+          placeModel={this.state.placeModel}
+          attachmentModels={this.state.attachmentModels}
+        />
+      );
+    } else {
+      fieldSummary = (
         <FieldSummary
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
           attachmentModels={this.state.attachmentModels}
         />
       );
+    }
 
     return (
       <div className="place-detail-view">
@@ -299,7 +326,7 @@ class PlaceDetail extends Component {
               );
             })
           }
-          isHorizontalLayout={isStoryChapter}
+          isHorizontalLayout={isStoryChapter || !isWithMetadata}
           numSupports={this.state.supportModels.size}
           onModelIO={this.onChildModelIO.bind(this)}
           onSocialShare={service =>
@@ -311,7 +338,7 @@ class PlaceDetail extends Component {
           userSupportModel={userSupportModel}
           userToken={this.props.userToken}
         />
-        {!isStoryChapter && (
+        {isWithMetadata && (
           <MetadataBar
             submitter={submitter}
             placeModel={this.state.placeModel}
