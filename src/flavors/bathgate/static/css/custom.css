@@ -555,7 +555,7 @@ div#content.page.page-about em {
   background-color: #7ac143;
 }
 
-.dropdown-field, 
+.dropdown-field,
 .text-field,
 .textarea-field {
   border-color: #7ac143;
@@ -614,8 +614,18 @@ div#content.page.page-about em {
   background-color: #7ac143;
 }
 
-.input-form__field-container[data-field-type="submit"] {
+.input-form__field-container[data-field-type="submit"],
+.input-form__field-container[data-field-name="comment"],
+.input-form__field-container[data-field-name="submitter_name"] {
+  margin-top: 0;
   background-color: #fff;
+}
+
+.input-form__field-container[data-field-name="comment"],
+.input-form__field-container[data-field-name="submitter_name"] {
+  .input-form__field-prompt {
+    margin-bottom: 5px;
+  }
 }
 
 /* =Header
