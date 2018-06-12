@@ -198,11 +198,11 @@ div#content.page.page-about em {
   width: 180px;
 }
 
-div#main-btns-container.pos-top-right.pos-top-left {
-  background-color: #4a90e2;
-}
-
 /*  End of changes by Erika */
+
+.page-image {
+  width: 100%;
+}
 
 #sidebar-container {
   position: absolute;

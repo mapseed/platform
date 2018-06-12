@@ -1,0 +1,20 @@
+.vv-field-summary {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.vv-field-summary__toggle-response {
+  margin-left: 20px;
+
+  &:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    color: #066f49;
+    padding-right: 10px; 
+  }
+}
+
+.vv-field-summary__description-response {
+  font-style: italic;
+  margin-top: 20px;
+}
