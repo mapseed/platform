@@ -105,9 +105,11 @@ class VVInputForm extends Component {
           <h3 className="vv-input-form__welcome-header">
             {t("welcomeHeader")}
           </h3>
-          <p className="vv-input-form__welcome-subheader">
-            {t("welcomeSubheader")}
-          </p>
+          {!this.state.isMapPositioned && (
+            <p className="vv-input-form__welcome-subheader">
+              {t("welcomeSubheader")}
+            </p>
+          )}
         </div>
         <InputForm
           {...this.props}

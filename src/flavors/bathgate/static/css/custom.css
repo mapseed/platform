@@ -16,7 +16,7 @@
   color: black !important;
   font-family: "Helvetica", sans-serif;
   font-size: 1.4em;
-  line-height: 2.3;
+  line-height: 2.4em;
 }
 
 #site-title a:before {
@@ -38,7 +38,7 @@
 }
 
 a#nav-btn {
-  line-height: 0.7;
+  line-height: 1.2em;
   color: black;
   text-shadow: none;
 }
@@ -591,7 +591,7 @@ div#content.page.page-about em {
   }
 
   a#sign-in-btn {
-    line-height: 2.9;
+    display: none;
   }
 
   span#add-place-btn-container,
@@ -608,6 +608,11 @@ div#content.page.page-about em {
       padding: 0;
       margin-left: 40px;
     }
+  }
+
+  #site-title a:link,
+  #site-title a:visited {
+    line-height: 2.8;
   }
 
   #site-title {
