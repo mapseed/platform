@@ -254,7 +254,8 @@ class PlaceDetail extends Component {
       !(
         this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
         false
-      ) && !placeConfig.hide_metadata_bar;
+      ) &&
+      !placeConfig.hide_metadata_bar;
     // TODO: dissolve when flavor abstraction is ready
     let fieldSummary;
     if (
