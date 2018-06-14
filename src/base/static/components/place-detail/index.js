@@ -25,6 +25,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import {
   survey as surveyConfig,
   support as supportConfig,
+  place as placeConfig,
   custom_hooks as customHooks,
   custom_components as customComponents,
 } from "config";
@@ -253,7 +254,7 @@ class PlaceDetail extends Component {
       !(
         this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
         false
-      );
+      ) && !placeConfig.hide_metadata_bar;
     // TODO: dissolve when flavor abstraction is ready
     let fieldSummary;
     if (

@@ -231,6 +231,7 @@ place:
 
   location_item_name: location
   default_basemap: satellite
+  hide_metadata_bar: true
 
   #### begin dynamic form config ####
   place_detail:
