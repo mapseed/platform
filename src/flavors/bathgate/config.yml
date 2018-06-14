@@ -39,7 +39,7 @@ map:
 # Settings for map and layer configs
   geolocation_enabled: true
   geolocation_onload: false
-  cartodb_enabled: true
+  cartodb_enabled: false
   #  geocode_field_label: _(Enter an address...)
   geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
 

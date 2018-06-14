@@ -259,20 +259,20 @@ module.exports = Backbone.View.extend({
       this.layerGroup.removeLayer(this.layer);
     }
   },
-  render: function() {
+  render: function(isFocusing) {
     // If this layer view is part of an editing layer group, don't do anything
     if (this.isEditing) return null;
 
     if (this.layer) {
-      this.updateLayer();
+      this.updateLayer(isFocusing);
     } else {
       this.hide();
     }
   },
-  updateLayer: function() {
+  updateLayer: function(isFocusing) {
     this.evaluateStyleAndZoomRules();
     this.createLayer();
-    this.show();
+    this.show(isFocusing);
   },
   onMarkerClick: function() {
     Util.log(
@@ -306,7 +306,7 @@ module.exports = Backbone.View.extend({
   focus: function() {
     if (!this.isFocused) {
       this.isFocused = true;
-      this.render();
+      this.render(true);
     }
   },
   unfocus: function() {
@@ -335,9 +335,15 @@ module.exports = Backbone.View.extend({
     this.isHiddenByFilters = false;
     this.show();
   },
-  show: function() {
+  show: function(isFocusing = false) {
     if (!this.isHiddenByFilters && this.layer) {
       this.layerGroup.addLayer(this.layer);
+      // Make sure that focused markers are always on top of surrounding markers
+      if (this.layer instanceof L.Marker) {
+        isFocusing
+          ? this.layer.setZIndexOffset(6000)
+          : this.layer.setZIndexOffset(0);
+      }
     } else {
       this.hide();
     }

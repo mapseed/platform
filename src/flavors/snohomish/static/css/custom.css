@@ -415,6 +415,15 @@
     background-repeat: no-repeat;
     background-position: 35px top;
   }
+
+  .place-form-visible { 
+    #main-btns-container {
+      display: none;
+    }
+    #content {
+      margin-bottom: 0;
+    }
+  }
 }
 
 // Screen sizes above 60em width

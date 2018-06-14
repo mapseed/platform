@@ -25,6 +25,7 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import {
   survey as surveyConfig,
   support as supportConfig,
+  place as placeConfig,
   custom_hooks as customHooks,
   custom_components as customComponents,
 } from "config";
@@ -39,7 +40,6 @@ const hooks = {
   pbOaklandDetailViewMount: state => {
     emitter.emit("layer-view:style", {
       action: constants.FOCUS_TARGET_LAYER_ACTION,
-      // targetLayers: new Set(state.placeModel.get("related-ideas")),
       targetLocationType: state.placeModel.get("related-location-type"),
     });
   },
@@ -102,9 +102,7 @@ class PlaceDetail extends Component {
       // NOTE: We remove the story property before serializing, so it doesn't
       // get saved.
       // TODO: A proper story model would avoid this problem.
-      placeModel: fromJS(this.props.model.attributes).delete(
-        constants.STORY_FIELD_NAME,
-      ),
+      placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
         this.props.model.submissionSets[this.supportType],
       ),
@@ -256,7 +254,8 @@ class PlaceDetail extends Component {
       !(
         this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
         false
-      );
+      ) &&
+      !placeConfig.hide_metadata_bar;
     // TODO: dissolve when flavor abstraction is ready
     let fieldSummary;
     if (
