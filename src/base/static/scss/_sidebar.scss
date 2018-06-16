@@ -1,7 +1,8 @@
 #left-sidebar-container {
   position: absolute;
+  overflow: auto;
   left: 0;
-  z-index: 100;
+  z-index: 15;
   width: 20%;
   height: 100%;
   background-color: #fff;

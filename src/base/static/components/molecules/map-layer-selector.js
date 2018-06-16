@@ -8,7 +8,7 @@ import "./map-layer-selector.scss";
 
 const MapLayerSelector = props => {
   return (
-    <label
+    <div
       className="map-layer-selector"
       onClick={() => props.onToggleLayer(props.id)}
     >
@@ -21,14 +21,7 @@ const MapLayerSelector = props => {
         {props.title}
       </span>
       <Icon icon="fa-check" classes="map-layer-selector__status-icon" />
-      <input
-        className="map-layer-selector__input"
-        type={props.type === "basemap" ? "radio" : "checkbox"}
-        name={props.group}
-        id={props.id}
-        checked={props.checked}
-      />
-    </label>
+    </div>
   );
 };
 

@@ -1,15 +1,15 @@
 // Selectors
-export const mapLayersBasemapSelector = state => {
-  return {
-    visibleBasemapId: state.mapLayers.visibleBasemapId,
-    priorVisibleBasemapId: state.mapLayers.priorVisibleBasemapId,
-  };
+export const mapBasemapSelector = state => {
+  return state.map.visibleBasemapId;
+};
+export const mapLayersSelector = state => {
+  return state.map.visibleLayerIds;
 };
 export const mapSizeValiditySelector = state => {
-  return state.mapLayers.isValidSize;
+  return state.map.isMapSizeValid;
 };
 export const mapPositionSelector = state => {
-  return state.mapLayers.mapPosition;
+  return state.map.mapPosition;
 };
 
 // Actions
@@ -27,11 +27,11 @@ export const toggleLayerVisibility = layerId => {
     },
   };
 };
-export const setBasemap = layerId => {
+export const setBasemap = basemapId => {
   return {
     type: SET_BASEMAP,
     payload: {
-      basemapId: layerId,
+      basemapId: basemapId,
     },
   };
 };
@@ -50,17 +50,13 @@ export const setMapSizeValidity = isValidSize => {
 
 // Reducers
 const INITIAL_STATE = {
-  priorVisibleBasemapId: undefined,
   visibleBasemapId: undefined,
-  visibleLayersIds: [],
+  visibleLayerIds: [],
   mapPosition: undefined,
   isMapSizeValid: true,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
-  let visibleLayerIds = [];
-  let layerIdToAdd;
-  let layerIdToRemove;
   switch (action.type) {
     case SET_MAP_SIZE_VALIDITY:
       return {
@@ -75,35 +71,24 @@ export default function reducer(state = INITIAL_STATE, action) {
         },
       };
     case TOGGLE_LAYER_VISIBILITY:
-      if (state.visibleLayerIds.includes(action.payload.layerId)) {
-        // Toggle a layer off
-        visibleLayerIds.filter(layerId => layerId !== action.payload.layerId);
-      } else {
-        // Toggle a layer on
-        visibleLayers;
-      }
-
       return {
         ...state,
-        visibleLayerIds: visibleLayerIds,
-        layerIdToAdd: null,
-        layerIdToRemove: null,
+        visibleLayerIds: state.visibleLayerIds.includes(action.payload.layerId)
+          ? // Toggle a layer off
+            state.visibleLayerIds.filter(
+              layerId => layerId !== action.payload.layerId,
+            )
+          : // Toggle a layer on
+            state.visibleLayerIds.concat(action.payload.layerId),
       };
     case SET_BASEMAP:
-      if (state.visibleBasemapId !== action.payload.basemapId) {
-        return {
-          ...state,
-          priorVisibleBasemapId: state.visibleBasemapId,
-          visibleBasemapId: action.payload.basemapId,
-        };
-        return {
-          ...state,
-          priorVisibleBasemapId: state.visibleBasemapId,
-          visibleBasemapId: action.payload.basemapId,
-        };
-      } else {
-        return state;
-      }
+      return {
+        ...state,
+        visibleBasemapId:
+          state.visibleBasemapId !== action.payload.basemapId
+            ? action.payload.basemapId
+            : state.visibleBasemapId,
+      };
     default:
       return state;
   }

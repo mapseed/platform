@@ -132,15 +132,21 @@ export default (container, options) => {
 
   const layersCache = {};
 
+  const addMapboxStyle = ({ url }) => {
+    map.setStyle(url);
+  };
+
   const createRasterTileLayer = ({ id, url }) => {
+    map.addSource(id, {
+      type: "raster",
+      tiles: [url],
+    });
+
     layersCache[id] = [
       {
         id: id,
         type: "raster",
-        source: {
-          type: "raster",
-          tiles: [url],
-        },
+        source: id,
       },
     ];
   };
@@ -194,14 +200,16 @@ export default (container, options) => {
       style ? style : "default",
     ].join("");
 
+    map.addSource(id, {
+      type: "raster",
+      tiles: [requestUrl],
+    });
+
     layersCache[id] = [
       {
         id: id,
         type: "raster",
-        source: {
-          type: "raster",
-          tiles: [requestUrl],
-        },
+        source: id,
         tileSize: 256,
       },
     ];
@@ -236,14 +244,16 @@ export default (container, options) => {
       "&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}",
     ].join("");
 
+    map.addSource(id, {
+      type: "raster",
+      tiles: [requestUrl],
+    });
+
     layersCache[id] = [
       {
         id: id,
         type: "raster",
-        source: {
-          type: "raster",
-          tiles: [requestUrl],
-        },
+        source: id,
       },
     ];
   };
@@ -374,11 +384,11 @@ export default (container, options) => {
       return !!map.getLayer(layerId);
     },
 
-    addLayer: async layer => {
+    addLayer: async (layer, isBasemap) => {
       if (!layersCache[layer.id]) {
         switch (layer.type) {
           case "mapbox-style":
-            addMapoxStyle(layer);
+            addMapboxStyle(layer);
             break;
           case "raster-tile":
             createRasterTileLayer(layer);
@@ -398,15 +408,27 @@ export default (container, options) => {
         }
       }
 
-      console.log("layer", layer);
-
       layersCache[layer.id].forEach(internalLayer => {
-        !map.getLayer(internalLayer.id) && map.addLayer(internalLayer);
+        !map.getLayer(internalLayer.id) &&
+          // If this is a basemap, make sure it renders at the bottom of the
+          // layer stack.
+          map.addLayer(internalLayer, isBasemap ? map.style._order[0] : null);
       });
+
+      if (!isBasemap) {
+        // If we're not loading a basemap, we need to make sure that point
+        // (aka "symbol") geometry is not obscured by the new layer, so we move
+        // all symbol layers to the top of the layer stack.
+        [].concat
+          .apply([], Object.values(layersCache))
+          .filter(internalLayer => internalLayer.id.includes("symbol"))
+          .forEach(internalLayer => map.moveLayer(internalLayer.id));
+      }
     },
 
     removeLayer: layer => {
       layer &&
+        layersCache[layer.id] &&
         layersCache[layer.id].forEach(internalLayer => {
           !!map.getLayer(internalLayer.id) && map.removeLayer(internalLayer.id);
         });
@@ -418,10 +440,6 @@ export default (container, options) => {
 
     getSource: sourceId => {
       return map.getSource(sourceId);
-    },
-
-    addMapboxStyle: styleUrl => {
-      map.setStyle(styleUrl);
     },
 
     setMaxZoom: zoom => {

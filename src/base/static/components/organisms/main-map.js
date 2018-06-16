@@ -10,7 +10,8 @@ import { createGeoJSONFromCollection } from "../../utils/collection-utils";
 
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
-  mapLayersBasemapSelector,
+  mapBasemapSelector,
+  mapLayersSelector,
   mapSizeValiditySelector,
   setMapSizeValidity,
   setMapPosition,
@@ -38,28 +39,45 @@ class MainMap extends Component {
         break;
     }
 
-    // Bind visiblity event for custom layers
-    $(Shareabouts).on("visibility", async (evt, layer) => {
-      await this.createLayerFromConfig(layer);
-    });
-
     this._map = MapProvider(props.container, props.mapConfig.options);
-
-    // TEMPORARY: Manually trigger the visibility of layers for testing
-    this._map.on("load", () => {
-      $(Shareabouts).trigger("visibility", [this._layers[4], true, true]);
-    });
 
     if (props.mapConfig.geolocation_enabled) {
       // TODO
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (!this.props.isValidSize) {
       this._map.invalidateSize();
       this.props.setMapSizeValidity(true);
     }
+
+    if (this.props.visibleBasemapId !== prevProps.visibleBasemapId) {
+      // A new basemap has been selected.
+      this._map.removeLayer(
+        this._layers.find(layer => layer.id === prevProps.visibleBasemapId),
+      );
+      this.createLayerFromConfig(
+        this._layers.find(layer => layer.id === this.props.visibleBasemapId),
+        true,
+      );
+    }
+
+    // Switch on new layers.
+    this.props.visibleLayerIds
+      .filter(layerId => prevProps.visibleLayerIds.indexOf(layerId) < 0)
+      .forEach(layerId => {
+        this.createLayerFromConfig(
+          this._layers.find(layer => layer.id === layerId),
+        );
+      });
+
+    // Switch off old layers.
+    prevProps.visibleLayerIds
+      .filter(layerId => this.props.visibleLayerIds.indexOf(layerId) < 0)
+      .forEach(layerId => {
+        this._map.removeLayer(this._layers.find(layer => layer.id === layerId));
+      });
   }
 
   componentDidMount() {
@@ -307,8 +325,8 @@ class MainMap extends Component {
   }
 
   // TODO: Layer loading and error events.
-  async createLayerFromConfig(layerConfig) {
-    this._map.addLayer(layerConfig);
+  async createLayerFromConfig(layerConfig, isBasemap = false) {
+    this._map.addLayer(layerConfig, isBasemap);
   }
 
   render() {
@@ -318,7 +336,7 @@ class MainMap extends Component {
 
 MainMap.propTypes = {
   container: PropTypes.string.isRequired,
-  isValidSize: PropTypes.bool.isRequired,
+  isMapSizeValid: PropTypes.bool.isRequired,
   mapConfig: PropTypes.shape({
     geolocation_enabled: PropTypes.bool.isRequired,
     layers: PropTypes.arrayOf(
@@ -342,13 +360,15 @@ MainMap.propTypes = {
       }),
     ),
     options: PropTypes.shape({
-      center: PropTypes.shape({
-        lat: PropTypes.number.isRequired,
-        lng: PropTypes.number.isRequired,
-      }).isRequired,
-      zoom: PropTypes.number.isRequired,
-      minZoom: PropTypes.number.isRequired,
-      maxZoom: PropTypes.number.isRequired,
+      map: PropTypes.shape({
+        center: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lng: PropTypes.number.isRequired,
+        }).isRequired,
+        zoom: PropTypes.number.isRequired,
+        minZoom: PropTypes.number.isRequired,
+        maxZoom: PropTypes.number.isRequired,
+      }),
     }),
     provider: PropTypes.string,
   }),
@@ -365,8 +385,9 @@ MainMap.propTypes = {
 
 const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
-  basemap: mapLayersBasemapSelector(state),
-  isValidSize: mapSizeValiditySelector(state),
+  visibleBasemapId: mapBasemapSelector(state),
+  visibleLayerIds: mapLayersSelector(state),
+  isMapSizeValid: mapSizeValiditySelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

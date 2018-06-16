@@ -4,12 +4,12 @@ import mapConfigReducer from "./ducks/map-config";
 import placeConfigReducer from "./ducks/place-config";
 import storyConfigReducer from "./ducks/story-config";
 import leftSidebarConfigReducer from "./ducks/left-sidebar-config";
-import mapLayersReducer from "./ducks/map";
+import mapReducer from "./ducks/map";
 
 const reducers = combineReducers({
   ui: uiReducer,
   mapConfig: mapConfigReducer,
-  mapLayers: mapLayersReducer,
+  map: mapReducer,
   placeConfig: placeConfigReducer,
   storyConfig: storyConfigReducer,
   leftSidebarConfig: leftSidebarConfigReducer,
