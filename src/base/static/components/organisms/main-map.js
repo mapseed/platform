@@ -107,7 +107,9 @@ class MainMap extends Component {
     });
 
     emitter.addListener("place-collection:loaded", collectionId => {
-      this.addPlaceCollectionLayer(collectionId);
+      if (this.props.visibleLayerIds.includes(collectionId)) {
+        this.addPlaceCollectionLayer(collectionId);
+      }
     });
     emitter.addListener("place-collection:add-place", collectionId => {
       this.updatePlaceCollectionLayer(collectionId);
@@ -259,38 +261,7 @@ class MainMap extends Component {
       );
   }
 
-  addPlaceCollectionLayer(collectionId) {
-    // Note that the object passed here to createGeoJSONLayer is a first-class
-    // Layer object.
-    const placeLayer = this._layers.find(layer => layer.id === collectionId);
-    placeLayer.source = createGeoJSONFromCollection(this._places[collectionId]);
-    this._map.addLayer(placeLayer);
-
-    // Bind map interaction events for Mapseed place layers.
-    this._map.bindPlaceLayerEvent("click", collectionId, clickedOnLayer => {
-      if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
-        this._router.navigate(
-          `/${clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
-          {
-            trigger: true,
-          },
-        );
-      } else {
-        this._router.navigate(
-          `/${
-            clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
-          }/${clickedOnLayer.properties.id}`,
-          { trigger: true },
-        );
-      }
-    });
-    this._map.bindPlaceLayerEvent("mouseenter", collectionId, () => {
-      this._map.setCursor("pointer");
-    });
-    this._map.bindPlaceLayerEvent("mouseleave", collectionId, () => {
-      this._map.setCursor("");
-    });
-  }
+  addPlaceCollectionLayer(collectionId) {}
 
   // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
@@ -326,7 +297,44 @@ class MainMap extends Component {
 
   // TODO: Layer loading and error events.
   async createLayerFromConfig(layerConfig, isBasemap = false) {
-    this._map.addLayer(layerConfig, isBasemap);
+    if (layerConfig.type === "place") {
+      // Note that the object passed here to createGeoJSONLayer is a first-class
+      // Layer object.
+      const placeLayer = this._layers.find(
+        layer => layer.id === layerConfig.id,
+      );
+      placeLayer.source = createGeoJSONFromCollection(
+        this._places[layerConfig.id],
+      );
+      this._map.addLayer(placeLayer);
+
+      // Bind map interaction events for Mapseed place layers.
+      this._map.bindPlaceLayerEvent("click", layerConfig.id, clickedOnLayer => {
+        if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
+          this._router.navigate(
+            `/${clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
+            {
+              trigger: true,
+            },
+          );
+        } else {
+          this._router.navigate(
+            `/${
+              clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
+            }/${clickedOnLayer.properties.id}`,
+            { trigger: true },
+          );
+        }
+      });
+      this._map.bindPlaceLayerEvent("mouseenter", layerConfig.id, () => {
+        this._map.setCursor("pointer");
+      });
+      this._map.bindPlaceLayerEvent("mouseleave", layerConfig.id, () => {
+        this._map.setCursor("");
+      });
+    } else {
+      this._map.addLayer(layerConfig, isBasemap);
+    }
   }
 
   render() {
@@ -344,7 +352,7 @@ MainMap.propTypes = {
         id: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         url: PropTypes.string,
-        source: PropTypes.string,
+        source: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
         slug: PropTypes.string,
         rules: PropTypes.arrayOf(
           PropTypes.shape({

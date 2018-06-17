@@ -67,7 +67,7 @@ MapLayerPanel.propTypes = {
         id: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         url: PropTypes.string,
-        source: PropTypes.string,
+        source: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
         slug: PropTypes.string,
         rules: PropTypes.arrayOf(
           PropTypes.shape({

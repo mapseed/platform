@@ -405,6 +405,9 @@ export default (container, options) => {
           case "json":
             createGeoJSONLayer(layer);
             break;
+          case "place":
+            createGeoJSONLayer(layer);
+            break;
         }
       }
 

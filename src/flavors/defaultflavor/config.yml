@@ -613,6 +613,9 @@ left_sidebar:
         - id: group-a
           title: _(Group A)
           layers:
+            - id: demo
+              title: _(Sample Mapseed place layer)
+              visible_default: false
             - id: sample-vector
               title: _(Sample vector tile)
               visible_default: false
