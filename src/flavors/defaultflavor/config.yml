@@ -593,7 +593,7 @@ left_sidebar:
     - id: gis-layers
       icon: fa-list
       component: MapLayerPanel
-      title: _(Map Layers)
+      title: _(Map Layers with an Extra Long Title)
       groupings:
         - id: basemaps
           title: _(Basemaps)
@@ -613,9 +613,6 @@ left_sidebar:
         - id: group-a
           title: _(Group A)
           layers:
-            - id: demo
-              title: _(Sample Mapseed place layer)
-              visible_default: false
             - id: sample-vector
               title: _(Sample vector tile)
               visible_default: false

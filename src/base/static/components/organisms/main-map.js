@@ -11,13 +11,17 @@ import { createGeoJSONFromCollection } from "../../utils/collection-utils";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   mapBasemapSelector,
-  mapLayersSelector,
+  mapLayersStatusSelector,
   mapSizeValiditySelector,
   setMapSizeValidity,
   setMapPosition,
+  setLayerStatus,
 } from "../../state/ducks/map";
+import { setLeftSidebar } from "../../state/ducks/ui";
 
 import constants from "../../constants";
+
+import "./main-map.scss";
 
 const Util = require("../../js/utils.js");
 
@@ -39,11 +43,69 @@ class MainMap extends Component {
         break;
     }
 
+    // https://www.mapbox.com/mapbox-gl-js/api#icontrol
+    class LayerPanelControl {
+      constructor(setLeftSidebar) {
+        this._setLeftSidebar = setLeftSidebar;
+      }
+
+      onAdd() {
+        this._container = document.createElement("div");
+        this._container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+        this._button = this._container.appendChild(
+          document.createElement("button"),
+        );
+        this._button.className = "mapboxgl-ctrl-icon mapseed__layer-panel-ctrl";
+        this._button.setAttribute("type", "button");
+        this._button.setAttribute("aria-label", "Open Layer Panel");
+        this._button.addEventListener("click", () => {
+          this._setLeftSidebar(true);
+        });
+
+        return this._container;
+      }
+
+      onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+      }
+    }
+
     this._map = MapProvider(props.container, props.mapConfig.options);
+    this._map.addControl(
+      new LayerPanelControl(this.props.setLeftSidebar),
+      "top-left",
+    );
 
     if (props.mapConfig.geolocation_enabled) {
       // TODO
     }
+
+    this._map.on("loading", data => {
+      // TODO: Move to Map provider
+      if (data.dataType === "source") {
+        props.setLayerStatus(data.sourceId, {
+          status: "loading",
+          isVisible: true,
+        });
+      }
+    });
+    this._map.on("data", data => {
+      // TODO: Move to Map provider
+      if (data.dataType === "source" && data.isSourceLoaded) {
+        props.setLayerStatus(data.sourceId, {
+          status: "loaded",
+          isVisible: true,
+        });
+      }
+    });
+    this._map.on("error", data => {
+      // TODO: Move to Map provider
+      props.setLayerStatus(data.sourceId, {
+        status: "error",
+        isVisible: true,
+      });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -52,32 +114,26 @@ class MainMap extends Component {
       this.props.setMapSizeValidity(true);
     }
 
-    if (this.props.visibleBasemapId !== prevProps.visibleBasemapId) {
-      // A new basemap has been selected.
-      this._map.removeLayer(
-        this._layers.find(layer => layer.id === prevProps.visibleBasemapId),
-      );
-      this.createLayerFromConfig(
-        this._layers.find(layer => layer.id === this.props.visibleBasemapId),
-        true,
-      );
-    }
-
-    // Switch on new layers.
-    this.props.visibleLayerIds
-      .filter(layerId => prevProps.visibleLayerIds.indexOf(layerId) < 0)
-      .forEach(layerId => {
+    for (let layerId in this.props.layersStatus) {
+      if (
+        this.props.layersStatus[layerId].isVisible &&
+        (!prevProps.layersStatus[layerId] ||
+          !prevProps.layersStatus[layerId].isVisible)
+      ) {
+        // A layer has been switched on.
         this.createLayerFromConfig(
           this._layers.find(layer => layer.id === layerId),
+          this.props.layersStatus[layerId].isBasemap,
         );
-      });
-
-    // Switch off old layers.
-    prevProps.visibleLayerIds
-      .filter(layerId => this.props.visibleLayerIds.indexOf(layerId) < 0)
-      .forEach(layerId => {
+      } else if (
+        !this.props.layersStatus[layerId].isVisible &&
+        prevProps.layersStatus[layerId] &&
+        prevProps.layersStatus[layerId].isVisible
+      ) {
+        // A layer has been switched off.
         this._map.removeLayer(this._layers.find(layer => layer.id === layerId));
-      });
+      }
+    }
   }
 
   componentDidMount() {
@@ -261,8 +317,6 @@ class MainMap extends Component {
       );
   }
 
-  addPlaceCollectionLayer(collectionId) {}
-
   // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
     const locationType = locationTypeModel.get("locationType");
@@ -394,13 +448,16 @@ MainMap.propTypes = {
 const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
-  visibleLayerIds: mapLayersSelector(state),
+  layersStatus: mapLayersStatusSelector(state),
   isMapSizeValid: mapSizeValiditySelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   setMapPosition: mapPosition => dispatch(setMapPosition(mapPosition)),
   setMapSizeValidity: isValidSize => dispatch(setMapSizeValidity(isValidSize)),
+  setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
+  setLayerStatus: (layerId, layerStatus) =>
+    dispatch(setLayerStatus(layerId, layerStatus)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMap);

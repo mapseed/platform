@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {
   leftSidebarExpandedSelector,
   leftSidebarComponentSelector,
+  setLeftSidebar,
 } from "../../state/ducks/ui";
 import { CloseButton } from "../atoms/navigation";
 
@@ -13,13 +14,15 @@ import MapLayerPanel from "./map-layer-panel";
 import "./left-sidebar.scss";
 
 const LeftSidebar = props => {
-  return (
+  return props.leftSidebarExpanded ? (
     <div className="left-sidebar">
-      <CloseButton classes="left-sidebar__close-button" />
-      {props.leftSidebarExpanded &&
-        props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
+      <CloseButton
+        classes="left-sidebar__close-button"
+        onClick={() => props.setLeftSidebar(false)}
+      />
+      {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
     </div>
-  );
+  ) : null;
 };
 
 LeftSidebar.propTypes = {};
@@ -29,4 +32,8 @@ const mapStateToProps = state => ({
   leftSidebarComponent: leftSidebarComponentSelector(state),
 });
 
-export default connect(mapStateToProps)(LeftSidebar);
+const mapDispatchToProps = dispatch => ({
+  setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftSidebar);

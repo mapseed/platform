@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
-  toggleLayerVisibility,
+  setLayerStatus,
   setBasemap,
-  mapLayersSelector,
+  mapLayersStatusSelector,
   mapBasemapSelector,
 } from "../../state/ducks/map";
 import { Header4, Header5 } from "../atoms/typography";
@@ -37,16 +37,25 @@ const MapLayerPanel = props => {
                     group={grouping.id}
                     id={layer.id}
                     title={layer.title}
+                    layerStatus={props.layersStatus[layer.id]}
                     selected={
-                      isBasemap
-                        ? layer.id === props.visibleBasemapId
-                        : props.visibleLayerIds.includes(layer.id)
+                      props.layersStatus[layer.id] &&
+                      props.layersStatus[layer.id].isVisible
                     }
                     onToggleLayer={layerId => {
                       if (isBasemap) {
-                        props.setBasemap(layerId);
+                        props.setBasemap(layerId, {
+                          status: "loading",
+                          isVisible: true,
+                        });
                       } else {
-                        props.toggleLayerVisibility(layerId);
+                        props.setLayerStatus(layerId, {
+                          status: "loading",
+                          isVisible:
+                            props.layersStatus[layer.id] === undefined
+                              ? true
+                              : !props.layersStatus[layerId].isVisible,
+                        });
                       }
                     }}
                   />
@@ -130,13 +139,15 @@ MapLayerPanel.defaultProps = {
 const mapStateToProps = state => ({
   mapLayerPanelConfig: leftSidebarPanelConfigSelector(state, "MapLayerPanel"),
   mapConfig: mapConfigSelector(state),
-  visibleLayerIds: mapLayersSelector(state),
+  layersStatus: mapLayersStatusSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleLayerVisibility: layerId => dispatch(toggleLayerVisibility(layerId)),
-  setBasemap: layerId => dispatch(setBasemap(layerId)),
+  setLayerStatus: (layerId, layerStatus) =>
+    dispatch(setLayerStatus(layerId, layerStatus)),
+  setBasemap: (layerId, layerStatus) =>
+    dispatch(setBasemap(layerId, layerStatus)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapLayerPanel);

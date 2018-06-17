@@ -8,6 +8,19 @@
   }
 }
 
+.map-layer-selector__spinner-container {
+  flex: 1;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+
+  .react-spinner {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 .map-layer-selector__id-icon {
   padding-right: 10px;
   font-size: 1.5em;
@@ -31,8 +44,18 @@
 }
 
 .map-layer-selector__status-icon {
+  color: green;
+  text-align: center;
   margin-left: 10px;
   flex: 1;
+}
+
+.map-layer-selector__status-icon--green {
+  color: #22c722;
+}
+
+.map-layer-selector__status-icon--red {
+  color: #ff0000;
 }
 
 .map-layer-selector__input {

@@ -19,6 +19,7 @@ import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
 import { setMapSizeValidity, mapPositionSelector } from "../../state/ducks/map";
+import { leftSidebarExpandedSelector } from "../../state/ducks/ui";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";

@@ -1,12 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import Spinner from "react-spinner";
 
 import { Icon } from "../atoms/feedback";
 
 import "./map-layer-selector.scss";
 
 const MapLayerSelector = props => {
+  let status;
+  if (!props.layerStatus) {
+    status = "hidden";
+  } else {
+    status = props.layerStatus.status;
+  }
+
   return (
     <div
       className="map-layer-selector"
@@ -20,7 +28,22 @@ const MapLayerSelector = props => {
       >
         {props.title}
       </span>
-      <Icon icon="fa-check" classes="map-layer-selector__status-icon" />
+      {status === "loading" && props.layerStatus.isVisible ? (
+        <div className="map-layer-selector__spinner-container">
+          <Spinner />
+        </div>
+      ) : (
+        <Icon
+          icon={classNames({
+            "fa-check": status === "loaded",
+            "fa-times": status === "error",
+          })}
+          classes={classNames("map-layer-selector__status-icon", {
+            "map-layer-selector__status-icon--green": status === "loaded",
+            "map-layer-selector__status-icon--red": status === "error",
+          })}
+        />
+      )}
     </div>
   );
 };

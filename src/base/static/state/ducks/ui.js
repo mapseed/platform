@@ -36,7 +36,7 @@ export function setLeftSidebar(isExpanded) {
 const INITIAL_STATE = {
   isContentPanelOpen: undefined,
   isSidebarExpanded: undefined,
-  isLeftSidebarExpanded: true, // TODO-- make this configurable
+  isLeftSidebarExpanded: true,
   leftSidebarComponent: "MapLayerPanel", // TODO-- make this configurable
 };
 
@@ -55,8 +55,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case SET_UI_LEFT_SIDEBAR:
       return {
         ...state,
-        isLeftSidebarExpanded: action.payload.isLeftSidebarExpanded,
-        leftSidebarComponent: action.payload.leftSidebarComponent,
+        isLeftSidebarExpanded: action.payload,
       };
     default:
       return state;

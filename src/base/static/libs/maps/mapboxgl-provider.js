@@ -284,15 +284,10 @@ export default (container, options) => {
     new mapboxgl.NavigationControl(options.control),
     options.control.position,
   );
-  const removeConstituentLayers = layerId => {
-    const layers = Array.isArray(layersCache[layerId])
-      ? layersCache[layerId]
-      : [layersCache[layerId]];
-    layers.forEach(layer => map.removeLayer(layer.id));
-  };
 
   return AbstractMapFactory({
     on: (event, callback, context) => {
+      if (event === "loading") event = "dataloading";
       callback = callback.bind(context);
       map.on(event, callback);
     },
@@ -329,6 +324,10 @@ export default (container, options) => {
           callback(targetLayer);
         });
       });
+    },
+
+    addControl: (control, position) => {
+      map.addControl(control, position);
     },
 
     setCursor: style => {

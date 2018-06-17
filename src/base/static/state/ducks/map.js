@@ -2,8 +2,8 @@
 export const mapBasemapSelector = state => {
   return state.map.visibleBasemapId;
 };
-export const mapLayersSelector = state => {
-  return state.map.visibleLayerIds;
+export const mapLayersStatusSelector = state => {
+  return state.map.layersStatus;
 };
 export const mapSizeValiditySelector = state => {
   return state.map.isMapSizeValid;
@@ -13,25 +13,27 @@ export const mapPositionSelector = state => {
 };
 
 // Actions
-const TOGGLE_LAYER_VISIBILITY = "map/TOGGLE_LAYER_VISIBILITY";
+const SET_LAYER_STATUS = "map/SET_LAYER_STATUS";
 const SET_BASEMAP = "map/SET_BASEMAP";
 const SET_MAP_POSITION = "map/SET_MAP_POSITION";
 const SET_MAP_SIZE_VALIDITY = "map/SET_MAP_SIZE_VALIDITY";
 
 // Action creators
-export const toggleLayerVisibility = layerId => {
+export const setLayerStatus = (layerId, layerStatus) => {
   return {
-    type: TOGGLE_LAYER_VISIBILITY,
+    type: SET_LAYER_STATUS,
     payload: {
       layerId: layerId,
+      layerStatus: layerStatus,
     },
   };
 };
-export const setBasemap = basemapId => {
+export const setBasemap = (layerId, layerStatus) => {
   return {
     type: SET_BASEMAP,
     payload: {
-      basemapId: basemapId,
+      layerId: layerId,
+      layerStatus: layerStatus,
     },
   };
 };
@@ -50,8 +52,8 @@ export const setMapSizeValidity = isValidSize => {
 
 // Reducers
 const INITIAL_STATE = {
-  visibleBasemapId: undefined,
-  visibleLayerIds: [],
+  visibleBasemapId: null,
+  layersStatus: {},
   mapPosition: undefined,
   isMapSizeValid: true,
 };
@@ -70,24 +72,30 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...action.payload,
         },
       };
-    case TOGGLE_LAYER_VISIBILITY:
+    case SET_LAYER_STATUS:
       return {
         ...state,
-        visibleLayerIds: state.visibleLayerIds.includes(action.payload.layerId)
-          ? // Toggle a layer off
-            state.visibleLayerIds.filter(
-              layerId => layerId !== action.payload.layerId,
-            )
-          : // Toggle a layer on
-            state.visibleLayerIds.concat(action.payload.layerId),
+        layersStatus: {
+          ...state.layersStatus,
+          [action.payload.layerId]: {
+            ...action.payload.layerStatus,
+          },
+        },
       };
     case SET_BASEMAP:
       return {
         ...state,
-        visibleBasemapId:
-          state.visibleBasemapId !== action.payload.basemapId
-            ? action.payload.basemapId
-            : state.visibleBasemapId,
+        visibleBasemapId: action.payload.layerId,
+        layersStatus: {
+          ...state.layersStatus,
+          [action.payload.layerId]: {
+            ...action.payload.layerStatus,
+            isBasemap: true,
+          },
+          [state.visibleBasemapId]: {
+            isVisible: false,
+          },
+        },
       };
     default:
       return state;
