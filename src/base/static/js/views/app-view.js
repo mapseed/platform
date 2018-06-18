@@ -582,7 +582,7 @@ module.exports = Backbone.View.extend({
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
-    this.setBodyClass("content-visible", "content-expanded");
+    this.setBodyClass("content-visible");
     store.dispatch(setMapSizeValidity(false));
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
@@ -660,7 +660,7 @@ module.exports = Backbone.View.extend({
         );
 
         this.$panel.show();
-        this.setBodyClass("content-visible", "content-expanded");
+        this.setBodyClass("content-visible");
         store.dispatch(setMapSizeValidity(false));
 
         $("#main-btns-container").addClass(

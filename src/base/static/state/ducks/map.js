@@ -62,7 +62,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case SET_MAP_SIZE_VALIDITY:
       return {
         ...state,
-        isValidSize: action.payload,
+        isMapSizeValid: action.payload,
       };
     case SET_MAP_POSITION:
       return {
