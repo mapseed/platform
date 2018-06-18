@@ -587,7 +587,7 @@ module.exports = Backbone.View.extend({
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     this.setBodyClass("content-visible", "place-form-visible");
-    this.mapView.map.invalidateSize({ animate: true, pan: true });
+    store.dispatch(setMapSizeValidity(false));
 
     if (this.options.placeConfig.default_basemap) {
       this.setLayerVisibility(
@@ -741,7 +741,7 @@ module.exports = Backbone.View.extend({
     this.destroyNewModels();
     this.hideCenterPoint();
     this.setBodyClass("content-visible");
-    this.mapView.map.invalidateSize({ animate: true, pan: true });
+    store.dispatch(setMapSizeValidity(false));
   },
 
   showPanel: function(markup, preventScrollToTop) {
