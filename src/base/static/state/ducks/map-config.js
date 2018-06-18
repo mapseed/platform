@@ -4,7 +4,7 @@ export const mapConfigSelector = state => {
 };
 
 // Actions:
-const SET_CONFIG = "SET_CONFIG";
+const SET_CONFIG = "map/SET_CONFIG";
 
 // Action creators:
 export function setMapConfig(config) {

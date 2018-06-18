@@ -359,21 +359,18 @@ export default (container, options) => {
       map.fitBounds(
         coordinates.reduce(
           (bounds, coord) => bounds.extend(coord),
-          this._map.makeLngLatBounds(coordinates[0], coordinates[0]),
+          new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]),
         ),
         options,
       );
     },
 
-    fitPolygonalCoords: (coordinates, options) => {
+    fitPolygonCoords: (coordinates, options) => {
       // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
       map.fitBounds(
         coordinates[0].reduce(
           (bounds, coord) => bounds.extend(coord),
-          this.mapView.map.makeLngLatBounds(
-            coordinates[0][0],
-            coordinates[0][0],
-          ),
+          new mapboxgl.LngLatBounds(coordinates[0][0], coordinates[0][0]),
         ),
         options,
       );

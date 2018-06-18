@@ -4,7 +4,7 @@ export const storyConfigSelector = state => {
 };
 
 // Actions:
-const SET_CONFIG = "SET_CONFIG";
+const SET_CONFIG = "story/SET_CONFIG";
 
 // Action creators:
 export function setStoryConfig(config) {

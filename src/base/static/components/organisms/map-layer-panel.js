@@ -33,20 +33,37 @@ const MapLayerPanel = props => {
                 return (
                   <MapLayerSelector
                     key={layer.id}
-                    type="layer"
-                    group={grouping.id}
-                    id={layer.id}
+                    layerId={layer.id}
                     title={layer.title}
                     layerStatus={props.layersStatus[layer.id]}
                     selected={
-                      props.layersStatus[layer.id] &&
-                      props.layersStatus[layer.id].isVisible
+                      !!(
+                        props.layersStatus[layer.id] &&
+                        props.layersStatus[layer.id].isVisible
+                      )
                     }
                     onToggleLayer={layerId => {
                       if (isBasemap) {
-                        props.setBasemap(layerId, {
+                        if (
+                          props.layersStatus[layerId] &&
+                          props.layersStatus[layerId].isVisible
+                        ) {
+                          // If the user clicked on the basemap that is already
+                          // visible, do nothing.
+                          return;
+                        }
+                        if (props.visibleBasemapId) {
+                          // Switch the previous basemap off.
+                          props.setLayerStatus(props.visibleBasemapId, {
+                            isVisible: false,
+                          });
+                        }
+                        props.setBasemap(layerId);
+                        // Switch the new basemap on.
+                        props.setLayerStatus(layerId, {
                           status: "loading",
                           isVisible: true,
+                          isBasemap: true,
                         });
                       } else {
                         props.setLayerStatus(layerId, {
@@ -130,6 +147,7 @@ MapLayerPanel.propTypes = {
       }),
     ),
   }),
+  visibleBasemapId: PropTypes.string,
 };
 
 MapLayerPanel.defaultProps = {
@@ -146,8 +164,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
-  setBasemap: (layerId, layerStatus) =>
-    dispatch(setBasemap(layerId, layerStatus)),
+  setBasemap: layerId => dispatch(setBasemap(layerId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapLayerPanel);

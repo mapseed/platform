@@ -28,12 +28,11 @@ export const setLayerStatus = (layerId, layerStatus) => {
     },
   };
 };
-export const setBasemap = (layerId, layerStatus) => {
+export const setBasemap = layerId => {
   return {
     type: SET_BASEMAP,
     payload: {
       layerId: layerId,
-      layerStatus: layerStatus,
     },
   };
 };
@@ -86,16 +85,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         visibleBasemapId: action.payload.layerId,
-        layersStatus: {
-          ...state.layersStatus,
-          [action.payload.layerId]: {
-            ...action.payload.layerStatus,
-            isBasemap: true,
-          },
-          [state.visibleBasemapId]: {
-            isVisible: false,
-          },
-        },
       };
     default:
       return state;

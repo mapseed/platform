@@ -18,7 +18,7 @@ const MapLayerSelector = props => {
   return (
     <div
       className="map-layer-selector"
-      onClick={() => props.onToggleLayer(props.id)}
+      onClick={() => props.onToggleLayer(props.layerId)}
     >
       <Icon icon={props.icon} classes="map-layer-selector__id-icon" />
       <span
@@ -49,14 +49,16 @@ const MapLayerSelector = props => {
 };
 
 MapLayerSelector.propTypes = {
-  checked: PropTypes.bool,
-  group: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  layerId: PropTypes.string.isRequired,
+  layerStatus: PropTypes.shape({
+    isVisible: PropTypes.bool,
+    isBasemap: PropTypes.bool,
+    status: PropTypes.string,
+  }),
   onToggleLayer: PropTypes.func.isRequired,
   selected: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
 };
 
 MapLayerSelector.defaultProps = {

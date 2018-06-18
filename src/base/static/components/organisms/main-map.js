@@ -80,36 +80,10 @@ class MainMap extends Component {
     if (props.mapConfig.geolocation_enabled) {
       // TODO
     }
-
-    this._map.on("loading", data => {
-      // TODO: Move to Map provider
-      if (data.dataType === "source") {
-        props.setLayerStatus(data.sourceId, {
-          status: "loading",
-          isVisible: true,
-        });
-      }
-    });
-    this._map.on("data", data => {
-      // TODO: Move to Map provider
-      if (data.dataType === "source" && data.isSourceLoaded) {
-        props.setLayerStatus(data.sourceId, {
-          status: "loaded",
-          isVisible: true,
-        });
-      }
-    });
-    this._map.on("error", data => {
-      // TODO: Move to Map provider
-      props.setLayerStatus(data.sourceId, {
-        status: "error",
-        isVisible: true,
-      });
-    });
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.isValidSize) {
+    if (!this.props.isMapSizeValid) {
       this._map.invalidateSize();
       this.props.setMapSizeValidity(true);
     }
@@ -121,7 +95,7 @@ class MainMap extends Component {
           !prevProps.layersStatus[layerId].isVisible)
       ) {
         // A layer has been switched on.
-        this.createLayerFromConfig(
+        this.addLayer(
           this._layers.find(layer => layer.id === layerId),
           this.props.layersStatus[layerId].isBasemap,
         );
@@ -137,6 +111,25 @@ class MainMap extends Component {
   }
 
   componentDidMount() {
+    this._map.on("data", data => {
+      // TODO: Move to Map provider
+      if (data.dataType === "source" && data.isSourceLoaded) {
+        this.props.setLayerStatus(data.sourceId, {
+          status: "loaded",
+          isVisible: true,
+        });
+      }
+    });
+    this._map.on("error", data => {
+      // TODO: Move to Map provider
+      if (data.sourceId) {
+        this.props.setLayerStatus(data.sourceId, {
+          status: "error",
+          isVisible: true,
+        });
+      }
+    });
+
     this._map.on("dragend", () => {
       Util.log(
         "USER",
@@ -163,7 +156,10 @@ class MainMap extends Component {
     });
 
     emitter.addListener("place-collection:loaded", collectionId => {
-      if (this.props.visibleLayerIds.includes(collectionId)) {
+      if (
+        this.props.layersStatus[collectionId] &&
+        this.props.layersStatus[collectionId].isVisible
+      ) {
         this.addPlaceCollectionLayer(collectionId);
       }
     });
@@ -216,17 +212,6 @@ class MainMap extends Component {
   checkLayerZoom(maxZoom) {
     if (maxZoom && this._map.getZoom() > maxZoom) {
       this._map.setZoom(parseInt(maxZoom, 10));
-    }
-  }
-
-  // Adds or removes the layer  on Master Layer based on visibility
-  setLayerVisibility(layer, visible) {
-    // TODO: layer id
-    if (visible && !this._map.hasLayer(layer._leaflet_id)) {
-      this._map.addLayer(layer);
-    }
-    if (!visible && this._map.hasLayer(layer)) {
-      this._map.removeLayer(layer);
     }
   }
 
@@ -349,21 +334,13 @@ class MainMap extends Component {
     }
   }
 
-  // TODO: Layer loading and error events.
-  async createLayerFromConfig(layerConfig, isBasemap = false) {
-    if (layerConfig.type === "place") {
-      // Note that the object passed here to createGeoJSONLayer is a first-class
-      // Layer object.
-      const placeLayer = this._layers.find(
-        layer => layer.id === layerConfig.id,
-      );
-      placeLayer.source = createGeoJSONFromCollection(
-        this._places[layerConfig.id],
-      );
-      this._map.addLayer(placeLayer);
+  async addLayer(layer, isBasemap = false) {
+    if (layer.type === "place") {
+      layer.source = createGeoJSONFromCollection(this._places[layer.id]);
+      this._map.addLayer(layer);
 
-      // Bind map interaction events for Mapseed place layers.
-      this._map.bindPlaceLayerEvent("click", layerConfig.id, clickedOnLayer => {
+      // Bind map interaction events for this place layers.
+      this._map.bindPlaceLayerEvent("click", layer.id, clickedOnLayer => {
         if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
           this._router.navigate(
             `/${clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
@@ -380,14 +357,14 @@ class MainMap extends Component {
           );
         }
       });
-      this._map.bindPlaceLayerEvent("mouseenter", layerConfig.id, () => {
+      this._map.bindPlaceLayerEvent("mouseenter", layer.id, () => {
         this._map.setCursor("pointer");
       });
-      this._map.bindPlaceLayerEvent("mouseleave", layerConfig.id, () => {
+      this._map.bindPlaceLayerEvent("mouseleave", layer.id, () => {
         this._map.setCursor("");
       });
     } else {
-      this._map.addLayer(layerConfig, isBasemap);
+      this._map.addLayer(layer, isBasemap);
     }
   }
 
@@ -399,6 +376,13 @@ class MainMap extends Component {
 MainMap.propTypes = {
   container: PropTypes.string.isRequired,
   isMapSizeValid: PropTypes.bool.isRequired,
+  layersStatus: PropTypes.objectOf(
+    PropTypes.shape({
+      isVisible: PropTypes.bool,
+      isBasemap: PropTypes.bool,
+      status: PropTypes.string,
+    }),
+  ).isRequired,
   mapConfig: PropTypes.shape({
     geolocation_enabled: PropTypes.bool.isRequired,
     layers: PropTypes.arrayOf(
@@ -441,6 +425,8 @@ MainMap.propTypes = {
   places: PropTypes.object.isRequired,
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  setLayerStatus: PropTypes.func.isRequired,
+  setLeftSidebar: PropTypes.func.isRequired,
   setMapPosition: PropTypes.func.isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,
 };
@@ -454,7 +440,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setMapPosition: mapPosition => dispatch(setMapPosition(mapPosition)),
-  setMapSizeValidity: isValidSize => dispatch(setMapSizeValidity(isValidSize)),
+  setMapSizeValidity: isMapSizeValid =>
+    dispatch(setMapSizeValidity(isMapSizeValid)),
   setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
