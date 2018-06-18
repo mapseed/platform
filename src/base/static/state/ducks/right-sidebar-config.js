@@ -1,18 +1,13 @@
 // Selectors:
-export const leftSidebarConfigSelector = state => {
-  return state.leftSidebarConfig;
-};
-export const leftSidebarPanelConfigSelector = (state, panelComponentName) => {
-  return state.leftSidebarConfig.panels.find(
-    panel => panel.component === panelComponentName,
-  );
+export const rightSidebarConfigSelector = state => {
+  return state.rightSidebarConfig;
 };
 
 // Actions:
-const SET_CONFIG = "left-sidebar/SET_CONFIG";
+const SET_CONFIG = "right-sidebar/SET_CONFIG";
 
 // Action creators:
-export function setLeftSidebarConfig(config) {
+export function setRightSidebarConfig(config) {
   return { type: SET_CONFIG, payload: config };
 }
 

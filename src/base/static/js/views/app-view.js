@@ -18,6 +18,7 @@ import { setMapConfig } from "../../state/ducks/map-config";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
+import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setMapSizeValidity, mapPositionSelector } from "../../state/ducks/map";
 import { leftSidebarExpandedSelector } from "../../state/ducks/ui";
 
@@ -99,6 +100,7 @@ module.exports = Backbone.View.extend({
     store.dispatch(setMapConfig(config.map));
     store.dispatch(setPlaceConfig(config.place));
     store.dispatch(setLeftSidebarConfig(config.left_sidebar));
+    store.dispatch(setRightSidebarConfig(config.right_sidebar));
     store.dispatch(setStoryConfig(config.story));
 
     languageModule.changeLanguage(this.options.languageCode);

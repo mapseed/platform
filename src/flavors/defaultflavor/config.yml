@@ -585,6 +585,7 @@ map:
 right_sidebar:
   enabled: true
   visible_default: true
+  component: StoryNavigator
 
 left_sidebar:
   enabled: true
