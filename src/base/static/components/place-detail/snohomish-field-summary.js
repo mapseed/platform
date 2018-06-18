@@ -37,7 +37,7 @@ const SnohomishFieldSummary = props => {
     <div className="snohomish-field-summary">
       <Header1 classes="snohomish-total-actions">
         <span className="snohomish-num-actions">{fieldConfigs.length}</span>{" "}
-        actions
+        {fieldConfigs.length === 1 ? "action" : "actions"}
       </Header1>
       <hr />
       {stages.farm.length > 0 && (

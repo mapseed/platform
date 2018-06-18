@@ -6,12 +6,13 @@ import constants from "../../../constants";
 import WarningMessagesContainer from "../../ui-elements/warning-messages-container";
 import { OrderedMap, Map } from "immutable";
 
+jest.mock("../../../utils/scroll-helpers");
+
 describe("InputForm", () => {
   // TODO: consider generalizing this stub into a mock:
-  const categoryName = "someCategory";
   const eventStub = { preventDefault: () => {} };
   const defaultProps = {
-    container: {},
+    containers: {},
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
     selectedCategory: "someCategory",

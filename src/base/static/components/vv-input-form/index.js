@@ -8,6 +8,8 @@ import { translate } from "react-i18next";
 import constants from "./constants";
 import "./index.scss";
 
+import { getCategoryConfig } from "../../utils/config-utils";
+
 const Util = require("../../../static/js/utils.js");
 
 const hooks = {
@@ -32,17 +34,8 @@ class VVInputForm extends Component {
       stage: "set-location",
       isMapPositioned: false,
     };
-  }
 
-  componentWillMount() {
-    // Remove saved autofill values. For VV input forms, we always want to reset
-    // any saved autofill values when re-opening the form.
-    this.props.placeConfig.place_detail
-      .find(
-        config => config.category === constants.COMMUNITY_INPUT_CATEGORY_NAME,
-      )
-      .fields.filter(field => field.autocomplete === true)
-      .forEach(field => Util.removeAutocompleteValue(field.name));
+    this.selectedCategoryConfig = getCategoryConfig(props.selectedCategory);
   }
 
   componentDidMount() {
@@ -53,10 +46,6 @@ class VVInputForm extends Component {
           isMapPositioned: true,
         });
     });
-
-    this.props.customHooks.postSave = (response, model, defaultPostSave) => {
-      return hooks.postSave(response, model, defaultPostSave, this);
-    };
   }
 
   onClickContinueForm() {
@@ -78,13 +67,17 @@ class VVInputForm extends Component {
     this.props.hideSpotlightMask();
     this.props.hideNewPin();
     this.props.hidePanel();
+
+    this.selectedCategoryConfig.fields.forEach(field => {
+      Util.removeAutocompleteValue(field.name);
+    });
   }
 
   render() {
     // Certain custom behavior should only be performed if we are rendering a
     // community input form.
     const isCommunityInputCategorySelected =
-      this.props.selectedCategoryConfig.category ===
+      this.selectedCategoryConfig.category ===
       constants.COMMUNITY_INPUT_CATEGORY_NAME;
     const cn = {
       form: classNames("vv-input-form__form", {
@@ -112,15 +105,21 @@ class VVInputForm extends Component {
           <h3 className="vv-input-form__welcome-header">
             {t("welcomeHeader")}
           </h3>
-          <br />
-          <p className="vv-input-form__welcome-subheader">
-            {t("welcomeSubheader")}
-          </p>
+          {!this.state.isMapPositioned && (
+            <p className="vv-input-form__welcome-subheader">
+              {t("welcomeSubheader")}
+            </p>
+          )}
         </div>
         <InputForm
+          {...this.props}
           className={cn.form}
           isFormResetting={this.state.isFormResetting}
-          {...this.props}
+          customHooks={{
+            postSave: (response, model, defaultPostSave) => {
+              return hooks.postSave(response, model, defaultPostSave, this);
+            },
+          }}
         />
         <div className={cn.continueBtns}>
           <h4 className="input-form__continue-btns-header">
@@ -145,14 +144,12 @@ class VVInputForm extends Component {
 }
 
 VVInputForm.propTypes = {
-  selectedCategoryConfig: PropTypes.object.isRequired,
-  customHooks: PropTypes.objectOf(PropTypes.func),
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   map: PropTypes.object.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
-  placeConfig: PropTypes.object.isRequired,
+  selectedCategory: PropTypes.string.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };

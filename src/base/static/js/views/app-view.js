@@ -22,7 +22,7 @@ import PlaceDetail from "../../components/place-detail";
 import FormCategoryMenuWrapper from "../../components/input-form/form-category-menu-wrapper";
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
-import StorySidebar from "../../components/story-sidebar";
+import RightSidebar from "../../components/templates/right-sidebar";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(reducer);
@@ -81,7 +81,7 @@ module.exports = Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .story-sidebar__collapse-btn": "onToggleSidebarVisibility",
+    "click .right-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
@@ -377,7 +377,7 @@ module.exports = Backbone.View.extend({
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
         <Provider store={store}>
-          <StorySidebar
+          <RightSidebar
             placeCollectionsPromise={placeCollectionsPromise}
             places={this.places}
             router={this.options.router}
@@ -450,13 +450,7 @@ module.exports = Backbone.View.extend({
     this.mapView.map.invalidateSize();
   },
   setBodyClass: function(/* newBodyClasses */) {
-    var bodyClasses = [
-        "content-visible",
-        "place-form-visible",
-        "page-visible",
-        "content-expanded",
-        "content-expanded-mid",
-      ],
+    var bodyClasses = ["content-visible", "place-form-visible", "page-visible"],
       newBodyClasses = Array.prototype.slice.call(arguments, 0),
       i,
       $body = $("body");
@@ -536,7 +530,12 @@ module.exports = Backbone.View.extend({
           places={this.places}
           router={this.options.router}
           customHooks={this.options.customHooks}
-          container={document.querySelector("#content article")}
+          // '#content article' and 'html' represent the two containers into
+          // which panel content is rendered (one at desktop size and one at
+          // mobile size).
+          // TODO: Improve this when we move overall app layout management to
+          // Redux.
+          containers={document.querySelectorAll("#content article, html")}
           render={(state, props, onCategoryChange) => {
             if (
               props.customComponents &&
@@ -569,11 +568,10 @@ module.exports = Backbone.View.extend({
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
-    this.setBodyClass("content-visible", "content-expanded");
-    this.mapView.map.invalidateSize({ animate: true, pan: true });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     this.setBodyClass("content-visible", "place-form-visible");
+    this.mapView.map.invalidateSize({ animate: true, pan: true });
 
     if (this.options.placeConfig.default_basemap) {
       this.setLayerVisibility(
@@ -704,7 +702,7 @@ module.exports = Backbone.View.extend({
         );
 
         this.$panel.show();
-        this.setBodyClass("content-visible", "content-expanded");
+        this.setBodyClass("content-visible");
         this.mapView.map.invalidateSize({ animate: true, pan: true });
 
         $("#main-btns-container").addClass(
@@ -798,7 +796,8 @@ module.exports = Backbone.View.extend({
     this.hideNewPin();
     this.destroyNewModels();
     this.hideCenterPoint();
-    this.setBodyClass("content-visible", "content-expanded");
+    this.setBodyClass("content-visible");
+    this.mapView.map.invalidateSize({ animate: true, pan: true });
   },
 
   showPanel: function(markup, preventScrollToTop) {

@@ -28,20 +28,6 @@
       background-color: #40becd;
     }
   }
-
-  .menu-item {
-    border-right: 1px solid #789400;
-    padding-right: 7px;
-  }
-
-  /* TODO: update this if we add more page header links */
-  .menu-item:nth-child(2) {
-    border-right: none !important;
-  }
-
-  .menu-item:last {
-    border-right: none;
-  }
 }
 
 .list-toggle-nav {
@@ -62,13 +48,6 @@
   &:hover {
     background-color: #40becd;
   }
-}
-
-#site-header {
-  background: url("/static/css/images/header-banner-large.png");
-  background-size: auto 64px;
-  background-color: #f3f5e7;
-  background-repeat: no-repeat;
 }
 
 #sign-in-btn {
@@ -269,7 +248,7 @@
 .form-stage-header-bar__icon {
   position: absolute;
   bottom: 0;
-  width: 140%;
+  width: 400px;
   left: 40px;
 }
 
@@ -427,12 +406,52 @@
 /* =Media Queries
 -------------------------------------------------------------- */
 
+// Screen sizes below 60em width
 @media only screen and (max-width: 60em) {
+  #site-header {
+    background: url("/static/css/images/header-banner-small.png");
+    background-size: auto 64px;
+    background-color: #f3f5e7;
+    background-repeat: no-repeat;
+    background-position: 35px top;
+  }
+
+  .place-form-visible { 
+    #main-btns-container {
+      display: none;
+    }
+    #content {
+      margin-bottom: 0;
+    }
+  }
 }
 
-// Screen sizes about 60em width
+// Screen sizes above 60em width
 @media only screen and (min-width: 60em) {
+  .menu {
+    .menu-item {
+      border-right: 1px solid #789400;
+      padding-right: 7px;
+    }
+
+    /* TODO: update this if we add more page header links */
+    .menu-item:nth-child(2) {
+      border-right: none !important;
+    }
+
+    .menu-item:last {
+      border-right: none;
+    }
+  }
+
   #pages-nav-container {
     margin-left: 550px;
+  }
+
+  #site-header {
+    background: url("/static/css/images/header-banner-large.png");
+    background-size: auto 64px;
+    background-color: #f3f5e7;
+    background-repeat: no-repeat;
   }
 }

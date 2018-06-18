@@ -560,10 +560,6 @@ nav.list-toggle-nav a.list-toggle-btn.btn.btn-block span {
   nav.access {
     margin-top: -0.9em;
   }
-
-  #language-picker {
-    margin-top: -1px;
-  }
 }
 
 @media only screen and (max-width: 60em) {

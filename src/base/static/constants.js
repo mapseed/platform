@@ -34,6 +34,7 @@ export default {
   STORY_FIELD_NAME: "story",
   DATASET_ID_PROPERTY_NAME: "datasetId",
   CUSTOM_URL_PROPERTY_NAME: "url-title",
+  SHOW_METADATA_PROPERTY_NAME: "showMetadata",
 
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",
@@ -69,6 +70,9 @@ export default {
   PLACE_MODEL_IO_END_ERROR_ACTION: "place:io-end-error",
   SURVEY_MODEL_IO_END_SUCCESS_ACTION: "survey:io-end",
   SUPPORT_MODEL_IO_END_SUCCESS_ACTION: "support:io-end-success",
+
+  FOCUS_TARGET_LAYER_ACTION: "focus",
+  UNFOCUS_MODEL_ACTION: "unfocus",
 
   DEFAULT_DATE_FORMAT: "YYYY-MM-DD",
   DEFAULT_DATE_DISPLAY_FORMAT: "MMMM Do YYYY",

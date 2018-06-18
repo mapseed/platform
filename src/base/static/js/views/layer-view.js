@@ -1,3 +1,6 @@
+import constants from "../../constants";
+import emitter from "../../utils/emitter";
+
 var Util = require("../utils.js");
 
 module.exports = Backbone.View.extend({
@@ -16,6 +19,26 @@ module.exports = Backbone.View.extend({
     this.styleRules = [];
     this.zoomRules = [];
     this.isHiddenByFilters = false;
+
+    // TODO: Let's eventually refactor all our layer styling to follow this
+    // pattern, rather than evaluating style rules in every layer view.
+    emitter.addListener("layer-view:style", payload => {
+      switch (payload.action) {
+        case constants.FOCUS_TARGET_LAYER_ACTION: {
+          if (
+            payload.targetLocationType &&
+            payload.targetLocationType ===
+              this.model.get(constants.LOCATION_TYPE_PROPERTY_NAME)
+          ) {
+            this.focus();
+          }
+          break;
+        }
+        default: {
+          console.error("Unknown style rule action", payload.action);
+        }
+      }
+    });
 
     this.model.on(
       "change",
@@ -236,20 +259,20 @@ module.exports = Backbone.View.extend({
       this.layerGroup.removeLayer(this.layer);
     }
   },
-  render: function() {
+  render: function(isFocusing) {
     // If this layer view is part of an editing layer group, don't do anything
     if (this.isEditing) return null;
 
     if (this.layer) {
-      this.updateLayer();
+      this.updateLayer(isFocusing);
     } else {
       this.hide();
     }
   },
-  updateLayer: function() {
+  updateLayer: function(isFocusing) {
     this.evaluateStyleAndZoomRules();
     this.createLayer();
-    this.show();
+    this.show(isFocusing);
   },
   onMarkerClick: function() {
     Util.log(
@@ -283,7 +306,7 @@ module.exports = Backbone.View.extend({
   focus: function() {
     if (!this.isFocused) {
       this.isFocused = true;
-      this.render();
+      this.render(true);
     }
   },
   unfocus: function() {
@@ -312,9 +335,15 @@ module.exports = Backbone.View.extend({
     this.isHiddenByFilters = false;
     this.show();
   },
-  show: function() {
+  show: function(isFocusing = false) {
     if (!this.isHiddenByFilters && this.layer) {
       this.layerGroup.addLayer(this.layer);
+      // Make sure that focused markers are always on top of surrounding markers
+      if (this.layer instanceof L.Marker) {
+        isFocusing
+          ? this.layer.setZIndexOffset(6000)
+          : this.layer.setZIndexOffset(0);
+      }
     } else {
       this.hide();
     }

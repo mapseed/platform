@@ -17,10 +17,16 @@
     "Handlebars": false,
     "Shareabouts": false,
     "MAP_PROVIDER_TOKEN": false
+    "moment": false,
+    "L": false
   },
   "env": {
     "browser": true,
     "es6": true,
-    "jest": true
+    "jest": true,
+    "node": true
+  },
+  "rules": {
+    "no-unused-vars": 1
   }
 }

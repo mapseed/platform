@@ -19,7 +19,7 @@ module.exports = AppView.extend({
     this.hideNewPin();
     this.destroyNewModels();
     this.hideCenterPoint();
-    this.setBodyClass("content-visible", "content-expanded");
+    this.setBodyClass("content-visible");
   },
 
   onClickAddPlaceBtn: function(evt) {

@@ -164,7 +164,7 @@ sidebar:
       view: GISLegendView
       title: _(Map Layers:)
       basemaps:
-        - id: osm
+        - id: osm-hot
           title: _(Outdoors)
           visibleDefault: true
         - id: satellite
@@ -214,6 +214,7 @@ activity:
 right_sidebar:
   show: true
   visibleDefault: false
+  component: StoryNavigator
 
   # Place Types
 
@@ -230,6 +231,7 @@ place:
 
   location_item_name: location
   default_basemap: satellite
+  hide_metadata_bar: true
 
   #### begin dynamic form config ####
   place_detail:
@@ -370,7 +372,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -394,7 +396,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -418,7 +420,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -447,7 +449,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -471,7 +473,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -495,7 +497,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -519,7 +521,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -552,7 +554,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true        
@@ -596,7 +598,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -620,7 +622,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -644,7 +646,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -667,7 +669,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -691,7 +693,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -715,7 +717,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -739,7 +741,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -763,7 +765,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -794,7 +796,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -837,7 +839,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -861,7 +863,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -890,7 +892,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -914,7 +916,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -938,7 +940,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -962,7 +964,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -986,7 +988,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1015,7 +1017,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1045,7 +1047,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true 
@@ -1093,7 +1095,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1117,7 +1119,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1146,7 +1148,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1175,7 +1177,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1199,7 +1201,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1223,7 +1225,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1247,7 +1249,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1271,7 +1273,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1295,7 +1297,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1319,7 +1321,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1349,7 +1351,7 @@ place:
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
-          placeholder: _(Approximate date and time)
+          placeholder: _(Your best estimate)
           display_prompt: _( )
           optional: false
           hidden_default: true
@@ -1368,9 +1370,10 @@ place:
         - name: title
           type: text
           prompt: _(Enter a headline that describes your experiences)
-          default_value: _(My conservation actions)
+          # default_value: _(My conservation actions)
+          placeholder: _(Example - Protecting Catherine Creek for fish, Turning my yard into a wildlife haven, etc)
           display_prompt: _( )
-          optional: false
+          optional: false     
         - name: my_image
           type: common_form_element
         - name: private-submitter_email
@@ -1471,6 +1474,8 @@ pages:
 
 story:
   example:
+    header: Local stories
+    description: To inspire us
     tagline: _(Next featured site)
     default_zoom: 15
     default_visible_layers:
@@ -1479,7 +1484,8 @@ story:
     order:
       - url: bay-view
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png        
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+
       - url: tulalip-rain-barrels-2018
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         

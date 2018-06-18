@@ -29,6 +29,10 @@ class FormCategoryMenuWrapper extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.showNewPin();
+  }
+
   onCategoryChange(selectedCategory) {
     this.setState({
       selectedCategory: selectedCategory,
@@ -71,7 +75,7 @@ FormCategoryMenuWrapper.propTypes = {
     PropTypes.bool,
     PropTypes.objectOf(PropTypes.func),
   ]),
-  container: PropTypes.instanceOf(HTMLElement),
+  containers: PropTypes.instanceOf(NodeList),
   render: PropTypes.func.isRequired,
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };

@@ -50,7 +50,7 @@ const getPlaceCollections = async ({
         var percent;
 
         pagesComplete++;
-        percent = pagesComplete / totalPages * 100;
+        percent = (pagesComplete / totalPages) * 100;
         $currentProgress.width(percent + "%");
 
         if (pagesComplete === totalPages) {

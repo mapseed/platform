@@ -9,9 +9,13 @@ import Survey from "./survey";
 import CoverImage from "../ui-elements/cover-image";
 import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
+import emitter from "../../utils/emitter";
+
 import FieldSummary from "./field-summary";
+
 // Flavor custom code
 import SnohomishFieldSummary from "./snohomish-field-summary";
+import VVFieldSummary from "./vv-field-summary";
 
 const SubmissionCollection = require("../../js/models/submission-collection.js");
 
@@ -21,6 +25,8 @@ import { scrollTo } from "../../utils/scroll-helpers";
 import {
   survey as surveyConfig,
   support as supportConfig,
+  place as placeConfig,
+  custom_hooks as customHooks,
   custom_components as customComponents,
 } from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -28,6 +34,16 @@ const Util = require("../../js/utils.js");
 
 import { translate } from "react-i18next";
 import "./index.scss";
+
+// TEMPORARY: We define flavor hooks here for the time being.
+const hooks = {
+  pbOaklandDetailViewMount: state => {
+    emitter.emit("layer-view:style", {
+      action: constants.FOCUS_TARGET_LAYER_ACTION,
+      targetLocationType: state.placeModel.get("related-location-type"),
+    });
+  },
+};
 
 const serializeBackboneCollection = collection => {
   let serializedCollection = List();
@@ -86,9 +102,7 @@ class PlaceDetail extends Component {
       // NOTE: We remove the story property before serializing, so it doesn't
       // get saved.
       // TODO: A proper story model would avoid this problem.
-      placeModel: fromJS(this.props.model.attributes).delete(
-        constants.STORY_FIELD_NAME,
-      ),
+      placeModel: fromJS(this.props.model.attributes),
       supportModels: serializeBackboneCollection(
         this.props.model.submissionSets[this.supportType],
       ),
@@ -112,6 +126,12 @@ class PlaceDetail extends Component {
 
   componentDidMount() {
     this.props.container.scrollTop = 0;
+    // Fire on mount hook.
+    // The on mount hook allows flavors to run arbitrary code after the detail
+    // view mounts.
+    if (customHooks && customHooks.onDetailViewMount) {
+      hooks[customHooks.onDetailViewMount](this.state);
+    }
   }
 
   onMountTargetResponse(responseRef) {
@@ -214,6 +234,9 @@ class PlaceDetail extends Component {
       this.state.placeModel.get(constants.FULL_TITLE_PROPERTY_NAME) ||
       this.state.placeModel.get(constants.TITLE_PROPERTY_NAME) ||
       this.state.placeModel.get(constants.NAME_PROPERTY_NAME);
+    const locationType = this.state.placeModel.get(
+      constants.LOCATION_TYPE_PROPERTY_NAME,
+    );
     const submitter =
       this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || Map();
     const isStoryChapter = !!this.state.placeModel.get(
@@ -226,23 +249,47 @@ class PlaceDetail extends Component {
         model.get(constants.USER_TOKEN_PROPERTY_NAME) === this.props.userToken
       );
     });
-
-    const fieldSummary =
+    const isWithMetadata =
+      !isStoryChapter &&
+      !(
+        this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
+        false
+      ) &&
+      !placeConfig.hide_metadata_bar;
+    // TODO: dissolve when flavor abstraction is ready
+    let fieldSummary;
+    if (
       customComponents &&
       customComponents.FieldSummary === "SnohomishFieldSummary" &&
-      this.state.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME) ===
-        "conservation-actions" ? (
+      locationType === "conservation-actions"
+    ) {
+      fieldSummary = (
         <SnohomishFieldSummary
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
         />
-      ) : (
+      );
+    } else if (
+      customComponents &&
+      customComponents.FieldSummary === "VVFieldSummary" &&
+      locationType === "community_input"
+    ) {
+      fieldSummary = (
+        <VVFieldSummary
+          fields={this.categoryConfig.fields}
+          placeModel={this.state.placeModel}
+          attachmentModels={this.state.attachmentModels}
+        />
+      );
+    } else {
+      fieldSummary = (
         <FieldSummary
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
           attachmentModels={this.state.attachmentModels}
         />
       );
+    }
 
     return (
       <div className="place-detail-view">
@@ -278,7 +325,7 @@ class PlaceDetail extends Component {
               );
             })
           }
-          isHorizontalLayout={isStoryChapter}
+          isHorizontalLayout={isStoryChapter || !isWithMetadata}
           numSupports={this.state.supportModels.size}
           onModelIO={this.onChildModelIO.bind(this)}
           onSocialShare={service =>
@@ -290,7 +337,7 @@ class PlaceDetail extends Component {
           userSupportModel={userSupportModel}
           userToken={this.props.userToken}
         />
-        {!isStoryChapter && (
+        {isWithMetadata && (
           <MetadataBar
             submitter={submitter}
             placeModel={this.state.placeModel}

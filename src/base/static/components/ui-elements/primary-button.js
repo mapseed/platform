@@ -24,7 +24,11 @@ const PrimaryButton = props => {
 };
 
 PrimaryButton.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string,
+  ]),
   className: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
