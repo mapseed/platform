@@ -447,4 +447,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLayerStatus(layerId, layerStatus)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainMap);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MainMap);

@@ -25,7 +25,11 @@ const LeftSidebar = props => {
   ) : null;
 };
 
-LeftSidebar.propTypes = {};
+LeftSidebar.propTypes = {
+  leftSidebarExpanded: PropTypes.bool.isRequired,
+  setLeftSidebar: PropTypes.func.isRequired,
+  leftSidebarComponent: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = state => ({
   leftSidebarExpanded: leftSidebarExpandedSelector(state),
@@ -36,4 +40,7 @@ const mapDispatchToProps = dispatch => ({
   setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftSidebar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LeftSidebar);

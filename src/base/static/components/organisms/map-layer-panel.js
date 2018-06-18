@@ -167,4 +167,7 @@ const mapDispatchToProps = dispatch => ({
   setBasemap: layerId => dispatch(setBasemap(layerId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapLayerPanel);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MapLayerPanel);
