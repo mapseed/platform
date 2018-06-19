@@ -452,4 +452,7 @@ const mapStateToProps = state => ({
   mapPosition: mapPositionSelector(state),
 });
 
+// Export undecorated component for testing purposes.
+export { InputForm };
+
 export default connect(mapStateToProps)(translate("InputForm")(InputForm));
