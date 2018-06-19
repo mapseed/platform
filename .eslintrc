@@ -16,7 +16,7 @@
     "$": false,
     "Handlebars": false,
     "Shareabouts": false,
-    "MAP_PROVIDER_TOKEN": false
+    "MAP_PROVIDER_TOKEN": false,
     "moment": false,
     "L": false
   },

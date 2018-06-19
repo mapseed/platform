@@ -19,6 +19,7 @@ const markers = glob.sync(
 
 Spritesmith.run({ src: markers }, (err, result) => {
   if (err) {
+    // eslint-disable-next-line no-console
     console.error(
       "(STATIC SITE BUILD)",
       colors.red("(ERROR)"),
@@ -82,6 +83,7 @@ Spritesmith.run({ src: markers }, (err, result) => {
     JSON.stringify(coordinates),
   );
 
+  // eslint-disable-next-line no-console
   console.log(
     "(STATIC SITE BUILD)",
     colors.green("(SUCCESS)"),

@@ -10,6 +10,7 @@ const wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 const execSync = require("child_process").execSync;
 const glob = require("glob");
 const colors = require("colors");
+const shell = require("shelljs");
 
 const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
   .transformCommonFormElements;

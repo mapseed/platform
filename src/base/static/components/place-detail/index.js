@@ -362,7 +362,6 @@ class PlaceDetail extends Component {
             placeModel={this.state.placeModel}
             container={this.props.container}
             attachmentModels={this.state.attachmentModels}
-            map={this.props.map}
             onAddAttachment={this.onAddAttachment.bind(this)}
             onModelIO={this.onChildModelIO.bind(this)}
             onPlaceModelSave={this.props.model.save.bind(this.props.model)}

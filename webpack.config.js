@@ -7,7 +7,6 @@ require("babel-polyfill");
 var path = require("path");
 var glob = require("glob");
 var fs = require("fs");
-const shell = require("shelljs");
 
 const PORT = 8000;
 
