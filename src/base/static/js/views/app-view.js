@@ -46,46 +46,6 @@ var PlaceListView = require("mapseed-place-list-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
 
-var FilterMenuView = require("mapseed-filter-menu-view");
-// Spinner options -- these need to be own modules
-Shareabouts.bigSpinnerOptions = {
-  lines: 13,
-  length: 0,
-  width: 10,
-  radius: 30,
-  corners: 1,
-  rotate: 0,
-  direction: 1,
-  color: "#000",
-  speed: 1,
-  trail: 60,
-  shadow: false,
-  hwaccel: false,
-  className: "spinner",
-  zIndex: 2e9,
-  top: "auto",
-  left: "auto",
-};
-
-Shareabouts.smallSpinnerOptions = {
-  lines: 13,
-  length: 0,
-  width: 3,
-  radius: 10,
-  corners: 1,
-  rotate: 0,
-  direction: 1,
-  color: "#000",
-  speed: 1,
-  trail: 60,
-  shadow: false,
-  hwaccel: false,
-  className: "spinner",
-  zIndex: 2e9,
-  top: "auto",
-  left: "auto",
-};
-
 module.exports = Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
@@ -135,13 +95,6 @@ module.exports = Backbone.View.extend({
     $("body").ajaxSuccess(function(evt, request, settings) {
       $("#ajax-error-msg").hide();
     });
-
-    //if (this.options.activityConfig.show_in_right_panel === true) {
-    //  $("body").addClass("right-sidebar-visible");
-    //  $("#right-sidebar-container").html(
-    //    "<ul class='recent-points unstyled-list'></ul>",
-    //  );
-    //}
 
     $(document).on("click", ".activity-item a", function(evt) {
       window.app.clearLocationTypeFilter();
@@ -582,12 +535,9 @@ module.exports = Backbone.View.extend({
 
     this.$panel.removeClass().addClass("place-form");
     this.$panel.show();
-    this.setBodyClass("content-visible");
-    store.dispatch(setMapSizeValidity(false));
-    // END REACT PORT SECTION //////////////////////////////////////////////////
-
     this.setBodyClass("content-visible", "place-form-visible");
     store.dispatch(setMapSizeValidity(false));
+    // END REACT PORT SECTION //////////////////////////////////////////////////
 
     if (this.options.placeConfig.default_basemap) {
       this.setLayerVisibility(
