@@ -44,10 +44,7 @@ Spritesmith.run({ src: markers }, (err, result) => {
   // Postprocess the coordinates object.
   const coordinates = Object.keys(result.coordinates).reduce(
     (coordinateMapping, spriteIdentifier) => {
-      const newSpriteIdentifier = path
-        .basename(spriteIdentifier)
-        // e.g.: my-test-marker.png -> my-test-marker
-        .replace(/\.[A-Za-z0-9\-_]+$/, "");
+      const newSpriteIdentifier = path.basename(spriteIdentifier);
 
       coordinateMapping[newSpriteIdentifier] = Object.assign(
         result.coordinates[spriteIdentifier],

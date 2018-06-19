@@ -71,7 +71,11 @@ class MainMap extends Component {
       }
     }
 
-    this._map = MapProvider(props.container, props.mapConfig.options);
+    this._map = MapProvider(
+      props.container,
+      props.mapConfig.options,
+      props.store,
+    );
     this._map.addControl(
       new LayerPanelControl(this.props.setLeftSidebar),
       "top-left",
@@ -113,7 +117,11 @@ class MainMap extends Component {
   componentDidMount() {
     this._map.on("data", data => {
       // TODO: Move to Map provider
-      if (data.dataType === "source" && data.isSourceLoaded) {
+      if (
+        data.dataType === "source" &&
+        data.isSourceLoaded &&
+        data.sourceId !== "composite"
+      ) {
         this.props.setLayerStatus(data.sourceId, {
           status: "loaded",
           isVisible: true,
@@ -429,6 +437,7 @@ MainMap.propTypes = {
   setLeftSidebar: PropTypes.func.isRequired,
   setMapPosition: PropTypes.func.isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -20,7 +20,6 @@ import { setStoryConfig } from "../../state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
 import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setMapSizeValidity, mapPositionSelector } from "../../state/ducks/map";
-import { leftSidebarExpandedSelector } from "../../state/ducks/ui";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -232,6 +231,7 @@ module.exports = Backbone.View.extend({
           onMovestart={this.onMapMoveStart.bind(this)}
           onMoveend={this.onMapMoveEnd.bind(this)}
           onDragend={this.onMapDragEnd.bind(this)}
+          store={store}
         />
       </Provider>,
       document.getElementById("map-component"),

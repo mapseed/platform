@@ -2,6 +2,9 @@ import AbstractMapFactory from "./abstract-provider";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+import { mapConfigSelector } from "../../state/ducks/map-config";
+import { mapLayersStatusSelector } from "../../state/ducks/map";
+
 import VectorTileClient from "../../client/vector-tile-client";
 
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
@@ -119,28 +122,93 @@ const configRuleToFillLayer = (layerConfig, i) => {
   };
 };
 
-export default (container, options) => {
+const DEFAULT_STYLE_NAME = "Mapseed default style";
+const defaultStyle = {
+  version: 8,
+  name: DEFAULT_STYLE_NAME,
+  sources: {},
+  layers: [],
+  sprite: `${window.location.protocol}//${
+    window.location.host
+  }/static/css/images/markers/spritesheet`,
+};
+
+export default (container, options, store) => {
   options.map.container = container;
-  options.map.style = {
-    version: 8,
-    sources: {},
-    layers: [],
-    sprite: `${window.location.protocol}//${
-      window.location.host
-    }/static/css/images/markers/spritesheet`,
-  };
+  options.map.style = defaultStyle;
 
   const layersCache = {};
+  const sourcesCache = {};
 
-  const addMapboxStyle = ({ url }) => {
+  const floatSymbolLayersToTop = () => {
+    // To ensure that point (aka "symbol") geometry is not obscured by
+    // the new layer, we move all symbol layers to the top of the layer
+    // stack.
+    Object.values(layersCache)
+      .reduce((flat, toFlatten) => {
+        return flat.concat(toFlatten);
+      }, [])
+      .filter(internalLayer => internalLayer.id.includes("symbol"))
+      .forEach(internalLayer => map.moveLayer(internalLayer.id));
+  };
+
+  const addMapboxStyle = ({ url, id }) => {
+    const styleLoadCallback = () => {
+      // Loading a new style will replace the existing style's sources, layers,
+      // and spritesheet assets. Therefore, we recover existing style resources
+      // after the new style has loaded.
+
+      // Recover existing spritesheet assets.
+      mapConfigSelector(store.getState())
+        .layers.map(layer => layer.rules)
+        .reduce((flat, toFlatten) => {
+          return flat.concat(toFlatten);
+        }, [])
+        .reduce((imageNames, rule) => {
+          rule &&
+            rule["symbol-layout"] &&
+            imageNames.add(rule["symbol-layout"]["icon-image"]);
+          return imageNames;
+        }, new Set())
+        .forEach(imageToAdd => {
+          const img = new Image();
+          img.onload = evt => {
+            map.addImage(imageToAdd, evt.target);
+          };
+          img.src = `${window.location.protocol}//${
+            window.location.host
+          }/static/css/images/markers/${imageToAdd}`;
+        });
+
+      // Recover existing sources and layers.
+      Object.entries(mapLayersStatusSelector(store.getState()))
+        .filter(
+          ([layerId, layerStatus]) => layerStatus.isVisible && layerId !== id,
+        )
+        .forEach(([layerId, layerStatus]) => {
+          !map.getSource(layerId) &&
+            map.addSource(layerId, sourcesCache[layerId]);
+          layersCache[layerId].forEach(internalLayer => {
+            map.addLayer(
+              internalLayer,
+              layerStatus.isBasemap ? map.style._order[0] : null,
+            );
+          });
+        });
+
+      floatSymbolLayersToTop();
+      map.off("style.load", styleLoadCallback);
+    };
+    map.on("style.load", styleLoadCallback);
     map.setStyle(url);
   };
 
   const createRasterTileLayer = ({ id, url }) => {
-    map.addSource(id, {
+    sourcesCache[id] = {
       type: "raster",
       tiles: [url],
-    });
+    };
+    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -157,10 +225,11 @@ export default (container, options) => {
     style_url,
     source_layer,
   }) => {
-    map.addSource(id, {
+    sourcesCache[id] = {
       type: "vector",
       tiles: [url],
-    });
+    };
+    map.addSource(id, sourcesCache[id]);
 
     const style = await VectorTileClient.fetchStyle(style_url);
 
@@ -200,10 +269,11 @@ export default (container, options) => {
       style ? style : "default",
     ].join("");
 
-    map.addSource(id, {
+    sourcesCache[id] = {
       type: "raster",
       tiles: [requestUrl],
-    });
+    };
+    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -244,10 +314,11 @@ export default (container, options) => {
       "&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}",
     ].join("");
 
-    map.addSource(id, {
+    sourcesCache[id] = {
       type: "raster",
       tiles: [requestUrl],
-    });
+    };
+    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -259,10 +330,11 @@ export default (container, options) => {
   };
 
   const createGeoJSONLayer = ({ id, source, rules }) => {
-    map.addSource(id, {
+    sourcesCache[id] = {
       type: "geojson",
       data: source,
-    });
+    };
+    map.addSource(id, sourcesCache[id]);
 
     rules = rules.map(rule => ({
       baseLayerId: id,
@@ -381,11 +453,13 @@ export default (container, options) => {
     },
 
     addLayer: async (layer, isBasemap) => {
+      if (layer.type === "mapbox-style") {
+        addMapboxStyle(layer);
+        return;
+      }
+
       if (!layersCache[layer.id]) {
         switch (layer.type) {
-          case "mapbox-style":
-            addMapboxStyle(layer);
-            break;
           case "raster-tile":
             createRasterTileLayer(layer);
             break;
@@ -407,21 +481,42 @@ export default (container, options) => {
         }
       }
 
-      layersCache[layer.id].forEach(internalLayer => {
-        !map.getLayer(internalLayer.id) &&
-          // If this is a basemap, make sure it renders at the bottom of the
-          // layer stack.
-          map.addLayer(internalLayer, isBasemap ? map.style._order[0] : null);
-      });
+      if (isBasemap && map.getStyle().name !== DEFAULT_STYLE_NAME) {
+        // If we're loading a basemap, check to see if the prior basemap was
+        // a Mapbox style. If so, reset the map's style and recover all
+        // existing sources and layers that were not affiliated with the
+        // Mapbox style.
+        const styleLoadCallback = () => {
+          Object.entries(mapLayersStatusSelector(store.getState()))
+            .filter(([layerId, layerStatus]) => layerStatus.isVisible)
+            .forEach(([layerId, layerStatus]) => {
+              !map.getSource(layerId) &&
+                map.addSource(layerId, sourcesCache[layerId]);
+              layersCache[layerId].forEach(internalLayer => {
+                map.addLayer(
+                  internalLayer,
+                  internalLayer.id === layerId ? map.style._order[0] : null,
+                );
+              });
+            });
 
-      if (!isBasemap) {
-        // If we're not loading a basemap, we need to make sure that point
-        // (aka "symbol") geometry is not obscured by the new layer, so we move
-        // all symbol layers to the top of the layer stack.
-        [].concat
-          .apply([], Object.values(layersCache))
-          .filter(internalLayer => internalLayer.id.includes("symbol"))
-          .forEach(internalLayer => map.moveLayer(internalLayer.id));
+          map.off("style.load", styleLoadCallback);
+        };
+
+        map.on("style.load", styleLoadCallback);
+        map.setStyle(defaultStyle, {
+          diff: false,
+        });
+      } else if (isBasemap) {
+        layersCache[layer.id].forEach(internalLayer => {
+          map.addLayer(internalLayer, map.style._order[0]);
+        });
+      } else {
+        layersCache[layer.id].forEach(internalLayer => {
+          !map.getLayer(internalLayer.id) && map.addLayer(internalLayer);
+        });
+
+        floatSymbolLayersToTop();
       }
     },
 

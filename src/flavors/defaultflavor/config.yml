@@ -71,7 +71,7 @@ map:
               - - "to-boolean"
                 - true
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 1.2
             icon-anchor: "bottom"
         - filter:
@@ -89,7 +89,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 0.5
             icon-anchor: "bottom"
         - filter:
@@ -110,7 +110,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 0.75
             icon-anchor: "bottom"
         - filter:
@@ -128,7 +128,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 0.9
             icon-anchor: "bottom"
     - id: demo
@@ -219,7 +219,7 @@ map:
               - - "to-boolean"
                 - true
           symbol-layout:
-            icon-image: "marker-complaint"
+            icon-image: "marker-complaint.png"
             icon-size: 1.2
             icon-anchor: "bottom"
         - filter:
@@ -237,7 +237,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-complaint"
+            icon-image: "marker-complaint.png"
             icon-size: 0.5
             icon-anchor: "bottom"
         - filter:
@@ -258,7 +258,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-complaint"
+            icon-image: "marker-complaint.png"
             icon-size: 0.75
             icon-anchor: "bottom"
         - filter:
@@ -276,7 +276,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-complaint"
+            icon-image: "marker-complaint.png"
             icon-size: 0.9
             icon-anchor: "bottom"
 
@@ -293,7 +293,7 @@ map:
               - - "to-boolean"
                 - true
           symbol-layout:
-            icon-image: "marker-question"
+            icon-image: "marker-question.png"
             icon-size: 1.2
             icon-anchor: "bottom"
         - filter:
@@ -311,7 +311,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-question"
+            icon-image: "marker-question.png"
             icon-size: 0.5
             icon-anchor: "bottom"
         - filter:
@@ -332,7 +332,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-question"
+            icon-image: "marker-question.png"
             icon-size: 0.75
             icon-anchor: "bottom"
         - filter:
@@ -350,7 +350,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-question"
+            icon-image: "marker-question.png"
             icon-size: 0.9
             icon-anchor: "bottom"
 
@@ -367,7 +367,7 @@ map:
               - - "to-boolean"
                 - true
           symbol-layout:
-            icon-image: "marker-idea"
+            icon-image: "marker-idea.png"
             icon-size: 1.2
             icon-anchor: "bottom"
         - filter:
@@ -385,7 +385,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-idea"
+            icon-image: "marker-idea.png"
             icon-size: 0.5
             icon-anchor: "bottom"
         - filter:
@@ -406,7 +406,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-idea"
+            icon-image: "marker-idea.png"
             icon-size: 0.75
             icon-anchor: "bottom"
         - filter:
@@ -424,7 +424,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-idea"
+            icon-image: "marker-idea.png"
             icon-size: 0.9
             icon-anchor: "bottom"
 
@@ -441,7 +441,7 @@ map:
               - - "to-boolean"
                 - true
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 1.2
             icon-anchor: "bottom"
         - filter:
@@ -459,7 +459,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 0.5
             icon-anchor: "bottom"
         - filter:
@@ -480,7 +480,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 0.75
             icon-anchor: "bottom"
         - filter:
@@ -498,7 +498,7 @@ map:
               - - "to-boolean"
                 - false
           symbol-layout:
-            icon-image: "marker-observation"
+            icon-image: "marker-observation.png"
             icon-size: 0.9
             icon-anchor: "bottom"
 
@@ -516,7 +516,7 @@ map:
                 - "WICcash"
               - "Y"
           symbol-layout:
-            icon-image: "marker-dot-conserve-water"
+            icon-image: "marker-dot-conserve-water.png"
             icon-size: 0.5
             icon-anchor: "center"
             icon-allow-overlap: true
@@ -530,7 +530,7 @@ map:
                  - "WICcash"
                - "Y"
           symbol-layout:
-            icon-image: "marker-conserve-water"
+            icon-image: "marker-conserve-water.png"
             icon-size: 0.5
             icon-anchor: "bottom"
             icon-allow-overlap: true
@@ -544,7 +544,7 @@ map:
                 - "WICcash"
               - "N"
           symbol-layout:
-            icon-image: "marker-dot-commute-low-carbon"
+            icon-image: "marker-dot-commute-low-carbon.png"
             icon-size: 0.5
             icon-anchor: "center"
             icon-allow-overlap: true
@@ -558,7 +558,7 @@ map:
                  - "WICcash"
                - "N"
           symbol-layout:
-            icon-image: "marker-commute-low-carbon"
+            icon-image: "marker-commute-low-carbon.png"
             icon-size: 0.5
             icon-anchor: "bottom"
             icon-allow-overlap: true
@@ -657,7 +657,7 @@ map:
     - id: sample-mapbox-style
       type: mapbox-style
       isBasemap: true
-      url: mapbox://styles/tcroxson/cjdw01pyx0i0f2qmxt0ugxtul
+      url: mapbox://styles/tcroxson/cji2ji0mw0qip2rmsnlhtdjyb
       attribution: "Hello"
 
 right_sidebar:
