@@ -48,9 +48,9 @@ map:
 
   options:
     center:
-      lat: 37.82453
-      lng: -122.22440
-    zoom: 14
+      lat: 37.81555
+      lng: -122.25251
+    zoom: 13
     minZoom: 1
     maxZoom: 18
 
@@ -88,15 +88,15 @@ map:
           fillOpacity: "this.properties['fill-opacity']"
           weight: "this.properties['stroke-width']"
 
-    - id: pboakland
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland
-      type: place
-      slug: idea
-
     - id: pboakland-featured-2017
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland-featured-2017
       type: place
       slug: featured
+
+    - id: pboakland
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland
+      type: place
+      slug: idea
 
 # The values map the place type to map icons (defined below).
 place_types:
@@ -106,18 +106,14 @@ place_types:
       icon:
         iconSize: [48, 75]
         iconAnchor: [24, 75]
-    - condition: 'this.map.zoom < 14'
+    - condition: 'this.map.zoom < 13'
       icon:
         iconSize: [24, 37.5]
         iconAnchor: [12, 37.5]
-    - condition: 'this.map.zoom < 16'
+    - condition: 'this.map.zoom <= 18'
       icon:
-        iconSize: [24, 37.5]
-        iconAnchor: [12, 37.5]
-    - condition: 'this.map.zoom >= 16'
-      icon:
-        iconSize: [24, 37.5]
-        iconAnchor: [12, 37.5]
+        iconSize: [36, 56.25]
+        iconAnchor: [18, 56.25]
 
   community:
     label: _(idea for community programs and services)
@@ -344,7 +340,7 @@ place:
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
-        - name: related-location-type
+        - name: private-related-location-type
           type: dropdown
           prompt: _(Choose a related idea type to highlight:)
           display_prompt: _( )
