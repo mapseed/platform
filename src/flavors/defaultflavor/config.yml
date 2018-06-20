@@ -135,6 +135,7 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
       type: place
       slug: demo
+      visible_default: true
       rules:
         # "demo" location_type
         - filter:
@@ -565,6 +566,7 @@ map:
 
     - id: sample-json-b
       type: json      
+      visible_default: true
       source: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
       rules:
         - filter:
@@ -631,6 +633,7 @@ map:
 
     - id: sample-wmts
       type: wmts
+      visible_default: true
       isBasemap: true
       url: https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS
       layers: 0
@@ -679,7 +682,6 @@ left_sidebar:
           layers:
             - id: sample-raster-tile
               title: _(Sample Raster Tiles with an Extra Long Layer Title)
-              visible_default: true
               info:
                 header: _(Sample raster tile layer)
                 body:
@@ -687,19 +689,15 @@ left_sidebar:
                   - _(Some more info.)
             - id: sample-wmts
               title: _(Sample WMTS)
-              visible_default: false 
             - id: sample-wms
               title: _(Sample WMS)
-              visible_default: false
             - id: sample-mapbox-style
               title: _(Sample Mapbox Style)
-              visible_default: false
         - id: group-a
           title: _(Group A)
           layers:
             - id: sample-vector
               title: _(Sample vector tile)
-              visible_default: false
               info:
                 header: _(Sample vector tile layer)
                 body:
@@ -707,19 +705,15 @@ left_sidebar:
                   - _(Some more info.)
             - id: sample-json-b
               title: _(Sample polygonal GeoJSON)
-              visible_default: false
         - id: group-b
           title: _(Group B)
           layers:
             - id: sample-json-a
               title: _(Sample point GeoJSON)
-              visible_default: false
             - id: demo
               title: _(Sample Mapseed place layer A)
-              visible_default: false
             - id: demo2
               title: _(Sample Mapseed place layer B)
-              visible_default: false
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.

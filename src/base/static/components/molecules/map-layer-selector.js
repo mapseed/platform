@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Spinner from "react-spinner";
 
-import emitter from "../../utils/emitter";
-
 import { Icon, InfoModalTrigger } from "../atoms/feedback";
 import "./map-layer-selector.scss";
 

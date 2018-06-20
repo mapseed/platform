@@ -16,6 +16,7 @@ import {
   setMapSizeValidity,
   setMapPosition,
   setLayerStatus,
+  setBasemap,
 } from "../../state/ducks/map";
 import { setLeftSidebar } from "../../state/ducks/ui";
 
@@ -84,6 +85,18 @@ class MainMap extends Component {
     if (props.mapConfig.geolocation_enabled) {
       // TODO
     }
+
+    // Set default layer visibility.
+    this._map.on("load", () => {
+      this._layers.filter(layer => layer.visible_default).forEach(layer => {
+        layer.isBasemap && props.setBasemap(layer.id);
+        props.setLayerStatus(layer.id, {
+          status: "loading",
+          isVisible: true,
+          isBasemap: layer.isBasemap,
+        });
+      });
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -433,6 +446,7 @@ MainMap.propTypes = {
   places: PropTypes.object.isRequired,
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  setBasemap: PropTypes.func.isRequired,
   setLayerStatus: PropTypes.func.isRequired,
   setLeftSidebar: PropTypes.func.isRequired,
   setMapPosition: PropTypes.func.isRequired,
@@ -454,6 +468,7 @@ const mapDispatchToProps = dispatch => ({
   setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
+  setBasemap: layerId => dispatch(setBasemap(layerId)),
 });
 
 export default connect(
