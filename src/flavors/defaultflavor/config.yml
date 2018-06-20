@@ -1286,8 +1286,10 @@ story:
     header: _(Story Number One)
     description: _(This is the first of two stories. I hope you like it!)
     default_zoom: 18
+    default_basemap: sample-mapbox-style
     default_visible_layers:
       - demo
+      - sample-vector-tile
     order:
       - url: demo/83
         spotlight: false

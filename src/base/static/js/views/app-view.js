@@ -19,7 +19,14 @@ import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
 import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
-import { setMapSizeValidity, mapPositionSelector } from "../../state/ducks/map";
+import {
+  setMapSizeValidity,
+  mapPositionSelector,
+  mapBasemapSelector,
+  setBasemap,
+  setLayerStatus,
+  mapLayersStatusSelector,
+} from "../../state/ducks/map";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -538,20 +545,53 @@ module.exports = Backbone.View.extend({
     this.setBodyClass("content-visible", "place-form-visible");
     store.dispatch(setMapSizeValidity(false));
     // END REACT PORT SECTION //////////////////////////////////////////////////
-
-    if (this.options.placeConfig.default_basemap) {
-      this.setLayerVisibility(
-        this.options.placeConfig.default_basemap,
-        true,
-        true,
-      );
-    }
   },
 
-  // If a model has a story object, set the appropriate layer
-  // visilbilities and update legend checkboxes
-  setStoryLayerVisibility: function(model) {
-    // TODO
+  setStoryLayerVisibility: model => {
+    const basemapId = model.get("story").basemap;
+    const visibleLayerIds = model.get("story").visibleLayers;
+    const visibleBasemapId = mapBasemapSelector(store.getState());
+
+    if (basemapId && basemapId !== visibleBasemapId) {
+      visibleBasemapId &&
+        store.dispatch(
+          setLayerStatus(visibleBasemapId, {
+            isVisible: false,
+          }),
+        );
+      store.dispatch(setBasemap(basemapId));
+      store.dispatch(
+        setLayerStatus(basemapId, {
+          status: "loading",
+          isVisible: true,
+          isBasemap: true,
+        }),
+      );
+    }
+    if (visibleLayerIds) {
+      // Switch story layers on.
+      visibleLayerIds.forEach(layerId => {
+        store.dispatch(
+          setLayerStatus(layerId, {
+            status: "loading",
+            isVisible: true,
+          }),
+        );
+      });
+
+      // Switch all other visible layers off.
+      Object.entries(mapLayersStatusSelector(store.getState())).forEach(
+        ([layerId, layerStatus]) => {
+          if (layerStatus.isVisible && !visibleLayerIds.includes(layerId)) {
+            store.dispatch(
+              setLayerStatus(layerId, {
+                isVisible: false,
+              }),
+            );
+          }
+        },
+      );
+    }
   },
 
   restoreDefaultLayerVisibility: function() {
