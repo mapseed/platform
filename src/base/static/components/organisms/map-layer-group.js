@@ -30,6 +30,7 @@ const MapLayerGroup = props => {
           <MapLayerSelector
             key={layer.id}
             layerId={layer.id}
+            info={layer.info}
             title={layer.title}
             layerStatus={props.layersStatus[layer.id]}
             selected={!!(layerStatus && layerStatus.isVisible)}
@@ -76,6 +77,7 @@ MapLayerGroup.propTypes = {
         id: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         url: PropTypes.string,
+        info: PropTypes.string,
         source: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
         slug: PropTypes.string,
         rules: PropTypes.arrayOf(

@@ -1,6 +1,12 @@
 .map-layer-selector {
   display: flex;
   align-items: center;
+}
+
+.map-layer-selector__selectable-area {
+  display: flex;
+  align-items: center;
+  flex: 1;
   margin-bottom: 15px;
 
   &:hover {
@@ -25,6 +31,20 @@
   padding-right: 10px;
   font-size: 1.5em;
   flex: 1;
+}
+
+.map-layer-selector__info-icon {
+  color: #777;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  &:hover {
+    color: #555;
+    cursor: pointer;
+  }
+}
+
+.map-layer-selector__info-icon--hidden {
+  visibility: hidden;
 }
 
 .map-layer-selector__layer-title {

@@ -680,6 +680,11 @@ left_sidebar:
             - id: sample-raster-tile
               title: _(Sample Raster Tiles with an Extra Long Layer Title)
               visible_default: true
+              info:
+                header: _(Sample raster tile layer)
+                body:
+                  - _(Some info.)
+                  - _(Some more info.)
             - id: sample-wmts
               title: _(Sample WMTS)
               visible_default: false 
@@ -695,6 +700,11 @@ left_sidebar:
             - id: sample-vector
               title: _(Sample vector tile)
               visible_default: false
+              info:
+                header: _(Sample vector tile layer)
+                body:
+                  - _(Some info.)
+                  - _(Some more info.)
             - id: sample-json-b
               title: _(Sample polygonal GeoJSON)
               visible_default: false
