@@ -46,6 +46,7 @@ import LeftSidebar from "../../components/organisms/left-sidebar";
 import UserMenu from "../../components/molecules/user-menu";
 
 import constants from "../../constants";
+import PlaceList from "../../components/organisms/place-list";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(
@@ -68,7 +69,6 @@ browserUpdate({
 
 // Views
 var PagesNavView = require("mapseed-pages-nav-view");
-var PlaceListView = require("mapseed-place-list-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
 
 export default Backbone.View.extend({
@@ -318,11 +318,22 @@ export default Backbone.View.extend({
       _.isUndefined(this.options.appConfig.list_enabled) ||
       this.options.appConfig.list_enabled
     ) {
-      this.listView = new PlaceListView({
-        el: "#list-container",
-        placeCollections: self.places,
-        placeConfig: this.options.placeConfig,
-      }).render();
+      // this.listView = new PlaceListView({
+      //   el: "#list-container",
+      //   placeCollections: self.places,
+      //   placeConfig: this.options.placeConfig,
+      // }).render();
+
+      ReactDOM.render(
+        <Provider store={store}>
+          <PlaceList
+            mapView={this.mapView}
+            router={this.options.router}
+            placeCollections={self.places}
+          />
+        </Provider>,
+        document.getElementById("info-modal-container"),
+      );
     }
 
     // Cache panel elements that we use a lot
@@ -836,6 +847,10 @@ export default Backbone.View.extend({
     // Re-sort if new places have come in
     this.listView.sort();
     // Show
+    // TODO(luke): move this logic our PlaceList and Map components.
+    // eg: this.isListViewEnabled = true
+    // Eventual solution is to port AppView into an App component
+    // and use react-router to handle our navigation
     this.listView.$el.addClass("is-exposed");
     $(".show-the-list").addClass("is-visuallyhidden");
     $(".show-the-map").removeClass("is-visuallyhidden");
