@@ -383,7 +383,12 @@ class MainMap extends Component {
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
       layer.source = createGeoJSONFromCollection(this._places[layer.id]);
-      this._map.addLayer(layer, isBasemap);
+      this._map.addLayer({
+        layer: layer,
+        isBasemap: isBasemap,
+        layersStatus: this.props.layersStatus,
+        mapConfig: this.props.mapConfig
+      });
 
       // Bind map interaction events for this place layers.
       this._map.bindPlaceLayerEvent("click", layer.id, clickedOnLayer => {
@@ -410,7 +415,12 @@ class MainMap extends Component {
         this._map.setCursor("");
       });
     } else {
-      this._map.addLayer(layer, isBasemap);
+      this._map.addLayer({
+        layer: layer,
+        isBasemap: isBasemap,
+        layersStatus: this.props.layersStatus,
+        mapConfig: this.props.mapConfig,
+      });
     }
   }
 

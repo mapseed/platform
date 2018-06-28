@@ -133,7 +133,7 @@ const defaultStyle = {
   }/static/css/images/markers/spritesheet`,
 };
 
-export default (container, options, store) => {
+export default (container, options) => {
   options.map.container = container;
   options.map.style = defaultStyle;
 
@@ -165,15 +165,15 @@ export default (container, options, store) => {
     });
   };
 
-  const addMapboxStyle = ({ url, id }) => {
+  const addMapboxStyle = (layer, layersStatus, mapConfig) => {
     const styleLoadCallback = () => {
       // Loading a new style will replace the existing style's sources, layers,
       // and spritesheet assets. Therefore, we recover existing style resources
       // after the new style has loaded.
 
       // Recover existing spritesheet assets.
-      mapConfigSelector(store.getState())
-        .layers.map(layer => layer.rules)
+      mapConfig.layers
+        .map(layerConfig => layerConfig.rules)
         .reduce((flat, toFlatten) => {
           return flat.concat(toFlatten);
         }, [])
@@ -194,9 +194,10 @@ export default (container, options, store) => {
         });
 
       // Recover existing sources and layers.
-      Object.entries(mapLayersStatusSelector(store.getState()))
+      Object.entries(layersStatus)
         .filter(
-          ([layerId, layerStatus]) => layerStatus.isVisible && layerId !== id,
+          ([layerId, layerStatus]) =>
+            layerStatus.isVisible && layerId !== layer.id,
         )
         .forEach(([layerId, layerStatus]) => {
           addInternalLayers(layerId, layerStatus.isBasemap);
@@ -206,7 +207,7 @@ export default (container, options, store) => {
       map.off("style.load", styleLoadCallback);
     };
     map.on("style.load", styleLoadCallback);
-    map.setStyle(url);
+    map.setStyle(layer.url);
   };
 
   const createRasterTileLayer = ({ id, url }) => {
@@ -462,11 +463,11 @@ export default (container, options, store) => {
       return !!map.getLayer(layerId);
     },
 
-    addLayer: async (layer, isBasemap) => {
+    addLayer: async ({ layer, isBasemap, layersStatus, mapConfig }) => {
       if (!layersCache[layer.id]) {
         switch (layer.type) {
           case "mapbox-style":
-            addMapboxStyle(layer);
+            addMapboxStyle(layer, layersStatus, mapConfig);
             return;
           case "raster-tile":
             createRasterTileLayer(layer);
@@ -495,7 +496,7 @@ export default (container, options, store) => {
         // existing sources and layers that were not affiliated with the
         // Mapbox style.
         const styleLoadCallback = () => {
-          Object.entries(mapLayersStatusSelector(store.getState()))
+          Object.entries(layersStatus)
             .filter(([layerId, layerStatus]) => layerStatus.isVisible)
             .forEach(([layerId, layerStatus]) => {
               addInternalLayers(layerId, isBasemap);
