@@ -2,9 +2,6 @@ import AbstractMapFactory from "./abstract-provider";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { mapConfigSelector } from "../../state/ducks/map-config";
-import { mapLayersStatusSelector } from "../../state/ducks/map";
-
 import VectorTileClient from "../../client/vector-tile-client";
 
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
@@ -515,11 +512,11 @@ export default (container, options) => {
           Object.entries(layersStatus)
             .filter(([layerId, layerStatus]) => layerStatus.isVisible)
             .forEach(([layerId, layerStatus]) => {
-              addInternalLayers(layerId, isBasemap);
+              addInternalLayers(layerId, layerStatus.isBasemap);
             });
 
           floatSymbolLayersToTop();
-          map.off(styleLoadCallback);
+          map.off("style.load", styleLoadCallback);
         };
         map.on("style.load", styleLoadCallback);
         map.setStyle(defaultStyle, {

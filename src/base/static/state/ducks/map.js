@@ -14,7 +14,7 @@ export const mapPositionSelector = state => {
 
 // Actions
 const SET_LAYER_STATUS = "map/SET_LAYER_STATUS";
-const SET_BASEMAP = "map/SET_BASEMAP";
+const SET_BASEMAP_STATUS = "map/SET_BASEMAP_STATUS";
 const SET_MAP_POSITION = "map/SET_MAP_POSITION";
 const SET_MAP_SIZE_VALIDITY = "map/SET_MAP_SIZE_VALIDITY";
 
@@ -28,11 +28,12 @@ export const setLayerStatus = (layerId, layerStatus) => {
     },
   };
 };
-export const setBasemap = layerId => {
+export const setBasemap = (layerId, layerStatus) => {
   return {
-    type: SET_BASEMAP,
+    type: SET_BASEMAP_STATUS,
     payload: {
       layerId: layerId,
+      layerStatus: layerStatus,
     },
   };
 };
@@ -82,9 +83,22 @@ export default function reducer(state = INITIAL_STATE, action) {
           },
         },
       };
-    case SET_BASEMAP:
+    case SET_BASEMAP_STATUS:
       return {
         ...state,
+        layersStatus: {
+          ...state.layersStatus,
+          // Switch off the old basemap.
+          [state.visibleBasemapId]: {
+            ...state.layersStatus[state.visibleBasemapId],
+            isVisible: false,
+          },
+          // Switch on the new basemap.
+          [action.payload.layerId]: {
+            ...state.layersStatus[action.payload.layerId],
+            ...action.payload.layerStatus,
+          },
+        },
         visibleBasemapId: action.payload.layerId,
       };
     default:

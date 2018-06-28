@@ -45,13 +45,7 @@ const MapLayerGroup = props => {
               } else if (isBasemap) {
                 // If the user clicked on a basemap and there is already a
                 // visible basemap, turn the old basemap off.
-                props.visibleBasemapId &&
-                  props.setLayerStatus(props.visibleBasemapId, {
-                    isVisible: false,
-                  });
-                // Switch the new basemap on.
-                props.setBasemap(layerId);
-                props.setLayerStatus(layerId, {
+                props.setBasemap(layerId, {
                   status: "loading",
                   isVisible: true,
                   isBasemap: true,
@@ -129,7 +123,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
-  setBasemap: layerId => dispatch(setBasemap(layerId)),
+  setBasemap: (layerId, layerStatus) => dispatch(setBasemap(layerId, layerStatus)),
 });
 
 export default connect(

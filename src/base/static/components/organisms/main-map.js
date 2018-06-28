@@ -77,13 +77,21 @@ class MainMap extends Component {
     this._layers
       .filter(layer => layer.visible_default && layer.type !== "place")
       .forEach(layer => {
-        layer.isBasemap && props.setBasemap(layer.id);
-        props.setLayerStatus(layer.id, {
-          status: "loading",
-          isVisible: true,
-          isBasemap: !!layer.isBasemap,
-          type: layer.type,
-        });
+        if (layer.isBasemap) {
+          props.setBasemap(layer.id, {
+            status: "loading",
+            isVisible: true,
+            isBasemap: true,
+            type: layer.type,
+          });
+        } else {
+          props.setLayerStatus(layer.id, {
+            status: "loading",
+            isVisible: true,
+            isBasemap: false,
+            type: layer.type,
+          });
+        }
       });
 
     // Instantiate the map.
@@ -126,7 +134,6 @@ class MainMap extends Component {
         }
         this.props.setLayerStatus(sourceId, {
           status: "loaded",
-          isVisible: true,
         });
       },
       layersStatus: this.props.layersStatus,
@@ -139,7 +146,6 @@ class MainMap extends Component {
         }
         this.props.setLayerStatus(sourceId, {
           status: "error",
-          isVisible: true,
         });
       },
     });
@@ -183,7 +189,9 @@ class MainMap extends Component {
     emitter.addListener("place-collection:loaded", layerId => {
       this.props.setLayerStatus(layerId, {
         status: "loaded",
-        isVisible: this._layers.find(layer => layer.id === layerId)
+        type: "place",
+        isBasemap: false,
+        isVisible: !!this._layers.find(layer => layer.id === layerId)
           .visible_default,
       });
     });
@@ -518,7 +526,8 @@ const mapDispatchToProps = dispatch => ({
   setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
-  setBasemap: layerId => dispatch(setBasemap(layerId)),
+  setBasemap: (layerId, layerStatus) =>
+    dispatch(setBasemap(layerId, layerStatus)),
 });
 
 export default connect(
