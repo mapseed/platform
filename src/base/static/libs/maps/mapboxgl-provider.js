@@ -152,6 +152,19 @@ export default (container, options, store) => {
       .forEach(internalLayer => map.moveLayer(internalLayer.id));
   };
 
+  const addInternalLayers = (layerId, isBasemap) => {
+    !map.getSource(layerId) && map.addSource(layerId, sourcesCache[layerId]);
+    layersCache[layerId].forEach(internalLayer => {
+      !map.getLayer(internalLayer.id) &&
+        map.addLayer(
+          internalLayer,
+          isBasemap && map.getStyle().layers[0]
+            ? map.getStyle().layers[0].id
+            : null,
+        );
+    });
+  };
+
   const addMapboxStyle = ({ url, id }) => {
     const styleLoadCallback = () => {
       // Loading a new style will replace the existing style's sources, layers,
@@ -186,14 +199,7 @@ export default (container, options, store) => {
           ([layerId, layerStatus]) => layerStatus.isVisible && layerId !== id,
         )
         .forEach(([layerId, layerStatus]) => {
-          !map.getSource(layerId) &&
-            map.addSource(layerId, sourcesCache[layerId]);
-          layersCache[layerId].forEach(internalLayer => {
-            map.addLayer(
-              internalLayer,
-              layerStatus.isBasemap ? map.style._order[0] : null,
-            );
-          });
+          addInternalLayers(layerId, layerStatus.isBasemap);
         });
 
       floatSymbolLayersToTop();
@@ -414,6 +420,10 @@ export default (container, options, store) => {
       return map.getCanvas();
     },
 
+    isReady: () => {
+      return map.isStyleLoaded();
+    },
+
     queryRenderedFeatures: (geometry, options = {}) => {
       return map.queryRenderedFeatures(geometry, options);
     },
@@ -453,13 +463,11 @@ export default (container, options, store) => {
     },
 
     addLayer: async (layer, isBasemap) => {
-      if (layer.type === "mapbox-style") {
-        addMapboxStyle(layer);
-        return;
-      }
-
       if (!layersCache[layer.id]) {
         switch (layer.type) {
+          case "mapbox-style":
+            addMapboxStyle(layer);
+            return;
           case "raster-tile":
             createRasterTileLayer(layer);
             break;
@@ -490,32 +498,18 @@ export default (container, options, store) => {
           Object.entries(mapLayersStatusSelector(store.getState()))
             .filter(([layerId, layerStatus]) => layerStatus.isVisible)
             .forEach(([layerId, layerStatus]) => {
-              !map.getSource(layerId) &&
-                map.addSource(layerId, sourcesCache[layerId]);
-              layersCache[layerId].forEach(internalLayer => {
-                map.addLayer(
-                  internalLayer,
-                  internalLayer.id === layerId ? map.style._order[0] : null,
-                );
-              });
+              addInternalLayers(layerId, isBasemap);
             });
 
-          map.off("style.load", styleLoadCallback);
+          floatSymbolLayersToTop();
+          map.off(styleLoadCallback);
         };
-
         map.on("style.load", styleLoadCallback);
         map.setStyle(defaultStyle, {
           diff: false,
         });
-      } else if (isBasemap) {
-        layersCache[layer.id].forEach(internalLayer => {
-          map.addLayer(internalLayer, map.style._order[0]);
-        });
       } else {
-        layersCache[layer.id].forEach(internalLayer => {
-          !map.getLayer(internalLayer.id) && map.addLayer(internalLayer);
-        });
-
+        addInternalLayers(layer.id, isBasemap);
         floatSymbolLayersToTop();
       }
     },
@@ -534,6 +528,10 @@ export default (container, options, store) => {
 
     getSource: sourceId => {
       return map.getSource(sourceId);
+    },
+
+    updateLayerData: (sourceId, newData) => {
+      map.getSource(sourceId) && map.getSource(sourceId).setData(newData);
     },
 
     setMaxZoom: zoom => {

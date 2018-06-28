@@ -548,29 +548,30 @@ module.exports = Backbone.View.extend({
   },
 
   setStoryLayerVisibility: model => {
-    const basemapId = model.get("story").basemap;
-    const visibleLayerIds = model.get("story").visibleLayers;
+    const storyBasemapId = model.get("story").basemap;
+    const storyVisibleLayerIds = model.get("story").visibleLayers;
     const visibleBasemapId = mapBasemapSelector(store.getState());
 
-    if (basemapId && basemapId !== visibleBasemapId) {
+    if (storyBasemapId && storyBasemapId !== visibleBasemapId) {
       visibleBasemapId &&
         store.dispatch(
           setLayerStatus(visibleBasemapId, {
             isVisible: false,
           }),
         );
-      store.dispatch(setBasemap(basemapId));
+      store.dispatch(setBasemap(storyBasemapId));
       store.dispatch(
-        setLayerStatus(basemapId, {
+        setLayerStatus(storyBasemapId, {
           status: "loading",
           isVisible: true,
           isBasemap: true,
         }),
       );
     }
-    if (visibleLayerIds) {
+    if (storyVisibleLayerIds) {
       // Switch story layers on.
-      visibleLayerIds.forEach(layerId => {
+      storyVisibleLayerIds.forEach(layerId => {
+        console.log("STORY: switching on", layerId);
         store.dispatch(
           setLayerStatus(layerId, {
             status: "loading",
@@ -580,17 +581,21 @@ module.exports = Backbone.View.extend({
       });
 
       // Switch all other visible layers off.
-      Object.entries(mapLayersStatusSelector(store.getState())).forEach(
-        ([layerId, layerStatus]) => {
-          if (layerStatus.isVisible && !visibleLayerIds.includes(layerId)) {
+      Object.entries(mapLayersStatusSelector(store.getState()))
+        .filter(([layerId, layerStatus]) => !layerStatus.isBasemap)
+        .forEach(([layerId, layerStatus]) => {
+          if (
+            layerStatus.isVisible &&
+            !storyVisibleLayerIds.includes(layerId)
+          ) {
+            console.log("STORY: switching off", layerId);
             store.dispatch(
               setLayerStatus(layerId, {
                 isVisible: false,
               }),
             );
           }
-        },
-      );
+        });
     }
   },
 
@@ -684,7 +689,15 @@ module.exports = Backbone.View.extend({
       // settings if this model is part of a story.
       const story = model.get("story") || {};
 
-      if (geometry.type === "LineString") {
+      if (story.panTo || story.zoom) {
+        // If a story chapter declares a zoom or centerpoint, regardless of the
+        // geometry type, assume that we want to ease to a point.
+        emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+          coordinates:
+            story.panTo || mapPositionSelector(store.getState()).center,
+          zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+        });
+      } else if (geometry.type === "LineString") {
         emitter.emit(constants.MAP_TRANSITION_FIT_LINESTRING_COORDS, {
           coordinates: story.panTo ? [story.panTo] : geometry.coordinates,
         });
@@ -694,8 +707,8 @@ module.exports = Backbone.View.extend({
         });
       } else if (geometry.type === "Point") {
         emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
-          coordinates: story.panTo || geometry.coordinates,
-          zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
+          coordinates: geometry.coordinates,
+          zoom: mapPositionSelector(store.getState()).zoom,
         });
       }
 

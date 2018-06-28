@@ -505,6 +505,7 @@ map:
 
     - id: sample-json-a
       type: json
+      visible_default: true
       source: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
       rules:
         - filter:
@@ -631,11 +632,21 @@ map:
       style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/style.json
       source_layer: historical_river_pathgeojson
 
-    - id: sample-wmts
+    - id: sample-wmts-a
       type: wmts
       visible_default: true
       isBasemap: true
       url: https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS
+      layers: 0
+      tilematrix_set: default028mm
+      version: 1.0.0
+      transparent: false
+      format: image/jpg
+
+    - id: sample-wmts-b
+      type: wmts
+      isBasemap: true
+      url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS
       layers: 0
       tilematrix_set: default028mm
       version: 1.0.0
@@ -687,8 +698,10 @@ left_sidebar:
                 body:
                   - _(Some info.)
                   - _(Some more info.)
-            - id: sample-wmts
-              title: _(Sample WMTS)
+            - id: sample-wmts-a
+              title: _(Sample WMTS A)
+            - id: sample-wmts-b
+              title: _(Sample WMTS B)
             - id: sample-wms
               title: _(Sample WMS)
             - id: sample-mapbox-style
@@ -1286,28 +1299,31 @@ story:
     header: _(Story Number One)
     description: _(This is the first of two stories. I hope you like it!)
     default_zoom: 18
-    default_basemap: sample-mapbox-style
+    default_basemap: sample-wmts-a
     default_visible_layers:
       - demo
-      - sample-vector-tile
+      - sample-vector
     order:
       - url: demo/83
         spotlight: false
         zoom: 7
         pan_to: [-122.57256740778439, 47.44334015969261]
       - url: demo/21
+        pan_to: [-122.57256740778439, 47.44334015969261]
         zoom: 10
   another_example:
     tagline: _(Next featured site)
     header: _(Story Number Two With a Longer Name than the Other Story)
     description: _(This is the second story, and it's got a longer header and description because that's just how it is.)
     default_zoom: 18
+    default_basemap: sample-wmts-b
     default_visible_layers:
       - demo
+      - sample-json-a
     order:
       - url: cool-line
         sidebar_icon_url: /static/css/images/markers/marker-question.png
-        zoom: 4
+        zoom: 12
         pan_to: [-122.57256740778439, 47.44334015969261]
       - url: demo/17
 

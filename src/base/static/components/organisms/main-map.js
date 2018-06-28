@@ -32,6 +32,7 @@ class MainMap extends Component {
     this._router = props.router;
     this._places = props.places;
     this._layers = props.mapConfig.layers;
+    this.loaded = false;
 
     let MapProvider;
     switch (props.mapConfig.provider) {
@@ -72,11 +73,36 @@ class MainMap extends Component {
       }
     }
 
+    // Set default layer visibility for non-place layers.
+    this._layers
+      .filter(layer => layer.visible_default && layer.type !== "place")
+      .forEach(layer => {
+        layer.isBasemap && props.setBasemap(layer.id);
+        props.setLayerStatus(layer.id, {
+          status: "loading",
+          isVisible: true,
+          isBasemap: !!layer.isBasemap,
+          type: layer.type,
+        });
+      });
+
+    // Instantiate the map.
     this._map = MapProvider(
       props.container,
       props.mapConfig.options,
       props.store,
     );
+    this._map.on("load", () => {
+      this.loaded = true;
+      for (let layerId in this.props.layersStatus) {
+        if (this.props.layersStatus[layerId].isVisible) {
+          this.addLayer(
+            this._layers.find(layer => layer.id === layerId),
+            this.props.layersStatus[layerId].isBasemap,
+          );
+        }
+      }
+    });
     this._map.addControl(
       new LayerPanelControl(this.props.setLeftSidebar),
       "top-left",
@@ -85,21 +111,12 @@ class MainMap extends Component {
     if (props.mapConfig.geolocation_enabled) {
       // TODO
     }
-
-    // Set default layer visibility.
-    this._map.on("load", () => {
-      this._layers.filter(layer => layer.visible_default).forEach(layer => {
-        layer.isBasemap && props.setBasemap(layer.id);
-        props.setLayerStatus(layer.id, {
-          status: "loading",
-          isVisible: true,
-          isBasemap: layer.isBasemap,
-        });
-      });
-    });
   }
 
   componentDidUpdate(prevProps) {
+    // Don't attempt any interaction with the map until it is fully loaded.
+    if (!this.loaded) return;
+
     if (!this.props.isMapSizeValid) {
       this._map.invalidateSize();
       this.props.setMapSizeValidity(true);
@@ -130,12 +147,21 @@ class MainMap extends Component {
   componentDidMount() {
     this._map.on("data", data => {
       // TODO: Move to Map provider
-      if (
-        data.dataType === "source" &&
-        data.isSourceLoaded &&
-        data.sourceId !== "composite"
-      ) {
-        this.props.setLayerStatus(data.sourceId, {
+      let sourceId = data.sourceId;
+      if (data.dataType === "source" && data.isSourceLoaded) {
+        if (sourceId === "composite") {
+          // Mapbox styles produce sources with the id "composite". When such a
+          // source loads, we need to look up the first-class layer id
+          // associated with the source and set its status.
+          [sourceId] = Object.entries(this.props.layersStatus).find(
+            ([layerId, layerStatus]) => {
+              return (
+                layerStatus.type === "mapbox-style" && layerStatus.isVisible
+              );
+            },
+          );
+        }
+        this.props.setLayerStatus(sourceId, {
           status: "loaded",
           isVisible: true,
         });
@@ -176,13 +202,12 @@ class MainMap extends Component {
       this.props.onMoveend();
     });
 
-    emitter.addListener("place-collection:loaded", collectionId => {
-      if (
-        this.props.layersStatus[collectionId] &&
-        this.props.layersStatus[collectionId].isVisible
-      ) {
-        this.addPlaceCollectionLayer(collectionId);
-      }
+    emitter.addListener("place-collection:loaded", layerId => {
+      this.props.setLayerStatus(layerId, {
+        status: "loaded",
+        isVisible: this._layers.find(layer => layer.id === layerId)
+          .visible_default,
+      });
     });
     emitter.addListener("place-collection:add-place", collectionId => {
       this.updatePlaceCollectionLayer(collectionId);
@@ -195,7 +220,8 @@ class MainMap extends Component {
     );
     emitter.addListener("place-collection:unfocus-all-places", () => {
       Object.keys(this._places).forEach(collectionId => {
-        this.updatePlaceCollectionLayer(collectionId);
+        this.props.layersStatus[collectionId].isVisible &&
+          this.updatePlaceCollectionLayer(collectionId);
       });
     });
 
@@ -316,11 +342,10 @@ class MainMap extends Component {
   }
 
   updatePlaceCollectionLayer(collectionId, modelId) {
-    this._map
-      .getSource(collectionId)
-      .setData(
-        createGeoJSONFromCollection(this._places[collectionId], modelId),
-      );
+    this._map.updateLayerData(
+      collectionId,
+      createGeoJSONFromCollection(this._places[collectionId], modelId),
+    );
   }
 
   // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
@@ -358,7 +383,7 @@ class MainMap extends Component {
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
       layer.source = createGeoJSONFromCollection(this._places[layer.id]);
-      this._map.addLayer(layer);
+      this._map.addLayer(layer, isBasemap);
 
       // Bind map interaction events for this place layers.
       this._map.bindPlaceLayerEvent("click", layer.id, clickedOnLayer => {

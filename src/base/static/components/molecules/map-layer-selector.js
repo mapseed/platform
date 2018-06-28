@@ -8,7 +8,7 @@ import "./map-layer-selector.scss";
 
 const MapLayerSelector = props => {
   let status;
-  if (!props.layerStatus) {
+  if (!props.layerStatus || !props.layerStatus.isVisible) {
     status = "hidden";
   } else {
     status = props.layerStatus.status;

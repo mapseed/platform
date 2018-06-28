@@ -24,6 +24,9 @@ const MapLayerGroup = props => {
         const isBasemap = !!props.mapConfig.layers.find(
           layerConfig => layerConfig.id === layer.id,
         ).isBasemap;
+        const layerType = props.mapConfig.layers.find(
+          layerConfig => layerConfig.id === layer.id,
+        ).type;
         const layerStatus = props.layersStatus[layer.id];
 
         return (
@@ -52,11 +55,13 @@ const MapLayerGroup = props => {
                   status: "loading",
                   isVisible: true,
                   isBasemap: true,
+                  type: layerType,
                 });
               } else {
                 // Otherwise, toggle the selected layer.
                 props.setLayerStatus(layerId, {
                   status: "loading",
+                  type: layerType,
                   isVisible:
                     layerStatus === undefined ? true : !layerStatus.isVisible,
                 });

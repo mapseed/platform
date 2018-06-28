@@ -77,6 +77,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         layersStatus: {
           ...state.layersStatus,
           [action.payload.layerId]: {
+            ...state.layersStatus[action.payload.layerId],
             ...action.payload.layerStatus,
           },
         },
