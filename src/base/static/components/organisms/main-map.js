@@ -92,16 +92,19 @@ class MainMap extends Component {
       props.mapConfig.options,
       props.store,
     );
-    this._map.on("load", () => {
-      this.loaded = true;
-      for (let layerId in this.props.layersStatus) {
-        if (this.props.layersStatus[layerId].isVisible) {
-          this.addLayer(
-            this._layers.find(layer => layer.id === layerId),
-            this.props.layersStatus[layerId].isBasemap,
-          );
+    this._map.on({
+      event: "load",
+      callback: () => {
+        this.loaded = true;
+        for (let layerId in this.props.layersStatus) {
+          if (this.props.layersStatus[layerId].isVisible) {
+            this.addLayer(
+              this._layers.find(layer => layer.id === layerId),
+              this.props.layersStatus[layerId].isBasemap,
+            );
+          }
         }
-      }
+      },
     });
     this._map.addControl(
       new LayerPanelControl(this.props.setLeftSidebar),
@@ -111,6 +114,128 @@ class MainMap extends Component {
     if (props.mapConfig.geolocation_enabled) {
       // TODO
     }
+  }
+
+  componentDidMount() {
+    // Handlers for layer loading events.
+    this._map.on({
+      event: "layer:loaded",
+      callback: sourceId => {
+        if (sourceId === "composite") {
+          [sourceId] = this.lookupMapboxStyleId();
+        }
+        this.props.setLayerStatus(sourceId, {
+          status: "loaded",
+          isVisible: true,
+        });
+      },
+      layersStatus: this.props.layersStatus,
+    });
+    this._map.on({
+      event: "layer:error",
+      callback: sourceId => {
+        if (sourceId === "composite") {
+          [sourceId] = this.lookupMapboxStyleId();
+        }
+        this.props.setLayerStatus(sourceId, {
+          status: "error",
+          isVisible: true,
+        });
+      },
+    });
+
+    // Handlers for map interaction events.
+    this._map.on({
+      event: "dragend",
+      callback: () => {
+        Util.log(
+          "USER",
+          "map",
+          "drag",
+          this._map.getBBoxString(),
+          this._map.getZoom(),
+        );
+        this.props.onDragend();
+      },
+    });
+    this._map.on({
+      event: "zoomend",
+      callback: () => {
+        Util.log("APP", "zoom", this._map.getZoom());
+        this.props.onZoomend();
+      },
+    });
+    this._map.on({ event: "movestart", callback: this.props.onMovestart });
+    this._map.on({
+      event: "moveend",
+      callback: () => {
+        Util.log("APP", "center-lat", this._map.getCenter().lat);
+        Util.log("APP", "center-lng", this._map.getCenter().lng);
+        this.props.setMapPosition({
+          center: this._map.getCenter(),
+          zoom: this._map.getZoom(),
+        });
+        this.props.onMoveend();
+      },
+    });
+
+    // Handlers for Mapseed place collections.
+    emitter.addListener("place-collection:loaded", layerId => {
+      this.props.setLayerStatus(layerId, {
+        status: "loaded",
+        isVisible: this._layers.find(layer => layer.id === layerId)
+          .visible_default,
+      });
+    });
+    emitter.addListener("place-collection:add-place", collectionId => {
+      this.updatePlaceCollectionLayer(collectionId);
+    });
+    emitter.addListener(
+      "place-collection:focus-place",
+      ({ collectionId, modelId }) => {
+        this.updatePlaceCollectionLayer(collectionId, modelId);
+      },
+    );
+    emitter.addListener("place-collection:unfocus-all-places", () => {
+      Object.keys(this._places).forEach(collectionId => {
+        this.props.layersStatus[collectionId].isVisible &&
+          this.updatePlaceCollectionLayer(collectionId);
+      });
+    });
+
+    // Handlers for story-driven map transitions.
+    emitter.addListener(
+      constants.MAP_TRANSITION_FIT_LINESTRING_COORDS,
+      ({ coordinates }) => {
+        this._map.fitLineStringCoords(coordinates, { padding: 30 });
+      },
+    );
+    emitter.addListener(
+      constants.MAP_TRANSITION_FIT_POLYGON_COORDS,
+      ({ coordinates }) => {
+        this._map.fitPolygonCoords(coordinates, { padding: 30 });
+      },
+    );
+    emitter.addListener(
+      constants.MAP_TRANSITION_EASE_TO_POINT,
+      ({ coordinates, zoom }) => {
+        this._map.easeTo({
+          center: coordinates,
+          zoom: zoom,
+        });
+      },
+    );
+  }
+
+  lookupMapboxStyleId() {
+    // Mapbox styles produce sources with the id "composite". When we have such
+    // a source, we assume we want the status of the currently visible layer
+    // with type mapbox-style.
+    return Object.entries(this.props.layersStatus).find(
+      ([layerId, layerStatus]) => {
+        return layerStatus.type === "mapbox-style" && layerStatus.isVisible;
+      },
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -144,122 +269,12 @@ class MainMap extends Component {
     }
   }
 
-  componentDidMount() {
-    this._map.on("data", data => {
-      // TODO: Move to Map provider
-      let sourceId = data.sourceId;
-      if (data.dataType === "source" && data.isSourceLoaded) {
-        if (sourceId === "composite") {
-          // Mapbox styles produce sources with the id "composite". When such a
-          // source loads, we need to look up the first-class layer id
-          // associated with the source and set its status.
-          [sourceId] = Object.entries(this.props.layersStatus).find(
-            ([layerId, layerStatus]) => {
-              return (
-                layerStatus.type === "mapbox-style" && layerStatus.isVisible
-              );
-            },
-          );
-        }
-        this.props.setLayerStatus(sourceId, {
-          status: "loaded",
-          isVisible: true,
-        });
-      }
-    });
-    this._map.on("error", data => {
-      // TODO: Move to Map provider
-      if (data.sourceId) {
-        this.props.setLayerStatus(data.sourceId, {
-          status: "error",
-          isVisible: true,
-        });
-      }
-    });
-
-    this._map.on("dragend", () => {
-      Util.log(
-        "USER",
-        "map",
-        "drag",
-        this._map.getBBoxString(),
-        this._map.getZoom(),
-      );
-      this.props.onDragend();
-    });
-    this._map.on("zoomend", () => {
-      Util.log("APP", "zoom", this._map.getZoom());
-      this.props.onZoomend();
-    });
-    this._map.on("movestart", this.props.onMovestart);
-    this._map.on("moveend", () => {
-      Util.log("APP", "center-lat", this._map.getCenter().lat);
-      Util.log("APP", "center-lng", this._map.getCenter().lng);
-      this.props.setMapPosition({
-        center: this._map.getCenter(),
-        zoom: this._map.getZoom(),
-      });
-      this.props.onMoveend();
-    });
-
-    emitter.addListener("place-collection:loaded", layerId => {
-      this.props.setLayerStatus(layerId, {
-        status: "loaded",
-        isVisible: this._layers.find(layer => layer.id === layerId)
-          .visible_default,
-      });
-    });
-    emitter.addListener("place-collection:add-place", collectionId => {
-      this.updatePlaceCollectionLayer(collectionId);
-    });
-    emitter.addListener(
-      "place-collection:focus-place",
-      ({ collectionId, modelId }) => {
-        this.updatePlaceCollectionLayer(collectionId, modelId);
-      },
-    );
-    emitter.addListener("place-collection:unfocus-all-places", () => {
-      Object.keys(this._places).forEach(collectionId => {
-        this.props.layersStatus[collectionId].isVisible &&
-          this.updatePlaceCollectionLayer(collectionId);
-      });
-    });
-
-    emitter.addListener(
-      constants.MAP_TRANSITION_FIT_LINESTRING_COORDS,
-      ({ coordinates }) => {
-        this._map.fitLineStringCoords(coordinates, { padding: 30 });
-      },
-    );
-    emitter.addListener(
-      constants.MAP_TRANSITION_FIT_POLYGON_COORDS,
-      ({ coordinates }) => {
-        this._map.fitPolygonCoords(coordinates, { padding: 30 });
-      },
-    );
-    emitter.addListener(
-      constants.MAP_TRANSITION_EASE_TO_POINT,
-      ({ coordinates, zoom }) => {
-        this._map.easeTo({
-          center: coordinates,
-          zoom: zoom,
-        });
-      },
-    );
-  }
-
   get map() {
     return this._map;
   }
 
   clearFilter() {
     // TODO
-  }
-
-  checkLayerZoom(maxZoom) {
-    if (maxZoom && this._map.getZoom() > maxZoom) {
-      this._map.setZoom(parseInt(maxZoom, 10));
-    }
   }
 
   reverseGeocodeMapCenter() {
@@ -387,7 +402,7 @@ class MainMap extends Component {
         layer: layer,
         isBasemap: isBasemap,
         layersStatus: this.props.layersStatus,
-        mapConfig: this.props.mapConfig
+        mapConfig: this.props.mapConfig,
       });
 
       // Bind map interaction events for this place layers.

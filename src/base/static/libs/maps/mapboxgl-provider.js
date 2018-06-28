@@ -365,10 +365,26 @@ export default (container, options) => {
   );
 
   return AbstractMapFactory({
-    on: (event, callback, context) => {
-      if (event === "loading") event = "dataloading";
-      callback = callback.bind(context);
-      map.on(event, callback);
+    on: ({ event, callback }) => {
+      let internalCallback;
+      switch (event) {
+        case "layer:loaded":
+          event = "data";
+          internalCallback = data =>
+            data.dataType === "source" &&
+            data.isSourceLoaded &&
+            callback(data.sourceId);
+          break;
+        case "layer:error":
+          event = "error";
+          internalCallback = data => data.sourceId && callback(data.sourceId);
+          break;
+        default:
+          internalCallback = callback;
+          break;
+      }
+
+      map.on(event, internalCallback);
     },
 
     off: (event, callback) => {

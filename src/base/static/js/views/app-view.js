@@ -571,7 +571,6 @@ module.exports = Backbone.View.extend({
     if (storyVisibleLayerIds) {
       // Switch story layers on.
       storyVisibleLayerIds.forEach(layerId => {
-        console.log("STORY: switching on", layerId);
         store.dispatch(
           setLayerStatus(layerId, {
             status: "loading",
@@ -588,7 +587,6 @@ module.exports = Backbone.View.extend({
             layerStatus.isVisible &&
             !storyVisibleLayerIds.includes(layerId)
           ) {
-            console.log("STORY: switching off", layerId);
             store.dispatch(
               setLayerStatus(layerId, {
                 isVisible: false,
