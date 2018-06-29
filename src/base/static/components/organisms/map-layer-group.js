@@ -123,7 +123,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
-  setBasemap: (layerId, layerStatus) => dispatch(setBasemap(layerId, layerStatus)),
+  setBasemap: (layerId, layerStatus) =>
+    dispatch(setBasemap(layerId, layerStatus)),
 });
 
 export default connect(
