@@ -434,10 +434,6 @@ export default (container, options) => {
       return map.getCanvas();
     },
 
-    isReady: () => {
-      return map.isStyleLoaded();
-    },
-
     queryRenderedFeatures: (geometry, options = {}) => {
       return map.queryRenderedFeatures(geometry, options);
     },

@@ -43,8 +43,6 @@ const MapLayerGroup = props => {
                 // visible, do nothing.
                 return;
               } else if (isBasemap) {
-                // If the user clicked on a basemap and there is already a
-                // visible basemap, turn the old basemap off.
                 props.setBasemap(layerId, {
                   status: "loading",
                   isVisible: true,
@@ -52,9 +50,9 @@ const MapLayerGroup = props => {
                   type: layerType,
                 });
               } else {
-                // Otherwise, toggle the selected layer.
                 props.setLayerStatus(layerId, {
                   status: "loading",
+                  isBasemap: false,
                   type: layerType,
                   isVisible:
                     layerStatus === undefined ? true : !layerStatus.isVisible,
