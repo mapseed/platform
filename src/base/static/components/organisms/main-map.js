@@ -286,82 +286,23 @@ class MainMap extends Component {
   }
 
   reverseGeocodeMapCenter() {
-    const center = this._map.getCenter();
-    Util.MapQuest.reverseGeocode(center, {
-      success: data => {
-        const locationsData = data.results[0].locations;
-        // Util.console.log('Reverse geocoded center: ', data);
-        $(Shareabouts).trigger("reversegeocode", [locationsData[0]]);
-      },
-    });
+    // TODO
   }
 
   initGeolocation() {
-    const onLocationError = evt => {
-      let message;
-      switch (evt.code) {
-        // Unknown
-        case 0:
-          message =
-            "An unknown error occured while locating your position. Please try again.";
-          break;
-        // Permission Denied
-        case 1:
-          message =
-            "Geolocation is disabled for this page. Please adjust your browser settings.";
-          break;
-        // Position Unavailable
-        case 2:
-          message = "Your location could not be determined. Please try again.";
-          break;
-        // Timeout
-        case 3:
-          message =
-            "It took too long to determine your location. Please try again.";
-          break;
-      }
-      alert(message);
-    };
-    const onLocationFound = evt => {
-      let msg;
-      if (
-        !this._map.options.maxBounds ||
-        this._map.options.maxBounds.contains(evt.latlng)
-      ) {
-        this._map.fitBounds(evt.bounds);
-      } else {
-        msg =
-          "It looks like you're not in a place where we're collecting " +
-          "data. I'm going to leave the map where it is, okay?";
-        alert(msg);
-      }
-    };
-
-    // Bind event handling
-    this._map.on("locationerror", onLocationError);
-    this._map.on("locationfound", onLocationFound);
-
-    // Go to the current location if specified
-    if (this._mapConfig.geolocation_onload) {
-      this.geolocate();
-    }
+    // TODO
   }
 
   onClickGeolocate(evt) {
-    evt.preventDefault();
-    Util.log(
-      "USER",
-      "map",
-      "geolocate",
-      this._map.getBBoxString(),
-      this._map.getZoom(),
-    );
-    this.geolocate();
+    // TODO
   }
 
   geolocate() {
     // TODO
-    this._map.locate();
+  }
+
+  filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
+    // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   }
 
   updatePlaceCollectionLayer(collectionId, modelId) {
@@ -369,38 +310,6 @@ class MainMap extends Component {
       collectionId,
       createGeoJSONFromCollection(this._places[collectionId], modelId),
     );
-  }
-
-  // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
-  filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
-    const locationType = locationTypeModel.get("locationType");
-    const isActive = locationTypeModel.get("active");
-
-    if (mapWasUnfiltered || mapWillBeUnfiltered) {
-      for (let collectionId in this._places) {
-        this._places[collectionId]
-          .filter(model => {
-            return model.get("location_type") !== locationType;
-          })
-          .forEach(model => {
-            if (mapWasUnfiltered) {
-              this.layerViews[collectionId][model.cid].filter();
-            } else if (mapWillBeUnfiltered) {
-              this.layerViews[collectionId][model.cid].unfilter();
-            }
-          });
-      }
-    } else {
-      for (let collectionId in this._places) {
-        this._places[collectionId]
-          .where({ location_type: locationType })
-          .forEach(model => {
-            isActive
-              ? this.layerViews[collectionId][model.cid].unfilter()
-              : this.layerViews[collectionId][model.cid].filter();
-          });
-      }
-    }
   }
 
   async addLayer(layer, isBasemap = false) {
