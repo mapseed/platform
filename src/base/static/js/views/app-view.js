@@ -23,7 +23,10 @@ import InfoModal from "../../components/organisms/info-modal";
 import RightSidebar from "../../components/templates/right-sidebar";
 
 // TODO(luke): move this into index.js (currently routes.js)
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
