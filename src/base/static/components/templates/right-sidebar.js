@@ -29,8 +29,8 @@ const RightSidebar = props => {
 
 RightSidebar.propTypes = {
   rightSidebarConfig: PropTypes.shape({
-    enabled: PropTypes.bool.isRequired,
-    visibleDefault: PropTypes.bool,
+    is_enabled: PropTypes.bool.isRequired,
+    visible_default: PropTypes.bool,
     component: PropTypes.string.isRequired,
     content: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   }),

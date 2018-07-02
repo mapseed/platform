@@ -14,9 +14,7 @@ const appendFilters = (existingFilters, ...filtersToAdd) => {
 
   // If an existing filter does not already start with the logical AND
   // operator "all", we need to prepend it before we add a new filter.
-  if (newFilters[0] !== "all") {
-    newFilters.unshift("all");
-  }
+  newFilters[0] !== "all" && newFilters.unshift("all");
 
   return newFilters;
 };
@@ -120,6 +118,12 @@ const configRuleToFillLayer = (layerConfig, i) => {
 };
 
 const DEFAULT_STYLE_NAME = "Mapseed default style";
+
+/**
+ * @typedef {Object } MapboxStyle - Defines the visual appearance of the map
+ * https://www.mapbox.com/mapbox-gl-js/style-spec/
+ *
+ */
 const defaultStyle = {
   version: 8,
   name: DEFAULT_STYLE_NAME,
@@ -134,17 +138,20 @@ export default (container, options) => {
   options.map.container = container;
   options.map.style = defaultStyle;
 
+  /**
+   * @typedef {Object<string, MapboxLayer[]>} LayersCache - Mapping of layer id's to an array of the mapboxGL layer representations:
+   *
+   * @typedef {Object} MapboxLayer - https://www.mapbox.com/mapbox-gl-js/style-spec/#layers
+   *
+   */
   const layersCache = {};
   const sourcesCache = {};
 
   const floatSymbolLayersToTop = () => {
-    // To ensure that point (aka "symbol") geometry is not obscured by
-    // the new layer, we move all symbol layers to the top of the layer
-    // stack.
+    // To ensure that point (aka "symbol") geometry is not obscured we
+    // move all symbol layers to the top of the layer stack.
     Object.values(layersCache)
-      .reduce((flat, toFlatten) => {
-        return flat.concat(toFlatten);
-      }, [])
+      .reduce((flat, toFlatten) => [...flat, ...toFlatten], [])
       .filter(internalLayer => internalLayer.id.includes("symbol"))
       .forEach(internalLayer => map.moveLayer(internalLayer.id));
   };
@@ -156,13 +163,15 @@ export default (container, options) => {
         map.addLayer(
           internalLayer,
           isBasemap && map.getStyle().layers[0]
-            ? map.getStyle().layers[0].id
+            ? // If we're adding a basemap, move it to the bottom of the layers
+              // stack.
+              map.getStyle().layers[0].id
             : null,
         );
     });
   };
 
-  const addMapboxStyle = (layer, layersStatus, mapConfig) => {
+  const addMapboxStyle = (layer, layerStatuses, mapConfig) => {
     const styleLoadCallback = () => {
       // Loading a new style will replace the existing style's sources, layers,
       // and spritesheet assets. Therefore, we recover existing style resources
@@ -171,9 +180,7 @@ export default (container, options) => {
       // Recover existing spritesheet assets.
       mapConfig.layers
         .map(layerConfig => layerConfig.rules)
-        .reduce((flat, toFlatten) => {
-          return flat.concat(toFlatten);
-        }, [])
+        .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
         .reduce((imageNames, rule) => {
           rule &&
             rule["symbol-layout"] &&
@@ -191,7 +198,7 @@ export default (container, options) => {
         });
 
       // Recover existing sources and layers.
-      Object.entries(layersStatus)
+      Object.entries(layerStatuses)
         .filter(
           ([layerId, layerStatus]) =>
             layerStatus.isVisible && layerId !== layer.id,
@@ -472,11 +479,11 @@ export default (container, options) => {
       return !!map.getLayer(layerId);
     },
 
-    addLayer: async ({ layer, isBasemap, layersStatus, mapConfig }) => {
+    addLayer: async ({ layer, isBasemap, layerStatuses, mapConfig }) => {
       if (!layersCache[layer.id]) {
         switch (layer.type) {
           case "mapbox-style":
-            addMapboxStyle(layer, layersStatus, mapConfig);
+            addMapboxStyle(layer, layerStatuses, mapConfig);
             return;
           case "raster-tile":
             createRasterTileLayer(layer);
@@ -505,7 +512,7 @@ export default (container, options) => {
         // existing sources and layers that were not affiliated with the
         // Mapbox style.
         const styleLoadCallback = () => {
-          Object.entries(layersStatus)
+          Object.entries(layerStatuses)
             .filter(([layerId, layerStatus]) => layerStatus.isVisible)
             .forEach(([layerId, layerStatus]) => {
               addInternalLayers(layerId, layerStatus.isBasemap);

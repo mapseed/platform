@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config";
 import { Header4 } from "../atoms/typography";
-import MapLayerGroup from "./map-layer-group";
+import MapLayerGroup from "../molecules/map-layer-group";
 
 import "./map-layer-panel.scss";
 

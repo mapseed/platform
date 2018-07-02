@@ -25,7 +25,7 @@ import {
   mapBasemapSelector,
   setBasemap,
   setLayerStatus,
-  mapLayersStatusSelector,
+  mapLayerStatusesSelector,
 } from "../../state/ducks/map";
 
 import MainMap from "../../components/organisms/main-map";
@@ -334,9 +334,9 @@ module.exports = Backbone.View.extend({
       });
     });
 
-    if (this.options.rightSidebarConfig.enabled) {
+    if (this.options.rightSidebarConfig.is_enabled) {
       $("body").addClass("right-sidebar-active");
-      if (this.options.rightSidebarConfig.visible_default) {
+      if (this.options.rightSidebarConfig.is_visible_default) {
         $("body").addClass("right-sidebar-visible");
       }
 
@@ -355,7 +355,7 @@ module.exports = Backbone.View.extend({
     }
 
     // REACT PORT SECTION /////////////////////////////////////////////////////
-    if (this.options.leftSidebarConfig.enabled) {
+    if (this.options.leftSidebarConfig.is_enabled) {
       ReactDOM.render(
         <Provider store={store}>
           <LeftSidebar />
@@ -555,18 +555,11 @@ module.exports = Backbone.View.extend({
     if (storyBasemapId && storyBasemapId !== visibleBasemapId) {
       visibleBasemapId &&
         store.dispatch(
-          setLayerStatus(visibleBasemapId, {
-            isVisible: false,
+          setBasemap(storyBasemapId, {
+            status: "loading",
+            isVisible: true,
           }),
         );
-      store.dispatch(setBasemap(storyBasemapId));
-      store.dispatch(
-        setLayerStatus(storyBasemapId, {
-          status: "loading",
-          isVisible: true,
-          isBasemap: true,
-        }),
-      );
     }
     if (storyVisibleLayerIds) {
       // Switch story layers on.
@@ -580,7 +573,7 @@ module.exports = Backbone.View.extend({
       });
 
       // Switch all other visible layers off.
-      Object.entries(mapLayersStatusSelector(store.getState()))
+      Object.entries(mapLayerStatusesSelector(store.getState()))
         .filter(([layerId, layerStatus]) => !layerStatus.isBasemap)
         .forEach(([layerId, layerStatus]) => {
           if (
@@ -599,15 +592,6 @@ module.exports = Backbone.View.extend({
 
   restoreDefaultLayerVisibility: function() {
     // TODO
-  },
-
-  ensureLayerVisibility: function(datasetId) {
-    this.setLayerVisibility(datasetId, true, false);
-  },
-
-  setLayerVisibility: function(id, isVisible, isBasemap) {
-    $(Shareabouts).trigger("visibility", [id, isVisible, isBasemap]);
-    $("#map-" + id).prop("checked", isVisible);
   },
 
   viewPlaceOrLandmark: function(args) {

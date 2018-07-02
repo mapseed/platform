@@ -8,15 +8,19 @@ import MapboxGLProvider from "../../libs/maps/mapboxgl-provider";
 import emitter from "../../utils/emitter";
 import { createGeoJSONFromCollection } from "../../utils/collection-utils";
 
-import { mapConfigSelector } from "../../state/ducks/map-config";
+import {
+  mapConfigSelector,
+  mapLayersSelector,
+} from "../../state/ducks/map-config";
 import {
   mapBasemapSelector,
-  mapLayersStatusSelector,
+  mapLayerStatusesSelector,
   mapSizeValiditySelector,
   setMapSizeValidity,
   setMapPosition,
   setLayerStatus,
   setBasemap,
+  mapboxStyleIdSelector,
 } from "../../state/ducks/map";
 import { setLeftSidebar } from "../../state/ducks/ui";
 
@@ -29,9 +33,6 @@ const Util = require("../../js/utils.js");
 class MainMap extends Component {
   constructor(props) {
     super(props);
-    this._router = props.router;
-    this._places = props.places;
-    this._layers = props.mapConfig.layers;
     this.loaded = false;
 
     let MapProvider;
@@ -69,16 +70,16 @@ class MainMap extends Component {
 
       onRemove() {
         this._container.parentNode.removeChild(this._container);
-        this._map = undefined;
       }
     }
 
     // Set default layer visibility for non-place layers.
-    this._layers
-      .filter(layer => layer.visible_default && layer.type !== "place")
+    this.props.layers
+      .filter(layer => layer.is_visible_default && layer.type !== "place")
       .forEach(layer => {
-        if (layer.isBasemap) {
+        if (layer.is_basemap) {
           props.setBasemap(layer.id, {
+            id: layer.id,
             status: "loading",
             isVisible: true,
             isBasemap: true,
@@ -86,6 +87,7 @@ class MainMap extends Component {
           });
         } else {
           props.setLayerStatus(layer.id, {
+            id: layer.id,
             status: "loading",
             isVisible: true,
             isBasemap: false,
@@ -95,25 +97,7 @@ class MainMap extends Component {
       });
 
     // Instantiate the map.
-    this._map = MapProvider(
-      props.container,
-      props.mapConfig.options,
-      props.store,
-    );
-    this._map.on({
-      event: "load",
-      callback: () => {
-        this.loaded = true;
-        for (let layerId in this.props.layersStatus) {
-          if (this.props.layersStatus[layerId].isVisible) {
-            this.addLayer(
-              this._layers.find(layer => layer.id === layerId),
-              this.props.layersStatus[layerId].isBasemap,
-            );
-          }
-        }
-      },
-    });
+    this._map = MapProvider(props.container, props.mapConfig.options);
     this._map.addControl(
       new LayerPanelControl(this.props.setLeftSidebar),
       "top-left",
@@ -125,24 +109,42 @@ class MainMap extends Component {
   }
 
   componentDidMount() {
+    this._map.on({
+      event: "load",
+      callback: () => {
+        this.loaded = true;
+        for (let layerId in this.props.layerStatuses) {
+          if (this.props.layerStatuses[layerId].isVisible) {
+            this.addLayer(
+              this.props.layers.find(layer => layer.id === layerId),
+              this.props.layerStatuses[layerId].isBasemap,
+            );
+          }
+        }
+      },
+    });
+
     // Handlers for layer loading events.
     this._map.on({
       event: "layer:loaded",
       callback: sourceId => {
         if (sourceId === "composite") {
-          [sourceId] = this.lookupMapboxStyleId();
+          // Mapbox styles produce sources with the id "composite". When we have such
+          // a source, we assume we want the status of the currently visible layer
+          // with type mapbox-style.
+          sourceId = this.props.mapboxStyleId;
         }
         this.props.setLayerStatus(sourceId, {
           status: "loaded",
         });
       },
-      layersStatus: this.props.layersStatus,
+      layersStatus: this.props.layerStatuses,
     });
     this._map.on({
       event: "layer:error",
       callback: sourceId => {
         if (sourceId === "composite") {
-          [sourceId] = this.lookupMapboxStyleId();
+          sourceId = this.props.mapboxStyleId;
         }
         this.props.setLayerStatus(sourceId, {
           status: "error",
@@ -191,8 +193,8 @@ class MainMap extends Component {
         status: "loaded",
         type: "place",
         isBasemap: false,
-        isVisible: !!this._layers.find(layer => layer.id === layerId)
-          .visible_default,
+        isVisible: !!this.props.layers.find(layer => layer.id === layerId)
+          .is_visible_default,
       });
     });
     emitter.addListener("place-collection:add-place", collectionId => {
@@ -205,8 +207,8 @@ class MainMap extends Component {
       },
     );
     emitter.addListener("place-collection:unfocus-all-places", () => {
-      Object.keys(this._places).forEach(collectionId => {
-        this.props.layersStatus[collectionId].isVisible &&
+      Object.keys(this.props.places).forEach(collectionId => {
+        this.props.layerStatuses[collectionId].isVisible &&
           this.updatePlaceCollectionLayer(collectionId);
       });
     });
@@ -235,17 +237,6 @@ class MainMap extends Component {
     );
   }
 
-  lookupMapboxStyleId() {
-    // Mapbox styles produce sources with the id "composite". When we have such
-    // a source, we assume we want the status of the currently visible layer
-    // with type mapbox-style.
-    return Object.entries(this.props.layersStatus).find(
-      ([layerId, layerStatus]) => {
-        return layerStatus.type === "mapbox-style" && layerStatus.isVisible;
-      },
-    );
-  }
-
   componentDidUpdate(prevProps) {
     // Don't attempt any interaction with the map until it is fully loaded.
     if (!this.loaded) return;
@@ -255,24 +246,26 @@ class MainMap extends Component {
       this.props.setMapSizeValidity(true);
     }
 
-    for (let layerId in this.props.layersStatus) {
+    for (let layerId in this.props.layerStatuses) {
       if (
-        this.props.layersStatus[layerId].isVisible &&
-        (!prevProps.layersStatus[layerId] ||
-          !prevProps.layersStatus[layerId].isVisible)
+        this.props.layerStatuses[layerId].isVisible &&
+        (!prevProps.layerStatuses[layerId] ||
+          !prevProps.layerStatuses[layerId].isVisible)
       ) {
         // A layer has been switched on.
         this.addLayer(
-          this._layers.find(layer => layer.id === layerId),
-          this.props.layersStatus[layerId].isBasemap,
+          this.props.layers.find(layer => layer.id === layerId),
+          this.props.layerStatuses[layerId].isBasemap,
         );
       } else if (
-        !this.props.layersStatus[layerId].isVisible &&
-        prevProps.layersStatus[layerId] &&
-        prevProps.layersStatus[layerId].isVisible
+        !this.props.layerStatuses[layerId].isVisible &&
+        prevProps.layerStatuses[layerId] &&
+        prevProps.layerStatuses[layerId].isVisible
       ) {
         // A layer has been switched off.
-        this._map.removeLayer(this._layers.find(layer => layer.id === layerId));
+        this._map.removeLayer(
+          this.props.layers.find(layer => layer.id === layerId),
+        );
       }
     }
   }
@@ -308,31 +301,31 @@ class MainMap extends Component {
   updatePlaceCollectionLayer(collectionId, modelId) {
     this._map.updateLayerData(
       collectionId,
-      createGeoJSONFromCollection(this._places[collectionId], modelId),
+      createGeoJSONFromCollection(this.props.places[collectionId], modelId),
     );
   }
 
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
-      layer.source = createGeoJSONFromCollection(this._places[layer.id]);
+      layer.source = createGeoJSONFromCollection(this.props.places[layer.id]);
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,
-        layersStatus: this.props.layersStatus,
+        layerStatuses: this.props.layerStatuses,
         mapConfig: this.props.mapConfig,
       });
 
       // Bind map interaction events for this place layers.
       this._map.bindPlaceLayerEvent("click", layer.id, clickedOnLayer => {
         if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
-          this._router.navigate(
+          this.props.router.navigate(
             `/${clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
             {
               trigger: true,
             },
           );
         } else {
-          this._router.navigate(
+          this.props.router.navigate(
             `/${
               clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
             }/${clickedOnLayer.properties.id}`,
@@ -350,7 +343,7 @@ class MainMap extends Component {
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,
-        layersStatus: this.props.layersStatus,
+        layerStatuses: this.props.layerStatuses,
         mapConfig: this.props.mapConfig,
       });
     }
@@ -364,35 +357,36 @@ class MainMap extends Component {
 MainMap.propTypes = {
   container: PropTypes.string.isRequired,
   isMapSizeValid: PropTypes.bool.isRequired,
-  layersStatus: PropTypes.objectOf(
+  layers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      url: PropTypes.string,
+      source: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      slug: PropTypes.string,
+      rules: PropTypes.arrayOf(
+        PropTypes.shape({
+          filter: PropTypes.array,
+          "symbol-layout": PropTypes.object,
+          "symbol-paint": PropTypes.object,
+          "line-layout": PropTypes.object,
+          "line-paint": PropTypes.object,
+          "fill-layout": PropTypes.object,
+          "fill-paint": PropTypes.object,
+        }),
+      ),
+    }),
+  ),
+  layerStatuses: PropTypes.objectOf(
     PropTypes.shape({
       isVisible: PropTypes.bool,
       isBasemap: PropTypes.bool,
       status: PropTypes.string,
     }),
   ).isRequired,
+  mapboxStyleId: PropTypes.string,
   mapConfig: PropTypes.shape({
     geolocation_enabled: PropTypes.bool.isRequired,
-    layers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        url: PropTypes.string,
-        source: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-        slug: PropTypes.string,
-        rules: PropTypes.arrayOf(
-          PropTypes.shape({
-            filter: PropTypes.array,
-            "symbol-layout": PropTypes.object,
-            "symbol-paint": PropTypes.object,
-            "line-layout": PropTypes.object,
-            "line-paint": PropTypes.object,
-            "fill-layout": PropTypes.object,
-            "fill-paint": PropTypes.object,
-          }),
-        ),
-      }),
-    ),
     options: PropTypes.shape({
       map: PropTypes.shape({
         center: PropTypes.shape({
@@ -423,9 +417,11 @@ MainMap.propTypes = {
 
 const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
+  layers: mapLayersSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
-  layersStatus: mapLayersStatusSelector(state),
+  layerStatuses: mapLayerStatusesSelector(state),
   isMapSizeValid: mapSizeValiditySelector(state),
+  mapboxStyleId: mapboxStyleIdSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

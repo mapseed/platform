@@ -2,14 +2,21 @@
 export const mapBasemapSelector = state => {
   return state.map.visibleBasemapId;
 };
-export const mapLayersStatusSelector = state => {
-  return state.map.layersStatus;
+export const mapLayerStatusesSelector = state => {
+  return state.map.layerStatuses;
 };
 export const mapSizeValiditySelector = state => {
   return state.map.isMapSizeValid;
 };
 export const mapPositionSelector = state => {
   return state.map.mapPosition;
+};
+export const mapboxStyleIdSelector = state => {
+  return (
+    Object.values(state.map.layerStatuses).find(layerStatus => {
+      return layerStatus.type === "mapbox-style" && layerStatus.isVisible;
+    }) || {}
+  ).id;
 };
 
 // Actions
@@ -53,7 +60,7 @@ export const setMapSizeValidity = isValidSize => {
 // Reducers
 const INITIAL_STATE = {
   visibleBasemapId: null,
-  layersStatus: {},
+  layerStatuses: {},
   mapPosition: undefined,
   isMapSizeValid: true,
 };
@@ -75,10 +82,10 @@ export default function reducer(state = INITIAL_STATE, action) {
     case SET_LAYER_STATUS:
       return {
         ...state,
-        layersStatus: {
-          ...state.layersStatus,
+        layerStatuses: {
+          ...state.layerStatuses,
           [action.payload.layerId]: {
-            ...state.layersStatus[action.payload.layerId],
+            ...state.layerStatuses[action.payload.layerId],
             ...action.payload.layerStatus,
           },
         },
@@ -86,16 +93,16 @@ export default function reducer(state = INITIAL_STATE, action) {
     case SET_BASEMAP_STATUS:
       return {
         ...state,
-        layersStatus: {
-          ...state.layersStatus,
+        layerStatuses: {
+          ...state.layerStatuses,
           // Switch off the old basemap.
           [state.visibleBasemapId]: {
-            ...state.layersStatus[state.visibleBasemapId],
+            ...state.layerStatuses[state.visibleBasemapId],
             isVisible: false,
           },
           // Switch on the new basemap.
           [action.payload.layerId]: {
-            ...state.layersStatus[action.payload.layerId],
+            ...state.layerStatuses[action.payload.layerId],
             ...action.payload.layerStatus,
           },
         },

@@ -10,10 +10,10 @@ import { mapConfigSelector } from "../../state/ducks/map-config";
 import {
   setLayerStatus,
   setBasemap,
-  mapLayersStatusSelector,
+  mapLayerStatusesSelector,
   mapBasemapSelector,
 } from "../../state/ducks/map";
-import MapLayerSelector from "../molecules/map-layer-selector";
+import MapLayerSelector from "./map-layer-selector";
 
 const MapLayerGroup = props => {
   return (
@@ -23,11 +23,11 @@ const MapLayerGroup = props => {
       {props.layers.map(layer => {
         const isBasemap = !!props.mapConfig.layers.find(
           layerConfig => layerConfig.id === layer.id,
-        ).isBasemap;
+        ).is_basemap;
         const layerType = props.mapConfig.layers.find(
           layerConfig => layerConfig.id === layer.id,
         ).type;
-        const layerStatus = props.layersStatus[layer.id];
+        const layerStatus = props.layerStatuses[layer.id];
 
         return (
           <MapLayerSelector
@@ -35,7 +35,7 @@ const MapLayerGroup = props => {
             layerId={layer.id}
             info={layer.info}
             title={layer.title}
-            layerStatus={props.layersStatus[layer.id]}
+            layerStatus={props.layerStatuses[layer.id]}
             selected={!!(layerStatus && layerStatus.isVisible)}
             onToggleLayer={layerId => {
               if (isBasemap && layerStatus && layerStatus.isVisible) {
@@ -44,6 +44,7 @@ const MapLayerGroup = props => {
                 return;
               } else if (isBasemap) {
                 props.setBasemap(layerId, {
+                  id: layerId,
                   status: "loading",
                   isVisible: true,
                   isBasemap: true,
@@ -51,6 +52,7 @@ const MapLayerGroup = props => {
                 });
               } else {
                 props.setLayerStatus(layerId, {
+                  id: layerId,
                   status: "loading",
                   isBasemap: false,
                   type: layerType,
@@ -104,7 +106,7 @@ MapLayerGroup.propTypes = {
       visible_default: PropTypes.bool,
     }),
   ),
-  layersStatus: PropTypes.shape({
+  layerStatuses: PropTypes.shape({
     isBasemap: PropTypes.bool,
     isVisible: PropTypes.bool,
     status: PropTypes.string,
@@ -114,7 +116,7 @@ MapLayerGroup.propTypes = {
 
 const mapStateToProps = state => ({
   mapConfig: mapConfigSelector(state),
-  layersStatus: mapLayersStatusSelector(state),
+  layerStatuses: mapLayerStatusesSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
 });
 

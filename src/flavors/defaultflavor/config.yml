@@ -135,7 +135,7 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
       type: place
       slug: demo
-      visible_default: true
+      is_visible_default: true
       rules:
         # "demo" location_type
         - filter:
@@ -505,7 +505,7 @@ map:
 
     - id: sample-json-a
       type: json
-      visible_default: true
+      is_visible_default: true
       source: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
       rules:
         - filter:
@@ -567,7 +567,7 @@ map:
 
     - id: sample-json-b
       type: json      
-      visible_default: true
+      is_visible_default: true
       source: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
       rules:
         - filter:
@@ -634,8 +634,8 @@ map:
 
     - id: sample-wmts-a
       type: wmts
-      visible_default: true
-      isBasemap: true
+      is_visible_default: true
+      is_basemap: true
       url: https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS
       layers: 0
       tilematrix_set: default028mm
@@ -645,7 +645,7 @@ map:
 
     - id: sample-wmts-b
       type: wmts
-      isBasemap: true
+      is_basemap: true
       url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS
       layers: 0
       tilematrix_set: default028mm
@@ -655,7 +655,7 @@ map:
 
     - id: sample-wms
       type: wms
-      isBasemap: true
+      is_basemap: true
       url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer
       layers: '0'
       version: 1.3.0
@@ -664,24 +664,24 @@ map:
 
     - id: sample-raster-tile
       type: raster-tile
-      isBasemap: true
+      is_basemap: true
       url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: "Hello"
  
     - id: sample-mapbox-style
       type: mapbox-style
-      isBasemap: true
+      is_basemap: true
       url: mapbox://styles/tcroxson/cji2ji0mw0qip2rmsnlhtdjyb
       attribution: "Hello"
 
 right_sidebar:
-  enabled: true
-  visible_default: true
+  is_enabled: true
+  is_visible_default: true
   component: StoryNavigator
 
 left_sidebar:
-  enabled: true
-  visible_default: false
+  is_enabled: true
+  is_visible_default: false
   panels:
     - id: gis-layers
       icon: fa-list

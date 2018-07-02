@@ -3,6 +3,10 @@ export const mapConfigSelector = state => {
   return state.mapConfig;
 };
 
+export const mapLayersSelector = state => {
+  return state.mapConfig.layers;
+};
+
 // Actions:
 const SET_CONFIG = "map/SET_CONFIG";
 

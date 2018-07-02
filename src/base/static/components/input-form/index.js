@@ -97,10 +97,6 @@ class InputForm extends Component {
     this.geometryStyle = null;
   }
 
-  handleDragEnd() {
-    !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
-  }
-
   onGeometryStyleChange(style) {
     this.geometryStyle = style;
   }
