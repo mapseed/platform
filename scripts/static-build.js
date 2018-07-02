@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "src/.env" });
+require("dotenv").config({ path: "src/.env-production" });
 const path = require("path");
 const fs = require("fs-extra");
 const yaml = require("js-yaml");
@@ -233,6 +233,20 @@ activeLanguages.forEach(language => {
     thisConfig.app.api_root = process.env.API_ROOT;
   }
 
+  // Determine if we should include Google Analytics for this flavor.
+  // Analytics ids are defined in the .env file, and follow this format:
+  // <FLAVOR>_GOOGLE_ANALYTICS_ID
+  // We only include analytics on production builds.
+  let googleAnalyticsId = "";
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env[flavor.toUpperCase() + "_GOOGLE_ANALYTICS_ID"]
+  ) {
+    log("Including Google Analytics for " + flavor);
+    googleAnalyticsId =
+      process.env[flavor.toUpperCase() + "_GOOGLE_ANALYTICS_ID"];
+  }
+
   // Resolve fields of type common_form_element.
   thisConfig.place.place_detail = transformCommonFormElements(
     thisConfig.place.place_detail,
@@ -336,7 +350,7 @@ activeLanguages.forEach(language => {
       mapboxToken: process.env.MAPBOX_TOKEN || "",
       clickyAnalyticsId: process.env.CLICKY_ANALYTICS_ID || "",
       mapQuestKey: process.env.MAPQUEST_KEY || "",
-      googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || "",
+      googleAnalyticsId: googleAnalyticsId,
       googleAnalyticsDomain: process.env.GOOGLE_ANALYTICS_DOMAIN || "auto",
     },
     languageCode: language.code,
