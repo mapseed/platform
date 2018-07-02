@@ -37,6 +37,7 @@ class DatetimeField extends Component {
             />
           );
         }}
+        closeOnSelect={true}
         onChange={date => {
           this.props.onChange(
             this.props.name,
