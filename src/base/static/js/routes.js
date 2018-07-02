@@ -311,7 +311,6 @@ Shareabouts.Util = Util;
 
     recordGoogleAnalyticsHit(route) {
       if (ga) {
-        console.log("recording", route)
         ga("set", "page", route);
         ga("send", "pageview");
       }
