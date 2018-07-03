@@ -435,12 +435,8 @@
     }
 
     /* TODO: update this if we add more page header links */
-    .menu-item:nth-child(2) {
+    .menu-item:nth-child(3) {
       border-right: none !important;
-    }
-
-    .menu-item:last {
-      border-right: none;
     }
   }
 
