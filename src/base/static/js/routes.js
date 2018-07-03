@@ -310,7 +310,7 @@ Shareabouts.Util = Util;
     },
 
     recordGoogleAnalyticsHit(route) {
-      if (ga) {
+      if (typeof ga !== "undefined") {
         ga("set", "page", route);
         ga("send", "pageview");
       }
