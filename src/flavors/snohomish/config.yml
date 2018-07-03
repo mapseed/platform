@@ -166,10 +166,10 @@ sidebar:
       basemaps:
         - id: osm-hot
           title: _(Outdoors)
-          visibleDefault: true
+          visibleDefault: false
         - id: satellite
           title: _(Satellite View)
-          visibleDefault: false
+          visibleDefault: true
         - id: light-nolabels
           title: _(Light)
           visibleDefault: false

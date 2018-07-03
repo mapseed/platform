@@ -248,8 +248,8 @@
 .form-stage-header-bar__icon {
   position: absolute;
   bottom: 0;
-  width: 400px;
-  left: 40px;
+  width: 100%;
+  left: 50px;
 }
 
 .form-stage-header-bar__header {
@@ -262,11 +262,11 @@
 }
 
 .form-stage-header-bar__description {
-  padding-left: 60px;
+  padding-left: 15%;
   padding-right: 50px;
   font-size: 1.3em;
   font-weight: 200;
-  margin-bottom: 40px;
+  margin-bottom: 55px;
 }
 
 .datetime-field__open-button {
@@ -426,6 +426,14 @@
   }
 }
 
+//@media only screen and (max-width: 30em) {
+//  .form-stage-header-bar__description {
+//    padding-left: 40px;
+//    padding-right: 50px;
+//    margin-bottom: 40px;
+//  }
+//}
+
 // Screen sizes above 60em width
 @media only screen and (min-width: 60em) {
   .menu {
@@ -441,7 +449,7 @@
   }
 
   #pages-nav-container {
-    margin-left: 550px;
+    margin-left: 500px;
   }
 
   #site-header {
