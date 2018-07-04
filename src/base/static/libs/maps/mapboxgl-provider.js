@@ -374,10 +374,13 @@ export default (container, options) => {
       switch (event) {
         case "layer:loaded":
           event = "data";
-          internalCallback = data =>
-            data.dataType === "source" &&
-            data.isSourceLoaded &&
-            callback(data.sourceId);
+          internalCallback = data => {
+            return (
+              data.dataType === "source" &&
+              map.isSourceLoaded(data.sourceId) &&
+              callback(data.sourceId)
+            );
+          };
           break;
         case "layer:error":
           event = "error";

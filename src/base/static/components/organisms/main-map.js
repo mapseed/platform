@@ -103,12 +103,6 @@ class MainMap extends Component {
       "top-left",
     );
 
-    if (props.mapConfig.geolocation_enabled) {
-      // TODO
-    }
-  }
-
-  componentDidMount() {
     this._map.on({
       event: "load",
       callback: () => {
@@ -124,6 +118,12 @@ class MainMap extends Component {
       },
     });
 
+    if (props.mapConfig.geolocation_enabled) {
+      // TODO
+    }
+  }
+
+  componentDidMount() {
     // Handlers for layer loading events.
     this._map.on({
       event: "layer:loaded",
