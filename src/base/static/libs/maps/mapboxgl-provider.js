@@ -118,6 +118,7 @@ const configRuleToFillLayer = (layerConfig, i) => {
 };
 
 const DEFAULT_STYLE_NAME = "Mapseed default style";
+const CLUSTER_LAYER_IDENTIFIER = "__mapseed-clusters__";
 
 /**
  * @typedef {Object } MapboxStyle - Defines the visual appearance of the map
@@ -132,6 +133,7 @@ const defaultStyle = {
   sprite: `${window.location.protocol}//${
     window.location.host
   }/static/css/images/markers/spritesheet`,
+  glyphs: "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
 };
 
 export default (container, options) => {
@@ -340,10 +342,13 @@ export default (container, options) => {
     ];
   };
 
-  const createGeoJSONLayer = ({ id, source, rules }) => {
+  const createGeoJSONLayer = ({ id, source, cluster = {}, rules }) => {
     sourcesCache[id] = {
       type: "geojson",
       data: source,
+      cluster: !!cluster.is_enabled,
+      clusterRadius: cluster.cluster_radius || 50,
+      clusterMaxZoom: cluster.cluster_max_zoom || 14,
     };
     map.addSource(id, sourcesCache[id]);
 
@@ -360,6 +365,31 @@ export default (container, options) => {
       .map(configRuleToSymbolLayer)
       .concat(rules.map(configRuleToLineLayer))
       .concat(rules.map(configRuleToFillLayer));
+
+    if (cluster.is_enabled) {
+      // https://www.mapbox.com/mapbox-gl-js/example/cluster/
+      layersCache[id] = layersCache[id].concat([
+        {
+          id: `${id}${CLUSTER_LAYER_IDENTIFIER}`,
+          source: id,
+          type: "circle",
+          filter: cluster.filter || ["has", "point_count"],
+          paint: cluster.paint || {},
+        },
+        {
+          id: `${id}${CLUSTER_LAYER_IDENTIFIER}count`,
+          source: id,
+          type: "symbol",
+          filter: cluster.filter || ["has", "point_count"],
+          // TODO: We might want to make this configurable at some point.
+          layout: {
+            "text-field": "{point_count_abbreviated}",
+            "text-font": ["Arial Unicode MS Bold"],
+            "text-size": 15,
+          },
+        },
+      ]);
+    }
   };
 
   const map = new mapboxgl.Map(options.map);
@@ -406,25 +436,26 @@ export default (container, options) => {
     bindPlaceLayerEvent: (eventName, layerId, callback) => {
       layersCache[layerId].forEach(mapProviderLayer => {
         let targetLayer = null;
-        map.on(eventName, mapProviderLayer.id, evt => {
-          if (eventName === "click") {
-            // For click events, we query rendered features here to obtain a
-            // single array of layers below the clicked-on point. The first
-            // entry in this array corresponds to the topmost rendered feature.
-            // We skip this work for other events (like mouseenter), since we
-            // don't make use of information about the layer under the cursor
-            // in those cases.
-            targetLayer = map.queryRenderedFeatures(
-              [evt.point.x, evt.point.y],
-              {
-                // Limit these click listeners to place geometry.
-                filter: ["==", ["get", "type"], "place"],
-              },
-            )[0];
-          }
+        !mapProviderLayer.id.includes(CLUSTER_LAYER_IDENTIFIER) &&
+          map.on(eventName, mapProviderLayer.id, evt => {
+            if (eventName === "click") {
+              // For click events, we query rendered features here to obtain a
+              // single array of layers below the clicked-on point. The first
+              // entry in this array corresponds to the topmost rendered feature.
+              // We skip this work for other events (like mouseenter), since we
+              // don't make use of information about the layer under the cursor
+              // in those cases.
+              targetLayer = map.queryRenderedFeatures(
+                [evt.point.x, evt.point.y],
+                {
+                  // Limit these click listeners to place geometry.
+                  filter: ["==", ["get", "type"], "place"],
+                },
+              )[0];
+            }
 
-          callback(targetLayer);
-        });
+            callback(targetLayer);
+          });
       });
     },
 
@@ -438,6 +469,10 @@ export default (container, options) => {
 
     getMap: () => {
       return map;
+    },
+
+    getGeolocateControl: () => {
+      return new mapboxgl.GeolocateControl();
     },
 
     getCanvas: () => {
