@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Map, OrderedMap, fromJS } from "immutable";
 import classNames from "classnames";
 import Spinner from "react-spinner";
+import { connect } from "react-redux";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
@@ -17,6 +18,7 @@ import "./index.scss";
 
 import { map as mapConfig } from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
+import { mapPositionSelector } from "../../state/ducks/map";
 
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
@@ -47,10 +49,6 @@ class InputForm extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.map.on("dragend", this.handleDragEnd.bind(this));
-  }
-
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.isFormResetting ||
@@ -65,10 +63,6 @@ class InputForm extends Component {
         showValidityStatus: false,
       }));
     }
-  }
-
-  componentWillUnmount() {
-    this.props.map.off("dragend", this.handleDragEnd);
   }
 
   getNewFields(prevFields) {
@@ -101,10 +95,6 @@ class InputForm extends Component {
       ) >= 0;
     this.attachments = [];
     this.geometryStyle = null;
-  }
-
-  handleDragEnd() {
-    !this.state.isMapPositioned && this.setState({ isMapPositioned: true });
   }
 
   onGeometryStyleChange(style) {
@@ -213,7 +203,7 @@ class InputForm extends Component {
     if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
       attrs.style = this.geometryStyle;
     } else {
-      const center = this.props.map.getCenter();
+      const center = this.props.mapPosition.center;
       attrs.geometry = {
         type: "Point",
         coordinates: [center.lng, center.lat],
@@ -378,7 +368,6 @@ class InputForm extends Component {
                   fieldState={fieldState}
                   isInitializing={this.state.isInitializing}
                   key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                  map={this.props.map}
                   onAddAttachment={this.onAddAttachment.bind(this)}
                   onFieldChange={this.onFieldChange.bind(this)}
                   onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
@@ -445,7 +434,7 @@ InputForm.propTypes = {
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
   isSingleCategory: PropTypes.bool,
-  map: PropTypes.object.isRequired,
+  mapPosition: PropTypes.object.isRequired,
   onCategoryChange: PropTypes.func,
   places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
@@ -455,4 +444,11 @@ InputForm.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("InputForm")(InputForm);
+const mapStateToProps = state => ({
+  mapPosition: mapPositionSelector(state),
+});
+
+// Export undecorated component for testing purposes.
+export { InputForm };
+
+export default connect(mapStateToProps)(translate("InputForm")(InputForm));

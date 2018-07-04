@@ -135,7 +135,7 @@ Shareabouts.Util = Util;
         mapConfig: options.mapConfig,
         storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
-        sidebarConfig: options.sidebarConfig,
+        leftSidebarConfig: options.leftSidebarConfig,
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
         userToken: options.userToken,
@@ -180,15 +180,7 @@ Shareabouts.Util = Util;
     },
 
     viewMap: function(zoom, lat, lng) {
-      if (this.appView.mapView.locationTypeFilter) {
-        // If there's a filter applied, actually go to that filtered route.
-        this.navigate("/filter/" + this.appView.mapView.locationTypeFilter, {
-          trigger: false,
-        });
-      }
-
       this.appView.viewMap(zoom, lat, lng);
-      this.appView.mapView.clearFilter();
     },
 
     newPlace: function() {

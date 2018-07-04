@@ -86,3 +86,18 @@
     cursor: initial;
   }
 }
+
+/*
+  Close buttons
+*/
+
+.mapseed__close-button {
+  border: none;
+  background-color: transparent;
+  color: #ff5e99;
+
+  &:hover {
+    cursor: pointer;
+    color: #cd2c67;
+  }
+}
