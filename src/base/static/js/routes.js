@@ -180,14 +180,17 @@ Shareabouts.Util = Util;
     },
 
     viewMap: function(zoom, lat, lng) {
+      this.recordGoogleAnalyticsHit("/");
       this.appView.viewMap(zoom, lat, lng);
     },
 
     newPlace: function() {
+      this.recordGoogleAnalyticsHit("/new");
       this.appView.newPlace();
     },
 
     viewLandmark: function(modelId, responseId) {
+      this.recordGoogleAnalyticsHit("/" + modelId);
       this.appView.viewPlaceOrLandmark({
         modelId: modelId,
         responseId: responseId,
@@ -196,6 +199,7 @@ Shareabouts.Util = Util;
     },
 
     viewPlace: function(datasetSlug, modelId, responseId) {
+      this.recordGoogleAnalyticsHit(`/${datasetSlug}/${modelId}`);
       this.appView.viewPlaceOrLandmark({
         datasetSlug: datasetSlug,
         modelId: modelId,
@@ -207,10 +211,12 @@ Shareabouts.Util = Util;
     editPlace: function() {},
 
     viewPage: function(slug) {
+      this.recordGoogleAnalyticsHit("/page/" + slug);
       this.appView.viewPage(slug);
     },
 
     showList: function() {
+      this.recordGoogleAnalyticsHit("/list");
       this.appView.showListView();
     },
 
@@ -229,6 +235,13 @@ Shareabouts.Util = Util;
 
     getFilteredRoutes: function() {
       return ["filterMap", "viewPlace", "showList", "viewMap", "viewLandmark"];
+    },
+
+    recordGoogleAnalyticsHit(route) {
+      if (typeof ga !== "undefined") {
+        ga("set", "page", route);
+        ga("send", "pageview");
+      }
     },
   });
 })(Shareabouts, jQuery, Util.console);

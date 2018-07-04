@@ -18,7 +18,8 @@
     "Shareabouts": false,
     "MAP_PROVIDER_TOKEN": false,
     "moment": false,
-    "L": false
+    "L": false,
+    "ga": false
   },
   "env": {
     "browser": true,

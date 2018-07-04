@@ -62,8 +62,7 @@
     }
 
     #map-container {
-        // calculated as 100% of #main height minus the fixed pixel height of the footer
-        height: calc(100% - 72px);
+        height: 100%;
         width: 100%;
     }
 
@@ -86,6 +85,10 @@
 
     #site-title-image {
       content:url("/static/css/images/pblogo_small.png");
+    }
+
+    #auth-nav-container {
+      display: none;
     }
 }
 

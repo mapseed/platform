@@ -41,7 +41,10 @@ import LeftSidebar from "../../components/organisms/left-sidebar";
 import constants from "../../constants";
 
 // TODO(luke): move this into index.js (currently routes.js)
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
