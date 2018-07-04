@@ -134,6 +134,30 @@ map:
     - id: demo
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
       type: place
+      cluster:
+        is_enabled: true
+        cluster_max_zoom: 14
+        cluster_radius: 50
+        paint:
+          circle-color:
+            - "step"
+            - - "get"
+              - "point_count"
+            - "#51bbd6"
+            - 1
+            - "#f1f075"
+            - 10
+            - "#f28cb1"
+          circle-radius:
+            - "step"
+            - - "get"
+              - "point_count"
+            - 10
+            - 1
+            - 20
+            - 10
+            - 30
+
       slug: demo
       is_visible_default: true
       rules:
@@ -506,63 +530,23 @@ map:
     - id: sample-json-a
       type: json
       is_visible_default: true
-      source: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
+      source: https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson
+      cluster:
+        is_enabled: true
+        cluster_max_zoom: 14
+        cluster_radius: 200
+        paint:
+          circle-color: "#caffca"
+          circle-radius: 30
       rules:
         - filter:
-            - "all"
-            - - "<="
-              - - "zoom"
-              - 6
-            - - "=="
-              - - "get"
-                - "WICcash"
-              - "Y"
-          symbol-layout:
-            icon-image: "marker-dot-conserve-water.png"
-            icon-size: 0.5
-            icon-anchor: "center"
-            icon-allow-overlap: true
-        - filter:
-             - "all"
-             - - ">"
-               - - "zoom"
-               - 6
-             - - "=="
-               - - "get"
-                 - "WICcash"
-               - "Y"
+            - ">="
+            - - "zoom"
+            - 1
           symbol-layout:
             icon-image: "marker-conserve-water.png"
             icon-size: 0.5
-            icon-anchor: "bottom"
-            icon-allow-overlap: true
-        - filter:
-            - "all"
-            - - "<="
-              - - "zoom"
-              - 6
-            - - "=="
-              - - "get"
-                - "WICcash"
-              - "N"
-          symbol-layout:
-            icon-image: "marker-dot-commute-low-carbon.png"
-            icon-size: 0.5
             icon-anchor: "center"
-            icon-allow-overlap: true
-        - filter:
-             - "all"
-             - - ">"
-               - - "zoom"
-               - 6
-             - - "=="
-               - - "get"
-                 - "WICcash"
-               - "N"
-          symbol-layout:
-            icon-image: "marker-commute-low-carbon.png"
-            icon-size: 0.5
-            icon-anchor: "bottom"
             icon-allow-overlap: true
 
     - id: sample-json-b
