@@ -17,7 +17,8 @@
     "Handlebars": false,
     "Shareabouts": false,
     "moment": false,
-    "L": false
+    "L": false,
+    "ga": false
   },
   "env": {
     "browser": true,
