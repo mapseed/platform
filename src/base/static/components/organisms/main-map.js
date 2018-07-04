@@ -119,7 +119,7 @@ class MainMap extends Component {
     });
 
     if (props.mapConfig.geolocation_enabled) {
-      // TODO
+      this._map.addControl(this._map.getGeolocateControl(), "top-left");
     }
   }
 
@@ -275,22 +275,6 @@ class MainMap extends Component {
   }
 
   clearFilter() {
-    // TODO
-  }
-
-  reverseGeocodeMapCenter() {
-    // TODO
-  }
-
-  initGeolocation() {
-    // TODO
-  }
-
-  onClickGeolocate(evt) {
-    // TODO
-  }
-
-  geolocate() {
     // TODO
   }
 

@@ -344,6 +344,11 @@ export default (container, options) => {
     sourcesCache[id] = {
       type: "geojson",
       data: source,
+      /////
+      cluster: true,
+      clusterRadius: 50,
+      clusterMaxZoom: 14,
+      /////
     };
     map.addSource(id, sourcesCache[id]);
 
@@ -438,6 +443,10 @@ export default (container, options) => {
 
     getMap: () => {
       return map;
+    },
+
+    getGeolocateControl: () => {
+      return new mapboxgl.GeolocateControl();
     },
 
     getCanvas: () => {
