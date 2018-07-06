@@ -1455,7 +1455,7 @@ pages:
     start_page: true
 
   - title: _(Local Stories)
-    name: /bay-view
+    name: /2018-camano-wildlife-habitat-tour
     start_page: false
 
   - title: _(Background)
@@ -1482,10 +1482,15 @@ story:
       - snohomish-featured
       - snohomish-input
     order:
-      - url: bay-view
+      - url: 2018-camano-wildlife-habitat-tour
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
+      - url: monroe-l2l-showcase
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
+      - url: 2018-lynnwood-rain-gardens
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-
       - url: tulalip-rain-barrels-2018
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         
