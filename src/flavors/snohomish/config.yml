@@ -345,12 +345,15 @@ place:
 
         # FARM CATEGORY ########################################################
         - name: farm_no-farm
-          type: big_checkbox
+          type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          advance_stage_on_value: no-farm
           content:
-            - label: _(I don't live on a farm)
+            - label: _(I don't live on a farm -- Proceed to next screen)
               value: no-farm
+            - label: _(I don't live on a farm -- Proceed to next screen)
+              value: farm
           optional: true
 
         # Mud & manure
@@ -571,12 +574,15 @@ place:
         # FOREST CATEGORY ######################################################
 
         - name: forest_no-forest
-          type: big_checkbox
+          type: big_toggle
           prompt: _( )
+          advance_stage_on_value: no-forest
           display_prompt: _( )
           content:
-            - label: _(I don't own/operate forestland)
+            - label: _(I don't own/operate forestland -- Proceed to next screen)
               value: no-forest
+            - label: _(I don't own/operate forestland -- Proceed to next screen)
+              value: forest
           optional: true
       
         # Maintain fuel-free zones
@@ -812,12 +818,15 @@ place:
         # SHORELINE CARTEGORY ##################################################
 
         - name: shoreline_no-shoreline
-          type: big_checkbox
+          type: big_toggle
+          advance_stage_on_value: no-shoreline
           prompt: _( )
           display_prompt: _( )
           content:
-            - label: _(I don't live alongside water)
+            - label: _(I don't live alongside water -- Proceed to next screen)
               value: no-shoreline
+            - label: _(I don't live alongside water -- Proceed to next screen)
+              value: shoreline
           optional: true
         
         # Consult professional
@@ -1063,12 +1072,15 @@ place:
         # URBAN CATEGORY #######################################################
 
         - name: urban-suburban_no-urban-suburban
-          type: big_checkbox
+          type: big_toggle
+          advance_stage_on_value: no-urban
           prompt: _( )
           display_prompt: _( )
           content:
-            - label: _(I don’t live in an urban/suburban area)
-              value: no-forest
+            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen)
+              value: no-urban
+            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen)
+              value: urban
           optional: true
 
         # Rain gardens
