@@ -190,6 +190,25 @@
   background-color: #779300;
 }
 
+.input-form__field-container[data-field-name="farm_no-farm"],
+.input-form__field-container[data-field-name="forest_no-forest"],
+.input-form__field-container[data-field-name="shoreline_no-shoreline"],
+.input-form__field-container[data-field-name="urban-suburban_no-urban-suburban"] {
+  background-color: #fff;
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 20px;
+
+  .big-toggle-field__label:before {
+    font-style: normal;
+    background-color: #fff;
+  }
+
+  .big-toggle-field__label--toggled:before {
+    background-color: #779300;
+  }
+}
+
 .datetime-field {
   border-color: #779300;
 }
@@ -416,7 +435,7 @@
     background-position: 35px top;
   }
 
-  .place-form-visible { 
+  .place-form-visible {
     #main-btns-container {
       display: none;
     }

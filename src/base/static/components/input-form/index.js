@@ -87,6 +87,8 @@ class InputForm extends Component {
           [constants.FIELD_AUTO_FOCUS_KEY]: prevFields.get(
             constants.FIELD_AUTO_FOCUS_KEY,
           ),
+          [constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY]:
+            field.advance_stage_on_value,
         }),
       );
     }, OrderedMap());
@@ -132,6 +134,22 @@ class InputForm extends Component {
       updatingField: fieldName,
       isInitializing: isInitializing,
     }));
+
+    // Check if this field should advance the current stage.
+    if (
+      fieldStatus.get(constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY) ===
+        fieldStatus.get(constants.FIELD_VALUE_KEY) &&
+      !isInitializing
+    ) {
+      this.validateForm(() => {
+        scrollTo(this.props.containers, 0);
+        this.setState({
+          currentStage: this.state.currentStage + 1,
+          showValidityStatus: false,
+          formValidationErrors: new Set(),
+        });
+      });
+    }
   }
 
   triggerFieldVisibility(targets, isVisible) {
