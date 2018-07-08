@@ -1,22 +1,13 @@
 // Selectors:
 export const storyConfigSelector = state => {
-  return state.config.story;
-};
-export const placeConfigSelector = state => {
-  return state.config.place;
-};
-export const mapConfigSelector = state => {
-  return state.config.map;
-};
-export const rightSidebarConfigSelector = state => {
-  return state.config.right_sidebar;
+  return state.storyConfig;
 };
 
 // Actions:
-const SET_CONFIG = "SET_CONFIG";
+const SET_CONFIG = "story/SET_CONFIG";
 
 // Action creators:
-export function setConfig(config) {
+export function setStoryConfig(config) {
   return { type: SET_CONFIG, payload: config };
 }
 

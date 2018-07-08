@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [staging] - on our `master` branch (staging)
 
+## [0.10.0]
+### Added
+ - Mapbox gl-js support
+ - etc...
+
 ## [0.9.0] - 2018-04-08
 ### Added
  - Jest testing framework

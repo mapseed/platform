@@ -10,6 +10,7 @@ const wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 const execSync = require("child_process").execSync;
 const glob = require("glob");
 const colors = require("colors");
+const shell = require("shelljs");
 
 const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
   .transformCommonFormElements;
@@ -39,6 +40,12 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 
 // Control logging output
 const verbose = true;
+
+const baseDistPath = path.resolve(__dirname, "../www");
+
+// clean out the output directory and recreate it
+shell.rm("-rf", baseDistPath);
+shell.mkdir("-p", path.resolve(baseDistPath, "dist"));
 
 const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
@@ -419,8 +426,8 @@ fontPaths.forEach(fontPath => {
 
 try {
   fs.copySync(
-    path.resolve(__dirname, "../src/base/static/libs"),
-    path.resolve(outputBasePath, "libs"),
+    path.resolve(__dirname, "../src/base/static/legacy-libs"),
+    path.resolve(outputBasePath, "legacy-libs"),
   );
 } catch (e) {
   logError("Error copying flavor libs files: " + e);

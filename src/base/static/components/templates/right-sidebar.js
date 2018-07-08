@@ -6,7 +6,7 @@ import { Link } from "../atoms/navigation";
 import StoryNavigator from "../organisms/story-navigator";
 import MapLegend from "../organisms/map-legend";
 
-import { rightSidebarConfigSelector } from "../../state/ducks/config";
+import { rightSidebarConfigSelector } from "../../state/ducks/right-sidebar-config";
 
 import "./right-sidebar.scss";
 
@@ -29,8 +29,8 @@ const RightSidebar = props => {
 
 RightSidebar.propTypes = {
   rightSidebarConfig: PropTypes.shape({
-    show: PropTypes.bool.isRequired,
-    visibleDefault: PropTypes.bool,
+    is_enabled: PropTypes.bool.isRequired,
+    visible_default: PropTypes.bool,
     component: PropTypes.string.isRequired,
     content: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   }),

@@ -25,5 +25,6 @@
   "editPolygonHeader":
     "Drag shape handles to edit your shape, or click on shape handles to delete vertices",
   "colorpickerStrokeToolLabel": "Line color",
-  "colorpickerFillToolLabel": "Fill color"
+  "colorpickerFillToolLabel": "Fill color",
+  "delete": "Delete geometry"
 }

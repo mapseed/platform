@@ -28,7 +28,7 @@ class GeocodingField extends Component {
     )[0];
     // TODO: Replace spin.js spinner with a React component.
     // eslint-disable-next-line no-undef
-    new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
+    //new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
   }
 
   componentWillReceiveProps(nextProps) {

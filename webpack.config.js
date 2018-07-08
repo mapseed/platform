@@ -7,7 +7,6 @@ require("babel-polyfill");
 var path = require("path");
 var glob = require("glob");
 var fs = require("fs");
-const shell = require("shelljs");
 
 const PORT = 8000;
 
@@ -15,12 +14,6 @@ if (!process.env.FLAVOR) {
   process.exitCode = 1;
   process.exit();
 }
-
-const distPath = path.resolve(__dirname, "www/dist");
-
-// clean out the output directory and recreate it
-shell.rm("-rf", distPath);
-shell.mkdir("-p", distPath);
 
 var flavorJsFiles = glob.sync(
   "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js",
@@ -83,6 +76,10 @@ module.exports = {
         ? "[chunkhash].bundle.js"
         : "bundle.js",
   },
+  // https://github.com/mapbox/mapbox-gl-draw/issues/626
+  node: {
+    fs: "empty",
+  },
   resolve: {
     alias: alias,
   },
@@ -136,6 +133,7 @@ module.exports = {
         process.env.NODE_ENV === "production"
           ? JSON.stringify("production")
           : JSON.stringify("dev"),
+      MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,

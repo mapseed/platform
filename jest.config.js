@@ -6,7 +6,7 @@ module.exports = {
       moduleFileExtensions: ["js"],
       testMatch: ["<rootDir>/src/**/*.js", "<rootDir>/scripts/**/*.js"],
       testPathIgnorePatterns: [
-        "<rootDir>/src/base/static/libs/",
+        "<rootDir>/src/base/static/legacy-libs/",
         "<rootDir>/node_modules/",
       ],
     },
