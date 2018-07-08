@@ -132,30 +132,6 @@ map:
     - id: demo
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/demo
       type: place
-      cluster:
-        is_enabled: true
-        cluster_max_zoom: 14
-        cluster_radius: 50
-        paint:
-          circle-color:
-            - "step"
-            - - "get"
-              - "point_count"
-            - "#51bbd6"
-            - 1
-            - "#f1f075"
-            - 10
-            - "#f28cb1"
-          circle-radius:
-            - "step"
-            - - "get"
-              - "point_count"
-            - 10
-            - 1
-            - 20
-            - 10
-            - 30
-
       slug: demo
       is_visible_default: true
       rules:
@@ -768,6 +744,13 @@ place:
           display_prompt: _(Ttile:)
           placeholder: _(Enter title...)
           optional: false
+        - name: geometry
+          type: map_drawing_toolbar
+          content:
+            - url: /static/css/images/markers/marker-dot-conserve-energy.png
+            - url: /static/css/images/markers/marker-dot-commute-low-carbon.png
+            - url: /static/css/images/markers/marker-dot-conserve-water.png
+            - url: /static/css/images/markers/marker-star.png
         - name: informational
           type: informational_html
           prompt: _(Info)
@@ -914,13 +897,6 @@ place:
           type: publish_control_toolbar
           default_value: "isPublished"
         # NOTE: this field type must have the name "geometry"
-        - name: geometry
-          type: map_drawing_toolbar
-          content:
-            - url: /static/css/images/markers/marker-bike.png
-            - url: /static/css/images/markers/marker-construction.png
-            - url: /static/css/images/markers/marker-foodforest.png
-            - url: /static/css/images/markers/marker-greenwall.png
         - name: url-title
           type: custom_url_toolbar
           prompt: _(Custom URL field prompt:)
@@ -1286,10 +1262,6 @@ story:
       - demo
       - sample-vector
     order:
-      - url: demo/83
-        spotlight: false
-        zoom: 7
-        pan_to: [-122.57256740778439, 47.44334015969261]
       - url: demo/21
         pan_to: [-122.57256740778439, 47.44334015969261]
         zoom: 10

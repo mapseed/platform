@@ -152,6 +152,38 @@ class MainMap extends Component {
       },
     });
 
+    // Handlers for map drawing events.
+    emitter.addListener("draw:start-polygon", () => {
+      this._map.startDrawingPolygon();
+    });
+    emitter.addListener("draw:start-polyline", () => {
+      this._map.startDrawingPolyline();
+    });
+    emitter.addListener("draw:start-marker", () => {
+      this._map.startDrawingMarker();
+    });
+    emitter.addListener("draw:delete", () => {
+      this._map.deleteGeometry();
+    });
+    this._map.on({
+      event: "draw.create",
+      callback: evt => {
+        emitter.emit("draw:update-geometry", evt.features[0].geometry);
+      },
+    });
+    this._map.on({
+      event: "draw.update",
+      callback: evt => {
+        emitter.emit("draw:update-geometry", evt.features[0].geometry);
+      },
+    });
+    this._map.on({
+      event: "draw.delete",
+      callback: () => {
+        emitter.emit("draw:update-geometry", null);
+      },
+    });
+
     // Handlers for map interaction events.
     this._map.on({
       event: "dragend",
