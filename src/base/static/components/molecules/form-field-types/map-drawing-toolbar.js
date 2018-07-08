@@ -120,7 +120,7 @@ class MapDrawingToolbar extends Component {
               enableAlpha={true}
               onChange={colorInfo => {
                 console.log(colorInfo);
-                emitter.emit("draw:style-change");
+                emitter.emit("draw:style-change", "stroke-color", colorInfo);
               }}
               placement="topRight"
             >
@@ -135,15 +135,27 @@ class MapDrawingToolbar extends Component {
                 onClick={() => {}}
               />
             </ColorPicker>
-            <ToolbarButton
-              classes={classNames("map-drawing-toolbar__tool-icon", {
-                "map-drawing-toolbar__tool-icon--unselectable":
-                  this.props.activeDrawingTool !== "create-polygon",
-              })}
-              label={this.props.t("colorpickerFillToolLabel")}
-              icon="/static/css/images/colorpicker-icon.svg"
-              onClick={() => {}}
-            />
+            <ColorPicker
+              color="#ff0000"
+              alpha="1"
+              mode="RGB"
+              enableAlpha={true}
+              onChange={colorInfo => {
+                console.log(colorInfo);
+                emitter.emit("draw:style-change", "fill-color", colorInfo);
+              }}
+              placement="topRight"
+            >
+              <ToolbarButton
+                classes={classNames("map-drawing-toolbar__tool-icon", {
+                  "map-drawing-toolbar__tool-icon--unselectable":
+                    this.props.activeDrawingTool !== "create-polygon",
+                })}
+                label={this.props.t("colorpickerFillToolLabel")}
+                icon="/static/css/images/colorpicker-icon.svg"
+                onClick={() => {}}
+              />
+            </ColorPicker>
             <ToolbarButton
               classes={classNames("map-drawing-toolbar__tool-icon", {
                 "map-drawing-toolbar__tool-icon--unselectable": !this.props

@@ -397,8 +397,12 @@ export default (container, options) => {
   const map = new mapboxgl.Map(options.map);
   const draw = new MapboxDraw({
     displayControlsDefault: false,
+    userProperties: true,
+    // These data-driven styles are used for styling geometry created with the
+    // draw plugin.
     // https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/EXAMPLES.md
     styles: [
+      // Polygon fill: selected.
       {
         id: "gl-draw-polygon-fill-active",
         type: "fill",
@@ -411,18 +415,20 @@ export default (container, options) => {
         paint: {
           "fill-color": [
             "case",
-            ["has", "fillColor"],
-            ["get", "fillColor"],
+            // The user_ prefix is set automatically by the draw plugin.
+            ["has", "user_fillColor"],
+            ["get", "user_fillColor"],
             "#f1f075",
           ],
           "fill-opacity": [
             "case",
-            ["has", "fillOpacity"],
-            ["get", "fillOpacity"],
+            ["has", "user_fillOpacity"],
+            ["get", "user_fillOpacity"],
             0.3,
           ],
         },
       },
+      // Polygon outline: selected.
       {
         id: "gl-draw-polygon-stroke-active",
         type: "line",
@@ -437,12 +443,17 @@ export default (container, options) => {
           "line-join": "round",
         },
         paint: {
-          "line-color": ["case", ["has", "color"], ["get", "color"], "#f86767"],
+          "line-color": [
+            "case",
+            ["has", "user_color"],
+            ["get", "user_color"],
+            "#f86767",
+          ],
           "line-opacity": ["case", ["has", "opacity"], ["get", "opacity"], 0.7],
-          "line-dasharray": [1, 1],
           "line-width": 3,
         },
       },
+      // Linestring: selected.
       {
         id: "gl-draw-line-active",
         type: "line",
@@ -450,16 +461,25 @@ export default (container, options) => {
           "all",
           ["==", "$type", "LineString"],
           ["!=", "mode", "static"],
-          ["==", "active", "true"]
+          ["==", "active", "true"],
         ],
         paint: {
-          "line-color": ["case", ["has", "color"], ["get", "color"], "#f86767"],
-          "line-opacity": ["case", ["has", "opacity"], ["get", "opacity"], 0.7],
-          "line-dasharray": [1, 1],
+          "line-color": [
+            "case",
+            ["has", "user_color"],
+            ["get", "user_color"],
+            "#f86767",
+          ],
+          "line-opacity": [
+            "case",
+            ["has", "user_opacity"],
+            ["get", "user_opacity"],
+            0.7,
+          ],
           "line-width": 3,
         },
       },
-      // vertex point halos
+      // Vertex point halos.
       {
         id: "gl-draw-polygon-and-line-vertex-halo-active",
         type: "circle",
@@ -474,7 +494,7 @@ export default (container, options) => {
           "circle-color": "#FFF",
         },
       },
-      // vertex points
+      // Vertex points.
       {
         id: "gl-draw-polygon-and-line-vertex-active",
         type: "circle",
@@ -489,7 +509,7 @@ export default (container, options) => {
           "circle-color": "#D20C0C",
         },
       },
-      // midpoints
+      // Line segment midpoints.
       {
         id: "gl-draw-polygon-midpoint",
         type: "circle",
@@ -508,6 +528,7 @@ export default (container, options) => {
       //  },
       //},
 
+      // Linestring: unselected.
       {
         id: "gl-draw-line-inactive",
         type: "line",
@@ -522,11 +543,22 @@ export default (container, options) => {
           "line-join": "round",
         },
         paint: {
-          "line-color": "#000",
+          "line-color": [
+            "case",
+            ["has", "user_color"],
+            ["get", "user_color"],
+            "#f86767",
+          ],
+          "line-opacity": [
+            "case",
+            ["has", "user_opacity"],
+            ["get", "user_opacity"],
+            0.7,
+          ],
           "line-width": 3,
         },
       },
-      // polygon fill
+      // Polygon fill: unselected.
       {
         id: "gl-draw-polygon-fill-inactive",
         type: "fill",
@@ -539,19 +571,19 @@ export default (container, options) => {
         paint: {
           "fill-color": [
             "case",
-            ["has", "fillColor"],
-            ["get", "fillColor"],
+            ["has", "user_fillColor"],
+            ["get", "user_fillColor"],
             "#f1f075",
           ],
           "fill-opacity": [
             "case",
-            ["has", "fillOpacity"],
-            ["get", "fillOpacity"],
+            ["has", "user_fillOpacity"],
+            ["get", "user_fillOpacity"],
             0.3,
           ],
         },
       },
-      // polygon outline
+      // Polygon outline: unselected.
       {
         id: "gl-draw-polygon-stroke-inactive",
         type: "line",
@@ -566,8 +598,18 @@ export default (container, options) => {
           "line-join": "round",
         },
         paint: {
-          "line-color": ["case", ["has", "color"], ["get", "color"], "#f86767"],
-          "line-opacity": ["case", ["has", "opacity"], ["get", "opacity"], 0.7],
+          "line-color": [
+            "case",
+            ["has", "user_color"],
+            ["get", "user_color"],
+            "#f86767",
+          ],
+          "line-opacity": [
+            "case",
+            ["has", "user_opacity"],
+            ["get", "user_opacity"],
+            0.7,
+          ],
           "line-width": 3,
         },
       },
@@ -662,7 +704,11 @@ export default (container, options) => {
 
     deleteGeometry: () => {
       draw.deleteAll();
-      console.log("MODE:", draw.getMode());
+    },
+
+    drawSetFeatureProperty: (id, property, value) => {
+      draw.setFeatureProperty(id, property, value);
+      draw.set(draw.getAll());
     },
 
     getMap: () => {

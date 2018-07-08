@@ -22,6 +22,10 @@ import {
   setBasemap,
   mapboxStyleIdSelector,
 } from "../../state/ducks/map";
+import {
+  activeGeometryIdSelector,
+  setActiveGeometryId,
+} from "../../state/ducks/map-drawing-toolbar";
 import { setLeftSidebar } from "../../state/ducks/ui";
 
 import constants from "../../constants";
@@ -165,9 +169,28 @@ class MainMap extends Component {
     emitter.addListener("draw:delete", () => {
       this._map.deleteGeometry();
     });
+    emitter.addListener("draw:style-change", (type, styleInfo) => {
+      switch (type) {
+        case "stroke-color":
+          this._map.drawSetFeatureProperty(
+            this.props.activeGeometryId,
+            "color",
+            styleInfo.color,
+          );
+          break;
+        case "fill-color":
+          this._map.drawSetFeatureProperty(
+            this.props.activeGeometryId,
+            "fillColor",
+            styleInfo.color,
+          );
+          break;
+      }
+    });
     this._map.on({
       event: "draw.create",
       callback: evt => {
+        this.props.setActiveGeometryId(evt.features[0].id);
         emitter.emit("draw:update-geometry", evt.features[0].geometry);
       },
     });
@@ -423,6 +446,7 @@ MainMap.propTypes = {
   places: PropTypes.object.isRequired,
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  setActiveGeometryId: PropTypes.func.isRequired,
   setBasemap: PropTypes.func.isRequired,
   setLayerStatus: PropTypes.func.isRequired,
   setLeftSidebar: PropTypes.func.isRequired,
@@ -432,6 +456,7 @@ MainMap.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  activeGeometryId: activeGeometryIdSelector(state),
   mapConfig: mapConfigSelector(state),
   layers: mapLayersSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
@@ -449,6 +474,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLayerStatus(layerId, layerStatus)),
   setBasemap: (layerId, layerStatus) =>
     dispatch(setBasemap(layerId, layerStatus)),
+  setActiveGeometryId: activeGeometryId =>
+    dispatch(setActiveGeometryId(activeGeometryId)),
 });
 
 export default connect(

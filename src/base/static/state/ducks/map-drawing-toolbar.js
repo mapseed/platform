@@ -11,6 +11,9 @@ export const activeDrawingToolSelector = state => {
 export const activeMarkerSelector = state => {
   return state.mapDrawingToolbar.activeMarker;
 };
+export const activeGeometryIdSelector = state => {
+  return state.mapDrawingToolbar.activeGeometryId;
+};
 
 // Actions:
 const SET_VISIBLE_DRAWING_TOOLS =
@@ -19,6 +22,7 @@ const SET_MARKER_PANEL_VISIBILIY =
   "map-drawing-toolbar/SET_MARKER_PANEL_VISIBILITY";
 const SET_ACTIVE_DRAWING_TOOL = "map-drawing-toolbar/SET_ACTIVE_DRAWING_TOOL";
 const SET_ACTIVE_MARKER = "map-drawing-toolbar/SET_ACTIVE_MARKER";
+const SET_ACTIVE_GEOMETRY_ID = "map-drawing-toolbar/SET_ACTIVE_GEOMETRY_ID";
 
 // Action creators:
 export function setVisibleDrawingTools(visibleDrawingTools) {
@@ -33,12 +37,16 @@ export function setActiveDrawingTool(activeDawingTool) {
 export function setActiveMarker(activeMarker) {
   return { type: SET_ACTIVE_MARKER, payload: activeMarker };
 }
+export function setActiveGeometryId(activeGeometryId) {
+  return { type: SET_ACTIVE_GEOMETRY_ID, payload: activeGeometryId };
+}
 
 // Reducers:
 const INITIAL_STATE = {
   visibleDrawingTools: [],
   activeDrawingTool: null,
   activeMarker: null,
+  activeGeometryId: null,
   isMarkerPanelVisible: false,
 };
 
@@ -63,6 +71,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         activeMarker: action.payload,
+      };
+    case SET_ACTIVE_GEOMETRY_ID:
+      return {
+        ...state,
+        activeGeometryId: action.payload,
       };
     default:
       return state;
