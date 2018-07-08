@@ -76,6 +76,10 @@ module.exports = {
         ? "[chunkhash].bundle.js"
         : "bundle.js",
   },
+  // https://github.com/mapbox/mapbox-gl-draw/issues/626
+  node: {
+    fs: "empty",
+  },
   resolve: {
     alias: alias,
   },

@@ -1,6 +1,8 @@
 import AbstractMapFactory from "./abstract-provider";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
+import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 import VectorTileClient from "../../client/vector-tile-client";
 
@@ -393,6 +395,185 @@ export default (container, options) => {
   };
 
   const map = new mapboxgl.Map(options.map);
+  const draw = new MapboxDraw({
+    displayControlsDefault: false,
+    // https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/EXAMPLES.md
+    styles: [
+      {
+        id: "gl-draw-polygon-fill-active",
+        type: "fill",
+        filter: [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["!=", "mode", "static"],
+          ["==", "active", "true"],
+        ],
+        paint: {
+          "fill-color": [
+            "case",
+            ["has", "fillColor"],
+            ["get", "fillColor"],
+            "#f1f075",
+          ],
+          "fill-opacity": [
+            "case",
+            ["has", "fillOpacity"],
+            ["get", "fillOpacity"],
+            0.3,
+          ],
+        },
+      },
+      {
+        id: "gl-draw-polygon-stroke-active",
+        type: "line",
+        filter: [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["!=", "mode", "static"],
+          ["==", "active", "true"],
+        ],
+        "line-cap": "round",
+        layout: {
+          "line-join": "round",
+        },
+        paint: {
+          "line-color": ["case", ["has", "color"], ["get", "color"], "#f86767"],
+          "line-opacity": ["case", ["has", "opacity"], ["get", "opacity"], 0.7],
+          "line-dasharray": [1, 1],
+          "line-width": 3,
+        },
+      },
+      {
+        id: "gl-draw-line-active",
+        type: "line",
+        filter: [
+          "all",
+          ["==", "$type", "LineString"],
+          ["!=", "mode", "static"],
+          ["==", "active", "true"]
+        ],
+        paint: {
+          "line-color": ["case", ["has", "color"], ["get", "color"], "#f86767"],
+          "line-opacity": ["case", ["has", "opacity"], ["get", "opacity"], 0.7],
+          "line-dasharray": [1, 1],
+          "line-width": 3,
+        },
+      },
+      // vertex point halos
+      {
+        id: "gl-draw-polygon-and-line-vertex-halo-active",
+        type: "circle",
+        filter: [
+          "all",
+          ["==", "meta", "vertex"],
+          ["==", "$type", "Point"],
+          ["!=", "mode", "static"],
+        ],
+        paint: {
+          "circle-radius": 7,
+          "circle-color": "#FFF",
+        },
+      },
+      // vertex points
+      {
+        id: "gl-draw-polygon-and-line-vertex-active",
+        type: "circle",
+        filter: [
+          "all",
+          ["==", "meta", "vertex"],
+          ["==", "$type", "Point"],
+          ["!=", "mode", "static"],
+        ],
+        paint: {
+          "circle-radius": 5,
+          "circle-color": "#D20C0C",
+        },
+      },
+      // midpoints
+      {
+        id: "gl-draw-polygon-midpoint",
+        type: "circle",
+        filter: ["all", ["==", "$type", "Point"], ["==", "meta", "midpoint"]],
+        paint: {
+          "circle-color": "#D20C0C",
+          "circle-radius": 3,
+        },
+      },
+      //{
+      //  id: "mapseed-drawing-toolbar__working-point-style",
+      //  type: "symbol",
+      //  filter: ["all", ["==", "$type", "Point"], ["!=", "mode", "static"]],
+      //  paint: {
+      //    "icon-image": ["get", "icon"],
+      //  },
+      //},
+
+      {
+        id: "gl-draw-line-inactive",
+        type: "line",
+        filter: [
+          "all",
+          ["==", "$type", "LineString"],
+          ["!=", "mode", "static"],
+          ["==", "active", "false"],
+        ],
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        paint: {
+          "line-color": "#000",
+          "line-width": 3,
+        },
+      },
+      // polygon fill
+      {
+        id: "gl-draw-polygon-fill-inactive",
+        type: "fill",
+        filter: [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["!=", "mode", "static"],
+          ["==", "active", "false"],
+        ],
+        paint: {
+          "fill-color": [
+            "case",
+            ["has", "fillColor"],
+            ["get", "fillColor"],
+            "#f1f075",
+          ],
+          "fill-opacity": [
+            "case",
+            ["has", "fillOpacity"],
+            ["get", "fillOpacity"],
+            0.3,
+          ],
+        },
+      },
+      // polygon outline
+      {
+        id: "gl-draw-polygon-stroke-inactive",
+        type: "line",
+        filter: [
+          "all",
+          ["==", "$type", "Polygon"],
+          ["!=", "mode", "static"],
+          ["==", "active", "false"],
+        ],
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+        },
+        paint: {
+          "line-color": ["case", ["has", "color"], ["get", "color"], "#f86767"],
+          "line-opacity": ["case", ["has", "opacity"], ["get", "opacity"], 0.7],
+          "line-width": 3,
+        },
+      },
+    ],
+  });
+  map.addControl(draw);
   map.addControl(
     new mapboxgl.NavigationControl(options.control),
     options.control.position,
@@ -467,6 +648,23 @@ export default (container, options) => {
       map.getCanvas().style.cursor = style;
     },
 
+    startDrawingPolygon: () => {
+      draw.changeMode(draw.modes.DRAW_POLYGON);
+    },
+
+    startDrawingPolyline: () => {
+      draw.changeMode(draw.modes.DRAW_LINE_STRING);
+    },
+
+    startDrawingMarker: () => {
+      draw.changeMode(draw.modes.DRAW_POINT);
+    },
+
+    deleteGeometry: () => {
+      draw.deleteAll();
+      console.log("MODE:", draw.getMode());
+    },
+
     getMap: () => {
       return map;
     },
@@ -477,6 +675,10 @@ export default (container, options) => {
 
     getCanvas: () => {
       return map.getCanvas();
+    },
+
+    getStyle: () => {
+      return map.getStyle();
     },
 
     queryRenderedFeatures: (geometry, options = {}) => {
