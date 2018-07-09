@@ -17,6 +17,17 @@
   color: #fff;
 }
 
+.map-drawing-toolbar__tool-icon--colorpicker {
+  // Override the colorpicker's background-color setting to prevent the
+  // colorpicker button from behaving as a color swatch. 
+  background-color: transparent !important;
+}
+
+// This class is exposed by the colorpicker plugin.
+.rc-color-picker-wrap {
+  width: 100%;
+}
+
 .map-drawing-toolbar__tool-icon--unselectable {
   color: #aaa;
 
@@ -34,6 +45,12 @@
   background-color: #fff;
   color: #888;
   border: 2px solid #fff;
+}
+
+.map-drawing-toolbar__tool-icon--colorpicker--active {
+  background-color: #fff !important;
+  color: #888 !important;
+  border: 2px solid #fff !important;
 }
 
 .map-drawing-toolbar__drawing-tools-container,

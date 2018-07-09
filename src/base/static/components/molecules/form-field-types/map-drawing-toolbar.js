@@ -13,6 +13,8 @@ import {
   markerPanelVisibilitySelector,
   activeDrawingToolSelector,
   setActiveDrawingTool,
+  activeColorpickerSelector,
+  setActiveColorpicker,
 } from "../../../state/ducks/map-drawing-toolbar";
 
 import { ToolbarButton } from "../../atoms/buttons";
@@ -112,50 +114,102 @@ class MapDrawingToolbar extends Component {
               }}
             />
           </div>
+
           <div className="map-drawing-toolbar__editing-tools-container">
-            <ColorPicker
-              color="#ff0000"
-              alpha="1"
-              mode="RGB"
-              enableAlpha={true}
-              onChange={colorInfo => {
-                console.log(colorInfo);
-                emitter.emit("draw:style-change", "stroke-color", colorInfo);
-              }}
-              placement="topRight"
-            >
+            {/* 
+                This ternary is a workaround due to the fact that there is no
+                way to disable the colorpicker plugin's trigger once it's 
+                rendered. When the colorpicker is active we render the toolbar
+                button wrapped in the colorpicker trigger. When it's inactive, 
+                we just render an inactive toolbar button.
+                https://github.com/react-component/color-picker/issues/70 
+            */}
+            {this.props.activeDrawingTool === "create-polygon" ||
+            this.props.activeDrawingTool === "create-polyline" ? (
+              <ColorPicker
+                color="#ff0000"
+                alpha={1}
+                mode="RGB"
+                enableAlpha={true}
+                onOpen={() => {
+                  this.props.setActiveColorpicker("stroke");
+                }}
+                onClose={() => {
+                  this.props.setActiveColorpicker(null);
+                }}
+                onChange={colorInfo => {
+                  console.log(colorInfo);
+                  emitter.emit("draw:style-change", "stroke-color", colorInfo);
+                }}
+                placement="topRight"
+              >
+                <ToolbarButton
+                  classes={classNames(
+                    "map-drawing-toolbar__tool-icon",
+                    "map-drawing-toolbar__tool-icon--colorpicker",
+                    {
+                      "map-drawing-toolbar__tool-icon--colorpicker--active":
+                        this.props.activeColorpicker === "stroke",
+                    },
+                  )}
+                  label={this.props.t("colorpickerStrokeToolLabel")}
+                  icon="/static/css/images/colorpicker-icon.svg"
+                />
+              </ColorPicker>
+            ) : (
               <ToolbarButton
-                classes={classNames("map-drawing-toolbar__tool-icon", {
-                  "map-drawing-toolbar__tool-icon--unselectable":
-                    this.props.activeDrawingTool !== "create-polyline" &&
-                    this.props.activeDrawingTool !== "create-polygon",
-                })}
+                classes={classNames(
+                  "map-drawing-toolbar__tool-icon",
+                  "map-drawing-toolbar__tool-icon--colorpicker",
+                  "map-drawing-toolbar__tool-icon--unselectable",
+                )}
                 label={this.props.t("colorpickerStrokeToolLabel")}
                 icon="/static/css/images/colorpicker-icon.svg"
-                onClick={() => {}}
               />
-            </ColorPicker>
-            <ColorPicker
-              color="#ff0000"
-              alpha="1"
-              mode="RGB"
-              enableAlpha={true}
-              onChange={colorInfo => {
-                console.log(colorInfo);
-                emitter.emit("draw:style-change", "fill-color", colorInfo);
-              }}
-              placement="topRight"
-            >
+            )}
+            {this.props.activeDrawingTool === "create-polygon" ? (
+              <ColorPicker
+                color="#ff0000"
+                alpha={1}
+                mode="RGB"
+                enableAlpha={true}
+                onOpen={() => {
+                  this.props.setActiveColorpicker("fill");
+                }}
+                onClose={() => {
+                  this.props.setActiveColorpicker(null);
+                }}
+                onChange={colorInfo => {
+                  console.log(colorInfo);
+                  emitter.emit("draw:style-change", "fill-color", colorInfo);
+                }}
+                placement="topRight"
+              >
+                <ToolbarButton
+                  classes={classNames(
+                    "map-drawing-toolbar__tool-icon",
+                    "map-drawing-toolbar__tool-icon--colorpicker",
+                    {
+                      "map-drawing-toolbar__tool-icon--colorpicker--active":
+                        this.props.activeColorpicker === "fill",
+                    },
+                  )}
+                  label={this.props.t("colorpickerFillToolLabel")}
+                  icon="/static/css/images/colorpicker-icon.svg"
+                />
+              </ColorPicker>
+            ) : (
               <ToolbarButton
-                classes={classNames("map-drawing-toolbar__tool-icon", {
-                  "map-drawing-toolbar__tool-icon--unselectable":
-                    this.props.activeDrawingTool !== "create-polygon",
-                })}
+                classes={classNames(
+                  "map-drawing-toolbar__tool-icon",
+                  "map-drawing-toolbar__tool-icon--colorpicker",
+                  "map-drawing-toolbar__tool-icon--unselectable",
+                )}
                 label={this.props.t("colorpickerFillToolLabel")}
                 icon="/static/css/images/colorpicker-icon.svg"
-                onClick={() => {}}
               />
-            </ColorPicker>
+            )}
+
             <ToolbarButton
               classes={classNames("map-drawing-toolbar__tool-icon", {
                 "map-drawing-toolbar__tool-icon--unselectable": !this.props
@@ -200,11 +254,13 @@ class MapDrawingToolbar extends Component {
 }
 
 MapDrawingToolbar.propTypes = {
+  activeColorpicker: PropTypes.string,
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
   isMarkerPanelVisible: PropTypes.bool.isRequired,
   markers: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func.isRequired,
+  setActiveColorpicker: PropTypes.func.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveMarker: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
@@ -212,6 +268,7 @@ MapDrawingToolbar.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  activeColorpicker: activeColorpickerSelector(state),
   activeDrawingTool: activeDrawingToolSelector(state),
   activeMarker: activeMarkerSelector(state),
   visibleDrawingTools: visibleDrawingToolsSelector(state),
@@ -219,6 +276,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  setActiveColorpicker: activeColorpicker =>
+    dispatch(setActiveColorpicker(activeColorpicker)),
   setActiveMarker: activeMarker => dispatch(setActiveMarker(activeMarker)),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),

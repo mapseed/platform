@@ -14,6 +14,9 @@ export const activeMarkerSelector = state => {
 export const activeGeometryIdSelector = state => {
   return state.mapDrawingToolbar.activeGeometryId;
 };
+export const activeColorpickerSelector = state => {
+  return state.mapDrawingToolbar.activeColorpicker;
+};
 
 // Actions:
 const SET_VISIBLE_DRAWING_TOOLS =
@@ -23,6 +26,7 @@ const SET_MARKER_PANEL_VISIBILIY =
 const SET_ACTIVE_DRAWING_TOOL = "map-drawing-toolbar/SET_ACTIVE_DRAWING_TOOL";
 const SET_ACTIVE_MARKER = "map-drawing-toolbar/SET_ACTIVE_MARKER";
 const SET_ACTIVE_GEOMETRY_ID = "map-drawing-toolbar/SET_ACTIVE_GEOMETRY_ID";
+const SET_ACTIVE_COLORPICKER = "map-drawing-toolbar/SET_ACTIVE_COLORPICKER";
 
 // Action creators:
 export function setVisibleDrawingTools(visibleDrawingTools) {
@@ -40,6 +44,9 @@ export function setActiveMarker(activeMarker) {
 export function setActiveGeometryId(activeGeometryId) {
   return { type: SET_ACTIVE_GEOMETRY_ID, payload: activeGeometryId };
 }
+export function setActiveColorpicker(activeColorpicker) {
+  return { type: SET_ACTIVE_COLORPICKER, payload: activeColorpicker };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -47,6 +54,7 @@ const INITIAL_STATE = {
   activeDrawingTool: null,
   activeMarker: null,
   activeGeometryId: null,
+  activeColorpicker: null,
   isMarkerPanelVisible: false,
 };
 
@@ -76,6 +84,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         activeGeometryId: action.payload,
+      };
+    case SET_ACTIVE_COLORPICKER:
+      return {
+        ...state,
+        activeColorpicker: action.payload,
       };
     default:
       return state;
