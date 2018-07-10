@@ -45,6 +45,10 @@ class MapDrawingToolbar extends Component {
     });
   }
 
+  componentWillUnmount() {
+    emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
+  }
+
   render() {
     return (
       <div className="map-drawing-toolbar">
