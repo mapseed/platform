@@ -157,53 +157,72 @@ class MainMap extends Component {
     });
 
     // Handlers for map drawing events.
-    emitter.addListener("draw:start-polygon", () => {
+    emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
       this._map.startDrawingPolygon();
     });
-    emitter.addListener("draw:start-polyline", () => {
+    emitter.addListener(constants.DRAW_START_POLYLINE_EVENT, () => {
       this._map.startDrawingPolyline();
     });
-    emitter.addListener("draw:start-marker", () => {
+    emitter.addListener(constants.DRAW_START_MARKER_EVENT, () => {
       this._map.startDrawingMarker();
     });
-    emitter.addListener("draw:delete", () => {
+    emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
       this._map.deleteGeometry();
     });
-    emitter.addListener("draw:style-change", (type, styleInfo) => {
-      switch (type) {
-        case "stroke-color":
-          this._map.drawSetFeatureProperty(
-            this.props.activeGeometryId,
-            "color",
-            styleInfo.color,
-          );
-          break;
-        case "fill-color":
-          this._map.drawSetFeatureProperty(
-            this.props.activeGeometryId,
-            "fillColor",
-            styleInfo.color,
-          );
-          break;
-      }
-    });
+    emitter.addListener(
+      constants.DRAW_STYLE_CHANGE_EVENT,
+      (type, styleInfo) => {
+        switch (type) {
+          case constants.DRAW_STROKE_COLORPICKER_NAME:
+            this._map.drawSetFeatureProperty(
+              this.props.activeGeometryId,
+              constants.LINE_COLOR_PROPERTY_NAME,
+              styleInfo.color,
+            );
+            this._map.drawSetFeatureProperty(
+              this.props.activeGeometryId,
+              constants.LINE_OPACITY_PROPERTY_NAME,
+              styleInfo.alpha / 100,
+            );
+            break;
+          case constants.DRAW_FILL_COLORPICKER_NAME:
+            this._map.drawSetFeatureProperty(
+              this.props.activeGeometryId,
+              constants.FILL_COLOR_PROPERTY_NAME,
+              styleInfo.color,
+            );
+            this._map.drawSetFeatureProperty(
+              this.props.activeGeometryId,
+              constants.FILL_OPACITY_PROPERTY_NAME,
+              styleInfo.alpha / 100,
+            );
+            break;
+        }
+      },
+    );
     this._map.on({
       event: "draw.create",
       callback: evt => {
         this.props.setActiveGeometryId(evt.features[0].id);
-        emitter.emit("draw:update-geometry", evt.features[0].geometry);
+        emitter.emit(
+          constants.DRAW_UPDATE_GEOMETRY_EVENT,
+          evt.features[0].geometry,
+        );
       },
     });
     this._map.on({
       event: "draw.update",
       callback: evt => {
-        emitter.emit("draw:update-geometry", evt.features[0].geometry);
+        emitter.emit(
+          constants.DRAW_UPDATE_GEOMETRY_EVENT,
+          evt.features[0].geometry,
+        );
       },
     });
     this._map.on({
       event: "draw.delete",
       callback: () => {
-        emitter.emit("draw:update-geometry", null);
+        emitter.emit(constants.DRAW_UPDATE_GEOMETRY_EVENT, null);
       },
     });
 
@@ -394,6 +413,7 @@ class MainMap extends Component {
 }
 
 MainMap.propTypes = {
+  activeGeometryId: PropTypes.string,
   container: PropTypes.string.isRequired,
   isMapSizeValid: PropTypes.bool.isRequired,
   layers: PropTypes.arrayOf(

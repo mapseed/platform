@@ -1,3 +1,5 @@
+import constants from "../../constants";
+
 // Selectors:
 export const visibleDrawingToolsSelector = state => {
   return state.mapDrawingToolbar.visibleDrawingTools;
@@ -17,6 +19,9 @@ export const activeGeometryIdSelector = state => {
 export const activeColorpickerSelector = state => {
   return state.mapDrawingToolbar.activeColorpicker;
 };
+export const geometryStyleSelector = state => {
+  return state.mapDrawingToolbar.geometryStyle;
+};
 
 // Actions:
 const SET_VISIBLE_DRAWING_TOOLS =
@@ -27,6 +32,7 @@ const SET_ACTIVE_DRAWING_TOOL = "map-drawing-toolbar/SET_ACTIVE_DRAWING_TOOL";
 const SET_ACTIVE_MARKER = "map-drawing-toolbar/SET_ACTIVE_MARKER";
 const SET_ACTIVE_GEOMETRY_ID = "map-drawing-toolbar/SET_ACTIVE_GEOMETRY_ID";
 const SET_ACTIVE_COLORPICKER = "map-drawing-toolbar/SET_ACTIVE_COLORPICKER";
+const SET_GEOMETRY_STYLE = "map-drawing-toolbar/SET_GEOMETRY_STYLE";
 
 // Action creators:
 export function setVisibleDrawingTools(visibleDrawingTools) {
@@ -47,6 +53,9 @@ export function setActiveGeometryId(activeGeometryId) {
 export function setActiveColorpicker(activeColorpicker) {
   return { type: SET_ACTIVE_COLORPICKER, payload: activeColorpicker };
 }
+export function setGeometryStyle(geometryStyle) {
+  return { type: SET_GEOMETRY_STYLE, payload: geometryStyle };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -56,6 +65,12 @@ const INITIAL_STATE = {
   activeGeometryId: null,
   activeColorpicker: null,
   isMarkerPanelVisible: false,
+  geometryStyle: {
+    [constants.LINE_COLOR_PROPERTY_NAME]: constants.DRAW_DEFAULT_LINE_COLOR,
+    [constants.LINE_OPACITY_PROPERTY_NAME]: constants.DRAW_DEFAULT_LINE_OPACITY,
+    [constants.FILL_COLOR_PROPERTY_NAME]: constants.DRAW_DEFAULT_FILL_COLOR,
+    [constants.FILL_OPACITY_PROPERTY_NAME]: constants.DRAW_DEFAULT_FILL_OPACITY,
+  },
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -89,6 +104,14 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         activeColorpicker: action.payload,
+      };
+    case SET_GEOMETRY_STYLE:
+      return {
+        ...state,
+        geometryStyle: {
+          ...state.geometryStyle,
+          ...action.payload,
+        },
       };
     default:
       return state;

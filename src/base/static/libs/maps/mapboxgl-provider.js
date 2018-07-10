@@ -6,6 +6,8 @@ import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 import VectorTileClient from "../../client/vector-tile-client";
 
+import constants from "../../constants";
+
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
 
 const appendFilters = (existingFilters, ...filtersToAdd) => {
@@ -416,15 +418,15 @@ export default (container, options) => {
           "fill-color": [
             "case",
             // The user_ prefix is set automatically by the draw plugin.
-            ["has", "user_fillColor"],
-            ["get", "user_fillColor"],
-            "#f1f075",
+            ["has", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+            ["get", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_FILL_COLOR,
           ],
           "fill-opacity": [
             "case",
-            ["has", "user_fillOpacity"],
-            ["get", "user_fillOpacity"],
-            0.3,
+            ["has", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+            ["get", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_FILL_OPACITY,
           ],
         },
       },
@@ -445,11 +447,16 @@ export default (container, options) => {
         paint: {
           "line-color": [
             "case",
-            ["has", "user_color"],
-            ["get", "user_color"],
-            "#f86767",
+            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_COLOR,
           ],
-          "line-opacity": ["case", ["has", "opacity"], ["get", "opacity"], 0.7],
+          "line-opacity": [
+            "case",
+            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_OPACITY,
+          ],
           "line-width": 3,
         },
       },
@@ -466,15 +473,15 @@ export default (container, options) => {
         paint: {
           "line-color": [
             "case",
-            ["has", "user_color"],
-            ["get", "user_color"],
-            "#f86767",
+            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_COLOR,
           ],
           "line-opacity": [
             "case",
-            ["has", "user_opacity"],
-            ["get", "user_opacity"],
-            0.7,
+            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_OPACITY,
           ],
           "line-width": 3,
         },
@@ -545,15 +552,15 @@ export default (container, options) => {
         paint: {
           "line-color": [
             "case",
-            ["has", "user_color"],
-            ["get", "user_color"],
-            "#f86767",
+            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_COLOR,
           ],
           "line-opacity": [
             "case",
-            ["has", "user_opacity"],
-            ["get", "user_opacity"],
-            0.7,
+            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_OPACITY,
           ],
           "line-width": 3,
         },
@@ -571,15 +578,15 @@ export default (container, options) => {
         paint: {
           "fill-color": [
             "case",
-            ["has", "user_fillColor"],
-            ["get", "user_fillColor"],
-            "#f1f075",
+            ["has", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+            ["get", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_FILL_COLOR,
           ],
           "fill-opacity": [
             "case",
-            ["has", "user_fillOpacity"],
-            ["get", "user_fillOpacity"],
-            0.3,
+            ["has", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+            ["get", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_FILL_OPACITY,
           ],
         },
       },
@@ -600,15 +607,15 @@ export default (container, options) => {
         paint: {
           "line-color": [
             "case",
-            ["has", "user_color"],
-            ["get", "user_color"],
-            "#f86767",
+            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_COLOR,
           ],
           "line-opacity": [
             "case",
-            ["has", "user_opacity"],
-            ["get", "user_opacity"],
-            0.7,
+            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+            constants.DRAW_DEFAULT_LINE_OPACITY,
           ],
           "line-width": 3,
         },
