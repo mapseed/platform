@@ -428,11 +428,12 @@
 // Screen sizes below 60em width
 @media only screen and (max-width: 60em) {
   #site-header {
-    background: url("/static/css/images/header-banner-small.png");
-    background-size: auto 64px;
+    background: url("/static/css/images/scdHorizontal.png");
+    //background: url("/static/css/images/header-banner-small.png");
+    background-size: auto 40px;
     background-color: #f3f5e7;
     background-repeat: no-repeat;
-    background-position: 35px top;
+    background-position: 20px 10px;
   }
 
   .place-form-visible {
@@ -468,11 +469,11 @@
   }
 
   #pages-nav-container {
-    margin-left: 500px;
+    margin-left: 450px;
   }
 
   #site-header {
-    background: url("/static/css/images/header-banner-large.png");
+    background: url("/static/css/images/scdHorizontal.png");
     background-size: auto 64px;
     background-color: #f3f5e7;
     background-repeat: no-repeat;
