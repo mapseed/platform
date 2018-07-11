@@ -747,10 +747,10 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/markers/marker-dot-conserve-energy.png
-            - url: /static/css/images/markers/marker-dot-commute-low-carbon.png
-            - url: /static/css/images/markers/marker-dot-conserve-water.png
-            - url: /static/css/images/markers/marker-star.png
+            - url: marker-dot-conserve-energy.png
+            - url: marker-dot-commute-low-carbon.png
+            - url: marker-dot-conserve-water.png
+            - url: marker-star.png
         - name: informational
           type: informational_html
           prompt: _(Info)

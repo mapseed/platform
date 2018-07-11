@@ -54,6 +54,7 @@ const ToolbarButton = props => {
             "mapseed__toolbar-button-icon--right-margin": !!props.label,
           })}
           icon={props.icon}
+          prefix={props.prefix}
         />
       )}
       {props.label && (
@@ -67,6 +68,7 @@ ToolbarButton.propTypes = {
   classes: PropTypes.string,
   icon: PropTypes.string,
   label: PropTypes.string,
+  prefix: PropTypes.string,
 };
 
 export { ToolbarButton, EditorButton };

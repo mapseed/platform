@@ -24,6 +24,7 @@ import {
 } from "../../state/ducks/map";
 import {
   activeGeometryIdSelector,
+  activeMarkerSelector,
   setActiveGeometryId,
 } from "../../state/ducks/map-drawing-toolbar";
 import { setLeftSidebar } from "../../state/ducks/ui";
@@ -197,6 +198,13 @@ class MainMap extends Component {
               styleInfo.alpha / 100,
             );
             break;
+          case constants.DRAW_MARKER_SELECTOR_NAME:
+            this._map.drawSetFeatureProperty(
+              this.props.activeGeometryId,
+              constants.MARKER_ICON_PROPERTY_NAME,
+              styleInfo.icon,
+            );
+            break;
         }
       },
     );
@@ -204,6 +212,13 @@ class MainMap extends Component {
       event: "draw.create",
       callback: evt => {
         this.props.setActiveGeometryId(evt.features[0].id);
+        if (evt.features[0].geometry.type === "Point") {
+          this._map.drawSetFeatureProperty(
+            this.props.activeGeometryId,
+            constants.MARKER_ICON_PROPERTY_NAME,
+            this.props.activeMarker,
+          );
+        }
         emitter.emit(
           constants.DRAW_UPDATE_GEOMETRY_EVENT,
           evt.features[0].geometry,
@@ -414,6 +429,7 @@ class MainMap extends Component {
 
 MainMap.propTypes = {
   activeGeometryId: PropTypes.string,
+  activeMarker: PropTypes.string,
   container: PropTypes.string.isRequired,
   isMapSizeValid: PropTypes.bool.isRequired,
   layers: PropTypes.arrayOf(
@@ -477,6 +493,7 @@ MainMap.propTypes = {
 
 const mapStateToProps = state => ({
   activeGeometryId: activeGeometryIdSelector(state),
+  activeMarker: activeMarkerSelector(state),
   mapConfig: mapConfigSelector(state),
   layers: mapLayersSelector(state),
   visibleBasemapId: mapBasemapSelector(state),

@@ -46,7 +46,11 @@ InfoModalTrigger.propTypes = {
 const Icon = props => {
   const icon = /\.(jpg|jpeg|png|gif|bmp|svg)$/.test(props.icon) ? (
     <img
-      src={props.icon}
+      src={
+        props.prefix
+          ? `${props.prefix}${props.icon}`
+          : props.icon
+      }
       className={classNames("mapseed__icon", props.classes)}
     />
   ) : (
@@ -65,6 +69,7 @@ const Icon = props => {
 Icon.propTypes = {
   classes: PropTypes.string,
   icon: PropTypes.string.isRequired,
+  prefix: PropTypes.string,
 };
 
 export { ProgressBar, InfoModalTrigger, Icon };

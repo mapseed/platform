@@ -11,7 +11,9 @@ export const activeDrawingToolSelector = state => {
   return state.mapDrawingToolbar.activeDrawingTool;
 };
 export const activeMarkerSelector = state => {
-  return state.mapDrawingToolbar.activeMarker;
+  return state.mapDrawingToolbar.markers[
+    state.mapDrawingToolbar.activeMarkerIndex
+  ];
 };
 export const activeGeometryIdSelector = state => {
   return state.mapDrawingToolbar.activeGeometryId;
@@ -29,7 +31,8 @@ const SET_VISIBLE_DRAWING_TOOLS =
 const SET_MARKER_PANEL_VISIBILIY =
   "map-drawing-toolbar/SET_MARKER_PANEL_VISIBILITY";
 const SET_ACTIVE_DRAWING_TOOL = "map-drawing-toolbar/SET_ACTIVE_DRAWING_TOOL";
-const SET_ACTIVE_MARKER = "map-drawing-toolbar/SET_ACTIVE_MARKER";
+const SET_MARKERS = "map-drawing-toolbar/SET_MARKERS";
+const SET_ACTIVE_MARKER_INDEX = "map-drawing-toolbar/SET_ACTIVE_MARKER_INDEX";
 const SET_ACTIVE_GEOMETRY_ID = "map-drawing-toolbar/SET_ACTIVE_GEOMETRY_ID";
 const SET_ACTIVE_COLORPICKER = "map-drawing-toolbar/SET_ACTIVE_COLORPICKER";
 const SET_GEOMETRY_STYLE = "map-drawing-toolbar/SET_GEOMETRY_STYLE";
@@ -44,8 +47,11 @@ export function setMarkerPanelVisibility(isVisible) {
 export function setActiveDrawingTool(activeDawingTool) {
   return { type: SET_ACTIVE_DRAWING_TOOL, payload: activeDawingTool };
 }
-export function setActiveMarker(activeMarker) {
-  return { type: SET_ACTIVE_MARKER, payload: activeMarker };
+export function setMarkers(markers) {
+  return { type: SET_MARKERS, payload: markers };
+}
+export function setActiveMarkerIndex(activeMarkerIndex) {
+  return { type: SET_ACTIVE_MARKER_INDEX, payload: activeMarkerIndex };
 }
 export function setActiveGeometryId(activeGeometryId) {
   return { type: SET_ACTIVE_GEOMETRY_ID, payload: activeGeometryId };
@@ -61,7 +67,8 @@ export function setGeometryStyle(geometryStyle) {
 const INITIAL_STATE = {
   visibleDrawingTools: [],
   activeDrawingTool: null,
-  activeMarker: null,
+  activeMarkerIndex: 0,
+  markers: [],
   activeGeometryId: null,
   activeColorpicker: null,
   isMarkerPanelVisible: false,
@@ -90,10 +97,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         activeDrawingTool: action.payload,
       };
-    case SET_ACTIVE_MARKER:
+    case SET_MARKERS:
       return {
         ...state,
-        activeMarker: action.payload,
+        markers: state.markers.concat(action.payload),
+      };
+    case SET_ACTIVE_MARKER_INDEX:
+      return {
+        ...state,
+        activeMarkerIndex: action.payload,
       };
     case SET_ACTIVE_GEOMETRY_ID:
       return {

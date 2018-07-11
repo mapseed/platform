@@ -526,14 +526,21 @@ export default (container, options) => {
           "circle-radius": 3,
         },
       },
-      //{
-      //  id: "mapseed-drawing-toolbar__working-point-style",
-      //  type: "symbol",
-      //  filter: ["all", ["==", "$type", "Point"], ["!=", "mode", "static"]],
-      //  paint: {
-      //    "icon-image": ["get", "icon"],
-      //  },
-      //},
+      // Points: selected.
+      {
+        id: "gl-draw-marker-active",
+        type: "symbol",
+        filter: [
+          "all",
+          ["==", "$type", "Point"],
+          ["!=", "mode", "static"],
+          ["==", "active", "true"],
+        ],
+        layout: {
+          "icon-image": ["get", `user_${constants.MARKER_ICON_PROPERTY_NAME}`],
+          "icon-allow-overlap": true,
+        },
+      },
 
       // Linestring: unselected.
       {

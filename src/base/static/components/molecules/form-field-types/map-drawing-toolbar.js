@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import classNames from "classnames";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
@@ -8,7 +8,8 @@ import "rc-color-picker/assets/index.css";
 
 import {
   activeMarkerSelector,
-  setActiveMarker,
+  setMarkers,
+  setActiveMarkerIndex,
   visibleDrawingToolsSelector,
   markerPanelVisibilitySelector,
   activeDrawingToolSelector,
@@ -34,11 +35,8 @@ const deleteToolLabels = {
 };
 
 class MapDrawingToolbar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
+    this.props.setMarkers(this.props.markers);
     emitter.addListener("draw:update-geometry", geometry => {
       this.props.onChange(this.props.name, this.geometry);
       //this.props.onGeometryStyleChange(style);
@@ -294,23 +292,30 @@ class MapDrawingToolbar extends Component {
             />
           </div>
         </div>
-        {this.props.activeDrawingTool ===
-          constants.DRAW_CREATE_POLYGON_TOOL && (
+        {this.props.activeDrawingTool === constants.DRAW_CREATE_MARKER_TOOL && (
           <div className="map-drawing-toolbar___markers-panel">
             <Paragraph classes="map-drawing-toolbar__markers-container-header">
               {this.props.t("selectMarkerTypeHeader")}
             </Paragraph>
             <div className="map-drawing-toolbar__markers-container">
-              {this.props.markers.map(marker => (
+              {this.props.markers.map((marker, i) => (
                 <ToolbarButton
-                  key={marker}
+                  key={i}
                   classes={classNames("map-drawing-toolbar__marker-icon", {
                     "map-drawing-toolbar__marker-icon--active":
                       marker === this.props.activeMarker,
                   })}
                   icon={marker}
+                  prefix="/static/css/images/markers/"
                   onClick={() => {
-                    this.props.setActiveMarker(marker);
+                    this.props.setActiveMarkerIndex(i);
+                    emitter.emit(
+                      constants.DRAW_STYLE_CHANGE_EVENT,
+                      constants.DRAW_MARKER_SELECTOR_NAME,
+                      {
+                        icon: marker,
+                      },
+                    );
                   }}
                 />
               ))}
@@ -337,8 +342,9 @@ MapDrawingToolbar.propTypes = {
   onChange: PropTypes.func.isRequired,
   setActiveColorpicker: PropTypes.func.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
-  setActiveMarker: PropTypes.func.isRequired,
+  setActiveMarkerIndex: PropTypes.func.isRequired,
   setGeometryStyle: PropTypes.func.isRequired,
+  setMarkers: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   visibleDrawingTools: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -355,10 +361,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setActiveColorpicker: activeColorpicker =>
     dispatch(setActiveColorpicker(activeColorpicker)),
-  setActiveMarker: activeMarker => dispatch(setActiveMarker(activeMarker)),
+  setActiveMarkerIndex: activeMarkerIndex =>
+    dispatch(setActiveMarkerIndex(activeMarkerIndex)),
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
   setGeometryStyle: geometryStyle => dispatch(setGeometryStyle(geometryStyle)),
+  setMarkers: markers => dispatch(setMarkers(markers)),
 });
 
 export default connect(
