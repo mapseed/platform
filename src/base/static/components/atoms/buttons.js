@@ -46,6 +46,7 @@ const ToolbarButton = props => {
   return (
     <button
       className={classNames("mapseed__toolbar-button", props.classes)}
+      type="button"
       {...props}
     >
       {props.icon && (
