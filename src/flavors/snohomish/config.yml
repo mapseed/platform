@@ -37,8 +37,10 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
   cartodb_enabled: true
+  geocoding_engine: Mapbox
   geocoding_bar_enabled: false
-  geocode_bounding_box: [48.435, -120.924, 47.704, -122.593] 
+  # Roughly the center of Snohomish County:
+  geocode_hint: [-121.9859019, 48.0381909] 
 
   options:
     center:
