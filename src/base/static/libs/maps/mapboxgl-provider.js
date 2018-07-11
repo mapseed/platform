@@ -35,8 +35,20 @@ const configRuleToSymbolLayer = (layerConfig, i) => {
     layout: {
       "icon-image": [
         "case",
-        ["all", ["has", "style"], ["has", "iconUrl", ["get", "style"]]],
-        ["get", "iconUrl", ["get", "style"]],
+        [
+          "all",
+          ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          [
+            "has",
+            constants.MARKER_ICON_PROPERTY_NAME,
+            ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          ],
+        ],
+        [
+          "get",
+          constants.MARKER_ICON_PROPERTY_NAME,
+          ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+        ],
         fallbackIconImage,
       ],
       "icon-allow-overlap": true,
@@ -66,14 +78,38 @@ const configRuleToLineLayer = (layerConfig, i) => {
     paint: {
       "line-color": [
         "case",
-        ["all", ["has", "style"], ["has", "color", ["get", "style"]]],
-        ["get", "color", ["get", "style"]],
+        [
+          "all",
+          ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          [
+            "has",
+            constants.LINE_COLOR_PROPERTY_NAME,
+            ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          ],
+        ],
+        [
+          "get",
+          constants.LINE_COLOR_PROPERTY_NAME,
+          ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+        ],
         fallbackLineColor,
       ],
       "line-opacity": [
         "case",
-        ["all", ["has", "style"], ["has", "opacity", ["get", "style"]]],
-        ["get", "opacity", ["get", "style"]],
+        [
+          "all",
+          ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          [
+            "has",
+            constants.LINE_OPACITY_PROPERTY_NAME,
+            ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          ],
+        ],
+        [
+          "get",
+          constants.LINE_OPACITY_PROPERTY_NAME,
+          ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+        ],
         fallbackLineOpacity,
       ],
       ...layerConfig["line-paint"],
@@ -101,14 +137,38 @@ const configRuleToFillLayer = (layerConfig, i) => {
     paint: {
       "fill-color": [
         "case",
-        ["all", ["has", "style"], ["has", "fillColor", ["get", "style"]]],
-        ["get", "fillColor", ["get", "style"]],
+        [
+          "all",
+          ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          [
+            "has",
+            constants.FILL_COLOR_PROPERTY_NAME,
+            ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          ],
+        ],
+        [
+          "get",
+          constants.FILL_COLOR_PROPERTY_NAME,
+          ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+        ],
         fallbackFillColor,
       ],
       "fill-opacity": [
         "case",
-        ["all", ["has", "style"], ["has", "fillOpacity", ["get", "style"]]],
-        ["get", "fillOpacity", ["get", "style"]],
+        [
+          "all",
+          ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          [
+            "has",
+            constants.FILL_OPACITY_PROPERTY_NAME,
+            ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          ],
+        ],
+        [
+          "get",
+          constants.FILL_OPACITY_PROPERTY_NAME,
+          ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+        ],
         fallbackFillOpacity,
       ],
       ...layerConfig["fill-paint"],

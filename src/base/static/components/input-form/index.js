@@ -19,6 +19,10 @@ import "./index.scss";
 import { map as mapConfig } from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
 import { mapPositionSelector } from "../../state/ducks/map";
+import {
+  activeMarkerSelector,
+  geometryStyleSelector,
+} from "../../state/ducks/map-drawing-toolbar";
 
 import emitter from "../../utils/emitter";
 const Util = require("../../js/utils.js");
@@ -47,6 +51,12 @@ class InputForm extends Component {
       isMapPositioned: false,
       currentStage: 1,
     };
+  }
+
+  componentDidMount() {
+    this.props.router.on("route", () => {
+      emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,11 +106,6 @@ class InputForm extends Component {
         field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
       ) >= 0;
     this.attachments = [];
-    this.geometryStyle = null;
-  }
-
-  onGeometryStyleChange(style) {
-    this.geometryStyle = style;
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -219,7 +224,12 @@ class InputForm extends Component {
       .toJS();
 
     if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-      attrs.style = this.geometryStyle;
+      attrs.style =
+        this.state.fields
+          .get(constants.GEOMETRY_PROPERTY_NAME)
+          .get(constants.FIELD_VALUE_KEY).type === "Point"
+          ? { [constants.MARKER_ICON_PROPERTY_NAME]: this.props.activeMarker }
+          : this.props.geometryStyle;
     } else {
       const center = this.props.mapPosition.center;
       attrs.geometry = {
@@ -388,7 +398,6 @@ class InputForm extends Component {
                   key={fieldState.get(constants.FIELD_RENDER_KEY)}
                   onAddAttachment={this.onAddAttachment.bind(this)}
                   onFieldChange={this.onFieldChange.bind(this)}
-                  onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
                   places={this.props.places}
                   router={this.props.router}
                   showValidityStatus={this.state.showValidityStatus}
@@ -439,12 +448,19 @@ class InputForm extends Component {
 }
 
 InputForm.propTypes = {
+  activeMarker: PropTypes.string,
   className: PropTypes.string,
   customHooks: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.func),
     PropTypes.bool,
   ]),
   container: PropTypes.instanceOf(HTMLElement),
+  geometryStyle: PropTypes.shape({
+    [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
+    [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
+    [constants.FILL_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
+    [constants.FILL_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
+  }).isRequired,
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
@@ -463,6 +479,8 @@ InputForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  activeMarker: activeMarkerSelector(state),
+  geometryStyle: geometryStyleSelector(state),
   mapPosition: mapPositionSelector(state),
 });
 

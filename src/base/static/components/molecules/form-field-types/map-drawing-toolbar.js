@@ -38,13 +38,8 @@ class MapDrawingToolbar extends Component {
   componentDidMount() {
     this.props.setMarkers(this.props.markers);
     emitter.addListener("draw:update-geometry", geometry => {
-      this.props.onChange(this.props.name, this.geometry);
-      //this.props.onGeometryStyleChange(style);
+      this.props.onChange(this.props.name, geometry);
     });
-  }
-
-  componentWillUnmount() {
-    emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
   }
 
   render() {
@@ -339,6 +334,7 @@ MapDrawingToolbar.propTypes = {
   }).isRequired,
   isMarkerPanelVisible: PropTypes.bool.isRequired,
   markers: PropTypes.arrayOf(PropTypes.string),
+  name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   setActiveColorpicker: PropTypes.func.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
