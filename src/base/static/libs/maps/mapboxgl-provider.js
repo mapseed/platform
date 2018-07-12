@@ -129,56 +129,116 @@ const configRuleToFillLayer = (layerConfig, i) => {
   const fallbackFillOpacity =
     (layerConfig["fill-paint"] && layerConfig["fill-paint"]["fill-opacity"]) ||
     0.3;
-  return {
-    id: `${layerConfig.baseLayerId}_fill_${i}`,
-    source: layerConfig.source,
-    type: "fill",
-    layout: layerConfig["fill-layout"] || {},
-    paint: {
-      "fill-color": [
-        "case",
-        [
-          "all",
-          ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+  const fallbackOutlineColor =
+    (layerConfig["outline-paint"] &&
+      layerConfig["outline-paint"]["line-color"]) ||
+    "#f86767";
+  const fallbackOutlineOpacity =
+    (layerConfig["outline-paint"] &&
+      layerConfig["outline-paint"]["line-opacity"]) ||
+    0.7;
+  return [
+    {
+      id: `${layerConfig.baseLayerId}_fill_${i}`,
+      source: layerConfig.source,
+      type: "fill",
+      layout: layerConfig["fill-layout"] || {},
+      paint: {
+        "fill-color": [
+          "case",
           [
-            "has",
+            "all",
+            ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            [
+              "has",
+              constants.FILL_COLOR_PROPERTY_NAME,
+              ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            ],
+          ],
+          [
+            "get",
             constants.FILL_COLOR_PROPERTY_NAME,
             ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
           ],
+          fallbackFillColor,
         ],
-        [
-          "get",
-          constants.FILL_COLOR_PROPERTY_NAME,
-          ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
-        ],
-        fallbackFillColor,
-      ],
-      "fill-opacity": [
-        "case",
-        [
-          "all",
-          ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+        "fill-opacity": [
+          "case",
           [
-            "has",
+            "all",
+            ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            [
+              "has",
+              constants.FILL_OPACITY_PROPERTY_NAME,
+              ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            ],
+          ],
+          [
+            "get",
             constants.FILL_OPACITY_PROPERTY_NAME,
             ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
           ],
+          fallbackFillOpacity,
         ],
-        [
-          "get",
-          constants.FILL_OPACITY_PROPERTY_NAME,
-          ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
-        ],
-        fallbackFillOpacity,
-      ],
-      ...layerConfig["fill-paint"],
+        ...layerConfig["fill-paint"],
+      },
+      filter: appendFilters(layerConfig.filter, [
+        "==",
+        ["geometry-type"],
+        "Polygon",
+      ]),
     },
-    filter: appendFilters(layerConfig.filter, [
-      "==",
-      ["geometry-type"],
-      "Polygon",
-    ]),
-  };
+    {
+      id: `${layerConfig.baseLayerId}_fill-outline_${i}`,
+      source: layerConfig.source,
+      type: "line",
+      layout: layerConfig["outline-layout"] || {},
+      paint: {
+        "line-color": [
+          "case",
+          [
+            "all",
+            ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            [
+              "has",
+              constants.LINE_COLOR_PROPERTY_NAME,
+              ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            ],
+          ],
+          [
+            "get",
+            constants.LINE_COLOR_PROPERTY_NAME,
+            ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          ],
+          fallbackOutlineColor,
+        ],
+        "line-opacity": [
+          "case",
+          [
+            "all",
+            ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            [
+              "has",
+              constants.LINE_OPACITY_PROPERTY_NAME,
+              ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+            ],
+          ],
+          [
+            "get",
+            constants.LINE_OPACITY_PROPERTY_NAME,
+            ["get", constants.GEOMETRY_STYLE_PROPERTY_NAME],
+          ],
+          fallbackOutlineOpacity,
+        ],
+        ...layerConfig["outline-paint"],
+      },
+      //filter: appendFilters(layerConfig.filter, [
+      //  "==",
+      //  ["geometry-type"],
+      //  "LineString",
+      //]),
+    },
+  ];
 };
 
 const DEFAULT_STYLE_NAME = "Mapseed default style";
@@ -428,7 +488,11 @@ export default (container, options) => {
     layersCache[id] = rules
       .map(configRuleToSymbolLayer)
       .concat(rules.map(configRuleToLineLayer))
-      .concat(rules.map(configRuleToFillLayer));
+      .concat(
+        rules
+          .map(configRuleToFillLayer)
+          .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+      );
 
     if (cluster.is_enabled) {
       // https://www.mapbox.com/mapbox-gl-js/example/cluster/
