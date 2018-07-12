@@ -16,13 +16,16 @@ describe("InputForm", () => {
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
     selectedCategory: "someCategory",
+    setActiveDrawingTool: () => {},
     map: {
       on: () => {},
       off: () => {},
       getCenter: () => {},
     },
     places: {},
-    router: {},
+    router: {
+      on: () => {},
+    },
     showNewPin: () => {},
   };
   test("renders input form", () => {
