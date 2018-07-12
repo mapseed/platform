@@ -62,13 +62,15 @@ export default {
 
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
-
   GEOMETRY_TYPE_PROPERTY_NAME: "type",
-  LINE_COLOR_PROPERTY_NAME: "color",
-  LINE_OPACITY_PROPERTY_NAME: "opacity",
-  FILL_COLOR_PROPERTY_NAME: "fillColor",
-  FILL_OPACITY_PROPERTY_NAME: "fillOpacity",
-  MARKER_ICON_PROPERTY_NAME: "icon",
+
+  // These geometry style property names follow the SimpleStyle spec.
+  // https://github.com/mapbox/simplestyle-spec/tree/master/1.1.0
+  LINE_COLOR_PROPERTY_NAME: "stroke",
+  LINE_OPACITY_PROPERTY_NAME: "stroke-opacity",
+  FILL_COLOR_PROPERTY_NAME: "fill",
+  FILL_OPACITY_PROPERTY_NAME: "fill-opacity",
+  MARKER_ICON_PROPERTY_NAME: "marker-symbol",
 
   DRAW_DEFAULT_LINE_COLOR: "#f86767",
   DRAW_DEFAULT_LINE_OPACITY: 0.7,
