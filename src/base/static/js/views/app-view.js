@@ -432,7 +432,7 @@ module.exports = Backbone.View.extend({
       this.restoreDefaultLayerVisibility();
     }
 
-    emitter.emit("place-collection:unfocus-all-places");
+    emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
   },
   onToggleSidebarVisibility: function() {
     $("body").toggleClass("right-sidebar-visible");
@@ -712,7 +712,7 @@ module.exports = Backbone.View.extend({
         });
       }
 
-      emitter.emit("place-collection:focus-place", {
+      emitter.emit(constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT, {
         collectionId: collectionId,
         modelId: model.get("id"),
       });

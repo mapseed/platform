@@ -232,11 +232,6 @@ const configRuleToFillLayer = (layerConfig, i) => {
         ],
         ...layerConfig["outline-paint"],
       },
-      //filter: appendFilters(layerConfig.filter, [
-      //  "==",
-      //  ["geometry-type"],
-      //  "LineString",
-      //]),
     },
   ];
 };
@@ -843,19 +838,19 @@ export default (container, options) => {
       map.getCanvas().style.cursor = style;
     },
 
-    startDrawingPolygon: () => {
+    drawStartPolygon: () => {
       draw.changeMode(draw.modes.DRAW_POLYGON);
     },
 
-    startDrawingPolyline: () => {
+    drawStartPolyline: () => {
       draw.changeMode(draw.modes.DRAW_LINE_STRING);
     },
 
-    startDrawingMarker: () => {
+    drawStartMarker: () => {
       draw.changeMode(draw.modes.DRAW_POINT);
     },
 
-    deleteGeometry: () => {
+    drawDeleteGeometry: () => {
       draw.deleteAll();
     },
 

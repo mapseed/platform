@@ -1,4 +1,5 @@
 import emitter from "../utils/emitter";
+import constants from "../constants";
 
 const getPlaceCollections = async ({
   placeParams,
@@ -61,7 +62,7 @@ const getPlaceCollections = async ({
       },
 
       success: function() {
-        emitter.emit("place-collection:loaded", collectionId);
+        emitter.emit(constants.PLACE_COLLECTION_LOADED_EVENT, collectionId);
         // TODO: layer loading event; fix in layer UI PR
       },
 

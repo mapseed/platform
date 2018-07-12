@@ -160,16 +160,16 @@ class MainMap extends Component {
 
     // Handlers for map drawing events.
     emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
-      this._map.startDrawingPolygon();
+      this._map.drawStartPolygon();
     });
     emitter.addListener(constants.DRAW_START_POLYLINE_EVENT, () => {
-      this._map.startDrawingPolyline();
+      this._map.drawStartPolyline();
     });
     emitter.addListener(constants.DRAW_START_MARKER_EVENT, () => {
-      this._map.startDrawingMarker();
+      this._map.drawStartMarker();
     });
     emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
-      this._map.deleteGeometry();
+      this._map.drawDeleteGeometry();
     });
     emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
       this.props.setActiveDrawGeometryId(
@@ -245,7 +245,7 @@ class MainMap extends Component {
     });
 
     // Handlers for Mapseed place collections.
-    emitter.addListener("place-collection:loaded", layerId => {
+    emitter.addListener(constants.PLACE_COLLECTION_LOADED_EVENT, layerId => {
       this.props.setLayerStatus(layerId, {
         status: "loaded",
         type: "place",
@@ -254,16 +254,19 @@ class MainMap extends Component {
           .is_visible_default,
       });
     });
-    emitter.addListener("place-collection:add-place", collectionId => {
-      this._map.updateLayerData(
-        collectionId,
-        createGeoJSONFromCollection({
-          collection: this.props.places[collectionId],
-        }),
-      );
-    });
     emitter.addListener(
-      "place-collection:focus-place",
+      constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+      collectionId => {
+        this._map.updateLayerData(
+          collectionId,
+          createGeoJSONFromCollection({
+            collection: this.props.places[collectionId],
+          }),
+        );
+      },
+    );
+    emitter.addListener(
+      constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
       ({ collectionId, modelId }) => {
         this._map.updateLayerData(
           collectionId,
@@ -275,7 +278,7 @@ class MainMap extends Component {
       },
     );
     emitter.addListener(
-      "place-collection:hide-place",
+      constants.PLACE_COLLECTION_HIDE_PLACE_EVENT,
       ({ collectionId, modelId }) => {
         this._map.updateLayerData(
           collectionId,
@@ -286,17 +289,20 @@ class MainMap extends Component {
         );
       },
     );
-    emitter.addListener("place-collection:unfocus-all-places", () => {
-      Object.keys(this.props.places).forEach(collectionId => {
-        this.props.layerStatuses[collectionId].isVisible &&
-          this._map.updateLayerData(
-            collectionId,
-            createGeoJSONFromCollection({
-              collection: this.props.places[collectionId],
-            }),
-          );
-      });
-    });
+    emitter.addListener(
+      constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT,
+      () => {
+        Object.keys(this.props.places).forEach(collectionId => {
+          this.props.layerStatuses[collectionId].isVisible &&
+            this._map.updateLayerData(
+              collectionId,
+              createGeoJSONFromCollection({
+                collection: this.props.places[collectionId],
+              }),
+            );
+        });
+      },
+    );
 
     // Handlers for story-driven map transitions.
     emitter.addListener(

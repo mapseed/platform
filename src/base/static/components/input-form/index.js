@@ -266,7 +266,7 @@ class InputForm extends Component {
         Util.log("USER", "new-place", "successfully-add-place");
 
         emitter.emit(
-          "place-collection:add-place",
+          constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
           this.selectedCategoryConfig.dataset,
         );
 
