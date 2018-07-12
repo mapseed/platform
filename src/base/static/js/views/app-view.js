@@ -533,8 +533,6 @@ module.exports = Backbone.View.extend({
     this.setBodyClass();
   },
   newPlace: function() {
-    var self = this;
-
     // REACT PORT SECTION //////////////////////////////////////////////////////
     // NOTE: This wrapper component is temporary, and will be factored out
     // when the AppView is ported.
@@ -550,12 +548,17 @@ module.exports = Backbone.View.extend({
           places={this.places}
           router={this.options.router}
           customHooks={this.options.customHooks}
-          // '#content article' and 'html' represent the two containers into
+          // '#content article' and 'body' represent the two containers into
           // which panel content is rendered (one at desktop size and one at
           // mobile size).
           // TODO: Improve this when we move overall app layout management to
           // Redux.
-          containers={document.querySelectorAll("#content article, html")}
+          container={document.querySelector(
+            Util.getPageLayout() === '"desktop"' ||
+            Util.getPageLayout() === "desktop"
+              ? "#content article"
+              : "body",
+          )}
           render={(state, props, onCategoryChange) => {
             if (
               props.customComponents &&
