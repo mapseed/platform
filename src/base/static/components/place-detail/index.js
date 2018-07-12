@@ -359,6 +359,7 @@ class PlaceDetail extends Component {
         <div className="place-detail-view__clearfix" />
         {this.state.isEditModeToggled ? (
           <PlaceDetailEditor
+            collectionId={this.props.collectionId}
             placeModel={this.state.placeModel}
             container={this.props.container}
             attachmentModels={this.state.attachmentModels}
@@ -397,6 +398,7 @@ class PlaceDetail extends Component {
 }
 
 PlaceDetail.propTypes = {
+  collectionId: PropTypes.string.isRequired,
   container: PropTypes.instanceOf(HTMLElement),
   currentUser: PropTypes.shape({
     avatar_url: PropTypes.string,

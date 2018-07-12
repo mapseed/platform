@@ -34,7 +34,11 @@ const getModelFromUrl = ({ collections, route, mapConfig }) => {
   }
 };
 
-const createGeoJSONFromCollection = (collection, modelIdToFocus) => {
+const createGeoJSONFromCollection = ({
+  collection,
+  modelIdToFocus,
+  modelIdToHide,
+}) => {
   const features = collection.map(model => {
     const properties = Object.keys(model.attributes)
       .filter(key => key !== constants.GEOMETRY_PROPERTY_NAME)
@@ -42,7 +46,13 @@ const createGeoJSONFromCollection = (collection, modelIdToFocus) => {
         geoJSONProperties[property] = model.get(property);
         return geoJSONProperties;
       }, {});
-    properties.isFocused = modelIdToFocus === properties.id;
+
+    if (modelIdToHide === properties.id) {
+      return [];
+    }
+
+    properties[constants.IS_FOCUSED_PROPERTY_NAME] =
+      modelIdToFocus === properties.id;
 
     return {
       type: "Feature",

@@ -601,6 +601,21 @@ export default (container, options) => {
           "icon-allow-overlap": true,
         },
       },
+      // Points: unselected.
+      {
+        id: "gl-draw-marker-inactive",
+        type: "symbol",
+        filter: [
+          "all",
+          ["==", "$type", "Point"],
+          ["!=", "mode", "static"],
+          ["==", "active", "false"],
+        ],
+        layout: {
+          "icon-image": ["get", `user_${constants.MARKER_ICON_PROPERTY_NAME}`],
+          "icon-allow-overlap": true,
+        },
+      },
 
       // Linestring: unselected.
       {
@@ -778,6 +793,10 @@ export default (container, options) => {
 
     deleteGeometry: () => {
       draw.deleteAll();
+    },
+
+    drawAddGeometry: geometry => {
+      return draw.add(geometry);
     },
 
     drawSetFeatureProperty: (id, property, value) => {

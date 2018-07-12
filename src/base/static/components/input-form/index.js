@@ -22,6 +22,7 @@ import { mapPositionSelector } from "../../state/ducks/map";
 import {
   activeMarkerSelector,
   geometryStyleSelector,
+  setActiveDrawingTool,
 } from "../../state/ducks/map-drawing-toolbar";
 
 import emitter from "../../utils/emitter";
@@ -54,6 +55,7 @@ class InputForm extends Component {
   }
 
   componentDidMount() {
+    this.props.setActiveDrawingTool(null);
     this.props.router.on("route", () => {
       emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
     });
@@ -224,7 +226,7 @@ class InputForm extends Component {
       .toJS();
 
     if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-      attrs.style =
+      attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
         this.state.fields
           .get(constants.GEOMETRY_PROPERTY_NAME)
           .get(constants.FIELD_VALUE_KEY).type === "Point"
@@ -474,6 +476,7 @@ InputForm.propTypes = {
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
+  setActiveDrawingTool: PropTypes.func.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
@@ -484,7 +487,15 @@ const mapStateToProps = state => ({
   mapPosition: mapPositionSelector(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+  setActiveDrawingTool: activeDrawingTool =>
+    dispatch(setActiveDrawingTool(activeDrawingTool)),
+});
+
 // Export undecorated component for testing purposes.
 export { InputForm };
 
-export default connect(mapStateToProps)(translate("InputForm")(InputForm));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(translate("InputForm")(InputForm));

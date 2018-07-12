@@ -23,9 +23,10 @@ import {
   mapboxStyleIdSelector,
 } from "../../state/ducks/map";
 import {
-  activeGeometryIdSelector,
+  activeDrawGeometryIdSelector,
   activeMarkerSelector,
-  setActiveGeometryId,
+  geometryStyleSelector,
+  setActiveDrawGeometryId,
 } from "../../state/ducks/map-drawing-toolbar";
 import { setLeftSidebar } from "../../state/ducks/ui";
 
@@ -170,51 +171,18 @@ class MainMap extends Component {
     emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
       this._map.deleteGeometry();
     });
-    emitter.addListener(
-      constants.DRAW_STYLE_CHANGE_EVENT,
-      (type, styleInfo) => {
-        switch (type) {
-          case constants.DRAW_STROKE_COLORPICKER_NAME:
-            this._map.drawSetFeatureProperty(
-              this.props.activeGeometryId,
-              constants.LINE_COLOR_PROPERTY_NAME,
-              styleInfo.color,
-            );
-            this._map.drawSetFeatureProperty(
-              this.props.activeGeometryId,
-              constants.LINE_OPACITY_PROPERTY_NAME,
-              styleInfo.alpha / 100,
-            );
-            break;
-          case constants.DRAW_FILL_COLORPICKER_NAME:
-            this._map.drawSetFeatureProperty(
-              this.props.activeGeometryId,
-              constants.FILL_COLOR_PROPERTY_NAME,
-              styleInfo.color,
-            );
-            this._map.drawSetFeatureProperty(
-              this.props.activeGeometryId,
-              constants.FILL_OPACITY_PROPERTY_NAME,
-              styleInfo.alpha / 100,
-            );
-            break;
-          case constants.DRAW_MARKER_SELECTOR_NAME:
-            this._map.drawSetFeatureProperty(
-              this.props.activeGeometryId,
-              constants.MARKER_ICON_PROPERTY_NAME,
-              styleInfo.icon,
-            );
-            break;
-        }
-      },
-    );
+    emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
+      this.props.setActiveDrawGeometryId(
+        this._map.drawAddGeometry(geometry)[0],
+      );
+    });
     this._map.on({
       event: "draw.create",
       callback: evt => {
-        this.props.setActiveGeometryId(evt.features[0].id);
+        this.props.setActiveDrawGeometryId(evt.features[0].id);
         if (evt.features[0].geometry.type === "Point") {
           this._map.drawSetFeatureProperty(
-            this.props.activeGeometryId,
+            this.props.activeDrawGeometryId,
             constants.MARKER_ICON_PROPERTY_NAME,
             this.props.activeMarker,
           );
@@ -287,18 +255,46 @@ class MainMap extends Component {
       });
     });
     emitter.addListener("place-collection:add-place", collectionId => {
-      this.updatePlaceCollectionLayer(collectionId);
+      this._map.updateLayerData(
+        collectionId,
+        createGeoJSONFromCollection({
+          collection: this.props.places[collectionId],
+        }),
+      );
     });
     emitter.addListener(
       "place-collection:focus-place",
       ({ collectionId, modelId }) => {
-        this.updatePlaceCollectionLayer(collectionId, modelId);
+        this._map.updateLayerData(
+          collectionId,
+          createGeoJSONFromCollection({
+            collection: this.props.places[collectionId],
+            modelIdToFocus: modelId,
+          }),
+        );
+      },
+    );
+    emitter.addListener(
+      "place-collection:hide-place",
+      ({ collectionId, modelId }) => {
+        this._map.updateLayerData(
+          collectionId,
+          createGeoJSONFromCollection({
+            collection: this.props.places[collectionId],
+            modelIdToHide: modelId,
+          }),
+        );
       },
     );
     emitter.addListener("place-collection:unfocus-all-places", () => {
       Object.keys(this.props.places).forEach(collectionId => {
         this.props.layerStatuses[collectionId].isVisible &&
-          this.updatePlaceCollectionLayer(collectionId);
+          this._map.updateLayerData(
+            collectionId,
+            createGeoJSONFromCollection({
+              collection: this.props.places[collectionId],
+            }),
+          );
       });
     });
 
@@ -333,6 +329,29 @@ class MainMap extends Component {
     if (!this.props.isMapSizeValid) {
       this._map.invalidateSize();
       this.props.setMapSizeValidity(true);
+    }
+
+    if (this.props.activeDrawGeometryId) {
+      // Update styling for in-progress geometry being drawn with the
+      // MapDrawingToolbar.
+      if (this.props.activeMarker !== prevProps.activeMarker) {
+        this._map.drawSetFeatureProperty(
+          this.props.activeDrawGeometryId,
+          constants.MARKER_ICON_PROPERTY_NAME,
+          this.props.activeMarker,
+        );
+      }
+      Object.entries(this.props.geometryStyle).forEach(
+        ([styleProperty, value]) => {
+          if (value !== prevProps.geometryStyle[styleProperty]) {
+            this._map.drawSetFeatureProperty(
+              this.props.activeDrawGeometryId,
+              styleProperty,
+              value,
+            );
+          }
+        },
+      );
     }
 
     for (let layerId in this.props.layerStatuses) {
@@ -371,16 +390,11 @@ class MainMap extends Component {
     // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   }
 
-  updatePlaceCollectionLayer(collectionId, modelId) {
-    this._map.updateLayerData(
-      collectionId,
-      createGeoJSONFromCollection(this.props.places[collectionId], modelId),
-    );
-  }
-
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
-      layer.source = createGeoJSONFromCollection(this.props.places[layer.id]);
+      layer.source = createGeoJSONFromCollection({
+        collection: this.props.places[layer.id],
+      });
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,
@@ -388,7 +402,7 @@ class MainMap extends Component {
         mapConfig: this.props.mapConfig,
       });
 
-      // Bind map interaction events for this place layers.
+      // Bind map interaction events for this place layer.
       this._map.bindPlaceLayerEvent("click", layer.id, clickedOnLayer => {
         if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
           this.props.router.navigate(
@@ -428,7 +442,7 @@ class MainMap extends Component {
 }
 
 MainMap.propTypes = {
-  activeGeometryId: PropTypes.string,
+  activeDrawGeometryId: PropTypes.string,
   activeMarker: PropTypes.string,
   container: PropTypes.string.isRequired,
   isMapSizeValid: PropTypes.bool.isRequired,
@@ -482,7 +496,7 @@ MainMap.propTypes = {
   places: PropTypes.object.isRequired,
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
-  setActiveGeometryId: PropTypes.func.isRequired,
+  setActiveDrawGeometryId: PropTypes.func.isRequired,
   setBasemap: PropTypes.func.isRequired,
   setLayerStatus: PropTypes.func.isRequired,
   setLeftSidebar: PropTypes.func.isRequired,
@@ -492,9 +506,10 @@ MainMap.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  activeGeometryId: activeGeometryIdSelector(state),
+  activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeMarker: activeMarkerSelector(state),
   mapConfig: mapConfigSelector(state),
+  geometryStyle: geometryStyleSelector(state),
   layers: mapLayersSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
   layerStatuses: mapLayerStatusesSelector(state),
@@ -511,8 +526,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLayerStatus(layerId, layerStatus)),
   setBasemap: (layerId, layerStatus) =>
     dispatch(setBasemap(layerId, layerStatus)),
-  setActiveGeometryId: activeGeometryId =>
-    dispatch(setActiveGeometryId(activeGeometryId)),
+  setActiveDrawGeometryId: activeDrawGeometryId =>
+    dispatch(setActiveDrawGeometryId(activeDrawGeometryId)),
 });
 
 export default connect(

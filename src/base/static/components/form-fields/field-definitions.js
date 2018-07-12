@@ -182,6 +182,10 @@ export default {
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
         markers={fieldConfig.content.map(item => item.url)}
+        existingGeometry={context.props.existingGeometry}
+        existingGeometryStyle={context.props.existingGeometryStyle}
+        existingCollectionId={context.props.existingCollectionId}
+        existingModelId={context.props.existingModelId}
       />
     ),
     getInitialValue: ({ value }) => value,

@@ -15,8 +15,8 @@ export const activeMarkerSelector = state => {
     state.mapDrawingToolbar.activeMarkerIndex
   ];
 };
-export const activeGeometryIdSelector = state => {
-  return state.mapDrawingToolbar.activeGeometryId;
+export const activeDrawGeometryIdSelector = state => {
+  return state.mapDrawingToolbar.activeDrawGeometryId;
 };
 export const activeColorpickerSelector = state => {
   return state.mapDrawingToolbar.activeColorpicker;
@@ -33,7 +33,8 @@ const SET_MARKER_PANEL_VISIBILIY =
 const SET_ACTIVE_DRAWING_TOOL = "map-drawing-toolbar/SET_ACTIVE_DRAWING_TOOL";
 const SET_MARKERS = "map-drawing-toolbar/SET_MARKERS";
 const SET_ACTIVE_MARKER_INDEX = "map-drawing-toolbar/SET_ACTIVE_MARKER_INDEX";
-const SET_ACTIVE_GEOMETRY_ID = "map-drawing-toolbar/SET_ACTIVE_GEOMETRY_ID";
+const SET_ACTIVE_DRAW_GEOMETRY_ID =
+  "map-drawing-toolbar/SET_ACTIVE_DRAW_GEOMETRY_ID";
 const SET_ACTIVE_COLORPICKER = "map-drawing-toolbar/SET_ACTIVE_COLORPICKER";
 const SET_GEOMETRY_STYLE = "map-drawing-toolbar/SET_GEOMETRY_STYLE";
 
@@ -53,8 +54,8 @@ export function setMarkers(markers) {
 export function setActiveMarkerIndex(activeMarkerIndex) {
   return { type: SET_ACTIVE_MARKER_INDEX, payload: activeMarkerIndex };
 }
-export function setActiveGeometryId(activeGeometryId) {
-  return { type: SET_ACTIVE_GEOMETRY_ID, payload: activeGeometryId };
+export function setActiveDrawGeometryId(activeDrawGeometryId) {
+  return { type: SET_ACTIVE_DRAW_GEOMETRY_ID, payload: activeDrawGeometryId };
 }
 export function setActiveColorpicker(activeColorpicker) {
   return { type: SET_ACTIVE_COLORPICKER, payload: activeColorpicker };
@@ -69,7 +70,7 @@ const INITIAL_STATE = {
   activeDrawingTool: null,
   activeMarkerIndex: 0,
   markers: [],
-  activeGeometryId: null,
+  activeDrawGeometryId: null,
   activeColorpicker: null,
   isMarkerPanelVisible: false,
   geometryStyle: {
@@ -107,10 +108,10 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         activeMarkerIndex: action.payload,
       };
-    case SET_ACTIVE_GEOMETRY_ID:
+    case SET_ACTIVE_DRAW_GEOMETRY_ID:
       return {
         ...state,
-        activeGeometryId: action.payload,
+        activeDrawGeometryId: action.payload,
       };
     case SET_ACTIVE_COLORPICKER:
       return {

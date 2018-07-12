@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React, { Component } from "react";
+import { Map } from "immutable";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
@@ -37,9 +38,44 @@ const deleteToolLabels = {
 class MapDrawingToolbar extends Component {
   componentDidMount() {
     this.props.setMarkers(this.props.markers);
-    emitter.addListener("draw:update-geometry", geometry => {
+    emitter.addListener(constants.DRAW_UPDATE_GEOMETRY_EVENT, geometry => {
       this.props.onChange(this.props.name, geometry);
     });
+
+    if (this.props.existingGeometry) {
+      emitter.emit(
+        constants.DRAW_INIT_GEOMETRY_EVENT,
+        this.props.existingGeometry.toJS(),
+      );
+      switch (
+        this.props.existingGeometry.get(constants.GEOMETRY_TYPE_PROPERTY_NAME)
+      ) {
+        case "Point":
+          this.props.setActiveDrawingTool(constants.DRAW_CREATE_MARKER_TOOL);
+          this.props.setMarkers(this.props.markers);
+          this.props.setActiveMarkerIndex(
+            this.props.markers.indexOf(
+              this.props.existingGeometryStyle.toJS()[
+                constants.MARKER_ICON_PROPERTY_NAME
+              ],
+            ),
+          );
+          break;
+        case "LineString":
+          this.props.setActiveDrawingTool(constants.DRAW_CREATE_POLYLINE_TOOL);
+          this.props.setGeometryStyle(this.props.existingGeometryStyle.toJS());
+          break;
+        case "Polygon":
+          this.props.setActiveDrawingTool(constants.DRAW_CREATE_POLYGON_TOOL);
+          this.props.setGeometryStyle(this.props.existingGeometryStyle.toJS());
+          break;
+      }
+
+      emitter.emit("place-collection:hide-place", {
+        collectionId: this.props.existingCollectionId,
+        modelId: this.props.existingModelId,
+      });
+    }
   }
 
   render() {
@@ -97,7 +133,7 @@ class MapDrawingToolbar extends Component {
                   return;
                 }
                 this.props.setActiveDrawingTool(
-                  constants.DRAW_CREATE_POLYLINE_EVENT,
+                  constants.DRAW_CREATE_POLYLINE_TOOL,
                 );
                 emitter.emit(constants.DRAW_START_POLYLINE_EVENT);
               }}
@@ -167,11 +203,6 @@ class MapDrawingToolbar extends Component {
                     [constants.LINE_OPACITY_PROPERTY_NAME]:
                       colorInfo.alpha / 100,
                   });
-                  emitter.emit(
-                    constants.DRAW_STYLE_CHANGE_EVENT,
-                    constants.DRAW_STROKE_COLORPICKER_NAME,
-                    colorInfo,
-                  );
                 }}
                 placement="topRight"
               >
@@ -227,11 +258,6 @@ class MapDrawingToolbar extends Component {
                     [constants.FILL_OPACITY_PROPERTY_NAME]:
                       colorInfo.alpha / 100,
                   });
-                  emitter.emit(
-                    constants.DRAW_STYLE_CHANGE_EVENT,
-                    constants.DRAW_FILL_COLORPICKER_NAME,
-                    colorInfo,
-                  );
                 }}
                 placement="topRight"
               >
@@ -304,13 +330,6 @@ class MapDrawingToolbar extends Component {
                   prefix="/static/css/images/markers/"
                   onClick={() => {
                     this.props.setActiveMarkerIndex(i);
-                    emitter.emit(
-                      constants.DRAW_STYLE_CHANGE_EVENT,
-                      constants.DRAW_MARKER_SELECTOR_NAME,
-                      {
-                        icon: marker,
-                      },
-                    );
                   }}
                 />
               ))}
@@ -326,6 +345,10 @@ MapDrawingToolbar.propTypes = {
   activeColorpicker: PropTypes.string,
   activeDrawingTool: PropTypes.string,
   activeMarker: PropTypes.string,
+  existingCollectionId: PropTypes.string,
+  existingGeometry: PropTypes.instanceOf(Map),
+  existingModelId: PropTypes.number,
+  existingGeometryStyle: PropTypes.instanceOf(Map),
   geometryStyle: PropTypes.shape({
     [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
     [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,

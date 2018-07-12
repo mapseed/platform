@@ -37,6 +37,9 @@ export default {
   SHOW_METADATA_PROPERTY_NAME: "showMetadata",
   IS_VISIBLE_PROPERTY_NAME: "visible",
 
+  IS_FOCUSED_PROPERTY_NAME: "isFocused",
+  IS_VISIBLE_PROPERTY_NAME: "isVisible",
+
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",
   ATTACHMENT_FILE_PROPERTY_NAME: "file",
@@ -74,12 +77,12 @@ export default {
   DRAW_CREATE_MARKER_TOOL: "create-marker",
   DRAW_CREATE_POLYLINE_TOOL: "create-polyline",
   DRAW_CREATE_POLYGON_TOOL: "create-polygon",
-  DRAW_STYLE_CHANGE_EVENT: "draw:style-change",
   DRAW_DELETE_GEOMETRY_EVENT: "draw:delete",
   DRAW_START_POLYGON_EVENT: "draw:start-polygon",
   DRAW_START_POLYLINE_EVENT: "draw:start-polyline",
   DRAW_START_MARKER_EVENT: "draw:start-marker",
   DRAW_UPDATE_GEOMETRY_EVENT: "draw:update-geometry",
+  DRAW_INIT_GEOMETRY_EVENT: "draw:init-geometry",
   DRAW_STROKE_COLORPICKER_NAME: "stroke",
   DRAW_FILL_COLORPICKER_NAME: "fill",
   DRAW_MARKER_SELECTOR_NAME: "marker",

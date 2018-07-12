@@ -637,6 +637,7 @@ module.exports = Backbone.View.extend({
         ReactDOM.render(
           <Provider store={store}>
             <PlaceDetail
+              collectionId={collectionId}
               container={document.querySelector("#content article")}
               currentUser={Shareabouts.bootstrapped.currentUser}
               isGeocodingBarEnabled={
