@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import Spinner from "react-spinner";
 
 import emitter from "../../../utils/emitter";
 import { translate } from "react-i18next";
@@ -22,17 +23,8 @@ class GeocodingField extends Component {
     this.hint = mapConfig.geocode_bounding_box || mapConfig.geocode_hint;
   }
 
-  componentDidMount() {
-    const target = document.getElementsByClassName(
-      "geocoding-field__geocoding-spinner",
-    )[0];
-    // TODO: Replace spin.js spinner with a React component.
-    // eslint-disable-next-line no-undef
-    //new Spinner(Shareabouts.smallSpinnerOptions).spin(target);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    nextProps.isTriggeringGeocode && this.doGeocode();
+  componentDidUpdate() {
+    this.props.isTriggeringGeocode && this.doGeocode();
   }
 
   doGeocode() {
@@ -70,23 +62,17 @@ class GeocodingField extends Component {
   }
 
   render() {
-    const cn = {
-      spinner: classNames("geocoding-field__geocoding-spinner", {
-        "geocoding-field__geocoding-spinner--visible": this.state.isGeocoding,
-      }),
-      error: classNames("geocoding-field__geocoding-error", {
-        "geocoding-field__geocoding-error--visible": this.state
-          .isWithGeocodingError,
-      }),
-    };
-
     return (
       <div className="geocoding-field">
-        <span className={cn.spinner} />
-        <span
-          className="geocoding-field__do-geocode-icon"
-          onClick={this.doGeocode.bind(this)}
-        />
+        {this.state.isGeocoding && (
+          <Spinner style={{ left: "20px", width: "30px", height: "30px" }} />
+        )}
+        {!this.state.isGeocoding && (
+          <span
+            className="geocoding-field__do-geocode-icon"
+            onClick={this.doGeocode.bind(this)}
+          />
+        )}
         <input
           className="geocoding-field__input"
           name={this.props.name}
@@ -96,7 +82,12 @@ class GeocodingField extends Component {
           onBlur={this.doGeocode.bind(this)}
           onChange={e => this.props.onChange(e.target.name, e.target.value)}
         />
-        <div className={cn.error}>
+        <div
+          className={classNames("geocoding-field__geocoding-error", {
+            "geocoding-field__geocoding-error--visible": this.state
+              .isWithGeocodingError,
+          })}
+        >
           {this.props.t("fields:geocodingField:locationNotFoundError")}
         </div>
       </div>
