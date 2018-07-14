@@ -573,8 +573,10 @@ module.exports = Backbone.View.extend({
       visibleBasemapId &&
         store.dispatch(
           setBasemap(storyBasemapId, {
+            id: storyBasemapId,
             status: "loading",
             isVisible: true,
+            isBasemap: true,
           }),
         );
     }
