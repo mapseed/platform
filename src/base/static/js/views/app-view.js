@@ -689,8 +689,8 @@ module.exports = Backbone.View.extend({
       // settings if this model is part of a story.
       const story = model.get("story") || {};
 
-      if (story.panTo || story.zoom) {
-        // If a story chapter declares a zoom or centerpoint, regardless of the
+      if (story.panTo) {
+        // If a story chapter declares a custom centerpoint, regardless of the
         // geometry type, assume that we want to ease to a point.
         emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
           coordinates:

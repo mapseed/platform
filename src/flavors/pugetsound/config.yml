@@ -165,7 +165,6 @@ map:
 
     - id: scorecard-layer
       type: json      
-      is_visible_default: true
       popup_content: '<div><h3>{{CITYNAME}}</h3></div><div><h4>Total Score: {{LID_Checklist_Master_score}}</h4></div><div><strong>Footprint: </strong>{{LID_Checklist_Master_Footprint}}</div><div><strong>Clearing & Grading: </strong>{{clearing-grading}}</div><div><strong>Permeable: </strong>{{LID_Checklist_Master_Permeable}}</div><div><strong>Tree List: </strong>{{tree-list}}</div><div><strong>Critical Buffers / Native Veg Buffer Enhancement: </strong>{{buffers}}</div>'
       source: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
       rules:
@@ -960,8 +959,8 @@ story:
 
   rose-grants:
     tagline: _(Next grant)
-    default_zoom: 14
     default_visible_layers:
+    default_zoom: 14
       - pugetsoundrose
     order:
       - url: rose-fund

@@ -845,13 +845,10 @@ export default (container, options) => {
               // We skip this work for other events (like mouseenter), since we
               // don't make use of information about the layer under the cursor
               // in those cases.
-              targetLayer = map.queryRenderedFeatures(
-                [evt.point.x, evt.point.y],
-                {
-                  // Limit these click listeners to place geometry.
-                  filter: ["==", ["get", "type"], "place"],
-                },
-              )[0];
+              targetLayer = map.queryRenderedFeatures([
+                evt.point.x,
+                evt.point.y,
+              ])[0];
             }
 
             callback(targetLayer);
