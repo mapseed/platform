@@ -461,7 +461,13 @@ export default (container, options) => {
     ];
   };
 
-  const createGeoJSONLayer = ({ id, source, cluster = {}, rules }) => {
+  const createGeoJSONLayer = ({
+    id,
+    source,
+    cluster = {},
+    rules,
+    popup_content,
+  }) => {
     sourcesCache[id] = {
       type: "geojson",
       data: source,
@@ -513,6 +519,29 @@ export default (container, options) => {
         },
       ]);
     }
+
+    if (popup_content) {
+      Object.values(layersCache[id])
+        .filter(
+          mapboxLayer => !mapboxLayer.id.includes(CLUSTER_LAYER_IDENTIFIER),
+        )
+        .forEach(mapboxLayer => {
+          map.on("click", mapboxLayer.id, evt => {
+            new mapboxgl.Popup()
+              .setLngLat(evt.lngLat)
+              .setHTML(
+                parsePopupContent(popup_content, evt.features[0].properties),
+              )
+              .addTo(map);
+          });
+        });
+    }
+  };
+
+  const parsePopupContent = (popupContent, properties) => {
+    return popupContent.replace(/{{([A-Za-z0-0_-]+?)}}/g, (match, property) => {
+      return properties[property];
+    });
   };
 
   const map = new mapboxgl.Map(options.map);
