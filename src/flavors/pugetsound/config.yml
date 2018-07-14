@@ -350,33 +350,24 @@ map:
       slug: cases
       rules:
         - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "settled-cases"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
+          - "=="
+          - - "get"
+            - "isFocused"
+          - - "to-boolean"
+            - true
           symbol-layout:
             icon-image: map-pin-marker-red.png
             icon-size: 1.1
             icon-anchor: "bottom"
         - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "settled-cases"
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
+          - "=="
+          - - "get"
+            - "isFocused"
+          - - "to-boolean"
+            - false
           symbol-layout:
             icon-image: map-pin-marker-red.png
-            icon-size: 0.8
+            icon-size: 0.3
             icon-anchor: "bottom"
 
     - id: pugetsoundfeatured
