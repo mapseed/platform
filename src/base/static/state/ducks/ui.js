@@ -36,7 +36,7 @@ export function setLeftSidebar(isExpanded) {
 const INITIAL_STATE = {
   isContentPanelOpen: undefined,
   isSidebarExpanded: undefined,
-  isLeftSidebarExpanded: true,
+  isLeftSidebarExpanded: false,
   leftSidebarComponent: "MapLayerPanel", // TODO-- make this configurable
 };
 

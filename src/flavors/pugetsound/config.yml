@@ -917,40 +917,40 @@ story:
         zoom: 18
         basemap: satellite      
       - url: clean-marinas
-        zoom: 9
+        zoom: 7
+        pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - clean-marinas
         spotlight: false
         basemap: light-nolabels
       - url: shellfish
-        zoom: 9
+        zoom: 7
+        pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - shellfish-harvesting
         basemap: light-nolabels
         spotlight: false
       - url: oil-spills
-        zoom: 9
+        zoom: 7
+        pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - spill-incidents
         basemap: light-nolabels
         spotlight: false       
       - url: sewer-overflow
-        zoom: 12
+        zoom: 10
+        pan_to: [-122.31682047088867, 47.59085278732215]
         visible_layers:
           - cso
         spotlight: false
         basemap: satellite
       - url: scorecard
-        zoom: 10
+        zoom: 8
+        pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - scorecard-layer
         spotlight: false
         basemap: light-nolabels
-      - url: rose-fund
-        visible_layers:
-          - pugetsoundrose
-        zoom: 10
-        spotlight: false
       - url: settled-cases
         visible_layers:
           - pugetsoundcases
@@ -959,12 +959,13 @@ story:
 
   rose-grants:
     tagline: _(Next grant)
-    default_visible_layers:
     default_zoom: 14
+    default_visible_layers:
       - pugetsoundrose
     order:
       - url: rose-fund
-        zoom: 10
+        zoom: 8
+        pan_to: [-122.31682047088867, 47.673217479920595]
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
       - url: puget-sound-stewards---duwamish-and-beyond
@@ -1069,7 +1070,8 @@ story:
     order:
       - url: settled-cases
         spotlight: false
-        zoom: 10
+        zoom: 8
+        pan_to: [-122.31682047088867, 47.673217479920595]
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
       - url: transtar-metals-corporation
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
