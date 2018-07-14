@@ -190,6 +190,25 @@
   background-color: #779300;
 }
 
+.input-form__field-container[data-field-name="farm_no-farm"],
+.input-form__field-container[data-field-name="forest_no-forest"],
+.input-form__field-container[data-field-name="shoreline_no-shoreline"],
+.input-form__field-container[data-field-name="urban-suburban_no-urban-suburban"] {
+  background-color: #fff;
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 20px;
+
+  .big-toggle-field__label:before {
+    font-style: normal;
+    background-color: #fff;
+  }
+
+  .big-toggle-field__label--toggled:before {
+    background-color: #779300;
+  }
+}
+
 .datetime-field {
   border-color: #779300;
 }
@@ -409,14 +428,15 @@
 // Screen sizes below 60em width
 @media only screen and (max-width: 60em) {
   #site-header {
-    background: url("/static/css/images/header-banner-small.png");
-    background-size: auto 64px;
+    background: url("/static/css/images/scdHorizontal.png");
+    //background: url("/static/css/images/header-banner-small.png");
+    background-size: auto 40px;
     background-color: #f3f5e7;
     background-repeat: no-repeat;
-    background-position: 35px top;
+    background-position: 20px 10px;
   }
 
-  .place-form-visible { 
+  .place-form-visible {
     #main-btns-container {
       display: none;
     }
@@ -449,11 +469,11 @@
   }
 
   #pages-nav-container {
-    margin-left: 500px;
+    margin-left: 450px;
   }
 
   #site-header {
-    background: url("/static/css/images/header-banner-large.png");
+    background: url("/static/css/images/scdHorizontal.png");
     background-size: auto 64px;
     background-color: #f3f5e7;
     background-repeat: no-repeat;

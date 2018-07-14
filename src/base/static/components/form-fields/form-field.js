@@ -95,6 +95,10 @@ class FormField extends Component {
         .set(
           constants.FIELD_AUTO_FOCUS_KEY,
           this.props.fieldState.get(constants.FIELD_AUTO_FOCUS_KEY),
+        )
+        .set(
+          constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY,
+          this.props.fieldState.get(constants.FIELD_ADVANCE_STAGE_ON_VALUE_KEY),
         ),
       isInitializing: isInitializing,
     });

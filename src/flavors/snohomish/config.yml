@@ -37,8 +37,10 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
   cartodb_enabled: true
+  geocoding_engine: Mapbox
   geocoding_bar_enabled: false
-  geocode_bounding_box: [48.435, -120.924, 47.704, -122.593] 
+  # Roughly the center of Snohomish County:
+  geocode_hint: [-121.9859019, 48.0381909] 
 
   options:
     center:
@@ -345,12 +347,15 @@ place:
 
         # FARM CATEGORY ########################################################
         - name: farm_no-farm
-          type: big_checkbox
+          type: big_toggle
           prompt: _( )
           display_prompt: _( )
+          advance_stage_on_value: no-farm
           content:
-            - label: _(I don't live on a farm)
+            - label: _(I don't live on a farm -- Proceed to next screen)
               value: no-farm
+            - label: _(I don't live on a farm -- Proceed to next screen)
+              value: farm
           optional: true
 
         # Mud & manure
@@ -571,12 +576,15 @@ place:
         # FOREST CATEGORY ######################################################
 
         - name: forest_no-forest
-          type: big_checkbox
+          type: big_toggle
           prompt: _( )
+          advance_stage_on_value: no-forest
           display_prompt: _( )
           content:
-            - label: _(I don't own/operate forestland)
+            - label: _(I don't own/operate forestland -- Proceed to next screen)
               value: no-forest
+            - label: _(I don't own/operate forestland -- Proceed to next screen)
+              value: forest
           optional: true
       
         # Maintain fuel-free zones
@@ -812,12 +820,15 @@ place:
         # SHORELINE CARTEGORY ##################################################
 
         - name: shoreline_no-shoreline
-          type: big_checkbox
+          type: big_toggle
+          advance_stage_on_value: no-shoreline
           prompt: _( )
           display_prompt: _( )
           content:
-            - label: _(I don't live alongside water)
+            - label: _(I don't live alongside water -- Proceed to next screen)
               value: no-shoreline
+            - label: _(I don't live alongside water -- Proceed to next screen)
+              value: shoreline
           optional: true
         
         # Consult professional
@@ -1063,12 +1074,15 @@ place:
         # URBAN CATEGORY #######################################################
 
         - name: urban-suburban_no-urban-suburban
-          type: big_checkbox
+          type: big_toggle
+          advance_stage_on_value: no-urban
           prompt: _( )
           display_prompt: _( )
           content:
-            - label: _(I don’t live in an urban/suburban area)
-              value: no-forest
+            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen)
+              value: no-urban
+            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen)
+              value: urban
           optional: true
 
         # Rain gardens
@@ -1455,7 +1469,7 @@ pages:
     start_page: true
 
   - title: _(Local Stories)
-    name: /bay-view
+    name: /2018-camano-wildlife-habitat-tour
     start_page: false
 
   - title: _(Background)
@@ -1482,10 +1496,15 @@ story:
       - snohomish-featured
       - snohomish-input
     order:
-      - url: bay-view
+      - url: 2018-camano-wildlife-habitat-tour
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
+      - url: monroe-l2l-showcase
+        basemap: satellite
+        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
+      - url: 2018-lynnwood-rain-gardens
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-
       - url: tulalip-rain-barrels-2018
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         
