@@ -232,54 +232,63 @@ map:
       rules:
         - filter:
           - "<="
-          - - "get"
-            - "Quantity_t"
+          - - "to-number"
+            - - "get"
+              - "Quantity_t"
           - 10
           symbol-layout:
             icon-image: "marker-red-circle.png"
-            icon-size: 0.5
+            icon-size: 0.05
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
         - filter:
           - "all"
-          - -  ">"
-            - - "get"
-              - "Quantity_t"
+          - - ">"
+            - - "to-number"
+              - - "get"
+                - "Quantity_t"
             - 10
           - - "<="
-            - - "get"
-              - "Quantity_t"
+            - - "to-number"
+              - - "get"
+                - "Quantity_t"
             - 100
           symbol-layout:
             icon-image: "marker-red-circle.png"
-            icon-size: 0.7
+            icon-size: 0.1
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
         - filter:
           - "all"
-          - -  ">"
-            - - "get"
-              - "Quantity_t"
+          - - ">"
+            - - "to-number"
+              - - "get"
+                - "Quantity_t"
             - 100
           - - "<="
-            - - "get"
-              - "Quantity_t"
+            - - "to-number"
+              - - "get"
+                - "Quantity_t"
             - 1000
           symbol-layout:
             icon-image: "marker-red-circle.png"
-            icon-size: 1.0
+            icon-size: 0.2
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
         - filter:
-          - "all"
-          - -  ">"
+          - ">"
+          - - "to-number"
             - - "get"
               - "Quantity_t"
-            - 1000
+          - 1000
           symbol-layout:
             icon-image: "marker-red-circle.png"
-            icon-size: 1.4
+            icon-size: 0.3
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
 
     - id: shellfish-harvesting
@@ -315,33 +324,24 @@ map:
       slug: rose
       rules:
         - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "rose-grants"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
-          symbol-layout:
-            icon-image: map-pin-marker.png
-            icon-size: 1.1
-            icon-anchor: "bottom"
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "rose-grants"
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
+          - "=="
+          - - "get"
+            - "isFocused"
+          - - "to-boolean"
+            - true
           symbol-layout:
             icon-image: map-pin-marker.png
             icon-size: 0.8
+            icon-anchor: "bottom"
+        - filter:
+          - "=="
+          - - "get"
+            - "isFocused"
+          - - "to-boolean"
+            - false
+          symbol-layout:
+            icon-image: map-pin-marker.png
+            icon-size: 0.6
             icon-anchor: "bottom"
 
     - id: pugetsoundcases
@@ -357,7 +357,7 @@ map:
             - true
           symbol-layout:
             icon-image: map-pin-marker-red.png
-            icon-size: 1.1
+            icon-size: 0.5
             icon-anchor: "bottom"
         - filter:
           - "=="
@@ -399,6 +399,13 @@ map:
       type: json
       source: "https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/toxic-cleanup-sites.geojson"
       popup_content: "<h4>{{cleanupSiteName}}</h4><em>{{siteStatus}}</em>"
+      cluster:
+        is_enabled: true
+        cluster_max_zoom: 12
+        cluster_radius: 100
+        paint:
+          circle-color: "#caffca"
+          circle-radius: 30
       rules:
         - filter:
           - "=="
@@ -407,7 +414,7 @@ map:
           - "Awaiting Cleanup"
           symbol-layout:
             icon-image: circle-267ab3.png
-            icon-size: 0.8
+            icon-size: 0.3
             icon-anchor: center
         - filter:
           - "=="
@@ -416,7 +423,7 @@ map:
           - "Cleanup Started"
           symbol-layout:
             icon-image: circle-b4df8d.png
-            icon-size: 0.8
+            icon-size: 0.3
             icon-anchor: center
         - filter:
           - "=="
@@ -425,7 +432,7 @@ map:
           - "NFA"
           symbol-layout:
             icon-image: circle-0b655e.png
-            icon-size: 0.8
+            icon-size: 0.3
             icon-anchor: center
 
     - id: cso
@@ -440,8 +447,9 @@ map:
           - "No recent overflow"
           symbol-layout:
             icon-image: dot-4ab767.png
-            icon-size: 0.8
+            icon-size: 1.0
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
         - filter:
           - "=="
@@ -450,8 +458,9 @@ map:
           - "Overflowed in the last 48 hrs"
           symbol-layout:
             icon-image: dot-f95016.png
-            icon-size: 0.8
+            icon-size: 1.0
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
         - filter:
           - "=="
@@ -460,8 +469,9 @@ map:
           - "Overflowing now"
           symbol-layout:
             icon-image: dot-e1264d.png
-            icon-size: 0.8
+            icon-size: 1.0
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
         - filter:
           - "=="
@@ -470,8 +480,9 @@ map:
           - "Data not available"
           symbol-layout:
             icon-image: dot-0d85e9.png
-            icon-size: 0.8
+            icon-size: 1.0
             icon-anchor: center
+          symbol-paint:
             icon-opacity: 0.9
 
     - id: clean-marinas
@@ -887,6 +898,7 @@ story:
     # layers defined below. If a story element defines a different 
     # zoom level and/or visible layers, it will use those wholesale 
     # (that is, no default settings will be inherited).
+    default_basemap: satellite
     default_zoom: 15
     default_visible_layers:
       - pugetsoundfeatured
@@ -1340,14 +1352,3 @@ story:
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
       - url: ace-galvanizing-inc
         sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-
-cluster:
-  layers:
-    - cleanup-sites 
-  animate: true
-  animateAddingMarkers: false
-  showCoverageOnHover: true
-  spiderfyOnMaxZoom: true
-  spiderfyDistanceMultiplier: 1.5
-  spiderLegPolylineOptions:
-    opacity: 0
