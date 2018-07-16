@@ -76,6 +76,11 @@ const theme = process.env.THEME ? process.env.THEME : "default-theme";
 
 module.exports = {
   entry: entryPoints,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+    ignored: /node_modules/,
+  },
   output: {
     path: path.join(outputBasePath, "dist"),
     filename:
