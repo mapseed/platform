@@ -339,6 +339,7 @@ export default (container, options) => {
     sourcesCache[id] = {
       type: "raster",
       tiles: [url],
+      tileSize: 256,
     };
     map.addSource(id, sourcesCache[id]);
 
@@ -404,6 +405,7 @@ export default (container, options) => {
     sourcesCache[id] = {
       type: "raster",
       tiles: [requestUrl],
+      tileSize: 256,
     };
     map.addSource(id, sourcesCache[id]);
 
@@ -412,7 +414,6 @@ export default (container, options) => {
         id: id,
         type: "raster",
         source: id,
-        tileSize: 256,
       },
     ];
   };
@@ -449,6 +450,7 @@ export default (container, options) => {
     sourcesCache[id] = {
       type: "raster",
       tiles: [requestUrl],
+      tileSize: 256,
     };
     map.addSource(id, sourcesCache[id]);
 
