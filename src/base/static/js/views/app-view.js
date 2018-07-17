@@ -28,6 +28,10 @@ import {
   setLayerStatus,
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
+import {
+  setLeftSidebar,
+  leftSidebarExpandedSelector,
+} from "../../state/ducks/ui";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -260,6 +264,14 @@ module.exports = Backbone.View.extend({
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("geocode", locationData => {
       this.mapView.zoomInOn(locationData.latLng);
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("nav-layer-btn:toggle", () => {
+      store.dispatch(
+        setLeftSidebar(!leftSidebarExpandedSelector(store.getState())),
+      );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
