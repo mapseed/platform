@@ -50,28 +50,33 @@ map:
       position: "top-left"
 
   layers:
-    # - id: osm
-    #   is_basemap: true
-    #   type: raster-tile
-    #   url: //api.tiles.mapbox.com/v4/heyduwamishcore.3fd2d9aa/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
-    #   attribution: '<a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-
     - id: topo
       is_basemap: true
       is_visible_default: true
       type: raster-tile
-      url: //stamen-tiles-a.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
+      url: https://stamen-tiles-b.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
 
     - id: satellite
       is_basemap: true
       type: raster-tile
-      url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
-      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      url: https://1.aerial.maps.cit.api.here.com/maptile/2.1/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?app_id=tFZyfnyJAmhfh5gdoGcR&app_code=vJ8o9OCQ1o0Y2wwbRspzSA&lg=eng
+
+      #   - id: satellite
+      #     is_basemap: true
+      #     is_visible_default: true
+      #     type: raster-tile
+      #     url: https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png
+
+      #   - id: satellite
+      #     is_basemap: true
+      #     is_visible_default: true
+      #     type: mapbox-style
+      #     url: mapbox://styles/mapbox/satellite-v9
 
     - id: light-nolabels
       is_basemap: true
       type: raster-tile
-      url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      url: https://api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
 
     - id: pugetsound
@@ -156,7 +161,7 @@ map:
     - id: 1936aerial
       is_basemap: true
       type: wmts
-      url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS
+      url: https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS
       layers: BaseMaps_KingCo_Aerial_1936
       tilematrix_set: default028mm
       version: 1.0.0
@@ -291,31 +296,22 @@ map:
             icon-opacity: 0.9
 
     - id: shellfish-harvesting
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/shellfish-harvesting/wms
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - shellfish-harvesting
+      type: vector-tile
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/shellfish-harvesting/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/shellfish-harvesting/style.json
+      source_layer: harvesting-sites
 
     - id: chinook
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/soundkeeper/wms
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - chinook-habitat
+      type: vector-tile
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/chinook-habitat/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/chinook-habitat/style.json
+      source_layer: chinook-habitat
 
     - id: critical-habitat
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/soundkeeper/wms
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - nearshore-critical-habitat
+      type: vector-tile
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/nearshore-critical-habitat/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/nearshore-critical-habitat/style.json
+      source_layer: nearshore-critical-habitat
 
     - id: pugetsoundrose
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsoundrose
