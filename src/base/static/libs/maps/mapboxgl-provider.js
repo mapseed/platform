@@ -13,7 +13,7 @@ mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
 const appendFilters = (existingFilters, ...filtersToAdd) => {
   const newFilters = filtersToAdd.reduce(
     (newFilters, filterToAdd) => [...newFilters, filterToAdd],
-    [existingFilters],
+    existingFilters ? [existingFilters] : [],
   );
 
   // If an existing filter does not already start with the logical AND
