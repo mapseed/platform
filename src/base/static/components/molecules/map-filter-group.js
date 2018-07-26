@@ -24,7 +24,10 @@ const MapFilterGroup = props => {
         label={props.reset_label}
         filterId="reset-filters"
         onToggleFilter={() => {
-          props.resetFeatureFilterGroup(props.filterGroupId);
+          props.resetFeatureFilterGroup({
+            groupId: props.filterGroupId,
+            targetLayer: props.targetLayer,
+          });
         }}
         isSelected={false}
       />
@@ -44,7 +47,11 @@ const MapFilterGroup = props => {
             label={filter.label}
             onToggleFilter={filterId => {
               if (isSelected) {
-                props.deactivateFeatureFilter(filterId);
+                props.deactivateFeatureFilter({
+                  id: filterId,
+                  targetLayer: props.targetLayer,
+                  groupId: props.filterGroupId,
+                });
               } else {
                 props.activateFeatureFilter({
                   id: filterId,
@@ -67,6 +74,15 @@ MapFilterGroup.propTypes = {
   classes: PropTypes.string,
   deactivateFeatureFilter: PropTypes.func.isRequired,
   filterGroupId: PropTypes.string.isRequired,
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      filter_attribute: PropTypes.string.isRequired,
+      filter_value: PropTypes.string.isRequired,
+      icon: PropTypes.string,
+      label: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   featureFilters: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -77,6 +93,7 @@ MapFilterGroup.propTypes = {
   ).isRequired,
   resetFeatureFilterGroup: PropTypes.func.isRequired,
   reset_label: PropTypes.string.isRequired,
+  targetLayer: PropTypes.string.isRequired,
   title: PropTypes.string,
 };
 

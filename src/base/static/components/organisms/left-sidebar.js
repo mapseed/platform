@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import {
-  leftSidebarExpandedSelector,
+  isLeftSidebarExpandedSelector,
   leftSidebarComponentSelector,
   setLeftSidebar,
 } from "../../state/ducks/ui";
@@ -19,7 +19,7 @@ const LeftSidebar = props => {
     <div className="left-sidebar">
       <CloseButton
         classes="left-sidebar__close-button"
-        onClick={() => props.setLeftSidebar(false)}
+        onClick={() => props.setLeftSidebar({ isExpanded: false })}
       />
       {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
       {props.leftSidebarComponent === "MapFilterPanel" && <MapFilterPanel />}
@@ -34,7 +34,7 @@ LeftSidebar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isLeftSidebarExpanded: leftSidebarExpandedSelector(state),
+  isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   leftSidebarComponent: leftSidebarComponentSelector(state),
 });
 

@@ -6,7 +6,7 @@
 export const rightSidebarExpandedSelector = state => {
   return state.ui.isRightSidebarExpanded;
 };
-export const leftSidebarExpandedSelector = state => {
+export const isLeftSidebarExpandedSelector = state => {
   return state.ui.isLeftSidebarExpanded;
 };
 export const leftSidebarComponentSelector = state => {

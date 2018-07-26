@@ -68,22 +68,22 @@ export const setMapSizeValidity = isValidSize => {
     payload: isValidSize,
   };
 };
-export const activateFeatureFilter = featureFilter => {
+export const activateFeatureFilter = filterInfo => {
   return {
     type: ACTIVATE_FEATURE_FILTER,
-    payload: featureFilter,
+    payload: filterInfo,
   };
 };
-export const deactivateFeatureFilter = filterId => {
+export const deactivateFeatureFilter = filterInfo => {
   return {
     type: DEACTIVATE_FEATURE_FILTER,
-    payload: filterId,
+    payload: filterInfo,
   };
 };
-export const resetFeatureFilterGroup = filterGroupId => {
+export const resetFeatureFilterGroup = filterInfo => {
   return {
     type: RESET_FEATURE_FILTER_GROUP,
-    payload: filterGroupId,
+    payload: filterInfo,
   };
 };
 
@@ -133,15 +133,19 @@ export default function reducer(state = INITIAL_STATE, action) {
     case DEACTIVATE_FEATURE_FILTER:
       return {
         ...state,
+        updatingFilterGroupId: action.payload.groupId,
+        updatingFilterTargetLayer: action.payload.targetLayer,
         featureFilters: state.featureFilters.filter(
-          featureFilter => featureFilter.id !== action.payload,
+          featureFilter => featureFilter.id !== action.payload.id,
         ),
       };
     case RESET_FEATURE_FILTER_GROUP:
       return {
         ...state,
+        updatingFilterGroupId: action.payload.groupId,
+        updatingFilterTargetLayer: action.payload.targetLayer,
         featureFilters: state.featureFilters.filter(
-          featureFilter => featureFilter.groupId !== action.payload,
+          featureFilter => featureFilter.groupId !== action.payload.groupId,
         ),
       };
     case SET_BASEMAP_STATUS:
