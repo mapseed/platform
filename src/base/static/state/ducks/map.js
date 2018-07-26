@@ -18,12 +18,24 @@ export const mapboxStyleIdSelector = state => {
     }) || {}
   ).id;
 };
+export const mapFeatureFiltersSelector = state => {
+  return state.map.featureFilters;
+};
+export const mapUpdatingFilterGroupIdSelector = state => {
+  return state.map.updatingFilterGroupId;
+};
+export const mapUpdatingFilterTargetLayerSelector = state => {
+  return state.map.updatingFilterTargetLayer;
+};
 
 // Actions
 const SET_LAYER_STATUS = "map/SET_LAYER_STATUS";
 const SET_BASEMAP_STATUS = "map/SET_BASEMAP_STATUS";
 const SET_MAP_POSITION = "map/SET_MAP_POSITION";
 const SET_MAP_SIZE_VALIDITY = "map/SET_MAP_SIZE_VALIDITY";
+const ACTIVATE_FEATURE_FILTER = "map/ACTIVATE_FEATURE_FILTER";
+const DEACTIVATE_FEATURE_FILTER = "map/DEACTIVATE_FEATURE_FILTER";
+const RESET_FEATURE_FILTER_GROUP = "map/RESET_FEATURE_FILTER_GROUP";
 
 // Action creators
 export const setLayerStatus = (layerId, layerStatus) => {
@@ -56,11 +68,32 @@ export const setMapSizeValidity = isValidSize => {
     payload: isValidSize,
   };
 };
+export const activateFeatureFilter = featureFilter => {
+  return {
+    type: ACTIVATE_FEATURE_FILTER,
+    payload: featureFilter,
+  };
+};
+export const deactivateFeatureFilter = filterId => {
+  return {
+    type: DEACTIVATE_FEATURE_FILTER,
+    payload: filterId,
+  };
+};
+export const resetFeatureFilterGroup = filterGroupId => {
+  return {
+    type: RESET_FEATURE_FILTER_GROUP,
+    payload: filterGroupId,
+  };
+};
 
 // Reducers
 const INITIAL_STATE = {
-  visibleBasemapId: null,
+  visibleBasemapId: undefined,
   layerStatuses: {},
+  featureFilters: [],
+  updatingFilterGroupId: undefined,
+  updatingFilterTargetLayer: undefined,
   mapPosition: undefined,
   isMapSizeValid: true,
 };
@@ -89,6 +122,27 @@ export default function reducer(state = INITIAL_STATE, action) {
             ...action.payload.layerStatus,
           },
         },
+      };
+    case ACTIVATE_FEATURE_FILTER:
+      return {
+        ...state,
+        updatingFilterGroupId: action.payload.groupId,
+        updatingFilterTargetLayer: action.payload.targetLayer,
+        featureFilters: state.featureFilters.concat(action.payload),
+      };
+    case DEACTIVATE_FEATURE_FILTER:
+      return {
+        ...state,
+        featureFilters: state.featureFilters.filter(
+          featureFilter => featureFilter.id !== action.payload,
+        ),
+      };
+    case RESET_FEATURE_FILTER_GROUP:
+      return {
+        ...state,
+        featureFilters: state.featureFilters.filter(
+          featureFilter => featureFilter.groupId !== action.payload,
+        ),
       };
     case SET_BASEMAP_STATUS:
       return {

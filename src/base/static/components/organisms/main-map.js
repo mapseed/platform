@@ -15,13 +15,17 @@ import {
 import {
   mapBasemapSelector,
   mapLayerStatusesSelector,
+  mapFeatureFiltersSelector,
   mapSizeValiditySelector,
   setMapSizeValidity,
   setMapPosition,
   setLayerStatus,
   setBasemap,
   mapboxStyleIdSelector,
+  mapUpdatingFilterGroupIdSelector,
+  mapUpdatingFilterTargetLayerSelector,
 } from "../../state/ducks/map";
+import { leftSidebarConfigSelector } from "../../state/ducks/left-sidebar-config.js";
 import {
   activeDrawGeometryIdSelector,
   activeMarkerSelector,
@@ -53,33 +57,6 @@ class MainMap extends Component {
         break;
     }
 
-    // https://www.mapbox.com/mapbox-gl-js/api#icontrol
-    class LayerPanelControl {
-      constructor(setLeftSidebar) {
-        this._setLeftSidebar = setLeftSidebar;
-      }
-
-      onAdd() {
-        this._container = document.createElement("div");
-        this._container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
-        this._button = this._container.appendChild(
-          document.createElement("button"),
-        );
-        this._button.className = "mapboxgl-ctrl-icon mapseed__layer-panel-ctrl";
-        this._button.setAttribute("type", "button");
-        this._button.setAttribute("aria-label", "Open Layer Panel");
-        this._button.addEventListener("click", () => {
-          this._setLeftSidebar(true);
-        });
-
-        return this._container;
-      }
-
-      onRemove() {
-        this._container.parentNode.removeChild(this._container);
-      }
-    }
-
     // Set default layer visibility for non-place layers.
     this.props.layers
       .filter(layer => layer.is_visible_default && layer.type !== "place")
@@ -105,10 +82,6 @@ class MainMap extends Component {
 
     // Instantiate the map.
     this._map = MapProvider(props.container, props.mapConfig.options);
-    this._map.addControl(
-      new LayerPanelControl(this.props.setLeftSidebar),
-      "top-left",
-    );
 
     this._map.on({
       event: "load",
@@ -128,6 +101,12 @@ class MainMap extends Component {
     if (props.mapConfig.geolocation_enabled) {
       this._map.addControl(this._map.getGeolocateControl(), "top-left");
     }
+
+    this._map.addCustomControls({
+      panels: props.leftSidebarConfig.panels,
+      position: "top-left",
+      setLeftSidebar: props.setLeftSidebar,
+    });
   }
 
   componentDidMount() {
@@ -366,6 +345,15 @@ class MainMap extends Component {
       );
     }
 
+    if (this.props.featureFilters !== prevProps.featureFilters) {
+      // Filter(s) have been activated or deactivated.
+      this._map.setFeatureFilters({
+        featureFilters: this.props.featureFilters,
+        groupId: this.props.updatingFilterGroupId,
+        targetLayer: this.props.updatingFilterTargetLayer,
+      });
+    }
+
     for (let layerId in this.props.layerStatuses) {
       if (
         this.props.layerStatuses[layerId].isVisible &&
@@ -392,14 +380,6 @@ class MainMap extends Component {
 
   get map() {
     return this._map;
-  }
-
-  clearFilter() {
-    // TODO
-  }
-
-  filter(locationTypeModel, mapWasUnfiltered, mapWillBeUnfiltered) {
-    // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   }
 
   async addLayer(layer, isBasemap = false) {
@@ -458,6 +438,15 @@ MainMap.propTypes = {
   activeMarker: PropTypes.string,
   container: PropTypes.string.isRequired,
   geometryStyle: geometryStyleProps,
+  featureFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      groupId: PropTypes.string.isRequired,
+      targetLayer: PropTypes.string.isRequired,
+      attribute: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ),
   isMapSizeValid: PropTypes.bool.isRequired,
   layers: PropTypes.arrayOf(
     PropTypes.shape({
@@ -486,6 +475,18 @@ MainMap.propTypes = {
       status: PropTypes.string,
     }),
   ).isRequired,
+  leftSidebarConfig: PropTypes.shape({
+    is_enabled: PropTypes.bool,
+    is_visible_default: PropTypes.bool,
+    panels: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
+        title: PropTypes.string,
+        groupings: PropTypes.array.isRequired,
+      }),
+    ),
+  }).isRequired,
   mapboxStyleId: PropTypes.string,
   mapConfig: PropTypes.shape({
     geolocation_enabled: PropTypes.bool.isRequired,
@@ -516,18 +517,24 @@ MainMap.propTypes = {
   setMapPosition: PropTypes.func.isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
+  updatingFilterGroupId: PropTypes.string,
+  updatingFilterTargetLayer: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   activeDrawGeometryId: activeDrawGeometryIdSelector(state),
   activeMarker: activeMarkerSelector(state),
+  leftSidebarConfig: leftSidebarConfigSelector(state),
   mapConfig: mapConfigSelector(state),
   geometryStyle: geometryStyleSelector(state),
   layers: mapLayersSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
   layerStatuses: mapLayerStatusesSelector(state),
+  featureFilters: mapFeatureFiltersSelector(state),
   isMapSizeValid: mapSizeValiditySelector(state),
   mapboxStyleId: mapboxStyleIdSelector(state),
+  updatingFilterGroupId: mapUpdatingFilterGroupIdSelector(state),
+  updatingFilterTargetLayer: mapUpdatingFilterTargetLayerSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

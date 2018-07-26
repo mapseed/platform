@@ -10,6 +10,40 @@ import constants from "../../constants";
 
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
 
+// https://www.mapbox.com/mapbox-gl-js/api#icontrol
+class CustomControl {
+  constructor({ setLeftSidebar, ariaLabel, iconClass, component }) {
+    this._setLeftSidebar = setLeftSidebar;
+    this._ariaLabel = ariaLabel;
+    this._iconClass = iconClass;
+    this._component = component;
+  }
+
+  onAdd() {
+    this._container = document.createElement("div");
+    this._container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+    this._button = this._container.appendChild(
+      document.createElement("button"),
+    );
+    this._button.className =
+      "mapboxgl-ctrl-icon mapseed__map-control " + this._iconClass;
+    this._button.setAttribute("type", "button");
+    this._button.setAttribute("aria-label", this._ariaLabel);
+    this._button.addEventListener("click", () => {
+      this._setLeftSidebar({
+        isExpanded: true,
+        component: this._component,
+      });
+    });
+
+    return this._container;
+  }
+
+  onRemove() {
+    this._container.parentNode.removeChild(this._container);
+  }
+}
+
 const appendFilters = (existingFilters, ...filtersToAdd) => {
   const newFilters = filtersToAdd.reduce(
     (newFilters, filterToAdd) => [...newFilters, filterToAdd],
@@ -23,18 +57,22 @@ const appendFilters = (existingFilters, ...filtersToAdd) => {
   return newFilters;
 };
 
+const NO_ICON_IMAGE = "__mapseed-no-icon-image__";
 const configRuleToSymbolLayer = (layerConfig, i) => {
   const fallbackIconImage =
     (layerConfig["symbol-layout"] &&
       layerConfig["symbol-layout"]["icon-image"]) ||
-    "no-icon-image";
+    NO_ICON_IMAGE;
   return {
     id: `${layerConfig.baseLayerId}_symbol_${i}`,
     source: layerConfig.source,
     type: "symbol",
     layout: {
+      ...layerConfig["symbol-layout"],
       "icon-image": [
         "case",
+        ["to-boolean", ["get", constants.IS_HIDDEN_BY_FILTERS]],
+        NO_ICON_IMAGE,
         [
           "all",
           ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
@@ -52,7 +90,6 @@ const configRuleToSymbolLayer = (layerConfig, i) => {
         fallbackIconImage,
       ],
       "icon-allow-overlap": true,
-      ...layerConfig["symbol-layout"],
     },
     paint: layerConfig["symbol-paint"] || {},
     filter: appendFilters(layerConfig.filter, [
@@ -76,6 +113,7 @@ const configRuleToLineLayer = (layerConfig, i) => {
     type: "line",
     layout: layerConfig["line-layout"] || {},
     paint: {
+      ...layerConfig["line-paint"],
       "line-color": [
         "case",
         [
@@ -112,7 +150,6 @@ const configRuleToLineLayer = (layerConfig, i) => {
         ],
         fallbackLineOpacity,
       ],
-      ...layerConfig["line-paint"],
     },
     filter: appendFilters(layerConfig.filter, [
       "==",
@@ -144,6 +181,7 @@ const configRuleToFillLayer = (layerConfig, i) => {
       type: "fill",
       layout: layerConfig["fill-layout"] || {},
       paint: {
+        ...layerConfig["fill-paint"],
         "fill-color": [
           "case",
           [
@@ -180,7 +218,6 @@ const configRuleToFillLayer = (layerConfig, i) => {
           ],
           fallbackFillOpacity,
         ],
-        ...layerConfig["fill-paint"],
       },
       filter: appendFilters(layerConfig.filter, [
         "==",
@@ -194,6 +231,7 @@ const configRuleToFillLayer = (layerConfig, i) => {
       type: "line",
       layout: layerConfig["outline-layout"] || {},
       paint: {
+        ...layerConfig["outline-paint"],
         "line-color": [
           "case",
           [
@@ -230,7 +268,6 @@ const configRuleToFillLayer = (layerConfig, i) => {
           ],
           fallbackOutlineOpacity,
         ],
-        ...layerConfig["outline-paint"],
       },
     },
   ];
@@ -862,6 +899,20 @@ export default (container, options) => {
       map.addControl(control, position);
     },
 
+    addCustomControls: ({ panels, setLeftSidebar, position }) => {
+      panels.forEach(panel => {
+        map.addControl(
+          new CustomControl({
+            setLeftSidebar: setLeftSidebar,
+            ariaLabel: panel.ariaLabel,
+            iconClass: panel.icon,
+            component: panel.component,
+          }),
+          position,
+        );
+      });
+    },
+
     setCursor: style => {
       map.getCanvas().style.cursor = style;
     },
@@ -1011,6 +1062,30 @@ export default (container, options) => {
 
     getSource: sourceId => {
       return map.getSource(sourceId);
+    },
+
+    setFeatureFilters: ({ featureFilters, groupId, targetLayer }) => {
+      featureFilters = featureFilters.filter(
+        featureFilter => featureFilter.groupId === groupId,
+      );
+
+      const features = map
+        .getSource(targetLayer)
+        .serialize()
+        .data.features.map(feature => {
+          feature.properties[constants.IS_HIDDEN_BY_FILTERS] =
+            featureFilters.length > 0 &&
+            !featureFilters.find(
+              featureFilter =>
+                feature.properties[featureFilter.attribute] ===
+                featureFilter.value,
+            );
+
+          return feature;
+        });
+      map
+        .getSource(targetLayer)
+        .setData({ type: "FeatureCollection", features: features });
     },
 
     updateLayerData: (sourceId, newData) => {

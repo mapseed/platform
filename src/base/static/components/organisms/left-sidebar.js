@@ -10,29 +10,31 @@ import {
 import { CloseButton } from "../atoms/navigation";
 
 import MapLayerPanel from "./map-layer-panel";
+import MapFilterPanel from "./map-filter-panel";
 
 import "./left-sidebar.scss";
 
 const LeftSidebar = props => {
-  return props.leftSidebarExpanded ? (
+  return props.isLeftSidebarExpanded ? (
     <div className="left-sidebar">
       <CloseButton
         classes="left-sidebar__close-button"
         onClick={() => props.setLeftSidebar(false)}
       />
       {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
+      {props.leftSidebarComponent === "MapFilterPanel" && <MapFilterPanel />}
     </div>
   ) : null;
 };
 
 LeftSidebar.propTypes = {
-  leftSidebarExpanded: PropTypes.bool.isRequired,
+  isLeftSidebarExpanded: PropTypes.bool.isRequired,
   setLeftSidebar: PropTypes.func.isRequired,
-  leftSidebarComponent: PropTypes.string.isRequired,
+  leftSidebarComponent: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
-  leftSidebarExpanded: leftSidebarExpandedSelector(state),
+  isLeftSidebarExpanded: leftSidebarExpandedSelector(state),
   leftSidebarComponent: leftSidebarComponentSelector(state),
 });
 

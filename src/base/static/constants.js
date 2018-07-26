@@ -90,6 +90,9 @@ export default {
   PLACE_MODEL_UPDATE_EVENT: "place-model:update",
   PLACE_MODEL_REMOVE_EVENT: "place-model:remove",
 
+  IS_HIDDEN_BY_FILTERS: "_mapseed:isHiddenByFilters",
+  IS_FOCUSED_BY_FILTERS: "_mapseed:isFocusedByFilters",
+
   PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT:
     "place-collection:unfocus-all-places",
   PLACE_COLLECTION_HIDE_PLACE_EVENT: "place-collection:hide-place",
