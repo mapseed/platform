@@ -1,6 +1,7 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
+const shell = require("shelljs");
 
 require("dotenv").config({ path: "src/.env" });
 require("babel-polyfill");
@@ -13,6 +14,14 @@ const PORT = 8000;
 if (!process.env.FLAVOR) {
   process.exitCode = 1;
   process.exit();
+}
+
+if (process.env.NODE_ENV === "production") {
+  const baseDistPath = path.resolve(__dirname, "www");
+
+  // clean out the output directory and recreate it
+  shell.rm("-rf", baseDistPath);
+  shell.mkdir("-p", path.resolve(baseDistPath, "dist"));
 }
 
 var flavorJsFiles = glob.sync(
@@ -83,6 +92,8 @@ module.exports = {
     modules: ["node_modules", path.resolve(__dirname, "scripts")],
   },
   module: {
+    // https://github.com/mapbox/mapbox-gl-js/issues/4359#issuecomment-28800193
+    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.modernizrrc\.js$/,
