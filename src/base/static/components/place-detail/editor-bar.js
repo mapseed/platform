@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import emitter from "../../utils/emitter";
 import classNames from "classnames";
 
-import EditorButton from "../ui-elements/editor-button";
+import { EditorButton } from "../atoms/buttons";
 import { translate } from "react-i18next";
 
 import "./editor-bar.scss";

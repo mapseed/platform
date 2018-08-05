@@ -4,8 +4,7 @@ var Util = require("../utils.js");
 // This does not support editing at this time, which is why it is not a
 // ShareaboutsModel
 module.exports = Backbone.Model.extend({
-  idAttribute: "name",
-
+  idAttribute: "id",
   initialize: function(attributes, options) {
     this.options = options;
   },
@@ -20,10 +19,16 @@ module.exports = Backbone.Model.extend({
     // Overriding save so that we can handle adding attachments
     var args = ModelUtils.normalizeModelArguments(key, val, options),
       attrs = _.extend(this.attributes, args.attrs);
-    return this._attachBlob(attrs.blob, attrs.name, attrs.type, args.options);
+    return this._attachBlob(
+      attrs.blob,
+      attrs.name,
+      attrs.type,
+      attrs.visible,
+      args.options,
+    );
   },
 
-  _attachBlob: function(blob, name, type, options) {
+  _attachBlob: function(blob, name, type, visible, options) {
     var formData = new FormData(),
       self = this,
       progressHandler = Util.wrapHandler("progress", this, options.progress),
@@ -32,12 +37,13 @@ module.exports = Backbone.Model.extend({
     formData.append("file", blob);
     formData.append("name", name);
     formData.append("type", type);
+    formData.append("visible", visible)
 
     options = options || {};
 
     $.ajax({
-      url: this.collection.url(),
-      type: "POST",
+      url: this.isNew() ? this.collection.url() : this.get("url"),
+      type: this.isNew() ? "POST" : "PATCH",
       xhr: function() {
         // custom xhr
         if (myXhr.upload) {

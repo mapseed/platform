@@ -6,7 +6,7 @@ import { fromJS, List, Map } from "immutable";
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
-import CoverImage from "../ui-elements/cover-image";
+import CoverImage from "../molecules/cover-image";
 import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 import emitter from "../../utils/emitter";
@@ -185,6 +185,23 @@ class PlaceDetail extends Component {
     }
   }
 
+  onAttachmentModelRemove(attrs, modelId) {
+    console.log("onAttachmentModelRemove", attrs, modelId);
+    this.props.model.attachmentCollection.get(modelId).save(attrs, {
+      success: () => {
+        this.setState({
+          attachmentModels: serializeBackboneCollection(
+            this.props.model.attachmentCollection,
+          ),
+        });
+        Util.log("USER", "place-editor", "remove-attachment");
+      },
+      error: () => {
+        Util.log("USER", "place-editor", "fail-to-remove-attachment");
+      },
+    });
+  }
+
   // Handle the various results of Backbone model save/update calls that
   // occur in child components.
   onChildModelIO(action) {
@@ -351,12 +368,22 @@ class PlaceDetail extends Component {
               attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
               constants.COVER_IMAGE_CODE,
           )
-          .map((attachment, i) => (
-            <CoverImage
-              key={i}
-              src={attachment.get(constants.ATTACHMENT_FILE_PROPERTY_NAME)}
-            />
-          ))}
+          .map((attachmentModel, i) => {
+            return (
+              <CoverImage
+                key={i}
+                isEditModeToggled={this.state.isEditModeToggled}
+                modelId={attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME)}
+                url={attachmentModel.get(
+                  constants.ATTACHMENT_FILE_PROPERTY_NAME,
+                )}
+                onAttachmentModelRemove={this.onAttachmentModelRemove.bind(
+                  this,
+                )}
+                onModelIO={this.onChildModelIO.bind(this)}
+              />
+            );
+          })}
         {this.state.isEditModeToggled ? (
           <PlaceDetailEditor
             placeModel={this.state.placeModel}

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import "./editor-button.scss";
+import "./buttons.scss";
 
 const EditorButton = props => {
   return (
@@ -40,4 +40,4 @@ EditorButton.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-export default EditorButton;
+export { EditorButton };
