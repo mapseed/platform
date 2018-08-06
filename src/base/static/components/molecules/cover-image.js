@@ -34,7 +34,7 @@ const CoverImage = props => {
 
 CoverImage.propTypes = {
   isEditModeToggled: PropTypes.bool.isRequired,
-  modelId: PropTypes.string.isRequired,
+  modelId: PropTypes.number.isRequired,
   onAttachmentModelRemove: PropTypes.func.isRequired,
   onModelIO: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,

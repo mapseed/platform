@@ -28,7 +28,7 @@ module.exports = Backbone.Model.extend({
     );
   },
 
-  _attachBlob: function(blob, name, type, visible, options) {
+  _attachBlob: function(blob, name, type, visible = true, options) {
     var formData = new FormData(),
       self = this,
       progressHandler = Util.wrapHandler("progress", this, options.progress),
@@ -37,7 +37,7 @@ module.exports = Backbone.Model.extend({
     formData.append("file", blob);
     formData.append("name", name);
     formData.append("type", type);
-    formData.append("visible", visible)
+    formData.append("visible", visible);
 
     options = options || {};
 
@@ -56,10 +56,12 @@ module.exports = Backbone.Model.extend({
       success: function(attachmentResponse) {
         var args = Array.prototype.slice.call(arguments);
 
-        // Set the save attribute on the incoming data so that we know it's
-        // not new.
-        args[0].saved = true;
-        self.set({ saved: true });
+        self.set({
+          saved: true,
+          visible: attachmentResponse.visible,
+          id: attachmentResponse.id,
+          url: attachmentResponse.url,
+        });
 
         if (options.success) {
           options.success.apply(this, args);

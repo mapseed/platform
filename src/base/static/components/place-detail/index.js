@@ -113,12 +113,13 @@ class PlaceDetail extends Component {
         this.props.model.attachmentCollection,
       ),
       isEditModeToggled: false,
-      isEditable: Util.getAdminStatus(
-        this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
-        this.categoryConfig.admin_groups,
-        !!this.categoryConfig.submitter_editing_supported,
-        this.props.model.get(constants.SUBMITTER_FIELD_NAME),
-      ),
+      //isEditable: Util.getAdminStatus(
+      //  this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
+      //  this.categoryConfig.admin_groups,
+      //  !!this.categoryConfig.submitter_editing_supported,
+      //  this.props.model.get(constants.SUBMITTER_FIELD_NAME),
+      //),
+      isEditable: true,
       isEditFormSubmitting: false,
       isSurveyEditFormSubmitting: false,
     };
@@ -172,7 +173,7 @@ class PlaceDetail extends Component {
   }
 
   onSurveyModelRemove(modelId) {
-    if (confirm(this.props.t("confirmRemove"))) {
+    if (confirm(this.props.t("confirmSurveyResponseRemove"))) {
       this.props.model.submissionSets[this.surveyType].get(modelId).destroy({
         success: () => {
           this.setState({
@@ -186,20 +187,21 @@ class PlaceDetail extends Component {
   }
 
   onAttachmentModelRemove(attrs, modelId) {
-    console.log("onAttachmentModelRemove", attrs, modelId);
-    this.props.model.attachmentCollection.get(modelId).save(attrs, {
-      success: () => {
-        this.setState({
-          attachmentModels: serializeBackboneCollection(
-            this.props.model.attachmentCollection,
-          ),
-        });
-        Util.log("USER", "place-editor", "remove-attachment");
-      },
-      error: () => {
-        Util.log("USER", "place-editor", "fail-to-remove-attachment");
-      },
-    });
+    if (confirm(this.props.t("confirmAttachmentRemove"))) {
+      this.props.model.attachmentCollection.get(modelId).save(attrs, {
+        success: () => {
+          this.setState({
+            attachmentModels: serializeBackboneCollection(
+              this.props.model.attachmentCollection,
+            ),
+          });
+          Util.log("USER", "place-editor", "remove-attachment");
+        },
+        error: () => {
+          Util.log("USER", "place-editor", "fail-to-remove-attachment");
+        },
+      });
+    }
   }
 
   // Handle the various results of Backbone model save/update calls that
@@ -208,8 +210,8 @@ class PlaceDetail extends Component {
     if (action === constants.PLACE_MODEL_IO_START_ACTION) {
       this.setState({ isEditFormSubmitting: true });
     } else if (action === constants.PLACE_MODEL_IO_END_SUCCESS_ACTION) {
-      this.setState({
         isEditModeToggled: false,
+        this.setState({
         isEditFormSubmitting: false,
         placeModel: fromJS(this.props.model.attributes),
       });
@@ -370,18 +372,22 @@ class PlaceDetail extends Component {
           )
           .map((attachmentModel, i) => {
             return (
-              <CoverImage
-                key={i}
-                isEditModeToggled={this.state.isEditModeToggled}
-                modelId={attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME)}
-                url={attachmentModel.get(
-                  constants.ATTACHMENT_FILE_PROPERTY_NAME,
-                )}
-                onAttachmentModelRemove={this.onAttachmentModelRemove.bind(
-                  this,
-                )}
-                onModelIO={this.onChildModelIO.bind(this)}
-              />
+              attachmentModel.get(constants.IS_VISIBLE_PROPERTY_NAME) && (
+                <CoverImage
+                  key={i}
+                  isEditModeToggled={this.state.isEditModeToggled}
+                  modelId={attachmentModel.get(
+                    constants.MODEL_ID_PROPERTY_NAME,
+                  )}
+                  url={attachmentModel.get(
+                    constants.ATTACHMENT_FILE_PROPERTY_NAME,
+                  )}
+                  onAttachmentModelRemove={this.onAttachmentModelRemove.bind(
+                    this,
+                  )}
+                  onModelIO={this.onChildModelIO.bind(this)}
+                />
+              )
             );
           })}
         {this.state.isEditModeToggled ? (

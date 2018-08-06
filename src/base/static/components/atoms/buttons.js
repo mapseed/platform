@@ -34,8 +34,8 @@ const EditorButton = props => {
 EditorButton.propTypes = {
   className: PropTypes.string,
   isEditModeToggled: PropTypes.bool,
-  isSubmitting: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
+  isSubmitting: PropTypes.bool,
+  label: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
