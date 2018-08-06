@@ -113,13 +113,12 @@ class PlaceDetail extends Component {
         this.props.model.attachmentCollection,
       ),
       isEditModeToggled: false,
-      //isEditable: Util.getAdminStatus(
-      //  this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
-      //  this.categoryConfig.admin_groups,
-      //  !!this.categoryConfig.submitter_editing_supported,
-      //  this.props.model.get(constants.SUBMITTER_FIELD_NAME),
-      //),
-      isEditable: true,
+      isEditable: Util.getAdminStatus(
+        this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
+        this.categoryConfig.admin_groups,
+        !!this.categoryConfig.submitter_editing_supported,
+        this.props.model.get(constants.SUBMITTER_FIELD_NAME),
+      ),
       isEditFormSubmitting: false,
       isSurveyEditFormSubmitting: false,
     };
