@@ -210,8 +210,8 @@ class PlaceDetail extends Component {
     if (action === constants.PLACE_MODEL_IO_START_ACTION) {
       this.setState({ isEditFormSubmitting: true });
     } else if (action === constants.PLACE_MODEL_IO_END_SUCCESS_ACTION) {
+      this.setState({
         isEditModeToggled: false,
-        this.setState({
         isEditFormSubmitting: false,
         placeModel: fromJS(this.props.model.attributes),
       });
