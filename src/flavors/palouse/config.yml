@@ -1,0 +1,363 @@
+# Settings for the app
+app:
+  # HTML Title
+  title: Palouse Conservation District
+  # Header name
+  name: "Palouse Conservation District"
+  # Meta description that will show up in Google search results
+  meta_description: "_(Welcome!)"
+  # Meta author that will show up in Google search results
+  meta_author: HaxGeo.com
+
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
+  # When the map loads, existing places will be loaded in chunks. By default,
+  # the size of the chunks will be a reasonable default dictated by the API
+  # server. If you would like to override the chunk size, use this setting:
+  # places_page_size: 100
+
+  # Optional. List view is supported by default. Set to false to disable.
+  # list_enabled: false
+
+# languages:
+#   - code: en_US
+#     label: I Speak English
+
+#   - code: es
+#     label: Hablo Español
+
+#   - code: vi
+#     label: tôi nói tiếng việt
+
+map:
+# Settings for map and layer configs
+  geolocation_enabled: true
+  geolocation_onload: false
+  cartodb_enabled: true
+  geocoding_engine: Mapbox
+  # Pullman, WA:
+  geocode_hint: [-117.1889785, 46.7298657] 
+
+  options:
+    center:
+      lat: 46.72668313278476
+      lng: -117.46582031249999
+    zoom: 8
+    minZoom: 1
+    maxZoom: 18
+
+  layers:
+    - id: osm
+      url: https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
+      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: satellite
+      url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: columbia_river
+      url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/columbia-river.geojson
+      type: json
+      rules:
+        - condition: "'{{true}}'"
+          style:
+            fillColor: "#34518f"
+            fillOpacity: 0.7
+
+    - id: snake_river
+      url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/snake-river.geojson
+      type: json
+      rules:
+        - condition: "'{{true}}'"
+          style:
+            fillColor: "#34518f"
+            fillOpacity: 0.7
+
+    - id: palouse-input
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input
+      type: place
+      slug: report
+
+
+# The values map the place type to map icons (defined below).
+place_types:
+  reports:
+    label: _(Report)
+    rules:
+      - condition: 'this.layer.focused === true'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [50, 60]
+          iconAnchor: [25, 60]
+          shadowSize: [50, 60]
+          shadowAnchor: [14, 60]
+
+      - condition: 'this.map.zoom < 11'
+        icon:
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconSize: [10, 12]
+          iconAnchor: [5, 12]
+
+      - condition: 'this.map.zoom < 16'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          iconSize: [15, 18]
+          iconAnchor: [7.5, 18]
+
+      - condition: 'this.map.zoom >= 16'
+        icon:
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
+
+
+right_sidebar:
+  show: false
+  visibleDefault: true
+  component: StorySidebar
+
+# Sidebar and activity stream should be enabled and disabled together!
+# note: sidebar is aka 'MasterLegend'
+# TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
+sidebar:
+  enabled: true
+  legend_enabled: true
+  slug: filter-type
+  # Layers are defined in the "map config" section
+  # A panel's icon is a icon's name taken from here:
+  # https://fortawesome.github.io/Font-Awesome/icons/
+  panels:
+    - id: gis-layers
+      icon: list
+      view: GISLegendView
+      title: _(Map Layers:)
+      basemaps:
+        - id: osm
+          title: _(OpenStreetMap)
+          visibleDefault: false
+        - id: satellite
+          title: _(Satellite View)
+          visibleDefault: true
+      groupings:
+        - id: grp-water
+          title: _(Water Features)
+          visibleDefault: false
+          layers:
+            - id: columbia_river
+              title: _(Columbia River)
+              visibleDefault: true
+            - id: snake_river
+              title: _(Snake River)
+              visibleDefault: true
+        - id: grp-community
+          title: _(Community Data)
+          visibleDefault: true
+          layers:
+            - id: palouse-input
+              title: _(Community Reports)
+              visibleDefault: true
+
+    - id: ticker
+      view: ActivityView
+      icon: comments-o
+      activity: true
+      title: _(Activity Stream:)
+
+activity:
+  # Optional. Activity is supported by default. Set to false to disable.
+  enabled: true
+  # How often to refresh the activity list, in milliseconds.
+  interval: 30000
+
+  # Place Types
+
+place:
+  adding_supported: true
+  add_button_label: _(Add a report to the map!)
+  # Labels for the buttons that toggle the map and list views
+  show_list_button_label: _(See All Reports)
+  show_map_button_label: _(Show the Map)
+  action_text: _(added)
+  title: _(Tell us more...)
+  anonymous_name: _(Someone)
+  submit_button_label: _(Put it on the map!)
+
+  location_item_name: location
+  default_basemap: satellite
+
+  #### begin dynamic form config ####
+  place_detail:
+    - category: reports
+      submitter_editing_supported: true
+      includeOnForm: true
+      name: location_type
+      dataset: palouse-input
+      icon_url: /static/css/images/markers/map-pin-marker-red.png
+      value: demo
+      multi_stage:
+        - start_field_index: 1
+          end_field_index: 3
+          icon_url: /static/css/images/markers/map-pin-marker-red.png
+          header: _(Tell Us About Yourself)
+          description: _(This information will remain private)
+        - start_field_index: 4
+          end_field_index: 5
+          icon_url: /static/css/images/markers/map-pin-marker-red.png
+          header: _(Your Actions)
+      label: _(Actions)
+      fields:
+        - name: private-name 
+          type: text
+          autocomplete: true
+          prompt: _(Your name:)
+          placeholder: _(Enter name...)
+          optional: false
+        - name: private-address
+          type: geocoding
+          prompt: _(Enter your address:)
+          optional: true
+          modal:
+            header: _(Information)
+            body: [
+              "We collect locations to ensure services are being delivered where they are needed most."
+            ]
+        - name: private-about
+          type: textarea
+          autocomplete: true
+          prompt: _(Please describe your property:)
+          placeholder: _(Enter description...)
+          optional: true
+        - name: actions
+          type: big_checkbox
+          autocomplete: false
+          prompt: _(Which of the following actions have you completed?)
+          display_prompt: _(My actions:)
+          content:
+            - label: _(Choice A)
+              value: choice_a
+            - label: _(Choice B)
+              value: choice_b
+            - label: _(Choice C)
+              value: choice_c
+            - label: _(Choice D)
+              value: choice_d
+            - label: _(Choice E)
+              value: choice_e
+          optional: false
+        - name: submit_field
+          type: submit
+          label: _(Submit my report)
+
+
+  # define form elements that appear on every form here
+  common_form_elements:
+    submitter_name:
+      type: text
+      prompt: _(Your name)
+      placeholder: _(Name)
+      optional: true
+    private-submitter_email:
+      type: text
+      prompt: _(Your Email)
+      placeholder: _(Receive email updates on your report)
+      optional: true
+      sticky: true
+    my_image:
+      type: file
+      prompt: _(Image)
+      label: _(Add an Image)
+      optional: true
+    submit:
+      type: submit
+      label: _(Put it on the map!)
+
+  #### end dynamic form config ####
+
+survey:
+  submission_type: comments
+
+  # Response config
+  show_responses: true
+  # Set to true if the user should only submit a survey once
+  single_submission: false
+  response_name: _(comment)
+  response_plural_name: _(comments)
+  action_text: _(commented on)
+  anonymous_name: _(Someone)
+
+  # Survey form config
+  title: _(Leave a Comment)
+  form_link_text: _(Leave a Comment)
+  submit_btn_text: _(Comment)
+  items:
+    - prompt: _(Comment)
+      label: _(Comment)
+      type: textarea
+      name: comment
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      optional: true
+    - type: submit
+      name: submit
+      label: _(Comment)
+
+support:
+  submission_type: support
+  submit_btn_text: _(Support)
+  response_name: _(support)
+  response_plural_name: _(supports)
+  action_text: supported
+  anonymous_name: _(Someone)
+
+pages:
+  - title: _(About)
+    slug: about
+    name: overview
+
+  - title: _(Background)
+    slug: background
+    name: background
+    hide_from_top_bar: true
+
+  - title: _(Get involved)
+    slug: getinvolved
+    name: contribute
+
+story:
+  example:
+    tagline: _(Next featured site)
+    header: _(Story Number One)
+    description: _(This is the first of two stories. I hope you like it!)
+    default_zoom: 18
+    default_visible_layers:
+      - demo
+    order:
+      - url: demo/20
+      - url: demo/21
+  another_example:
+    tagline: _(Next featured site)
+    header: _(Story Number Two With a Longer Name than the Other Story)
+    description: _(This is the second story, and it's got a longer header and description because that's just how it is.)
+    default_zoom: 18
+    default_visible_layers:
+      - demo
+    order:
+      - url: cool-line
+        sidebar_icon_url: /static/css/images/markers/marker-question.png
+        zoom: 4
+      - url: demo/17
+
+
+# cluster:
+#   animate: true
+#   animateAddingMarkers: false
+#   showCoverageOnHover: false
+#   spiderfyOnMaxZoom: true
+#   spiderfyDistanceMultiplier: 1.5
+#   spiderLegPolylineOptions:
+#     opacity: 0
