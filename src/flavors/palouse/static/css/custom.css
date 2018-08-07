@@ -22,6 +22,11 @@
   margin-left: 200px;
 }
 
+#about-page-header {
+  text-transform: uppercase;
+  text-align: center;
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 

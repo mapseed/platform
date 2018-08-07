@@ -43,7 +43,7 @@ map:
 
   options:
     center:
-      lat: 46.72668313278476
+      lat: 47.04579711504287
       lng: -117.46582031249999
     zoom: 8
     minZoom: 1
@@ -174,10 +174,10 @@ sidebar:
       basemaps:
         - id: osm
           title: _(OpenStreetMap)
-          visibleDefault: false
+          visibleDefault: true
         - id: satellite
           title: _(Satellite View)
-          visibleDefault: true
+          visibleDefault: false
       groupings:
         - id: grp-water
           title: _(Water Features)
@@ -222,7 +222,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a report to the map!)
+  add_button_label: _(Show off your projects)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
@@ -250,7 +250,7 @@ place:
           header: _(Tell Us About Yourself)
           description: _(This information will remain private)
         - start_field_index: 4
-          end_field_index: 5
+          end_field_index: 6
           icon_url: /static/css/images/markers/map-pin-marker-red.png
           header: _(Your Actions)
       label: _(Actions)
@@ -293,6 +293,11 @@ place:
             - label: _(Choice E)
               value: choice_e
           optional: false
+        - name: my_image
+          type: file
+          prompt: _(Please share an image of your work)
+          label: _(Add an Image)
+          optional: true
         - name: submit_field
           type: submit
           label: _(Submit my report)
@@ -363,6 +368,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
+    start_page: true
 
   - title: _(Background)
     slug: background
@@ -373,30 +379,29 @@ pages:
     slug: getinvolved
     name: contribute
 
-story:
-  example:
-    tagline: _(Next featured site)
-    header: _(Story Number One)
-    description: _(This is the first of two stories. I hope you like it!)
-    default_zoom: 18
-    default_visible_layers:
-      - demo
-    order:
-      - url: demo/20
-      - url: demo/21
-  another_example:
-    tagline: _(Next featured site)
-    header: _(Story Number Two With a Longer Name than the Other Story)
-    description: _(This is the second story, and it's got a longer header and description because that's just how it is.)
-    default_zoom: 18
-    default_visible_layers:
-      - demo
-    order:
-      - url: cool-line
-        sidebar_icon_url: /static/css/images/markers/marker-question.png
-        zoom: 4
-      - url: demo/17
-
+#story:
+#  example:
+#    tagline: _(Next featured site)
+#    header: _(Story Number One)
+#    description: _(This is the first of two stories. I hope you like it!)
+#    default_zoom: 18
+#    default_visible_layers:
+#      - demo
+#    order:
+#      - url: demo/20
+#      - url: demo/21
+#  another_example:
+#    tagline: _(Next featured site)
+#    header: _(Story Number Two With a Longer Name than the Other Story)
+#    description: _(This is the second story, and it's got a longer header and description because that's just how it is.)
+#    default_zoom: 18
+#    default_visible_layers:
+#      - demo
+#    order:
+#      - url: cool-line
+#        sidebar_icon_url: /static/css/images/markers/marker-question.png
+#        zoom: 4
+#      - url: demo/17
 
 # cluster:
 #   animate: true
