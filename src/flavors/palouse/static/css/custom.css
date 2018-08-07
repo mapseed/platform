@@ -4,19 +4,33 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-
 /* =Header
 -------------------------------------------------------------- */
+#site-header {
+  background: url("/static/css/images/palouse-logo.jpg");
+  background-position: 10px 5px;
+  background-size: auto 60px;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
 
+#site-title {
+  display: none;
+}
+
+#pages-nav-container {
+  margin-left: 200px;
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */
 
-@media only screen and (min-width: 768px) {
-}
-
-@media only screen and (min-width: 1024px) {
-}
-
-@media only screen and (min-width: 1300px) {
+@media only screen and (max-width: 60em) {
+  #site-header {
+    background: url("/static/css/images/palouse-logo.jpg");
+    background-position: 10px 10px;
+    background-size: auto 40px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+  }
 }
