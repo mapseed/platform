@@ -58,16 +58,18 @@ map:
       url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: columbia_river
+    - id: columbia-river
       url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/columbia-river.geojson
       type: json
       rules:
         - condition: "'{{true}}'"
           style:
             fillColor: "#34518f"
-            fillOpacity: 0.7
+            fillOpacity: 1
+            opacity: 0.7
+            weight: 1
 
-    - id: snake_river
+    - id: snake-river
       url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/snake-river.geojson
       type: json
       rules:
@@ -75,6 +77,40 @@ map:
           style:
             fillColor: "#34518f"
             fillOpacity: 0.7
+            opacity: 0
+
+    - id: palouse-basin
+      url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin.geojson
+      type: json
+      rules:
+        - condition: "'{{true}}'"
+          style:
+            fillColor: "#99ccff"
+            fillOpacity: 0.4
+            opacity: 0
+
+    - id: palouse-basin-streams
+      url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson
+      type: json
+      rules:
+        - condition: "'{{true}}'"
+          style:
+            color: "#34518f"
+            opacity: 1
+            weight: 1.5
+
+    - id: nfwq-monitoring
+      url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/nfwq-monitoring.geojson
+      type: json
+      popupContent: "<strong>Median_fec:</strong> {{Median_fec}}"
+      rules:
+        - condition: "'{{true}}'"
+          icon:
+            iconUrl: /static/css/images/markers/dot-4ab767.png
+            iconSize: [20, 20]
+            iconAnchor: [10, 10]
+          style:
+            opacity: 0.9
 
     - id: palouse-input
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input
@@ -98,15 +134,15 @@ place_types:
 
       - condition: 'this.map.zoom < 11'
         icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
+          iconUrl: /static/css/images/markers/map-pin-marker-red.png
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
 
       - condition: 'this.map.zoom < 16'
         icon:
           iconUrl: /static/css/images/markers/map-pin-marker-red.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
+          iconSize: [38, 46]
+          iconAnchor: [19, 46]
 
       - condition: 'this.map.zoom >= 16'
         icon:
@@ -147,11 +183,20 @@ sidebar:
           title: _(Water Features)
           visibleDefault: false
           layers:
-            - id: columbia_river
+            - id: columbia-river
               title: _(Columbia River)
               visibleDefault: true
-            - id: snake_river
+            - id: snake-river
               title: _(Snake River)
+              visibleDefault: true
+            - id: palouse-basin
+              title: _(Palouse Watershed Basin)
+              visibleDefault: true
+            - id: palouse-basin-streams
+              title: _(Palouse Watershed Basin Streams)
+              visibleDefault: true
+            - id: nfwq-monitoring
+              title: _(NFWQ Monitoring)
               visibleDefault: true
         - id: grp-community
           title: _(Community Data)
@@ -231,7 +276,7 @@ place:
           prompt: _(Please describe your property:)
           placeholder: _(Enter description...)
           optional: true
-        - name: actions
+        - name: conservation-actions
           type: big_checkbox
           autocomplete: false
           prompt: _(Which of the following actions have you completed?)
