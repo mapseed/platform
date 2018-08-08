@@ -187,7 +187,7 @@ class PlaceDetail extends Component {
 
   onAttachmentModelRemove(attrs, modelId) {
     if (confirm(this.props.t("confirmAttachmentRemove"))) {
-      this.props.model.attachmentCollection.get(modelId).save(attrs, {
+      this.props.model.attachmentCollection.get(modelId).update(attrs, {
         success: () => {
           this.setState({
             attachmentModels: serializeBackboneCollection(

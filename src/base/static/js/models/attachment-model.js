@@ -13,12 +13,32 @@ module.exports = Backbone.Model.extend({
     return this.get("saved") !== true;
   },
 
+  update: function(key, val, options) {
+    var args = ModelUtils.normalizeModelArguments(key, val, options),
+      attrs = _.extend(this.attributes, args.attrs);
+
+    args.options.url = this.get("url");
+    args.options.type = "PATCH";
+
+    return this._attachBlob(
+      attrs.blob,
+      attrs.name,
+      attrs.type,
+      attrs.visible,
+      args.options,
+    );
+  },
+
   // TODO: We should be overriding sync instead of save here. The only
   // override for save should be to always use wait=True.
   save: function(key, val, options) {
     // Overriding save so that we can handle adding attachments
     var args = ModelUtils.normalizeModelArguments(key, val, options),
       attrs = _.extend(this.attributes, args.attrs);
+
+    args.options.url = this.collection.url();
+    args.options.type = "POST";
+
     return this._attachBlob(
       attrs.blob,
       attrs.name,
@@ -42,8 +62,8 @@ module.exports = Backbone.Model.extend({
     options = options || {};
 
     $.ajax({
-      url: this.isNew() ? this.collection.url() : this.get("url"),
-      type: this.isNew() ? "POST" : "PATCH",
+      url: options.url,
+      type: options.type,
       xhr: function() {
         // custom xhr
         if (myXhr.upload) {
