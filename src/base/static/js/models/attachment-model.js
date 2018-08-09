@@ -37,7 +37,7 @@ module.exports = Backbone.Model.extend({
 
     args.options.url = this.collection.url();
     args.options.type = "POST";
-    
+
     return this._attachBlob(
       attrs.blob,
       attrs.name,
