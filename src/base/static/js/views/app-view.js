@@ -701,8 +701,7 @@ module.exports = Backbone.View.extend({
       var map = self.mapView.map,
         layer,
         center,
-        zoom,
-        $responseToScrollTo;
+        zoom;
 
       if (type === "place") {
         // If this model is a duplicate of one that already exists in the

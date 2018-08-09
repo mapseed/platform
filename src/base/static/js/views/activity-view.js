@@ -52,7 +52,7 @@ module.exports = Backbone.View.extend({
     // Bind collection events
     _.each(this.activities, function(collection, key) {
       collection.on("add", self.onAddAction, self);
-      collection.on("reset", self.onResetActivityWrapper(key), self);
+      collection.on("reset", self.render, self);
     });
   },
 
@@ -145,53 +145,6 @@ module.exports = Backbone.View.extend({
 
   onAddAction: function(model, collection) {
     this.renderAction(model, collection.indexOf(model));
-  },
-
-  // closure for onResetActivity
-  onResetActivityWrapper: function(datasetId) {
-    var self = this;
-    return function(collection) {
-      self.onResetActivity(datasetId, collection);
-    };
-  },
-
-  onResetActivity: function(datasetId, collection) {
-    var self = this,
-      placeIdsToFetch = [];
-
-    // We have actions to show. Let's make sure we have the places we need
-    // to render them. If not, we'll fetch them in bulk and render after.
-    collection.each(function(actionModel) {
-      var actionType = actionModel.get("target_type"),
-        targetData = actionModel.get("target");
-
-      if (!self.places[datasetId].get(targetData.id)) {
-        if (actionType === "place") {
-          placeIdsToFetch.push(targetData.id);
-        } else {
-          placeIdsToFetch.push(_.last(targetData.place.split("/")));
-        }
-      }
-    });
-
-    if (placeIdsToFetch.length > 0) {
-      this.places[datasetId].fetchByIds(placeIdsToFetch, {
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        attribute: "properties",
-        attributesToAdd: {
-          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == datasetId;
-          }).slug,
-          datasetId: datasetId,
-        },
-        success: function() {
-          self.render();
-        },
-      });
-    } else {
-      self.render();
-    }
   },
 
   preparePlaceData: function(placeModel) {},
