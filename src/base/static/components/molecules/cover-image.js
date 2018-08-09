@@ -9,23 +9,16 @@ import "./cover-image.scss";
 const CoverImage = props => {
   return (
     <div className="cover-image">
-      {props.isEditModeToggled && (
+      {props.isShowingDeleteButton && (
         <EditorButton
           className="cover-image__delete-button"
           type="remove"
-          onClick={() => {
-            props.onAttachmentModelRemove(
-              {
-                visible: false,
-              },
-              props.modelId,
-            );
-          }}
+          onClick={props.onClickRemove}
         />
       )}
       <img
         className="cover-image__image"
-        src={props.url}
+        src={props.imageUrl}
         alt={props.t("coverImageAltText")}
       />
     </div>
@@ -33,12 +26,10 @@ const CoverImage = props => {
 };
 
 CoverImage.propTypes = {
-  isEditModeToggled: PropTypes.bool.isRequired,
-  modelId: PropTypes.number.isRequired,
-  onAttachmentModelRemove: PropTypes.func.isRequired,
-  onModelIO: PropTypes.func.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  isShowingDeleteButton: PropTypes.bool.isRequired,
+  onClickRemove: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  url: PropTypes.string.isRequired,
 };
 
 export default translate("CoverImage")(CoverImage);

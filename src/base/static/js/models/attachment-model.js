@@ -4,7 +4,6 @@ var Util = require("../utils.js");
 // This does not support editing at this time, which is why it is not a
 // ShareaboutsModel
 module.exports = Backbone.Model.extend({
-  idAttribute: "id",
   initialize: function(attributes, options) {
     this.options = options;
   },
@@ -38,7 +37,7 @@ module.exports = Backbone.Model.extend({
 
     args.options.url = this.collection.url();
     args.options.type = "POST";
-
+    
     return this._attachBlob(
       attrs.blob,
       attrs.name,
@@ -75,6 +74,7 @@ module.exports = Backbone.Model.extend({
       //Ajax events
       success: function(attachmentResponse) {
         var args = Array.prototype.slice.call(arguments);
+        args[0].saved = true;
 
         self.set({
           saved: true,
