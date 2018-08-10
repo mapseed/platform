@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
+import browserUpdate from "browser-update";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
@@ -30,6 +31,16 @@ const store = createStore(
 // END REACT PORT SECTION //////////////////////////////////////////////////////
 
 var Util = require("../utils.js");
+
+browserUpdate({
+  required: {
+    e: 13, // Edge >= 13.0
+    i: 10, // IE >= 10.0
+    f: 50, // Firefox >= 50.0
+    s: 10, // Safari >= 10.0
+    c: 62, // Chrome >= 62.0
+  },
+});
 
 // Views
 var MapView = require("mapseed-map-view");
