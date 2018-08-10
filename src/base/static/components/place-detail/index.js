@@ -6,7 +6,7 @@ import { fromJS, List, Map } from "immutable";
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
-import CoverImage from "../ui-elements/cover-image";
+import CoverImage from "../molecules/cover-image";
 import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 import emitter from "../../utils/emitter";
@@ -81,23 +81,6 @@ class PlaceDetail extends Component {
       this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
-    // Maintain reset listeners for submission collections in case the detail
-    // view is instantiated before these collections have been fetched.
-    this.props.model.submissionSets[this.supportType].on(
-      "reset",
-      collection => {
-        this.setState({
-          supportModels: serializeBackboneCollection(collection),
-        });
-      },
-    );
-
-    this.props.model.submissionSets[this.surveyType].on("reset", collection => {
-      this.setState({
-        surveyModels: serializeBackboneCollection(collection),
-      });
-    });
-
     this.state = {
       // NOTE: We remove the story property before serializing, so it doesn't
       // get saved.
@@ -125,6 +108,23 @@ class PlaceDetail extends Component {
   }
 
   componentDidMount() {
+    // Maintain reset listeners for submission collections in case the detail
+    // view is instantiated before these collections have been fetched.
+    this.props.model.submissionSets[this.supportType].on(
+      "reset",
+      collection => {
+        this.setState({
+          supportModels: serializeBackboneCollection(collection),
+        });
+      },
+    );
+
+    this.props.model.submissionSets[this.surveyType].on("reset", collection => {
+      this.setState({
+        surveyModels: serializeBackboneCollection(collection),
+      });
+    });
+
     this.props.container.scrollTop = 0;
     // Fire on mount hook.
     // The on mount hook allows flavors to run arbitrary code after the detail
@@ -172,7 +172,7 @@ class PlaceDetail extends Component {
   }
 
   onSurveyModelRemove(modelId) {
-    if (confirm(this.props.t("confirmRemove"))) {
+    if (confirm(this.props.t("confirmSurveyRemove"))) {
       this.props.model.submissionSets[this.surveyType].get(modelId).destroy({
         success: () => {
           this.setState({
@@ -182,6 +182,28 @@ class PlaceDetail extends Component {
           });
         },
       });
+    }
+  }
+
+  onAttachmentModelRemove(modelId) {
+    if (confirm(this.props.t("confirmAttachmentRemove"))) {
+      this.props.model.attachmentCollection.get(modelId).update(
+        { visible: false },
+        {
+          success: () => {
+            this.props.model.attachmentCollection.remove(modelId);
+            this.setState({
+              attachmentModels: serializeBackboneCollection(
+                this.props.model.attachmentCollection,
+              ),
+            });
+            Util.log("USER", "place-editor", "remove-attachment");
+          },
+          error: () => {
+            Util.log("USER", "place-editor", "fail-to-remove-attachment");
+          },
+        },
+      );
     }
   }
 
@@ -195,8 +217,10 @@ class PlaceDetail extends Component {
         isEditModeToggled: false,
         isEditFormSubmitting: false,
         placeModel: fromJS(this.props.model.attributes),
+        attachmentModels: serializeBackboneCollection(
+          this.props.model.attachmentCollection,
+        ),
       });
-      this.refreshAttachments();
     } else if (action === constants.PLACE_MODEL_IO_END_ERROR_ACTION) {
       this.setState({ isEditFormSubmitting: false });
     } else if (action === constants.SURVEY_MODEL_IO_END_SUCCESS_ACTION) {
@@ -212,18 +236,6 @@ class PlaceDetail extends Component {
         ),
       });
     }
-  }
-
-  refreshAttachments() {
-    this.props.model.attachmentCollection.fetch().always(() => {
-      if (!this.state.isEditModeToggled) {
-        this.setState({
-          attachmentModels: serializeBackboneCollection(
-            this.props.model.attachmentCollection,
-          ),
-        });
-      }
-    });
   }
 
   render() {
@@ -351,10 +363,18 @@ class PlaceDetail extends Component {
               attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
               constants.COVER_IMAGE_CODE,
           )
-          .map((attachment, i) => (
+          .map((attachmentModel, i) => (
             <CoverImage
               key={i}
-              src={attachment.get(constants.ATTACHMENT_FILE_PROPERTY_NAME)}
+              isShowingDeleteButton={this.state.isEditModeToggled}
+              imageUrl={attachmentModel.get(
+                constants.ATTACHMENT_FILE_PROPERTY_NAME,
+              )}
+              onClickRemove={() =>
+                this.onAttachmentModelRemove(
+                  attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME),
+                )
+              }
             />
           ))}
         {this.state.isEditModeToggled ? (
