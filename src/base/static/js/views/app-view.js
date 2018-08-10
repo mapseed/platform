@@ -35,7 +35,7 @@ var Util = require("../utils.js");
 browserUpdate({
   required: {
     e: 13, // Edge >= 13.0
-    i: 10, // IE >= 10.0
+    i: 11, // IE >= 11.0
     f: 50, // Firefox >= 50.0
     s: 10, // Safari >= 10.0
     c: 62, // Chrome >= 62.0
