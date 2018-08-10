@@ -34,11 +34,11 @@ var Util = require("../utils.js");
 
 browserUpdate({
   required: {
-    e: 13, // Edge >= 13.0
+    e: -2, // Edge, last 2 versions
     i: 11, // IE >= 11.0
-    f: 50, // Firefox >= 50.0
-    s: 10, // Safari >= 10.0
-    c: 62, // Chrome >= 62.0
+    f: -2, // Firefox, last 2 versions
+    s: -2, // Safari, last 2 versions
+    c: -2, // Chrome, last 2 versions
   },
 });
 
