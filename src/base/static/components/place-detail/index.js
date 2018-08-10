@@ -367,7 +367,6 @@ class PlaceDetail extends Component {
             <CoverImage
               key={i}
               isShowingDeleteButton={this.state.isEditModeToggled}
-              modelId={attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME)}
               imageUrl={attachmentModel.get(
                 constants.ATTACHMENT_FILE_PROPERTY_NAME,
               )}
@@ -376,7 +375,6 @@ class PlaceDetail extends Component {
                   attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME),
                 )
               }
-              onModelIO={this.onChildModelIO.bind(this)}
             />
           ))}
         {this.state.isEditModeToggled ? (
