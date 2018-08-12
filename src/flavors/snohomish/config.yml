@@ -374,6 +374,7 @@ place:
               value: no
         - name: farm_rotational-grazing-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -398,6 +399,7 @@ place:
               value: no
         - name: farm_fencing-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -422,6 +424,7 @@ place:
               value: no
         - name: farm_off-stream-watering-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -451,6 +454,7 @@ place:
             ]          
         - name: farm_livestock-heavy-use-areas-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -475,6 +479,7 @@ place:
               value: no
         - name: farm_gutters-diversion-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -499,6 +504,7 @@ place:
               value: no
         - name: farm_soil-testing-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -523,6 +529,7 @@ place:
               value: no
         - name: farm_manure-storage-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -556,6 +563,7 @@ place:
           hidden_default: true
         - name: farm_other-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -603,6 +611,7 @@ place:
               value: no
         - name: forest_protected-buffers-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -627,6 +636,7 @@ place:
               value: no
         - name: forest_restored-buffers-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -651,6 +661,7 @@ place:
               value: no
         - name: forest_left-trees-snags-etc-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -674,6 +685,7 @@ place:
               value: no
         - name: forest_maintain-roads-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -698,6 +710,7 @@ place:
               value: no
         - name: forest_reduce-harvest-compaction-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -722,6 +735,7 @@ place:
               value: no
         - name: forest_fish-passage-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -746,6 +760,7 @@ place:
               value: no
         - name: forest_logging-slash-etc-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -770,6 +785,7 @@ place:
               value: no
         - name: forest_stewardship-plan-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -801,6 +817,7 @@ place:
           hidden_default: true
         - name: forest_other-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -847,6 +864,7 @@ place:
               value: no
         - name: shoreline_left-slope-vegetation-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -871,6 +889,7 @@ place:
               value: no
         - name: shoreline_slope-native-buffer-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -900,6 +919,7 @@ place:
               value: no
         - name: shoreline_remove-noxious-weeds-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -924,6 +944,7 @@ place:
               value: no
         - name: shoreline_left-dead-trees-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -948,6 +969,7 @@ place:
               value: no
         - name: shoreline_impervious-surfaces-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -972,6 +994,7 @@ place:
               value: no
         - name: shoreline_relocated-slope-structures-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -996,6 +1019,7 @@ place:
               value: no
         - name: shoreline_grass-clippings-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1025,6 +1049,7 @@ place:
             ]              
         - name: shoreline_removed-armoring-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1055,6 +1080,7 @@ place:
           hidden_default: true
         - name: shoreline_other-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1106,6 +1132,7 @@ place:
               value: no
         - name: urban_rain-gardens-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1130,6 +1157,7 @@ place:
               value: no
         - name: urban_rain-barrels-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1159,6 +1187,7 @@ place:
               value: no
         - name: urban_rain-beds-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1188,6 +1217,7 @@ place:
               value: no
         - name: urban_natural-yard-care-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1212,6 +1242,7 @@ place:
               value: no
         - name: general_wildlife-backyard-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1236,6 +1267,7 @@ place:
               value: no
         - name: urban_pollinator-habitat-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1260,6 +1292,7 @@ place:
               value: no
         - name: urban_water-conservation-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1284,6 +1317,7 @@ place:
               value: no
         - name: urban_compost-mulch-soil-amendments-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1308,6 +1342,7 @@ place:
               value: no
         - name: urban_food-garden-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1332,6 +1367,7 @@ place:
               value: no
         - name: urban_drainage-concerns-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
@@ -1362,6 +1398,7 @@ place:
           hidden_default: true
         - name: urban_other-datetime
           type: datetime
+          ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
           display_format: "MMMM YYYY"
           prompt: _(Approximately when did you last complete this action?)
