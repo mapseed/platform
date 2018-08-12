@@ -10,11 +10,16 @@ import constants from "../../../constants";
 
 import "./datetime-field.scss";
 
-const ONGOING_VALUE = "ONGOING";
+// HACK: We use a far-future timestamp to represent the notion of an "ongoing"
+// datetime selection.
+// TODO: Support the ability for field components to write to multiple backend
+// data fields of different data types.
+const ONGOING_DATETIME = "9999-12-31 23:59:59";
 
 class DatetimeField extends Component {
   componentDidMount() {
     this.props.isAutoFocusing && this.inputRef.focus();
+    this.ongoingValue = moment(ONGOING_DATETIME).format(this.props.dateFormat);
   }
 
   render() {
@@ -30,17 +35,17 @@ class DatetimeField extends Component {
                 <label
                   className={classNames("datetime-field__label-ongoing", {
                     "datetime-field__label-ongoing--toggled":
-                      this.props.value === ONGOING_VALUE,
+                      this.props.value === this.ongoingValue,
                   })}
                 >
                   <input
                     className="datetime-field__input-ongoing"
                     type="checkbox"
-                    checked={this.props.value === ONGOING_VALUE}
+                    checked={this.props.value === this.ongoingValue}
                     onChange={e =>
                       this.props.onChange(
                         this.props.name,
-                        e.target.checked ? ONGOING_VALUE : "",
+                        e.target.checked ? this.ongoingValue : "",
                       )
                     }
                   />
@@ -57,7 +62,7 @@ class DatetimeField extends Component {
                 placeholder={this.props.placeholder || "Select a date"}
                 value={
                   (this.props.value &&
-                    this.props.value !== ONGOING_VALUE &&
+                    this.props.value !== this.ongoingValue &&
                     moment(this.props.value).format(
                       this.props.displayFormat,
                     )) ||
