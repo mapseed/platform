@@ -25,10 +25,14 @@ const CoverImage = props => {
   );
 };
 
+CoverImage.defaultProps = {
+  isShowingDeleteButton: false,
+};
+
 CoverImage.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   isShowingDeleteButton: PropTypes.bool.isRequired,
-  onClickRemove: PropTypes.func.isRequired,
+  onClickRemove: PropTypes.func,
   t: PropTypes.func.isRequired,
 };
 

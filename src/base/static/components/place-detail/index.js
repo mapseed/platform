@@ -6,7 +6,6 @@ import { fromJS, List, Map } from "immutable";
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
 import Survey from "./survey";
-import CoverImage from "../molecules/cover-image";
 import EditorBar from "./editor-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 import emitter from "../../utils/emitter";
@@ -277,6 +276,7 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <SnohomishFieldSummary
+          attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
         />
@@ -288,17 +288,17 @@ class PlaceDetail extends Component {
     ) {
       fieldSummary = (
         <VVFieldSummary
+          attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
-          attachmentModels={this.state.attachmentModels}
         />
       );
     } else {
       fieldSummary = (
         <FieldSummary
+          attachmentModels={this.state.attachmentModels}
           fields={this.categoryConfig.fields}
           placeModel={this.state.placeModel}
-          attachmentModels={this.state.attachmentModels}
         />
       );
     }
@@ -357,26 +357,6 @@ class PlaceDetail extends Component {
           />
         )}
         <div className="place-detail-view__clearfix" />
-        {this.state.attachmentModels
-          .filter(
-            attachment =>
-              attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
-              constants.COVER_IMAGE_CODE,
-          )
-          .map((attachmentModel, i) => (
-            <CoverImage
-              key={i}
-              isShowingDeleteButton={this.state.isEditModeToggled}
-              imageUrl={attachmentModel.get(
-                constants.ATTACHMENT_FILE_PROPERTY_NAME,
-              )}
-              onClickRemove={() =>
-                this.onAttachmentModelRemove(
-                  attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME),
-                )
-              }
-            />
-          ))}
         {this.state.isEditModeToggled ? (
           <PlaceDetailEditor
             placeModel={this.state.placeModel}
@@ -385,6 +365,7 @@ class PlaceDetail extends Component {
             layerView={this.props.layerView}
             map={this.props.map}
             onAddAttachment={this.onAddAttachment.bind(this)}
+            onAttachmentModelRemove={this.onAttachmentModelRemove.bind(this)}
             onModelIO={this.onChildModelIO.bind(this)}
             onPlaceModelSave={this.props.model.save.bind(this.props.model)}
             places={this.props.places}

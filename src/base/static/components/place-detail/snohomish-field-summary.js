@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import fieldResponseFilter from "../../utils/field-response-filter";
 import { Header1, Header4, Paragraph } from "../atoms/typography";
+import CoverImage from "../molecules/cover-image";
 
 import constants from "../../constants";
 
@@ -39,7 +40,20 @@ const SnohomishFieldSummary = props => {
         <span className="snohomish-num-actions">{fieldConfigs.length}</span>{" "}
         {fieldConfigs.length === 1 ? "action" : "actions"}
       </Header1>
-      <hr />
+      {props.attachmentModels
+        .filter(
+          attachment =>
+            attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
+            constants.COVER_IMAGE_CODE,
+        )
+        .map((attachmentModel, i) => (
+          <CoverImage
+            key={i}
+            imageUrl={attachmentModel.get(
+              constants.ATTACHMENT_FILE_PROPERTY_NAME,
+            )}
+          />
+        ))}
       {stages.farm.length > 0 && (
         <div className="snohomish-stage-summary">
           <Header4 classes="snohomish-stage-action-summary">
@@ -85,6 +99,7 @@ const SnohomishFieldSummary = props => {
 };
 
 SnohomishFieldSummary.propTypes = {
+  attachmentModels: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
   placeModel: PropTypes.object.isRequired,
 };
