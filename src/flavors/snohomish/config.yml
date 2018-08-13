@@ -352,9 +352,9 @@ place:
           display_prompt: _( )
           advance_stage_on_value: no-farm
           content:
-            - label: _(I don't live on a farm -- Proceed to next screen)
+            - label: _(I don't live on a farm -- Proceed to next screen (Page 2 of 6))
               value: no-farm
-            - label: _(I don't live on a farm -- Proceed to next screen)
+            - label: _(I don't live on a farm -- Proceed to next screen (Page 2 of 6))
               value: farm
           optional: true
 
@@ -581,9 +581,9 @@ place:
           advance_stage_on_value: no-forest
           display_prompt: _( )
           content:
-            - label: _(I don't own/operate forestland -- Proceed to next screen)
+            - label: _(I don't own/operate forestland -- Proceed to next screen (Page 3 of 6))
               value: no-forest
-            - label: _(I don't own/operate forestland -- Proceed to next screen)
+            - label: _(I don't own/operate forestland -- Proceed to next screen (Page 3 of 6))
               value: forest
           optional: true
       
@@ -825,9 +825,9 @@ place:
           prompt: _( )
           display_prompt: _( )
           content:
-            - label: _(I don't live alongside water -- Proceed to next screen)
+            - label: _(I don't live alongside water -- Proceed to next screen (Page 4 of 6))
               value: no-shoreline
-            - label: _(I don't live alongside water -- Proceed to next screen)
+            - label: _(I don't live alongside water -- Proceed to next screen (Page 4 of 6))
               value: shoreline
           optional: true
         
@@ -1079,9 +1079,9 @@ place:
           prompt: _( )
           display_prompt: _( )
           content:
-            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen)
+            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6))
               value: no-urban
-            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen)
+            - label: _(I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6))
               value: urban
           optional: true
 
