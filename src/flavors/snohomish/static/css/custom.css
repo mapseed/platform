@@ -367,7 +367,6 @@
 /* =Custom detail view
 -------------------------------------------------------------- */
 .snohomish-field-summary {
-  margin-top: 30px;
   margin-bottom: 50px;
 }
 
@@ -443,6 +442,10 @@
     #content {
       margin-bottom: 0;
     }
+  }
+
+  .place-detail-view__header {
+    font-size: 1.5em;
   }
 }
 
