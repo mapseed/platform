@@ -7,10 +7,13 @@ import classNames from "classnames";
 import "react-datetime/css/react-datetime.css";
 
 import { CheckboxInput, DatetimeInput } from "../../atoms/input";
+import { isTouchDevice } from "../../../utils/misc-utils";
 
 import constants from "../../../constants";
 
 import "./datetime-field.scss";
+
+const IS_TOUCH_DEVICE = isTouchDevice();
 
 // HACK: We use a far-future timestamp to represent the notion of an "ongoing"
 // datetime selection.
@@ -37,6 +40,7 @@ class DatetimeField extends Component {
               {this.props.ongoingLabel && (
                 <label
                   className={classNames("datetime-field__label-ongoing", {
+                    "datetime-field__label-ongoing--hoverable": !IS_TOUCH_DEVICE,
                     "datetime-field__label-ongoing--toggled":
                       this.props.value === this.ongoingValue,
                   })}

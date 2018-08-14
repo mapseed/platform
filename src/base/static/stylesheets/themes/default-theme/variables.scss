@@ -30,7 +30,7 @@ $autofill-color: #ffffe0;
 // ICONS
 // -----------------------------------------------------------------------------
 $icon-search: "\F002";
-$icon-check-mark: "✔";
+$icon-check-mark: "\F00C";
 $icon-hamburger: "\F03A";
 $icon-solid-star: "\F005";
 $icon-heart-filled: "\F004";
@@ -152,6 +152,7 @@ $dropdown-field-autofill-background-color: $autofill-color;
   datetime-field.js
   Date/time picker
 */
+$datetime-field-ongoing-icon: $icon-check-mark;
 $datetime-field-border: 0.25em solid $secondary-color;
 $datetime-field-border-radius: 0 0 0 0;
 $datetime-field-padding: 0.5em 0.5em 0.5em 0.5em;
@@ -190,7 +191,7 @@ $big-radio-field-label-font-size: 1.15em;
 $big-radio-field-label-text-color: $light-gray;
 $big-radio-field-label-padding: 8px 10px 8px 60px;
 $big-radio-field-label-margin: 5px 0 0 0;
-$big-radio-field-line-height: 2.1em;
+$big-radio-field-line-height: 1.4em;
 $big-radio-field-hover-label-color: $very-dark-gray;
 $big-radio-field-label-border-radius: 4px;
 $big-radio-field-selected-icon-color: #ffffff;
