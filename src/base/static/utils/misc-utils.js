@@ -1,13 +1,5 @@
-const isTouchDevice = () => {
-  if (
-    window.ontouchstart ||
-    // eslint-disable-next-line no-undef
-    (window.DocumentTouch && document instanceof DocumentTouch)
-  ) {
-    return true;
-  }
+import modernizr from "../../../../.modernizrrc.js";
 
-  return false;
-};
+const isTouchDevice = () => modernizr.touchevents;
 
 export { isTouchDevice };

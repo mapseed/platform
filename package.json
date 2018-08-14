@@ -111,6 +111,7 @@
     "watchify": "^3.4.0",
     "wax-on": "^1.2.0",
     "webpack-dev-server": "^2.11.2",
+    "webpack-modernizr-loader": "^4.0.1",
     "yaml-loader": "^0.5.0"
   }
 }

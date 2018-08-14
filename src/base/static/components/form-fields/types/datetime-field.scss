@@ -35,7 +35,9 @@
     text-indent: 0.3em;
     color: #000;
   }
+}
 
+.datetime-field__label-ongoing--hoverable {
   &:hover {
     cursor: pointer;
   }
