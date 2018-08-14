@@ -6,6 +6,8 @@ import classNames from "classnames";
 
 import "react-datetime/css/react-datetime.css";
 
+import { CheckboxInput, DatetimeInput } from "../../atoms/input";
+
 import constants from "../../../constants";
 
 import "./datetime-field.scss";
@@ -38,9 +40,8 @@ class DatetimeField extends Component {
                       this.props.value === this.ongoingValue,
                   })}
                 >
-                  <input
-                    className="datetime-field__input-ongoing"
-                    type="checkbox"
+                  <CheckboxInput
+                    classes="datetime-field__input-ongoing"
                     checked={this.props.value === this.ongoingValue}
                     onChange={e =>
                       this.props.onChange(
@@ -52,12 +53,12 @@ class DatetimeField extends Component {
                   <em>{this.props.ongoingLabel}</em>
                 </label>
               )}
-              <input
+              <DatetimeInput
                 type="text"
-                ref={input => {
+                childRef={input => {
                   this.inputRef = input;
                 }}
-                className="datetime-field__input"
+                classes="datetime-field__input"
                 onFocus={openCalendar}
                 placeholder={this.props.placeholder || "Select a date"}
                 value={
