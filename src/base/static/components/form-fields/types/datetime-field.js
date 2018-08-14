@@ -16,6 +16,7 @@ import "./datetime-field.scss";
 // datetime selection.
 // TODO: Support the ability for field components to write to multiple backend
 // data fields of different data types.
+// https://github.com/mapseed/platform/issues/990
 const ONGOING_DATETIME = "9999-12-31 23:59:59";
 
 class DatetimeField extends Component {
