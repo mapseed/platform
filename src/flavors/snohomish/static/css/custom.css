@@ -137,6 +137,11 @@
 //  width: 70px;
 //}
 
+.input-form__field-prompt {
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
 .input-form__field-container[data-field-type="datetime"],
 .input-form__field-container[data-field-type="big_toggle"] {
   background-color: #efefef;
@@ -182,7 +187,22 @@
   text-indent: 0.7em;
 }
 
-.big-toggle-field__label--toggled:hover:before {
+.datetime-field__label-ongoing:before {
+  background-color: #efefef;
+  border: 4px solid #779300;
+}
+
+.datetime-field__label-ongoing--toggled:before {
+  background-color: #779300;
+  color: #fff;
+}
+
+.datetime-field__label-ongoing:hover:before {
+  color: #779300;
+}
+
+.big-toggle-field__label--toggled:hover:before,
+.datetime-field__label-ongoing--toggled:hover:before {
   color: #fff;
 }
 
