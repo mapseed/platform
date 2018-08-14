@@ -22,6 +22,8 @@ import FormCategoryMenuWrapper from "../../components/input-form/form-category-m
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import RightSidebar from "../../components/templates/right-sidebar";
+import { Link } from "../../components/atoms/navigation";
+import SecondaryButton from "../../components/ui-elements/secondary-button";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(
@@ -102,6 +104,7 @@ module.exports = Backbone.View.extend({
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
     store.dispatch(setConfig(config));
+    const storeState = store.getState();
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -220,6 +223,23 @@ module.exports = Backbone.View.extend({
       apiRoot: this.options.apiRoot,
       router: this.options.router,
     }).render();
+
+    // TODO(jalmogo): refactor this into our Header component, when ready:
+    const datasetSlug = storeState.config.app.dataset_download.slug;
+    const datasetOwner = storeState.config.app.dataset_download.owner;
+    const apiRoot = storeState.config.app.api_root;
+    const isAdmin = Util.getAdminStatus(datasetSlug);
+    if (isAdmin) {
+      ReactDOM.render(
+        <Link
+          href={`${apiRoot}${datasetOwner}/datasets/${datasetSlug}/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
+          style={{ float: "right" }}
+        >
+          <SecondaryButton>{`Download Survey Data`}</SecondaryButton>
+        </Link>,
+        document.getElementById("dataset-download"),
+      );
+    }
 
     this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
       panel,

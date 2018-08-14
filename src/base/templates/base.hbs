@@ -76,6 +76,10 @@
       <div id="place-counter" class="list-toggle-nav"></div>
     {{/if}}
 
+    {{#if config.app.dataset_download}}
+      <div id="dataset-download"></div>
+    {{/if}}
+
     {{#if config.languages}}
       {{#block "language_picker"}}
         <div id="language-picker">

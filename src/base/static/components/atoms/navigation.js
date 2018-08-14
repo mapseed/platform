@@ -19,6 +19,7 @@ const Link = ({ children, ...props }) => {
         "mapseed__link--size-regular": props.size === "regular",
         "mapseed__link--disabled": !!props.disabled,
       })}
+      href={props.href}
       {...props}
     >
       {children}
@@ -33,6 +34,7 @@ Link.propTypes = {
   variant: PropTypes.string,
   color: PropTypes.string,
   size: PropTypes.string,
+  href: PropTypes.string.isRequired,
 };
 
 Link.defaultProps = {
