@@ -26,15 +26,15 @@ CheckboxInput.propTypes = {
 const DatetimeInput = props => {
   return (
     <input
-      className={classNames("datetime-input", props.classes)} 
-      type="text" 
+      className={classNames("datetime-input", props.classes)}
+      type="text"
       ref={props.childRef}
-      value={props.value} 
+      value={props.value}
       placeholder={props.placeholder}
       onFocus={props.onFocus}
     />
-  )
-}
+  );
+};
 
 DatetimeInput.propTypes = {
   childRef: PropTypes.func,
@@ -42,6 +42,6 @@ DatetimeInput.propTypes = {
   onFocus: PropTypes.func,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-}
+};
 
 export { CheckboxInput, DatetimeInput };
