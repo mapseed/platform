@@ -158,6 +158,11 @@ class MainMap extends Component {
       },
     });
 
+    // Handler for clearing in-progress drawing geometry.
+    this.props.router.on("route", () => {
+      this._map.drawDeleteGeometry();
+    });
+
     // Handlers for map drawing events.
     emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
       this._map.drawStartPolygon();

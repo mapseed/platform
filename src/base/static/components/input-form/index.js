@@ -55,13 +55,6 @@ class InputForm extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.setActiveDrawingTool(null);
-    this.props.router.on("route", () => {
-      emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
-    });
-  }
-
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.isFormResetting ||
