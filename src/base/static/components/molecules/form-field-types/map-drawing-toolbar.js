@@ -101,7 +101,7 @@ class MapDrawingToolbar extends Component {
               onClick={() => {
                 if (
                   this.props.activeDrawingTool ===
-                    constants.DRAW_CREATE_MARKER_TOOL
+                  constants.DRAW_CREATE_MARKER_TOOL
                 ) {
                   return;
                 }
@@ -126,7 +126,7 @@ class MapDrawingToolbar extends Component {
               onClick={() => {
                 if (
                   this.props.activeDrawingTool ===
-                    constants.DRAW_CREATE_POLYLINE_TOOL
+                  constants.DRAW_CREATE_POLYLINE_TOOL
                 ) {
                   return;
                 }
