@@ -7,8 +7,6 @@ import "./big-toggle-field.scss";
 
 import { isTouchDevice } from "../../../utils/misc-utils";
 
-const IS_TOUCH_DEVICE = isTouchDevice();
-
 const BigToggleField = props => {
   return (
     <div className="big-toggle-field">
@@ -24,7 +22,7 @@ const BigToggleField = props => {
       />
       <label
         className={classNames("big-toggle-field__label", {
-          "big-toggle-field__label--hoverable": !IS_TOUCH_DEVICE,
+          "big-toggle-field__label--hoverable": !isTouchDevice,
           "big-toggle-field__label--toggled": props.checked,
           "big-toggle-field__label--has-autofill": props.hasAutofill,
         })}

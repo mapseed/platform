@@ -7,8 +7,6 @@ import "./big-radio-field.scss";
 
 import { isTouchDevice } from "../../../utils/misc-utils";
 
-const IS_TOUCH_DEVICE = isTouchDevice();
-
 const BigRadioField = props => {
   return (
     <div className="big-radio-field">
@@ -22,7 +20,7 @@ const BigRadioField = props => {
       />
       <label
         className={classNames("big-radio-field__label", {
-          "big-radio-field__label--hoverable": !IS_TOUCH_DEVICE,
+          "big-radio-field__label--hoverable": !isTouchDevice,
           "big-radio-field__label--toggled": props.checked,
           "big-radio-field__label--has-autofill":
             props.hasAutofill && props.checked,
