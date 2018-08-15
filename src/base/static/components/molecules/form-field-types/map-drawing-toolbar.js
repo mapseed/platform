@@ -100,8 +100,7 @@ class MapDrawingToolbar extends Component {
               icon="/static/css/images/create-marker-icon.svg"
               onClick={() => {
                 if (
-                  !!this.props.activeDrawingTool &&
-                  this.props.activeDrawingTool !==
+                  this.props.activeDrawingTool ===
                     constants.DRAW_CREATE_MARKER_TOOL
                 ) {
                   return;
@@ -126,8 +125,7 @@ class MapDrawingToolbar extends Component {
               icon="/static/css/images/create-polyline-icon.svg"
               onClick={() => {
                 if (
-                  !!this.props.activeDrawingTool &&
-                  this.props.activeDrawingTool !==
+                  this.props.activeDrawingTool ===
                     constants.DRAW_CREATE_POLYLINE_TOOL
                 ) {
                   return;
@@ -152,9 +150,8 @@ class MapDrawingToolbar extends Component {
               icon="/static/css/images/create-polygon-icon.svg"
               onClick={() => {
                 if (
-                  !!this.props.activeDrawingTool &&
-                  this.props.activeDrawingTool !==
-                    constants.DRAW_CREATE_POLYGON_TOOL
+                  this.props.activeDrawingTool ===
+                  constants.DRAW_CREATE_POLYGON_TOOL
                 ) {
                   return;
                 }
