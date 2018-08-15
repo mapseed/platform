@@ -19,6 +19,7 @@ import {
   setActiveColorpicker,
   geometryStyleSelector,
   setGeometryStyle,
+  resetDrawingToolbarState,
 } from "../../../state/ducks/map-drawing-toolbar";
 
 import { ToolbarButton } from "../../atoms/buttons";
@@ -37,6 +38,7 @@ const deleteToolLabels = {
 
 class MapDrawingToolbar extends Component {
   componentDidMount() {
+    this.props.resetDrawingToolbarState();
     this.props.setMarkers(this.props.markers);
     emitter.addListener(constants.DRAW_UPDATE_GEOMETRY_EVENT, geometry => {
       this.props.onChange(this.props.name, geometry);
@@ -356,6 +358,7 @@ MapDrawingToolbar.propTypes = {
   markers: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  resetDrawingToolbarState: PropTypes.func.isRequired,
   setActiveColorpicker: PropTypes.func.isRequired,
   setActiveDrawingTool: PropTypes.func.isRequired,
   setActiveMarkerIndex: PropTypes.func.isRequired,
@@ -375,6 +378,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  resetDrawingToolbarState: () => dispatch(resetDrawingToolbarState()),
   setActiveColorpicker: activeColorpicker =>
     dispatch(setActiveColorpicker(activeColorpicker)),
   setActiveMarkerIndex: activeMarkerIndex =>

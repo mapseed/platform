@@ -45,6 +45,8 @@ const SET_ACTIVE_DRAW_GEOMETRY_ID =
   "map-drawing-toolbar/SET_ACTIVE_DRAW_GEOMETRY_ID";
 const SET_ACTIVE_COLORPICKER = "map-drawing-toolbar/SET_ACTIVE_COLORPICKER";
 const SET_GEOMETRY_STYLE = "map-drawing-toolbar/SET_GEOMETRY_STYLE";
+const RESET_DRAWING_TOOLBAR_STATE =
+  "map-drawing-toolbar/RESET_DRAWING_TOOLBAR_STATE";
 
 // Action creators:
 export function setVisibleDrawingTools(visibleDrawingTools) {
@@ -70,6 +72,9 @@ export function setActiveColorpicker(activeColorpicker) {
 }
 export function setGeometryStyle(geometryStyle) {
   return { type: SET_GEOMETRY_STYLE, payload: geometryStyle };
+}
+export function resetDrawingToolbarState() {
+  return { type: RESET_DRAWING_TOOLBAR_STATE, payload: null };
 }
 
 // Reducers:
@@ -134,6 +139,8 @@ export default function reducer(state = INITIAL_STATE, action) {
           ...action.payload,
         },
       };
+    case RESET_DRAWING_TOOLBAR_STATE:
+      return INITIAL_STATE;
     default:
       return state;
   }
