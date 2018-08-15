@@ -80,15 +80,10 @@ module.exports = Backbone.Model.extend({
 
     // If this is a new model, then we need to save it first before we can
     // attach anything to it.
-    if (this.isNew()) {
-      // Attach files after the model is succesfully saved
-      options.success = function() {
-        self.saveAttachments(self, arguments, realSuccessHandler);
-      };
-    } else {
-      // Model is already saved, attach away!
-      self.saveAttachments(self, arguments);
-    }
+    // Attach files after the model is succesfully saved
+    options.success = function() {
+      self.saveAttachments(self, arguments, realSuccessHandler);
+    };
 
     options.ignoreAttachments = true;
     options.beforeSend = function(xhr, options) {
@@ -109,22 +104,22 @@ module.exports = Backbone.Model.extend({
   },
 
   saveAttachments: function(context, args, realSuccessHandler = null) {
-    var attachmentCount = this.attachmentCollection.length,
+    let unsavedAttachmentModels = this.attachmentCollection.filter(attachment =>
+        attachment.isNew(),
+      ),
       numSavedAttachments = 0,
       attachmentSuccessHandler = function() {
         numSavedAttachments++;
-        if (attachmentCount === numSavedAttachments) {
+        if (unsavedAttachmentModels.length === numSavedAttachments) {
           realSuccessHandler && realSuccessHandler.apply(context, args);
         }
       };
 
-    if (this.attachmentCollection.length > 0) {
-      this.attachmentCollection.each(function(attachment) {
-        if (attachment.isNew()) {
-          attachment.save(null, {
-            success: attachmentSuccessHandler,
-          });
-        }
+    if (unsavedAttachmentModels.length > 0) {
+      unsavedAttachmentModels.forEach(attachment => {
+        attachment.save(null, {
+          success: attachmentSuccessHandler,
+        });
       });
     } else {
       realSuccessHandler && realSuccessHandler.apply(context, args);

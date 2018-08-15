@@ -1,0 +1,12 @@
+.cover-image {
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.cover-image__delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  box-shadow: -2px 2px 3px #555;
+}

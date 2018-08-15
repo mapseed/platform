@@ -137,6 +137,11 @@
 //  width: 70px;
 //}
 
+.input-form__field-prompt {
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
 .input-form__field-container[data-field-type="datetime"],
 .input-form__field-container[data-field-type="big_toggle"] {
   background-color: #efefef;
@@ -166,8 +171,8 @@
   border: 4px solid #779300;
 }
 
-.big-toggle-field__label:hover:before {
-  text-indent: 0.7em;
+.big-toggle-field__label--hoverable:hover:before {
+  text-indent: 0.5em;
   color: #779300;
 }
 
@@ -179,10 +184,25 @@
   background-color: #efefef;
   border: 4px solid #779300;
   width: 2em;
-  text-indent: 0.7em;
+  text-indent: 0.5em;
 }
 
-.big-toggle-field__label--toggled:hover:before {
+.datetime-field__label-ongoing:before {
+  background-color: #efefef;
+  border: 4px solid #779300;
+}
+
+.datetime-field__label-ongoing--toggled:before {
+  background-color: #779300;
+  color: #fff;
+}
+
+.datetime-field__label-ongoing--hoverable:hover:before {
+  color: #779300;
+}
+
+.big-toggle-field__label--toggled.big-toggle-field__label--hoverable:hover:before,
+.datetime-field__label-ongoing--toggled.datetime-field__label-ongoing--hoverable:hover:before {
   color: #fff;
 }
 
@@ -367,7 +387,6 @@
 /* =Custom detail view
 -------------------------------------------------------------- */
 .snohomish-field-summary {
-  margin-top: 30px;
   margin-bottom: 50px;
 }
 
@@ -430,10 +449,10 @@
   #site-header {
     background: url("/static/css/images/scdHorizontal.png");
     //background: url("/static/css/images/header-banner-small.png");
-    background-size: auto 40px;
+    background-size: auto 30px;
     background-color: #f3f5e7;
     background-repeat: no-repeat;
-    background-position: 20px 10px;
+    background-position: 30px 15px;
   }
 
   .place-form-visible {
@@ -443,6 +462,10 @@
     #content {
       margin-bottom: 0;
     }
+  }
+
+  .place-detail-view__header {
+    font-size: 1.5em;
   }
 }
 

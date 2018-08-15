@@ -5,14 +5,9 @@ import classNames from "classnames";
 import ToggleField from "./toggle-field";
 import "./big-toggle-field.scss";
 
-const BigToggleField = props => {
-  const cn = {
-    label: classNames("big-toggle-field__label", {
-      "big-toggle-field__label--toggled": props.checked,
-      "big-toggle-field__label--has-autofill": props.hasAutofill,
-    }),
-  };
+import { isTouchDevice } from "../../../utils/misc-utils";
 
+const BigToggleField = props => {
   return (
     <div className="big-toggle-field">
       <ToggleField
@@ -25,7 +20,14 @@ const BigToggleField = props => {
           props.onChange(e.target.name, props.values[e.target.checked ? 0 : 1])
         }
       />
-      <label className={cn.label} htmlFor={props.id}>
+      <label
+        className={classNames("big-toggle-field__label", {
+          "big-toggle-field__label--hoverable": !isTouchDevice,
+          "big-toggle-field__label--toggled": props.checked,
+          "big-toggle-field__label--has-autofill": props.hasAutofill,
+        })}
+        htmlFor={props.id}
+      >
         {props.checked ? props.labels[0] : props.labels[1]}
       </label>
     </div>

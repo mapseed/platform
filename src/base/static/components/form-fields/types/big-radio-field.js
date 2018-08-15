@@ -5,15 +5,9 @@ import classNames from "classnames";
 import RadioField from "./radio-field";
 import "./big-radio-field.scss";
 
-const BigRadioField = props => {
-  const cn = {
-    label: classNames("big-radio-field__label", {
-      "big-radio-field__label--toggled": props.checked,
-      "big-radio-field__label--has-autofill":
-        props.hasAutofill && props.checked,
-    }),
-  };
+import { isTouchDevice } from "../../../utils/misc-utils";
 
+const BigRadioField = props => {
   return (
     <div className="big-radio-field">
       <RadioField
@@ -24,7 +18,15 @@ const BigRadioField = props => {
         value={props.value}
         onChange={e => props.onChange(e.target.name, e.target.value)}
       />
-      <label className={cn.label} htmlFor={props.id}>
+      <label
+        className={classNames("big-radio-field__label", {
+          "big-radio-field__label--hoverable": !isTouchDevice,
+          "big-radio-field__label--toggled": props.checked,
+          "big-radio-field__label--has-autofill":
+            props.hasAutofill && props.checked,
+        })}
+        htmlFor={props.id}
+      >
         {props.label}
       </label>
     </div>

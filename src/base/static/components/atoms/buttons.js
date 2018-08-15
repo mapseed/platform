@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import "./editor-button.scss";
+import "./buttons.scss";
 
 const EditorButton = props => {
   return (
@@ -34,10 +34,10 @@ const EditorButton = props => {
 EditorButton.propTypes = {
   className: PropTypes.string,
   isEditModeToggled: PropTypes.bool,
-  isSubmitting: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
+  isSubmitting: PropTypes.bool,
+  label: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
 
-export default EditorButton;
+export { EditorButton };

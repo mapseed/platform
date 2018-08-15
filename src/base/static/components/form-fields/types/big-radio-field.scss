@@ -41,16 +41,15 @@
   }
 }
 
-@media (hover: hover) {
-  .big-radio-field__label {
-    &:hover {
-      color: $big-radio-field-hover-label-color;
+.big-radio-field__label--hoverable {
+  &:hover {
+    color: $big-radio-field-hover-label-color;
 
-      &:before {
-        content: $big-radio-field-icon;
-        text-indent: 0.9em;
-        color: $big-radio-field-hover-icon-color;
-      }
+    &:before {
+      font-family: FontAwesome;
+      content: $big-radio-field-icon;
+      text-indent: 0.7em;
+      color: $big-radio-field-hover-icon-color;
     }
   }
 }
@@ -64,9 +63,10 @@
   color: $big-radio-field-selected-label-color;
 
   &:before {
+    font-family: FontAwesome;
     content: $big-radio-field-icon;
     background-color: $big-radio-field-selected-icon-background-color;
-    text-indent: 0.9em;
+    text-indent: 0.7em;
     color: $big-radio-field-selected-icon-color;
   }
 }

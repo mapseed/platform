@@ -39,6 +39,7 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
+    "browser-update": "^3.1.13",
     "classnames": "^2.2.5",
     "compass-importer": "^0.4.1",
     "dotenv": "^4.0.0",
@@ -112,6 +113,7 @@
     "watchify": "^3.4.0",
     "wax-on": "^1.2.0",
     "webpack-dev-server": "^2.11.2",
+    "webpack-modernizr-loader": "^4.0.1",
     "yaml-loader": "^0.5.0"
   }
 }

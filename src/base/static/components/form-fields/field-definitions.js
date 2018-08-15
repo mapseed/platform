@@ -218,6 +218,7 @@ export default {
         timeFormat={fieldConfig.time_format}
         dateFormat={fieldConfig.date_format}
         displayFormat={fieldConfig.display_format}
+        ongoingLabel={fieldConfig.ongoing_label}
       />
     ),
     getInitialValue: ({ value }) => value,

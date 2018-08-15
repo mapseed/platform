@@ -7,7 +7,7 @@ import FormField from "../form-fields/form-field";
 import Avatar from "../ui-elements/avatar";
 import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
-import EditorButton from "../ui-elements/editor-button";
+import { EditorButton } from "../atoms/buttons";
 
 import { survey as surveyConfig, place as placeConfig } from "config";
 import { translate } from "react-i18next";

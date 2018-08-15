@@ -8,6 +8,8 @@ import "react-spinner/react-spinner.css";
 
 import FormField from "../form-fields/form-field";
 import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import CoverImage from "../molecules/cover-image";
+
 import { scrollTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
 const Util = require("../../js/utils.js");
@@ -199,6 +201,26 @@ class PlaceDetailEditor extends Component {
           errors={Array.from(this.state.formValidationErrors)}
           headerMsg={this.props.t("validationErrorHeaderMsg")}
         />
+        {this.props.attachmentModels
+          .filter(
+            attachment =>
+              attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
+              constants.COVER_IMAGE_CODE,
+          )
+          .map((attachmentModel, i) => (
+            <CoverImage
+              key={i}
+              isShowingDeleteButton={true}
+              imageUrl={attachmentModel.get(
+                constants.ATTACHMENT_FILE_PROPERTY_NAME,
+              )}
+              onClickRemove={() =>
+                this.props.onAttachmentModelRemove(
+                  attachmentModel.get(constants.MODEL_ID_PROPERTY_NAME),
+                )
+              }
+            />
+          ))}
         <form className="place-detail-editor__form">
           {this.state.fields
             .filter(
@@ -260,6 +282,7 @@ PlaceDetailEditor.propTypes = {
   layerView: PropTypes.object,
   map: PropTypes.object,
   onAddAttachment: PropTypes.func,
+  onAttachmentModelRemove: PropTypes.func.isRequired,
   onModelIO: PropTypes.func.isRequired,
   onPlaceModelSave: PropTypes.func.isRequired,
   placeModel: PropTypes.object.isRequired,

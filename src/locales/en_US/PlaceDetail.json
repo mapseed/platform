@@ -1,4 +1,6 @@
 {
-  "confirmRemove":
-    "You are deleting this comment permanently. Are you sure you want to continue?"
+  "confirmSurveyRemove":
+    "You are deleting this response permanently. Are you sure you want to continue?",
+  "confirmAttachmentRemove":
+    "You are deleting this attachment permanently. Are you sure you want to continue?"
 }

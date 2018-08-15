@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Header5, Paragraph } from "../atoms/typography";
+import CoverImage from "../molecules/cover-image";
+
+import constants from "../../constants";
 
 import "./vv-field-summary.scss";
 
@@ -10,6 +13,20 @@ import "./vv-field-summary.scss";
 const VVFieldSummary = props => {
   return (
     <div className="vv-field-summary">
+      {props.attachmentModels
+        .filter(
+          attachment =>
+            attachment.get(constants.ATTACHMENT_TYPE_PROPERTY_NAME) ===
+            constants.COVER_IMAGE_CODE,
+        )
+        .map((attachmentModel, i) => (
+          <CoverImage
+            key={i}
+            imageUrl={attachmentModel.get(
+              constants.ATTACHMENT_FILE_PROPERTY_NAME,
+            )}
+          />
+        ))}
       <hr />
       <Header5 classes="vv-field-summary__toggle-response">
         {props.placeModel.get("regular_user") === "yes"
@@ -29,6 +46,7 @@ const VVFieldSummary = props => {
 };
 
 VVFieldSummary.propTypes = {
+  attachmentModels: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
   placeModel: PropTypes.object.isRequired,
 };
