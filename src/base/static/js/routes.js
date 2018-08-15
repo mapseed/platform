@@ -27,7 +27,6 @@ Shareabouts.Util = Util;
     initialize: function(options) {
       var self = this,
         startPageConfig,
-        filteredRoutes,
         // store config details for places
         configArrays = {};
 
@@ -57,19 +56,6 @@ Shareabouts.Util = Util;
       this.bind("route", function(route, router) {
         Util.log("ROUTE", self.getCurrentPath());
       });
-
-      filteredRoutes = this.getFilteredRoutes();
-      this.bind(
-        "route",
-        function(route) {
-          // If the route shouldn't be filtered, then clear the filter. Otherwise
-          // leave it alone.
-          if (!_.contains(filteredRoutes, route)) {
-            this.clearLocationTypeFilter();
-          }
-        },
-        this,
-      );
 
       this.loading = true;
 
@@ -205,10 +191,6 @@ Shareabouts.Util = Util;
           fragment.indexOf("page") === -1 &&
           fragment.indexOf("list") === -1)
       );
-    },
-
-    getFilteredRoutes: function() {
-      return ["filterMap", "viewPlace", "showList", "viewMap", "viewLandmark"];
     },
 
     recordGoogleAnalyticsHit(route) {

@@ -27,6 +27,7 @@ import {
   activeMarkerSelector,
   geometryStyleSelector,
   setActiveDrawGeometryId,
+  geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 import { setLeftSidebar } from "../../state/ducks/ui";
 
@@ -456,12 +457,7 @@ MainMap.propTypes = {
   activeDrawGeometryId: PropTypes.string,
   activeMarker: PropTypes.string,
   container: PropTypes.string.isRequired,
-  geometryStyle: {
-    [constants.LINE_COLOR_PROPERTY_NAME]: constants.DRAW_DEFAULT_LINE_COLOR,
-    [constants.LINE_OPACITY_PROPERTY_NAME]: constants.DRAW_DEFAULT_LINE_OPACITY,
-    [constants.FILL_COLOR_PROPERTY_NAME]: constants.DRAW_DEFAULT_FILL_COLOR,
-    [constants.FILL_OPACITY_PROPERTY_NAME]: constants.DRAW_DEFAULT_FILL_OPACITY,
-  },
+  geometryStyle: geometryStyleProps,
   isMapSizeValid: PropTypes.bool.isRequired,
   layers: PropTypes.arrayOf(
     PropTypes.shape({
