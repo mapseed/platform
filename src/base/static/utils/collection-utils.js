@@ -39,27 +39,27 @@ const createGeoJSONFromCollection = ({
   modelIdToFocus,
   modelIdToHide,
 }) => {
-  const features = collection.map(model => {
-    const properties = Object.keys(model.attributes)
-      .filter(key => key !== constants.GEOMETRY_PROPERTY_NAME)
-      .reduce((geoJSONProperties, property) => {
-        geoJSONProperties[property] = model.get(property);
-        return geoJSONProperties;
-      }, {});
+  const features = collection
+    .filter(
+      model => model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelIdToHide,
+    )
+    .map(model => {
+      const properties = Object.keys(model.attributes)
+        .filter(key => key !== constants.GEOMETRY_PROPERTY_NAME)
+        .reduce((geoJSONProperties, property) => {
+          geoJSONProperties[property] = model.get(property);
+          return geoJSONProperties;
+        }, {});
 
-    if (modelIdToHide === properties.id) {
-      return [];
-    }
+      properties[constants.IS_FOCUSED_PROPERTY_NAME] =
+        modelIdToFocus === properties[constants.MODEL_ID_PROPERTY_NAME];
 
-    properties[constants.IS_FOCUSED_PROPERTY_NAME] =
-      modelIdToFocus === properties.id;
-
-    return {
-      type: "Feature",
-      properties: properties,
-      geometry: model.get(constants.GEOMETRY_PROPERTY_NAME),
-    };
-  });
+      return {
+        type: "Feature",
+        properties: properties,
+        geometry: model.get(constants.GEOMETRY_PROPERTY_NAME),
+      };
+    });
 
   return {
     type: "FeatureCollection",

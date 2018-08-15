@@ -505,13 +505,6 @@ map:
       type: json
       is_visible_default: true
       source: https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson
-      cluster:
-        is_enabled: true
-        cluster_max_zoom: 14
-        cluster_radius: 200
-        paint:
-          circle-color: "#caffca"
-          circle-radius: 30
       rules:
         - filter:
             - ">="
@@ -1280,13 +1273,3 @@ story:
         zoom: 12
         pan_to: [-122.57256740778439, 47.44334015969261]
       - url: demo/17
-
-
-# cluster:
-#   animate: true
-#   animateAddingMarkers: false
-#   showCoverageOnHover: false
-#   spiderfyOnMaxZoom: true
-#   spiderfyDistanceMultiplier: 1.5
-#   spiderLegPolylineOptions:
-#     opacity: 0

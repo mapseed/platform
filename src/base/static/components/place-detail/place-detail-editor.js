@@ -94,8 +94,9 @@ class PlaceDetailEditor extends Component {
           attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
             this.state.fields
               .get(constants.GEOMETRY_PROPERTY_NAME)
-              .get(constants.FIELD_VALUE_KEY)
-              .get(constants.GEOMETRY_TYPE_PROPERTY_NAME) === "Point"
+              .get(constants.FIELD_VALUE_KEY)[
+              constants.GEOMETRY_TYPE_PROPERTY_NAME
+            ] === "Point"
               ? {
                   [constants.MARKER_ICON_PROPERTY_NAME]: this.props
                     .activeMarker,
