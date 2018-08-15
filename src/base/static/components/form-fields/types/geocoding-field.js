@@ -23,8 +23,10 @@ class GeocodingField extends Component {
     this.hint = mapConfig.geocode_bounding_box || mapConfig.geocode_hint;
   }
 
-  componentDidUpdate() {
-    this.props.isTriggeringGeocode && this.doGeocode();
+  componentDidUpdate(prevProps) {
+    this.props.isTriggeringGeocode &&
+      !prevProps.isTriggeringGeocode &&
+      this.doGeocode();
   }
 
   doGeocode() {

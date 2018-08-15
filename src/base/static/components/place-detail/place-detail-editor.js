@@ -21,6 +21,7 @@ import constants from "../../constants";
 import {
   activeMarkerSelector,
   geometryStyleSelector,
+  geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 
 import { getCategoryConfig } from "../../utils/config-utils";
@@ -71,7 +72,7 @@ class PlaceDetailEditor extends Component {
   }
 
   componentDidMount() {
-    emitter.addListener("place-model:update", () => {
+    emitter.addListener(constants.PLACE_MODEL_UPDATE_EVENT, () => {
       // Validate the form.
       const newValidationErrors = this.state.fields
         .filter(field => field.get(constants.FIELD_VISIBILITY_KEY))
@@ -129,7 +130,7 @@ class PlaceDetailEditor extends Component {
       }
     });
 
-    emitter.addListener("place-model:remove", () => {
+    emitter.addListener(constants.PLACE_MODEL_REMOVE_EVENT, () => {
       // TODO: Replace this confirm, as it won't respond to client-side i18n
       // changes, plus it's a bad UX pattern.
       if (confirm(this.props.t("confirmRemove"))) {
@@ -148,13 +149,16 @@ class PlaceDetailEditor extends Component {
   }
 
   componentWillUnmount() {
-    emitter.removeAllListeners("place-model:update");
-    emitter.removeAllListeners("place-model:remove");
+    emitter.removeAllListeners(constants.PLACE_MODEL_UPDATE_EVENT);
+    emitter.removeAllListeners(constants.PLACE_MODEL_REMOVE_EVENT);
   }
 
   onPlaceModelSaveSuccess(model) {
     emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
-    emitter.emit("place-collection:add-place", this.props.collectionId);
+    emitter.emit(
+      constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+      this.props.collectionId,
+    );
     this.props.onModelIO(constants.PLACE_MODEL_IO_END_SUCCESS_ACTION, model);
   }
 
@@ -291,12 +295,7 @@ PlaceDetailEditor.propTypes = {
   attachmentModels: PropTypes.object,
   collectionId: PropTypes.string.isRequired,
   container: PropTypes.object.isRequired,
-  geometryStyle: PropTypes.shape({
-    [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-    [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
-    [constants.FILL_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-    [constants.FILL_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
-  }).isRequired,
+  geometryStyle: geometryStyleProps.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   onAddAttachment: PropTypes.func,
   onAttachmentModelRemove: PropTypes.func.isRequired,

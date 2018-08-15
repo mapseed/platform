@@ -91,7 +91,7 @@ class MapDrawingToolbar extends Component {
                 "map-drawing-toolbar__tool-icon--active":
                   this.props.activeDrawingTool ===
                   constants.DRAW_CREATE_MARKER_TOOL,
-                "map-drawing-toolbar__tool-icon--unselectable":
+                "map-drawing-toolbar__tool-icon--disabled":
                   !!this.props.activeDrawingTool &&
                   this.props.activeDrawingTool !==
                     constants.DRAW_CREATE_MARKER_TOOL,
@@ -116,7 +116,7 @@ class MapDrawingToolbar extends Component {
                 "map-drawing-toolbar__tool-icon--active":
                   this.props.activeDrawingTool ===
                   constants.DRAW_CREATE_POLYLINE_TOOL,
-                "map-drawing-toolbar__tool-icon--unselectable":
+                "map-drawing-toolbar__tool-icon--disabled":
                   !!this.props.activeDrawingTool &&
                   this.props.activeDrawingTool !==
                     constants.DRAW_CREATE_POLYLINE_TOOL,
@@ -141,7 +141,7 @@ class MapDrawingToolbar extends Component {
                 "map-drawing-toolbar__tool-icon--active":
                   this.props.activeDrawingTool ===
                   constants.DRAW_CREATE_POLYGON_TOOL,
-                "map-drawing-toolbar__tool-icon--unselectable":
+                "map-drawing-toolbar__tool-icon--disabled":
                   !!this.props.activeDrawingTool &&
                   this.props.activeDrawingTool !==
                     constants.DRAW_CREATE_POLYGON_TOOL,
@@ -222,7 +222,7 @@ class MapDrawingToolbar extends Component {
                 classes={classNames(
                   "map-drawing-toolbar__tool-icon",
                   "map-drawing-toolbar__tool-icon--colorpicker",
-                  "map-drawing-toolbar__tool-icon--unselectable",
+                  "map-drawing-toolbar__tool-icon--disabled",
                 )}
                 label={this.props.t("colorpickerStrokeToolLabel")}
                 icon="/static/css/images/colorpicker-icon.svg"
@@ -277,7 +277,7 @@ class MapDrawingToolbar extends Component {
                 classes={classNames(
                   "map-drawing-toolbar__tool-icon",
                   "map-drawing-toolbar__tool-icon--colorpicker",
-                  "map-drawing-toolbar__tool-icon--unselectable",
+                  "map-drawing-toolbar__tool-icon--disabled",
                 )}
                 label={this.props.t("colorpickerFillToolLabel")}
                 icon="/static/css/images/colorpicker-icon.svg"
@@ -286,7 +286,7 @@ class MapDrawingToolbar extends Component {
 
             <ToolbarButton
               classes={classNames("map-drawing-toolbar__tool-icon", {
-                "map-drawing-toolbar__tool-icon--unselectable": !this.props
+                "map-drawing-toolbar__tool-icon--disabled": !this.props
                   .activeDrawingTool,
               })}
               label={this.props.t(

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import constants from "../../constants";
 
 // Selectors:
@@ -24,6 +26,12 @@ export const activeColorpickerSelector = state => {
 export const geometryStyleSelector = state => {
   return state.mapDrawingToolbar.geometryStyle;
 };
+export const geometryStyleProps = PropTypes.shape({
+  [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
+  [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
+  [constants.FILL_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
+  [constants.FILL_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
+});
 
 // Actions:
 const SET_VISIBLE_DRAWING_TOOLS =

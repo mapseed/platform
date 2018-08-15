@@ -23,6 +23,7 @@ import {
   activeMarkerSelector,
   geometryStyleSelector,
   setActiveDrawingTool,
+  geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
 
 import emitter from "../../utils/emitter";
@@ -457,12 +458,7 @@ InputForm.propTypes = {
     PropTypes.bool,
   ]),
   container: PropTypes.instanceOf(HTMLElement),
-  geometryStyle: PropTypes.shape({
-    [constants.LINE_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-    [constants.LINE_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
-    [constants.FILL_COLOR_PROPERTY_NAME]: PropTypes.string.isRequired,
-    [constants.FILL_OPACITY_PROPERTY_NAME]: PropTypes.number.isRequired,
-  }).isRequired,
+  geometryStyle: geometryStyleProps.isRequired,
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,

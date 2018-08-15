@@ -89,6 +89,9 @@ export default {
   DRAW_FILL_COLORPICKER_NAME: "fill",
   DRAW_MARKER_SELECTOR_NAME: "marker",
 
+  PLACE_MODEL_UPDATE_EVENT: "place-model:update",
+  PLACE_MODEL_REMOVE_EVENT: "place-model:remove",
+
   PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT:
     "place-collection:unfocus-all-places",
   PLACE_COLLECTION_HIDE_PLACE_EVENT: "place-collection:hide-place",
