@@ -41,16 +41,15 @@
   }
 }
 
-@media (hover: hover) {
-  .big-checkbox-field__label {
-    &:hover {
-      color: $big-checkbox-field-hover-label-color;
+.big-checkbox-field__label--hoverable {
+  &:hover {
+    color: $big-checkbox-field-hover-label-color;
 
-      &:before {
-        content: $big-checkbox-field-icon;
-        text-indent: 0.9em;
-        color: $big-checkbox-field-hover-icon-color;
-      }
+    &:before {
+      font-family: FontAwesome;
+      content: $big-checkbox-field-icon;
+      text-indent: 0.7em;
+      color: $big-checkbox-field-hover-icon-color;
     }
   }
 }
@@ -64,9 +63,10 @@
   color: $big-checkbox-field-selected-label-color;
 
   &:before {
+    font-family: FontAwesome;
     content: $big-checkbox-field-icon;
     background-color: $big-checkbox-field-selected-icon-background-color;
-    text-indent: 0.9em;
+    text-indent: 0.7em;
     color: $big-checkbox-field-selected-icon-color;
   }
 }

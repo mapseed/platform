@@ -6,6 +6,8 @@ import classNames from "classnames";
 import CheckboxField from "./checkbox-field";
 import "./big-checkbox-field.scss";
 
+import { isTouchDevice } from "../../../utils/misc-utils";
+
 class BigCheckboxField extends Component {
   onChange(evt) {
     const idx = this.props.checkboxGroupState.indexOf(evt.target.value);
@@ -18,13 +20,6 @@ class BigCheckboxField extends Component {
 
   render() {
     const isChecked = this.props.checkboxGroupState.includes(this.props.value);
-    const cn = {
-      label: classNames("big-checkbox-field__label", {
-        "big-checkbox-field__label--toggled": isChecked,
-        "big-checkbox-field__label--has-autofill":
-          this.props.hasAutofill && isChecked,
-      }),
-    };
 
     return (
       <div className="big-checkbox-field">
@@ -36,7 +31,15 @@ class BigCheckboxField extends Component {
           checked={isChecked}
           onChange={this.onChange.bind(this)}
         />
-        <label className={cn.label} htmlFor={this.props.id}>
+        <label
+          className={classNames("big-checkbox-field__label", {
+            "big-checkbox-field__label--hoverable": !isTouchDevice,
+            "big-checkbox-field__label--toggled": isChecked,
+            "big-checkbox-field__label--has-autofill":
+              this.props.hasAutofill && isChecked,
+          })}
+          htmlFor={this.props.id}
+        >
           {this.props.label}
         </label>
       </div>

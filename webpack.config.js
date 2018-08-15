@@ -92,6 +92,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.modernizrrc\.js$/,
+        loader: "webpack-modernizr-loader",
+      },
+      {
         test: /locales/,
         loader: "i18next-resource-store-loader",
         query: {
