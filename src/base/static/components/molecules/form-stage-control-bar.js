@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { translate, Trans } from "react-i18next";
 
-import { Link } from "../atoms/navigation";
+import { Link } from "../atoms/typography";
 import { ProgressBar } from "../atoms/feedback";
 
 import "./form-stage-control-bar.scss";

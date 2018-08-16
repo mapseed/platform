@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { Link } from "../atoms/navigation";
+import { Link } from "../atoms/typography";
 import classNames from "classnames";
 import LegacyUtil from "../../js/utils.js";
 
