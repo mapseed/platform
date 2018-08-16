@@ -23,6 +23,7 @@ const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view
 const MapView = require("../../../../../base/static/js/views/map-view");
 const SidebarView = require("../../../../../flavors/bathgate/static/js/views/sidebar-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
+import UserMenu from "../../../../../base/static/components/molecules/user-menu";
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
 // END FLAVOR-SPECIFIC CODE
