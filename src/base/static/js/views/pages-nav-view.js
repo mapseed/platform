@@ -4,7 +4,6 @@ module.exports = Backbone.View.extend({
   events: {
     "click .internal-menu-item a": "onPageLinkClick",
     "click #nav-btn": "onMobileNavClick",
-    "click #sign-in-btn": "onAuthNavClick",
   },
 
   render: function() {
@@ -50,8 +49,4 @@ module.exports = Backbone.View.extend({
     );
   },
 
-  onAuthNavClick: function(evt) {
-    evt.preventDefault();
-    $(".sign-in-menu").toggleClass("is-exposed");
-  },
 });
