@@ -4,31 +4,6 @@
   position: relative;
 }
 
-.geocoding-field__geocoding-spinner {
-  display: none;
-  position: absolute;
-  z-index: 100000;
-  background-color: $geocoding-field-spinner-icon-background-color;
-
-  // TODO: fix these hard-coded values...
-  // They're appropriate for the default theme's input field height, but won't
-  // adapt to changes in the field height.
-  width: 36px;
-  height: 40px;
-}
-
-// the .spinner class is exposed by spin.js
-.spinner {
-  top: 50% !important;
-  left: 50% !important;
-  color: $geocoding-field-spinner-icon-color;
-}
-
-.geocoding-field__geocoding-spinner--visible,
-.geocoding-field__geocoding-error--visible {
-  display: block;
-}
-
 .geocoding-field__geocoding-error {
   display: none;
   position: absolute;

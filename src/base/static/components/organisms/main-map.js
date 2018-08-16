@@ -22,6 +22,13 @@ import {
   setBasemap,
   mapboxStyleIdSelector,
 } from "../../state/ducks/map";
+import {
+  activeDrawGeometryIdSelector,
+  activeMarkerSelector,
+  geometryStyleSelector,
+  setActiveDrawGeometryId,
+  geometryStyleProps,
+} from "../../state/ducks/map-drawing-toolbar";
 import { setLeftSidebar } from "../../state/ducks/ui";
 
 import constants from "../../constants";
@@ -152,6 +159,62 @@ class MainMap extends Component {
       },
     });
 
+    // Handler for clearing in-progress drawing geometry.
+    this.props.router.on("route", () => {
+      this._map.drawDeleteGeometry();
+    });
+
+    // Handlers for map drawing events.
+    emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
+      this._map.drawStartPolygon();
+    });
+    emitter.addListener(constants.DRAW_START_POLYLINE_EVENT, () => {
+      this._map.drawStartPolyline();
+    });
+    emitter.addListener(constants.DRAW_START_MARKER_EVENT, () => {
+      this._map.drawStartMarker();
+    });
+    emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
+      this._map.drawDeleteGeometry();
+    });
+    emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
+      this.props.setActiveDrawGeometryId(
+        this._map.drawAddGeometry(geometry)[0],
+      );
+    });
+    this._map.on({
+      event: "draw.create",
+      callback: evt => {
+        this.props.setActiveDrawGeometryId(evt.features[0].id);
+        if (evt.features[0].geometry.type === "Point") {
+          this._map.drawSetFeatureProperty(
+            this.props.activeDrawGeometryId,
+            constants.MARKER_ICON_PROPERTY_NAME,
+            this.props.activeMarker,
+          );
+        }
+        emitter.emit(
+          constants.DRAW_UPDATE_GEOMETRY_EVENT,
+          evt.features[0].geometry,
+        );
+      },
+    });
+    this._map.on({
+      event: "draw.update",
+      callback: evt => {
+        emitter.emit(
+          constants.DRAW_UPDATE_GEOMETRY_EVENT,
+          evt.features[0].geometry,
+        );
+      },
+    });
+    this._map.on({
+      event: "draw.delete",
+      callback: () => {
+        emitter.emit(constants.DRAW_UPDATE_GEOMETRY_EVENT, null);
+      },
+    });
+
     // Handlers for map interaction events.
     this._map.on({
       event: "dragend",
@@ -188,7 +251,7 @@ class MainMap extends Component {
     });
 
     // Handlers for Mapseed place collections.
-    emitter.addListener("place-collection:loaded", layerId => {
+    emitter.addListener(constants.PLACE_COLLECTION_LOADED_EVENT, layerId => {
       this.props.setLayerStatus(layerId, {
         status: "loaded",
         type: "place",
@@ -197,21 +260,55 @@ class MainMap extends Component {
           .is_visible_default,
       });
     });
-    emitter.addListener("place-collection:add-place", collectionId => {
-      this.updatePlaceCollectionLayer(collectionId);
-    });
     emitter.addListener(
-      "place-collection:focus-place",
-      ({ collectionId, modelId }) => {
-        this.updatePlaceCollectionLayer(collectionId, modelId);
+      constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+      collectionId => {
+        this._map.updateLayerData(
+          collectionId,
+          createGeoJSONFromCollection({
+            collection: this.props.places[collectionId],
+          }),
+        );
       },
     );
-    emitter.addListener("place-collection:unfocus-all-places", () => {
-      Object.keys(this.props.places).forEach(collectionId => {
-        this.props.layerStatuses[collectionId].isVisible &&
-          this.updatePlaceCollectionLayer(collectionId);
-      });
-    });
+    emitter.addListener(
+      constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
+      ({ collectionId, modelId }) => {
+        this._map.updateLayerData(
+          collectionId,
+          createGeoJSONFromCollection({
+            collection: this.props.places[collectionId],
+            modelIdToFocus: modelId,
+          }),
+        );
+      },
+    );
+    emitter.addListener(
+      constants.PLACE_COLLECTION_HIDE_PLACE_EVENT,
+      ({ collectionId, modelId }) => {
+        this._map.updateLayerData(
+          collectionId,
+          createGeoJSONFromCollection({
+            collection: this.props.places[collectionId],
+            modelIdToHide: modelId,
+          }),
+        );
+      },
+    );
+    emitter.addListener(
+      constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT,
+      () => {
+        Object.keys(this.props.places).forEach(collectionId => {
+          this.props.layerStatuses[collectionId].isVisible &&
+            this._map.updateLayerData(
+              collectionId,
+              createGeoJSONFromCollection({
+                collection: this.props.places[collectionId],
+              }),
+            );
+        });
+      },
+    );
 
     // Handlers for story-driven map transitions.
     emitter.addListener(
@@ -244,6 +341,29 @@ class MainMap extends Component {
     if (!this.props.isMapSizeValid) {
       this._map.invalidateSize();
       this.props.setMapSizeValidity(true);
+    }
+
+    if (this.props.activeDrawGeometryId) {
+      // Update styling for in-progress geometry being drawn with the
+      // MapDrawingToolbar.
+      if (this.props.activeMarker !== prevProps.activeMarker) {
+        this._map.drawSetFeatureProperty(
+          this.props.activeDrawGeometryId,
+          constants.MARKER_ICON_PROPERTY_NAME,
+          this.props.activeMarker,
+        );
+      }
+      Object.entries(this.props.geometryStyle).forEach(
+        ([styleProperty, value]) => {
+          if (value !== prevProps.geometryStyle[styleProperty]) {
+            this._map.drawSetFeatureProperty(
+              this.props.activeDrawGeometryId,
+              styleProperty,
+              value,
+            );
+          }
+        },
+      );
     }
 
     for (let layerId in this.props.layerStatuses) {
@@ -282,16 +402,11 @@ class MainMap extends Component {
     // TODO: update this when we port central-puget-sound flavor to support Mapbox GL
   }
 
-  updatePlaceCollectionLayer(collectionId, modelId) {
-    this._map.updateLayerData(
-      collectionId,
-      createGeoJSONFromCollection(this.props.places[collectionId], modelId),
-    );
-  }
-
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
-      layer.source = createGeoJSONFromCollection(this.props.places[layer.id]);
+      layer.source = createGeoJSONFromCollection({
+        collection: this.props.places[layer.id],
+      });
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,
@@ -299,7 +414,7 @@ class MainMap extends Component {
         mapConfig: this.props.mapConfig,
       });
 
-      // Bind map interaction events for this place layers.
+      // Bind map interaction events for this place layer.
       this._map.bindPlaceLayerEvent("click", layer.id, clickedOnLayer => {
         if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
           this.props.router.navigate(
@@ -339,7 +454,10 @@ class MainMap extends Component {
 }
 
 MainMap.propTypes = {
+  activeDrawGeometryId: PropTypes.string,
+  activeMarker: PropTypes.string,
   container: PropTypes.string.isRequired,
+  geometryStyle: geometryStyleProps,
   isMapSizeValid: PropTypes.bool.isRequired,
   layers: PropTypes.arrayOf(
     PropTypes.shape({
@@ -391,6 +509,7 @@ MainMap.propTypes = {
   places: PropTypes.object.isRequired,
   provider: PropTypes.string,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  setActiveDrawGeometryId: PropTypes.func.isRequired,
   setBasemap: PropTypes.func.isRequired,
   setLayerStatus: PropTypes.func.isRequired,
   setLeftSidebar: PropTypes.func.isRequired,
@@ -400,7 +519,10 @@ MainMap.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  activeDrawGeometryId: activeDrawGeometryIdSelector(state),
+  activeMarker: activeMarkerSelector(state),
   mapConfig: mapConfigSelector(state),
+  geometryStyle: geometryStyleSelector(state),
   layers: mapLayersSelector(state),
   visibleBasemapId: mapBasemapSelector(state),
   layerStatuses: mapLayerStatusesSelector(state),
@@ -417,6 +539,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLayerStatus(layerId, layerStatus)),
   setBasemap: (layerId, layerStatus) =>
     dispatch(setBasemap(layerId, layerStatus)),
+  setActiveDrawGeometryId: activeDrawGeometryId =>
+    dispatch(setActiveDrawGeometryId(activeDrawGeometryId)),
 });
 
 export default connect(
