@@ -20,11 +20,6 @@ class UserMenu extends React.Component {
   };
 
   render() {
-    const {
-      slug: datasetSlug,
-      owner: datasetOwner,
-    } = this.props.datasetDownloadConfig;
-    const isAdmin = LegacyUtil.getAdminStatus(datasetSlug);
     if (this.props.currentUser) {
       // If user is logged in
       return (
@@ -40,19 +35,24 @@ class UserMenu extends React.Component {
               "is-exposed": this.state.isMenuOpen,
             })}
           >
-            {isAdmin && (
-              <li style={{ paddingBottom: "16px" }}>
-                <Link
-                  href={`${
-                    this.props.apiRoot
-                  }${datasetOwner}/datasets/${datasetSlug}/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
-                  classes={".btn-secondary"}
-                  style={{ width: "100%", textDecoration: "none" }}
-                >
-                  {`Download Survey Data`}
-                </Link>
-              </li>
-            )}
+            {this.props.datasetDownloadConfig &&
+              LegacyUtil.getAdminStatus(
+                this.props.datasetDownloadConfig.slug,
+              ) && (
+                <li style={{ paddingBottom: "16px" }}>
+                  <Link
+                    href={`${this.props.apiRoot}${
+                      this.props.datasetDownloadConfig.owner
+                    }/datasets/${
+                      this.props.datasetDownloadConfig.slug
+                    }/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
+                    classes={".btn-secondary"}
+                    style={{ width: "100%", textDecoration: "none" }}
+                  >
+                    {`Download Survey Data`}
+                  </Link>
+                </li>
+              )}
             <li>
               <span className="signed-in-as">{this.props.t("signedInAs")}</span>{" "}
               <span className="current-user">
