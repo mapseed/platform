@@ -15,11 +15,11 @@ import mapseedApiClient from "../../../../../base/static/client/mapseed-api-clie
 // from the api:
 import config from "config";
 import { setConfig } from "../../../../../base/static/state/ducks/config";
+import UserMenu from "../../../../../base/static/components/molecules/user-menu";
 
 const AppView = require("../../../../../base/static/js/views/app-view.js");
 const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
-const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
 const MapView = require("../../../../../base/static/js/views/map-view");
 const SidebarView = require("../../../../../flavors/williams/static/js/views/sidebar-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
@@ -49,6 +49,7 @@ module.exports = AppView.extend({
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
     store.dispatch(setConfig(config));
+    const storeState = store.getState();
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -163,11 +164,15 @@ module.exports = AppView.extend({
       router: this.options.router,
     }).render();
 
-    this.authNavView = new AuthNavView({
-      el: "#auth-nav-container",
-      apiRoot: this.options.apiRoot,
-      router: this.options.router,
-    }).render();
+    ReactDOM.render(
+      <UserMenu
+        router={this.options.router}
+        apiRoot={storeState.config.app.api_root}
+        currentUser={Shareabouts.bootstrapped.currentUser}
+        datasetDownloadConfig={storeState.config.app.dataset_download}
+      />,
+      document.getElementById("auth-nav-container"),
+    );
 
     this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
       panel,
