@@ -48,5 +48,4 @@ module.exports = Backbone.View.extend({
       ($(".access").hasClass("is-exposed") ? "show" : "hide") + "-mobile-nav",
     );
   },
-
 });
