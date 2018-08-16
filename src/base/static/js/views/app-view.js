@@ -219,6 +219,8 @@ module.exports = Backbone.View.extend({
       <UserMenu
         router={this.options.router}
         apiRoot={storeState.config.app.api_root}
+        currentUser={Shareabouts.bootstrapped.currentUser}
+        datasetDownloadConfig={storeState.config.app.dataset_download}
       />,
       document.getElementById("auth-nav-container"),
     );

@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
+import { Link } from "../atoms/navigation";
 import classNames from "classnames";
+import LegacyUtil from "../../js/utils.js";
 
 class UserMenu extends React.Component {
   state = {
@@ -18,15 +20,19 @@ class UserMenu extends React.Component {
   };
 
   render() {
-    const { apiRoot, t, currentUser } = this.props;
-    if (currentUser) {
+    const {
+      slug: datasetSlug,
+      owner: datasetOwner,
+    } = this.props.datasetDownloadConfig;
+    const isAdmin = LegacyUtil.getAdminStatus(datasetSlug);
+    if (this.props.currentUser) {
       // If user is logged in
       return (
         <nav className="user-menu authed" role="article">
           <a href="#" id="sign-in-btn" onClick={this.toggleMenu}>
             <img
               className="avatar header-avatar"
-              src="{currentUser.avatar_url}}"
+              src={this.props.currentUser.avatar_url}
             />
           </a>
           <ul
@@ -34,13 +40,31 @@ class UserMenu extends React.Component {
               "is-exposed": this.state.isMenuOpen,
             })}
           >
+            {isAdmin && (
+              <li style={{ paddingBottom: "16px" }}>
+                <Link
+                  href={`${
+                    this.props.apiRoot
+                  }${datasetOwner}/datasets/${datasetSlug}/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
+                  classes={".btn-secondary"}
+                  style={{ width: "100%", textDecoration: "none" }}
+                >
+                  {`Download Survey Data`}
+                </Link>
+              </li>
+            )}
             <li>
-              <span className="signed-in-as">{t("signedInAs")}</span>{" "}
-              <span className="current-user">{currentUser.name}</span>
+              <span className="signed-in-as">{this.props.t("signedInAs")}</span>{" "}
+              <span className="current-user">
+                {this.props.currentUser.name}
+              </span>
             </li>
             <li className="">
-              <a className="logout-btn" href={`${apiRoot}users/logout/`}>
-                {t("logOut")}
+              <a
+                className="logout-btn"
+                href={`${this.props.apiRoot}users/logout/`}
+              >
+                {this.props.t("logOut")}
               </a>
             </li>
           </ul>
@@ -51,7 +75,7 @@ class UserMenu extends React.Component {
       return (
         <nav className="user-menu" role="article">
           <a href="#" id="sign-in-btn" onClick={this.toggleMenu}>
-            {t("signIn")}
+            {this.props.t("signIn")}
           </a>
           <ul
             className={classNames("menu", "sign-in-menu", {
@@ -61,7 +85,7 @@ class UserMenu extends React.Component {
             <li className="menu-item sign-in-menu-item">
               <a
                 className="auth-btn google-btn"
-                href={`${apiRoot}users/login/google-oauth2/`}
+                href={`${this.props.apiRoot}users/login/google-oauth2/`}
               >
                 Google
               </a>
@@ -69,7 +93,7 @@ class UserMenu extends React.Component {
             <li className="menu-item sign-in-menu-item">
               <a
                 className="auth-btn twitter-btn"
-                href={`${apiRoot}users/login/twitter/`}
+                href={`${this.props.apiRoot}users/login/twitter/`}
               >
                 Twitter
               </a>
@@ -77,7 +101,7 @@ class UserMenu extends React.Component {
             <li className="menu-item sign-in-menu-item">
               <a
                 className="auth-btn facebook-btn"
-                href={`${apiRoot}users/login/facebook/`}
+                href={`${this.props.apiRoot}users/login/facebook/`}
               >
                 Facebook
               </a>
@@ -92,7 +116,11 @@ class UserMenu extends React.Component {
 UserMenu.propTypes = {
   currentUser: PropTypes.object,
   apiRoot: PropTypes.string.isRequired,
+  datasetDownloadConfig: PropTypes.shape({
+    owner: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  }),
   t: PropTypes.func.isRequired,
 };
 
-export default translate("UserImage")(UserMenu);
+export default translate("UserMenu")(UserMenu);
