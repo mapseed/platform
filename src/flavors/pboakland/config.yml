@@ -88,9 +88,15 @@ map:
       type: place
       slug: featured
       rules:
-        symbol-layout:
-          icon-size: 1.0
-          icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "projects-2017"  
+          symbol-layout:
+            icon-size: 1.0
+            icon-anchor: "center"
 
     - id: pboakland
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland
