@@ -156,5 +156,6 @@ module.exports = {
     },
     compress: true,
     port: PORT,
+    allowedHosts: [".ngrok.io"],
   },
 };

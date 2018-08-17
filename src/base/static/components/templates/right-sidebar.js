@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Link } from "../atoms/navigation";
+import { Link } from "../atoms/typography";
 import StoryNavigator from "../organisms/story-navigator";
 import MapLegend from "../organisms/map-legend";
 

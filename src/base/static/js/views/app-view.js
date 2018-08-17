@@ -22,6 +22,7 @@ import FormCategoryMenuWrapper from "../../components/input-form/form-category-m
 import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import RightSidebar from "../../components/templates/right-sidebar";
+import UserMenu from "../../components/molecules/user-menu";
 
 // TODO(luke): move this into index.js (currently routes.js)
 const store = createStore(
@@ -45,12 +46,10 @@ browserUpdate({
 // Views
 var MapView = require("mapseed-map-view");
 var PagesNavView = require("mapseed-pages-nav-view");
-var AuthNavView = require("mapseed-auth-nav-view");
 var PlaceListView = require("mapseed-place-list-view");
 var SidebarView = require("mapseed-sidebar-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
-var FilterMenuView = require("mapseed-filter-menu-view");
 
 // Spinner options -- these need to be own modules
 Shareabouts.bigSpinnerOptions = {
@@ -102,6 +101,7 @@ module.exports = Backbone.View.extend({
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
     store.dispatch(setConfig(config));
+    const storeState = store.getState();
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -215,11 +215,15 @@ module.exports = Backbone.View.extend({
       router: this.options.router,
     }).render();
 
-    this.authNavView = new AuthNavView({
-      el: "#auth-nav-container",
-      apiRoot: this.options.apiRoot,
-      router: this.options.router,
-    }).render();
+    ReactDOM.render(
+      <UserMenu
+        router={this.options.router}
+        apiRoot={storeState.config.app.api_root}
+        currentUser={Shareabouts.bootstrapped.currentUser}
+        datasetDownloadConfig={storeState.config.app.dataset_download}
+      />,
+      document.getElementById("auth-nav-container"),
+    );
 
     this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
       panel,
