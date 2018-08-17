@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
+import { ThemeProvider } from "emotion-theming";
+import theme from "../../../../theme";
 
 // TODO(luke): This should be the only instance of our config singleton.
 // Eventually, it will be removed once we start fetching the config
@@ -216,12 +218,14 @@ module.exports = Backbone.View.extend({
     }).render();
 
     ReactDOM.render(
-      <UserMenu
-        router={this.options.router}
-        apiRoot={storeState.config.app.api_root}
-        currentUser={Shareabouts.bootstrapped.currentUser}
-        datasetDownloadConfig={storeState.config.app.dataset_download}
-      />,
+      <ThemeProvider theme={theme}>
+        <UserMenu
+          router={this.options.router}
+          apiRoot={storeState.config.app.api_root}
+          currentUser={Shareabouts.bootstrapped.currentUser}
+          datasetDownloadConfig={storeState.config.app.dataset_download}
+        />
+      </ThemeProvider>,
       document.getElementById("auth-nav-container"),
     );
 
