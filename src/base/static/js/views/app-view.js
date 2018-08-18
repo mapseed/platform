@@ -217,14 +217,20 @@ module.exports = Backbone.View.extend({
       router: this.options.router,
     }).render();
 
+    const flavorTheme = storeState.config.app.theme;
+    const adjustedTheme = flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+      : {};
     ReactDOM.render(
       <ThemeProvider theme={theme}>
-        <UserMenu
-          router={this.options.router}
-          apiRoot={storeState.config.app.api_root}
-          currentUser={Shareabouts.bootstrapped.currentUser}
-          datasetDownloadConfig={storeState.config.app.dataset_download}
-        />
+        <ThemeProvider theme={adjustedTheme}>
+          <UserMenu
+            router={this.options.router}
+            apiRoot={storeState.config.app.api_root}
+            currentUser={Shareabouts.bootstrapped.currentUser}
+            datasetDownloadConfig={storeState.config.app.dataset_download}
+          />
+        </ThemeProvider>
       </ThemeProvider>,
       document.getElementById("auth-nav-container"),
     );

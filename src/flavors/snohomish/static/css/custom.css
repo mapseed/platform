@@ -4,16 +4,6 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-@font-face {
-  font-family: "Lithos";
-  src: url("/static/css/lithos.ttf");
-}
-
-@font-face {
-  font-family: "Bowlby";
-  src: url("/static/css/BowlbyOneSC-Regular.ttf");
-}
-
 /* =Header
 -------------------------------------------------------------- */
 

@@ -1,4 +1,18 @@
 import PropTypes from "prop-types";
+import { injectGlobal } from "emotion";
+
+// Add font faces:
+injectGlobal`
+  @font-face {
+    font-family: "Lithos";
+    src: url("/static/css/lithos.ttf");
+  }
+  @font-face {
+    font-family: "Bowlby";
+    src: url("/static/css/BowlbyOneSC-Regular.ttf");
+  }
+
+`;
 
 export const themePropTypes = PropTypes.shape({
   brand: PropTypes.shape({
@@ -47,6 +61,11 @@ const theme = {
     primary: "#007fbf",
     secondary: "#e41c62",
     tertiary: "#a3c7d9",
+  },
+  text: {
+    default: "#a3c7d9",
+    secondary: "#a3c7d9", // unused
+    fontFamily: "lithos,sans-serif",
   },
 };
 

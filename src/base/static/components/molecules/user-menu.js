@@ -26,7 +26,7 @@ const AvatarImg = styled("img")({
   },
 });
 
-const MenuButton = styled("button")(props => ({
+const MenuButton = styled("a")(props => ({
   backgroundColor: props.theme.brand.primary,
   color: "#fff",
   fontSize: "0.75em",
@@ -82,8 +82,9 @@ const SocialLoginButton = styled(Link)(props => {
 });
 
 const LogoutButton = styled(Link)(props => ({
-  color: props.theme.brand.tertiary,
+  color: props.theme.text.default,
   fontSize: "0.875em",
+  fontFamily: props.theme.text.fontFamily,
   fontWeight: "normal",
   textDecoration: "none",
   textTransform: "uppercase",
@@ -92,6 +93,7 @@ const LogoutButton = styled(Link)(props => ({
 const Menu = styled("ul")(props => ({
   fontWeight: "bold",
   textAlign: "center",
+  fontFamily: props.theme.brand.fontFamily,
   float: "left",
   width: "100%",
   margin: "0.5em 0",
@@ -124,11 +126,22 @@ const Menu = styled("ul")(props => ({
   },
 }));
 
-const MenuItem = styled("li")({
+const MenuItem = styled("li")(props => ({
   float: "left",
-  width: "50%",
+  width: "100%",
   fontWeight: "bold",
+  fontFamily: props.theme.text.fontFamily,
+}));
+
+const SmallMenuItem = styled(MenuItem)({
+  width: "50%",
 });
+
+const DownloadDataLink = styled(Link)(props => ({
+  textDecoration: "none",
+  color: props.theme.text.default,
+  fontFamily: props.theme.text.fontFamily,
+}));
 
 class UserMenu extends React.Component {
   state = {
@@ -159,26 +172,24 @@ class UserMenu extends React.Component {
                 this.props.datasetDownloadConfig.slug,
               ) && (
                 <MenuItem style={{ paddingBottom: "16px", width: "100%" }}>
-                  <Link
+                  <DownloadDataLink
                     href={`${this.props.apiRoot}${
                       this.props.datasetDownloadConfig.owner
                     }/datasets/${
                       this.props.datasetDownloadConfig.slug
                     }/mapseed-places.csv?format=csv&include_private=true&page_size=10000`}
-                    classes={".btn-secondary"}
-                    style={{ textDecoration: "none" }}
                   >
                     {`Download Survey Data`}
-                  </Link>
+                  </DownloadDataLink>
                 </MenuItem>
               )}
-            <MenuItem style={{ width: "100%" }}>
+            <MenuItem>
               <span style={{ fontWeight: "normal", fontSize: "0.875em" }}>
                 {this.props.t("signedInAs")}
               </span>{" "}
               <span>{this.props.currentUser.name}</span>
             </MenuItem>
-            <MenuItem style={{ width: "100%" }}>
+            <MenuItem>
               <LogoutButton href={`${this.props.apiRoot}users/logout/`}>
                 {this.props.t("logOut")}
               </LogoutButton>
@@ -194,30 +205,30 @@ class UserMenu extends React.Component {
             {this.props.t("signIn")}
           </MenuButton>
           <Menu isMenuOpen={this.state.isMenuOpen}>
-            <MenuItem>
+            <SmallMenuItem>
               <SocialLoginButton
                 service={"google"}
                 href={`${this.props.apiRoot}users/login/google-oauth2/`}
               >
                 Google
               </SocialLoginButton>
-            </MenuItem>
-            <MenuItem>
+            </SmallMenuItem>
+            <SmallMenuItem>
               <SocialLoginButton
                 service={"twitter"}
                 href={`${this.props.apiRoot}users/login/twitter/`}
               >
                 Twitter
               </SocialLoginButton>
-            </MenuItem>
-            <MenuItem>
+            </SmallMenuItem>
+            <SmallMenuItem>
               <SocialLoginButton
                 service={"facebook"}
                 href={`${this.props.apiRoot}users/login/facebook/`}
               >
                 Facebook
               </SocialLoginButton>
-            </MenuItem>
+            </SmallMenuItem>
           </Menu>
         </MenuContainer>
       );
