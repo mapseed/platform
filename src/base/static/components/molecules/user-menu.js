@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import { Link } from "../atoms/typography";
+import { Button } from "../atoms/buttons";
 import LegacyUtil from "../../js/utils.js";
 import styled from "react-emotion";
 
@@ -26,11 +27,8 @@ const AvatarImg = styled("img")({
   },
 });
 
-const MenuButton = styled("a")(props => ({
-  backgroundColor: props.theme.brand.primary,
-  color: "#fff",
+const MenuButton = styled(Button)({
   fontSize: "0.75em",
-  textTransform: "uppercase",
   textAlign: "center",
   textDecoration: "none",
   lineHeight: "3.25",
@@ -41,10 +39,6 @@ const MenuButton = styled("a")(props => ({
   height: "100%",
   cursor: "pointer",
 
-  "&:hover": {
-    color: props.theme.brand.tertiary,
-  },
-
   "@media only screen and (min-width: 60em)": {
     fontSize: "1em",
     textDecoration: "none",
@@ -54,7 +48,7 @@ const MenuButton = styled("a")(props => ({
     position: "relative",
     zIndex: "3",
   },
-}));
+});
 
 const SocialLoginButton = styled(Link)(props => {
   let backgroundColor;
@@ -70,7 +64,6 @@ const SocialLoginButton = styled(Link)(props => {
       break;
   }
   return {
-    textDecoration: "none",
     display: "block",
     padding: "0.5em",
     boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
@@ -81,19 +74,16 @@ const SocialLoginButton = styled(Link)(props => {
   };
 });
 
-const LogoutButton = styled(Link)(props => ({
-  color: props.theme.text.default,
+const LogoutButton = styled(Link)({
   fontSize: "0.875em",
-  fontFamily: props.theme.text.fontFamily,
   fontWeight: "normal",
   textDecoration: "none",
   textTransform: "uppercase",
-}));
+});
 
 const Menu = styled("ul")(props => ({
   fontWeight: "bold",
   textAlign: "center",
-  fontFamily: props.theme.brand.fontFamily,
   float: "left",
   width: "100%",
   margin: "0.5em 0",
@@ -126,22 +116,20 @@ const Menu = styled("ul")(props => ({
   },
 }));
 
-const MenuItem = styled("li")(props => ({
+const MenuItem = styled("li")(({ theme }) => ({
   float: "left",
   width: "100%",
   fontWeight: "bold",
-  fontFamily: props.theme.text.fontFamily,
+  fontFamily: theme.text.fontFamily,
 }));
 
 const SmallMenuItem = styled(MenuItem)({
   width: "50%",
 });
 
-const DownloadDataLink = styled(Link)(props => ({
+const DownloadDataLink = styled(Link)({
   textDecoration: "none",
-  color: props.theme.text.default,
-  fontFamily: props.theme.text.fontFamily,
-}));
+});
 
 class UserMenu extends React.Component {
   state = {

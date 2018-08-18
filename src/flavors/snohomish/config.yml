@@ -29,10 +29,15 @@ app:
   theme:
     brand:
       primary: "#02440b"
-      tertiary: "#779300"
+      secondary: "#a3c7d9"
     text:
-      default: "#02440b"
+      primary: "#fff"
+      secondary: "#02440b"
       fontFamily: "lithos,sans-serif"
+      textTransform: "uppercase"
+    bg:
+      default: "#02440b"
+      light: "#779300"
 
 # languages:
 #   - code: en_US

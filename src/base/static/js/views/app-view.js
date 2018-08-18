@@ -104,6 +104,10 @@ module.exports = Backbone.View.extend({
     // component:
     store.dispatch(setConfig(config));
     const storeState = store.getState();
+    const flavorTheme = storeState.config.app.theme;
+    const adjustedTheme = flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+      : {};
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -217,10 +221,6 @@ module.exports = Backbone.View.extend({
       router: this.options.router,
     }).render();
 
-    const flavorTheme = storeState.config.app.theme;
-    const adjustedTheme = flavorTheme
-      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
-      : {};
     ReactDOM.render(
       <ThemeProvider theme={theme}>
         <ThemeProvider theme={adjustedTheme}>
@@ -289,7 +289,11 @@ module.exports = Backbone.View.extend({
     if (this.options.mapConfig.geocoding_bar_enabled) {
       ReactDOM.render(
         <Provider store={store}>
-          <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+            </ThemeProvider>
+          </ThemeProvider>
         </Provider>,
         document.getElementById("geocode-address-bar"),
       );
@@ -322,11 +326,15 @@ module.exports = Backbone.View.extend({
 
       ReactDOM.render(
         <Provider store={store}>
-          <InfoModal
-            parentId="info-modal-container"
-            isModalOpen={true}
-            {...modalContent}
-          />
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <InfoModal
+                parentId="info-modal-container"
+                isModalOpen={true}
+                {...modalContent}
+              />
+            </ThemeProvider>
+          </ThemeProvider>
         </Provider>,
         document.getElementById("info-modal-container"),
       );
@@ -417,11 +425,15 @@ module.exports = Backbone.View.extend({
       // REACT PORT SECTION ///////////////////////////////////////////////////
       ReactDOM.render(
         <Provider store={store}>
-          <RightSidebar
-            placeCollectionsPromise={placeCollectionsPromise}
-            places={this.places}
-            router={this.options.router}
-          />
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <RightSidebar
+                placeCollectionsPromise={placeCollectionsPromise}
+                places={this.places}
+                router={this.options.router}
+              />
+            </ThemeProvider>
+          </ThemeProvider>
         </Provider>,
         document.getElementById("right-sidebar-container"),
       );
@@ -559,57 +571,67 @@ module.exports = Backbone.View.extend({
   },
   newPlace: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
+    const storeState = store.getState();
+    const flavorTheme = storeState.config.app.theme;
+    const adjustedTheme = flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+      : {};
+
     // NOTE: This wrapper component is temporary, and will be factored out
     // when the AppView is ported.
     ReactDOM.render(
       <Provider store={store}>
-        <FormCategoryMenuWrapper
-          hideSpotlightMask={this.hideSpotlightMask.bind(this)}
-          hideCenterPoint={this.hideCenterPoint.bind(this)}
-          showNewPin={this.showNewPin.bind(this)}
-          hideNewPin={this.hideNewPin.bind(this)}
-          hidePanel={this.hidePanel.bind(this)}
-          map={this.mapView.map}
-          places={this.places}
-          router={this.options.router}
-          customHooks={this.options.customHooks}
-          // '#content article' and 'body' represent the two containers into
-          // which panel content is rendered (one at desktop size and one at
-          // mobile size).
-          // TODO: Improve this when we move overall app layout management to
-          // Redux.
-          container={document.querySelector(
-            Util.getPageLayout() === '"desktop"' ||
-            Util.getPageLayout() === "desktop"
-              ? "#content article"
-              : "body",
-          )}
-          render={(state, props, onCategoryChange) => {
-            if (
-              props.customComponents &&
-              props.customComponents.InputForm === "VVInputForm"
-            ) {
-              return (
-                <VVInputForm
-                  {...props}
-                  selectedCategory={state.selectedCategory}
-                  isSingleCategory={state.isSingleCategory}
-                  onCategoryChange={onCategoryChange}
-                />
-              );
-            } else {
-              return (
-                <InputForm
-                  {...props}
-                  selectedCategory={state.selectedCategory}
-                  isSingleCategory={state.isSingleCategory}
-                  onCategoryChange={onCategoryChange}
-                />
-              );
-            }
-          }}
-          customComponents={this.options.customComponents}
-        />
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={adjustedTheme}>
+            <FormCategoryMenuWrapper
+              hideSpotlightMask={this.hideSpotlightMask.bind(this)}
+              hideCenterPoint={this.hideCenterPoint.bind(this)}
+              showNewPin={this.showNewPin.bind(this)}
+              hideNewPin={this.hideNewPin.bind(this)}
+              hidePanel={this.hidePanel.bind(this)}
+              map={this.mapView.map}
+              places={this.places}
+              router={this.options.router}
+              customHooks={this.options.customHooks}
+              // '#content article' and 'body' represent the two containers into
+              // which panel content is rendered (one at desktop size and one at
+              // mobile size).
+              // TODO: Improve this when we move overall app layout management to
+              // Redux.
+              container={document.querySelector(
+                Util.getPageLayout() === '"desktop"' ||
+                Util.getPageLayout() === "desktop"
+                  ? "#content article"
+                  : "body",
+              )}
+              render={(state, props, onCategoryChange) => {
+                if (
+                  props.customComponents &&
+                  props.customComponents.InputForm === "VVInputForm"
+                ) {
+                  return (
+                    <VVInputForm
+                      {...props}
+                      selectedCategory={state.selectedCategory}
+                      isSingleCategory={state.isSingleCategory}
+                      onCategoryChange={onCategoryChange}
+                    />
+                  );
+                } else {
+                  return (
+                    <InputForm
+                      {...props}
+                      selectedCategory={state.selectedCategory}
+                      isSingleCategory={state.isSingleCategory}
+                      onCategoryChange={onCategoryChange}
+                    />
+                  );
+                }
+              }}
+              customComponents={this.options.customComponents}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
       </Provider>,
       document.querySelector("#content article"),
     );
@@ -751,23 +773,32 @@ module.exports = Backbone.View.extend({
           document.querySelector("#content article"),
         );
 
+        const storeState = store.getState();
+        const flavorTheme = storeState.config.app.theme;
+        const adjustedTheme = flavorTheme
+          ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+          : {};
         ReactDOM.render(
           <Provider store={store}>
-            <PlaceDetail
-              container={document.querySelector("#content article")}
-              currentUser={Shareabouts.bootstrapped.currentUser}
-              isGeocodingBarEnabled={
-                this.options.mapConfig.geocoding_bar_enabled
-              }
-              map={this.mapView.map}
-              model={model}
-              appView={this}
-              layerView={this.mapView.layerViews[datasetId][model.cid]}
-              places={this.places}
-              scrollToResponseId={args.responseId}
-              router={this.options.router}
-              userToken={this.options.userToken}
-            />
+            <ThemeProvider theme={theme}>
+              <ThemeProvider theme={adjustedTheme}>
+                <PlaceDetail
+                  container={document.querySelector("#content article")}
+                  currentUser={Shareabouts.bootstrapped.currentUser}
+                  isGeocodingBarEnabled={
+                    this.options.mapConfig.geocoding_bar_enabled
+                  }
+                  map={this.mapView.map}
+                  model={model}
+                  appView={this}
+                  layerView={this.mapView.layerViews[datasetId][model.cid]}
+                  places={this.places}
+                  scrollToResponseId={args.responseId}
+                  router={this.options.router}
+                  userToken={this.options.userToken}
+                />
+              </ThemeProvider>
+            </ThemeProvider>
           </Provider>,
           document.querySelector("#content article"),
         );

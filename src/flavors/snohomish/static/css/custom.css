@@ -40,15 +40,6 @@
   }
 }
 
-#sign-in-btn {
-  background-color: #02440b !important;
-  color: #fff !important;
-
-  &:hover {
-    color: #779300 !important;
-  }
-}
-
 /* =Map
 -------------------------------------------------------------- */
 #centerpoint.newpin .overlay {

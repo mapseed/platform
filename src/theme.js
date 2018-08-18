@@ -59,13 +59,17 @@ export const themePropTypes = PropTypes.shape({
 const theme = {
   brand: {
     primary: "#007fbf",
-    secondary: "#e41c62",
-    tertiary: "#a3c7d9",
+    secondary: "#a3c7d9",
+  },
+  bg: {
+    default: "#007fbf",
+    light: "#a3c7d9",
   },
   text: {
-    default: "#a3c7d9",
-    secondary: "#a3c7d9", // unused
-    fontFamily: "lithos,sans-serif",
+    primary: "#fff",
+    secondary: "#a3c7d9",
+    fontFamily: "Roboto,sans-serif",
+    textTransform: "uppercase",
   },
 };
 
