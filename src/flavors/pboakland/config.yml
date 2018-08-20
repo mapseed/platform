@@ -85,6 +85,7 @@ map:
     - id: pboakland-featured-2017
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pboakland-featured-2017
       is_visible_default: true
+      is_topmost_layer: true
       type: place
       slug: featured
       rules:

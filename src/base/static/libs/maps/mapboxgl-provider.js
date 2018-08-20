@@ -304,14 +304,15 @@ export default (container, options) => {
    */
   const layersCache = {};
   const sourcesCache = {};
+  let topmostLayerId;
 
   const floatSymbolLayersToTop = () => {
     // To ensure that point (aka "symbol") geometry is not obscured we
     // move all symbol layers to the top of the layer stack.
     Object.values(layersCache)
       .reduce((flat, toFlatten) => [...flat, ...toFlatten], [])
-      .filter(internalLayer => internalLayer.id.includes("symbol"))
-      .forEach(internalLayer => map.moveLayer(internalLayer.id));
+      .filter(mapboxLayer => mapboxLayer.id.includes("symbol"))
+      .forEach(mapboxLayer => map.moveLayer(mapboxLayer.id));
   };
 
   const addInternalLayers = (layerId, isBasemap) => {
@@ -998,6 +999,10 @@ export default (container, options) => {
 
     addLayer: async ({ layer, isBasemap, layerStatuses, mapConfig }) => {
       if (!layersCache[layer.id]) {
+        if (layer.is_topmost_layer) {
+          topmostLayerId = layer.id;
+        }
+
         switch (layer.type) {
           case "mapbox-style":
             addMapboxStyle(layer, layerStatuses, mapConfig);
@@ -1046,6 +1051,13 @@ export default (container, options) => {
         addInternalLayers(layer.id, isBasemap);
         floatSymbolLayersToTop();
       }
+
+      // Ensure that the layer designated topmost is moved to the top of the
+      // layer stack.
+      layersCache[topmostLayerId] &&
+        layersCache[topmostLayerId].forEach(mapboxLayer =>
+          map.moveLayer(mapboxLayer.id),
+        );
     },
 
     removeLayer: layer => {
