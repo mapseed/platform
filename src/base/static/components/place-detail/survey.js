@@ -223,6 +223,7 @@ Survey.propTypes = {
   onSurveyModelSave: PropTypes.func.isRequired,
   submitter: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
+  userToken: PropTypes.string,
 };
 
 export default translate("Survey")(Survey);
