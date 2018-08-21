@@ -392,6 +392,7 @@ class PlaceDetail extends Component {
           onSurveyModelRemove={this.onSurveyModelRemove.bind(this)}
           scrollToResponseId={this.props.scrollToResponseId}
           submitter={submitter}
+          userToken={this.props.userToken}
         />
       </div>
     );
