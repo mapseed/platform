@@ -83,9 +83,15 @@ class Survey extends Component {
         .map(val => val.get(constants.FIELD_VALUE_KEY))
         .toJS();
       Util.log("USER", "place", "submit-reply-btn-click");
+      attrs[constants.USER_TOKEN_PROPERTY_NAME] = this.props.userToken;
 
       this.props.onSurveyCollectionCreate(attrs, {
         wait: true,
+        beforeSend: (xhr, options) => {
+          options.xhrFields = {
+            withCredentials: true,
+          };
+        },
         success: () => {
           Util.log(
             "USER",
