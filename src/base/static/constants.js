@@ -18,15 +18,14 @@ export default {
   RANGE_FIELD_TYPENAME: "range",
   INFORMATIONAL_HTML_FIELD_TYPENAME: "informational_html",
 
-  SUBMITTER_FIELDNAME: "submitter_name",
-
   AUTOFILL_DURATION_DAYS: 30,
 
   LOCATION_TYPE_PROPERTY_NAME: "location_type",
   TITLE_PROPERTY_NAME: "title",
   FULL_TITLE_PROPERTY_NAME: "fullTitle",
   NAME_PROPERTY_NAME: "name",
-  SUBMITTER_FIELD_NAME: "submitter",
+  SUBMITTER_NAME_PROPERTY_NAME: "submitter_name",
+  SUBMITTER_PROPERTY_NAME: "submitter",
   USER_TOKEN_PROPERTY_NAME: "user_token",
   CREATED_DATETIME_PROPERTY_NAME: "created_datetime",
   DATASET_SLUG_PROPERTY_NAME: "datasetSlug",

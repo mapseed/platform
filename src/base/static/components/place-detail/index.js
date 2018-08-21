@@ -99,7 +99,7 @@ class PlaceDetail extends Component {
         this.props.model.get(constants.DATASET_ID_PROPERTY_NAME),
         this.categoryConfig.admin_groups,
         !!this.categoryConfig.submitter_editing_supported,
-        this.props.model.get(constants.SUBMITTER_FIELD_NAME),
+        this.props.model.get(constants.SUBMITTER_PROPERTY_NAME),
       ),
       isEditFormSubmitting: false,
       isSurveyEditFormSubmitting: false,
@@ -249,7 +249,7 @@ class PlaceDetail extends Component {
       constants.LOCATION_TYPE_PROPERTY_NAME,
     );
     const submitter =
-      this.state.placeModel.get(constants.SUBMITTER_FIELD_NAME) || Map();
+      this.state.placeModel.get(constants.SUBMITTER_PROPERTY_NAME) || Map();
     const isStoryChapter = !!this.state.placeModel.get(
       constants.STORY_FIELD_NAME,
     );
