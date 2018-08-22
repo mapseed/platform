@@ -47,9 +47,7 @@ class SurveyResponse extends Component {
             <SubmitterName
               className="place-detail-survey-response__submitter-name"
               submitterName={
-                this.props.attributes.get(
-                  constants.SUBMITTER_NAME,
-                ) ||
+                this.props.attributes.get(constants.SUBMITTER_NAME) ||
                 this.props.attributes.getIn([
                   constants.SUBMITTER,
                   constants.NAME_PROPERTY_NAME,
