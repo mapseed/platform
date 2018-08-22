@@ -257,13 +257,13 @@ module.exports = AppView.extend({
     // REACT PORT SECTION /////////////////////////////////////////////////////
     if (this.options.mapConfig.geocoding_bar_enabled) {
       ReactDOM.render(
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={adjustedTheme}>
-            <Provider store={store}>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
               <GeocodeAddressBar mapConfig={this.options.mapConfig} />
-            </Provider>
+            </ThemeProvider>
           </ThemeProvider>
-        </ThemeProvider>,
+        </Provider>,
         document.getElementById("geocode-address-bar"),
       );
     }
@@ -294,17 +294,17 @@ module.exports = AppView.extend({
       );
 
       ReactDOM.render(
-        <ThemeProvider theme={theme}>
-          <ThemeProvider theme={adjustedTheme}>
-            <Provider store={store}>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
               <InfoModal
                 parentId="info-modal-container"
                 isModalOpen={true}
                 {...modalContent}
               />
-            </Provider>
+            </ThemeProvider>
           </ThemeProvider>
-        </ThemeProvider>,
+        </Provider>,
         document.getElementById("info-modal-container"),
       );
     });
@@ -453,17 +453,17 @@ module.exports = AppView.extend({
 
     // NOTE: we hard-code the hull-input collection here
     ReactDOM.render(
-      <ThemeProvider theme={theme}>
-        <ThemeProvider theme={adjustedTheme}>
-          <Provider store={store}>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={adjustedTheme}>
             <InputExplorer
               appConfig={this.options.appConfig}
               placeConfig={this.options.placeConfig.place_detail}
               communityInput={this.places["hull-input"]}
             />
-          </Provider>
+          </ThemeProvider>
         </ThemeProvider>
-      </ThemeProvider>,
+      </Provider>,
       document.querySelector("#list-container"),
     );
   },
