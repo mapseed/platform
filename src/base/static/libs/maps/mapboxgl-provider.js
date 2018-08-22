@@ -435,9 +435,9 @@ export default (container, options) => {
       "&crs=EPSG:3857&transparent=",
       transparent,
       "&layers=",
-      layers,
+      encodeURIComponent(layers),
       "&bbox={bbox-epsg-3857}&width=256&height=256&styles=",
-      style ? style : "default",
+      typeof style !== "undefined" ? style : "default",
     ].join("");
 
     sourcesCache[id] = {
