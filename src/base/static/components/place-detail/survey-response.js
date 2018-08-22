@@ -27,7 +27,7 @@ class SurveyResponse extends Component {
             .filter(
               field =>
                 field.type !== constants.SUBMIT_FIELD_TYPENAME &&
-                field.name !== constants.SUBMITTER_NAME_PROPERTY_NAME,
+                field.name !== constants.SUBMITTER_NAME,
             )
             .map(field => (
               <p
@@ -48,10 +48,10 @@ class SurveyResponse extends Component {
               className="place-detail-survey-response__submitter-name"
               submitterName={
                 this.props.attributes.get(
-                  constants.SUBMITTER_NAME_PROPERTY_NAME,
+                  constants.SUBMITTER_NAME,
                 ) ||
                 this.props.attributes.getIn([
-                  constants.SUBMITTER_PROPERTY_NAME,
+                  constants.SUBMITTER,
                   constants.NAME_PROPERTY_NAME,
                 ])
               }
