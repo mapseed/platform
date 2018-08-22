@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "../../../../../base/static/state/reducers";
 import mapseedApiClient from "../../../../../base/static/client/mapseed-api-client";
+import { ThemeProvider } from "emotion-theming";
+import theme from "../../../../../theme";
 // TODO(luke): This should be the only instance of our config singleton.
 // Eventually, it will be removed once we start fetching the config
 // from the api:
@@ -50,6 +52,10 @@ module.exports = AppView.extend({
     // component:
     store.dispatch(setConfig(config));
     const storeState = store.getState();
+    const flavorTheme = storeState.config.app.theme;
+    const adjustedTheme = flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+      : {};
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -165,12 +171,16 @@ module.exports = AppView.extend({
     }).render();
 
     ReactDOM.render(
-      <UserMenu
-        router={this.options.router}
-        apiRoot={storeState.config.app.api_root}
-        currentUser={Shareabouts.bootstrapped.currentUser}
-        datasetDownloadConfig={storeState.config.app.dataset_download}
-      />,
+      <ThemeProvider theme={theme}>
+        <ThemeProvider theme={adjustedTheme}>
+          <UserMenu
+            router={this.options.router}
+            apiRoot={storeState.config.app.api_root}
+            currentUser={Shareabouts.bootstrapped.currentUser}
+            datasetDownloadConfig={storeState.config.app.dataset_download}
+          />
+        </ThemeProvider>
+      </ThemeProvider>,
       document.getElementById("auth-nav-container"),
     );
 
@@ -249,7 +259,11 @@ module.exports = AppView.extend({
     if (this.options.mapConfig.geocoding_bar_enabled) {
       ReactDOM.render(
         <Provider store={store}>
-          <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+            </ThemeProvider>
+          </ThemeProvider>
         </Provider>,
         document.getElementById("geocode-address-bar"),
       );
@@ -282,11 +296,15 @@ module.exports = AppView.extend({
 
       ReactDOM.render(
         <Provider store={store}>
-          <InfoModal
-            parentId="info-modal-container"
-            isModalOpen={true}
-            {...modalContent}
-          />
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <InfoModal
+                parentId="info-modal-container"
+                isModalOpen={true}
+                {...modalContent}
+              />
+            </ThemeProvider>
+          </ThemeProvider>
         </Provider>,
         document.getElementById("info-modal-container"),
       );
@@ -428,15 +446,24 @@ module.exports = AppView.extend({
     $(".show-the-list").addClass("is-visuallyhidden");
     $(".show-the-map").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-exposed");
+    const storeState = store.getState();
+    const flavorTheme = storeState.config.app.theme;
+    const adjustedTheme = flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+      : {};
 
     // NOTE: we hard-code the augusta-input collection here
     ReactDOM.render(
       <Provider store={store}>
-        <InputExplorer
-          appConfig={this.options.appConfig}
-          placeConfig={this.options.placeConfig.place_detail}
-          communityInput={this.places["augusta-input"]}
-        />
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={adjustedTheme}>
+            <InputExplorer
+              appConfig={this.options.appConfig}
+              placeConfig={this.options.placeConfig.place_detail}
+              communityInput={this.places["augusta-input"]}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
       </Provider>,
       document.querySelector("#list-container"),
     );

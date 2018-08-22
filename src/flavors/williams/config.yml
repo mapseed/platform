@@ -25,6 +25,16 @@ app:
   # Header text in the summary view; custom for this flavor
   summary_page_header: _(Over the next few months, we will work with community members and local stakeholders to design a plan for the garden and begin construction soon after.)
 
+  theme:
+    text:
+      primary: "#cccccc"
+      secondary: "#a3c7d9"
+      fontFamily: "Helvetica,sans-serif"
+    bg:
+      default: "rgba(0, 0, 0, 0)"
+      light: "#a3c7d9"
+
+
 languages:
   - code: en_US
     label: I Speak English
