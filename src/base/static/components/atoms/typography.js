@@ -109,6 +109,11 @@ Header6.propTypes = {
   classes: PropTypes.string,
 };
 
+const SmallText = styled("span")(props => ({
+  fontWeight: "normal",
+  fontSize: "0.875em",
+}));
+
 const Link = styled("a")(props => ({
   cursor: "pointer",
   textDecoration: "none",
@@ -127,6 +132,7 @@ Link.propTypes = {
 };
 
 export {
+  SmallText,
   Link,
   WarningMessage,
   Paragraph,

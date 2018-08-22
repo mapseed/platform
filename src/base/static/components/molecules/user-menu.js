@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { Link } from "../atoms/typography";
+import { Link, SmallText } from "../atoms/typography";
 import { Button } from "../atoms/buttons";
 import LegacyUtil from "../../js/utils.js";
 import styled from "react-emotion";
@@ -50,45 +50,22 @@ const MenuButton = styled(Button)({
   },
 });
 
-const SocialLoginButton = styled(Link)(props => {
-  let backgroundColor;
-  switch (props.service) {
-    case "twitter":
-      backgroundColor = "#4099ff";
-      break;
-    case "facebook":
-      backgroundColor = "#3b5998";
-      break;
-    case "google":
-      backgroundColor = "#e8433a";
-      break;
-  }
-  return {
-    display: "block",
-    padding: "0.5em",
-    boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
-    marginRight: "0.25em",
-    marginBottom: "0.25em",
-    color: "#fff !important",
-    backgroundColor,
-  };
-});
-
 const LogoutButton = styled(Link)({
   fontSize: "0.875em",
   fontWeight: "normal",
   textDecoration: "none",
   textTransform: "uppercase",
+  width: "100%",
 });
 
 const Menu = styled("ul")(props => ({
-  fontWeight: "bold",
   textAlign: "center",
   float: "left",
   width: "100%",
   margin: "0.5em 0",
   padding: "0",
-  display: props.isMenuOpen ? "block" : "none",
+  display: props.isMenuOpen ? "grid" : "none",
+  gridRowGap: "16px",
 
   "@media only screen and (min-width: 60em)": {
     background: "url(/static/css/images/lightpaperfibers.png)",
@@ -119,12 +96,36 @@ const Menu = styled("ul")(props => ({
 const MenuItem = styled("li")(({ theme }) => ({
   float: "left",
   width: "100%",
-  fontWeight: "bold",
   fontFamily: theme.text.fontFamily,
 }));
 
-const SmallMenuItem = styled(MenuItem)({
-  width: "50%",
+const SocialMediaMenuItem = styled(MenuItem)({
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gridRowGap: "8px",
+  gridColumnGap: "8px",
+});
+
+const SocialLoginButton = styled(Link)(props => {
+  let backgroundColor;
+  switch (props.service) {
+    case "twitter":
+      backgroundColor = "#4099ff";
+      break;
+    case "facebook":
+      backgroundColor = "#3b5998";
+      break;
+    case "google":
+      backgroundColor = "#e8433a";
+      break;
+  }
+  return {
+    display: "block",
+    padding: "0.5em",
+    boxShadow: props.theme.boxShadow,
+    color: "#fff !important",
+    backgroundColor,
+  };
 });
 
 const DownloadDataLink = styled(Link)({
@@ -159,7 +160,7 @@ class UserMenu extends React.Component {
               LegacyUtil.getAdminStatus(
                 this.props.datasetDownloadConfig.slug,
               ) && (
-                <MenuItem style={{ paddingBottom: "16px", width: "100%" }}>
+                <MenuItem>
                   <DownloadDataLink
                     href={`${this.props.apiRoot}${
                       this.props.datasetDownloadConfig.owner
@@ -172,12 +173,10 @@ class UserMenu extends React.Component {
                 </MenuItem>
               )}
             <MenuItem>
-              <span style={{ fontWeight: "normal", fontSize: "0.875em" }}>
-                {this.props.t("signedInAs")}
-              </span>{" "}
-              <span>{this.props.currentUser.name}</span>
-            </MenuItem>
-            <MenuItem>
+              <div>
+                <SmallText>{this.props.t("signedInAs")}</SmallText>{" "}
+                {this.props.currentUser.name}
+              </div>
               <LogoutButton href={`${this.props.apiRoot}users/logout/`}>
                 {this.props.t("logOut")}
               </LogoutButton>
@@ -193,30 +192,26 @@ class UserMenu extends React.Component {
             {this.props.t("signIn")}
           </MenuButton>
           <Menu isMenuOpen={this.state.isMenuOpen}>
-            <SmallMenuItem>
+            <SocialMediaMenuItem>
               <SocialLoginButton
                 service={"google"}
                 href={`${this.props.apiRoot}users/login/google-oauth2/`}
               >
                 Google
               </SocialLoginButton>
-            </SmallMenuItem>
-            <SmallMenuItem>
               <SocialLoginButton
                 service={"twitter"}
                 href={`${this.props.apiRoot}users/login/twitter/`}
               >
                 Twitter
               </SocialLoginButton>
-            </SmallMenuItem>
-            <SmallMenuItem>
               <SocialLoginButton
                 service={"facebook"}
                 href={`${this.props.apiRoot}users/login/facebook/`}
               >
                 Facebook
               </SocialLoginButton>
-            </SmallMenuItem>
+            </SocialMediaMenuItem>
           </Menu>
         </MenuContainer>
       );

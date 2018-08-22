@@ -71,6 +71,7 @@ const theme = {
     fontFamily: "Roboto,sans-serif",
     textTransform: "uppercase",
   },
+  boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",
 };
 
 export default theme;
