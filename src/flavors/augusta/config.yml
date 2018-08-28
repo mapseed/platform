@@ -44,207 +44,233 @@ map:
   geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
 
   options:
-    center:
-      lat: -23.55064
-      lng: -46.64661
-    zoom: 16
-    minZoom: 1
-    maxZoom: 18
+    map:
+      center:
+        lat: -23.55064
+        lng: -46.64661
+      zoom: 16
+      minZoom: 1
+      maxZoom: 18
+    control:
+      showCompass: true
+      position: "top-left"
 
   layers:
     - id: osm
-      url: //{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png
-
-      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      type: raster-tile
+      is_basemap: true
+      is_visible_default: true
+      url: https://cartodb-basemaps-a.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png 
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 
     - id: terrain
-      type: basemap
-      url: //stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
-      maxZoom: 16
+      type: raster-tile
+      is_basemap: true
+      url: https://stamen-tiles-a.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
 
     - id: satellite
-      url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      type: raster-tile
+      is_basemap: true
+      url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
     - id: augusta-input
+      is_visible_default: true
+      is_topmost_layer: true
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-input
       type: place
       slug: report
+      rules:
+        # "community_input" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "community_input"
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - true
+          symbol-layout:
+            icon-image: "marker-observation.png"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "community_input"
+            - - "<"
+              - - "zoom"
+              - 11
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-observation.png"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "community_input"
+            - - ">="
+              - - "zoom"
+              - 11
+            - - "<"
+              - - "zoom"
+              - 16
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-observation.png"
+            icon-size: 0.7
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "community_input"
+            - - ">="
+              - - "zoom"
+              - 16
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-image: "marker-observation.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
 
     - id: augusta-project
+      is_visible_default: true
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-project
       type: place
       slug: project
+      rules:
+        - outline-paint:
+            line-width: 3
 
     - id: augusta-partners
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-partners
       type: place
       slug: partners
+      rules:
+        # "augusta-partners" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "augusta-partners"
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - true
+          symbol-layout:
+            icon-size: 1.2
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+                - "augusta-partners"
+            - - "=="
+              - - "get"
+                - "isFocused"
+              - - "to-boolean"
+                - false
+          symbol-layout:
+            icon-size: 1.0
+            icon-anchor: "center"
 
-    - id: transit-points
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - augusta_transit_points
-
-    - id: transit-lines
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - augusta_transit_lines
+    - id: transit
+      type: vector-tile
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-transit/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-transit/style.json
+      source_layer: sao-paulo-transit
 
     - id: biking
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers:
-        - augusta_bike_lanes
+      type: vector-tile
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-bike-lanes/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-bike-lanes/style.json
+      source_layer: sao-paulo-bike-lanes
 
     - id: zoning
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers: 
-        - augusta_zoning
+      type: vector-tile
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-zoning/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-zoning/style.json
+      source_layer: sao-paulo-zoning
 
     - id: heatwaves
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/augusta/wms?
-      format: image/png
-      version: 1.3.0
-      transparent: true
-      layers:
-        - augusta_heatwave
+      type: vector-tile
+      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-heatwave/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-heatwave/style.json
+      source_layer: sao-paulo-heatwave
 
-# The values map the place type to map icons (defined below).
-place_types:
-  community_input:
-    label: _(Comment)
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-      - condition: 'this.map.zoom < 11'
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [10, 12]
-          iconAnchor: [5, 12]
-
-      - condition: 'this.map.zoom < 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [15, 18]
-          iconAnchor: [7.5, 18]
-
-      - condition: 'this.map.zoom >= 16'
-        icon:
-          iconUrl: /static/css/images/markers/marker-observation.png
-          iconSize: [38, 46]
-          iconAnchor: [19, 46]
-
-  augusta-partners:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction-dot.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
-      - condition: 'this.map.zoom <= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-  augusta-project:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
-        icon:
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
-      - condition: 'this.map.zoom <= 18'
-        icon:
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-sidebar:
-  enabled: true
+left_sidebar:
+  is_enabled: true
+  is_visible_default: false
   panels:
     - id: gis-layers
-      basemaps:
-        - id: osm
-          icon_url: /static/css/images/default-map.svg
-          title: _(Default)
-          visibleDefault: true
-        - id: satellite
-          icon_url: /static/css/images/satellite-map.svg
-          title: _(Satellite)
-          visibleDefault: false
-        - id: terrain
-          icon_url: /static/css/images/terrain-map.svg
-          title: _(Terrain)
-          visibleDefault: false
+      icon: fa-list
+      component: MapLayerPanel
+      title: _(Map Layers)
       groupings:
+        - id: basemaps
+          title: _(Basemaps)
+          layers:
+            - id: osm
+              icon: /static/css/images/default-map.svg
+              title: _(Default)
+            - id: satellite
+              icon: /static/css/images/satellite-map.svg
+              title: _(Satellite)
+            - id: terrain
+              icon: /static/css/images/terrain-map.svg
+              title: _(Terrain)
         - id: map-detail
           title: _(Map detail)
           layers:
-            - id: transit_points_and_lines
-              icon_url: /static/css/images/transit.svg
+            - id: transit
+              icon: /static/css/images/transit.svg
               title: _(Transit)
-              constituentLayers:
-                - transit-points
-                - transit-lines
-              visibleDefault: false
             - id: biking
-              icon_url: /static/css/images/bike-lanes.svg
+              icon: /static/css/images/bike-lanes.svg
               title: _(Biking)
-              visibleDefault: false
             - id: zoning
-              icon_url: /static/css/images/zoning.svg
+              icon: /static/css/images/zoning.svg
               title: _(Zoning)
-              visibleDefault: false
             - id: augusta-input
-              icon_url: /static/css/images/comments.svg
+              icon: /static/css/images/comments.svg
               title: _(Comments)
-              visibleDefault: true
             - id: augusta-partners
-              icon_url: /static/css/images/partners.svg
+              icon: /static/css/images/partners.svg
               title: _(Partners)
-              visibleDefault: false
             - id: augusta-project
               icon_url: /static/css/images/park-icon.png
               title: _(Project)
-              visibleDefault: true
         - id: climate-risks
           title: _(Climate risks)
           layers:
             - id: heatwaves
-              icon_url: /static/css/images/heatwaves.svg
+              icon: /static/css/images/heatwaves.svg
               title: _(Heat Waves)
-              visibleDefault: false
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.

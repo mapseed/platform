@@ -315,7 +315,7 @@ module.exports = AppView.extend({
     // Load places from the API
     // TODO(luke): move this into componentDidMount when App is ported
     // to a component:
-    mapseedApiClient.place.get({
+    const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
       mapConfig: self.options.mapConfig,
