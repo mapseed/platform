@@ -71,7 +71,7 @@ var PlaceListView = require("mapseed-place-list-view");
 var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
 
-module.exports = Backbone.View.extend({
+export default Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
@@ -887,3 +887,5 @@ module.exports = Backbone.View.extend({
     this.mapView.clearFilter();
   },
 });
+
+export { store };

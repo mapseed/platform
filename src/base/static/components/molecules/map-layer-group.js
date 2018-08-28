@@ -33,6 +33,7 @@ const MapLayerGroup = props => {
           <MapLayerSelector
             key={layer.id}
             layerId={layer.id}
+            icon={layer.icon}
             info={layer.info}
             title={layer.title}
             layerStatus={props.layerStatuses[layer.id]}

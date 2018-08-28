@@ -459,7 +459,7 @@ InputForm.propTypes = {
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
   isSingleCategory: PropTypes.bool,
-  mapPosition: PropTypes.object.isRequired,
+  mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func,
   places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
