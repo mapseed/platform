@@ -14,21 +14,25 @@ import mapseedApiClient from "../../../../../base/static/client/mapseed-api-clie
 // Eventually, it will be removed once we start fetching the config
 // from the api:
 import config from "config";
-import { setConfig } from "../../../../../base/static/state/ducks/config";
 
-const AppView = require("../../../../../base/static/js/views/app-view.js");
+import { setMapConfig } from "../../../../../base/static/state/ducks/map-config";
+import { setPlaceConfig } from "../../../../../base/static/state/ducks/place-config";
+import { setStoryConfig } from "../../../../../base/static/state/ducks/story-config";
+import { setLeftSidebarConfig } from "../../../../../base/static/state/ducks/left-sidebar-config";
+import { setRightSidebarConfig } from "../../../../../base/static/state/ducks/right-sidebar-config";
+
+import MainMap from "../../../../../base/static/components/organisms/main-map";
+import RightSidebar from "../../../../../base/static/components/templates/right-sidebar";
+import LeftSidebar from "../../../../../base/static/components/organisms/left-sidebar";
+
+import AppView, { store } from "../../../../../base/static/js/views/app-view.js";
 const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
 const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
-const MapView = require("../../../../../base/static/js/views/map-view");
-const SidebarView = require("../../../../../flavors/bathgate/static/js/views/sidebar-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
 // END FLAVOR-SPECIFIC CODE
-
-// TODO(luke): move this into index.js (currently routes.js)
-const store = createStore(reducer);
 
 module.exports = AppView.extend({
   events: {
@@ -48,7 +52,11 @@ module.exports = AppView.extend({
     Shareabouts.deferredCollections = [];
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    store.dispatch(setConfig(config));
+    store.dispatch(setMapConfig(config.map));
+    store.dispatch(setPlaceConfig(config.place));
+    store.dispatch(setLeftSidebarConfig(config.left_sidebar));
+    store.dispatch(setRightSidebarConfig(config.right_sidebar));
+    store.dispatch(setStoryConfig(config.story));
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -83,13 +91,6 @@ module.exports = AppView.extend({
     $("body").ajaxSuccess(function(evt, request, settings) {
       $("#ajax-error-msg").hide();
     });
-
-    if (this.options.activityConfig.show_in_right_panel === true) {
-      $("body").addClass("right-sidebar-visible");
-      $("#right-sidebar-container").html(
-        "<ul class='recent-points unstyled-list'></ul>",
-      );
-    }
 
     $(document).on("click", ".activity-item a", function(evt) {
       window.app.clearLocationTypeFilter();
@@ -169,53 +170,23 @@ module.exports = AppView.extend({
       router: this.options.router,
     }).render();
 
-    this.basemapConfigs = _.find(this.options.sidebarConfig.panels, function(
-      panel,
-    ) {
-      return "basemaps" in panel;
-    }).basemaps;
-    // Init the map view to display the places
-    this.mapView = new MapView({
-      el: "#map",
-      mapConfig: this.options.mapConfig,
-      sidebarConfig: this.options.sidebarConfig,
-      basemapConfigs: this.basemapConfigs,
-      legend_enabled: !!this.options.sidebarConfig.legend_enabled,
-      places: this.places,
-      router: this.options.router,
-      placeTypes: this.options.placeTypes,
-      cluster: this.options.cluster,
-      placeDetailViews: this.placeDetailViews,
-      placeConfig: this.options.placeConfig,
-    });
-
-    $("#sidebar-container").addClass("sidebar-container--hidden");
-    if (self.options.sidebarConfig.enabled) {
-      this.sidebarView = new SidebarView({
-        el: "#sidebar-container",
-        mapView: this.mapView,
-        sidebarConfig: this.options.sidebarConfig,
-        placeConfig: this.options.placeConfig,
-      });
-
-      // TODO: add another view inside the SidebarView for handling the legend
-
-      // BEGIN FLAVOR-SPECIFIC CODE
-      this.$(".leaflet-top.leaflet-right").append(
-        '<div class="leaflet-control leaflet-bar">' +
-          '<a href="#" class="show-layer-panel"></a>' +
-          "</div>",
-      );
-      // END FLAVOR-SPECIFIC CODE
-
-      // BEGIN FLAVOR-SPECIFIC CODE
-      this.$(".leaflet-top.leaflet-right").append(
-        '<div class="leaflet-control leaflet-bar">' +
-          '<a href="#" class="show-legend-panel"></a>' +
-          "</div>",
-      );
-      // END FLAVOR-SPECIFIC CODE
-    }
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    ReactDOM.render(
+      <Provider store={store}>
+        <MainMap
+          container="map"
+          places={this.places}
+          router={this.options.router}
+          onZoomend={this.onMapZoomEnd.bind(this)}
+          onMovestart={this.onMapMoveStart.bind(this)}
+          onMoveend={this.onMapMoveEnd.bind(this)}
+          onDragend={this.onMapDragEnd.bind(this)}
+          store={store}
+        />
+      </Provider>,
+      document.getElementById("map-component"),
+    );
+    // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // Activity is enabled by default (undefined) or by enabling it
     // explicitly. Set it to a falsey value to disable activity.
@@ -266,6 +237,14 @@ module.exports = AppView.extend({
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("geocode", locationData => {
       this.mapView.zoomInOn(locationData.latLng);
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("nav-layer-btn:toggle", () => {
+      store.dispatch(
+        setLeftSidebar(!leftSidebarExpandedSelector(store.getState())),
+      );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
@@ -326,36 +305,6 @@ module.exports = AppView.extend({
     this.$centerpoint = $("#centerpoint");
     this.$addButton = $("#add-place-btn-container");
 
-    // Bind to map move events so we can style our center points
-    // with utmost awesomeness.
-    this.mapView.map.on("zoomend", this.onMapZoomEnd, this);
-    this.mapView.map.on("movestart", this.onMapMoveStart, this);
-    this.mapView.map.on("moveend", this.onMapMoveEnd, this);
-    // For knowing if the user has moved the map after opening the form.
-    this.mapView.map.on("dragend", this.onMapDragEnd, this);
-
-    // If report stories are enabled, build the data structure
-    // we need to enable story navigation
-    _.each(this.options.storyConfig, function(story) {
-      var storyStructure = {},
-        totalStoryElements = story.order.length;
-      _.each(story.order, function(config, i) {
-        storyStructure[config.url] = {
-          zoom: config.zoom || story.default_zoom,
-          hasCustomZoom: config.zoom ? true : false,
-          panTo: config.panTo || null,
-          visibleLayers: config.visible_layers || story.default_visible_layers,
-          previous:
-            story.order[(i - 1 + totalStoryElements) % totalStoryElements].url,
-          next: story.order[(i + 1) % totalStoryElements].url,
-          basemap: config.basemap || story.default_basemap,
-          spotlight: config.spotlight === false ? false : true,
-          sidebarIconUrl: config.sidebar_icon_url,
-        };
-      });
-      story.order = storyStructure;
-    });
-
     // This is the "center" when the popup is open
     this.offsetRatio = { x: 0.2, y: 0.0 };
 
@@ -366,10 +315,9 @@ module.exports = AppView.extend({
     // Load places from the API
     // TODO(luke): move this into componentDidMount when App is ported
     // to a component:
-    mapseedApiClient.place.get({
+    const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
-      mapView: self.mapView,
       mapConfig: self.options.mapConfig,
     });
 
@@ -395,19 +343,30 @@ module.exports = AppView.extend({
         $("body").addClass("right-sidebar-visible");
       }
 
-      new RightSidebarView({
-        el: "#right-sidebar-container",
-        router: this.options.router,
-        rightSidebarConfig: this.options.rightSidebarConfig,
-        placeConfig: this.options.placeConfig,
-        layers: this.options.mapConfig.layers,
-        storyConfig: this.options.storyConfig,
-        activityConfig: this.options.activityConfig,
-        activityView: this.activityView,
-        appView: this,
-        layerViews: this.mapView.layerViews,
-      }).render();
+      // REACT PORT SECTION ///////////////////////////////////////////////////
+      ReactDOM.render(
+        <Provider store={store}>
+          <RightSidebar
+            placeCollectionsPromise={placeCollectionsPromise}
+            places={this.places}
+            router={this.options.router}
+          />
+        </Provider>,
+        document.getElementById("right-sidebar-container"),
+      );
+      // END REACT PORT SECTION ///////////////////////////////////////////////
     }
+
+    // REACT PORT SECTION /////////////////////////////////////////////////////
+    if (this.options.leftSidebarConfig.is_enabled) {
+      ReactDOM.render(
+        <Provider store={store}>
+          <LeftSidebar />
+        </Provider>,
+        document.getElementById("left-sidebar-container"),
+      );
+    }
+    // END REACT PORT SECTION /////////////////////////////////////////////////
   },
 
   onMapDragEnd: function(evt) {
