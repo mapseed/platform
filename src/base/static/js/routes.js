@@ -4,7 +4,7 @@ var PlaceModel = require("./models/place-model.js");
 var Util = require("./utils.js");
 var PlaceCollection = require("./models/place-collection.js");
 var ActionCollection = require("./models/action-collection.js");
-var AppView = require("mapseed-app-view");
+import AppView from "mapseed-app-view";
 
 // Global-namespace Util
 Shareabouts.Util = Util;
