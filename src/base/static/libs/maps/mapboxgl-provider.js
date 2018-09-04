@@ -373,11 +373,12 @@ export default (container, options) => {
     map.setStyle(layer.url);
   };
 
-  const createRasterTileLayer = ({ id, url }) => {
+  const createRasterTileLayer = ({ id, url, scheme = "xyz" }) => {
     sourcesCache[id] = {
       type: "raster",
       tiles: [url],
       tileSize: 256,
+      scheme: scheme,
     };
     map.addSource(id, sourcesCache[id]);
 
