@@ -34,6 +34,7 @@ MapLegendGroup.propTypes = {
       swatch: PropTypes.string,
     }),
   ).isRequired,
+  description: PropTypes.string,
   title: PropTypes.string,
 };
 
