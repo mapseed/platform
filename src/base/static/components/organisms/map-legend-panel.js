@@ -21,11 +21,7 @@ const MapLegendPanel = props => {
         </Paragraph>
       )}
       {props.config.groupings.map((grouping, i) => (
-        <MapLegendGroup
-          key={i}
-          content={grouping.content}
-          title={grouping.title}
-        />
+        <MapLegendGroup key={i} {...grouping} />
       ))}
     </div>
   );

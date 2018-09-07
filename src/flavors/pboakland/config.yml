@@ -265,42 +265,31 @@ left_sidebar:
 right_sidebar:
   is_enabled: true
   is_visible_default: true
-  component: MapLegend
-  content:
-    - type: header
-      content: _(Map Key)
-    - type: description
-      content: _(Select a Map Pin to see project details and related ideas)
-    - type: legend-item
-      title: _(Funded Project)
-      image: /static/css/images/funded-legend-icon.png
-    - type: legend-item
-      title: _(Not Funded Project)
-      image: /static/css/images/losing-legend-icon.png
-    - type: legend-item
-      title: _(Ideas)
-      image: /static/css/images/idea-legend-icon.png
-    - type: legend-item
-      title: _(Ideas Related to Selected Project)
-      image: /static/css/images/idea-selected-legend-icon.png
-
-    - type: header
-      content: _(Project Categories)
-    - type: legend-item
-      title: _(Youth Services)
-      image: /static/css/images/youth-legend-icon.png
-    - type: legend-item
-      title: _(Capital Improvement)
-      image: /static/css/images/capital-legend-icon.png
-    - type: legend-item
-      title: _(Senior and Disabled Services)
-      image: /static/css/images/senior-legend-icon.png
-    - type: legend-item
-      title: _(Housing Services)
-      image: /static/css/images/housing-legend-icon.png
-    - type: legend-item
-      title: _(Homeless Services)
-      image: /static/css/images/homeless-legend-icon.png
+  component: MapLegendPanel
+  groupings:
+    - title: _(Map Key)
+      description: _(Select a Map Pin to see project details and related ideas)
+      content:
+        - label: _(Funded Project)
+          icon: /static/css/images/funded-legend-icon.png
+        - label: _(Not Funded Project)
+          icon: /static/css/images/losing-legend-icon.png
+        - label: _(Ideas)
+          icon: /static/css/images/idea-legend-icon.png
+        - label: _(Ideas Related to Selected Project)
+          icon: /static/css/images/idea-selected-legend-icon.png
+    - title: _(Project Categories)
+      content:
+        - label: _(Youth Services)
+          icon: /static/css/images/youth-legend-icon.png
+        - label: _(Capital Improvement)
+          icon: /static/css/images/capital-legend-icon.png
+        - label: _(Senior and Disabled Services)
+          icon: /static/css/images/senior-legend-icon.png
+        - label: _(Housing Services)
+          icon: /static/css/images/housing-legend-icon.png
+        - label: _(Homeless Services)
+          icon: /static/css/images/homeless-legend-icon.png
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.

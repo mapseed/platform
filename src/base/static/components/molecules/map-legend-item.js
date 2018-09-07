@@ -10,12 +10,12 @@ import "./map-legend-item.scss";
 const MapLegendItem = props => (
   <div className="map-legend-item">
     {props.icon && (
-      <Icon icon={props.icon} classes="map-legend-item__id-icon" />
+      <div className="map-legend-item__icon-container">
+        <Icon icon={props.icon} classes="map-legend-item__icon" />
+      </div>
     )}
     {props.swatch && <Swatch color={props.swatch} />}
-    <PanelLabel classes="map-legend-item__legend-title">
-      {props.label}
-    </PanelLabel>
+    <PanelLabel classes="map-legend-item__label">{props.label}</PanelLabel>
   </div>
 );
 

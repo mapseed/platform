@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import classNames from "classnames";
 
 import { HorizontalRule } from "../atoms/misc";
-import { Header6 } from "../atoms/typography";
+import { Header6, Paragraph } from "../atoms/typography";
 
 import MapLegendItem from "./map-legend-item";
 
@@ -13,7 +13,14 @@ import "./map-legend-group.scss";
 const MapLegendGroup = props => (
   <div className={classNames(props.classes, "map-legend-group")}>
     <HorizontalRule classes="map-legend-group__hr" />
-    <Header6 classes="map-legend-group__title">{props.title}</Header6>
+    {props.title && (
+      <Header6 classes="map-legend-group__title">{props.title}</Header6>
+    )}
+    {props.description && (
+      <Paragraph classes="map-legend-group__description">
+        {props.description}
+      </Paragraph>
+    )}
     {props.content.map((item, i) => <MapLegendItem key={i} {...item} />)}
   </div>
 );
