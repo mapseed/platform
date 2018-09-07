@@ -20,11 +20,9 @@ const MapLegendItem = props => (
 );
 
 MapLegendItem.propTypes = {
-  filterId: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   label: PropTypes.string.isRequired,
-  onToggleFilter: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired,
+  swatch: PropTypes.string,
 };
 
 export default MapLegendItem;
