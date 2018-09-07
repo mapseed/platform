@@ -33,7 +33,20 @@ const MapLegendPanel = props => {
 
 MapLegendPanel.propTypes = {
   config: PropTypes.shape({
-    groupings: PropTypes.array,
+    description: PropTypes.string,
+    groupings: PropTypes.arrayOf(
+      PropTypes.shape({
+        content: PropTypes.arrayOf(
+          PropTypes.shape({
+            icon: PropTypes.string,
+            label: PropTypes.string.isRequired,
+            swatch: PropTypes.string,
+          }),
+        ),
+        title: PropTypes.string,
+      }),
+    ),
+    title: PropTypes.string,
   }),
 };
 

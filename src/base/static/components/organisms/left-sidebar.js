@@ -37,6 +37,23 @@ LeftSidebar.propTypes = {
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   setLeftSidebar: PropTypes.func.isRequired,
   leftSidebarComponent: PropTypes.string,
+  mapLegendPanelConfig: PropTypes.shape({
+    component: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    title: PropTypes.string,
+    groupings: PropTypes.arrayOf(
+      PropTypes.shape({
+        content: PropTypes.arrayOf(
+          PropTypes.shape({
+            icon: PropTypes.string,
+            label: PropTypes.string.isRequired,
+            swatch: PropTypes.string,
+          }),
+        ),
+        title: PropTypes.string,
+      }),
+    ).isRequired,
+  }),
 };
 
 const mapStateToProps = state => ({

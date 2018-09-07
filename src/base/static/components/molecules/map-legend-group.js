@@ -19,6 +19,7 @@ const MapLegendGroup = props => (
 );
 
 MapLegendGroup.propTypes = {
+  classes: PropTypes.string,
   content: PropTypes.arrayOf(
     PropTypes.shape({
       icon: PropTypes.string,
