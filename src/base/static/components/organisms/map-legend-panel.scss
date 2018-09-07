@@ -1,10 +1,10 @@
-.map-legend {
+.map-legend-panel {
   list-style: none;
   padding: 10px;
   margin: 0;
 }
 
-.map-legend__header {
+.map-legend-panel__header {
   text-transform: uppercase;
   line-height: 1.1em;
   margin-top: 15px;
@@ -14,18 +14,18 @@
   }
 }
 
-.map-legend__legend-item-container {
+.map-legend-panel__legend-item-container {
   display: flex;
   align-items: center;
 }
 
-.map-legend__icon-container {
+.map-legend-panel__icon-container {
   flex: 2;
   display: flex;
   justify-content: center;
 }
 
-.map-legend__item-title {
+.map-legend-panel__item-title {
   margin-left: 8px;
   flex: 5;
 }

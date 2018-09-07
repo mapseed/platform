@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { Link } from "../atoms/navigation";
 import StoryNavigator from "../organisms/story-navigator";
-import MapLegend from "../organisms/map-legend";
+import MapLegendPanel from "../organisms/map-legend-panel";
 
 import { rightSidebarConfigSelector } from "../../state/ducks/right-sidebar-config";
 
@@ -15,8 +15,8 @@ const RightSidebar = props => {
   // TODO: Support multiple simultaneous right sidebar components.
   if (props.rightSidebarConfig.component === "StoryNavigator") {
     component = <StoryNavigator {...props} />;
-  } else if (props.rightSidebarConfig.component === "MapLegend") {
-    component = <MapLegend {...props} />;
+  } else if (props.rightSidebarConfig.component === "MapLegendPanel") {
+    component = <MapLegendPanel {...props} />;
   }
 
   return (

@@ -108,6 +108,19 @@ Header6.propTypes = {
   classes: PropTypes.string,
 };
 
+const PanelLabel = ({ children, ...props }) => {
+  return (
+    <span className={classNames("mapseed__panel-label", props.classes)}>
+      {children}
+    </span>
+  );
+};
+
+PanelLabel.propTypes = {
+  children: PropTypes.node,
+  classes: PropTypes.string,
+};
+
 export {
   WarningMessage,
   Paragraph,
@@ -117,4 +130,5 @@ export {
   Header4,
   Header5,
   Header6,
+  PanelLabel,
 };

@@ -11,6 +11,9 @@ import { CloseButton } from "../atoms/navigation";
 
 import MapLayerPanel from "./map-layer-panel";
 import MapFilterPanel from "./map-filter-panel";
+import MapLegendPanel from "./map-legend-panel";
+
+import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config";
 
 import "./left-sidebar.scss";
 
@@ -23,6 +26,9 @@ const LeftSidebar = props => {
       />
       {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
       {props.leftSidebarComponent === "MapFilterPanel" && <MapFilterPanel />}
+      {props.leftSidebarComponent === "MapLegendPanel" && (
+        <MapLegendPanel config={props.mapLegendPanelConfig} />
+      )}
     </div>
   ) : null;
 };
@@ -36,6 +42,7 @@ LeftSidebar.propTypes = {
 const mapStateToProps = state => ({
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   leftSidebarComponent: leftSidebarComponentSelector(state),
+  mapLegendPanelConfig: leftSidebarPanelConfigSelector(state, "MapLegendPanel"),
 });
 
 const mapDispatchToProps = dispatch => ({
