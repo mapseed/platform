@@ -241,6 +241,108 @@ left_sidebar:
               icon: /static/css/images/flood-zones.svg
               title: _(Flood Zones)
 
+    - id: legend
+      component: MapLegendPanel
+      icon: fa-info-circle
+      title: _(Map Legend)
+      groupings:
+        - title: _(Transit)
+          content:
+            - swatch: "#c53932"
+              label: _(Train)
+            - swatch: "#2c41d7"
+              label: _(Bus)
+        - title: _(Zoning)
+          content:
+            - swatch: "#f7fbff"
+              label: _(Residential 1)
+            - swatch: "#e1edf8"
+              label: _(Residential 2)
+            - swatch: "#ccdff1"
+              label: _(Residential 3)
+            - swatch: "#afd1e7"
+              label: _(Residential 4)
+            - swatch: "#88bedc"
+              label: _(Residential 5)
+            - swatch: "#5fa6d1"
+              label: _(Residential 6)
+            - swatch: "#3d8dc3"
+              label: _(Residential 7)
+            - swatch: "#2171b5"
+              label: _(Residential 8)
+            - swatch: "#0a539e"
+              label: _(Residential 9)
+            - swatch: "#f7fbff"
+              label: _(Residential 10)
+            - swatch: "#fdd5c4"
+              label: _(Manufacturing 1)
+            - swatch: "#fb7050"
+              label: _(Manufacturing 2)
+            - swatch: "#ba1419"
+              label: _(Manufacturing 3)
+            - swatch: "#f2ef12"
+              label: _(Commcercial)
+            - swatch: "#5c946e"
+              label: _(Parks)
+        - title: _(Land temperature)
+          content:
+            - swatch: "#9b331e"
+              label: _(50°C / 122°F)
+            - swatch: "#986434"
+              label: _(48°C / 118°F)
+            - swatch: "#cc362b"
+              label: _(46°C / 115°F)
+            - swatch: "#e93f33"
+              label: _(44°C / 111°F)
+            - swatch: "#e93f33"
+              label: _(42°C / 108°F)
+            - swatch: "#f6cbca"
+              label: _(40°C / 104°F)
+            - swatch: "#f9cc65"
+              label: _(38°C / 100°F)
+            - swatch: "#fdf733"
+              label: _(36°C / 99°F)
+            - swatch: "#fcfccb"
+              label: _(34°C / 93°F)
+            - swatch: "#cbf9cc"
+              label: _(32°C / 90°F)
+            - swatch: "#7ef368"
+              label: _(30°C / 86°F)
+            - swatch: "#6ccd13"
+              label: _(28°C / 82°F)
+            - swatch: "#97fafc"
+              label: _(26°C / 79°F)
+            - swatch: "#59cdfc"
+              label: _(24°C / 75°F)
+            - swatch: "#6765fc"
+              label: _(22°C / 72°F)
+            - swatch: "#cccccc"
+              label: _(20°C / 68°F)
+            - swatch: "#efb1fe"
+              label: _(18°C / 64°F)
+            - swatch: "#e55ffd"
+              label: _(16°C / 61°F)
+            - swatch: "#9b3999"
+              label: _(14°C / 57°F)
+            - swatch: "#152ac9"
+              label: _(12°C / 54°F)
+            - swatch: "#323103"
+              label: _(10°C / 50°F)
+            - swatch: "#4d3707"
+              label: _(8°C / 46°F)
+            - swatch: "#4a0065"
+              label: _(6°C / 43°F)
+        - title: _(Flood zones)
+          content:
+            - swatch: "#c04b46"
+              label: _(Category 1 Hurricane)
+            - swatch: "#eba05c"
+              label: _(Category 2 Hurricane)
+            - swatch: "#efe78c"
+              label: _(Category 3 Hurricane)
+            - swatch: "#fcf75e"
+              label: _(Category 4 Hurricane)
+
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
