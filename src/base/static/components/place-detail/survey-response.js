@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import Avatar from "../ui-elements/avatar";
-import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
 
@@ -55,7 +54,6 @@ class SurveyResponse extends Component {
               }
               anonymousName={placeConfig.anonymous_name}
             />
-            <ActionTime time={this.props.attributes.get("updated_datetime")} />
           </div>
         </div>
       </article>
