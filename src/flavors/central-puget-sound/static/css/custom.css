@@ -88,6 +88,8 @@
 
 .list-toggle-nav {
   padding: 0.2em 0.75em;
+  position: absolute;
+  left: 640px;
 }
 
 /* =Language picker

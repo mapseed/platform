@@ -796,6 +796,8 @@ activity:
 
 right_sidebar:
   show: true
+  visibleDefault: false
+  component: StoryNavigator
 
 filters:
   enabled: true
@@ -806,7 +808,7 @@ place:
   adding_supported: true
   add_button_label: _(Take Action)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(Reports)
+  show_list_button_label: _(Myself)
   show_map_button_label: _(Show Map)
   #action_text: _(added)
   title: _(New post)
@@ -2344,8 +2346,12 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(Projects)
+  - title: _(Community)
     name: hamm-creek-restoration
+
+  - title: _(Classroom)
+    name: classroom
+    slug: classroom
 
   - title: _(Background)
     slug: background
@@ -2361,14 +2367,12 @@ pages:
     slug: about
     name: overview
     hide_from_top_bar: false
-    start_page: true
     pull_right: true
 
   - title: _(Guide)
     slug: guide
     name: guide
     hide_from_top_bar: false
-    start_page: true
     pull_right: true
 
   - title: _(Sponsors)
