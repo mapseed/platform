@@ -92,7 +92,7 @@ Shareabouts.smallSpinnerOptions = {
   left: "auto",
 };
 
-module.exports = Backbone.View.extend({
+export default Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
@@ -1028,3 +1028,5 @@ module.exports = Backbone.View.extend({
     this.mapView.clearFilter();
   },
 });
+
+export { store };

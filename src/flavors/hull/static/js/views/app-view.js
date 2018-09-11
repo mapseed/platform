@@ -19,7 +19,7 @@ import config from "config";
 import { setConfig } from "../../../../../base/static/state/ducks/config";
 import UserMenu from "../../../../../base/static/components/molecules/user-menu";
 
-const AppView = require("../../../../../base/static/js/views/app-view.js");
+import AppView, { store } from "../../../../../base/static/js/views/app-view.js";
 const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
 const MapView = require("../../../../../base/static/js/views/map-view");
@@ -28,9 +28,6 @@ const ActivityView = require("../../../../../base/static/js/views/activity-view"
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
 // END FLAVOR-SPECIFIC CODE
-
-// TODO(luke): move this into index.js (currently routes.js)
-const store = createStore(reducer);
 
 module.exports = AppView.extend({
   events: {
