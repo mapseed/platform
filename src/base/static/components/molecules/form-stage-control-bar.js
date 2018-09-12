@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { translate, Trans } from "react-i18next";
 
-import { Link } from "../atoms/navigation";
+import { Button } from "../atoms/buttons";
 import { ProgressBar } from "../atoms/feedback";
 
 import "./form-stage-control-bar.scss";
@@ -30,26 +30,26 @@ const FormStageControlBar = props => {
           total={props.numStages}
           currentProgress={props.currentStage}
         />
-        <Link
-          classes="form-stage-control-bar__stage-nav-link"
+        <Button
+          style={{ marginLeft: "8px" }}
           disabled={props.isSingleCategory && props.currentStage === 1}
           variant="flat"
-          color="primary"
+          primary
           size="regular"
           {...retreatOpts}
         >
           {props.t("previousStageLinkLabel")}
-        </Link>
-        <Link
-          classes="form-stage-control-bar__stage-nav-link"
+        </Button>
+        <Button
+          style={{ marginLeft: "8px" }}
           disabled={props.currentStage === props.numStages}
           variant="flat"
-          color="primary"
+          primary
           size="regular"
           {...advanceOpts}
         >
           {props.t("nextStageLinkLabel")}
-        </Link>
+        </Button>
       </div>
     </div>
   );

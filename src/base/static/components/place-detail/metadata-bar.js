@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Avatar from "../ui-elements/avatar";
-import ActionTime from "../ui-elements/action-time";
 import SubmitterName from "../ui-elements/submitter-name";
 import { translate, Trans } from "react-i18next";
 
@@ -27,7 +26,7 @@ const MetadataBar = props => {
             <SubmitterName
               submitterName={
                 props.submitter.get(constants.NAME_PROPERTY_NAME) ||
-                props.placeModel.get(constants.SUBMITTER_FIELDNAME)
+                props.placeModel.get(constants.SUBMITTER)
               }
             />{" "}
             {{ actionText }} this
@@ -41,13 +40,7 @@ const MetadataBar = props => {
             props.placeModel.get(constants.MODEL_ID_PROPERTY_NAME)
           }
           className="place-detail-metadata-bar__created-datetime"
-        >
-          <ActionTime
-            time={props.placeModel.get(
-              constants.CREATED_DATETIME_PROPERTY_NAME,
-            )}
-          />
-        </a>
+        />
         <p className="place-detail-metadata-bar__survey-count">
           {props.surveyModels.size}{" "}
           {props.surveyModels.size === 1

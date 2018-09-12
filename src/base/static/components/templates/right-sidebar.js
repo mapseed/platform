@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Link } from "../atoms/navigation";
+import { Button } from "../atoms/buttons";
 import StoryNavigator from "../organisms/story-navigator";
 import MapLegend from "../organisms/map-legend";
 
@@ -21,7 +21,7 @@ const RightSidebar = props => {
 
   return (
     <div className="right-sidebar">
-      <Link href="#" className="right-sidebar__collapse-btn" />
+      <Button className="right-sidebar__collapse-btn" />
       {component}
     </div>
   );

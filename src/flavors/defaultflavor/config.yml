@@ -14,6 +14,10 @@ app:
   # using the API_ROOT environment variable. Note the trailing slash.
   api_root: https://dev-api.heyduwamish.org/api/v2/
 
+  dataset_download:
+    slug: "demo"
+    owner: "smartercleanup"
+
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
   # server. If you would like to override the chunk size, use this setting:
