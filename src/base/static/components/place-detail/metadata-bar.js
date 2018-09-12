@@ -46,8 +46,7 @@ const MetadataBar = props => {
             props.placeModel.get(constants.MODEL_ID_PROPERTY_NAME)
           }
           className="place-detail-metadata-bar__created-datetime"
-        >
-        </a>
+        />
         <p className="place-detail-metadata-bar__survey-count">
           {props.surveyModels.size}{" "}
           {props.surveyModels.size === 1
