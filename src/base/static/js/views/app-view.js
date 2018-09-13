@@ -22,6 +22,7 @@ import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
 import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
+import { setAppConfig } from "../../state/ducks/app-config";
 import {
   setMapSizeValidity,
   mapPositionSelector,
@@ -84,9 +85,10 @@ export default Backbone.View.extend({
     store.dispatch(setLeftSidebarConfig(config.left_sidebar));
     store.dispatch(setRightSidebarConfig(config.right_sidebar));
     store.dispatch(setStoryConfig(config.story));
+    store.dispatch(setAppConfig(config.app));
 
     const storeState = store.getState();
-    const flavorTheme = storeState.config.app.theme;
+    const flavorTheme = storeState.appConfig.theme;
     const adjustedTheme = flavorTheme
       ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
       : {};
@@ -201,9 +203,9 @@ export default Backbone.View.extend({
         <ThemeProvider theme={adjustedTheme}>
           <UserMenu
             router={this.options.router}
-            apiRoot={storeState.config.app.api_root}
+            apiRoot={storeState.appConfig.api_root}
             currentUser={Shareabouts.bootstrapped.currentUser}
-            datasetDownloadConfig={storeState.config.app.dataset_download}
+            datasetDownloadConfig={storeState.appConfig.dataset_download}
           />
         </ThemeProvider>
       </ThemeProvider>,
@@ -532,7 +534,7 @@ export default Backbone.View.extend({
   newPlace: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
     const storeState = store.getState();
-    const flavorTheme = storeState.config.app.theme;
+    const flavorTheme = storeState.appConfig.theme;
     const adjustedTheme = flavorTheme
       ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
       : {};
@@ -674,7 +676,7 @@ export default Backbone.View.extend({
         );
 
         const storeState = store.getState();
-        const flavorTheme = storeState.config.app.theme;
+        const flavorTheme = storeState.appConfig.theme;
         const adjustedTheme = flavorTheme
           ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
           : {};
