@@ -413,38 +413,38 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured
       type: place
       slug: featured
-      #      rules:
-      #        # featured_place location_type
-      #        - filter:
-      #          - "all"
-      #          - - "=="
-      #            - - "get"
-      #              - "location_type"
-      #            - "featured_place"
-      #          - - "=="
-      #            - - "get"
-      #              - "isFocused"
-      #            - - "to-boolean"
-      #              - true
-      #          symbol-layout:
-      #            icon-image: marker-conserve-water.png
-      #            icon-size: 0.5
-      #            icon-anchor: bottom
-      #        - filter:
-      #          - "all"
-      #          - - "=="
-      #            - - "get"
-      #              - "location_type"
-      #            - "featured_place"
-      #          - - "=="
-      #            - - "get"
-      #              - "isFocused"
-      #            - - "to-boolean"
-      #              - false
-      #          symbol-layout:
-      #            icon-image: marker-conserve-water.png
-      #            icon-size: 0.3
-      #            icon-anchor: bottom
+      rules:
+        # featured_place location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_place"
+          - - "=="
+            - - "get"
+              - "isFocused"
+            - - "to-boolean"
+              - true
+          symbol-layout:
+            icon-image: marker-conserve-water.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_place"
+          - - "=="
+            - - "get"
+              - "isFocused"
+            - - "to-boolean"
+              - false
+          symbol-layout:
+            icon-image: marker-conserve-water.png
+            icon-size: 0.3
+            icon-anchor: bottom
 
     - id: school-boundaries
       type: vector-tile
