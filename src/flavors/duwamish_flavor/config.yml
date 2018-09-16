@@ -1150,6 +1150,7 @@ activity:
 right_sidebar:
   show: true
   visibleDefault: true
+  component: StoryNavigator
 
 # Place Types
 place:
