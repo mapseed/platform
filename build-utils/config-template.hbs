@@ -1,10 +1,10 @@
 (function(S, $){
   S.Config = {
-    defaultPlaceTypeName: '{{ default_place_type }}',
+    defaultPlaceTypeName: "{{ default_place_type }}",
     userToken: (
       S.bootstrapped.currentUser ?
-      'user:' + S.bootstrapped.currentUser.id :
-      "{{ user_token_json }}"),
+      "user:" + S.bootstrapped.currentUser.id :
+      "session:" + S.Util.cookies.get("sa-api-sessionid")),
     app:        {{#serialize config.app}}{{/serialize}},
     place:      {{#serialize config.place}}{{/serialize}},
     placeTypes: {{#serialize config.place_types}}{{/serialize}},

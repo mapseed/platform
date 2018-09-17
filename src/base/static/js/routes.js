@@ -1,9 +1,9 @@
 /*globals Backbone jQuery _ */
 
-var PlaceModel = require("./models/place-model.js");
-var Util = require("./utils.js");
-var PlaceCollection = require("./models/place-collection.js");
-var ActionCollection = require("./models/action-collection.js");
+import PlaceModel from "./models/place-model.js";
+import Util from "./utils.js";
+import PlaceCollection from "./models/place-collection.js";
+import ActionCollection from "./models/action-collection.js";
 import AppView from "mapseed-app-view";
 
 // Global-namespace Util

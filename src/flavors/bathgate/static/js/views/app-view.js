@@ -10,10 +10,13 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "../../../../../base/static/state/reducers";
 import mapseedApiClient from "../../../../../base/static/client/mapseed-api-client";
+import { ThemeProvider } from "emotion-theming";
+import theme from "../../../../../theme";
 // TODO(luke): This should be the only instance of our config singleton.
 // Eventually, it will be removed once we start fetching the config
 // from the api:
 import config from "config";
+<<<<<<< HEAD
 
 import { setMapConfig } from "../../../../../base/static/state/ducks/map-config";
 import { setPlaceConfig } from "../../../../../base/static/state/ducks/place-config";
@@ -24,6 +27,7 @@ import { setRightSidebarConfig } from "../../../../../base/static/state/ducks/ri
 import MainMap from "../../../../../base/static/components/organisms/main-map";
 import RightSidebar from "../../../../../base/static/components/templates/right-sidebar";
 import LeftSidebar from "../../../../../base/static/components/organisms/left-sidebar";
+import UserMenu from "../../../../../base/static/components/molecules/user-menu";
 
 import AppView, {
   store,
@@ -32,6 +36,7 @@ const PlaceCounterView = require("../../../../../base/static/js/views/place-coun
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
 const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
+
 // BEGIN FLAVOR-SPECIFIC CODE
 //const PlaceListView = require('../../../../../base/static/js/views/place-list-view');
 // END FLAVOR-SPECIFIC CODE
@@ -59,6 +64,11 @@ module.exports = AppView.extend({
     store.dispatch(setLeftSidebarConfig(config.left_sidebar));
     store.dispatch(setRightSidebarConfig(config.right_sidebar));
     store.dispatch(setStoryConfig(config.story));
+    const storeState = store.getState();
+    const flavorTheme = storeState.config.app.theme;
+    const adjustedTheme = flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+      : {};
 
     languageModule.changeLanguage(this.options.languageCode);
 
@@ -166,11 +176,19 @@ module.exports = AppView.extend({
       router: this.options.router,
     }).render();
 
-    this.authNavView = new AuthNavView({
-      el: "#auth-nav-container",
-      apiRoot: this.options.apiRoot,
-      router: this.options.router,
-    }).render();
+    ReactDOM.render(
+      <ThemeProvider theme={theme}>
+        <ThemeProvider theme={adjustedTheme}>
+          <UserMenu
+            router={this.options.router}
+            apiRoot={storeState.config.app.api_root}
+            currentUser={Shareabouts.bootstrapped.currentUser}
+            datasetDownloadConfig={storeState.config.app.dataset_download}
+          />
+        </ThemeProvider>
+      </ThemeProvider>,
+      document.getElementById("auth-nav-container"),
+    );
 
     // REACT PORT SECTION /////////////////////////////////////////////////////
     ReactDOM.render(
@@ -206,7 +224,6 @@ module.exports = AppView.extend({
         placeTypes: this.options.placeTypes,
         surveyConfig: this.options.surveyConfig,
         supportConfig: this.options.supportConfig,
-        placeConfig: this.options.placeConfig,
         mapConfig: this.options.mapConfig,
         // How often to check for new content
         interval: this.options.activityConfig.interval || 30000,
@@ -217,7 +234,11 @@ module.exports = AppView.extend({
     if (this.options.mapConfig.geocoding_bar_enabled) {
       ReactDOM.render(
         <Provider store={store}>
-          <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+            </ThemeProvider>
+          </ThemeProvider>
         </Provider>,
         document.getElementById("geocode-address-bar"),
       );
@@ -258,11 +279,15 @@ module.exports = AppView.extend({
 
       ReactDOM.render(
         <Provider store={store}>
-          <InfoModal
-            parentId="info-modal-container"
-            isModalOpen={true}
-            {...modalContent}
-          />
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <InfoModal
+                parentId="info-modal-container"
+                isModalOpen={true}
+                {...modalContent}
+              />
+            </ThemeProvider>
+          </ThemeProvider>
         </Provider>,
         document.getElementById("info-modal-container"),
       );
@@ -385,15 +410,24 @@ module.exports = AppView.extend({
     $(".show-the-list").addClass("is-visuallyhidden");
     $(".show-the-map").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-exposed");
+    const storeState = store.getState();
+    const flavorTheme = storeState.config.app.theme;
+    const adjustedTheme = flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+      : {};
 
     // NOTE: we hard-code the bathgate-input collection here
     ReactDOM.render(
       <Provider store={store}>
-        <InputExplorer
-          appConfig={this.options.appConfig}
-          placeConfig={this.options.placeConfig.place_detail}
-          communityInput={this.places["bathgate-input"]}
-        />
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={adjustedTheme}>
+            <InputExplorer
+              appConfig={this.options.appConfig}
+              placeConfig={this.options.placeConfig.place_detail}
+              communityInput={this.places["bathgate-input"]}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
       </Provider>,
       document.querySelector("#list-container"),
     );

@@ -74,16 +74,6 @@ a.btn:hover {
   color: black;
 }
 
-a#sign-in-btn {
-  text-transform: none;
-  font-family: "Helvetica", sans-serif;
-  font-size: 0.9em;
-  color: #cccccc;
-  font-weight: normal !important;
-  line-height: 1.2;
-  background-color: rgba(0, 0, 0, 0);
-}
-
 div#pages-nav-container {
   margin-left: 50px;
 }
@@ -186,10 +176,6 @@ div#content.page.page-about em {
     float: left;
     width: 100%;
     padding-left: 0;
-  }
-
-  a#sign-in-btn {
-    line-height: 2.9;
   }
 
   span#add-place-btn-container,

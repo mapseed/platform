@@ -4,16 +4,6 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-@font-face {
-  font-family: "Lithos";
-  src: url("/static/css/lithos.ttf");
-}
-
-@font-face {
-  font-family: "Bowlby";
-  src: url("/static/css/BowlbyOneSC-Regular.ttf");
-}
-
 /* =Header
 -------------------------------------------------------------- */
 
@@ -47,15 +37,6 @@
 
   &:hover {
     background-color: #40becd;
-  }
-}
-
-#sign-in-btn {
-  background-color: #02440b !important;
-  color: #fff !important;
-
-  &:hover {
-    color: #779300 !important;
   }
 }
 

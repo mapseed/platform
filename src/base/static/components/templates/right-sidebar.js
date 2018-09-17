@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Link } from "../atoms/navigation";
+import { Button } from "../atoms/buttons";
 import StoryNavigator from "../organisms/story-navigator";
 import MapLegendPanel from "../organisms/map-legend-panel";
 
@@ -14,7 +14,7 @@ const RightSidebar = props => {
   // TODO: Support multiple simultaneous right sidebar components.
   return (
     <div className="right-sidebar">
-      <Link href="#" className="right-sidebar__collapse-btn" />
+      <Button className="right-sidebar__collapse-btn" />
       {props.rightSidebarConfig.component === "StoryNavigator" && (
         <StoryNavigator {...props} />
       )}

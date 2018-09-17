@@ -123,7 +123,31 @@ RegularLabel.propTypes = {
   styles: PropTypes.object,
 };
 
+const SmallText = styled("span")(props => ({
+  fontWeight: "normal",
+  fontSize: "0.875em",
+}));
+
+const Link = styled("a")(props => ({
+  cursor: "pointer",
+  textDecoration: "none",
+  color: props.theme.brand.primary,
+  textTransform: props.theme.text.textTransform,
+  fontFamily: props.theme.text.fontFamily,
+
+  "&:hover": {
+    textDecoration: "none",
+    color: props.theme.bg.light,
+  },
+}));
+
+Link.propTypes = {
+  href: PropTypes.string.isRequired,
+};
+
 export {
+  SmallText,
+  Link,
   WarningMessage,
   Paragraph,
   Header1,
