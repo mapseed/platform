@@ -57,6 +57,7 @@ map:
 
   layers:
     - id: osm
+      type: raster-tile
       is_basemap: true
       is_visible_default: true
       url: https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png

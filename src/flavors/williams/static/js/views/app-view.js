@@ -22,6 +22,7 @@ import { setPlaceConfig } from "../../../../../base/static/state/ducks/place-con
 import { setStoryConfig } from "../../../../../base/static/state/ducks/story-config";
 import { setLeftSidebarConfig } from "../../../../../base/static/state/ducks/left-sidebar-config";
 import { setRightSidebarConfig } from "../../../../../base/static/state/ducks/right-sidebar-config";
+import { setAppConfig } from "../../../../../base/static/state/ducks/app-config";
 
 import MainMap from "../../../../../base/static/components/organisms/main-map";
 import RightSidebar from "../../../../../base/static/components/templates/right-sidebar";
@@ -33,7 +34,6 @@ import AppView, {
 } from "../../../../../base/static/js/views/app-view.js";
 const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
-const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");
 const ActivityView = require("../../../../../base/static/js/views/activity-view");
 
 // BEGIN FLAVOR-SPECIFIC CODE
@@ -63,8 +63,10 @@ module.exports = AppView.extend({
     store.dispatch(setLeftSidebarConfig(config.left_sidebar));
     store.dispatch(setRightSidebarConfig(config.right_sidebar));
     store.dispatch(setStoryConfig(config.story));
+    store.dispatch(setAppConfig(config.app));
+
     const storeState = store.getState();
-    const flavorTheme = storeState.config.app.theme;
+    const flavorTheme = storeState.appConfig.theme;
     const adjustedTheme = flavorTheme
       ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
       : {};
@@ -180,9 +182,9 @@ module.exports = AppView.extend({
         <ThemeProvider theme={adjustedTheme}>
           <UserMenu
             router={this.options.router}
-            apiRoot={storeState.config.app.api_root}
+            apiRoot={storeState.appConfig.api_root}
             currentUser={Shareabouts.bootstrapped.currentUser}
-            datasetDownloadConfig={storeState.config.app.dataset_download}
+            datasetDownloadConfig={storeState.appConfig.dataset_download}
           />
         </ThemeProvider>
       </ThemeProvider>,
@@ -402,7 +404,7 @@ module.exports = AppView.extend({
     $(".show-the-map").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-exposed");
     const storeState = store.getState();
-    const flavorTheme = storeState.config.app.theme;
+    const flavorTheme = storeState.appConfig.theme;
     const adjustedTheme = flavorTheme
       ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
       : {};

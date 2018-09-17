@@ -1,5 +1,5 @@
 // BEGIN CUSTOM CODE
-const AppView = require("../../../../../base/static/js/views/app-view.js");
+import AppView from "../../../../../base/static/js/views/app-view.js";
 import emitter from "../../../../../base/static/utils/emitter";
 // END CUSTOM CODE
 
