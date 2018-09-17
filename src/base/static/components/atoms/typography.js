@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import styled from "react-emotion";
 
 import "./typography.scss";
 
@@ -108,17 +109,18 @@ Header6.propTypes = {
   classes: PropTypes.string,
 };
 
-const PanelLabel = ({ children, ...props }) => {
-  return (
-    <span className={classNames("mapseed__panel-label", props.classes)}>
-      {children}
-    </span>
-  );
-};
+// TODO: Other label types.
+const RegularLabel = styled("label")(
+  props => (
+    {
+      color: "#444",
+    },
+    props.styles
+  ),
+);
 
-PanelLabel.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.string,
+RegularLabel.propTypes = {
+  styles: PropTypes.object,
 };
 
 export {
@@ -130,5 +132,5 @@ export {
   Header4,
   Header5,
   Header6,
-  PanelLabel,
+  RegularLabel,
 };

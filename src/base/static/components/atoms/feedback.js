@@ -6,21 +6,6 @@ import emitter from "../../utils/emitter";
 
 import "./feedback.scss";
 
-const Swatch = props => {
-  return (
-    <span
-      className="mapseed__swatch"
-      style={{
-        backgroundColor: props.color,
-      }}
-    />
-  );
-};
-
-Swatch.propTypes = {
-  color: PropTypes.string.isRequired,
-};
-
 const ProgressBar = props => {
   return (
     <div className="mapseed__progress-bar">
@@ -83,4 +68,4 @@ Icon.propTypes = {
   prefix: PropTypes.string,
 };
 
-export { ProgressBar, InfoModalTrigger, Icon, Swatch };
+export { ProgressBar, InfoModalTrigger, Icon };

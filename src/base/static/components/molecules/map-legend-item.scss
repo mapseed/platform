@@ -1,21 +1,4 @@
-.map-legend-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-  padding-left: 15px;
-}
-
-.map-legend-item__icon-container {
-  display: flex;
-  justify-content: center;
-  flex: 1
-}
-
 .map-legend-item__icon {
   align-self: center;
   margin-right: 10px;
-}
-
-.map-legend-item__label {
-  flex: 4;
 }
