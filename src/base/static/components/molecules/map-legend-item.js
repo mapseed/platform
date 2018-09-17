@@ -15,18 +15,18 @@ const ColorSwatch = styled("span")(props => ({
 }));
 
 // TODO: Abstract these components out when we refactor other panel types.
-const IconContainer = styled("div")(props => ({
+const IconContainer = styled("div")({
   display: "flex",
   justifyContent: "center",
   flex: 1,
-}));
+});
 
-const MapLegendItemContainer = styled("div")(props => ({
+const MapLegendItemContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   marginBottom: 5,
   paddingLeft: 15,
-}));
+});
 
 const MapLegendItem = props => {
   return (

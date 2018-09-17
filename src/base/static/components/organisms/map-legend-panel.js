@@ -1,29 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "react-emotion"
 
 import { Image } from "../atoms/imagery";
 import { Paragraph, Header4 } from "../atoms/typography";
 import MapLegendGroup from "../molecules/map-legend-group";
 
-import "./map-legend-panel.scss";
+const MapLegendPanelContainer = styled("div")({
+  padding: 10,
+  margin: 0
+})
 
 const MapLegendPanel = props => {
   return (
-    <div className="map-legend-panel">
+    <MapLegendPanelContainer>
       {props.config.title && (
-        <Header4 classes="map-legend-panel__title">
+        <Header4>
           {props.config.title}
         </Header4>
       )}
       {props.config.description && (
-        <Paragraph classes="map-legend-panel__description">
+        <Paragraph>
           {props.config.description}
         </Paragraph>
       )}
       {props.config.groupings.map((grouping, i) => (
-        <MapLegendGroup key={i} {...grouping} />
+        <MapLegendGroup
+          key={i}
+          classes={grouping.classes}
+          content={grouping.content}
+          description={grouping.description}
+          title={grouping.title}
+        />
       ))}
-    </div>
+    </MapLegendPanelContainer>
   );
 };
 

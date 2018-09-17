@@ -21,7 +21,14 @@ const MapLegendGroup = props => (
         {props.description}
       </Paragraph>
     )}
-    {props.content.map((item, i) => <MapLegendItem key={i} {...item} />)}
+    {props.content.map((item, i) => (
+      <MapLegendItem
+        key={i}
+        icon={item.icon}
+        label={item.label}
+        swatch={item.swatch}
+      />
+    ))}
   </div>
 );
 
