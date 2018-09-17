@@ -25,7 +25,9 @@ import MainMap from "../../../../../base/static/components/organisms/main-map";
 import RightSidebar from "../../../../../base/static/components/templates/right-sidebar";
 import LeftSidebar from "../../../../../base/static/components/organisms/left-sidebar";
 
-import AppView, { store } from "../../../../../base/static/js/views/app-view.js";
+import AppView, {
+  store,
+} from "../../../../../base/static/js/views/app-view.js";
 const PlaceCounterView = require("../../../../../base/static/js/views/place-counter-view");
 const PagesNavView = require("../../../../../base/static/js/views/pages-nav-view");
 const AuthNavView = require("../../../../../base/static/js/views/auth-nav-view");

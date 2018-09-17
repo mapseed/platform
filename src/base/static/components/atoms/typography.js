@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import styled from "react-emotion";
 
 import "./typography.scss";
 
@@ -108,6 +109,20 @@ Header6.propTypes = {
   classes: PropTypes.string,
 };
 
+// TODO: Other label types.
+const RegularLabel = styled("label")(
+  props => (
+    {
+      color: "#444",
+    },
+    props.styles
+  ),
+);
+
+RegularLabel.propTypes = {
+  styles: PropTypes.object,
+};
+
 export {
   WarningMessage,
   Paragraph,
@@ -117,4 +132,5 @@ export {
   Header4,
   Header5,
   Header6,
+  RegularLabel,
 };

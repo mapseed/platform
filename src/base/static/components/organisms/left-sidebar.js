@@ -11,6 +11,9 @@ import { CloseButton } from "../atoms/navigation";
 
 import MapLayerPanel from "./map-layer-panel";
 import MapFilterPanel from "./map-filter-panel";
+import MapLegendPanel from "./map-legend-panel";
+
+import { leftSidebarPanelConfigSelector } from "../../state/ducks/left-sidebar-config";
 
 import "./left-sidebar.scss";
 
@@ -23,6 +26,9 @@ const LeftSidebar = props => {
       />
       {props.leftSidebarComponent === "MapLayerPanel" && <MapLayerPanel />}
       {props.leftSidebarComponent === "MapFilterPanel" && <MapFilterPanel />}
+      {props.leftSidebarComponent === "MapLegendPanel" && (
+        <MapLegendPanel config={props.mapLegendPanelConfig} />
+      )}
     </div>
   ) : null;
 };
@@ -31,11 +37,29 @@ LeftSidebar.propTypes = {
   isLeftSidebarExpanded: PropTypes.bool.isRequired,
   setLeftSidebar: PropTypes.func.isRequired,
   leftSidebarComponent: PropTypes.string,
+  mapLegendPanelConfig: PropTypes.shape({
+    component: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    title: PropTypes.string,
+    groupings: PropTypes.arrayOf(
+      PropTypes.shape({
+        content: PropTypes.arrayOf(
+          PropTypes.shape({
+            icon: PropTypes.string,
+            label: PropTypes.string.isRequired,
+            swatch: PropTypes.string,
+          }),
+        ),
+        title: PropTypes.string,
+      }),
+    ).isRequired,
+  }),
 };
 
 const mapStateToProps = state => ({
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   leftSidebarComponent: leftSidebarComponentSelector(state),
+  mapLegendPanelConfig: leftSidebarPanelConfigSelector(state, "MapLegendPanel"),
 });
 
 const mapDispatchToProps = dispatch => ({
