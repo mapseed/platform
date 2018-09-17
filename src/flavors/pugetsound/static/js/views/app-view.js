@@ -1,5 +1,5 @@
 // BEGIN CUSTOM CODE
-const AppView = require("../../../../../base/static/js/views/app-view.js");
+import AppView from "../../../../../base/static/js/views/app-view.js";
 import emitter from "../../../../../base/static/utils/emitter";
 // END CUSTOM CODE
 
@@ -10,12 +10,12 @@ module.exports = AppView.extend({
     "click .right-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
     // BEGIN CUSTOM CODE
-    "click .show-layer-panel": "showLayerPanel",
+    "click .toggle-layer-panel": "toggleLayerPanel",
     // END CUSTOM CODE
   },
 
   // BEGIN CUSTOM CODE
-  showLayerPanel: () => {
+  toggleLayerPanel: () => {
     emitter.emit("nav-layer-btn:toggle");
   },
   // END CUSTOM CODE

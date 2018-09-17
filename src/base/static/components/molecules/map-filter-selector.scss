@@ -1,0 +1,49 @@
+.map-filter-selector {
+  display: flex;
+  align-items: center;
+}
+
+.map-filter-selector__selectable-area {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-bottom: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.map-filter-selector__id-icon {
+  width: 25px;
+  padding-right: 10px;
+  font-size: 1.5em;
+  flex: 1;
+}
+
+.map-filter-selector__filter-title {
+  flex: 6;
+
+  &:hover {
+    background-color: #ffffd4;
+  }
+}
+
+.map-filter-selector__filter-title--selected {
+  background-color: #ffff00;
+
+  &:hover {
+    background-color: #ffff00;
+  }
+}
+
+.map-filter-selector__status-icon {
+  color: green;
+  text-align: center;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.map-filter-selector__status-icon--green {
+  color: #22c722;
+}

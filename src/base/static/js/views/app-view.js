@@ -31,6 +31,10 @@ import {
   setLayerStatus,
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
+import {
+  setLeftSidebar,
+  leftSidebarExpandedSelector,
+} from "../../state/ducks/ui";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -282,6 +286,14 @@ export default Backbone.View.extend({
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("geocode", locationData => {
       this.mapView.zoomInOn(locationData.latLng);
+    });
+    // END REACT PORT SECTION //////////////////////////////////////////////////
+
+    // REACT PORT SECTION //////////////////////////////////////////////////////
+    emitter.addListener("nav-layer-btn:toggle", () => {
+      store.dispatch(
+        setLeftSidebar(!leftSidebarExpandedSelector(store.getState())),
+      );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
@@ -614,8 +626,10 @@ export default Backbone.View.extend({
       visibleBasemapId &&
         store.dispatch(
           setBasemap(storyBasemapId, {
+            id: storyBasemapId,
             status: "loading",
             isVisible: true,
+            isBasemap: true,
           }),
         );
     }
@@ -740,8 +754,8 @@ export default Backbone.View.extend({
       // settings if this model is part of a story.
       const story = model.get("story") || {};
 
-      if (story.panTo || story.zoom) {
-        // If a story chapter declares a zoom or centerpoint, regardless of the
+      if (story.panTo) {
+        // If a story chapter declares a custom centerpoint, regardless of the
         // geometry type, assume that we want to ease to a point.
         emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
           coordinates:

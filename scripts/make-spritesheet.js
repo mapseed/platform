@@ -32,7 +32,7 @@ Spritesmith.run({ src: markers }, (err, result) => {
   }
 
   fs.writeFileSync(
-    path.resolve(distMarkersPath, "spritesheet.png"),
+    path.resolve(distMarkersPath, "spritesheet@1x.png"),
     result.image,
   );
   fs.writeFileSync(
@@ -71,7 +71,7 @@ Spritesmith.run({ src: markers }, (err, result) => {
   //});
 
   fs.writeFileSync(
-    path.resolve(distMarkersPath, "spritesheet.json"),
+    path.resolve(distMarkersPath, "spritesheet@1x.json"),
     JSON.stringify(coordinates),
   );
   fs.writeFileSync(

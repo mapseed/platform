@@ -6,7 +6,7 @@
 export const rightSidebarExpandedSelector = state => {
   return state.ui.isRightSidebarExpanded;
 };
-export const leftSidebarExpandedSelector = state => {
+export const isLeftSidebarExpandedSelector = state => {
   return state.ui.isLeftSidebarExpanded;
 };
 export const leftSidebarComponentSelector = state => {
@@ -28,16 +28,16 @@ export function setContentPanel(isOpen) {
 export function setRightSidebar(isExpanded) {
   return { type: SET_UI_RIGHT_SIDEBAR, payload: isExpanded };
 }
-export function setLeftSidebar(isExpanded) {
-  return { type: SET_UI_LEFT_SIDEBAR, payload: isExpanded };
+export function setLeftSidebar(status) {
+  return { type: SET_UI_LEFT_SIDEBAR, payload: status };
 }
 
 // Reducers:
 const INITIAL_STATE = {
   isContentPanelOpen: undefined,
   isSidebarExpanded: undefined,
-  isLeftSidebarExpanded: true,
-  leftSidebarComponent: "MapLayerPanel", // TODO-- make this configurable
+  isLeftSidebarExpanded: false,
+  leftSidebarComponent: undefined,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -55,7 +55,8 @@ export default function reducer(state = INITIAL_STATE, action) {
     case SET_UI_LEFT_SIDEBAR:
       return {
         ...state,
-        isLeftSidebarExpanded: action.payload,
+        isLeftSidebarExpanded: action.payload.isExpanded,
+        leftSidebarComponent: action.payload.component,
       };
     default:
       return state;

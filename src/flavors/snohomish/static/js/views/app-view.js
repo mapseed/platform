@@ -1,4 +1,4 @@
-const AppView = require("../../../../../base/static/js/views/app-view.js");
+import AppView from "../../../../../base/static/js/views/app-view.js";
 const Util = require("../../../../../base/static/js/utils.js");
 // BEGIN CUSTOM CODE
 import emitter from "../../../../../base/static/utils/emitter";

@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { connect } from "react-redux";
 
 import PrimaryButton from "../ui-elements/primary-button";
 import InputForm from "../input-form";
 import { translate } from "react-i18next";
 import constants from "./constants";
 import "./index.scss";
+
+import { mapPositionSelector } from "../../../static/state/ducks/map";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 
@@ -38,14 +41,19 @@ class VVInputForm extends Component {
     this.selectedCategoryConfig = getCategoryConfig(props.selectedCategory);
   }
 
-  componentDidMount() {
-    this.props.map.on("dragend", () => {
+  componentWillUpdate(prevProps) {
+    if (
+      this.props.mapPosition &&
+      (prevProps.mapPosition.center.lat !==
+        this.props.mapPosition.center.platform ||
+        prevProps.mapPosition.center.lng !== this.props.mapPosition.center.lng)
+    ) {
       !this.state.isMapPositioned &&
         this.setState({
           stage: "enter-data",
           isMapPositioned: true,
         });
-    });
+    }
   }
 
   onClickContinueForm() {
@@ -147,11 +155,15 @@ VVInputForm.propTypes = {
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
-  map: PropTypes.object.isRequired,
+  mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 
-export default translate("VVInputForm")(VVInputForm);
+const mapStateToProps = state => ({
+  mapPosition: mapPositionSelector(state),
+});
+
+export default connect(mapStateToProps)(translate("VVInputForm")(VVInputForm));

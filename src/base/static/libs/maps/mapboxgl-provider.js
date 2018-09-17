@@ -10,10 +10,44 @@ import constants from "../../constants";
 
 mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
 
+// https://www.mapbox.com/mapbox-gl-js/api#icontrol
+class CustomControl {
+  constructor({ setLeftSidebar, ariaLabel, iconClass, component }) {
+    this._setLeftSidebar = setLeftSidebar;
+    this._ariaLabel = ariaLabel;
+    this._iconClass = iconClass;
+    this._component = component;
+  }
+
+  onAdd() {
+    this._container = document.createElement("div");
+    this._container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+    this._button = this._container.appendChild(
+      document.createElement("button"),
+    );
+    this._button.className =
+      "mapboxgl-ctrl-icon mapseed__map-control " + this._iconClass;
+    this._button.setAttribute("type", "button");
+    this._button.setAttribute("aria-label", this._ariaLabel);
+    this._button.addEventListener("click", () => {
+      this._setLeftSidebar({
+        isExpanded: true,
+        component: this._component,
+      });
+    });
+
+    return this._container;
+  }
+
+  onRemove() {
+    this._container.parentNode.removeChild(this._container);
+  }
+}
+
 const appendFilters = (existingFilters, ...filtersToAdd) => {
   const newFilters = filtersToAdd.reduce(
     (newFilters, filterToAdd) => [...newFilters, filterToAdd],
-    [existingFilters],
+    existingFilters ? [existingFilters] : [],
   );
 
   // If an existing filter does not already start with the logical AND
@@ -23,18 +57,22 @@ const appendFilters = (existingFilters, ...filtersToAdd) => {
   return newFilters;
 };
 
+const NO_ICON_IMAGE = "__mapseed-no-icon-image__";
 const configRuleToSymbolLayer = (layerConfig, i) => {
   const fallbackIconImage =
     (layerConfig["symbol-layout"] &&
       layerConfig["symbol-layout"]["icon-image"]) ||
-    "no-icon-image";
+    NO_ICON_IMAGE;
   return {
     id: `${layerConfig.baseLayerId}_symbol_${i}`,
     source: layerConfig.source,
     type: "symbol",
     layout: {
+      ...layerConfig["symbol-layout"],
       "icon-image": [
         "case",
+        ["to-boolean", ["get", constants.IS_HIDDEN_BY_FILTERS]],
+        NO_ICON_IMAGE,
         [
           "all",
           ["has", constants.GEOMETRY_STYLE_PROPERTY_NAME],
@@ -52,7 +90,6 @@ const configRuleToSymbolLayer = (layerConfig, i) => {
         fallbackIconImage,
       ],
       "icon-allow-overlap": true,
-      ...layerConfig["symbol-layout"],
     },
     paint: layerConfig["symbol-paint"] || {},
     filter: appendFilters(layerConfig.filter, [
@@ -76,6 +113,7 @@ const configRuleToLineLayer = (layerConfig, i) => {
     type: "line",
     layout: layerConfig["line-layout"] || {},
     paint: {
+      ...layerConfig["line-paint"],
       "line-color": [
         "case",
         [
@@ -112,7 +150,6 @@ const configRuleToLineLayer = (layerConfig, i) => {
         ],
         fallbackLineOpacity,
       ],
-      ...layerConfig["line-paint"],
     },
     filter: appendFilters(layerConfig.filter, [
       "==",
@@ -144,6 +181,7 @@ const configRuleToFillLayer = (layerConfig, i) => {
       type: "fill",
       layout: layerConfig["fill-layout"] || {},
       paint: {
+        ...layerConfig["fill-paint"],
         "fill-color": [
           "case",
           [
@@ -180,7 +218,6 @@ const configRuleToFillLayer = (layerConfig, i) => {
           ],
           fallbackFillOpacity,
         ],
-        ...layerConfig["fill-paint"],
       },
       filter: appendFilters(layerConfig.filter, [
         "==",
@@ -194,6 +231,7 @@ const configRuleToFillLayer = (layerConfig, i) => {
       type: "line",
       layout: layerConfig["outline-layout"] || {},
       paint: {
+        ...layerConfig["outline-paint"],
         "line-color": [
           "case",
           [
@@ -230,7 +268,6 @@ const configRuleToFillLayer = (layerConfig, i) => {
           ],
           fallbackOutlineOpacity,
         ],
-        ...layerConfig["outline-paint"],
       },
     },
   ];
@@ -267,14 +304,15 @@ export default (container, options) => {
    */
   const layersCache = {};
   const sourcesCache = {};
+  let topmostLayerId;
 
   const floatSymbolLayersToTop = () => {
     // To ensure that point (aka "symbol") geometry is not obscured we
     // move all symbol layers to the top of the layer stack.
     Object.values(layersCache)
       .reduce((flat, toFlatten) => [...flat, ...toFlatten], [])
-      .filter(internalLayer => internalLayer.id.includes("symbol"))
-      .forEach(internalLayer => map.moveLayer(internalLayer.id));
+      .filter(mapboxLayer => mapboxLayer.id.includes("symbol"))
+      .forEach(mapboxLayer => map.moveLayer(mapboxLayer.id));
   };
 
   const addInternalLayers = (layerId, isBasemap) => {
@@ -335,10 +373,12 @@ export default (container, options) => {
     map.setStyle(layer.url);
   };
 
-  const createRasterTileLayer = ({ id, url }) => {
+  const createRasterTileLayer = ({ id, url, scheme = "xyz" }) => {
     sourcesCache[id] = {
       type: "raster",
       tiles: [url],
+      tileSize: 256,
+      scheme: scheme,
     };
     map.addSource(id, sourcesCache[id]);
 
@@ -396,14 +436,15 @@ export default (container, options) => {
       "&crs=EPSG:3857&transparent=",
       transparent,
       "&layers=",
-      layers,
+      encodeURIComponent(layers),
       "&bbox={bbox-epsg-3857}&width=256&height=256&styles=",
-      style ? style : "default",
+      typeof style !== "undefined" ? style : "default",
     ].join("");
 
     sourcesCache[id] = {
       type: "raster",
       tiles: [requestUrl],
+      tileSize: 256,
     };
     map.addSource(id, sourcesCache[id]);
 
@@ -412,7 +453,6 @@ export default (container, options) => {
         id: id,
         type: "raster",
         source: id,
-        tileSize: 256,
       },
     ];
   };
@@ -449,6 +489,7 @@ export default (container, options) => {
     sourcesCache[id] = {
       type: "raster",
       tiles: [requestUrl],
+      tileSize: 256,
     };
     map.addSource(id, sourcesCache[id]);
 
@@ -461,7 +502,13 @@ export default (container, options) => {
     ];
   };
 
-  const createGeoJSONLayer = ({ id, source, cluster = {}, rules }) => {
+  const createGeoJSONLayer = ({
+    id,
+    source,
+    cluster = {},
+    rules,
+    popup_content,
+  }) => {
     sourcesCache[id] = {
       type: "geojson",
       data: source,
@@ -513,6 +560,29 @@ export default (container, options) => {
         },
       ]);
     }
+
+    if (popup_content) {
+      Object.values(layersCache[id])
+        .filter(
+          mapboxLayer => !mapboxLayer.id.includes(CLUSTER_LAYER_IDENTIFIER),
+        )
+        .forEach(mapboxLayer => {
+          map.on("click", mapboxLayer.id, evt => {
+            new mapboxgl.Popup()
+              .setLngLat(evt.lngLat)
+              .setHTML(
+                parsePopupContent(popup_content, evt.features[0].properties),
+              )
+              .addTo(map);
+          });
+        });
+    }
+  };
+
+  const parsePopupContent = (popupContent, properties) => {
+    return popupContent.replace(/{{([A-Za-z0-0_-]+?)}}/g, (match, property) => {
+      return properties[property];
+    });
   };
 
   const map = new mapboxgl.Map(options.map);
@@ -816,13 +886,10 @@ export default (container, options) => {
               // We skip this work for other events (like mouseenter), since we
               // don't make use of information about the layer under the cursor
               // in those cases.
-              targetLayer = map.queryRenderedFeatures(
-                [evt.point.x, evt.point.y],
-                {
-                  // Limit these click listeners to place geometry.
-                  filter: ["==", ["get", "type"], "place"],
-                },
-              )[0];
+              targetLayer = map.queryRenderedFeatures([
+                evt.point.x,
+                evt.point.y,
+              ])[0];
             }
 
             callback(targetLayer);
@@ -832,6 +899,20 @@ export default (container, options) => {
 
     addControl: (control, position) => {
       map.addControl(control, position);
+    },
+
+    addCustomControls: ({ panels, setLeftSidebar, position }) => {
+      panels.forEach(panel => {
+        map.addControl(
+          new CustomControl({
+            setLeftSidebar: setLeftSidebar,
+            ariaLabel: panel.ariaLabel,
+            iconClass: panel.icon,
+            component: panel.component,
+          }),
+          position,
+        );
+      });
     },
 
     setCursor: style => {
@@ -919,6 +1000,10 @@ export default (container, options) => {
 
     addLayer: async ({ layer, isBasemap, layerStatuses, mapConfig }) => {
       if (!layersCache[layer.id]) {
+        if (layer.is_topmost_layer) {
+          topmostLayerId = layer.id;
+        }
+
         switch (layer.type) {
           case "mapbox-style":
             addMapboxStyle(layer, layerStatuses, mapConfig);
@@ -967,6 +1052,13 @@ export default (container, options) => {
         addInternalLayers(layer.id, isBasemap);
         floatSymbolLayersToTop();
       }
+
+      // Ensure that the layer designated topmost is moved to the top of the
+      // layer stack.
+      layersCache[topmostLayerId] &&
+        layersCache[topmostLayerId].forEach(mapboxLayer =>
+          map.moveLayer(mapboxLayer.id),
+        );
     },
 
     removeLayer: layer => {
@@ -983,6 +1075,30 @@ export default (container, options) => {
 
     getSource: sourceId => {
       return map.getSource(sourceId);
+    },
+
+    setFeatureFilters: ({ featureFilters, groupId, targetLayer }) => {
+      featureFilters = featureFilters.filter(
+        featureFilter => featureFilter.groupId === groupId,
+      );
+
+      const features = map
+        .getSource(targetLayer)
+        .serialize()
+        .data.features.map(feature => {
+          feature.properties[constants.IS_HIDDEN_BY_FILTERS] =
+            featureFilters.length > 0 &&
+            !featureFilters.find(
+              featureFilter =>
+                feature.properties[featureFilter.attribute] ===
+                featureFilter.value,
+            );
+
+          return feature;
+        });
+      map
+        .getSource(targetLayer)
+        .setData({ type: "FeatureCollection", features: features });
     },
 
     updateLayerData: (sourceId, newData) => {
