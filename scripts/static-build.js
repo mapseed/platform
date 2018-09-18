@@ -46,7 +46,7 @@ const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
 
 if (process.env.NODE_ENV !== "production") {
-  // If we're building for development, this script runs before webpacl so make
+  // If we're building for development, this script runs before webpack so make
   // sure that the output directory is cleaned out.
   shell.rm("-rf", outputBasePath);
   shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
