@@ -96,7 +96,8 @@ const InputExplorerSummary = props => {
               <span className="input-explorer-summary__summary-bar-label-percentage">
                 {isNaN(parseInt((subcategory.total / numTotal) * 100))
                   ? 0
-                  : parseInt((subcategory.total / numTotal) * 100)}%
+                  : parseInt((subcategory.total / numTotal) * 100)}
+                %
               </span>
             </div>
             <div className="input-explorer-summary__summary-bar-container">
