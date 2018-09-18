@@ -60,7 +60,7 @@ map:
       type: raster-tile
       is_basemap: true
       is_visible_default: true
-      url: https://cartodb-basemaps-a.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png 
+      url: https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 
     - id: satellite

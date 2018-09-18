@@ -3,7 +3,7 @@ import AppView from "../../../../../base/static/js/views/app-view.js";
 import emitter from "../../../../../base/static/utils/emitter";
 // END CUSTOM CODE
 
-module.exports = AppView.extend({
+export default AppView.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
