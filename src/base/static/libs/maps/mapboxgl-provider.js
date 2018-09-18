@@ -12,8 +12,15 @@ mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
 
 // https://www.mapbox.com/mapbox-gl-js/api#icontrol
 class CustomControl {
-  constructor({ setLeftSidebar, ariaLabel, iconClass, component }) {
-    this._setLeftSidebar = setLeftSidebar;
+  constructor({
+    setLeftSidebarExpanded,
+    setLeftSidebarComponent,
+    ariaLabel,
+    iconClass,
+    component,
+  }) {
+    this._setLeftSidebarComponent = setLeftSidebarComponent;
+    this._setLeftSidebarExpanded = setLeftSidebarExpanded;
     this._ariaLabel = ariaLabel;
     this._iconClass = iconClass;
     this._component = component;
@@ -30,10 +37,8 @@ class CustomControl {
     this._button.setAttribute("type", "button");
     this._button.setAttribute("aria-label", this._ariaLabel);
     this._button.addEventListener("click", () => {
-      this._setLeftSidebar({
-        isExpanded: true,
-        component: this._component,
-      });
+      this._setLeftSidebarComponent(this._component);
+      this._setLeftSidebarExpanded(true);
     });
 
     return this._container;
@@ -901,11 +906,17 @@ export default (container, options) => {
       map.addControl(control, position);
     },
 
-    addCustomControls: ({ panels, setLeftSidebar, position }) => {
+    addCustomControls: ({
+      panels,
+      setLeftSidebarExpanded,
+      setLeftSidebarComponent,
+      position,
+    }) => {
       panels.forEach(panel => {
         map.addControl(
           new CustomControl({
-            setLeftSidebar: setLeftSidebar,
+            setLeftSidebarExpanded: setLeftSidebarExpanded,
+            setLeftSidebarComponent: setLeftSidebarComponent,
             ariaLabel: panel.ariaLabel,
             iconClass: panel.icon,
             component: panel.component,

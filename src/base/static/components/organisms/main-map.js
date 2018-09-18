@@ -25,7 +25,11 @@ import {
   mapUpdatingFilterGroupIdSelector,
   mapUpdatingFilterTargetLayerSelector,
 } from "../../state/ducks/map";
-import { leftSidebarConfigSelector } from "../../state/ducks/left-sidebar-config.js";
+import {
+  leftSidebarConfigSelector,
+  setLeftSidebarExpanded,
+  setLeftSidebarComponent,
+} from "../../state/ducks/left-sidebar.js";
 import {
   activeDrawGeometryIdSelector,
   activeMarkerSelector,
@@ -105,7 +109,8 @@ class MainMap extends Component {
     this._map.addCustomControls({
       panels: props.leftSidebarConfig.panels,
       position: "top-left",
-      setLeftSidebar: props.setLeftSidebar,
+      setLeftSidebarExpanded: props.setLeftSidebarExpanded,
+      setLeftSidebarComponent: props.setLeftSidebarComponent,
     });
   }
 
@@ -513,7 +518,8 @@ MainMap.propTypes = {
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setBasemap: PropTypes.func.isRequired,
   setLayerStatus: PropTypes.func.isRequired,
-  setLeftSidebar: PropTypes.func.isRequired,
+  setLeftSidebarComponent: PropTypes.func.isRequired,
+  setLeftSidebarExpanded: PropTypes.func.isRequired,
   setMapPosition: PropTypes.func.isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
@@ -541,7 +547,10 @@ const mapDispatchToProps = dispatch => ({
   setMapPosition: mapPosition => dispatch(setMapPosition(mapPosition)),
   setMapSizeValidity: isMapSizeValid =>
     dispatch(setMapSizeValidity(isMapSizeValid)),
-  setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
+  setLeftSidebarComponent: componentName =>
+    dispatch(setLeftSidebarComponent(componentName)),
+  setLeftSidebarExpanded: isExpanded =>
+    dispatch(setLeftSidebarExpanded(isExpanded)),
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
   setBasemap: (layerId, layerStatus) =>

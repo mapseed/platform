@@ -20,7 +20,12 @@ import config from "config";
 import { setMapConfig } from "../../state/ducks/map-config";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
-import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
+import {
+  isLeftSidebarExpandedSelector,
+  setLeftSidebarConfig,
+  setLeftSidebarComponent,
+  setLeftSidebarExpanded,
+} from "../../state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../state/ducks/app-config";
 import {
@@ -31,10 +36,6 @@ import {
   setLayerStatus,
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
-import {
-  setLeftSidebar,
-  leftSidebarExpandedSelector,
-} from "../../state/ducks/ui";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -289,8 +290,11 @@ export default Backbone.View.extend({
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("nav-layer-btn:toggle", () => {
+      store.dispatch(setLeftSidebarComponent("MapLayerPanel"));
       store.dispatch(
-        setLeftSidebar(!leftSidebarExpandedSelector(store.getState())),
+        setLeftSidebarExpanded(
+          !isLeftSidebarExpandedSelector(store.getState()),
+        ),
       );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
