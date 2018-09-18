@@ -583,8 +583,8 @@ map:
     - id: sample-vector
       type: vector-tile
       vector_type: fill
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/style.json
+      url: https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/historical-duwamish/style.json
       source_layer: historical_river_pathgeojson
 
     - id: sample-wmts-a

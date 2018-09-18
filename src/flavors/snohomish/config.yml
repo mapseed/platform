@@ -172,20 +172,20 @@ map:
     - id: boundary
       type: vector-tile
       is_visible_default: true
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/snohomish-county-boundary/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/snohomish-county-boundary/style.json
+      url: https://vector-tiles.mapseed.org/snohomish-county-boundary/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/snohomish-county-boundary/style.json
       source_layer: snohomish-county-boundary
 
     - id: sub-basins
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/western-wash-subbasins/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/western-wash-subbasins/style.json
+      url: https://vector-tiles.mapseed.org/western-wash-subbasins/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/western-wash-subbasins/style.json
       source_layer: western-wash-subbasins
 
     - id: wria-boundaries
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/wria-boundaries/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/wria-boundaries/style.json
+      url: https://vector-tiles.mapseed.org/wria-boundaries/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/wria-boundaries/style.json
       source_layer: wria-boundaries
 
     - id: hydrography

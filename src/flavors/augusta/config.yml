@@ -201,26 +201,26 @@ map:
 
     - id: transit
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-transit/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-transit/style.json
+      url: https://vector-tiles.mapseed.org/sao-paulo-transit/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/sao-paulo-transit/style.json
       source_layer: sao-paulo-transit
 
     - id: biking
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-bike-lanes/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-bike-lanes/style.json
+      url: https://vector-tiles.mapseed.org/sao-paulo-bike-lanes/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/sao-paulo-bike-lanes/style.json
       source_layer: sao-paulo-bike-lanes
 
     - id: zoning
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-zoning/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-zoning/style.json
+      url: https://vector-tiles.mapseed.org/sao-paulo-zoning/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/sao-paulo-zoning/style.json
       source_layer: sao-paulo-zoning
 
     - id: heatwaves
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-heatwave/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/sao-paulo-heatwave/style.json
+      url: https://vector-tiles.mapseed.org/sao-paulo-heatwave/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/sao-paulo-heatwave/style.json
       source_layer: sao-paulo-heatwave
 
 left_sidebar:
