@@ -17,11 +17,11 @@ if (!process.env.FLAVOR) {
 }
 
 if (process.env.NODE_ENV === "production") {
-  const baseDistPath = path.resolve(__dirname, "www");
-
-  // clean out the output directory and recreate it
-  shell.rm("-rf", baseDistPath);
-  shell.mkdir("-p", path.resolve(baseDistPath, "dist"));
+  // If we're building for production, webpack runs before
+  // scripts/static-build.js, so make sure the output directory is cleaned out.
+  const outputBasePath = path.resolve(__dirname, "www");
+  shell.rm("-rf", outputBasePath);
+  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
 }
 
 var flavorJsFiles = glob.sync(

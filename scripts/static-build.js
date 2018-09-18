@@ -10,6 +10,8 @@ const wax = require("wax-on"); // wax-on adds template inheritance to Handlebars
 const execSync = require("child_process").execSync;
 const glob = require("glob");
 const colors = require("colors");
+const Spritesmith = require("spritesmith");
+const shell = require("shelljs");
 
 const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
   .transformCommonFormElements;
@@ -27,7 +29,7 @@ const transformStoryContent = require("../src/base/static/utils/config-loader-ut
 // (5) Localize config and jstemplates, and build index file
 // (5a) Resolve jstemplates flavor overrides and handle pages/ templates
 // (6) Copy static assets to the dist/ folder
-//
+// (7) Build mapbox symbol spritesheet
 //
 // TODOS
 //   - Asynchronous processing!
@@ -42,6 +44,13 @@ const verbose = true;
 
 const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
+
+if (process.env.NODE_ENV !== "production") {
+  // If we're building for development, this script runs before webpack so make
+  // sure that the output directory is cleaned out.
+  shell.rm("-rf", outputBasePath);
+  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
+}
 
 let jsHashedBundleName, cssHashedBundleName;
 glob.sync(distPath + "/+(*.bundle.js|*.bundle.css)").forEach(path => {
@@ -426,7 +435,74 @@ try {
   logError("Error copying flavor libs files: " + e);
 }
 
-log("BUILD FINISHED for " + flavor);
+// (6) Build the symbol spritesheet for mapbox.
+// -----------------------------------------------------------------------------
+
+const distMarkersPath = path.resolve(
+  __dirname,
+  "../www/static/css/images/markers",
+);
+const markers = glob.sync(
+  path.resolve(distMarkersPath, "*.{png,jpg,jpeg,gif}"),
+);
+
+Spritesmith.run({ src: markers }, (err, result) => {
+  if (err) {
+    // eslint-disable-next-line no-console
+    console.error(
+      "(STATIC SITE BUILD)",
+      colors.red("(ERROR)"),
+      "Error generating marker spritesheets:",
+      err,
+    );
+
+    process.exitCode = 1;
+    process.exit();
+  }
+
+  fs.writeFileSync(
+    path.resolve(distMarkersPath, "spritesheet@1x.png"),
+    result.image,
+  );
+  fs.writeFileSync(
+    // For high-resolution devices; Mapbox expects this file.
+    path.resolve(distMarkersPath, "spritesheet@2x.png"),
+    result.image,
+  );
+
+  // Postprocess the coordinates object.
+  const coordinates = Object.keys(result.coordinates).reduce(
+    (coordinateMapping, spriteIdentifier) => {
+      const newSpriteIdentifier = path.basename(spriteIdentifier);
+
+      coordinateMapping[newSpriteIdentifier] = Object.assign(
+        result.coordinates[spriteIdentifier],
+        { pixelRatio: 1 },
+      );
+      return coordinateMapping;
+    },
+    {},
+  );
+
+  fs.writeFileSync(
+    path.resolve(distMarkersPath, "spritesheet@1x.json"),
+    JSON.stringify(coordinates),
+  );
+  fs.writeFileSync(
+    // For high-resolution devices; Mapbox expects this file.
+    path.resolve(distMarkersPath, "spritesheet@2x.json"),
+    JSON.stringify(coordinates),
+  );
+
+  // eslint-disable-next-line no-console
+  console.log(
+    "(STATIC SITE BUILD)",
+    colors.green("(SUCCESS)"),
+    "Marker spritesheets and metadata created",
+  );
+
+  log("STATIC SITE BUILD FINISHED for " + flavor);
+});
 
 // =============================================================================
 // END STATIC SITE BUILD
