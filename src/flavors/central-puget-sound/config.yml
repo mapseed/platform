@@ -132,14 +132,14 @@ map:
 
     - id: sewer
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-sewer-lines/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-sewer-lines/style.json
+      url: https://vector-tiles.mapseed.org/king-county-sewer-lines/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-sewer-lines/style.json
       source_layer: king-county-sewer-lines
 
     - id: cities
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-city-boundaries/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-city-boundaries/style.json
+      url: https://vector-tiles.mapseed.org/king-county-city-boundaries/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-city-boundaries/style.json
       source_layer: king-county-city-boundaries
 
     - id: commfood
@@ -448,58 +448,58 @@ map:
 
     - id: school-boundaries
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-school-districts/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-school-districts/style.json
+      url: https://vector-tiles.mapseed.org/king-county-school-districts/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-school-districts/style.json
       source_layer: king-county-school-districts
     - id: school-sites
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-schools/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/king-county-schools/style.json
+      url: https://vector-tiles.mapseed.org/king-county-schools/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-schools/style.json
       source_layer: king-county-schools
     - id: wria-7-8-9
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/wria-7-8-9/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/wria-7-8-9/style.json
+      url: https://vector-tiles.mapseed.org/wria-7-8-9/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/wria-7-8-9/style.json
       source_layer: wria-7-8-9
     - id: watershed-7
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/wria-7/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/wria-7/style.json
+      url: https://vector-tiles.mapseed.org/wria-7/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/wria-7/style.json
       source_layer: wria-7
     - id: watershed-cedar
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-cedar/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-cedar/style.json
+      url: https://vector-tiles.mapseed.org/watershed-cedar/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-cedar/style.json
       source_layer: watershed-cedar
     - id: watershed-cedar-sammamish
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-cedar-sammamish/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-cedar-sammamish/style.json
+      url: https://vector-tiles.mapseed.org/watershed-cedar-sammamish/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-cedar-sammamish/style.json
       source_layer: watershed-cedar-sammamish
     - id: watershed-green
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-green/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-green/style.json
+      url: https://vector-tiles.mapseed.org/watershed-green/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-green/style.json
       source_layer: watershed-green
     - id: watershed-sammamish
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-sammamish/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-sammamish/style.json
+      url: https://vector-tiles.mapseed.org/watershed-sammamish/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-sammamish/style.json
       source_layer: watershed-sammamish
     - id: watershed-puyallup
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-puyallup/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-puyallup/style.json
+      url: https://vector-tiles.mapseed.org/watershed-puyallup/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-puyallup/style.json
       source_layer: watershed-puyallup
     - id: landuse
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/landuse-king-county-2010-truncated/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/landuse-king-county-2010-truncated/style.json
+      url: https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/style.json
       source_layer: landuse-king-county-2010-truncated
     - id: duwamish-original
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/historical-duwamish/style.json
+      url: https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/historical-duwamish/style.json
       source_layer: historical_river_pathgeojson
 
 right_sidebar:

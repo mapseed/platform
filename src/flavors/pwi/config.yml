@@ -392,14 +392,14 @@ map:
 
     - id: watershed-puyallup
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-puyallup/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/watershed-puyallup/style.json
+      url: https://vector-tiles.mapseed.org/watershed-puyallup/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-puyallup/style.json
       source_layer: watershed-puyallup
 
     - id: vacant-parcels
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/tacoma-vacant-parcels/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/tacoma-vacant-parcels/style.json
+      url: https://vector-tiles.mapseed.org/tacoma-vacant-parcels/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/tacoma-vacant-parcels/style.json
       source_layer: tacoma-vacant-parcels
 
 left_sidebar:

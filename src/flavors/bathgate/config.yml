@@ -166,26 +166,26 @@ map:
 
     - id: transit
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-transit/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-transit/style.json
+      url: https://vector-tiles.mapseed.org/ny-transit/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/ny-transit/style.json
       source_layer: ny-transit
 
     - id: biking
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-bike-lanes/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-bike-lanes/style.json
+      url: https://vector-tiles.mapseed.org/ny-bike-lanes/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/ny-bike-lanes/style.json
       source_layer: ny-bike-lanes
 
     - id: zoning
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-zoning/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-zoning/style.json
+      url: https://vector-tiles.mapseed.org/ny-zoning/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/ny-zoning/style.json
       source_layer: ny-zoning
 
     - id: heatwaves
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-heatwave/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/ny-heatwave/style.json
+      url: https://vector-tiles.mapseed.org/ny-heatwave/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/ny-heatwave/style.json
       source_layer: ny-heatwave
 
     - id: flood-zones

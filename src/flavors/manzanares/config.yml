@@ -201,32 +201,32 @@ map:
 
     - id: transit
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-transit/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-transit/style.json
+      url: https://vector-tiles.mapseed.org/madrid-transit/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/madrid-transit/style.json
       source_layer: madrid-transit
 
     - id: biking
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-bike-lanes/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-bike-lanes/style.json
+      url: https://vector-tiles.mapseed.org/madrid-bike-lanes/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/madrid-bike-lanes/style.json
       source_layer: madrid-bike-lanes
 
     - id: zoning
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-zoning/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-zoning/style.json
+      url: https://vector-tiles.mapseed.org/madrid-zoning/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/madrid-zoning/style.json
       source_layer: madrid-zoning
 
     - id: heatwaves
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-heatwave/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-heatwave/style.json
+      url: https://vector-tiles.mapseed.org/madrid-heatwave/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/madrid-heatwave/style.json
       source_layer: madrid-heatwave
 
     - id: huertos_urbanos
       type: vector-tile
-      url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-huertos-urbanos/{z}/{x}/{y}.pbf
-      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/madrid-huertos-urbanos/style.json
+      url: https://vector-tiles.mapseed.org/madrid-huertos-urbanos/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/madrid-huertos-urbanos/style.json
       source_layer: madrid-huertos-urbanos
 
 left_sidebar:
