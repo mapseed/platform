@@ -1,0 +1,10 @@
+.left-sidebar {
+  padding: 10px 10px 60px 10px;
+  // TODO: Convert to percentage width when AppView is ported.
+  width: 250px;
+}
+
+.left-sidebar__close-button {
+  font-size: 1.3em;
+  float: right; 
+}

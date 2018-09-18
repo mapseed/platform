@@ -35,6 +35,7 @@ export default {
   CUSTOM_URL_PROPERTY_NAME: "url-title",
   SHOW_METADATA_PROPERTY_NAME: "showMetadata",
   IS_VISIBLE_PROPERTY_NAME: "visible",
+  IS_FOCUSED_PROPERTY_NAME: "isFocused",
 
   ATTACHMENT_TYPE_PROPERTY_NAME: "type",
   ATTACHMENT_NAME_PROPERTY_NAME: "name",
@@ -58,13 +59,45 @@ export default {
 
   GEOMETRY_PROPERTY_NAME: "geometry",
   GEOMETRY_STYLE_PROPERTY_NAME: "style",
-
   GEOMETRY_TYPE_PROPERTY_NAME: "type",
-  ICON_URL_PROPERTY_NAME: "iconUrl",
-  COLOR_PROPERTY_NAME: "color",
-  OPACITY_PROPERTY_NAME: "opacity",
-  FILL_COLOR_PROPERTY_NAME: "fillColor",
-  FILL_OPACITY_PROPERTY_NAME: "fillOpacity",
+
+  // These geometry style property names follow the SimpleStyle spec.
+  // https://github.com/mapbox/simplestyle-spec/tree/master/1.1.0
+  LINE_COLOR_PROPERTY_NAME: "stroke",
+  LINE_OPACITY_PROPERTY_NAME: "stroke-opacity",
+  FILL_COLOR_PROPERTY_NAME: "fill",
+  FILL_OPACITY_PROPERTY_NAME: "fill-opacity",
+  MARKER_ICON_PROPERTY_NAME: "marker-symbol",
+
+  DRAW_DEFAULT_LINE_COLOR: "#f86767",
+  DRAW_DEFAULT_LINE_OPACITY: 0.7,
+  DRAW_DEFAULT_FILL_COLOR: "#f1f075",
+  DRAW_DEFAULT_FILL_OPACITY: 0.3,
+  DRAW_CREATE_MARKER_TOOL: "create-marker",
+  DRAW_CREATE_POLYLINE_TOOL: "create-polyline",
+  DRAW_CREATE_POLYGON_TOOL: "create-polygon",
+  DRAW_DELETE_GEOMETRY_EVENT: "draw:delete",
+  DRAW_START_POLYGON_EVENT: "draw:start-polygon",
+  DRAW_START_POLYLINE_EVENT: "draw:start-polyline",
+  DRAW_START_MARKER_EVENT: "draw:start-marker",
+  DRAW_UPDATE_GEOMETRY_EVENT: "draw:update-geometry",
+  DRAW_INIT_GEOMETRY_EVENT: "draw:init-geometry",
+  DRAW_STROKE_COLORPICKER_NAME: "stroke",
+  DRAW_FILL_COLORPICKER_NAME: "fill",
+  DRAW_MARKER_SELECTOR_NAME: "marker",
+
+  PLACE_MODEL_UPDATE_EVENT: "place-model:update",
+  PLACE_MODEL_REMOVE_EVENT: "place-model:remove",
+
+  IS_HIDDEN_BY_FILTERS: "_mapseed:isHiddenByFilters",
+  IS_FOCUSED_BY_FILTERS: "_mapseed:isFocusedByFilters",
+
+  PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT:
+    "place-collection:unfocus-all-places",
+  PLACE_COLLECTION_HIDE_PLACE_EVENT: "place-collection:hide-place",
+  PLACE_COLLECTION_FOCUS_PLACE_EVENT: "place-collection:focus-place",
+  PLACE_COLLECTION_ADD_PLACE_EVENT: "place-collection:add-place",
+  PLACE_COLLECTION_LOADED_EVENT: "place-collection:loaded",
 
   PLACE_MODEL_IO_START_ACTION: "place:io-start",
   PLACE_MODEL_IO_END_SUCCESS_ACTION: "place:io-end-success",
@@ -77,4 +110,8 @@ export default {
 
   DEFAULT_DATE_FORMAT: "YYYY-MM-DD",
   DEFAULT_DATE_DISPLAY_FORMAT: "MMMM Do YYYY",
+
+  MAP_TRANSITION_FIT_LINESTRING_COORDS: "map:fit-linestring-coords",
+  MAP_TRANSITION_FIT_POLYGON_COORDS: "map:fit-polygonal-coords",
+  MAP_TRANSITION_EASE_TO_POINT: "map:ease-to-point",
 };

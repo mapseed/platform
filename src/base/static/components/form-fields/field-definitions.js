@@ -181,16 +181,11 @@ export default {
     getComponent: (fieldConfig, context) => (
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
-        existingLayerView={context.props.existingLayerView}
+        markers={fieldConfig.content.map(item => item.url)}
         existingGeometry={context.props.existingGeometry}
         existingGeometryStyle={context.props.existingGeometryStyle}
-        fieldConfig={fieldConfig}
-        onGeometryStyleChange={context.props.onGeometryStyleChange.bind(
-          context,
-        )}
-        map={context.props.map}
-        markers={fieldConfig.content.map(item => item.url)}
-        router={context.props.router}
+        existingCollectionId={context.props.existingCollectionId}
+        existingModelId={context.props.existingModelId}
       />
     ),
     getInitialValue: ({ value }) => value,

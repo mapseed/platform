@@ -52,5 +52,8 @@ node_modules/
 # sqlite database
 *.db
 
+# procedurally generated spritesheets
+spritesheet*
+
 # static site build process output
 www/

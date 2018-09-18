@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import emitter from "../../utils/emitter";
+import { connect } from "react-redux";
 import classNames from "classnames";
 import { Map, OrderedMap, fromJS } from "immutable";
 import Spinner from "react-spinner";
@@ -16,6 +17,12 @@ const Util = require("../../js/utils.js");
 
 import { translate } from "react-i18next";
 import constants from "../../constants";
+
+import {
+  activeMarkerSelector,
+  geometryStyleSelector,
+  geometryStyleProps,
+} from "../../state/ducks/map-drawing-toolbar";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 
@@ -57,7 +64,6 @@ class PlaceDetailEditor extends Component {
         );
       });
 
-    this.geometryStyle = null;
     this.state = {
       fields: fields,
       formValidationErrors: new Set(),
@@ -65,8 +71,8 @@ class PlaceDetailEditor extends Component {
     };
   }
 
-  componentWillMount() {
-    emitter.addListener("place-model:update", () => {
+  componentDidMount() {
+    emitter.addListener(constants.PLACE_MODEL_UPDATE_EVENT, () => {
       // Validate the form.
       const newValidationErrors = this.state.fields
         .filter(field => field.get(constants.FIELD_VISIBILITY_KEY))
@@ -86,7 +92,17 @@ class PlaceDetailEditor extends Component {
           .toJS();
 
         if (this.state.fields.get(constants.GEOMETRY_PROPERTY_NAME)) {
-          attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] = this.geometryStyle;
+          attrs[constants.GEOMETRY_STYLE_PROPERTY_NAME] =
+            this.state.fields
+              .get(constants.GEOMETRY_PROPERTY_NAME)
+              .get(constants.FIELD_VALUE_KEY)[
+              constants.GEOMETRY_TYPE_PROPERTY_NAME
+            ] === "Point"
+              ? {
+                  [constants.MARKER_ICON_PROPERTY_NAME]: this.props
+                    .activeMarker,
+                }
+              : this.props.geometryStyle;
         }
 
         // Replace image data in rich text fields with placeholders built from each
@@ -114,7 +130,7 @@ class PlaceDetailEditor extends Component {
       }
     });
 
-    emitter.addListener("place-model:remove", () => {
+    emitter.addListener(constants.PLACE_MODEL_REMOVE_EVENT, () => {
       // TODO: Replace this confirm, as it won't respond to client-side i18n
       // changes, plus it's a bad UX pattern.
       if (confirm(this.props.t("confirmRemove"))) {
@@ -133,11 +149,16 @@ class PlaceDetailEditor extends Component {
   }
 
   componentWillUnmount() {
-    emitter.removeAllListeners("place-model:update");
-    emitter.removeAllListeners("place-model:remove");
+    emitter.removeAllListeners(constants.PLACE_MODEL_UPDATE_EVENT);
+    emitter.removeAllListeners(constants.PLACE_MODEL_REMOVE_EVENT);
   }
 
   onPlaceModelSaveSuccess(model) {
+    emitter.emit(constants.DRAW_DELETE_GEOMETRY_EVENT);
+    emitter.emit(
+      constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+      this.props.collectionId,
+    );
     this.props.onModelIO(constants.PLACE_MODEL_IO_END_SUCCESS_ACTION, model);
   }
 
@@ -153,10 +174,6 @@ class PlaceDetailEditor extends Component {
   onPlaceModelRemoveError() {
     this.props.onModelIO(constants.PLACE_MODEL_IO_END_ERROR_ACTION);
     Util.log("USER", "place-editor", "fail-to-remove-place");
-  }
-
-  onGeometryStyleChange(style) {
-    this.geometryStyle = style;
   }
 
   triggerFieldVisibility(targets, isVisible) {
@@ -245,20 +262,18 @@ class PlaceDetailEditor extends Component {
                   existingGeometryStyle={this.props.placeModel.get(
                     constants.GEOMETRY_STYLE_PROPERTY_NAME,
                   )}
-                  existingLayerView={this.props.layerView}
+                  existingModelId={this.props.placeModel.get(
+                    constants.MODEL_ID_PROPERTY_NAME,
+                  )}
+                  existingCollectionId={this.props.collectionId}
                   fieldConfig={fieldConfig}
                   attachmentModels={this.props.attachmentModels}
                   categoryConfig={this.categoryConfig}
                   disabled={this.state.isSubmitting}
                   fieldState={fieldState}
-                  onGeometryStyleChange={this.onGeometryStyleChange.bind(this)}
                   onAddAttachment={this.props.onAddAttachment}
                   isInitializing={this.state.isInitializing}
                   key={fieldName}
-                  map={this.props.map}
-                  modelId={this.props.placeModel.get(
-                    constants.MODEL_ID_PROPERTY_NAME,
-                  )}
                   onFieldChange={this.onFieldChange.bind(this)}
                   places={this.props.places}
                   router={this.props.router}
@@ -276,11 +291,12 @@ class PlaceDetailEditor extends Component {
 }
 
 PlaceDetailEditor.propTypes = {
+  activeMarker: PropTypes.string,
   attachmentModels: PropTypes.object,
+  collectionId: PropTypes.string.isRequired,
   container: PropTypes.object.isRequired,
+  geometryStyle: geometryStyleProps.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  layerView: PropTypes.object,
-  map: PropTypes.object,
   onAddAttachment: PropTypes.func,
   onAttachmentModelRemove: PropTypes.func.isRequired,
   onModelIO: PropTypes.func.isRequired,
@@ -291,4 +307,11 @@ PlaceDetailEditor.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate("PlaceDetailEditor")(PlaceDetailEditor);
+const mapStateToProps = state => ({
+  activeMarker: activeMarkerSelector(state),
+  geometryStyle: geometryStyleSelector(state),
+});
+
+export default connect(mapStateToProps)(
+  translate("PlaceDetailEditor")(PlaceDetailEditor),
+);

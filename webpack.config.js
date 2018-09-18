@@ -1,13 +1,13 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
+const shell = require("shelljs");
 
 require("dotenv").config({ path: "src/.env" });
 require("babel-polyfill");
 var path = require("path");
 var glob = require("glob");
 var fs = require("fs");
-const shell = require("shelljs");
 
 const PORT = 8000;
 
@@ -16,11 +16,13 @@ if (!process.env.FLAVOR) {
   process.exit();
 }
 
-const distPath = path.resolve(__dirname, "www/dist");
-
-// clean out the output directory and recreate it
-shell.rm("-rf", distPath);
-shell.mkdir("-p", distPath);
+if (process.env.NODE_ENV === "production") {
+  // If we're building for production, webpack runs before
+  // scripts/static-build.js, so make sure the output directory is cleaned out.
+  const outputBasePath = path.resolve(__dirname, "www");
+  shell.rm("-rf", outputBasePath);
+  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
+}
 
 var flavorJsFiles = glob.sync(
   "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js",
@@ -90,6 +92,8 @@ module.exports = {
     modules: ["node_modules", path.resolve(__dirname, "scripts")],
   },
   module: {
+    // https://github.com/mapbox/mapbox-gl-js/issues/4359#issuecomment-28800193
+    noParse: /(mapbox-gl)\.js$/,
     rules: [
       {
         test: /\.modernizrrc\.js$/,
@@ -140,6 +144,7 @@ module.exports = {
         process.env.NODE_ENV === "production"
           ? JSON.stringify("production")
           : JSON.stringify("dev"),
+      MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "react-emotion";
 
+import { Icon } from "./feedback";
+
 import "./buttons.scss";
 
 const EditorButton = props => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import InputForm from "../index.js";
+import { InputForm } from "../index.js";
 import FormField from "../../form-fields/form-field";
 import constants from "../../../constants";
 import WarningMessagesContainer from "../../ui-elements/warning-messages-container";
@@ -16,13 +16,16 @@ describe("InputForm", () => {
     hideCenterPoint: () => {},
     hideSpotlightMask: () => {},
     selectedCategory: "someCategory",
+    setActiveDrawingTool: () => {},
     map: {
       on: () => {},
       off: () => {},
       getCenter: () => {},
     },
     places: {},
-    router: {},
+    router: {
+      on: () => {},
+    },
     showNewPin: () => {},
   };
   test("renders input form", () => {
