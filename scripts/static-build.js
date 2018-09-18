@@ -45,9 +45,11 @@ const verbose = true;
 const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
 
-// clean out the output directory and recreate it
-shell.rm("-rf", outputBasePath);
-shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
+if (process.env.NODE_ENV !== "production") {
+  // clean out the output directory and recreate it
+  shell.rm("-rf", outputBasePath);
+  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
+}
 
 let jsHashedBundleName, cssHashedBundleName;
 glob.sync(distPath + "/+(*.bundle.js|*.bundle.css)").forEach(path => {
@@ -432,7 +434,7 @@ try {
   logError("Error copying flavor libs files: " + e);
 }
 
-// (6) Build the symbol spritesheet for mapbox. 
+// (6) Build the symbol spritesheet for mapbox.
 // -----------------------------------------------------------------------------
 
 const distMarkersPath = path.resolve(

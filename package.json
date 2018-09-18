@@ -30,7 +30,7 @@
     "build-js": "webpack -d",
     "build-js-production": "NODE_ENV=production webpack -p",
     "watch-js": "webpack -d --watch",
-    "build": "NODE_ENV=production node scripts/static-build.js && npm run build-js-production",
+    "build": "npm run build-js-production && NODE_ENV=production node scripts/static-build.js",
     "prettier": "prettier --write \"{src,scripts}/**/*.{js,jsx}\""
   },
   "dependencies": {

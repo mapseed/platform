@@ -15,6 +15,12 @@ if (!process.env.FLAVOR) {
   process.exit();
 }
 
+if (process.env.NODE_ENV === "production") {
+  const outputBasePath = path.resolve(__dirname, "www");
+  shell.rm("-rf", outputBasePath);
+  shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
+}
+
 var flavorJsFiles = glob.sync(
   "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js",
 );
