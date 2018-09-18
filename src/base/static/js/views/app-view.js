@@ -284,9 +284,7 @@ export default Backbone.View.extend({
     // the geocoded location.
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    emitter.addListener("geocode", locationData => {
-      this.mapView.zoomInOn(locationData.latLng);
-    });
+    emitter.addListener("geocode", locationData => {});
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
@@ -506,7 +504,6 @@ export default Backbone.View.extend({
   },
   conditionallyReverseGeocode: function() {
     if (this.options.mapConfig.geocoding_enabled) {
-      this.mapView.reverseGeocodeMapCenter();
     }
   },
   setLocationRoute: function(zoom, lat, lng) {
@@ -563,7 +560,6 @@ export default Backbone.View.extend({
               showNewPin={this.showNewPin.bind(this)}
               hideNewPin={this.hideNewPin.bind(this)}
               hidePanel={this.hidePanel.bind(this)}
-              map={this.mapView.map}
               places={this.places}
               router={this.options.router}
               customHooks={this.options.customHooks}
@@ -704,10 +700,8 @@ export default Backbone.View.extend({
                   isGeocodingBarEnabled={
                     this.options.mapConfig.geocoding_bar_enabled
                   }
-                  map={this.mapView.map}
                   model={model}
                   appView={this}
-                  layerView={this.mapView.layerViews[datasetId][model.cid]}
                   places={this.places}
                   scrollToResponseId={args.responseId}
                   router={this.options.router}
@@ -913,9 +907,6 @@ export default Backbone.View.extend({
       });
     });
   },
-  render: function() {
-    this.mapView.render();
-  },
   showListView: function() {
     // Re-sort if new places have come in
     this.listView.sort();
@@ -935,7 +926,6 @@ export default Backbone.View.extend({
     } else {
       this.options.router.navigate("list", { trigger: true });
     }
-    this.mapView.clearFilter();
   },
 });
 
