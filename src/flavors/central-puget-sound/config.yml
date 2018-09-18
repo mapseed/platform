@@ -173,7 +173,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-conserve-water.png
+            icon-image: marker-dot-conserve-water.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -188,8 +188,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-conserve-water.png
-            icon-size: 0.3
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
             icon-anchor: bottom
         # prevent-stormwater location_type
         - filter:
@@ -204,7 +204,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-prevent-stormwater-pollution.png
+            icon-image: marker-dot-prevent-stormwater-pollution.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -219,8 +219,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-prevent-stormwater-pollution.png
-            icon-size: 0.3
+            icon-image: marker-dot-prevent-stormwater-pollution.png
+            icon-size: 0.15
             icon-anchor: bottom
         # only-flush location_type
         - filter:
@@ -235,7 +235,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-only-flush-this.png
+            icon-image: marker-dot-only-flush-this.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -250,8 +250,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-only-flush-this.png
-            icon-size: 0.3
+            icon-image: marker-dot-only-flush-this.png
+            icon-size: 0.15
             icon-anchor: bottom
         # conserve-energy location_type
         - filter:
@@ -266,7 +266,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-conserve-energy.png
+            icon-image: marker-dot-conserve-energy.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -281,8 +281,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-conserve-energy.png
-            icon-size: 0.3
+            icon-image: marker-dot-conserve-energy.png
+            icon-size: 0.15
             icon-anchor: bottom
         # waste-less location_type
         - filter:
@@ -297,7 +297,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-waste-less.png
+            icon-image: marker-dot-waste-less.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -312,8 +312,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-waste-less.png
-            icon-size: 0.3
+            icon-image: marker-dot-waste-less.png
+            icon-size: 0.15
             icon-anchor: bottom
         # commute-low-carbon location_type
         - filter:
@@ -328,7 +328,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-commute-low-carbon.png
+            icon-image: marker-dot-commute-low-carbon.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -343,8 +343,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-commute-low-carbon.png
-            icon-size: 0.3
+            icon-image: marker-dot-commute-low-carbon.png
+            icon-size: 0.15
             icon-anchor: bottom
         # eat-local-organic location_type
         - filter:
@@ -359,7 +359,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-eat-local-organic.png
+            icon-image: marker-dot-eat-local-organic.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -374,8 +374,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-eat-local-organic.png
-            icon-size: 0.3
+            icon-image: marker-dot-eat-local-organic.png
+            icon-size: 0.15
             icon-anchor: bottom
         # restore-salmon-habitat location_type
         - filter:
@@ -390,7 +390,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-restore-salmon-habitat.png
+            icon-image: marker-dot-restore-salmon-habitat.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -405,8 +405,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-restore-salmon-habitat.png
-            icon-size: 0.3
+            icon-image: marker-dot-restore-salmon-habitat.png
+            icon-size: 0.15
             icon-anchor: bottom
 
     - id: mwfeatured
@@ -427,7 +427,7 @@ map:
             - - "to-boolean"
               - true
           symbol-layout:
-            icon-image: marker-conserve-water.png
+            icon-image: marker-dot-conserve-water.png
             icon-size: 0.5
             icon-anchor: bottom
         - filter:
@@ -442,8 +442,8 @@ map:
             - - "to-boolean"
               - false
           symbol-layout:
-            icon-image: marker-conserve-water.png
-            icon-size: 0.3
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
             icon-anchor: bottom
 
     - id: school-boundaries
