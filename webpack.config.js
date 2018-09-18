@@ -1,7 +1,6 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
-const shell = require("shelljs");
 
 require("dotenv").config({ path: "src/.env" });
 require("babel-polyfill");
@@ -14,14 +13,6 @@ const PORT = 8000;
 if (!process.env.FLAVOR) {
   process.exitCode = 1;
   process.exit();
-}
-
-if (process.env.NODE_ENV === "production") {
-  const baseDistPath = path.resolve(__dirname, "www");
-
-  // clean out the output directory and recreate it
-  shell.rm("-rf", baseDistPath);
-  shell.mkdir("-p", path.resolve(baseDistPath, "dist"));
 }
 
 var flavorJsFiles = glob.sync(
