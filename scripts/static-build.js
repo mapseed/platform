@@ -46,7 +46,8 @@ const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
 
 if (process.env.NODE_ENV !== "production") {
-  // clean out the output directory and recreate it
+  // If we're building for development, this script runs before webpacl so make
+  // sure that the output directory is cleaned out.
   shell.rm("-rf", outputBasePath);
   shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
 }
@@ -501,7 +502,6 @@ Spritesmith.run({ src: markers }, (err, result) => {
   );
 
   log("STATIC SITE BUILD FINISHED for " + flavor);
-  log("Starting Webpack build for " + flavor + "...");
 });
 
 // =============================================================================

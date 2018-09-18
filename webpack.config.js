@@ -1,6 +1,7 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
+const shell = require("shelljs");
 
 require("dotenv").config({ path: "src/.env" });
 require("babel-polyfill");
@@ -16,6 +17,8 @@ if (!process.env.FLAVOR) {
 }
 
 if (process.env.NODE_ENV === "production") {
+  // If we're building for production, webpack runs before
+  // scripts/static-build.js, so make sure the output directory is cleaned out.
   const outputBasePath = path.resolve(__dirname, "www");
   shell.rm("-rf", outputBasePath);
   shell.mkdir("-p", path.resolve(outputBasePath, "dist"));
