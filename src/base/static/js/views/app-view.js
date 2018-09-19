@@ -519,7 +519,7 @@ export default Backbone.View.extend({
   setLocationRoute: function(zoom, lat, lng) {
     this.options.router.navigate(
       "/" +
-        zoom +
+        parseFloat(zoom).toFixed(2) +
         "/" +
         parseFloat(lat).toFixed(5) +
         "/" +
@@ -528,22 +528,15 @@ export default Backbone.View.extend({
   },
 
   viewMap: function(zoom, lat, lng) {
-    var self = this,
-      ll;
-
-    // TODO
-    // If the map locatin is part of the url already
-    //if (zoom && lat && lng) {
-    //  ll = L.latLng(parseFloat(lat), parseFloat(lng));
-
-    //  // Why defer? Good question. There is a mysterious race condition in
-    //  // some cases where the view fails to set and the user is left in map
-    //  // limbo. This condition is seemingly eliminated by defering the
-    //  // execution of this step.
-    //  _.defer(function() {
-    //    self.mapView.map.setView(ll, parseInt(zoom, 10));
-    //  });
-    //}
+    if (zoom && lat && lng) {
+      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+        coordinates: {
+          lat: lat,
+          lng: lng,
+        },
+        zoom: zoom,
+      });
+    }
 
     this.hidePanel();
     this.hideNewPin();
