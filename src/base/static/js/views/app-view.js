@@ -770,7 +770,7 @@ export default Backbone.View.extend({
       } else if (geometry.type === "Point") {
         emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
           coordinates: geometry.coordinates,
-          zoom: mapPositionSelector(store.getState()).zoom,
+          zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
         });
       }
 
