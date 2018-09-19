@@ -466,11 +466,6 @@ map:
       url: https://vector-tiles.mapseed.org/wria-7/{z}/{x}/{y}.pbf
       style_url: https://vector-tiles.mapseed.org/wria-7/style.json
       source_layer: wria-7
-    - id: watershed-cedar
-      type: vector-tile
-      url: https://vector-tiles.mapseed.org/watershed-cedar/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/watershed-cedar/style.json
-      source_layer: watershed-cedar
     - id: watershed-cedar-sammamish
       type: vector-tile
       url: https://vector-tiles.mapseed.org/watershed-cedar-sammamish/{z}/{x}/{y}.pbf
@@ -2344,7 +2339,7 @@ story:
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
-          - watershed-cedar
+          - watershed-cedar-sammamish
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: green-duwamish
