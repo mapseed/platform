@@ -2288,15 +2288,6 @@ story:
     default_visible_layers:
       - mwfeatured
     order:
-      # - url: dirtcorps
-      #   zoom: 15
-      #   panTo:
-      #     lat: 47.53420
-      #     lng: -122.32165
-      #   spotlight: false
-      #   visible_layers:
-      #     - dirt-corps
-      #   basemap: terrain
       - url: hamm-creek-restoration
         zoom: 18
         basemap: satellite
@@ -2335,7 +2326,10 @@ story:
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png        
       - url: sammamish
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.631653886906804
+          lng: -122.06291037540797
         basemap: light-nolabels
         visible_layers:
           - wria-7-8-9
@@ -2343,7 +2337,10 @@ story:
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: cedar
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.64123180739975
+          lng: -121.75112573040786
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
@@ -2351,7 +2348,10 @@ story:
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: green-duwamish
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.32023597632835
+          lng: -121.89064979555963
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
@@ -2359,7 +2359,10 @@ story:
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: puyallup-white
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.08293753263453
+          lng: -121.92300796523165
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
