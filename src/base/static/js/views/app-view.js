@@ -285,7 +285,13 @@ export default Backbone.View.extend({
     // the geocoded location.
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    emitter.addListener("geocode", locationData => {});
+    emitter.addListener("geocode", locationData => {
+      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+        coordinates: locationData.latLng,
+        // TODO: Make this configurable?
+        zoom: 16,
+      });
+    });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
