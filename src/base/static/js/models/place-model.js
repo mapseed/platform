@@ -140,11 +140,15 @@ module.exports = Backbone.Model.extend({
 
     if (method === "create" || method === "update") {
       const keysToOmit = ["geometry"];
-      // If we are updating the place model and there is a submitter,
-      // we should omit the submitter from the payload so that the api
-      // knows to keep using the same reference.
-      // Note that the api doesn't allow, and shouldn't allow, for
-      // updating the submitter via the place model.
+      // NOTE(jalmogo): If we are updating the place model and there
+      // is a submitter, we should omit the submitter from the payload so
+      // that the api knows to keep using the same reference. Otherwise,
+      // the api thinks we are posting a brand new submitter.
+      // Ideally, the api shouldn't allow for
+      // creating new submitters when creating/updating a Place.
+      // And we should be referencing the submitter by url
+      // on the Place, and storing a collection of Submitters,
+      // instead of hanging a submitter object off of the Place.
       if (method === "update" && model.get("submitter")) {
         keysToOmit.push("submitter");
       }

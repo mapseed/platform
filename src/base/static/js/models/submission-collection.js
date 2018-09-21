@@ -1,6 +1,8 @@
 var PaginatedCollection = require("./paginated-collection");
+const SubmissionModel = require("./submission-model");
 
 module.exports = PaginatedCollection.extend({
+  model: SubmissionModel,
   initialize: function(models, options) {
     this.options = options;
   },
