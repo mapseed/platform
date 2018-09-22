@@ -53,7 +53,9 @@ module.exports = Backbone.Model.extend({
       progressHandler = Util.wrapHandler("progress", this, options.progress),
       myXhr = $.ajaxSettings.xhr();
 
-    formData.append("file", blob);
+    if (blob) {
+      formData.append("file", blob);
+    }
     formData.append("name", name);
     formData.append("type", type);
     formData.append("visible", visible);
