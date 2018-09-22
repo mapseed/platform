@@ -3,8 +3,9 @@ const glob = require("glob");
 const path = require("path");
 
 if (!process.env.DEPLOY_DOMAIN) {
-  throw "Set the DEPLOY_DOMAIN environment variable to the domain you want to deploy Mapseed to.";
+  throw "Set the DEPLOY_DOMAIN environment variable to the S3 bucket you want to deploy Mapseed to.";
 }
+console.log(`Updating website: ${process.env.DEPLOY_DOMAIN}`);
 const config = {
   domain: process.env.DEPLOY_DOMAIN,
   region: process.env.DEPLOY_REGION || "us-west-2",
