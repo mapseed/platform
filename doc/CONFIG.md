@@ -1,53 +1,13 @@
 # Configuring your Shareabouts web instance
 
-## Step 0: Create local_settings.py
-
-Your `local_settings.py` tells Shareabouts where your map's data is stored, what flavor to use,
-and some other settings. Until this file exists, your map won't run.
-
-Copy the *project/local_settings.py.template* file to
-*project/local_settings.py*.
-
-If you are only running the map locally, edit the file to remove
-everything after the `MAPQUEST_KEY`. Only keep the full file if you plan
-on running a local API server too.
-
-At this point, you can [start your map](https://github.com/openplans/shareabouts/tree/master/doc#starting-and-stopping-your-server) - it will have the default settings.
-
-### Keep local_settings out of version control!
-You don't want to check the API key information in to your
-repository, as anyone would be able to write to your data using your
-API key.
-
-## Step 1: Get one or more datasets
-
-You'll need an account on a Shareabouts API server.
-
-For each dataset that your flavor will use, you'll need to add the dataset's url and key to your .env file.
-There is a standard format for doing this: In all caps, create a line with the text ID_SITE_URL=xyz, where *ID* is the name
-of your dataset and *xyz* is the url to the dataset. Next, create a line with the text ID_DATASET_KEY=abc, where *ID* is the name
-of your dataset and *abc* is the key provided by the server.
-
-### Troubleshooting dataset problems
-
-If after completing setup you see [a screen like this](https://f.cloud.github.com/assets/146749/1627911/d5e82492-56fe-11e3-89d7-9d6b35f10c6b.png) when saving or supporting a place or submitting a reply, then you probably have you dataset key set incorrectly in your settings.
-
-
-## Step 2: Create a flavor
+## Step 0: Create a flavor
 
 A "flavor" is a particular configuration of Shareabouts.
 
-Copy the *flavors/default* folder to a new subdirectory
+Copy the *flavors/defaultflavor* folder to a new subdirectory
 of *flavors/*.  Name it whatever you want.
 
-Edit your `local_setting.py` file, changing `SHAREABOUTS_FLAVOR` to the name of the flavor directory you just
-created.
-
-## Step 3: Edit your flavor
-
-Your flavor directory contains a *config.yml* file that you will be
-editing throughout the rest of these instructions. Once you're done with config and local testing,
-[deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md).
+## Step 1: Edit your flavor
 
 ### The Map
 
@@ -251,7 +211,7 @@ for an example.
 #### Dynamic Form Configuration
 
 The dynamic form is configured in the *place_detail* section, found within the
-*place* section. The dynamic form gives you the ability to create any number of 
+*place* section. The dynamic form gives you the ability to create any number of
 customized input forms, and link them to independent datasets. Create a new
 dynamic form category by creating a new entry under the `place_detail` section:
 
@@ -269,7 +229,7 @@ a dataset called `waterData`. The options for this section are as follows:
 Option               | Type    | Description
 ---------------------|---------|----------------
 includeOnForm        | boolean | Whether to display this category on the dynamic form menu
-name                 | string  | 
+name                 | string  |
 dataset              | string  | The name of the dataset this category will write to
 icon_url             | string  | The file path to the icon you want to associate with this category
 value                | string  | The internal value to associate with this category
@@ -361,7 +321,7 @@ converted to JPEGs.
         placeholder: _(Name)
         optional: true
 
-**Submitter Email Address** 
+**Submitter Email Address**
 
     - name: private-submitter_email
       type: text

@@ -31,7 +31,7 @@ The Mapseed platform is a fork of [Shareabouts](https://github.com/openplans/sha
 
 ## Install
 
-Mapseed requires [Node + and the latest npm](https://nodejs.org/en/download/package-manager/). We recommend managing node/npm versions using [nvm](https://github.com/creationix/nvm).
+Mapseed requires [Node LTS](https://nodejs.org/en/download/package-manager/). We recommend managing node/npm versions using [nvm](https://github.com/creationix/nvm) or [asdf](https://github.com/asdf-vm/asdf).
 
 To install npm dependencies:
 
@@ -188,7 +188,8 @@ Follow these instructions to grant administrator privileges to one or more users
 ## Maintainers
 
 - [futuresoup](https://github.com/futuresoup)
-- [LukeSwart](https://github.com/LukeSwart)
+- [modulitos](https://github.com/modulitos)
+- [goldpbear](https://github.com/goldpbear)
 
 ## Contribute
 
