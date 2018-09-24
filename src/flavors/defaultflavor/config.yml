@@ -639,7 +639,7 @@ left_sidebar:
   is_visible_default: false
   panels:
     - id: gis-layers
-      icon: fa-list
+      icon: fa-bars
       component: MapLayerPanel
       title: _(Map Layers with an Extra Long Title)
       groupings:
