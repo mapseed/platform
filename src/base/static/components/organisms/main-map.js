@@ -251,19 +251,21 @@ class MainMap extends Component {
           collectionId,
           createGeoJSONFromCollection({
             collection: this.props.places[collectionId],
-          }),
+          }).regularFeatures,
         );
       },
     );
     emitter.addListener(
       constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
       ({ collectionId, modelId }) => {
-        this._map.updateLayerData(
+        const featureData = createGeoJSONFromCollection({
+          collection: this.props.places[collectionId],
+          modelIdToFocus: modelId,
+        });
+
+        this._map.focusPlaceLayerFeatures(
           collectionId,
-          createGeoJSONFromCollection({
-            collection: this.props.places[collectionId],
-            modelIdToFocus: modelId,
-          }),
+          featureData.focusedFeatures,
         );
       },
     );
@@ -275,7 +277,7 @@ class MainMap extends Component {
           createGeoJSONFromCollection({
             collection: this.props.places[collectionId],
             modelIdToHide: modelId,
-          }),
+          }).regularFeatures,
         );
       },
     );
@@ -288,8 +290,9 @@ class MainMap extends Component {
               collectionId,
               createGeoJSONFromCollection({
                 collection: this.props.places[collectionId],
-              }),
+              }).regularFeatures,
             );
+          this._map.unfocusAllPlaceLayerFeatures(collectionId);
         });
       },
     );
@@ -391,7 +394,8 @@ class MainMap extends Component {
     if (layer.type === "place") {
       layer.source = createGeoJSONFromCollection({
         collection: this.props.places[layer.id],
-      });
+      }).regularFeatures;
+
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,

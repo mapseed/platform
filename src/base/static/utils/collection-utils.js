@@ -34,36 +34,53 @@ const getModelFromUrl = ({ collections, route, mapConfig }) => {
   }
 };
 
+const buildGeoJSONPropertiesFromAttrs = model =>
+  Object.keys(model.attributes).reduce((geoJSONProperties, property) => {
+    geoJSONProperties[property] = model.get(property);
+    return geoJSONProperties;
+  }, {});
+
 const createGeoJSONFromCollection = ({
   collection,
   modelIdToFocus,
   modelIdToHide,
 }) => {
-  const features = collection
+  const regularFeatures = collection
     .filter(
-      model => model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelIdToHide,
+      model =>
+        model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelIdToHide &&
+        model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelIdToFocus,
     )
-    .map(model => {
-      const properties = Object.keys(model.attributes)
-        .filter(key => key !== constants.GEOMETRY_PROPERTY_NAME)
-        .reduce((geoJSONProperties, property) => {
-          geoJSONProperties[property] = model.get(property);
-          return geoJSONProperties;
-        }, {});
+    .map(model => ({
+      type: "Feature",
+      properties: buildGeoJSONPropertiesFromAttrs(model),
+      geometry: model.get(constants.GEOMETRY_PROPERTY_NAME),
+    }));
 
-      properties[constants.IS_FOCUSED_PROPERTY_NAME] =
-        modelIdToFocus === properties[constants.MODEL_ID_PROPERTY_NAME];
-
-      return {
-        type: "Feature",
-        properties: properties,
-        geometry: model.get(constants.GEOMETRY_PROPERTY_NAME),
-      };
-    });
+  // To focus a feature in a layer, we first remove it from the origin layer
+  // above, then add it to a separate focused layer. That way we can control
+  // the focused layer independently of the source layer and ensure focused
+  // features always render above all other features.
+  // TODO: Support multiple focused features simultaneously.
+  const focusedFeature = collection
+    .filter(
+      model => model.get(constants.MODEL_ID_PROPERTY_NAME) === modelIdToFocus,
+    )
+    .map(model => ({
+      type: "Feature",
+      properties: buildGeoJSONPropertiesFromAttrs(model),
+      geometry: model.get(constants.GEOMETRY_PROPERTY_NAME),
+    }));
 
   return {
-    type: "FeatureCollection",
-    features: features,
+    regularFeatures: {
+      type: "FeatureCollection",
+      features: regularFeatures,
+    },
+    focusedFeatures: {
+      type: "FeatureCollection",
+      features: focusedFeature,
+    },
   };
 };
 
