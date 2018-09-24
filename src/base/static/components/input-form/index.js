@@ -341,7 +341,7 @@ class InputForm extends Component {
     if (this.isWithCustomGeometry) {
       this.props.hideSpotlightMask();
       this.props.hideCenterPoint();
-    } else if (this.props.selectedCategory && !this.state.isMapPositioned) {
+    } else if (!this.props.selectedCategory) {
       this.props.showNewPin();
     }
 
