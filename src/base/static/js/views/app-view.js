@@ -683,7 +683,6 @@ export default Backbone.View.extend({
     function onFound(model, type, collectionId) {
       if (type === "place") {
         // REACT PORT SECTION //////////////////////////////////////////////////
-        this.unfocusAllPlaces();
         ReactDOM.unmountComponentAtNode(
           document.querySelector("#content article"),
         );
@@ -810,8 +809,6 @@ export default Backbone.View.extend({
   },
 
   showPanel: function(markup, preventScrollToTop) {
-    this.unfocusAllPlaces();
-
     // REACT PORT SECTION //////////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
     // END REACT PORT SECTION //////////////////////////////////////////////////
@@ -865,8 +862,6 @@ export default Backbone.View.extend({
     this.$centerpoint.hide();
   },
   hidePanel: function() {
-    this.unfocusAllPlaces();
-
     // REACT PORT SECTION //////////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
     // END REACT PORT SECTION //////////////////////////////////////////////////
@@ -890,16 +885,6 @@ export default Backbone.View.extend({
   },
   hideSpotlightMask: function() {
     $("#spotlight-mask").hide();
-  },
-  unfocusAllPlaces: function() {
-    // Unfocus all of the place markers
-    _.each(this.places, function(collection) {
-      collection.each(function(model) {
-        if (!model.isNew()) {
-          model.trigger("unfocus");
-        }
-      });
-    });
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
