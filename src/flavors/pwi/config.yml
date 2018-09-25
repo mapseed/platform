@@ -641,7 +641,7 @@ story:
       - url: vacant-parcels
         basemap: light
         zoom: 12
-        panTo:
+        pan_to:
           lat: 47.26944549602832
           lng: -122.41241455078125
         spotlight: false
