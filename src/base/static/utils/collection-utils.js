@@ -34,53 +34,26 @@ const getModelFromUrl = ({ collections, route, mapConfig }) => {
   }
 };
 
-const buildGeoJSONPropertiesFromAttrs = model =>
-  Object.keys(model.attributes).reduce((geoJSONProperties, property) => {
-    geoJSONProperties[property] = model.get(property);
-    return geoJSONProperties;
-  }, {});
+const createGeoJSONFromCollection = collection => {
+  const features = collection.map(model => {
+    const properties = Object.keys(model.attributes).reduce(
+      (geoJSONProperties, property) => {
+        geoJSONProperties[property] = model.get(property);
+        return geoJSONProperties;
+      },
+      {},
+    );
 
-const createGeoJSONFromCollection = ({
-  collection,
-  modelIdToFocus,
-  modelIdToHide,
-}) => {
-  const regularFeatures = collection
-    .filter(
-      model =>
-        model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelIdToHide &&
-        model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelIdToFocus,
-    )
-    .map(model => ({
+    return {
       type: "Feature",
-      properties: buildGeoJSONPropertiesFromAttrs(model),
+      properties: properties,
       geometry: model.get(constants.GEOMETRY_PROPERTY_NAME),
-    }));
-
-  // To focus a feature in a layer, we first remove it from the origin layer
-  // above, then add it to a separate focused layer. That way we can control
-  // the focused layer independently of the source layer and ensure focused
-  // features always render above all other features.
-  // TODO: Support multiple focused features simultaneously.
-  const focusedFeature = collection
-    .filter(
-      model => model.get(constants.MODEL_ID_PROPERTY_NAME) === modelIdToFocus,
-    )
-    .map(model => ({
-      type: "Feature",
-      properties: buildGeoJSONPropertiesFromAttrs(model),
-      geometry: model.get(constants.GEOMETRY_PROPERTY_NAME),
-    }));
+    };
+  });
 
   return {
-    regularFeatures: {
-      type: "FeatureCollection",
-      features: regularFeatures,
-    },
-    focusedFeatures: {
-      type: "FeatureCollection",
-      features: focusedFeature,
-    },
+    type: "FeatureCollection",
+    features: features,
   };
 };
 
