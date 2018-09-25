@@ -168,7 +168,7 @@ map:
             - - "=="
               - - "get"
                 - "location_type"
-                - "augusta-partners"
+              - "augusta-partners"
           symbol-layout:
             icon-size: 1.0
             icon-anchor: "center"
