@@ -24,6 +24,8 @@
   "homepage": "https://github.com/smartercleanup/platform",
   "scripts": {
     "start": "node scripts/static-build.js && webpack-dev-server --progress",
+    "deploy": "node scripts/deploy.js",
+    "build-deploy": "npm run build && npm run deploy",
     "test": "jest --verbose --config ./jest.config.js",
     "test:watch": "jest --watch --verbose --config ./jest.watch.config.js",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
