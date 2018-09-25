@@ -307,10 +307,14 @@ map:
       is_visible_default: true
       type: place
       slug: featured
+      focus_rules:
+        - symbol-layout:
+            icon-size: 0.5
+            icon-anchor: "center"
       rules:
-        symbol-layout:
-          icon-size: 1.0
-          icon-anchor: "center"
+        - symbol-layout:
+            icon-size: 0.3
+            icon-anchor: "center"
 
     - id: watershed-puyallup
       type: vector-tile
