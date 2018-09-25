@@ -6,10 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [staging] - on our `master` branch (staging)
 
-## [0.10.0]
+## [1.0.0]
 ### Added
- - Mapbox gl-js support
- - etc...
+ - Ported mapping client from Leaflet to Mapbox GL JS
+ - Breaking changes to flavor config.yml files: See defaultflavor for an example of the changes
 
 ## [0.9.0] - 2018-04-08
 ### Added
