@@ -13,7 +13,6 @@ Shareabouts.Util = Util;
   S.App = Backbone.Router.extend({
     routes: {
       "": "viewMap",
-      "filter/:locationtype": "filterMap",
       "page/:slug": "viewPage",
       ":dataset/:id": "viewPlace",
       new: "newPlace",
@@ -25,36 +24,9 @@ Shareabouts.Util = Util;
       ":zoom/:lat/:lng": "viewMap",
     },
 
-    // overwrite route so we can catch route requests that would
-    // navigate away from a detail view with unsaved editor changes
-    route: function(route, handler, callback) {
-      var router = this;
-      if (!callback) callback = this[handler];
-
-      var f = function() {
-        if (
-          this.appView.activeDetailView &&
-          this.appView.activeDetailView.isModified
-        ) {
-          if (!this.appView.activeDetailView.onCloseWithUnsavedChanges()) {
-            return false;
-          } else {
-            this.appView.activeDetailView = null;
-            callback.apply(router, arguments);
-          }
-        } else {
-          this.appView.activeDetailView = null;
-          callback.apply(router, arguments);
-        }
-      };
-
-      return Backbone.Router.prototype.route.call(this, route, handler, f);
-    },
-
     initialize: function(options) {
       var self = this,
         startPageConfig,
-        filteredRoutes,
         // store config details for places
         configArrays = {};
 
@@ -67,17 +39,16 @@ Shareabouts.Util = Util;
         return this.id;
       };
 
-      // Reject a place that does not have a supported location type. This will
-      // prevent invalid places from being added or saved to the collection.
-      PlaceModel.prototype.validate = function(attrs, options) {
-        var locationType = attrs.location_type,
-          locationTypes = _.map(S.Config.placeTypes, function(config, key) {
-            return key;
-          });
-
-        if (!_.contains(locationTypes, locationType)) {
-          console.warn(locationType + " is not supported.");
-          return locationType + " is not supported.";
+      // Reject a place that does not have a supported place_detail configuration.
+      // This will prevent invalid places from being added or saved to the collection.
+      PlaceModel.prototype.validate = function(attrs) {
+        if (
+          !S.Config.place.place_detail.find(
+            placeDetail => placeDetail.category === attrs.location_type,
+          )
+        ) {
+          console.warn(attrs.location_type + " is not supported.");
+          return attrs.location_type + " is not supported.";
         }
       };
 
@@ -85,19 +56,6 @@ Shareabouts.Util = Util;
       this.bind("route", function(route, router) {
         Util.log("ROUTE", self.getCurrentPath());
       });
-
-      filteredRoutes = this.getFilteredRoutes();
-      this.bind(
-        "route",
-        function(route) {
-          // If the route shouldn't be filtered, then clear the filter. Otherwise
-          // leave it alone.
-          if (!_.contains(filteredRoutes, route)) {
-            this.clearLocationTypeFilter();
-          }
-        },
-        this,
-      );
 
       this.loading = true;
 
@@ -137,7 +95,7 @@ Shareabouts.Util = Util;
         mapConfig: options.mapConfig,
         storyConfig: options.storyConfig,
         placeConfig: options.placeConfig,
-        sidebarConfig: options.sidebarConfig,
+        leftSidebarConfig: options.leftSidebarConfig,
         rightSidebarConfig: options.rightSidebarConfig,
         activityConfig: options.activityConfig,
         userToken: options.userToken,
@@ -183,15 +141,7 @@ Shareabouts.Util = Util;
 
     viewMap: function(zoom, lat, lng) {
       this.recordGoogleAnalyticsHit("/");
-      if (this.appView.mapView.locationTypeFilter) {
-        // If there's a filter applied, actually go to that filtered route.
-        this.navigate("/filter/" + this.appView.mapView.locationTypeFilter, {
-          trigger: false,
-        });
-      }
-
       this.appView.viewMap(zoom, lat, lng);
-      this.appView.mapView.clearFilter();
     },
 
     newPlace: function() {
@@ -241,72 +191,6 @@ Shareabouts.Util = Util;
           fragment.indexOf("page") === -1 &&
           fragment.indexOf("list") === -1)
       );
-    },
-
-    getFilteredRoutes: function() {
-      return ["filterMap", "viewPlace", "showList", "viewMap", "viewLandmark"];
-    },
-
-    clearLocationTypeFilter: function() {
-      this.setLocationTypeFilter("all");
-    },
-
-    setLocationTypeFilter: function(locationType) {
-      // TODO: This functionality should be moved in to the app-view
-      var $filterIndicator = $("#current-filter-type");
-      if ($filterIndicator.length === 0) {
-        $filterIndicator = $('<div id="current-filter-type"/>').insertAfter(
-          $(".menu-item-filter-type > a:first-child"),
-        );
-      }
-
-      // Get the menu information for the current location type
-      var filterMenu, menuItem;
-      if (S.Config.pages) {
-        filterMenu = _.findWhere(S.Config.pages, { slug: "filter-type" });
-      }
-      if (filterMenu) {
-        menuItem = _.findWhere(filterMenu.pages, {
-          url: "/filter/" + locationType,
-        });
-      }
-
-      if (locationType !== "all") {
-        this.appView.mapView.filter(locationType);
-        if (this.appView.listView) {
-          this.appView.listView.filter({ location_type: locationType });
-        }
-
-        // Show the menu item title with the coresponding style
-        if (menuItem) {
-          $filterIndicator
-            .removeClass()
-            .addClass(locationType)
-            .html(menuItem.title);
-        }
-      } else {
-        // If the filter is 'all', we're unsetting the filter.
-        this.appView.mapView.clearFilter();
-        if (this.appView.listView) {
-          this.appView.listView.clearFilters();
-        }
-
-        $filterIndicator
-          .removeClass()
-          .addClass("unfiltered")
-          .empty();
-      }
-    },
-
-    filterMap: function(locationType) {
-      this.setLocationTypeFilter(locationType);
-      if (locationType === "all") {
-        if (this.appView.listView && this.appView.listView.isVisible()) {
-          this.navigate("/list", { trigger: false });
-        } else {
-          this.navigate("/", { trigger: false });
-        }
-      }
     },
 
     recordGoogleAnalyticsHit(route) {

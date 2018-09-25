@@ -153,7 +153,6 @@ FormField.propTypes = {
   map: PropTypes.object,
   modelId: PropTypes.number,
   onFieldChange: PropTypes.func.isRequired,
-  onGeometryStyleChange: PropTypes.func,
   places: PropTypes.object,
   router: PropTypes.object,
   showValidityStatus: PropTypes.bool.isRequired,

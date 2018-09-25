@@ -1,1 +1,2 @@
-src/base/static/libs/**/*.js
+src/base/static/legacy-libs/**/*.js
+package.json

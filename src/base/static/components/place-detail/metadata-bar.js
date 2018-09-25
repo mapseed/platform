@@ -6,18 +6,12 @@ import SubmitterName from "../ui-elements/submitter-name";
 import { translate, Trans } from "react-i18next";
 
 import constants from "../../constants";
-import {
-  place_types as placeTypes,
-  place as placeConfig,
-  survey as surveyConfig,
-} from "config";
+import { place as placeConfig, survey as surveyConfig } from "config";
 
 import "./metadata-bar.scss";
 
 const MetadataBar = props => {
-  const placeTypeLabel =
-    placeTypes[props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME)]
-      .label;
+  // TODO: place type label replacement; fix in editor PR
   const actionText = placeConfig.action_text;
 
   return (
@@ -35,7 +29,7 @@ const MetadataBar = props => {
                 props.placeModel.get(constants.SUBMITTER)
               }
             />{" "}
-            {{ actionText }} this {{ placeTypeLabel }}
+            {{ actionText }} this
           </Trans>
         </p>
         <a

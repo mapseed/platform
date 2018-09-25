@@ -35,89 +35,81 @@ languages:
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
-  geolocation_onload: false
-  cartodb_enabled: true
-  #  geocode_field_label: _(Enter an address...)
-  geocode_bounding_box: [46.500, -124, 48.5, -119] # south, west, north, east
 
   options:
-    center:
-      lat: 47.78548
-      lng: -122.82440
-    zoom: 8
-    minZoom: 1
-    maxZoom: 18
+    map:
+      center:
+        lat: 47.78548
+        lng: -122.82440
+      zoom: 8
+      minZoom: 1
+      maxZoom: 18
+    control:
+      showCompass: true
+      position: "top-left"
+
   layers:
     - id: satellite
-      url: //api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      type: raster-tile
+      is_basemap: true
+      url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-      type: basemap
 
     - id: light-nolabels
-      url: //api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      is_basemap: true
+      type: raster-tile
+      url: https://api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: 'Hello World'
-      type: basemap
-    # WMTS hydrography
-    # - id: hydrography
-    #   type: wmts
-    #   url: https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/WMTS?
-    #   layers: USGSHydroCached
-    #   tilematrixSet: default028mm
-    #   version: 1.0.0
-    #   transparent: false
-    #   format: image/png
 
-    # WMS hydrography
     - id: hydrography
-      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?
+      type: wms
+      is_basemap: true
+      url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer
       layers: '0'
       version: 1.3.0
       transparent: false
       format: image/png
 
     - id: sub-basins
-      url: //api.mapbox.com/styles/v1/heyduwamishcore/cj539xhft04y82sqzh7hsehkg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
+      type: raster-tile
+      url: https://api.mapbox.com/styles/v1/heyduwamishcore/cj539xhft04y82sqzh7hsehkg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g
       attribution: 'Hello World'
-      type: basemap
-
-    # - id: hydroregions
-    #   type: wmts
-    #   url: https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroNHD/MapServer/WMTS?
-    #   layers: 0
-    #   tilematrixSet: default028mm
-    #   version: 1.0.0
-    #   transparent: false
-    #   format: image/png
 
     - id: topo
-      type: basemap
-      url: //stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
-      maxZoom: 16
+      type: raster-tile
+      is_visible_default: true
+      is_basemap: true
+      url: https://stamen-tiles-b.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
+      max_zoom: 16
 
     - id: 1936aerial
+      is_basemap: true
       type: wmts
-      url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?
+      url: https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS
       layers: BaseMaps_KingCo_Aerial_1936
-      tilematrixSet: default028mm
+      tilematrix_set: default028mm
       version: 1.0.0
       transparent: false
       format: image/jpg
       style: default
 
     - id: bath
+      is_basemap: true
       type: wmts
-      url: https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS?
+      url: https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS
       layers: 0
-      tilematrixSet: default028mm
+      tilematrix_set: default028mm
       version: 1.0.0
       transparent: false
       format: image/jpg
+      style: default
 
     - id: hillshade
+      is_basemap: true
       type: wmts
-      url: http://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS?
+      url: https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS
       layers: 0
-      tilematrixSet: default028mm
+      tilematrix_set: default028mm
       version: 1.0.0
       transparent: false
       format: image/jpg
@@ -125,679 +117,497 @@ map:
 
     - id: contour
       type: wmts
-      url: http://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS?
+      url: https://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS
       layers: 5
-      tilematrixSet: default028mm
+      tilematrix_set: default028mm
       version: 1.0.0
       transparent: false
       format: image/png
       style: default
 
     - id: impervious
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/impervious_surfaces_2009/wms?
-      layers:
-        - t19r06_09i002
-        - t19r07_09i002
-        - t19r08_09i002
-        - t19r09_09i002
-        - t19r10_09i002
-        - t19r11_09i002
-        - t19r12_09i002
-        - t20r03_09i002
-        - t20r04_09i002
-        - t20r05_09i002
-        - t20r06_09i002
-        - t20r07_09i002
-        - t20r08_09i002
-        - t20r09_09i002
-        - t20r10_09i002
-        - t20r11_09i002
-        - t20r12_09i002
-        - t21r02_09i002
-        - t21r03_09i002
-        - t21r04_09i002
-        - t21r05_09i002
-        - t21r06_09i002
-        - t21r07_09i002
-        - t21r08_09i002
-        - t21r09_09i002
-        - t21r10_09i002
-        - t21r11_09i002
-        - t21r12_09i002
-        - t22r02_09i002
-        - t22r03_09i002
-        - t22r04_09i002
-        - t22r05_09i002
-        - t22r06_09i002
-        - t22r07_09i002
-        - t22r08_09i002
-        - t22r09_09i002
-        - t22r10_09i002
-        - t22r11_09i002
-        - t23r02_09i002
-        - t23r03_09i002
-        - t23r04_09i002
-        - t23r05_09i002
-        - t23r06_09i002
-        - t23r07_09i002
-        - t23r08_09i002
-        - t23r09_09i002
-        - t23r10_09i002
-        - t23r11_09i002
-        - t24r03_09i002
-        - t24r04_09i002
-        - t24r05_09i002
-        - t24r06_09i002
-        - t24r07_09i002
-        - t24r08_09i002
-        - t24r09_09i002
-        - t24r10_09i002
-        - t24r11_09i002
-        - t25r03_09i002
-        - t25r04_09i002
-        - t25r05_09i002
-        - t25r06_09i002
-        - t25r07_09i002
-        - t25r08_09i002
-        - t25r09_09i002
-        - t25r10_09i002
-        - t25r11_09i002
-        - t25r12_09i002
-        - t25r13_09i002
-        - t26r03_09i002
-        - t26r04_09i002
-        - t26r05_09i002
-        - t26r06_09i002
-
-        # NOTE: the following additional layers will be added when the server
-        # is upgraded with more space. For now these layers don't exist.
-        # - t26r07_09i002
-        # - t26r08_09i002
-        # - t26r09_09i002
-        # - t26r10_09i002
-        # - t26r11_09i002
-        # - t26r12_09i002
-        # - t26r13_09i002
-        # - t27r03_09i002
-        # - t27r04_09i002
-        # - t27r05_09i002
-        # - t27r06_09i002
-        # - t27r07_09i002
-        # - t27r08_09i002
-        # - t27r09_09i002
-        # - t28r04_09i002
-        # - t28r05_09i002
-      version: 1.3.0
-      format: image/png
-      transparent: true
-
-    # - id: outfalls
-    #   type: basemap
-    #   url: intentionally-blank
+      type: raster-tile
+      url: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/seattle-impervious-surfaces/{z}/{x}/{y}.png
+      scheme: tms
 
     - id: sewer
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/kc_sewers/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers: sewer
-
-    # - id: tree-canopy
-    #   type: basemap
-    #   url: intentionally-blank
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/king-county-sewer-lines/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-sewer-lines/style.json
+      source_layer: king-county-sewer-lines
 
     - id: cities
-      type: wms
-      url: https://geoserver.mapseed.org/geoserver/king_county_cities/wms?
-      version: 1.3.0
-      format: image/png
-      transparent: true
-      layers: city_kc_2
-
-    # - id: college
-    #   type: basemap
-    #   url: intentionally-blank
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/king-county-city-boundaries/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-city-boundaries/style.json
+      source_layer: king-county-city-boundaries
 
     - id: commfood
       type: json
-      url: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
-      popupContent: '{{MarketName}}'
+      source: https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson
+      popup_content: "{{MarketName}}"
       rules:
-        - condition: '"{{true}}"'
-          icon:
-            iconUrl: /static/css/images/markers/marker-dot-conserve-water.png
-            iconSize: [15, 15]
-            iconAnchor: [7.5, 7.5]
-          style:
-            opacity: 0.9
-
-    - id: equity
-      url: intentionally-blank
+        - symbol-layout:
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.5
+            icon-anchor: center
+          symbol-paint:
+            icon-opacity: 0.9 
 
     - id: mw
+      is_visible_default: true
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw
       type: place
       slug: report
+      focus_rules:
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "conserve-water"
+          symbol-layout:
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "prevent-stormwater"
+          symbol-layout:
+            icon-image: marker-dot-prevent-stormwater-pollution.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "only-flush"
+          symbol-layout:
+            icon-image: marker-dot-only-flush-this.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "conserve-energy"
+          symbol-layout:
+            icon-image: marker-dot-conserve-energy.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "waste-less"
+          symbol-layout:
+            icon-image: marker-dot-waste-less.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "commute-low-carbon"
+          symbol-layout:
+            icon-image: marker-dot-commute-low-carbon.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "eat-local-organic"
+          symbol-layout:
+            icon-image: marker-dot-eat-local-organic.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "restore-salmon-habitat"
+          symbol-layout:
+            icon-image: marker-dot-restore-salmon-habitat.png
+            icon-size: 0.5
+            icon-anchor: center
+
+      rules:
+        # conserve-water location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "conserve-water"
+          symbol-layout:
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
+            icon-anchor: center
+        # prevent-stormwater location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "prevent-stormwater"
+          symbol-layout:
+            icon-image: marker-dot-prevent-stormwater-pollution.png
+            icon-size: 0.15
+            icon-anchor: center
+        # only-flush location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "only-flush"
+          symbol-layout:
+            icon-image: marker-dot-only-flush-this.png
+            icon-size: 0.15
+            icon-anchor: center
+        # conserve-energy location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "conserve-energy"
+          symbol-layout:
+            icon-image: marker-dot-conserve-energy.png
+            icon-size: 0.15
+            icon-anchor: center
+        # waste-less location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "waste-less"
+          symbol-layout:
+            icon-image: marker-dot-waste-less.png
+            icon-size: 0.15
+            icon-anchor: center
+        # commute-low-carbon location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "commute-low-carbon"
+          symbol-layout:
+            icon-image: marker-dot-commute-low-carbon.png
+            icon-size: 0.15
+            icon-anchor: center
+        # eat-local-organic location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "eat-local-organic"
+          symbol-layout:
+            icon-image: marker-dot-eat-local-organic.png
+            icon-size: 0.15
+            icon-anchor: center
+        # restore-salmon-habitat location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "restore-salmon-habitat"
+          symbol-layout:
+            icon-image: marker-dot-restore-salmon-habitat.png
+            icon-size: 0.15
+            icon-anchor: center
 
     - id: mwfeatured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured
       type: place
       slug: featured
+      focus_rules:
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_place"
+          symbol-layout:
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.5
+            icon-anchor: center
 
-       # WRIA9 watershed
+      rules:
+        # featured_place location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_place"
+          symbol-layout:
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
+            icon-anchor: center
+
     - id: school-boundaries
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/1f590d18-256d-11e7-aff5-0e3ff518bd15/viz.json"
-
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/king-county-school-districts/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-school-districts/style.json
+      source_layer: king-county-school-districts
     - id: school-sites
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/d1c41f32-2cfd-11e7-9efa-0ee66e2c9693/viz.json"
-
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/king-county-schools/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/king-county-schools/style.json
+      source_layer: king-county-schools
     - id: wria-7-8-9
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/7b95f83a-294a-11e7-8367-0e05a8b3e3d7/viz.json"
-
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/wria-7-8-9/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/wria-7-8-9/style.json
+      source_layer: wria-7-8-9
     - id: watershed-7
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/6450e63b-e243-4ba6-ac24-0f0ad87b7a1b/viz.json"
-
-    - id: watershed-cedar
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/a9ea3c0c-26aa-11e7-95f1-0ecd1babdde5/viz.json"
-
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/wria-7/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/wria-7/style.json
+      source_layer: wria-7
+    - id: watershed-cedar-sammamish
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/watershed-cedar-sammamish/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-cedar-sammamish/style.json
+      source_layer: watershed-cedar-sammamish
     - id: watershed-green
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/1ef4a962-26ae-11e7-9ad1-0ee66e2c9693/viz.json"
-
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/watershed-green/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-green/style.json
+      source_layer: watershed-green
     - id: watershed-sammamish
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/e85f97d4-26af-11e7-af3c-0e3ebc282e83/viz.json"
-
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/watershed-sammamish/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-sammamish/style.json
+      source_layer: watershed-sammamish
     - id: watershed-puyallup
-      type: cartodb
-      url: "https://smartercleanup.carto.com/api/v2/viz/aea1ff97-2c79-48a1-a3a7-040e4d7aadd1/viz.json"
-
-      # Land Use
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/watershed-puyallup/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/watershed-puyallup/style.json
+      source_layer: watershed-puyallup
     - id: landuse
-      type: cartodb
-      url: "https://hdbig.cartodb.com/api/v2/viz/76d1e054-d5ed-11e5-bf91-0e5db1731f59/viz.json"
-      opacity: 0.5
-
-      # WMS Original Flow
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/style.json
+      source_layer: landuse-king-county-2010-truncated
     - id: duwamish-original
-      url: https://smartercleanup.cartodb.com/api/v2/viz/ab34ca50-c6fc-11e5-ba65-0ecd1babdde5/viz.json
-      type: cartodb
-      opacity: 0.4
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/historical-duwamish/style.json
+      source_layer: historical_river_pathgeojson
 
-# The keys show up in the dropdown list when you are adding a new place
+right_sidebar:
+  is_enabled: true
+  is_visible_default: false
+  component: StoryNavigator
 
-# The values map the place type to map icons (defined below).
-place_types:
-
-  mapboxZoomStyle:
-    - condition: 'this.layer.focused === true'
-      icon:
-        iconSize: [50, 50]
-        iconAnchor: [25, 25]
-    - condition: 'this.map.zoom < 16'
-      icon:
-        iconSize: [20, 20]
-        iconAnchor: [10, 10]
-    - condition: 'this.map.zoom >= 16'
-      icon:
-        iconSize: [30, 30]
-        iconAnchor: [15, 15]
-
-  roundZoomStyle:
-    - condition: 'this.layer.focused === true'
-      icon:
-        iconSize: [50, 50]
-        iconAnchor: [25, 25]
-    - condition: 'this.map.zoom < 11'
-      icon:
-        iconSize: [20, 20]
-        iconAnchor: [10, 10]
-    - condition: 'this.map.zoom >= 11'
-      icon:
-        iconSize: [30, 30]
-        iconAnchor: [15, 15]
-
-  teardropZoomStyle:
-    - condition: 'this.layer.focused === true'
-      icon:
-        iconSize: [50, 60]
-        iconAnchor: [25, 25]
-        shadowSize: [50, 60]
-        shadowAnchor: [14, 60]
-
-  mapbox:
-    # Mapbox Points
-    rules:
-    # LineString
-      - condition: "this.geometry.type == 'LineString'"
-        style:
-          color: "this.properties.stroke"
-          opacity: "this.properties['stroke-opacity']"
-          weight: "this.properties['stroke-width']"
-    # Polygons
-      - condition: "this.geometry.type == 'Polygon'"
-        style:
-          shapeType: polygon
-          fillColor: "this.properties.fill"
-          fill: 'true'
-          color: "this.properties.stroke"
-          opacity: 0.7
-          fillOpacity: "this.properties['fill-opacity']"
-          weight: "this.properties['stroke-width']"
-
-  danger:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
-
-  park2:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-heart.png
-
-  industrial:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-industrial.png
-
-  bicycle:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-bike.png
-
-  swimming:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-swimming.png
-
-  theatre:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-art.png
-
-  zoo:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-whale.png
-
-  tree:
-    zoomType: mapboxZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-tree.png
-
-  conserve-water:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-conserve-water.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-conserve-water.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  prevent-stormwater:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-prevent-stormwater-pollution.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  only-flush:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-only-flush-this.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-only-flush-this.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  conserve-energy:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-conserve-energy.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-conserve-energy.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  waste-less:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-waste-less.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-waste-less.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  commute-low-carbon:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-commute-low-carbon.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  eat-local-organic:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-eat-local-organic.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-eat-local-organic.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  restore-salmon-habitat:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-restore-salmon-habitat.png
-          iconSize: [30, 35]
-          iconAnchor: [25, 35]
-
-  star-stroked:
-    zoomType: roundZoomStyle
-    rules:
-      - condition: 'true'
-        icon:
-          iconUrl: /static/css/images/markers/marker-star-maroon.png
-          iconSize: [50, 60]
-          iconAnchor: [25, 60]
-          shadowSize: [50, 60]
-          shadowAnchor: [14, 60]
-
-  featured_place:
-    rules:
-      - condition: 'this.layer.focused === true'
-        icon:
-          iconSize: [50, 50]
-          iconAnchor: [25, 25]
-      - condition: 'this.map.zoom < 15'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction-dot.png
-          iconSize: [10, 10]
-          iconAnchor: [0, 0]
-      - condition: 'this.map.zoom <= 18'
-        icon:
-          iconUrl: /static/css/images/markers/marker-construction.png
-          iconSize: [30, 30]
-          iconAnchor: [15, 15]
-
-
-# Sidebar and activity stream should be enabled and disabled together!
-# note: sidebar is aka 'MasterLegend'
-# TODO: Couple the sidebar and activity stream because the activity stream is a component of the sidebar
-sidebar:
-  enabled: true
-  legend_enabled: true
-  slug: filter-type
-  # Layers are defined in the "map config" section
-  # A panel's icon is a icon's name taken from here:
-  # https://fortawesome.github.io/Font-Awesome/icons/
+left_sidebar:
+  is_enabled: true
+  is_visible_default: false
   panels:
     - id: gis-layers
-      icon: list
-      view: GISLegendView
+      icon: fa-bars
+      component: MapLayerPanel
       title: _(Map Layers:)
-      basemaps:        
-        - id: topo
-          title: _(Topography)
-          visibleDefault: true
-          info: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
-        - id: hillshade
-          title: _(Hillshade)
-          visibleDefault: false
-          info: _(Shaded terrain that pops with clarity. A bold grey color, great for layering)
-        - id: hydrography
-          title: _(Hydrography)
-          visibleDefault: false
-          info: _(Explore our connection through waterways and watch the magic as political boundaries disappear)
-        - id: bath
-          title: _(Bathymetry)
-          visibleDefault: false
-          info: _(The shape and depth of the ocean floor. What does it tell us about the history of this place?)
-        - id: satellite
-          title: _(Satellite View)
-          visibleDefault: false
-          info: _(A bird’s eye view of the world)
-        - id: 1936aerial
-          title: _(1936 Aerial View)
-          visibleDefault: false
-          info: _(Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936.)
-        - id: light-nolabels
-          title: _(Simple Canvas)
-          visibleDefault: false
-        # - id: hydroregions
-        #   title: _(Hydroregions)
-        #   visibleDefault: false
-          info: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
-
       groupings:
+        - id: basemaps
+          title: _(Basemaps)
+          layers:
+            - id: topo
+              title: _(Topography)
+              info: 
+                header: _(Topography)
+                body: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
+            - id: hillshade
+              title: _(Hillshade)
+              info:
+                title: _(Hillshade)
+                body: _(Shaded terrain that pops with clarity. A bold grey color, great for layering)
+            - id: hydrography
+              title: _(Hydrography)
+              info:
+                title: _(Hydrography)
+                body: _(Explore our connection through waterways and watch the magic as political boundaries disappear)
+            - id: bath
+              title: _(Bathymetry)
+              info:
+                title: _(Bathymetry)
+                body: _(The shape and depth of the ocean floor. What does it tell us about the history of this place?)
+            - id: satellite
+              title: _(Satellite View)
+              info:
+                title: _(Satellite View)
+                body: _(A bird’s eye view of the world)
+            - id: 1936aerial
+              title: _(1936 Aerial View)
+              info:
+                title: _(1936 Aerial View)
+                body: _(Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936.)
+            - id: light-nolabels
+              title: _(Simple Canvas)
+              info:
+                title: _(Simple Canvas)
+                body: _(Beautiful colors and shaded elevation, produced by Stamen Designs)
         - id: grp-map-layers
           title: _(Map Layers)
-          visibleDefault: false
           layers:
-
             - id: mwfeatured
               title: _(Featured Sites)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(Featured Sites)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: mw
               title: _(Stewardship Actions)
-              visibleDefault: true
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
-            - id: equity
-              title: _(Equity by Neighborhood)
-              visibleDefault: false
-              info: _(Coming soon!)
-
+              info:
+                title: _(Stewardship Actions)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: watershed-7
               title: _(WRIA 7 Streams)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(WRIA 7 Streams)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: watershed-cedar-sammamish
               title: _(WRIA 8 Streams)
-              visibleDefault: false
-              constituentLayers:
-                - watershed-sammamish
-                - watershed-cedar              
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(WRIA 8 Streams)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: watershed-green
               title: _(WRIA 9 Streams)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(WRIA 9 Streams)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: watershed-puyallup
               title: _(WRIA 10 Streams)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(WRIA 10 Streams)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: wria-7-8-9
               title: _(WRIA Boundaries ALL)
-              visibleDefault: false
-              info: _(WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its ridgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 "Water Resource Inventory Areas" across the state.)
-
+              info:
+                title: _(WRIA Boundaries ALL)
+                body: _(WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its ridgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 "Water Resource Inventory Areas" across the state.)
             - id: sub-basins
               title: _(Sub-Basin Boundaries)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(Sub-Basin Boundaries)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: contour
               title: _(Contour Lines)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(Contour Lines)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: cities
               title: _(City Boundaries)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(City Boundaries)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: landuse
               title: _(Land Use)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(Land Use)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: impervious
               title: _(Impervious Surface Area)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-              
-            # - id: outfalls
-            #   title: _(Outfalls)
-            #   visibleDefault: false
-            #   info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(Impervious Surface Area)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: sewer
               title: _(Sewer lines)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
-            # - id: tree-canopy
-            #   title: _(Tree Canopy)
-            #   visibleDefault: false
-            #   info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(Sewer lines)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: school-boundaries
               title: _(School Districts)
-              visibleDefault: false
-              info: _(This is some information about the school boundaries layer.)
-
+              info:
+                title: _(School Districts)
+                body: _(This is some information about the school boundaries layer.)
             - id: school-sites
               title: _(Schools and Colleges)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
-
-            # - id: college
-            #   title: _(College and Career)
-            #   visibleDefault: false
-            #   info: _(This is an example of an info window. Layer info will be added soon.)
-
+              info:
+                title: _(Schools and Colleges)
+                body: _(This is an example of an info window. Layer info will be added soon.)
             - id: commfood
               title: _(Farmers Markets)
-              visibleDefault: false
-              info: _(This is some information and a legend)
-
-            # - id: life-expectancy
-            #   title: _(Life Expectancy)
-            #   visibleDefault: false
-            #   info: _(This is some information and a legend)
-
-            # - id: openspace
-            #   title: _(Access to Open Space)
-            #   visibleDefault: false
-            #   info: _(This is some information and a legend)
-
-            # - id: healthyfood
-            #   title: _(Access to Healthy Food)
-            #   visibleDefault: false
-            #   info: _(This is some information and a legend)
-
+              info:
+                title: _(Farmers Markets)
+                body: _(This is some information and a legend)
             - id: duwamish-original
               title: _(Historical Duwamish River)
-              visibleDefault: false
-              info: _(This is an example of an info window. Layer info will be added soon.)
+              info:
+                title: _(Historical Duwamish River)
+                body: _(This is an example of an info window. Layer info will be added soon.)
 
     - id: filters
-      title: _(Report Filters)
-      view: FilterMenuView
-      icon: filter
-      active_filters:
-        - category: conserve-water
-          icon_url: /static/css/images/markers/marker-conserve-water.png
-          label: _(Conserve Water)
-        - category: prevent-stormwater
-          icon_url: /static/css/images/markers/marker-prevent-stormwater-pollution.png
-          label: _(Prevent Stormwater Pollution)
-        - category: only-flush
-          icon_url: /static/css/images/markers/marker-only-flush-this.png
-          label: _(Only Flush This)
-        - category: conserve-energy
-          icon_url: /static/css/images/markers/marker-conserve-energy.png
-          label: _(Conserve Energy)
-        - category: waste-less
-          icon_url: /static/css/images/markers/marker-waste-less.png
-          label: _(Waste Less)
-        - category: commute-low-carbon
-          icon_url: /static/css/images/markers/marker-commute-low-carbon.png
-          label: _(Commute Low Carbon)
-        - category: eat-local-organic
-          icon_url: /static/css/images/markers/marker-eat-local-organic.png
-          label: _(Eat Local Organic)
-        - category: restore-salmon-habitat
-          icon_url: /static/css/images/markers/marker-restore-salmon-habitat.png
-          label: _(Restore Salmon Habitat)
+      title: _(Map Filters:)
+      component: MapFilterPanel
+      icon: fa-filter
+      groupings:
+        - id: report-filters
+          title: _(Report Filters)
+          reset_label: _(Reset Report Filters)
+          target_layer: mw
+          filters:
+            - id: conserve-water
+              filter_attribute: location_type
+              filter_value: conserve-water
+              icon: /static/css/images/markers/marker-conserve-water.png
+              label: _(Conserve Water)
+            - id: prevent-stormwater
+              filter_attribute: location_type
+              filter_value: prevent-stormwater
+              icon: /static/css/images/markers/marker-prevent-stormwater-pollution.png
+              label: _(Prevent Stormwater Pollution)
+            - id: only-flush
+              filter_attribute: location_type
+              filter_value: only-flush
+              icon: /static/css/images/markers/marker-only-flush-this.png
+              label: _(Only Flush This)
+            - id: conserve-energy
+              filter_attribute: location_type
+              filter_value: conserve-energy
+              icon: /static/css/images/markers/marker-conserve-energy.png
+              label: _(Conserve Energy)
+            - id: waste-less
+              filter_attribute: location_type
+              filter_value: waste-less
+              icon: /static/css/images/markers/marker-waste-less.png
+              label: _(Waste Less)
+            - id: commute-low-carbon
+              filter_attribute: location_type
+              filter_value: commute-low-carbon
+              icon: /static/css/images/markers/marker-commute-low-carbon.png
+              label: _(Commute Low Carbon)
+            - id: eat-local-organic
+              filter_attribute: location_type
+              filter_value: eat-local-organic
+              icon: /static/css/images/markers/marker-eat-local-organic.png
+              label: _(Eat Local Organic)
+            - id: restore-salmon-habitat
+              filter_attribute: location_type
+              filter_value: restore-salmon-habitat
+              icon: /static/css/images/markers/marker-restore-salmon-habitat.png
+              label: _(Restore Salmon Habitat)
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
   # How often to refresh the activity list, in milliseconds.
   interval: 30000
-
-right_sidebar:
-  show: true
-  visibleDefault: false
-  component: StoryNavigator
 
 filters:
   enabled: true
@@ -2387,15 +2197,6 @@ story:
     default_visible_layers:
       - mwfeatured
     order:
-      # - url: dirtcorps
-      #   zoom: 15
-      #   panTo:
-      #     lat: 47.53420
-      #     lng: -122.32165
-      #   spotlight: false
-      #   visible_layers:
-      #     - dirt-corps
-      #   basemap: terrain
       - url: hamm-creek-restoration
         zoom: 18
         basemap: satellite
@@ -2434,7 +2235,10 @@ story:
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png        
       - url: sammamish
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.631653886906804
+          lng: -122.06291037540797
         basemap: light-nolabels
         visible_layers:
           - wria-7-8-9
@@ -2442,15 +2246,21 @@ story:
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: cedar
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.64123180739975
+          lng: -121.75112573040786
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
-          - watershed-cedar
+          - watershed-cedar-sammamish
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: green-duwamish
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.32023597632835
+          lng: -121.89064979555963
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
@@ -2458,7 +2268,10 @@ story:
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: puyallup-white
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.08293753263453
+          lng: -121.92300796523165
         basemap: hillshade
         visible_layers:
           - wria-7-8-9

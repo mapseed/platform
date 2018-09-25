@@ -109,6 +109,20 @@ Header6.propTypes = {
   classes: PropTypes.string,
 };
 
+// TODO: Other label types.
+const RegularLabel = styled("label")(
+  props => (
+    {
+      color: "#444",
+    },
+    props.styles
+  ),
+);
+
+RegularLabel.propTypes = {
+  styles: PropTypes.object,
+};
+
 const SmallText = styled("span")(props => ({
   fontWeight: "normal",
   fontSize: "0.875em",
@@ -142,4 +156,5 @@ export {
   Header4,
   Header5,
   Header6,
+  RegularLabel,
 };

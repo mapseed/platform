@@ -30,19 +30,15 @@ exports[`InputForm renders input form 1`] = `
         }
       }
       key="someCategorytest1"
-      map={
-        Object {
-          "getCenter": [Function],
-          "off": [Function],
-          "on": [Function],
-        }
-      }
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      onGeometryStyleChange={[Function]}
       places={Object {}}
-      router={Object {}}
+      router={
+        Object {
+          "on": [Function],
+        }
+      }
       showValidityStatus={false}
       t={[Function]}
       updatingField={null}
@@ -68,19 +64,15 @@ exports[`InputForm renders input form 1`] = `
         }
       }
       key="someCategorytest2"
-      map={
-        Object {
-          "getCenter": [Function],
-          "off": [Function],
-          "on": [Function],
-        }
-      }
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      onGeometryStyleChange={[Function]}
       places={Object {}}
-      router={Object {}}
+      router={
+        Object {
+          "on": [Function],
+        }
+      }
       showValidityStatus={false}
       t={[Function]}
       updatingField={null}
@@ -106,19 +98,15 @@ exports[`InputForm renders input form 1`] = `
         }
       }
       key="someCategorytest3"
-      map={
-        Object {
-          "getCenter": [Function],
-          "off": [Function],
-          "on": [Function],
-        }
-      }
       onAddAttachment={[Function]}
       onClickSubmit={[Function]}
       onFieldChange={[Function]}
-      onGeometryStyleChange={[Function]}
       places={Object {}}
-      router={Object {}}
+      router={
+        Object {
+          "on": [Function],
+        }
+      }
       showValidityStatus={false}
       t={[Function]}
       updatingField={null}

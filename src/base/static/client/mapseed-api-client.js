@@ -1,7 +1,9 @@
+import emitter from "../utils/emitter";
+import constants from "../constants";
+
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
-  mapView,
   mapConfig,
 }) => {
   const $progressContainer = $("#map-progress");
@@ -16,8 +18,8 @@ const getPlaceCollections = async ({
 
   // loop over all place collections
   const placeCollectionPromises = [];
-  _.each(placeCollections, function(collection, key) {
-    mapView.map.fire("layer:loading", { id: key });
+  _.each(placeCollections, function(collection, collectionId) {
+    // TODO: layer loading event; fix in layer UI PR
     const placeCollectionPromise = collection.fetchAllPages({
       remove: false,
       // Check for a valid location type before adding it to the collection
@@ -26,10 +28,10 @@ const getPlaceCollections = async ({
       // get the dataset slug and id from the array of map layers
       attributesToAdd: {
         datasetSlug: _.find(mapConfig.layers, function(layer) {
-          return layer.id == key;
+          return layer.id == collectionId;
         }).slug,
         datasetId: _.find(mapConfig.layers, function(layer) {
-          return layer.id == key;
+          return layer.id == collectionId;
         }).id,
       },
       attribute: "properties",
@@ -60,11 +62,12 @@ const getPlaceCollections = async ({
       },
 
       success: function() {
-        mapView.map.fire("layer:loaded", { id: key });
+        emitter.emit(constants.PLACE_COLLECTION_LOADED_EVENT, collectionId);
+        // TODO: layer loading event; fix in layer UI PR
       },
 
       error: function() {
-        mapView.map.fire("layer:error", { id: key });
+        // TODO: layer loading event; fix in layer UI PR
       },
     });
     placeCollectionPromises.push(placeCollectionPromise);

@@ -358,11 +358,10 @@ class PlaceDetail extends Component {
         <div className="place-detail-view__clearfix" />
         {this.state.isEditModeToggled ? (
           <PlaceDetailEditor
+            collectionId={this.props.collectionId}
             placeModel={this.state.placeModel}
             container={this.props.container}
             attachmentModels={this.state.attachmentModels}
-            layerView={this.props.layerView}
-            map={this.props.map}
             onAddAttachment={this.onAddAttachment.bind(this)}
             onAttachmentModelRemove={this.onAttachmentModelRemove.bind(this)}
             onModelIO={this.onChildModelIO.bind(this)}
@@ -399,6 +398,7 @@ class PlaceDetail extends Component {
 }
 
 PlaceDetail.propTypes = {
+  collectionId: PropTypes.string.isRequired,
   container: PropTypes.instanceOf(HTMLElement),
   currentUser: PropTypes.shape({
     avatar_url: PropTypes.string,
@@ -415,8 +415,6 @@ PlaceDetail.propTypes = {
     username: PropTypes.string,
   }),
   isGeocodingBarEnabled: PropTypes.bool,
-  layerView: PropTypes.instanceOf(Backbone.View),
-  map: PropTypes.instanceOf(L.Map),
   model: PropTypes.instanceOf(Backbone.Model),
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),
