@@ -168,7 +168,7 @@ map:
             - - "=="
               - - "get"
                 - "location_type"
-                - "manzanares-partners"
+              - "manzanares-partners"
           symbol-layout:
             icon-size: 1.0
             icon-anchor: "center"
