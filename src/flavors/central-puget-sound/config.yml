@@ -169,7 +169,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-conserve-water.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
         - filter:
           - "all"
           - - "=="
@@ -179,7 +179,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-prevent-stormwater-pollution.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
         - filter:
           - "all"
           - - "=="
@@ -189,7 +189,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-only-flush-this.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
         - filter:
           - "all"
           - - "=="
@@ -199,7 +199,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-conserve-energy.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
         - filter:
           - "all"
           - - "=="
@@ -209,7 +209,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-waste-less.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
         - filter:
           - "all"
           - - "=="
@@ -219,7 +219,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-commute-low-carbon.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
         - filter:
           - "all"
           - - "=="
@@ -229,7 +229,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-eat-local-organic.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
         - filter:
           - "all"
           - - "=="
@@ -239,7 +239,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-restore-salmon-habitat.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
 
       rules:
         # conserve-water location_type
@@ -252,7 +252,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-conserve-water.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
         # prevent-stormwater location_type
         - filter:
           - "all"
@@ -263,7 +263,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-prevent-stormwater-pollution.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
         # only-flush location_type
         - filter:
           - "all"
@@ -274,7 +274,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-only-flush-this.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
         # conserve-energy location_type
         - filter:
           - "all"
@@ -285,7 +285,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-conserve-energy.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
         # waste-less location_type
         - filter:
           - "all"
@@ -296,7 +296,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-waste-less.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
         # commute-low-carbon location_type
         - filter:
           - "all"
@@ -307,7 +307,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-commute-low-carbon.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
         # eat-local-organic location_type
         - filter:
           - "all"
@@ -318,7 +318,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-eat-local-organic.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
         # restore-salmon-habitat location_type
         - filter:
           - "all"
@@ -329,7 +329,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-restore-salmon-habitat.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
 
     - id: mwfeatured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured
@@ -345,7 +345,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-conserve-water.png
             icon-size: 0.5
-            icon-anchor: bottom
+            icon-anchor: center
 
       rules:
         # featured_place location_type
@@ -358,7 +358,7 @@ map:
           symbol-layout:
             icon-image: marker-dot-conserve-water.png
             icon-size: 0.15
-            icon-anchor: bottom
+            icon-anchor: center
 
     - id: school-boundaries
       type: vector-tile
