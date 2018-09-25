@@ -162,7 +162,7 @@ map:
             icon-anchor: "center"
 
       rules:
-        # "williams-partners" location_type
+        # "manzanares-partners" location_type
         - filter:
             - "all"
             - - "=="
