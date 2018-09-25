@@ -138,7 +138,7 @@ map:
                 - "location_type"
               - "featured_place"
           symbol-layout:
-            icon-size: 1.2
+            icon-size: 0.5
             icon-anchor: "bottom"
 
       rules:
@@ -149,9 +149,9 @@ map:
               - - "get"
                 - "location_type"
               - "featured_place"
-            - - "<"
-              - - "zoom"
-              - 11
+          symbol-layout:
+            icon-size: 0.3
+            icon-anchor: "bottom"
 
     - id: boundary
       type: vector-tile
