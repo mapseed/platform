@@ -20,7 +20,12 @@ import config from "config";
 import { setMapConfig } from "../../state/ducks/map-config";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
-import { setLeftSidebarConfig } from "../../state/ducks/left-sidebar-config";
+import {
+  isLeftSidebarExpandedSelector,
+  setLeftSidebarConfig,
+  setLeftSidebarComponent,
+  setLeftSidebarExpanded,
+} from "../../state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../../state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../state/ducks/app-config";
 import {
@@ -31,10 +36,6 @@ import {
   setLayerStatus,
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
-import {
-  setLeftSidebar,
-  leftSidebarExpandedSelector,
-} from "../../state/ducks/ui";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -284,13 +285,22 @@ export default Backbone.View.extend({
     // the geocoded location.
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    emitter.addListener("geocode", locationData => {});
+    emitter.addListener("geocode", locationData => {
+      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+        coordinates: locationData.latLng,
+        // TODO: Make this configurable?
+        zoom: 16,
+      });
+    });
     // END REACT PORT SECTION //////////////////////////////////////////////////
 
     // REACT PORT SECTION //////////////////////////////////////////////////////
     emitter.addListener("nav-layer-btn:toggle", () => {
+      store.dispatch(setLeftSidebarComponent("MapLayerPanel"));
       store.dispatch(
-        setLeftSidebar(!leftSidebarExpandedSelector(store.getState())),
+        setLeftSidebarExpanded(
+          !isLeftSidebarExpandedSelector(store.getState()),
+        ),
       );
     });
     // END REACT PORT SECTION //////////////////////////////////////////////////
@@ -509,7 +519,7 @@ export default Backbone.View.extend({
   setLocationRoute: function(zoom, lat, lng) {
     this.options.router.navigate(
       "/" +
-        zoom +
+        parseFloat(zoom).toFixed(2) +
         "/" +
         parseFloat(lat).toFixed(5) +
         "/" +
@@ -518,22 +528,15 @@ export default Backbone.View.extend({
   },
 
   viewMap: function(zoom, lat, lng) {
-    var self = this,
-      ll;
-
-    // TODO
-    // If the map locatin is part of the url already
-    //if (zoom && lat && lng) {
-    //  ll = L.latLng(parseFloat(lat), parseFloat(lng));
-
-    //  // Why defer? Good question. There is a mysterious race condition in
-    //  // some cases where the view fails to set and the user is left in map
-    //  // limbo. This condition is seemingly eliminated by defering the
-    //  // execution of this step.
-    //  _.defer(function() {
-    //    self.mapView.map.setView(ll, parseInt(zoom, 10));
-    //  });
-    //}
+    if (zoom && lat && lng) {
+      emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+        coordinates: {
+          lat: lat,
+          lng: lng,
+        },
+        zoom: zoom,
+      });
+    }
 
     this.hidePanel();
     this.hideNewPin();
@@ -680,7 +683,6 @@ export default Backbone.View.extend({
     function onFound(model, type, collectionId) {
       if (type === "place") {
         // REACT PORT SECTION //////////////////////////////////////////////////
-        this.unfocusAllPlaces();
         ReactDOM.unmountComponentAtNode(
           document.querySelector("#content article"),
         );
@@ -767,7 +769,7 @@ export default Backbone.View.extend({
       } else if (geometry.type === "Point") {
         emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
           coordinates: geometry.coordinates,
-          zoom: mapPositionSelector(store.getState()).zoom,
+          zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
         });
       }
 
@@ -807,8 +809,6 @@ export default Backbone.View.extend({
   },
 
   showPanel: function(markup, preventScrollToTop) {
-    this.unfocusAllPlaces();
-
     // REACT PORT SECTION //////////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
     // END REACT PORT SECTION //////////////////////////////////////////////////
@@ -862,8 +862,6 @@ export default Backbone.View.extend({
     this.$centerpoint.hide();
   },
   hidePanel: function() {
-    this.unfocusAllPlaces();
-
     // REACT PORT SECTION //////////////////////////////////////////////////////
     ReactDOM.unmountComponentAtNode(document.querySelector("#content article"));
     // END REACT PORT SECTION //////////////////////////////////////////////////
@@ -887,16 +885,6 @@ export default Backbone.View.extend({
   },
   hideSpotlightMask: function() {
     $("#spotlight-mask").hide();
-  },
-  unfocusAllPlaces: function() {
-    // Unfocus all of the place markers
-    _.each(this.places, function(collection) {
-      collection.each(function(model) {
-        if (!model.isNew()) {
-          model.trigger("unfocus");
-        }
-      });
-    });
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {

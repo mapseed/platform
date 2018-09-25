@@ -25,7 +25,11 @@ import {
   mapUpdatingFilterGroupIdSelector,
   mapUpdatingFilterTargetLayerSelector,
 } from "../../state/ducks/map";
-import { leftSidebarConfigSelector } from "../../state/ducks/left-sidebar-config.js";
+import {
+  leftSidebarConfigSelector,
+  setLeftSidebarExpanded,
+  setLeftSidebarComponent,
+} from "../../state/ducks/left-sidebar.js";
 import {
   activeDrawGeometryIdSelector,
   activeMarkerSelector,
@@ -105,7 +109,8 @@ class MainMap extends Component {
     this._map.addCustomControls({
       panels: props.leftSidebarConfig.panels,
       position: "top-left",
-      setLeftSidebar: props.setLeftSidebar,
+      setLeftSidebarExpanded: props.setLeftSidebarExpanded,
+      setLeftSidebarComponent: props.setLeftSidebarComponent,
     });
   }
 
@@ -244,22 +249,25 @@ class MainMap extends Component {
       collectionId => {
         this._map.updateLayerData(
           collectionId,
-          createGeoJSONFromCollection({
-            collection: this.props.places[collectionId],
-          }),
+          createGeoJSONFromCollection(this.props.places[collectionId]),
         );
       },
     );
     emitter.addListener(
       constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
       ({ collectionId, modelId }) => {
-        this._map.updateLayerData(
-          collectionId,
-          createGeoJSONFromCollection({
-            collection: this.props.places[collectionId],
-            modelIdToFocus: modelId,
-          }),
+        // To focus a feature in a layer, we first remove it from the origin layer
+        // above, then add it to a separate focused layer. That way we can control
+        // the focused layer independently of the source layer and ensure focused
+        // features always render above all other features.
+        // TODO: Support multiple focused features simultaneously.
+        const focusedFeatures = createGeoJSONFromCollection(
+          this.props.places[collectionId].filter(
+            model => model.get(constants.MODEL_ID_PROPERTY_NAME) === modelId,
+          ),
         );
+
+        this._map.focusPlaceLayerFeatures(collectionId, focusedFeatures);
       },
     );
     emitter.addListener(
@@ -267,10 +275,11 @@ class MainMap extends Component {
       ({ collectionId, modelId }) => {
         this._map.updateLayerData(
           collectionId,
-          createGeoJSONFromCollection({
-            collection: this.props.places[collectionId],
-            modelIdToHide: modelId,
-          }),
+          createGeoJSONFromCollection(
+            this.props.places[collectionId].filter(
+              model => model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId,
+            ),
+          ),
         );
       },
     );
@@ -281,10 +290,9 @@ class MainMap extends Component {
           this.props.layerStatuses[collectionId].isVisible &&
             this._map.updateLayerData(
               collectionId,
-              createGeoJSONFromCollection({
-                collection: this.props.places[collectionId],
-              }),
+              createGeoJSONFromCollection(this.props.places[collectionId]),
             );
+          this._map.unfocusAllPlaceLayerFeatures(collectionId);
         });
       },
     );
@@ -384,9 +392,8 @@ class MainMap extends Component {
 
   async addLayer(layer, isBasemap = false) {
     if (layer.type === "place") {
-      layer.source = createGeoJSONFromCollection({
-        collection: this.props.places[layer.id],
-      });
+      layer.source = createGeoJSONFromCollection(this.props.places[layer.id]);
+
       this._map.addLayer({
         layer: layer,
         isBasemap: isBasemap,
@@ -513,7 +520,8 @@ MainMap.propTypes = {
   setActiveDrawGeometryId: PropTypes.func.isRequired,
   setBasemap: PropTypes.func.isRequired,
   setLayerStatus: PropTypes.func.isRequired,
-  setLeftSidebar: PropTypes.func.isRequired,
+  setLeftSidebarComponent: PropTypes.func.isRequired,
+  setLeftSidebarExpanded: PropTypes.func.isRequired,
   setMapPosition: PropTypes.func.isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
@@ -541,7 +549,10 @@ const mapDispatchToProps = dispatch => ({
   setMapPosition: mapPosition => dispatch(setMapPosition(mapPosition)),
   setMapSizeValidity: isMapSizeValid =>
     dispatch(setMapSizeValidity(isMapSizeValid)),
-  setLeftSidebar: isExpanded => dispatch(setLeftSidebar(isExpanded)),
+  setLeftSidebarComponent: componentName =>
+    dispatch(setLeftSidebarComponent(componentName)),
+  setLeftSidebarExpanded: isExpanded =>
+    dispatch(setLeftSidebarExpanded(isExpanded)),
   setLayerStatus: (layerId, layerStatus) =>
     dispatch(setLayerStatus(layerId, layerStatus)),
   setBasemap: (layerId, layerStatus) =>

@@ -75,7 +75,6 @@ MapLayerSelector.propTypes = {
 };
 
 MapLayerSelector.defaultProps = {
-  icon: "fa-map-marker",
   info: {},
   type: "layer",
 };

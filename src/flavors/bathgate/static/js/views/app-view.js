@@ -20,7 +20,7 @@ import config from "config";
 import { setMapConfig } from "../../../../../base/static/state/ducks/map-config";
 import { setPlaceConfig } from "../../../../../base/static/state/ducks/place-config";
 import { setStoryConfig } from "../../../../../base/static/state/ducks/story-config";
-import { setLeftSidebarConfig } from "../../../../../base/static/state/ducks/left-sidebar-config";
+import { setLeftSidebarConfig } from "../../../../../base/static/state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../../../../../base/static/state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../../../../base/static/state/ducks/app-config";
 

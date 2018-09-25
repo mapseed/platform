@@ -83,19 +83,13 @@ map:
       is_visible_default: true
       type: place
       slug: report
-      rules:
-        # "complaint" location_type
+      focus_rules:
         - filter:
             - "all"
             - - "=="
               - - "get"
                 - "location_type"
               - "complaint"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
           symbol-layout:
             icon-image: "marker-complaint.png"
             icon-size: 1.2
@@ -105,15 +99,43 @@ map:
             - - "=="
               - - "get"
                 - "location_type"
+              - "question"
+          symbol-layout:
+            icon-image: "marker-question.png"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "idea"
+          symbol-layout:
+            icon-image: "marker-idea.png"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "observation"
+          symbol-layout:
+            icon-image: "marker-observation.png"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+
+      rules:
+        # "complaint" location_type
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
               - "complaint"
             - - "<"
               - - "zoom"
               - 11
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-complaint.png"
             icon-size: 0.5
@@ -130,11 +152,6 @@ map:
             - - "<"
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-complaint.png"
             icon-size: 0.75
@@ -148,11 +165,6 @@ map:
             - - ">="
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-complaint.png"
             icon-size: 0.9
@@ -165,29 +177,9 @@ map:
               - - "get"
                 - "location_type"
               - "question"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
-          symbol-layout:
-            icon-image: "marker-question.png"
-            icon-size: 1.2
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "question"
             - - "<"
               - - "zoom"
               - 11
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-question.png"
             icon-size: 0.5
@@ -204,11 +196,6 @@ map:
             - - "<"
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-question.png"
             icon-size: 0.75
@@ -222,11 +209,6 @@ map:
             - - ">="
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-question.png"
             icon-size: 0.9
@@ -239,29 +221,9 @@ map:
               - - "get"
                 - "location_type"
               - "idea"
-            - -  "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
-          symbol-layout:
-            icon-image: "marker-idea.png"
-            icon-size: 1.2
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "idea"
             - - "<"
               - - "zoom"
               - 11
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-idea.png"
             icon-size: 0.5
@@ -278,11 +240,6 @@ map:
             - - "<"
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-idea.png"
             icon-size: 0.75
@@ -296,11 +253,6 @@ map:
             - - ">="
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-idea.png"
             icon-size: 0.9
@@ -313,29 +265,9 @@ map:
               - - "get"
                 - "location_type"
               - "observation"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
-          symbol-layout:
-            icon-image: "marker-observation.png"
-            icon-size: 1.2
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "observation"
             - - "<"
               - - "zoom"
               - 11
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-observation.png"
             icon-size: 0.5
@@ -352,11 +284,6 @@ map:
             - - "<"
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-observation.png"
             icon-size: 0.75
@@ -370,11 +297,6 @@ map:
             - - ">="
               - - "zoom"
               - 14
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-observation.png"
             icon-size: 0.9
@@ -407,7 +329,7 @@ left_sidebar:
   is_visivble_default: false
   panels:
     - id: gis-layers
-      icon: fa-list
+      icon: fa-bars
       component: MapLayerPanel
       title: _(Map Layers:)
       groupings:

@@ -159,6 +159,88 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw
       type: place
       slug: report
+      focus_rules:
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "conserve-water"
+          symbol-layout:
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "prevent-stormwater"
+          symbol-layout:
+            icon-image: marker-dot-prevent-stormwater-pollution.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "only-flush"
+          symbol-layout:
+            icon-image: marker-dot-only-flush-this.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "conserve-energy"
+          symbol-layout:
+            icon-image: marker-dot-conserve-energy.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "waste-less"
+          symbol-layout:
+            icon-image: marker-dot-waste-less.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "commute-low-carbon"
+          symbol-layout:
+            icon-image: marker-dot-commute-low-carbon.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "eat-local-organic"
+          symbol-layout:
+            icon-image: marker-dot-eat-local-organic.png
+            icon-size: 0.5
+            icon-anchor: bottom
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "restore-salmon-habitat"
+          symbol-layout:
+            icon-image: marker-dot-restore-salmon-habitat.png
+            icon-size: 0.5
+            icon-anchor: bottom
+
       rules:
         # conserve-water location_type
         - filter:
@@ -167,29 +249,9 @@ map:
             - - "get"
               - "location_type"
             - "conserve-water"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-conserve-water.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-water"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-conserve-water.png
-            icon-size: 0.3
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
             icon-anchor: bottom
         # prevent-stormwater location_type
         - filter:
@@ -198,29 +260,9 @@ map:
             - - "get"
               - "location_type"
             - "prevent-stormwater"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-prevent-stormwater-pollution.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "prevent-stormwater"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-prevent-stormwater-pollution.png
-            icon-size: 0.3
+            icon-image: marker-dot-prevent-stormwater-pollution.png
+            icon-size: 0.15
             icon-anchor: bottom
         # only-flush location_type
         - filter:
@@ -229,29 +271,9 @@ map:
             - - "get"
               - "location_type"
             - "only-flush"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-only-flush-this.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "only-flush"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-only-flush-this.png
-            icon-size: 0.3
+            icon-image: marker-dot-only-flush-this.png
+            icon-size: 0.15
             icon-anchor: bottom
         # conserve-energy location_type
         - filter:
@@ -260,29 +282,9 @@ map:
             - - "get"
               - "location_type"
             - "conserve-energy"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-conserve-energy.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-energy"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-conserve-energy.png
-            icon-size: 0.3
+            icon-image: marker-dot-conserve-energy.png
+            icon-size: 0.15
             icon-anchor: bottom
         # waste-less location_type
         - filter:
@@ -291,29 +293,9 @@ map:
             - - "get"
               - "location_type"
             - "waste-less"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-waste-less.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "waste-less"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-waste-less.png
-            icon-size: 0.3
+            icon-image: marker-dot-waste-less.png
+            icon-size: 0.15
             icon-anchor: bottom
         # commute-low-carbon location_type
         - filter:
@@ -322,29 +304,9 @@ map:
             - - "get"
               - "location_type"
             - "commute-low-carbon"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-commute-low-carbon.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "commute-low-carbon"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-commute-low-carbon.png
-            icon-size: 0.3
+            icon-image: marker-dot-commute-low-carbon.png
+            icon-size: 0.15
             icon-anchor: bottom
         # eat-local-organic location_type
         - filter:
@@ -353,29 +315,9 @@ map:
             - - "get"
               - "location_type"
             - "eat-local-organic"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-eat-local-organic.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "eat-local-organic"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-eat-local-organic.png
-            icon-size: 0.3
+            icon-image: marker-dot-eat-local-organic.png
+            icon-size: 0.15
             icon-anchor: bottom
         # restore-salmon-habitat location_type
         - filter:
@@ -384,35 +326,27 @@ map:
             - - "get"
               - "location_type"
             - "restore-salmon-habitat"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-restore-salmon-habitat.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "restore-salmon-habitat"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-restore-salmon-habitat.png
-            icon-size: 0.3
+            icon-image: marker-dot-restore-salmon-habitat.png
+            icon-size: 0.15
             icon-anchor: bottom
 
     - id: mwfeatured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured
       type: place
       slug: featured
+      focus_rules:
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_place"
+          symbol-layout:
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.5
+            icon-anchor: bottom
+
       rules:
         # featured_place location_type
         - filter:
@@ -421,29 +355,9 @@ map:
             - - "get"
               - "location_type"
             - "featured_place"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
-            icon-image: marker-conserve-water.png
-            icon-size: 0.5
-            icon-anchor: bottom
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "featured_place"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
-          symbol-layout:
-            icon-image: marker-conserve-water.png
-            icon-size: 0.3
+            icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
             icon-anchor: bottom
 
     - id: school-boundaries
@@ -466,11 +380,6 @@ map:
       url: https://vector-tiles.mapseed.org/wria-7/{z}/{x}/{y}.pbf
       style_url: https://vector-tiles.mapseed.org/wria-7/style.json
       source_layer: wria-7
-    - id: watershed-cedar
-      type: vector-tile
-      url: https://vector-tiles.mapseed.org/watershed-cedar/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/watershed-cedar/style.json
-      source_layer: watershed-cedar
     - id: watershed-cedar-sammamish
       type: vector-tile
       url: https://vector-tiles.mapseed.org/watershed-cedar-sammamish/{z}/{x}/{y}.pbf
@@ -2288,15 +2197,6 @@ story:
     default_visible_layers:
       - mwfeatured
     order:
-      # - url: dirtcorps
-      #   zoom: 15
-      #   panTo:
-      #     lat: 47.53420
-      #     lng: -122.32165
-      #   spotlight: false
-      #   visible_layers:
-      #     - dirt-corps
-      #   basemap: terrain
       - url: hamm-creek-restoration
         zoom: 18
         basemap: satellite
@@ -2335,7 +2235,10 @@ story:
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png        
       - url: sammamish
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.631653886906804
+          lng: -122.06291037540797
         basemap: light-nolabels
         visible_layers:
           - wria-7-8-9
@@ -2343,15 +2246,21 @@ story:
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: cedar
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.64123180739975
+          lng: -121.75112573040786
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
-          - watershed-cedar
+          - watershed-cedar-sammamish
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: green-duwamish
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.32023597632835
+          lng: -121.89064979555963
         basemap: hillshade
         visible_layers:
           - wria-7-8-9
@@ -2359,7 +2268,10 @@ story:
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
       - url: puyallup-white
-        zoom: 10
+        zoom: 8
+        pan_to:
+          lat: 47.08293753263453
+          lng: -121.92300796523165
         basemap: hillshade
         visible_layers:
           - wria-7-8-9

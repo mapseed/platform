@@ -12,8 +12,15 @@ mapboxgl.accessToken = MAP_PROVIDER_TOKEN;
 
 // https://www.mapbox.com/mapbox-gl-js/api#icontrol
 class CustomControl {
-  constructor({ setLeftSidebar, ariaLabel, iconClass, component }) {
-    this._setLeftSidebar = setLeftSidebar;
+  constructor({
+    setLeftSidebarExpanded,
+    setLeftSidebarComponent,
+    ariaLabel,
+    iconClass,
+    component,
+  }) {
+    this._setLeftSidebarComponent = setLeftSidebarComponent;
+    this._setLeftSidebarExpanded = setLeftSidebarExpanded;
     this._ariaLabel = ariaLabel;
     this._iconClass = iconClass;
     this._component = component;
@@ -30,10 +37,8 @@ class CustomControl {
     this._button.setAttribute("type", "button");
     this._button.setAttribute("aria-label", this._ariaLabel);
     this._button.addEventListener("click", () => {
-      this._setLeftSidebar({
-        isExpanded: true,
-        component: this._component,
-      });
+      this._setLeftSidebarComponent(this._component);
+      this._setLeftSidebarExpanded(true);
     });
 
     return this._container;
@@ -275,6 +280,12 @@ const configRuleToFillLayer = (layerConfig, i) => {
 
 const DEFAULT_STYLE_NAME = "Mapseed default style";
 const CLUSTER_LAYER_IDENTIFIER = "__mapseed-clusters__";
+const FOCUSED_SOURCE_IDENTIFIER = "__mapseed-focused-source__";
+const FOCUSED_LAYER_IDENTIFIER = "__mapseed-focused-layer__";
+const EMPTY_GEOJSON = {
+  type: "FeatureCollection",
+  features: [],
+};
 
 /**
  * @typedef {Object } MapboxStyle - Defines the visual appearance of the map
@@ -296,6 +307,8 @@ export default (container, options) => {
   options.map.container = container;
   options.map.style = defaultStyle;
 
+  const map = new mapboxgl.Map(options.map);
+
   /**
    * @typedef {Object<string, MapboxLayer[]>} LayersCache - Mapping of layer id's to an array of the mapboxGL layer representations:
    *
@@ -303,7 +316,12 @@ export default (container, options) => {
    *
    */
   const layersCache = {};
-  const sourcesCache = {};
+  const sourcesCache = {
+    [FOCUSED_SOURCE_IDENTIFIER]: {
+      type: "geojson",
+      data: EMPTY_GEOJSON,
+    },
+  };
   let topmostLayerId;
 
   const floatSymbolLayersToTop = () => {
@@ -506,7 +524,8 @@ export default (container, options) => {
     id,
     source,
     cluster = {},
-    rules,
+    rules = [],
+    focus_rules = [],
     popup_content,
   }) => {
     sourcesCache[id] = {
@@ -516,11 +535,22 @@ export default (container, options) => {
       clusterRadius: cluster.cluster_radius || 50,
       clusterMaxZoom: cluster.cluster_max_zoom || 14,
     };
+
     map.addSource(id, sourcesCache[id]);
+    !map.getSource(FOCUSED_SOURCE_IDENTIFIER) &&
+      map.addSource(
+        FOCUSED_SOURCE_IDENTIFIER,
+        sourcesCache[FOCUSED_SOURCE_IDENTIFIER],
+      );
 
     rules = rules.map(rule => ({
       baseLayerId: id,
       source: id,
+      ...rule,
+    }));
+    focus_rules = focus_rules.map(rule => ({
+      baseLayerId: `${id}${FOCUSED_LAYER_IDENTIFIER}`,
+      source: FOCUSED_SOURCE_IDENTIFIER,
       ...rule,
     }));
 
@@ -532,6 +562,13 @@ export default (container, options) => {
       .concat(rules.map(configRuleToLineLayer))
       .concat(
         rules
+          .map(configRuleToFillLayer)
+          .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+      )
+      .concat(focus_rules.map(configRuleToSymbolLayer))
+      .concat(focus_rules.map(configRuleToLineLayer))
+      .concat(
+        focus_rules
           .map(configRuleToFillLayer)
           .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
       );
@@ -585,7 +622,6 @@ export default (container, options) => {
     });
   };
 
-  const map = new mapboxgl.Map(options.map);
   const draw = new MapboxDraw({
     displayControlsDefault: false,
     userProperties: true,
@@ -901,11 +937,17 @@ export default (container, options) => {
       map.addControl(control, position);
     },
 
-    addCustomControls: ({ panels, setLeftSidebar, position }) => {
+    addCustomControls: ({
+      panels,
+      setLeftSidebarExpanded,
+      setLeftSidebarComponent,
+      position,
+    }) => {
       panels.forEach(panel => {
         map.addControl(
           new CustomControl({
-            setLeftSidebar: setLeftSidebar,
+            setLeftSidebarExpanded: setLeftSidebarExpanded,
+            setLeftSidebarComponent: setLeftSidebarComponent,
             ariaLabel: panel.ariaLabel,
             iconClass: panel.icon,
             component: panel.component,
@@ -1103,6 +1145,17 @@ export default (container, options) => {
 
     updateLayerData: (sourceId, newData) => {
       map.getSource(sourceId) && map.getSource(sourceId).setData(newData);
+    },
+
+    // TODO: Support multiple focus features at once.
+    focusPlaceLayerFeatures: (sourceId, placeLayerFeatures) => {
+      map.getSource(FOCUSED_SOURCE_IDENTIFIER) &&
+        map.getSource(FOCUSED_SOURCE_IDENTIFIER).setData(placeLayerFeatures);
+    },
+
+    unfocusAllPlaceLayerFeatures: sourceId => {
+      map.getSource(FOCUSED_SOURCE_IDENTIFIER) &&
+        map.getSource(FOCUSED_SOURCE_IDENTIFIER).setData(EMPTY_GEOJSON);
     },
 
     setMaxZoom: zoom => {

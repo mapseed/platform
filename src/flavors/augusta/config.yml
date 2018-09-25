@@ -80,23 +80,20 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-input
       type: place
       slug: report
-      rules:
-        # "community_input" location_type
+      focus_rules:
         - filter:
             - "all"
             - - "=="
               - - "get"
                 - "location_type"
               - "community_input"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
           symbol-layout:
             icon-image: "marker-observation.png"
             icon-size: 1.2
             icon-anchor: "bottom"
+
+      rules:
+        # "community_input" location_type
         - filter:
             - "all"
             - - "=="
@@ -106,11 +103,6 @@ map:
             - - "<"
               - - "zoom"
               - 11
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-observation.png"
             icon-size: 0.5
@@ -127,11 +119,6 @@ map:
             - - "<"
               - - "zoom"
               - 16
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-observation.png"
             icon-size: 0.7
@@ -145,11 +132,6 @@ map:
             - - ">="
               - - "zoom"
               - 16
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "marker-observation.png"
             icon-size: 1.0
@@ -168,6 +150,17 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/augusta-partners
       type: place
       slug: partners
+      focus_rules:
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "augusta-partners"
+          symbol-layout:
+            icon-size: 1.2
+            icon-anchor: "center"
+
       rules:
         # "augusta-partners" location_type
         - filter:
@@ -175,26 +168,7 @@ map:
             - - "=="
               - - "get"
                 - "location_type"
-              - "augusta-partners"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
-          symbol-layout:
-            icon-size: 1.2
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
                 - "augusta-partners"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-size: 1.0
             icon-anchor: "center"
@@ -228,7 +202,7 @@ left_sidebar:
   is_visible_default: false
   panels:
     - id: gis-layers
-      icon: fa-list
+      icon: fa-bars
       component: MapLayerPanel
       title: _(Map Layers)
       groupings:

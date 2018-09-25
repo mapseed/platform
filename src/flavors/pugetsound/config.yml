@@ -84,22 +84,19 @@ map:
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pugetsound
       type: place
       slug: report
-      rules:
+      focus_rules:
         - filter:
           - "all"
           - - "=="
             - - "get"
               - "location_type"
             - "pollution"
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - true
           symbol-layout:
             icon-image: marker-observation.png
             icon-size: 1.1
             icon-anchor: "bottom"
+
+      rules:
         - filter:
           - "all"
           - - "=="
@@ -109,11 +106,6 @@ map:
           - - "<"
             - - "zoom"
             - 11
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
           symbol-layout:
             icon-image: dot-0d85e9.png
             icon-size: 0.8
@@ -130,11 +122,6 @@ map:
           - - "<"
             - - "zoom"
             - 16
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
           symbol-layout:
             icon-image: marker-observation.png
             icon-size: 0.8
@@ -148,11 +135,6 @@ map:
           - - ">="
             - - "zoom"
             - 16
-          - - "=="
-            - - "get"
-              - "isFocused"
-            - - "to-boolean"
-              - false
           symbol-layout:
             icon-image: marker-observation.png
             icon-size: 1.0
@@ -513,7 +495,7 @@ left_sidebar:
   is_visible_default: false
   panels:
     - id: gis-layers
-      icon: fa-list
+      icon: fa-bars
       component: MapLayerPanel
       title: _(Map Layers:)
       basemaps:

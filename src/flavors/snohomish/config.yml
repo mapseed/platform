@@ -100,6 +100,18 @@ map:
       type: place
       slug: report
       is_visible_default: true
+      focus_rules:
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "conservation-actions"
+          symbol-layout:
+            icon-image: "map-pin-marker.png"
+            icon-size: 1.2
+            icon-anchor: "bottom"
+
       rules:
         # "conservation-actions" location_type
         - filter:
@@ -108,26 +120,6 @@ map:
               - - "get"
                 - "location_type"
               - "conservation-actions"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
-          symbol-layout:
-            icon-image: "map-pin-marker.png"
-            icon-size: 1.2
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "conservation-actions"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
           symbol-layout:
             icon-image: "map-pin-marker.png"
             icon-size: 0.5
@@ -138,22 +130,19 @@ map:
       type: place
       slug: report
       is_visible_default: true
-      rules:
-        # "featured_place" location_type
+      focus_rules:
         - filter:
             - "all"
             - - "=="
               - - "get"
                 - "location_type"
               - "featured_place"
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - true
           symbol-layout:
             icon-size: 1.2
             icon-anchor: "bottom"
+
+      rules:
+        # "featured_place" location_type
         - filter:
             - "all"
             - - "=="
@@ -163,11 +152,6 @@ map:
             - - "<"
               - - "zoom"
               - 11
-            - - "=="
-              - - "get"
-                - "isFocused"
-              - - "to-boolean"
-                - false
 
     - id: boundary
       type: vector-tile
@@ -201,7 +185,7 @@ left_sidebar:
   is_visible_default: false
   panels:
     - id: gis-layers
-      icon: fa-list
+      icon: fa-bars
       component: MapLayerPanel
       title: _(Map Layers:)
       groupings:
