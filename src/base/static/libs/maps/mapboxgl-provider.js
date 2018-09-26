@@ -910,26 +910,28 @@ export default (container, options) => {
       map.on(event, layerId, callback);
     },
 
-    bindPlaceLayerEvent: (eventName, layerId, callback) => {
-      layersCache[layerId].forEach(mapProviderLayer => {
-        let targetLayer = null;
-        !mapProviderLayer.id.includes(CLUSTER_LAYER_IDENTIFIER) &&
-          map.on(eventName, mapProviderLayer.id, evt => {
-            if (eventName === "click") {
-              // For click events, we query rendered features here to obtain a
-              // single array of layers below the clicked-on point. The first
-              // entry in this array corresponds to the topmost rendered feature.
-              // We skip this work for other events (like mouseenter), since we
-              // don't make use of information about the layer under the cursor
-              // in those cases.
-              targetLayer = map.queryRenderedFeatures([
-                evt.point.x,
-                evt.point.y,
-              ])[0];
-            }
+    bindPlaceLayerEvents: (eventNames, layerId, callback) => {
+      eventNames.forEach(eventName => {
+        layersCache[layerId].forEach(mapProviderLayer => {
+          let targetLayer = null;
+          !mapProviderLayer.id.includes(CLUSTER_LAYER_IDENTIFIER) &&
+            map.on(eventName, mapProviderLayer.id, evt => {
+              if (eventName === "click" || eventName === "touchstart") {
+                // For click and touchstart events, we query rendered features
+                // here to obtain a single array of layers below the clicked-on
+                // point. The first entry in this array corresponds to the
+                // topmost rendered feature. We skip this work for other events
+                // (like mouseenter), since we don't make use of information
+                // about the layer under the cursor in those cases.
+                targetLayer = map.queryRenderedFeatures([
+                  evt.point.x,
+                  evt.point.y,
+                ])[0];
+              }
 
-            callback(targetLayer);
-          });
+              callback(targetLayer);
+            });
+        });
       });
     },
 
@@ -1179,7 +1181,11 @@ export default (container, options) => {
     },
 
     easeTo: options => {
-      map.easeTo(options);
+      // NOTE: We use jumpTo here because easeTo works inconsistently on mobile
+      // devices.
+      // TODO: Investigate this further.
+      // See: https://github.com/jalMogo/mgmt/issues/85
+      map.jumpTo(options);
     },
 
     jumpTo: options => {

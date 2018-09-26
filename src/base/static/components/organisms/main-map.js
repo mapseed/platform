@@ -402,27 +402,32 @@ class MainMap extends Component {
       });
 
       // Bind map interaction events for this place layer.
-      this._map.bindPlaceLayerEvent("click", layer.id, clickedOnLayer => {
-        if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
-          this.props.router.navigate(
-            `/${clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]}`,
-            {
-              trigger: true,
-            },
-          );
-        } else {
-          this.props.router.navigate(
-            `/${
-              clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
-            }/${clickedOnLayer.properties.id}`,
-            { trigger: true },
-          );
-        }
-      });
-      this._map.bindPlaceLayerEvent("mouseenter", layer.id, () => {
+      this._map.bindPlaceLayerEvents(
+        layer.id,
+        clickedOnLayer => {
+          if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
+            this.props.router.navigate(
+              `/${
+                clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]
+              }`,
+              {
+                trigger: true,
+              },
+            );
+          } else {
+            this.props.router.navigate(
+              `/${
+                clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
+              }/${clickedOnLayer.properties.id}`,
+              { trigger: true },
+            );
+          }
+        },
+      );
+      this._map.bindPlaceLayerEvents(["mouseenter"], layer.id, () => {
         this._map.setCursor("pointer");
       });
-      this._map.bindPlaceLayerEvent("mouseleave", layer.id, () => {
+      this._map.bindPlaceLayerEvents(["mouseleave"], layer.id, () => {
         this._map.setCursor("");
       });
     } else {
