@@ -123,7 +123,7 @@ map:
           symbol-layout:
             icon-image: "map-pin-marker.png"
             icon-size: 0.5
-            icon-anchor: "center"
+            icon-anchor: "bottom"
 
     - id: snohomish-featured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snohomish-featured
