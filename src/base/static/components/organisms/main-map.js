@@ -403,6 +403,7 @@ class MainMap extends Component {
 
       // Bind map interaction events for this place layer.
       this._map.bindPlaceLayerEvents(
+        ["click", "touchstart"],
         layer.id,
         clickedOnLayer => {
           if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
