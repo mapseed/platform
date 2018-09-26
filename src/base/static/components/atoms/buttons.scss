@@ -119,3 +119,28 @@
     color: $link-hover-color !important;
   }
 }
+
+.mapseed__toolbar-button {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 2px solid transparent;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+   &:hover {
+    border: 2px solid #fff;
+  }
+}
+ .mapseed__toolbar-button-icon {
+  flex: 1;
+  width: 35px;
+}
+ .mapseed__toolbar-button-icon--right-margin {
+  margin-right: 10px;
+}
+ .mapseed__toolbar-button-label {
+  flex: 4;
+  text-align: left;
+}

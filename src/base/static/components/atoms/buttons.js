@@ -114,4 +114,33 @@ const Button = styled(LegacyButton)(props => {
   return styles;
 });
 
-export { Button, EditorButton };
+const ToolbarButton = props => {
+  return (
+    <button
+      className={classNames("mapseed__toolbar-button", props.classes)}
+      type="button"
+      {...props}
+    >
+      {props.icon && (
+        <Icon
+          classes={classNames("mapseed__toolbar-button-icon", {
+            "mapseed__toolbar-button-icon--right-margin": !!props.label,
+          })}
+          icon={props.icon}
+          prefix={props.prefix}
+        />
+      )}
+      {props.label && (
+        <span className="mapseed__toolbar-button-label">{props.label}</span>
+      )}
+    </button>
+  );
+};
+ToolbarButton.propTypes = {
+  classes: PropTypes.string,
+  icon: PropTypes.string,
+  label: PropTypes.string,
+  prefix: PropTypes.string,
+};
+
+export { Button, EditorButton, ToolbarButton };
