@@ -465,10 +465,6 @@ Spritesmith.run({ src: markers }, (err, result) => {
     result.image,
   );
   fs.writeFileSync(
-    path.resolve(distMarkersPath, "spritesheet@1x.png"),
-    result.image,
-  );
-  fs.writeFileSync(
     // For high-resolution devices; Mapbox expects this file.
     path.resolve(distMarkersPath, "spritesheet@2x.png"),
     result.image,
@@ -490,10 +486,6 @@ Spritesmith.run({ src: markers }, (err, result) => {
 
   fs.writeFileSync(
     path.resolve(distMarkersPath, "spritesheet.json"),
-    JSON.stringify(coordinates),
-  );
-  fs.writeFileSync(
-    path.resolve(distMarkersPath, "spritesheet@1x.json"),
     JSON.stringify(coordinates),
   );
   fs.writeFileSync(
