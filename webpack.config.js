@@ -77,10 +77,6 @@ const extractSCSS = new ExtractTextPlugin(
 const theme = process.env.THEME ? process.env.THEME : "default-theme";
 
 module.exports = {
-  watch: true,
-  watchOptions: {
-  poll: true
-},
   entry: entryPoints,
   output: {
     path: path.join(outputBasePath, "dist"),
