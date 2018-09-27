@@ -405,8 +405,8 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/partners-blue.png
-            - url: /static/css/images/markers/marker-star.png
+            - marker: partners-blue.png
+            - marker: marker-star.png
         - name: address
           type: geocoding
           prompt: _(Location:)
@@ -451,21 +451,7 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/marker-bike.png
-            - url: /static/css/images/markers/marker-construction.png
-            - url: /static/css/images/markers/marker-foodforest.png
-            - url: /static/css/images/markers/marker-greenwall.png
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-hist_comp.png
-            - url: /static/css/images/markers/marker-hist_no-prog-or-dead.png
-            - url: /static/css/images/markers/marker-hist_prog.png
-            - url: /static/css/images/markers/marker-land_comp.png
-            - url: /static/css/images/markers/marker-land_no-prog-or-dead.png
-            - url: /static/css/images/markers/marker-land_prog.png
-            - url: /static/css/images/markers/marker-transp_comp.png
-            - url: /static/css/images/markers/marker-transp_no-prog-or-dead.png
-            - url: /static/css/images/markers/marker-transp_prog.png
+            - marker: marker-star.png
         - name: title
           type: text
           prompt: _(Title of this featured site:)

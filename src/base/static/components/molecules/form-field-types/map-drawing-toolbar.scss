@@ -61,6 +61,7 @@
 
 .map-drawing-toolbar__markers-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 

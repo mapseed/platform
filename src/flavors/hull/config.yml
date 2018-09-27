@@ -394,8 +394,8 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/partners-blue.png
-            - url: /static/css/images/markers/marker-star.png
+            - marker: partners-blue.png
+            - marker: marker-star.png
         - name: address
           type: geocoding
           prompt: _(Location:)
