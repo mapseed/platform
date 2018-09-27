@@ -333,7 +333,7 @@ map:
           - "settled-cases"
           symbol-layout:
             icon-image: map-pin-marker-red.png
-            icon-size: 0.5
+            icon-size: 0.8
             icon-anchor: "bottom"
 
       rules:
@@ -344,7 +344,7 @@ map:
           - "settled-cases"
           symbol-layout:
             icon-image: map-pin-marker-red.png
-            icon-size: 0.3
+            icon-size: 0.6
             icon-anchor: "bottom"
 
     - id: pugetsoundfeatured

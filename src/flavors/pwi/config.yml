@@ -309,11 +309,11 @@ map:
       slug: featured
       focus_rules:
         - symbol-layout:
-            icon-size: 0.5
+            icon-size: 1.0
             icon-anchor: "center"
       rules:
         - symbol-layout:
-            icon-size: 0.3
+            icon-size: 0.7
             icon-anchor: "center"
 
     - id: watershed-puyallup
