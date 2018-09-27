@@ -697,6 +697,7 @@ export default Backbone.View.extend({
             <ThemeProvider theme={theme}>
               <ThemeProvider theme={adjustedTheme}>
                 <PlaceDetail
+                  collectionId={collectionId}
                   container={document.querySelector("#content article")}
                   currentUser={Shareabouts.bootstrapped.currentUser}
                   isGeocodingBarEnabled={
