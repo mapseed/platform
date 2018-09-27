@@ -40,3 +40,9 @@ export { default as PublishControlToolbar } from "./publish-control-toolbar";
 export { default as RangeSliderWithLabel } from "./range-slider-with-label";
 export { default as RichTextareaField } from "./rich-textarea-field";
 export { default as InformationalHTMLField } from "./informational-html-field";
+export {
+  default as NumberField,
+} from "../../molecules/form-field-types/number-field";
+export {
+  default as NumberFieldResponse,
+} from "../../molecules/form-field-response-types/number-field-response";
