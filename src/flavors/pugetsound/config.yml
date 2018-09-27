@@ -583,12 +583,11 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industrial.png
-            - url: /static/css/images/markers/map-pin-marker.png
-            - url: /static/css/images/markers/map-pin-marker-red.png            
+            - marker: marker-heart.png
+            - marker: marker-star.png
+            - marker: marker-industrial.png
+            - marker: map-pin-marker.png
+            - marker: map-pin-marker-red.png            
         - name: title
           type: text
           prompt: _(Title of this featured site:)

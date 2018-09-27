@@ -407,12 +407,12 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/markers/marker-heart.png
-            - url: /static/css/images/markers/marker-star.png
-            - url: /static/css/images/markers/triangle-e1264d.png
-            - url: /static/css/images/markers/marker-industrial.png
-            - url: /static/css/images/markers/map-pin-marker.png
-            - url: /static/css/images/markers/map-pin-marker-red.png            
+            - url: marker-heart.png
+            - url: marker-star.png
+            - url: triangle-e1264d.png
+            - url: marker-industrial.png
+            - url: map-pin-marker.png
+            - url: map-pin-marker-red.png            
         - name: title
           type: text
           prompt: _(Title of this featured site:)

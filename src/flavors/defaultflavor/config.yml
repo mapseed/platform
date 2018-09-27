@@ -626,10 +626,10 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: marker-dot-conserve-energy.png
-            - url: marker-dot-commute-low-carbon.png
-            - url: marker-dot-conserve-water.png
-            - url: marker-star.png
+            - marker: marker-dot-conserve-energy.png
+            - marker: marker-dot-commute-low-carbon.png
+            - marker: marker-dot-conserve-water.png
+            - marker: marker-star.png
         - name: informational
           type: informational_html
           prompt: _(Info)

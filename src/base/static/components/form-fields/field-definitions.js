@@ -181,7 +181,7 @@ export default {
     getComponent: (fieldConfig, context) => (
       <MapDrawingToolbar
         {...getSharedFieldProps(fieldConfig, context)}
-        markers={fieldConfig.content.map(item => item.url)}
+        markers={fieldConfig.content.map(item => item.marker)}
         existingGeometry={context.props.existingGeometry}
         existingGeometryStyle={context.props.existingGeometryStyle}
         existingCollectionId={context.props.existingCollectionId}

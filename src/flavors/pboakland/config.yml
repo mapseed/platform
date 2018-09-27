@@ -298,16 +298,16 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - url: /static/css/images/markers/marker-capital-funded.png
-            - url: /static/css/images/markers/marker-capital-losing.png
-            - url: /static/css/images/markers/marker-youth-funded.png
-            - url: /static/css/images/markers/marker-youth-losing.png
-            - url: /static/css/images/markers/marker-senior-funded.png
-            - url: /static/css/images/markers/marker-senior-losing.png            
-            - url: /static/css/images/markers/marker-homeless-funded.png
-            - url: /static/css/images/markers/marker-homeless-losing.png
-            - url: /static/css/images/markers/marker-housing-funded.png
-            - url: /static/css/images/markers/marker-housing-losing.png            
+            - marker: marker-capital-funded.png
+            - marker: marker-capital-losing.png
+            - marker: marker-youth-funded.png
+            - marker: marker-youth-losing.png
+            - marker: marker-senior-funded.png
+            - marker: marker-senior-losing.png            
+            - marker: marker-homeless-funded.png
+            - marker: marker-homeless-losing.png
+            - marker: marker-housing-funded.png
+            - marker: marker-housing-losing.png            
         - name: title
           type: text
           prompt: _(Title of this featured site:)
