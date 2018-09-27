@@ -23,6 +23,27 @@ CheckboxInput.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+const NumberInput = props => {
+  return (
+    <input
+      className={props.className}
+      name={props.name}
+      type="number"
+      value={props.value}
+      placeholder={props.placeholder}
+      onChange={e => props.onChange(e.target.name, e.target.value)}
+    />
+  );
+};
+
+NumberInput.propTypes = {
+  hasAutofill: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+};
+
 const DatetimeInput = props => {
   return (
     <input
@@ -44,4 +65,4 @@ DatetimeInput.propTypes = {
   value: PropTypes.string,
 };
 
-export { CheckboxInput, DatetimeInput };
+export { CheckboxInput, DatetimeInput, NumberInput };
