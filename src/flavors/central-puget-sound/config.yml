@@ -633,6 +633,42 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_school
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: mwfeatured
+      icon_url: /static/css/images/markers/marker-star.png
+      value: featured_school
+      label: _(Featured School)
+      fields:
+        - name: title
+          type: text
+          prompt: _(School name:)
+          display_prompt: _( )
+          placeholder: _(Enter school name...)
+          optional: false
+        - name: school-year
+          type: dropdown
+          prompt: _(School year reprting period:)
+          display_prompt: _(School year reporting perioud)
+          content:
+             - label: _(2018/2019)
+               value: 2018-2019
+          optional: false
+        - name: conserve-water-actions
+          type: number
+          autocomplete: false
+          prompt: _(Number of water conservation actions:)
+          display_prompt: _(Number of water conservation actions)
+          placeholder: _(Enter number of actions...)
+          optional: true
+        - name: submit
+          type: common_form_element
+
     - category: featured_place
       admin_only: true
       includeOnForm: true
