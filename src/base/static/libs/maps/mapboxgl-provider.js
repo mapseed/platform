@@ -1187,10 +1187,6 @@ export default (container, options) => {
     },
 
     easeTo: options => {
-      // NOTE: We use jumpTo here because easeTo works inconsistently on mobile
-      // devices.
-      // TODO: Investigate this further.
-      // See: https://github.com/jalMogo/mgmt/issues/85
       setTimeout(() => {
         map.easeTo(options);
       }, 0);
