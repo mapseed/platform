@@ -63,6 +63,7 @@ map:
 
     - id: hydrography
       type: wms
+      is_visible_default: true
       is_basemap: true
       url: https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer
       layers: '0'
@@ -77,7 +78,7 @@ map:
 
     - id: topo
       type: raster-tile
-      is_visible_default: true
+      is_visible_default: false
       is_basemap: true
       url: https://stamen-tiles-b.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png
       max_zoom: 16
