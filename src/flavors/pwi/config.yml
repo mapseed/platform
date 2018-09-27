@@ -409,7 +409,6 @@ place:
           content:
             - url: marker-heart.png
             - url: marker-star.png
-            - url: triangle-e1264d.png
             - url: marker-industrial.png
             - url: map-pin-marker.png
             - url: map-pin-marker-red.png            
