@@ -87,6 +87,12 @@ class MainMap extends Component {
     // Instantiate the map.
     this._map = MapProvider(props.container, props.mapConfig.options);
 
+    // Set initial map position state.
+    this.props.setMapPosition({
+      center: this.props.mapConfig.options.map.center,
+      zoom: this.props.mapConfig.options.map.zoom,
+    });
+
     this._map.on({
       event: "load",
       callback: () => {
