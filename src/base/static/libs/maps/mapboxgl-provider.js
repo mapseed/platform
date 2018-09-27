@@ -307,8 +307,6 @@ export default (container, options) => {
   options.map.container = container;
   options.map.style = defaultStyle;
 
-  const map = new mapboxgl.Map(options.map);
-
   /**
    * @typedef {Object<string, MapboxLayer[]>} LayersCache - Mapping of layer id's to an array of the mapboxGL layer representations:
    *
@@ -323,6 +321,19 @@ export default (container, options) => {
     },
   };
   let topmostLayerId;
+
+  const ensureFocusedSource = () => {
+    !map.getSource(FOCUSED_SOURCE_IDENTIFIER) &&
+      map.addSource(
+        FOCUSED_SOURCE_IDENTIFIER,
+        sourcesCache[FOCUSED_SOURCE_IDENTIFIER],
+      );
+  };
+
+  const map = new mapboxgl.Map(options.map);
+  map.on("load", () => {
+    ensureFocusedSource();
+  });
 
   const floatSymbolLayersToTop = () => {
     // To ensure that point (aka "symbol") geometry is not obscured we
@@ -537,11 +548,6 @@ export default (container, options) => {
     };
 
     map.addSource(id, sourcesCache[id]);
-    !map.getSource(FOCUSED_SOURCE_IDENTIFIER) &&
-      map.addSource(
-        FOCUSED_SOURCE_IDENTIFIER,
-        sourcesCache[FOCUSED_SOURCE_IDENTIFIER],
-      );
 
     rules = rules.map(rule => ({
       baseLayerId: id,
@@ -1151,8 +1157,8 @@ export default (container, options) => {
 
     // TODO: Support multiple focus features at once.
     focusPlaceLayerFeatures: (sourceId, placeLayerFeatures) => {
-      map.getSource(FOCUSED_SOURCE_IDENTIFIER) &&
-        map.getSource(FOCUSED_SOURCE_IDENTIFIER).setData(placeLayerFeatures);
+      ensureFocusedSource();
+      map.getSource(FOCUSED_SOURCE_IDENTIFIER).setData(placeLayerFeatures);
     },
 
     unfocusAllPlaceLayerFeatures: sourceId => {
