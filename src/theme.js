@@ -73,6 +73,12 @@ const theme = {
     default: "#007fbf",
     light: "#a3c7d9",
   },
+  input: {
+    border: "0.25em solid #a3c7d9",
+    padding: "0.5em",
+    autofillBgColor: "#ffffe0",
+    defaultBgColor: "#ffffff",
+  },
   text: {
     primary: "#fff",
     secondary: "#a3c7d9",

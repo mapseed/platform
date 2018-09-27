@@ -31,6 +31,8 @@ import {
   DropdownFieldResponse,
   AutocompleteComboboxFieldResponse,
   InformationalHTMLField,
+  NumberField,
+  NumberFieldResponse,
 } from "./types";
 import { isWithAnyValue, isNotEmpty, isWithUniqueUrl } from "./validators";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
@@ -79,6 +81,14 @@ export default {
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => TextareaFieldResponse,
+  },
+  [constants.NUMBER_FIELD_TYPENAME]: {
+    getValidator: getDefaultValidator,
+    getComponent: (fieldConfig, context) => (
+      <NumberField {...getSharedFieldProps(fieldConfig, context)} />
+    ),
+    getInitialValue: ({ value }) => value,
+    getResponseComponent: () => NumberFieldResponse,
   },
   [constants.RICH_TEXTAREA_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
