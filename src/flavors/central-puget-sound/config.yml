@@ -161,174 +161,14 @@ map:
       type: place
       slug: report
       focus_rules:
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-water"
-          symbol-layout:
+        - symbol-layout:
             icon-image: marker-dot-conserve-water.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "prevent-stormwater"
-          symbol-layout:
-            icon-image: marker-dot-prevent-stormwater-pollution.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "only-flush"
-          symbol-layout:
-            icon-image: marker-dot-only-flush-this.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-energy"
-          symbol-layout:
-            icon-image: marker-dot-conserve-energy.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "waste-less"
-          symbol-layout:
-            icon-image: marker-dot-waste-less.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "commute-low-carbon"
-          symbol-layout:
-            icon-image: marker-dot-commute-low-carbon.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "eat-local-organic"
-          symbol-layout:
-            icon-image: marker-dot-eat-local-organic.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "restore-salmon-habitat"
-          symbol-layout:
-            icon-image: marker-dot-restore-salmon-habitat.png
             icon-size: 0.5
             icon-anchor: center
 
       rules:
-        # conserve-water location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-water"
-          symbol-layout:
+        - symbol-layout:
             icon-image: marker-dot-conserve-water.png
-            icon-size: 0.15
-            icon-anchor: center
-        # prevent-stormwater location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "prevent-stormwater"
-          symbol-layout:
-            icon-image: marker-dot-prevent-stormwater-pollution.png
-            icon-size: 0.15
-            icon-anchor: center
-        # only-flush location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "only-flush"
-          symbol-layout:
-            icon-image: marker-dot-only-flush-this.png
-            icon-size: 0.15
-            icon-anchor: center
-        # conserve-energy location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-energy"
-          symbol-layout:
-            icon-image: marker-dot-conserve-energy.png
-            icon-size: 0.15
-            icon-anchor: center
-        # waste-less location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "waste-less"
-          symbol-layout:
-            icon-image: marker-dot-waste-less.png
-            icon-size: 0.15
-            icon-anchor: center
-        # commute-low-carbon location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "commute-low-carbon"
-          symbol-layout:
-            icon-image: marker-dot-commute-low-carbon.png
-            icon-size: 0.15
-            icon-anchor: center
-        # eat-local-organic location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "eat-local-organic"
-          symbol-layout:
-            icon-image: marker-dot-eat-local-organic.png
-            icon-size: 0.15
-            icon-anchor: center
-        # restore-salmon-habitat location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "restore-salmon-habitat"
-          symbol-layout:
-            icon-image: marker-dot-restore-salmon-habitat.png
             icon-size: 0.15
             icon-anchor: center
 
@@ -347,6 +187,16 @@ map:
             icon-image: marker-dot-conserve-water.png
             icon-size: 0.5
             icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_school"
+          symbol-layout:
+            icon-image: marker-dot-commute-low-carbon.png
+            icon-size: 0.5
+            icon-anchor: center
 
       rules:
         # featured_place location_type
@@ -358,6 +208,17 @@ map:
             - "featured_place"
           symbol-layout:
             icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
+            icon-anchor: center
+        # featured_place location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_school"
+          symbol-layout:
+            icon-image: marker-dot-commute-low-carbon.png
             icon-size: 0.15
             icon-anchor: center
 
@@ -641,7 +502,7 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: mwfeatured
-      icon_url: /static/css/images/markers/marker-star.png
+      icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
       value: featured_school
       label: _(Featured School)
       fields:
