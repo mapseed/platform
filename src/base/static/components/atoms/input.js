@@ -37,6 +37,7 @@ const NumberInput = props => {
 };
 
 NumberInput.propTypes = {
+  className: PropTypes.string,
   hasAutofill: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
