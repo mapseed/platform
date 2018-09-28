@@ -210,7 +210,7 @@ map:
             icon-image: marker-dot-conserve-water.png
             icon-size: 0.15
             icon-anchor: center
-        # featured_place location_type
+        # featured_school location_type
         - filter:
           - "all"
           - - "=="
