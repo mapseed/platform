@@ -1019,29 +1019,35 @@ export default (container, options) => {
     },
 
     fitBounds: (bounds, options) => {
-      map.fitBounds(bounds, options);
+      setTimeout(() => {
+        map.fitBounds(bounds, options);
+      }, 0);
     },
 
     fitLineStringCoords: (coordinates, options) => {
       // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
-      map.fitBounds(
-        coordinates.reduce(
-          (bounds, coord) => bounds.extend(coord),
-          new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]),
-        ),
-        options,
-      );
+      setTimeout(() => {
+        map.fitBounds(
+          coordinates.reduce(
+            (bounds, coord) => bounds.extend(coord),
+            new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]),
+          ),
+          options,
+        );
+      }, 0);
     },
 
     fitPolygonCoords: (coordinates, options) => {
       // https://www.mapbox.com/mapbox-gl-js/example/zoomto-linestring
-      map.fitBounds(
-        coordinates[0].reduce(
-          (bounds, coord) => bounds.extend(coord),
-          new mapboxgl.LngLatBounds(coordinates[0][0], coordinates[0][0]),
-        ),
-        options,
-      );
+      setTimeout(() => {
+        map.fitBounds(
+          coordinates[0].reduce(
+            (bounds, coord) => bounds.extend(coord),
+            new mapboxgl.LngLatBounds(coordinates[0][0], coordinates[0][0]),
+          ),
+          options,
+        );
+      }, 0);
     },
 
     hasLayer: layerId => {
@@ -1187,11 +1193,9 @@ export default (container, options) => {
     },
 
     easeTo: options => {
-      // NOTE: We use jumpTo here because easeTo works inconsistently on mobile
-      // devices.
-      // TODO: Investigate this further.
-      // See: https://github.com/jalMogo/mgmt/issues/85
-      map.jumpTo(options);
+      setTimeout(() => {
+        map.easeTo(options);
+      }, 0);
     },
 
     jumpTo: options => {
@@ -1199,7 +1203,9 @@ export default (container, options) => {
     },
 
     flyTo: options => {
-      map.flyTo(options);
+      setTimeout(() => {
+        map.flyTo(options);
+      }, 0);
     },
 
     invalidateSize: () => {
