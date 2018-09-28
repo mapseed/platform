@@ -527,6 +527,12 @@ place:
           display_prompt: _(Number of water conservation actions)
           placeholder: _(Enter number of actions...)
           optional: true
+        - name: classroom-learning
+          type: textarea
+          prompt: _(Description of classroom learning:)
+          display_prompt: _(Description of classroom learning:)
+        - name: my_image
+          type: common_form_element
         - name: submit
           type: common_form_element
 
