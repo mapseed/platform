@@ -44,6 +44,7 @@ map:
       zoom: 8
       minZoom: 1
       maxZoom: 18
+      pitch: 50
     control:
       showCompass: true
       position: "top-left"
@@ -521,7 +522,7 @@ place:
                value: 2018-2019
           optional: false
         - name: conserve-water-actions
-          type: number
+          type: text
           autocomplete: false
           prompt: _(Number of water conservation actions:)
           display_prompt: _(Number of water conservation actions)
@@ -2095,8 +2096,24 @@ pages:
     hide_from_top_bar: true
 
 story:
+  schools:
+    header: _(Featured Schools)
+    description: _(See what we've learned!)
+    default_zoom: 12
+    default_visible_layers:
+      - mwfeatured
+    order:
+      - url: featured/4418
+        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
+      - url: featured/4415
+        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
+      - url: featured/4416
+        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
+      - url: featured/4413
+        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
+      - url: featured/4417
+        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
   watersheds:
-    tagline: _(Next featured site)
     default_zoom: 18
     default_visible_layers:
       - mwfeatured
