@@ -347,55 +347,6 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
-    #    - category: bathgate-partners
-    #      admin_only: true
-    #      includeOnForm: true
-    #      showMetadata: false
-    #      suppressAttachments: true
-    #      horizontal_rule: true
-    #      name: location_type
-    #      dataset: bathgate-partners
-    #      icon_url: /static/css/images/partners-blue.svg
-    #      value: featured_place
-    #      label: _(Partner Site)
-    #      fields:
-    #        - name: published
-    #          type: publish_control_toolbar
-    #        # NOTE: this field type must have the name "geometry"
-    #        - name: geometry
-    #          type: map_drawing_toolbar
-    #          content:
-    #            - url: /static/css/images/partners-blue.png
-    #            - url: /static/css/images/markers/marker-star.png
-    #        - name: address
-    #          type: geocoding
-    #          prompt: _(Location:)
-    #          display_prompt: _(Address)
-    #          placeholder: _(Enter address...)
-    #          optional: true
-    #        - name: title
-    #          type: text
-    #          prompt: _(Title of this featured site:)
-    #          display_prompt: _( )
-    #          placeholder: _(Enter title...)
-    #          optional: false
-    #        - name: description
-    #          type: rich_textarea
-    #          prompt: _( )
-    #          display_prompt: _( )
-    #          placeholder: _( )
-    #        - name: url-title
-    #          type: custom_url_toolbar
-    #          prompt: _(Choose a custom URL for this place:)
-    #          placeholder: "my-new-featured-place"
-    #          optional: true
-    #        - name: private-submitter_email
-    #          type: text
-    #          prompt: _(Enter your email address for updates)
-    #          placeholder: _(name@mail.com)
-    #          optional: true
-    #        - name: submit
-    #          type: common_form_element
     - category: bathgate-project
       admin_only: true
       includeOnForm: true
@@ -426,11 +377,6 @@ place:
           prompt: _( )
           display_prompt: _( )
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: private-submitter_email
           type: text
           prompt: _(Enter your email address for updates)
