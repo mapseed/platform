@@ -17,10 +17,7 @@ Shareabouts.Util = Util;
       ":dataset/:id": "viewPlace",
       new: "newPlace",
       ":dataset/:id/response/:response_id": "viewPlace",
-      ":id/response/:response_id": "viewLandmark",
-      ":dataset/:id/edit": "editPlace",
       list: "showList",
-      ":id": "viewLandmark",
       ":zoom/:lat/:lng": "viewMap",
     },
 
@@ -149,26 +146,14 @@ Shareabouts.Util = Util;
       this.appView.newPlace();
     },
 
-    viewLandmark: function(modelId, responseId) {
-      this.recordGoogleAnalyticsHit("/" + modelId);
-      this.appView.viewPlaceOrLandmark({
-        modelId: modelId,
-        responseId: responseId,
-        loading: this.loading,
-      });
-    },
-
     viewPlace: function(datasetSlug, modelId, responseId) {
       this.recordGoogleAnalyticsHit(`/${datasetSlug}/${modelId}`);
-      this.appView.viewPlaceOrLandmark({
+      this.appView.viewPlace({
         datasetSlug: datasetSlug,
         modelId: modelId,
         responseId: responseId,
-        loading: this.loading,
       });
     },
-
-    editPlace: function() {},
 
     viewPage: function(slug) {
       this.recordGoogleAnalyticsHit("/page/" + slug);

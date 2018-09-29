@@ -17,7 +17,6 @@ import {
   RichTextareaField,
   MapDrawingToolbar,
   AutocompleteComboboxField,
-  CustomUrlToolbar,
   BigToggleField,
   PublishControlToolbar,
   RangeSliderWithLabel,
@@ -187,19 +186,6 @@ export default {
         existingCollectionId={context.props.existingCollectionId}
         existingModelId={context.props.existingModelId}
       />
-    ),
-    getInitialValue: ({ value }) => value,
-    getResponseComponent: () => null,
-  },
-  [constants.CUSTOM_URL_TOOLBAR_TYPENAME]: {
-    getValidator: () => {
-      return {
-        validate: isWithUniqueUrl,
-        message: "duplicateUrl",
-      };
-    },
-    getComponent: (fieldConfig, context) => (
-      <CustomUrlToolbar {...getSharedFieldProps(fieldConfig, context)} />
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => null,

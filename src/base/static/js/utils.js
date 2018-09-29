@@ -94,15 +94,6 @@ var self = (module.exports = {
   getSocialUrl: function(model, service) {
     var appConfig = Shareabouts.Config.app,
       shareUrl = "http://social.mapseed.org",
-      getPathname = model => {
-        if (model.get("url-title")) {
-          return model.get("url-title");
-        } else if (model.get("datasetSlug")) {
-          return model.get("datasetSlug") + "/" + model.get("id");
-        } else {
-          return model.get("id");
-        }
-      },
       components = {
         title: model.get("title") || model.get("name") || appConfig.title,
         desc: model.get("description") || appConfig.meta_description,
@@ -120,7 +111,7 @@ var self = (module.exports = {
           "//",
           window.location.host,
           "/",
-          getPathname(model),
+          model.get("datasetSlug") + "/" + model.get("id"),
         ].join(""),
       },
       $img = $("img[src='" + components.img + "']");
@@ -159,121 +150,33 @@ var self = (module.exports = {
     });
   },
 
-  // Given the information provided in a url (that is, an id and possibly a slug),
-  // attempt to find the corresponding model within all collections on the page.
-  // Three conditions are possible:
-  // 1. A slug is provided, which means we have a Shareabouts place model
-  // 2. A landmark-style url (e.g. /xyz) is provided, which means we might
-  //    have an actual landmark loaded from a third-party source, or...
-  // 3. A landmark-style url is provided, but the url actually corresponds
-  //    to a Shareabouts place model with a url-title property set
-  // NOTE: We assume that all landmark-style urls (both those from third-party
-  // data sources and those corresponding to Shareabouts place models) are unique.
   getPlaceFromCollections: function(
     collectionsSet,
     args,
     mapConfig,
     callbacks,
   ) {
-    var numCollections = 0,
-      numCollectionsSynced = 0,
-      found = false;
+    const datasetId = _.find(mapConfig.layers, function(layer) {
+      return layer.slug === args.datasetSlug;
+    }).id;
+    const model = collectionsSet.places[datasetId].get(args.modelId);
 
-    // If we have a slug, we definitely have a place model
-    if (args.datasetSlug) {
-      searchPlaceCollections();
+    if (model) {
+      callbacks.onFound(model, "place", datasetId);
     } else {
-      // Otherwise, we have a landmark-style url, which may correspond
-      // to a place or a landmark.
-      // First, check if the model exists among collections already loaded
-      // on the page.
-      if (
-        searchLoadedCollections(collectionsSet.places, "url-title", "place")
-      ) {
-        return;
-      }
-      if (searchLoadedCollections(collectionsSet.landmarks, "id", "landmark")) {
-        return;
-      }
-
-      // If the model is not found in the loaded collections, bind sync
-      // listeners for all collections.
-      bindCollectionsListeners(collectionsSet.places, "place");
-      bindCollectionsListeners(collectionsSet.landmarks, "landmark");
-    }
-
-    function searchPlaceCollections() {
-      var datasetId = _.find(mapConfig.layers, function(layer) {
-          return layer.slug === args.datasetSlug;
-        }).id,
-        model = collectionsSet.places[datasetId].get(args.modelId);
-
-      if (model) {
-        callbacks.onFound(model, "place", datasetId);
-      } else {
-        // if the model has not already loaded, fetch it by id
-        // from the API
-        collectionsSet.places[datasetId].fetchById(args.modelId, {
-          validate: true,
-          success: function(model) {
-            callbacks.onFound(model, "place", datasetId);
-          },
-          error: function() {
-            callbacks.onNotFound();
-          },
-          data: {
-            include_submissions: Shareabouts.Config.app.list_enabled !== false,
-          },
-        });
-      }
-    }
-
-    function searchLoadedCollections(collections, property, type) {
-      var found = false,
-        searchTerm = {};
-      searchTerm[property] = args.modelId;
-      _.find(collections, function(collection, datasetId) {
-        numCollections++;
-        var model = collection.where(searchTerm);
-        if (model.length === 1) {
-          found = true;
-          callbacks.onFound(model[0], type, datasetId);
-          return;
-        }
-      });
-
-      return found;
-    }
-
-    function bindCollectionsListeners(collections, type) {
-      var searchTerm = {};
-
-      if (type === "place") {
-        searchTerm["url-title"] = args.modelId;
-      } else if (type === "landmark") {
-        searchTerm["id"] = args.modelId;
-      }
-
-      _.each(collections, function(collection, datasetId) {
-        var onSync = function(syncedCollection) {
-          numCollectionsSynced++;
-          var model = syncedCollection.where(searchTerm);
-
-          if (model.length === 1) {
-            found = true;
-            collection.off("sync", onSync);
-            callbacks.onFound(model[0], type, datasetId);
-          } else if (numCollectionsSynced === numCollections && !found) {
-            // If this is the final collection on the page to sync and we
-            // haven't yet found the model, it means it doesn't exist.
-            collection.off("sync", onSync);
-            callbacks.onNotFound();
-          } else {
-            collection.off("sync", onSync);
-          }
-        };
-
-        collection.on("sync", onSync);
+      // If the model has not already loaded, fetch it by id
+      // from the API
+      collectionsSet.places[datasetId].fetchById(args.modelId, {
+        validate: true,
+        success: function(model) {
+          callbacks.onFound(model, "place", datasetId);
+        },
+        error: function() {
+          callbacks.onNotFound();
+        },
+        data: {
+          include_submissions: Shareabouts.Config.app.list_enabled !== false,
+        },
       });
     }
   },
@@ -494,22 +397,7 @@ var self = (module.exports = {
     }
   },
 
-  // If the passed url has a url-title field in it, return the value of this
-  // field. Otherwise, return the slug/id form of the url.
   getUrl: function(model) {
-    if (model.get("url-title")) {
-      // Place model with landmark-style url
-      return model.get("url-title");
-    } else if (model.get("datasetSlug")) {
-      // Place model with Shareabouts-style url
-      return this.getShareaboutsUrl(model);
-    } else {
-      // Landmark model
-      return model.get("id");
-    }
-  },
-
-  getShareaboutsUrl: function(model) {
     return model.get("datasetSlug") + "/" + model.id;
   },
 

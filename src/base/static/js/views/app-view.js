@@ -665,7 +665,7 @@ export default Backbone.View.extend({
     // TODO
   },
 
-  viewPlaceOrLandmark: function(args) {
+  viewPlace: function(args) {
     var self = this;
 
     Util.getPlaceFromCollections(
@@ -681,50 +681,48 @@ export default Backbone.View.extend({
     );
 
     function onFound(model, type, collectionId) {
-      if (type === "place") {
-        // REACT PORT SECTION //////////////////////////////////////////////////
-        ReactDOM.unmountComponentAtNode(
-          document.querySelector("#content article"),
-        );
+      // REACT PORT SECTION //////////////////////////////////////////////////
+      ReactDOM.unmountComponentAtNode(
+        document.querySelector("#content article"),
+      );
 
-        const storeState = store.getState();
-        const flavorTheme = storeState.appConfig.theme;
-        const adjustedTheme = flavorTheme
-          ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
-          : {};
-        ReactDOM.render(
-          <Provider store={store}>
-            <ThemeProvider theme={theme}>
-              <ThemeProvider theme={adjustedTheme}>
-                <PlaceDetail
-                  collectionId={collectionId}
-                  container={document.querySelector("#content article")}
-                  currentUser={Shareabouts.bootstrapped.currentUser}
-                  isGeocodingBarEnabled={
-                    this.options.mapConfig.geocoding_bar_enabled
-                  }
-                  model={model}
-                  appView={this}
-                  places={this.places}
-                  scrollToResponseId={args.responseId}
-                  router={this.options.router}
-                  userToken={this.options.userToken}
-                />
-              </ThemeProvider>
+      const storeState = store.getState();
+      const flavorTheme = storeState.appConfig.theme;
+      const adjustedTheme = flavorTheme
+        ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+        : {};
+      ReactDOM.render(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={adjustedTheme}>
+              <PlaceDetail
+                collectionId={collectionId}
+                container={document.querySelector("#content article")}
+                currentUser={Shareabouts.bootstrapped.currentUser}
+                isGeocodingBarEnabled={
+                  this.options.mapConfig.geocoding_bar_enabled
+                }
+                model={model}
+                appView={this}
+                places={this.places}
+                scrollToResponseId={args.responseId}
+                router={this.options.router}
+                userToken={this.options.userToken}
+              />
             </ThemeProvider>
-          </Provider>,
-          document.querySelector("#content article"),
-        );
+          </ThemeProvider>
+        </Provider>,
+        document.querySelector("#content article"),
+      );
 
-        this.$panel.show();
-        this.setBodyClass("content-visible");
-        store.dispatch(setMapSizeValidity(false));
+      this.$panel.show();
+      this.setBodyClass("content-visible");
+      store.dispatch(setMapSizeValidity(false));
 
-        $("#main-btns-container").addClass(
-          this.options.placeConfig.add_button_location || "pos-top-left",
-        );
-        // END REACT PORT SECTION //////////////////////////////////////////////
-      }
+      $("#main-btns-container").addClass(
+        this.options.placeConfig.add_button_location || "pos-top-left",
+      );
+      // END REACT PORT SECTION //////////////////////////////////////////////
 
       self.hideNewPin();
       self.destroyNewModels();
