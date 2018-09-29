@@ -20,92 +20,12 @@
   This will place content in the colophon below the map
  -->
 {{#block "colophon"}}
-<p id="powered-by">{{#_}}Powered by{{/_}} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a>.</span></p>
 {{/block}}
 
 <!--
   Analytics, custom JS, and such go here
  -->
 {{#block "includes"}}
-<script>
-// var mapbox_geocode = Shareabouts.Util.Mapbox.geocode;
-// Shareabouts.Util.Mapbox.geocode = function(location, bounds, options) {
-//   // Since this is all Chicago-specific, go ahead and specify the city.
-//   if (location.toLowerCase().indexOf('greensboro') === -1 && location.toLowerCase().indexOf(' nc') === -1) {
-//     location += ', Greensboro, NC'
-//   }
-//   return mapbox_geocode.call(this, location, bounds, options);
-// }
-
-// var placeFormView_setLocation = Shareabouts.PlaceFormView.prototype.setLocation;
-// Shareabouts.PlaceFormView.prototype.setLocation = function(locationData) {
-//   placeFormView_setLocation.call(this, locationData);
-
-//   var $placeNameField = this.$('[name="name"]'),
-//       $approxAddress = $placeNameField.next(),
-//       $district;
-
-//   if ($approxAddress.length === 0) {
-//     $approxAddress = $('<p class="approx-address"></p>').insertAfter($placeNameField);
-//   }
-
-//   $approxAddress.html(
-//     '<br/><span class="address-label">{% trans 'Approximate location:' %}</span> ' +
-//     '<div class="district-display"></div>' +
-//     '<div class="address-display">' +
-//       Handlebars.templates['location-string'](locationData) +
-//     '</div>');
-
-//   $district = $approxAddress.find('.district-display');
-
-//   $.ajax({
-//     url: 'https://shareabouts-region-service.herokuapp.com/api/v1/greensboro/districts-2015?ll=' + locationData.latLng.lat + ',' + locationData.latLng.lng,
-//     success: function(data) {
-//       var closedDistricts = []
-
-//       $district.html('{% trans 'District' %} ' + data['DISTRICT'] + ', ' + '{% trans 'Council Member' %} ' + data['MEMBER']);
-
-//       // Let the user know if the district they're trying to leave an idea in
-//       // has already closed its PB period.
-//       if (_(closedDistricts).contains(data['CounDist'])) {
-//         $district.prepend('<span class="closed-district">{% trans 'Please note that the input period for this district is over for 2015.' %}</span> ');
-//         $('#save-place-btn').prop('disabled', true);
-//       } else {
-//         $('#save-place-btn').prop('disabled', false);
-//       }
-//     },
-//     error: function() {
-//       $district.html('{% trans '(Outside of the PB districts)' %}');
-//     }
-//   });
-// }
-</script>
-
-<!-- zoom to marker on click -->
-<script>
-  // (function(NS, $) {
-
-  //   $(Shareabouts).on('panelshow', function(evt, app, path) {
-  //     // $( "<br/><small>{% trans 'Note: Council district staff will review idea categories and make any revisions as needed.' %}</small>" ).insertAfter( "#place-location_type" );
-  //   });
-
-  //   var originalOnMarkerClick = Shareabouts.LayerView.prototype.onMarkerClick;
-  //   NS.LayerView.prototype.onMarkerClick = function(evt) {
-  //     var self = this;
-  //     originalOnMarkerClick.apply(this, arguments);
-  //     if (this.map.getZoom() < this.map.getMaxZoom()-3) {
-  //       _.delay(function() {
-  //         self.map.setView(evt.latlng, self.map.getMaxZoom()-3, {
-  //           animate: true
-  //         });
-
-  //         self.map.invalidateSize({ animate:false, pan:false });
-  //       }, 200);
-  //     }
-  //   }
-
-  // }(Shareabouts, jQuery));
-</script>
 {{/block}}
 
 {{/extends}}
