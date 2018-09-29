@@ -423,11 +423,6 @@ place:
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: submit
           type: common_form_element
 
@@ -641,7 +636,7 @@ story:
       - pwi-featured
       - pwi-input
     order:
-      - url: vacant-parcels
+      - url: featured/4059
         basemap: light
         zoom: 12
         pan_to:
@@ -651,21 +646,13 @@ story:
         visible_layers:
           - vacant-parcels             
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: good-shephard-lutheran-meals--tue---6pm-
+      - url: featured/4007
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png  
-      - url: kwa-meals-
+      - url: featured/4006
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png        
-      - url: first-creek-middle-school--varies-
+      - url: featured/4011
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png  
 
-# cluster:
-#   animate: true
-#   animateAddingMarkers: false
-#   showCoverageOnHover: false
-#   spiderfyOnMaxZoom: true
-#   spiderfyDistanceMultiplier: 1.5
-#   spiderLegPolylineOptions:
-#     opacity: 0
