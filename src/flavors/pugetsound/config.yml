@@ -599,17 +599,6 @@ place:
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
-        # - name: submitter_name
-        #   type: common_form_element
-        # - name: private-submitter_email
-        #   type: common_form_element
-        # - name: my_image
-        #   type: common_form_element
         - name: submit
           type: common_form_element
     - category: rose-grants
@@ -647,11 +636,6 @@ place:
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: submitter_name
           type: common_form_element
         - name: private-submitter_email
@@ -693,11 +677,6 @@ place:
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: submitter_name
           type: common_form_element
         - name: private-submitter_email
@@ -879,60 +858,61 @@ story:
     default_visible_layers:
       - pugetsoundfeatured
     order: 
-      - url: tacoma-tideflats
+      - url: featured/3927
         zoom: 13
         basemap: satellite
         spotlight: false      
-      - url: atlantic-salmon
+      - url: featured/3457
         zoom: 14
         basemap: satellite
-      - url: west-point-sewage-spill
+      - url: featured/3718
         zoom: 16
         spotlight: false
         basemap: satellite
-      - url: longfellow-salmon
+      - url: featured/3471
         zoom: 18
         basemap: satellite      
-      - url: clean-marinas
+      - url: featured/3931
         zoom: 7
         pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - clean-marinas
         spotlight: false
         basemap: light-nolabels
-      - url: shellfish
+      - url: featured/3929
         zoom: 7
         pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - shellfish-harvesting
         basemap: light-nolabels
         spotlight: false
-      - url: oil-spills
+      - url: featured/3930
         zoom: 7
         pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - spill-incidents
         basemap: light-nolabels
         spotlight: false       
-      - url: sewer-overflow
+      - url: featured/3928
         zoom: 10
         pan_to: [-122.31682047088867, 47.59085278732215]
         visible_layers:
           - cso
         spotlight: false
         basemap: satellite
-      - url: scorecard
+      - url: featured/3979
         zoom: 8
         pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - scorecard-layer
         spotlight: false
         basemap: light-nolabels
-      - url: settled-cases
+      - url: featured/3470
+        spotlight: false
+        zoom: 8
+        pan_to: [-122.31682047088867, 47.673217479920595]
         visible_layers:
           - pugetsoundcases
-        spotlight: false
-        zoom: 10
 
   rose-grants:
     tagline: _(Next grant)
@@ -940,393 +920,103 @@ story:
     default_visible_layers:
       - pugetsoundrose
     order:
-      - url: rose-fund
+      - url: featured/3469
         zoom: 8
         pan_to: [-122.31682047088867, 47.673217479920595]
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/map-pin-marker.png
-      - url: puget-sound-stewards---duwamish-and-beyond
-      - url: green-duwamish-water-quality-improvement-youth-exchange
-      - url: tales-of-puget-sound--training-the-next-generation-of-researchers
-      - url: improving-environmental-restoration-with-unmanned-aerial-vehicle-technology
-      - url: killer-whale-tales--kids-making-a-difference-now-stormwater-busters--deep-dive
-      - url: duwamish-alive---watershed-habitat-restoration--water-quality-improvement-and-community-stewardship
-      - url: wfc-strategic-initiative--puget-sound-net-pens-pollution-reduction
-      - url: new-arrival-environmental-orientation
-      - url: squires-landing-park-restoration
-      - url: matching-grant-for-60--design--olympic-hills-pocket-park
-      - url: phthalates-research-and-education-for-source-control--duwamish-river-and-commencement-bay
-      - url: general-support--hire-a-part-time-staff-person
-      - url: depave-the-duwamish
-      - url: yahowt-native-women-s-circle
-      - url: channeling-interest-in-land-based-whale-watching-into-saving-puget-sound-drop-by-drop
-      - url: shadow-lake-nature-preserve--extend-the-bog-tour
-      - url: be-a-toxic-free-zone-workshops
-      - url: normalizing-green-infrastructure
-      - url: protecting-washington-s-waterways-and-delicate-ecosystems-from-dirty-fossil-fuels
-      - url: a-watershed-stewards-program-for-king-county
-      - url: edmonds-watershed-stewards
-      - url: puget-sound-stormwater-language--messaging-and-outreach-material-development-project
-      - url: tacoma-mall-neighborhood-depave-project
-      - url: burien-residential-rain-garden-pilot-project
-      - url: strengthening-puget-sound-hands-on-stewardship-and-intertidal-monitoring-project
-      - url: hey-duwamish----open-technology-and-community-engagement-for-the-green-duwamish-watershed
-      - url: delridge-wetlands-restoration-and-stewardship-project
-      - url: an-agricultural-pollution-prevention-strategy-to-save-salmon-and-shellfish-in-puget-sound
-      - url: student-stewardship-conservation-project
-      - url: duwamish-river-cleanup-coalition-tag-general-support-2016
-      - url: protecting-the-north-creek-watershed-and-beyond
-      - url: lakewashington-us---a-community-map-uniting-all-to-protect-and-restore-lake-washington
-      - url: carpenter-creek-estuary-restoration--monitoring---internship-program
-      - url: bainbridge-island-beach-cleanup
-      - url: bog-to-bay---stormwater-pollution-solutions-in-my-neighborhood
-      - url: science-connects--discovering-our-role-in-a-healthy-puget-sound
-      - url: sound-horsekeeping-to-protect-puget-sound
-      - url: hylebos-watershed-community-based-restoration
-      - url: aquatic-reserve-program
-      - url: community-involvement-in-the-restoration-of-the-sammamish-river-at-wayne-golf-course
-      - url: kids-making-a-difference-now-whale-scouts
-      - url: save-habitat-and-diversity-of-wetlands-org-general-support
-      - url: 2015-16-regional-stormwater-monitoring-program--rsmp
-      - url: langley-middle-school-oceanography--smith---minor-islands-aquatic-reserve-citizen-science-outreach
-      - url: ecosystem-and-water-quality-advocacy-through-watershed-restoration-in-olympia
-      - url: soundside-marinelife-rescue-center-general-support
-      - url: washington-toxics-coalition-general-support
-      - url: legacy-watersheds--public-private-low-impact-development-solutions-for-puget-sound
-      - url: duwamish-alive--watershed-habitat-restoration---community-stewardship
-      - url: nisqually-land-trust-riparian-forest-restoration-initiative
-      - url: duwamish-river-cleanup-coalition-tag-general-support-2014
-      - url: citizen-stewardship-for-clean-water
-      - url: washington-sustainable-agriculture-campaign
-      - url: puget-sound-stewards---duwamish
-      - url: long-term-fish-use-of-the-elwha-river-nearshore
-      - url: bog-to-bay--stormwater-pollution-solutions-in-my-neighborhood
-      - url: hylebos-watershed-scale-restoration-planning
-      - url: mountains-to-sound-greenway-trust-general-support
-      - url: puget-sound-spill-kit-program
-      - url: clean-water-and-green-infrastructure
-      - url: heyduwamish-org
-      - url: fidalgo-bay-science-and-stewardship-project
-      - url: cherry-point-stewardship-project
-      - url: carpenter-creek-estuary-restoration
-      - url: watershed-health-and-youth
-      - url: water-watchers
-      - url: shinglemill-creek-stormwater-project--community-science-for-clean-waters-and-healthy-salmon
-      - url: nisqually-reach-aquatic-reserve
-      - url: hazel-valley-rain-gardens
-      - url: building-grassroots-help-to-restore-the-north-creek-watershed
-      - url: down-on-the-farm--least-toxic-solutions-for-snohomish-county
-      - url: whale-scout
-      - url: killer-whale-tales--kids-making-a-difference-now--stormbusters
-      - url: art-for-learning-watershed-science---connecting-with-teens
-      - url: boise-creek-treat-riparian-restoration
-      - url: whidbey-island-impaired-waters
-      - url: experiential-learning-in-environmental-science
-      - url: carpenter-creek-estuary-restoration-and-monitoring-program
-      - url: phase-2-launch-rodney-goes-green
-      - url: volunteer-program-implementation
-      - url: inspire-stewardship-of-puget-sound-waters
-      - url: south-king-county-group-soos-creek-park-restoration-project
-      - url: clear-to-the-sound
-      - url: water-mapping-project
-      - url: art-for-learning-watershed-science
-      - url: stillaguamish-river-clean-water-project
-      - url: lower-soos-creek--green-river-watershed-project
-      - url: kids-making-a-difference-now
-      - url: connecting-people-to-our-marine---estuary-waters-project
-      - url: friends-of-north-creek-forest-phase-2
-      - url: kilbourne-ravine-riparian-and-buffer-project
-      - url: nisqually-reach-aquatic-reserve-project
-      - url: biofiltration-swale-and-ngpa-restoration-project
+      - url: rose/3473
+      - url: rose/3474
+      - url: rose/3475
+      - url: rose/3476
+      - url: rose/3477
+      - url: rose/3478
+      - url: rose/3479
+      - url: rose/3480
+      - url: rose/3481
+      - url: rose/3482
+      - url: rose/3483
+      - url: rose/3484
+      - url: rose/3485
+      - url: rose/3486
+      - url: rose/3487
+      - url: rose/3488
+      - url: rose/3489
+      - url: rose/3490
+      - url: rose/3491
+      - url: rose/3492
+      - url: rose/3493
+      - url: rose/3494
+      - url: rose/3495
+      - url: rose/3496
+      - url: rose/3497
+      - url: rose/3498
+      - url: rose/3499
+      - url: rose/3500
+      - url: rose/3501
+      - url: rose/3502
+      - url: rose/3503
+      - url: rose/3504
+      - url: rose/3505
+      - url: rose/3506
+      - url: rose/3507
+      - url: rose/3508
+      - url: rose/3509
+      - url: rose/3510
+      - url: rose/3511
+      - url: rose/3512
+      - url: rose/3513
+      - url: rose/3514
+      - url: rose/3515
+      - url: rose/3516
+      - url: rose/3517
+      - url: rose/3518
+      - url: rose/3519
+      - url: rose/3520
+      - url: rose/3521
+      - url: rose/3522
+      - url: rose/3523
+      - url: rose/3524
+      - url: rose/3525
+      - url: rose/3526
+      - url: rose/3527
+      - url: rose/3528
+      - url: rose/3529
+      - url: rose/3530
+      - url: rose/3531
+      - url: rose/3532
+      - url: rose/3533
+      - url: rose/3534
+      - url: rose/3535
+      - url: rose/3536
+      - url: rose/3537
+      - url: rose/3538
+      - url: rose/3539
+      - url: rose/3540
+      - url: rose/3541
+      - url: rose/3542
+      - url: rose/3543
+      - url: rose/3544
+      - url: rose/3545
+      - url: rose/3546
+      - url: rose/3547
+      - url: rose/3548
+      - url: rose/3549
+      - url: rose/3550
+      - url: rose/3551
+      - url: rose/3552
+      - url: rose/3553
+      - url: rose/3554
+      - url: rose/3555
+      - url: rose/3556
+      - url: rose/3557
+      - url: rose/3558
+      - url: rose/3559
+      - url: rose/3560
+      - url: rose/3561
+      - url: rose/3562
+      - url: rose/3563
+      - url: rose/3564
+      - url: rose/3565
+      - url: rose/3565
 
-  settled-cases:
-    tagline: _(Next case)
-    default_zoom: 14
-    default_visible_layers:
-      - pugetsoundcases
-    order:
-      - url: settled-cases
-        spotlight: false
-        zoom: 8
-        pan_to: [-122.31682047088867, 47.673217479920595]
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: transtar-metals-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: scott-galvanizing
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: honcoop-trucking-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: granite-precasting---concrete-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: budget-auto-wrecking
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: binford-metals-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: alaska-logistics-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: aaron-s-auto-wrecking
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: z-recyclers--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: yarrow-bay-yacht-sales-and-service-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: yamato-engine-specialists-ltd
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: yachtfish-marine--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: yacht-performance-center-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: william-scotsman--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: whitley-manufacturing-co--inc-d-b-a--whitley-evergreen
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: western-pneumatic-tube-company
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: warm-beach-christian-camps-and-conference-center
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: warm-beach-christian-camps-and-conference-center
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: veneer-chip-transport-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: urban-accessories--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: unocal-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: umbra-cuscinetti--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: trident-seafoods-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: trident-seafoods-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: total-terminals-international-llc-aka-t46
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: todd-pacific-shipyards-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: taylor-equipment-and-machine-tool-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: tacoma-metals-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: tacoma-asphalt-plant
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: streich-bros---inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: stevedoring-services-of-america-terminals--inc--aka-t18
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: steeler-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: spadoni-brothers--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: socco--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: snohomish-county
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: snohomish--city-of
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: skyline-electric---manufacturing-co
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: shultz-distributing-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: shasta-beverages--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: seattle--port-of--marine-maintenance-facility
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: schneider-simpson-sheet-metal
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: saint-gobain-containers--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: rsa-microtech--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: rosario-resort-wwt-facility--oly-rose-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: recycling-depot--inc---the
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: recycling---disposal-services-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: rainier-petroleum---pier-15
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: rainier-petroleum---colorado-st
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: puget-sound-naval-shipyard--united-states-navy
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: portac--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: port-of-seattle--pier-66
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: port-of-seattle---cta--pier-91
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: port-blakely-communities--issaquah-highlands
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: port-angeles-landfill
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: pape-machinery-tacoma
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: pacific-metallurgical--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: pacific-commercial-equipment
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: ocean-beauty-seafoods
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: oberto-sausage-co
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: northwest-recycling-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: northwest-forest-products
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: northwest-container-services-inc---t115
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: northland-services--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: north-bend--city-of--stp
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: new-west-gypsum-usa-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: nepa-pallet---container-co--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: milgard-manufacturing-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: metso-paper-usa--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: meltec-division--young-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: mcclean-iron-works
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: manke-lumber-company--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: louis-dreyfus-commodities-llc---pier-86
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: la-conner--town-of
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: king-county-international-airport
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: kent-meridian-disposal
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: jerstedt-lumber-co--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: j-m--martinac-shipbuilding-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: j-a--jack---sons--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: goergia-pacific-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: galvin-flying-services
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: friday-harbor-wwtp
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: fisherman-bay-wwt-facility
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: fibrex-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: ferndale--city-of
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: federal-express-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: federal-express-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: federal-express-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: federal-express-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: federal-express-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: evergreen-trails-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: eastside-masonry-products-monroe
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: duwamish-shipyard-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: dunato-s-marine-services
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: davis-wire-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: darigold--inc--rainier-ave-plant
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: csr-marine
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: coca-cola-bottling-company
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: cityice-cold-storage-company
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: city-of-tacoma--industrial-pre--treatment-program
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: certainteed-gypsum--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: cedar-grove-composting--inc--everett
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: canyon-lumber-co--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: canfor-usa-corp
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: cadman--seattle--inc----tilbury-cement-co
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: buse-timber-sales--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: brown-minneapolis-tank-northwest--llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: bremerton--city-of
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: bp-west-coast-products-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: boyer-logistics--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: bornstein-seafoods--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: bnsf-railway-company--balmer-yard
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: bnsf-railway
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: blake-island-wwtp
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: bellingham-cold-storage
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: bellingham--port-of----bellingham-intl-airport--bellingham-cruise-terminal--port-s-maintenance-shop
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: beall-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: ballard-marine--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
-      - url: asc-profiles--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: ameriflight-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: american-steel--llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: almar--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: alaskan-copper
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: alaska-marine-lines--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: airport-auto-wrecking--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: achilles-usa-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: ace-galvanizing-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: abf-freight-systems
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: u-s--navy--naval-base-kitsap
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: snohomish-county
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: seattle-iron---metals-corp
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: samson-tug---barge-co--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: pierce-county-recycling--composting-and-disposal--llc--lri-landfill
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: lakehaven-utility-district--lakota-wastewater-treatment-plant
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: epa--nmfs--us-f-w--cooling-water-intake
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: duwamish-marine-center--samson-tug---barge-co--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: cargill--inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: apm-terminals-tacoma-llc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: alaskan-copper-works
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: ace-metal-corporation
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
-      - url: ace-galvanizing-inc
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
