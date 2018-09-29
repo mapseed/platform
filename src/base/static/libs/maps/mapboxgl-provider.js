@@ -1223,7 +1223,7 @@ export default (container, options) => {
 
     easeTo: options => {
       setTimeout(() => {
-        map.easeTo(options);
+        map.flyTo(options);
       }, 0);
     },
 
