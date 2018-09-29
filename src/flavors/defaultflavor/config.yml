@@ -1144,18 +1144,3 @@ story:
       - url: demo/21
         pan_to: [-122.57256740778439, 47.44334015969261]
         zoom: 10
-  another_example:
-    tagline: _(Next featured site)
-    header: _(Story Number Two With a Longer Name than the Other Story)
-    description: _(This is the second story, and it's got a longer header and description because that's just how it is.)
-    default_zoom: 18
-    default_basemap: sample-wmts-b
-    default_visible_layers:
-      - demo
-      - sample-json-a
-    order:
-      - url: cool-line
-        sidebar_icon_url: /static/css/images/markers/marker-question.png
-        zoom: 12
-        pan_to: [-122.57256740778439, 47.44334015969261]
-      - url: demo/17

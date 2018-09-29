@@ -718,11 +718,6 @@ place:
           prompt: _(Background, timeline, and data:)
           display_prompt: _(Background, timeline, and data)
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: private-submitter_email
           type: common_form_element
         - name: submit
@@ -2158,7 +2153,7 @@ support:
 
 pages:
   - title: _(Community)
-    name: hamm-creek-restoration
+    name: featured/3737
 
   - title: _(Classroom)
     name: classroom
@@ -2198,44 +2193,44 @@ story:
     default_visible_layers:
       - mwfeatured
     order:
-      - url: hamm-creek-restoration
+      - url: featured/3737
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: wdfw-boat-launch
+      - url: featured/3363
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: mill-creek-school-flooding
+      - url: featured/3360
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: paradise-parking-hillside-church
+      - url: featured/3362
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: greenroof
+      - url: featured/3328
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: bioswale
+      - url: featured/3329
         zoom: 18
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: barton
+      - url: featured/3330
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: longfellow
+      - url: featured/3331
         zoom: 14
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: covington-community-park
+      - url: featured/3747
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: jenkins-creek-park
+      - url: featured/3748
         zoom: 18
         basemap: satellite
         sidebar_icon_url: /static/css/images/markers/marker-star.png        
-      - url: sammamish
+      - url: featured/3332
         zoom: 8
         pan_to:
           lat: 47.631653886906804
@@ -2246,7 +2241,7 @@ story:
           - watershed-sammamish
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: cedar
+      - url: featured/3333
         zoom: 8
         pan_to:
           lat: 47.64123180739975
@@ -2257,7 +2252,7 @@ story:
           - watershed-cedar-sammamish
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: green-duwamish
+      - url: featured/3334
         zoom: 8
         pan_to:
           lat: 47.32023597632835
@@ -2268,7 +2263,7 @@ story:
           - watershed-green
         spotlight: false
         sidebar_icon_url: /static/css/images/markers/marker-star.png
-      - url: puyallup-white
+      - url: featured/3335
         zoom: 8
         pan_to:
           lat: 47.08293753263453

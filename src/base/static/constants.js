@@ -8,7 +8,6 @@ export default {
   DROPDOWN_AUTOCOMPLETE_FIELD_TYPENAME: "dropdown_autocomplete",
   PUBLISH_CONTROL_TOOLBAR_TYPENAME: "publish_control_toolbar",
   MAP_DRAWING_TOOLBAR_TYPENAME: "map_drawing_toolbar",
-  CUSTOM_URL_TOOLBAR_TYPENAME: "custom_url_toolbar",
   DATETIME_FIELD_TYPENAME: "datetime",
   GEOCODING_FIELD_TYPENAME: "geocoding",
   BIG_TOGGLE_FIELD_TYPENAME: "big_toggle",

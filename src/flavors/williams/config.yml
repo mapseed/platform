@@ -424,11 +424,6 @@ place:
           prompt: _( )
           display_prompt: _( )
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: private-submitter_email
           type: common_form_element
         - name: submit
@@ -463,11 +458,6 @@ place:
           prompt: _( )
           display_prompt: _( )
           placeholder: _( )
-        - name: url-title
-          type: custom_url_toolbar
-          prompt: _(Choose a custom URL for this place:)
-          placeholder: "my-new-featured-place"
-          optional: true
         - name: private-submitter_email
           type: common_form_element
         - name: submit

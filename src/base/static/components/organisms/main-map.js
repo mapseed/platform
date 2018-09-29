@@ -412,23 +412,12 @@ class MainMap extends Component {
         ["click", "touchstart"],
         layer.id,
         clickedOnLayer => {
-          if (clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]) {
-            this.props.router.navigate(
-              `/${
-                clickedOnLayer.properties[constants.CUSTOM_URL_PROPERTY_NAME]
-              }`,
-              {
-                trigger: true,
-              },
-            );
-          } else {
-            this.props.router.navigate(
-              `/${
-                clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
-              }/${clickedOnLayer.properties.id}`,
-              { trigger: true },
-            );
-          }
+          this.props.router.navigate(
+            `/${
+              clickedOnLayer.properties[constants.DATASET_SLUG_PROPERTY_NAME]
+            }/${clickedOnLayer.properties.id}`,
+            { trigger: true },
+          );
         },
       );
       this._map.bindPlaceLayerEvents(["mouseenter"], layer.id, () => {
