@@ -11,7 +11,14 @@ injectGlobal`
     font-family: "Bowlby";
     src: url("/static/css/BowlbyOneSC-Regular.ttf");
   }
-
+  @font-face {
+    font-family: "Josefin Sans";
+    src: url("/static/css/JosefinSans-Regular.ttf")
+  }
+  @font-face {
+    font-family: "Montserrat";
+    src: url("/static/css/Montserrat-Regular.ttf")
+  }
 `;
 
 export const themePropTypes = PropTypes.shape({
@@ -68,7 +75,8 @@ const theme = {
   text: {
     primary: "#fff",
     secondary: "#a3c7d9",
-    fontFamily: "Roboto,sans-serif",
+    headerFontFamily: "Roboto,sans-serif",
+    bodyFontFamily: "Roboto,sans-serif",
     textTransform: "uppercase",
   },
   boxShadow: "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)",

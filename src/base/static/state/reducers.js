@@ -8,6 +8,7 @@ import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
 import mapDrawingToolbarReducer from "./ducks/map-drawing-toolbar";
 import appConfigReducer from "./ducks/app-config";
 import mapReducer from "./ducks/map";
+import surveyConfigReducer from "./ducks/survey-config";
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   rightSidebarConfig: rightSidebarConfigReducer,
   mapDrawingToolbar: mapDrawingToolbarReducer,
   appConfig: appConfigReducer,
+  surveyConfig: surveyConfigReducer,
 });
 
 export default reducers;

@@ -8,8 +8,8 @@ const getPlaceCollections = async ({
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
-  let totalPages;
   let pagesComplete = 0;
+  let totalPages;
   let pageSize;
 
   // TODO(luke): Once backbone models are ported into the redux store,
@@ -75,8 +75,17 @@ const getPlaceCollections = async ({
   return await Promise.all(placeCollectionPromises);
 };
 
+const getActivity = activityCollections => {
+  activityCollections.forEach(activityCollection => {
+    activityCollection.fetch();
+  });
+};
+
 export default {
   place: {
     get: getPlaceCollections,
+  },
+  activity: {
+    get: getActivity,
   },
 };

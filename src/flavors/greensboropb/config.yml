@@ -56,10 +56,10 @@ map:
       url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-    - id: districts
-      type: raster-tile
-      is_visible_default: true
-      url: https://a.tiles.mapbox.com/v4/openplans.d0214deb/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImNpaDBwMGc4eTB4ZGN4MW0wMmh1eTUxNGsifQ.naovRZ2zfYj7dD704eKXCw
+      #    - id: districts
+      #      type: raster-tile
+      #      is_visible_default: true
+      #      url: https://a.tiles.mapbox.com/v4/openplans.d0214deb/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImNpaDBwMGc4eTB4ZGN4MW0wMmh1eTUxNGsifQ.naovRZ2zfYj7dD704eKXCw
 
     - id: greensboropb
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greensboropb
@@ -631,7 +631,7 @@ map:
 right_sidebar:
   is_enabled: true
   is_visible_default: true
-  component: StoryNavigator
+  component: ActivityStream 
 
 left_sidebar:
   is_enabled: true
@@ -642,7 +642,6 @@ left_sidebar:
       component: MapLayerPanel
       title: _(Map Layers:)
       groupings:
-
         - id: basemaps
           title: _(Basemaps)
           layers:
@@ -655,8 +654,8 @@ left_sidebar:
           layers:
             - id: greensboropb
               title: _(Community Reports)
-            - id: districts
-              title: _(Districts)
+              #            - id: districts
+              #              title: _(Districts)
 #    - id: right-sidebar-container
 #      title: _(Community ideas:)
 #      view: LegendView
@@ -689,7 +688,7 @@ activity:
   show_in_right_panel: true
 
 place:
-  adding_supported: false
+  adding_supported: true
   add_button_label: _(Submit an idea)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)

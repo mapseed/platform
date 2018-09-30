@@ -123,17 +123,23 @@ RegularLabel.propTypes = {
   styles: PropTypes.object,
 };
 
-const SmallText = styled("span")(props => ({
-  fontWeight: "normal",
-  fontSize: "0.875em",
-}));
+// TODO: Other text types.
+const SmallText = styled("span")(
+  props => (
+    {
+      fontWeight: "normal",
+      fontSize: "0.875em",
+    },
+    props.styles
+  ),
+);
 
 const Link = styled("a")(props => ({
   cursor: "pointer",
   textDecoration: "none",
   color: props.theme.brand.primary,
   textTransform: props.theme.text.textTransform,
-  fontFamily: props.theme.text.fontFamily,
+  fontFamily: props.theme.text.bodyFontFamily,
 
   "&:hover": {
     textDecoration: "none",
