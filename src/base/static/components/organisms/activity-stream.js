@@ -38,6 +38,25 @@ class ActivityStream extends Component {
           collectionId: activity.collectionId,
         });
       });
+      activity.collection.on("sync", model => {
+        // When the collection has synced, sort activities in reverse
+        // chronological order.
+        this.setState({
+          activityModels: this.state.activityModels.sort((a, b) => {
+            if (
+              new Date(a.get("created_datetime")) <
+              new Date(b.get("created_datetime"))
+            )
+              return 1;
+            if (
+              new Date(a.get("created_datetime")) >
+              new Date(b.get("created_datetime"))
+            )
+              return -1;
+            return 0;
+          }),
+        });
+      });
     });
 
     // TODO: Refactor polling for websockets.
