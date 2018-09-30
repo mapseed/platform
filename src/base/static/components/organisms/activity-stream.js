@@ -111,7 +111,6 @@ class ActivityStream extends Component {
               break;
           }
 
-
           return (
             <ActivityItem
               key={i}
@@ -129,7 +128,17 @@ class ActivityStream extends Component {
 }
 
 ActivityStream.propTypes = {
+  placeConfig: PropTypes.shape({
+    action_text: PropTypes.string.isRequired,
+    anonymous_name: PropTypes.string.isRequired,
+  }).isRequired,
   placeLayers: PropTypes.array.isRequired,
+  // eslint-disable-next-line no-undef
+  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
+  surveyConfig: PropTypes.shape({
+    action_text: PropTypes.string.isRequired,
+    anonymous_name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -30,6 +30,14 @@ const BasicActivityItem = props => (
   </ActivityLink>
 );
 
+BasicActivityItem.propTypes = {
+  actionText: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  submitterName: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  url: PropTypes.string.isRequired,
+};
+
 const ActivityItem = styled(BasicActivityItem)(props => ({
   position: "relative",
   listStyle: "none",
