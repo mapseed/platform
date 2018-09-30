@@ -13,9 +13,16 @@ import { mapPlaceLayersSelector } from "../../state/ducks/map-config";
 import { surveyConfigSelector } from "../../state/ducks/survey-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 
+import constants from "../../constants";
+
 class ActivityStream extends Component {
   constructor(props) {
     super(props);
+    // We augment the model properties with the client-side slug, place id, and
+    // collection id for the purpose of building internal links.
+    this.slugProperty = "__slug";
+    this.collectionIdProperty = "__collectionId";
+    this.placeIdProperty = "__placeId";
     this.state = {
       activityModels: List(),
     };
@@ -44,13 +51,13 @@ class ActivityStream extends Component {
         this.setState({
           activityModels: this.state.activityModels.sort((a, b) => {
             if (
-              new Date(a.get("created_datetime")) <
-              new Date(b.get("created_datetime"))
+              new Date(a.get(constants.CREATED_DATETIME_PROPERTY_NAME)) <
+              new Date(b.get(constants.CREATED_DATETIME_PROPERTY_NAME))
             )
               return 1;
             if (
-              new Date(a.get("created_datetime")) >
-              new Date(b.get("created_datetime"))
+              new Date(a.get(constants.CREATED_DATETIME_PROPERTY_NAME)) >
+              new Date(b.get(constants.CREATED_DATETIME_PROPERTY_NAME))
             )
               return -1;
             return 0;
@@ -76,14 +83,16 @@ class ActivityStream extends Component {
 
   onAddAction({ model, slug, collectionId }) {
     // Get the id of the place related to this action.
-    model.attributes.__placeId = model.get("target").place
+    model.attributes[this.placeIdProperty] = model.get(
+      constants.TARGET_PROPERTY_NAME,
+    ).place
       ? model
-          .get("target")
+          .get(constants.TARGET_PROPERTY_NAME)
           .place.split("/")
           .slice(-1)[0]
-      : model.get("target").id;
-    model.attributes.__slug = slug;
-    model.attributes.__collectionId = collectionId;
+      : model.get(constants.TARGET_PROPERTY_NAME).id;
+    model.attributes[this.slugProperty] = slug;
+    model.attributes[this.collectionIdProperty] = collectionId;
 
     // When we get a new activity model, just unshift it to the front of the
     // List of serialized models.
@@ -98,19 +107,23 @@ class ActivityStream extends Component {
     return (
       <ul style={{ paddingLeft: 0 }}>
         {this.state.activityModels.map((activityModel, i) => {
-          const submitter = activityModel.get("target").get("submitter") || {};
-          const target = activityModel.get("target");
+          const submitterName = activityModel
+            .get(constants.TARGET_PROPERTY_NAME)
+            .get(constants.SUBMITTER_NAME);
+          const target = activityModel.get(constants.TARGET_PROPERTY_NAME);
           const activityConfig = {};
-          const collectionId = activityModel.get("__collectionId");
-          const placeId = activityModel.get("__placeId");
-          const slug = activityModel.get("__slug");
+          const collectionId = activityModel.get(this.collectionIdProperty);
+          const placeId = activityModel.get(this.placeIdProperty);
+          const slug = activityModel.get(this.slugProperty);
 
           // We support activity for place and comment creation.
           switch (activityModel.get("target_type")) {
             case "place":
               // To derive the title for place activity, we assume there is
               // always a model attribute called "title".
-              activityConfig.title = activityModel.get("target").get("title");
+              activityConfig.title = activityModel
+                .get(constants.TARGET_PROPERTY_NAME)
+                .get(constants.TITLE_PROPERTY_NAME);
               activityConfig.anonymousName = this.props.placeConfig.anonymous_name;
               activityConfig.actionText = this.props.placeConfig.action_text;
               activityConfig.url = `/${slug}/${placeId}`;
@@ -121,11 +134,13 @@ class ActivityStream extends Component {
               // that model called "title".
               activityConfig.title =
                 this.props.places[collectionId].get(placeId) &&
-                this.props.places[collectionId].get(placeId).get("title");
+                this.props.places[collectionId]
+                  .get(placeId)
+                  .get(constants.TITLE_PROPERTY_NAME);
               activityConfig.anonymousName = this.props.surveyConfig.anonymous_name;
               activityConfig.actionText = this.props.surveyConfig.action_text;
               activityConfig.url = `/${slug}/${placeId}/response/${target.get(
-                "id",
+                constants.MODEL_ID_PROPERTY_NAME,
               )}`;
               break;
           }
@@ -135,9 +150,8 @@ class ActivityStream extends Component {
               key={i}
               title={activityConfig.title}
               actionText={activityConfig.actionText}
-              submitterName={submitter.name || activityConfig.anonymousName}
+              submitterName={submitterName || activityConfig.anonymousName}
               url={activityConfig.url}
-              avatarurl={submitter.avatar_url}
             />
           );
         })}

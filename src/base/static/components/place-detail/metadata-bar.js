@@ -26,7 +26,7 @@ const MetadataBar = props => {
             <SubmitterName
               submitterName={
                 props.submitter.get(constants.NAME_PROPERTY_NAME) ||
-                props.placeModel.get(constants.SUBMITTER)
+                props.placeModel.get(constants.SUBMITTER_NAME)
               }
             />{" "}
             {{ actionText }} this
