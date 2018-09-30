@@ -1,28 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "react-emotion";
 
 import { UserAvatar } from "../atoms/imagery";
-import { SmallText } from "../atoms/typography";
+import { SmallText, Link } from "../atoms/typography";
 
-const ActivityItem = props => (
-  <li
-    style={{
-      position: "relative",
-      listStyle: "none",
-      borderBottom: "1px solid #888",
-    }}
-  >
-    <a href={props.url} rel="internal">
-      <div style={{ position: "absolute", top: "10px", left: "10px" }}>
+const ActivityLink = styled("a")(props => ({
+  textDecoration: "none",
+  fontFamily: props.theme.text.bodyFontFamily,
+  lineHeight: "1.1em",
+}));
+
+const BasicActivityItem = props => (
+  <ActivityLink href={props.url} rel="internal">
+    <li className={props.className}>
+      <div style={{ position: "absolute", top: "13px", left: "10px" }}>
         <UserAvatar />
       </div>
       <div style={{ paddingLeft: "40px", paddingTop: "10px" }}>
-        {props.title}
+        <div>
+          <SmallText weight="black">{props.submitterName} </SmallText>
+          <SmallText> {props.actionText}: </SmallText>
+        </div>
+        <div>
+          <SmallText>{props.title}</SmallText>
+        </div>
       </div>
-    </a>
-  </li>
+    </li>
+  </ActivityLink>
 );
 
-ActivityItem.propTypes = {};
+const ActivityItem = styled(BasicActivityItem)(props => ({
+  position: "relative",
+  listStyle: "none",
+  borderBottom: "1px solid #888",
+  "&:hover": {
+    color: "#fff",
+    backgroundColor: props.theme.brand.accent,
+  },
+}));
 
 export default ActivityItem;

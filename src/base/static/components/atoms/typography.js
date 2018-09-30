@@ -124,15 +124,23 @@ RegularLabel.propTypes = {
 };
 
 // TODO: Other text types.
-const SmallText = styled("span")(
-  props => (
-    {
-      fontWeight: "normal",
-      fontSize: "0.875em",
-    },
-    props.styles
-  ),
-);
+const SmallText = styled("span")(props => {
+  const styles = {
+    fontSize: "0.875em",
+    fontWeight: "normal",
+  };
+
+  switch (props.weight) {
+    case "bold":
+      styles.fontWeight = 600;
+      break;
+    case "black":
+      styles.fontWeight = 900;
+      break;
+  }
+
+  return styles;
+});
 
 const Link = styled("a")(props => ({
   cursor: "pointer",

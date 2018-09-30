@@ -102,6 +102,8 @@ class ActivityStream extends Component {
             <ActivityItem
               key={i}
               title={activityModel.get("target").get("title")}
+              actionText={activityConfig.actionText}
+              submitterName={submitter.name || activityConfig.anonymousName}
               url={activityConfig.url}
               avatarurl={submitter.avatar_url}
             />

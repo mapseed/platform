@@ -65,6 +65,7 @@ export const themePropTypes = PropTypes.shape({
 // we find one that works:
 const theme = {
   brand: {
+    accent: "#0af",
     primary: "#007fbf",
     secondary: "#a3c7d9",
   },

@@ -15,6 +15,13 @@ app:
   district:
   tagline: _(How would YOU spend $100K?)
 
+  theme:
+    brand:
+      accent: "#68bab9"
+    text:
+      headerFontFamilt: "Josefin Sans"
+      bodyFontFamily: "Montserrat"
+
 # languages:
 #   - code: en_US
 #     label: English
