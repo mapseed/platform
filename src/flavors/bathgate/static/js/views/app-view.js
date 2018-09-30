@@ -89,7 +89,6 @@ module.exports = AppView.extend({
     }
 
     // Bootstrapped data from the page
-    this.activities = this.options.activities;
     this.places = this.options.places;
 
     // this flag is used to distinguish between user-initiated zooms and
@@ -218,7 +217,6 @@ module.exports = AppView.extend({
       // Init the view for displaying user activity
       this.activityView = new ActivityView({
         el: "ul.recent-points",
-        activities: this.activities,
         places: this.places,
         placeConfig: this.options.placeConfig,
         router: this.options.router,
@@ -347,22 +345,6 @@ module.exports = AppView.extend({
       placeParams,
       placeCollections: self.places,
       mapConfig: self.options.mapConfig,
-    });
-
-    // Load activities from the API
-    _.each(this.activities, function(collection, key) {
-      collection.fetch({
-        reset: true,
-        attribute: "target",
-        attributesToAdd: {
-          datasetId: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).id,
-          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).slug,
-        },
-      });
     });
 
     if (this.options.rightSidebarConfig.show) {

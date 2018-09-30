@@ -375,22 +375,6 @@ export default Backbone.View.extend({
       mapConfig: self.options.mapConfig,
     });
 
-    //    // Load activities from the API
-    //    _.each(this.activities, function(collection, key) {
-    //      collection.fetch({
-    //        reset: true,
-    //        attribute: "target",
-    //        attributesToAdd: {
-    //          datasetId: _.find(self.options.mapConfig.layers, function(layer) {
-    //            return layer.id == key;
-    //          }).id,
-    //          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
-    //            return layer.id == key;
-    //          }).slug,
-    //        },
-    //      });
-    //    });
-
     if (this.options.rightSidebarConfig.is_enabled) {
       $("body").addClass("right-sidebar-active");
       if (this.options.rightSidebarConfig.is_visible_default) {
