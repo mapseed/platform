@@ -19,7 +19,7 @@ app:
     brand:
       accent: "#68bab9"
     text:
-      headerFontFamilt: "Josefin Sans"
+      headerFontFamily: "Josefin Sans"
       bodyFontFamily: "Montserrat"
 
 # languages:

@@ -24,6 +24,7 @@ class ActivityStream extends Component {
   componentDidMount() {
     this.activities = this.props.placeLayers.map(placeLayer => ({
       slug: placeLayer.slug,
+      collectionId: placeLayer.id,
       collection: new ActionCollection([], {
         url: `${placeLayer.url}/actions`,
       }),
@@ -31,7 +32,11 @@ class ActivityStream extends Component {
 
     this.activities.forEach(activity => {
       activity.collection.on("add", model => {
-        this.onAddAction(model, activity.slug);
+        this.onAddAction({
+          model: model,
+          slug: activity.slug,
+          collectionId: activity.collectionId,
+        });
       });
     });
 
@@ -50,7 +55,7 @@ class ActivityStream extends Component {
     );
   }
 
-  onAddAction(model, slug) {
+  onAddAction({ model, slug, collectionId }) {
     // Get the id of the place related to this action.
     model.attributes.__placeId = model.get("target").place
       ? model
@@ -59,6 +64,7 @@ class ActivityStream extends Component {
           .slice(-1)[0]
       : model.get("target").id;
     model.attributes.__slug = slug;
+    model.attributes.__collectionId = collectionId;
 
     // When we get a new activity model, just unshift it to the front of the
     // List of serialized models.
@@ -73,35 +79,43 @@ class ActivityStream extends Component {
     return (
       <ul style={{ paddingLeft: 0 }}>
         {this.state.activityModels.map((activityModel, i) => {
+          const submitter = activityModel.get("target").get("submitter") || {};
           const target = activityModel.get("target");
           const activityConfig = {};
+          const collectionId = activityModel.get("__collectionId");
+          const placeId = activityModel.get("__placeId");
+          const slug = activityModel.get("__slug");
 
           // We support activity for place and comment creation.
           switch (activityModel.get("target_type")) {
             case "place":
+              // To derive the title for place activity, we assume there is
+              // always a model attribute called "title".
+              activityConfig.title = activityModel.get("target").get("title");
               activityConfig.anonymousName = this.props.placeConfig.anonymous_name;
               activityConfig.actionText = this.props.placeConfig.action_text;
-              activityConfig.url = `/${activityModel.get(
-                "__slug",
-              )}/${activityModel.get("__placeId")}`;
+              activityConfig.url = `/${slug}/${placeId}`;
               break;
             case "comments":
+              // To derive the title for comment activity, we look up the
+              // corresponding place model and assume there is a field on
+              // that model called "title".
+              activityConfig.title =
+                this.props.places[collectionId].get(placeId) &&
+                this.props.places[collectionId].get(placeId).get("title");
               activityConfig.anonymousName = this.props.surveyConfig.anonymous_name;
               activityConfig.actionText = this.props.surveyConfig.action_text;
-              activityConfig.url = `/${activityModel.get(
-                "__slug",
-              )}/${activityModel.get("__placeId")}/response/${target.get(
+              activityConfig.url = `/${slug}/${placeId}/response/${target.get(
                 "id",
               )}`;
               break;
           }
 
-          const submitter = activityModel.get("target").get("submitter") || {};
 
           return (
             <ActivityItem
               key={i}
-              title={activityModel.get("target").get("title")}
+              title={activityConfig.title}
               actionText={activityConfig.actionText}
               submitterName={submitter.name || activityConfig.anonymousName}
               url={activityConfig.url}

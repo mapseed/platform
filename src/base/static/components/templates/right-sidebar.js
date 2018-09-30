@@ -23,7 +23,10 @@ const RightSidebar = props => {
         <MapLegendPanel config={props.rightSidebarConfig} />
       )}
       {props.rightSidebarConfig.component === "ActivityStream" && (
-        <ActivityStream config={props.rightSidebarConfig} />
+        <ActivityStream
+          config={props.rightSidebarConfig}
+          places={props.places}
+        />
       )}
     </div>
   );
