@@ -325,6 +325,15 @@ class MainMap extends Component {
         });
       },
     );
+    emitter.addListener(
+      constants.MAP_TRANSITION_FLY_TO_POINT,
+      ({ coordinates, zoom }) => {
+        this._map.flyTo({
+          center: coordinates,
+          zoom: zoom,
+        });
+      },
+    );
   }
 
   componentDidUpdate(prevProps) {
