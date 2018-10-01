@@ -751,8 +751,8 @@ export default Backbone.View.extend({
 
       if (story.panTo) {
         // If a story chapter declares a custom centerpoint, regardless of the
-        // geometry type, assume that we want to ease to a point.
-        emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+        // geometry type, assume that we want to fly to a point.
+        emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
           coordinates:
             story.panTo || mapPositionSelector(store.getState()).center,
           zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
@@ -766,7 +766,7 @@ export default Backbone.View.extend({
           coordinates: story.panTo ? [[story.panTo]] : geometry.coordinates,
         });
       } else if (geometry.type === "Point") {
-        emitter.emit(constants.MAP_TRANSITION_EASE_TO_POINT, {
+        emitter.emit(constants.MAP_TRANSITION_FLY_TO_POINT, {
           coordinates: geometry.coordinates,
           zoom: story.zoom || mapPositionSelector(store.getState()).zoom,
         });
