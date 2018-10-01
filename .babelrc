@@ -16,5 +16,16 @@
     "transform-async-to-generator",
     "transform-async-generator-functions",
     "transform-class-properties"
-  ]
+  ],
+  "env": {
+    "production": {
+      "plugins": [["emotion", { "hoist": true }]]
+    },
+    "development": {
+      "plugins": [["emotion", { "sourceMap": true, "autoLabel": true }]]
+    },
+    "test": {
+      "plugins": [["emotion", { "sourceMap": true, "autoLabel": true }]]
+    }
+  }
 }

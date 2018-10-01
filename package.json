@@ -38,6 +38,7 @@
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.0.9",
     "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
+    "babel-plugin-emotion": "^9.2.11",
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-polyfill": "^6.23.0",
@@ -59,7 +60,7 @@
     "node-sass": "^4.0.0",
     "npm": "^5.2.0",
     "rc-color-picker": "^1.2.3",
-    "react": "~16.1.0",
+    "react": "~16.2.0",
     "react-addons-update": "~15.6.2",
     "react-datetime": "~2.14.0",
     "react-dom": "~16.2.0",
