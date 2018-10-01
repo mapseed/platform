@@ -106,6 +106,16 @@ function updateMetadata() {
         };
         return copyObjectPromise(buildParams(filepath, params));
       }),
+    )
+    .concat(
+      glob.sync("./www/index*").map(filepath => {
+        // All index files are gzipped
+        filepath = path.relative("./www", filepath);
+        params = {
+          ContentEncoding: "gzip",
+        };
+        return copyObjectPromise(buildParams(filepath, params));
+      }),
     );
 
   return Promise.all(updatePromises);

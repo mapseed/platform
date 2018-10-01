@@ -12,6 +12,7 @@ const glob = require("glob");
 const colors = require("colors");
 const Spritesmith = require("spritesmith");
 const shell = require("shelljs");
+const zlib = require("zlib");
 
 const transformCommonFormElements = require("../src/base/static/utils/config-loader-utils")
   .transformCommonFormElements;
@@ -373,7 +374,14 @@ activeLanguages.forEach(language => {
     outputBasePath,
     (language.code == "en_US" ? "index" : language.code) + ".html",
   );
-  fs.writeFileSync(outputIndexFilename, outputIndexFile);
+
+  if (process.env.NODE_ENV === "production") {
+    zlib.gzip(outputIndexFile, (error, result) => {
+      fs.writeFileSync(outputIndexFilename, result);
+    });
+  } else {
+    fs.writeFileSync(outputIndexFilename, outputIndexFile);
+  }
 });
 
 // (6) Move static image assets to the dist/ folder. Copy base project assets
