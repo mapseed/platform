@@ -232,28 +232,6 @@ export default Backbone.View.extend({
     );
     // END REACT PORT SECTION /////////////////////////////////////////////////
 
-    //    // Activity is enabled by default (undefined) or by enabling it
-    //    // explicitly. Set it to a falsey value to disable activity.
-    //    if (
-    //      _.isUndefined(this.options.activityConfig.enabled) ||
-    //      this.options.activityConfig.enabled
-    //    ) {
-    //      // Init the view for displaying user activity
-    //      this.activityView = new ActivityView({
-    //        el: "ul.recent-points",
-    //        activities: this.activities,
-    //        places: this.places,
-    //        placeConfig: this.options.placeConfig,
-    //        router: this.options.router,
-    //        placeTypes: this.options.placeTypes,
-    //        surveyConfig: this.options.surveyConfig,
-    //        supportConfig: this.options.supportConfig,
-    //        mapConfig: this.options.mapConfig,
-    //        // How often to check for new content
-    //        interval: this.options.activityConfig.interval || 30000,
-    //      });
-    //    }
-
     // REACT PORT SECTION /////////////////////////////////////////////////////
     if (this.options.mapConfig.geocoding_bar_enabled) {
       ReactDOM.render(
