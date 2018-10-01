@@ -1117,6 +1117,10 @@ export default (container, options) => {
         );
     },
 
+    remove: () => {
+      map.remove();
+    },
+
     removeLayer: layer => {
       layer &&
         layersCache[layer.id] &&

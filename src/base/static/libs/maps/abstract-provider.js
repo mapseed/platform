@@ -118,6 +118,13 @@ const abstractMethods = {
   },
 
   /**
+   * Remove the map.
+   */
+  remove: function() {
+    notImplemented();
+  },
+
+  /**
    * Remove the passed layer from the map.
    */
   removeLayer: function(/*layer*/) {
