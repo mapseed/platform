@@ -60,9 +60,10 @@ map:
   options:
     map:
       center:
-        lat: 48.02262
-        lng: -121.97262
-      zoom: 11
+        lat: 48.01287153396305
+        lng: -121.9524299235677
+      zoom: 9
+      pitch: 45
       minZoom: 1
       maxZoom: 18
     control:
