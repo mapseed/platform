@@ -30,10 +30,10 @@ map:
   options:
     map:
       center:
-        lat: 36.07
-        lng: -79.82
-      zoom: 11
-      minZoom: 10
+        lat: 35.97466
+        lng: -78.97799
+      zoom: 9
+      minZoom: 1
       maxZoom: 18
     control:
       showCompass: true
@@ -52,6 +52,62 @@ map:
       is_basemap: true
       url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: durham-bike-trails
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-bike-trails/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-bike-trails/style.json
+      source_layer: durham-bike-trails
+
+    - id: durham-bus-routes
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-bus-routes/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-bus-routes/style.json
+      source_layer: durham-bus-routes
+
+    - id: durham-bus-stops
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-bus-stops/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-bus-stops/style.json
+      source_layer: durham-bus-stops
+
+    - id: durham-libraries
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-libraries/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-libraries/style.json
+      source_layer: durham-libraries
+
+    - id: durham-council-wards
+      type: json
+      source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
+      rules:
+         - line-paint:
+             line-color: #ff0000
+             line-width: 2
+
+    - id: durham-existing-trails
+      type: json
+      source: https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson
+      rules:
+         - line-paint:
+             line-color: #00ff00
+             line-width: 2
+
+    - id: durham-proposed-trails
+      type: json
+      source: https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson
+      rules:
+         - line-paint:
+             line-color: #00ff00
+             line-width: 2
+
+    - id: durham-parks
+      type: json
+      source: https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson
+      rules:
+        #     - symbol-layout:
+        #         icon-image: "dot-c4ed52.png"
+        #         icon-anchor: "center"
 
     - id: greensboropb
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greensboropb
@@ -647,6 +703,25 @@ left_sidebar:
           layers:
             - id: greensboropb
               title: _(Community Reports)
+        - id: grp-city
+          title: _(City Data)
+          layers:
+             - id: durham-bike-trails
+               title: _(Bike Lanes)
+             - id: durham-bus-routes
+               title: _(Bus Routes)
+             - id: durham-bus-stops
+               title: _(Bus Stops)
+             - id: durham-libraries
+               title: _(Libraries)
+             - id: durham-council-wards
+               title: _(City Council Wards)
+             - id: durham-existing-trails
+               title: _(Existing Trails)
+             - id: durham-proposed-trails
+               title: _(Proposed Trails)
+             - id: durham-parks
+               title: _(Parks)
 #    - id: right-sidebar-container
 #      title: _(Community ideas:)
 #      view: LegendView
@@ -695,7 +770,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/fountain.png
+      icon_url: /static/css/images/markers/fountain.png
       value: culture
       label: _(Art & Culture)
       fields:
@@ -739,7 +814,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/playground.png
+      icon_url: /static/css/images/markers/playground.png
       value: parks
       label: _(Parks & Recreation)
       fields:
@@ -783,7 +858,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/street-sidewalk.png
+      icon_url: /static/css/images/markers/street-sidewalk.png
       value: streets
       label: _(Streets & Sidewalks)
       fields:
@@ -827,7 +902,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/health.png
+      icon_url: /static/css/images/markers/health.png
       value: health
       label: _(Public Health)
       fields:
@@ -871,7 +946,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/safety.png
+      icon_url: /static/css/images/markers/safety.png
       value: safety
       label: _(Safety & Environment)
       fields:
@@ -915,7 +990,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/idea.png
+      icon_url: /static/css/images/markers/idea.png
       value: other
       label: _(Other)
       fields:
@@ -964,14 +1039,14 @@ place:
       label: _(Add an Image)
       optional: true
     private-age:
-      autocomplete: true
+      autocomplete: false
       type: text
       prompt: _(Your age:)
       display_prompt: _()
       placeholder: _(Your age will not appear on the map)
       optional: true
     private-ethnicity:
-      autocomplete: true
+      autocomplete: false
       type: big_checkbox
       annotation: _(Your ethnicity will not appear on the map)
       prompt: _(Your ethnicity:)
@@ -993,7 +1068,7 @@ place:
           value: other-ethnicity
       optional: true
     private-income:
-      autocomplete: true
+      autocomplete: false
       type: dropdown
       prompt: _(Your income:)
       annotation: _(Your income will not appear on the map)
@@ -1018,20 +1093,20 @@ place:
           value: 150k-or-more
       optional: true
     submitter_name:
-      autocomplete: true
+      autocomplete: false
       type: text
       prompt: _(Your name)
       placeholder: _(Name)
       optional: true
     private-submitter_email:
-      autocomplete: true
+      autocomplete: false
       type: text
       prompt: _(Your Email)
       placeholder: _(Receive email updates on your idea)
       optional: true
       sticky: true
     private-phone:
-      autocomplete: true
+      autocomplete: false
       type: text
       prompt: _(Your phone number:)
       display_prompt: _()
