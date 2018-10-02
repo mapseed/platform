@@ -23,7 +23,7 @@ app:
 map:
   geolocation_enabled: true
 
-  geocoding_bar_enabled: true
+  geocoding_bar_enabled: false
   geocoding_engine: Mapbox
   geocode_field_label: _(Enter an address...)
   geocode_hint: [-79.82, 36.07]

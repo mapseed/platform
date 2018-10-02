@@ -173,10 +173,6 @@ a#add-place:hover {
 /* =Geocoding
 -------------------------------------------------------------- */
 
-#geocode-address-bar {
-  background: #DAF2F2 !important;
-  border-right: 1px solid #c3d7e5;
-}
 
 /* =Right-clinging sidebar legend
 -------------------------------------------------------------- */
@@ -211,28 +207,6 @@ a#add-place:hover {
 
 #map {
   background: #ccc;
-}
-
-
-/* =The Ticker
--------------------------------------------------------------- */
-
-#ticker {
-  background-color: #fff;
-}
-.recent-points li {}
-.recent-points li:hover {
-  background: #eee;
-}
-.recent-points a {
-  color: #555;
-  border-bottom: 1px solid #ddd;
-}
-.recent-points li:hover a,
-.recent-points a:hover {
-  color: #fff;
-  background-color: #68bab9;
-  border-color: #68bab9;
 }
 
 
@@ -313,97 +287,6 @@ a#add-place:hover {
 }
 
 
-/* =Place Details
--------------------------------------------------------------- */
-
-.place-items {
-  padding-bottom: 1.5em;
-}
-.place-items p {
-  margin-bottom: 0.5em !important;
-}
-.description {
-  font-size: 1.5em;
-}
-.approved-location-type {
-  background-color: #ffee80;
-  float: left;
-  padding: 0.5em 1em 0.5em 56px;
-  position: relative;
-  font-size: 0.85em;
-  line-height: 1.5;
-}
-.approved-location-type + h1 {
-  clear: left;
-}
-.approved-location-icon {
-  float: left;
-  width: 50px;
-  height: 60px;
-  position: absolute;
-  top: -6px;
-  left: 2px;
-  z-index: 2;
-  background-color: transparent;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-}
-.culture .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/facilities-small.png);
-}
-.education .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/education-small.png);
-}
-.environment .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/tree-small.png);
-}
-.housing .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/housing-small.png);
-}
-.parks .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/playground-small.png);
-}
-.health .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/health-small.png);
-}
-.safety .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/safety-small.png);
-}
-.seniors .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/seniors-small.png);
-}
-.streets .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/street-sidewalk-small.png);
-}
-.transit .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/transit-small.png);
-}
-.youth .approved-location-icon {
-  background-image: url(/static/css/images/markers/new/youth-small.png);
-}
-
-/* Promotion: Voting & Sharing */
-.user-support label {
-  color: #fff;
-}
-.user-support input[type=checkbox]:checked ~ label {}
-.user-support:hover label {
-  background-color: #e28623;
-}
-
-p.checkbox {
-  margin-bottom: 0.5em;
-  clear: both;
-}
-input[type=checkbox] {
-  float: left;
-  margin: 0.25em 0.5em 0 0;
-}
-p.checkbox + p.select {
-  margin-top: 1.5em;
-}
-
-
 /* =Media Queries
 -------------------------------------------------------------- */
 
@@ -458,9 +341,6 @@ p.checkbox + p.select {
     background-color: #68bab9;
     color: #fff;
   }
-  #main-btns-container {
-    top: 135px !important;
-  }
   .content-visible #main-btns-container {
     top: calc(100% - 85px) !important;
   }
@@ -474,20 +354,6 @@ p.checkbox + p.select {
   .list-toggle-nav {
     font-size: 0.875em;
   }
-}
-
-@media only screen and (max-width: 60em) {
-  .category-btn-container .category-label {
-    margin-left: 10px !important;
-    font-size: 1em !important;
-    margin-top: -10px !important;
-  }
-}
-
-.closed-district {
-  color: red;
-  font-size: 0.8em;
-  font-style: italic;
 }
 
 .user-support.disabled:hover,
