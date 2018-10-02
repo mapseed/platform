@@ -1,0 +1,28 @@
+{{#_}}Thanks for submitting a new idea to improve your community!{{/_}}
+
+{{#_}}Here's what you suggested:{{/_}} {{ place.properties.name }}
+
+{{#_}}You can see people's comments on your idea at{{/_}} http://ideas.pblongbeach.org/place/{{ place.id }}.
+
+{{#_}}For more information on the participatory budgeting process, go to www.pblongbeach.org.{{/_}}
+
+
+{{#_}}How to get more involved:{{/_}}
+=========================
+
+## {{#_}}Attend a Neighborhood Assembly{{/_}}
+
+{{#_}}Discuss your ideas in person with your friends and neighbors at a 9th District Neighborhood Assembly! Go to http://www.pblongbeach.org/district9.html for upcoming assembly dates, times, and locations.{{/_}}
+
+## {{#_}}Volunteer{{/_}}
+
+{{#_}}There are lots of ways to get involved in PB Long Beach! You can help to get the word out to underserved communities, facilitate small group meetings, help translate materials, or design flyers. Sign up at http://www.pblongbeach.org/volunteer.html.{{/_}}
+
+## {{#_}}Connect with Us{{/_}}
+
+{{#_}}Find us on Facebook (https://www.facebook.com/rexrichardsonlb) and follow us on Twitter (https://twitter.com/rexrichardson)!{{/_}}
+
+## {{#_}}Contact Us{{/_}}
+
+{{#_}}Have a question? Feel free to contact us at http://www.pblongbeach.org/contact.html.{{/_}}
+

@@ -1,0 +1,496 @@
+
+/* =Base Styles
+-------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+/* Typography */
+body, select, input, textarea {
+  font-family: "proxima-nova", Tahoma, Verdana, Segoe, sans-serif;
+}
+label { font-size: 1em; text-transform: none; color: #555; }
+
+h1 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  color: #336e94;
+  line-height: 1.0;
+  padding: 10px 0px 15px 0px;
+}
+
+h2, h3, h4, h5 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.0;
+  color: #336e94;
+}
+
+li.clearfix {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  color: #000000;
+}
+
+/* Buttons */
+.btn,
+.btn:visited,
+.btn:link {
+  background-color: #336e94;
+  color: #fff;
+}
+.btn:hover, .button:hover, button:hover {
+  background-color: #336e94;
+}
+.btn-primary, .btn-primary:visited, .btn-primary:link {
+  background-color: #336e94;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #336e94;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+  background-color: #116faf;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background-color: #336e94;
+  color: #fff;
+}
+
+/* Forms */
+label {
+}
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+textarea {
+  border: 0.25em solid #ACE6E6 !important;
+}
+input:focus,
+textarea:focus {
+  border: 0.25em solid #68bab9;
+  outline: 2px solid #68bab9;
+}
+
+.help-text {
+  font-size: small;
+  opacity: 0.8;
+}
+
+.input-form-category-button__image-container--active {
+  border-color: rgba(104, 186, 185, 0.43) !important;
+  background-color: rgba(104, 186, 185, 0.43) !important;
+}
+
+.input-form-category-button__label-text--active {
+  border-color: rgba(104, 186, 185, 1) !important;
+  background-color: rgba(104, 186, 185, 1) !important;
+}
+
+.input-form-category-button__label:hover {
+  border-color: rgba(104, 186, 185, 1) !important;
+}
+
+.category-label {
+  margin-top: -14px !important;
+}
+
+.big-checkbox-field__label--toggled {
+  border-color: rgba(104, 186, 185, 1) !important;
+}
+
+.big-checkbox-field__label--toggled:before {
+  background-color: rgba(104, 186, 185, 1) !important;
+}
+
+/* =The Site Header
+-------------------------------------------------------------- */
+
+#site-header {
+  background: none !important;
+  background-color: #e6eef2 !important;
+  /*height: 80px !important;*/
+}
+#site-logo {
+  float: left;
+  height: 1.25em;
+  margin-bottom: 0.25em;
+}
+#nav-btn {
+  background-color: #e6eef2;
+  color: #58585b;
+  text-shadow: none;
+}
+.access a,
+.access a:visited,
+.access a:active,
+.access a:link {
+  color: #e6eef2;
+  background-color: #58585b;
+  border: 0;
+}
+.access a:hover {
+  background-color: #336e94;
+  color: #336e94;
+}
+#auth-nav-container {}
+a#sign-in-btn {
+  background-color: transparent !important;
+  color: #68bab9;
+}
+a#sign-in-btn:hover {
+  color: #336e94;
+}
+
+
+/* =The Big Button to Add A New Point
+-------------------------------------------------------------- */
+
+#add-place-btn-container {
+  background-color: #DAF2F2;
+  border: 0;
+}
+a#add-place {
+  background-color: #336e94;
+  color: #fff;
+}
+a#add-place:hover {
+  background-color: #68bab9 !important;
+  color: #fff;
+}
+
+
+/* =Geocoding
+-------------------------------------------------------------- */
+
+#geocode-address-bar {
+  background: #DAF2F2 !important;
+  border-right: 1px solid #c3d7e5;
+}
+
+/* =Right-clinging sidebar legend
+-------------------------------------------------------------- */
+.shareabouts-layer-li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.shareabouts-layer-li span {
+  margin-bottom: 6px;
+}
+
+/* =Footer
+-------------------------------------------------------------- */
+
+#colophon,
+#powered-by a.shareabouts-logo,
+#powered-by a.shareabouts-logo:hover,
+#powered-by a.openplans-logo,
+#powered-by a.openplans-logo:hover {
+  background-color: #fff;
+  color: #888;
+}
+
+
+/* =Map
+-------------------------------------------------------------- */
+#map-container {
+  background: #ccc;
+}
+
+#map {
+  background: #ccc;
+}
+
+
+/* =The Ticker
+-------------------------------------------------------------- */
+
+#ticker {
+  background-color: #fff;
+}
+.recent-points li {}
+.recent-points li:hover {
+  background: #eee;
+}
+.recent-points a {
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+.recent-points li:hover a,
+.recent-points a:hover {
+  color: #fff;
+  background-color: #68bab9;
+  border-color: #68bab9;
+}
+
+
+/* =Legend & Guidelines Chart
+-------------------------------------------------------------- */
+
+.master-layer-list {
+  background-color: #DAF2F2;
+  margin-top: 0;
+  padding-top: 8px;
+  padding-left: 8px;
+}
+.legend {
+  background-color: #DAF2F2;
+  padding: 15px 10px;
+  border-bottom: 1px solid #ddd;
+  list-style: none;
+  margin: 0;
+  font-weight: bold;
+}
+.legend li {
+  padding: 8px 0 2px 0 !important;
+}
+.legend img {
+  float: left;
+  position: relative;
+  margin-right: 8px;
+  margin-top: 1px;
+  z-index: 2;
+}
+.legend img + img {
+  margin-right: -21px;
+  right: 31px;
+  z-index: 1;
+  opacity: 0.25;
+}
+.color-info {
+  font-size: 0.85em;
+  background: #ddd;
+  color: #666;
+  margin: 0 0 -6px !important;
+  padding: 6px 4px 8px 0 !important;
+}
+.color-info img {
+  margin-top: -12px;
+}
+
+.guidelines-header {
+  clear: both;
+  padding-top: 0.75em;
+  border-top: 1px solid #ddd;
+}
+.guidelines-header img {
+  float: right;
+  position: relative;
+  z-index: 2;
+}
+.guidelines-header img + img {
+  margin-right: -31px;
+  z-index: 1;
+  opacity: 0.25;
+}
+.eligibility-header {
+  text-transform: uppercase;
+  color: #777;
+}
+.eligible {
+  float: left;
+  width: 48%;
+}
+.non-eligible {
+  float: right;
+  width: 48%;
+}
+.muted {
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
+
+/* =Place Details
+-------------------------------------------------------------- */
+
+.place-items {
+  padding-bottom: 1.5em;
+}
+.place-items p {
+  margin-bottom: 0.5em !important;
+}
+.description {
+  font-size: 1.5em;
+}
+.approved-location-type {
+  background-color: #ffee80;
+  float: left;
+  padding: 0.5em 1em 0.5em 56px;
+  position: relative;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+.approved-location-type + h1 {
+  clear: left;
+}
+.approved-location-icon {
+  float: left;
+  width: 50px;
+  height: 60px;
+  position: absolute;
+  top: -6px;
+  left: 2px;
+  z-index: 2;
+  background-color: transparent;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+.culture .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/facilities-small.png);
+}
+.education .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/education-small.png);
+}
+.environment .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/tree-small.png);
+}
+.housing .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/housing-small.png);
+}
+.parks .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/playground-small.png);
+}
+.health .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/health-small.png);
+}
+.safety .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/safety-small.png);
+}
+.seniors .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/seniors-small.png);
+}
+.streets .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/street-sidewalk-small.png);
+}
+.transit .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/transit-small.png);
+}
+.youth .approved-location-icon {
+  background-image: url(/static/css/images/markers/new/youth-small.png);
+}
+
+/* Promotion: Voting & Sharing */
+.user-support label {
+  color: #fff;
+}
+.user-support input[type=checkbox]:checked ~ label {}
+.user-support:hover label {
+  background-color: #e28623;
+}
+
+p.checkbox {
+  margin-bottom: 0.5em;
+  clear: both;
+}
+input[type=checkbox] {
+  float: left;
+  margin: 0.25em 0.5em 0 0;
+}
+p.checkbox + p.select {
+  margin-top: 1.5em;
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 22em) {
+  #site-tagline {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 60em) {
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 1em;
+  }
+  #site-logo {
+    height: 4em;
+    margin: 0 0 0 -0.5em;
+  }
+  .access {
+    font-size: 0.75em;
+  }
+  .access li {
+    margin: 0;
+  }
+  .access a,
+  .access a:visited,
+  .access a:active,
+  .access a:link {
+    background-color: #e6eef2;
+    color: #58585b;
+    box-shadow: none;
+  }
+  .access a:hover {
+    background-color: #68bab9;
+    color: #fff;
+  }
+  .list-toggle-nav {
+    font-size: 0.75em;
+    float: left;
+  }
+  a.list-toggle-btn:visited,
+  a.list-toggle-btn:active,
+  a.list-toggle-btn:link {
+    background-color: #e6eef2;
+    color: #58585b;
+    text-shadow: none;
+    box-shadow: none;
+    border: 0;
+    padding-top: 10px;
+  }
+  a.list-toggle-btn:hover {
+    background-color: #68bab9;
+    color: #fff;
+  }
+  #main-btns-container {
+    top: 135px !important;
+  }
+  .content-visible #main-btns-container {
+    top: calc(100% - 85px) !important;
+  }
+  #add-place-btn-container {
+    background-color: transparent;
+  }
+}
+
+@media only screen and (min-width: 70em) {
+  .access,
+  .list-toggle-nav {
+    font-size: 0.875em;
+  }
+}
+
+@media only screen and (max-width: 60em) {
+  .category-btn-container .category-label {
+    margin-left: 10px !important;
+    font-size: 1em !important;
+    margin-top: -10px !important;
+  }
+}
+
+.closed-district {
+  color: red;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.user-support.disabled:hover,
+.user-support.disabled:hover label {
+  background-color: #336e94;
+}
