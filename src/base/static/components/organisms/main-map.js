@@ -93,6 +93,21 @@ class MainMap extends Component {
       zoom: this.props.mapConfig.options.map.zoom,
     });
 
+    if (props.mapConfig.geolocation_enabled) {
+      this._map.addControl(this._map.getGeolocateControl(), "top-left");
+    }
+
+    this._map.addCustomControls({
+      panels: props.leftSidebarConfig.panels,
+      position: "top-left",
+      setLeftSidebarExpanded: props.setLeftSidebarExpanded,
+      setLeftSidebarComponent: props.setLeftSidebarComponent,
+    });
+    this.listeners = [];
+  }
+
+  componentDidMount() {
+    // Handlers for layer loading events.
     this._map.on({
       event: "load",
       callback: () => {
@@ -108,20 +123,6 @@ class MainMap extends Component {
       },
     });
 
-    if (props.mapConfig.geolocation_enabled) {
-      this._map.addControl(this._map.getGeolocateControl(), "top-left");
-    }
-
-    this._map.addCustomControls({
-      panels: props.leftSidebarConfig.panels,
-      position: "top-left",
-      setLeftSidebarExpanded: props.setLeftSidebarExpanded,
-      setLeftSidebarComponent: props.setLeftSidebarComponent,
-    });
-  }
-
-  componentDidMount() {
-    // Handlers for layer loading events.
     this._map.on({
       event: "layer:loaded",
       callback: sourceId => {
@@ -155,23 +156,33 @@ class MainMap extends Component {
     });
 
     // Handlers for map drawing events.
-    emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
-      this._map.drawStartPolygon();
-    });
-    emitter.addListener(constants.DRAW_START_POLYLINE_EVENT, () => {
-      this._map.drawStartPolyline();
-    });
-    emitter.addListener(constants.DRAW_START_MARKER_EVENT, () => {
-      this._map.drawStartMarker();
-    });
-    emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
-      this._map.drawDeleteGeometry();
-    });
-    emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
-      this.props.setActiveDrawGeometryId(
-        this._map.drawAddGeometry(geometry)[0],
-      );
-    });
+    this.listeners.push(
+      emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
+        this._map.drawStartPolygon();
+      }),
+    );
+    this.listeners.push(
+      emitter.addListener(constants.DRAW_START_POLYLINE_EVENT, () => {
+        this._map.drawStartPolyline();
+      }),
+    );
+    this.listeners.push(
+      emitter.addListener(constants.DRAW_START_MARKER_EVENT, () => {
+        this._map.drawStartMarker();
+      }),
+    );
+    this.listeners.push(
+      emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
+        this._map.drawDeleteGeometry();
+      }),
+    );
+    this.listeners.push(
+      emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
+        this.props.setActiveDrawGeometryId(
+          this._map.drawAddGeometry(geometry)[0],
+        );
+      }),
+    );
     this._map.on({
       event: "draw.create",
       callback: evt => {
@@ -241,89 +252,106 @@ class MainMap extends Component {
     });
 
     // Handlers for Mapseed place collections.
-    emitter.addListener(constants.PLACE_COLLECTION_LOADED_EVENT, layerId => {
-      this.props.setLayerStatus(layerId, {
-        status: "loaded",
-        type: "place",
-        isBasemap: false,
-        isVisible: !!this.props.layers.find(layer => layer.id === layerId)
-          .is_visible_default,
-      });
-    });
-    emitter.addListener(
-      constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
-      collectionId => {
-        this._map.updateLayerData(
-          collectionId,
-          createGeoJSONFromCollection(this.props.places[collectionId]),
-        );
-      },
+    this.listeners.push(
+      emitter.addListener(constants.PLACE_COLLECTION_LOADED_EVENT, layerId => {
+        this.props.setLayerStatus(layerId, {
+          status: "loaded",
+          type: "place",
+          isBasemap: false,
+          isVisible: !!this.props.layers.find(layer => layer.id === layerId)
+            .is_visible_default,
+        });
+      }),
     );
-    emitter.addListener(
-      constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
-      ({ collectionId, modelId }) => {
-        // To focus a feature in a layer, we first remove it from the origin layer
-        // above, then add it to a separate focused layer. That way we can control
-        // the focused layer independently of the source layer and ensure focused
-        // features always render above all other features.
-        // TODO: Support multiple focused features simultaneously.
-        const focusedFeatures = createGeoJSONFromCollection(
-          this.props.places[collectionId].filter(
-            model => model.get(constants.MODEL_ID_PROPERTY_NAME) === modelId,
-          ),
-        );
-
-        this._map.focusPlaceLayerFeatures(collectionId, focusedFeatures);
-      },
+    this.listeners.push(
+      emitter.addListener(
+        constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
+        collectionId => {
+          this._map.updateLayerData(
+            collectionId,
+            createGeoJSONFromCollection(this.props.places[collectionId]),
+          );
+        },
+      ),
     );
-    emitter.addListener(
-      constants.PLACE_COLLECTION_HIDE_PLACE_EVENT,
-      ({ collectionId, modelId }) => {
-        this._map.updateLayerData(
-          collectionId,
-          createGeoJSONFromCollection(
+    this.listeners.push(
+      emitter.addListener(
+        constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
+        ({ collectionId, modelId }) => {
+          // To focus a feature in a layer, we first remove it from the origin layer
+          // above, then add it to a separate focused layer. That way we can control
+          // the focused layer independently of the source layer and ensure focused
+          // features always render above all other features.
+          // TODO: Support multiple focused features simultaneously.
+          const focusedFeatures = createGeoJSONFromCollection(
             this.props.places[collectionId].filter(
               model => model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId,
             ),
-          ),
-        );
-      },
+          );
+
+          this._map.focusPlaceLayerFeatures(collectionId, focusedFeatures);
+        },
+      ),
     );
-    emitter.addListener(
-      constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT,
-      () => {
-        Object.keys(this.props.places).forEach(collectionId => {
-          this.props.layerStatuses[collectionId].isVisible &&
-            this._map.updateLayerData(
-              collectionId,
-              createGeoJSONFromCollection(this.props.places[collectionId]),
-            );
-          this._map.unfocusAllPlaceLayerFeatures(collectionId);
-        });
-      },
+    this.listeners.push(
+      emitter.addListener(
+        constants.PLACE_COLLECTION_HIDE_PLACE_EVENT,
+        ({ collectionId, modelId }) => {
+          this._map.updateLayerData(
+            collectionId,
+            createGeoJSONFromCollection(
+              this.props.places[collectionId].filter(
+                model =>
+                  model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+    this.listeners.push(
+      emitter.addListener(
+        constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT,
+        () => {
+          Object.keys(this.props.places).forEach(collectionId => {
+            this.props.layerStatuses[collectionId].isVisible &&
+              this._map.updateLayerData(
+                collectionId,
+                createGeoJSONFromCollection(this.props.places[collectionId]),
+              );
+            this._map.unfocusAllPlaceLayerFeatures(collectionId);
+          });
+        },
+      ),
     );
 
     // Handlers for story-driven map transitions.
-    emitter.addListener(
-      constants.MAP_TRANSITION_FIT_LINESTRING_COORDS,
-      ({ coordinates }) => {
-        this._map.fitLineStringCoords(coordinates, { padding: 30 });
-      },
+    this.listeners.push(
+      emitter.addListener(
+        constants.MAP_TRANSITION_FIT_LINESTRING_COORDS,
+        ({ coordinates }) => {
+          this._map.fitLineStringCoords(coordinates, { padding: 30 });
+        },
+      ),
     );
-    emitter.addListener(
-      constants.MAP_TRANSITION_FIT_POLYGON_COORDS,
-      ({ coordinates }) => {
-        this._map.fitPolygonCoords(coordinates, { padding: 30 });
-      },
+    this.listeners.push(
+      emitter.addListener(
+        constants.MAP_TRANSITION_FIT_POLYGON_COORDS,
+        ({ coordinates }) => {
+          this._map.fitPolygonCoords(coordinates, { padding: 30 });
+        },
+      ),
     );
-    emitter.addListener(
-      constants.MAP_TRANSITION_EASE_TO_POINT,
-      ({ coordinates, zoom }) => {
-        this._map.easeTo({
-          center: coordinates,
-          zoom: zoom,
-        });
-      },
+    this.listeners.push(
+      emitter.addListener(
+        constants.MAP_TRANSITION_EASE_TO_POINT,
+        ({ coordinates, zoom }) => {
+          this._map.easeTo({
+            center: coordinates,
+            zoom: zoom,
+          });
+        },
+      ),
     );
     emitter.addListener(
       constants.MAP_TRANSITION_FLY_TO_POINT,
@@ -334,6 +362,17 @@ class MainMap extends Component {
         });
       },
     );
+  }
+
+  componentWillUnmount() {
+    // remove all listeners added in our componentWillMount:
+    this.listeners.forEach(l => l.remove());
+
+    // this removes all listeners from this._map:
+    this._map.remove();
+
+    // Handler for clearing in-progress drawing geometry.
+    this.props.router.off("route");
   }
 
   componentDidUpdate(prevProps) {
