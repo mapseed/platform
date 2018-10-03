@@ -110,7 +110,7 @@ map:
         #         icon-image: "dot-c4ed52.png"
         #         icon-anchor: "center"
 
-    - id: greensboropb
+    - id: pbdurham-ideas
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham
       type: place
       slug: idea
@@ -701,7 +701,7 @@ left_sidebar:
         - id: grp-community
           title: _(Community Data)
           layers:
-            - id: greensboropb
+            - id: pbdurham-ideas
               title: _(Community Reports)
         - id: grp-city
           title: _(City Data)
