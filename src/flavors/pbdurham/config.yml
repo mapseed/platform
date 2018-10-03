@@ -30,9 +30,10 @@ map:
   options:
     map:
       center:
-        lat: 35.97466
-        lng: -78.97799
-      zoom: 9
+        lat: 35.98287
+        lng: -78.90010
+      zoom: 12
+      pitch: 45
       minZoom: 1
       maxZoom: 18
     control:
@@ -110,7 +111,7 @@ map:
         #         icon-anchor: "center"
 
     - id: greensboropb
-      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greensboropb
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham
       type: place
       slug: idea
       is_visible_default: true
@@ -690,7 +691,6 @@ left_sidebar:
       component: MapLayerPanel
       title: _(Map Layers:)
       groupings:
-
         - id: basemaps
           title: _(Basemaps)
           layers:
@@ -814,7 +814,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/playground.png
+      icon_url: /static/css/images/markers/tree.png
       value: parks
       label: _(Parks & Recreation)
       fields:

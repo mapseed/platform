@@ -12,7 +12,7 @@ label { font-size: 1em; text-transform: none; color: #555; }
 h1 {
   font-family: "Josefin Sans", sans-serif;
   font-weight: 400;
-  color: #336e94;
+  color: #045a8b;
   line-height: 1.0;
   padding: 10px 0px 15px 0px;
 }
@@ -21,7 +21,7 @@ h2, h3, h4, h5 {
   font-family: "Josefin Sans", sans-serif;
   font-weight: 400;
   line-height: 1.0;
-  color: #336e94;
+  color: #045a8b;
 }
 
 li.clearfix {
@@ -34,18 +34,15 @@ li.clearfix {
 .btn,
 .btn:visited,
 .btn:link {
-  background-color: #336e94;
+  background-color: #045a8b;
   color: #fff;
 }
-.btn:hover, .button:hover, button:hover {
-  background-color: #336e94;
-}
 .btn-primary, .btn-primary:visited, .btn-primary:link {
-  background-color: #336e94;
+  background-color: #045a8b;
   color: #fff;
 }
 .btn-primary:hover {
-  background-color: #336e94;
+  background-color: #045a8b;
 }
 .btn-secondary,
 .btn-secondary:visited,
@@ -54,7 +51,7 @@ li.clearfix {
   color: #fff;
 }
 .btn-secondary:hover {
-  background-color: #336e94;
+  background-color: #045a8b;
   color: #fff;
 }
 
@@ -74,12 +71,12 @@ input[type=time],
 input[type=url],
 input[type=week],
 textarea {
-  border: 0.25em solid #ACE6E6 !important;
+  border: 0.25em solid #a695ab !important;
 }
 input:focus,
 textarea:focus {
-  border: 0.25em solid #68bab9;
-  outline: 2px solid #68bab9;
+  border: 0.25em solid #302d43;
+  outline: 2px solid #302d43;
 }
 
 .help-text {
@@ -88,17 +85,17 @@ textarea:focus {
 }
 
 .input-form-category-button__image-container--active {
-  border-color: rgba(104, 186, 185, 0.43) !important;
-  background-color: rgba(104, 186, 185, 0.43) !important;
+  border-color: rgba(166, 149, 171, 0.43) !important;
+  background-color: rgba(166, 149, 171, 0.43) !important;
 }
 
 .input-form-category-button__label-text--active {
-  border-color: rgba(104, 186, 185, 1) !important;
-  background-color: rgba(104, 186, 185, 1) !important;
+  border-color: rgba(166, 149, 171, 1) !important;
+  background-color: rgba(166, 149, 171, 1) !important;
 }
 
 .input-form-category-button__label:hover {
-  border-color: rgba(104, 186, 185, 1) !important;
+  border-color: rgba(166, 149, 171, 1) !important;
 }
 
 .category-label {
@@ -106,11 +103,11 @@ textarea:focus {
 }
 
 .big-checkbox-field__label--toggled {
-  border-color: rgba(104, 186, 185, 1) !important;
+  border-color: rgba(166, 149, 171, 1) !important;
 }
 
 .big-checkbox-field__label--toggled:before {
-  background-color: rgba(104, 186, 185, 1) !important;
+  background-color: rgba(166, 149, 171, 1) !important;
 }
 
 /* =The Site Header
@@ -118,7 +115,7 @@ textarea:focus {
 
 #site-header {
   background: none !important;
-  background-color: #e6eef2 !important;
+  background-color: #d6d5d9 !important;
   /*height: 80px !important;*/
 }
 #site-logo {
@@ -127,7 +124,7 @@ textarea:focus {
   margin-bottom: 0.25em;
 }
 #nav-btn {
-  background-color: #e6eef2;
+  background-color: #d6d5d9;
   color: #58585b;
   text-shadow: none;
 }
@@ -135,21 +132,21 @@ textarea:focus {
 .access a:visited,
 .access a:active,
 .access a:link {
-  color: #e6eef2;
+  color: #d6d5d9;
   background-color: #58585b;
   border: 0;
 }
 .access a:hover {
-  background-color: #336e94;
-  color: #336e94;
+  background-color: #045a8b;
+  color: #045a8b;
 }
 #auth-nav-container {}
 a#sign-in-btn {
   background-color: transparent !important;
-  color: #68bab9;
+  color: #302d43;
 }
 a#sign-in-btn:hover {
-  color: #336e94;
+  color: #045a8b;
 }
 
 
@@ -161,11 +158,11 @@ a#sign-in-btn:hover {
   border: 0;
 }
 a#add-place {
-  background-color: #336e94;
+  background-color: #045a8b;
   color: #fff;
 }
 a#add-place:hover {
-  background-color: #68bab9 !important;
+  background-color: #302d43 !important;
   color: #fff;
 }
 
@@ -315,12 +312,12 @@ a#add-place:hover {
   .access a:visited,
   .access a:active,
   .access a:link {
-    background-color: #e6eef2;
+    background-color: #d6d5d9;
     color: #58585b;
     box-shadow: none;
   }
   .access a:hover {
-    background-color: #68bab9;
+    background-color: #302d43;
     color: #fff;
   }
   .list-toggle-nav {
@@ -330,7 +327,7 @@ a#add-place:hover {
   a.list-toggle-btn:visited,
   a.list-toggle-btn:active,
   a.list-toggle-btn:link {
-    background-color: #e6eef2;
+    background-color: #d6d5d9;
     color: #58585b;
     text-shadow: none;
     box-shadow: none;
@@ -338,11 +335,11 @@ a#add-place:hover {
     padding-top: 10px;
   }
   a.list-toggle-btn:hover {
-    background-color: #68bab9;
+    background-color: #302d43;
     color: #fff;
   }
-  .content-visible #main-btns-container {
-    top: calc(100% - 85px) !important;
+  #main-btns-container {
+    left: 3em !important;
   }
   #add-place-btn-container {
     background-color: transparent;
@@ -358,5 +355,5 @@ a#add-place:hover {
 
 .user-support.disabled:hover,
 .user-support.disabled:hover label {
-  background-color: #336e94;
+  background-color: #045a8b;
 }
