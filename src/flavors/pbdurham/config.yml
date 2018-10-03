@@ -110,7 +110,7 @@ map:
         #         icon-image: "dot-c4ed52.png"
         #         icon-anchor: "center"
 
-    - id: pbdurham-ideas
+    - id: pbdurham
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham
       type: place
       slug: idea
@@ -701,7 +701,7 @@ left_sidebar:
         - id: grp-community
           title: _(Community Data)
           layers:
-            - id: pbdurham-ideas
+            - id: pbdurham
               title: _(Community Reports)
         - id: grp-city
           title: _(City Data)
@@ -769,7 +769,7 @@ place:
     - category: culture
       includeOnForm: true
       name: location_type
-      dataset: greensboropb
+      dataset: pbdurham
       icon_url: /static/css/images/markers/fountain.png
       value: culture
       label: _(Art & Culture)
@@ -813,7 +813,7 @@ place:
     - category: parks
       includeOnForm: true
       name: location_type
-      dataset: greensboropb
+      dataset: pbdurham 
       icon_url: /static/css/images/markers/tree.png
       value: parks
       label: _(Parks & Recreation)
@@ -857,7 +857,7 @@ place:
     - category: streets
       includeOnForm: true
       name: location_type
-      dataset: greensboropb
+      dataset: pbdurham 
       icon_url: /static/css/images/markers/street-sidewalk.png
       value: streets
       label: _(Streets & Sidewalks)
@@ -901,7 +901,7 @@ place:
     - category: health
       includeOnForm: true
       name: location_type
-      dataset: greensboropb
+      dataset: pbdurham 
       icon_url: /static/css/images/markers/health.png
       value: health
       label: _(Public Health)
@@ -945,7 +945,7 @@ place:
     - category: safety
       includeOnForm: true
       name: location_type
-      dataset: greensboropb
+      dataset: pbdurham 
       icon_url: /static/css/images/markers/safety.png
       value: safety
       label: _(Safety & Environment)
@@ -989,7 +989,7 @@ place:
     - category: other
       includeOnForm: true
       name: location_type
-      dataset: greensboropb
+      dataset: pbdurham 
       icon_url: /static/css/images/markers/idea.png
       value: other
       label: _(Other)
