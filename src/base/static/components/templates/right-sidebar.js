@@ -28,7 +28,13 @@ const RightSidebar = props => {
         className="right-sidebar__collapse-btn"
       />
       {props.rightSidebarConfig.component === "StoryNavigator" && (
-        <StoryNavigator {...props} />
+        <StoryNavigator
+          storyConfig={props.storyConfig}
+          placeConfig={props.placeConfig}
+          mapConfig={props.mapConfig}
+          places={props.places}
+          routes={props.router}
+        />
       )}
       {props.rightSidebarConfig.component === "MapLegendPanel" && (
         <MapLegendPanel config={props.rightSidebarConfig} />
@@ -61,6 +67,13 @@ RightSidebar.propTypes = {
     content: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   }),
   setMapSizeValidity: PropTypes.func.isRequired,
+  storyConfig: PropTypes.object,
+  placeConfig: PropTypes.shape({
+    place_detail: PropTypes.array.isRequired,
+  }),
+  mapConfig: PropTypes.object,
+
+  router: PropTypes.instanceOf(Backbone.Router),
 };
 
 const mapStateToProps = state => ({

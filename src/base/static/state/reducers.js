@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import mapReducer from "./ducks/map";
+import placesReducer from "./ducks/places";
 import uiReducer from "./ducks/ui";
 import leftSidebarReducer from "./ducks/left-sidebar";
 import mapDrawingToolbarReducer from "./ducks/map-drawing-toolbar";
@@ -14,6 +15,7 @@ import supportConfigReducer from "./ducks/support-config";
 
 const reducers = combineReducers({
   map: mapReducer,
+  places: placesReducer,
   ui: uiReducer,
   leftSidebar: leftSidebarReducer,
   mapDrawingToolbar: mapDrawingToolbarReducer,

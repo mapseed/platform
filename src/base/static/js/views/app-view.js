@@ -13,6 +13,7 @@ import { ThemeProvider } from "emotion-theming";
 import theme from "../../../../theme";
 
 import { setMapConfig } from "../../state/ducks/map-config";
+import { setPlaces } from "../../state/ducks/places";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
 import { setSurveyConfig } from "../../state/ducks/survey-config";
@@ -361,6 +362,30 @@ export default Backbone.View.extend({
         store.dispatch(setLayerStatus(layerId, layerStatus)),
     });
 
+    // Load activities from the API
+    _.each(this.activities, function(collection, key) {
+      collection.fetch({
+        reset: true,
+        attribute: "target",
+        attributesToAdd: {
+          datasetId: _.find(self.options.mapConfig.layers, function(layer) {
+            return layer.id == key;
+          }).id,
+          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
+            return layer.id == key;
+          }).slug,
+        },
+      });
+    });
+
+    // TODO(luke): When AppView is ported to a react component, await
+    // the place collections to load in the App component:
+    placeCollectionsPromise.then(fetchedCollections => {
+      const allPlaces = fetchedCollections.reduce((places, collection) => {
+        return [collection.models.map(model => model.toJSON()), ...places];
+      }, []);
+      store.dispatch(setPlaces(allPlaces));
+    });
     if (this.options.rightSidebarConfig.is_enabled) {
       $("body").addClass("right-sidebar-active");
       if (this.options.rightSidebarConfig.is_visible_default) {
