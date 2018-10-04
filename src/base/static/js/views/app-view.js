@@ -382,7 +382,7 @@ export default Backbone.View.extend({
     // the place collections to load in the App component:
     placeCollectionsPromise.then(fetchedCollections => {
       const allPlaces = fetchedCollections.reduce((places, collection) => {
-        return [collection.models.map(model => model.toJSON()), ...places];
+        return [...collection.models.map(model => model.toJSON()), ...places];
       }, []);
       store.dispatch(setPlaces(allPlaces));
     });

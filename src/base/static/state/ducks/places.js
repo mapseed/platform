@@ -17,10 +17,7 @@ const INITIAL_STATE = [];
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SET_PLACES:
-      return {
-        ...state,
-        ...action.payload,
-      };
+      return action.payload;
     default:
       return state;
   }
