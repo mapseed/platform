@@ -90,10 +90,10 @@ export default Backbone.View.extend({
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
 
-    const storeState = store.getState();
-    const flavorTheme = storeState.appConfig.theme;
-    const adjustedTheme = flavorTheme
-      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
+    this.storeState = store.getState();
+    this.flavorTheme = this.storeState.appConfig.theme;
+    this.adjustedTheme = this.flavorTheme
+      ? ancestorTheme => ({ ...ancestorTheme, ...this.flavorTheme })
       : {};
 
     languageModule.changeLanguage(this.options.languageCode);
@@ -112,6 +112,9 @@ export default Backbone.View.extend({
     if (this.options.appConfig.places_page_size) {
       placeParams.page_size = this.options.appConfig.places_page_size;
     }
+
+    // Track whether the list view is open:
+    this.isListOpen = false;
 
     // Bootstrapped data from the page
     this.activities = this.options.activities;
@@ -167,15 +170,12 @@ export default Backbone.View.extend({
     });
 
     // On any route (/place or /page), hide the list view
+    // and render the contents of the main page:
     this.options.router.bind(
       "route",
       function(route) {
-        if (
-          !_.contains(this.getListRoutes(), route) &&
-          this.listView &&
-          this.listView.isVisible()
-        ) {
-          this.hideListView();
+        if (!_.contains(this.getListRoutes(), route)) {
+          this.renderMain();
         }
       },
       this,
@@ -198,35 +198,17 @@ export default Backbone.View.extend({
 
     ReactDOM.render(
       <ThemeProvider theme={theme}>
-        <ThemeProvider theme={adjustedTheme}>
+        <ThemeProvider theme={this.adjustedTheme}>
           <UserMenu
             router={this.options.router}
-            apiRoot={storeState.appConfig.api_root}
+            apiRoot={this.storeState.appConfig.api_root}
             currentUser={Shareabouts.bootstrapped.currentUser}
-            datasetDownloadConfig={storeState.appConfig.dataset_download}
+            datasetDownloadConfig={this.storeState.appConfig.dataset_download}
           />
         </ThemeProvider>
       </ThemeProvider>,
       document.getElementById("auth-nav-container"),
     );
-
-    // REACT PORT SECTION /////////////////////////////////////////////////////
-    ReactDOM.render(
-      <Provider store={store}>
-        <MainMap
-          container="map"
-          places={this.places}
-          router={this.options.router}
-          onZoomend={this.onMapZoomEnd.bind(this)}
-          onMovestart={this.onMapMoveStart.bind(this)}
-          onMoveend={this.onMapMoveEnd.bind(this)}
-          onDragend={this.onMapDragEnd.bind(this)}
-          store={store}
-        />
-      </Provider>,
-      document.getElementById("map-component"),
-    );
-    // END REACT PORT SECTION /////////////////////////////////////////////////
 
     // REACT PORT SECTION /////////////////////////////////////////////////////
     if (this.options.mapConfig.geocoding_bar_enabled) {
@@ -285,7 +267,7 @@ export default Backbone.View.extend({
       ReactDOM.render(
         <Provider store={store}>
           <ThemeProvider theme={theme}>
-            <ThemeProvider theme={adjustedTheme}>
+            <ThemeProvider theme={this.adjustedTheme}>
               <InfoModal
                 parentId="info-modal-container"
                 isModalOpen={true}
@@ -315,28 +297,6 @@ export default Backbone.View.extend({
       }
     });
 
-    if (
-      _.isUndefined(this.options.appConfig.list_enabled) ||
-      this.options.appConfig.list_enabled
-    ) {
-      // this.listView = new PlaceListView({
-      //   el: "#list-container",
-      //   placeCollections: self.places,
-      //   placeConfig: this.options.placeConfig,
-      // }).render();
-
-      ReactDOM.render(
-        <Provider store={store}>
-          <PlaceList
-            mapView={this.mapView}
-            router={this.options.router}
-            placeCollections={self.places}
-          />
-        </Provider>,
-        document.getElementById("info-modal-container"),
-      );
-    }
-
     // Cache panel elements that we use a lot
     this.$panel = $("#content");
     this.$panelContent = $("#content article");
@@ -354,6 +314,7 @@ export default Backbone.View.extend({
     // Load places from the API
     // TODO(luke): move this into componentDidMount when App is ported
     // to a component:
+
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
@@ -396,7 +357,7 @@ export default Backbone.View.extend({
       ReactDOM.render(
         <Provider store={store}>
           <ThemeProvider theme={theme}>
-            <ThemeProvider theme={adjustedTheme}>
+            <ThemeProvider theme={this.adjustedTheme}>
               <RightSidebar
                 placeCollectionsPromise={placeCollectionsPromise}
                 places={this.places}
@@ -409,23 +370,12 @@ export default Backbone.View.extend({
       );
       // END REACT PORT SECTION ///////////////////////////////////////////////
     }
-
-    // REACT PORT SECTION /////////////////////////////////////////////////////
-    if (this.options.leftSidebarConfig.is_enabled) {
-      ReactDOM.render(
-        <Provider store={store}>
-          <LeftSidebar />
-        </Provider>,
-        document.getElementById("left-sidebar-container"),
-      );
-    }
-    // END REACT PORT SECTION /////////////////////////////////////////////////
   },
 
   getListRoutes: function() {
     // Return a list of the routes that are allowed to show the list view.
     // Navigating to any other route will automatically hide the list view.
-    return ["showList", "filterMap"];
+    return ["viewList", "filterMap"];
   },
 
   isAddingPlace: function(model) {
@@ -526,21 +476,16 @@ export default Backbone.View.extend({
     this.hideNewPin();
     this.destroyNewModels();
     this.setBodyClass();
+    this.renderMain();
   },
   newPlace: function() {
     // REACT PORT SECTION //////////////////////////////////////////////////////
-    const storeState = store.getState();
-    const flavorTheme = storeState.appConfig.theme;
-    const adjustedTheme = flavorTheme
-      ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
-      : {};
-
     // NOTE: This wrapper component is temporary, and will be factored out
     // when the AppView is ported.
     ReactDOM.render(
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <ThemeProvider theme={adjustedTheme}>
+          <ThemeProvider theme={this.adjustedTheme}>
             <FormCategoryMenuWrapper
               hideSpotlightMask={this.hideSpotlightMask.bind(this)}
               hideCenterPoint={this.hideCenterPoint.bind(this)}
@@ -665,21 +610,17 @@ export default Backbone.View.extend({
       },
     );
 
+    this.renderMain();
     function onFound(model, type, collectionId) {
       // REACT PORT SECTION //////////////////////////////////////////////////
       ReactDOM.unmountComponentAtNode(
         document.querySelector("#content article"),
       );
 
-      const storeState = store.getState();
-      const flavorTheme = storeState.appConfig.theme;
-      const adjustedTheme = flavorTheme
-        ? ancestorTheme => ({ ...ancestorTheme, ...flavorTheme })
-        : {};
       ReactDOM.render(
         <Provider store={store}>
           <ThemeProvider theme={theme}>
-            <ThemeProvider theme={adjustedTheme}>
+            <ThemeProvider theme={this.adjustedTheme}>
               <PlaceDetail
                 collectionId={collectionId}
                 container={document.querySelector("#content article")}
@@ -688,7 +629,6 @@ export default Backbone.View.extend({
                   this.options.mapConfig.geocoding_bar_enabled
                 }
                 model={model}
-                appView={this}
                 places={this.places}
                 scrollToResponseId={args.responseId}
                 router={this.options.router}
@@ -790,6 +730,7 @@ export default Backbone.View.extend({
     this.hideCenterPoint();
     this.setBodyClass("content-visible");
     store.dispatch(setMapSizeValidity(false));
+    this.renderMain();
   },
 
   showPanel: function(markup, preventScrollToTop) {
@@ -857,6 +798,52 @@ export default Backbone.View.extend({
   hideSpotlightMask: function() {
     $("#spotlight-mask").hide();
   },
+  renderMain: function() {
+    this.isListOpen = false;
+    // remove "list page" content:
+    $("#list-container").addClass("is-visuallyhidden");
+    ReactDOM.unmountComponentAtNode(document.getElementById("list-container"));
+
+    // render "main page" content:
+    if (this.options.mapConfig.geocoding_bar_enabled) {
+      $("#geocode-address-bar").removeClass("is-visuallyhidden");
+      ReactDOM.render(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={this.adjustedTheme}>
+              <GeocodeAddressBar mapConfig={this.options.mapConfig} />
+            </ThemeProvider>
+          </ThemeProvider>
+        </Provider>,
+        document.getElementById("geocode-address-bar"),
+      );
+    }
+
+    if (this.options.leftSidebarConfig.is_enabled) {
+      ReactDOM.render(
+        <Provider store={store}>
+          <LeftSidebar />
+        </Provider>,
+        document.getElementById("left-sidebar-container"),
+      );
+    }
+
+    ReactDOM.render(
+      <Provider store={store}>
+        <MainMap
+          container="map"
+          places={this.places}
+          router={this.options.router}
+          onZoomend={this.onMapZoomEnd.bind(this)}
+          onMovestart={this.onMapMoveStart.bind(this)}
+          onMoveend={this.onMapMoveEnd.bind(this)}
+          onDragend={this.onMapDragEnd.bind(this)}
+          store={store}
+        />
+      </Provider>,
+      document.getElementById("map-component"),
+    );
+  },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
       collection.each(function(model) {
@@ -866,27 +853,45 @@ export default Backbone.View.extend({
       });
     });
   },
-  showListView: function() {
+  viewList: function() {
+    this.isListOpen = true;
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
-
-    // Re-sort if new places have come in
-    this.listView.sort();
-    // Show
-    // TODO(luke): move this logic our PlaceList and Map components.
-    // eg: this.isListViewEnabled = true
-    // Eventual solution is to port AppView into an App component
-    // and use react-router to handle our navigation
-    this.listView.$el.addClass("is-exposed");
-    $(".show-the-list").addClass("is-visuallyhidden");
-    $(".show-the-map").removeClass("is-visuallyhidden");
+    this.renderList();
   },
-  hideListView: function() {
-    this.listView.$el.removeClass("is-exposed");
-    $(".show-the-list").removeClass("is-visuallyhidden");
-    $(".show-the-map").addClass("is-visuallyhidden");
+  renderList: function() {
+    // Remove "main page" content:
+    $("#geocode-address-bar").addClass("is-visuallyhidden");
+    ReactDOM.unmountComponentAtNode(
+      document.getElementById("geocode-address-bar"),
+    );
+    ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
+
+    const contentNode = document.querySelector(
+      Util.getPageLayout() === '"desktop"' || Util.getPageLayout() === "desktop"
+        ? "#content article"
+        : "body",
+    );
+    ReactDOM.unmountComponentAtNode(contentNode);
+
+    // Render "list page" content:
+    $("#list-container").removeClass("is-visuallyhidden");
+    this.hidePanel();
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <PlaceList
+              router={this.options.router}
+              placeCollections={this.places}
+            />
+          </ThemeProvider>
+        </ThemeProvider>
+      </Provider>,
+      document.getElementById("list-container"),
+    );
   },
   toggleListView: function() {
-    if (this.listView && this.listView.isVisible()) {
+    if (this.isListOpen) {
       this.options.router.navigate("/", { trigger: true });
     } else {
       this.options.router.navigate("list", { trigger: true });
