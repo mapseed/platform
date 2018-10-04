@@ -5,40 +5,7 @@ import styled from "react-emotion";
 import { UserAvatar } from "../atoms/imagery";
 import { SmallText, Link } from "../atoms/typography";
 
-const ActivityLink = styled("a")(props => ({
-  textDecoration: "none",
-  fontFamily: props.theme.text.bodyFontFamily,
-  lineHeight: "1.1em",
-}));
-
-const BasicActivityItem = props => (
-  <ActivityLink href={props.url} rel="internal">
-    <li className={props.className}>
-      <div style={{ position: "absolute", top: "13px", left: "10px" }}>
-        <UserAvatar />
-      </div>
-      <div style={{ paddingLeft: "40px", paddingTop: "10px" }}>
-        <div>
-          <SmallText weight="black">{props.submitterName} </SmallText>
-          <SmallText> {props.actionText}: </SmallText>
-        </div>
-        <div>
-          <SmallText>{props.title}</SmallText>
-        </div>
-      </div>
-    </li>
-  </ActivityLink>
-);
-
-BasicActivityItem.propTypes = {
-  actionText: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  submitterName: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  url: PropTypes.string.isRequired,
-};
-
-const ActivityItem = styled(BasicActivityItem)(props => ({
+const ActivityItemContainer = styled("div")(props => ({
   position: "relative",
   listStyle: "none",
   borderBottom: "1px solid #888",
@@ -47,5 +14,41 @@ const ActivityItem = styled(BasicActivityItem)(props => ({
     backgroundColor: props.theme.brand.accent,
   },
 }));
+
+const UserAvatarContainer = styled("div")(props => ({
+  position: "absolute",
+  top: "13px",
+  left: "10px",
+}));
+
+const ActionTextContainer = styled("div")(props => ({
+  paddingLeft: "40px",
+  paddingTop: "10px",
+}));
+
+const ActivityItem = props => (
+  <ActivityItemContainer>
+    <Link href={props.url} rel="internal">
+      <li className={props.className}>
+        <UserAvatarContainer>
+          <UserAvatar />
+        </UserAvatarContainer>
+        <ActionTextContainer>
+          <SmallText weight="black">{props.submitterName} </SmallText>
+          <SmallText> {props.actionText}: </SmallText>
+          <SmallText>{props.title}</SmallText>
+        </ActionTextContainer>
+      </li>
+    </Link>
+  </ActivityItemContainer>
+);
+
+ActivityItem.propTypes = {
+  actionText: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  submitterName: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  url: PropTypes.string.isRequired,
+};
 
 export default ActivityItem;

@@ -16,68 +16,70 @@ import { placeConfigSelector } from "../../state/ducks/place-config";
 import constants from "../../constants";
 
 class ActivityStream extends Component {
-  constructor(props) {
-    super(props);
-    // We augment the model properties with the client-side slug, place id, and
-    // collection id for the purpose of building internal links.
-    this.slugProperty = "__slug";
-    this.collectionIdProperty = "__collectionId";
-    this.placeIdProperty = "__placeId";
-    this.state = {
-      activityModels: List(),
-    };
-  }
+  state = {
+    activityModels: List(),
+  };
+  slugProperty = "__slug";
+  collectionIdProperty = "__collectionId";
+  placeIdProperty = "__placeId";
+  activities = this.props.placeLayers.map(placeLayer => ({
+    slug: placeLayer.slug,
+    collectionId: placeLayer.id,
+    collection: new ActionCollection([], {
+      url: `${placeLayer.url}/actions`,
+    }),
+  }));
 
   componentDidMount() {
-    this.activities = this.props.placeLayers.map(placeLayer => ({
-      slug: placeLayer.slug,
-      collectionId: placeLayer.id,
-      collection: new ActionCollection([], {
-        url: `${placeLayer.url}/actions`,
-      }),
-    }));
-
     this.activities.forEach(activity => {
-      activity.collection.on("add", model => {
-        this.onAddAction({
-          model: model,
-          slug: activity.slug,
-          collectionId: activity.collectionId,
-        });
-      });
-      activity.collection.on("sync", model => {
-        // When the collection has synced, sort activities in reverse
-        // chronological order.
-        this.setState({
-          activityModels: this.state.activityModels.sort((a, b) => {
-            if (
-              new Date(a.get(constants.CREATED_DATETIME_PROPERTY_NAME)) <
-              new Date(b.get(constants.CREATED_DATETIME_PROPERTY_NAME))
-            )
-              return 1;
-            if (
-              new Date(a.get(constants.CREATED_DATETIME_PROPERTY_NAME)) >
-              new Date(b.get(constants.CREATED_DATETIME_PROPERTY_NAME))
-            )
-              return -1;
-            return 0;
-          }),
-        });
-      });
+      activity.collection.on(
+        "add",
+        model => {
+          this.onAddAction({
+            model: model,
+            slug: activity.slug,
+            collectionId: activity.collectionId,
+          });
+        },
+        this,
+      );
     });
 
     // TODO: Refactor polling for websockets.
     // In the meantime, we've hard-coded a generous polling interval of 45
     // seconds.
     this.fetchActivity();
-    setInterval(() => {
+    this.pollingIntervalId = setInterval(() => {
       this.fetchActivity();
     }, 45000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.pollingIntervalId);
+    this.activities.forEach(activity => {
+      activity.collection.off("add", null, this);
+    });
+  }
+
+  successCallback(model) {
+    // When the collection has fetched successfully, sort activities in reverse
+    // chronological order.
+    this.setState({
+      activityModels: this.state.activityModels.sort((a, b) => {
+        return (
+          new Date(b.get(constants.CREATED_DATETIME_PROPERTY_NAME)) -
+          new Date(a.get(constants.CREATED_DATETIME_PROPERTY_NAME))
+        );
+      }),
+    });
+  }
+
   fetchActivity() {
     mapseedApiClient.activity.get(
-      this.activities.map(activity => activity.collection),
+      this.activities.map(activity => [
+        activity.collection,
+        this.successCallback.bind(this),
+      ]),
     );
   }
 
@@ -111,47 +113,54 @@ class ActivityStream extends Component {
             .get(constants.TARGET_PROPERTY_NAME)
             .get(constants.SUBMITTER_NAME);
           const target = activityModel.get(constants.TARGET_PROPERTY_NAME);
-          const activityConfig = {};
           const collectionId = activityModel.get(this.collectionIdProperty);
           const placeId = activityModel.get(this.placeIdProperty);
           const slug = activityModel.get(this.slugProperty);
+          let title;
+          let anonymousName;
+          let url;
+          let actionText;
 
           // We support activity for place and comment creation.
           switch (activityModel.get("target_type")) {
             case "place":
               // To derive the title for place activity, we assume there is
               // always a model attribute called "title".
-              activityConfig.title = activityModel
+              title = activityModel
                 .get(constants.TARGET_PROPERTY_NAME)
                 .get(constants.TITLE_PROPERTY_NAME);
-              activityConfig.anonymousName = this.props.placeConfig.anonymous_name;
-              activityConfig.actionText = this.props.placeConfig.action_text;
-              activityConfig.url = `/${slug}/${placeId}`;
+              anonymousName = this.props.placeConfig.anonymous_name;
+              actionText = this.props.placeConfig.action_text;
+              url = `/${slug}/${placeId}`;
               break;
             case "comments":
               // To derive the title for comment activity, we look up the
               // corresponding place model and assume there is a field on
               // that model called "title".
-              activityConfig.title =
+              title =
                 this.props.places[collectionId].get(placeId) &&
                 this.props.places[collectionId]
                   .get(placeId)
                   .get(constants.TITLE_PROPERTY_NAME);
-              activityConfig.anonymousName = this.props.surveyConfig.anonymous_name;
-              activityConfig.actionText = this.props.surveyConfig.action_text;
-              activityConfig.url = `/${slug}/${placeId}/response/${target.get(
+              anonymousName = this.props.surveyConfig.anonymous_name;
+              actionText = this.props.surveyConfig.action_text;
+              url = `/${slug}/${placeId}/response/${target.get(
                 constants.MODEL_ID_PROPERTY_NAME,
               )}`;
               break;
+            default:
+              // If there are other action types in the collection (like
+              // supports), return null.
+              return null;
           }
 
           return (
             <ActivityItem
               key={i}
-              title={activityConfig.title}
-              actionText={activityConfig.actionText}
-              submitterName={submitterName || activityConfig.anonymousName}
-              url={activityConfig.url}
+              title={title}
+              actionText={actionText}
+              submitterName={submitterName || anonymousName}
+              url={url}
             />
           );
         })}
@@ -166,7 +175,6 @@ ActivityStream.propTypes = {
     anonymous_name: PropTypes.string.isRequired,
   }).isRequired,
   placeLayers: PropTypes.array.isRequired,
-  // eslint-disable-next-line no-undef
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   surveyConfig: PropTypes.shape({
     action_text: PropTypes.string.isRequired,

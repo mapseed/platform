@@ -33,7 +33,6 @@ const RightSidebar = props => {
 };
 
 RightSidebar.propTypes = {
-  // eslint-disable-next-line no-global no-undef
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   rightSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool.isRequired,

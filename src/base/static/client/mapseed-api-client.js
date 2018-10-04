@@ -76,8 +76,13 @@ const getPlaceCollections = async ({
 };
 
 const getActivity = activityCollections => {
-  activityCollections.forEach(activityCollection => {
-    activityCollection.fetch();
+  activityCollections.forEach(([activityCollection, successCallback]) => {
+    activityCollection.fetch({
+      success: successCallback,
+      error: (collection, error) => {
+        console.error("Error fetching activity collection", error);
+      },
+    });
   });
 };
 
