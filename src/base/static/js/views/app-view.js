@@ -800,6 +800,10 @@ export default Backbone.View.extend({
   },
   renderMain: function() {
     this.isListOpen = false;
+    // Update the "toggle list" button:
+    $(".show-the-list").removeClass("is-visuallyhidden");
+    $(".show-the-map").addClass("is-visuallyhidden");
+
     // remove "list page" content:
     $("#list-container").addClass("is-visuallyhidden");
     ReactDOM.unmountComponentAtNode(document.getElementById("list-container"));
@@ -859,6 +863,10 @@ export default Backbone.View.extend({
     this.renderList();
   },
   renderList: function() {
+    // Update the list toggle button:
+    $(".show-the-map").removeClass("is-visuallyhidden");
+    $(".show-the-list").addClass("is-visuallyhidden");
+
     // Remove "main page" content:
     $("#geocode-address-bar").addClass("is-visuallyhidden");
     ReactDOM.unmountComponentAtNode(
