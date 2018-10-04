@@ -18,63 +18,71 @@ const getPlaceCollections = async ({
   const placeCollectionPromises = [];
   _.each(placeCollections, function(collection, collectionId) {
     // TODO: layer loading event; fix in layer UI PR
-    const placeCollectionPromise = collection.fetchAllPages({
-      remove: false,
-      // Check for a valid location type before adding it to the collection
-      validate: true,
-      data: placeParams,
-      // get the dataset slug and id from the array of map layers
-      attributesToAdd: {
-        datasetSlug: _.find(mapConfig.layers, function(layer) {
-          return layer.id == collectionId;
-        }).slug,
-        datasetId: _.find(mapConfig.layers, function(layer) {
-          return layer.id == collectionId;
-        }).id,
-      },
-      attribute: "properties",
+    const placeCollectionPromise = new Promise((resolve, reject) => {
+      collection.fetchAllPages({
+        remove: false,
+        // Check for a valid location type before adding it to the collection
+        validate: true,
+        data: placeParams,
+        // get the dataset slug and id from the array of map layers
+        attributesToAdd: {
+          datasetSlug: _.find(mapConfig.layers, function(layer) {
+            return layer.id == collectionId;
+          }).slug,
+          datasetId: _.find(mapConfig.layers, function(layer) {
+            return layer.id == collectionId;
+          }).id,
+        },
+        attribute: "properties",
 
-      // Only do this for the first page...
-      pageSuccess: _.once(function(collection, data) {
-        pageSize = data.features.length;
-        totalPages = totalPages += Math.ceil(data.metadata.length / pageSize);
+        // Only do this for the first page...
+        pageSuccess: _.once(function(collection, data) {
+          pageSize = data.features.length;
+          totalPages = totalPages += Math.ceil(data.metadata.length / pageSize);
 
-        if (data.metadata.next) {
-          $progressContainer.show();
-        }
-      }),
+          if (data.metadata.next) {
+            $progressContainer.show();
+          }
+        }),
 
-      // Do this for every page...
-      pageComplete: function() {
-        var percent;
+        // Do this for every page...
+        pageComplete: function() {
+          var percent;
 
-        pagesComplete++;
-        percent = (pagesComplete / totalPages) * 100;
-        $currentProgress.width(percent + "%");
+          pagesComplete++;
+          percent = (pagesComplete / totalPages) * 100;
+          $currentProgress.width(percent + "%");
 
-        if (pagesComplete === totalPages) {
-          _.delay(function() {
-            $progressContainer.hide();
-          }, 2000);
-        }
-      },
+          if (pagesComplete === totalPages) {
+            _.delay(function() {
+              $progressContainer.hide();
+            }, 2000);
+          }
+        },
 
-      success: function(fetchedCollection, response, options) {
-        // Mark the layer as "loaded" so the map can render it:
-        setLayerStatus(collectionId, {
-          status: "loaded",
-          type: "place",
-          isBasemap: false,
-          isVisible: !!mapConfig.layers.find(layer => layer.id === collectionId)
-            .is_visible_default,
-        });
-        // TODO: layer loading event; fix in layer UI PR
-      },
+        success: function(fetchedCollection, response, options) {
+          // Mark the layer as "loaded" so the map can render it:
+          setLayerStatus(collectionId, {
+            status: "loaded",
+            type: "place",
+            isBasemap: false,
+            isVisible: !!mapConfig.layers.find(
+              layer => layer.id === collectionId,
+            ).is_visible_default,
+          });
+          resolve(fetchedCollection);
+          // TODO: layer loading event; fix in layer UI PR
+        },
 
-      error: function(error) {
-        // TODO: layer loading event; fix in layer UI PR
-        console.error("Error loading place collection:", error);
-      },
+        error: function(err) {
+          // eslint-disable-next-line no-console
+          console.error(
+            `error loading place collection: ${collectionId}: err: ${err}`,
+          );
+          reject(err);
+          // TODO: layer loading event; fix in layer UI PR
+        },
+      });
     });
     placeCollectionPromises.push(placeCollectionPromise);
   });
