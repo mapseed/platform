@@ -94,22 +94,13 @@ function updateMetadata() {
       filepath = path.relative("./www", filepath);
       params = {
         CacheControl: "no-cache, must-revalidate, max-age=0",
+        ContentEncoding: "gzip",
       };
       return copyObjectPromise(buildParams(filepath, params));
     })
     .concat(
       glob.sync("./www/**/*.gz").map(filepath => {
         // Ensure gzipped files have "Content-Encoding" set
-        filepath = path.relative("./www", filepath);
-        params = {
-          ContentEncoding: "gzip",
-        };
-        return copyObjectPromise(buildParams(filepath, params));
-      }),
-    )
-    .concat(
-      glob.sync("./www/index*").map(filepath => {
-        // All index files are gzipped
         filepath = path.relative("./www", filepath);
         params = {
           ContentEncoding: "gzip",
