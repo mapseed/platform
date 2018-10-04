@@ -12,7 +12,7 @@ export const mapPlaceLayersSelector = state => {
 };
 
 // Actions:
-const SET_CONFIG = "map/SET_CONFIG";
+const SET_CONFIG = "map-config/SET";
 
 // Action creators:
 export function setMapConfig(config) {
