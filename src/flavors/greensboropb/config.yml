@@ -711,7 +711,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/fountain.png
+      icon_url: /static/css/images/markers/fountain.png
       value: culture
       label: _(Art & Culture)
       fields:
@@ -755,7 +755,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/playground.png
+      icon_url: /static/css/images/markers/playground.png
       value: parks
       label: _(Parks & Recreation)
       fields:
@@ -799,7 +799,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/street-sidewalk.png
+      icon_url: /static/css/images/markers/street-sidewalk.png
       value: streets
       label: _(Streets & Sidewalks)
       fields:
@@ -843,7 +843,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/health.png
+      icon_url: /static/css/images/markers/health.png
       value: health
       label: _(Public Health)
       fields:
@@ -887,7 +887,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/safety.png
+      icon_url: /static/css/images/markers/safety.png
       value: safety
       label: _(Safety & Environment)
       fields:
@@ -931,7 +931,7 @@ place:
       includeOnForm: true
       name: location_type
       dataset: greensboropb
-      icon_url: /static/css/images/markers/new/idea.png
+      icon_url: /static/css/images/markers/idea.png
       value: other
       label: _(Other)
       fields:
