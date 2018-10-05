@@ -285,7 +285,7 @@ class MainMap extends Component {
           // TODO: Support multiple focused features simultaneously.
           const focusedFeatures = createGeoJSONFromCollection(
             this.props.places[collectionId].filter(
-              model => model.get(constants.MODEL_ID_PROPERTY_NAME) !== modelId,
+              model => model.get(constants.MODEL_ID_PROPERTY_NAME) === modelId,
             ),
           );
 
