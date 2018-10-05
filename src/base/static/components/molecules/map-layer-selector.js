@@ -20,7 +20,9 @@ const MapLayerSelector = props => {
         className="map-layer-selector__selectable-area"
         onClick={() => props.onToggleLayer(props.layerId)}
       >
-        <Icon icon={props.icon} classes="map-layer-selector__id-icon" />
+        {props.icon && (
+          <Icon icon={props.icon} classes="map-layer-selector__id-icon" />
+        )}
         <span
           className={classNames("map-layer-selector__layer-title", {
             "map-layer-selector__layer-title--selected": props.selected,
@@ -61,7 +63,7 @@ const MapLayerSelector = props => {
 };
 
 MapLayerSelector.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   info: PropTypes.object.isRequired,
   layerId: PropTypes.string.isRequired,
   layerStatus: PropTypes.shape({
