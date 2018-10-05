@@ -20,6 +20,7 @@ import config from "config";
 import { setMapConfig } from "../../state/ducks/map-config";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
+import { setSurveyConfig } from "../../state/ducks/survey-config";
 import {
   isLeftSidebarExpandedSelector,
   setLeftSidebarConfig,
@@ -72,7 +73,6 @@ browserUpdate({
 // Views
 var PagesNavView = require("mapseed-pages-nav-view");
 var PlaceListView = require("mapseed-place-list-view");
-var ActivityView = require("mapseed-activity-view");
 var PlaceCounterView = require("mapseed-place-counter-view");
 
 export default Backbone.View.extend({
@@ -91,6 +91,7 @@ export default Backbone.View.extend({
     store.dispatch(setRightSidebarConfig(config.right_sidebar));
     store.dispatch(setStoryConfig(config.story));
     store.dispatch(setAppConfig(config.app));
+    store.dispatch(setSurveyConfig(config.survey));
 
     const storeState = store.getState();
     const flavorTheme = storeState.appConfig.theme;
@@ -130,10 +131,6 @@ export default Backbone.View.extend({
 
     $("body").ajaxSuccess(function(evt, request, settings) {
       $("#ajax-error-msg").hide();
-    });
-
-    $(document).on("click", ".activity-item a", function(evt) {
-      window.app.clearLocationTypeFilter();
     });
 
     // Globally capture clicks. If they are internal and not in the pass
@@ -234,28 +231,6 @@ export default Backbone.View.extend({
       document.getElementById("map-component"),
     );
     // END REACT PORT SECTION /////////////////////////////////////////////////
-
-    // Activity is enabled by default (undefined) or by enabling it
-    // explicitly. Set it to a falsey value to disable activity.
-    if (
-      _.isUndefined(this.options.activityConfig.enabled) ||
-      this.options.activityConfig.enabled
-    ) {
-      // Init the view for displaying user activity
-      this.activityView = new ActivityView({
-        el: "ul.recent-points",
-        activities: this.activities,
-        places: this.places,
-        placeConfig: this.options.placeConfig,
-        router: this.options.router,
-        placeTypes: this.options.placeTypes,
-        surveyConfig: this.options.surveyConfig,
-        supportConfig: this.options.supportConfig,
-        mapConfig: this.options.mapConfig,
-        // How often to check for new content
-        interval: this.options.activityConfig.interval || 30000,
-      });
-    }
 
     // REACT PORT SECTION /////////////////////////////////////////////////////
     if (this.options.mapConfig.geocoding_bar_enabled) {
@@ -376,22 +351,6 @@ export default Backbone.View.extend({
       placeParams,
       placeCollections: self.places,
       mapConfig: self.options.mapConfig,
-    });
-
-    // Load activities from the API
-    _.each(this.activities, function(collection, key) {
-      collection.fetch({
-        reset: true,
-        attribute: "target",
-        attributesToAdd: {
-          datasetId: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).id,
-          datasetSlug: _.find(self.options.mapConfig.layers, function(layer) {
-            return layer.id == key;
-          }).slug,
-        },
-      });
     });
 
     if (this.options.rightSidebarConfig.is_enabled) {

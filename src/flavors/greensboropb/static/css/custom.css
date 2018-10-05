@@ -2,10 +2,11 @@
 /* =Base Styles
 -------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 /* Typography */
 body, select, input, textarea {
-  font-family: "proxima-nova", Tahoma, Verdana, Segoe, sans-serif;
+  font-family: "Montserrat", Tahoma, Verdana, Segoe, sans-serif;
 }
 label { font-size: 1em; text-transform: none; color: #555; }
 

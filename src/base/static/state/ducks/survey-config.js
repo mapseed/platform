@@ -1,21 +1,13 @@
 // Selectors:
-export const mapConfigSelector = state => {
-  return state.mapConfig;
-};
-export const mapLayersSelector = state => {
-  return state.mapConfig.layers;
-};
-export const mapPlaceLayersSelector = state => {
-  return state.mapConfig.layers.filter(
-    layer => layer.type && layer.type === "place",
-  );
+export const surveyConfigSelector = state => {
+  return state.surveyConfig;
 };
 
 // Actions:
-const SET_CONFIG = "map/SET_CONFIG";
+const SET_CONFIG = "survey/SET_CONFIG";
 
 // Action creators:
-export function setMapConfig(config) {
+export function setSurveyConfig(config) {
   return { type: SET_CONFIG, payload: config };
 }
 

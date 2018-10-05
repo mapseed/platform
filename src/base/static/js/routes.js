@@ -3,7 +3,6 @@
 import PlaceModel from "./models/place-model.js";
 import Util from "./utils.js";
 import PlaceCollection from "./models/place-collection.js";
-import ActionCollection from "./models/action-collection.js";
 import AppView from "mapseed-app-view";
 
 // Global-namespace Util
@@ -67,17 +66,8 @@ Shareabouts.Util = Util;
         self.places[config.id] = collection;
       });
 
-      // instantiate action collections for shareabouts places
-      _.each(configArrays.places, function(config) {
-        var collection = new ActionCollection([], {
-          url: config.url + "/actions",
-        });
-        self.activities[config.id] = collection;
-      });
-
       this.appView = new AppView({
         el: "body",
-        activities: this.activities,
         places: this.places,
         datasetConfigs: configArrays,
         apiRoot: options.appConfig.api_root,
