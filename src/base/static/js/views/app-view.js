@@ -774,19 +774,6 @@ export default Backbone.View.extend({
     this.$panelContent.html(markup);
     this.$panel.show();
 
-    if (!preventScrollToTop) {
-      // will be "mobile" or "desktop", as defined in default.css
-      var layout = Util.getPageLayout();
-      if (layout === "desktop") {
-        // For desktop, the panel content is scrollable
-        this.$panelContent.scrollTo(0, 0);
-      } else {
-        // Scroll to the top of window when showing new content on mobile. Does
-        // nothing on desktop. (Except when embedded in a scrollable site.)
-        window.scrollTo(0, 0);
-      }
-    }
-
     this.setBodyClass("content-visible");
 
     $(Shareabouts).trigger("panelshow", [
