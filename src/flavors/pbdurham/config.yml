@@ -1,0 +1,1183 @@
+# Settings for the app
+app:
+  # HTML Title
+  title: _(Participatory Budgeting Durham)
+  # Header name
+  name: _(Participatory Budgeting Durham)
+  # Meta description that will show up in Google search results
+  meta_description: _(Participatory Budgeting for City of Durham)
+
+  # This should be set to the root of an api server from which you'd like to draw
+  # permissions information for logged-in users. This value can be overridden
+  # using the API_ROOT environment variable. Note the trailing slash.
+  api_root: https://dev-api.heyduwamish.org/api/v2/
+
+  dataset_download:
+    slug: "pbdurham"
+    owner: "smartercleanup"
+
+# languages:
+#   - code: en_US
+#     label: English
+
+#   - code: es
+#     label: Español
+
+# Settings for map and layer configs
+map:
+  geolocation_enabled: true
+
+  geocoding_bar_enabled: false
+  geocoding_engine: Mapbox
+  geocode_field_label: _(Enter an address...)
+  geocode_hint: [-79.82, 36.07]
+  options:
+    map:
+      center:
+        lat: 35.98287
+        lng: -78.90010
+      zoom: 12
+      pitch: 45
+      minZoom: 1
+      maxZoom: 18
+    control:
+      showCompass: true
+      position: "top-left"
+
+  layers:
+    - id: osm
+      type: raster-tile
+      is_visible_default: true
+      is_basemap: true
+      url: https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png
+      attribution: <a href="/page/terms">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Mapbox</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: satellite
+      type: raster-tile
+      is_basemap: true
+      url: https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw
+      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    - id: durham-bike-trails
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-bike-trails/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-bike-trails/style.json
+      source_layer: durham-bike-trails
+
+    - id: durham-bus-routes
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-bus-routes/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-bus-routes/style.json
+      source_layer: durham-bus-routes
+
+    - id: durham-bus-stops
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-bus-stops/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-bus-stops/style.json
+      source_layer: durham-bus-stops
+
+    - id: durham-libraries
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-libraries/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-libraries/style.json
+      source_layer: durham-libraries
+
+    - id: durham-council-wards
+      type: json
+      source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
+      rules:
+         - line-paint:
+             line-color: #ff0000
+             line-width: 2
+
+    - id: durham-existing-trails
+      type: json
+      source: https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson
+      rules:
+         - line-paint:
+             line-color: #00ff00
+             line-width: 2
+
+    - id: durham-proposed-trails
+      type: json
+      source: https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson
+      rules:
+         - line-paint:
+             line-color: #00ff00
+             line-width: 2
+
+    - id: durham-parks
+      type: json
+      source: https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson
+      rules:
+        #     - symbol-layout:
+        #         icon-image: "dot-c4ed52.png"
+        #         icon-anchor: "center"
+
+    - id: pbdurham
+      url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham
+      type: place
+      slug: idea
+      is_visible_default: true
+      focus_rules:
+        # culture
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "culture"
+          symbol-layout:
+            icon-image: "fountain.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # environment 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "environment"
+          symbol-layout:
+            icon-image: "tree.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # safety
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "safety"
+          symbol-layout:
+            icon-image: "safety.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # education
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "education"
+          symbol-layout:
+            icon-image: "education.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # parks 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "parks"
+          symbol-layout:
+            icon-image: "tree.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # health
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "health"
+          symbol-layout:
+            icon-image: "health.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # seniors 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "seniors"
+          symbol-layout:
+            icon-image: "seniors.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # streets 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "streets"
+          symbol-layout:
+            icon-image: "street-sidewalk.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # other 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "other"
+          symbol-layout:
+            icon-image: "idea.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+        # youth 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "youth"
+          symbol-layout:
+            icon-image: "youth.png"
+            icon-size: 1.0
+            icon-anchor: "bottom"
+
+      rules:
+        # culture
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "culture"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-b75ab8.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "culture"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "fountain-small.png"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "culture"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "fountain-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+        
+        # environment
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "environment"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-7fccd9.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "environment"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "tree-small.png"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "environment"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "tree-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        #safety 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "safety"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-fc9229.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "safety"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "safety-small.png"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "safety"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "safety-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        # education
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "eduction"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-0f779e.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "education"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "education-small.png"
+            icon-size: 0.5
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "education"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "education-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        # parks 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "parks"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-55a504.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "parks"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-size: 0.5
+            icon-image: "tree-small.png"
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "parks"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "tree-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        # health
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "health"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-ff78be.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "health"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-size: 0.5
+            icon-image: "health-small.png"
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "health"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "health-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        # seniors 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "seniors"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-c43d52.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "seniors"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-size: 0.5
+            icon-image: "seniors-small.png"
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "seniors"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "seniors-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        # streets
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "streets"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-8ea4b8.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "streets"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-size: 0.5
+            icon-image: "street-sidewalk-small.png"
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "streets"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "street-sidewalk-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        # other 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "other"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-ffd614.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "other"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-size: 0.5
+            icon-image: "idea-small.png"
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "other"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "idea-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+        # youth 
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "youth"
+            - - "<"
+              - - "zoom"
+              - 14
+          symbol-layout:
+            icon-image: "dot-ffd614.png"
+            icon-size: 0.3
+            icon-anchor: "center"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "youth"
+            - - ">="
+              - - "zoom"
+              - 14
+            - - "<"
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-size: 0.5
+            icon-image: "youth-small.png"
+            icon-anchor: "bottom"
+        - filter:
+            - "all"
+            - - "=="
+              - - "get"
+                - "location_type"
+              - "youth"
+            - - ">="
+              - - "zoom"
+              - 17
+          symbol-layout:
+            icon-image: "youth-small.png"
+            icon-size: 0.8
+            icon-anchor: "bottom"
+
+right_sidebar:
+  is_enabled: true
+  is_visible_default: true
+  component: ActivityStream 
+
+left_sidebar:
+  is_enabled: true
+  is_visible_default: false
+  panels:
+    - id: gis-layers
+      icon: fa-bars
+      component: MapLayerPanel
+      title: _(Map Layers:)
+      groupings:
+        - id: basemaps
+          title: _(Basemaps)
+          layers:
+            - id: osm
+              title: _(OpenStreetMap)
+            - id: satellite
+              title: _(Satellite View)
+        - id: grp-community
+          title: _(Community Data)
+          layers:
+            - id: pbdurham
+              title: _(Community Reports)
+        - id: grp-city
+          title: _(City Data)
+          layers:
+             - id: durham-bike-trails
+               title: _(Bike Lanes)
+             - id: durham-bus-routes
+               title: _(Bus Routes)
+             - id: durham-bus-stops
+               title: _(Bus Stops)
+             - id: durham-libraries
+               title: _(Libraries)
+             - id: durham-council-wards
+               title: _(City Council Wards)
+             - id: durham-existing-trails
+               title: _(Existing Trails)
+             - id: durham-proposed-trails
+               title: _(Proposed Trails)
+             - id: durham-parks
+               title: _(Parks)
+#    - id: right-sidebar-container
+#      title: _(Community ideas:)
+#      view: LegendView
+#      icon: info-circle
+#      items:
+#        - title: _(Art & Culture)
+#          image: /static/css/images/markers/new/fountain.png
+#          url: /filter/culture
+#        - title: _(Parks & Recreation)
+#          image: /static/css/images/markers/new/playground.png
+#          url: /filter/parks
+#        - title: _(Streets & Sidewalks)
+#          image: /static/css/images/markers/new/street-sidewalk.png
+#          url: /filter/streets
+#        - title: _(Public Health)
+#          image: /static/css/images/markers/new/health.png
+#          url: /filter/health
+#        - title: _(Safety & Environment)
+#          image: /static/css/images/markers/new/safety.png
+#          url: /filter/safety
+#        - title: _(Other)
+#          image: /static/css/images/markers/new/idea.png
+#          url: /filter/other
+
+activity:
+  # Optional. Activity is supported by default. Set to false to disable.
+  enabled: true
+  # How often to refresh the activity list, in milliseconds.
+  interval: 30000
+  show_in_right_panel: true
+
+place:
+  adding_supported: true 
+  add_button_label: _(Submit an idea)
+  # Labels for the buttons that toggle the map and list views
+  show_list_button_label: _(Show as a list)
+  show_map_button_label: _(Show on a map)
+  title: _(Describe your idea)
+  action_text: _(suggested)
+  help_text: _(Ideas must be "capital" projects - building, installing, or repairing something for public benefit.)
+  anonymous_name: _(Someone)
+  submit_button_label: _(Share my idea)
+  location_item_name: location
+  place_detail:
+    - category: culture
+      includeOnForm: true
+      name: location_type
+      dataset: pbdurham
+      icon_url: /static/css/images/markers/fountain.png
+      value: culture
+      label: _(Art & Culture)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(...)
+          optional: false
+        - name: idea-what
+          type: textarea
+          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          display_prompt: _(My project idea is:)
+          placeholder: _(...)
+          optional: true
+        - name: idea-why
+          type: textarea
+          prompt: _(Why is this important? What need in the community does this serve?)
+          display_prompt: _( )
+          placeholder: _(...)
+          optional: true
+        - name: my_image
+          type: common_form_element
+        - name: private-age
+          type: common_form_element
+        - name: private-ethnicity
+          type: common_form_element
+        - name: private-income
+          type: common_form_element
+        - name: submitter_name
+          type: common_form_element
+        - name: private-submitter_email
+          type: common_form_element
+        - name: private-phone
+          type: common_form_element
+        - name: private-volunteer
+          type: common_form_element
+        - name: submit
+          type: common_form_element
+    - category: parks
+      includeOnForm: true
+      name: location_type
+      dataset: pbdurham 
+      icon_url: /static/css/images/markers/tree.png
+      value: parks
+      label: _(Parks & Recreation)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(...)
+          optional: false
+        - name: idea-what
+          type: textarea
+          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          display_prompt: _(My project idea is:)
+          placeholder: _(...)
+          optional: true
+        - name: idea-why
+          type: textarea
+          prompt: _(Why is this important? What need in the community does this serve?)
+          display_prompt: _( )
+          placeholder: _(...)
+          optional: true
+        - name: my_image
+          type: common_form_element
+        - name: private-age
+          type: common_form_element
+        - name: private-ethnicity
+          type: common_form_element
+        - name: private-income
+          type: common_form_element
+        - name: submitter_name
+          type: common_form_element
+        - name: private-submitter_email
+          type: common_form_element
+        - name: private-phone
+          type: common_form_element
+        - name: private-volunteer
+          type: common_form_element
+        - name: submit
+          type: common_form_element
+    - category: streets
+      includeOnForm: true
+      name: location_type
+      dataset: pbdurham 
+      icon_url: /static/css/images/markers/street-sidewalk.png
+      value: streets
+      label: _(Streets & Sidewalks)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(...)
+          optional: false
+        - name: idea-what
+          type: textarea
+          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          display_prompt: _(My project idea is:)
+          placeholder: _(...)
+          optional: true
+        - name: idea-why
+          type: textarea
+          prompt: _(Why is this important? What need in the community does this serve?)
+          display_prompt: _( )
+          placeholder: _(...)
+          optional: true
+        - name: my_image
+          type: common_form_element
+        - name: private-age
+          type: common_form_element
+        - name: private-ethnicity
+          type: common_form_element
+        - name: private-income
+          type: common_form_element
+        - name: submitter_name
+          type: common_form_element
+        - name: private-submitter_email
+          type: common_form_element
+        - name: private-phone
+          type: common_form_element
+        - name: private-volunteer
+          type: common_form_element
+        - name: submit
+          type: common_form_element
+    - category: health
+      includeOnForm: true
+      name: location_type
+      dataset: pbdurham 
+      icon_url: /static/css/images/markers/health.png
+      value: health
+      label: _(Public Health)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(...)
+          optional: false
+        - name: idea-what
+          type: textarea
+          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          display_prompt: _(My project idea is:)
+          placeholder: _(...)
+          optional: true
+        - name: idea-why
+          type: textarea
+          prompt: _(Why is this important? What need in the community does this serve?)
+          display_prompt: _( )
+          placeholder: _(...)
+          optional: true
+        - name: my_image
+          type: common_form_element
+        - name: private-age
+          type: common_form_element
+        - name: private-ethnicity
+          type: common_form_element
+        - name: private-income
+          type: common_form_element
+        - name: submitter_name
+          type: common_form_element
+        - name: private-submitter_email
+          type: common_form_element
+        - name: private-phone
+          type: common_form_element
+        - name: private-volunteer
+          type: common_form_element
+        - name: submit
+          type: common_form_element
+    - category: safety
+      includeOnForm: true
+      name: location_type
+      dataset: pbdurham 
+      icon_url: /static/css/images/markers/safety.png
+      value: safety
+      label: _(Safety & Environment)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(...)
+          optional: false
+        - name: idea-what
+          type: textarea
+          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          display_prompt: _(My project idea is:)
+          placeholder: _(...)
+          optional: true
+        - name: idea-why
+          type: textarea
+          prompt: _(Why is this important? What need in the community does this serve?)
+          display_prompt: _( )
+          placeholder: _(...)
+          optional: true
+        - name: my_image
+          type: common_form_element
+        - name: private-age
+          type: common_form_element
+        - name: private-ethnicity
+          type: common_form_element
+        - name: private-income
+          type: common_form_element
+        - name: submitter_name
+          type: common_form_element
+        - name: private-submitter_email
+          type: common_form_element
+        - name: private-phone
+          type: common_form_element
+        - name: private-volunteer
+          type: common_form_element
+        - name: submit
+          type: common_form_element
+    - category: other
+      includeOnForm: true
+      name: location_type
+      dataset: pbdurham 
+      icon_url: /static/css/images/markers/idea.png
+      value: other
+      label: _(Other)
+      fields:
+        - name: title
+          type: text
+          prompt: _(Title:)
+          display_prompt: _(Title:)
+          placeholder: _(...)
+          optional: false
+        - name: idea-what
+          type: textarea
+          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          display_prompt: _(My project idea is:)
+          placeholder: _(...)
+          optional: true
+        - name: idea-why
+          type: textarea
+          prompt: _(Why is this important? What need in the community does this serve?)
+          display_prompt: _( )
+          placeholder: _(...)
+          optional: true
+        - name: my_image
+          type: common_form_element
+        - name: private-age
+          type: common_form_element
+        - name: private-ethnicity
+          type: common_form_element
+        - name: private-income
+          type: common_form_element
+        - name: submitter_name
+          type: common_form_element
+        - name: private-submitter_email
+          type: common_form_element
+        - name: private-phone
+          type: common_form_element
+        - name: private-volunteer
+          type: common_form_element
+        - name: submit
+          type: common_form_element
+
+  # define form elements that appear on every form here
+  common_form_elements:
+    my_image:
+      type: file
+      prompt: _(Image)
+      label: _(Add an Image)
+      optional: true
+    private-age:
+      autocomplete: false
+      type: text
+      prompt: _(Your age:)
+      display_prompt: _()
+      placeholder: _(Your age will not appear on the map)
+      optional: true
+    private-ethnicity:
+      autocomplete: false
+      type: big_checkbox
+      annotation: _(Your ethnicity will not appear on the map)
+      prompt: _(Your ethnicity:)
+      display_prompt: _(Ethnicity:)
+      content:
+        - label: _(American Indian/Alaskan Native)
+          value: indian-alaskan
+        - label: _(Asian)
+          value: asian
+        - label: _(Black or African American)
+          value: black
+        - label: _(Hispanic or Latino/a)
+          value: hispanic
+        - label: _(Native Hawaiian or Pacific Islander)
+          value: hawaiian-pacific
+        - label: _(White)
+          value: white
+        - label: _(Other)
+          value: other-ethnicity
+      optional: true
+    private-income:
+      autocomplete: false
+      type: dropdown
+      prompt: _(Your income:)
+      annotation: _(Your income will not appear on the map)
+      content:
+        - label: _(Under $10,000)
+          value: under-10k
+        - label: _($10,000 - $14,999)
+          value: 10k-15k
+        - label: _($15,000 - $24,999)
+          value: 15k-25k
+        - label: _($25,000 - $34,999)
+          value: 25k-35k
+        - label: _($35,000 - $49,000)
+          value: 35k-49k
+        - label: _($50,000 - $74,999)
+          value: 50k-75k
+        - label: _($75,000 - $99,000)
+          value: 75k-99k
+        - label: _($100,000 - $149,000)
+          value: 100k-149k
+        - label: _($150,000 or more)
+          value: 150k-or-more
+      optional: true
+    submitter_name:
+      autocomplete: false
+      type: text
+      prompt: _(Your name)
+      placeholder: _(Name)
+      optional: true
+    private-submitter_email:
+      autocomplete: false
+      type: text
+      prompt: _(Your Email)
+      placeholder: _(Receive email updates on your idea)
+      optional: true
+      sticky: true
+    private-phone:
+      autocomplete: false
+      type: text
+      prompt: _(Your phone number:)
+      display_prompt: _()
+      placeholder: _(Your phone number will not appear on the map)
+      optional: true
+    private-volunteer:
+      type: big_toggle
+      prompt: _(I'd like to volunteer as a Budget Delegate)
+      content:
+        - label: _(Yes)
+          value: "yes"
+        - label: _(No)
+          value: "no"
+      optional: true
+      attribution: _(Budget Delegates will meet 6 - 8 times from December through June​ to evaluate project ideas, work with city staff to research the projects and will receive training and support to develop proposals for the ballot.)
+    submit:
+      type: submit
+      label: _(Submit!)
+
+survey:
+  submission_type: comments
+  adding_enabled: false
+
+  # Response config
+  show_responses: true
+  response_name: _(comment)
+  response_plural_name: _(comments)
+  action_text: _(commented on)
+  anonymous_name: _(Someone)
+
+  # Survey form config
+  title: _(Leave a Comment)
+  form_link_text: _(Leave a Comment)
+  submit_btn_text: _(Comment)
+  items:
+    - prompt: _(Comment)
+      label: _(Comment)
+      type: textarea
+      name: comment
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+    - type: submit
+      name: submit
+      label: _(Comment)
+
+support:
+  submission_type: support
+  adding_enabled: false
+  submit_btn_text: _(Support This!)
+  response_name: _(support)
+  response_plural_name: _(supports)
+  action_text: _(supported)
+  anonymous_name: _(Someone)
+
+pages:
+  - title: _(About)
+    slug: about
+    name: about
+    start_page: true
+  - title: _(Guidelines)
+    slug: guidelines
+    name: guidelines
+  - title: _(Get More Involved)
+    slug: involved
+    name: involved
+
+notifications:
+  on_new_place: false
+  submitter_email_field: "private-email"
