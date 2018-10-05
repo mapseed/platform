@@ -12,6 +12,10 @@ app:
   # using the API_ROOT environment variable. Note the trailing slash.
   api_root: https://dev-api.heyduwamish.org/api/v2/
 
+  dataset_download:
+    slug: "pbdurham"
+    owner: "smartercleanup"
+
 # languages:
 #   - code: en_US
 #     label: English
@@ -678,9 +682,9 @@ map:
             icon-anchor: "bottom"
 
 right_sidebar:
-  is_enabled: false 
+  is_enabled: true
   is_visible_default: true
-  component: StoryNavigator
+  component: ActivityStream 
 
 left_sidebar:
   is_enabled: true
