@@ -11,10 +11,7 @@ label { font-size: 1em; text-transform: none; color: #555; }
 
 h1 {
   font-family: "Josefin Sans", sans-serif;
-  font-weight: 400;
   color: #045a8b;
-  line-height: 1.0;
-  padding: 10px 0px 15px 0px;
 }
 
 h2, h3, h4, h5 {
