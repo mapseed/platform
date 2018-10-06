@@ -17,15 +17,6 @@ const InputFormCategoryButton = props => {
     labelContainer: classNames("input-form-category-button__label-text", {
       "input-form-category-button__label-text--active": props.isSelected,
     }),
-    expandCategoriesButton: classNames(
-      "input-form-category-button__expand-categories-button",
-      {
-        "input-form-category-button__expand-categories-button--hidden":
-          !props.isCategoryMenuCollapsed ||
-          props.isSingleCategory ||
-          !props.isSelected,
-      },
-    ),
   };
   const categoryConfig = getCategoryConfig(props.categoryName);
 
@@ -43,6 +34,9 @@ const InputFormCategoryButton = props => {
       <label
         className={"input-form-category-button__label"}
         htmlFor={props.categoryName}
+        onClick={() => {
+          props.isCategoryMenuCollapsed && props.onExpandCategories();
+        }}
       >
         <span className={cn.imageContainer}>
           <img
@@ -52,11 +46,6 @@ const InputFormCategoryButton = props => {
         </span>
         <span className={cn.labelContainer}>{categoryConfig.label}</span>
       </label>
-      <button
-        className={cn.expandCategoriesButton}
-        type="button"
-        onClick={props.onExpandCategories}
-      />
     </div>
   );
 };

@@ -28,7 +28,7 @@
 
 .input-form-category-button__label {
   display: flex;
-  flex: 9;
+  width: 100%;
   border: $input-form-category-button-border;
   border-radius: $input-form-category-button-border-radius;
   align-items: center;
@@ -43,7 +43,6 @@
 }
 
 .input-form-category-button__expand-categories-button {
-  flex: 1;
   background: none;
   border: none;
   right: 30px;

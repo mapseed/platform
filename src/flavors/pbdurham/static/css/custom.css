@@ -97,17 +97,13 @@ textarea:focus {
   background-color: rgba(166, 149, 171, 0.43) !important;
 }
 
-.input-form-category-button__label-text--active {
-  border-color: rgba(166, 149, 171, 1) !important;
-  background-color: rgba(166, 149, 171, 1) !important;
-}
-
 .input-form-category-button__label:hover {
   border-color: rgba(166, 149, 171, 1) !important;
 }
 
-.category-label {
-  margin-top: -14px !important;
+.input-form-category-button__label-text--active {
+  border-color: rgba(166, 149, 171, 1) !important;
+  background-color: rgba(166, 149, 171, 1) !important;
 }
 
 .big-checkbox-field__label--toggled {
@@ -124,7 +120,6 @@ textarea:focus {
 #site-header {
   background: none !important;
   background-color: #d6d5d9 !important;
-  /*height: 80px !important;*/
 }
 #site-logo {
   float: left;
@@ -148,8 +143,6 @@ textarea:focus {
   background-color: #045a8b;
   color: #045a8b;
 }
-#auth-nav-container {
-}
 a#sign-in-btn {
   background-color: transparent !important;
   color: #302d43;
@@ -158,48 +151,6 @@ a#sign-in-btn:hover {
   color: #045a8b;
 }
 
-/* =The Big Button to Add A New Point
--------------------------------------------------------------- */
-
-#add-place-btn-container {
-  background-color: #daf2f2;
-  border: 0;
-}
-a#add-place {
-  background-color: #045a8b;
-  color: #fff;
-}
-a#add-place:hover {
-  background-color: #302d43 !important;
-  color: #fff;
-}
-
-/* =Geocoding
--------------------------------------------------------------- */
-
-/* =Right-clinging sidebar legend
--------------------------------------------------------------- */
-.shareabouts-layer-li {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.shareabouts-layer-li span {
-  margin-bottom: 6px;
-}
-
-/* =Footer
--------------------------------------------------------------- */
-
-#colophon,
-#powered-by a.shareabouts-logo,
-#powered-by a.shareabouts-logo:hover,
-#powered-by a.openplans-logo,
-#powered-by a.openplans-logo:hover {
-  background-color: #fff;
-  color: #888;
-}
 
 /* =Map
 -------------------------------------------------------------- */
@@ -211,81 +162,6 @@ a#add-place:hover {
   background: #ccc;
 }
 
-/* =Legend & Guidelines Chart
--------------------------------------------------------------- */
-
-.master-layer-list {
-  background-color: #daf2f2;
-  margin-top: 0;
-  padding-top: 8px;
-  padding-left: 8px;
-}
-.legend {
-  background-color: #daf2f2;
-  padding: 15px 10px;
-  border-bottom: 1px solid #ddd;
-  list-style: none;
-  margin: 0;
-  font-weight: bold;
-}
-.legend li {
-  padding: 8px 0 2px 0 !important;
-}
-.legend img {
-  float: left;
-  position: relative;
-  margin-right: 8px;
-  margin-top: 1px;
-  z-index: 2;
-}
-.legend img + img {
-  margin-right: -21px;
-  right: 31px;
-  z-index: 1;
-  opacity: 0.25;
-}
-.color-info {
-  font-size: 0.85em;
-  background: #ddd;
-  color: #666;
-  margin: 0 0 -6px !important;
-  padding: 6px 4px 8px 0 !important;
-}
-.color-info img {
-  margin-top: -12px;
-}
-
-.guidelines-header {
-  clear: both;
-  padding-top: 0.75em;
-  border-top: 1px solid #ddd;
-}
-.guidelines-header img {
-  float: right;
-  position: relative;
-  z-index: 2;
-}
-.guidelines-header img + img {
-  margin-right: -31px;
-  z-index: 1;
-  opacity: 0.25;
-}
-.eligibility-header {
-  text-transform: uppercase;
-  color: #777;
-}
-.eligible {
-  float: left;
-  width: 48%;
-}
-.non-eligible {
-  float: right;
-  width: 48%;
-}
-.muted {
-  font-size: 0.85em;
-  font-weight: normal;
-}
 
 /* =Media Queries
 -------------------------------------------------------------- */
