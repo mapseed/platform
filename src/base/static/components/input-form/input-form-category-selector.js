@@ -27,7 +27,7 @@ class InputFormCategorySelector extends Component {
           return (
             <InputFormCategoryButton
               isSelected={isSelected}
-              isCategoryMenuCollapsed={this.state.isCollapsed && !isSelected}
+              isCategoryMenuCollapsed={this.state.isCollapsed}
               isSingleCategory={this.props.visibleCategoryConfigs.length === 1}
               key={config.category}
               categoryName={config.category}

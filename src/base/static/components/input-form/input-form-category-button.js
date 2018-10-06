@@ -8,7 +8,8 @@ import "./input-form-category-button.scss";
 const InputFormCategoryButton = props => {
   const cn = {
     base: classNames("input-form-category-button", {
-      "input-form-category-button--hidden": props.isCategoryMenuCollapsed,
+      "input-form-category-button--hidden":
+        props.isCategoryMenuCollapsed && !props.isSelected,
     }),
     imageContainer: classNames("input-form-category-button__image-container", {
       "input-form-category-button__image-container--active": props.isSelected,
@@ -20,7 +21,9 @@ const InputFormCategoryButton = props => {
       "input-form-category-button__expand-categories-button",
       {
         "input-form-category-button__expand-categories-button--hidden":
-          props.isSingleCategory || !props.isSelected,
+          !props.isCategoryMenuCollapsed ||
+          props.isSingleCategory ||
+          !props.isSelected,
       },
     ),
   };
