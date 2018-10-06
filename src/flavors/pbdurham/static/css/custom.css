@@ -116,10 +116,6 @@ textarea:focus {
   background-color: rgba(166, 149, 171, 1) !important;
 }
 
-.input-form-submit-button {
-  background-color: #f5cd56;
-}
-
 /* =The Site Header
 -------------------------------------------------------------- */
 
@@ -163,11 +159,13 @@ a#sign-in-btn:hover {
   background-color: #daf2f2;
   border: 0;
 }
-a#add-place {
+a#add-place,
+.input-form-submit-button {
   background-color: #045a8b;
   color: #fff;
 }
-a#add-place:hover {
+a#add-place:hover,
+.input-form-submit-button:hover {
   background-color: #302d43 !important;
   color: #fff;
 }
