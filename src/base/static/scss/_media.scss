@@ -341,12 +341,12 @@
     position: absolute;
 
     &.pos-top-left {
-      top: $header-height-fullscreen + 10px;
+      top: $header-height-fullscreen + 20px;
       left: 3.5em;
     }
 
     &.pos-top-right {
-      top: $header-height-fullscreen + 10px;
+      top: $header-height-fullscreen + 20px;
       right: 10px;
     }
 

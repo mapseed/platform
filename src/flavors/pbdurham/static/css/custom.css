@@ -151,6 +151,20 @@ a#sign-in-btn:hover {
   color: #045a8b;
 }
 
+/* =The Big Button to Add A New Point
+-------------------------------------------------------------- */
+ #add-place-btn-container {
+  background-color: #daf2f2;
+  border: 0;
+}
+a#add-place {
+  background-color: #045a8b;
+  color: #fff;
+}
+a#add-place:hover {
+  background-color: #302d43 !important;
+  color: #fff;
+}
 
 /* =Map
 -------------------------------------------------------------- */
