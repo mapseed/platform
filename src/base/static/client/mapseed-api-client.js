@@ -9,7 +9,7 @@ const getPlaceCollections = async ({
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
   let pagesComplete = 0;
-  let totalPages;
+  let totalPages = 0;
   let pageSize;
 
   // TODO(luke): Once backbone models are ported into the redux store,
@@ -39,7 +39,7 @@ const getPlaceCollections = async ({
       // Only do this for the first page...
       pageSuccess: _.once(function(collection, data) {
         pageSize = data.features.length;
-        totalPages = Math.ceil(data.metadata.length / pageSize);
+        totalPages = totalPages += Math.ceil(data.metadata.length / pageSize);
 
         if (data.metadata.next) {
           $progressContainer.show();
@@ -66,8 +66,9 @@ const getPlaceCollections = async ({
         // TODO: layer loading event; fix in layer UI PR
       },
 
-      error: function() {
+      error: function(error) {
         // TODO: layer loading event; fix in layer UI PR
+        console.error("Error loading place collection:", error);
       },
     });
     placeCollectionPromises.push(placeCollectionPromise);
