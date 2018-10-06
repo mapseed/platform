@@ -93,7 +93,6 @@ textarea:focus {
 }
 
 .input-form-category-button__image-container--active {
-  border-color: rgba(166, 149, 171, 0.43) !important;
   background-color: rgba(166, 149, 171, 0.43) !important;
 }
 
