@@ -78,6 +78,7 @@ input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"],
+select,
 textarea {
   border: 0.25em solid #a695ab !important;
 }
@@ -105,12 +106,18 @@ textarea:focus {
   background-color: rgba(166, 149, 171, 1) !important;
 }
 
-.big-checkbox-field__label--toggled {
+.big-checkbox-field__label--toggled,
+.big-toggle-field__label--toggled {
   border-color: rgba(166, 149, 171, 1) !important;
 }
 
-.big-checkbox-field__label--toggled:before {
+.big-checkbox-field__label--toggled:before,
+.big-toggle-field__label--toggled:before {
   background-color: rgba(166, 149, 171, 1) !important;
+}
+
+.input-form-submit-button {
+  background-color: #f5cd56;
 }
 
 /* =The Site Header
@@ -152,7 +159,7 @@ a#sign-in-btn:hover {
 
 /* =The Big Button to Add A New Point
 -------------------------------------------------------------- */
- #add-place-btn-container {
+#add-place-btn-container {
   background-color: #daf2f2;
   border: 0;
 }
@@ -174,7 +181,6 @@ a#add-place:hover {
 #map {
   background: #ccc;
 }
-
 
 /* =Media Queries
 -------------------------------------------------------------- */
