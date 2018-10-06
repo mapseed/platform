@@ -284,12 +284,15 @@ a#add-place:hover {
 /* =Media Queries
 -------------------------------------------------------------- */
 
-@media only screen and (min-width: 22em) {
-  #site-tagline {
-    display: block;
+/* Mobile/tablet size */
+@media only screen and (max-width: 60em) {
+  #site-logo {
+    margin-top: .3em;
   }
 }
 
+
+/* Desktop size */
 @media only screen and (min-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
@@ -340,13 +343,6 @@ a#add-place:hover {
   }
   #add-place-btn-container {
     background-color: transparent;
-  }
-}
-
-@media only screen and (min-width: 70em) {
-  .access,
-  .list-toggle-nav {
-    font-size: 0.875em;
   }
 }
 
