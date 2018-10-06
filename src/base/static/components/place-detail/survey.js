@@ -133,9 +133,6 @@ class Survey extends Component {
               ? surveyConfig.response_name
               : surveyConfig.response_plural_name}
           </h4>
-          <SecondaryButton className="place-detail-survey__leave-comment-button">
-            {surveyConfig.form_link_text}
-          </SecondaryButton>
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
         <div className="place-detail-survey-responses">
