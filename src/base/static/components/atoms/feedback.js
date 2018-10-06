@@ -68,4 +68,8 @@ Icon.propTypes = {
   prefix: PropTypes.string,
 };
 
+Icon.defaultProps = {
+  icon: "__no-icon__",
+};
+
 export { ProgressBar, InfoModalTrigger, Icon };

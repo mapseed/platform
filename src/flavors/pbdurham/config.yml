@@ -16,6 +16,11 @@ app:
     slug: "pbdurham"
     owner: "smartercleanup"
 
+  theme:
+    brand:
+      primary: "#045a8b"
+      secondary: "#a695ab"
+
 # languages:
 #   - code: en_US
 #     label: English
@@ -1128,7 +1133,7 @@ place:
       attribution: _(Budget Delegates will meet 6 - 8 times from December through June​ to evaluate project ideas, work with city staff to research the projects and will receive training and support to develop proposals for the ballot.)
     submit:
       type: submit
-      label: _(Submit!)
+      label: _(Put it on the map!)
 
 survey:
   submission_type: comments

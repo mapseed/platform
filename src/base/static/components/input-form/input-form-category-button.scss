@@ -1,6 +1,7 @@
 @import "variables";
 
 .input-form-category-button {
+  display: flex;
   margin: $input-form-category-button-margin;
   background-color: $input-form-category-button-background-color;
   padding: 0;
@@ -27,6 +28,7 @@
 
 .input-form-category-button__label {
   display: flex;
+  width: 100%;
   border: $input-form-category-button-border;
   border-radius: $input-form-category-button-border-radius;
   align-items: center;
@@ -41,18 +43,16 @@
 }
 
 .input-form-category-button__expand-categories-button {
-  display: block;
-  position: absolute;
   background: none;
   border: none;
   right: 30px;
   top: 8px;
   font-size: 2em;
-  color: $input-form-category-button-expand-categories-button-color;
+  color: #aaa;
 
   &:after {
     font-family: FontAwesome;
-    content: $input-form-category-button-expand-categories-button;
+    content: "\f102";
   }
 
   &:focus {

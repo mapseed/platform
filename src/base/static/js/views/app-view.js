@@ -572,6 +572,7 @@ export default Backbone.View.extend({
     this.$panel.show();
     this.setBodyClass("content-visible", "place-form-visible");
     store.dispatch(setMapSizeValidity(false));
+    emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     // END REACT PORT SECTION //////////////////////////////////////////////////
   },
 
@@ -676,7 +677,6 @@ export default Backbone.View.extend({
 
       this.$panel.show();
       this.setBodyClass("content-visible");
-      store.dispatch(setMapSizeValidity(false));
 
       $("#main-btns-container").addClass(
         this.options.placeConfig.add_button_location || "pos-top-left",
@@ -740,6 +740,8 @@ export default Backbone.View.extend({
         self.isStoryActive = false;
         self.restoreDefaultLayerVisibility();
       }
+
+      store.dispatch(setMapSizeValidity(false));
     }
 
     function onNotFound() {
@@ -841,6 +843,8 @@ export default Backbone.View.extend({
     });
   },
   showListView: function() {
+    emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
+
     // Re-sort if new places have come in
     this.listView.sort();
     // Show

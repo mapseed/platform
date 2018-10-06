@@ -9,6 +9,7 @@ const ActivityItemContainer = styled("div")(props => ({
   position: "relative",
   listStyle: "none",
   borderBottom: "1px solid #888",
+  paddingRight: "10px",
   "&:hover": {
     color: "#fff",
     backgroundColor: props.theme.brand.accent,

@@ -61,7 +61,7 @@ const MapLayerSelector = props => {
 };
 
 MapLayerSelector.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   info: PropTypes.object.isRequired,
   layerId: PropTypes.string.isRequired,
   layerStatus: PropTypes.shape({

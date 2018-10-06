@@ -83,6 +83,7 @@ const Button = styled(LegacyButton)(props => {
     color: props.theme.text.primary,
     backgroundColor: props.theme.bg.default,
     textTransform: props.theme.text.textTransform,
+    outline: "none",
 
     padding: props.large ? "0.5em 0.75em 0.5em 0.75em" : "0.5em",
     fontSize: props.large ? "1.25em" : "1em",

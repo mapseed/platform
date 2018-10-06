@@ -1,26 +1,32 @@
-
 /* =Base Styles
 -------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
 
 /* Typography */
-body, select, input, textarea {
+body,
+select,
+input,
+textarea {
   font-family: "proxima-nova", Tahoma, Verdana, Segoe, sans-serif;
 }
-label { font-size: 1em; text-transform: none; color: #555; }
+label {
+  font-size: 1em;
+  text-transform: none;
+  color: #555;
+}
 
 h1 {
   font-family: "Josefin Sans", sans-serif;
-  font-weight: 400;
   color: #045a8b;
-  line-height: 1.0;
-  padding: 10px 0px 15px 0px;
 }
 
-h2, h3, h4, h5 {
+h2,
+h3,
+h4,
+h5 {
   font-family: "Josefin Sans", sans-serif;
   font-weight: 400;
-  line-height: 1.0;
+  line-height: 1;
   color: #045a8b;
 }
 
@@ -37,7 +43,9 @@ li.clearfix {
   background-color: #045a8b;
   color: #fff;
 }
-.btn-primary, .btn-primary:visited, .btn-primary:link {
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
   background-color: #045a8b;
   color: #fff;
 }
@@ -58,18 +66,19 @@ li.clearfix {
 /* Forms */
 label {
 }
-input[type=date],
-input[type=datetime],
-input[type=datetime-local],
-input[type=email],
-input[type=month],
-input[type=number],
-input[type=password],
-input[type=tel],
-input[type=text],
-input[type=time],
-input[type=url],
-input[type=week],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select,
 textarea {
   border: 0.25em solid #a695ab !important;
 }
@@ -85,8 +94,11 @@ textarea:focus {
 }
 
 .input-form-category-button__image-container--active {
-  border-color: rgba(166, 149, 171, 0.43) !important;
   background-color: rgba(166, 149, 171, 0.43) !important;
+}
+
+.input-form-category-button__label:hover {
+  border-color: rgba(166, 149, 171, 1) !important;
 }
 
 .input-form-category-button__label-text--active {
@@ -94,19 +106,13 @@ textarea:focus {
   background-color: rgba(166, 149, 171, 1) !important;
 }
 
-.input-form-category-button__label:hover {
+.big-checkbox-field__label--toggled,
+.big-toggle-field__label--toggled {
   border-color: rgba(166, 149, 171, 1) !important;
 }
 
-.category-label {
-  margin-top: -14px !important;
-}
-
-.big-checkbox-field__label--toggled {
-  border-color: rgba(166, 149, 171, 1) !important;
-}
-
-.big-checkbox-field__label--toggled:before {
+.big-checkbox-field__label--toggled:before,
+.big-toggle-field__label--toggled:before {
   background-color: rgba(166, 149, 171, 1) !important;
 }
 
@@ -116,7 +122,6 @@ textarea:focus {
 #site-header {
   background: none !important;
   background-color: #d6d5d9 !important;
-  /*height: 80px !important;*/
 }
 #site-logo {
   float: left;
@@ -140,7 +145,6 @@ textarea:focus {
   background-color: #045a8b;
   color: #045a8b;
 }
-#auth-nav-container {}
 a#sign-in-btn {
   background-color: transparent !important;
   color: #302d43;
@@ -149,52 +153,22 @@ a#sign-in-btn:hover {
   color: #045a8b;
 }
 
-
 /* =The Big Button to Add A New Point
 -------------------------------------------------------------- */
-
 #add-place-btn-container {
-  background-color: #DAF2F2;
+  background-color: #daf2f2;
   border: 0;
 }
-a#add-place {
+a#add-place,
+.input-form-submit-button {
   background-color: #045a8b;
   color: #fff;
 }
-a#add-place:hover {
+a#add-place:hover,
+.input-form-submit-button:hover {
   background-color: #302d43 !important;
   color: #fff;
 }
-
-
-/* =Geocoding
--------------------------------------------------------------- */
-
-
-/* =Right-clinging sidebar legend
--------------------------------------------------------------- */
-.shareabouts-layer-li {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.shareabouts-layer-li span {
-  margin-bottom: 6px;
-}
-
-/* =Footer
--------------------------------------------------------------- */
-
-#colophon,
-#powered-by a.shareabouts-logo,
-#powered-by a.shareabouts-logo:hover,
-#powered-by a.openplans-logo,
-#powered-by a.openplans-logo:hover {
-  background-color: #fff;
-  color: #888;
-}
-
 
 /* =Map
 -------------------------------------------------------------- */
@@ -206,93 +180,17 @@ a#add-place:hover {
   background: #ccc;
 }
 
-
-/* =Legend & Guidelines Chart
--------------------------------------------------------------- */
-
-.master-layer-list {
-  background-color: #DAF2F2;
-  margin-top: 0;
-  padding-top: 8px;
-  padding-left: 8px;
-}
-.legend {
-  background-color: #DAF2F2;
-  padding: 15px 10px;
-  border-bottom: 1px solid #ddd;
-  list-style: none;
-  margin: 0;
-  font-weight: bold;
-}
-.legend li {
-  padding: 8px 0 2px 0 !important;
-}
-.legend img {
-  float: left;
-  position: relative;
-  margin-right: 8px;
-  margin-top: 1px;
-  z-index: 2;
-}
-.legend img + img {
-  margin-right: -21px;
-  right: 31px;
-  z-index: 1;
-  opacity: 0.25;
-}
-.color-info {
-  font-size: 0.85em;
-  background: #ddd;
-  color: #666;
-  margin: 0 0 -6px !important;
-  padding: 6px 4px 8px 0 !important;
-}
-.color-info img {
-  margin-top: -12px;
-}
-
-.guidelines-header {
-  clear: both;
-  padding-top: 0.75em;
-  border-top: 1px solid #ddd;
-}
-.guidelines-header img {
-  float: right;
-  position: relative;
-  z-index: 2;
-}
-.guidelines-header img + img {
-  margin-right: -31px;
-  z-index: 1;
-  opacity: 0.25;
-}
-.eligibility-header {
-  text-transform: uppercase;
-  color: #777;
-}
-.eligible {
-  float: left;
-  width: 48%;
-}
-.non-eligible {
-  float: right;
-  width: 48%;
-}
-.muted {
-  font-size: 0.85em;
-  font-weight: normal;
-}
-
-
 /* =Media Queries
 -------------------------------------------------------------- */
 
-@media only screen and (min-width: 22em) {
-  #site-tagline {
-    display: block;
+/* Mobile/tablet size */
+@media only screen and (max-width: 60em) {
+  #site-logo {
+    margin-top: 0.3em;
   }
 }
 
+/* Desktop size */
 @media only screen and (min-width: 60em) {
   #site-title a:link,
   #site-title a:visited {
@@ -343,13 +241,6 @@ a#add-place:hover {
   }
   #add-place-btn-container {
     background-color: transparent;
-  }
-}
-
-@media only screen and (min-width: 70em) {
-  .access,
-  .list-toggle-nav {
-    font-size: 0.875em;
   }
 }
 
