@@ -676,7 +676,6 @@ export default Backbone.View.extend({
 
       this.$panel.show();
       this.setBodyClass("content-visible");
-      store.dispatch(setMapSizeValidity(false));
 
       $("#main-btns-container").addClass(
         this.options.placeConfig.add_button_location || "pos-top-left",
@@ -740,6 +739,8 @@ export default Backbone.View.extend({
         self.isStoryActive = false;
         self.restoreDefaultLayerVisibility();
       }
+
+      store.dispatch(setMapSizeValidity(false));
     }
 
     function onNotFound() {
