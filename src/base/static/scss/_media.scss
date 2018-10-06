@@ -130,7 +130,7 @@
     #content {
         // bump up the bottom margin here so content at the very bottom
         // of a page is not obscured by bottom-clinging buttons
-        margin-bottom: $footer-height-smallscreen;
+        padding-bottom: 75px;
     }
 
     #nav-stories, #add-place {
