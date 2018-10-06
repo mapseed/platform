@@ -1,23 +1,32 @@
-
 /* =Base Styles
 -------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
 
 /* Typography */
-body, select, input, textarea {
+body,
+select,
+input,
+textarea {
   font-family: "proxima-nova", Tahoma, Verdana, Segoe, sans-serif;
 }
-label { font-size: 1em; text-transform: none; color: #555; }
+label {
+  font-size: 1em;
+  text-transform: none;
+  color: #555;
+}
 
 h1 {
   font-family: "Josefin Sans", sans-serif;
   color: #045a8b;
 }
 
-h2, h3, h4, h5 {
+h2,
+h3,
+h4,
+h5 {
   font-family: "Josefin Sans", sans-serif;
   font-weight: 400;
-  line-height: 1.0;
+  line-height: 1;
   color: #045a8b;
 }
 
@@ -34,7 +43,9 @@ li.clearfix {
   background-color: #045a8b;
   color: #fff;
 }
-.btn-primary, .btn-primary:visited, .btn-primary:link {
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
   background-color: #045a8b;
   color: #fff;
 }
@@ -55,18 +66,18 @@ li.clearfix {
 /* Forms */
 label {
 }
-input[type=date],
-input[type=datetime],
-input[type=datetime-local],
-input[type=email],
-input[type=month],
-input[type=number],
-input[type=password],
-input[type=tel],
-input[type=text],
-input[type=time],
-input[type=url],
-input[type=week],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
 textarea {
   border: 0.25em solid #a695ab !important;
 }
@@ -137,7 +148,8 @@ textarea:focus {
   background-color: #045a8b;
   color: #045a8b;
 }
-#auth-nav-container {}
+#auth-nav-container {
+}
 a#sign-in-btn {
   background-color: transparent !important;
   color: #302d43;
@@ -146,12 +158,11 @@ a#sign-in-btn:hover {
   color: #045a8b;
 }
 
-
 /* =The Big Button to Add A New Point
 -------------------------------------------------------------- */
 
 #add-place-btn-container {
-  background-color: #DAF2F2;
+  background-color: #daf2f2;
   border: 0;
 }
 a#add-place {
@@ -163,10 +174,8 @@ a#add-place:hover {
   color: #fff;
 }
 
-
 /* =Geocoding
 -------------------------------------------------------------- */
-
 
 /* =Right-clinging sidebar legend
 -------------------------------------------------------------- */
@@ -192,7 +201,6 @@ a#add-place:hover {
   color: #888;
 }
 
-
 /* =Map
 -------------------------------------------------------------- */
 #map-container {
@@ -203,18 +211,17 @@ a#add-place:hover {
   background: #ccc;
 }
 
-
 /* =Legend & Guidelines Chart
 -------------------------------------------------------------- */
 
 .master-layer-list {
-  background-color: #DAF2F2;
+  background-color: #daf2f2;
   margin-top: 0;
   padding-top: 8px;
   padding-left: 8px;
 }
 .legend {
-  background-color: #DAF2F2;
+  background-color: #daf2f2;
   padding: 15px 10px;
   border-bottom: 1px solid #ddd;
   list-style: none;
@@ -280,17 +287,15 @@ a#add-place:hover {
   font-weight: normal;
 }
 
-
 /* =Media Queries
 -------------------------------------------------------------- */
 
 /* Mobile/tablet size */
 @media only screen and (max-width: 60em) {
   #site-logo {
-    margin-top: .3em;
+    margin-top: 0.3em;
   }
 }
-
 
 /* Desktop size */
 @media only screen and (min-width: 60em) {
