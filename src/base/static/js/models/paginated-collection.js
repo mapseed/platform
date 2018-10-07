@@ -50,7 +50,9 @@ module.exports = Backbone.Collection.extend({
       // page, assuming all pages except the last will be the same size.
       var pageSize = data[self.resultsAttr].length,
         i;
-      totalPages = Math.ceil(data.metadata.length / pageSize);
+      // In the case where we fetch an empty collection and pageSize is 0,
+      // avoid a NaN result from division by 0.
+      totalPages = Math.ceil(data.metadata.length / pageSize) || 0;
 
       if (options.success) {
         onAllSuccess = _.after(totalPages, options.success);
