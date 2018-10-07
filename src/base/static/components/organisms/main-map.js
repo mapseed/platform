@@ -276,6 +276,18 @@ class MainMap extends Component {
     );
     this.listeners.push(
       emitter.addListener(
+        constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
+        collectionId => {
+          this._map.updateLayerData(
+            collectionId,
+            createGeoJSONFromCollection(this.props.places[collectionId]),
+          );
+            this._map.unfocusAllPlaceLayerFeatures(collectionId);
+        },
+      ),
+    );
+    this.listeners.push(
+      emitter.addListener(
         constants.PLACE_COLLECTION_FOCUS_PLACE_EVENT,
         ({ collectionId, modelId }) => {
           // To focus a feature in a layer, we first remove it from the origin layer

@@ -169,6 +169,11 @@ class PlaceDetailEditor extends Component {
 
   onPlaceModelRemoveSuccess(model) {
     model.collection.remove(model.id);
+    emitter.emit(
+      constants.PLACE_COLLECTION_REMOVE_PLACE_EVENT,
+      this.props.collectionId,
+    );
+    this.props.router.navigate("/", { trigger: true });
   }
 
   onPlaceModelRemoveError() {
