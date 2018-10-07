@@ -210,12 +210,26 @@ class Survey extends Component {
 }
 
 Survey.propTypes = {
+  appConfig: PropTypes.shape({
+    api_root: PropTypes.string.isRequired,
+  }).isRequired,
   getLoggingDetails: PropTypes.func.isRequired,
   isEditModeToggled: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   onModelIO: PropTypes.func.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
   scrollToResponseId: PropTypes.string,
+  surveyConfig: PropTypes.shape({
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        prompt: PropTypes.string,
+        type: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    response_name: PropTypes.string.isRequired,
+    response_plural_name: PropTypes.string.isRequired,
+  }).isRequired,
   surveyModels: PropTypes.object.isRequired,
   currentUser: PropTypes.object,
   onSurveyCollectionCreate: PropTypes.func.isRequired,
