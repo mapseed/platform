@@ -97,6 +97,7 @@ export default {
   PLACE_COLLECTION_HIDE_PLACE_EVENT: "place-collection:hide-place",
   PLACE_COLLECTION_FOCUS_PLACE_EVENT: "place-collection:focus-place",
   PLACE_COLLECTION_ADD_PLACE_EVENT: "place-collection:add-place",
+  PLACE_COLLECTION_REMOVE_PLACE_EVENT: "place-collection:remove-place",
   PLACE_COLLECTION_LOADED_EVENT: "place-collection:loaded",
 
   PLACE_MODEL_IO_START_ACTION: "place:io-start",
