@@ -49,7 +49,7 @@ map:
       showCompass: true
       position: "top-left"
     draw:
-      is_drawing_disabled: false
+      is_drawing_disabled: true
 
   layers:
     - id: osm
