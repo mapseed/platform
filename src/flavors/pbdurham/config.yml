@@ -42,7 +42,7 @@ map:
         lat: 35.98287
         lng: -78.90010
       zoom: 12
-      pitch: 45
+      pitch: 30
       minZoom: 1
       maxZoom: 18
     control:
@@ -95,7 +95,7 @@ map:
       source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
       rules:
          - line-paint:
-             line-color: #ff0000
+             line-color: "#ff0000"
              line-width: 2
 
     - id: durham-existing-trails
@@ -105,8 +105,12 @@ map:
       source: https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson
       rules:
          - line-paint:
-             line-color: #00ff00
+             line-color: "#ff0000"
              line-width: 2
+             line-opacity: 1
+             line-dasharray:
+               - 1
+               - 2
 
     - id: durham-proposed-trails
       type: json
@@ -115,7 +119,7 @@ map:
       source: https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson
       rules:
          - line-paint:
-             line-color: #00ff00
+             line-color: "#00ff00"
              line-width: 2
 
     - id: durham-parks
@@ -132,7 +136,7 @@ map:
       feature_types:
         - "Point"
       slug: idea
-      is_visible_default: true
+      is_visible_default: false
       focus_rules:
         # culture
         - filter:
@@ -143,7 +147,7 @@ map:
               - "culture"
           symbol-layout:
             icon-image: "fountain.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # environment 
@@ -155,7 +159,7 @@ map:
               - "environment"
           symbol-layout:
             icon-image: "tree.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # safety
@@ -167,7 +171,7 @@ map:
               - "safety"
           symbol-layout:
             icon-image: "safety.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # education
@@ -179,7 +183,7 @@ map:
               - "education"
           symbol-layout:
             icon-image: "education.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # parks 
@@ -191,7 +195,7 @@ map:
               - "parks"
           symbol-layout:
             icon-image: "tree.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # health
@@ -203,7 +207,7 @@ map:
               - "health"
           symbol-layout:
             icon-image: "health.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # seniors 
@@ -215,7 +219,7 @@ map:
               - "seniors"
           symbol-layout:
             icon-image: "seniors.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # streets 
@@ -227,7 +231,7 @@ map:
               - "streets"
           symbol-layout:
             icon-image: "street-sidewalk.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # other 
@@ -239,7 +243,7 @@ map:
               - "other"
           symbol-layout:
             icon-image: "idea.png"
-            icon-size: 1.0
+            icon-size: 0.7
             icon-anchor: "bottom"
 
         # youth 
@@ -251,7 +255,7 @@ map:
               - "youth"
           symbol-layout:
             icon-image: "youth.png"
-            icon-size: 1.0
+            icon-size: 0.8
             icon-anchor: "bottom"
 
       rules:
@@ -264,7 +268,7 @@ map:
               - "culture"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-b75ab8.png"
             icon-size: 0.3
@@ -277,7 +281,7 @@ map:
               - "culture"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -308,7 +312,7 @@ map:
               - "environment"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-7fccd9.png"
             icon-size: 0.3
@@ -321,7 +325,7 @@ map:
               - "environment"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -352,7 +356,7 @@ map:
               - "safety"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-fc9229.png"
             icon-size: 0.3
@@ -365,7 +369,7 @@ map:
               - "safety"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -396,7 +400,7 @@ map:
               - "eduction"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-0f779e.png"
             icon-size: 0.3
@@ -409,7 +413,7 @@ map:
               - "education"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -440,7 +444,7 @@ map:
               - "parks"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-55a504.png"
             icon-size: 0.3
@@ -453,7 +457,7 @@ map:
               - "parks"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -484,7 +488,7 @@ map:
               - "health"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-ff78be.png"
             icon-size: 0.3
@@ -497,7 +501,7 @@ map:
               - "health"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -528,7 +532,7 @@ map:
               - "seniors"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-c43d52.png"
             icon-size: 0.3
@@ -541,7 +545,7 @@ map:
               - "seniors"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -572,7 +576,7 @@ map:
               - "streets"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-8ea4b8.png"
             icon-size: 0.3
@@ -585,7 +589,7 @@ map:
               - "streets"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -616,7 +620,7 @@ map:
               - "other"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-ffd614.png"
             icon-size: 0.3
@@ -629,7 +633,7 @@ map:
               - "other"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -660,7 +664,7 @@ map:
               - "youth"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-ffd614.png"
             icon-size: 0.3
@@ -673,7 +677,7 @@ map:
               - "youth"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17

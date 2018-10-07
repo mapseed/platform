@@ -180,6 +180,27 @@ a#add-place:hover,
   background: #ccc;
 }
 
+#centerpoint.newpin .overlay {
+  &:before {
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 800;
+    font-size: 1.1em;
+    content: "Drag the map";
+    background-image: url(/static/css/images/marker-arrow-overlay.png);
+    background-size: cover;
+    width: 139px;
+    height: 162px;
+    left: -58px;
+    top: -75px;
+    position: absolute;
+    text-transform: uppercase;
+    color: yellow;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
@@ -187,6 +208,10 @@ a#add-place:hover,
 @media only screen and (max-width: 60em) {
   #site-logo {
     margin-top: 0.3em;
+  }
+
+  #auth-nav-container {
+    display: none;
   }
 }
 
