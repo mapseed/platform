@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
 import emitter from "../../utils/emitter";
+import { connect } from "react-redux";
 
 import FormField from "../form-fields/form-field";
 import SecondaryButton from "../ui-elements/secondary-button";
@@ -10,7 +11,9 @@ import WarningMessagesContainer from "../ui-elements/warning-messages-container"
 import Avatar from "../ui-elements/avatar";
 import SurveyResponseEditor from "./survey-response-editor";
 
-import { survey as surveyConfig, app as appConfig } from "config";
+import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import { appConfigSelector } from "../../state/ducks/app-config";
+
 import constants from "../../constants";
 import { translate } from "react-i18next";
 
@@ -45,7 +48,7 @@ class Survey extends Component {
   }
 
   initializeFields() {
-    return surveyConfig.items.reduce((fields, field) => {
+    return this.props.surveyConfig.items.reduce((fields, field) => {
       fields = fields.set(
         field.name,
         Map()
@@ -130,8 +133,8 @@ class Survey extends Component {
           <h4 className="place-detail-survey__num-comments-header">
             {numSubmissions}{" "}
             {numSubmissions === 1
-              ? surveyConfig.response_name
-              : surveyConfig.response_plural_name}
+              ? this.props.surveyConfig.response_name
+              : this.props.surveyConfig.response_plural_name}
           </h4>
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
@@ -174,7 +177,7 @@ class Survey extends Component {
               <FormField
                 key={fieldState.get(constants.FIELD_RENDER_KEY)}
                 isInitializing={this.state.isInitializing}
-                fieldConfig={surveyConfig.items.find(
+                fieldConfig={this.props.surveyConfig.items.find(
                   field => field.name === fieldName,
                 )}
                 updatingField={this.state.updatingField}
@@ -195,7 +198,7 @@ class Survey extends Component {
             </span>
             <a
               className="place-detail-survey__logout-button"
-              href={appConfig.apiRoot + "users/logout/"}
+              href={this.props.appConfig.api_root + "users/logout/"}
             >
               {t("logOut")}
             </a>
@@ -223,4 +226,9 @@ Survey.propTypes = {
   userToken: PropTypes.string,
 };
 
-export default translate("Survey")(Survey);
+const mapStateToProps = state => ({
+  appConfig: appConfigSelector(state),
+  surveyConfig: surveyConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(translate("Survey")(Survey));
