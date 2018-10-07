@@ -542,6 +542,9 @@ export default (container, options) => {
     cluster = {},
     rules = [],
     focus_rules = [],
+    // Unless otherwise specified, we assume we need to create provider layers
+    // for all feature types.
+    feature_types = ["Point", "LineString", "Polygon"],
     popup_content,
   }) => {
     sourcesCache[id] = {
@@ -554,35 +557,43 @@ export default (container, options) => {
 
     map.addSource(id, sourcesCache[id]);
 
-    rules = rules.map(rule => ({
-      baseLayerId: id,
-      source: id,
-      ...rule,
-    }));
-    focus_rules = focus_rules.map(rule => ({
-      baseLayerId: `${id}${FOCUSED_LAYER_IDENTIFIER}`,
-      source: FOCUSED_SOURCE_IDENTIFIER,
-      ...rule,
-    }));
+    rules = rules
+      .map(rule => ({
+        baseLayerId: id,
+        source: id,
+        ...rule,
+      }))
+      .concat(
+        focus_rules.map(rule => ({
+          baseLayerId: `${id}${FOCUSED_LAYER_IDENTIFIER}`,
+          source: FOCUSED_SOURCE_IDENTIFIER,
+          ...rule,
+        })),
+      );
 
-    // NOTE: We create a lot of layers here, which could be a performance
-    // bottleneck.
-    // See: https://github.com/mapseed/platform/issues/961
+    // TODO: Think about further optimizations for reducing/combining the
+    // number of provider layers created here.
     layersCache[id] = rules
-      .map(configRuleToSymbolLayer)
-      .concat(rules.map(configRuleToLineLayer))
+      .map(
+        feature_types.includes("Point") ? configRuleToSymbolLayer : () => null,
+      )
+      .concat(
+        rules.map(
+          feature_types.includes("LineString")
+            ? configRuleToLineLayer
+            : () => null,
+        ),
+      )
       .concat(
         rules
-          .map(configRuleToFillLayer)
+          .map(
+            feature_types.includes("Polygon")
+              ? configRuleToFillLayer
+              : () => null,
+          )
           .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
       )
-      .concat(focus_rules.map(configRuleToSymbolLayer))
-      .concat(focus_rules.map(configRuleToLineLayer))
-      .concat(
-        focus_rules
-          .map(configRuleToFillLayer)
-          .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-      );
+      .filter(rule => !!rule);
 
     if (cluster.is_enabled) {
       // https://www.mapbox.com/mapbox-gl-js/example/cluster/
