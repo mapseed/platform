@@ -282,7 +282,7 @@ class MainMap extends Component {
             collectionId,
             createGeoJSONFromCollection(this.props.places[collectionId]),
           );
-            this._map.unfocusAllPlaceLayerFeatures(collectionId);
+          this._map.unfocusAllPlaceLayerFeatures(collectionId);
         },
       ),
     );
