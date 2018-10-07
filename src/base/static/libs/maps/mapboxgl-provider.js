@@ -274,6 +274,11 @@ const configRuleToFillLayer = (layerConfig, i) => {
           fallbackOutlineOpacity,
         ],
       },
+      filter: appendFilters(layerConfig.filter, [
+        "==",
+        ["geometry-type"],
+        "Polygon",
+      ]),
     },
   ];
 };
