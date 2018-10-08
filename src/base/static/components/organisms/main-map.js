@@ -152,9 +152,13 @@ class MainMap extends Component {
 
     // Handler for clearing in-progress drawing geometry.
     if (this.props.mapConfig.options.drawing_enabled !== false) {
-      this.props.router.on("route", () => {
-        this._map.drawDeleteGeometry();
-      }, this);
+      this.props.router.on(
+        "route",
+        () => {
+          this._map.drawDeleteGeometry();
+        },
+        this,
+      );
     }
 
     // Handlers for map drawing events.
@@ -561,6 +565,7 @@ MainMap.propTypes = {
   mapConfig: PropTypes.shape({
     geolocation_enabled: PropTypes.bool.isRequired,
     options: PropTypes.shape({
+      drawing_enabled: PropTypes.string,
       map: PropTypes.shape({
         center: PropTypes.shape({
           lat: PropTypes.number.isRequired,
