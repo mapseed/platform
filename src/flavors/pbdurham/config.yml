@@ -136,127 +136,28 @@ map:
       feature_types:
         - "Point"
       slug: idea
-      is_visible_default: false
+      is_visible_default: true
       focus_rules:
-        # culture
-        - filter:
-            - "all"
-            - - "=="
+        - symbol-layout:
+            icon-size: 0.7
+            icon-anchor: "bottom"
+            icon-image:
+              - "match"
               - - "get"
                 - "location_type"
               - "culture"
-          symbol-layout:
-            icon-image: "fountain.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # environment 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-          symbol-layout:
-            icon-image: "tree.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # safety
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "fountain.png"
               - "safety"
-          symbol-layout:
-            icon-image: "safety.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # education
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "education"
-          symbol-layout:
-            icon-image: "education.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # parks 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "safety.png"
               - "parks"
-          symbol-layout:
-            icon-image: "tree.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # health
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "tree.png"
               - "health"
-          symbol-layout:
-            icon-image: "health.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # seniors 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-          symbol-layout:
-            icon-image: "seniors.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # streets 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "health.png"
               - "streets"
-          symbol-layout:
-            icon-image: "street-sidewalk.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # other 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "street-sidewalk.png"
               - "other"
-          symbol-layout:
-            icon-image: "idea.png"
-            icon-size: 0.7
-            icon-anchor: "bottom"
-
-        # youth 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-          symbol-layout:
-            icon-image: "youth.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
+              - "idea.png"
+              - "__no-icon-image__"
 
       rules:
         # culture
@@ -302,50 +203,6 @@ map:
             icon-image: "fountain-small.png"
             icon-size: 0.8
             icon-anchor: "bottom"
-        
-        # environment
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-            - - "<"
-              - - "zoom"
-              - 10
-          symbol-layout:
-            icon-image: "dot-7fccd9.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-            - - ">="
-              - - "zoom"
-              - 10
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "tree-small.png"
-            icon-size: 0.5
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "tree-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
 
         #safety 
         - filter:
@@ -388,50 +245,6 @@ map:
               - 17
           symbol-layout:
             icon-image: "safety-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
-
-        # education
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "eduction"
-            - - "<"
-              - - "zoom"
-              - 10
-          symbol-layout:
-            icon-image: "dot-0f779e.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "education"
-            - - ">="
-              - - "zoom"
-              - 10
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "education-small.png"
-            icon-size: 0.5
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "education"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "education-small.png"
             icon-size: 0.8
             icon-anchor: "bottom"
 
@@ -523,50 +336,6 @@ map:
             icon-size: 0.8
             icon-anchor: "bottom"
 
-        # seniors 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-            - - "<"
-              - - "zoom"
-              - 10
-          symbol-layout:
-            icon-image: "dot-c43d52.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-            - - ">="
-              - - "zoom"
-              - 10
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-size: 0.5
-            icon-image: "seniors-small.png"
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "seniors-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
-
         # streets
         - filter:
             - "all"
@@ -652,50 +421,6 @@ map:
               - 17
           symbol-layout:
             icon-image: "idea-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
-
-        # youth 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-            - - "<"
-              - - "zoom"
-              - 10
-          symbol-layout:
-            icon-image: "dot-ffd614.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-            - - ">="
-              - - "zoom"
-              - 10
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-size: 0.5
-            icon-image: "youth-small.png"
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "youth-small.png"
             icon-size: 0.8
             icon-anchor: "bottom"
 
