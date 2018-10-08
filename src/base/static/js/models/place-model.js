@@ -160,6 +160,13 @@ module.exports = Backbone.Model.extend({
 
       options.data = JSON.stringify(attrs);
       options.contentType = "application/json";
+      if (method === "update") {
+        // If we are updating a place, make it a silent update to
+        // avoid adding new actions to the Activity Stream.
+        options.headers = Object.assign(options.headers || {}, {
+          ["X-Shareabouts-Silent"]: true,
+        });
+      }
     }
 
     return Backbone.sync(method, model, options);

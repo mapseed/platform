@@ -11,6 +11,13 @@ module.exports = Backbone.Model.extend({
       // on the Place, and storing a collection of Submitters,
       // instead of hanging a submitter object off of the Place.
       model.unset("submitter");
+      if (method === "update") {
+        // If we are updating a place, make it a silent update to
+        // avoid adding new actions to the Activity Stream.
+        options.headers = Object.assign(options.headers || {}, {
+          ["X-Shareabouts-Silent"]: true,
+        });
+      }
     }
 
     return Backbone.sync(method, model, options);
