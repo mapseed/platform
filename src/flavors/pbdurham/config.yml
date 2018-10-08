@@ -900,6 +900,7 @@ survey:
     - prompt: _(Your Name)
       type: text
       name: submitter_name
+      optional: true
     - type: submit
       name: submit
       label: _(Comment)
