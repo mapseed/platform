@@ -48,6 +48,7 @@ map:
     control:
       showCompass: true
       position: "top-left"
+    drawing_enabled: false
 
   layers:
     - id: osm
@@ -89,6 +90,8 @@ map:
 
     - id: durham-council-wards
       type: json
+      feature_types:
+        - "Polygon"
       source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
       rules:
          - line-paint:
@@ -97,6 +100,8 @@ map:
 
     - id: durham-existing-trails
       type: json
+      feature_types:
+        - "LineString"
       source: https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson
       rules:
          - line-paint:
@@ -105,6 +110,8 @@ map:
 
     - id: durham-proposed-trails
       type: json
+      feature_types:
+        - "LineString"
       source: https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson
       rules:
          - line-paint:
@@ -122,6 +129,8 @@ map:
     - id: pbdurham
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham
       type: place
+      feature_types:
+        - "Point"
       slug: idea
       is_visible_default: true
       focus_rules:

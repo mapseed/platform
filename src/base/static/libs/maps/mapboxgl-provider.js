@@ -274,6 +274,11 @@ const configRuleToFillLayer = (layerConfig, i) => {
           fallbackOutlineOpacity,
         ],
       },
+      filter: appendFilters(layerConfig.filter, [
+        "==",
+        ["geometry-type"],
+        "Polygon",
+      ]),
     },
   ];
 };
@@ -537,6 +542,9 @@ export default (container, options) => {
     cluster = {},
     rules = [],
     focus_rules = [],
+    // Unless otherwise specified, we assume we need to create provider layers
+    // for all feature types.
+    feature_types = ["Point", "LineString", "Polygon"],
     popup_content,
   }) => {
     sourcesCache[id] = {
@@ -549,34 +557,39 @@ export default (container, options) => {
 
     map.addSource(id, sourcesCache[id]);
 
-    rules = rules.map(rule => ({
-      baseLayerId: id,
-      source: id,
-      ...rule,
-    }));
-    focus_rules = focus_rules.map(rule => ({
-      baseLayerId: `${id}${FOCUSED_LAYER_IDENTIFIER}`,
-      source: FOCUSED_SOURCE_IDENTIFIER,
-      ...rule,
-    }));
+    rules = rules
+      .map(rule => ({
+        baseLayerId: id,
+        source: id,
+        ...rule,
+      }))
+      .concat(
+        focus_rules.map(rule => ({
+          baseLayerId: `${id}${FOCUSED_LAYER_IDENTIFIER}`,
+          source: FOCUSED_SOURCE_IDENTIFIER,
+          ...rule,
+        })),
+      );
 
-    // NOTE: We create a lot of layers here, which could be a performance
-    // bottleneck.
-    // See: https://github.com/mapseed/platform/issues/961
-    layersCache[id] = rules
-      .map(configRuleToSymbolLayer)
-      .concat(rules.map(configRuleToLineLayer))
+    // TODO: Think about further optimizations for reducing/combining the
+    // number of provider layers created here.
+    layersCache[id] = []
       .concat(
-        rules
-          .map(configRuleToFillLayer)
-          .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+        feature_types.includes("Point")
+          ? rules.map(configRuleToSymbolLayer)
+          : [],
       )
-      .concat(focus_rules.map(configRuleToSymbolLayer))
-      .concat(focus_rules.map(configRuleToLineLayer))
       .concat(
-        focus_rules
-          .map(configRuleToFillLayer)
-          .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
+        feature_types.includes("LineString")
+          ? rules.map(configRuleToLineLayer)
+          : [],
+      )
+      .concat(
+        feature_types.includes("Polygon")
+          ? rules
+              .map(configRuleToFillLayer)
+              .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+          : [],
       );
 
     if (cluster.is_enabled) {
@@ -628,254 +641,266 @@ export default (container, options) => {
     });
   };
 
-  const draw = new MapboxDraw({
-    displayControlsDefault: false,
-    userProperties: true,
-    // These data-driven styles are used for styling geometry created with the
-    // draw plugin.
-    // https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/EXAMPLES.md
-    styles: [
-      // Polygon fill: selected.
-      {
-        id: "gl-draw-polygon-fill-active",
-        type: "fill",
-        filter: [
-          "all",
-          ["==", "$type", "Polygon"],
-          ["!=", "mode", "static"],
-          ["==", "active", "true"],
-        ],
-        paint: {
-          "fill-color": [
-            "case",
-            // The user_ prefix is set automatically by the draw plugin.
-            ["has", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
-            ["get", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_FILL_COLOR,
+  let draw;
+  // Unless drawing_enabled is explicitly set to false, we assume we should
+  // instantiate the draw plugin.
+  if (options.drawing_enabled !== false) {
+    draw = new MapboxDraw({
+      displayControlsDefault: false,
+      userProperties: true,
+      // These data-driven styles are used for styling geometry created with the
+      // draw plugin.
+      // https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/EXAMPLES.md
+      styles: [
+        // Polygon fill: selected.
+        {
+          id: "gl-draw-polygon-fill-active",
+          type: "fill",
+          filter: [
+            "all",
+            ["==", "$type", "Polygon"],
+            ["!=", "mode", "static"],
+            ["==", "active", "true"],
           ],
-          "fill-opacity": [
-            "case",
-            ["has", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
-            ["get", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_FILL_OPACITY,
+          paint: {
+            "fill-color": [
+              "case",
+              // The user_ prefix is set automatically by the draw plugin.
+              ["has", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+              ["get", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_FILL_COLOR,
+            ],
+            "fill-opacity": [
+              "case",
+              ["has", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+              ["get", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_FILL_OPACITY,
+            ],
+          },
+        },
+        // Polygon outline: selected.
+        {
+          id: "gl-draw-polygon-stroke-active",
+          type: "line",
+          filter: [
+            "all",
+            ["==", "$type", "Polygon"],
+            ["!=", "mode", "static"],
+            ["==", "active", "true"],
           ],
+          "line-cap": "round",
+          layout: {
+            "line-join": "round",
+          },
+          paint: {
+            "line-color": [
+              "case",
+              ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_COLOR,
+            ],
+            "line-opacity": [
+              "case",
+              ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_OPACITY,
+            ],
+            "line-width": 3,
+          },
         },
-      },
-      // Polygon outline: selected.
-      {
-        id: "gl-draw-polygon-stroke-active",
-        type: "line",
-        filter: [
-          "all",
-          ["==", "$type", "Polygon"],
-          ["!=", "mode", "static"],
-          ["==", "active", "true"],
-        ],
-        "line-cap": "round",
-        layout: {
-          "line-join": "round",
-        },
-        paint: {
-          "line-color": [
-            "case",
-            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_COLOR,
+        // Linestring: selected.
+        {
+          id: "gl-draw-line-active",
+          type: "line",
+          filter: [
+            "all",
+            ["==", "$type", "LineString"],
+            ["!=", "mode", "static"],
+            ["==", "active", "true"],
           ],
-          "line-opacity": [
-            "case",
-            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_OPACITY,
+          paint: {
+            "line-color": [
+              "case",
+              ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_COLOR,
+            ],
+            "line-opacity": [
+              "case",
+              ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_OPACITY,
+            ],
+            "line-width": 3,
+          },
+        },
+        // Vertex point halos.
+        {
+          id: "gl-draw-polygon-and-line-vertex-halo-active",
+          type: "circle",
+          filter: [
+            "all",
+            ["==", "meta", "vertex"],
+            ["==", "$type", "Point"],
+            ["!=", "mode", "static"],
           ],
-          "line-width": 3,
+          paint: {
+            "circle-radius": 7,
+            "circle-color": "#FFF",
+          },
         },
-      },
-      // Linestring: selected.
-      {
-        id: "gl-draw-line-active",
-        type: "line",
-        filter: [
-          "all",
-          ["==", "$type", "LineString"],
-          ["!=", "mode", "static"],
-          ["==", "active", "true"],
-        ],
-        paint: {
-          "line-color": [
-            "case",
-            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_COLOR,
+        // Vertex points.
+        {
+          id: "gl-draw-polygon-and-line-vertex-active",
+          type: "circle",
+          filter: [
+            "all",
+            ["==", "meta", "vertex"],
+            ["==", "$type", "Point"],
+            ["!=", "mode", "static"],
           ],
-          "line-opacity": [
-            "case",
-            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_OPACITY,
+          paint: {
+            "circle-radius": 5,
+            "circle-color": "#D20C0C",
+          },
+        },
+        // Line segment midpoints.
+        {
+          id: "gl-draw-polygon-midpoint",
+          type: "circle",
+          filter: ["all", ["==", "$type", "Point"], ["==", "meta", "midpoint"]],
+          paint: {
+            "circle-color": "#D20C0C",
+            "circle-radius": 3,
+          },
+        },
+        // Points: selected.
+        {
+          id: "gl-draw-marker-active",
+          type: "symbol",
+          filter: [
+            "all",
+            ["==", "$type", "Point"],
+            ["!=", "mode", "static"],
+            ["==", "active", "true"],
           ],
-          "line-width": 3,
+          layout: {
+            "icon-image": [
+              "get",
+              `user_${constants.MARKER_ICON_PROPERTY_NAME}`,
+            ],
+            "icon-allow-overlap": true,
+          },
         },
-      },
-      // Vertex point halos.
-      {
-        id: "gl-draw-polygon-and-line-vertex-halo-active",
-        type: "circle",
-        filter: [
-          "all",
-          ["==", "meta", "vertex"],
-          ["==", "$type", "Point"],
-          ["!=", "mode", "static"],
-        ],
-        paint: {
-          "circle-radius": 7,
-          "circle-color": "#FFF",
+        // Points: unselected.
+        {
+          id: "gl-draw-marker-inactive",
+          type: "symbol",
+          filter: [
+            "all",
+            ["==", "$type", "Point"],
+            ["!=", "mode", "static"],
+            ["==", "active", "false"],
+          ],
+          layout: {
+            "icon-image": [
+              "get",
+              `user_${constants.MARKER_ICON_PROPERTY_NAME}`,
+            ],
+            "icon-allow-overlap": true,
+          },
         },
-      },
-      // Vertex points.
-      {
-        id: "gl-draw-polygon-and-line-vertex-active",
-        type: "circle",
-        filter: [
-          "all",
-          ["==", "meta", "vertex"],
-          ["==", "$type", "Point"],
-          ["!=", "mode", "static"],
-        ],
-        paint: {
-          "circle-radius": 5,
-          "circle-color": "#D20C0C",
-        },
-      },
-      // Line segment midpoints.
-      {
-        id: "gl-draw-polygon-midpoint",
-        type: "circle",
-        filter: ["all", ["==", "$type", "Point"], ["==", "meta", "midpoint"]],
-        paint: {
-          "circle-color": "#D20C0C",
-          "circle-radius": 3,
-        },
-      },
-      // Points: selected.
-      {
-        id: "gl-draw-marker-active",
-        type: "symbol",
-        filter: [
-          "all",
-          ["==", "$type", "Point"],
-          ["!=", "mode", "static"],
-          ["==", "active", "true"],
-        ],
-        layout: {
-          "icon-image": ["get", `user_${constants.MARKER_ICON_PROPERTY_NAME}`],
-          "icon-allow-overlap": true,
-        },
-      },
-      // Points: unselected.
-      {
-        id: "gl-draw-marker-inactive",
-        type: "symbol",
-        filter: [
-          "all",
-          ["==", "$type", "Point"],
-          ["!=", "mode", "static"],
-          ["==", "active", "false"],
-        ],
-        layout: {
-          "icon-image": ["get", `user_${constants.MARKER_ICON_PROPERTY_NAME}`],
-          "icon-allow-overlap": true,
-        },
-      },
 
-      // Linestring: unselected.
-      {
-        id: "gl-draw-line-inactive",
-        type: "line",
-        filter: [
-          "all",
-          ["==", "$type", "LineString"],
-          ["!=", "mode", "static"],
-          ["==", "active", "false"],
-        ],
-        layout: {
-          "line-cap": "round",
-          "line-join": "round",
+        // Linestring: unselected.
+        {
+          id: "gl-draw-line-inactive",
+          type: "line",
+          filter: [
+            "all",
+            ["==", "$type", "LineString"],
+            ["!=", "mode", "static"],
+            ["==", "active", "false"],
+          ],
+          layout: {
+            "line-cap": "round",
+            "line-join": "round",
+          },
+          paint: {
+            "line-color": [
+              "case",
+              ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_COLOR,
+            ],
+            "line-opacity": [
+              "case",
+              ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_OPACITY,
+            ],
+            "line-width": 3,
+          },
         },
-        paint: {
-          "line-color": [
-            "case",
-            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_COLOR,
+        // Polygon fill: unselected.
+        {
+          id: "gl-draw-polygon-fill-inactive",
+          type: "fill",
+          filter: [
+            "all",
+            ["==", "$type", "Polygon"],
+            ["!=", "mode", "static"],
+            ["==", "active", "false"],
           ],
-          "line-opacity": [
-            "case",
-            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_OPACITY,
-          ],
-          "line-width": 3,
+          paint: {
+            "fill-color": [
+              "case",
+              ["has", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+              ["get", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_FILL_COLOR,
+            ],
+            "fill-opacity": [
+              "case",
+              ["has", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+              ["get", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_FILL_OPACITY,
+            ],
+          },
         },
-      },
-      // Polygon fill: unselected.
-      {
-        id: "gl-draw-polygon-fill-inactive",
-        type: "fill",
-        filter: [
-          "all",
-          ["==", "$type", "Polygon"],
-          ["!=", "mode", "static"],
-          ["==", "active", "false"],
-        ],
-        paint: {
-          "fill-color": [
-            "case",
-            ["has", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
-            ["get", `user_${constants.FILL_COLOR_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_FILL_COLOR,
+        // Polygon outline: unselected.
+        {
+          id: "gl-draw-polygon-stroke-inactive",
+          type: "line",
+          filter: [
+            "all",
+            ["==", "$type", "Polygon"],
+            ["!=", "mode", "static"],
+            ["==", "active", "false"],
           ],
-          "fill-opacity": [
-            "case",
-            ["has", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
-            ["get", `user_${constants.FILL_OPACITY_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_FILL_OPACITY,
-          ],
+          layout: {
+            "line-cap": "round",
+            "line-join": "round",
+          },
+          paint: {
+            "line-color": [
+              "case",
+              ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_COLOR,
+            ],
+            "line-opacity": [
+              "case",
+              ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
+              constants.DRAW_DEFAULT_LINE_OPACITY,
+            ],
+            "line-width": 3,
+          },
         },
-      },
-      // Polygon outline: unselected.
-      {
-        id: "gl-draw-polygon-stroke-inactive",
-        type: "line",
-        filter: [
-          "all",
-          ["==", "$type", "Polygon"],
-          ["!=", "mode", "static"],
-          ["==", "active", "false"],
-        ],
-        layout: {
-          "line-cap": "round",
-          "line-join": "round",
-        },
-        paint: {
-          "line-color": [
-            "case",
-            ["has", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_COLOR_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_COLOR,
-          ],
-          "line-opacity": [
-            "case",
-            ["has", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            ["get", `user_${constants.LINE_OPACITY_PROPERTY_NAME}`],
-            constants.DRAW_DEFAULT_LINE_OPACITY,
-          ],
-          "line-width": 3,
-        },
-      },
-    ],
-  });
-  map.addControl(draw);
+      ],
+    });
+    map.addControl(draw);
+  }
+
   map.addControl(
     new mapboxgl.NavigationControl(options.control),
     options.control.position,
