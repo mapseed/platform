@@ -139,7 +139,7 @@ module.exports = Backbone.Model.extend({
     var attrs;
 
     if (method === "create" || method === "update") {
-      const keysToOmit = ["geometry"];
+      const keysToOmit = ["geometry", "submission_sets"];
       // NOTE(jalmogo): If we are updating the place model and there
       // is a submitter, we should omit the submitter from the payload so
       // that the api knows to keep using the same reference. Otherwise,
