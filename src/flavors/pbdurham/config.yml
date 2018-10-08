@@ -126,9 +126,13 @@ map:
       type: json
       source: https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson
       rules:
-        #     - symbol-layout:
-        #         icon-image: "dot-c4ed52.png"
-        #         icon-anchor: "center"
+        - fill-paint:
+            fill-color: "#7cd411"
+            fill-opacity: 0.7
+          outline-paint:
+            line-color: "#ffffff"
+            line-width: 2
+            line-opacity: 0.7
 
     - id: pbdurham
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham
