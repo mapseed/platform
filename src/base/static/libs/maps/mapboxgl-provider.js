@@ -311,7 +311,6 @@ const defaultStyle = {
 export default (container, options) => {
   options.map.container = container;
   options.map.style = defaultStyle;
-  options.draw = options.draw || {};
 
   /**
    * @typedef {Object<string, MapboxLayer[]>} LayersCache - Mapping of layer id's to an array of the mapboxGL layer representations:
@@ -574,27 +573,24 @@ export default (container, options) => {
 
     // TODO: Think about further optimizations for reducing/combining the
     // number of provider layers created here.
-    layersCache[id] = rules
-      .map(
-        feature_types.includes("Point") ? configRuleToSymbolLayer : () => null,
+    layersCache[id] = []
+      .concat(
+        feature_types.includes("Point")
+          ? rules.map(configRuleToSymbolLayer)
+          : [],
       )
       .concat(
-        rules.map(
-          feature_types.includes("LineString")
-            ? configRuleToLineLayer
-            : () => null,
-        ),
+        feature_types.includes("LineString")
+          ? rules.map(configRuleToLineLayer)
+          : [],
       )
       .concat(
-        rules
-          .map(
-            feature_types.includes("Polygon")
-              ? configRuleToFillLayer
-              : () => null,
-          )
-          .reduce((flat, toFlatten) => flat.concat(toFlatten), []),
-      )
-      .filter(rule => !!rule);
+        feature_types.includes("Polygon")
+          ? rules
+              .map(configRuleToFillLayer)
+              .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+          : [],
+      );
 
     if (cluster.is_enabled) {
       // https://www.mapbox.com/mapbox-gl-js/example/cluster/
@@ -646,7 +642,9 @@ export default (container, options) => {
   };
 
   let draw;
-  if (!(options.draw.is_drawing_disabled === true)) {
+  // Unless drawing_enabled is explicitly set to false, we assume we should
+  // instantiate the draw plugin.
+  if (options.drawing_enabled !== false) {
     draw = new MapboxDraw({
       displayControlsDefault: false,
       userProperties: true,
@@ -997,28 +995,28 @@ export default (container, options) => {
     },
 
     drawStartPolygon: () => {
-      draw && draw.changeMode(draw.modes.DRAW_POLYGON);
+      draw.changeMode(draw.modes.DRAW_POLYGON);
     },
 
     drawStartPolyline: () => {
-      draw && draw.changeMode(draw.modes.DRAW_LINE_STRING);
+      draw.changeMode(draw.modes.DRAW_LINE_STRING);
     },
 
     drawStartMarker: () => {
-      draw && draw.changeMode(draw.modes.DRAW_POINT);
+      draw.changeMode(draw.modes.DRAW_POINT);
     },
 
     drawDeleteGeometry: () => {
-      draw && draw.deleteAll();
+      draw.deleteAll();
     },
 
     drawAddGeometry: geometry => {
-      return draw && draw.add(geometry);
+      return draw.add(geometry);
     },
 
     drawSetFeatureProperty: (id, property, value) => {
-      draw && draw.setFeatureProperty(id, property, value);
-      draw && draw.set(draw.getAll());
+      draw.setFeatureProperty(id, property, value);
+      draw.set(draw.getAll());
     },
 
     getMap: () => {

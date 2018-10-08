@@ -151,9 +151,11 @@ class MainMap extends Component {
     });
 
     // Handler for clearing in-progress drawing geometry.
-    this.props.router.on("route", () => {
-      this._map.drawDeleteGeometry();
-    });
+    if (this.props.mapConfig.options.drawing_enabled !== false) {
+      this.props.router.on("route", () => {
+        this._map.drawDeleteGeometry();
+      }, this);
+    }
 
     // Handlers for map drawing events.
     this.listeners.push(
@@ -384,7 +386,7 @@ class MainMap extends Component {
     this._map.remove();
 
     // Handler for clearing in-progress drawing geometry.
-    this.props.router.off("route");
+    this.props.router.off("route", null, this);
   }
 
   componentDidUpdate(prevProps) {
