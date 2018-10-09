@@ -44,7 +44,7 @@ map:
       zoom: 8
       minZoom: 1
       maxZoom: 18
-      pitch: 50
+      pitch: 30
     control:
       showCompass: true
       position: "top-left"
@@ -513,10 +513,14 @@ place:
           display_prompt: _( )
           placeholder: _(Enter school name...)
           optional: false
+        - name: embedded-chart
+          type: rich_textarea
+          prompt: _(Embedded actions chart:)
+          optional: true
         - name: school-year
           type: dropdown
           prompt: _(School year reprting period:)
-          display_prompt: _(School year reporting perioud)
+          display_prompt: _(School year reporting period)
           content:
              - label: _(2018/2019)
                value: 2018-2019
