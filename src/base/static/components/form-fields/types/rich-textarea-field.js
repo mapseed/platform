@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReactQuill, { Quill } from "react-quill";
 import classNames from "classnames";
-const BlockEmbed = Quill.import("blots/block/embed");
 const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
@@ -41,26 +40,6 @@ const getRandomName = () => {
     .toString(36)
     .substring(7);
 };
-
-class WrappedVideo extends BlockEmbed {
-  static create(url) {
-    let node = super.create();
-    const iframe = document.createElement("iframe");
-
-    url = Link.sanitize(extractVideoUrl(url));
-    iframe.setAttribute("src", url);
-    iframe.setAttribute("frameborder", 0);
-    iframe.setAttribute("allowfullscreen", true);
-    iframe.className = "ql-video";
-    node.appendChild(iframe);
-
-    return node;
-  }
-}
-WrappedVideo.blotName = "wrappedVideo";
-WrappedVideo.tagName = "DIV";
-WrappedVideo.className = "ql-video-container";
-Quill.register(WrappedVideo);
 
 let onAddAttachment;
 class ImageWithName extends Embed {
