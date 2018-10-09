@@ -150,7 +150,8 @@ class MainMap extends Component {
       },
     });
 
-    // Handler for clearing in-progress drawing geometry.
+    // Handlers for map drawing events; not relevant if drawing is disabled
+    // for a given flavor.
     if (this.props.mapConfig.options.drawing_enabled !== false) {
       this.props.router.on(
         "route",
@@ -159,68 +160,68 @@ class MainMap extends Component {
         },
         this,
       );
-    }
 
-    // Handlers for map drawing events.
-    this.listeners.push(
-      emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
-        this._map.drawStartPolygon();
-      }),
-    );
-    this.listeners.push(
-      emitter.addListener(constants.DRAW_START_POLYLINE_EVENT, () => {
-        this._map.drawStartPolyline();
-      }),
-    );
-    this.listeners.push(
-      emitter.addListener(constants.DRAW_START_MARKER_EVENT, () => {
-        this._map.drawStartMarker();
-      }),
-    );
-    this.listeners.push(
-      emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
-        this._map.drawDeleteGeometry();
-      }),
-    );
-    this.listeners.push(
-      emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
-        this.props.setActiveDrawGeometryId(
-          this._map.drawAddGeometry(geometry)[0],
-        );
-      }),
-    );
-    this._map.on({
-      event: "draw.create",
-      callback: evt => {
-        this.props.setActiveDrawGeometryId(evt.features[0].id);
-        if (evt.features[0].geometry.type === "Point") {
-          this._map.drawSetFeatureProperty(
-            this.props.activeDrawGeometryId,
-            constants.MARKER_ICON_PROPERTY_NAME,
-            this.props.activeMarker,
+      this.listeners.push(
+        emitter.addListener(constants.DRAW_INIT_GEOMETRY_EVENT, geometry => {
+          this.props.setActiveDrawGeometryId(
+            this._map.drawAddGeometry(geometry)[0],
           );
-        }
-        emitter.emit(
-          constants.DRAW_UPDATE_GEOMETRY_EVENT,
-          evt.features[0].geometry,
-        );
-      },
-    });
-    this._map.on({
-      event: "draw.update",
-      callback: evt => {
-        emitter.emit(
-          constants.DRAW_UPDATE_GEOMETRY_EVENT,
-          evt.features[0].geometry,
-        );
-      },
-    });
-    this._map.on({
-      event: "draw.delete",
-      callback: () => {
-        emitter.emit(constants.DRAW_UPDATE_GEOMETRY_EVENT, null);
-      },
-    });
+        }),
+      );
+      this.listeners.push(
+        emitter.addListener(constants.DRAW_START_POLYGON_EVENT, () => {
+          this._map.drawStartPolygon();
+        }),
+      );
+      this.listeners.push(
+        emitter.addListener(constants.DRAW_START_POLYLINE_EVENT, () => {
+          this._map.drawStartPolyline();
+        }),
+      );
+      this.listeners.push(
+        emitter.addListener(constants.DRAW_START_MARKER_EVENT, () => {
+          this._map.drawStartMarker();
+        }),
+      );
+      this.listeners.push(
+        emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
+          this._map.drawDeleteGeometry();
+        }),
+      );
+
+      this._map.on({
+        event: "draw.create",
+        callback: evt => {
+          this.props.setActiveDrawGeometryId(evt.features[0].id);
+          if (evt.features[0].geometry.type === "Point") {
+            this._map.drawSetFeatureProperty(
+              this.props.activeDrawGeometryId,
+              constants.MARKER_ICON_PROPERTY_NAME,
+              this.props.activeMarker,
+            );
+          }
+          emitter.emit(
+            constants.DRAW_UPDATE_GEOMETRY_EVENT,
+            evt.features[0].geometry,
+          );
+        },
+      });
+      this._map.on({
+        event: "draw.update",
+        callback: evt => {
+          emitter.emit(
+            constants.DRAW_UPDATE_GEOMETRY_EVENT,
+            evt.features[0].geometry,
+          );
+        },
+      });
+      this._map.on({
+        event: "draw.delete",
+        callback: () => {
+          emitter.emit(constants.DRAW_UPDATE_GEOMETRY_EVENT, null);
+        },
+      });
+    }
 
     // Handlers for map interaction events.
     this._map.on({
@@ -565,7 +566,7 @@ MainMap.propTypes = {
   mapConfig: PropTypes.shape({
     geolocation_enabled: PropTypes.bool.isRequired,
     options: PropTypes.shape({
-      drawing_enabled: PropTypes.string,
+      drawing_enabled: PropTypes.bool,
       map: PropTypes.shape({
         center: PropTypes.shape({
           lat: PropTypes.number.isRequired,
