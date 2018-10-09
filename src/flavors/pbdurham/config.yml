@@ -94,8 +94,11 @@ map:
         - "Polygon"
       source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
       rules:
-         - line-paint:
-             line-color: "#ff0000"
+         - fill-paint:
+             fill-color: "#cccccc"
+             fill-opacity: 0.3
+           outline-paint:
+             line-color: "#777777"
              line-width: 2
 
     - id: durham-existing-trails
@@ -105,12 +108,9 @@ map:
       source: https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson
       rules:
          - line-paint:
-             line-color: "#ff0000"
+             line-color: "#ed101b"
              line-width: 2
-             line-opacity: 1
-             line-dasharray:
-               - 1
-               - 2
+             line-opacity: 1.0
 
     - id: durham-proposed-trails
       type: json
@@ -119,8 +119,12 @@ map:
       source: https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson
       rules:
          - line-paint:
-             line-color: "#00ff00"
+             line-color: "#ed101b"
              line-width: 2
+             line-opacity: 1.0
+             line-dasharray:
+               - 1
+               - 2
 
     - id: durham-parks
       type: json
