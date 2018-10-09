@@ -88,6 +88,12 @@ map:
       style_url: https://vector-tiles.mapseed.org/durham-libraries/style.json
       source_layer: durham-libraries
 
+    - id: durham-schools
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-schools/{z}/{x}/{y}.pbf
+      style_url: https://vector-tiles.mapseed.org/durham-schools/style.json
+      source_layer: durham-schools
+
     - id: durham-council-wards
       type: json
       feature_types:
@@ -469,6 +475,8 @@ left_sidebar:
                title: _(Bus Stops)
              - id: durham-libraries
                title: _(Libraries)
+             - id: durham-schools
+               title: _(Schools)
              - id: durham-council-wards
                title: _(City Council Wards)
              - id: durham-existing-trails
