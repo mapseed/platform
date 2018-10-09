@@ -91,7 +91,7 @@ map:
     - id: durham-schools
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-schools/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/durham-schools/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-schools/style.json
       source_layer: durham-schools
 
     - id: durham-council-wards
