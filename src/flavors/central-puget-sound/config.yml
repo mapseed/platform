@@ -176,6 +176,8 @@ map:
     - id: mwfeatured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured
       type: place
+      feature_types:
+        - "Point"
       slug: featured
       focus_rules:
         - filter:
