@@ -2098,15 +2098,9 @@ story:
     default_visible_layers:
       - mwfeatured
     order:
-      - url: featured/4418
+      - url: featured/4435
         sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
-      - url: featured/4415
-        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
-      - url: featured/4416
-        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
-      - url: featured/4413
-        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
-      - url: featured/4417
+      - url: featured/4436
         sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
   watersheds:
     default_zoom: 18
