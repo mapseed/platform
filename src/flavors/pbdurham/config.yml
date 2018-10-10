@@ -45,6 +45,11 @@ map:
       pitch: 30
       minZoom: 1
       maxZoom: 18
+      maxBounds:
+        - -79.062464 # westernmost longitude
+        - 35.824540 # southermost latitude
+        - -78.758504 # easternmost longitude
+        - 36.175702 # northernmost longitude
     control:
       showCompass: true
       position: "top-left"
