@@ -124,7 +124,12 @@ map:
         - "LineString"
       source: https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson
       rules:
-         - line-paint:
+        - filter:
+             - "=="
+             - - "get"
+               - "CityCounty"
+             - "City"
+          line-paint:
              line-color: "#ed101b"
              line-width: 2
              line-opacity: 1.0
