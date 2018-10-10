@@ -283,6 +283,14 @@ const configRuleToFillLayer = (layerConfig, i) => {
   ];
 };
 
+const configRuleToLabelLayer = (layerConfig, i) => ({
+  id: `${layerConfig.baseLayerId}_label_${i}`,
+  source: layerConfig.source,
+  type: "symbol",
+  layout: layerConfig["label-layout"] || {},
+  paint: layerConfig["label-paint"] || {},
+});
+
 const DEFAULT_STYLE_NAME = "Mapseed default style";
 const CLUSTER_LAYER_IDENTIFIER = "__mapseed-clusters__";
 const FOCUSED_SOURCE_IDENTIFIER = "__mapseed-focused-source__";
@@ -544,7 +552,7 @@ export default (container, options) => {
     focus_rules = [],
     // Unless otherwise specified, we assume we need to create provider layers
     // for all feature types.
-    feature_types = ["Point", "LineString", "Polygon"],
+    feature_types = ["Point", "LineString", "Polygon", "Label"],
     popup_content,
   }) => {
     sourcesCache[id] = {
@@ -589,6 +597,11 @@ export default (container, options) => {
           ? rules
               .map(configRuleToFillLayer)
               .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+          : [],
+      )
+      .concat(
+        feature_types.includes("Label")
+          ? rules.map(configRuleToLabelLayer)
           : [],
       );
 
