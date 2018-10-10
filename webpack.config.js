@@ -29,6 +29,7 @@ var flavorJsFiles = glob.sync(
 );
 var entryPoints = [
   "babel-polyfill",
+  "whatwg-fetch",
   "./src/base/static/js/routes.js",
   "./src/base/static/js/handlebars-helpers.js",
   "./src/base/static/scss/default.scss",
