@@ -118,6 +118,8 @@ map:
       type: place
       slug: demo
       is_visible_default: true
+      feature_types:
+        - "Point"
       focus_rules:
         - filter:
             - "all"
@@ -391,6 +393,8 @@ map:
       type: json
       is_visible_default: true
       source: https://raw.githubusercontent.com/mapseed/data/master/Rose-Foundation-Grants-since-Fall-2013.geojson
+      feature_types:
+        - "Point"
       rules:
         - filter:
             - ">="
@@ -406,12 +410,27 @@ map:
       type: json      
       is_visible_default: true
       source: "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson"
+      feature_types:
+        - "Label"
+        - "Polygon"
       rules:
         - filter:
             - "=="
             - - "get" 
               - "LID_Checklist_Master_score"
             - 5
+          label-paint:
+            text-halo-color: "#fff"
+            text-halo-width: 1
+          label-layout:
+            text-field:
+              - "get"
+              - "CITYNAME"
+            text-size: 14
+            text-allow-overlap: false
+            text-offset:
+              - 0
+              - 2
           fill-paint:
             fill-color: "#fef0d9"
             fill-opacity: 0.6
