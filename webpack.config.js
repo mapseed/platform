@@ -28,6 +28,7 @@ var flavorJsFiles = glob.sync(
   "./src/flavors/" + process.env.FLAVOR + "/static/js/*.js",
 );
 var entryPoints = [
+  "whatwg-fetch",
   "babel-polyfill",
   "./src/base/static/js/routes.js",
   "./src/base/static/js/handlebars-helpers.js",
