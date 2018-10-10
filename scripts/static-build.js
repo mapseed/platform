@@ -369,16 +369,18 @@ activeLanguages.forEach(language => {
     userTokenJson: "",
   });
 
-  // Write out final index-xx.html file
+  // Write out final xx.html file
   outputIndexFilename = path.resolve(
     outputBasePath,
     (language.code == "en_US" ? "index" : language.code) + ".html",
   );
 
   if (process.env.NODE_ENV === "production") {
-    zlib.gzip(outputIndexFile, (error, result) => {
-      fs.writeFileSync(outputIndexFilename, result);
-    });
+    try {
+      fs.writeFileSync(outputIndexFilename, zlib.gzipSync(outputIndexFile));
+    } catch (e) {
+      logError("Error gzipping and outputting index file: " + e);
+    }
   } else {
     fs.writeFileSync(outputIndexFilename, outputIndexFile);
   }
