@@ -98,13 +98,30 @@ map:
       type: json
       feature_types:
         - "Polygon"
+        - "Label"
       source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
       rules:
-         - fill-paint:
+         - label-paint:
+             text-halo-color: "#f4f142"
+             text-halo-width: 1
+           label-layout:
+             text-padding: 50
+             text-field:
+               - "get"
+               - "DisField"
+             text-size: 17
+             text-allow-overlap: false
+             text-offset:
+              - 0
+              - 2
+           fill-paint:
              fill-color: "#cccccc"
              fill-opacity: 0.3
+           outline-layout:
+             line-join: "round"
+             line-cap: "round"
            outline-paint:
-             line-color: "#777777"
+             line-color: "#444"
              line-width: 2
 
     - id: durham-existing-trails
