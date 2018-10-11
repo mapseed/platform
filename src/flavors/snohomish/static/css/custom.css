@@ -274,6 +274,7 @@
 
 .form-stage-header-bar__header {
   font-size: 2em;
+  line-height: 1em;
   text-align: center;
   font-family: "Lithos", sans-serif;
   font-weight: 800;
