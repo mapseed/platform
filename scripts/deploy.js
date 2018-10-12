@@ -107,6 +107,19 @@ function updateMetadata() {
         };
         return copyObjectPromise(buildParams(filepath, params));
       }),
+    )
+    .concat(
+      glob
+        .sync("./www/static/css/images/markers/spritesheet*")
+        .map(filepath => {
+          // Don't cache spritesheet assets, as they are often updated but the
+          // filename never changes.
+          filepath = path.relative("./www", filepath);
+          params = {
+            CacheControl: "no-cache, must-revalidate, max-age=0",
+          };
+          return copyObjectPromise(buildParams(filepath, params));
+        }),
     );
 
   return Promise.all(updatePromises);
