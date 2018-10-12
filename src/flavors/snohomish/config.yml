@@ -254,7 +254,7 @@ place:
       horizontal_rule: true
       name: location_type
       dataset: snohomish-featured
-      icon_url: /static/css/images/markers/map-pin-marker-red.png
+      icon_url: /static/css/images/markers/map-pin-star-marker.png
       value: featured_place
       label: _(Featured Site)
       fields:
@@ -264,10 +264,8 @@ place:
         - name: geometry
           type: map_drawing_toolbar
           content:
-            - marker: marker-heart.png
-            - marker: marker-star.png
             - marker: map-pin-marker.png
-            - marker: map-pin-marker-red.png           
+            - marker: map-pin-star-marker.png 
         - name: title
           type: text
           prompt: _(Title of this featured site:)
@@ -314,21 +312,21 @@ place:
 
         # Shoreline
         - start_field_index: 43
-          end_field_index: 63
+          end_field_index: 65
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Shoreline or Streamside Conservation)
           description: _(Tell us what you’ve done to improve shoreline or streamside conservation)
         
         # Urban
-        - start_field_index: 64
-          end_field_index: 88
+        - start_field_index: 66
+          end_field_index: 90
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Urban / Suburban Conservation)
           description: _(Tell us what you’ve done to improve urban / surburban conservation)
 
         # Final
-        - start_field_index: 89
-          end_field_index: 95
+        - start_field_index: 91
+          end_field_index: 97
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Almost Done!)
           description: _( )
@@ -1030,7 +1028,7 @@ place:
           optional: false
           hidden_default: true
 
-        # Naxious weeds
+        # Noxious weeds
         - name: shoreline_removed-armoring
           type: big_toggle
           prompt: _( )
@@ -1050,6 +1048,31 @@ place:
               "Removing armoring such as rip rap or bulkheads improves fish and wildlife habitat."
             ]              
         - name: shoreline_removed-armoring-datetime
+          type: datetime
+          ongoing_label: "_(I perform this action regularly)"
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
+          prompt: _(Approximately when did you last complete this action?)
+          placeholder: _(Your best estimate)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Pet waste
+        - name: shoreline_pet-waste
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - shoreline_pet-waste-datetime
+          content:
+            - label: _(Pick up after my pet)
+              value: yes
+            - label: _(Pick up after my pet)
+              value: no
+        - name: shoreline_pet-waste-datetime
           type: datetime
           ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
@@ -1533,19 +1556,19 @@ story:
     order:
       - url: featured/4310
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
+        sidebar_icon_url: /static/css/images/markers/map-pin-star-marker.png      
       - url: featured/4311
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png      
+        sidebar_icon_url: /static/css/images/markers/map-pin-star-marker.png      
       - url: featured/4309
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png
+        sidebar_icon_url: /static/css/images/markers/map-pin-star-marker.png
       - url: featured/4238
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png         
+        sidebar_icon_url: /static/css/images/markers/map-pin-star-marker.png         
       - url: featured/4239
         basemap: satellite
-        sidebar_icon_url: /static/css/images/markers/map-pin-marker-red.png 
+        sidebar_icon_url: /static/css/images/markers/map-pin-star-marker.png 
 
 custom_components:
   FieldSummary: SnohomishFieldSummary
