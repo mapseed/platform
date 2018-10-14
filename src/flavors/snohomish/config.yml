@@ -298,35 +298,35 @@ place:
         
         # Farm
         - start_field_index: 3
-          end_field_index: 21
+          end_field_index: 23
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Farm Conservation)
           description: _(Tell us what you’ve done on your farm to protect natural resources)
 
         # Forest
-        - start_field_index: 22
-          end_field_index: 42
+        - start_field_index: 24
+          end_field_index: 44
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Forest Conservation)
           description: _(Tell us what you’ve done to improve forest conservation)
 
         # Shoreline
-        - start_field_index: 43
-          end_field_index: 65
+        - start_field_index: 45
+          end_field_index: 67
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Shoreline or Streamside Conservation)
           description: _(Tell us what you’ve done to improve shoreline or streamside conservation)
         
         # Urban
-        - start_field_index: 66
-          end_field_index: 90
+        - start_field_index: 68
+          end_field_index: 96
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Urban / Suburban Conservation)
           description: _(Tell us what you’ve done to improve urban / surburban conservation)
 
         # Final
-        - start_field_index: 91
-          end_field_index: 97
+        - start_field_index: 97
+          end_field_index: 103
           icon_url: /static/css/images/form-stage-header-graphic.png
           header: _(Almost Done!)
           description: _( )
@@ -528,6 +528,31 @@ place:
             - label: _(Installed a covered manure storage or composting bin)
               value: no
         - name: farm_manure-storage-datetime
+          type: datetime
+          ongoing_label: "_(I perform this action regularly)"
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
+          prompt: _(Approximately when did you last complete this action?)
+          placeholder: _(Your best estimate)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Septic systems
+        - name: farm_septic
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - farm_septic-datetime
+          content:
+            - label: _(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)
+              value: yes
+            - label: _(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)
+              value: no
+        - name: farm_septic-datetime
           type: datetime
           ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
@@ -1391,6 +1416,56 @@ place:
             - label: _(Addressed stormwater and/or drainage concerns)
               value: no
         - name: urban_drainage-concerns-datetime
+          type: datetime
+          ongoing_label: "_(I perform this action regularly)"
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
+          prompt: _(Approximately when did you last complete this action?)
+          placeholder: _(Your best estimate)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Pet waste
+        - name: urban_pet-waste
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_pet-waste-datetime
+          content:
+            - label: _(Pick up after my pet)
+              value: yes
+            - label: _(Pick up after my pet)
+              value: no
+        - name: urban_pet-waste-datetime
+          type: datetime
+          ongoing_label: "_(I perform this action regularly)"
+          date_format: "YYYY-MM"
+          display_format: "MMMM YYYY"
+          prompt: _(Approximately when did you last complete this action?)
+          placeholder: _(Your best estimate)
+          display_prompt: _( )
+          optional: false
+          hidden_default: true
+
+        # Septic systems
+        - name: urban_septic
+          type: big_toggle
+          prompt: _( )
+          display_prompt: _( )
+          trigger:
+            trigger_value: yes
+            targets:
+              - urban_septic-datetime
+          content:
+            - label: _(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)
+              value: yes
+            - label: _(Maintain septic systems and have them inspected regularly to make sure they are functioning properly.)
+              value: no
+        - name: urban_septic-datetime
           type: datetime
           ongoing_label: "_(I perform this action regularly)"
           date_format: "YYYY-MM"
