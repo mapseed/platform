@@ -210,21 +210,6 @@ export default Backbone.View.extend({
       document.getElementById("auth-nav-container"),
     );
 
-    // REACT PORT SECTION /////////////////////////////////////////////////////
-    if (this.options.mapConfig.geocoding_bar_enabled) {
-      ReactDOM.render(
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={adjustedTheme}>
-              <GeocodeAddressBar mapConfig={this.options.mapConfig} />
-            </ThemeProvider>
-          </ThemeProvider>
-        </Provider>,
-        document.getElementById("geocode-address-bar"),
-      );
-    }
-    // END REACT PORT SECTION /////////////////////////////////////////////////
-
     // Init the place-counter
     this.placeCounterView = new PlaceCounterView({
       el: "#place-counter",
