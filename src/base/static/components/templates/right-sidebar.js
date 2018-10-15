@@ -72,7 +72,6 @@ RightSidebar.propTypes = {
     place_detail: PropTypes.array.isRequired,
   }),
   mapConfig: PropTypes.object,
-
   router: PropTypes.instanceOf(Backbone.Router),
 };
 

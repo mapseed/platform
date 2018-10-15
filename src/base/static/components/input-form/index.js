@@ -455,7 +455,7 @@ InputForm.propTypes = {
     PropTypes.bool,
   ]),
   container: PropTypes.instanceOf(HTMLElement),
-  geometryStyle: geometryStyleProps.isRequired,
+  geometryStyle: geometryStyleProps,
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
   isContinuingFormSession: PropTypes.bool,
