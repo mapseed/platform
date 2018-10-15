@@ -13,7 +13,6 @@ class PlaceList extends React.Component {
     super(props);
 
     // TODO(luke): use a regular array here instead?
-
   }
 
   render() {
@@ -27,14 +26,11 @@ class PlaceList extends React.Component {
     // TODO(luke): use react-virtualized here to render only a subset of the place collections
     // TODO(luke): render each collection into an array of PlaceListItem molecules...
 
-
-
     return (
       <React.Fragment>
         <div>List view!</div>
         {this.props.places.slice(0, 20).map(place => {
           return <div key={place.id}>{place.id}</div>;
-
         })}
       </React.Fragment>
     );
