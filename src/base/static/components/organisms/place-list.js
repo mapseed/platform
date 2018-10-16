@@ -16,8 +16,11 @@ import List from "react-virtualized/dist/commonjs/List";
 const ListViewContainer = styled("div")({
   backgroundColor: "#fff",
   width: "100%",
-  height: "100%",
-  // HACK: We are centering all content here to work around a layout issue where the body is larger than 100%, thus the scrollbars are not showing on the right side
+  // HACK: We are horizonally centering all content, and clipping the
+  // height at 80%, to work around a layout issue where the scrollbars
+  // are getting clipped off the right edge. This is because the html
+  // body element is larger than 100% for some reason...
+  height: "80%",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -31,6 +34,7 @@ const ListViewContent = styled("div")({
 
 const ListHeader = styled("div")({
   marginTop: "24px",
+  marginBottom: "24px",
 });
 
 class PlaceList extends React.Component {
