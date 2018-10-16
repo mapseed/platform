@@ -1,10 +1,8 @@
-import emitter from "../utils/emitter";
-import constants from "../constants";
-
 const getPlaceCollections = async ({
   placeParams,
   placeCollections,
   mapConfig,
+  setLayerStatus,
 }) => {
   const $progressContainer = $("#map-progress");
   const $currentProgress = $("#map-progress .current-progress");
@@ -61,8 +59,15 @@ const getPlaceCollections = async ({
         }
       },
 
-      success: function() {
-        emitter.emit(constants.PLACE_COLLECTION_LOADED_EVENT, collectionId);
+      success: function(fetchedCollection, response, options) {
+        // Mark the layer as "loaded" so the map can render it:
+        setLayerStatus(collectionId, {
+          status: "loaded",
+          type: "place",
+          isBasemap: false,
+          isVisible: !!mapConfig.layers.find(layer => layer.id === collectionId)
+            .is_visible_default,
+        });
         // TODO: layer loading event; fix in layer UI PR
       },
 
