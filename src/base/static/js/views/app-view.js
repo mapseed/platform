@@ -299,7 +299,6 @@ export default Backbone.View.extend({
     // Load places from the API
     // TODO(luke): move this into componentDidMount when App is ported
     // to a component:
-
     const placeCollectionsPromise = mapseedApiClient.place.get({
       placeParams,
       placeCollections: self.places,
