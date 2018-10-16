@@ -42,9 +42,14 @@ map:
         lat: 35.98287
         lng: -78.90010
       zoom: 12
-      pitch: 45
+      pitch: 30
       minZoom: 1
       maxZoom: 18
+      maxBounds:
+        - -79.235969 # westernmost longitude
+        - 35.802034 # southermost latitude
+        - -78.538317 # easternmost longitude
+        - 36.224394 # northernmost longitude
     control:
       showCompass: true
       position: "top-left"
@@ -67,35 +72,61 @@ map:
     - id: durham-bike-trails
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-bike-trails/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/durham-bike-trails/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bike-trails/style.json
       source_layer: durham-bike-trails
 
     - id: durham-bus-routes
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-bus-routes/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/durham-bus-routes/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-routes/style.json
       source_layer: durham-bus-routes
 
     - id: durham-bus-stops
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-bus-stops/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/durham-bus-stops/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-stops/style.json
       source_layer: durham-bus-stops
 
     - id: durham-libraries
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-libraries/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/durham-libraries/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-libraries/style.json
       source_layer: durham-libraries
+
+    - id: durham-schools
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/durham-schools/{z}/{x}/{y}.pbf
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-schools/style.json
+      source_layer: durham-schools
 
     - id: durham-council-wards
       type: json
       feature_types:
         - "Polygon"
+        - "Label"
       source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
       rules:
-         - line-paint:
-             line-color: #ff0000
+         - label-paint:
+             text-halo-color: "#f4f142"
+             text-halo-width: 1
+           label-layout:
+             text-padding: 50
+             text-field:
+               - "get"
+               - "DisField"
+             text-size: 17
+             text-allow-overlap: false
+             text-offset:
+              - 0
+              - 2
+           fill-paint:
+             fill-color: "#cccccc"
+             fill-opacity: 0.3
+           outline-layout:
+             line-join: "round"
+             line-cap: "round"
+           outline-paint:
+             line-color: "#444"
              line-width: 2
 
     - id: durham-existing-trails
@@ -105,8 +136,9 @@ map:
       source: https://opendata.arcgis.com/datasets/01d2237eb7c74fe4aed42d8c3160cf6f_2.geojson
       rules:
          - line-paint:
-             line-color: #00ff00
+             line-color: "#ed101b"
              line-width: 2
+             line-opacity: 1.0
 
     - id: durham-proposed-trails
       type: json
@@ -114,17 +146,30 @@ map:
         - "LineString"
       source: https://opendata.arcgis.com/datasets/dd4e8c97915f46a6adf086ddf8ac82a5_1.geojson
       rules:
-         - line-paint:
-             line-color: #00ff00
+        - filter:
+             - "=="
+             - - "get"
+               - "CityCounty"
+             - "City"
+          line-paint:
+             line-color: "#ed101b"
              line-width: 2
+             line-opacity: 1.0
+             line-dasharray:
+               - 1
+               - 2
 
     - id: durham-parks
       type: json
       source: https://opendata.arcgis.com/datasets/2696ad896a0d4141888a0942d65eee76_0.geojson
       rules:
-        #     - symbol-layout:
-        #         icon-image: "dot-c4ed52.png"
-        #         icon-anchor: "center"
+        - fill-paint:
+            fill-color: "#7cd411"
+            fill-opacity: 0.7
+          outline-paint:
+            line-color: "#ffffff"
+            line-width: 2
+            line-opacity: 0.7
 
     - id: pbdurham
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pbdurham
@@ -134,125 +179,26 @@ map:
       slug: idea
       is_visible_default: true
       focus_rules:
-        # culture
-        - filter:
-            - "all"
-            - - "=="
+        - symbol-layout:
+            icon-size: 0.7
+            icon-anchor: "bottom"
+            icon-image:
+              - "match"
               - - "get"
                 - "location_type"
               - "culture"
-          symbol-layout:
-            icon-image: "fountain.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # environment 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-          symbol-layout:
-            icon-image: "tree.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # safety
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "fountain.png"
               - "safety"
-          symbol-layout:
-            icon-image: "safety.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # education
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "education"
-          symbol-layout:
-            icon-image: "education.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # parks 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "safety.png"
               - "parks"
-          symbol-layout:
-            icon-image: "tree.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # health
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "tree.png"
               - "health"
-          symbol-layout:
-            icon-image: "health.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # seniors 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-          symbol-layout:
-            icon-image: "seniors.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # streets 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "health.png"
               - "streets"
-          symbol-layout:
-            icon-image: "street-sidewalk.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # other 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
+              - "street-sidewalk.png"
               - "other"
-          symbol-layout:
-            icon-image: "idea.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
-
-        # youth 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-          symbol-layout:
-            icon-image: "youth.png"
-            icon-size: 1.0
-            icon-anchor: "bottom"
+              - "idea.png"
+              - "__no-icon-image__"
 
       rules:
         # culture
@@ -264,7 +210,7 @@ map:
               - "culture"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-b75ab8.png"
             icon-size: 0.3
@@ -277,7 +223,7 @@ map:
               - "culture"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -298,50 +244,6 @@ map:
             icon-image: "fountain-small.png"
             icon-size: 0.8
             icon-anchor: "bottom"
-        
-        # environment
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-            - - "<"
-              - - "zoom"
-              - 14
-          symbol-layout:
-            icon-image: "dot-7fccd9.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-            - - ">="
-              - - "zoom"
-              - 14
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "tree-small.png"
-            icon-size: 0.5
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "environment"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "tree-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
 
         #safety 
         - filter:
@@ -352,7 +254,7 @@ map:
               - "safety"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-fc9229.png"
             icon-size: 0.3
@@ -365,7 +267,7 @@ map:
               - "safety"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -387,50 +289,6 @@ map:
             icon-size: 0.8
             icon-anchor: "bottom"
 
-        # education
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "eduction"
-            - - "<"
-              - - "zoom"
-              - 14
-          symbol-layout:
-            icon-image: "dot-0f779e.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "education"
-            - - ">="
-              - - "zoom"
-              - 14
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "education-small.png"
-            icon-size: 0.5
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "education"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "education-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
-
         # parks 
         - filter:
             - "all"
@@ -440,7 +298,7 @@ map:
               - "parks"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-55a504.png"
             icon-size: 0.3
@@ -453,7 +311,7 @@ map:
               - "parks"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -484,7 +342,7 @@ map:
               - "health"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-ff78be.png"
             icon-size: 0.3
@@ -497,7 +355,7 @@ map:
               - "health"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -519,50 +377,6 @@ map:
             icon-size: 0.8
             icon-anchor: "bottom"
 
-        # seniors 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-            - - "<"
-              - - "zoom"
-              - 14
-          symbol-layout:
-            icon-image: "dot-c43d52.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-            - - ">="
-              - - "zoom"
-              - 14
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-size: 0.5
-            icon-image: "seniors-small.png"
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "seniors"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "seniors-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
-
         # streets
         - filter:
             - "all"
@@ -572,7 +386,7 @@ map:
               - "streets"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-8ea4b8.png"
             icon-size: 0.3
@@ -585,7 +399,7 @@ map:
               - "streets"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -616,7 +430,7 @@ map:
               - "other"
             - - "<"
               - - "zoom"
-              - 14
+              - 10
           symbol-layout:
             icon-image: "dot-ffd614.png"
             icon-size: 0.3
@@ -629,7 +443,7 @@ map:
               - "other"
             - - ">="
               - - "zoom"
-              - 14
+              - 10
             - - "<"
               - - "zoom"
               - 17
@@ -648,50 +462,6 @@ map:
               - 17
           symbol-layout:
             icon-image: "idea-small.png"
-            icon-size: 0.8
-            icon-anchor: "bottom"
-
-        # youth 
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-            - - "<"
-              - - "zoom"
-              - 14
-          symbol-layout:
-            icon-image: "dot-ffd614.png"
-            icon-size: 0.3
-            icon-anchor: "center"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-            - - ">="
-              - - "zoom"
-              - 14
-            - - "<"
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-size: 0.5
-            icon-image: "youth-small.png"
-            icon-anchor: "bottom"
-        - filter:
-            - "all"
-            - - "=="
-              - - "get"
-                - "location_type"
-              - "youth"
-            - - ">="
-              - - "zoom"
-              - 17
-          symbol-layout:
-            icon-image: "youth-small.png"
             icon-size: 0.8
             icon-anchor: "bottom"
 
@@ -732,6 +502,8 @@ left_sidebar:
                title: _(Bus Stops)
              - id: durham-libraries
                title: _(Libraries)
+             - id: durham-schools
+               title: _(Schools)
              - id: durham-council-wards
                title: _(City Council Wards)
              - id: durham-existing-trails
@@ -1167,6 +939,7 @@ survey:
     - prompt: _(Your Name)
       type: text
       name: submitter_name
+      optional: true
     - type: submit
       name: submit
       label: _(Comment)
