@@ -351,6 +351,8 @@ export default Backbone.View.extend({
       placeParams,
       placeCollections: self.places,
       mapConfig: self.options.mapConfig,
+      setLayerStatus: (layerId, layerStatus) =>
+        store.dispatch(setLayerStatus(layerId, layerStatus)),
     });
 
     if (this.options.rightSidebarConfig.is_enabled) {

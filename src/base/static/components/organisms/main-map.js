@@ -260,17 +260,6 @@ class MainMap extends Component {
 
     // Handlers for Mapseed place collections.
     this.listeners.push(
-      emitter.addListener(constants.PLACE_COLLECTION_LOADED_EVENT, layerId => {
-        this.props.setLayerStatus(layerId, {
-          status: "loaded",
-          type: "place",
-          isBasemap: false,
-          isVisible: !!this.props.layers.find(layer => layer.id === layerId)
-            .is_visible_default,
-        });
-      }),
-    );
-    this.listeners.push(
       emitter.addListener(
         constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
         collectionId => {
