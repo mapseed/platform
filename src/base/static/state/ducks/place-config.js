@@ -4,7 +4,7 @@ export const placeConfigSelector = state => {
 };
 
 // Actions:
-const SET_CONFIG = "place/SET_CONFIG";
+const SET_CONFIG = "place-config/SET";
 
 // Action creators:
 export function setPlaceConfig(config) {
