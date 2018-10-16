@@ -1,8 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "react-emotion";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { placesSelector } from "../../state/ducks/places";
+
+// But if you only use a few react-virtualized components,
+// And you're concerned about increasing your application's bundle size,
+// You can directly import only the components you need, like so:
+import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
+import List from "react-virtualized/dist/commonjs/List";
+// In wepack 4, we can do the following:
+// import { AutoSizer, List } from 'react-virtualized'
+
+const ListViewContainer = styled("div")({
+  backgroundColor: "#fff",
+  width: "100%",
+  height: "100%",
+  // HACK: We are centering all content here to work around a layout issue where the body is larger than 100%, thus the scrollbars are not showing on the right side
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+const ListViewContent = styled("div")({
+  margin: "24px",
+  height: "100%",
+  width: "100%",
+});
+
+const ListHeader = styled("div")({
+  marginTop: "24px",
+});
 
 class PlaceList extends React.Component {
   state = {
@@ -11,28 +40,41 @@ class PlaceList extends React.Component {
 
   constructor(props) {
     super(props);
-
-    // TODO(luke): use a regular array here instead?
   }
 
-  render() {
-    // TODO(luke): render each place in this.collection using the PlaceDetail component.
-    // Make sure that everything is sorted, filtered, and infinite scroll is enabled.
-    // useful infinite scroll library: https://www.npmjs.com/package/react-virtualized
+  _noRowsRenderer = () => {
+    return <div>No rows!!!</div>;
+  };
 
-    // from place-list template:
-    // TODO(luke): add onClick handlers here
-    // TODO(luke): port class names to CSS-in-JS
-    // TODO(luke): use react-virtualized here to render only a subset of the place collections
-    // TODO(luke): render each collection into an array of PlaceListItem molecules...
-
+  _rowRenderer = ({ index, isScrolling, key, style }) => {
+    const place = this.props.places[index];
     return (
-      <React.Fragment>
-        <div>List view!</div>
-        {this.props.places.slice(0, 20).map(place => {
-          return <div key={place.id}>{place.id}</div>;
-        })}
-      </React.Fragment>
+      <div style={style} key={place.id}>
+        {place.id}
+      </div>
+    );
+  };
+
+  render() {
+    return (
+      <ListViewContainer>
+        <ListViewContent>
+          <ListHeader>List view!</ListHeader>
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                height={height}
+                width={width}
+                overscanRowCount={10}
+                noRowsRenderer={this._noRowsRenderer}
+                rowCount={this.props.places.length}
+                rowHeight={60}
+                rowRenderer={this._rowRenderer}
+              />
+            )}
+          </AutoSizer>
+        </ListViewContent>
+      </ListViewContainer>
     );
   }
 }

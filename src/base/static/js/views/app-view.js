@@ -1,5 +1,4 @@
 import React from "react";
-// REACT PORT SECTION //////////////////////////////////////////////////////////
 import ReactDOM from "react-dom";
 import emitter from "../../utils/emitter";
 import languageModule from "../../language-module";
@@ -11,6 +10,13 @@ import reducer from "../../state/reducers";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../../../theme";
+
+// Most of react-virtualized's styles are functional (eg position, size).
+// Functional styles are applied directly to DOM elements.
+// The Table component ships with a few presentational styles as well.
+// They are optional, but if you want them you will need to also import the CSS file.
+// This only needs to be done once; probably during your application's bootstrapping process.
+import "react-virtualized/styles.css";
 
 import { setMapConfig } from "../../state/ducks/map-config";
 import { setPlaces } from "../../state/ducks/places";
@@ -90,8 +96,8 @@ export default Backbone.View.extend({
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
 
-    this.storeState = store.getState();
-    this.flavorTheme = this.storeState.appConfig.theme;
+    const storeState = store.getState();
+    this.flavorTheme = storeState.appConfig.theme;
     this.adjustedTheme = this.flavorTheme
       ? ancestorTheme => ({ ...ancestorTheme, ...this.flavorTheme })
       : {};
@@ -201,9 +207,9 @@ export default Backbone.View.extend({
         <ThemeProvider theme={this.adjustedTheme}>
           <UserMenu
             router={this.options.router}
-            apiRoot={this.storeState.appConfig.api_root}
+            apiRoot={storeState.appConfig.api_root}
             currentUser={Shareabouts.bootstrapped.currentUser}
-            datasetDownloadConfig={this.storeState.appConfig.dataset_download}
+            datasetDownloadConfig={storeState.appConfig.dataset_download}
           />
         </ThemeProvider>
       </ThemeProvider>,
@@ -788,6 +794,9 @@ export default Backbone.View.extend({
     $(".show-the-list").removeClass("is-visuallyhidden");
     $(".show-the-map").addClass("is-visuallyhidden");
 
+    $("#main").removeClass("is-visuallyhidden");
+    $("#list-container").addClass("is-visuallyhidden");
+
     // remove "list page" content:
     $("#list-container").addClass("is-visuallyhidden");
     ReactDOM.unmountComponentAtNode(document.getElementById("list-container"));
@@ -844,6 +853,8 @@ export default Backbone.View.extend({
   viewList: function() {
     this.isListOpen = true;
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
+    $("#main").addClass("is-visuallyhidden");
+    $("#list-container").removeClass("is-visuallyhidden");
     this.renderList();
   },
   renderList: function() {
