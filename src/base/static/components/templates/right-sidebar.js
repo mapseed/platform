@@ -23,7 +23,7 @@ const RightSidebar = props => {
       <ToggleSidebarButton
         onClick={() => {
           $("body").toggleClass("right-sidebar-visible");
-          this.props.setMapSizeValidity(false);
+          props.setMapSizeValidity(false);
         }}
         className="right-sidebar__collapse-btn"
       />
@@ -51,6 +51,7 @@ RightSidebar.propTypes = {
     component: PropTypes.string.isRequired,
     content: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   }),
+  setMapSizeValidity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -58,7 +59,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  mapDispatchToProps: isValid => dispatch(setMapSizeValidity(isValid)),
+  setMapSizeValidity: isValid => dispatch(setMapSizeValidity(isValid)),
 });
 
 export default connect(
