@@ -34,7 +34,7 @@ const FormStageControlBar = props => {
           style={{ marginLeft: "8px" }}
           disabled={props.isSingleCategory && props.currentStage === 1}
           variant="flat"
-          primary
+          color="primary"
           size="regular"
           {...retreatOpts}
         >
@@ -44,7 +44,7 @@ const FormStageControlBar = props => {
           style={{ marginLeft: "8px" }}
           disabled={props.currentStage === props.numStages}
           variant="flat"
-          primary
+          color="primary"
           size="regular"
           {...advanceOpts}
         >

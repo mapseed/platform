@@ -7,7 +7,6 @@ export default AppView.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .right-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
     // BEGIN CUSTOM CODE
     "click .toggle-layer-panel": "toggleLayerPanel",

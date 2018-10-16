@@ -79,7 +79,6 @@ export default Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .right-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
@@ -444,10 +443,6 @@ export default Backbone.View.extend({
     }
 
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
-  },
-  onToggleSidebarVisibility: function() {
-    $("body").toggleClass("right-sidebar-visible");
-    store.dispatch(setMapSizeValidity(false));
   },
   setBodyClass: function(/* newBodyClasses */) {
     var bodyClasses = ["content-visible", "place-form-visible", "page-visible"],

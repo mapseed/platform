@@ -44,7 +44,6 @@ module.exports = AppView.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .story-sidebar__collapse-btn": "onToggleSidebarVisibility",
     "click .list-toggle-btn": "toggleListView",
     // BEGIN FLAVOR-SPECIFIC CODE
     "click .show-layer-panel": "showLayerPanel",
