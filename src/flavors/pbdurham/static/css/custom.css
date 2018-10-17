@@ -201,6 +201,20 @@ a#add-place:hover,
   }
 }
 
+/* =Custom pages
+-------------------------------------------------------------- */
+#about-img {
+  margin: 20px 0 20px 0;
+}
+
+#get-involved-img {
+  margin-bottom: 20px;
+}
+
+#guidelines-video {
+  margin-bottom: 20px;
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
@@ -267,6 +281,10 @@ a#add-place:hover,
   #add-place-btn-container {
     background-color: transparent;
   }
+}
+
+.user-support {
+  background-color: #a3c7d9;
 }
 
 .user-support.disabled:hover,
