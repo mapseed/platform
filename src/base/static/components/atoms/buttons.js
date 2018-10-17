@@ -100,7 +100,6 @@ const Button = styled(props => {
   );
 })(props => {
   const styles = {
-    border: "0px solid rgba(27,31,35,0.2)",
     cursor: "pointer",
     color: props.theme.text.primary,
     backgroundColor: props.theme.bg.default,
@@ -112,6 +111,9 @@ const Button = styled(props => {
     fontFamily: props.theme.text.headerFontFamily,
     fontWeight: props.large ? "600" : "200",
 
+    border: "0px solid rgba(27,31,35,0.2)",
+    borderRadius: "3px",
+
     "&:hover": {
       color: props.theme.bg.light,
     },
@@ -119,8 +121,7 @@ const Button = styled(props => {
 
   if (props.variant === "raised") {
     styles.boxShadow = "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)";
-  } else if (props.variant === "rounded") {
-    styles.borderRadius = "3px";
+  } else if (props.variant === "outlined") {
     styles.border = "3px solid rgba(0, 0, 0, 0.05)";
   }
 
