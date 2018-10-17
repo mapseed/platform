@@ -33,7 +33,7 @@ const RightSidebar = props => {
           placeConfig={props.placeConfig}
           mapConfig={props.mapConfig}
           places={props.places}
-          routes={props.router}
+          router={props.router}
         />
       )}
       {props.rightSidebarConfig.component === "MapLegendPanel" && (
@@ -72,7 +72,7 @@ RightSidebar.propTypes = {
     place_detail: PropTypes.array.isRequired,
   }),
   mapConfig: PropTypes.object,
-  router: PropTypes.instanceOf(Backbone.Router),
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   setMapSizeValidity: PropTypes.func.isRequired,
 };
 

@@ -337,29 +337,6 @@ export default Backbone.View.extend({
       }, []);
       store.dispatch(setPlaces(allPlaces));
     });
-    if (this.options.rightSidebarConfig.is_enabled) {
-      $("body").addClass("right-sidebar-active");
-      if (this.options.rightSidebarConfig.is_visible_default) {
-        $("body").addClass("right-sidebar-visible");
-      }
-
-      // REACT PORT SECTION ///////////////////////////////////////////////////
-      ReactDOM.render(
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <ThemeProvider theme={this.adjustedTheme}>
-              <RightSidebar
-                placeCollectionsPromise={placeCollectionsPromise}
-                places={this.places}
-                router={this.options.router}
-              />
-            </ThemeProvider>
-          </ThemeProvider>
-        </Provider>,
-        document.getElementById("right-sidebar-container"),
-      );
-      // END REACT PORT SECTION ///////////////////////////////////////////////
-    }
   },
 
   getListRoutes: function() {
@@ -463,12 +440,38 @@ export default Backbone.View.extend({
     }
 
     this.hidePanel();
+    this.renderRightSidebar();
     this.hideNewPin();
     this.destroyNewModels();
     this.setBodyClass();
     this.renderMain();
   },
+  renderRightSidebar: function() {
+    if ($("body").hasClass("right-sidebar-active")) {
+      return;
+    }
+    if (this.options.rightSidebarConfig.is_enabled) {
+      $("body").addClass("right-sidebar-active");
+      if (this.options.rightSidebarConfig.is_visible_default) {
+        $("body").addClass("right-sidebar-visible");
+      }
+
+      // REACT PORT SECTION ///////////////////////////////////////////////////
+      ReactDOM.render(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <ThemeProvider theme={this.adjustedTheme}>
+              <RightSidebar places={this.places} router={this.options.router} />
+            </ThemeProvider>
+          </ThemeProvider>
+        </Provider>,
+        document.getElementById("right-sidebar-container"),
+      );
+      // END REACT PORT SECTION ///////////////////////////////////////////////
+    }
+  },
   newPlace: function() {
+    this.renderRightSidebar();
     // REACT PORT SECTION //////////////////////////////////////////////////////
     // NOTE: This wrapper component is temporary, and will be factored out
     // when the AppView is ported.
@@ -586,6 +589,7 @@ export default Backbone.View.extend({
   },
 
   viewPlace: function(args) {
+    this.renderRightSidebar();
     var self = this;
 
     Util.getPlaceFromCollections(
@@ -705,6 +709,7 @@ export default Backbone.View.extend({
   },
 
   viewPage: function(slug) {
+    this.renderRightSidebar();
     var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
         slug: slug,
       }),
@@ -855,6 +860,7 @@ export default Backbone.View.extend({
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
     $("#main").addClass("is-visuallyhidden");
     $("#list-container").removeClass("is-visuallyhidden");
+    this.renderRightSidebar();
     this.renderList();
   },
   renderList: function() {

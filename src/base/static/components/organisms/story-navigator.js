@@ -164,7 +164,7 @@ StoryNavigator.propTypes = {
   mapConfig: PropTypes.object.isRequired,
 
   places: PropTypes.object.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
 

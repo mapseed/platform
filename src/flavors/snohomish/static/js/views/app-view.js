@@ -21,6 +21,7 @@ export default AppView.extend({
   // END CUSTOM CODE
 
   viewPage: function(slug) {
+    this.renderRightSidebar();
     var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
         slug: slug,
       }),
