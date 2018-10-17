@@ -963,6 +963,7 @@ pages:
     name: guidelines
   - title: _(Get Involved)
     slug: get-involved
+    slug: involved
     name: involved
 
 notifications:
