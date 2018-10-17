@@ -12,8 +12,15 @@ import { Button } from "../atoms/buttons";
 // You can directly import only the components you need, like so:
 import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 import List from "react-virtualized/dist/commonjs/List";
+import CellMeasurer from "react-virtualized/dist/commonjs/CellMeasurer/CellMeasurer";
+import CellMeasurerCache from "react-virtualized/dist/commonjs/CellMeasurer/CellMeasurerCache";
 // In wepack 4, we can do the following:
 // import { AutoSizer, List } from 'react-virtualized'
+
+const cache = new CellMeasurerCache({
+  defaultHeight: 160,
+  fixedWidth: true,
+});
 
 const ListViewContainer = styled("div")({
   backgroundColor: "#fff",
@@ -95,12 +102,22 @@ class PlaceList extends React.Component {
     return <div>No rows!!!</div>;
   };
 
-  _rowRenderer = ({ index, isScrolling, key, style }) => {
+  _rowRenderer = ({ index, key, parent, style }) => {
     const place = this.state.places[index];
     return (
-      <div style={style} key={place.id}>
-        <PlaceListItem place={place} />
-      </div>
+      <CellMeasurer
+        cache={cache}
+        columnIndex={0}
+        key={key}
+        parent={parent}
+        rowIndex={index}
+      >
+        {({ measure }) => (
+          <div style={style} key={place.id}>
+            <PlaceListItem place={place} onLoad={measure} />
+          </div>
+        )}
+      </CellMeasurer>
     );
   };
 
@@ -147,8 +164,9 @@ class PlaceList extends React.Component {
                 overscanRowCount={4}
                 noRowsRenderer={this._noRowsRenderer}
                 rowCount={this.state.places.length}
-                rowHeight={90}
                 rowRenderer={this._rowRenderer}
+                deferredMeasurementCache={cache}
+                rowHeight={cache.rowHeight}
               />
             )}
           </AutoSizer>
