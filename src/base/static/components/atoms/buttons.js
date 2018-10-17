@@ -109,6 +109,7 @@ const Button = styled(props => {
 
     padding: props.large ? "0.5em 0.75em 0.5em 0.75em" : "0.5em",
     fontSize: props.large ? "1.25em" : "1em",
+    fontFamily: props.theme.text.headerFontFamily,
     fontWeight: props.large ? "600" : "200",
 
     "&:hover": {
@@ -134,8 +135,9 @@ const Button = styled(props => {
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
     styles.backgroundColor = "#fff";
-    styles.color = props.theme.text.secondary;
+    styles.color = props.theme.brand.primary;
     styles["&:hover"].color = props.theme.text.primary;
+    styles["&:hover"].backgroundColor = props.theme.text.secondary;
     styles["&:hover"].textDecoration = "none";
   }
 

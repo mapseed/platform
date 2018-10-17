@@ -99,7 +99,17 @@ export default Backbone.View.extend({
     const storeState = store.getState();
     this.flavorTheme = storeState.appConfig.theme;
     this.adjustedTheme = this.flavorTheme
-      ? ancestorTheme => ({ ...ancestorTheme, ...this.flavorTheme })
+      ? // ? ancestorTheme => ({ ...ancestorTheme, ...this.flavorTheme,  })
+        ancestorTheme => ({
+          ...ancestorTheme,
+          ...this.flavorTheme,
+          brand: { ...ancestorTheme.brand, ...this.flavorTheme.brand },
+          bg: {
+            ...ancestorTheme.bg,
+            ...this.flavorTheme.bg,
+          },
+          text: { ...ancestorTheme.text, ...this.flavorTheme.text },
+        })
       : {};
 
     languageModule.changeLanguage(this.options.languageCode);

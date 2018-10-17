@@ -4,6 +4,8 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { placesSelector } from "../../state/ducks/places";
+import PlaceListItem from "../molecules/place-list-item";
+import { Button } from "../atoms/buttons";
 
 // But if you only use a few react-virtualized components,
 // And you're concerned about increasing your application's bundle size,
@@ -35,15 +37,58 @@ const ListViewContent = styled("div")({
 const ListHeader = styled("div")({
   marginTop: "24px",
   marginBottom: "24px",
+  display: "flex",
+  justifyContent: "space-between",
 });
 
+const ButtonContainer = styled("div")({});
+
 class PlaceList extends React.Component {
+  _getSortedPlaces = (places, sortBy) => {
+    places.sort((a, b) => {
+      if (sortBy === "dates") {
+        return new Date(b.created_datetime) - new Date(a.created_datetime);
+      } else if (this.state.sortBy === "supports") {
+        const bSupports = b.submission_sets.support || [];
+        const aSupports = a.submission_sets.support || [];
+        return bSupports.length - aSupports.length;
+      } else if (this.state.sortBy === "comments") {
+        const bComments = b.submission_sets.comments || [];
+        const aComments = a.submission_sets.comments || [];
+        return bComments.length - aComments.length;
+      }
+    });
+    return places;
+  };
+
+  virtualizedList = null;
+  setVirtualizedList = element => {
+    this.virtualizedList = element;
+  };
+
   state = {
-    sortBy: "date",
+    sortBy: "dates",
+    places: this._getSortedPlaces([...this.props.places], "dates"),
   };
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.places.length !== this.props.places.length ||
+      prevState.sortBy !== this.state.sortBy
+    ) {
+      const sortedPlaces = this._getSortedPlaces(
+        [...this.props.places],
+        this.state.sortBy,
+      );
+      this.setState({
+        places: sortedPlaces,
+      });
+      this.virtualizedList.forceUpdateGrid();
+    }
   }
 
   _noRowsRenderer = () => {
@@ -51,10 +96,10 @@ class PlaceList extends React.Component {
   };
 
   _rowRenderer = ({ index, isScrolling, key, style }) => {
-    const place = this.props.places[index];
+    const place = this.state.places[index];
     return (
       <div style={style} key={place.id}>
-        {place.id}
+        <PlaceListItem place={place} />
       </div>
     );
   };
@@ -63,16 +108,46 @@ class PlaceList extends React.Component {
     return (
       <ListViewContainer>
         <ListViewContent>
-          <ListHeader>List view!</ListHeader>
+          <ListHeader>
+            <div>header!!!</div>
+            <ButtonContainer>
+              <Button
+                style={{ marginRight: "16px" }}
+                color={this.state.sortBy === "dates" ? "primary" : "tertiary"}
+                onClick={() => this.setState({ sortBy: "dates" })}
+              >
+                Most Recent
+              </Button>
+              <Button
+                style={{ marginRight: "16px" }}
+                color={
+                  this.state.sortBy === "supports" ? "primary" : "tertiary"
+                }
+                onClick={() => this.setState({ sortBy: "supports" })}
+              >
+                Most Supports
+              </Button>
+              <Button
+                style={{ marginRight: "16px" }}
+                color={
+                  this.state.sortBy === "comments" ? "primary" : "tertiary"
+                }
+                onClick={() => this.setState({ sortBy: "comments" })}
+              >
+                Most Comments
+              </Button>
+            </ButtonContainer>
+          </ListHeader>
           <AutoSizer>
             {({ height, width }) => (
               <List
+                ref={this.setVirtualizedList}
                 height={height}
                 width={width}
-                overscanRowCount={10}
+                overscanRowCount={4}
                 noRowsRenderer={this._noRowsRenderer}
-                rowCount={this.props.places.length}
-                rowHeight={60}
+                rowCount={this.state.places.length}
+                rowHeight={90}
                 rowRenderer={this._rowRenderer}
               />
             )}
