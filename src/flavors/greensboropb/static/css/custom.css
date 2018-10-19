@@ -478,9 +478,6 @@ p.checkbox + p.select {
   .activity-enabled.content-visible #map-container {
     width: 45%;
   }
-  #right-sidebar-container {
-    overflow: auto;
-  }
 }
 
 @media only screen and (min-width: 70em) {
