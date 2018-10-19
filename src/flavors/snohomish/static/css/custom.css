@@ -137,7 +137,8 @@
   margin-top: 0;
   border: none;
   color: #36454f;
-  line-height: 1.6em;
+  line-height: 1.2em;
+  min-height: 30px;
 }
 
 .textarea-field,
