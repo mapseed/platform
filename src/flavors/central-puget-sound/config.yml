@@ -2097,17 +2097,6 @@ pages:
     hide_from_top_bar: true
 
 story:
-  schools:
-    header: _(Featured Schools)
-    description: _(See what we've learned!)
-    default_zoom: 12
-    default_visible_layers:
-      - mwfeatured
-    order:
-      - url: featured/4435
-        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
-      - url: featured/4436
-        sidebar_icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
   watersheds:
     default_zoom: 18
     default_visible_layers:
