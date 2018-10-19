@@ -2,20 +2,31 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Button } from "../atoms/buttons";
+import styled from "react-emotion";
 import StoryNavigator from "../organisms/story-navigator";
 import MapLegendPanel from "../organisms/map-legend-panel";
 import ActivityStream from "../organisms/activity-stream";
 
 import { rightSidebarConfigSelector } from "../../state/ducks/right-sidebar-config";
+import { setMapSizeValidity } from "../../state/ducks/map";
 
 import "./right-sidebar.scss";
+
+const ToggleSidebarButton = styled("div")({
+  cursor: "pointer",
+});
 
 const RightSidebar = props => {
   // TODO: Support multiple simultaneous right sidebar components.
   return (
     <div className="right-sidebar">
-      <Button className="right-sidebar__collapse-btn" />
+      <ToggleSidebarButton
+        onClick={() => {
+          $("body").toggleClass("right-sidebar-visible");
+          props.setMapSizeValidity(false);
+        }}
+        className="right-sidebar__collapse-btn"
+      />
       {props.rightSidebarConfig.component === "StoryNavigator" && (
         <StoryNavigator {...props} />
       )}
@@ -40,10 +51,18 @@ RightSidebar.propTypes = {
     component: PropTypes.string.isRequired,
     content: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   }),
+  setMapSizeValidity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   rightSidebarConfig: rightSidebarConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(RightSidebar);
+const mapDispatchToProps = dispatch => ({
+  setMapSizeValidity: isValid => dispatch(setMapSizeValidity(isValid)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(RightSidebar);

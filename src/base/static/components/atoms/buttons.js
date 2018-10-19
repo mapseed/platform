@@ -43,40 +43,21 @@ EditorButton.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-// TODO: Phase this out as we move to CSS-in-JS:
-const LegacyButton = ({ children, ...props }) => {
+// Influenced by the material-ui api:
+// https://material-ui.com/api/button/
+// NOTE: we may want to consider using material-ui instead
+const Button = styled(props => {
   return (
     <button
+      style={props.style}
+      className={props.className}
       type="button"
-      className={classNames("mapseed__link", props.classes, {
-        "mapseed__button--unstyled": props.variant.includes("unstyled"),
-        "mapseed__button--rounded": props.variant.includes("rounded"),
-        "mapseed__button--raised": props.variant.includes("raised"),
-        "mapseed__button--depressable": props.variant.includes("depressable"),
-        "mapseed__button--color-primary": props.color === "primary",
-        "mapseed__button--color-secondary": props.color === "secondary",
-        "mapseed__button--color-accent": props.color === "accent",
-      })}
-      {...props}
+      onClick={props.onClick}
     >
-      {children}
+      {props.children}
     </button>
   );
-};
-
-LegacyButton.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.string,
-  disabled: PropTypes.bool,
-  variant: PropTypes.string,
-  color: PropTypes.string,
-};
-
-LegacyButton.defaultProps = {
-  variant: "unstyled",
-};
-
-const Button = styled(LegacyButton)(props => {
+})(props => {
   const styles = {
     border: "0px solid rgba(27,31,35,0.2)",
     cursor: "pointer",
@@ -94,12 +75,24 @@ const Button = styled(LegacyButton)(props => {
     },
   };
 
-  if (props.primary) {
+  if (props.variant === "raised") {
+    styles.boxShadow = "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)";
+  } else if (props.variant === "rounded") {
+    styles.borderRadius = "3px";
+    styles.border = "3px solid rgba(0, 0, 0, 0.05)";
+  }
+
+  if (props.color === "primary") {
     styles.backgroundColor = props.theme.brand.primary;
     styles.color = props.theme.text.primary;
     styles["&:hover"].textDecoration = "none";
-  } else if (props.secondary) {
+  } else if (props.color === "secondary") {
     styles.backgroundColor = props.theme.bg.light;
+    styles.color = props.theme.text.secondary;
+    styles["&:hover"].color = props.theme.text.primary;
+    styles["&:hover"].textDecoration = "none";
+  } else if (props.color === "tertiary") {
+    styles.backgroundColor = "#fff";
     styles.color = props.theme.text.secondary;
     styles["&:hover"].color = props.theme.text.primary;
     styles["&:hover"].textDecoration = "none";
@@ -114,6 +107,18 @@ const Button = styled(LegacyButton)(props => {
   }
   return styles;
 });
+
+Button.propTypes = {
+  children: PropTypes.node,
+  classes: PropTypes.string,
+  disabled: PropTypes.bool,
+  variant: PropTypes.string,
+  color: PropTypes.string,
+};
+
+Button.defaultProps = {
+  variant: "unstyled",
+};
 
 const ToolbarButton = props => {
   return (

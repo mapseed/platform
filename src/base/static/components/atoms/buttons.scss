@@ -75,51 +75,6 @@
   }
 }
 
-/*
-  LegacyButton
-*/
-
-.mapseed__button {
-  text-transform: uppercase;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.mapseed__button--rounded {
-  border-radius: 3px;
-  border: 3px solid rgba(0, 0, 0, 0.05);
-}
-
-.mapseed__button--raised {
-  box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
-}
-
-.mapseed__button--color-accent {
-  background-color: $accent-color-1;
-  color: #fff;
-}
-
-.mapseed__button--depressable {
-  &:active {
-    box-shadow: none;
-    transform: translate(-0.25em, 0.25em);
-  }
-}
-
-.mapseed__button--unstyled {
-  padding: 0 !important;
-  text-transform: none !important;
-  background-color: transparent !important;
-  color: $link-color !important;
-  font-size: 1em !important;
-
-  &:hover {
-    color: $link-hover-color !important;
-  }
-}
-
 .mapseed__toolbar-button {
   background: transparent;
   display: flex;
