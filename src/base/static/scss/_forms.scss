@@ -28,10 +28,8 @@ input {
     &[type=datetime-local],
     &[type=email],
     &[type=month],
-    &[type=number],
     &[type=password],
     &[type=tel],
-   // &[type=text],
     &[type=time],
     &[type=url],
     &[type=week] {
@@ -58,60 +56,6 @@ select, textarea {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-// input:focus, select:focus {
-//     outline: 2px solid $button-background-blue;
-// }
-
-// textarea {
-//     &:focus {
-//         outline: 2px solid $button-background-blue;
-//     }
-
-//     height: 6.5em;
-//     resize: none;
-// }
-
-// select {
-//     background-color: $button-color-white;
-// }
-
-/* Icon selection submenu for the geometry toolbar */
-// .geometry-toolbar-icon-field {
-//     margin-top: 15px;
-//     outline: 0;
-//     border-radius: 0;
-//     padding: 0.5em;
-//     display: block;
-//     width: 100%;
-//     -webkit-box-sizing: border-box;
-//     -moz-box-sizing: border-box;
-//     box-sizing: border-box;
-
-//     input {
-//         display: none;
-//         + label > img:hover {
-//             border: 2px solid #FFF;
-//         }
-//         &:checked + label > img {
-//             border: 2px solid #FFF;
-//             background-color: #FFF;
-//         }
-//     }
-
-//     img {
-//         border: 2px solid transparent;
-//         border-radius: 4px;
-//         padding: 7px;
-//         height: 25px;
-//         cursor: pointer;
-//     }
-
-//     p {
-//         margin-bottom: 0;
-//     }
-// }
-
 
 // Old IE does not like this to be combine with :invalid rules.
 // * It will ignore it!

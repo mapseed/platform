@@ -16,6 +16,7 @@ export default {
   SUBMIT_FIELD_TYPENAME: "submit",
   RANGE_FIELD_TYPENAME: "range",
   INFORMATIONAL_HTML_FIELD_TYPENAME: "informational_html",
+  NUMBER_FIELD_TYPENAME: "number",
 
   AUTOFILL_DURATION_DAYS: 30,
 

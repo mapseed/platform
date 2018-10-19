@@ -129,7 +129,7 @@ map:
               - "demo"
           symbol-layout:
             icon-size: 1.2
-            icon-anchor: "bottom"
+            icon-anchor: "center"
         - filter:
             - "all"
             - - "=="
@@ -629,7 +629,7 @@ place:
           icon_url: ""
           header: _(Stage 3)
         - start_field_index: 11
-          end_field_index: 18
+          end_field_index: 19
           icon_url: ""
           header: _(Stage 4)
 
@@ -641,6 +641,13 @@ place:
           prompt: _(Title:)
           display_prompt: _(Ttile:)
           placeholder: _(Enter title...)
+          optional: false
+        - name: numberSpinner
+          type: number
+          autocomplete: true
+          prompt: _(Number:)
+          display_prompt: _(Number:)
+          placeholder: _(Enter a number...)
           optional: false
         - name: geometry
           type: map_drawing_toolbar

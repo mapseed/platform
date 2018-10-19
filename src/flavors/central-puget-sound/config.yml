@@ -44,6 +44,7 @@ map:
       zoom: 8
       minZoom: 1
       maxZoom: 18
+      pitch: 30
     control:
       showCompass: true
       position: "top-left"
@@ -161,180 +162,22 @@ map:
       type: place
       slug: report
       focus_rules:
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-water"
-          symbol-layout:
+        - symbol-layout:
             icon-image: marker-dot-conserve-water.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "prevent-stormwater"
-          symbol-layout:
-            icon-image: marker-dot-prevent-stormwater-pollution.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "only-flush"
-          symbol-layout:
-            icon-image: marker-dot-only-flush-this.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-energy"
-          symbol-layout:
-            icon-image: marker-dot-conserve-energy.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "waste-less"
-          symbol-layout:
-            icon-image: marker-dot-waste-less.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "commute-low-carbon"
-          symbol-layout:
-            icon-image: marker-dot-commute-low-carbon.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "eat-local-organic"
-          symbol-layout:
-            icon-image: marker-dot-eat-local-organic.png
-            icon-size: 0.5
-            icon-anchor: center
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "restore-salmon-habitat"
-          symbol-layout:
-            icon-image: marker-dot-restore-salmon-habitat.png
             icon-size: 0.5
             icon-anchor: center
 
       rules:
-        # conserve-water location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-water"
-          symbol-layout:
+        - symbol-layout:
             icon-image: marker-dot-conserve-water.png
-            icon-size: 0.15
-            icon-anchor: center
-        # prevent-stormwater location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "prevent-stormwater"
-          symbol-layout:
-            icon-image: marker-dot-prevent-stormwater-pollution.png
-            icon-size: 0.15
-            icon-anchor: center
-        # only-flush location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "only-flush"
-          symbol-layout:
-            icon-image: marker-dot-only-flush-this.png
-            icon-size: 0.15
-            icon-anchor: center
-        # conserve-energy location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "conserve-energy"
-          symbol-layout:
-            icon-image: marker-dot-conserve-energy.png
-            icon-size: 0.15
-            icon-anchor: center
-        # waste-less location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "waste-less"
-          symbol-layout:
-            icon-image: marker-dot-waste-less.png
-            icon-size: 0.15
-            icon-anchor: center
-        # commute-low-carbon location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "commute-low-carbon"
-          symbol-layout:
-            icon-image: marker-dot-commute-low-carbon.png
-            icon-size: 0.15
-            icon-anchor: center
-        # eat-local-organic location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "eat-local-organic"
-          symbol-layout:
-            icon-image: marker-dot-eat-local-organic.png
-            icon-size: 0.15
-            icon-anchor: center
-        # restore-salmon-habitat location_type
-        - filter:
-          - "all"
-          - - "=="
-            - - "get"
-              - "location_type"
-            - "restore-salmon-habitat"
-          symbol-layout:
-            icon-image: marker-dot-restore-salmon-habitat.png
             icon-size: 0.15
             icon-anchor: center
 
     - id: mwfeatured
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured
       type: place
+      feature_types:
+        - "Point"
       slug: featured
       focus_rules:
         - filter:
@@ -345,6 +188,16 @@ map:
             - "featured_place"
           symbol-layout:
             icon-image: marker-dot-conserve-water.png
+            icon-size: 0.5
+            icon-anchor: center
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_school"
+          symbol-layout:
+            icon-image: marker-dot-commute-low-carbon.png
             icon-size: 0.5
             icon-anchor: center
 
@@ -358,6 +211,17 @@ map:
             - "featured_place"
           symbol-layout:
             icon-image: marker-dot-conserve-water.png
+            icon-size: 0.15
+            icon-anchor: center
+        # featured_school location_type
+        - filter:
+          - "all"
+          - - "=="
+            - - "get"
+              - "location_type"
+            - "featured_school"
+          symbol-layout:
+            icon-image: marker-dot-commute-low-carbon.png
             icon-size: 0.15
             icon-anchor: center
 
@@ -633,6 +497,52 @@ place:
 
   #### begin dynamic form config ####
   place_detail:
+    - category: featured_school
+      admin_only: true
+      includeOnForm: true
+      showMetadata: false
+      suppressAttachments: true
+      horizontal_rule: true
+      name: location_type
+      dataset: mwfeatured
+      icon_url: /static/css/images/markers/marker-dot-commute-low-carbon.png
+      value: featured_school
+      label: _(Featured School)
+      fields:
+        - name: title
+          type: text
+          prompt: _(School name:)
+          display_prompt: _( )
+          placeholder: _(Enter school name...)
+          optional: false
+        - name: embedded-chart
+          type: rich_textarea
+          prompt: _(Embedded actions chart:)
+          optional: true
+        - name: school-year
+          type: dropdown
+          prompt: _(School year reprting period:)
+          display_prompt: _(School year reporting period)
+          content:
+             - label: _(2018/2019)
+               value: 2018-2019
+          optional: false
+        - name: conserve-water-actions
+          type: text
+          autocomplete: false
+          prompt: _(Number of water conservation actions:)
+          display_prompt: _(Number of water conservation actions)
+          placeholder: _(Enter number of actions...)
+          optional: true
+        - name: classroom-learning
+          type: textarea
+          prompt: _(Description of classroom learning:)
+          display_prompt: _(Description of classroom learning:)
+        - name: my_image
+          type: common_form_element
+        - name: submit
+          type: common_form_element
+
     - category: featured_place
       admin_only: true
       includeOnForm: true
@@ -2188,7 +2098,6 @@ pages:
 
 story:
   watersheds:
-    tagline: _(Next featured site)
     default_zoom: 18
     default_visible_layers:
       - mwfeatured
