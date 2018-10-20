@@ -119,6 +119,16 @@ const Button = styled(props => {
     },
   };
 
+  if (props.size === "medium") {
+    styles.width = "200px";
+    styles.height = "40px";
+    styles.fontSize = "1em";
+  } else if (props.size === "small") {
+    styles.width = "140px";
+    styles.height = "24px";
+    styles.fontSize = ".8em";
+  }
+
   if (props.variant === "raised") {
     styles.boxShadow = "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)";
   } else if (props.variant === "outlined") {

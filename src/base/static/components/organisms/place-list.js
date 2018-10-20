@@ -29,6 +29,7 @@ const ListViewContainer = styled("div")({
   // height at 80%, to work around a layout issue where the scrollbars
   // are getting clipped off the right edge. This is because the html
   // body element is larger than 100% for some reason...
+  // We should be able to fix this when we port over base.hbs.
   height: "80%",
   display: "flex",
   alignItems: "center",
