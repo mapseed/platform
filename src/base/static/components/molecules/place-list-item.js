@@ -3,28 +3,45 @@ import styled from "react-emotion";
 import PropTypes from "prop-types";
 import { Button } from "../atoms/buttons";
 import { Header3 } from "../atoms/typography";
+import { UserAvatar } from "../atoms/imagery";
+import { Paragraph, SmallText } from "../atoms/typography";
+import { placeConfigSelector } from "../../state/ducks/place-config";
+import { connect } from "react-redux";
+import { translate } from "react-i18next";
 
 const PlaceContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
-  overflowY: "scroll",
+  overflow: "hidden",
+  borderTop: "1px solid #eee",
+  margin: "16px",
 });
 
-const HeaderContainer = styled("div")({
+const Header = styled("div")({
   display: "flex",
   flexDirection: "row",
   alignContent: "space-between",
 });
 
-const BodyContainer = styled("div")({
+const Body = styled("div")({
   display: "flex",
 });
 
-const InfoContainer = styled("div")({
+const PlaceInfo = styled("div")({
   display: "flex",
   flex: "0 30%",
+  marginRight: "16px",
 });
-const DescriptionContainer = styled("div")({
+const AvatarContainer = styled("div")({
+  flex: "0 30%",
+  minWidth: "48px",
+  marginRight: "8px",
+});
+const PlaceInfoContainer = styled("div")({
+  display: "flex",
+  flexWrap: "wrap",
+});
+const PlaceDescription = styled("div")({
   display: "flex",
   flexDirection: "column",
   flex: "1 70%",
@@ -42,47 +59,55 @@ const PlaceTitle = styled("div")({
 const PlaceSocialContainer = styled("div")({
   display: "flex",
   flex: "0 40%",
-  flexDirection: "column",
   maxWidth: "160px",
-});
-const SocialButtonsContainer = styled("div")({
-  display: "flex",
-  flexDirection: "row",
   justifyContent: "space-around",
 });
 
 const PlaceListItem = props => {
+  const numberOfComments = props.place.submission_sets.comments
+    ? props.place.submission_sets.comments.length
+    : 0;
   const numberOfSupports = props.place.submission_sets.support
     ? props.place.submission_sets.support.length
     : 0;
+  const submitterName =
+    props.place.submitter_name || props.placeConfig.anonymous_name;
   return (
     <PlaceContainer>
-      <HeaderContainer>
+      <Header>
         <PlaceTitle>
           <Header3>{props.place.title}</Header3>
         </PlaceTitle>
         <PlaceSocialContainer>
-          <Button
-            variant="raised"
-            style={{ width: "140px", fontSize: "12px" }}
-          >{`${numberOfSupports} support this!`}</Button>
-          <SocialButtonsContainer>
-            <div style={{ flex: "0 40%" }}>{`facebook`}</div>
-            <div style={{ flex: "0 40%" }}>{`twitter`}</div>
-          </SocialButtonsContainer>
+          <div style={{ flex: "0 40%" }}>{`facebook`}</div>
+          <div style={{ flex: "0 40%" }}>{`twitter`}</div>
         </PlaceSocialContainer>
-      </HeaderContainer>
-      <BodyContainer>
-        <InfoContainer>
-          <div>{props.place.submitter_name || "someone"}</div>
-        </InfoContainer>
-        <DescriptionContainer>
+      </Header>
+      <Body>
+        <PlaceInfo>
+          <AvatarContainer>
+            <UserAvatar size="large" />
+          </AvatarContainer>
+          <PlaceInfoContainer>
+            <Paragraph>{`${submitterName} submitted this thing`}</Paragraph>
+            <SmallText
+              style={{ width: "100%" }}
+            >{`${numberOfComments} comments`}</SmallText>
+            <SmallText
+              style={{ width: "100%" }}
+            >{`${numberOfSupports} supports`}</SmallText>
+            <Button color="primary" size="small" variant="raised">
+              View on Map
+            </Button>
+          </PlaceInfoContainer>
+        </PlaceInfo>
+        <PlaceDescription>
           <DescriptionItem>
             <b>{"my project idea is:"}</b>
           </DescriptionItem>
           <DescriptionItem>{props.place["idea-what"]}</DescriptionItem>
-        </DescriptionContainer>
-      </BodyContainer>
+        </PlaceDescription>
+      </Body>
       {props.place.attachments.length ? (
         <img src={props.place.attachments[0].file} />
       ) : null}
@@ -92,6 +117,16 @@ const PlaceListItem = props => {
 
 PlaceListItem.propTypes = {
   place: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired,
+  placeConfig: PropTypes.shape({
+    anonymous_name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default PlaceListItem;
+const mapStateToProps = state => ({
+  placeConfig: placeConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(
+  translate("PlaceListItem")(PlaceListItem),
+);
