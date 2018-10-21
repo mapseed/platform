@@ -201,6 +201,32 @@ a#add-place:hover,
   }
 }
 
+/* =Custom pages
+-------------------------------------------------------------- */
+#about-img {
+  margin: 20px 0 20px 0;
+}
+
+#get-involved-img {
+  margin-bottom: 20px;
+}
+
+/* https://stackoverflow.com/questions/42858199/vimeo-full-width */
+#guidelines-video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* This percentage reflects the native aspect ratio (16:9) of the video embed */
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+#guidelines-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
@@ -267,6 +293,10 @@ a#add-place:hover,
   #add-place-btn-container {
     background-color: transparent;
   }
+}
+
+.user-support {
+  background-color: #a3c7d9;
 }
 
 .user-support.disabled:hover,

@@ -46,10 +46,10 @@ map:
       minZoom: 1
       maxZoom: 18
       maxBounds:
-        - -79.235969 # westernmost longitude
-        - 35.802034 # southermost latitude
-        - -78.538317 # easternmost longitude
-        - 36.224394 # northernmost longitude
+        - -79.476901 # westernmost longitude
+        - 35.543943 # southermost latitude
+        - -78.279237 # easternmost longitude
+        - 36.411935 # northernmost latitude
     control:
       showCompass: true
       position: "top-left"
@@ -483,14 +483,14 @@ left_sidebar:
           title: _(Basemaps)
           layers:
             - id: osm
-              title: _(OpenStreetMap)
+              title: _(Neighborhood Style)
             - id: satellite
               title: _(Satellite View)
         - id: grp-community
           title: _(Community Data)
           layers:
             - id: pbdurham
-              title: _(Community Reports)
+              title: _(Your Ideas)
         - id: grp-city
           title: _(City Data)
           layers:
@@ -545,7 +545,7 @@ activity:
 
 place:
   adding_supported: true 
-  add_button_label: _(Submit an idea)
+  add_button_label: _(Submit Your Idea)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(Show as a list)
   show_map_button_label: _(Show on a map)
@@ -961,8 +961,8 @@ pages:
   - title: _(Guidelines)
     slug: guidelines
     name: guidelines
-  - title: _(Get More Involved)
-    slug: involved
+  - title: _(Get Involved)
+    slug: get-involved
     name: involved
 
 notifications:
