@@ -1235,9 +1235,9 @@ export default (container, options) => {
     },
 
     easeTo: options => {
-      setTimeout(() => {
-        map.flyTo(options);
-      }, 0);
+      requestAnimationFrame(() => {
+        map.easeTo(options);
+      });
     },
 
     jumpTo: options => {
@@ -1245,9 +1245,9 @@ export default (container, options) => {
     },
 
     flyTo: options => {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         map.flyTo(options);
-      }, 0);
+      });
     },
 
     invalidateSize: () => {
