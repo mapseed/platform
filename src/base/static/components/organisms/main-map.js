@@ -322,7 +322,8 @@ class MainMap extends Component {
         constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT,
         () => {
           Object.keys(this.props.places).forEach(collectionId => {
-            this.props.layerStatuses[collectionId].isVisible &&
+            this.props.layerStatuses[collectionId] &&
+              this.props.layerStatuses[collectionId].isVisible &&
               this._map.updateLayerData(
                 collectionId,
                 createGeoJSONFromCollection(this.props.places[collectionId]),
