@@ -46,10 +46,10 @@ map:
       minZoom: 1
       maxZoom: 18
       maxBounds:
-        - -79.235969 # westernmost longitude
-        - 35.802034 # southermost latitude
-        - -78.538317 # easternmost longitude
-        - 36.224394 # northernmost longitude
+        - -79.476901 # westernmost longitude
+        - 35.543943 # southermost latitude
+        - -78.279237 # easternmost longitude
+        - 36.411935 # northernmost latitude
     control:
       showCompass: true
       position: "top-left"
