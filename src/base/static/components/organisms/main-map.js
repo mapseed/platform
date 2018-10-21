@@ -384,13 +384,14 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Don't attempt any interaction with the map until it is fully loaded.
-    if (!this.loaded) return;
-
     if (!this.props.isMapSizeValid) {
       this._map.invalidateSize();
       this.props.setMapSizeValidity(true);
     }
+
+    // Don't attempt any further interaction with the map until it is fully
+    // loaded.
+    if (!this.loaded) return;
 
     if (this.props.activeDrawGeometryId) {
       // Update styling for in-progress geometry being drawn with the
