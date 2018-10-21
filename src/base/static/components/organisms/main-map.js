@@ -239,9 +239,14 @@ class MainMap extends Component {
     });
     this._map.on({
       event: "zoomend",
-      callback: () => {
+      callback: evt => {
+        // NOTE: We use the presence of the originalEvent property as a proxy
+        // for whether the zoom event originated from a user action or from a
+        // programmatic action (such as a call to map.flyTo()).
+        // See: https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent#originalevent
+        const isUserZoom = evt.originalEvent !== undefined;
         Util.log("APP", "zoom", this._map.getZoom());
-        this.props.onZoomend();
+        this.props.onZoomend(isUserZoom);
       },
     });
     this._map.on({ event: "movestart", callback: this.props.onMovestart });
@@ -322,7 +327,8 @@ class MainMap extends Component {
         constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT,
         () => {
           Object.keys(this.props.places).forEach(collectionId => {
-            this.props.layerStatuses[collectionId].isVisible &&
+            this.props.layerStatuses[collectionId] &&
+              this.props.layerStatuses[collectionId].isVisible &&
               this._map.updateLayerData(
                 collectionId,
                 createGeoJSONFromCollection(this.props.places[collectionId]),
@@ -384,13 +390,14 @@ class MainMap extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Don't attempt any interaction with the map until it is fully loaded.
-    if (!this.loaded) return;
-
     if (!this.props.isMapSizeValid) {
       this._map.invalidateSize();
       this.props.setMapSizeValidity(true);
     }
+
+    // Don't attempt any further interaction with the map until it is fully
+    // loaded.
+    if (!this.loaded) return;
 
     if (this.props.activeDrawGeometryId) {
       // Update styling for in-progress geometry being drawn with the

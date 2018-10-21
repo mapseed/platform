@@ -121,7 +121,6 @@ export default Backbone.View.extend({
 
     // this flag is used to distinguish between user-initiated zooms and
     // zooms initiated by a leaflet method
-    this.isProgrammaticZoom = false;
     this.isStoryActive = false;
 
     $("body").ajaxError(function(evt, request, settings) {
@@ -399,14 +398,10 @@ export default Backbone.View.extend({
   isAddingPlace: function(model) {
     return this.$panel.is(":visible") && this.$panel.hasClass("place-form");
   },
-  onMapZoomEnd: function(evt) {
-    if (
-      this.hasBodyClass("content-visible") === true &&
-      !this.isProgrammaticZoom
-    ) {
+  onMapZoomEnd: function(isUserZoom = true) {
+    if (this.hasBodyClass("content-visible") === true && isUserZoom) {
       this.hideSpotlightMask();
     }
-    this.isProgrammaticZoom = false;
   },
   onMapMoveStart: function(evt) {
     this.$centerpoint.addClass("dragging");
@@ -690,7 +685,6 @@ export default Backbone.View.extend({
 
       if (model.get("story")) {
         self.isStoryActive = true;
-        self.isProgrammaticZoom = true;
         self.setStoryLayerVisibility(model);
         if (!model.get("story").spotlight) {
           self.hideSpotlightMask();
