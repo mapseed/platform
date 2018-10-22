@@ -23,6 +23,7 @@ import {
   geometryStyleSelector,
   geometryStyleProps,
 } from "../../state/ducks/map-drawing-toolbar";
+import { placeConfigSelector } from "../../state/ducks/place-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 
@@ -33,6 +34,7 @@ class PlaceDetailEditor extends Component {
     super(props);
 
     this.categoryConfig = getCategoryConfig(
+      this.props.placeConfig,
       this.props.placeModel.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
@@ -306,6 +308,7 @@ PlaceDetailEditor.propTypes = {
   onAttachmentModelRemove: PropTypes.func.isRequired,
   onModelIO: PropTypes.func.isRequired,
   onPlaceModelSave: PropTypes.func.isRequired,
+  placeConfig: PropTypes.object.isRequired,
   placeModel: PropTypes.object.isRequired,
   places: PropTypes.object,
   router: PropTypes.object,
@@ -315,6 +318,7 @@ PlaceDetailEditor.propTypes = {
 const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   geometryStyle: geometryStyleSelector(state),
+  placeConfig: placeConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(

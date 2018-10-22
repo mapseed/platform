@@ -10,6 +10,7 @@ import placeConfigReducer from "./ducks/place-config";
 import storyConfigReducer from "./ducks/story-config";
 import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
 import surveyConfigReducer from "./ducks/survey-config";
+import supportConfigReducer from "./ducks/support-config";
 
 const reducers = combineReducers({
   map: mapReducer,
@@ -23,6 +24,7 @@ const reducers = combineReducers({
   storyConfig: storyConfigReducer,
   rightSidebarConfig: rightSidebarConfigReducer,
   surveyConfig: surveyConfigReducer,
+  supportConfig: surveyConfigReducer,
 });
 
 export default reducers;

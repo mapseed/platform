@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { fromJS, List, Map } from "immutable";
+import { connect } from "react-redux";
 
 import PromotionBar from "./promotion-bar";
 import MetadataBar from "./metadata-bar";
@@ -21,13 +22,18 @@ const SubmissionCollection = require("../../js/models/submission-collection.js")
 import constants from "../../constants";
 import { scrollTo } from "../../utils/scroll-helpers";
 
+// NOTE: These pieces of the config are imported directly here because they
+// don't require translation, which is ok for now.
+// TODO: Eventually dissolve these imports.
 import {
-  survey as surveyConfig,
-  support as supportConfig,
-  place as placeConfig,
   custom_hooks as customHooks,
   custom_components as customComponents,
 } from "config";
+
+import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import { supportConfigSelector } from "../../state/ducks/support-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
+
 import { getCategoryConfig } from "../../utils/config-utils";
 const Util = require("../../js/utils.js");
 
@@ -57,8 +63,8 @@ class PlaceDetail extends Component {
   constructor(props) {
     super(props);
 
-    this.surveyType = surveyConfig.submission_type;
-    this.supportType = supportConfig.submission_type;
+    this.surveyType = this.props.surveyConfig.submission_type;
+    this.supportType = this.props.supportConfig.submission_type;
     if (!this.props.model.submissionSets[this.surveyType]) {
       this.props.model.submissionSets[
         this.surveyType
@@ -77,6 +83,7 @@ class PlaceDetail extends Component {
     }
 
     this.categoryConfig = getCategoryConfig(
+      this.props.placeConfig,
       this.props.model.get(constants.LOCATION_TYPE_PROPERTY_NAME),
     );
 
@@ -265,7 +272,7 @@ class PlaceDetail extends Component {
         this.state.placeModel.get(constants.SHOW_METADATA_PROPERTY_NAME) ===
         false
       ) &&
-      !placeConfig.hide_metadata_bar;
+      !this.props.placeConfig.hide_metadata_bar;
     // TODO: dissolve when flavor abstraction is ready
     let fieldSummary;
     if (
@@ -416,11 +423,20 @@ PlaceDetail.propTypes = {
   }),
   isGeocodingBarEnabled: PropTypes.bool,
   model: PropTypes.instanceOf(Backbone.Model),
+  placeConfig: PropTypes.object.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),
   scrollToResponseId: PropTypes.string,
+  supportConfig: PropTypes.object.isRequired,
+  surveyConfig: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   userToken: PropTypes.string.isRequired,
 };
 
-export default translate("PlaceDetail")(PlaceDetail);
+const mapStateToProps = state => ({
+  surveyConfig: surveyConfigSelector(state),
+  supportConfig: supportConfigSelector(state),
+  placeConfig: placeConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(translate("PlaceDetail")(PlaceDetail));

@@ -1,20 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { connect } from "react-redux";
 
-import { place as placeConfig } from "config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
 
 const SubmitterName = props => {
   return (
     <strong className={classNames("submitter-name", props.className)}>
-      {props.submitterName || placeConfig.anonymous_name}
+      {props.submitterName || props.placeConfig.anonymous_name}
     </strong>
   );
 };
 
 SubmitterName.propTypes = {
   className: PropTypes.string,
+  placeConfig: PropTypes.object.isRequired,
   submitterName: PropTypes.string,
 };
 
-export default SubmitterName;
+const mapStateToProps = state => ({
+  placeConfig: placeConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(SubmitterName);

@@ -12,10 +12,6 @@ import reducer from "../../../../../base/static/state/reducers";
 import mapseedApiClient from "../../../../../base/static/client/mapseed-api-client";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../../../../theme";
-// TODO(luke): This should be the only instance of our config singleton.
-// Eventually, it will be removed once we start fetching the config
-// from the api:
-import config from "config";
 
 import { setMapConfig } from "../../../../../base/static/state/ducks/map-config";
 import { setPlaceConfig } from "../../../../../base/static/state/ducks/place-config";
@@ -23,6 +19,8 @@ import { setStoryConfig } from "../../../../../base/static/state/ducks/story-con
 import { setLeftSidebarConfig } from "../../../../../base/static/state/ducks/left-sidebar";
 import { setRightSidebarConfig } from "../../../../../base/static/state/ducks/right-sidebar-config";
 import { setAppConfig } from "../../../../../base/static/state/ducks/app-config";
+import { setSurveyConfig } from "../../../../../base/static/state/ducks/survey-config";
+import { setSupportConfig } from "../../../../../state/ducks/support-config";
 
 import MainMap from "../../../../../base/static/components/organisms/main-map";
 import RightSidebar from "../../../../../base/static/components/templates/right-sidebar";
@@ -57,12 +55,14 @@ module.exports = AppView.extend({
     Shareabouts.deferredCollections = [];
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    store.dispatch(setMapConfig(config.map));
-    store.dispatch(setPlaceConfig(config.place));
-    store.dispatch(setLeftSidebarConfig(config.left_sidebar));
-    store.dispatch(setRightSidebarConfig(config.right_sidebar));
-    store.dispatch(setStoryConfig(config.story));
-    store.dispatch(setAppConfig(config.app));
+    store.dispatch(setMapConfig(this.options.mapConfig));
+    store.dispatch(setPlaceConfig(this.options.placeConfig));
+    store.dispatch(setLeftSidebarConfig(this.options.leftSidebarConfig));
+    store.dispatch(setRightSidebarConfig(this.options.rightSidebarConfig));
+    store.dispatch(setStoryConfig(this.options.storyConfig));
+    store.dispatch(setAppConfig(this.options.appConfig));
+    store.dispatch(setSurveyConfig(this.options.surveyConfig));
+    store.dispatch(setSupportConfig(this.options.supportConfig));
 
     const storeState = store.getState();
     const flavorTheme = storeState.appConfig.theme;

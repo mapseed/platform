@@ -1,18 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Avatar from "../ui-elements/avatar";
 import SubmitterName from "../ui-elements/submitter-name";
 import { translate, Trans } from "react-i18next";
 
 import constants from "../../constants";
-import { place as placeConfig, survey as surveyConfig } from "config";
+
+import { placeConfigSelector } from "../../state/ducks/place-config";
+import { surveyConfigSelector } from "../../state/ducks/survey-config";
 
 import "./metadata-bar.scss";
 
 const MetadataBar = props => {
   // TODO: place type label replacement; fix in editor PR
-  const actionText = placeConfig.action_text;
+  const actionText = props.placeConfig.action_text;
 
   return (
     <div className="place-detail-metadata-bar">
@@ -44,8 +47,8 @@ const MetadataBar = props => {
         <p className="place-detail-metadata-bar__survey-count">
           {props.surveyModels.size}{" "}
           {props.surveyModels.size === 1
-            ? surveyConfig.response_name
-            : surveyConfig.response_plural_name}
+            ? props.surveyConfig.response_name
+            : props.surveyConfig.response_plural_name}
         </p>
       </div>
     </div>
@@ -54,9 +57,16 @@ const MetadataBar = props => {
 
 MetadataBar.propTypes = {
   avatarSrc: PropTypes.string,
+  placeConfig: PropTypes.object.isRequired,
   placeModel: PropTypes.object.isRequired,
   surveyModels: PropTypes.object.isRequired,
   submitter: PropTypes.object.isRequired,
+  surveyConfig: PropTypes.object.isRequired,
 };
 
-export default translate("MetadataBar")(MetadataBar);
+const mapStateToProps = state => ({
+  placeConfig: placeConfigSelector(state),
+  surveyConfig: surveyConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(translate("MetadataBar")(MetadataBar));

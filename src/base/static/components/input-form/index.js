@@ -16,9 +16,10 @@ import { extractEmbeddedImages } from "../../utils/embedded-images";
 import { scrollTo } from "../../utils/scroll-helpers";
 import "./index.scss";
 
-import { map as mapConfig } from "config";
 import { getCategoryConfig } from "../../utils/config-utils";
 import { mapPositionSelector } from "../../state/ducks/map";
+import { mapConfigSelector } from "../../state/ducks/map-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
   activeMarkerSelector,
   geometryStyleSelector,
@@ -96,7 +97,10 @@ class InputForm extends Component {
   }
 
   initializeForm(selectedCategory) {
-    this.selectedCategoryConfig = getCategoryConfig(selectedCategory);
+    this.selectedCategoryConfig = getCategoryConfig(
+      this.props.placeConfig,
+      selectedCategory,
+    );
     this.isWithCustomGeometry =
       this.selectedCategoryConfig.fields.findIndex(
         field => field.type === constants.MAP_DRAWING_TOOLBAR_TYPENAME,
@@ -205,7 +209,7 @@ class InputForm extends Component {
     collection.add(
       {
         location_type: this.selectedCategoryConfig.category,
-        datasetSlug: mapConfig.layers.find(
+        datasetSlug: this.props.mapConfig.layers.find(
           layer => this.selectedCategoryConfig.dataset === layer.id,
         ).slug,
         datasetId: this.selectedCategoryConfig.dataset,
@@ -461,6 +465,7 @@ InputForm.propTypes = {
   isSingleCategory: PropTypes.bool,
   mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func,
+  placeConfig: PropTypes.object.isRequired,
   places: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
   router: PropTypes.object.isRequired,
@@ -473,7 +478,9 @@ InputForm.propTypes = {
 const mapStateToProps = state => ({
   activeMarker: activeMarkerSelector(state),
   geometryStyle: geometryStyleSelector(state),
+  mapConfig: mapConfigSelector(state),
   mapPosition: mapPositionSelector(state),
+  placeConfig: placeConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

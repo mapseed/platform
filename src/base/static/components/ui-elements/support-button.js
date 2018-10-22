@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { connect } from "react-redux";
 
 import SecondaryButton from "./secondary-button";
-import { support as supportConfig } from "config";
+import { supportConfigSelector } from "../../state/ducks/support-config";
 
 import "./support-button.scss";
 
@@ -15,7 +16,7 @@ const SupportButton = props => {
       })}
       onClick={props.onClickSupport}
     >
-      {props.numSupports || ""} {supportConfig.submit_btn_text}
+      {props.numSupports || ""} {props.supportConfig.submit_btn_text}
     </SecondaryButton>
   );
 };
@@ -25,6 +26,11 @@ SupportButton.propTypes = {
   isSupported: PropTypes.bool.isRequired,
   numSupports: PropTypes.number,
   onClickSupport: PropTypes.func.isRequired,
+  supportConfig: PropTypes.object.isRequired,
 };
 
-export default SupportButton;
+const mapStateToProps = state => ({
+  supportConfig: supportConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(SupportButton);

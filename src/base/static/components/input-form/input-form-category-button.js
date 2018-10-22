@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { connect } from "react-redux";
 
 import { getCategoryConfig } from "../../utils/config-utils";
+import { placeConfigSelector } from "../../state/ducks/place-config";
+
 import "./input-form-category-button.scss";
 
 const InputFormCategoryButton = props => {
@@ -18,7 +21,10 @@ const InputFormCategoryButton = props => {
       "input-form-category-button__label-text--active": props.isSelected,
     }),
   };
-  const categoryConfig = getCategoryConfig(props.categoryName);
+  const categoryConfig = getCategoryConfig(
+    props.placeConfig,
+    props.categoryName,
+  );
 
   return (
     <div className={cn.base}>
@@ -57,6 +63,11 @@ InputFormCategoryButton.propTypes = {
   isSingleCategory: PropTypes.bool.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
   onExpandCategories: PropTypes.func.isRequired,
+  placeConfig: PropTypes.object.isRequired,
 };
 
-export default InputFormCategoryButton;
+const mapStateToProps = state => ({
+  placeConfig: placeConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(InputFormCategoryButton);
