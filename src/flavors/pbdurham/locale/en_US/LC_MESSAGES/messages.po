@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 12:27-0700\n"
+"POT-Creation-Date: 2018-10-22 13:21-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -314,6 +314,14 @@ msgid "Get Involved"
 msgstr ""
 
 msgid "Project Idea Guidelines"
+msgstr ""
+
+msgid ""
+"Community members can generate initial project ideas at Neighborhood "
+"Assembly meetings and \"pop-up\" Participatory Budgeting events across town."
+msgstr ""
+
+msgid "Eligible projects must:"
 msgstr ""
 
 msgid "Be identified within a City Council Ward."
