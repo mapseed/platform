@@ -21,12 +21,12 @@ app:
       primary: "#045a8b"
       secondary: "#a695ab"
 
-# languages:
-#   - code: en_US
-#     label: English
+languages:
+  - code: en_US
+    label: English
 
-#   - code: es
-#     label: Español
+  - code: es
+    label: Español
 
 # Settings for map and layer configs
 map:
