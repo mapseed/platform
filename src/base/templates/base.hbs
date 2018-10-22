@@ -66,7 +66,7 @@
           <nav class="access" role="article">
             <ul class="menu">
               <li class="menu-item">
-                <a class="current-language {{ languageCode }} btn btn-block">Español / tiếng Việt ⌄</a>
+                <a class="current-language {{ languageCode }} btn btn-block">{{#each config.languages}}{{this.label}} {{#unless @last}}/ {{/unless}}{{/each}}⌄</a>
                 <ul class="menu">
                   {{#each config.languages}}
                     <li class="menu-item">
@@ -257,7 +257,8 @@
             filters: S.Config.filters,
             datasetsConfig: S.Config.datasets,
             customHooks: S.Config.customHooks,
-            customComponents: S.Config.customComponents
+            customComponents: S.Config.customComponents,
+            languageCode: "{{ languageCode }}"
           });
         });
       }(Shareabouts, jQuery));

@@ -21,12 +21,12 @@ app:
       primary: "#045a8b"
       secondary: "#a695ab"
 
-# languages:
-#   - code: en_US
-#     label: English
+languages:
+  - code: en_US
+    label: English
 
-#   - code: es
-#     label: Español
+  - code: es
+    label: Español
 
 # Settings for map and layer configs
 map:
@@ -832,7 +832,7 @@ place:
       autocomplete: false
       type: text
       prompt: _(Your age:)
-      display_prompt: _()
+      display_prompt: _( )
       placeholder: _(Your age will not appear on the map)
       optional: true
     private-ethnicity:
@@ -899,7 +899,7 @@ place:
       autocomplete: false
       type: text
       prompt: _(Your phone number:)
-      display_prompt: _()
+      display_prompt: _( )
       placeholder: _(Your phone number will not appear on the map)
       optional: true
     private-volunteer:
