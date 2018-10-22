@@ -12,11 +12,6 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 import { ThemeProvider } from "emotion-theming";
 import theme from "../../../../theme";
 
-// TODO(luke): This should be the only instance of our config singleton.
-// Eventually, it will be removed once we start fetching the config
-// from the api:
-import config from "config";
-
 import { setMapConfig } from "../../state/ducks/map-config";
 import { setPlaceConfig } from "../../state/ducks/place-config";
 import { setStoryConfig } from "../../state/ducks/story-config";
@@ -84,13 +79,13 @@ export default Backbone.View.extend({
   initialize: function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
     // component:
-    store.dispatch(setMapConfig(config.map));
-    store.dispatch(setPlaceConfig(config.place));
-    store.dispatch(setLeftSidebarConfig(config.left_sidebar));
-    store.dispatch(setRightSidebarConfig(config.right_sidebar));
-    store.dispatch(setStoryConfig(config.story));
-    store.dispatch(setAppConfig(config.app));
-    store.dispatch(setSurveyConfig(config.survey));
+    store.dispatch(setMapConfig(this.options.mapConfig));
+    store.dispatch(setPlaceConfig(this.options.placeConfig));
+    store.dispatch(setLeftSidebarConfig(this.options.leftSidebarConfig));
+    store.dispatch(setRightSidebarConfig(this.options.rightSidebarConfig));
+    store.dispatch(setStoryConfig(this.options.storyConfig));
+    store.dispatch(setAppConfig(this.options.appConfig));
+    store.dispatch(setSurveyConfig(this.options.surveyConfig));
 
     const storeState = store.getState();
     const flavorTheme = storeState.appConfig.theme;
