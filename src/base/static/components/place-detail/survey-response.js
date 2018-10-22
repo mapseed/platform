@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Avatar from "../ui-elements/avatar";
 import SubmitterName from "../ui-elements/submitter-name";
 import constants from "../../constants";
 
-import { survey as surveyConfig, place as placeConfig } from "config";
+import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
+
 import "./survey-response.scss";
 
 class SurveyResponse extends Component {
@@ -22,7 +25,7 @@ class SurveyResponse extends Component {
         ref={response => (this.responseRef = response)}
       >
         <div className="place-detail-survey-response__body">
-          {surveyConfig.items
+          {this.props.surveyConfig.items
             .filter(
               field =>
                 field.type !== constants.SUBMIT_FIELD_TYPENAME &&
@@ -52,7 +55,7 @@ class SurveyResponse extends Component {
                   constants.NAME_PROPERTY_NAME,
                 ])
               }
-              anonymousName={placeConfig.anonymous_name}
+              anonymousName={this.props.placeConfig.anonymous_name}
             />
           </div>
         </div>
@@ -65,8 +68,15 @@ SurveyResponse.propTypes = {
   attributes: PropTypes.object.isRequired,
   modelId: PropTypes.number.isRequired,
   onMountTargetResponse: PropTypes.func.isRequired,
+  placeConfig: PropTypes.object.isRequired,
   scrollToResponseId: PropTypes.string,
   submitter: PropTypes.object.isRequired,
+  surveyConfig: PropTypes.object.isRequired,
 };
 
-export default SurveyResponse;
+const mapStateToProps = state => ({
+  surveyConfig: surveyConfigSelector(state),
+  placeConfig: placeConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(SurveyResponse);

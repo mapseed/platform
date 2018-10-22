@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Spinner from "react-spinner";
+import { connect } from "react-redux";
 
 import emitter from "../../../utils/emitter";
 import { translate } from "react-i18next";
 import "./geocoding-field.scss";
 
-import { map as mapConfig } from "config";
+import { mapConfigSelector } from "../../../state/ducks/map-config";
 
 // TODO: Consolidate Util methods used here.
 const Util = require("../../../js/utils.js");
@@ -19,8 +20,10 @@ class GeocodingField extends Component {
       isGeocoding: false,
       isWithGeocodingError: false,
     };
-    this.geocodingEngine = mapConfig.geocoding_engine || "MapQuest";
-    this.hint = mapConfig.geocode_bounding_box || mapConfig.geocode_hint;
+    this.geocodingEngine = this.props.mapConfig.geocoding_engine || "MapQuest";
+    this.hint =
+      this.props.mapConfig.geocode_bounding_box ||
+      this.props.mapConfig.geocode_hint;
   }
 
   componentDidUpdate(prevProps) {
@@ -98,6 +101,7 @@ class GeocodingField extends Component {
 }
 
 GeocodingField.propTypes = {
+  mapConfig: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
@@ -106,4 +110,10 @@ GeocodingField.propTypes = {
   value: PropTypes.string,
 };
 
-export default translate("GeocodingField")(GeocodingField);
+const mapStateToProps = state => ({
+  mapConfig: mapConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(
+  translate("GeocodingField")(GeocodingField),
+);

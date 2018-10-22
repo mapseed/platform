@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import InputFormCategorySelector from "./input-form-category-selector";
 
-import { place as placeConfig } from "config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 
 const Util = require("../../js/utils.js");
@@ -11,7 +12,7 @@ const Util = require("../../js/utils.js");
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
     super(props);
-    this.visibleCategoryConfigs = placeConfig.place_detail
+    this.visibleCategoryConfigs = this.props.placeConfig.place_detail
       .filter(config => config.includeOnForm)
       .filter(config => {
         return !(
@@ -36,8 +37,10 @@ class FormCategoryMenuWrapper extends Component {
   onCategoryChange(selectedCategory) {
     this.setState({
       selectedCategory: selectedCategory,
-      isShowingCategorySelector: !getCategoryConfig(selectedCategory)
-        .multi_stage,
+      isShowingCategorySelector: !getCategoryConfig(
+        this.props.placeConfig,
+        selectedCategory,
+      ).multi_stage,
     });
   }
 
@@ -69,6 +72,7 @@ FormCategoryMenuWrapper.propTypes = {
   showNewPin: PropTypes.func.isRequired,
   hideNewPin: PropTypes.func.isRequired,
   hidePanel: PropTypes.func.isRequired,
+  placeConfig: PropTypes.object.isRequired,
   places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
   router: PropTypes.instanceOf(Backbone.Router),
   customHooks: PropTypes.oneOfType([
@@ -80,4 +84,8 @@ FormCategoryMenuWrapper.propTypes = {
   customComponents: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 };
 
-export default FormCategoryMenuWrapper;
+const mapStateToProps = state => ({
+  placeConfig: placeConfigSelector(state),
+});
+
+export default connect(mapStateToProps)(FormCategoryMenuWrapper);

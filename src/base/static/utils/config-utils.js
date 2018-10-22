@@ -1,6 +1,4 @@
-import { place as placeConfig } from "config";
-
-const getCategoryConfig = categoryName => {
+const getCategoryConfig = (placeConfig, categoryName) => {
   return (
     placeConfig.place_detail.find(
       categoryConfig => categoryConfig.category === categoryName,

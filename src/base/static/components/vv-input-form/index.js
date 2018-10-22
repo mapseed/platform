@@ -10,6 +10,7 @@ import constants from "./constants";
 import "./index.scss";
 
 import { mapPositionSelector } from "../../../static/state/ducks/map";
+import { placeConfigSelector } from "../../state/ducks/place-config";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 
@@ -38,7 +39,10 @@ class VVInputForm extends Component {
       isMapPositioned: false,
     };
 
-    this.selectedCategoryConfig = getCategoryConfig(props.selectedCategory);
+    this.selectedCategoryConfig = getCategoryConfig(
+      props.placeConfig,
+      props.selectedCategory,
+    );
   }
 
   componentWillUpdate(prevProps) {
@@ -157,6 +161,7 @@ VVInputForm.propTypes = {
   hideSpotlightMask: PropTypes.func.isRequired,
   mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func.isRequired,
+  placeConfig: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   showNewPin: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
@@ -164,6 +169,7 @@ VVInputForm.propTypes = {
 
 const mapStateToProps = state => ({
   mapPosition: mapPositionSelector(state),
+  placeConfig: placeConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(translate("VVInputForm")(VVInputForm));

@@ -32,6 +32,7 @@ import {
   setLayerStatus,
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
+import { setSupportConfig } from "../../state/ducks/support-config";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -86,6 +87,7 @@ export default Backbone.View.extend({
     store.dispatch(setStoryConfig(this.options.storyConfig));
     store.dispatch(setAppConfig(this.options.appConfig));
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
+    store.dispatch(setSupportConfig(this.options.supportConfig));
 
     const storeState = store.getState();
     const flavorTheme = storeState.appConfig.theme;
