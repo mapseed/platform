@@ -13,8 +13,8 @@ import { EditorButton } from "../atoms/buttons";
 import { translate } from "react-i18next";
 import constants from "../../constants";
 
-import { surveyConfigSelector } from "../../state/ducks/survey-config"
-import { placeConfigSelector } from "../../state/ducks/place-config"
+import { surveyConfigSelector } from "../../state/ducks/survey-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
 
 import "./survey-response-editor.scss";
 

@@ -37,8 +37,10 @@ class FormCategoryMenuWrapper extends Component {
   onCategoryChange(selectedCategory) {
     this.setState({
       selectedCategory: selectedCategory,
-      isShowingCategorySelector: !getCategoryConfig(this.props.placeConfig, selectedCategory)
-        .multi_stage,
+      isShowingCategorySelector: !getCategoryConfig(
+        this.props.placeConfig,
+        selectedCategory,
+      ).multi_stage,
     });
   }
 

@@ -6,6 +6,8 @@ import constants from "../../../constants";
 import WarningMessagesContainer from "../../ui-elements/warning-messages-container";
 import { OrderedMap, Map } from "immutable";
 
+import { place as placeConfig } from "config";
+
 jest.mock("../../../utils/scroll-helpers");
 
 describe("InputForm", () => {
@@ -22,6 +24,7 @@ describe("InputForm", () => {
       off: () => {},
       getCenter: () => {},
     },
+    placeConfig: placeConfig,
     places: {},
     router: {
       on: () => {},

@@ -463,6 +463,7 @@ InputForm.propTypes = {
   isFormSubmitting: PropTypes.bool,
   isLeavingForm: PropTypes.bool,
   isSingleCategory: PropTypes.bool,
+  mapConfig: PropTypes.object.isRequired,
   mapPosition: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
