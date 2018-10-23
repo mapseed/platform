@@ -13,8 +13,9 @@ const PlaceContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   overflow: "hidden",
-  borderTop: "1px solid #eee",
-  margin: "16px",
+  borderBottom: "1px solid #eee",
+  paddingBottom: "16px",
+  margin: "16px 16px 0 16px",
 });
 
 const Header = styled("div")({
