@@ -49,6 +49,10 @@ const ListHeader = styled("div")({
   justifyContent: "space-between",
 });
 
+const BorderLine = styled("div")({
+  borderBottom: "1px solid #eee",
+});
+
 const ButtonContainer = styled("div")({});
 
 class PlaceList extends React.Component {
@@ -156,6 +160,7 @@ class PlaceList extends React.Component {
               </Button>
             </ButtonContainer>
           </ListHeader>
+          <BorderLine />
           <AutoSizer>
             {({ height, width }) => (
               <List
