@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import classNames from "classnames";
 
-import { HorizontalRule } from "../atoms/misc";
+import { HorizontalRule } from "../atoms/layout";
 import { Header6, Paragraph } from "../atoms/typography";
 
 import MapLegendItem from "./map-legend-item";
@@ -12,7 +11,7 @@ import "./map-legend-group.scss";
 
 const MapLegendGroup = props => (
   <div className={classNames(props.classes, "map-legend-group")}>
-    <HorizontalRule classes="map-legend-group__hr" />
+    <HorizontalRule margin="large" />
     {props.title && (
       <Header6 classes="map-legend-group__title">{props.title}</Header6>
     )}
