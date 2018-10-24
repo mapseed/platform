@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import { HorizontalRule } from "../atoms/misc";
+import { HorizontalRule } from "../atoms/layout";
 import { Header5 } from "../atoms/typography";
 
 import { mapConfigSelector } from "../../state/ducks/map-config";
@@ -18,7 +18,7 @@ import MapLayerSelector from "./map-layer-selector";
 const MapLayerGroup = props => {
   return (
     <div className={classNames(props.classes, "map-layer-group")}>
-      <HorizontalRule />
+      <HorizontalRule spacing="tiny" />
       <Header5>{props.title}</Header5>
       {props.layers.map(layer => {
         const isBasemap = !!props.mapConfig.layers.find(

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import { HorizontalRule } from "../atoms/misc";
+import { HorizontalRule } from "../atoms/layout";
 import { Header5 } from "../atoms/typography";
 
 import {
@@ -17,7 +17,7 @@ import MapFilterSelector from "./map-filter-selector";
 const MapFilterGroup = props => {
   return (
     <div className={classNames(props.classes, "map-filter-group")}>
-      <HorizontalRule />
+      <HorizontalRule spacing="tiny" />
       <Header5>{props.title}</Header5>
       <MapFilterSelector
         icon="/static/css/images/markers/reset-filter-icon.png"
