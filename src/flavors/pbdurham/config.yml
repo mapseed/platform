@@ -39,9 +39,9 @@ map:
   options:
     map:
       center:
-        lat: 35.98287
-        lng: -78.90010
-      zoom: 12
+        lat: 35.976899833978976
+        lng: -78.88370073534878
+      zoom: 10.2
       pitch: 30
       minZoom: 1
       maxZoom: 18
@@ -99,15 +99,34 @@ map:
       style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-schools/style.json
       source_layer: durham-schools
 
+    - id: durham-city-boundary
+      type: json
+      is_visible_default: true
+      feature_types:
+        - "Polygon"
+      source: https://opendata.arcgis.com/datasets/ebc766f44138423ebe2edfe25ad9f133_0.geojson
+      rules:
+        - fill-layout:
+            visibility: "none"
+          outline-paint:
+            line-color: "#ffff66"
+            line-opacity: 0.8
+            line-width: 3
+            line-offset: -1
+          outline-layout:
+            line-join: "round"
+            line-cap: "round"
+
     - id: durham-council-wards
       type: json
+      is_visible_default: true
       feature_types:
         - "Polygon"
         - "Label"
       source: https://opendata.arcgis.com/datasets/27378f34cfca45ed8176bfae422d2204_2.geojson
       rules:
          - label-paint:
-             text-halo-color: "#f4f142"
+             text-halo-color: "#ffff66"
              text-halo-width: 1
            label-layout:
              text-padding: 50
@@ -506,6 +525,8 @@ left_sidebar:
                title: _(Schools)
              - id: durham-council-wards
                title: _(City Council Wards)
+             - id: durham-city-boundary
+               title: _(City Boundary)
              - id: durham-existing-trails
                title: _(Existing Trails)
              - id: durham-proposed-trails
