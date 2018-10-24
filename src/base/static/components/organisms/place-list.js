@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import { placesSelector } from "../../state/ducks/places";
 import PlaceListItem from "../molecules/place-list-item";
 import { Button } from "../atoms/buttons";
+import { HorizontalRule } from "../atoms/layout";
+import { TextInput } from "../atoms/input";
 
 // But if you only use a few react-virtualized components,
 // And you're concerned about increasing your application's bundle size,
@@ -49,28 +51,51 @@ const ListHeader = styled("div")({
   justifyContent: "space-between",
 });
 
-const BorderLine = styled("div")({
-  borderBottom: "1px solid #eee",
-});
+const SearchContainer = styled("div")({});
+const SearchButton = styled(Button)({ marginLeft: "16px" });
+const SortButton = styled(Button)({ marginRight: "16px" });
 
 const ButtonContainer = styled("div")({});
 
 class PlaceList extends React.Component {
-  _getSortedPlaces = (places, sortBy) => {
-    places.sort((a, b) => {
+  _sortAndFilterPlaces = (places, sortBy, query) => {
+    const filteredPlaces = query
+      ? places.filter(place => {
+          return Object.values(place).some(field => {
+            // TODO: make sure the field is only within the matching
+            // fields - we don't want false positives from the Place
+            // model's `dataset` field, for example.
+            return typeof field === "string" && field.includes(query);
+          });
+        })
+      : [...places];
+    const sortedFilteredPlaces = filteredPlaces.sort((a, b) => {
       if (sortBy === "dates") {
         return new Date(b.created_datetime) - new Date(a.created_datetime);
-      } else if (this.state.sortBy === "supports") {
+      } else if (sortBy === "supports") {
         const bSupports = b.submission_sets.support || [];
         const aSupports = a.submission_sets.support || [];
         return bSupports.length - aSupports.length;
-      } else if (this.state.sortBy === "comments") {
+      } else if (sortBy === "comments") {
         const bComments = b.submission_sets.comments || [];
         const aComments = a.submission_sets.comments || [];
         return bComments.length - aComments.length;
       }
     });
-    return places;
+    return sortedFilteredPlaces;
+  };
+
+  _setSortAndFilterPlaces = () => {
+    const sortedFilteredPlaces = this._sortAndFilterPlaces(
+      this.props.places,
+      this.state.sortBy,
+      this.state.query,
+    );
+    this.setState({
+      places: sortedFilteredPlaces,
+    });
+    cache.clearAll();
+    this.virtualizedList.forceUpdateGrid();
   };
 
   virtualizedList = null;
@@ -80,7 +105,8 @@ class PlaceList extends React.Component {
 
   state = {
     sortBy: "dates",
-    places: this._getSortedPlaces([...this.props.places], "dates"),
+    places: this._sortAndFilterPlaces(this.props.places, "dates", ""),
+    query: "",
   };
 
   constructor(props) {
@@ -92,14 +118,7 @@ class PlaceList extends React.Component {
       prevProps.places.length !== this.props.places.length ||
       prevState.sortBy !== this.state.sortBy
     ) {
-      const sortedPlaces = this._getSortedPlaces(
-        [...this.props.places],
-        this.state.sortBy,
-      );
-      this.setState({
-        places: sortedPlaces,
-      });
-      this.virtualizedList.forceUpdateGrid();
+      this._setSortAndFilterPlaces();
     }
   }
 
@@ -131,36 +150,52 @@ class PlaceList extends React.Component {
       <ListViewContainer>
         <ListViewContent>
           <ListHeader>
-            <div>header!!!</div>
+            <SearchContainer>
+              <TextInput
+                placeholder="Search..."
+                color="accent"
+                onKeyPress={evt => {
+                  if (evt.key === "Enter") {
+                    this._setSortAndFilterPlaces();
+                  }
+                }}
+                onChange={evt => {
+                  this.setState({ query: evt.target.value });
+                }}
+              />
+              <SearchButton
+                color="primary"
+                onClick={this._setSortAndFilterPlaces}
+                variant="raised"
+              >
+                Search
+              </SearchButton>
+            </SearchContainer>
             <ButtonContainer>
-              <Button
-                style={{ marginRight: "16px" }}
-                color={this.state.sortBy === "dates" ? "primary" : "tertiary"}
+              <SortButton
+                color="tertiary"
+                variant={this.state.sortBy === "dates" && "outlined"}
                 onClick={() => this.setState({ sortBy: "dates" })}
               >
                 Most Recent
-              </Button>
-              <Button
-                style={{ marginRight: "16px" }}
-                color={
-                  this.state.sortBy === "supports" ? "primary" : "tertiary"
-                }
+              </SortButton>
+              <SortButton
+                color="tertiary"
+                variant={this.state.sortBy === "supports" && "outlined"}
                 onClick={() => this.setState({ sortBy: "supports" })}
               >
                 Most Supports
-              </Button>
-              <Button
-                style={{ marginRight: "16px" }}
-                color={
-                  this.state.sortBy === "comments" ? "primary" : "tertiary"
-                }
+              </SortButton>
+              <SortButton
+                color="tertiary"
+                variant={this.state.sortBy === "comments" && "outlined"}
                 onClick={() => this.setState({ sortBy: "comments" })}
               >
                 Most Comments
-              </Button>
+              </SortButton>
             </ButtonContainer>
           </ListHeader>
-          <BorderLine />
+          <HorizontalRule color="light" />
           <AutoSizer>
             {({ height, width }) => (
               <List
