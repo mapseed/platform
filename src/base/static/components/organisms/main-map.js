@@ -252,14 +252,15 @@ class MainMap extends Component {
     this._map.on({ event: "movestart", callback: this.props.onMovestart });
     this._map.on({
       event: "moveend",
-      callback: () => {
+      callback: evt => {
         Util.log("APP", "center-lat", this._map.getCenter().lat);
         Util.log("APP", "center-lng", this._map.getCenter().lng);
         this.props.setMapPosition({
           center: this._map.getCenter(),
           zoom: this._map.getZoom(),
         });
-        this.props.onMoveend();
+        const isUserMove = evt.originalEvent !== undefined;
+        this.props.onMoveend(isUserMove);
       },
     });
 

@@ -403,10 +403,10 @@ export default Backbone.View.extend({
   onMapMoveStart: function(evt) {
     this.$centerpoint.addClass("dragging");
   },
-  onMapMoveEnd: function() {
+  onMapMoveEnd: function(isUserMove = true) {
     this.$centerpoint.removeClass("dragging");
 
-    if (this.hasBodyClass("content-visible") === false) {
+    if (this.hasBodyClass("content-visible") === false && isUserMove) {
       const { zoom, center } = mapPositionSelector(store.getState());
       this.setLocationRoute(zoom, center.lat, center.lng);
     }
