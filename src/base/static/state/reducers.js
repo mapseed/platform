@@ -24,7 +24,7 @@ const reducers = combineReducers({
   storyConfig: storyConfigReducer,
   rightSidebarConfig: rightSidebarConfigReducer,
   surveyConfig: surveyConfigReducer,
-  supportConfig: surveyConfigReducer,
+  supportConfig: supportConfigReducer,
 });
 
 export default reducers;
