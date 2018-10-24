@@ -8,14 +8,13 @@ import { Paragraph, SmallText } from "../atoms/typography";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
+import { HorizontalRule } from "../atoms/layout";
 
 const PlaceContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   overflow: "hidden",
-  borderBottom: "1px solid #eee",
-  paddingBottom: "16px",
-  margin: "16px 16px 0 16px",
+  margin: "16px",
 });
 
 const Header = styled("div")({
@@ -74,45 +73,48 @@ const PlaceListItem = props => {
   const submitterName =
     props.place.submitter_name || props.placeConfig.anonymous_name;
   return (
-    <PlaceContainer>
-      <Header>
-        <PlaceTitle>
-          <Header3>{props.place.title}</Header3>
-        </PlaceTitle>
-        <PlaceSocialContainer>
-          <div style={{ flex: "0 40%" }}>{`facebook`}</div>
-          <div style={{ flex: "0 40%" }}>{`twitter`}</div>
-        </PlaceSocialContainer>
-      </Header>
-      <Body>
-        <PlaceInfo>
-          <AvatarContainer>
-            <UserAvatar size="large" />
-          </AvatarContainer>
-          <PlaceInfoContainer>
-            <Paragraph>{`${submitterName} submitted this thing`}</Paragraph>
-            <SmallText
-              style={{ width: "100%" }}
-            >{`${numberOfComments} comments`}</SmallText>
-            <SmallText
-              style={{ width: "100%" }}
-            >{`${numberOfSupports} supports`}</SmallText>
-            <Button color="primary" size="small" variant="raised">
-              View on Map
-            </Button>
-          </PlaceInfoContainer>
-        </PlaceInfo>
-        <PlaceDescription>
-          <DescriptionItem>
-            <b>{"my project idea is:"}</b>
-          </DescriptionItem>
-          <DescriptionItem>{props.place["idea-what"]}</DescriptionItem>
-        </PlaceDescription>
-      </Body>
-      {props.place.attachments.length ? (
-        <img src={props.place.attachments[0].file} />
-      ) : null}
-    </PlaceContainer>
+    <React.Fragment>
+      <PlaceContainer>
+        <Header>
+          <PlaceTitle>
+            <Header3>{props.place.title}</Header3>
+          </PlaceTitle>
+          <PlaceSocialContainer>
+            <div style={{ flex: "0 40%" }}>{`facebook`}</div>
+            <div style={{ flex: "0 40%" }}>{`twitter`}</div>
+          </PlaceSocialContainer>
+        </Header>
+        <Body>
+          <PlaceInfo>
+            <AvatarContainer>
+              <UserAvatar size="large" />
+            </AvatarContainer>
+            <PlaceInfoContainer>
+              <Paragraph>{`${submitterName} submitted this thing`}</Paragraph>
+              <SmallText
+                style={{ width: "100%" }}
+              >{`${numberOfComments} comments`}</SmallText>
+              <SmallText
+                style={{ width: "100%" }}
+              >{`${numberOfSupports} supports`}</SmallText>
+              <Button color="primary" size="small" variant="raised">
+                View on Map
+              </Button>
+            </PlaceInfoContainer>
+          </PlaceInfo>
+          <PlaceDescription>
+            <DescriptionItem>
+              <b>{"my project idea is:"}</b>
+            </DescriptionItem>
+            <DescriptionItem>{props.place["idea-what"]}</DescriptionItem>
+          </PlaceDescription>
+        </Body>
+        {props.place.attachments.length ? (
+          <img src={props.place.attachments[0].file} />
+        ) : null}
+      </PlaceContainer>
+      <HorizontalRule color="light" />
+    </React.Fragment>
   );
 };
 

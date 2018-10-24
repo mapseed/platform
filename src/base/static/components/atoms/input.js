@@ -1,6 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import styled from "react-emotion";
+
+const TextInput = styled(props => {
+  return (
+    <input
+      type="text"
+      className={props.className}
+      placeholder={props.placeholder ? props.placeholder : ""}
+      onChange={props.onChange ? props.onChange : null}
+      onKeyPress={props.onKeyPress ? props.onKeyPress : null}
+    />
+  );
+})(props => {
+  const styles = {
+    borderWidth: ".25em",
+    borderColor: props.theme.brand.primary,
+    borderStyle: "solid",
+    height: "32px",
+  };
+  if (props.color === "secondary") {
+    styles.borderColor = props.theme.brand.secondary;
+  } else if (props.color === "accent") {
+    styles.borderColor = props.theme.brand.accent;
+  }
+
+  return styles;
+});
 
 const CheckboxInput = props => {
   return (
@@ -66,4 +93,4 @@ DatetimeInput.propTypes = {
   value: PropTypes.string,
 };
 
-export { CheckboxInput, DatetimeInput, NumberInput };
+export { CheckboxInput, DatetimeInput, NumberInput, TextInput };
