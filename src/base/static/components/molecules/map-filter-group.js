@@ -17,7 +17,7 @@ import MapFilterSelector from "./map-filter-selector";
 const MapFilterGroup = props => {
   return (
     <div className={classNames(props.classes, "map-filter-group")}>
-      <HorizontalRule />
+      <HorizontalRule spacing="tiny" />
       <Header5>{props.title}</Header5>
       <MapFilterSelector
         icon="/static/css/images/markers/reset-filter-icon.png"

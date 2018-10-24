@@ -3,8 +3,8 @@ import styled from "react-emotion";
 
 const HorizontalRule = styled("hr")(props => {
   const styles = {
-    marginTop: "4px",
-    marginBottom: "4px",
+    marginTop: "12px",
+    marginBottom: "12px",
 
     borderTopWidth: "1px",
     borderBottomWidth: "0px",
@@ -13,10 +13,15 @@ const HorizontalRule = styled("hr")(props => {
     borderStyle: "solid",
     borderColor: "rgba(0, 0, 0, 0.2)",
   };
-  if (props.margin === "large") {
-    styles.marginTop = "16px";
-    styles.marginBottom = "16px";
+
+  if (props.spacing === "small") {
+    styles.marginTop = "8px";
+    styles.marginBottom = "8px";
+  } else if (props.spacing === "tiny") {
+    styles.marginTop = "4px";
+    styles.marginBottom = "4px";
   }
+
   if (props.color === "light") {
     styles.borderColor = "#eee";
   }

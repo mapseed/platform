@@ -18,7 +18,7 @@ import MapLayerSelector from "./map-layer-selector";
 const MapLayerGroup = props => {
   return (
     <div className={classNames(props.classes, "map-layer-group")}>
-      <HorizontalRule />
+      <HorizontalRule spacing="tiny" />
       <Header5>{props.title}</Header5>
       {props.layers.map(layer => {
         const isBasemap = !!props.mapConfig.layers.find(

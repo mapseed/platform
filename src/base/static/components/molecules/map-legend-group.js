@@ -11,7 +11,7 @@ import "./map-legend-group.scss";
 
 const MapLegendGroup = props => (
   <div className={classNames(props.classes, "map-legend-group")}>
-    <HorizontalRule margin="large" />
+    <HorizontalRule />
     {props.title && (
       <Header6 classes="map-legend-group__title">{props.title}</Header6>
     )}
