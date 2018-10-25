@@ -196,7 +196,7 @@ msgid "Your age:"
 msgstr "Su edad:"
 
 msgid "Your age will not appear on the map"
-msgstr "Tu edad no aparecerá en el mapa."
+msgstr "Tu edad no aparecerá en el mapa"
 
 msgid "Your ethnicity (your ethnicity will not appear on the map):"
 msgstr "Su origen étnico (su origen étnico no aparecerá en el mapa):"
@@ -244,7 +244,7 @@ msgid "Your phone number:"
 msgstr "Su número de teléfono:"
 
 msgid "Your phone number will not appear on the map"
-msgstr "Su número de teléfono no aparecerá en el mapa."
+msgstr "Su número de teléfono no aparecerá en el mapa"
 
 msgid "I'd like to volunteer as a Budget Delegate"
 msgstr "Me gustaría ser voluntario como delegado de presupuesto"
