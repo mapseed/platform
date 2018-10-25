@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"From November to March 2019, volunteer budget delegates will work to develop "
+"From November 2018 to March 2019, volunteer budget delegates will work to develop "
 "these initial ideas into full project proposals. Durham residents will be "
 "able to vote in May 2018 to determine the winning projects."
 msgstr ""
