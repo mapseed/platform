@@ -140,7 +140,15 @@ map:
               - 2
            fill-paint:
              fill-color: "#cccccc"
-             fill-opacity: 0.3
+             fill-opacity:
+               - interpolate
+               - - "linear"
+                 - 1
+               - - "zoom"
+               - 0
+               - 0.3
+               - 14
+               - 0
            outline-layout:
              line-join: "round"
              line-cap: "round"
@@ -245,7 +253,7 @@ map:
               - 10
             - - "<"
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
             icon-image: "fountain-small.png"
             icon-size: 0.5
@@ -258,10 +266,10 @@ map:
               - "culture"
             - - ">="
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
-            icon-image: "fountain-small.png"
-            icon-size: 0.8
+            icon-image: "fountain.png"
+            icon-size: 0.6
             icon-anchor: "bottom"
 
         #safety 
@@ -289,7 +297,7 @@ map:
               - 10
             - - "<"
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
             icon-image: "safety-small.png"
             icon-size: 0.5
@@ -302,10 +310,10 @@ map:
               - "safety"
             - - ">="
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
-            icon-image: "safety-small.png"
-            icon-size: 0.8
+            icon-image: "safety.png"
+            icon-size: 0.6
             icon-anchor: "bottom"
 
         # parks 
@@ -333,7 +341,7 @@ map:
               - 10
             - - "<"
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
             icon-size: 0.5
             icon-image: "tree-small.png"
@@ -346,10 +354,10 @@ map:
               - "parks"
             - - ">="
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
-            icon-image: "tree-small.png"
-            icon-size: 0.8
+            icon-image: "tree.png"
+            icon-size: 0.6
             icon-anchor: "bottom"
 
         # health
@@ -377,7 +385,7 @@ map:
               - 10
             - - "<"
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
             icon-size: 0.5
             icon-image: "health-small.png"
@@ -390,10 +398,10 @@ map:
               - "health"
             - - ">="
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
-            icon-image: "health-small.png"
-            icon-size: 0.8
+            icon-image: "health.png"
+            icon-size: 0.6
             icon-anchor: "bottom"
 
         # streets
@@ -421,7 +429,7 @@ map:
               - 10
             - - "<"
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
             icon-size: 0.5
             icon-image: "street-sidewalk-small.png"
@@ -434,10 +442,10 @@ map:
               - "streets"
             - - ">="
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
-            icon-image: "street-sidewalk-small.png"
-            icon-size: 0.8
+            icon-image: "street-sidewalk.png"
+            icon-size: 0.6
             icon-anchor: "bottom"
 
         # other 
@@ -465,7 +473,7 @@ map:
               - 10
             - - "<"
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
             icon-size: 0.5
             icon-image: "idea-small.png"
@@ -478,10 +486,10 @@ map:
               - "other"
             - - ">="
               - - "zoom"
-              - 17
+              - 13
           symbol-layout:
-            icon-image: "idea-small.png"
-            icon-size: 0.8
+            icon-image: "idea.png"
+            icon-size: 0.6
             icon-anchor: "bottom"
 
 right_sidebar:
@@ -609,7 +617,7 @@ place:
           type: common_form_element
         - name: private-ethnicity
           type: common_form_element
-        - name: private-income
+        - name: private-home_address
           type: common_form_element
         - name: submitter_name
           type: common_form_element
@@ -653,7 +661,7 @@ place:
           type: common_form_element
         - name: private-ethnicity
           type: common_form_element
-        - name: private-income
+        - name: private-home_address
           type: common_form_element
         - name: submitter_name
           type: common_form_element
@@ -697,7 +705,7 @@ place:
           type: common_form_element
         - name: private-ethnicity
           type: common_form_element
-        - name: private-income
+        - name: private-home_address
           type: common_form_element
         - name: submitter_name
           type: common_form_element
@@ -741,7 +749,7 @@ place:
           type: common_form_element
         - name: private-ethnicity
           type: common_form_element
-        - name: private-income
+        - name: private-home_address
           type: common_form_element
         - name: submitter_name
           type: common_form_element
@@ -785,7 +793,7 @@ place:
           type: common_form_element
         - name: private-ethnicity
           type: common_form_element
-        - name: private-income
+        - name: private-home_address
           type: common_form_element
         - name: submitter_name
           type: common_form_element
@@ -829,7 +837,7 @@ place:
           type: common_form_element
         - name: private-ethnicity
           type: common_form_element
-        - name: private-income
+        - name: private-home_address
           type: common_form_element
         - name: submitter_name
           type: common_form_element
@@ -859,8 +867,7 @@ place:
     private-ethnicity:
       autocomplete: false
       type: big_checkbox
-      annotation: _(Your ethnicity will not appear on the map)
-      prompt: _(Your ethnicity:)
+      prompt: _(Your ethnicity (your ethnicity will not appear on the map):)
       display_prompt: _(Ethnicity:)
       content:
         - label: _(American Indian/Alaskan Native)
@@ -878,42 +885,23 @@ place:
         - label: _(Other)
           value: other-ethnicity
       optional: true
-    private-income:
+    private-home_address:
       autocomplete: false
-      type: dropdown
-      prompt: _(Your income:)
-      annotation: _(Your income will not appear on the map)
-      content:
-        - label: _(Under $10,000)
-          value: under-10k
-        - label: _($10,000 - $14,999)
-          value: 10k-15k
-        - label: _($15,000 - $24,999)
-          value: 15k-25k
-        - label: _($25,000 - $34,999)
-          value: 25k-35k
-        - label: _($35,000 - $49,000)
-          value: 35k-49k
-        - label: _($50,000 - $74,999)
-          value: 50k-75k
-        - label: _($75,000 - $99,000)
-          value: 75k-99k
-        - label: _($100,000 - $149,000)
-          value: 100k-149k
-        - label: _($150,000 or more)
-          value: 150k-or-more
+      type: text
+      prompt: _(Your home address:)
+      placeholder: _(Your home address will not appear on the map)
       optional: true
     submitter_name:
       autocomplete: false
       type: text
-      prompt: _(Your name)
+      prompt: _(Your name:)
       placeholder: _(Name)
       optional: true
     private-submitter_email:
       autocomplete: false
       type: text
-      prompt: _(Your Email)
-      placeholder: _(Receive email updates on your idea)
+      prompt: _(Your Email:)
+      placeholder: _(Your email will not appear on the map)
       optional: true
       sticky: true
     private-phone:

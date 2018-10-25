@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 13:21-0700\n"
+"POT-Creation-Date: 2018-10-25 13:01-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 
 msgid ""
-"From November 2018 to March 2019, volunteer budget delegates will work to develop "
-"these initial ideas into full project proposals. Durham residents will be "
-"able to vote in May 2018 to determine the winning projects."
+"From November 2018 to March 2019, volunteer budget delegates will work to "
+"develop these initial ideas into full project proposals. Durham residents "
+"will be able to vote in May 2019 to determine the winning projects."
 msgstr ""
 
 msgid ""
@@ -92,6 +92,9 @@ msgid "Schools"
 msgstr ""
 
 msgid "City Council Wards"
+msgstr ""
+
+msgid "City Boundary"
 msgstr ""
 
 msgid "Existing Trails"
@@ -178,10 +181,7 @@ msgstr ""
 msgid "Your age will not appear on the map"
 msgstr ""
 
-msgid "Your ethnicity will not appear on the map"
-msgstr ""
-
-msgid "Your ethnicity:"
+msgid "Your ethnicity (your ethnicity will not appear on the map):"
 msgstr ""
 
 msgid "Ethnicity:"
@@ -205,49 +205,22 @@ msgstr ""
 msgid "White"
 msgstr ""
 
-msgid "Your income:"
+msgid "Your home address:"
 msgstr ""
 
-msgid "Your income will not appear on the map"
+msgid "Your home address will not appear on the map"
 msgstr ""
 
-msgid "Under $10,000"
-msgstr ""
-
-msgid "$10,000 - $14,999"
-msgstr ""
-
-msgid "$15,000 - $24,999"
-msgstr ""
-
-msgid "$25,000 - $34,999"
-msgstr ""
-
-msgid "$35,000 - $49,000"
-msgstr ""
-
-msgid "$50,000 - $74,999"
-msgstr ""
-
-msgid "$75,000 - $99,000"
-msgstr ""
-
-msgid "$100,000 - $149,000"
-msgstr ""
-
-msgid "$150,000 or more"
-msgstr ""
-
-msgid "Your name"
+msgid "Your name:"
 msgstr ""
 
 msgid "Name"
 msgstr ""
 
-msgid "Your Email"
+msgid "Your Email:"
 msgstr ""
 
-msgid "Receive email updates on your idea"
+msgid "Your email will not appear on the map"
 msgstr ""
 
 msgid "Your phone number:"
@@ -345,7 +318,15 @@ msgstr ""
 msgid "Become a Budget Delegate"
 msgstr ""
 
-msgid "More information to come..."
+msgid ""
+"Volunteers will be recruited to serve as Budget Delegates. During the "
+"Proposal Development phase of the process, these volunteer Budget Delegates "
+"will work the community and staff of relevant city of Durham departments to "
+"develop ideas into budget proposals. They will receive training and support "
+"from Durham PB Implementation Staff to do so.  In addition to supporting the "
+"Budget Delegates, Durham PB Implementation staff will also serve to "
+"facilitate communication so that projects can be developed in a timely "
+"manner."
 msgstr ""
 
 msgid "Attend a Neighborhood Assembly"
@@ -353,7 +334,9 @@ msgstr ""
 
 msgid ""
 "Each ward will have a neighborhood assembly and other, informal idea "
-"collection events, to encourage widespread participation."
+"collection events, to encourage widespread participation. Visit <a href="
+"\"http://www.pbdurham.org\" target=\"_blank\">www.pbdurham.org</a> for "
+"upcoming assembly dates, times, and locations."
 msgstr ""
 
 msgid "Connect with Us"
