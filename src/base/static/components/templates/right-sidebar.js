@@ -75,7 +75,6 @@ RightSidebar.propTypes = {
   }),
   mapConfig: PropTypes.object,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
-  setMapSizeValidity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
