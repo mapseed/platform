@@ -2,13 +2,22 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import styled from "react-emotion";
 import SupportButton from "../ui-elements/support-button";
-import SocialShareButton from "../ui-elements/social-share-button";
 import constants from "../../constants";
+import { IconButton } from "../atoms/buttons";
 
 import "./promotion-bar.scss";
 
 const Util = require("../../js/utils.js");
+
+const SocialMediaButton = styled(IconButton)({
+  float: "right",
+  borderRadius: "4px",
+  marginLeft: "8px",
+  border: "none",
+  backgroundPosition: "center",
+});
 
 class PromotionBar extends Component {
   onClickSupport() {
@@ -99,13 +108,15 @@ class PromotionBar extends Component {
               .isHorizontalLayout,
           })}
         >
-          <SocialShareButton
-            onSocialShare={this.props.onSocialShare}
-            type="facebook"
+          <SocialMediaButton
+            onClick={() => this.props.onSocialShare("facebook")}
+            icon="facebook"
+            size="small"
           />
-          <SocialShareButton
-            onSocialShare={this.props.onSocialShare}
-            type="twitter"
+          <SocialMediaButton
+            onClick={() => this.props.onSocialShare("twitter")}
+            icon="twitter"
+            size="small"
           />
         </div>
       </div>
