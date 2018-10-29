@@ -6,14 +6,15 @@ import { Image } from "../atoms/imagery";
 import { Paragraph, Header4 } from "../atoms/typography";
 import MapLegendGroup from "../molecules/map-legend-group";
 
-const MapLegendPanelContainer = styled("div")({
+const MapLegendPanelContainer = styled("div")(props => ({
   padding: 10,
+  backgroundColor: props.isThemed ? props.theme.brand.secondary : "#fff",
   margin: 0,
-});
+}));
 
 const MapLegendPanel = props => {
   return (
-    <MapLegendPanelContainer>
+    <MapLegendPanelContainer isThemed={props.isThemed}>
       {props.config.title && <Header4>{props.config.title}</Header4>}
       {props.config.description && (
         <Paragraph>{props.config.description}</Paragraph>
@@ -21,7 +22,6 @@ const MapLegendPanel = props => {
       {props.config.groupings.map((grouping, i) => (
         <MapLegendGroup
           key={i}
-          classes={grouping.classes}
           content={grouping.content}
           description={grouping.description}
           title={grouping.title}
@@ -48,6 +48,7 @@ MapLegendPanel.propTypes = {
     ),
     title: PropTypes.string,
   }),
+  isThemed: PropTypes.bool,
 };
 
 export default MapLegendPanel;

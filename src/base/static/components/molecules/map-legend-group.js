@@ -1,25 +1,20 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 
 import { HorizontalRule } from "../atoms/layout";
 import { Header6, Paragraph } from "../atoms/typography";
 
 import MapLegendItem from "./map-legend-item";
 
-import "./map-legend-group.scss";
-
 const MapLegendGroup = props => (
-  <div className={classNames(props.classes, "map-legend-group")}>
-    <HorizontalRule />
+  <Fragment>
     {props.title && (
-      <Header6 classes="map-legend-group__title">{props.title}</Header6>
+      <Fragment>
+        <HorizontalRule />
+        <Header6>{props.title}</Header6>
+      </Fragment>
     )}
-    {props.description && (
-      <Paragraph classes="map-legend-group__description">
-        {props.description}
-      </Paragraph>
-    )}
+    {props.description && <Paragraph>{props.description}</Paragraph>}
     {props.content.map((item, i) => (
       <MapLegendItem
         key={i}
@@ -28,7 +23,7 @@ const MapLegendGroup = props => (
         swatch={item.swatch}
       />
     ))}
-  </div>
+  </Fragment>
 );
 
 MapLegendGroup.propTypes = {
