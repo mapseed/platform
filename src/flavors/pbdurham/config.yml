@@ -32,10 +32,10 @@ languages:
 map:
   geolocation_enabled: true
 
-  geocoding_bar_enabled: false
+  geocoding_bar_enabled: true
   geocoding_engine: Mapbox
   geocode_field_label: _(Enter an address...)
-  geocode_hint: [-79.82, 36.07]
+  geocode_hint: [-78.906412, 35.9954801] # downtown Durham, NC
   options:
     map:
       center:

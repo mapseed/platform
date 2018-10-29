@@ -236,6 +236,17 @@ a#add-place:hover,
   }
 }
 
+/* =Geocode Address Bar
+-------------------------------------------------------------- */
+#geocode-address-bar {
+  background-color: #c3b9c7;
+}
+
+.geocoding-field__do-geocode-icon:before {
+  color: #d6d5d9;
+}
+
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
