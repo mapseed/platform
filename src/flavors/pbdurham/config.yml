@@ -641,19 +641,19 @@ place:
           type: text
           prompt: _(Title:)
           display_prompt: _(Title:)
-          placeholder: _(...)
+          placeholder: _(Choose a descriptive title for your idea)
           optional: false
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(...)
+          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
           optional: true
         - name: idea-why
           type: textarea
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
-          placeholder: _(...)
+          placeholder: _(Let us know how your idea helps the City of Durham!)
           optional: true
         - name: my_image
           type: common_form_element
@@ -685,19 +685,19 @@ place:
           type: text
           prompt: _(Title:)
           display_prompt: _(Title:)
-          placeholder: _(...)
+          placeholder: _(Choose a descriptive title for your idea)
           optional: false
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(...)
+          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
           optional: true
         - name: idea-why
           type: textarea
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
-          placeholder: _(...)
+          placeholder: _(Let us know how your idea helps the City of Durham!)
           optional: true
         - name: my_image
           type: common_form_element
@@ -729,19 +729,19 @@ place:
           type: text
           prompt: _(Title:)
           display_prompt: _(Title:)
-          placeholder: _(...)
+          placeholder: _(Choose a descriptive title for your idea)
           optional: false
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(...)
+          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
           optional: true
         - name: idea-why
           type: textarea
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
-          placeholder: _(...)
+          placeholder: _(Let us know how your idea helps the City of Durham!)
           optional: true
         - name: my_image
           type: common_form_element
@@ -773,19 +773,19 @@ place:
           type: text
           prompt: _(Title:)
           display_prompt: _(Title:)
-          placeholder: _(...)
+          placeholder: _(Choose a descriptive title for your idea)
           optional: false
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(...)
+          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
           optional: true
         - name: idea-why
           type: textarea
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
-          placeholder: _(...)
+          placeholder: _(Let us know how your idea helps the City of Durham!)
           optional: true
         - name: my_image
           type: common_form_element
@@ -817,19 +817,19 @@ place:
           type: text
           prompt: _(Title:)
           display_prompt: _(Title:)
-          placeholder: _(...)
+          placeholder: _(Choose a descriptive title for your idea)
           optional: false
         - name: idea-what
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(...)
+          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
           optional: true
         - name: idea-why
           type: textarea
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
-          placeholder: _(...)
+          placeholder: _(Let us know how your idea helps the City of Durham!)
           optional: true
         - name: my_image
           type: common_form_element
