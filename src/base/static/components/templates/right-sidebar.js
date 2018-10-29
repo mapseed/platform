@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -38,6 +38,15 @@ const RightSidebar = props => {
           config={props.rightSidebarConfig}
           places={props.places}
         />
+      )}
+      {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
+        <Fragment>
+          <MapLegendPanel config={props.rightSidebarConfig} />
+          <ActivityStream
+            config={props.rightSidebarConfig}
+            places={props.places}
+          />
+        </Fragment>
       )}
     </div>
   );
