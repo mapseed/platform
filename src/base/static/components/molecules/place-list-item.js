@@ -6,12 +6,11 @@ import { Header3 } from "../atoms/typography";
 import { UserAvatar } from "../atoms/imagery";
 import { Paragraph, SmallText } from "../atoms/typography";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { appConfigSelector } from "../../state/ducks/app-config";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import { HorizontalRule } from "../atoms/layout";
-import { Link } from "../atoms/typography";
-import TwitterIcon from "../atoms/icons/Twitter";
-import FacebookIcon from "../atoms/icons/Facebook";
+import sharePlace from "../../utils/share-place";
 
 const PlaceContainer = styled("div")({
   display: "flex",
@@ -81,6 +80,15 @@ const PlaceListItem = props => {
     : 0;
   const submitterName =
     props.place.submitter_name || props.placeConfig.anonymous_name;
+  const onSocialShare = service => {
+    sharePlace({
+      place: props.place,
+      service,
+      appTitle: props.appConfig.title,
+      appMetaDescription: props.appConfig.meta_description,
+      appThumbnail: props.appConfig.thumbnail,
+    });
+  };
   return (
     <React.Fragment>
       <PlaceContainer>
@@ -89,8 +97,16 @@ const PlaceListItem = props => {
             <Header3>{props.place.title}</Header3>
           </PlaceTitle>
           <PlaceSocialContainer>
-            <SocialMediaButton icon="facebook" size="small" />
-            <SocialMediaButton icon="twitter" size="small" />
+            <SocialMediaButton
+              icon="facebook"
+              size="small"
+              onClick={() => onSocialShare("facebook")}
+            />
+            <SocialMediaButton
+              icon="twitter"
+              size="small"
+              onClick={() => onSocialShare("twitter")}
+            />
           </PlaceSocialContainer>
         </Header>
         <Body>
@@ -133,10 +149,16 @@ PlaceListItem.propTypes = {
   placeConfig: PropTypes.shape({
     anonymous_name: PropTypes.string.isRequired,
   }).isRequired,
+  appConfig: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    meta_description: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
+  appConfig: appConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(
