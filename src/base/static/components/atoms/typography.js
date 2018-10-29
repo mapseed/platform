@@ -138,20 +138,7 @@ RegularLabel.propTypes = {
 };
 
 // Text atoms:
-const LargeText = styled("span")({
-  fontSize: "1.5rem",
-});
-
-const RegularText = styled("span")({
-  fontSize: "1rem",
-});
-
-const SmallText = styled("span")(props => {
-  const styles = {
-    fontSize: "0.75rem",
-    fontWeight: "normal",
-  };
-
+const textHandler = (props, styles) => {
   switch (props.weight) {
     case "bold":
       styles.fontWeight = 600;
@@ -161,11 +148,42 @@ const SmallText = styled("span")(props => {
       break;
   }
 
+  if (props.textTransform === "uppercase") {
+    styles.textTransform = "uppercase";
+  }
+
   return styles;
+};
+const LargeText = styled("span")(props => {
+  const styles = {
+    fontSize: "1.5rem",
+  };
+  return textHandler(props, styles);
 });
 
-const MicroText = styled("span")({
-  fontSize: ".6rem",
+const RegularText = styled("span")(props => {
+  const styles = {
+    fontSize: "1rem",
+  };
+  return textHandler(props, styles);
+});
+
+const SmallText = styled("span")(props => {
+  const styles = {
+    fontSize: "0.75rem",
+    fontWeight: "normal",
+  };
+
+  return textHandler(props, styles);
+});
+
+const MicroText = styled("span")(props => {
+  const styles = {
+    fontSize: "0.6rem",
+    fontWeight: "normal",
+  };
+
+  return textHandler(props, styles);
 });
 
 const Link = styled("a")(props => ({
