@@ -89,6 +89,9 @@ const PlaceListItem = props => {
       appThumbnail: props.appConfig.thumbnail,
     });
   };
+  const placeLabel = props.placeConfig.place_detail.find(
+    detailConfig => detailConfig.category === props.place.location_type,
+  ).label;
   return (
     <React.Fragment>
       <PlaceContainer>
@@ -115,7 +118,11 @@ const PlaceListItem = props => {
               <UserAvatar size="large" />
             </AvatarContainer>
             <PlaceInfoContainer>
-              <Paragraph>{`${submitterName} submitted this thing`}</Paragraph>
+              <Paragraph>
+                <b>{submitterName}</b>
+                {` ${props.placeConfig.action_text} this `}
+                <b>{placeLabel}</b>
+              </Paragraph>
               <SmallText
                 style={{ width: "100%" }}
               >{`${numberOfComments} comments`}</SmallText>
@@ -148,6 +155,13 @@ PlaceListItem.propTypes = {
   t: PropTypes.func.isRequired,
   placeConfig: PropTypes.shape({
     anonymous_name: PropTypes.string.isRequired,
+    action_text: PropTypes.string.isRequired,
+    place_detail: PropTypes.arrayOf(
+      PropTypes.shape({
+        category: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      }),
+    ),
   }).isRequired,
   appConfig: PropTypes.shape({
     title: PropTypes.string.isRequired,
