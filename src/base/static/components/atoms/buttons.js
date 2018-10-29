@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "react-emotion";
 
+import { TwitterIcon, FacebookIcon } from "./icons";
+
 import { Icon } from "./feedback";
 
 import "./buttons.scss";
@@ -42,6 +44,45 @@ EditorButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
+
+const IconButton = styled(props => {
+  let Icon;
+  switch (props.icon) {
+    case "facebook":
+      Icon = FacebookIcon;
+      break;
+    default:
+    case "twitter":
+      Icon = TwitterIcon;
+      break;
+  }
+  return (
+    <button
+      style={props.style}
+      className={props.className}
+      type="button"
+      onClick={props.onClick}
+    >
+      <Icon style={{ height: "100%", width: "100%" }} />
+    </button>
+  );
+})(props => {
+  const styles = {
+    padding: 0,
+    border: 0,
+    width: "40px",
+    height: "40px",
+    backgroundColor: "transparent",
+  };
+  if (props.size === "small") {
+    styles.height = "32px";
+    styles.width = "32px";
+  } else if (props.size === "large") {
+    styles.height = "48px";
+    styles.width = "48px";
+  }
+  return styles;
+});
 
 // Influenced by the material-ui api:
 // https://material-ui.com/api/button/
@@ -149,4 +190,4 @@ ToolbarButton.propTypes = {
   prefix: PropTypes.string,
 };
 
-export { Button, EditorButton, ToolbarButton };
+export { Button, EditorButton, ToolbarButton, IconButton };
