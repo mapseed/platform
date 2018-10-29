@@ -504,7 +504,7 @@ right_sidebar:
           icon: /static/css/images/markers/playground.png
         - label: _(Streets & Sidewalks)
           icon: /static/css/images/markers/street-sidewalk.png
-        - label: _(Public Health)
+        - label: _(Health & Wellness)
           icon: /static/css/images/markers/health.png
         - label: _(Safety & Environment)
           icon: /static/css/images/markers/safety.png
