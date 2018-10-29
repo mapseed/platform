@@ -48,6 +48,7 @@ MapLegendPanel.propTypes = {
     ),
     title: PropTypes.string,
   }),
+  themed: PropTypes.bool,
 };
 
 export default MapLegendPanel;
