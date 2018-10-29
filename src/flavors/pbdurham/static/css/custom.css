@@ -227,6 +227,15 @@ a#add-place:hover,
   height: 100%;
 }
 
+#about-submit-btn {
+  color: #fff !important;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: #302d43;
+  }
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 

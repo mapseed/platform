@@ -177,8 +177,8 @@ msgstr "Parques y recreación"
 msgid "Streets & Sidewalks"
 msgstr "Calles y aceras"
 
-msgid "Public Health"
-msgstr "Salud pública"
+msgid "Health & Wellness"
+msgstr "Salud y bienestar"
 
 msgid "Safety & Environment"
 msgstr "Seguridad y medio ambiente"

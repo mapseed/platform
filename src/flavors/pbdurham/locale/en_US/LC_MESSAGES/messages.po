@@ -160,7 +160,7 @@ msgstr ""
 msgid "Streets & Sidewalks"
 msgstr ""
 
-msgid "Public Health"
+msgid "Health & Wellness"
 msgstr ""
 
 msgid "Safety & Environment"
