@@ -97,6 +97,17 @@
     display: none;
   }
 
+  #left-sidebar-container {
+    height: calc(100% - #{$header-height-smallscreen});
+  }
+
+  .geocoding-bar-enabled {
+    #left-sidebar-container {
+      // NOTE: 44px represents the height of the geocode address bar on mobile screens
+      height: calc(100% - #{$header-height-smallscreen} - 44px);
+    }
+  }
+
   .content-visible.content-expanded {
     #map-container {
       height: 10% !important;
@@ -451,6 +462,14 @@
     #content {
       // header + geocode bar
       top: $header-height-fullscreen + 72px;
+    }
+
+    #left-sidebar-container {
+      // NOTE: 72px represents the height of the geocode address bar on desktop screens
+      height: calc(
+        100% - 72px - #{$header-height-fullscreen} - #{$footer-height-fullscreen}
+      );
+      top: calc(72px + #{$header-height-fullscreen});
     }
   }
 
