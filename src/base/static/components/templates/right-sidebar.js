@@ -41,7 +41,7 @@ const RightSidebar = props => {
       )}
       {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
         <Fragment>
-          <MapLegendPanel config={props.rightSidebarConfig} />
+          <MapLegendPanel config={props.rightSidebarConfig} themed={true} />
           <ActivityStream
             config={props.rightSidebarConfig}
             places={props.places}
