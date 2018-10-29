@@ -2,9 +2,9 @@ import React from "react";
 import styled from "react-emotion";
 import PropTypes from "prop-types";
 import { Button, IconButton } from "../atoms/buttons";
-import { Header3 } from "../atoms/typography";
+import { SmallTitle } from "../atoms/typography";
 import { UserAvatar } from "../atoms/imagery";
-import { Paragraph, SmallText } from "../atoms/typography";
+import { RegularText, SmallText, Link } from "../atoms/typography";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 import { connect } from "react-redux";
@@ -39,10 +39,22 @@ const AvatarContainer = styled("div")({
   minWidth: "48px",
   marginRight: "8px",
 });
+
 const PlaceInfoContainer = styled("div")({
   display: "flex",
-  flexWrap: "wrap",
+  flexDirection: "column",
+  justifyContent: "space-between",
 });
+const PlaceInfoTop = styled("div")({
+  alignItems: "start",
+  display: "flex",
+  flexDirection: "column",
+});
+const PlaceInfoButton = styled(Link)({
+  alignItems: "end",
+  marginTop: "16px",
+});
+
 const PlaceDescription = styled("div")({
   display: "flex",
   flexDirection: "column",
@@ -53,7 +65,7 @@ const DescriptionItem = styled("div")({
   flex: "1 100%",
 });
 
-const PlaceTitle = styled("div")({
+const PlaceTitle = styled(SmallTitle)({
   display: "flex",
   flex: "1 60%",
 });
@@ -89,16 +101,14 @@ const PlaceListItem = props => {
       appThumbnail: props.appConfig.thumbnail,
     });
   };
-  const placeLabel = props.placeConfig.place_detail.find(
+  const placeDetailConfig = props.placeConfig.place_detail.find(
     detailConfig => detailConfig.category === props.place.location_type,
-  ).label;
+  );
   return (
     <React.Fragment>
       <PlaceContainer>
         <Header>
-          <PlaceTitle>
-            <Header3>{props.place.title}</Header3>
-          </PlaceTitle>
+          <PlaceTitle>{props.place.title}</PlaceTitle>
           <PlaceSocialContainer>
             <SocialMediaButton
               icon="facebook"
@@ -118,25 +128,32 @@ const PlaceListItem = props => {
               <UserAvatar size="large" />
             </AvatarContainer>
             <PlaceInfoContainer>
-              <Paragraph>
-                <b>{submitterName}</b>
-                {` ${props.placeConfig.action_text} this `}
-                <b>{placeLabel}</b>
-              </Paragraph>
-              <SmallText
-                style={{ width: "100%" }}
-              >{`${numberOfComments} comments`}</SmallText>
-              <SmallText
-                style={{ width: "100%" }}
-              >{`${numberOfSupports} supports`}</SmallText>
-              <Button color="primary" size="small" variant="raised">
-                View on Map
-              </Button>
+              <PlaceInfoTop>
+                <RegularText>
+                  <b>{submitterName}</b>
+                  {` ${props.placeConfig.action_text} this `}
+                  <b>{placeDetailConfig.label}</b>
+                </RegularText>
+                <SmallText
+                  style={{ width: "100%" }}
+                >{`${numberOfComments} comments`}</SmallText>
+                <SmallText
+                  style={{ width: "100%" }}
+                >{`${numberOfSupports} supports`}</SmallText>
+              </PlaceInfoTop>
+              <PlaceInfoButton
+                href={`/${props.place.datasetSlug}/${props.place.id}`}
+                rel="internal"
+              >
+                <Button color="primary" size="small" variant="raised">
+                  View on Map
+                </Button>
+              </PlaceInfoButton>
             </PlaceInfoContainer>
           </PlaceInfo>
           <PlaceDescription>
             <DescriptionItem>
-              <b>{"my project idea is:"}</b>
+              <SmallTitle>{"my project idea is:"}</SmallTitle>
             </DescriptionItem>
             <DescriptionItem>{props.place["idea-what"]}</DescriptionItem>
           </PlaceDescription>
