@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import styled from "react-emotion";
 
 import { HorizontalRule } from "../atoms/layout";
 import { Header6, Paragraph } from "../atoms/typography";
