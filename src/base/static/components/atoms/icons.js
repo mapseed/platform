@@ -24,4 +24,24 @@ const FacebookIcon = props => (
   </svg>
 );
 
-export { TwitterIcon, FacebookIcon };
+const HeartIcon = props => (
+  <svg viewBox="0 0 133.8 133.8" width="1em" height="1em" {...props}>
+    <style>{`.st0{fill:#dd2424}`}</style>
+    <g id="Layer_1">
+      <path
+        className="st0"
+        d="M41.9 100.7L11.8 70.6C-2 56.8-2 34.3 11.8 20.5c13.8-13.8 36.3-13.8 50.1 0L92 50.6c13.8 13.8 13.8 36.3 0 50.1-13.8 13.8-36.4 13.8-50.1 0z"
+      />
+      <path
+        className="st0"
+        d="M41.9 50.6L72 20.5c13.8-13.8 36.3-13.8 50.1 0 13.8 13.8 13.8 36.3 0 50.1L92 100.7c-13.8 13.8-36.3 13.8-50.1 0-13.8-13.8-13.8-36.3 0-50.1z"
+      />
+      <path
+        className="st0"
+        d="M63.4 122.2L36.6 95.4c-1.9-1.9-1.9-5.1 0-7.1l26.8-26.8c1.9-1.9 5.1-1.9 7.1 0l26.8 26.8c1.9 1.9 1.9 5.1 0 7.1l-26.8 26.8c-2 1.9-5.2 1.9-7.1 0z"
+      />
+    </g>
+  </svg>
+);
+
+export { TwitterIcon, FacebookIcon, HeartIcon };
