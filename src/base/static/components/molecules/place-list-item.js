@@ -2,10 +2,12 @@ import React from "react";
 import styled from "react-emotion";
 import PropTypes from "prop-types";
 import { Button, IconButton } from "../atoms/buttons";
+import { HeartIcon } from "../atoms/icons";
 import { SmallTitle } from "../atoms/typography";
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, SmallText, Link } from "../atoms/typography";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { supportConfigSelector } from "../../state/ducks/support-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
@@ -134,12 +136,13 @@ const PlaceListItem = props => {
                   {` ${props.placeConfig.action_text} this `}
                   <b>{placeDetailConfig.label}</b>
                 </RegularText>
-                <SmallText
-                  style={{ width: "100%" }}
-                >{`${numberOfComments} comments`}</SmallText>
-                <SmallText
-                  style={{ width: "100%" }}
-                >{`${numberOfSupports} supports`}</SmallText>
+                <SmallText textTransform="uppercase">{`${numberOfComments} comments`}</SmallText>
+                <SmallText textTransform="uppercase">
+                  {`${numberOfSupports} ${
+                    props.supportConfig.action_text
+                  } this `}
+                  <HeartIcon />
+                </SmallText>
               </PlaceInfoTop>
               <PlaceInfoButton
                 href={`/${props.place.datasetSlug}/${props.place.id}`}
@@ -170,6 +173,9 @@ const PlaceListItem = props => {
 PlaceListItem.propTypes = {
   place: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
+  supportConfig: PropTypes.shape({
+    action_text: PropTypes.string.isRequired,
+  }),
   placeConfig: PropTypes.shape({
     anonymous_name: PropTypes.string.isRequired,
     action_text: PropTypes.string.isRequired,
@@ -189,6 +195,7 @@ PlaceListItem.propTypes = {
 
 const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
+  supportConfig: supportConfigSelector(state),
   appConfig: appConfigSelector(state),
 });
 
