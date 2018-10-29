@@ -8,13 +8,13 @@ import MapLegendGroup from "../molecules/map-legend-group";
 
 const MapLegendPanelContainer = styled("div")(props => ({
   padding: 10,
-  backgroundColor: props.themed ? props.theme.brand.secondary : "#fff",
+  backgroundColor: props.isThemed ? props.theme.brand.secondary : "#fff",
   margin: 0,
 }));
 
 const MapLegendPanel = props => {
   return (
-    <MapLegendPanelContainer themed={props.themed}>
+    <MapLegendPanelContainer isThemed={props.isThemed}>
       {props.config.title && <Header4>{props.config.title}</Header4>}
       {props.config.description && (
         <Paragraph>{props.config.description}</Paragraph>
@@ -48,7 +48,7 @@ MapLegendPanel.propTypes = {
     ),
     title: PropTypes.string,
   }),
-  themed: PropTypes.bool,
+  isThemed: PropTypes.bool,
 };
 
 export default MapLegendPanel;
