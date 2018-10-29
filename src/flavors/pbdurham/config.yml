@@ -19,7 +19,7 @@ app:
   theme:
     brand:
       primary: "#045a8b"
-      secondary: "#a695ab"
+      secondary: "#c3b9c7"
 
 languages:
   - code: en_US
@@ -495,7 +495,21 @@ map:
 right_sidebar:
   is_enabled: true
   is_visible_default: true
-  component: ActivityStream 
+  component: ActivityStreamWithLegend
+  groupings:
+    - content:
+        - label: _(Art & Culture)
+          icon: /static/css/images/markers/fountain.png
+        - label: _(Parks & Recreation)
+          icon: /static/css/images/markers/playground.png
+        - label: _(Streets & Sidewalks)
+          icon: /static/css/images/markers/street-sidewalk.png
+        - label: _(Public Health)
+          icon: /static/css/images/markers/health.png
+        - label: _(Safety & Environment)
+          icon: /static/css/images/markers/safety.png
+        - label: _(Other)
+          icon: /static/css/images/markers/idea.png
 
 left_sidebar:
   is_enabled: true
@@ -541,29 +555,6 @@ left_sidebar:
                title: _(Proposed Trails)
              - id: durham-parks
                title: _(Parks)
-#    - id: right-sidebar-container
-#      title: _(Community ideas:)
-#      view: LegendView
-#      icon: info-circle
-#      items:
-#        - title: _(Art & Culture)
-#          image: /static/css/images/markers/new/fountain.png
-#          url: /filter/culture
-#        - title: _(Parks & Recreation)
-#          image: /static/css/images/markers/new/playground.png
-#          url: /filter/parks
-#        - title: _(Streets & Sidewalks)
-#          image: /static/css/images/markers/new/street-sidewalk.png
-#          url: /filter/streets
-#        - title: _(Public Health)
-#          image: /static/css/images/markers/new/health.png
-#          url: /filter/health
-#        - title: _(Safety & Environment)
-#          image: /static/css/images/markers/new/safety.png
-#          url: /filter/safety
-#        - title: _(Other)
-#          image: /static/css/images/markers/new/idea.png
-#          url: /filter/other
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
