@@ -501,7 +501,7 @@ right_sidebar:
         - label: _(Art & Culture)
           icon: /static/css/images/markers/fountain.png
         - label: _(Parks & Recreation)
-          icon: /static/css/images/markers/playground.png
+          icon: /static/css/images/markers/tree.png
         - label: _(Streets & Sidewalks)
           icon: /static/css/images/markers/street-sidewalk.png
         - label: _(Health & Wellness)
