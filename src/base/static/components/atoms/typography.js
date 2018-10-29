@@ -18,6 +18,7 @@ WarningMessage.propTypes = {
   style: PropTypes.object,
 };
 
+// Legacy Text:
 const Paragraph = ({ children, ...props }) => {
   return (
     <p className={classNames("mapseed__paragraph", props.classes)} {...props}>
@@ -31,6 +32,7 @@ Paragraph.propTypes = {
   classes: PropTypes.string,
 };
 
+// Legacy Titles:
 const Header1 = ({ children, ...props }) => {
   return (
     <h1 className={classNames("mapseed__header1", props.classes)} {...props}>
@@ -109,6 +111,18 @@ Header6.propTypes = {
   classes: PropTypes.string,
 };
 
+// Title atoms:
+const LargeTitle = styled("h1")({
+  fontSize: "3rem",
+});
+
+const RegularTitle = styled("h2")({
+  fontSize: "2rem",
+});
+const SmallTitle = styled("h3")({
+  fontSize: "1.5rem",
+});
+
 // TODO: Other label types.
 const RegularLabel = styled("label")(
   props => (
@@ -123,10 +137,18 @@ RegularLabel.propTypes = {
   styles: PropTypes.object,
 };
 
-// TODO: Other text types.
+// Text atoms:
+const LargeText = styled("span")({
+  fontSize: "1.5rem",
+});
+
+const RegularText = styled("span")({
+  fontSize: "1rem",
+});
+
 const SmallText = styled("span")(props => {
   const styles = {
-    fontSize: "0.875em",
+    fontSize: "0.75rem",
     fontWeight: "normal",
   };
 
@@ -140,6 +162,10 @@ const SmallText = styled("span")(props => {
   }
 
   return styles;
+});
+
+const MicroText = styled("span")({
+  fontSize: ".6rem",
 });
 
 const Link = styled("a")(props => ({
@@ -160,7 +186,6 @@ Link.propTypes = {
 };
 
 export {
-  SmallText,
   Link,
   WarningMessage,
   Paragraph,
@@ -171,4 +196,11 @@ export {
   Header5,
   Header6,
   RegularLabel,
+  LargeTitle,
+  RegularTitle,
+  SmallTitle,
+  LargeText,
+  RegularText,
+  SmallText,
+  MicroText,
 };
