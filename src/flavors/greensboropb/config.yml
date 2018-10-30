@@ -706,6 +706,19 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Share my idea)
   location_item_name: location
+  # TODO: Move this to top-level:
+  list:
+    # TODO: refactor 'list_enabled' as an 'enabled' attribute here:
+    # enabled: true
+    # We assume that all categories are rendered the same in the list
+    # Perhaps this isn't always true?
+    fields:
+      - name: idea-what
+        image_name: my_image
+        # type: description-image
+        type: description
+      - name: idea-why
+        type: description
   place_detail:
     - category: culture
       includeOnForm: true
