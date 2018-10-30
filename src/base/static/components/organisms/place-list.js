@@ -91,10 +91,10 @@ class PlaceList extends React.Component {
       this.state.sortBy,
       this.state.query,
     );
+    cache.clearAll();
     this.setState({
       places: sortedFilteredPlaces,
     });
-    cache.clearAll();
     this.virtualizedList.forceUpdateGrid();
   };
 
@@ -136,6 +136,7 @@ class PlaceList extends React.Component {
         parent={parent}
         rowIndex={index}
       >
+        {/* measures the row height when the PlaceListItem's image has finished loading: */}
         {({ measure }) => (
           <div style={style} key={place.id}>
             <PlaceListItem place={place} onLoad={measure} />

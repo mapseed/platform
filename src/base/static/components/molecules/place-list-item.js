@@ -57,14 +57,9 @@ const PlaceInfoButton = styled(Link)({
   marginTop: "16px",
 });
 
-const PlaceDescription = styled("div")({
-  display: "flex",
-  flexDirection: "column",
+const PlaceContent = styled("div")({
   flex: "1 70%",
-});
-
-const DescriptionItem = styled("div")({
-  flex: "1 100%",
+  display: "flex",
 });
 
 const PlaceTitle = styled(SmallTitle)({
@@ -84,6 +79,38 @@ const SocialMediaButton = styled(IconButton)({
   flex: "0 1",
   marginLeft: "16px",
 });
+
+// Place Content components:
+const PlaceImage = styled("div")({
+  flex: "0 1 25%",
+  marginRight: "16px",
+});
+const PlaceFieldsContainer = styled("div")({
+  flex: "1 75%",
+  display: "flex",
+  flexDirection: "column",
+});
+const PlaceFieldTitle = styled(SmallTitle)({
+  width: "100%",
+});
+const PlaceFieldText = styled(SmallText)({
+  width: "100%",
+});
+
+const PlaceField = ({ field, place, placeFieldConfig }) => {
+  if (field.type === "description") {
+    return (
+      <React.Fragment>
+        {!!placeFieldConfig.display_prompt && (
+          <PlaceFieldTitle>{placeFieldConfig.display_prompt}</PlaceFieldTitle>
+        )}
+        <PlaceFieldText>{place[field.name]}</PlaceFieldText>
+      </React.Fragment>
+    );
+  } else {
+    throw new Error(`field type is not supported: ${field.type}`);
+  }
+};
 
 const PlaceListItem = props => {
   const numberOfComments = props.place.submission_sets.comments
@@ -154,16 +181,36 @@ const PlaceListItem = props => {
               </PlaceInfoButton>
             </PlaceInfoContainer>
           </PlaceInfo>
-          <PlaceDescription>
-            <DescriptionItem>
-              <SmallTitle>{"my project idea is:"}</SmallTitle>
-            </DescriptionItem>
-            <DescriptionItem>{props.place["idea-what"]}</DescriptionItem>
-          </PlaceDescription>
+          <PlaceContent>
+            {!!props.place.attachments.length && (
+              <PlaceImage>
+                <img
+                  src={props.place.attachments[0].file}
+                  onLoad={props.onLoad}
+                />
+              </PlaceImage>
+            )}
+            <PlaceFieldsContainer>
+              {props.placeConfig.list.fields
+                .filter(field => props.place[field.name])
+                .map(field => (
+                  <PlaceField
+                    key={field.name}
+                    field={field}
+                    place={props.place}
+                    placeFieldConfig={props.placeConfig.place_detail
+                      .find(
+                        placeConfig =>
+                          placeConfig.category === props.place.location_type,
+                      )
+                      .fields.find(
+                        fieldConfig => fieldConfig.name === field.name,
+                      )}
+                  />
+                ))}
+            </PlaceFieldsContainer>
+          </PlaceContent>
         </Body>
-        {props.place.attachments.length ? (
-          <img src={props.place.attachments[0].file} />
-        ) : null}
       </PlaceContainer>
       <HorizontalRule color="light" />
     </React.Fragment>
@@ -185,12 +232,22 @@ PlaceListItem.propTypes = {
         label: PropTypes.string.isRequired,
       }),
     ),
+    list: PropTypes.shape({
+      fields: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          image_name: PropTypes.string,
+          type: PropTypes.string,
+        }),
+      ),
+    }),
   }).isRequired,
   appConfig: PropTypes.shape({
     title: PropTypes.string.isRequired,
     meta_description: PropTypes.string.isRequired,
     thumbnail: PropTypes.string,
   }),
+  onLoad: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
