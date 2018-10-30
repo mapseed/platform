@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PB Durham 2018\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 13:21-0700\n"
-"PO-Revision-Date: 2018-10-22 13:22-0800\n"
+"POT-Creation-Date: 2018-10-29 11:30-0700\n"
+"PO-Revision-Date: 2018-10-29 14:59-0800\n"
 "Last-Translator: Trevor <tcroxson@umich.edu>\n"
 "Language-Team: PB Durham\n"
 "Language: es\n"
@@ -24,6 +24,9 @@ msgstr "Presupuesto participativo de Durham:"
 msgid "Put your money where your ideas are!"
 msgstr "¡Pon tu dinero donde están tus ideas!"
 
+msgid "Submit Your Idea"
+msgstr "Envíe su idea"
+
 msgid ""
 "Durham Participatory Budgeting is a democratic process in which community "
 "members from all three City Council wards are directly deciding how to spend "
@@ -34,14 +37,14 @@ msgstr ""
 "directamente cómo gastar $ 2.4 millones ($ 800,000 por distrito)."
 
 msgid ""
-"From November to March 2019, volunteer budget delegates will work to develop "
-"these initial ideas into full project proposals. Durham residents will be "
-"able to vote in May 2018 to determine the winning projects."
+"From November 2018 to March 2019, volunteer budget delegates will work to "
+"develop these initial ideas into full project proposals. Durham residents "
+"will be able to vote in May 2019 to determine the winning projects."
 msgstr ""
-"De Noviembre a Marzo del 2019, los delegados voluntarios del presupuesto "
-"trabajarán para desarrollar estas ideas iniciales en propuestas de proyectos "
-"completos. Los residentes de Durham podrán votar en Mayo del 2019 para "
-"determinar los proyectos ganadores."
+"De Noviembre del 2018 a Marzo del 2019, los delegados voluntarios del "
+"presupuesto trabajarán para desarrollar estas ideas iniciales en propuestas "
+"de proyectos completos. Los residentes de Durham podrán votar en Mayo del "
+"2019 para determinar los proyectos ganadores."
 
 msgid ""
 "For more information on participatory budgeting in Durham, <a href=\"http://"
@@ -108,6 +111,9 @@ msgstr "Escuelas"
 msgid "City Council Wards"
 msgstr "Barrios"
 
+msgid "City Boundary"
+msgstr "Límite de la ciudad"
+
 msgid "Existing Trails"
 msgstr "Senderos existentes"
 
@@ -116,9 +122,6 @@ msgstr "Senderos Propuestos"
 
 msgid "Parks"
 msgstr "Parques"
-
-msgid "Submit Your Idea"
-msgstr "Envíe su idea"
 
 msgid "Show as a list"
 msgstr "Ver como lista"
@@ -151,8 +154,8 @@ msgstr "Arte & Cultura"
 msgid "Title:"
 msgstr "Título:"
 
-msgid "..."
-msgstr "..."
+msgid "Choose a descriptive title for your idea"
+msgstr "Elige un título descriptivo para tu idea"
 
 msgid ""
 "What is your idea for what should be built or repaired in our neighborhood?"
@@ -162,11 +165,21 @@ msgstr ""
 msgid "My project idea is:"
 msgstr "La idea de mi proyecto es:"
 
+msgid ""
+"Ideas should be capital projects on city-owned property, and within a City "
+"Council Ward"
+msgstr ""
+"Las ideas deben ser proyectos de capital en propiedad de la ciudad, y dentro "
+"de un distrito municipal"
+
 msgid "Why is this important? What need in the community does this serve?"
 msgstr "¿Porque es esto importante? ¿Qué necesidad sirve en la comunidad?"
 
 msgid " "
 msgstr ""
+
+msgid "Let us know how your idea helps the City of Durham!"
+msgstr "¡Háganos saber cómo su idea ayuda a la Ciudad de Durham!"
 
 msgid "Parks & Recreation"
 msgstr "Parques y recreación"
@@ -174,8 +187,8 @@ msgstr "Parques y recreación"
 msgid "Streets & Sidewalks"
 msgstr "Calles y aceras"
 
-msgid "Public Health"
-msgstr "Salud pública"
+msgid "Health & Wellness"
+msgstr "Salud y bienestar"
 
 msgid "Safety & Environment"
 msgstr "Seguridad y medio ambiente"
@@ -193,13 +206,10 @@ msgid "Your age:"
 msgstr "Su edad:"
 
 msgid "Your age will not appear on the map"
-msgstr "Tu edad no aparecerá en el mapa."
+msgstr "Tu edad no aparecerá en el mapa"
 
-msgid "Your ethnicity will not appear on the map"
-msgstr "Tu etnia no aparecerá en el mapa."
-
-msgid "Your ethnicity:"
-msgstr "Su origen étnico:"
+msgid "Your ethnicity (your ethnicity will not appear on the map):"
+msgstr "Su origen étnico (su origen étnico no aparecerá en el mapa):"
 
 msgid "Ethnicity:"
 msgstr "Origen étnico:"
@@ -222,56 +232,29 @@ msgstr "Nativo de Hawái o las islas del Pacífico"
 msgid "White"
 msgstr "Blanco"
 
-msgid "Your income:"
-msgstr "Tu ingreso:"
+msgid "Your home address:"
+msgstr "Tu dirección de domicilio:"
 
-msgid "Your income will not appear on the map"
-msgstr "Sus ingresos no aparecerán en el mapa."
+msgid "Your home address will not appear on the map"
+msgstr "La dirección de su casa no aparecerá en el mapa"
 
-msgid "Under $10,000"
-msgstr "Menos de $10,000"
-
-msgid "$10,000 - $14,999"
-msgstr "$10,000 - $14,999"
-
-msgid "$15,000 - $24,999"
-msgstr "$15,000 - $24,999"
-
-msgid "$25,000 - $34,999"
-msgstr "$25,000 - $34,999"
-
-msgid "$35,000 - $49,000"
-msgstr "$35,000 - $49,000"
-
-msgid "$50,000 - $74,999"
-msgstr "$50,000 - $74,999"
-
-msgid "$75,000 - $99,000"
-msgstr "$75,000 - $99,000"
-
-msgid "$100,000 - $149,000"
-msgstr "$100,000 - $149,000"
-
-msgid "$150,000 or more"
-msgstr "$150,000 o más"
-
-msgid "Your name"
-msgstr "Tu nombre"
+msgid "Your name:"
+msgstr "Nombre:"
 
 msgid "Name"
 msgstr "Nombre"
 
-msgid "Your Email"
-msgstr "Su correo electrónico"
+msgid "Your Email:"
+msgstr "Tu correo electrónico:"
 
-msgid "Receive email updates on your idea"
-msgstr "Recibe actualizaciones por correo electrónico de tu idea"
+msgid "Your email will not appear on the map"
+msgstr "Tu email no aparecerá en el mapa"
 
 msgid "Your phone number:"
 msgstr "Su número de teléfono:"
 
 msgid "Your phone number will not appear on the map"
-msgstr "Su número de teléfono no aparecerá en el mapa."
+msgstr "Su número de teléfono no aparecerá en el mapa"
 
 msgid "I'd like to volunteer as a Budget Delegate"
 msgstr "Me gustaría ser voluntario como delegado de presupuesto"
@@ -371,20 +354,38 @@ msgstr ""
 msgid "Become a Budget Delegate"
 msgstr "Conviértete en un delegado de presupuesto"
 
-msgid "More information to come..."
-msgstr "Todavía no se han definido completamente"
+msgid ""
+"Volunteers will be recruited to serve as Budget Delegates. During the "
+"Proposal Development phase of the process, these volunteer Budget Delegates "
+"will work the community and staff of relevant city of Durham departments to "
+"develop ideas into budget proposals. They will receive training and support "
+"from Durham PB Implementation Staff to do so.  In addition to supporting the "
+"Budget Delegates, Durham PB Implementation staff will also serve to "
+"facilitate communication so that projects can be developed in a timely "
+"manner."
+msgstr ""
+"Los voluntarios serán reclutados para servir como los Delegados del "
+"Presupuesto.  Durante el desarrollo de propuestas, estos Delegados del "
+"Presupuesto trabajarán con la comunidad y los empleados de la Ciudad de "
+"Durham para desarrollar ideas en propuestas presupuestarias.  Recibirán "
+"formación y apoyo del Personal de implementación.  El personal de "
+"implementación también facilitarán la comunicación para que los proyectos "
+"pueden ser desarrollado en manera oportuna."
 
 msgid "Attend a Neighborhood Assembly"
 msgstr "Asista a una asamblea de barrio"
 
 msgid ""
 "Each ward will have a neighborhood assembly and other, informal idea "
-"collection events, to encourage widespread participation."
+"collection events, to encourage widespread participation. Visit <a href="
+"\"http://www.pbdurham.org\" target=\"_blank\">www.pbdurham.org</a> for "
+"upcoming assembly dates, times, and locations."
 msgstr ""
 "Cada barrio tendrá una asamblea de barrio y otros eventos informales de "
-"recopilación de ideas para fomentar la participación generalizada. Aún se "
-"está desarrollando la página web para las próximas fechas, horarios y "
-"ubicaciones de la asamblea."
+"recopilación de ideas para fomentar la participación generalizada. <a href="
+"\"http://www.pbdurham.org\" target=\"_blank\">Aún se está desarrollando la "
+"página web</a> para las próximas fechas, horarios y ubicaciones de la "
+"asamblea."
 
 msgid "Connect with Us"
 msgstr "Conéctate con nosotros"
@@ -411,6 +412,73 @@ msgstr ""
 "Comuníquese con Robin Baker, Coordinador de participación en el presupuesto "
 "para el presupuesto participativo de Durham, por correo electrónico a "
 "pbdurham@durhamnc.gov o llame al 984-227-3395."
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Your home address (your home address will not appear on the map):"
+#~ msgstr ""
+#~ "La dirección de su casa (la dirección de su casa no aparecerá en el mapa):"
+
+#~ msgid "Your ethnicity will not appear on the map"
+#~ msgstr "Tu etnia no aparecerá en el mapa."
+
+#~ msgid "Your ethnicity:"
+#~ msgstr "Su origen étnico:"
+
+#~ msgid "Your income:"
+#~ msgstr "Tu ingreso:"
+
+#~ msgid "Your income will not appear on the map"
+#~ msgstr "Sus ingresos no aparecerán en el mapa."
+
+#~ msgid "Under $10,000"
+#~ msgstr "Menos de $10,000"
+
+#~ msgid "$10,000 - $14,999"
+#~ msgstr "$10,000 - $14,999"
+
+#~ msgid "$15,000 - $24,999"
+#~ msgstr "$15,000 - $24,999"
+
+#~ msgid "$25,000 - $34,999"
+#~ msgstr "$25,000 - $34,999"
+
+#~ msgid "$35,000 - $49,000"
+#~ msgstr "$35,000 - $49,000"
+
+#~ msgid "$50,000 - $74,999"
+#~ msgstr "$50,000 - $74,999"
+
+#~ msgid "$75,000 - $99,000"
+#~ msgstr "$75,000 - $99,000"
+
+#~ msgid "$100,000 - $149,000"
+#~ msgstr "$100,000 - $149,000"
+
+#~ msgid "$150,000 or more"
+#~ msgstr "$150,000 o más"
+
+#~ msgid "Your name"
+#~ msgstr "Tu nombre"
+
+#~ msgid "Your Email"
+#~ msgstr "Su correo electrónico"
+
+#~ msgid "Receive email updates on your idea"
+#~ msgstr "Recibe actualizaciones por correo electrónico de tu idea"
+
+#~ msgid "More information to come..."
+#~ msgstr "Todavía no se han definido completamente"
+
+#~ msgid ""
+#~ "Each ward will have a neighborhood assembly and other, informal idea "
+#~ "collection events, to encourage widespread participation."
+#~ msgstr ""
+#~ "Cada barrio tendrá una asamblea de barrio y otros eventos informales de "
+#~ "recopilación de ideas para fomentar la participación generalizada. Aún se "
+#~ "está desarrollando la página web para las próximas fechas, horarios y "
+#~ "ubicaciones de la asamblea."
 
 #~ msgid "Participatory Budgeting for Long Beach"
 #~ msgstr "Participatory Budgeting en Long Beach"
