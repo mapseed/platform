@@ -37,6 +37,7 @@ import {
   mapBasemapSelector,
   setBasemap,
   setLayerStatus,
+  setMapPosition,
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
@@ -95,6 +96,14 @@ export default Backbone.View.extend({
     store.dispatch(setAppConfig(this.options.appConfig));
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
+
+    // Set initial map position state.
+    store.dispatch(
+      setMapPosition({
+        center: this.options.mapConfig.options.map.center,
+        zoom: this.options.mapConfig.options.map.zoom,
+      }),
+    );
 
     const storeState = store.getState();
     this.flavorTheme = storeState.appConfig.theme;
@@ -599,9 +608,10 @@ export default Backbone.View.extend({
   },
 
   viewPlace: function(args) {
+    this.renderMain();
     this.renderRightSidebar();
-    var self = this;
 
+    var self = this;
     Util.getPlaceFromCollections(
       {
         places: this.places,
@@ -614,7 +624,6 @@ export default Backbone.View.extend({
       },
     );
 
-    this.renderMain();
     function onFound(model, type, collectionId) {
       // REACT PORT SECTION //////////////////////////////////////////////////
       ReactDOM.unmountComponentAtNode(
