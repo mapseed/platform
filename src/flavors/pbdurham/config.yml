@@ -592,9 +592,9 @@ place:
           optional: false
         - name: idea-what
           type: textarea
-          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
+          placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
@@ -636,9 +636,9 @@ place:
           optional: false
         - name: idea-what
           type: textarea
-          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
+          placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
@@ -680,9 +680,9 @@ place:
           optional: false
         - name: idea-what
           type: textarea
-          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
+          placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
@@ -724,9 +724,9 @@ place:
           optional: false
         - name: idea-what
           type: textarea
-          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
+          placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
@@ -768,9 +768,9 @@ place:
           optional: false
         - name: idea-what
           type: textarea
-          prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
+          prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
+          placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
@@ -814,7 +814,7 @@ place:
           type: textarea
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
           display_prompt: _(My project idea is:)
-          placeholder: _(Ideas should be capital projects on city-owned property, and within a City Council Ward)
+          placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
@@ -887,14 +887,13 @@ place:
       type: text
       prompt: _(Your name:)
       placeholder: _(Name)
-      optional: true
+      optional: false
     private-submitter_email:
       autocomplete: false
       type: text
       prompt: _(Your Email:)
       placeholder: _(Your email will not appear on the map)
-      optional: true
-      sticky: true
+      optional: false
     private-phone:
       autocomplete: false
       type: text
