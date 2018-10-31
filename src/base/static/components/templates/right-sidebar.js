@@ -20,15 +20,13 @@ const RightSidebar = props => {
   // TODO: Support multiple simultaneous right sidebar components.
   return (
     <div className="right-sidebar">
-      {props.rightSidebarConfig.component !== "ActivityStream" && (
-        <ToggleSidebarButton
-          onClick={() => {
-            $("body").toggleClass("right-sidebar-visible");
-            props.setMapSizeValidity(false);
-          }}
-          className="right-sidebar__collapse-btn"
-        />
-      )}
+      <ToggleSidebarButton
+        onClick={() => {
+          $("body").toggleClass("right-sidebar-visible");
+          props.setMapSizeValidity(false);
+        }}
+        className="right-sidebar__collapse-btn"
+      />
       {props.rightSidebarConfig.component === "StoryNavigator" && (
         <StoryNavigator
           storyConfig={props.storyConfig}
