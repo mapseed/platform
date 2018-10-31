@@ -245,6 +245,11 @@ place:
   default_basemap: satellite
   hide_metadata_bar: true
 
+  list:
+    fields:
+      # TODO: add more field types
+      - name: other-comments
+        type: description
   #### begin dynamic form config ####
   place_detail:
     - category: featured_place

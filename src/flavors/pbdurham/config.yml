@@ -575,6 +575,12 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Share my idea)
   location_item_name: location
+  list:
+    fields:
+      - name: idea-what
+        type: description
+      - name: idea-why
+        type: description
   place_detail:
     - category: culture
       includeOnForm: true
