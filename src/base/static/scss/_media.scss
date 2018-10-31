@@ -205,7 +205,8 @@
   }
 
   // right sidebar
-  #right-sidebar-container {
+  #right-sidebar-container,
+  #left-sidebar-container {
     height: calc(
       100% - #{$header-height-fullscreen} - #{$footer-height-fullscreen}
     );
