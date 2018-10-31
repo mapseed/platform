@@ -123,7 +123,8 @@ class PlaceList extends React.Component {
   }
 
   _noRowsRenderer = () => {
-    return <div>No rows!!!</div>;
+    // TODO: a place holder, similar to youtube, would be nice here:
+    return null;
   };
 
   _rowRenderer = ({ index, key, parent, style }) => {
