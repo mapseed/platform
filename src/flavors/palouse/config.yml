@@ -46,6 +46,7 @@ map:
         lat: 47.04579711504287
         lng: -117.46582031249999
       zoom: 8
+      pitch: 40
       minZoom: 1
       maxZoom: 18
     control:
