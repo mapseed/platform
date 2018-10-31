@@ -87,12 +87,6 @@ class MainMap extends Component {
     // Instantiate the map.
     this._map = MapProvider(props.container, props.mapConfig.options);
 
-    // Set initial map position state.
-    this.props.setMapPosition({
-      center: this.props.mapConfig.options.map.center,
-      zoom: this.props.mapConfig.options.map.zoom,
-    });
-
     if (props.mapConfig.geolocation_enabled) {
       this._map.addControl(this._map.getGeolocateControl(), "top-left");
     }

@@ -171,9 +171,16 @@ const PlaceListItem = props => {
                   <HeartIcon />
                 </SmallText>
               </PlaceInfoTop>
+              {/* TODO: Once AppView and the listeners in MainMap are cleaned up, we should be able to use relative links for PlaceInfoButton instead of backbone router, like so: */}
+              {/* href={`/${props.place.datasetSlug}/${props.place.id}`} */}
+              {/* rel="internal" */}
               <PlaceInfoButton
-                href={`/${props.place.datasetSlug}/${props.place.id}`}
-                rel="internal"
+                onClick={() => {
+                  props.router.navigate(
+                    `/${props.place.datasetSlug}/${props.place.id}`,
+                    { trigger: true },
+                  );
+                }}
               >
                 <Button color="primary" size="small" variant="raised">
                   View on Map
@@ -248,6 +255,7 @@ PlaceListItem.propTypes = {
     thumbnail: PropTypes.string,
   }),
   onLoad: PropTypes.func.isRequired,
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({

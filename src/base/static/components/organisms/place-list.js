@@ -139,7 +139,11 @@ class PlaceList extends React.Component {
         {/* measures the row height when the PlaceListItem's image has finished loading: */}
         {({ measure }) => (
           <div style={style} key={place.id}>
-            <PlaceListItem place={place} onLoad={measure} />
+            <PlaceListItem
+              place={place}
+              onLoad={measure}
+              router={this.props.router}
+            />
           </div>
         )}
       </CellMeasurer>
@@ -221,7 +225,7 @@ class PlaceList extends React.Component {
 PlaceList.propTypes = {
   places: PropTypes.array,
   t: PropTypes.func.isRequired,
-  router: PropTypes.object.isRequired,
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({
