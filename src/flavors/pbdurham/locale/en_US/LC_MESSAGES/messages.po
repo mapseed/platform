@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 11:30-0700\n"
+"POT-Creation-Date: 2018-10-31 14:31-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,8 +39,19 @@ msgid ""
 msgstr ""
 
 msgid ""
-"For more information on participatory budgeting in Durham, <a href=\"http://"
-"durhamnc.gov/3747/Participatory-Budgeting\" target=\"_blank\">Click here!</a>"
+"\"One-time projects\" are projects with one-time expenditures that address a "
+"community need. Projects can be built on City, Durham Housing Authority, and "
+"private land, upon donation. \"One-time projects\" may include physical "
+"infrastructure, technological improvements, and community enhancements. "
+"Examples of \"one-time projects\" include park improvements, computers for a "
+"community center, bus shelters, and bike-lanes. \"One-time projects\" may "
+"have some sort of associated operating cost. However, they do not require "
+"the City to hire additional staff."
+msgstr ""
+
+msgid ""
+"For more information on participatory budgeting in Durham, <a href=\"https://"
+"www.pbdurham.org\" target=\"_blank\">Click here!</a>"
 msgstr ""
 
 msgid ""
@@ -56,6 +67,24 @@ msgid "Participatory Budgeting for City of Durham"
 msgstr ""
 
 msgid "Enter an address..."
+msgstr ""
+
+msgid "Art & Culture"
+msgstr ""
+
+msgid "Parks & Recreation"
+msgstr ""
+
+msgid "Streets & Sidewalks"
+msgstr ""
+
+msgid "Health & Wellness"
+msgstr ""
+
+msgid "Safety & Environment"
+msgstr ""
+
+msgid "Other"
 msgstr ""
 
 msgid "Map Layers:"
@@ -132,25 +161,20 @@ msgstr ""
 msgid "Share my idea"
 msgstr ""
 
-msgid "Art & Culture"
-msgstr ""
-
 msgid "Title:"
 msgstr ""
 
 msgid "Choose a descriptive title for your idea"
 msgstr ""
 
-msgid ""
-"What is your idea for what should be built or repaired in our neighborhood?"
+msgid "What is your idea for what should be improved in your neighborhood?"
 msgstr ""
 
 msgid "My project idea is:"
 msgstr ""
 
 msgid ""
-"Ideas should be capital projects on city-owned property, and within a City "
-"Council Ward"
+"Ideas should be one-time project expenditures that address a community need"
 msgstr ""
 
 msgid "Why is this important? What need in the community does this serve?"
@@ -162,19 +186,8 @@ msgstr ""
 msgid "Let us know how your idea helps the City of Durham!"
 msgstr ""
 
-msgid "Parks & Recreation"
-msgstr ""
-
-msgid "Streets & Sidewalks"
-msgstr ""
-
-msgid "Health & Wellness"
-msgstr ""
-
-msgid "Safety & Environment"
-msgstr ""
-
-msgid "Other"
+msgid ""
+"What is your idea for what should be built or repaired in our neighborhood?"
 msgstr ""
 
 msgid "Image"
@@ -298,24 +311,17 @@ msgid "Project Idea Guidelines"
 msgstr ""
 
 msgid ""
-"Community members can generate initial project ideas at Neighborhood "
-"Assembly meetings and \"pop-up\" Participatory Budgeting events across town."
+"Residents and students of Durham age 13 and older can generate initial "
+"project ideas at idea collection assemblies, \"pop-up\" events, and online "
+"at <a href=\"https://www.pbdurham.org\" target=\"_blank\">pbdurham.org</a>."
 msgstr ""
 
-msgid "Eligible projects must:"
-msgstr ""
-
-msgid "Be identified within a City Council Ward."
-msgstr ""
-
-msgid ""
-"Be on City-owned property (<i>not on other government-owned property such as "
-"schools</i>)."
+msgid "Idea Collection is open from November 1st - December 21st."
 msgstr ""
 
 msgid ""
-"Be a capital improvement (<i>something that can be bought, built, or "
-"repaired</i>)."
+"To review all guidelines for the process please read the PB Rulebook (link "
+"to come)."
 msgstr ""
 
 msgid ""
