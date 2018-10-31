@@ -880,9 +880,10 @@ export default Backbone.View.extend({
 
     // Remove "main page" content:
     $("#geocode-address-bar").addClass("is-visuallyhidden");
-    ReactDOM.unmountComponentAtNode(
-      document.getElementById("geocode-address-bar"),
-    );
+    const geocodeAddressBar = document.getElementById("geocode-address-bar");
+    if (geocodeAddressBar) {
+      ReactDOM.unmountComponentAtNode(geocodeAddressBar);
+    }
     ReactDOM.unmountComponentAtNode(document.getElementById("map-component"));
 
     const contentNode = document.querySelector(
