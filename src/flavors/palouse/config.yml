@@ -140,6 +140,7 @@ map:
             - - "zoom"
             - 11 
           symbol-layout:
+            icon-anchor: "bottom"
             icon-image: "map-pin-marker-red.png"
             icon-size: 0.5
         - filter:
@@ -151,6 +152,7 @@ map:
               - - "zoom"
               - 16
           symbol-layout:
+            icon-anchor: "bottom"
             icon-imge: "map-pin-marker-red.png"
             icon-size: 0.6
         - filter:
@@ -158,6 +160,7 @@ map:
             - - "zoom"
             - 16
           symbol-layout:
+            icon-anchor: "bottom"
             icon-imge: "map-pin-marker-red.png"
             icon-size: 0.7
 
