@@ -153,7 +153,7 @@ map:
               - 16
           symbol-layout:
             icon-anchor: "bottom"
-            icon-imge: "map-pin-marker-red.png"
+            icon-image: "map-pin-marker-red.png"
             icon-size: 0.6
         - filter:
             - ">="
@@ -161,7 +161,7 @@ map:
             - 16
           symbol-layout:
             icon-anchor: "bottom"
-            icon-imge: "map-pin-marker-red.png"
+            icon-image: "map-pin-marker-red.png"
             icon-size: 0.7
 
 right_sidebar:
