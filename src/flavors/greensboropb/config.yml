@@ -714,8 +714,6 @@ place:
     # Perhaps this isn't always true?
     fields:
       - name: idea-what
-        image_name: my_image
-        # type: description-image
         type: description
       - name: idea-why
         type: description
