@@ -303,7 +303,7 @@ class MapDrawingToolbar extends Component {
                     constants.DRAW_DEFAULT_FILL_OPACITY,
                   [constants.LINE_COLOR_PROPERTY_NAME]:
                     constants.DRAW_DEFAULT_LINE_COLOR,
-                  [constants.LINE_COLOR_OPACITY_NAME]:
+                  [constants.LINE_OPACITY_PROPERTY_NAME]:
                     constants.DRAW_DEFAULT_LINE_OPACITY,
                 });
                 this.props.setActiveDrawingTool(null);
