@@ -186,6 +186,7 @@ class MainMap extends Component {
       this.listeners.push(
         emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
           this._map.drawDeleteGeometry();
+          this.props.setActiveDrawGeometryId(null);
           emitter.emit(constants.DRAW_UPDATE_GEOMETRY_EVENT, null);
         }),
       );
