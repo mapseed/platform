@@ -186,6 +186,7 @@ class MainMap extends Component {
       this.listeners.push(
         emitter.addListener(constants.DRAW_DELETE_GEOMETRY_EVENT, () => {
           this._map.drawDeleteGeometry();
+          emitter.emit(constants.DRAW_UPDATE_GEOMETRY_EVENT, null);
         }),
       );
 
@@ -213,12 +214,6 @@ class MainMap extends Component {
             constants.DRAW_UPDATE_GEOMETRY_EVENT,
             evt.features[0].geometry,
           );
-        },
-      });
-      this._map.on({
-        event: "draw.delete",
-        callback: () => {
-          emitter.emit(constants.DRAW_UPDATE_GEOMETRY_EVENT, null);
         },
       });
     }
