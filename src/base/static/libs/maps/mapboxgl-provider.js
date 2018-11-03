@@ -1028,7 +1028,11 @@ export default (container, options) => {
     },
 
     drawSetFeatureProperty: (id, property, value) => {
-      draw.setFeatureProperty(id, property, value);
+      // NOTE: This check is necessary due to a potential race condition due to
+      // mixed use of Redux state and event listeners in MainMap. Moving all of
+      // our map event listeners to Redux should resolve this issue.
+      // See: https://github.com/jalMogo/mgmt/issues/101
+      draw.get(id) && draw.setFeatureProperty(id, property, value);
       draw.set(draw.getAll());
     },
 

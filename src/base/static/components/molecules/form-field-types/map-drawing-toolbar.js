@@ -81,6 +81,16 @@ class MapDrawingToolbar extends Component {
   }
 
   render() {
+    const isCreateMarkerToolDisabled =
+      !!this.props.activeDrawingTool &&
+      this.props.activeDrawingTool !== constants.DRAW_CREATE_MARKER_TOOL;
+    const isCreatePolylineToolDisabled =
+      !!this.props.activeDrawingTool &&
+      this.props.activeDrawingTool !== constants.DRAW_CREATE_POLYLINE_TOOL;
+    const isCreatePolygonToolDisabled =
+      !!this.props.activeDrawingTool &&
+      this.props.activeDrawingTool !== constants.DRAW_CREATE_POLYGON_TOOL;
+
     return (
       <div className="map-drawing-toolbar">
         <Paragraph classes="map-drawing-toolbar__drawing-tools-header">
@@ -103,7 +113,8 @@ class MapDrawingToolbar extends Component {
               onClick={() => {
                 if (
                   this.props.activeDrawingTool ===
-                  constants.DRAW_CREATE_MARKER_TOOL
+                    constants.DRAW_CREATE_MARKER_TOOL ||
+                  isCreateMarkerToolDisabled
                 ) {
                   return;
                 }
@@ -128,7 +139,8 @@ class MapDrawingToolbar extends Component {
               onClick={() => {
                 if (
                   this.props.activeDrawingTool ===
-                  constants.DRAW_CREATE_POLYLINE_TOOL
+                    constants.DRAW_CREATE_POLYLINE_TOOL ||
+                  isCreatePolylineToolDisabled
                 ) {
                   return;
                 }
@@ -153,7 +165,8 @@ class MapDrawingToolbar extends Component {
               onClick={() => {
                 if (
                   this.props.activeDrawingTool ===
-                  constants.DRAW_CREATE_POLYGON_TOOL
+                    constants.DRAW_CREATE_POLYGON_TOOL ||
+                  isCreatePolygonToolDisabled
                 ) {
                   return;
                 }
@@ -303,7 +316,7 @@ class MapDrawingToolbar extends Component {
                     constants.DRAW_DEFAULT_FILL_OPACITY,
                   [constants.LINE_COLOR_PROPERTY_NAME]:
                     constants.DRAW_DEFAULT_LINE_COLOR,
-                  [constants.LINE_COLOR_OPACITY_NAME]:
+                  [constants.LINE_OPACITY_PROPERTY_NAME]:
                     constants.DRAW_DEFAULT_LINE_OPACITY,
                 });
                 this.props.setActiveDrawingTool(null);
