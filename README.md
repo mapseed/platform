@@ -76,6 +76,25 @@ NODE_ENV=production FLAVOR=<flavor> npm start
 
 By default, this will output all production files to a folder called `www` in the root of the project. This folder will contain all the assets required to deliver your map to users. Furthermore, the assets output to `www` will be entirely static, meaning they won't require a server to host, and can be made available via a static site hosting service such as AWS's S3.
 
+### Deployment
+
+To deploy to a website, run the following script:
+
+```
+npm run build-deploy
+```
+
+The appropriate env vars for `FLAVOR`, `MAPBOX_TOKEN` , `MAPQUEST_KEY`, `MAP_PROVIDER_TOKEN`, `API_ROOT`, `<flavor>_SITE_URL`, `<flavor>_GOOGLE_ANALYTICS_ID`, and `DEPLOY_DOMAIN` must be set in the `/src/.env` file.
+
+NOTE: If you are getting this error:
+
+>Error: getaddrinfo ENOTFOUND cloudfront.amazonaws.com cloudfront.amazonaws.com:443
+
+then you may need to turn off your VPN.
+
+NOTE: If the new bundle is not being served, then you may need to run a cache invalidation on your CDN.
+
+
 ### Using the Dev API
 
 By default, map flavors that you run locally will coneect to a hosted development API. However, if you want to host your own [Mapseed API backend](https://github.com/mapseed/api), either for testing or production purposes, it will be necessary to build your map flavors against a `.env` file with the necessary configuration information.
