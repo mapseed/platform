@@ -45,8 +45,9 @@ const verbose = true;
 
 const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
+const isProd = process.env.NODE_ENV === "production";
 
-if (process.env.NODE_ENV !== "production") {
+if (isProd) {
   // If we're building for development, this script runs before webpack so make
   // sure that the output directory is cleaned out.
   shell.rm("-rf", outputBasePath);
@@ -159,7 +160,7 @@ const flavorLocaleDir = path.resolve(flavorBasePath, "locale");
 const mergedPOFileOutputPath = path.resolve(outputBasePath, "messages.po");
 
 let activeLanguages;
-if (process.env.NODE_ENV == "production") {
+if (isProd) {
   activeLanguages = config.languages ? config.languages : [{ code: "en_US" }];
 } else {
   activeLanguages = [{ code: "en_US" }];
@@ -248,10 +249,7 @@ activeLanguages.forEach(language => {
   // <FLAVOR>_GOOGLE_ANALYTICS_ID
   // We only include analytics on production builds.
   let googleAnalyticsId = "";
-  if (
-    process.env.NODE_ENV === "production" &&
-    process.env[flavor.toUpperCase() + "_GOOGLE_ANALYTICS_ID"]
-  ) {
+  if (isProd && process.env[flavor.toUpperCase() + "_GOOGLE_ANALYTICS_ID"]) {
     log("Including Google Analytics for " + flavor);
     googleAnalyticsId =
       process.env[flavor.toUpperCase() + "_GOOGLE_ANALYTICS_ID"];
@@ -352,7 +350,7 @@ activeLanguages.forEach(language => {
 
   // Build the index-xx.html file for this language
   const outputIndexFile = indexTemplate({
-    production: process.env.NODE_ENV === "production" ? true : false,
+    production: isProd,
     jsHashedBundleName: jsHashedBundleName,
     cssHashedBundleName: cssHashedBundleName,
     config: thisConfig,
@@ -375,11 +373,12 @@ activeLanguages.forEach(language => {
     (language.code == "en_US" ? "index" : language.code) + ".html",
   );
 
-  if (process.env.NODE_ENV === "production") {
+  if (isProd) {
     try {
       fs.writeFileSync(outputIndexFilename, zlib.gzipSync(outputIndexFile));
     } catch (e) {
       logError("Error gzipping and outputting index file: " + e);
+      throw e;
     }
   } else {
     fs.writeFileSync(outputIndexFilename, outputIndexFile);

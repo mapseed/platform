@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
 const shell = require("shelljs");
@@ -16,7 +16,9 @@ if (!process.env.FLAVOR) {
   process.exit();
 }
 
-if (process.env.NODE_ENV === "production") {
+const isProd = process.env.NODE_ENV === "production";
+
+if (isProd) {
   // If we're building for production, webpack runs before
   // scripts/static-build.js, so make sure the output directory is cleaned out.
   const outputBasePath = path.resolve(__dirname, "www");
@@ -70,21 +72,19 @@ alias.config = path.resolve(
 );
 
 var outputBasePath = path.resolve(__dirname, "www");
-const extractSCSS = new ExtractTextPlugin(
-  process.env.NODE_ENV === "production"
-    ? "[contenthash].bundle.css"
-    : "bundle.css",
-);
-const theme = process.env.THEME ? process.env.THEME : "default-theme";
+const extractSCSS = new MiniCssExtractPlugin({
+  // Options similar to the same options in webpackOptions.output
+  // both options are optional
+  filename: isProd ? "[name].[hash].bundle.css" : "[name].bundle.css",
+  chunkFilename: isProd ? "[id].[hash].bundle.css" : "[id].bundle.css",
+});
 
 module.exports = {
+  mode: isProd ? "production" : "development",
   entry: entryPoints,
   output: {
     path: path.join(outputBasePath, "dist"),
-    filename:
-      process.env.NODE_ENV === "production"
-        ? "[chunkhash].bundle.js"
-        : "bundle.js",
+    filename: isProd ? "[chunkhash].bundle.js" : "bundle.js",
   },
   resolve: {
     alias: alias,
@@ -109,52 +109,50 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: extractSCSS.extract({
-          fallback: "style-loader",
-          use: [
-            {
-              loader: "css-loader?url=false",
+        use: [
+          isProd ? MiniCssExtractPlugin.loader : "style-loader",
+          "css-loader?url=false",
+          {
+            loader: "sass-loader",
+            options: {
+              includePaths: [
+                path.resolve(__dirname, "./node_modules/compass-mixins/lib"),
+                path.resolve(__dirname, "./src/base/static/stylesheets/util"),
+                path.resolve(
+                  __dirname,
+                  "./src/base/static/stylesheets/themes",
+                  "default-theme",
+                ),
+              ],
             },
-            {
-              loader: "sass-loader",
-              options: {
-                includePaths: [
-                  path.resolve(__dirname, "./node_modules/compass-mixins/lib"),
-                  path.resolve(__dirname, "./src/base/static/stylesheets/util"),
-                  path.resolve(
-                    __dirname,
-                    "./src/base/static/stylesheets/themes",
-                    theme,
-                  ),
-                ],
-              },
-            },
-          ],
-        }),
+          },
+        ],
       },
       {
         test: /config\.yml$/,
         use: ["json-loader", "config-loader", "json-loader", "yaml-loader"],
+      },
+      {
+        test: /\.svg$/,
+        loader: "svg-inline-loader",
       },
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
     ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV":
-        process.env.NODE_ENV === "production"
-          ? JSON.stringify("production")
-          : JSON.stringify("dev"),
+      "process.env.NODE_ENV": isProd
+        ? JSON.stringify("production")
+        : JSON.stringify("dev"),
       MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,
     new CompressionPlugin({
-      asset: "[path].gz[query]",
+      filename: "[path].gz[query]",
     }),
   ],
-  devtool:
-    process.env.NODE_ENV === "production" ? false : "cheap-eval-souce-map",
+  devtool: isProd ? false : "cheap-eval-souce-map",
   devServer: {
     contentBase: outputBasePath,
     historyApiFallback: {
