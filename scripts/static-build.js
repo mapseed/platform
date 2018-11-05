@@ -47,7 +47,7 @@ const outputBasePath = path.resolve(__dirname, "../www");
 const distPath = path.resolve(outputBasePath, "dist");
 const isProd = process.env.NODE_ENV === "production";
 
-if (isProd) {
+if (!isProd) {
   // If we're building for development, this script runs before webpack so make
   // sure that the output directory is cleaned out.
   shell.rm("-rf", outputBasePath);
