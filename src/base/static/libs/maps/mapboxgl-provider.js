@@ -433,21 +433,18 @@ export default (container, options) => {
     ];
   };
 
-  const createVectorTileLayer = async ({
-    id,
-    url,
-    style_url,
-    source_layer,
-  }) => {
+  const createVectorTileLayer = async ({ id, url, layers, source_layer }) => {
     sourcesCache[id] = {
       type: "vector",
       tiles: [url],
     };
     map.addSource(id, sourcesCache[id]);
 
-    const style = await VectorTileClient.fetchStyle(style_url);
+    layers = Array.isArray(layers)
+      ? layers
+      : await VectorTileClient.fetchLayers(layers);
 
-    layersCache[id] = style.layers.map(layer => {
+    layersCache[id] = layers.map(layer => {
       layer.source = id;
       layer["source-layer"] = source_layer;
       return layer;

@@ -1,7 +1,8 @@
 export default {
-  fetchStyle: async styleUrl => {
-    const response = await window.fetch(styleUrl);
+  fetchLayers: async layersUrl => {
+    const response = await window.fetch(layersUrl);
+    const responseJSON = await response.json();
 
-    return response.json();
+    return responseJSON.layers;
   },
 };
