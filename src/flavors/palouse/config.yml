@@ -58,8 +58,13 @@ map:
     - id: osm
       type: raster-tile
       is_basemap: true
-      is_visible_default: true
       url: https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png
+
+    - id: mapbox-light-style
+      type: mapbox-style
+      is_basemap: true
+      is_visible_default: true
+      url: mapbox://styles/tcroxson/cjo6be9u21c1t2rqwiwtcdryc
 
     - id: satellite
       type: raster-tile
@@ -121,20 +126,35 @@ map:
     - id: palouse-critical-aquifer
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/style.json
       source_layer: palouse-critical-aquifer
+      mapbox_layers:
+        - id: palouse-critical-squifer
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
 
     - id: palouse-critical-conservation-areas
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/style.json
       source_layer: palouse-critical-conservation-areas
+      mapbox_layers:
+        - id: palouse-critical-convervation-areas
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
 
     - id: palouse-frequently-flooded
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-frequently-flooded/style.json
       source_layer: palouse-frequently-flooded
+      mapbox_layers:
+        - id: palouse-frequently-flooded
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
 
     - id: palouse-huc-12
       type: vector-tile
@@ -145,8 +165,43 @@ map:
     - id: palouse-wetlands
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-wetlands/style.json
       source_layer: palouse-wetlands
+      mapbox_layers:
+        - id: palouse-wetlands
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
+
+    - id: palouse-geologic-hazard
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/palouse-geologic-hazard/{z}/{x}/{y}.pbf
+      source_layer: palouse-geologic-hazard
+      mapbox_layers:
+        - id: palouse-geologic-hazard
+          type: "fill"
+          filter:
+            - "=="
+            - - "get"
+              - "erosion_of"
+            - "Severe"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
+
+    - id: whitman-county-outline
+      type: vector-tile
+      url: https://vector-tiles.mapseed.org/whitman-county/{z}/{x}/{y}.pbf
+      source_layer: whitman-county
+      mapbox_layers:
+        - id: whitman-county-outline
+          type: line
+          paint:
+            "line-color": "#fff"
+            "line-width": 3
+            "line-dasharray":
+              - 4
+              - 2
 
     - id: palouse-input
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input
@@ -212,6 +267,8 @@ left_sidebar:
           layers:
             - id: osm
               title: _(OpenStreetMap)
+            - id: mapbox-light-style
+              title: _(Mapbox Light Style)
             - id: satellite
               title: _(Satellite View)
         - id: grp-water
@@ -235,9 +292,13 @@ left_sidebar:
               title: _(Subbasins)
             - id: palouse-wetlands
               title: _(Wetlands)
+            - id: palouse-geologic-hazard
+              title: _(Geologic Hazards)
         - id: grp-community
           title: _(Community Data)
           layers:
+            - id: whitman-county-outline
+              title: _(Whitman County border)
             - id: palouse-input
               title: _(Community Reports)
 
