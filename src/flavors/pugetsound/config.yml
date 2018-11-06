@@ -280,19 +280,19 @@ map:
     - id: shellfish-harvesting
       type: vector-tile
       url: https://vector-tiles.mapseed.org/shellfish-harvesting/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/shellfish-harvesting/style.json
+      style_url: https://vector-tiles.mapseed.org/shellfish-harvesting/style.json
       source_layer: harvesting-sites
 
     - id: chinook
       type: vector-tile
       url: https://vector-tiles.mapseed.org/chinook-habitat/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/chinook-habitat/style.json
+      style_url: https://vector-tiles.mapseed.org/chinook-habitat/style.json
       source_layer: chinook-habitat
 
     - id: critical-habitat
       type: vector-tile
       url: https://vector-tiles.mapseed.org/nearshore-critical-habitat/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/nearshore-critical-habitat/style.json
+      style_url: https://vector-tiles.mapseed.org/nearshore-critical-habitat/style.json
       source_layer: nearshore-critical-habitat
 
     - id: pugetsoundrose

@@ -433,25 +433,31 @@ export default (container, options) => {
     ];
   };
 
-  const createVectorTileLayer = async ({ id, url, layers, source_layer }) => {
+  const createVectorTileLayer = async ({
+    id,
+    url,
+    style_url,
+    mapbox_layers,
+    source_layer,
+  }) => {
     sourcesCache[id] = {
       type: "vector",
       tiles: [url],
     };
     map.addSource(id, sourcesCache[id]);
 
-    // If layers is an array, assume we have a config-based set of mapbox
-    // layers. Otherwise, assume we have a url to a remote-hosted mapbox
-    // stylesheet.
-    layers = Array.isArray(layers)
-      ? layers
-      : await VectorTileClient.fetchLayers(layers);
+    // If the config declares an array of mapbox_layers, use that for styling
+    // purposes. Otherwise, use the style_url to fetch a remote-hosted
+    // Mapbox stylesheet with layer styling information.
+    const mapboxLayers = mapbox_layers
+      ? mapbox_layers
+      : await VectorTileClient.fetchLayers(style_url);
 
-    layersCache[id] = layers.map(layer => {
-      layer.source = id;
-      layer["source-layer"] = source_layer;
-      return layer;
-    });
+    layersCache[id] = mapboxLayers.map(mapboxLayer => ({
+      ...mapboxLayer,
+      source: id,
+      ["source-layer"]: source_layer,
+    }));
   };
 
   // https://www.mapbox.com/mapbox-gl-js/example/wms/

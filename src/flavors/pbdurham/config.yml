@@ -72,31 +72,31 @@ map:
     - id: durham-bike-trails
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-bike-trails/{z}/{x}/{y}.pbf
-      layers: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bike-trails/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bike-trails/style.json
       source_layer: durham-bike-trails
 
     - id: durham-bus-routes
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-bus-routes/{z}/{x}/{y}.pbf
-      layers: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-routes/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-routes/style.json
       source_layer: durham-bus-routes
 
     - id: durham-bus-stops
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-bus-stops/{z}/{x}/{y}.pbf
-      layers: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-stops/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-bus-stops/style.json
       source_layer: durham-bus-stops
 
     - id: durham-libraries
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-libraries/{z}/{x}/{y}.pbf
-      layers: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-libraries/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-libraries/style.json
       source_layer: durham-libraries
 
     - id: durham-schools
       type: vector-tile
       url: https://vector-tiles.mapseed.org/durham-schools/{z}/{x}/{y}.pbf
-      layers: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-schools/style.json
+      style_url: https://s3-us-west-2.amazonaws.com/vector-tile-layers/durham-schools/style.json
       source_layer: durham-schools
 
     - id: durham-city-boundary

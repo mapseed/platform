@@ -484,14 +484,14 @@ map:
     - id: sample-vector-a
       type: vector-tile
       url: https://vector-tiles.mapseed.org/historical-duwamish/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/historical-duwamish/style.json
+      style_url: https://vector-tiles.mapseed.org/historical-duwamish/style.json
       source_layer: historical_river_pathgeojson
 
     - id: sample-vector-b
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf
       source_layer: palouse-critical-aquifer
-      layers:
+      mapbox_layers:
         - id: palouse-critical-aquifers
           type: fill
           paint:

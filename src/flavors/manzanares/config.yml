@@ -176,31 +176,31 @@ map:
     - id: transit
       type: vector-tile
       url: https://vector-tiles.mapseed.org/madrid-transit/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/madrid-transit/style.json
+      style_url: https://vector-tiles.mapseed.org/madrid-transit/style.json
       source_layer: madrid-transit
 
     - id: biking
       type: vector-tile
       url: https://vector-tiles.mapseed.org/madrid-bike-lanes/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/madrid-bike-lanes/style.json
+      style_url: https://vector-tiles.mapseed.org/madrid-bike-lanes/style.json
       source_layer: madrid-bike-lanes
 
     - id: zoning
       type: vector-tile
       url: https://vector-tiles.mapseed.org/madrid-zoning/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/madrid-zoning/style.json
+      style_url: https://vector-tiles.mapseed.org/madrid-zoning/style.json
       source_layer: madrid-zoning
 
     - id: heatwaves
       type: vector-tile
       url: https://vector-tiles.mapseed.org/madrid-heatwave/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/madrid-heatwave/style.json
+      style_url: https://vector-tiles.mapseed.org/madrid-heatwave/style.json
       source_layer: madrid-heatwave
 
     - id: huertos_urbanos
       type: vector-tile
       url: https://vector-tiles.mapseed.org/madrid-huertos-urbanos/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/madrid-huertos-urbanos/style.json
+      style_url: https://vector-tiles.mapseed.org/madrid-huertos-urbanos/style.json
       source_layer: madrid-huertos-urbanos
 
 left_sidebar:

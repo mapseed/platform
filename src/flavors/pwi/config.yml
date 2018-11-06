@@ -319,13 +319,13 @@ map:
     - id: watershed-puyallup
       type: vector-tile
       url: https://vector-tiles.mapseed.org/watershed-puyallup/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/watershed-puyallup/style.json
+      style_url: https://vector-tiles.mapseed.org/watershed-puyallup/style.json
       source_layer: watershed-puyallup
 
     - id: vacant-parcels
       type: vector-tile
       url: https://vector-tiles.mapseed.org/tacoma-vacant-parcels/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/tacoma-vacant-parcels/style.json
+      style_url: https://vector-tiles.mapseed.org/tacoma-vacant-parcels/style.json
       source_layer: tacoma-vacant-parcels
 
 left_sidebar:

@@ -121,31 +121,31 @@ map:
     - id: palouse-critical-aquifer
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/palouse-critical-aquifer/style.json
+      style_url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/style.json
       source_layer: palouse-critical-aquifer
 
     - id: palouse-critical-conservation-areas
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/style.json
+      style_url: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/style.json
       source_layer: palouse-critical-conservation-areas
 
     - id: palouse-frequently-flooded
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/palouse-frequently-flooded/style.json
+      style_url: https://vector-tiles.mapseed.org/palouse-frequently-flooded/style.json
       source_layer: palouse-frequently-flooded
 
     - id: palouse-huc-12
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-huc-12/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/palouse-huc-12/style.json
+      style_url: https://vector-tiles.mapseed.org/palouse-huc-12/style.json
       source_layer: palouse-huc-12
 
     - id: palouse-wetlands
       type: vector-tile
       url: https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf
-      layers: https://vector-tiles.mapseed.org/palouse-wetlands/style.json
+      style_url: https://vector-tiles.mapseed.org/palouse-wetlands/style.json
       source_layer: palouse-wetlands
 
     - id: palouse-input
