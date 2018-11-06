@@ -440,6 +440,9 @@ export default (container, options) => {
     };
     map.addSource(id, sourcesCache[id]);
 
+    // If layers is an array, assume we have a config-based set of mapbox
+    // layers. Otherwise, assume we have a url to a remote-hosted mapbox
+    // stylesheet.
     layers = Array.isArray(layers)
       ? layers
       : await VectorTileClient.fetchLayers(layers);
