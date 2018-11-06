@@ -437,6 +437,7 @@ export default (container, options) => {
     id,
     url,
     style_url,
+    mapbox_layers,
     source_layer,
   }) => {
     sourcesCache[id] = {
@@ -445,13 +446,18 @@ export default (container, options) => {
     };
     map.addSource(id, sourcesCache[id]);
 
-    const style = await VectorTileClient.fetchStyle(style_url);
+    // If the config declares an array of mapbox_layers, use that for styling
+    // purposes. Otherwise, use the style_url to fetch a remote-hosted
+    // Mapbox stylesheet with layer styling information.
+    const mapboxLayers = mapbox_layers
+      ? mapbox_layers
+      : await VectorTileClient.fetchLayers(style_url);
 
-    layersCache[id] = style.layers.map(layer => {
-      layer.source = id;
-      layer["source-layer"] = source_layer;
-      return layer;
-    });
+    layersCache[id] = mapboxLayers.map(mapboxLayer => ({
+      ...mapboxLayer,
+      source: id,
+      ["source-layer"]: source_layer,
+    }));
   };
 
   // https://www.mapbox.com/mapbox-gl-js/example/wms/
