@@ -95,7 +95,7 @@ const SupportHeartIcon = styled(HeartIcon)({
   marginLeft: "8px",
 });
 const SocialMediaButton = styled(IconButton)({
-  flex: "0 1",
+  flex: "1",
   marginLeft: "16px",
 });
 
