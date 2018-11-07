@@ -43,8 +43,10 @@ const ListViewContent = styled("div")({
   width: "100%",
 });
 
+const MAX_LIST_WIDTH = "1120px";
 const ListHeader = styled("div")({
-  margin: "8px 240px 24px 240px",
+  margin: "8px auto 24px auto",
+  maxWidth: MAX_LIST_WIDTH,
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
@@ -212,7 +214,7 @@ class PlaceList extends React.Component {
                 ref={this.setVirtualizedList}
                 height={height}
                 width={width}
-                style={{ padding: "0 240px" }}
+                containerStyle={{ margin: "0 auto", maxWidth: MAX_LIST_WIDTH }}
                 overscanRowCount={4}
                 noRowsRenderer={this._noRowsRenderer}
                 rowCount={this.state.places.length}
