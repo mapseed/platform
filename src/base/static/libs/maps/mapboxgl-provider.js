@@ -357,12 +357,12 @@ export default (container, options) => {
       .forEach(mapboxLayer => map.moveLayer(mapboxLayer.id));
   };
 
-  const addInternalLayers = (layerId, isBasemap) => {
+  const addMapboxLayers = (layerId, isBasemap) => {
     !map.getSource(layerId) && map.addSource(layerId, sourcesCache[layerId]);
-    layersCache[layerId].forEach(internalLayer => {
-      !map.getLayer(internalLayer.id) &&
+    layersCache[layerId].forEach(mapboxLayer => {
+      !map.getLayer(mapboxLayer.id) &&
         map.addLayer(
-          internalLayer,
+          mapboxLayer,
           isBasemap && map.getStyle().layers[0]
             ? // If we're adding a basemap, move it to the bottom of the layers
               // stack.
@@ -405,7 +405,7 @@ export default (container, options) => {
             layerStatus.isVisible && layerId !== layer.id,
         )
         .forEach(([layerId, layerStatus]) => {
-          addInternalLayers(layerId, layerStatus.isBasemap);
+          addMapboxLayers(layerId, layerStatus.isBasemap);
         });
 
       floatSymbolLayersToTop();
@@ -422,7 +422,6 @@ export default (container, options) => {
       tileSize: 256,
       scheme: scheme,
     };
-    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -444,7 +443,6 @@ export default (container, options) => {
       type: "vector",
       tiles: [url],
     };
-    map.addSource(id, sourcesCache[id]);
 
     // If the config declares an array of mapbox_layers, use that for styling
     // purposes. Otherwise, use the style_url to fetch a remote-hosted
@@ -494,7 +492,6 @@ export default (container, options) => {
       tiles: [requestUrl],
       tileSize: 256,
     };
-    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -539,7 +536,6 @@ export default (container, options) => {
       tiles: [requestUrl],
       tileSize: 256,
     };
-    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -568,8 +564,6 @@ export default (container, options) => {
       clusterRadius: cluster.cluster_radius || 50,
       clusterMaxZoom: cluster.cluster_max_zoom || 14,
     };
-
-    map.addSource(id, sourcesCache[id]);
 
     rules = rules
       .map(rule => ({
@@ -1142,7 +1136,7 @@ export default (container, options) => {
           Object.entries(layerStatuses)
             .filter(([layerId, layerStatus]) => layerStatus.isVisible)
             .forEach(([layerId, layerStatus]) => {
-              addInternalLayers(layerId, layerStatus.isBasemap);
+              addMapboxLayers(layerId, layerStatus.isBasemap);
             });
 
           floatSymbolLayersToTop();
@@ -1153,8 +1147,17 @@ export default (container, options) => {
           diff: false,
         });
       } else {
-        addInternalLayers(layer.id, isBasemap);
-        floatSymbolLayersToTop();
+        // These map.style._loaded checks prevent an issue where layers are
+        // added to a style before it's ready. This can occur when a Mapbox
+        // style is the default visible basemap and other layers are also
+        // visible by default. In this case the addMapboxStyle() method above
+        // assumes responsibility for adding other default visible layers to
+        // the map, after the Mapbox style has finished loading.
+        // NOTE: We're using map.style._loaded here instead of the map.loaded()
+        // method because map.loaded() seems to produce unreliable results.
+        // See: https://github.com/mapbox/mapbox-gl-js/issues/6707
+        map.style._loaded && addMapboxLayers(layer.id, isBasemap);
+        map.style._loaded && floatSymbolLayersToTop();
       }
 
       // Ensure that the layer designated topmost is moved to the top of the
@@ -1172,8 +1175,8 @@ export default (container, options) => {
     removeLayer: layer => {
       layer &&
         layersCache[layer.id] &&
-        layersCache[layer.id].forEach(internalLayer => {
-          !!map.getLayer(internalLayer.id) && map.removeLayer(internalLayer.id);
+        layersCache[layer.id].forEach(mapboxLayer => {
+          !!map.getLayer(mapboxLayer.id) && map.removeLayer(mapboxLayer.id);
         });
     },
 
