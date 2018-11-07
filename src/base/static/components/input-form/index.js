@@ -20,6 +20,7 @@ import { getCategoryConfig } from "../../utils/config-utils";
 import { mapPositionSelector } from "../../state/ducks/map";
 import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
+import { createPlace } from "../../state/ducks/places";
 import {
   activeMarkerSelector,
   geometryStyleSelector,
@@ -267,6 +268,7 @@ class InputForm extends Component {
           constants.PLACE_COLLECTION_ADD_PLACE_EVENT,
           this.selectedCategoryConfig.dataset,
         );
+        this.props.createPlace(response.toJSON());
 
         // Save autofill values as necessary.
         // TODO: This logic is better suited for the FormField component,
@@ -455,6 +457,7 @@ InputForm.propTypes = {
     PropTypes.bool,
   ]),
   container: PropTypes.instanceOf(HTMLElement),
+  createPlace: PropTypes.func.isRequired,
   geometryStyle: geometryStyleProps,
   hideCenterPoint: PropTypes.func.isRequired,
   hideSpotlightMask: PropTypes.func.isRequired,
@@ -487,6 +490,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setActiveDrawingTool: activeDrawingTool =>
     dispatch(setActiveDrawingTool(activeDrawingTool)),
+  createPlace: place => dispatch(createPlace(place)),
 });
 
 // Export undecorated component for testing purposes.
