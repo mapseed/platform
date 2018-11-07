@@ -62,6 +62,7 @@ const CommentsText = styled(props => (
 const PlaceInfoButton = styled(Link)({
   alignItems: "end",
   marginTop: "16px",
+  whiteSpace: "nowrap",
 });
 
 const PlaceContent = styled("div")({
@@ -183,7 +184,7 @@ const PlaceListItem = props => {
                   }}
                 >
                   <Button color="primary" size="small" variant="raised">
-                    {props.t("viewOnMap")}
+                    <SmallText>{props.t("viewOnMap")}</SmallText>
                   </Button>
                 </PlaceInfoButton>
               </PlaceInfoContainer>

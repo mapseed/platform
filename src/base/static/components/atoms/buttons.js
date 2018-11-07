@@ -127,7 +127,7 @@ const Button = styled(props => {
     styles.width = "200px";
     styles.height = "40px";
   } else if (props.size === "small") {
-    styles.width = "96px";
+    styles.width = "auto";
     styles.height = "24px";
     styles.fontSize = ".8em";
     styles.padding = "4px";
