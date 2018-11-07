@@ -127,7 +127,9 @@ const PlaceField = ({ field, place, placeFieldConfig }) => {
         {!!placeFieldConfig.display_prompt && (
           <PlaceFieldTitle>{placeFieldConfig.display_prompt}</PlaceFieldTitle>
         )}
-        <PlaceFieldText>{place[field.name]}</PlaceFieldText>
+        <p>
+          <PlaceFieldText>{place[field.name]}</PlaceFieldText>
+        </p>
       </React.Fragment>
     );
   } else {
