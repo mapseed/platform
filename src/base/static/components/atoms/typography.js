@@ -142,6 +142,7 @@ RegularLabel.propTypes = {
 
 // Text atoms:
 const textHandler = (props, styles) => {
+  styles.fontFamily = props.theme.text.bodyFontFamily;
   switch (props.weight) {
     case "bold":
       styles.fontWeight = 600;

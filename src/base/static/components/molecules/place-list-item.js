@@ -51,19 +51,13 @@ const AvatarContainer = styled("div")({
 const PlaceInfoContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
-});
-const PlaceInfoTop = styled("div")({
-  alignItems: "start",
-  display: "flex",
-  flexDirection: "column",
 });
 const CommentsText = styled(props => (
   <SmallText textTransform="uppercase" className={props.className}>
     {props.children}
   </SmallText>
 ))({
-  marginTop: "16px",
+  marginTop: "8px",
 });
 const PlaceInfoButton = styled(Link)({
   alignItems: "end",
@@ -169,16 +163,14 @@ const PlaceListItem = props => {
                 <UserAvatar size="large" />
               </AvatarContainer>
               <PlaceInfoContainer>
-                <PlaceInfoTop>
-                  <RegularText>
-                    <b>{submitterName}</b>
-                    {` ${props.placeConfig.action_text} ${props.t("this")} `}
-                    <b>{placeDetailConfig.label}</b>
-                  </RegularText>
-                  <CommentsText>{`${numberOfComments} ${props.t("comment")}${
-                    numberOfComments === 1 ? "" : "s"
-                  }`}</CommentsText>
-                </PlaceInfoTop>
+                <RegularText>
+                  <b>{submitterName}</b>
+                  {` ${props.placeConfig.action_text} ${props.t("this")} `}
+                  <b>{placeDetailConfig.label}</b>
+                </RegularText>
+                <CommentsText>{`${numberOfComments} ${props.t("comment")}${
+                  numberOfComments === 1 ? "" : "s"
+                }`}</CommentsText>
                 {/* TODO: Once AppView and the listeners in MainMap are cleaned up, we should be able to use relative links for PlaceInfoButton instead of backbone router, like so: */}
                 {/* href={`/${props.place.datasetSlug}/${props.place.id}`} */}
                 {/* rel="internal" */}

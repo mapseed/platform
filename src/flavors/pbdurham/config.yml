@@ -22,7 +22,7 @@ app:
       secondary: "#c3b9c7"
     text:
       headerFontFamily: "Josefin Sans"
-      bodyFontFamily: "Montserrat"
+      bodyFontFamily: "Josefin Sans"
 
 languages:
   - code: en_US
