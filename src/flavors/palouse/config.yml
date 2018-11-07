@@ -37,14 +37,13 @@ map:
   geolocation_enabled: true
   geolocation_onload: false
   geocoding_engine: Mapbox
-  # Pullman, WA:
-  geocode_hint: [-117.1889785, 46.7298657] 
+  geocode_hint: [-117.1889785, 46.7298657] # Pullman, WA
 
   options:
     map:
       center:
-        lat: 47.04579711504287
-        lng: -117.46582031249999
+        lat: 46.855999488224484
+        lng: -117.51842014278026
       zoom: 8
       pitch: 40
       minZoom: 1
@@ -58,8 +57,13 @@ map:
     - id: osm
       type: raster-tile
       is_basemap: true
-      is_visible_default: true
       url: https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png
+
+    - id: mapbox-light-style
+      type: mapbox-style
+      is_basemap: true
+      is_visible_default: true
+      url: mapbox://styles/tcroxson/cjo6be9u21c1t2rqwiwtcdryc
 
     - id: satellite
       type: raster-tile
@@ -111,7 +115,6 @@ map:
 
     - id: palouse-basin-streams
       type: json
-      is_visible_default: true
       source: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson
       rules:
         - line-paint:
@@ -120,21 +123,39 @@ map:
 
     - id: palouse-critical-aquifer
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/style.json
       source_layer: palouse-critical-aquifer
+      mapbox_layers:
+        - id: palouse-critical-squifer
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
 
     - id: palouse-critical-conservation-areas
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/style.json
       source_layer: palouse-critical-conservation-areas
+      mapbox_layers:
+        - id: palouse-critical-convervation-areas
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
 
     - id: palouse-frequently-flooded
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-frequently-flooded/style.json
       source_layer: palouse-frequently-flooded
+      mapbox_layers:
+        - id: palouse-frequently-flooded
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
 
     - id: palouse-huc-12
       type: vector-tile
@@ -144,9 +165,47 @@ map:
 
     - id: palouse-wetlands
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf
-      style_url: https://vector-tiles.mapseed.org/palouse-wetlands/style.json
       source_layer: palouse-wetlands
+      mapbox_layers:
+        - id: palouse-wetlands
+          type: "fill"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
+
+    - id: palouse-geologic-hazard
+      type: vector-tile
+      is_visible_default: true
+      url: https://vector-tiles.mapseed.org/palouse-geologic-hazard/{z}/{x}/{y}.pbf
+      source_layer: palouse-geologic-hazard
+      mapbox_layers:
+        - id: palouse-geologic-hazard
+          type: "fill"
+          filter:
+            - "=="
+            - - "get"
+              - "erosion_of"
+            - "Severe"
+          paint:
+            "fill-color": "#ff1a1a"
+            "fill-opacity": 0.7
+
+    - id: whitman-county-outline
+      type: vector-tile
+      is_visible_default: true
+      url: https://vector-tiles.mapseed.org/whitman-county/{z}/{x}/{y}.pbf
+      source_layer: whitman-county
+      mapbox_layers:
+        - id: whitman-county-outline
+          type: line
+          paint:
+            "line-color": "#fff"
+            "line-width": 3
+            "line-dasharray":
+              - 4
+              - 2
 
     - id: palouse-input
       url: https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/palouse-input
@@ -212,6 +271,8 @@ left_sidebar:
           layers:
             - id: osm
               title: _(OpenStreetMap)
+            - id: mapbox-light-style
+              title: _(Mapbox Light Style)
             - id: satellite
               title: _(Satellite View)
         - id: grp-water
@@ -235,9 +296,13 @@ left_sidebar:
               title: _(Subbasins)
             - id: palouse-wetlands
               title: _(Wetlands)
+            - id: palouse-geologic-hazard
+              title: _(Geologic Hazards)
         - id: grp-community
           title: _(Community Data)
           layers:
+            - id: whitman-county-outline
+              title: _(Whitman County border)
             - id: palouse-input
               title: _(Community Reports)
 
