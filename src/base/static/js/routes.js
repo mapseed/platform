@@ -16,8 +16,9 @@ Shareabouts.Util = Util;
       ":dataset/:id": "viewPlace",
       new: "newPlace",
       ":dataset/:id/response/:response_id": "viewPlace",
-      list: "showList",
+      list: "viewList",
       ":zoom/:lat/:lng": "viewMap",
+      ":custom": "viewMap", // workaround to handle routes like "/es.html" or "/en_US.html"
     },
 
     initialize: function(options) {
@@ -150,9 +151,9 @@ Shareabouts.Util = Util;
       this.appView.viewPage(slug);
     },
 
-    showList: function() {
+    viewList: function() {
       this.recordGoogleAnalyticsHit("/list");
-      this.appView.showListView();
+      this.appView.viewList();
     },
 
     isMapRoute: function(fragment) {

@@ -29,10 +29,7 @@ class StoryNavigator extends Component {
     };
   }
 
-  async componentDidMount() {
-    // TODO(luke): When AppView is ported to a react component, await
-    // the place collections to load in the App component:
-    await this.props.placeCollectionsPromise;
+  componentDidMount() {
     try {
       // TODO(luke): implement hydrateStoriesFromConfig here
       const stories = hydrateStoriesFromConfig({
@@ -167,8 +164,7 @@ StoryNavigator.propTypes = {
   mapConfig: PropTypes.object.isRequired,
 
   places: PropTypes.object.isRequired,
-  placeCollectionsPromise: PropTypes.object.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router),
+  router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
 

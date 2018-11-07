@@ -86,7 +86,6 @@ const IconButton = styled(props => {
 
 // Influenced by the material-ui api:
 // https://material-ui.com/api/button/
-// NOTE: we may want to consider using material-ui instead
 const Button = styled(props => {
   return (
     <button
@@ -100,27 +99,44 @@ const Button = styled(props => {
   );
 })(props => {
   const styles = {
-    border: "0px solid rgba(27,31,35,0.2)",
     cursor: "pointer",
     color: props.theme.text.primary,
     backgroundColor: props.theme.bg.default,
     textTransform: props.theme.text.textTransform,
     outline: "none",
 
-    padding: props.large ? "0.5em 0.75em 0.5em 0.75em" : "0.5em",
-    fontSize: props.large ? "1.25em" : "1em",
-    fontWeight: props.large ? "600" : "200",
+    fontSize: "1rem",
+    padding: "0.5rem",
+
+    fontFamily: props.theme.text.headerFontFamily,
+    fontWeight: "200",
+
+    border: "0px solid rgba(27,31,35,0.2)",
+    borderRadius: "3px",
 
     "&:hover": {
       color: props.theme.bg.light,
     },
   };
 
+  if (props.size === "large") {
+    styles.fontWeight = "600";
+    styles.fontSize = "1.25rem";
+    styles.padding = "0.5rem 0.75rem 0.5rem 0.75rem";
+  } else if (props.size === "medium") {
+    styles.width = "200px";
+    styles.height = "40px";
+  } else if (props.size === "small") {
+    styles.width = "auto";
+    styles.height = "24px";
+    styles.fontSize = ".8em";
+    styles.padding = "4px";
+  }
+
   if (props.variant === "raised") {
     styles.boxShadow = "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)";
-  } else if (props.variant === "rounded") {
-    styles.borderRadius = "3px";
-    styles.border = "3px solid rgba(0, 0, 0, 0.05)";
+  } else if (props.variant === "outlined") {
+    styles.border = `3px solid ${props.theme.brand.primary}`;
   }
 
   if (props.color === "primary") {
@@ -134,8 +150,21 @@ const Button = styled(props => {
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
     styles.backgroundColor = "#fff";
-    styles.color = props.theme.text.secondary;
+    styles.color = props.theme.brand.primary;
     styles["&:hover"].color = props.theme.text.primary;
+    styles["&:hover"].backgroundColor = props.theme.text.secondary;
+    styles["&:hover"].textDecoration = "none";
+  } else if (props.color === "black") {
+    styles.backgroundColor = "#fff";
+    styles.color = "black";
+    styles["&:hover"].color = "grey";
+    styles["&:hover"].backgroundColor = "#fff";
+    styles["&:hover"].textDecoration = "none";
+  } else if (props.color === "grey") {
+    styles.backgroundColor = "#fff";
+    styles.color = "grey";
+    styles["&:hover"].color = "black";
+    styles["&:hover"].backgroundColor = "#fff";
     styles["&:hover"].textDecoration = "none";
   }
 

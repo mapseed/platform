@@ -18,6 +18,7 @@ WarningMessage.propTypes = {
   style: PropTypes.object,
 };
 
+// Legacy Text:
 const Paragraph = ({ children, ...props }) => {
   return (
     <p className={classNames("mapseed__paragraph", props.classes)} {...props}>
@@ -31,6 +32,7 @@ Paragraph.propTypes = {
   classes: PropTypes.string,
 };
 
+// Legacy Titles:
 const Header1 = ({ children, ...props }) => {
   return (
     <h1 className={classNames("mapseed__header1", props.classes)} {...props}>
@@ -109,6 +111,21 @@ Header6.propTypes = {
   classes: PropTypes.string,
 };
 
+// Title atoms:
+const LargeTitle = styled("h1")(props => ({
+  fontSize: "3rem",
+  fontFamily: props.theme.text.headerFontFamily,
+}));
+
+const RegularTitle = styled("h2")(props => ({
+  fontSize: "2rem",
+  fontFamily: props.theme.text.headerFontFamily,
+}));
+const SmallTitle = styled("h3")(props => ({
+  fontSize: "1.5rem",
+  fontFamily: props.theme.text.headerFontFamily,
+}));
+
 // TODO: Other label types.
 const RegularLabel = styled("label")(
   props => (
@@ -123,13 +140,9 @@ RegularLabel.propTypes = {
   styles: PropTypes.object,
 };
 
-// TODO: Other text types.
-const SmallText = styled("span")(props => {
-  const styles = {
-    fontSize: "0.875em",
-    fontWeight: "normal",
-  };
-
+// Text atoms:
+const textHandler = (props, styles) => {
+  styles.fontFamily = props.theme.text.bodyFontFamily;
   switch (props.weight) {
     case "bold":
       styles.fontWeight = 600;
@@ -139,7 +152,46 @@ const SmallText = styled("span")(props => {
       break;
   }
 
+  if (props.noWrap) {
+    styles.whiteSpace = "nowrap";
+  }
+
+  if (props.textTransform === "uppercase") {
+    styles.textTransform = "uppercase";
+  }
+
   return styles;
+};
+const LargeText = styled("span")(props => {
+  const styles = {
+    fontSize: "1.5rem",
+  };
+  return textHandler(props, styles);
+});
+
+const RegularText = styled("span")(props => {
+  const styles = {
+    fontSize: "1rem",
+  };
+  return textHandler(props, styles);
+});
+
+const SmallText = styled("span")(props => {
+  const styles = {
+    fontSize: "0.75rem",
+    fontWeight: "normal",
+  };
+
+  return textHandler(props, styles);
+});
+
+const MicroText = styled("span")(props => {
+  const styles = {
+    fontSize: "0.6rem",
+    fontWeight: "normal",
+  };
+
+  return textHandler(props, styles);
 });
 
 const Link = styled("a")(props => ({
@@ -160,7 +212,6 @@ Link.propTypes = {
 };
 
 export {
-  SmallText,
   Link,
   WarningMessage,
   Paragraph,
@@ -171,4 +222,11 @@ export {
   Header5,
   Header6,
   RegularLabel,
+  LargeTitle,
+  RegularTitle,
+  SmallTitle,
+  LargeText,
+  RegularText,
+  SmallText,
+  MicroText,
 };
