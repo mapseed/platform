@@ -168,7 +168,7 @@ class PlaceList extends React.Component {
           <ListHeader>
             <SearchContainer>
               <TextInput
-                placeholder="Search..."
+                placeholder={`${this.props.t("search")}...`}
                 color="accent"
                 onKeyPress={evt => {
                   if (evt.key === "Enter") {
@@ -184,7 +184,7 @@ class PlaceList extends React.Component {
                 onClick={this._setSortAndFilterPlaces}
                 variant="raised"
               >
-                Search
+                {this.props.t("search")}
               </SearchButton>
             </SearchContainer>
             <ButtonContainer>
@@ -192,19 +192,19 @@ class PlaceList extends React.Component {
                 isActive={this.state.sortBy === "dates"}
                 onClick={() => this.setState({ sortBy: "dates" })}
               >
-                Most Recent
+                {this.props.t("mostRecent")}
               </SortButton>
               <SortButton
                 isActive={this.state.sortBy === "supports"}
                 onClick={() => this.setState({ sortBy: "supports" })}
               >
-                Most Supports
+                {this.props.t("mostSupports")}
               </SortButton>
               <SortButton
                 isActive={this.state.sortBy === "comments"}
                 onClick={() => this.setState({ sortBy: "comments" })}
               >
-                Most Comments
+                {this.props.t("mostComments")}
               </SortButton>
             </ButtonContainer>
           </ListHeader>

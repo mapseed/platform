@@ -92,7 +92,7 @@ const SupportText = styled(props => (
   marginBottom: "16px",
 });
 const SupportHeartIcon = styled(HeartIcon)({
-  marginLeft: "8px",
+  marginRight: "4px",
 });
 const SocialMediaButton = styled(IconButton)({
   flex: "1",
@@ -172,10 +172,10 @@ const PlaceListItem = props => {
                 <PlaceInfoTop>
                   <RegularText>
                     <b>{submitterName}</b>
-                    {` ${props.placeConfig.action_text} this `}
+                    {` ${props.placeConfig.action_text} ${props.t("this")} `}
                     <b>{placeDetailConfig.label}</b>
                   </RegularText>
-                  <CommentsText>{`${numberOfComments} comment${
+                  <CommentsText>{`${numberOfComments} ${props.t("comment")}${
                     numberOfComments === 1 ? "" : "s"
                   }`}</CommentsText>
                 </PlaceInfoTop>
@@ -191,7 +191,7 @@ const PlaceListItem = props => {
                   }}
                 >
                   <Button color="primary" size="small" variant="raised">
-                    View on Map
+                    {props.t("viewOnMap")}
                   </Button>
                 </PlaceInfoButton>
               </PlaceInfoContainer>
@@ -229,8 +229,8 @@ const PlaceListItem = props => {
         </PlaceLeftContainer>
         <PlaceRightContainer>
           <SupportText noWrap={true} textTransform="uppercase">
-            {`${numberOfSupports} ${props.supportConfig.action_text} this `}
             <SupportHeartIcon />
+            {`${numberOfSupports} ${props.t("supportThis")}`}
           </SupportText>
           <PlaceSocialContainer>
             <SocialMediaButton
