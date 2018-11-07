@@ -116,7 +116,6 @@ map:
 
     - id: palouse-basin-streams
       type: json
-      is_visible_default: true
       source: https://s3-us-west-2.amazonaws.com/assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson
       rules:
         - line-paint:
@@ -125,6 +124,7 @@ map:
 
     - id: palouse-critical-aquifer
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-critical-aquifer/{z}/{x}/{y}.pbf
       source_layer: palouse-critical-aquifer
       mapbox_layers:
@@ -136,6 +136,7 @@ map:
 
     - id: palouse-critical-conservation-areas
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-critical-conservation-areas/{z}/{x}/{y}.pbf
       source_layer: palouse-critical-conservation-areas
       mapbox_layers:
@@ -147,6 +148,7 @@ map:
 
     - id: palouse-frequently-flooded
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-frequently-flooded/{z}/{x}/{y}.pbf
       source_layer: palouse-frequently-flooded
       mapbox_layers:
@@ -164,6 +166,7 @@ map:
 
     - id: palouse-wetlands
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-wetlands/{z}/{x}/{y}.pbf
       source_layer: palouse-wetlands
       mapbox_layers:
@@ -175,6 +178,7 @@ map:
 
     - id: palouse-geologic-hazard
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/palouse-geologic-hazard/{z}/{x}/{y}.pbf
       source_layer: palouse-geologic-hazard
       mapbox_layers:
@@ -191,6 +195,7 @@ map:
 
     - id: whitman-county-outline
       type: vector-tile
+      is_visible_default: true
       url: https://vector-tiles.mapseed.org/whitman-county/{z}/{x}/{y}.pbf
       source_layer: whitman-county
       mapbox_layers:
