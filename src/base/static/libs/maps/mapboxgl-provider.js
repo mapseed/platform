@@ -1147,14 +1147,17 @@ export default (container, options) => {
           diff: false,
         });
       } else {
-        // These isStyleLoaded() checks prevent an issue where layers are added
-        // to a style before it's ready. This can occur when a Mapbox style is
-        // the default visible basemap and other layers are also visible by
-        // default. In this case the addMapboxStyle() method above assumes
-        // responsibility for adding other default visible layers to the map,
-        // after the Mapbox style has finished loading.
-        map.isStyleLoaded() && addMapboxLayers(layer.id, isBasemap);
-        map.isStyleLoaded() && floatSymbolLayersToTop();
+        // These map.style._loaded checks prevent an issue where layers are
+        // added to a style before it's ready. This can occur when a Mapbox
+        // style is the default visible basemap and other layers are also
+        // visible by default. In this case the addMapboxStyle() method above
+        // assumes responsibility for adding other default visible layers to
+        // the map, after the Mapbox style has finished loading.
+        // NOTE: We're using map.style._loaded here instead of the map.loaded()
+        // method because map.loaded() seems to produce unreliable results.
+        // See: https://github.com/mapbox/mapbox-gl-js/issues/6707
+        map.style._loaded && addMapboxLayers(layer.id, isBasemap);
+        map.style._loaded && floatSymbolLayersToTop();
       }
 
       // Ensure that the layer designated topmost is moved to the top of the
