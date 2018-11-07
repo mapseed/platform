@@ -422,7 +422,6 @@ export default (container, options) => {
       tileSize: 256,
       scheme: scheme,
     };
-    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -444,7 +443,6 @@ export default (container, options) => {
       type: "vector",
       tiles: [url],
     };
-    map.addSource(id, sourcesCache[id]);
 
     // If the config declares an array of mapbox_layers, use that for styling
     // purposes. Otherwise, use the style_url to fetch a remote-hosted
@@ -494,7 +492,6 @@ export default (container, options) => {
       tiles: [requestUrl],
       tileSize: 256,
     };
-    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -539,7 +536,6 @@ export default (container, options) => {
       tiles: [requestUrl],
       tileSize: 256,
     };
-    map.addSource(id, sourcesCache[id]);
 
     layersCache[id] = [
       {
@@ -568,8 +564,6 @@ export default (container, options) => {
       clusterRadius: cluster.cluster_radius || 50,
       clusterMaxZoom: cluster.cluster_max_zoom || 14,
     };
-
-    map.addSource(id, sourcesCache[id]);
 
     rules = rules
       .map(rule => ({
@@ -1153,8 +1147,14 @@ export default (container, options) => {
           diff: false,
         });
       } else {
-        addInternalLayers(layer.id, isBasemap);
-        floatSymbolLayersToTop();
+        // These isStyleLoaded() checks prevent an issue where layers are added
+        // to a style before it's ready. This can occur when a Mapbox style is
+        // the default visible basemap and other layers are also visible by
+        // default. In this case the addMapboxStyle() method above assumes
+        // responsibility for adding other default visible layers to the map,
+        // after the Mapbox style has finished loading.
+        map.isStyleLoaded() && addInternalLayers(layer.id, isBasemap);
+        map.isStyleLoaded() && floatSymbolLayersToTop();
       }
 
       // Ensure that the layer designated topmost is moved to the top of the
