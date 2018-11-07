@@ -18,6 +18,7 @@ Shareabouts.Util = Util;
       ":dataset/:id/response/:response_id": "viewPlace",
       list: "viewList",
       ":zoom/:lat/:lng": "viewMap",
+      ":custom": "viewMap", // workaround to handle routes like "/es.html" or "/en_US.html"
     },
 
     initialize: function(options) {
