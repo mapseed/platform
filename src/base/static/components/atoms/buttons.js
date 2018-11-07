@@ -106,10 +106,11 @@ const Button = styled(props => {
     textTransform: props.theme.text.textTransform,
     outline: "none",
 
-    padding: props.large ? "0.5em 0.75em 0.5em 0.75em" : "0.5em",
-    fontSize: props.large ? "1.25em" : "1em",
+    fontSize: "1rem",
+    padding: "0.5rem",
+
     fontFamily: props.theme.text.headerFontFamily,
-    fontWeight: props.large ? "600" : "200",
+    fontWeight: "200",
 
     border: "0px solid rgba(27,31,35,0.2)",
     borderRadius: "3px",
@@ -119,14 +120,18 @@ const Button = styled(props => {
     },
   };
 
-  if (props.size === "medium") {
+  if (props.size === "large") {
+    styles.fontWeight = "600";
+    styles.fontSize = "1.25rem";
+    styles.padding = "0.5rem 0.75rem 0.5rem 0.75rem";
+  } else if (props.size === "medium") {
     styles.width = "200px";
     styles.height = "40px";
-    styles.fontSize = "1em";
   } else if (props.size === "small") {
     styles.width = "140px";
     styles.height = "24px";
     styles.fontSize = ".8em";
+    styles.padding = "0";
   }
 
   if (props.variant === "raised") {
@@ -149,6 +154,18 @@ const Button = styled(props => {
     styles.color = props.theme.brand.primary;
     styles["&:hover"].color = props.theme.text.primary;
     styles["&:hover"].backgroundColor = props.theme.text.secondary;
+    styles["&:hover"].textDecoration = "none";
+  } else if (props.color === "black") {
+    styles.backgroundColor = "#fff";
+    styles.color = "black";
+    styles["&:hover"].color = "grey";
+    styles["&:hover"].backgroundColor = "#fff";
+    styles["&:hover"].textDecoration = "none";
+  } else if (props.color === "grey") {
+    styles.backgroundColor = "#fff";
+    styles.color = "grey";
+    styles["&:hover"].color = "black";
+    styles["&:hover"].backgroundColor = "#fff";
     styles["&:hover"].textDecoration = "none";
   }
 

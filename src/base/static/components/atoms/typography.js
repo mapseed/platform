@@ -112,16 +112,19 @@ Header6.propTypes = {
 };
 
 // Title atoms:
-const LargeTitle = styled("h1")({
+const LargeTitle = styled("h1")(props => ({
   fontSize: "3rem",
-});
+  fontFamily: props.theme.text.headerFontFamily,
+}));
 
-const RegularTitle = styled("h2")({
+const RegularTitle = styled("h2")(props => ({
   fontSize: "2rem",
-});
-const SmallTitle = styled("h3")({
+  fontFamily: props.theme.text.headerFontFamily,
+}));
+const SmallTitle = styled("h3")(props => ({
   fontSize: "1.5rem",
-});
+  fontFamily: props.theme.text.headerFontFamily,
+}));
 
 // TODO: Other label types.
 const RegularLabel = styled("label")(
@@ -146,6 +149,10 @@ const textHandler = (props, styles) => {
     case "black":
       styles.fontWeight = 900;
       break;
+  }
+
+  if (props.noWrap) {
+    styles.whiteSpace = "nowrap";
   }
 
   if (props.textTransform === "uppercase") {

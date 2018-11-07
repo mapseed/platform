@@ -909,10 +909,7 @@ export default Backbone.View.extend({
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <ThemeProvider theme={this.adjustedTheme}>
-            <PlaceList
-              router={this.options.router}
-              placeCollections={this.places}
-            />
+            <PlaceList router={this.options.router} />
           </ThemeProvider>
         </ThemeProvider>
       </Provider>,

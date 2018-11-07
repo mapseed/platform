@@ -16,15 +16,21 @@ import sharePlace from "../../utils/share-place";
 
 const PlaceContainer = styled("div")({
   display: "flex",
-  flexDirection: "column",
   overflow: "hidden",
   margin: "0px 16px 16px 16px",
+  padding: "8px 0px",
 });
 
-const Header = styled("div")({
+const PlaceLeftContainer = styled("div")({
   display: "flex",
-  flexDirection: "row",
-  alignContent: "space-between",
+  flex: "1 75%",
+  flexDirection: "column",
+});
+
+const PlaceRightContainer = styled("div")({
+  display: "flex",
+  flex: "0 1",
+  flexDirection: "column",
 });
 
 const Body = styled("div")({
@@ -52,6 +58,13 @@ const PlaceInfoTop = styled("div")({
   display: "flex",
   flexDirection: "column",
 });
+const CommentsText = styled(props => (
+  <SmallText textTransform="uppercase" className={props.className}>
+    {props.children}
+  </SmallText>
+))({
+  marginTop: "16px",
+});
 const PlaceInfoButton = styled(Link)({
   alignItems: "end",
   marginTop: "16px",
@@ -62,19 +75,25 @@ const PlaceContent = styled("div")({
   display: "flex",
 });
 
-const PlaceTitle = styled(SmallTitle)({
-  display: "flex",
-  flex: "1 60%",
-});
-
 const PlaceSocialContainer = styled("div")({
   display: "flex",
-  flex: "0 40%",
-  maxWidth: "160px",
   justifyContent: "flex-end",
   alignItems: "center",
+  marginBottom: "16px",
 });
 
+const SupportText = styled(props => (
+  <SmallText noWrap={true} className={props.className}>
+    {props.children}
+  </SmallText>
+))({
+  display: "flex",
+  alignItems: "center",
+  marginBottom: "16px",
+});
+const SupportHeartIcon = styled(HeartIcon)({
+  marginLeft: "8px",
+});
 const SocialMediaButton = styled(IconButton)({
   flex: "0 1",
   marginLeft: "16px",
@@ -90,10 +109,14 @@ const PlaceFieldsContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
 });
-const PlaceFieldTitle = styled(SmallTitle)({
+const PlaceFieldTitle = styled(props => (
+  <RegularText className={props.className} weight="bold">
+    {props.children}
+  </RegularText>
+))({
   width: "100%",
 });
-const PlaceFieldText = styled(SmallText)({
+const PlaceFieldText = styled(RegularText)({
   width: "100%",
 });
 
@@ -136,8 +159,77 @@ const PlaceListItem = props => {
   return (
     <React.Fragment>
       <PlaceContainer>
-        <Header>
-          <PlaceTitle>{props.place.title}</PlaceTitle>
+        <PlaceLeftContainer>
+          <SmallTitle>{props.place.title}</SmallTitle>
+          <Body>
+            <PlaceInfo>
+              <AvatarContainer>
+                <UserAvatar size="large" />
+              </AvatarContainer>
+              <PlaceInfoContainer>
+                <PlaceInfoTop>
+                  <RegularText>
+                    <b>{submitterName}</b>
+                    {` ${props.placeConfig.action_text} this `}
+                    <b>{placeDetailConfig.label}</b>
+                  </RegularText>
+                  <CommentsText>{`${numberOfComments} comment${
+                    numberOfComments === 1 ? "" : "s"
+                  }`}</CommentsText>
+                </PlaceInfoTop>
+                {/* TODO: Once AppView and the listeners in MainMap are cleaned up, we should be able to use relative links for PlaceInfoButton instead of backbone router, like so: */}
+                {/* href={`/${props.place.datasetSlug}/${props.place.id}`} */}
+                {/* rel="internal" */}
+                <PlaceInfoButton
+                  onClick={() => {
+                    props.router.navigate(
+                      `/${props.place.datasetSlug}/${props.place.id}`,
+                      { trigger: true },
+                    );
+                  }}
+                >
+                  <Button color="primary" size="small" variant="raised">
+                    View on Map
+                  </Button>
+                </PlaceInfoButton>
+              </PlaceInfoContainer>
+            </PlaceInfo>
+            <PlaceContent>
+              {!!props.place.attachments.length && (
+                <PlaceImage>
+                  <img
+                    src={props.place.attachments[0].file}
+                    onLoad={props.onLoad}
+                  />
+                </PlaceImage>
+              )}
+              <PlaceFieldsContainer>
+                {props.placeConfig.list.fields
+                  .filter(field => props.place[field.name])
+                  .map(field => (
+                    <PlaceField
+                      key={field.name}
+                      field={field}
+                      place={props.place}
+                      placeFieldConfig={props.placeConfig.place_detail
+                        .find(
+                          placeConfig =>
+                            placeConfig.category === props.place.location_type,
+                        )
+                        .fields.find(
+                          fieldConfig => fieldConfig.name === field.name,
+                        )}
+                    />
+                  ))}
+              </PlaceFieldsContainer>
+            </PlaceContent>
+          </Body>
+        </PlaceLeftContainer>
+        <PlaceRightContainer>
+          <SupportText noWrap={true} textTransform="uppercase">
+            {`${numberOfSupports} ${props.supportConfig.action_text} this `}
+            <SupportHeartIcon />
+          </SupportText>
           <PlaceSocialContainer>
             <SocialMediaButton
               icon="facebook"
@@ -150,74 +242,7 @@ const PlaceListItem = props => {
               onClick={() => onSocialShare("twitter")}
             />
           </PlaceSocialContainer>
-        </Header>
-        <Body>
-          <PlaceInfo>
-            <AvatarContainer>
-              <UserAvatar size="large" />
-            </AvatarContainer>
-            <PlaceInfoContainer>
-              <PlaceInfoTop>
-                <RegularText>
-                  <b>{submitterName}</b>
-                  {` ${props.placeConfig.action_text} this `}
-                  <b>{placeDetailConfig.label}</b>
-                </RegularText>
-                <SmallText textTransform="uppercase">{`${numberOfComments} comments`}</SmallText>
-                <SmallText textTransform="uppercase">
-                  {`${numberOfSupports} ${
-                    props.supportConfig.action_text
-                  } this `}
-                  <HeartIcon />
-                </SmallText>
-              </PlaceInfoTop>
-              {/* TODO: Once AppView and the listeners in MainMap are cleaned up, we should be able to use relative links for PlaceInfoButton instead of backbone router, like so: */}
-              {/* href={`/${props.place.datasetSlug}/${props.place.id}`} */}
-              {/* rel="internal" */}
-              <PlaceInfoButton
-                onClick={() => {
-                  props.router.navigate(
-                    `/${props.place.datasetSlug}/${props.place.id}`,
-                    { trigger: true },
-                  );
-                }}
-              >
-                <Button color="primary" size="small" variant="raised">
-                  View on Map
-                </Button>
-              </PlaceInfoButton>
-            </PlaceInfoContainer>
-          </PlaceInfo>
-          <PlaceContent>
-            {!!props.place.attachments.length && (
-              <PlaceImage>
-                <img
-                  src={props.place.attachments[0].file}
-                  onLoad={props.onLoad}
-                />
-              </PlaceImage>
-            )}
-            <PlaceFieldsContainer>
-              {props.placeConfig.list.fields
-                .filter(field => props.place[field.name])
-                .map(field => (
-                  <PlaceField
-                    key={field.name}
-                    field={field}
-                    place={props.place}
-                    placeFieldConfig={props.placeConfig.place_detail
-                      .find(
-                        placeConfig =>
-                          placeConfig.category === props.place.location_type,
-                      )
-                      .fields.find(
-                        fieldConfig => fieldConfig.name === field.name,
-                      )}
-                  />
-                ))}
-            </PlaceFieldsContainer>
-          </PlaceContent>
-        </Body>
+        </PlaceRightContainer>
       </PlaceContainer>
       <HorizontalRule color="light" />
     </React.Fragment>

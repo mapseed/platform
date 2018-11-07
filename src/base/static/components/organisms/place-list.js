@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { placesSelector } from "../../state/ducks/places";
 import PlaceListItem from "../molecules/place-list-item";
 import { Button } from "../atoms/buttons";
-import { HorizontalRule } from "../atoms/layout";
 import { TextInput } from "../atoms/input";
 
 // But if you only use a few react-virtualized components,
@@ -39,21 +38,34 @@ const ListViewContainer = styled("div")({
 });
 
 const ListViewContent = styled("div")({
-  margin: "24px",
+  marginTop: "24px",
   height: "100%",
   width: "100%",
 });
 
 const ListHeader = styled("div")({
-  marginTop: "24px",
-  marginBottom: "24px",
+  margin: "8px 240px 24px 240px",
   display: "flex",
+  alignItems: "center",
   justifyContent: "space-between",
 });
 
-const SearchContainer = styled("div")({});
+const SearchContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+});
 const SearchButton = styled(Button)({ marginLeft: "16px" });
-const SortButton = styled(Button)({ marginRight: "16px" });
+const SortButton = styled(props => (
+  <Button
+    size="small"
+    onClick={props.onClick}
+    color={props.isActive ? "grey" : "black"}
+  >
+    {props.children}
+  </Button>
+))({
+  marginRight: "16px",
+});
 
 const ButtonContainer = styled("div")({});
 
@@ -108,10 +120,6 @@ class PlaceList extends React.Component {
     places: this._sortAndFilterPlaces(this.props.places, "dates", ""),
     query: "",
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -179,35 +187,32 @@ class PlaceList extends React.Component {
             </SearchContainer>
             <ButtonContainer>
               <SortButton
-                color="tertiary"
-                variant={this.state.sortBy === "dates" && "outlined"}
+                isActive={this.state.sortBy === "dates"}
                 onClick={() => this.setState({ sortBy: "dates" })}
               >
                 Most Recent
               </SortButton>
               <SortButton
-                color="tertiary"
-                variant={this.state.sortBy === "supports" && "outlined"}
+                isActive={this.state.sortBy === "supports"}
                 onClick={() => this.setState({ sortBy: "supports" })}
               >
                 Most Supports
               </SortButton>
               <SortButton
-                color="tertiary"
-                variant={this.state.sortBy === "comments" && "outlined"}
+                isActive={this.state.sortBy === "comments"}
                 onClick={() => this.setState({ sortBy: "comments" })}
               >
                 Most Comments
               </SortButton>
             </ButtonContainer>
           </ListHeader>
-          <HorizontalRule color="light" />
           <AutoSizer>
             {({ height, width }) => (
               <List
                 ref={this.setVirtualizedList}
                 height={height}
                 width={width}
+                style={{ padding: "0 240px" }}
                 overscanRowCount={4}
                 noRowsRenderer={this._noRowsRenderer}
                 rowCount={this.state.places.length}

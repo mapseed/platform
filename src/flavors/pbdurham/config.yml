@@ -20,6 +20,9 @@ app:
     brand:
       primary: "#045a8b"
       secondary: "#c3b9c7"
+    text:
+      headerFontFamily: "Josefin Sans"
+      bodyFontFamily: "Montserrat"
 
 languages:
   - code: en_US
