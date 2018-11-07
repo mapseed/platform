@@ -86,7 +86,6 @@ const IconButton = styled(props => {
 
 // Influenced by the material-ui api:
 // https://material-ui.com/api/button/
-// NOTE: we may want to consider using material-ui instead
 const Button = styled(props => {
   return (
     <button
@@ -128,10 +127,10 @@ const Button = styled(props => {
     styles.width = "200px";
     styles.height = "40px";
   } else if (props.size === "small") {
-    styles.width = "140px";
+    styles.width = "96px";
     styles.height = "24px";
     styles.fontSize = ".8em";
-    styles.padding = "0";
+    styles.padding = "4px";
   }
 
   if (props.variant === "raised") {

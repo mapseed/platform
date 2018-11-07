@@ -18,7 +18,7 @@ const TextInput = styled(props => {
     borderWidth: ".25em",
     borderColor: props.theme.brand.primary,
     borderStyle: "solid",
-    height: "32px",
+    padding: "8px",
   };
   if (props.color === "secondary") {
     styles.borderColor = props.theme.brand.secondary;

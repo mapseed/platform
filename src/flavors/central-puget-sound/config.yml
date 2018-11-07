@@ -494,6 +494,12 @@ place:
   location_item_name: location
   default_basemap: satellite
 
+  list:
+    fields:
+      # TODO: Add more field types here, and render html field types,
+      # depending on the category (same as the PWI flavor)
+      - name: classroom-learning
+        type: description
 
   #### begin dynamic form config ####
   place_detail:

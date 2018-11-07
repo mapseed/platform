@@ -386,6 +386,14 @@ place:
 
   location_item_name: location
 
+  list:
+    fields:
+        # TODO: on "featured_place" categories, these are "rich text
+        # areas", not "text areas". So we'll need to model an "html
+        # type" list field for descriptions that are under the
+        # "featured_place" categories.
+      - name: description
+        type: description
 
   #### begin dynamic form config ####
   place_detail:
