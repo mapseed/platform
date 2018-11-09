@@ -4,6 +4,10 @@ import styled from "react-emotion";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { placesSelector } from "../../state/ducks/places";
+import {
+  placeConfigSelector,
+  placeConfigPropType,
+} from "../../state/ducks/place-config";
 import PlaceListItem from "../molecules/place-list-item";
 import { Button } from "../atoms/buttons";
 import { TextInput } from "../atoms/input";
@@ -73,8 +77,15 @@ const ButtonContainer = styled("div")({});
 
 class PlaceList extends React.Component {
   _sortAndFilterPlaces = (places, sortBy, query) => {
+    // only render place surveys that are flagged with 'includeOnList':
+    const includedPlaces = places.filter(
+      place =>
+        this.props.placeConfig.place_detail.find(
+          survey => survey.category === place.location_type,
+        ).includeOnList,
+    );
     const filteredPlaces = query
-      ? places.filter(place => {
+      ? includedPlaces.filter(place => {
           return Object.values(place).some(field => {
             // TODO: make sure the field is only within the matching
             // fields - we don't want false positives from the Place
@@ -82,7 +93,7 @@ class PlaceList extends React.Component {
             return typeof field === "string" && field.includes(query);
           });
         })
-      : [...places];
+      : [...includedPlaces];
     const sortedFilteredPlaces = filteredPlaces.sort((a, b) => {
       if (sortBy === "dates") {
         return new Date(b.created_datetime) - new Date(a.created_datetime);
@@ -232,12 +243,14 @@ class PlaceList extends React.Component {
 
 PlaceList.propTypes = {
   places: PropTypes.array,
+  placeConfig: placeConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
 const mapStateToProps = state => ({
   places: placesSelector(state),
+  placeConfig: placeConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(translate("PlaceList")(PlaceList));
