@@ -386,20 +386,14 @@ place:
 
   location_item_name: location
 
-  list:
-    fields:
-        # TODO: on "featured_place" categories, these are "rich text
-        # areas", not "text areas". So we'll need to model an "html
-        # type" list field for descriptions that are under the
-        # "featured_place" categories.
-      - name: description
-        type: description
 
   #### begin dynamic form config ####
   place_detail:
+    # This is our Survey model (one survey per category):
     - category: featured_place
       admin_only: true
       includeOnForm: true
+      includeOnList: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
@@ -428,6 +422,7 @@ place:
           optional: false
         - name: description
           type: rich_textarea
+          includeOnListItem: true
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
@@ -436,6 +431,7 @@ place:
 
     - category: observation
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pwi-input
       icon_url: /static/css/images/markers/marker-observation.png
@@ -464,6 +460,7 @@ place:
           optional: true # NOTE: checkbox_big_button inputs have no validation
         - name: description
           type: textarea
+          includeOnListItem: true
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _(Enter description...)
@@ -479,6 +476,7 @@ place:
 
     - category: question
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pwi-input
       icon_url: /static/css/images/markers/marker-question.png
@@ -493,6 +491,7 @@ place:
           optional: false
         - name: description
           type: textarea
+          includeOnListItem: true
           prompt: "_(What's your question?)"
           display_prompt: _( )
           placeholder: _(Enter question...)
@@ -507,6 +506,7 @@ place:
 
     - category: idea
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pwi-input
       icon_url: /static/css/images/markers/marker-idea.png
@@ -521,6 +521,7 @@ place:
           optional: false
         - name: description
           type: textarea
+          includeOnListItem: true
           prompt: _(Describe your idea below:)
           display_prompt: "_( )"
           placeholder: _(Description...)
@@ -536,6 +537,7 @@ place:
 
     - category: complaint
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pwi-input
       icon_url: /static/css/images/markers/marker-complaint.png
@@ -550,6 +552,7 @@ place:
           optional: false
         - name: description
           type: textarea
+          includeOnListItem: true
           prompt: "_(What's your complaint?)"
           display_prompt: _( )
           placeholder: _(Description...)

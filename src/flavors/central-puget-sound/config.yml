@@ -494,18 +494,12 @@ place:
   location_item_name: location
   default_basemap: satellite
 
-  list:
-    fields:
-      # TODO: Add more field types here, and render html field types,
-      # depending on the category (same as the PWI flavor)
-      - name: classroom-learning
-        type: description
-
   #### begin dynamic form config ####
   place_detail:
     - category: featured_school
       admin_only: true
       includeOnForm: true
+      includeOnList: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
@@ -527,7 +521,7 @@ place:
           optional: true
         - name: school-year
           type: dropdown
-          prompt: _(School year reprting period:)
+          prompt: _(School year reporting period:)
           display_prompt: _(School year reporting period)
           content:
              - label: _(2018/2019)
@@ -535,6 +529,7 @@ place:
           optional: false
         - name: conserve-water-actions
           type: text
+          includeOnListItem: true
           autocomplete: false
           prompt: _(Number of water conservation actions:)
           display_prompt: _(Number of water conservation actions)
@@ -542,6 +537,7 @@ place:
           optional: true
         - name: classroom-learning
           type: textarea
+          includeOnListItem: true
           prompt: _(Description of classroom learning:)
           display_prompt: _(Description of classroom learning:)
         - name: my_image
@@ -552,6 +548,7 @@ place:
     - category: featured_place
       admin_only: true
       includeOnForm: true
+      includeOnList: true
       showMetadata: false
       suppressAttachments: true
       horizontal_rule: true
@@ -595,24 +592,28 @@ place:
           optional: false
         - name: project-lead
           type: text
+          includeOnListItem: true
           prompt: _(Project lead:)
           display_prompt: _(Project lead)
           placeholder: _(Enter project lead...)
           optional: true
         - name: partners
           type: text
+          includeOnListItem: true
           prompt: _(Partners:)
           display_prompt: _(Partners)
           placeholder: _(Enter partners...)
           optional: true
         - name: problem-statement
           type: textarea
+          includeOnListItem: true
           prompt: _(Problem statement:)
           display_prompt: _(Problem statement)
           placeholder: _(Enter problem statement...)
           optional: true
         - name: goal
           type: textarea
+          includeOnListItem: true
           prompt: _(Goal:)
           display_prompt: _(Goal)
           placeholder: _(Enter goal...)
@@ -625,12 +626,14 @@ place:
           optional: true
         - name: size
           type: text
+          includeOnListItem: true
           prompt: _(Size:)
           display_prompt: _(Size)
           placeholder: _(Enter size...)
           optional: true
         - name: description
           type: rich_textarea
+          includeOnListItem: true
           prompt: _(Background, timeline, and data:)
           display_prompt: _(Background, timeline, and data)
           placeholder: _( )
@@ -641,6 +644,7 @@ place:
 
     - category: conserve-water
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-conserve-water.png
@@ -702,6 +706,7 @@ place:
 
     - category: prevent-stormwater
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-prevent-stormwater-pollution.png
@@ -762,6 +767,7 @@ place:
 
     - category: only-flush
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-only-flush-this.png
@@ -818,6 +824,7 @@ place:
 
     - category: conserve-energy
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-conserve-energy.png
@@ -871,6 +878,7 @@ place:
 
     - category: waste-less
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-waste-less.png
@@ -922,6 +930,7 @@ place:
 
     - category: commute-low-carbon
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-commute-low-carbon.png
@@ -969,6 +978,7 @@ place:
 
     - category: eat-local-organic
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-eat-local-organic.png
@@ -1012,6 +1022,7 @@ place:
 
     - category: restore-salmon-habitat
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: mw
       icon_url: /static/css/images/markers/marker-restore-salmon-habitat.png
@@ -1065,6 +1076,7 @@ place:
       placeholder: _( )
       optional: false
     comments:
+      includeOnListItem: true
       type: textarea
       prompt: _(Additional comments:)
       display_prompt: _( )
@@ -1075,6 +1087,7 @@ place:
       optional: false
       placeholder: _(Type or select a school name...)
       type: dropdown_autocomplete
+      includeOnListItem: true
       prompt: _(Your school:)
       content:
         - label: _(Alcott Elementary School)

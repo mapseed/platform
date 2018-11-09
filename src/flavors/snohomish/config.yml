@@ -245,16 +245,12 @@ place:
   default_basemap: satellite
   hide_metadata_bar: true
 
-  list:
-    fields:
-      # TODO: add more field types
-      - name: other-comments
-        type: description
   #### begin dynamic form config ####
   place_detail:
     - category: featured_place
       admin_only: true
       includeOnForm: true
+      includeOnList: true
       showMetadata: false
       horizontal_rule: true
       name: location_type
@@ -279,6 +275,7 @@ place:
           optional: false
         - name: description
           type: rich_textarea
+          includeOnListItem: true
           prompt: _(Description:)
           display_prompt: _( )
           placeholder: _( )
@@ -288,6 +285,7 @@ place:
     - category: conservation-actions
       submitter_editing_supported: true
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: snohomish-input
       icon_url: /static/css/images/markers/map-pin-marker.png
@@ -587,6 +585,7 @@ place:
               value: no
         - name: farm_other-action
           type: text
+          includeOnListItem: true
           prompt: _(What was your action?)
           display_prompt: _( )
           optional: true
@@ -605,6 +604,7 @@ place:
         # Comments
         - name: farm_category-comments
           type: textarea
+          includeOnListItem: true
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
@@ -841,6 +841,7 @@ place:
               value: no
         - name: forest_other-action
           type: text
+          includeOnListItem: true
           prompt: _(What was your action?)
           display_prompt: _( )
           optional: true
@@ -859,6 +860,7 @@ place:
         # Comments
         - name: forest_comments
           type: textarea
+          includeOnListItem: true
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
@@ -1129,6 +1131,7 @@ place:
               value: no
         - name: shoreline_other-action
           type: text
+          includeOnListItem: true
           prompt: _(What was your action?)
           display_prompt: _( )
           optional: true
@@ -1147,6 +1150,7 @@ place:
         # Comments
         - name: shoreline_comments
           type: textarea
+          includeOnListItem: true
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
@@ -1497,6 +1501,7 @@ place:
               value: no
         - name: urban_other-action
           type: text
+          includeOnListItem: true
           prompt: _(What was your action?)
           display_prompt: _( )
           optional: true
@@ -1515,6 +1520,7 @@ place:
         # Comments
         - name: urban_comments
           type: textarea
+          includeOnListItem: true
           prompt: _(Please comment or elaborate here:)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
@@ -1536,6 +1542,7 @@ place:
           type: common_form_element
         - name: other-comments
           type: textarea
+          includeOnListItem: true
           prompt: _(Anything else you’d like us to know?)
           display_prompt: _( )
           placeholder: _(Enter your comments...)
