@@ -588,6 +588,7 @@ place:
           includeOnListItem: true
           prompt: _(What was your action?)
           display_prompt: _( )
+          label: _(What was your action?)
           optional: true
           hidden_default: true
         - name: farm_other-datetime

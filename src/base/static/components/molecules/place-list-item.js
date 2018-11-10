@@ -119,7 +119,7 @@ const PlaceFieldText = styled(RegularText)({
 });
 
 const PlaceField = ({ field, place }) => {
-  const prompt = field.display_prompt || field.prompt || null;
+  const prompt = field.label || field.display_prompt || null;
   if (field.type === "textarea" || field.type === "text") {
     return (
       <React.Fragment>

@@ -493,6 +493,7 @@ place:
           type: textarea
           includeOnListItem: true
           prompt: "_(What's your question?)"
+          label: "_(What's your question?)"
           display_prompt: _( )
           placeholder: _(Enter question...)
         - name: submitter_name
@@ -523,6 +524,7 @@ place:
           type: textarea
           includeOnListItem: true
           prompt: _(Describe your idea below:)
+          label: _(Describe your idea below:)
           display_prompt: "_( )"
           placeholder: _(Description...)
           optional: false
@@ -554,6 +556,7 @@ place:
           type: textarea
           includeOnListItem: true
           prompt: "_(What's your complaint?)"
+          label: "_(What's your complaint?)"
           display_prompt: _( )
           placeholder: _(Description...)
           optional: false

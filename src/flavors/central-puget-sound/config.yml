@@ -1079,6 +1079,7 @@ place:
       includeOnListItem: true
       type: textarea
       prompt: _(Additional comments:)
+      label: _(Additional comments:)
       display_prompt: _( )
       placeholder: _(Enter comments...)
       optional: false
@@ -1088,6 +1089,7 @@ place:
       placeholder: _(Type or select a school name...)
       type: dropdown_autocomplete
       includeOnListItem: true
+      label: _(Your school:)
       prompt: _(Your school:)
       content:
         - label: _(Alcott Elementary School)
