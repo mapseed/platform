@@ -578,15 +578,10 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Share my idea)
   location_item_name: location
-  list:
-    fields:
-      - name: idea-what
-        type: description
-      - name: idea-why
-        type: description
   place_detail:
     - category: culture
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pbdurham
       icon_url: /static/css/images/markers/fountain.png
@@ -601,12 +596,14 @@ place:
           optional: false
         - name: idea-what
           type: textarea
+          includeOnListItem: true
           prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
           placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
+          includeOnListItem: true
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
           placeholder: _(Let us know how your idea helps the City of Durham!)
@@ -631,6 +628,7 @@ place:
           type: common_form_element
     - category: parks
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pbdurham 
       icon_url: /static/css/images/markers/tree.png
@@ -645,12 +643,14 @@ place:
           optional: false
         - name: idea-what
           type: textarea
+          includeOnListItem: true
           prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
           placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
+          includeOnListItem: true
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
           placeholder: _(Let us know how your idea helps the City of Durham!)
@@ -675,6 +675,7 @@ place:
           type: common_form_element
     - category: streets
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pbdurham 
       icon_url: /static/css/images/markers/street-sidewalk.png
@@ -689,12 +690,14 @@ place:
           optional: false
         - name: idea-what
           type: textarea
+          includeOnListItem: true
           prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
           placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
+          includeOnListItem: true
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
           placeholder: _(Let us know how your idea helps the City of Durham!)
@@ -719,6 +722,7 @@ place:
           type: common_form_element
     - category: health
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pbdurham 
       icon_url: /static/css/images/markers/health.png
@@ -733,12 +737,14 @@ place:
           optional: false
         - name: idea-what
           type: textarea
+          includeOnListItem: true
           prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
           placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
+          includeOnListItem: true
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
           placeholder: _(Let us know how your idea helps the City of Durham!)
@@ -763,6 +769,7 @@ place:
           type: common_form_element
     - category: safety
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pbdurham 
       icon_url: /static/css/images/markers/safety.png
@@ -777,12 +784,14 @@ place:
           optional: false
         - name: idea-what
           type: textarea
+          includeOnListItem: true
           prompt: _(What is your idea for what should be improved in your neighborhood?)
           display_prompt: _(My project idea is:)
           placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
+          includeOnListItem: true
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
           placeholder: _(Let us know how your idea helps the City of Durham!)
@@ -807,6 +816,7 @@ place:
           type: common_form_element
     - category: other
       includeOnForm: true
+      includeOnList: true
       name: location_type
       dataset: pbdurham 
       icon_url: /static/css/images/markers/idea.png
@@ -821,12 +831,14 @@ place:
           optional: false
         - name: idea-what
           type: textarea
+          includeOnListItem: true
           prompt: _(What is your idea for what should be built or repaired in our neighborhood?)
           display_prompt: _(My project idea is:)
           placeholder: _(Ideas should be one-time project expenditures that address a community need)
           optional: true
         - name: idea-why
           type: textarea
+          includeOnListItem: true
           prompt: _(Why is this important? What need in the community does this serve?)
           display_prompt: _( )
           placeholder: _(Let us know how your idea helps the City of Durham!)

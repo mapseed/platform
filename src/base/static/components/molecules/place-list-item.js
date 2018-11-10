@@ -6,7 +6,10 @@ import { HeartIcon } from "../atoms/icons";
 import { SmallTitle } from "../atoms/typography";
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, SmallText, Link } from "../atoms/typography";
-import { placeConfigSelector } from "../../state/ducks/place-config";
+import {
+  placeConfigSelector,
+  placeConfigPropType,
+} from "../../state/ducks/place-config";
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
 import { connect } from "react-redux";
@@ -115,13 +118,23 @@ const PlaceFieldText = styled(RegularText)({
   width: "100%",
 });
 
-const PlaceField = ({ field, place, placeFieldConfig }) => {
-  if (field.type === "description") {
+const PlaceField = ({ field, place }) => {
+  const prompt = field.label || field.display_prompt || null;
+  if (field.type === "textarea" || field.type === "text") {
     return (
       <React.Fragment>
-        {!!placeFieldConfig.display_prompt && (
-          <PlaceFieldTitle>{placeFieldConfig.display_prompt}</PlaceFieldTitle>
-        )}
+        {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
+        <p>
+          <PlaceFieldText>{place[field.name]}</PlaceFieldText>
+        </p>
+      </React.Fragment>
+    );
+  } else if (field.type === "rich_textarea") {
+    return <div dangerouslySetInnerHTML={{ __html: place[field.name] }} />;
+  } else if (field.type === "dropdown_autocomplete") {
+    return (
+      <React.Fragment>
+        {!!prompt && <PlaceFieldTitle>{prompt}</PlaceFieldTitle>}
         <p>
           <PlaceFieldText>{place[field.name]}</PlaceFieldText>
         </p>
@@ -199,21 +212,15 @@ const PlaceListItem = props => {
                 </PlaceImage>
               )}
               <PlaceFieldsContainer>
-                {props.placeConfig.list.fields
+                {props.placeConfig.place_detail
+                  .find(survey => survey.category === props.place.location_type)
+                  .fields.filter(field => field.includeOnListItem)
                   .filter(field => props.place[field.name])
                   .map(field => (
                     <PlaceField
                       key={field.name}
                       field={field}
                       place={props.place}
-                      placeFieldConfig={props.placeConfig.place_detail
-                        .find(
-                          placeConfig =>
-                            placeConfig.category === props.place.location_type,
-                        )
-                        .fields.find(
-                          fieldConfig => fieldConfig.name === field.name,
-                        )}
                     />
                   ))}
               </PlaceFieldsContainer>
@@ -250,25 +257,7 @@ PlaceListItem.propTypes = {
   supportConfig: PropTypes.shape({
     action_text: PropTypes.string.isRequired,
   }),
-  placeConfig: PropTypes.shape({
-    anonymous_name: PropTypes.string.isRequired,
-    action_text: PropTypes.string.isRequired,
-    place_detail: PropTypes.arrayOf(
-      PropTypes.shape({
-        category: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      }),
-    ),
-    list: PropTypes.shape({
-      fields: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          image_name: PropTypes.string,
-          type: PropTypes.string,
-        }),
-      ),
-    }),
-  }).isRequired,
+  placeConfig: placeConfigPropType.isRequired,
   appConfig: PropTypes.shape({
     title: PropTypes.string.isRequired,
     meta_description: PropTypes.string.isRequired,
