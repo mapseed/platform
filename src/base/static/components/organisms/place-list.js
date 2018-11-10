@@ -90,7 +90,9 @@ class PlaceList extends React.Component {
             // TODO: make sure the field is only within the matching
             // fields - we don't want false positives from the Place
             // model's `dataset` field, for example.
-            return typeof field === "string" && field.includes(query);
+            return (
+              typeof field === "string" && field.toLowerCase().includes(query)
+            );
           });
         })
       : [...includedPlaces];
@@ -114,7 +116,7 @@ class PlaceList extends React.Component {
     const sortedFilteredPlaces = this._sortAndFilterPlaces(
       this.props.places,
       this.state.sortBy,
-      this.state.query,
+      this.state.query.toLowerCase(),
     );
     cache.clearAll();
     this.setState({
