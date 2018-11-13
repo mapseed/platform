@@ -8,6 +8,7 @@ import MapLegendPanel from "../organisms/map-legend-panel";
 import ActivityStream from "../organisms/activity-stream";
 
 import { rightSidebarConfigSelector } from "../../state/ducks/right-sidebar-config";
+import { placesSelector } from "../../state/ducks/places";
 import { setMapSizeValidity } from "../../state/ducks/map";
 
 import "./right-sidebar.scss";
@@ -27,22 +28,23 @@ const RightSidebar = props => {
         }}
         className="right-sidebar__collapse-btn"
       />
-      {props.rightSidebarConfig.component === "StoryNavigator" && (
-        <StoryNavigator
-          storyConfig={props.storyConfig}
-          placeConfig={props.placeConfig}
-          mapConfig={props.mapConfig}
-          places={props.places}
-          router={props.router}
-        />
-      )}
+      {props.rightSidebarConfig.component === "StoryNavigator" &&
+        props.places.length > 0 && (
+          <StoryNavigator
+            storyConfig={props.storyConfig}
+            placeConfig={props.placeConfig}
+            mapConfig={props.mapConfig}
+            places={props.places}
+            router={props.router}
+          />
+        )}
       {props.rightSidebarConfig.component === "MapLegendPanel" && (
         <MapLegendPanel config={props.rightSidebarConfig} />
       )}
       {props.rightSidebarConfig.component === "ActivityStream" && (
         <ActivityStream
           config={props.rightSidebarConfig}
-          places={props.places}
+          places={props.legacyPlaces}
         />
       )}
       {props.rightSidebarConfig.component === "ActivityStreamWithLegend" && (
@@ -50,7 +52,7 @@ const RightSidebar = props => {
           <MapLegendPanel config={props.rightSidebarConfig} isThemed={true} />
           <ActivityStream
             config={props.rightSidebarConfig}
-            places={props.places}
+            places={props.legacyPlaces}
           />
         </Fragment>
       )}
@@ -59,7 +61,8 @@ const RightSidebar = props => {
 };
 
 RightSidebar.propTypes = {
-  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
+  legacyPlaces: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
+  places: PropTypes.array.isRequired,
   rightSidebarConfig: PropTypes.shape({
     is_enabled: PropTypes.bool.isRequired,
     is_visible_default: PropTypes.bool,
@@ -77,6 +80,7 @@ RightSidebar.propTypes = {
 
 const mapStateToProps = state => ({
   rightSidebarConfig: rightSidebarConfigSelector(state),
+  places: placesSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

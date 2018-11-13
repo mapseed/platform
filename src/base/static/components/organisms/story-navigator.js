@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { storyConfigSelector } from "../../state/ducks/story-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import { mapConfigSelector } from "../../state/ducks/map-config";
 
 import { hydrateStoriesFromConfig } from "../../utils/story-utils";
 import Immutable from "immutable";
@@ -35,7 +34,6 @@ class StoryNavigator extends Component {
       const stories = hydrateStoriesFromConfig({
         places: this.props.places,
         storyConfig: this.props.storyConfig,
-        mapConfig: this.props.mapConfig,
       });
       this.stories = stories;
 
@@ -161,9 +159,8 @@ StoryNavigator.propTypes = {
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }).isRequired,
-  mapConfig: PropTypes.object.isRequired,
 
-  places: PropTypes.object.isRequired,
+  places: PropTypes.array.isRequired,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
   t: PropTypes.func.isRequired,
 };
@@ -171,7 +168,6 @@ StoryNavigator.propTypes = {
 const mapStateToProps = state => ({
   storyConfig: storyConfigSelector(state),
   placeConfig: placeConfigSelector(state),
-  mapConfig: mapConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(

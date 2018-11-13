@@ -1,18 +1,5 @@
 import constants from "../constants";
 
-// Given a route and a POJO of Backbone collections, return the model that
-// matches the route if it exists.
-const getModelFromUrl = ({ collections, route, mapConfig }) => {
-  const splitRoute = route.split("/");
-  const layerConfig = mapConfig.layers.find(
-    config => config.slug === splitRoute[0],
-  );
-
-  if (layerConfig) {
-    return collections[layerConfig.id].get(splitRoute[1]);
-  }
-};
-
 const createGeoJSONFromCollection = collection => {
   const features = collection.map(model => {
     const properties = Object.keys(model.attributes).reduce(
@@ -36,4 +23,4 @@ const createGeoJSONFromCollection = collection => {
   };
 };
 
-export { getModelFromUrl, createGeoJSONFromCollection };
+export { createGeoJSONFromCollection };
