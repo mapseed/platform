@@ -1,7 +1,6 @@
 import Immutable from "immutable";
-import { getModelFromUrl } from "./collection-utils";
 
-const hydrateStoriesFromConfig = ({ places, storyConfig, mapConfig }) => {
+const hydrateStoriesFromConfig = ({ places, storyConfig }) => {
   // TODO(luke): Clean up this logic when Places are migrated into our
   // Redux store.
   const hydratedStories = Object.entries(storyConfig).reduce(
@@ -13,15 +12,14 @@ const hydrateStoriesFromConfig = ({ places, storyConfig, mapConfig }) => {
           .set(
             "chapters",
             storyEntry[1].chapters.reduce((urlToPlaceModel, chapter) => {
-              const model = getModelFromUrl({
-                collections: places,
-                route: chapter.url,
-                mapConfig,
+              const model = places.find(place => {
+                const placeId = parseInt(chapter.url.split("/")[1]);
+                return place.id === placeId;
               });
               if (model) {
                 return urlToPlaceModel.set(
                   chapter.url,
-                  Immutable.fromJS(model.attributes).set(
+                  Immutable.fromJS(model).set(
                     "sidebarIconUrl",
                     chapter.sidebarIconUrl,
                   ),

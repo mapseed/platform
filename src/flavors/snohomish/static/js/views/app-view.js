@@ -20,27 +20,6 @@ export default AppView.extend({
   },
   // END CUSTOM CODE
 
-  viewPage: function(slug) {
-    this.renderRightSidebar();
-    var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
-        slug: slug,
-      }),
-      pageTemplateName = pageConfig.name || pageConfig.slug,
-      pageHtml = Handlebars.templates[pageTemplateName]({
-        config: this.options.config,
-        // BEGIN CUSTOM CODE
-        apiRoot: this.options.apiRoot,
-        // END CUSTOM CODE
-      });
-
-    this.$panel.removeClass().addClass("page page-" + slug);
-    this.showPanel(pageHtml);
-    this.hideNewPin();
-    this.destroyNewModels();
-    this.hideCenterPoint();
-    this.setBodyClass("content-visible");
-  },
-
   onClickAddPlaceBtn: function(evt) {
     evt.preventDefault();
     Util.log("USER", "map", "new-place-btn-click");

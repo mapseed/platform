@@ -480,7 +480,10 @@ export default Backbone.View.extend({
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <ThemeProvider theme={this.adjustedTheme}>
-              <RightSidebar places={this.places} router={this.options.router} />
+              <RightSidebar
+                legacyPlaces={this.places}
+                router={this.options.router}
+              />
             </ThemeProvider>
           </ThemeProvider>
         </Provider>,
@@ -735,6 +738,7 @@ export default Backbone.View.extend({
       pageTemplateName = pageConfig.name || pageConfig.slug,
       pageHtml = Handlebars.templates[pageTemplateName]({
         config: this.options.config,
+        apiRoot: this.options.apiRoot,
       });
 
     this.$panel.removeClass().addClass("page page-" + slug);
