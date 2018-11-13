@@ -33,7 +33,6 @@ const RightSidebar = props => {
           <StoryNavigator
             storyConfig={props.storyConfig}
             placeConfig={props.placeConfig}
-            mapConfig={props.mapConfig}
             places={props.places}
             router={props.router}
           />
@@ -74,7 +73,6 @@ RightSidebar.propTypes = {
   placeConfig: PropTypes.shape({
     place_detail: PropTypes.array.isRequired,
   }),
-  mapConfig: PropTypes.object,
   router: PropTypes.instanceOf(Backbone.Router).isRequired,
 };
 
