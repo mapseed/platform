@@ -30,7 +30,7 @@ const AvatarImg = styled("img")({
 
 const MenuButton = styled(props => {
   return (
-    <Button color="primary" className={props.classname}>
+    <Button color="primary" className={props.classname} onClick={props.onClick}>
       {props.children}
     </Button>
   );
@@ -53,26 +53,6 @@ const MenuButton = styled(props => {
     zIndex: "3",
   },
 }));
-
-//const MenuButton = styled(Button)({
-//  fontSize: "0.75em",
-//  textAlign: "center",
-//  textDecoration: "none",
-//  lineHeight: "3.25",
-//  display: "block",
-//  padding: "0 0.5em",
-//  height: "100%",
-//  cursor: "pointer",
-//
-//  "@media only screen and (min-width: 60em)": {
-//    fontSize: "1em",
-//    textDecoration: "none",
-//    lineHeight: "1.5",
-//    padding: "0.5em",
-//    position: "relative",
-//    zIndex: "3",
-//  },
-//});
 
 const LogoutButton = styled(Link)({
   fontSize: "0.875em",
