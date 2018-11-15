@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styled from "react-emotion";
+import mq from "../../../../media-queries";
 
 import "./imagery.scss";
 
@@ -34,6 +35,23 @@ Image.propTypes = {
 
 Image.defaultProps = {
   alt: "Untitled image",
+};
+
+const SiteLogo = styled(props => {
+  return <img src={props.src} alt={props.alt} className={props.className} />;
+})(props => ({
+  [mq[0]]: {
+    // TODO: mobile sizing...
+  },
+  [mq[1]]: {
+    height: "56px", // 56 === header height (64px) - 2x micro spacing (8px)
+    marginLeft: "8px",
+  },
+}));
+
+SiteLogo.propTypes = {
+  alt: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
 };
 
 const UserAvatar = styled(Image)(props => {
@@ -73,4 +91,4 @@ UserAvatar.defaultProps = {
 
 export default UserAvatar;
 
-export { LegacyImage, Image, UserAvatar };
+export { LegacyImage, Image, UserAvatar, SiteLogo };

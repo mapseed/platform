@@ -41,6 +41,7 @@ import {
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
+import { setPagesConfig } from "../../state/ducks/pages-config";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -52,6 +53,7 @@ import InfoModal from "../../components/organisms/info-modal";
 import RightSidebar from "../../components/templates/right-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
 import UserMenu from "../../components/molecules/user-menu";
+import SiteHeader from "../../components/organisms/site-header";
 
 import constants from "../../constants";
 import PlaceList from "../../components/organisms/place-list";
@@ -96,6 +98,7 @@ export default Backbone.View.extend({
     store.dispatch(setAppConfig(this.options.appConfig));
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
+    store.dispatch(setPagesConfig(this.options.pagesConfig));
 
     // Set initial map position state.
     store.dispatch(
@@ -221,27 +224,39 @@ export default Backbone.View.extend({
       router: this.options.router,
     }).render();
 
-    ReactDOM.render(
-      <ThemeProvider theme={theme}>
-        <ThemeProvider theme={this.adjustedTheme}>
-          <UserMenu
-            router={this.options.router}
-            apiRoot={storeState.appConfig.api_root}
-            currentUser={Shareabouts.bootstrapped.currentUser}
-            datasetDownloadConfig={storeState.appConfig.dataset_download}
-          />
-        </ThemeProvider>
-      </ThemeProvider>,
-      document.getElementById("auth-nav-container"),
-    );
+    //  ReactDOM.render(
+    //    <ThemeProvider theme={theme}>
+    //      <ThemeProvider theme={this.adjustedTheme}>
+    //        <UserMenu
+    //          router={this.options.router}
+    //          apiRoot={storeState.appConfig.api_root}
+    //          currentUser={Shareabouts.bootstrapped.currentUser}
+    //          datasetDownloadConfig={storeState.appConfig.dataset_download}
+    //        />
+    //      </ThemeProvider>
+    //    </ThemeProvider>,
+    //    document.getElementById("auth-nav-container"),
+    //  );
 
-    // Init the place-counter
-    this.placeCounterView = new PlaceCounterView({
-      el: "#place-counter",
-      router: this.options.router,
-      mapConfig: this.options.mapConfig,
-      places: this.places,
-    }).render();
+    //   // Init the place-counter
+    //   this.placeCounterView = new PlaceCounterView({
+    //     el: "#place-counter",
+    //     router: this.options.router,
+    //     mapConfig: this.options.mapConfig,
+    //     places: this.places,
+    //   }).render();
+
+    // Site header
+    ReactDOM.render(
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ThemeProvider theme={this.adjustedTheme}>
+            <SiteHeader />
+          </ThemeProvider>
+        </ThemeProvider>
+      </Provider>,
+      document.getElementById("site-header"),
+    );
 
     // When the user chooses a geocoded address, the address view will fire
     // a geocode event on the namespace. At that point we center the map on

@@ -2,80 +2,12 @@
 // MEDIA QUERIES
 // ################################
 
-// Without any system display to show the status/nav bar, the map height
-// can comfortably be ~118px less than the browser height, but in portrait
-// mode, we usually have ~30px of nav/status-bar, so we limit the map height
-// to ~148px less than the browser height
-
-// iphone 4 (320 x 480)
-@media only screen and (min-height: 440px) and (max-width: 60em) {
-  #map {
-    height: 100%;
-  }
-
-  #site-title a {
-    &:link,
-    &:visited {
-      font-size: 1.8em;
-      line-height: 1.325;
-    }
-  }
-
-  #ticker ul.recent-points {
-    height: 30em;
-    overflow: scroll;
-  }
-}
-
-//@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation : landscape) {
-//#map {
-//height: 292px;
-//}
-//}
-@media only screen and (min-height: 480px) and (max-width: 60em) {
-}
-
-//@media only screen and (min-width: 440px) and (max-height: 60em) and (orientation : landscape) {
-@media only screen and (min-width: 440px) and (min-height: 320px) and (orientation: landscape) {
-}
-
-// iphone 5 (320 x 568)
-@media only screen and (min-height: 568px) and (max-width: 60em) {
-}
-
-//@media only screen and (min-height: 568px) and (max-width: 60em) and (orientation : landscape) {
-@media only screen and (min-width: 568px) and (min-height: 320px) and (orientation: landscape) {
-}
-
-// iphone 6 (375 x 667)
-@media only screen and (min-height: 667px) and (max-width: 60em) {
-}
-
-//@media only screen and (min-width: 667px) and (max-height: 60em) and (orientation : landscape) {
-@media only screen and (min-width: 667px) and (min-height: 375px) and (orientation: landscape) {
-}
-
-// iphone 6 plus (414 x 736)
-@media only screen and (min-height: 736px) and (max-width: 60em) {
-}
-
-//@media only screen and (min-width: 736px) and (max-width: 60em) and (orientation : landscape) {
-@media only screen and (min-width: 736px) and (min-height: 414px) and (orientation: landscape) {
-}
-
-@media only screen and (min-height: 768px) and (max-width: 60em) {
-}
-
 // Catchall media query for screen widths below 60em.
 @media only screen and (max-width: 60em) {
   html,
   body,
   #map {
     height: 100%;
-  }
-
-  #site-header {
-    background: url(/static/css/images/lightpaperfibers.png);
   }
 
   #main {
@@ -204,6 +136,18 @@
     }
   }
 
+  #main {
+    position: relative;
+    height: 100%;
+  }
+
+  #site-header {
+    position: relative;
+    z-index: 20;
+    height: $header-height-fullscreen;
+    box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
+  }
+
   // right sidebar
   #right-sidebar-container,
   #left-sidebar-container {
@@ -212,120 +156,10 @@
     );
   }
 
-  // Header
-  #site-header {
-    background: url(/static/css/images/lightpaperfibers.png);
-    padding-left: 1em;
-    overflow: visible;
-    height: $header-height-fullscreen;
-
-    // height of site-header
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  .has-pages #site-title {
-    padding-left: 0;
-  }
-
-  #site-title a {
-    &:link,
-    &:visited {
-      font-size: 3em;
-      line-height: 1.325;
-    }
-  }
-
-  #nav-btn {
-    display: none;
-  }
-
-  //#pages-nav-container,
-  //#language-picontainer,
-  #pages-nav-container {
-    height: 100%;
-    float: left;
-  }
-
-  #language-picker {
-    float: right;
-    height: 100%;
-
-    //position: none;
-  }
-
-  .current-language {
-    background: none;
-    border: none;
-    box-shadow: none;
-  }
-
-  .access {
-    font-size: 0.875em;
-    width: auto;
-    display: block;
-    margin: (-1.125em) 0 0 0.5em;
-    position: relative;
-    top: 50%;
-
-    li {
-      float: left;
-      padding: 0;
-      margin: 0 0 0 0.5em;
-
-      ul {
-        display: none;
-      }
-
-      &:hover > {
-        ul,
-        form > ul {
-          display: block;
-          background: #ccc;
-          box-shadow: (-0.25em) 0.25em 0 $opacity-very-low-black;
-          border: 3px solid $opacity-lowest-black;
-          border-radius: 0;
-          margin: (-3px) 0 0 0;
-          padding: 3px 0 0 0;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          z-index: 2;
-          overflow: hidden;
-        }
-      }
-
-      ul li:hover ul {
-        display: block;
-        top: 0;
-        left: 100%;
-      }
-
-      li {
-        float: none;
-        padding: 0;
-        margin: 0;
-
-        .btn {
-          border: 0;
-          border-radius: 0;
-          margin-top: -3px;
-          box-shadow: none;
-        }
-      }
-    }
-  }
-
   // Map
   #map-container {
-    position: absolute;
-    top: 4em;
-
-    // height of #site-header
-    right: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
+    height: 100%;
   }
 
   .content-visible #map-container {
@@ -339,12 +173,6 @@
     top: 8.5em;
   }
 
-  .leaflet-top.leaflet-right {
-    right: auto;
-    left: 10px;
-    top: 77px;
-  }
-
   #map {
     height: 100%;
   }
@@ -353,12 +181,12 @@
     position: absolute;
 
     &.pos-top-left {
-      top: $header-height-fullscreen + 20px;
+      top: 20px;
       left: 3.5em;
     }
 
     &.pos-top-right {
-      top: $header-height-fullscreen + 20px;
+      top: 20px;
       right: 10px;
     }
 
@@ -404,11 +232,8 @@
     color: $default-font-color;
     padding: 0;
     position: absolute;
-    top: 4em;
-
+    top: 0;
     bottom: 0;
-
-    //left: 40%;
     overflow: visible;
     box-shadow: (-0.325em) 0 0 $opacity-very-low-black;
     width: $content-visible-width;
@@ -490,22 +315,6 @@
     span {
       display: none;
     }
-  }
-
-  .unsupported-overlay {
-    position: absolute;
-    top: 5em;
-    right: 1em;
-    left: 1em;
-  }
-
-  .unsupported-message {
-    border-radius: 0 0 0.625em 0.625em;
-  }
-
-  a.close-unsupported-overlay {
-    right: auto;
-    border-radius: 0.325em;
   }
 
   #content > article {
@@ -600,32 +409,8 @@
     }
   }
 
-  // The Ticker
-  #ticker {
-    right: 0;
-    bottom: 0;
-    left: auto;
-    overflow: auto;
-    z-index: 15;
-    background: none;
-  }
-
-  .activity-enabled.content-visible #ticker {
-    display: block;
-  }
-
-  ul.recent-points {
-    font-size: 0.875em;
-    -webkit-transform: translateZ(0px);
-  }
-
   .activity-enabled #map-container {
     right: 0;
-  }
-
-  // master-legend
-  #master-legend {
-    z-index: 15;
   }
 
   .activity-enabled {
@@ -636,52 +421,6 @@
     #map-container {
       right: 0;
     }
-  }
-
-  // List View
-  .list-toggle-nav {
-    display: block;
-
-    //float: right;
-    width: auto;
-
-    //margin: -1.125em 0 0 0.5em;
-    position: relative;
-    top: 50%;
-    font-size: 0.875em;
-    margin: (-1.325em) 0 0 1em;
-    float: left;
-  }
-
-  #list-container.is-exposed {
-    display: block;
-  }
-
-  // Footer
-  #colophon {
-    color: $button-background-blue;
-    background: url(/static/css/images/lightpaperfibers.png);
-    font-size: 1em;
-    position: absolute;
-    top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 14;
-    padding: 0.25em;
-    box-shadow: 0 -0.125em $opacity-very-low-black;
-    height: 1.75em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  #powered-by {
-    margin-bottom: 0;
-  }
-
-  .btn-story-nav {
-    display: none;
   }
 }
 

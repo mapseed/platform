@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 
-<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
@@ -37,15 +32,12 @@
 
   <link rel="profile" href="//gmpg.org/xfn/11" />
 
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.js"></script>
-    <script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-  <![endif]-->
-
 </head>
   <body class="{{#if config.map.geocoding_bar_enabled}} geocoding-bar-enabled{{/if}}">
+  <div id="site-wrap">
 
-  <header id="site-header" class="clearfix{{#if config.pages}} has-pages{{/if}}">
+  <header id="site-header">
+    <!--
     <h1 id="site-title">{{#block "site-title"}}{{/block}}</h1>
 
     {{#block "pre_auth_nav"}}{{/block}}
@@ -80,10 +72,8 @@
         </div>
       {{/block}}
     {{/if}}
-
+    -->
   </header>
-
-  <div class="unsupported-overlay"></div>
 
   <div role="main" id="main">
     <noscript>
@@ -130,6 +120,7 @@
   </div><!-- end #main -->
 
   <div id="list-container"></div>
+  </div>
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
