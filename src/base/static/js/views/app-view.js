@@ -53,7 +53,6 @@ import GeocodeAddressBar from "../../components/geocode-address-bar";
 import InfoModal from "../../components/organisms/info-modal";
 import RightSidebar from "../../components/templates/right-sidebar";
 import LeftSidebar from "../../components/organisms/left-sidebar";
-import UserMenu from "../../components/molecules/user-menu";
 import SiteHeader from "../../components/organisms/site-header";
 
 import constants from "../../constants";
@@ -137,9 +136,6 @@ export default Backbone.View.extend({
       placeParams.page_size = this.options.appConfig.places_page_size;
     }
 
-    // Track whether the list view is open:
-    this.isListOpen = false;
-
     // Bootstrapped data from the page
     this.activities = this.options.activities;
     this.places = this.options.places;
@@ -213,26 +209,16 @@ export default Backbone.View.extend({
       Handlebars.templates["add-places"](this.options.placeConfig),
     );
 
-    //  ReactDOM.render(
-    //    <ThemeProvider theme={theme}>
-    //      <ThemeProvider theme={this.adjustedTheme}>
-    //        <UserMenu
-    //          router={this.options.router}
-    //          apiRoot={storeState.appConfig.api_root}
-    //          currentUser={Shareabouts.bootstrapped.currentUser}
-    //          datasetDownloadConfig={storeState.appConfig.dataset_download}
-    //        />
-    //      </ThemeProvider>
-    //    </ThemeProvider>,
-    //    document.getElementById("auth-nav-container"),
-    //  );
-
     // Site header
     ReactDOM.render(
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <ThemeProvider theme={this.adjustedTheme}>
-            <SiteHeader />
+            <SiteHeader
+              router={this.options.router}
+              currentUser={Shareabouts.bootstrapped.currentUser}
+              datasetDownloadConfig={storeState.appConfig.dataset_download}
+            />
           </ThemeProvider>
         </ThemeProvider>
       </Provider>,
@@ -813,8 +799,6 @@ export default Backbone.View.extend({
     $("#spotlight-mask").hide();
   },
   renderMain: function() {
-    this.isListOpen = false;
-
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
 
@@ -874,10 +858,7 @@ export default Backbone.View.extend({
     });
   },
   viewList: function() {
-    this.isListOpen = true;
     emitter.emit(constants.PLACE_COLLECTION_UNFOCUS_ALL_PLACES_EVENT);
-    $("#main").addClass("is-visuallyhidden");
-    $("#list-container").removeClass("is-visuallyhidden");
     this.renderRightSidebar();
     this.renderList();
   },

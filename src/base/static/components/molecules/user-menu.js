@@ -8,6 +8,8 @@ import styled from "react-emotion";
 
 const MenuContainer = styled("nav")({
   display: "block",
+  marginLeft: "auto",
+  marginRight: "10px",
 });
 
 const AvatarImg = styled("img")({
@@ -22,20 +24,23 @@ const AvatarImg = styled("img")({
   outline: "0",
 
   "@media only screen and (min-width: 60em)": {
-    margin: "0.5em 0.5em 0 0.5em",
     zIndex: "1",
   },
 });
 
-const MenuButton = styled(Button)({
+const MenuButton = styled(props => {
+  return (
+    <Button color="primary" className={props.classname}>
+      {props.children}
+    </Button>
+  );
+})(() => ({
   fontSize: "0.75em",
   textAlign: "center",
   textDecoration: "none",
   lineHeight: "3.25",
-  float: "right",
   display: "block",
   padding: "0 0.5em",
-  margin: "0.25em 0.75em 0 0.5em",
   height: "100%",
   cursor: "pointer",
 
@@ -44,11 +49,30 @@ const MenuButton = styled(Button)({
     textDecoration: "none",
     lineHeight: "1.5",
     padding: "0.5em",
-    margin: "0.25em 0.75em 0 0.75em",
     position: "relative",
     zIndex: "3",
   },
-});
+}));
+
+//const MenuButton = styled(Button)({
+//  fontSize: "0.75em",
+//  textAlign: "center",
+//  textDecoration: "none",
+//  lineHeight: "3.25",
+//  display: "block",
+//  padding: "0 0.5em",
+//  height: "100%",
+//  cursor: "pointer",
+//
+//  "@media only screen and (min-width: 60em)": {
+//    fontSize: "1em",
+//    textDecoration: "none",
+//    lineHeight: "1.5",
+//    padding: "0.5em",
+//    position: "relative",
+//    zIndex: "3",
+//  },
+//});
 
 const LogoutButton = styled(Link)({
   fontSize: "0.875em",

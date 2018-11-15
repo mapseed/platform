@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { SiteLogo } from "../atoms/imagery";
 import { Button } from "../atoms/buttons";
 import { Link } from "../atoms/navigation";
+import UserMenu from "../molecules/user-menu";
 
 import { pagesConfigSelector } from "../../state/ducks/pages-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
@@ -69,6 +70,12 @@ const SiteHeader = props => {
           </ToggleListButton>
         </a>
       )}
+      <UserMenu
+        router={props.router}
+        apiRoot={props.appConfig.api_root}
+        currentUser={props.currentUser}
+        datasetDownloadConfig={props.appConfig.dataset_download}
+      />
     </SiteHeaderWrapper>
   );
 };

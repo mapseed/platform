@@ -25,6 +25,8 @@ app:
   # list_enabled: false
 
   theme:
+    brand:
+      primary: "#007fbf"
     bg:
       default: "#fff"
     text:
