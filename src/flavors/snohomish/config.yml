@@ -4,6 +4,8 @@ app:
   title: Snohomish Conservation
   # Header name
   name: "Snohomish Conservation"
+  logo: "/static/css/images/scdHorizontal.png"
+
   # Meta description that will show up in Google search results
   meta_description: "_(Welcome!)"
   # Meta author that will show up in Google search results
@@ -30,14 +32,15 @@ app:
     brand:
       primary: "#02440b"
       secondary: "#a3c7d9"
+      accent: "#40becd"
     text:
       primary: "#fff"
       secondary: "#02440b"
-      fontFamily: "lithos,sans-serif"
+      headerFontFamily: "lithos,sans-serif"
       textTransform: "uppercase"
     bg:
-      default: "#02440b"
-      light: "#779300"
+      default: "#f3f5e7"
+      light: "#fff"
 
 # languages:
 #   - code: en_US

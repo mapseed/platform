@@ -150,10 +150,10 @@ const Button = styled(props => {
     styles["&:hover"].color = props.theme.text.primary;
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "tertiary") {
-    styles.backgroundColor = "#fff";
+    styles.backgroundColor = props.theme.bg.default;
     styles.color = props.theme.brand.primary;
     styles["&:hover"].color = props.theme.text.primary;
-    styles["&:hover"].backgroundColor = props.theme.text.secondary;
+    styles["&:hover"].backgroundColor = props.theme.brand.accent;
     styles["&:hover"].textDecoration = "none";
   } else if (props.color === "black") {
     styles.backgroundColor = "#fff";

@@ -47,16 +47,33 @@ const ToggleListButton = styled(props => {
   marginLeft: "8px",
 }));
 
+const PageNavLink = styled(props => {
+  return (
+    <Link href={props.href} rel="internal" className={props.className}>
+      {props.children}
+    </Link>
+  );
+})(props => ({
+  borderLeft:
+    props.position > 0 ? `solid 1px ${props.theme.brand.primary}` : "none",
+}));
+
 const SiteHeader = props => {
   return (
     <SiteHeaderWrapper>
       <SiteLogo src={props.appConfig.logo} alt={props.appConfig.name} />
       <PagesNavContainer>
-        {props.pagesConfig.filter(page => !page.hide_from_top_bar).map(page => (
-          <a key={page.slug} href={`/page/${page.slug}`} rel="internal">
-            <PageNavButton>{page.title}</PageNavButton>
-          </a>
-        ))}
+        {props.pagesConfig
+          .filter(page => !page.hide_from_top_bar)
+          .map((page, i) => (
+            <PageNavLink
+              position={i}
+              key={page.slug}
+              href={`/page/${page.slug}`}
+            >
+              <PageNavButton>{page.title}</PageNavButton>
+            </PageNavLink>
+          ))}
       </PagesNavContainer>
       {props.appConfig.list_enabled !== false && (
         <a
