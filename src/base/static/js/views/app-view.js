@@ -78,10 +78,6 @@ browserUpdate({
   },
 });
 
-// Views
-var PagesNavView = require("mapseed-pages-nav-view");
-var PlaceCounterView = require("mapseed-place-counter-view");
-
 export default Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
@@ -216,13 +212,6 @@ export default Backbone.View.extend({
     $("#map-container").after(
       Handlebars.templates["add-places"](this.options.placeConfig),
     );
-
-    this.pagesNavView = new PagesNavView({
-      el: "#pages-nav-container",
-      pagesConfig: this.options.pagesConfig,
-      placeConfig: this.options.placeConfig,
-      router: this.options.router,
-    }).render();
 
     //  ReactDOM.render(
     //    <ThemeProvider theme={theme}>
