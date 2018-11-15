@@ -42,6 +42,7 @@ import {
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
 import { setPagesConfig } from "../../state/ducks/pages-config";
+import { setCurrentTemplate } from "../../state/ducks/ui.js";
 
 import MainMap from "../../components/organisms/main-map";
 import InputForm from "../../components/input-form";
@@ -85,7 +86,6 @@ export default Backbone.View.extend({
   events: {
     "click #add-place": "onClickAddPlaceBtn",
     "click .close-btn": "onClickClosePanelBtn",
-    "click .list-toggle-btn": "toggleListView",
   },
   initialize: function() {
     // TODO(luke): move this into "componentDidMount" when App becomes a
@@ -833,9 +833,6 @@ export default Backbone.View.extend({
   },
   renderMain: function() {
     this.isListOpen = false;
-    // Update the "toggle list" button:
-    $(".show-the-list").removeClass("is-visuallyhidden");
-    $(".show-the-map").addClass("is-visuallyhidden");
 
     $("#main").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-visuallyhidden");
@@ -883,6 +880,8 @@ export default Backbone.View.extend({
       </Provider>,
       document.getElementById("map-component"),
     );
+
+    store.dispatch(setCurrentTemplate("map"));
   },
   destroyNewModels: function() {
     _.each(this.places, function(collection) {
@@ -902,10 +901,6 @@ export default Backbone.View.extend({
     this.renderList();
   },
   renderList: function() {
-    // Update the list toggle button:
-    $(".show-the-map").removeClass("is-visuallyhidden");
-    $(".show-the-list").addClass("is-visuallyhidden");
-
     // Remove "main page" content:
     $("#geocode-address-bar").addClass("is-visuallyhidden");
     const geocodeAddressBar = document.getElementById("geocode-address-bar");
@@ -934,13 +929,8 @@ export default Backbone.View.extend({
       </Provider>,
       document.getElementById("list-container"),
     );
-  },
-  toggleListView: function() {
-    if (this.isListOpen) {
-      this.options.router.navigate("/", { trigger: true });
-    } else {
-      this.options.router.navigate("list", { trigger: true });
-    }
+
+    store.dispatch(setCurrentTemplate("list"));
   },
 });
 

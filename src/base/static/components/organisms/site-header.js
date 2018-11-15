@@ -9,6 +9,8 @@ import { Link } from "../atoms/navigation";
 
 import { pagesConfigSelector } from "../../state/ducks/pages-config";
 import { appConfigSelector } from "../../state/ducks/app-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
+import { currentTemplateSelector } from "../../state/ducks/ui";
 
 // TODO: Make the outermost div a header element when we dissolve base.hbs.
 // Right now the header element lives in base.hbs.
@@ -34,6 +36,16 @@ const PageNavButton = styled(props => {
   marginRight: "4px",
 }));
 
+const ToggleListButton = styled(props => {
+  return (
+    <Button className={props.className} variant="raised" color="secondary">
+      {props.children}
+    </Button>
+  );
+})(() => ({
+  marginLeft: "8px",
+}));
+
 const SiteHeader = props => {
   return (
     <SiteHeaderWrapper>
@@ -46,7 +58,16 @@ const SiteHeader = props => {
         ))}
       </PagesNavContainer>
       {props.appConfig.list_enabled !== false && (
-        <div>I'm a list toggle button</div>
+        <a
+          href={props.currentTemplate === "map" ? "/list" : "/"}
+          rel="internal"
+        >
+          <ToggleListButton>
+            {props.currentTemplate === "map"
+              ? props.placeConfig.show_list_button_label
+              : props.placeConfig.show_map_button_label}
+          </ToggleListButton>
+        </a>
       )}
     </SiteHeaderWrapper>
   );
@@ -56,7 +77,9 @@ SiteHeader.propTypes = {};
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
+  currentTemplate: currentTemplateSelector(state),
   pagesConfig: pagesConfigSelector(state),
+  placeConfig: placeConfigSelector(state),
 });
 
 export default connect(mapStateToProps)(SiteHeader);

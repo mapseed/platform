@@ -135,6 +135,7 @@ const Button = styled(props => {
 
   if (props.variant === "raised") {
     styles.boxShadow = "-0.25em 0.25em 0 rgba(0, 0, 0, 0.1)";
+    styles.border = "3px solid rgba(0, 0, 0, 0.05)";
   } else if (props.variant === "outlined") {
     styles.border = `3px solid ${props.theme.brand.primary}`;
   }

@@ -15,11 +15,15 @@ export const leftSidebarComponentSelector = state => {
 export const contentPanelOpenSelector = state => {
   return state.ui.isConentPanelOpen;
 };
+export const currentTemplateSelector = state => {
+  return state.ui.currentTemplate;
+};
 
 // Actions:
 const SET_UI_RIGHT_SIDEBAR = "ui/SET_UI_RIGHT_SIDEBAR";
 const SET_UI_LEFT_SIDEBAR = "ui/SET_UI_LEFT_SIDEBAR";
 const SET_UI_CONTENT_PANEL = "ui/SET_UI_CONTENT_PANEL";
+const SET_CURRENT_TEMPLATE = "ui/SET_CURRENT_TEMPLATE";
 
 // Action creators:
 export function setContentPanel(isOpen) {
@@ -31,6 +35,9 @@ export function setRightSidebar(isExpanded) {
 export function setLeftSidebar(status) {
   return { type: SET_UI_LEFT_SIDEBAR, payload: status };
 }
+export function setCurrentTemplate(templateName) {
+  return { type: SET_CURRENT_TEMPLATE, payload: templateName };
+}
 
 // Reducers:
 const INITIAL_STATE = {
@@ -38,6 +45,7 @@ const INITIAL_STATE = {
   isSidebarExpanded: undefined,
   isLeftSidebarExpanded: false,
   leftSidebarComponent: undefined,
+  currentTemplate: "map",
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -57,6 +65,11 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         isLeftSidebarExpanded: action.payload.isExpanded,
         leftSidebarComponent: action.payload.component,
+      };
+    case SET_CURRENT_TEMPLATE:
+      return {
+        ...state,
+        currentTemplate: action.payload,
       };
     default:
       return state;
