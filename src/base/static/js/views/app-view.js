@@ -238,14 +238,6 @@ export default Backbone.View.extend({
     //    document.getElementById("auth-nav-container"),
     //  );
 
-    //   // Init the place-counter
-    //   this.placeCounterView = new PlaceCounterView({
-    //     el: "#place-counter",
-    //     router: this.options.router,
-    //     mapConfig: this.options.mapConfig,
-    //     places: this.places,
-    //   }).render();
-
     // Site header
     ReactDOM.render(
       <Provider store={store}>
