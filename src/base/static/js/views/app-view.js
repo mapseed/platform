@@ -715,11 +715,10 @@ export default Backbone.View.extend({
   viewPage: function(slug) {
     this.renderRightSidebar();
     const pageConfig = _.findWhere(this.options.navBarConfig, {
-      slug: `page/${slug}`,
+      url: `/page/${slug}`,
     });
 
-    const pageTemplateName = pageConfig.name || pageConfig.slug;
-    const pageHtml = Handlebars.templates[pageTemplateName]({
+    const pageHtml = Handlebars.templates[pageConfig.name]({
       config: this.options.config,
       apiRoot: this.options.apiRoot,
     });

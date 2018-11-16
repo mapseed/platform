@@ -147,7 +147,7 @@ Shareabouts.Util = Util;
     },
 
     viewPage: function(slug) {
-      this.recordGoogleAnalyticsHit("/" + slug);
+      this.recordGoogleAnalyticsHit("/page/" + slug);
       this.appView.viewPage(slug);
     },
 

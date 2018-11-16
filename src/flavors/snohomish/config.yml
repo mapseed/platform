@@ -1621,7 +1621,6 @@ nav_bar:
 
   - title: _(Local Stories)
     type: internal_link
-    name: wildlife-tour
     url: /featured/4310
 
   - title: _(Map Layers)

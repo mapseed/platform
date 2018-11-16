@@ -145,6 +145,7 @@ SiteHeader.propTypes = {
       type: PropTypes.string.isRequired,
       url: PropTypes.string,
       start_page: PropTypes.bool,
+      name: PropTypes.string,
       component: PropTypes.string,
     }),
   ),
