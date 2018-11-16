@@ -460,17 +460,17 @@ support:
 
 pages:
   - title: _(About)
-    slug: about
+    slug: page/about
     name: overview
     start_page: true
 
   - title: _(Background)
-    slug: background
+    slug: page/background
     name: background
     hide_from_top_bar: true
 
   - title: _(Get involved)
-    slug: getinvolved
+    slug: page/getinvolved
     name: contribute
 
 #story:

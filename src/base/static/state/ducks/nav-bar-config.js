@@ -1,13 +1,13 @@
 // Selectors:
-export const pagesConfigSelector = state => {
-  return state.pagesConfig;
+export const navBarConfigSelector = state => {
+  return state.navBarConfig;
 };
 
 // Actions:
-const SET_CONFIG = "pages/SET_CONFIG";
+const SET_CONFIG = "navBar/SET_CONFIG";
 
 // Action creators:
-export function setPagesConfig(config) {
+export function setNavBarConfig(config) {
   return { type: SET_CONFIG, payload: config };
 }
 

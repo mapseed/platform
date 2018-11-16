@@ -41,7 +41,7 @@ import {
   mapLayerStatusesSelector,
 } from "../../state/ducks/map";
 import { setSupportConfig } from "../../state/ducks/support-config";
-import { setPagesConfig } from "../../state/ducks/pages-config";
+import { setNavBarConfig } from "../../state/ducks/nav-bar-config";
 import { setCurrentTemplate } from "../../state/ducks/ui.js";
 
 import MainMap from "../../components/organisms/main-map";
@@ -93,7 +93,7 @@ export default Backbone.View.extend({
     store.dispatch(setAppConfig(this.options.appConfig));
     store.dispatch(setSurveyConfig(this.options.surveyConfig));
     store.dispatch(setSupportConfig(this.options.supportConfig));
-    store.dispatch(setPagesConfig(this.options.pagesConfig));
+    store.dispatch(setNavBarConfig(this.options.navBarConfig));
 
     // Set initial map position state.
     store.dispatch(
@@ -714,14 +714,15 @@ export default Backbone.View.extend({
 
   viewPage: function(slug) {
     this.renderRightSidebar();
-    var pageConfig = Util.findPageConfig(this.options.pagesConfig, {
-        slug: slug,
-      }),
-      pageTemplateName = pageConfig.name || pageConfig.slug,
-      pageHtml = Handlebars.templates[pageTemplateName]({
-        config: this.options.config,
-        apiRoot: this.options.apiRoot,
-      });
+    const pageConfig = _.findWhere(this.options.navBarConfig, {
+      slug: `page/${slug}`,
+    });
+
+    const pageTemplateName = pageConfig.name || pageConfig.slug;
+    const pageHtml = Handlebars.templates[pageTemplateName]({
+      config: this.options.config,
+      apiRoot: this.options.apiRoot,
+    });
 
     this.$panel.removeClass().addClass("page page-" + slug);
     this.showPanel(pageHtml);

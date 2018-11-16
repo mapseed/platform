@@ -12,7 +12,7 @@ import storyConfigReducer from "./ducks/story-config";
 import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
 import surveyConfigReducer from "./ducks/survey-config";
 import supportConfigReducer from "./ducks/support-config";
-import pagesConfigReducer from "./ducks/pages-config";
+import navBarConfigReducer from "./ducks/nav-bar-config";
 
 const reducers = combineReducers({
   map: mapReducer,
@@ -28,7 +28,7 @@ const reducers = combineReducers({
   rightSidebarConfig: rightSidebarConfigReducer,
   surveyConfig: surveyConfigReducer,
   supportConfig: supportConfigReducer,
-  pagesConfig: pagesConfigReducer,
+  navBarConfig: navBarConfigReducer,
 });
 
 export default reducers;
