@@ -1,5 +1,5 @@
-// ################################
 // MEDIA QUERIES
+// ################################
 // ################################
 
 // Catchall media query for screen widths below 60em.
@@ -145,7 +145,7 @@
     position: relative;
     z-index: 20;
     height: $header-height-fullscreen;
-    box-shadow: 0 0.125em 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0.125em 0 rgba(0, 0, 0, 0.2);
   }
 
   // right sidebar
@@ -171,7 +171,7 @@
   }
 
   .geocoding-bar-enabled #map-container {
-    top: 8.5em;
+    top: 72px;
   }
 
   #map {
@@ -282,13 +282,12 @@
 
   .geocoding-bar-enabled {
     #main-btns-container {
-      // header + geocode bar + alignment with leaflet controls
-      top: $header-height-fullscreen + 72px + 10px;
+      // geocode bar height + alignment with leaflet controls
+      top: 82px;
     }
 
     #content {
-      // header + geocode bar
-      top: $header-height-fullscreen + 72px;
+      top: 72px;
     }
 
     #left-sidebar-container {
@@ -296,7 +295,7 @@
       height: calc(
         100% - 72px - #{$header-height-fullscreen} - #{$footer-height-fullscreen}
       );
-      top: calc(72px + #{$header-height-fullscreen});
+      top: 72px;
     }
   }
 
@@ -371,7 +370,6 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 4em;
     height: 72px;
     right: 0;
     bottom: auto;
