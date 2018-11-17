@@ -363,6 +363,8 @@ SiteHeader.propTypes = {
         label: PropTypes.string.isRequired,
       }),
     ),
+    logo: PropTypes.string,
+    show_name_in_header: PropTypes.bool,
   }).isRequired,
   currentTemplate: PropTypes.string.isRequired,
   currentUser: PropTypes.object,
